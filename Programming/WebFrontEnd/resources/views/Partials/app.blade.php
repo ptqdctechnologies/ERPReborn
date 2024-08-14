@@ -40,7 +40,6 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/fonts.googleapis.css') }}">
 
   <!-- Toast Notification  -->
-
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/toastr.min.css') }}">
   <script src="{{ asset('AdminLTE-master/dist/js/sweetalert2.min.js') }}"></script>
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" /> -->
@@ -51,6 +50,11 @@
   <script>
     new zht_JSCore(false)
   </script>
+
+  <!-- START OF TAMBAHAN FROM WISNU -->
+  <link rel="stylesheet" href="{{ asset('css-page/Globals.css') }}"> 
+  @stack('styles')
+  <!-- END OF TAMBAHAN FROM WISNU -->
 
 </head>
 

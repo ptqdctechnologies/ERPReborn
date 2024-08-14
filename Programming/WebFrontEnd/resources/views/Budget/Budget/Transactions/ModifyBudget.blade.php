@@ -10,14 +10,15 @@
     <section class="content">
         <div class="container-fluid">
             <!-- TITTLE -->
-            <div class="row mb-1" style="background-color:#4B586A;">
-                <div class="col-sm-6" style="height:30px; display: flex; align-items: center; font-size:15px; color:white;">
+            <div class="row mb-1 title-pages">
+                <div class="col-sm-6 title">
                     Modify Budget
                 </div>
             </div>
 
             <!-- CONTENT -->
             <div class="card">
+                <!--  ADD NEW AFE (APPROVAL FOR EXPENDITURE)  -->
                 <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
@@ -33,69 +34,18 @@
                                     </div>
                                 </div>
 
-                                <form id="upload_form" method="post" enctype="multipart/form-data" action="{{ route('ModifyBudget') }}">
-                                @csrf
-                                    <div class="card-body py-3">
-                                        <!-- BUDGET CODE -->
-                                        <div class="row" style="margin-bottom: 1rem;">
-                                            <label class="col-sm-2 col-form-label p-0">Budget Code</label>
-                                            <div class="col-sm-3">
-                                                <div class="row">
-                                                    <div class="col-sm-4 p-0" style="display: flex;">
-                                                        <div style="flex: 1;">
-                                                            <input id="project_id" hidden name="project_id">
-                                                            <input id="project_code" style="border-radius:0;" data-toggle="modal" data-target="#myProject" name="project_code" class="form-control myProject" readonly>
-                                                        </div>
-                                                        
-                                                        <div>
-                                                            <span style="border-radius:0;" class="input-group-text form-control">
-                                                                <a href="#" id="project_code_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-sm-8 p-0">
-                                                        <div class="input-group">
-                                                            <input id="project_name" style="border-radius:0;" class="form-control" name="project_name" readonly>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- SUB BUDGET CODE -->
-                                        <div class="row" style="margin-bottom: 1rem;">
-                                            <label class="col-sm-2 col-form-label p-0">Sub Budget Code</label>
-                                            <div class="col-sm-3">
-                                                <div class="row">
-                                                    <div class="col-sm-4 p-0" style="display: flex;">
-                                                        <div style="flex: 1;">
-                                                            <input id="site_id" hidden name="site_id">
-                                                            <input id="site_code" style="border-radius:0;" data-toggle="modal" data-target="#mySiteCode" name="site_code" class="form-control" readonly>
-                                                        </div>
-                                                        
-                                                        <div>
-                                                            <span style="border-radius:0;" class="input-group-text form-control">
-                                                                <a href="#" id="site_code_popup" data-toggle="modal" data-target="#mySiteCode" class="mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-sm-8 p-0">
-                                                        <div class="input-group">
-                                                            <input id="site_name" style="border-radius:0;" class="form-control" name="site_name" readonly>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="card-body py-3">
+                                    <form id="upload_form" method="post" enctype="multipart/form-data" action="{{ route('ModifyBudget') }}">
+                                    @csrf
+                                        
+                                        @include('Budget.Budget.Functions.Header.HeaderModifyBudget')
 
                                         <!-- REASON FOR MODIFY -->
                                         <div class="row" style="margin-bottom: 1rem;">
                                             <label for="reason_modify" class="col-sm-2 col-form-label p-0">Reason for Modify</label>
                                             <div class="col-sm-3 p-0">
                                                 <div class="input-group">
-                                                    <input id="reason_modify" style="border-radius:0;" class="form-control" name="reason_modify">
+                                                    <input id="reason_modify" style="border-radius:0;" class="form-control" name="reason_modify" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -120,7 +70,7 @@
                                             <label for="currency" class="col-sm-2 col-form-label p-0">Currency</label>
                                             <div class="col-sm-3 p-0">
                                                 <div class="input-group">
-                                                    <input id="currency" style="border-radius:0;" class="form-control" name="currency">
+                                                    <input id="currency" style="border-radius:0;" class="form-control" name="currency" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -130,7 +80,7 @@
                                             <label for="value_co_additional" class="col-sm-2 col-form-label p-0">Value CO Additional</label>
                                             <div class="col-sm-3 p-0">
                                                 <div class="input-group">
-                                                    <input id="value_co_additional" style="border-radius:0;" class="form-control" name="value_co_additional">
+                                                    <input id="value_co_additional" style="border-radius:0;" class="form-control" name="value_co_additional" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -173,13 +123,254 @@
 
                                         <!-- SUBMIT -->
                                         <div class="row" style="display: flex; justify-content: flex-end;">
-                                            <button class="btn btn-default btn-sm" type="submit" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                                                <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt=""> Submit
+                                            <button class="btn btn-default btn-sm button-submit" type="submit">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
+                                                <div>Submit</div>
                                             </button>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXISTING BUDGET -->
+                <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <label class="card-title">
+                                        Existing Budget
+                                    </label>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- EXISTING BUDGET TABLE -->
+                                <div class="wrapper-budget card-body table-responsive p-0 table-existing-budget">
+                                    <table id="budgetTable" class="table table-head-fixed text-nowrap table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th class="container-thead-tr-budget">Product Id</th>
+                                                <th class="container-thead-tr-budget">Product Name</th>
+                                                <th class="container-thead-tr-budget">Qty Budget</th>
+                                                <th class="container-thead-tr-budget">Qty Avail</th>
+                                                <th class="container-thead-tr-budget">Price</th>
+                                                <th class="container-thead-tr-budget">Currency</th>
+                                                <th class="container-thead-tr-budget">Balance Budget</th>
+                                                <th class="container-thead-tr-budget">Total Budget</th>
+                                                <th class="sticky-col sixth-col-modify-budget container-thead-tr-fixed-budget">Qty Additional</th>
+                                                <th class="sticky-col fifth-col-modify-budget container-thead-tr-fixed-budget">Price Additional</th>
+                                                <th class="sticky-col forth-col-modify-budget container-thead-tr-fixed-budget">Total Additional</th>
+                                                <th class="sticky-col third-col-modify-budget container-thead-tr-fixed-budget">Qty Saving</th>
+                                                <th class="sticky-col second-col-modify-budget container-thead-tr-fixed-budget">Price Saving</th>
+                                                <th class="sticky-col first-col-modify-budget container-thead-tr-fixed-budget">Total Saving</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="container-tbody-tr-budget">
+                                                    1
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    PLN - Biaya Penyambungan
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    1.00
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    -,194.64
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    38,878,545.00
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    IDR
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    200,000.00
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    500,000.00
+                                                </td>
+                                                <td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">
+                                                </td>
+                                                <td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">
+                                                </td>
+                                                <td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>
+                                                </td>
+                                                <td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">
+                                                </td>
+                                                <td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">
+                                                </td>
+                                                <td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="container-tbody-tr-budget">
+                                                    2
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    PLN - Biaya Penyambungan
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    1.00
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    -,194.64
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    38,878,545.00
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    IDR
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    5,000.00
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    150,000.00
+                                                </td>
+                                                <td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">
+                                                </td>
+                                                <td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">
+                                                </td>
+                                                <td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>
+                                                </td>
+                                                <td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">
+                                                </td>
+                                                <td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">
+                                                </td>
+                                                <td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- ADD NEW ITEM FORM -->
+                                <div id="budgetForm" class="card-body py-0">
+                                    <!-- BUTTON ADD NEW ITEM -->
+                                    <div class="row py-3">
+                                        <button id="addNewItemBtn" class="btn btn-default btn-sm button-submit" type="submit">
+                                            <i class="fas fa-plus-circle"></i>
+                                            <div>Add New Item</div>
+                                        </button>
+                                    </div>
+
+                                    <!-- CONTENT -->
+                                    <form id="formAddNewItem">
+                                        <div id="newItemForm" class="row" style="margin-bottom: 1rem; display: none;">
+                                            <div class="col-2 pl-0">
+                                                <div class="input-group">
+                                                    <label for="product_id" style="width: 90px;">Product ID</label>
+                                                    <input id="product_id" style="border-radius:0;" class="form-control" name="product_id" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="col-3 pl-0">
+                                                <div class="input-group">
+                                                    <label for="product_name" style="width: 90px;">Product Name</label>
+                                                    <input id="product_name" style="border-radius:0;" class="form-control" name="product_name" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="newItemFormTwo" class="row" style="margin-bottom: 1rem; display: none;">
+                                            <div class="col-2 pl-0">
+                                                <div class="input-group">
+                                                    <label for="qty" style="width: 90px;">Qty</label>
+                                                    <input id="qty" style="border-radius:0;" class="form-control number-only" name="qty" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="col-3 pl-0">
+                                                <div class="input-group">
+                                                    <label for="price" style="width: 90px;">Price</label>
+                                                    <input id="price" style="border-radius:0;" class="form-control number-only" name="price" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="buttonItemForm" class="row" style="margin-bottom: 1rem; display: none;">
+                                            <div class="col-2 pl-0"></div>
+                                            <div class="col-3 pl-0" style="display: flex; justify-content: flex-end;">
+                                                <button class="btn btn-default btn-sm" type="submit" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                                    Add
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  MODIFY BUDGET LIST (CART) -->
+                <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <label class="card-title">
+                                        Modify Budget List (cart)
+                                    </label>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- MODIFY BUDGET LIST TABLE -->
+                                <div class="wrapper-budget card-body table-responsive p-0 table-existing-budget">
+                                    <table id="listBudgetTable" class="table table-head-fixed text-nowrap table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th class="container-thead-tr-budget">Product Id</th>
+                                                <th class="container-thead-tr-budget">Product Name</th>
+                                                <th class="container-thead-tr-budget">Qty</th>
+                                                <th class="container-thead-tr-budget">Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BUTTON SUBMIT OR CANCEL -->
+                <div class="px-3 pb-2">
+                    <div style="display: flex; justify-content: flex-end; gap: 8px;">
+                        <div style="display: flex;">
+                            <button class="btn btn-default btn-sm button-submit" type="submit">
+                            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
+                                <div>Cancel</div>
+                            </button>
+                        </div>
+                        <div style="display: flex;">
+                            <button class="btn btn-default btn-sm button-submit" type="submit">
+                                <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
+                                <div>Submit</div>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -189,183 +380,9 @@
 </div>
 
 @include('Partials.footer')
-<!-- DISABLE SUD BUDGET CODE KETIKA BUDGET CODE BELUM DIPILIH -->
-<script>
-    $("#site_code").prop("disabled", true);
-    $("#site_code_popup").prop("disabled", true);
-</script>
-
-<!-- BUDGET CODE -->
-<script>
-    $('#tableGetProject tbody').on('click', 'tr', function() {
-
-        $("#myProject").modal('toggle');
-
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var sys_id = $('#sys_id_budget' + id).val();
-        var code = row.find("td:nth-child(2)").text();
-        var name = row.find("td:nth-child(3)").text();
-
-        $("#project_id").val(sys_id);
-        $("#project_code").val(code);
-        $("#project_name").val(name);
-        $("#site_code").prop("disabled", false);
-        $("#site_code_popup").prop("disabled", false);
-        $("#site_id").val("");
-        $("#site_code").val("");
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        var keys = 0;
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getSite") !!}?project_code=' + sys_id,
-            success: function(data) {
-
-                var no = 1;
-                var t = $('#tableGetSite').DataTable();
-                t.clear();
-                $.each(data, function(key, val) {
-                    keys += 1;
-                    t.row.add([
-                        '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                        '<td>' + val.Code + '</td>',
-                        '<td>' + val.Name + '</td></tr></tbody>'
-                    ]).draw();
-                });
-            }
-        });
-    });
-</script>
-
-<!-- SITE CODE -->
-<script>
-    $('#tableGetSite tbody').on('click', 'tr', function() {
-
-        $("#mySiteCode").modal('toggle');
-
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var sys_id = $('#sys_id_site' + id).val();
-        var code = row.find("td:nth-child(2)").text();
-        var name = row.find("td:nth-child(3)").text();
-
-        $("#site_id").val(sys_id);
-        $("#site_code").val(code);
-        $("#site_name").val(name);
-
-    });
-</script>
-
-<!-- FUNCTION KETIKA ADDITIONAL YES OR NO -->
-<script>
-    function toggleCurrencyField() {
-        const additionalCORadios = document.getElementsByName('additional_co');
-        const currencyField = document.getElementById('currency_field');
-        const currencyInput = document.getElementById('currency');
-        const valueCOAdditionalField = document.getElementById('value_co_additional_field');
-        const valueCOAdditionalInput = document.getElementById('value_co_additional');
-        
-        additionalCORadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                if (this.value === 'yes' && this.checked) {
-                    currencyField.style.display = 'flex';
-                    valueCOAdditionalField.style.display = 'flex';
-                } else {
-                    currencyField.style.display = 'none';
-                    currencyInput.value = '';
-
-                    valueCOAdditionalField.style.display = 'none';
-                    valueCOAdditionalInput.value = '';
-                }
-            });
-        });
-    }
-
-    toggleCurrencyField();
-</script>
-
-<!-- FILE ATTACHMENT -->
-<script>
-    const fileInput = document.getElementById('attachment_file');
-    const fileList = document.getElementById('file_list');
-    const hiddenInputs = document.getElementById('hidden_inputs');
-    const fileTable = document.getElementById('file_table');
-    let fileIndex = 1;
-
-    fileInput.addEventListener('change', (event) => {
-        const files = event.target.files;
-
-        Array.from(files).forEach(file => {
-            const row = document.createElement('tr');
-
-            const noCell = document.createElement('td');
-            noCell.textContent = fileIndex++;
-            row.appendChild(noCell);
-
-            const fileNameCell = document.createElement('td');
-            fileNameCell.textContent = file.name;
-            row.appendChild(fileNameCell);
-
-            const fileSizeCell = document.createElement('td');
-            fileSizeCell.textContent = (file.size / 1024).toFixed(2) + ' KB';
-            row.appendChild(fileSizeCell);
-
-            const uploadDateCell = document.createElement('td');
-            const currentDateTime = new Date().toLocaleString();
-            uploadDateCell.textContent = currentDateTime;
-            row.appendChild(uploadDateCell);
-
-            const previewCell = document.createElement('td');
-            const previewLink = document.createElement('a');
-            previewLink.href = URL.createObjectURL(file);
-            previewLink.target = '_blank';
-            previewLink.className = 'btn btn-primary btn-sm';
-            previewLink.textContent = 'Preview';
-            previewCell.appendChild(previewLink);
-            row.appendChild(previewCell);
-
-            const deleteCell = document.createElement('td');
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete';
-            deleteButton.className = 'btn btn-danger btn-sm';
-            deleteButton.onclick = (e) => {
-                e.preventDefault();
-                row.remove();
-                hiddenInput.remove();
-                updateTableVisibility();
-            };
-            deleteCell.appendChild(deleteButton);
-            row.appendChild(deleteCell);
-
-            fileList.appendChild(row);
-
-            const hiddenInput = document.createElement('input');
-            hiddenInput.type = 'hidden';
-            hiddenInput.name = 'uploaded_files[]';
-            hiddenInput.value = file;
-            hiddenInputs.appendChild(hiddenInput);
-        });
-
-        updateTableVisibility();
-    });
-    
-    function updateTableVisibility() {
-        if (fileList.children.length === 0) {
-            fileTable.style.display = 'none';
-            resetFileInput();
-        } else {
-            fileTable.style.display = 'inline-table';
-        }
-    }
-
-    function resetFileInput() {
-        fileInput.value = ''; 
-    }
-</script>
+@include('Budget.Budget.Functions.Footer.footerModifyBudget')
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css-page/ModifyBudget.css') }}">
+@endpush
