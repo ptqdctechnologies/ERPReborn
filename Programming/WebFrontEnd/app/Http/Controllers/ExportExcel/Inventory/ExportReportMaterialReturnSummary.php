@@ -27,7 +27,6 @@ class ExportReportMaterialReturnSummary implements FromCollection, WithHeadings,
                     $detail['DORNumber'],
                     $detail['date'],
                     $detail['total'],
-                    $detail['totalOtherCurrency'],
                 ]
             );
         }
@@ -38,7 +37,6 @@ class ExportReportMaterialReturnSummary implements FromCollection, WithHeadings,
                 '',
                 'Total',
                 $data['total'],
-                $data['totalOtherCurrency'],
             ]
         );
 
@@ -49,7 +47,7 @@ class ExportReportMaterialReturnSummary implements FromCollection, WithHeadings,
     {
         return [
             ["", "", "", "", ""],
-            ["No", "DOR Number", "Date", "Total IDR", "Total Other Currency"]
+            ["No", "DOR Number", "Date", "Qty"]
         ];
     }
 

@@ -98,17 +98,14 @@ class DeliveryOrderController extends Controller
             $dataDetails = [];
             $i = 0;
             $total = 0;
-            $totalOtherCurrency = 0;
             foreach ($collection as $collections) {
                 $total              += $collections['TotalAdvance'];
-                $totalOtherCurrency += 0;
 
                 $dataDetails[$i]['no']                  = $i + 1;
                 $dataDetails[$i]['DONumber']            = "DO01-23000004";
                 $dataDetails[$i]['budgetCode']          = $collections['CombinedBudgetCode'];
                 $dataDetails[$i]['date']                = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
                 $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
-                $dataDetails[$i]['totalOtherCurrency']  = number_format(0, 2);
                 $i++;
             }
 
@@ -116,7 +113,6 @@ class DeliveryOrderController extends Controller
                 'dataHeader'            => $dataHeaders,
                 'dataDetail'            => $dataDetails,
                 'total'                 => number_format($total, 2),
-                'totalOtherCurrency'    => number_format($totalOtherCurrency, 2)
             ];
 
             Session::put("isButtonReportDOSummarySubmit", true);
@@ -247,7 +243,7 @@ class DeliveryOrderController extends Controller
                 'transporter'   => "VDR-2594 - Aman Jaya",
                 'deliveryFrom'  => "QDC",
                 'deliveryTo'    => 'Gudang Tigaraksa',
-                'PIC'           => 'admin.procurement',
+                'PIC'           => $getData['content']['general']['involvedPersons'][0]['requesterWorkerName'],
             ];
 
             $dataDetails = [];

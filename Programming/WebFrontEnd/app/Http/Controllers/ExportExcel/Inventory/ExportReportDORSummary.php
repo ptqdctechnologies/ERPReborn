@@ -27,7 +27,6 @@ class ExportReportDORSummary implements FromCollection, WithHeadings, ShouldAuto
                     $detail['DORNumber'],
                     $detail['date'],
                     $detail['total'],
-                    $detail['totalOtherCurrency'],
                 ]
             );
         }
@@ -38,7 +37,6 @@ class ExportReportDORSummary implements FromCollection, WithHeadings, ShouldAuto
                 '',
                 'Total',
                 $data['total'],
-                $data['totalOtherCurrency'],
             ]
         );
 
@@ -49,7 +47,7 @@ class ExportReportDORSummary implements FromCollection, WithHeadings, ShouldAuto
     {
         return [
             ["", "", "", "", ""],
-            ["No", "DOR Number", "Date", "Total IDR", "Total Other Currency"]
+            ["No", "DOR Number", "Date", "Qty"]
         ];
     }
 

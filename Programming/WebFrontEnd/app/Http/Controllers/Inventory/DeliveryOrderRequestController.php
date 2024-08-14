@@ -97,17 +97,16 @@ class DeliveryOrderRequestController extends Controller
             $dataDetails = [];
             $i = 0;
             $total = 0;
-            $totalOtherCurrency = 0;
             foreach ($collection as $collections) {
-                $total              += $collections['TotalAdvance'];
-                $totalOtherCurrency += 0;
+                $total              += $i + 2;
+                // $total              += $collections['TotalAdvance'];
 
                 $dataDetails[$i]['no']                  = $i + 1;
                 $dataDetails[$i]['DORNumber']           = "DOR01-23000004";
                 $dataDetails[$i]['budgetCode']          = $collections['CombinedBudgetCode'];
                 $dataDetails[$i]['date']                = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
-                $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
-                $dataDetails[$i]['totalOtherCurrency']  = number_format(0, 2);
+                $dataDetails[$i]['total']               = number_format($i + 2, 2);
+                // $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
                 $i++;
             }
 
@@ -115,7 +114,6 @@ class DeliveryOrderRequestController extends Controller
                 'dataHeader'            => $dataHeaders,
                 'dataDetail'            => $dataDetails,
                 'total'                 => number_format($total, 2),
-                'totalOtherCurrency'    => number_format($totalOtherCurrency, 2)
             ];
 
             Session::put("isButtonReportDORSummarySubmit", true);
@@ -245,7 +243,7 @@ class DeliveryOrderRequestController extends Controller
                 'date'          => $getData['header']['date'],
                 'deliveryFrom'  => "QDC",
                 'deliveryTo'    => 'Gudang Tigaraksa',
-                'PIC'           => 'admin.procurement',
+                'PIC'           => $getData['content']['general']['involvedPersons'][0]['requesterWorkerName'],
             ];
 
             $dataDetails = [];

@@ -60,7 +60,7 @@ class ExportReportPurchaseOrderDetail implements FromCollection, WithHeadings, S
         return [
             ["", "", "", "", "", "", "", "", "", ""],
             ["No", "Product Id", "Qty", "Price", "UOM", "Total IDR", " ", "Total Other Currency", " ", "Currency"],
-            ["", "", "", "", "", "With PPN", "Without PPN", "With PPN", "Without PPN", ""],
+            ["", "", "", "", "", "With VAT", "Without VAT", "With VAT", "Without VAT", ""],
         ];
     }
 
@@ -152,7 +152,7 @@ class ExportReportPurchaseOrderDetail implements FromCollection, WithHeadings, S
                 ]);
                 $sheet->setCellValue('B8', ': ' . $dataHeader['revision']);
 
-                $sheet->setCellValue('C4', 'Vendor')->getStyle('C4')->applyFromArray([
+                $sheet->setCellValue('C4', 'Supplier')->getStyle('C4')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']

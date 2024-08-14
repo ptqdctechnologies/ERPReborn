@@ -1,0 +1,53 @@
+<!-- BUDGET CODE -->
+<div class="row" style="margin-bottom: 1rem;">
+    <label class="col-sm-2 col-form-label p-0">Budget Code</label>
+    <div class="col-sm-3">
+        <div class="row">
+            <div class="col-sm-4 p-0" style="display: flex;">
+                <div style="flex: 1;">
+                    <input id="project_id" hidden name="project_id">
+                    <input id="project_code" style="border-radius:0;" data-toggle="modal" data-target="#myProject" name="project_code" class="form-control myProject" readonly>
+                </div>
+                
+                <div>
+                    <span style="border-radius:0;" class="input-group-text form-control">
+                        <a href="#" id="project_code_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="col-sm-8 p-0">
+                <div class="input-group">
+                    <input id="project_name" style="border-radius:0;" class="form-control" name="project_name" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SUB BUDGET CODE -->
+<div class="row" style="margin-bottom: 1rem;">
+    <label class="col-sm-2 col-form-label p-0">Sub Budget Code</label>
+    <div class="col-sm-3">
+        <div class="row">
+            <div class="col-sm-4 p-0" style="display: flex;">
+                <div style="flex: 1;">
+                    <input id="site_id" hidden name="site_id">
+                    <input id="site_code" style="border-radius:0;" data-toggle="modal" data-target="#mySiteCode" name="site_code" class="form-control" readonly>
+                </div>
+                
+                <div>
+                    <span style="border-radius:0;" class="input-group-text form-control">
+                        <a href="#" id="site_code_popup" data-toggle="modal" data-target="#mySiteCode" class="mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="col-sm-8 p-0">
+                <div class="input-group">
+                    <input id="site_name" style="border-radius:0;" class="form-control" name="site_name" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

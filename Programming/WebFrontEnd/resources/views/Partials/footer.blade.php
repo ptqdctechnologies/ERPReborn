@@ -422,4 +422,16 @@
   });
 </script>
 
+<script>
+  function allowNumbersOnly(inputElement) {
+    inputElement.addEventListener('input', function(e) {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
+  }
+
+  document.querySelectorAll('.number-only').forEach(function(input) {
+    allowNumbersOnly(input);
+  });
+</script>
+
 <!-- Perubahan Wisnu -->

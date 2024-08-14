@@ -1,0 +1,94 @@
+.title {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    color: white;
+}
+
+.table-existing-budget {
+    height: 230px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.container-thead-budget {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.container-thead-tr-budget {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    text-align: center !important;
+}
+
+.container-thead-tr-fixed-budget {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    text-align: center !important;
+    background-color: #4b586a !important;
+    color: white !important;
+}
+
+.container-tbody-tr-budget {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    text-align: center !important;
+    border: 1px solid #e9ecef !important;
+}
+
+.container-tbody-tr-fixed-budget {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    background-color: white !important;
+}
+
+.custom-card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 0rem 1rem;
+}
+
+/* MODIFY BUDGET */
+.first-col-modify-budget {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 0px;
+}
+
+.second-col-modify-budget {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 125px;
+}
+
+.third-col-modify-budget {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 250px;
+}
+
+.forth-col-modify-budget {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 375px;
+}
+
+.fifth-col-modify-budget {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 500px;
+}
+
+.sixth-col-modify-budget {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    right: 625px;
+}

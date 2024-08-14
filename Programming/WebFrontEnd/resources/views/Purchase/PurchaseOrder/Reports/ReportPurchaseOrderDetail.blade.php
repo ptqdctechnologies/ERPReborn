@@ -64,7 +64,7 @@
                                                 <div class="form-group">
                                                     <table>
                                                         <tr>
-                                                            <th style="padding-top: 7px;"><label>Vendor&nbsp;</label></th>
+                                                            <th style="padding-top: 7px;"><label>Supplier&nbsp;</label></th>
                                                             <td><?= $dataReport['dataHeader']['vendor']; ?></td>
                                                         </tr>
                                                         <tr>
@@ -110,10 +110,10 @@
                                                 </tr>
 
                                                 <tr>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">With PPN</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Without PPN</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">With PPN</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Without PPN</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">With VAT</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Without VAT</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">With VAT</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Without VAT</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

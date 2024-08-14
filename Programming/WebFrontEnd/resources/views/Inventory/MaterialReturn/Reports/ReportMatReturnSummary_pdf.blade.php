@@ -64,12 +64,7 @@
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        Total IDR
-                    </div>
-                </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        Total Other Currency
+                        Qty
                     </div>
                 </td>
             </tr>
@@ -96,11 +91,6 @@
                             <?= $dataDetail['total']; ?>
                         </div>
                     </td>
-                    <td>
-                        <div style="margin-top: 4px;">
-                            <?= $dataDetail['totalOtherCurrency']; ?>
-                        </div>
-                    </td>
                 </tr>
             <?php } ?>
 
@@ -118,9 +108,6 @@
                 </td>
                 <td style="height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= $dataReport['total']; ?></div>
-                </td>
-                <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= $dataReport['totalOtherCurrency']; ?></div>
                 </td>
             </tr>
         </table>
