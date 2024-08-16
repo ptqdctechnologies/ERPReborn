@@ -49,7 +49,7 @@ Route::get('FlushCache', 'Auth\LoginController@FlushCache')->name('FlushCache');
 Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
 Route::get('SessionCheckingRedis', 'Auth\LoginController@SessionCheckingRedis')->name('SessionCheckingRedis');
 
-Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], function () {
+Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], function () {    
     //logout
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('SessionCheckingLogout', 'Auth\LoginController@SessionCheckingLogout')->name('SessionCheckingLogout');
@@ -243,7 +243,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('PrintExportReportPurchaseOrderSummary', 'Purchase\PurchaseOrderController@PrintExportReportPurchaseOrderSummary')->name('PurchaseOrder.PrintExportReportPurchaseOrderSummary');
     Route::get('ReportPurchaseOrderDetail', 'Purchase\PurchaseOrderController@ReportPoDetail')->name('PurchaseOrder.ReportPurchaseOrderDetail');
     Route::get('ReportPOtoAP', 'Purchase\PurchaseOrderController@ReportPoToAp')->name('PurchaseOrder.ReportPOtoAP');
-    Route::get('ReportCSF', 'Purchase\PurchaseOrderController@ReportCSF')->name('PurchaseOrder.ReportCSF');
+    Route::get('ReportCFS', 'Purchase\PurchaseOrderController@ReportCFS')->name('PurchaseOrder.ReportCFS');
+    Route::post('ReportCFSStore', 'Purchase\PurchaseOrderController@ReportCFSStore')->name('PurchaseOrder.ReportCFSStore');
+    Route::post('PrintExportReportCFS', 'Purchase\PurchaseOrderController@PrintExportReportCFS')->name('PurchaseOrder.PrintExportReportCFS');
     Route::post('ReportPurchaseOrderDetailStore', 'Purchase\PurchaseOrderController@ReportPurchaseOrderDetailStore')->name('PurchaseOrder.ReportPurchaseOrderDetailStore');
     Route::post('PrintExportReportPurchaseOrderDetail', 'Purchase\PurchaseOrderController@PrintExportReportPurchaseOrderDetail')->name('PurchaseOrder.PrintExportReportPurchaseOrderDetail');
     Route::get('PurchaseOrderListData', 'Purchase\PurchaseOrderController@PurchaseOrderListData')->name('PurchaseOrder.PurchaseOrderListData');
