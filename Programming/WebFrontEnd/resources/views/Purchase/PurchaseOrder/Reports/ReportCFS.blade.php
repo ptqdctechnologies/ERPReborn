@@ -18,7 +18,7 @@
                     <div class="row">
                         @if($var == 1)
                             <div class="col-12 ShowDocument">
-                                @include('Purchase.PurchaseOrder.Functions.Header.headerReportCSF')
+                                @include('Purchase.PurchaseOrder.Functions.Header.headerReportCFS')
                             </div>
 
                             @if ($dataReport)
@@ -50,7 +50,7 @@
                                                         <!-- <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date Added to CFS</th> -->
                                                         <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Site/Code</th>
                                                         <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px llsolid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Name</th>
-                                                        <th colspan="3" class="sticky-col eight-col-asf-expense" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Custumer Order</th>
+                                                        <th colspan="3" class="sticky-col eight-col-asf-expense" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Customer Order</th>
                                                         <th colspan="2" class="sticky-col seven-col-asf-amount" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Progress</th>
                                                         <th colspan="2" class="sticky-col six-col-asf-amount" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Billing</th>
                                                         <th colspan="7" class="sticky-col five-col-asf-amount" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Budget</th>
@@ -127,7 +127,7 @@
                                                                 <td><?= $data['final%Margin']; ?></td>
                                                             </tr>
                                                         <?php } ?>
-                                                        
+
                                                         <tr>
                                                             <td></td>
                                                             <th colspan="25">Total</th>
@@ -135,7 +135,7 @@
                                                         <tr>
                                                             <td colspan="25">&nbsp;</td>
                                                         </tr>
-                                                    <?php } ?>
+                                                    <?php }; Session::forget("isButtonReportCFSSubmit"); ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -151,5 +151,5 @@
 </div>
 
 @include('Partials.footer')
-@include('Purchase.PurchaseOrder.Functions.Footer.footerReportCSF')
+@include('Purchase.PurchaseOrder.Functions.Footer.footerReportCFS')
 @endsection

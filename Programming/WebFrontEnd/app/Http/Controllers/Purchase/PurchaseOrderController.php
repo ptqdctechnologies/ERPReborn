@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Purchase;
 
+use App\Http\Controllers\ExportExcel\Purchase\ExportReportCFS;
 use App\Http\Controllers\ExportExcel\Purchase\ExportReportPurchaseOrderSummary;
 use App\Http\Controllers\ExportExcel\Purchase\ExportReportPurchaseOrderDetail;
 use Illuminate\Http\Request;
@@ -80,7 +81,7 @@ class PurchaseOrderController extends Controller
                 throw new \Exception('Data not found in the API response.');
             }
 
-            dd($filteredArray);
+            // dd($filteredArray);
 
             $getData = $filteredArray['data'][0]['document'];
 
@@ -413,21 +414,14 @@ class PurchaseOrderController extends Controller
     public function ReportCFS(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
-        $dataReport = session('dataReportCFS', []);
-        // $dataReport = $request->get('dataReportCFS');
+        $isSubmitButton = $request->session()->get('isButtonReportCFSSubmit');
 
-        // if ($dataReport) {
-        //     $dataReport = json_decode($dataReport, true);
-        // } else {
-        //     $dataReport = [];
-        // }
+        $dataReport = $isSubmitButton ? $request->session()->get('dataReportCFS', []) : [];
 
         $var = 1;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
         }
-
-        dump($dataReport);
 
         $compact = [
             'varAPIWebToken'    => $varAPIWebToken,
@@ -448,8 +442,10 @@ class PurchaseOrderController extends Controller
 
             $dataDetails = [
                 [
-                    'title' => '100 OVERHEADS',
-                    'data' => [
+                    'title'     => '100 OVERHEADS',
+                    'totalText' => 'Total',
+                    'total'     => '50000',
+                    'data'      => [
                         [
                             'site'              => '101',
                             'name'              => 'Capital Expenditure',
@@ -481,6 +477,8 @@ class PurchaseOrderController extends Controller
                 ],
                 [
                     'title' => '200 MATERIALS',
+                    'totalText' => 'Total',
+                    'total'     => '150000',
                     'data' => [
                         [
                             'site'              => '201',
@@ -521,6 +519,8 @@ class PurchaseOrderController extends Controller
             return $compact;
         } catch (\Throwable $th) {
             Log::error("Error at ReportCFSData: " . $th->getMessage());
+            Session::forget("isButtonReportCFSSubmit");
+            Session::forget("dataReportCFS");
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -539,34 +539,38 @@ class PurchaseOrderController extends Controller
             }
 
             if (isset($message)) {
+                Session::forget("isButtonReportCFSSubmit");
+                Session::forget("dataReportCFS");
                 return redirect()->route('PurchaseOrder.ReportCFS')->with('NotFound', $message);
             }
 
             $compact = $this->ReportCFSData($budgetID, $budgetName, $budgetCode);
 
             if ($compact === null || empty($compact)) {
+                Session::forget("isButtonReportCFSSubmit");
+                Session::forget("dataReportCFS");
                 return redirect()->back()->with('NotFound', 'Data Not Found');
+            } else {
+                Session::put("isButtonReportCFSSubmit", true);
+                Session::put("dataReportCFS", $compact);
             }
             
-            // return redirect()->route('PurchaseOrder.ReportCFS', [
-            //     'dataReportCFS' => json_encode($compact)
-            // ]);
-
-            return redirect()->route('PurchaseOrder.ReportCFS')
-                         ->with('dataReportCFS', $compact);
+            return redirect()->route('PurchaseOrder.ReportCFS');
         } catch (\Throwable $th) {
             Log::error("Error at ReportPurchaseOrderDetailStore: " . $th->getMessage());
+            Session::forget("isButtonReportCFSSubmit");
+            Session::forget("dataReportCFS");
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
 
     public function PrintExportReportCFS(Request $request) {
         try {
-            // $dataReport = Session::get("dataReportPurchaseOrderSummary");
+            $dataReport = Session::get("dataReportCFS");
 
-            // if ($dataReport) {
+            if ($dataReport) {
                 if ($request->print_type == "PDF") {
-                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary_pdf', ['dataReport' => $dataReport]);
+                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportCFS_pdf', ['dataReport' => $dataReport]);
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
@@ -581,11 +585,13 @@ class PurchaseOrderController extends Controller
     
                     return $pdf->download('Export Report CFS.pdf');
                 } else {
-                    return Excel::download(new ExportReportPurchaseOrderSummary, 'Export Report CFS.xlsx');
+                    return Excel::download(new ExportReportCFS, 'Export Report CFS.xlsx');
                 }
-            // } else {
-            //     return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', 'Budget, Sub Budget, & Supplier Cannot Empty');
-            // }
+            } else {
+                Session::forget("isButtonReportCFSSubmit");
+                Session::forget("dataReportCFS");
+                return redirect()->route('PurchaseOrder.ReportCFS')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
+            }
         } catch (\Throwable $th) {
             Log::error("Error at PrintExportReportCFS: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
