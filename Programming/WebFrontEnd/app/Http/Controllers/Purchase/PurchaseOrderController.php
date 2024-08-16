@@ -571,6 +571,7 @@ class PurchaseOrderController extends Controller
             if ($dataReport) {
                 if ($request->print_type == "PDF") {
                     $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportCFS_pdf', ['dataReport' => $dataReport]);
+                    $pdf->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 

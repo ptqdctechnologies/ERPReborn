@@ -93,7 +93,7 @@ class ExportReportCFS implements FromCollection, WithHeadings, ShouldAutoSize, W
     {
         return [
             ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-            ["Site/Code", "Name", "Customer Order", " ", " ", "Progress", " ", "Billing", " ", "Budget", " ", " ", " ", " ", " ", " ", "Cost", " ", " ", " ", " ", " ", "Forecast", "Current Margin", "Final Margin", " "],
+            ["Site/Code", "Name", "Customer Order", " ", " ", "Progress", " ", "Billing", " ", "Budget", " ", " ", " ", " ", " ", " ", "Cost", " ", " ", " ", " ", "Forecast", "", "Final Margin", " "],
             ["", "", "Origin CO", "Variations", "Revised CO", "% Complete", "Amount", "Invoiced", "Received", "Product Id", "Qty", "Cost", "UOM", "Origin Budget", "Variations", "Revised Budget", "Committed Cost", "Previous Month Cost to Date", "Movement this Month Cost", "Current Cost", "Paid Cost", "Forecast Final Cost", "Current Margin", "Final Margin", "Final %"],
         ];
     }
