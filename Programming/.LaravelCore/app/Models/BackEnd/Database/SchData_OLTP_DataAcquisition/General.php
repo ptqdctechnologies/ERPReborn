@@ -54,7 +54,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                                     ) AS "JSONData"
                     '
                     );
-                return $varReturn['Data'][0];
+                return $varReturn['data'][0];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -89,7 +89,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         ]
                         )
                     );
-                return $varReturn['Data'][0]['Func_GetJSONAdditionalData_Log_FileUpload_PointerHistory'];
+                return $varReturn['data'][0]['Func_GetJSONAdditionalData_Log_FileUpload_PointerHistory'];
                 } 
             catch (\Exception $ex) {
                 return [];
@@ -141,7 +141,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         ]
                         )
                     );                
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -193,7 +193,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         ]
                         )
                     );
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -245,7 +245,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         ]
                         )
                     );
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -268,7 +268,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         ]
                         )
                     );
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -382,7 +382,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
                 $varSQL
-                )['Data'][0]['JSONData'];
+                )['data'][0]['JSONData'];
 
             return $varReturn;
             }
@@ -423,7 +423,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                     ]
                     )
                 );
-            return $varReturn['Data'][0]['Func_Device_PersonAccess_GetLastRecordDateTimeTZ'];
+            return $varReturn['data'][0]['Func_Device_PersonAccess_GetLastRecordDateTimeTZ'];
             }
 
 
@@ -457,7 +457,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         ]
                         )
                     );
-                return $varReturn['Data'][0]['Func_General_IsThumbnailsExist'];
+                return $varReturn['data'][0]['Func_General_IsThumbnailsExist'];
                 } 
             catch (\Exception $ex) {
                 return [];

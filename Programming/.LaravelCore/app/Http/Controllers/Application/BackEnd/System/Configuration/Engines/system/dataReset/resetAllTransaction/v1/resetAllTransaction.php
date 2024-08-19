@@ -117,7 +117,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Configuration\Engines\
                         )
                     );
 
-            return $varReturn['Data'][0]['FuncSys_General_SetEmptyTableAndResetSequenceAllTransaction'];
+            return $varReturn['data'][0]['FuncSys_General_SetEmptyTableAndResetSequenceAllTransaction'];
             }
         }
     }

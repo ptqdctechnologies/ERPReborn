@@ -51,7 +51,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
             
@@ -90,7 +90,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -127,7 +127,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -168,12 +168,12 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         ); 
 
-                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
                     $varReturn[$i] = 
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession, 
-                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
+                            $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
                             );
                     }
 
@@ -222,12 +222,12 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
                     $varReturn[$i] = 
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession, 
-                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
+                            $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
                             );
                     }
                 return $varReturn;
@@ -275,12 +275,12 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
                     $varReturn[$i] = 
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession, 
-                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
+                            $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
                             );
                     }
 
@@ -335,7 +335,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'][0]['Func_General_GetCurrencyExchangeRateCentralBankByISOCode'];
+                return $varReturn['data'][0]['Func_General_GetCurrencyExchangeRateCentralBankByISOCode'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -387,7 +387,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -439,7 +439,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -495,7 +495,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -551,7 +551,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -603,7 +603,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -655,7 +655,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -711,7 +711,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -763,7 +763,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -819,7 +819,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -871,7 +871,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -923,7 +923,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -975,7 +975,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1026,7 +1026,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1082,7 +1082,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1138,7 +1138,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1194,7 +1194,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1250,7 +1250,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1301,7 +1301,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1357,7 +1357,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1413,7 +1413,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1469,7 +1469,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1521,7 +1521,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1572,7 +1572,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             ]
                             )
                         );                
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1624,7 +1624,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1676,7 +1676,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1728,7 +1728,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1780,7 +1780,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1832,7 +1832,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1888,7 +1888,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );     
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1940,7 +1940,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1996,10 +1996,10 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                $varReturn['Data'] = 
+                $varReturn['data'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['Data'][0]['Func_GetDataListJSON_BusinessDocument']
+                        $varReturn['data'][0]['Func_GetDataListJSON_BusinessDocument']
                         );
 
                 return
@@ -2055,10 +2055,10 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                $varReturn['Data'] = 
+                $varReturn['data'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['Data'][0]['Func_GetDataListJSON_PersonGender']
+                        $varReturn['data'][0]['Func_GetDataListJSON_PersonGender']
                         );
 
                 return
@@ -2118,10 +2118,10 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                $varReturn['Data'] = 
+                $varReturn['data'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['Data'][0]['Func_GetDataListJSON_Product']
+                        $varReturn['data'][0]['Func_GetDataListJSON_Product']
                         );
 
                 return
@@ -2181,7 +2181,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );  
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -2233,7 +2233,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -2285,7 +2285,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -2337,7 +2337,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -2389,7 +2389,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -2441,7 +2441,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -2493,7 +2493,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -2533,7 +2533,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -2573,7 +2573,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -2703,7 +2703,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -2743,7 +2743,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -2788,7 +2788,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -2833,7 +2833,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -2878,7 +2878,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -2923,7 +2923,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -3173,7 +3173,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -3213,7 +3213,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -3253,7 +3253,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -3294,7 +3294,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -3340,7 +3340,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -3380,7 +3380,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -3420,7 +3420,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -3470,7 +3470,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 return 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetDataResume_BusinessDocumentFileUpload']
+                        $varReturn['data'][0]['Func_GetDataResume_BusinessDocumentFileUpload']
                         );
                 }
             catch (\Exception $ex) {
@@ -3519,7 +3519,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 return 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetDataResume_BusinessDocumentFileUpload']
+                        $varReturn['data'][0]['Func_GetDataResume_BusinessDocumentFileUpload']
                         );
                 }
             catch (\Exception $ex) {
@@ -3568,7 +3568,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 return 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetDataResume_EntityContactNumber']
+                        $varReturn['data'][0]['Func_GetDataResume_EntityContactNumber']
                         );
                 }
             catch (\Exception $ex) {
@@ -3612,7 +3612,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-                $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['Data'][0]['Func_GetReport_Resume_BusinessDocumentDispositionHistory']);
+                $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentDispositionHistory']);
 
                 return $varReturn;
                 }
@@ -3659,7 +3659,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['Data'][0]['Func_GetReport_Resume_BusinessDocumentDispositionHistory']);
+                $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentDispositionHistory']);
 
                 return $varReturn;
                 }
@@ -3712,7 +3712,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_Resume_BusinessDocumentIssuanceDisposition'])
+                        $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentIssuanceDisposition'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -3759,7 +3759,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_Resume_BusinessDocumentIssuanceDispositionCount'])
+                        $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentIssuanceDispositionCount'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -3802,7 +3802,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -3848,7 +3848,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_AllType'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_AllType'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -3895,7 +3895,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_CitizenIdentity'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_CitizenIdentity'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -3942,7 +3942,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_Person'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_Person'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -3982,7 +3982,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-            return $varReturn['Data'][0]['Func_General_GetFileExtensionOfMIME'];
+            return $varReturn['data'][0]['Func_General_GetFileExtensionOfMIME'];
             }
 
 
@@ -4020,7 +4020,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                return $varReturn['Data'][0]['Func_General_GetIDOfMIME'];
+                return $varReturn['data'][0]['Func_General_GetIDOfMIME'];
                 } 
             catch (\Exception $ex) {
                 return [];
@@ -4064,19 +4064,19 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                 $varReturn = [
                     'fullDocumentNumber' => 
-                        $varData['Data'][0]['DocumentTypeName'].
+                        $varData['data'][0]['DocumentTypeName'].
                         ' No : '.
-                        $varData['Data'][0]['DocumentNumber'].
+                        $varData['data'][0]['DocumentNumber'].
                         ' (Version : '.
-                        $varData['Data'][0]['Version'].
+                        $varData['data'][0]['Version'].
                         ')',
-                    'businessDocumentType_RefID' => $varData['Data'][0]['BusinessDocumentType_RefID'],
-                    'businessDocument_RefID' => $varData['Data'][0]['BusinessDocument_RefID'],
-                    'businessDocumentVersion_RefID' => $varData['Data'][0]['BusinessDocumentVersion_RefID'],
-                    'documentTypeName' => $varData['Data'][0]['DocumentTypeName'],
-                    'documentNumber' => $varData['Data'][0]['DocumentNumber'],
-                    'version' => $varData['Data'][0]['Version'],
-                    'documentDateTimeTZ' => $varData['Data'][0]['DocumentDateTimeTZ']
+                    'businessDocumentType_RefID' => $varData['data'][0]['BusinessDocumentType_RefID'],
+                    'businessDocument_RefID' => $varData['data'][0]['BusinessDocument_RefID'],
+                    'businessDocumentVersion_RefID' => $varData['data'][0]['BusinessDocumentVersion_RefID'],
+                    'documentTypeName' => $varData['data'][0]['DocumentTypeName'],
+                    'documentNumber' => $varData['data'][0]['DocumentNumber'],
+                    'version' => $varData['data'][0]['Version'],
+                    'documentDateTimeTZ' => $varData['data'][0]['DocumentDateTimeTZ']
                     ];
 
                 return $varReturn;
@@ -4123,7 +4123,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         );
 
                 $varReturn = [
-                    'status' => $varData['Data'][0]['Func_General_IsBusinessDocumentFinalApproved']
+                    'status' => $varData['data'][0]['Func_General_IsBusinessDocumentFinalApproved']
                     ];
 
                 return $varReturn;

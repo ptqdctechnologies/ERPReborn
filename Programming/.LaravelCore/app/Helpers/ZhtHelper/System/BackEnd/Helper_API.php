@@ -136,7 +136,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataDelete($varUserSession, array $varDataSend)
             {
-            if(((bool)$varDataSend['Data'][0]['FuncSys_General_SetRecordDelete']) == TRUE)
+            if(((bool)$varDataSend['data'][0]['FuncSys_General_SetRecordDelete']) == TRUE)
                 {
                 $varReturn = [
                     'message' => 'Data Deletion Successful'
@@ -168,7 +168,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataDeleteByRPK($varUserSession, array $varDataSend)
             {
-            if(((bool)$varDataSend['Data'][0]['FuncSys_General_SetRecordDeleteByRPK']) == TRUE)
+            if(((bool)$varDataSend['data'][0]['FuncSys_General_SetRecordDeleteByRPK']) == TRUE)
                 {
                 $varReturn = [
                     'message' => 'Data Deletion Successful'
@@ -199,7 +199,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataHide($varUserSession, array $varDataSend)
             {
-            if(((bool)$varDataSend['Data'][0]['FuncSys_General_SetRecordHide']) == TRUE)
+            if(((bool)$varDataSend['data'][0]['FuncSys_General_SetRecordHide']) == TRUE)
                 {
                 $varReturn = [
                     'message' => 'Data Hiding Successful'
@@ -263,7 +263,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataRead($varUserSession, array $varDataSend, bool $varSignConvertPHPArrayToJSONCamelCase = TRUE)
             {
-            if(is_array($varDataSend) == FALSE)
+            if (is_array($varDataSend) == FALSE)
                 {
                 throw new \Exception('Data Read Failed');
                 }
@@ -294,6 +294,11 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                                         ]
                                     ]
                                     )
+                                );
+                        $varReturn['data'] = 
+                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                                $varUserSession,
+                                $varReturn['data'][0]['Func_General_JSONArray_ConvertKeysToCamelCase']
                                 );
                         }
                     else
@@ -358,7 +363,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataShow($varUserSession, array $varDataSend)
             {
-            if(((bool)$varDataSend['Data'][0]['FuncSys_General_UnsetRecordHide']) == TRUE)
+            if(((bool)$varDataSend['data'][0]['FuncSys_General_UnsetRecordHide']) == TRUE)
                 {
                 $varReturn = [
                     'message' => 'Data Showing Successful'
@@ -420,7 +425,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataUndelete($varUserSession, array $varDataSend)
             {
-            if(((bool)$varDataSend['Data'][0]['FuncSys_General_UnsetRecordDelete']) == TRUE)
+            if(((bool)$varDataSend['data'][0]['FuncSys_General_UnsetRecordDelete']) == TRUE)
                 {
                 $varReturn = [
                     'message' => 'Cancellation of Data Delete Successful'
@@ -452,7 +457,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataUndeleteByRPK($varUserSession, array $varDataSend)
             {
-            if(((bool)$varDataSend['Data'][0]['FuncSys_General_UnsetRecordDeleteByRPK']) == TRUE)
+            if(((bool)$varDataSend['data'][0]['FuncSys_General_UnsetRecordDeleteByRPK']) == TRUE)
                 {
                 $varReturn = [
                     'message' => 'Cancellation of Data Delete Successful'
@@ -556,9 +561,9 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_FileUpload($varUserSession, array $varDataSend)
             {
-            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'SignRecordID', $varDataSend) == TRUE)
+            if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'SignRecordID', $varDataSend) == TRUE)
                 {
-                if($varDataSend['SignRecordID'])
+                if ($varDataSend['SignRecordID'])
                     {
                     $varReturn = [
                         'message' => 'Upload File to Staging Area Was Successful (Rotate Record RPK : '.$varDataSend['SignRecordID'].')',
@@ -863,7 +868,7 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                         [$varLDAPUserID, 'varchar']
                     ]
                     )
-                )['Data'][0];
+                )['data'][0];
             
             $varReturn = [
                 'user_RefID' => $varData['User_RefID'],

@@ -94,7 +94,7 @@ namespace App\Helpers\ZhtHelper\Database
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Query Execution');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    $varReturn['Process']['StartDateTime'] = \App\Helpers\ZhtHelper\General\Helper_DateTime::getCurrentDateTimeString($varUserSession);
+                    $varReturn['process']['startDateTime'] = \App\Helpers\ZhtHelper\General\Helper_DateTime::getCurrentDateTimeString($varUserSession);
                     //---> Inisialisasi [Data], [RowCount]
                     $i=0;
                     foreach(self::getQueryExecutionDataFetch($varUserSession, $varSQL) as $row)
@@ -102,14 +102,14 @@ namespace App\Helpers\ZhtHelper\Database
                         $varData[] = (array) $row;
                         $i++;
                         }
-                    $varReturn['Data'] = $varData;
-                    $varReturn['RowCount']=$i;
+                    $varReturn['data'] = $varData;
+                    $varReturn['rowCount']=$i;
                     do
                         {
-                        $varReturn['Process']['FinishDateTime'] = \App\Helpers\ZhtHelper\General\Helper_DateTime::getCurrentDateTimeString($varUserSession);
-                        $varReturn['Process']['ExecutionTime'] = \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringDifference($varUserSession, $varReturn['Process']['StartDateTime'], $varReturn['Process']['FinishDateTime']);
+                        $varReturn['process']['finishDateTime'] = \App\Helpers\ZhtHelper\General\Helper_DateTime::getCurrentDateTimeString($varUserSession);
+                        $varReturn['process']['executionTime'] = \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringDifference($varUserSession, $varReturn['process']['startDateTime'], $varReturn['process']['finishDateTime']);
                         }
-                    while ($varReturn['Process']['ExecutionTime'] < 0);
+                    while ($varReturn['process']['executionTime'] < 0);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

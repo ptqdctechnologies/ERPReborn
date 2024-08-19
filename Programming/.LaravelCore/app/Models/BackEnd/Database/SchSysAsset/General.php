@@ -37,7 +37,8 @@ namespace App\Models\Database\SchSysAsset
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getData_APIWebToken_IsExist(
-            $varUserSession, $varAPIWebToken)
+            $varUserSession,
+            $varAPIWebToken)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -53,7 +54,7 @@ namespace App\Models\Database\SchSysAsset
 
             return
                 [
-                'SignExist' => (boolean) $varReturn['Data'][0]['Func_GetData_APIWebToken_IsExist']                
+                'SignExist' => (boolean) $varReturn['data'][0]['Func_GetData_APIWebToken_IsExist']                
                 ];
             }
 
@@ -89,7 +90,7 @@ namespace App\Models\Database\SchSysAsset
                     );
             dd($varReturn);
             
-            return $varReturn['Data'][0]['Func_GetData_APIWebToken_ByUserSessionID'];
+            return $varReturn['data'][0]['Func_GetData_APIWebToken_ByUserSessionID'];
             }
 
 
@@ -143,7 +144,7 @@ namespace App\Models\Database\SchSysAsset
             return 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion(
                     $varUserSession, 
-                    $varReturn['Data'][0]['Func_GetData_FileUpload_isFileAlreadyExist']
+                    $varReturn['data'][0]['Func_GetData_FileUpload_isFileAlreadyExist']
                     );
             }
 
@@ -193,18 +194,18 @@ namespace App\Models\Database\SchSysAsset
 
             $varReturn = [];
             $x = 0;
-            for ($i=0; $i < count($varData['Data']); $i++) {
-                if($varData['Data'][$i]['RecordReference'] != 0) {
+            for ($i=0; $i < count($varData['data']); $i++) {
+                if($varData['data'][$i]['RecordReference'] != 0) {
                     // $varReturn['Process'] = $varData['Process'];
-                    $varReturn['Data'][$x] = $varData['Data'][$i];
-                    // $varReturn['RowCount'] = $varData['RowCount'];
+                    $varReturn['data'][$x] = $varData['data'][$i];
+                    // $varReturn['rowCount'] = $varData['rowCount'];
                     // $varReturn['Notice'] = $varData['Notice'];
-                    $varReturn['Data'][$x]['Sequence'] = $x + 1;
+                    $varReturn['data'][$x]['Sequence'] = $x + 1;
                     $x++;
                     }
                 }
 
-            $varReturn['RowCount'] = $x;
+            $varReturn['rowCount'] = $x;
                 
             return $varReturn;
             }
@@ -250,7 +251,7 @@ namespace App\Models\Database\SchSysAsset
             $varReturn =  [
                 \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                     $varUserSession, 
-                    $varData['Data'][0]['ProcessedData_JSON'])
+                    $varData['data'][0]['ProcessedData_JSON'])
                 ];
 
             return $varReturn[0]['details'];
@@ -266,7 +267,7 @@ namespace App\Models\Database\SchSysAsset
                     $varUserSession,
                     'SELECT "SchSysAsset"."Func_General_DataDecrypt_HTTPGetParameter"(\''.$varEncryptedData.'\'::varchar)'
                     );
-            return $varReturn['Data'][0]['Func_General_DataDecrypt_HTTPGetParameter'];
+            return $varReturn['data'][0]['Func_General_DataDecrypt_HTTPGetParameter'];
             }
 
 
@@ -279,7 +280,7 @@ namespace App\Models\Database\SchSysAsset
                     $varUserSession,
                     'SELECT "SchSysAsset"."Func_General_DataEncrypt_HTTPGetParameter"(\''.$varPlainData.'\'::varchar)'
                     );
-            return $varReturn['Data'][0]['Func_General_DataEncrypt_HTTPGetParameter'];
+            return $varReturn['data'][0]['Func_General_DataEncrypt_HTTPGetParameter'];
             }
 
 
@@ -312,7 +313,7 @@ namespace App\Models\Database\SchSysAsset
                         )
                     );
 
-            return $varReturn['Data'][0];
+            return $varReturn['data'][0];
             }
 
 
@@ -346,7 +347,7 @@ namespace App\Models\Database\SchSysAsset
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -379,7 +380,7 @@ namespace App\Models\Database\SchSysAsset
                         )
                     );
 
-            return  $varReturn['Data'][0]['Func_General_Hash_SHA256'];
+            return  $varReturn['data'][0]['Func_General_Hash_SHA256'];
             }
 
 
@@ -412,7 +413,7 @@ namespace App\Models\Database\SchSysAsset
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -446,7 +447,7 @@ namespace App\Models\Database\SchSysAsset
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -479,7 +480,7 @@ namespace App\Models\Database\SchSysAsset
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
         }
     }

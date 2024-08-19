@@ -66,7 +66,7 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];

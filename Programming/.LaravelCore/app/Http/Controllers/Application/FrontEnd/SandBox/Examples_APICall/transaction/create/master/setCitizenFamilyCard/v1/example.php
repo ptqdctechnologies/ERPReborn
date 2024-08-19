@@ -74,6 +74,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+
+/*
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             $varFileUpload_UniqueID = 'Upload';
@@ -96,7 +100,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 '<div id="dataShow_ActionPanel" style="border-style:solid; border-width:1px;" onLoad="javascript:alert(\'xxx\');"></div>';
 
             echo '<br><br><button onclick="javascript: JSFunc_GetActionPanel_CommitFromOutside_'.$varFileUpload_UniqueID.'();">TEST COMMIT FROM OUTSIDE</button><br><br>';
-
+*/
             
 //91000000000023
 /*
@@ -111,11 +115,30 @@ echo '<div style="position: relative; z-index: 3">Hello world</div>';
             echo 
                 '<script type="text/javascript">'.
                     'window.onload = function() {'.
-                        'document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action").dispatchEvent(new Event("change"));'.
+                        //'document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action").dispatchEvent(new Event("change"));'.
                         //'document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action2").dispatchEvent(new Event("change"));'.
                         '}; '.
                 '</script>';
-                        
+
+            echo '<br>Log FileUpload Pointer RefID ► '.
+                \App\Helpers\ZhtHelper\General\Helper_JavaScriptNEW::getSyntaxCreateZhtObject_InputFile(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    'dataInput_Log_FileUpload_1',
+                    'xxxx'
+                    ).
+                    '';
+
+            
+            echo '<br>Log FileUpload Pointer RefID 2 ► '.
+                \App\Helpers\ZhtHelper\General\Helper_JavaScriptNEW::getSyntaxCreateZhtObject_InputFile(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    'dataInput_Log_FileUpload_2',
+                    'yyyy'
+                    ).
+                    '';
+
+            
+            
             echo '<br>Card Number ► '.
                 '<input type="text" id="dataInput_CardNumber" value="3174091701099012">';
             echo '<br>Issued Date ► '.

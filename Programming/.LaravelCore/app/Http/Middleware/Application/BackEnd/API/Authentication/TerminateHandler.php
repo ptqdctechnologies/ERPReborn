@@ -47,7 +47,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
                 ";
             $varDBData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($varUserSession, $varSQL);*/
 //            file_put_contents(getcwd().'./../tmp/1.txt', $varSQL);
-//            $x = $varDBData['Data'][0]['Sys_RPK'];
+//            $x = $varDBData['data'][0]['Sys_RPK'];
             }
         }
     }

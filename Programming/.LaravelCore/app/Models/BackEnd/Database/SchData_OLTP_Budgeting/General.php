@@ -54,12 +54,12 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         ); 
 
-                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession, 
-                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
+                            $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
                             );
                     }
 
@@ -107,12 +107,12 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         ); 
 
-                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession, 
-                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
+                            $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
                             );
                     }
 
@@ -160,12 +160,12 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         ); 
 
-                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession, 
-                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
+                            $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
                             );
                     }
 
@@ -213,12 +213,12 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         ); 
 
-                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession, 
-                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
+                            $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
                             );
                     }
 
@@ -266,12 +266,12 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         ); 
 
-                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession, 
-                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
+                            $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
                             );
                     }
 
@@ -327,7 +327,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -383,7 +383,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -439,7 +439,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -495,7 +495,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -547,7 +547,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -602,7 +602,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -660,7 +660,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -711,7 +711,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -767,7 +767,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -823,7 +823,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -874,7 +874,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -914,7 +914,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -959,7 +959,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -999,7 +999,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1044,7 +1044,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1089,7 +1089,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1134,7 +1134,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1174,7 +1174,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1219,7 +1219,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1264,7 +1264,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1309,7 +1309,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1357,7 +1357,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_CombinedBudget'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_CombinedBudget'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -1405,7 +1405,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_CombinedBudgetSection'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_CombinedBudgetSection'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -1452,7 +1452,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1498,7 +1498,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];

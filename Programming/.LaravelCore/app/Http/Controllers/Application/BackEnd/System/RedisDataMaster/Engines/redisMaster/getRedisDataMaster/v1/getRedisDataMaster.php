@@ -79,7 +79,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
             //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
             //         $userSessionID,
             //         "Budget",
-            //         json_encode($varBudget['Data']),
+            //         json_encode($varBudget['data']),
             //         $varTTL
             //     );
             // }
@@ -99,7 +99,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
             //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
             //         $userSessionID,
             //         "SubBudget",
-            //         json_encode($varSubBudget['Data']),
+            //         json_encode($varSubBudget['data']),
             //         $varTTL
             //     );
             // }
@@ -118,7 +118,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataMaster\Engine
             //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
             //         $userSessionID,
             //         "Worker",
-            //         json_encode($varWorker['Data']),
+            //         json_encode($varWorker['data']),
             //         $varTTL
             //     );
             // }

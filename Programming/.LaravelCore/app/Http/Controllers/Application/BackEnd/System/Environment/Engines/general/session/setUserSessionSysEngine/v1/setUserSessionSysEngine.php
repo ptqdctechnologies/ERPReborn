@@ -132,7 +132,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Environment\Engines\ge
                             "Sys_RPK" ASC
                         ';
 
-                    $varBufferDB = (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($varUserSession, $varSQLQuery))['Data'][0];
+                    $varBufferDB = (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($varUserSession, $varSQLQuery))['data'][0];
 
                     //dd($varBufferDB);
 

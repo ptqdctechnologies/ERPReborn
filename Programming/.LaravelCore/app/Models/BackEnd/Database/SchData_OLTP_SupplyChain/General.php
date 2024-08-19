@@ -53,11 +53,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         ); 
 
-                for ($i=0; $i!=count($varTemp['Data']); $i++) {
+                for ($i=0; $i!=count($varTemp['data']); $i++) {
                     $varReturn[$i] = 
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession, 
-                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]
+                            $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
                             );
                     }
 
@@ -115,7 +115,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -171,7 +171,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );                
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -222,7 +222,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -273,7 +273,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -326,7 +326,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -378,7 +378,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -430,7 +430,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -481,7 +481,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -532,7 +532,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -583,7 +583,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -634,7 +634,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -684,7 +684,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -736,10 +736,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['Data'] = 
+                $varReturn['data'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['Data'][0]['Func_GetDataListJSON_MaterialServiceRequisition']
+                        $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisition']
                         );
 
                 return
@@ -795,10 +795,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['Data'] = 
+                $varReturn['data'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['Data'][0]['Func_GetDataListJSON_PurchaseRequisition']
+                        $varReturn['data'][0]['Func_GetDataListJSON_PurchaseRequisition']
                         );
 
                 return
@@ -842,7 +842,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -882,7 +882,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -922,7 +922,47 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_MaterialServiceRequisition                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-08-13                                                                                           |
+        | ▪ Creation Date   : 2024-08-13                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Permintaan Material dan Service                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_MaterialServiceRequisition(
+            $varUserSession, int $varSysBranch_RefID)
+            {
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataPickList_MaterialServiceRequisition',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ]
+                            ]
+                            )
+                        );
+
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -962,7 +1002,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1002,7 +1042,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1042,7 +1082,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1082,7 +1122,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1122,7 +1162,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1162,7 +1202,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1202,7 +1242,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1242,7 +1282,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1288,7 +1328,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_PurchaseOrder'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseOrder'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -1336,7 +1376,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_PurchaseOrderAdditionalCost'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseOrderAdditionalCost'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -1384,7 +1424,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_PurchaseOrderPaymentTerm'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseOrderPaymentTerm'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -1431,7 +1471,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_PurchaseRequisition'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseRequisition'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -1478,7 +1518,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_WarehouseInboundOrder'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_WarehouseInboundOrder'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -1526,7 +1566,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_WarehouseOutboundOrder'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_WarehouseOutboundOrder'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -1578,7 +1618,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_Resume_PurchaseOrderProductPriceHistory'])
+                        $varReturn['data'][0]['Func_GetReport_Resume_PurchaseOrderProductPriceHistory'])
                     ];
                 }
             catch (\Exception $ex) {

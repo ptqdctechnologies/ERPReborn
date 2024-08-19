@@ -59,7 +59,7 @@ namespace App\Models\Database\SchData_Mulyadi
                         ]
                         )
                     );                
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -107,7 +107,7 @@ namespace App\Models\Database\SchData_Mulyadi
                         ]
                         )
                     );                
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];

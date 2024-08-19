@@ -303,7 +303,7 @@ class Controller_Main extends \App\Http\Controllers\Controller
 
             // $varData =
             //     (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_Product(
-            // dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(6000000000001, "Test", json_encode($varData['Data'])));
+            // dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(6000000000001, "Test", json_encode($varData['data'])));
             // die;
             // $varData = 
             //     (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_Budget(
@@ -314,7 +314,7 @@ class Controller_Main extends \App\Http\Controllers\Controller
 
             // dd($varData);
 
-            // dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(6000000000001, "Test", json_encode($varData['Data'])));
+            // dd(\App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(6000000000001, "Test", json_encode($varData['data'])));
             // die;
             // $varData = 
             //     (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_Budget(
@@ -343,7 +343,7 @@ class Controller_Main extends \App\Http\Controllers\Controller
             // $x =  [
             //     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
             //         11000000000004, 
-            //         $varReturn['Data'][0]['ProcessedData_JSON'])
+            //         $varReturn['data'][0]['ProcessedData_JSON'])
             //     ];
 
             // dd($x[0]['details']);
@@ -423,19 +423,19 @@ class Controller_Main extends \App\Http\Controllers\Controller
 
             // $varReturn = [];
             // $x = 0;
-            // for ($i=0; $i < count($varData['Data']); $i++){
-            //     if($varData['Data'][$i]['RecordReference'] != 0){
+            // for ($i=0; $i < count($varData['data']); $i++){
+            //     if($varData['data'][$i]['RecordReference'] != 0){
             //         $varReturn['Process'] = $varData['Process'];
-            //         $varReturn['Data'][$x] = $varData['Data'][$i];
-            //         $varReturn['RowCount'] = $varData['RowCount'];
+            //         $varReturn['data'][$x] = $varData['data'][$i];
+            //         $varReturn['rowCount'] = $varData['rowCount'];
             //         $varReturn['Notice'] = $varData['Notice'];
-            //         $varReturn['Data'][$x]['Sequence'] = $x + 1;
+            //         $varReturn['data'][$x]['Sequence'] = $x + 1;
             //         $x++;
             //     }
             // }
 
 
-            // $varReturn['RowCount'] = $x;
+            // $varReturn['rowCount'] = $x;
 
             // dd($varReturn);
             // die;
@@ -2186,9 +2186,9 @@ for($i=0; $i!=2; $i++)
                 "APIWebToken" LIKE \'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODU5Nzg0OX0.nujH2-2GRILaG_ahWQ-mxsFNydpWHahNIJ0an5HDi9A\'
                 ';
             $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(000, $varSQLQuery);
-            var_dump($x['Data'][0]['SignValid']);
+            var_dump($x['data'][0]['SignValid']);
             
-            if($x['Data'][0]['SignValid']==true)
+            if($x['data'][0]['SignValid']==true)
                 {
                 echo "lanjut";
                 }

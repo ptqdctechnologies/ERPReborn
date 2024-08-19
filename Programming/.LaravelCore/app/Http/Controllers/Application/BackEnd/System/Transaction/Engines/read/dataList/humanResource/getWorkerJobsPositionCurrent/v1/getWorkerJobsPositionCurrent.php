@@ -48,7 +48,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
                 $userSessionID,
                 "Budget",
-                json_encode($varBudget['Data']),
+                json_encode($varBudget['data']),
                 $varTTL
             );
 
@@ -96,7 +96,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
                 $userSessionID,
                 "Worker",
-                json_encode($varWorker['Data']),
+                json_encode($varWorker['data']),
                 // $varTTL
             );
 

@@ -171,33 +171,33 @@ namespace App\Helpers\ZhtHelper\Cache
                 foreach ($varTemp as $varKey => $varTTL) 
                     {
                     $varReturn[$i] = [
-                        'Sys_ID' => $varKey,
+                        'sys_ID' => $varKey,
                         'TTL' => $varTTL,
-                        'Value'=> \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, $varKey)
+                        'value'=> \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, $varKey)
                         ];
                     $i++;
                     }
 
                 $varReturn = [
-                    'Process' => [
-                        'StartDateTime' => $varStartDateTime,
-                        'FinishDateTime' => $varFinishDateTime,
-                        'ExecutionTime' => $varExecutionTime,
+                    'process' => [
+                        'startDateTime' => $varStartDateTime,
+                        'finishDateTime' => $varFinishDateTime,
+                        'executionTime' => $varExecutionTime,
                         ],
-                    'Data' => $varReturn,
-                    'RowCount' => $varRowCount
+                    'data' => $varReturn,
+                    'rowCount' => $varRowCount
                     ];
                 }
             else
                 {
                 $varReturn = [
-                    'Process' => [
-                        'StartDateTime' => $varStartDateTime,
-                        'FinishDateTime' => $varFinishDateTime,
-                        'ExecutionTime' => $varExecutionTime,
+                    'process' => [
+                        'startDateTime' => $varStartDateTime,
+                        'finishDateTime' => $varFinishDateTime,
+                        'executionTime' => $varExecutionTime,
                         ],
-                    'Data' => [],
-                    'RowCount' => $varRowCount
+                    'data' => [],
+                    'rowCount' => $varRowCount
                     ];
                 }
             

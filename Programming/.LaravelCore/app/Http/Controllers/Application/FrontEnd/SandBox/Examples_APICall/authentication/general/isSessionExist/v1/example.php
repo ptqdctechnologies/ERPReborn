@@ -31,16 +31,17 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'authentication.general.isSessionExist', 
-                'latest', 
-                [
-                'parameter' => [
+            $varData = 
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'authentication.general.isSessionExist', 
+                    'latest', 
+                    [
+                    'parameter' => [
+                        ]
                     ]
-                ]
-                );
+                    );
             //var_dump($varData);
             var_dump(json_encode($varData));
             }

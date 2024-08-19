@@ -47,7 +47,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'][0]['FuncSys_General_GetAPIWebToken_SysEngine'];
+            return $varReturn['data'][0]['FuncSys_General_GetAPIWebToken_SysEngine'];
             }
             
 
@@ -92,7 +92,7 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -137,7 +137,7 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -187,7 +187,7 @@ namespace App\Models\Database\SchSysConfig
                             ]
                             )
                         );
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -232,13 +232,13 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );
                 
-                $varReturn['Data'] = 
+                $varReturn['data'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['Data'][0]['Func_General_GetUserPrivilege_MenuLayout']
+                        $varReturn['data'][0]['Func_General_GetUserPrivilege_MenuLayout']
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -285,7 +285,7 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -322,7 +322,7 @@ namespace App\Models\Database\SchSysConfig
                         ');'
                     );
 
-            return (int) $varReturn['Data'][0]['Func_General_GetWorkFlowPathOfBusinessDocument'];   
+            return (int) $varReturn['data'][0]['Func_General_GetWorkFlowPathOfBusinessDocument'];   
             }
 
 
@@ -355,7 +355,7 @@ namespace App\Models\Database\SchSysConfig
                         ');'
                     );
 
-            return (int) $varReturn['Data'][0]['FuncSys_General_GetParameterValue_App'];            
+            return (int) $varReturn['data'][0]['FuncSys_General_GetParameterValue_App'];            
             }
 
 
@@ -400,7 +400,7 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -446,7 +446,7 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -491,7 +491,7 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -519,7 +519,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'][0]['Func_Device_PersonAccess_GetLastRecordDateTimeTZ'];
+            return $varReturn['data'][0]['Func_Device_PersonAccess_GetLastRecordDateTimeTZ'];
             }
 
 
@@ -548,7 +548,7 @@ namespace App\Models\Database\SchSysConfig
                     $varUserSession,            
                     'SELECT EXTRACT(hour FROM (SELECT utc_offset FROM "pg_timezone_names" WHERE "name" ILIKE \''.$varTimeZoneNames.'\')::time)::smallint AS "UTCOffset";'
                     );
-            $varUTCOffset = $varReturn['Data'][0]['UTCOffset'];
+            $varUTCOffset = $varReturn['data'][0]['UTCOffset'];
             $varUTCOffset = ($varUTCOffset > 0 ? '+' : '-').(strlen($varUTCOffset) == 2 ? '' : '0').$varUTCOffset;
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession,
@@ -556,7 +556,7 @@ namespace App\Models\Database\SchSysConfig
                 //'SET TIMEZONE=\'Asia/Jakarta\'; SELECT NOW()::timestamptz;'
                 );
 
-            return $varReturn['Data'][0]['Result'];
+            return $varReturn['data'][0]['Result'];
             }
 
 
@@ -586,7 +586,7 @@ namespace App\Models\Database\SchSysConfig
                     //'SET TIMEZONE=\'Asia/Jakarta\'; SELECT DATE_PART(\'YEAR\', NOW());'
                     );
 
-            return (int) $varReturn['Data'][0]['date_part'];
+            return (int) $varReturn['data'][0]['date_part'];
             }
 
 
@@ -624,11 +624,11 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );
 
-                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
                     $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                        $varTemp['data'][$i][explode('.', $varFunctionName)[1]]);
                     }
 
                 return $varReturn;
@@ -675,7 +675,7 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -720,7 +720,7 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -765,7 +765,7 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -810,7 +810,7 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -843,7 +843,7 @@ namespace App\Models\Database\SchSysConfig
                     'SELECT "SchSysConfig"."FuncSys_General_GetReferenceTEXTByReferenceID"('.$varID.'::bigint);'
                     );
 
-            return $varReturn['Data'][0]['FuncSys_General_GetReferenceTEXTByReferenceID'];
+            return $varReturn['data'][0]['FuncSys_General_GetReferenceTEXTByReferenceID'];
             }
 
 
@@ -877,7 +877,7 @@ namespace App\Models\Database\SchSysConfig
             return
                 \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                     $varUserSession,
-                    $varReturn['Data'][0]['Func_General_GetUserRolePrivilege']
+                    $varReturn['data'][0]['Func_General_GetUserRolePrivilege']
                     );
             }
 
@@ -918,7 +918,7 @@ namespace App\Models\Database\SchSysConfig
             return
                 \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                     $varUserSession,
-                    $varReturn['Data'][0]['Func_General_GetUserPrivilege_MenuAccess']
+                    $varReturn['data'][0]['Func_General_GetUserPrivilege_MenuAccess']
                     );
             }
 
@@ -947,7 +947,7 @@ namespace App\Models\Database\SchSysConfig
                     'SELECT DATE_PART(\'YEAR\', \''.($varDate ? $varDate : $this->getCurrentDateTimeTZ($varUserSession)).'\'::timestamptz);'
                     );
 
-            return (int) $varReturn['Data'][0]['date_part'];
+            return (int) $varReturn['data'][0]['date_part'];
             }
 
 
@@ -987,8 +987,8 @@ namespace App\Models\Database\SchSysConfig
                         );
 
                 $varReturn = [
-                    'workFlowVersion_SysID' => $varReturnTemp['Data'][0]['BaseWorkFlowVersion_SysID'],
-                    'version' => $varReturnTemp['Data'][0]['BaseVersion']
+                    'workFlowVersion_SysID' => $varReturnTemp['data'][0]['BaseWorkFlowVersion_SysID'],
+                    'version' => $varReturnTemp['data'][0]['BaseVersion']
                     ];
 
                 return $varReturn;
@@ -1029,7 +1029,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['Data'][0]['FuncSys_General_GetExistantionOnSystem_APIWebToken']);
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['data'][0]['FuncSys_General_GetExistantionOnSystem_APIWebToken']);
 
             return $varReturn;
             }
@@ -1079,7 +1079,7 @@ namespace App\Models\Database\SchSysConfig
                     $varSQLQuery
                     );
 
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varReturn['Data'][0]['Sign']);
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varReturn['data'][0]['Sign']);
 
             return $varReturn;
             }
@@ -1130,7 +1130,7 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );
 
-                return $varReturn['Data'][0];
+                return $varReturn['data'][0];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1174,7 +1174,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'][0]['FuncSys_General_SetUserSessionBranchAndUserRole'];
+            return $varReturn['data'][0]['FuncSys_General_SetUserSessionBranchAndUserRole'];
             }
 
 
@@ -1224,7 +1224,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -1270,7 +1270,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -1320,7 +1320,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -1370,7 +1370,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -1416,7 +1416,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -1466,7 +1466,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -1516,7 +1516,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -1562,7 +1562,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -1612,22 +1612,22 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            for($i=0, $iMax=count($varReturn['Data']); $i!=$iMax; $i++)
+            for($i=0, $iMax=count($varReturn['data']); $i!=$iMax; $i++)
                 {
-                $varReturn['Data'][$i]['AlternativeItemList'] = 
+                $varReturn['data'][$i]['AlternativeItemList'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][$i]['AlternativeItemList']
+                        $varReturn['data'][$i]['AlternativeItemList']
                         );
 
-                $varReturn['Data'][$i]['NextApproverPath'] = 
+                $varReturn['data'][$i]['NextApproverPath'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][$i]['NextApproverPath']
+                        $varReturn['data'][$i]['NextApproverPath']
                         );
                 }
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -1677,7 +1677,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -1727,7 +1727,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -1779,20 +1779,20 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            for($i=0, $iMax=count($varReturn['Data']); $i!=$iMax; $i++)
+            for($i=0, $iMax=count($varReturn['data']); $i!=$iMax; $i++)
                 {
-                $varReturn['Data'][$i]['AlternativeItemList'] = 
+                $varReturn['data'][$i]['AlternativeItemList'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][$i]['AlternativeItemList']
+                        $varReturn['data'][$i]['AlternativeItemList']
                         );
-                $varReturn['Data'][$i]['NextApproverPath'] = 
+                $varReturn['data'][$i]['NextApproverPath'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][$i]['NextApproverPath']
+                        $varReturn['data'][$i]['NextApproverPath']
                         );
                 }
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -1838,7 +1838,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -1870,7 +1870,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -1921,7 +1921,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -1964,7 +1964,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -2011,7 +2011,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -2046,7 +2046,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -2079,7 +2079,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'][0]['FuncSys_General_GetUserIDByName'];
+            return $varReturn['data'][0]['FuncSys_General_GetUserIDByName'];
             }
 
 
@@ -2114,7 +2114,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -2149,7 +2149,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'];            
+            return $varReturn['data'];            
             }
 
 
@@ -2316,7 +2316,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['Data'][0]['FuncSys_General_SetUserSessionLogout'];
+            return $varReturn['data'][0]['FuncSys_General_SetUserSessionLogout'];
             }
 
 

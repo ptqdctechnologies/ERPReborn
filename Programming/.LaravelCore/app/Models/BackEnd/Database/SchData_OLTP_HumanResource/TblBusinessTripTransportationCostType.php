@@ -66,7 +66,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         )
                     );
 
-            return $varReturn['Data'][0];
+            return $varReturn['data'][0];
             }
 
 
@@ -119,7 +119,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         )
                     );
 
-            return $varReturn['Data'][0];
+            return $varReturn['data'][0];
             }
 
 
@@ -173,7 +173,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         )
                     );
 
-            return $varReturn['Data'][0];
+            return $varReturn['data'][0];
             }
         }
     }
