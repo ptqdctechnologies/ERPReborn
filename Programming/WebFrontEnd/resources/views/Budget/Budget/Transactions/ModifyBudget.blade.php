@@ -18,8 +18,35 @@
 
             <!-- CONTENT -->
             <div class="card">
-                <!--  ADD NEW AFE (APPROVAL FOR EXPENDITURE)  -->
+                <!-- Add New Advance Request -->
                 <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <label class="card-title">
+                                        Add Budget & Sub Budget Code
+                                    </label>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="card-body py-3">
+                                    <form id="upload_form" method="post" enctype="multipart/form-data" action="{{ route('ModifyBudget') }}">
+                                    @csrf
+                                        @include('Budget.Budget.Functions.Header.HeaderModifyBudget')
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADD NEW AFE (APPROVAL FOR EXPENDITURE) -->
+                <div class="tab-content px-3 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -37,98 +64,143 @@
                                 <div class="card-body py-3">
                                     <form id="upload_form" method="post" enctype="multipart/form-data" action="{{ route('ModifyBudget') }}">
                                     @csrf
-                                        
-                                        @include('Budget.Budget.Functions.Header.HeaderModifyBudget')
-
-                                        <!-- REASON FOR MODIFY -->
+                                        <!-- =====REASON FOR MODIFY===== -->
                                         <div class="row" style="margin-bottom: 1rem;">
-                                            <label for="reason_modify" class="col-sm-2 col-form-label p-0">Reason for Modify</label>
-                                            <div class="col-sm-3 p-0">
-                                                <div class="input-group">
-                                                    <input id="reason_modify" style="border-radius:0;" class="form-control" name="reason_modify" autocomplete="off">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- ADDITIONAL CO -->
-                                        <div class="row">
-                                            <label class="col-sm-2 col-form-label p-0">Additional CO</label>
-                                            <div class="col-sm-3 p-0" style="display: flex; gap: 16px;">
-                                                <div>
-                                                    <input type="radio" name="additional_co" value="yes">
-                                                    <label>Yes</label>
-                                                </div>
-                                                <div>
-                                                    <input type="radio" name="additional_co" value="no">
-                                                    <label>No</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- CURRENCY -->
-                                        <div id="currency_field" class="row" style="margin-bottom: 1rem; margin-top: 1rem; display: none;">
-                                            <label for="currency" class="col-sm-2 col-form-label p-0">Currency</label>
-                                            <div class="col-sm-3 p-0">
-                                                <div class="input-group">
-                                                    <input id="currency" style="border-radius:0;" class="form-control" name="currency" autocomplete="off">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- VALUE CO ADDITIONAL -->
-                                        <div id="value_co_additional_field" class="row" style="display: none;">
-                                            <label for="value_co_additional" class="col-sm-2 col-form-label p-0">Value CO Additional</label>
-                                            <div class="col-sm-3 p-0">
-                                                <div class="input-group">
-                                                    <input id="value_co_additional" style="border-radius:0;" class="form-control" name="value_co_additional" autocomplete="off">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- ATTACHMENT FILES -->
-                                        <div class="row" style="margin-top: 1rem;">
-                                            <label class="col-sm-2 col-form-label p-0">File Attachment</label>
-                                            <div class="col-sm-10 p-0 form-group">
-                                                <div class="custom-file">
-                                                    <div id="hidden_inputs"></div>
-                                                    <input type="file" id="attachment_file" multiple>
-                                                </div>
-
-                                                <div class="card">
-                                                    <!-- /.card-header -->
-                                                    <div class="table-responsive p-0">
-                                                        <table class="table table-bordered table-hover text-nowrap" id="file_table" style="margin-bottom: 0; display: none;">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th rowspan="2" style="vertical-align:middle;">No</th>
-                                                                    <th rowspan="2" style="vertical-align:middle;">File Name</th>
-                                                                    <th rowspan="2" style="vertical-align:middle;">Size</th>
-                                                                    <th rowspan="2" style="vertical-align:middle;">Upload Date & Time</th>
-                                                                    <th colspan="2" style="vertical-align:middle; text-align: center;">
-                                                                        Action
-                                                                        <tr>
-                                                                            <th style="vertical-align:middle;">Preview</th>
-                                                                            <th style="vertical-align:middle;">Delete</th>
-                                                                        </tr>
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="file_list">
-                                                            </tbody>
-                                                        </table>
+                                            <div class="col-lg-5">
+                                                <div class="row">
+                                                    <label for="reason_modify" class="col-4 col-form-label p-0">Reason for Modify</label>
+                                                    <div class="col p-0">
+                                                        <div class="input-group">
+                                                            <input id="reason_modify" style="border-radius:0;" class="form-control" name="reason_modify" autocomplete="off">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <!-- SUBMIT -->
-                                        <div class="row" style="display: flex; justify-content: flex-end;">
-                                            <button class="btn btn-default btn-sm button-submit" type="submit">
-                                                <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
-                                                <div>Submit</div>
-                                            </button>
+                                        <!-- =====ADDITIONAL CO===== -->
+                                        <div class="row" style="margin-bottom: 1rem;">
+                                            <div class="col-lg-5">
+                                                <div class="row">
+                                                    <label class="col-4 col-form-label p-0">Additional CO</label>
+                                                    <div class="col p-0" style="display: flex; gap: 16px;">
+                                                        <div>
+                                                            <input type="radio" name="additional_co" value="yes">
+                                                            <label>Yes</label>
+                                                        </div>
+                                                        <div>
+                                                            <input type="radio" name="additional_co" value="no">
+                                                            <label>No</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- CURRENCY -->
+                                        <div id="currency_field" class="row" style="margin-bottom: 1rem; display: none;">
+                                            <div class="col-lg-5">
+                                                <div class="row">
+                                                    <label for="currency" class="col-4 col-form-label p-0">Currency</label>
+                                                    <div class="col d-flex p-0">
+                                                        <div>
+                                                            <input id="currency_id" hidden name="currency_id">
+                                                            <input id="currency_code" style="border-radius:0;" data-toggle="modal" data-target="#myCurrency" name="currency_code" class="form-control myCurrency" readonly>
+                                                        </div>
+                                                        <div>
+                                                            <span style="border-radius:0;" class="input-group-text form-control">
+                                                                <a href="#" id="currency_code_popup" data-toggle="modal" data-target="#myCurrency" class="myCurrency"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                            </span>
+                                                        </div>
+                                                        <div style="flex: 100%;">
+                                                            <div class="input-group">
+                                                                <input id="currency_name" style="border-radius:0;" class="form-control" name="currency_name" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- VALUE CO ADDITIONAL -->
+                                        <div id="value_co_additional_field" class="row" style="margin-bottom: 1rem; display: none;">
+                                            <div class="col-lg-5">
+                                                <div class="row">
+                                                    <label for="value_co_additional" class="col-4 col-form-label p-0">Value CO Additional</label>
+                                                    <div class="col p-0">
+                                                        <div class="input-group">
+                                                            <input id="value_co_additional" style="border-radius:0;" class="form-control number-only" name="value_co_additional" autocomplete="off">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FILE ATTACHMENT -->
+                <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <label class="card-title">
+                                        File Attachment
+                                    </label>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="card-body py-3">
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <div class="row">
+                                                <label class="col-4 col-form-label p-0">Select a File</label>
+                                                <div class="col p-0">
+                                                    <div class="custom-file">
+                                                        <div id="hidden_inputs"></div>
+                                                        <input type="file" id="attachment_file" multiple>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top: 1rem;">
+                                        <div class="col-lg-12 p-0">
+                                            <div class="card m-0">
+                                                <!-- /.card-header -->
+                                                <div class="table-responsive p-0">
+                                                    <table class="table table-bordered table-hover text-nowrap" id="file_table" style="margin-bottom: 0; display: none;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th rowspan="2" style="vertical-align:middle;">No</th>
+                                                                <th rowspan="2" style="vertical-align:middle;">File Name</th>
+                                                                <th rowspan="2" style="vertical-align:middle;">Size</th>
+                                                                <th rowspan="2" style="vertical-align:middle;">Upload Date & Time</th>
+                                                                <th colspan="2" style="vertical-align:middle; text-align: center;">
+                                                                    Action
+                                                                    <tr>
+                                                                        <th style="vertical-align:middle;">Preview</th>
+                                                                        <th style="vertical-align:middle;">Delete</th>
+                                                                    </tr>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="file_list">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -142,7 +214,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Existing Budget
+                                        Budget Details
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -265,6 +337,51 @@
                                     </table>
                                 </div>
 
+                                <!-- ADD TO CART -->
+                                <div class="card-body py-0 d-flex justify-content-end">
+                                    <div class="row py-3">
+                                        <button class="btn btn-default btn-sm button-submit" type="submit">
+                                            <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
+                                            <div>Add to Cart</div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODIFY BUDGET LIST (CART) -->
+                <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <label class="card-title">
+                                        Modify Budget List (cart)
+                                    </label>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- MODIFY BUDGET LIST TABLE -->
+                                <div class="wrapper-budget card-body table-responsive p-0 table-existing-budget">
+                                    <table id="listBudgetTable" class="table table-head-fixed text-nowrap table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th class="container-thead-tr-budget">Product Id</th>
+                                                <th class="container-thead-tr-budget">Product Name</th>
+                                                <th class="container-thead-tr-budget">Qty</th>
+                                                <th class="container-thead-tr-budget">Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+
                                 <!-- ADD NEW ITEM FORM -->
                                 <div id="budgetForm" class="card-body py-0">
                                     <!-- BUTTON ADD NEW ITEM -->
@@ -310,47 +427,12 @@
                                         <div id="buttonItemForm" class="row" style="margin-bottom: 1rem; display: none;">
                                             <div class="col-2 pl-0"></div>
                                             <div class="col-3 pl-0" style="display: flex; justify-content: flex-end;">
-                                                <button class="btn btn-default btn-sm" type="submit" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                                                    Add
+                                                <button class="btn btn-default btn-sm button-submit" type="submit" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                                    Add to Cart
                                                 </button>
                                             </div>
                                         </div>
                                     </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--  MODIFY BUDGET LIST (CART) -->
-                <div class="tab-content px-3 pb-2" id="nav-tabContent">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <label class="card-title">
-                                        Modify Budget List (cart)
-                                    </label>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <!-- MODIFY BUDGET LIST TABLE -->
-                                <div class="wrapper-budget card-body table-responsive p-0 table-existing-budget">
-                                    <table id="listBudgetTable" class="table table-head-fixed text-nowrap table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th class="container-thead-tr-budget">Product Id</th>
-                                                <th class="container-thead-tr-budget">Product Name</th>
-                                                <th class="container-thead-tr-budget">Qty</th>
-                                                <th class="container-thead-tr-budget">Price</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>

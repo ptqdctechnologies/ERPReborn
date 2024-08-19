@@ -2,6 +2,9 @@
 <script>
     $("#site_code").prop("disabled", true);
     $("#site_code_popup").prop("disabled", true);
+
+    $("#currency_code").prop("disabled", true);
+    $("#currency_code_popup").prop("disabled", true);
 </script>
 
 <!-- BUDGET CODE -->
@@ -87,7 +90,7 @@
                     valueCOAdditionalField.style.display = 'flex';
                 } else {
                     currencyField.style.display = 'none';
-                    currencyInput.value = '';
+                    // currencyInput.value = '';
 
                     valueCOAdditionalField.style.display = 'none';
                     valueCOAdditionalInput.value = '';
@@ -316,14 +319,14 @@
         totalAdditional.value = calculatedTotalAdditional.toFixed(2);
         totalSaving.value = calculatedTotalSaving.toFixed(2);
 
-        if (qtyAdditional && priceAdditional && calculatedTotalAdditional > totalBudget) {
+        if (qtyAdditional && priceAdditional && calculatedTotalAdditional < totalBudget) {
             ErrorNotif("Total Additional is over budget !");
             totalAdditional.value = '';
             row.querySelector('input[name="qty_additional"]').value = '';
             row.querySelector('input[name="price_additional"]').value = '';
         }
 
-        if (qtySaving && priceSaving && calculatedTotalSaving < totalBudget) {
+        if (qtySaving && priceSaving && calculatedTotalSaving > totalBudget) {
             ErrorNotif("Total Saving is under budget !");
             totalSaving.value = '';
             row.querySelector('input[name="qty_saving"]').value = '';
