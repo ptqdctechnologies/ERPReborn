@@ -2,6 +2,9 @@
 <script>
     $("#site_code").prop("disabled", true);
     $("#site_code_popup").prop("disabled", true);
+
+    $("#currency_code").prop("disabled", true);
+    $("#currency_code_popup").prop("disabled", true);
 </script>
 
 <!-- BUDGET CODE -->
@@ -87,7 +90,7 @@
                     valueCOAdditionalField.style.display = 'flex';
                 } else {
                     currencyField.style.display = 'none';
-                    currencyInput.value = '';
+                    // currencyInput.value = '';
 
                     valueCOAdditionalField.style.display = 'none';
                     valueCOAdditionalInput.value = '';
