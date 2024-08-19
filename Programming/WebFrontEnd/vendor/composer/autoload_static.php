@@ -1521,6 +1521,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportMaterialReturnDetail' => __DIR__ . '/../..' . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportMaterialReturnDetail.php',
         'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportMaterialReturnSummary' => __DIR__ . '/../..' . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportMaterialReturnSummary.php',
         'App\\Http\\Controllers\\ExportExcel\\PurchaseRequisition\\ExportReportPurchaseRequisitionSummary' => __DIR__ . '/../..' . '/app/Http/Controllers/ExportExcel/PurchaseRequisition/ExportReportPurchaseRequisitionSummary.php',
+        'App\\Http\\Controllers\\ExportExcel\\Purchase\\ExportReportCFS' => __DIR__ . '/../..' . '/app/Http/Controllers/ExportExcel/Purchase/ExportReportCFS.php',
         'App\\Http\\Controllers\\ExportExcel\\Purchase\\ExportReportPurchaseOrderDetail' => __DIR__ . '/../..' . '/app/Http/Controllers/ExportExcel/Purchase/ExportReportPurchaseOrderDetail.php',
         'App\\Http\\Controllers\\ExportExcel\\Purchase\\ExportReportPurchaseOrderSummary' => __DIR__ . '/../..' . '/app/Http/Controllers/ExportExcel/Purchase/ExportReportPurchaseOrderSummary.php',
         'App\\Http\\Controllers\\Function\\FunctionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Function/FunctionController.php',
