@@ -62,7 +62,7 @@ namespace App\Models\Database\SchData_OLTP_Project
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -118,7 +118,7 @@ namespace App\Models\Database\SchData_OLTP_Project
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -174,7 +174,7 @@ namespace App\Models\Database\SchData_OLTP_Project
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];

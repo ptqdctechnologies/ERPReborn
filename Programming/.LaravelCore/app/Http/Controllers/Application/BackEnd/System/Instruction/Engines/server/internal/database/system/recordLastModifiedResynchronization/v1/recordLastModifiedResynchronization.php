@@ -119,7 +119,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                         )
                     );
             //dd($varReturn);
-            //return $varReturn['Data'][0]['FuncSys_General_ReSync_LastModified'];
+            //return $varReturn['data'][0]['FuncSys_General_ReSync_LastModified'];
             return 'Process Completed';
             }
         }

@@ -66,17 +66,17 @@ namespace App\Helpers\ZhtHelper\UserInterface
                     {
                     case 'CSS':
                         {
-                        $varReturn .= '<link rel="stylesheet" href="'.$varData[$i]['Data'].'">';                
+                        $varReturn .= '<link rel="stylesheet" href="'.$varData[$i]['data'].'">';                
                         break;
                         }
                     case 'JavaScript':
                         {
-                        $varReturn .= '<script src="'.$varData[$i]['Data'].'"></script>';                
+                        $varReturn .= '<script src="'.$varData[$i]['data'].'"></script>';                
                         break;
                         }
                     case 'Comment':
                         {
-                        $varReturn .= '<!-- '.$varData[$i]['Data'].' -->';                
+                        $varReturn .= '<!-- '.$varData[$i]['data'].' -->';                
                         break;
                         }
                     default:

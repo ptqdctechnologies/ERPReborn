@@ -77,7 +77,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\RedisDataTransaction\E
             //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
             //         $userSessionID, 
             //         "Budget", 
-            //         json_encode($varBudget['Data']), 
+            //         json_encode($varBudget['data']), 
             //         $varTTL
             //     );
             // }

@@ -98,7 +98,7 @@ namespace App\Models\Database\SchData_Warehouse_Log
                         )
                     );
 
-            return $varReturn['Data'][0];
+            return $varReturn['data'][0];
             }
 
 
@@ -162,7 +162,7 @@ namespace App\Models\Database\SchData_Warehouse_Log
                         )
                     );
 
-            return $varReturn['Data'][0];
+            return $varReturn['data'][0];
             }
         }
     }

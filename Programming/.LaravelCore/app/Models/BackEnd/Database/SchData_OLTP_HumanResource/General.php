@@ -54,12 +54,12 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         ); 
 
-                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession,
-                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                            $varTemp['data'][$i][explode('.', $varFunctionName)[1]]);
                     }
 
                 return $varReturn;
@@ -114,7 +114,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -166,7 +166,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -222,7 +222,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -278,7 +278,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -330,7 +330,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -382,7 +382,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -435,7 +435,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -487,7 +487,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -543,7 +543,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -595,7 +595,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -651,7 +651,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -703,7 +703,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -924,7 +924,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1548,7 +1548,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_Worker'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_Worker'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -1595,7 +1595,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_WorkerCareerInternal'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_WorkerCareerInternal'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -1644,7 +1644,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                 return 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetDataResume_WorkerCareerInternalContactNumber']
+                        $varReturn['data'][0]['Func_GetDataResume_WorkerCareerInternalContactNumber']
                         );
                 }
             catch (\Exception $ex) {
@@ -1693,7 +1693,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                 return 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetDataResume_WorkerContactNumber']
+                        $varReturn['data'][0]['Func_GetDataResume_WorkerContactNumber']
                         );
                 }
             catch (\Exception $ex) {
@@ -1746,7 +1746,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );
                 
-                if(strcmp((array_values($varReturn['Data'][0]))[0], '[]') == 0)
+                if(strcmp((array_values($varReturn['data'][0]))[0], '[]') == 0)
                     {
                     throw new \Exception();
                     }
@@ -1755,7 +1755,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                     return
                         \App\Helpers\ZhtHelper\General\Helper_JSON::setDateTimeTZNormalizationFromArray(
                             $varUserSession,
-                            json_decode((array_values($varReturn['Data'][0]))[0], true)
+                            json_decode((array_values($varReturn['data'][0]))[0], true)
                             );                    
                     }
                 }
@@ -1803,7 +1803,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_PersonBusinessTrip'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_PersonBusinessTrip'])
                     ];
                 }
             catch (\Exception $ex) {

@@ -119,7 +119,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                     );
 
             return
-                $varReturn['Data'][0]['Func_General_SetTableSnapshotSignature'];
+                $varReturn['data'][0]['Func_General_SetTableSnapshotSignature'];
             }
         }
     }

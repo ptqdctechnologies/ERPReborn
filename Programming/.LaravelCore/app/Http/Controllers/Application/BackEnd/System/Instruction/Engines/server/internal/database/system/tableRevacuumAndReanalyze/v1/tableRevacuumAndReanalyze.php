@@ -117,7 +117,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                         )
                     );
 
-            return $varReturn['Data'][0]['FuncSys_General_SetRevacuumAndReanalyze'];
+            return $varReturn['data'][0]['FuncSys_General_SetRevacuumAndReanalyze'];
             }
         }
     }

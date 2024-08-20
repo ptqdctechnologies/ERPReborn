@@ -158,7 +158,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         //     //                 );                    
         //     //         }
         //     //     }
-        //     // //dd($varData['Data']);
+        //     // //dd($varData['data']);
         //     $varDataReturn = $varData;
         //     return $varDataReturn;
         //     }
@@ -179,29 +179,29 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     );
             
 
-            // for ($i=0, $iMax=count($varData['Data']); $i!=$iMax; $i++)
+            // for ($i=0, $iMax=count($varData['data']); $i!=$iMax; $i++)
             //     {
-            //     if ((\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['Data'][$i]['SignExistOnArchive'])) == TRUE)
+            //     if ((\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['data'][$i]['SignExistOnArchive'])) == TRUE)
                     
-            for ($i=0; $i < count($varData['Data']); $i++)
+            for ($i=0; $i < count($varData['data']); $i++)
             {
-                if ((\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['Data'][$i]['SignExistOnArchive'])) == TRUE)
+                if ((\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBooleanConvertion($varUserSession, $varData['data'][$i]['SignExistOnArchive'])) == TRUE)
                 {
-                    $varData['Data'][$i]['URLDelete'] = 
+                    $varData['data'][$i]['URLDelete'] = 
                     \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getURL_APICallByGetMethod(
                         $varUserSession, 
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID($varUserSession),
                         'transaction.delete.dataAcquisition.setLog_FileUpload_ObjectDetail', 
                         'latest', 
                         [
-                        'recordID' => $varData['Data'][$i]['RecordReference']
+                        'recordID' => $varData['data'][$i]['RecordReference']
                         ],
                         NULL,
                         TRUE
                         );
                 }
             }
-            //dd($varData['Data']);
+            //dd($varData['data']);
             $varDataReturn = $varData;
             return $varDataReturn;
             }

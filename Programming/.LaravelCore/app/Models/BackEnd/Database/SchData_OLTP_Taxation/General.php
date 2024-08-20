@@ -61,7 +61,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -102,7 +102,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -150,7 +150,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_TransactionTax'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_TransactionTax'])
                     ];
                 }
             catch (\Exception $ex) {

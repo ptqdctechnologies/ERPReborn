@@ -75,7 +75,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 $varSQL
                 );
             
-            if($varBufferDB['RowCount']==0)
+            if($varBufferDB['rowCount']==0)
                 {
                 $varSQL2 = '
                     SELECT
@@ -94,9 +94,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                     $varUserSession, 
                     $varSQL2
                     );
-                if($varBufferDB2['RowCount']==1)
+                if($varBufferDB2['rowCount']==1)
                     {
-                    $varCurrency_RefID = ($varBufferDB2['Data'][0]['Sys_ID']);
+                    $varCurrency_RefID = ($varBufferDB2['data'][0]['Sys_ID']);
 //                    echo $varCurrency_RefID.'
   //                          
     //                        ';
@@ -173,7 +173,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-            return $varReturn['Data'][0];
+            return $varReturn['data'][0];
             }
 
 
@@ -232,7 +232,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-            return $varReturn['Data'][0];
+            return $varReturn['data'][0];
             }
         }
     }

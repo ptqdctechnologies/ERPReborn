@@ -75,7 +75,7 @@ namespace App\Models\Database
                     $varStatusAuthenticatedDataOnly
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -108,7 +108,7 @@ namespace App\Models\Database
                     $varStatusAuthenticatedDataOnly
                     );
 
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 
@@ -157,12 +157,12 @@ namespace App\Models\Database
                         )
                     );
 
-            for ($i=0; $i!=count($varTemp['Data']); $i++)
+            for ($i=0; $i!=count($varTemp['data']); $i++)
                 {
                 $varReturn[$i] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varTemp['Data'][$i][$varFunctionName]
+                        $varTemp['data'][$i][$varFunctionName]
                         );
                 }
 
@@ -193,7 +193,7 @@ namespace App\Models\Database
             /*
             $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getHTMLEncode(
                 $varUserSession,
-                (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, $varRecordID))['Data']
+                (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, $varRecordID))['data']
                 );
             */
             try
@@ -203,7 +203,7 @@ namespace App\Models\Database
                         $varUserSession, 
                         $varRecordID
                         );
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 } 
             catch (\Exception $ex) {
                 $varReturn = 
@@ -211,7 +211,7 @@ namespace App\Models\Database
                         $varUserSession,
                         $varRecordID
                         );
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             }
 

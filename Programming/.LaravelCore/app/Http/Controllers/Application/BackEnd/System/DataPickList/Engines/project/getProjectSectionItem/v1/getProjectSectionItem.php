@@ -71,7 +71,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\p
             \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
                 $userSessionID,
                 "SubBudget",
-                json_encode($varSubBudget['Data']),
+                json_encode($varSubBudget['data']),
                 // $varTTL
             );
 

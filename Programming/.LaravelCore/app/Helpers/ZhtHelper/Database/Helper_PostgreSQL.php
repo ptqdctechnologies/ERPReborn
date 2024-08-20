@@ -132,9 +132,9 @@ namespace App\Helpers\ZhtHelper\Database
                         //$varData[] = str_replace("\\u20ac", "€", ((array) $row));
                         $i++;
                         }
-                    $varReturn['Data'] = $varData;
+                    $varReturn['data'] = $varData;
                     $varReturn['Notice'] = null;
-                    $varReturn['RowCount']=$i;
+                    $varReturn['rowCount']=$i;
                     unset($varData);                   
                     
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
@@ -258,17 +258,17 @@ namespace App\Helpers\ZhtHelper\Database
                             pg_close($DBConnection);
                             }
 
-                        $varReturn['Data'] = $varData;
-                        $varReturn['Notice'] = $varNotice;
-                        $varReturn['RowCount']=$i;
+                        $varReturn['data'] = $varData;
+                        $varReturn['notice'] = $varNotice;
+                        $varReturn['rowCount']=$i;
                         }
                     else
                         {
                         //dd($varConfig);
                         $varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection($varUserSession, $varSQLQuery);
-                        $varReturn['Data'] = $varDataTemp['Data'];
-                        $varReturn['Notice'] = $varDataTemp['Notice'];
-                        $varReturn['RowCount'] = $varDataTemp['RowCount'];                        
+                        $varReturn['data'] = $varDataTemp['data'];
+                        $varReturn['notice'] = $varDataTemp['notice'];
+                        $varReturn['rowCount'] = $varDataTemp['rowCount'];                        
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -834,32 +834,33 @@ namespace App\Helpers\ZhtHelper\Database
                                         $varUserSession, 
                                         "SELECT NOW();"
                                         );
-                                $varReturn['Process']['StartDateTime'] = $varDataTemp['Data'][0]['now'];
+                                $varReturn['process']['startDateTime'] = $varDataTemp['data'][0]['now'];
                                 unset($varDataTemp);
 
                                 //---> Inisialisasi [Data], [RowCount], [Notice]
                                 //$varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection($varUserSession, $varSQLQuery);
                                 $varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection($varUserSession, $varSQLQuery);
-                                $varReturn['Data'] = $varDataTemp['Data'];
-                                $varReturn['RowCount'] = $varDataTemp['RowCount'];
-                                $varReturn['Notice'] = $varDataTemp['Notice'];
+                                $varReturn['data'] = $varDataTemp['data'];
+                                $varReturn['rowCount'] = $varDataTemp['rowCount'];
+                                $varReturn['notice'] = $varDataTemp['notice'];
                                 unset($varDataTemp);
                                 
                                 //---> Inisialisasi [Process][StartDateTime]
-                                $varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection(
-                                    $varUserSession,
-                                    "
-                                    SELECT
-                                        \"SubSQL\".now AS \"FinishDateTime\",
-                                        (\"SubSQL\".now - '".$varReturn['Process']['StartDateTime']."')::interval AS \"ExecutionTime\"
-                                    FROM
-                                        (
-                                        SELECT NOW()
-                                        ) AS \"SubSQL\"
-                                    "
-                                    );
-                                $varReturn['Process']['FinishDateTime']=$varDataTemp['Data'][0]['FinishDateTime'];
-                                $varReturn['Process']['ExecutionTime']=$varDataTemp['Data'][0]['ExecutionTime'];                                
+                                $varDataTemp = 
+                                    self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection(
+                                        $varUserSession,
+                                        "
+                                        SELECT
+                                            \"SubSQL\".now AS \"FinishDateTime\",
+                                            (\"SubSQL\".now - '".$varReturn['process']['startDateTime']."')::interval AS \"ExecutionTime\"
+                                        FROM
+                                            (
+                                            SELECT NOW()
+                                            ) AS \"SubSQL\"
+                                        "
+                                        );
+                                $varReturn['process']['finishDateTime'] = $varDataTemp['data'][0]['FinishDateTime'];
+                                $varReturn['process']['executionTime'] = $varDataTemp['data'][0]['ExecutionTime'];                    
                                 unset($varDataTemp);
                                 }
                             }
@@ -980,7 +981,7 @@ namespace App\Helpers\ZhtHelper\Database
                         ';
                     //echo $varSQL."<br><br>";
                     $varData = self::getQueryExecution($varUserSession, $varSQL);
-                    $varSQL = $varData['Data'][0]['QueryBuilderString'];
+                    $varSQL = $varData['data'][0]['QueryBuilderString'];
                     //--->
                     //echo $varSQL."<br><br>";
                     $varData = self::getQueryExecution($varUserSession, $varSQL);
@@ -1045,7 +1046,7 @@ namespace App\Helpers\ZhtHelper\Database
                         SELECT
                             * 
                         FROM 
-                            ('.$varData['Data'][0]['QueryBuilderString'].') AS "SubSQL"
+                            ('.$varData['data'][0]['QueryBuilderString'].') AS "SubSQL"
                         WHERE
                             1 = 1
                             '.($varFilterCondition ? ' AND ' .$varFilterCondition : '').'
@@ -1098,7 +1099,7 @@ namespace App\Helpers\ZhtHelper\Database
                             "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly_Specific"('.$varRecordID.'::bigint)
                         ';
                     $varData = self::getQueryExecution($varUserSession, $varSQL);
-                    $varSQL = $varData['Data'][0]['QueryBuilderString'];
+                    $varSQL = $varData['data'][0]['QueryBuilderString'];
                     //--->
                     //echo $varSQL."<br><br>";
                     $varData = self::getQueryExecution($varUserSession, $varSQL);
@@ -1147,7 +1148,7 @@ namespace App\Helpers\ZhtHelper\Database
                             "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly_SpcfFacade"('.$varRecordID.'::bigint)
                         ';
                     $varData = self::getQueryExecution($varUserSession, $varSQL);
-                    $varSQL = $varData['Data'][0]['QueryBuilderString'];
+                    $varSQL = $varData['data'][0]['QueryBuilderString'];
                     //--->
                     //echo $varSQL."<br><br>";
                     $varData = self::getQueryExecution($varUserSession, $varSQL);

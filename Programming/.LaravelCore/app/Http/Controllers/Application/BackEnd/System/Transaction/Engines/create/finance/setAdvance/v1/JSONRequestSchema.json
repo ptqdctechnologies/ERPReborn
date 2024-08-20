@@ -122,17 +122,32 @@
                                                                     "maxLength": 512
                                                                     }
                                                                 },
-                                                            "required": [ "combinedBudgetSectionDetail_RefID", "product_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyExchangeRate", "productUnitPriceCurrencyValue", "remarks" ]
+                                                            "required": [
+                                                                "combinedBudgetSectionDetail_RefID",
+                                                                "product_RefID",
+                                                                "quantity",
+                                                                "quantityUnit_RefID",
+                                                                "productUnitPriceCurrency_RefID",
+                                                                "productUnitPriceCurrencyExchangeRate",
+                                                                "productUnitPriceCurrencyValue",
+                                                                "remarks"
+                                                                ]
                                                              }
                                                         },
-                                                    "required": [ "entities" ]
+                                                    "required": [
+                                                        "entities"
+                                                        ]
                                                     }
                                                 }
                                             },
-                                        "required": [ "items" ]
+                                        "required": [
+                                            "items"
+                                            ]
                                         }
                                     },
-                                "required": [ "itemList" ]
+                                "required": [
+                                    "itemList"
+                                    ]
                                 }
                             ]
                         }

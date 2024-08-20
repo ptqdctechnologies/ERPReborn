@@ -69,7 +69,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-            return $varReturn['Data'][0]['Func_General_GetCurrencyIDByISOCode'];
+            return $varReturn['data'][0]['Func_General_GetCurrencyIDByISOCode'];
             }
 
 
@@ -100,7 +100,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
  
-            return $varReturn['Data'][0];
+            return $varReturn['data'][0];
             }
 
 
@@ -152,7 +152,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-            return $varReturn['Data'][0];
+            return $varReturn['data'][0];
             }
 
 
@@ -205,7 +205,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-            return $varReturn['Data'][0];
+            return $varReturn['data'][0];
             }
         }
     }

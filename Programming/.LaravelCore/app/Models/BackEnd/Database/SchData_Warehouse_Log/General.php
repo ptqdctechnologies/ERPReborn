@@ -66,14 +66,14 @@ namespace App\Models\Database\SchData_Warehouse_Log
                             )
                         );
 
-                for ($i = 0, $iMax = count($varReturn['Data']); $i != $iMax; $i++) {
-                    $varReturn['Data'][$i]['Content'] = 
+                for ($i = 0, $iMax = count($varReturn['data']); $i != $iMax; $i++) {
+                    $varReturn['data'][$i]['Content'] = 
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession, 
-                            $varReturn['Data'][$i]['Content']       
+                            $varReturn['data'][$i]['Content']       
                             );                    
                     }
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];

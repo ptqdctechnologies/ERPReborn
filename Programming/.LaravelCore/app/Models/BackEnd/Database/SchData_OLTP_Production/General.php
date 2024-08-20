@@ -54,12 +54,12 @@ namespace App\Models\Database\SchData_OLTP_Production
                             )
                         );
 
-                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession, 
-                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                            $varTemp['data'][$i][explode('.', $varFunctionName)[1]]);
                     }
 
                 return $varReturn;
@@ -114,7 +114,7 @@ namespace App\Models\Database\SchData_OLTP_Production
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -169,7 +169,7 @@ namespace App\Models\Database\SchData_OLTP_Production
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -221,7 +221,7 @@ namespace App\Models\Database\SchData_OLTP_Production
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -276,7 +276,7 @@ namespace App\Models\Database\SchData_OLTP_Production
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -327,7 +327,7 @@ namespace App\Models\Database\SchData_OLTP_Production
                             ]
                             )
                         );                
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -369,7 +369,7 @@ namespace App\Models\Database\SchData_OLTP_Production
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];

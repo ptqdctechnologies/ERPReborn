@@ -85,7 +85,7 @@ namespace App\Models\Cache
         public function getAllDataRecord($varUserSession)
             {
             $varReturn = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getAllRecord($varUserSession, $this->varKeyHeader);
-            return $varReturn['Data'];
+            return $varReturn['data'];
             }
 
 

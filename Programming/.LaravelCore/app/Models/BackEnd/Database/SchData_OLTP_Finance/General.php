@@ -54,12 +54,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         ); 
 
-                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession, 
-                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                            $varTemp['data'][$i][explode('.', $varFunctionName)[1]]);
                     }
 
                 return $varReturn;
@@ -106,12 +106,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         ); 
 
-                for ($i=0; $i!=count($varTemp['Data']); $i++)
+                for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession, 
-                            $varTemp['Data'][$i][explode('.', $varFunctionName)[1]]);
+                            $varTemp['data'][$i][explode('.', $varFunctionName)[1]]);
                     }
 
                 return $varReturn;
@@ -166,7 +166,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -221,7 +221,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -275,7 +275,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -327,7 +327,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );                
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -367,7 +367,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -407,7 +407,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['Data'];
+                return $varReturn['data'];
                 }
             catch (\Exception $ex) {
                 return [];
@@ -453,7 +453,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_Advance'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_Advance'])
                     ]
                     ;
                 }
@@ -501,7 +501,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_AdvancePayment'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_AdvancePayment'])
                     ]
                     ;
                 }
@@ -549,7 +549,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_AdvanceSettlement'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_AdvanceSettlement'])
                     ]
                     ;
                 }
@@ -597,7 +597,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_DebitNote'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_DebitNote'])
                     ]
                     ;
                 }
@@ -647,7 +647,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                    return ($varReturn['Data']);
+                    return ($varReturn['data']);
 
                 }
             catch (\Exception $ex) {
@@ -692,7 +692,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_AdvanceSummary_Detail'])
+                        $varReturn['data'][0]['Func_GetReport_AdvanceSummary_Detail'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -739,7 +739,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_Payment'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_Payment'])
                     ];
                 }
             catch (\Exception $ex) {
@@ -786,7 +786,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
-                        $varReturn['Data'][0]['Func_GetReport_DocForm_PaymentInstruction'])
+                        $varReturn['data'][0]['Func_GetReport_DocForm_PaymentInstruction'])
                     ];
                 }
             catch (\Exception $ex) {

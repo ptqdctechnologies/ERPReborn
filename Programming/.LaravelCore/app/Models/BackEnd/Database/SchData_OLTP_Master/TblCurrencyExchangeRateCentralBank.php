@@ -74,7 +74,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 );
             
             //---> Bila belum ada record
-            if(((boolean) $varBufferDB['Data'][0]['SignExist']) == FALSE)
+            if(((boolean) $varBufferDB['data'][0]['SignExist']) == FALSE)
                 {
                 $varSQL2 = '
                     SELECT
@@ -153,19 +153,19 @@ namespace App\Models\Database\SchData_OLTP_Master
                     );                
                 
                 //---> Update Previous Record
-                if($varBufferDBPrevious['RowCount']!=0)
+                if($varBufferDBPrevious['rowCount']!=0)
                     {
                     $this->setDataUpdate(
                         $varUserSession, 
-                        $varBufferDBPrevious['Data'][0]['Sys_ID'], 
+                        $varBufferDBPrevious['data'][0]['Sys_ID'], 
                         null,
-                        substr($varBufferDBPrevious['Data'][0]['ValidStartDateTimeTZ'], 0, 4), 
+                        substr($varBufferDBPrevious['data'][0]['ValidStartDateTimeTZ'], 0, 4), 
                         11000000000001,
-                        $varBufferDBPrevious['Data'][0]['BaseCurrency_RefID'],
-                        $varBufferDBPrevious['Data'][0]['Currency_RefID'],
-                        $varBufferDBPrevious['Data'][0]['ExchangeRateBuy'], 
-                        $varBufferDBPrevious['Data'][0]['ExchangeRateSell'],
-                        $varBufferDBPrevious['Data'][0]['ValidStartDateTimeTZ'],
+                        $varBufferDBPrevious['data'][0]['BaseCurrency_RefID'],
+                        $varBufferDBPrevious['data'][0]['Currency_RefID'],
+                        $varBufferDBPrevious['data'][0]['ExchangeRateBuy'], 
+                        $varBufferDBPrevious['data'][0]['ExchangeRateSell'],
+                        $varBufferDBPrevious['data'][0]['ValidStartDateTimeTZ'],
                         date('Y-m-d H:i:s', ((\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varDateTimeTZ))-1)).'.000000 +07'
                         );
                     }
@@ -173,13 +173,13 @@ namespace App\Models\Database\SchData_OLTP_Master
                 //---> Update Next Record                
 
                 //---> Insert New Record                
-                if($varBufferDBNext['RowCount']==0)
+                if($varBufferDBNext['rowCount']==0)
                     {
                     $varValidFinishDateTimeTZ = '9999-12-31 23:59:59 +07';
                     }
                 else
                     {
-                    $varValidFinishDateTimeTZ = date('Y-m-d H:i:s', ((\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varBufferDBNext['Data'][0]['ValidStartDateTimeTZ']))-1)).'.000000 +07';
+                    $varValidFinishDateTimeTZ = date('Y-m-d H:i:s', ((\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varBufferDBNext['data'][0]['ValidStartDateTimeTZ']))-1)).'.000000 +07';
                     }
 
                 $this->setDataInsert(
@@ -252,7 +252,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         ]
                         )
                     );
-            return $varReturn['Data'][0];
+            return $varReturn['data'][0];
             }
 
 
@@ -311,7 +311,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-            return $varReturn['Data'][0];
+            return $varReturn['data'][0];
             }
         }
     }

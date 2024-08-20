@@ -88,8 +88,8 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
-            $varReturn['Data'][0]['SignRecordID'] = 'Multiple ID';
-            return $varReturn['Data'][0];
+            $varReturn['data'][0]['SignRecordID'] = 'Multiple ID';
+            return $varReturn['data'][0];
             }
 
 
@@ -143,8 +143,8 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
-            $varReturn['Data'][0]['SignRecordID'] = 'Multiple ID';
-            return $varReturn['Data'][0];
+            $varReturn['data'][0]['SignRecordID'] = 'Multiple ID';
+            return $varReturn['data'][0];
             }
         }
     }

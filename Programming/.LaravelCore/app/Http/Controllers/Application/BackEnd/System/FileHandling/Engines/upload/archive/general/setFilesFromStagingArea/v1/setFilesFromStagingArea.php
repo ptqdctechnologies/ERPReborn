@@ -231,7 +231,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 $varData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
                     $varSQL
-                    )['Data'];
+                    )['data'];
 //                dd($varData);
 
 //                for($i=0, $iMax=count($varData); $i!=$iMax; $i++)

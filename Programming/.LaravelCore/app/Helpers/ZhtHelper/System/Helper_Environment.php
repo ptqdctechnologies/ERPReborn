@@ -722,7 +722,7 @@ namespace App\Helpers\ZhtHelper\System
                             )
                         );
 
-                return $varReturn['Data'][0]['Func_GetData_UserSession_IDByAPIWebToken'];
+                return $varReturn['data'][0]['Func_GetData_UserSession_IDByAPIWebToken'];
                 }
             catch (\Exception $ex) {
                 return NULL;
@@ -758,7 +758,7 @@ namespace App\Helpers\ZhtHelper\System
                         ]
                         )
                     );
-                return $varReturn['Data'][0]['Func_GetData_APIWebToken_ByUserSessionID'];
+                return $varReturn['data'][0]['Func_GetData_APIWebToken_ByUserSessionID'];
                 }
             catch (\Exception $ex) {
                 return NULL;
@@ -795,7 +795,7 @@ namespace App\Helpers\ZhtHelper\System
                             ]
                             )
                         );
-                    return $varReturn['Data'][0]['Func_GetData_APIWebToken_SysEngine'];
+                    return $varReturn['data'][0]['Func_GetData_APIWebToken_SysEngine'];
                     }
                 catch (\Exception $ex) {
                     return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiU3lzRW5naW5lIiwiaWF0IjoxNTk4NDM0MDcxfQ.fkz2xMA1tUNmA5VaWC75a-A9WdYAmqToLbze3Sxojf4';
