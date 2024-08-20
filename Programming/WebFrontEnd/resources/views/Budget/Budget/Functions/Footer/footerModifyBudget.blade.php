@@ -70,7 +70,6 @@
         $("#site_id").val(sys_id);
         $("#site_code").val(code);
         $("#site_name").val(name);
-
     });
 </script>
 
@@ -232,8 +231,6 @@
         rows.forEach(row => {
             const productId = row.cells[0].textContent.trim();
 
-            console.log('row',row);
-
             productIds.push(productId);
         });
         return productIds;
@@ -251,6 +248,16 @@
         newRow.innerHTML = `
             <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${productId}</td>
             <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${productName}</td>
+            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${qty}</td>
+            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${price}</td>
+            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${productId}</td>
+            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${productName}</td>
+            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${qty}</td>
+            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${price}</td>
+            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${productId}</td>
+            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${productName}</td>
+            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${qty}</td>
+            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${price}</td>
             <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${qty}</td>
             <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${price}</td>
         `;
@@ -339,5 +346,51 @@
             const row = this.closest('tr');
             calculateTotals(row);
         });
+    });
+</script>
+
+<script>
+    const submitButton = document.getElementById('submitButton');
+    const cancelButton = document.getElementById('cancelButton');
+    const listBudgetTableBody = document.querySelector('#listBudgetTable tbody');
+    const budgetTbodyTable = document.querySelector('#budgetTable tbody');
+
+    function checkTableData() {
+        if (listBudgetTableBody.rows.length > 0) {
+            submitButton.disabled = false;
+        } else {
+            submitButton.disabled = true;
+        }
+    }
+
+    checkTableData();
+
+    const observer = new MutationObserver(checkTableData);
+    observer.observe(listBudgetTableBody, { childList: true });
+
+    cancelButton.addEventListener('click', function() {
+        while (listBudgetTableBody.firstChild) {
+            listBudgetTableBody.removeChild(listBudgetTableBody.firstChild);
+        }
+
+        while (budgetTbodyTable.firstChild) {
+            budgetTbodyTable.removeChild(budgetTbodyTable.firstChild);
+        }
+
+        $("#project_id").val("");
+        $("#project_code").val("");
+        $("#project_name").val("");
+
+        $("#site_id").val("");
+        $("#site_code").val("");
+        $("#site_name").val("");
+        $("#site_code").prop("disabled", true);
+        $("#site_code_popup").prop("disabled", true);
+
+        $("#reason_modify").val("");
+        $("#site_code").val("");
+        $("#site_name").val("");
+
+        checkTableData(); 
     });
 </script>

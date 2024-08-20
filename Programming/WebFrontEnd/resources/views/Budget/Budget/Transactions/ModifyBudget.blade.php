@@ -374,8 +374,18 @@
                                             <tr>
                                                 <th class="container-thead-tr-budget">Product Id</th>
                                                 <th class="container-thead-tr-budget">Product Name</th>
-                                                <th class="container-thead-tr-budget">Qty</th>
+                                                <th class="container-thead-tr-budget">Qty Budget</th>
+                                                <th class="container-thead-tr-budget">Qty Avail</th>
                                                 <th class="container-thead-tr-budget">Price</th>
+                                                <th class="container-thead-tr-budget">Currency</th>
+                                                <th class="container-thead-tr-budget">Balance Budget</th>
+                                                <th class="container-thead-tr-budget">Total Budget</th>
+                                                <th class="container-thead-tr-budget">Qty Additional</th>
+                                                <th class="container-thead-tr-budget">Price Additional</th>
+                                                <th class="container-thead-tr-budget">Total Additional</th>
+                                                <th class="container-thead-tr-budget">Qty Saving</th>
+                                                <th class="container-thead-tr-budget">Price Saving</th>
+                                                <th class="container-thead-tr-budget">Total Saving</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -443,13 +453,13 @@
                 <div class="px-3 pb-2">
                     <div style="display: flex; justify-content: flex-end; gap: 8px;">
                         <div style="display: flex;">
-                            <button class="btn btn-default btn-sm button-submit" type="submit">
-                            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
+                            <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="submit">
+                                <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
                                 <div>Cancel</div>
                             </button>
                         </div>
                         <div style="display: flex;">
-                            <button class="btn btn-default btn-sm button-submit" type="submit">
+                            <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit" disabled>
                                 <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
                                 <div>Submit</div>
                             </button>
