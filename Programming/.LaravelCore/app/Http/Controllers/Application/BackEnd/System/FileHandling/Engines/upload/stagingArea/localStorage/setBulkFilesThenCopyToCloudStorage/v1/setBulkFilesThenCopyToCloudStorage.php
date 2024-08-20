@@ -92,15 +92,76 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             $varHashMethod_RefID = 199000000000002;
             for ($i=0, $iMax = count($varData['parameter']['additionalData']['itemList']['items']); $i != $iMax; $i++)
                 {
-                //dd($varData['parameter']['additionalData']['itemList']['items'][$i]['entities']);
-                $varFileContentBase64Hash =  
-                    \App\Helpers\ZhtHelper\General\Helper_Hash::getSHA256(
-                        $varUserSession, 
-                        $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['contentBase64']
-                        );
-                var_dump($varFileContentBase64Hash);
+                $varData['parameter']['additionalData']['itemList']['items'][$i]['entities'] = 
+                    [
+                    'name' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['name'],
+                    'size' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['size'],
+                    'MIME' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['MIME'],
+                    'extension' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['extension'],
+                    'lastModifiedDateTimeTZ' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['lastModifiedDateTimeTZ'],
+                    'lastModifiedUnixTimestamp' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['lastModifiedUnixTimestamp'],
+                    'hashMethod_RefID' => $varHashMethod_RefID,
+                    'contentBase64Hash' =>
+                        \App\Helpers\ZhtHelper\General\Helper_Hash::getSHA256(
+                            $varUserSession, 
+                            $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['contentBase64']
+                            ),
+                    'URLDelete' => null
+                    ];
                 }
-            dd($varData['parameter']['additionalData']['itemList']);
+
+            //---> Penyimpanan Record Baru ke TblRotateLog_FileUploadStagingArea dan TblRotateLog_FileUploadStagingAreaDetail
+            $varRotateLog_FileUploadStagingArea_RefRPK = 
+                (new \App\Models\Database\SchData_Warehouse_Acquisition\TblRotateLog_FileUploadStagingArea())->setDataInsert(
+                    $varUserSession, 
+                    null, 
+                    'ERPReborn',
+                     
+                    $varData['parameter']['additionalData']
+                    )['SignRecordID'];
+            
+            //$varRotateLog_FileUploadStagingArea_RefRPK = 8;
+            
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    '
+                    SELECT
+                        ("SchData-Warehouse-Acquisition"."TblRotateLog_FileUploadStagingArea"."Sys_RPK" || \'/\' || "SchData-Warehouse-Acquisition"."TblRotateLog_FileUploadStagingAreaDetail"."Sys_RPK") AS "Path"
+                    FROM
+                        "SchData-Warehouse-Acquisition"."TblRotateLog_FileUploadStagingAreaDetail"
+                            LEFT JOIN
+                                "SchData-Warehouse-Acquisition"."TblRotateLog_FileUploadStagingArea"
+                                    ON
+                                        "SchData-Warehouse-Acquisition"."TblRotateLog_FileUploadStagingAreaDetail"."RotateLog_FileUploadStagingArea_RefRPK" = "SchData-Warehouse-Acquisition"."TblRotateLog_FileUploadStagingArea"."Sys_RPK"
+                    WHERE
+                        "SchData-Warehouse-Acquisition"."TblRotateLog_FileUploadStagingAreaDetail"."Sys_Data_Delete_DateTimeTZ" IS NULL
+                        AND
+                        "SchData-Warehouse-Acquisition"."TblRotateLog_FileUploadStagingAreaDetail"."Sys_Data_Hidden_DateTimeTZ" IS NULL
+                        AND
+                        "SchData-Warehouse-Acquisition"."TblRotateLog_FileUploadStagingAreaDetail"."RotateLog_FileUploadStagingArea_RefRPK" = '.$varRotateLog_FileUploadStagingArea_RefRPK.'::bigint
+                    '
+                    );
+            
+            for ($i = 0, $iMax = count($varReturn['data']); $i != $iMax; $i++)
+                {
+                //---> Penyimpanan ke Local Storage Server
+                (new \App\Models\LocalStorage\System\General())->createFile(
+                    $varUserSession, 
+                    base64_decode($varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['contentBase64']), 
+                    'Application/Upload/StagingArea/'.$varReturn['data'][$i]['Path']);
+
+                //---> Pemindahan File dari Local Storage Server ke Cloud
+                (new \App\Models\CloudStorage\System\General())->copyFileToCloud(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/'.$varReturn['data'][$i]['Path'], 
+                    'StagingArea/'.$varReturn['data'][$i]['Path']
+                    );
+                }
+            
+            //dd($varReturn);
+            
+            dd($varData['parameter']['additionalData']);
             }
 
 

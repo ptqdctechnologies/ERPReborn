@@ -229,7 +229,7 @@ class DeliveryOrderRequestController extends Controller
                 ],
                 false
             );
-
+            
             if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Data not found in the API response.');
             }
