@@ -289,63 +289,59 @@
 
 <!-- VALIDASI TOTAL ADDITIONAL & TOTAL SAVING PADA TABLE EXISTING BUDGET -->
 <script>
-    function calculateTotals(row) {
-        const qtyAdditional = row.querySelector('input[name="qty_additional"]').value;
-        const priceAdditional = row.querySelector('input[name="price_additional"]').value;
-        const qtySaving = row.querySelector('input[name="qty_saving"]').value;
-        const priceSaving = row.querySelector('input[name="price_saving"]').value;
+    const rows = document.querySelectorAll('#budgetTable tbody tr');
 
-        const totalAdditional = row.querySelector('input[name="total_additional"]');
-        const totalSaving = row.querySelector('input[name="total_saving"]');
-        const totalBudget = parseFloat(row.querySelector('.container-tbody-tr-budget:nth-child(8)').innerText.replace(/,/g, ''));
+    rows.forEach(row => {
+        const qtyAdditionalInput = row.querySelector('input[name="qty_additional"]');
+        const priceAdditionalInput = row.querySelector('input[name="price_additional"]');
+        const totalAdditionalInput = row.querySelector('input[name="total_additional"]');
+        const totalBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(8)');
 
-        let calculatedTotalAdditional = 0;
-        let calculatedTotalSaving = 0;
+        const qtySavingInput = row.querySelector('input[name="qty_saving"]');
+        const priceSavingInput = row.querySelector('input[name="price_saving"]');
+        const totalSavingInput = row.querySelector('input[name="total_saving"]');
+        const balanceBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(7)');
 
-        if (qtyAdditional && priceAdditional) {
-            calculatedTotalAdditional = (parseFloat(qtyAdditional) * parseFloat(priceAdditional));
-        } else if (qtyAdditional) {
-            calculatedTotalAdditional = parseFloat(qtyAdditional);
-        } else if (priceAdditional) {
-            calculatedTotalAdditional = parseFloat(priceAdditional);
-        } else {
-            calculatedTotalAdditional = 0;
+        function calculateTotalAdditional() {
+            const qtyAdditional = parseFloat(qtyAdditionalInput.value) || 0;
+            const priceAdditional = parseFloat(priceAdditionalInput.value) || 0;
+            const totalAdditional = qtyAdditional * priceAdditional;
+
+            const totalBudget = parseFloat(totalBudgetElement.textContent.replace(/,/g, '')) || 0;
+
+            totalAdditionalInput.value = totalAdditional.toFixed(2);
+
+            if (totalAdditional && totalAdditional < totalBudget) {
+                Swal.fire("Error", "Total Additional is over Total Budget !", "error");
+                qtyAdditionalInput.value = '';
+                priceAdditionalInput.value = '';
+                totalAdditionalInput.value = '';
+            }
         }
 
-        if (qtySaving && priceSaving) {
-            calculatedTotalSaving = (parseFloat(qtySaving) * parseFloat(priceSaving));
-        } else if (qtySaving) {
-            calculatedTotalSaving = parseFloat(qtySaving);
-        } else if (priceSaving) {
-            calculatedTotalSaving = parseFloat(priceSaving);
-        } else {
-            calculatedTotalSaving = 0;
+        function calculateTotalSaving() {
+            const qtySaving = parseFloat(qtySavingInput.value) || 0;
+            const priceSaving = parseFloat(priceSavingInput.value) || 0;
+            const totalSaving = qtySaving * priceSaving;
+
+            const balanceBudget = parseFloat(balanceBudgetElement.textContent.replace(/,/g, '')) || 0;
+            const totalBudget = parseFloat(totalBudgetElement.textContent.replace(/,/g, '')) || 0;
+
+            totalSavingInput.value = totalSaving.toFixed(2);
+
+            if (totalSaving && totalSaving < balanceBudget || totalSaving && totalSaving > totalBudget) {
+                Swal.fire("Error", "Total Additional is under Balance Budget & over Total Budget !", "error");
+                qtySavingInput.value = '';
+                priceSavingInput.value = '';
+                totalSavingInput.value = '';
+            }
         }
 
-        // Validasi setelah input selesai (menggunakan event blur)
-        totalAdditional.value = calculatedTotalAdditional.toFixed(2);
-        totalSaving.value = calculatedTotalSaving.toFixed(2);
+        qtyAdditionalInput.addEventListener('blur', calculateTotalAdditional);
+        priceAdditionalInput.addEventListener('blur', calculateTotalAdditional);
 
-        if (qtyAdditional && priceAdditional && calculatedTotalAdditional < totalBudget) {
-            ErrorNotif("Total Additional is over budget !");
-            totalAdditional.value = '';
-            row.querySelector('input[name="qty_additional"]').value = '';
-            row.querySelector('input[name="price_additional"]').value = '';
-        }
-
-        if (qtySaving && priceSaving && calculatedTotalSaving > totalBudget) {
-            ErrorNotif("Total Saving is under budget !");
-            totalSaving.value = '';
-            row.querySelector('input[name="qty_saving"]').value = '';
-            row.querySelector('input[name="price_saving"]').value = '';
-        }
-    }
-
-    budgetTable.querySelectorAll('input').forEach(input => {
-        input.addEventListener('keyup', function() {
-            const row = this.closest('tr');
-            calculateTotals(row);
-        });
+        qtySavingInput.addEventListener('blur', calculateTotalSaving);
+        priceSavingInput.addEventListener('blur', calculateTotalSaving);
     });
 </script>
 
