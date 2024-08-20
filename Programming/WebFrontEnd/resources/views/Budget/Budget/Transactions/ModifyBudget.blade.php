@@ -35,10 +35,7 @@
                                 </div>
 
                                 <div class="card-body py-3">
-                                    <form id="upload_form" method="post" enctype="multipart/form-data" action="{{ route('ModifyBudget') }}">
-                                    @csrf
-                                        @include('Budget.Budget.Functions.Header.HeaderModifyBudget')
-                                    </form>
+                                    @include('Budget.Budget.Functions.Header.HeaderModifyBudget')
                                 </div>
                             </div>
                         </div>
@@ -207,7 +204,7 @@
                     </div>
                 </div>
 
-                <!-- EXISTING BUDGET -->
+                <!-- BUDGET DETAILS -->
                 <div class="tab-content px-3 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
@@ -338,8 +335,8 @@
                                 </div>
 
                                 <!-- ADD TO CART -->
-                                <div class="card-body py-0 d-flex justify-content-end">
-                                    <div class="row py-3">
+                                <div class="card-body py-0">
+                                    <div class="row py-3 d-flex justify-content-end">
                                         <button class="btn btn-default btn-sm button-submit" type="submit">
                                             <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
                                             <div>Add to Cart</div>
