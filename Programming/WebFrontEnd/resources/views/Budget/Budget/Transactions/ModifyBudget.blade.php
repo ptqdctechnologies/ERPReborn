@@ -398,39 +398,47 @@
 
                                     <!-- CONTENT -->
                                     <form id="formAddNewItem">
-                                        <div id="newItemForm" class="row" style="margin-bottom: 1rem; display: none;">
-                                            <div class="col-2 pl-0">
-                                                <div class="input-group">
-                                                    <label for="product_id" style="width: 90px;">Product ID</label>
-                                                    <input id="product_id" style="border-radius:0;" class="form-control" name="product_id" autocomplete="off">
+                                        <div id="newItemForm" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
+                                            <div class="col-sm-12 cold-md-12 col-lg-3">
+                                                <div class="row">
+                                                    <label for="product_id" class="col-4 col-form-label p-0">Product ID</label>
+                                                    <div class="col p-0">
+                                                        <input id="product_id" style="border-radius:0;" class="form-control" name="product_id" autocomplete="off">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-3 pl-0">
-                                                <div class="input-group">
-                                                    <label for="product_name" style="width: 90px;">Product Name</label>
-                                                    <input id="product_name" style="border-radius:0;" class="form-control" name="product_name" autocomplete="off">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div id="newItemFormTwo" class="row" style="margin-bottom: 1rem; display: none;">
-                                            <div class="col-2 pl-0">
-                                                <div class="input-group">
-                                                    <label for="qty" style="width: 90px;">Qty</label>
-                                                    <input id="qty" style="border-radius:0;" class="form-control number-only" name="qty" autocomplete="off">
-                                                </div>
-                                            </div>
-                                            <div class="col-3 pl-0">
-                                                <div class="input-group">
-                                                    <label for="price" style="width: 90px;">Price</label>
-                                                    <input id="price" style="border-radius:0;" class="form-control number-only" name="price" autocomplete="off">
+                                            <div class="col-sm-12 cold-md-12 col-lg-3">
+                                                <div class="row">
+                                                    <label for="product_name" class="col-4 col-form-label p-0">Product Name</label>
+                                                    <div class="col p-0">
+                                                        <input id="product_name" style="border-radius:0;" class="form-control" name="product_name" autocomplete="off">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div id="buttonItemForm" class="row" style="margin-bottom: 1rem; display: none;">
-                                            <div class="col-2 pl-0"></div>
-                                            <div class="col-3 pl-0" style="display: flex; justify-content: flex-end;">
+                                        <div id="newItemFormTwo" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
+                                            <div class="col-sm-12 cold-md-12 col-lg-3">
+                                                <div class="row">
+                                                    <label for="qty" class="col-4 col-form-label p-0">Qty</label>
+                                                    <div class="col p-0">
+                                                        <input id="qty" style="border-radius:0;" class="form-control number-only" name="qty" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 cold-md-12 col-lg-3">
+                                                <div class="row">
+                                                    <label for="price" class="col-4 col-form-label p-0">Price</label>
+                                                    <div class="col p-0">
+                                                        <input id="price" style="border-radius:0;" class="form-control number-only" name="price" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="buttonItemForm" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
+                                            <div class="col-sm-12 cold-md-12 col-lg-3"></div>
+                                            <div class="col-sm-12 cold-md-12 col-lg-3 p-0 d-flex justify-content-end">
                                                 <button class="btn btn-default btn-sm button-submit" type="submit" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                                     Add to Cart
                                                 </button>
