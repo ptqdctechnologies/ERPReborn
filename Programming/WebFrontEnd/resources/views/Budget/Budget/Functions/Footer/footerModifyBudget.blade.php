@@ -197,6 +197,42 @@
     checkTableRows();
 </script>
 
+<!-- BUTTON ADD TO CART (BUDGET DETAILS) -->
+<script>
+    document.getElementById('buttonBudgetDetails').addEventListener('click', function() {
+        let budgetRows = document.querySelectorAll('#budgetTable tbody tr');
+
+        budgetRows.forEach(function(row) {
+            let qtyAdditional = row.querySelector('input[name="qty_additional"]').value.trim();
+            let priceAdditional = row.querySelector('input[name="price_additional"]').value.trim();
+            let totalAdditional = row.querySelector('input[name="total_additional"]').value.trim();
+            let qtySaving = row.querySelector('input[name="qty_saving"]').value.trim();
+            let priceSaving = row.querySelector('input[name="price_saving"]').value.trim();
+            let totalSaving = row.querySelector('input[name="total_saving"]').value.trim();
+
+            if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
+                row.querySelectorAll('td').forEach(function(td) {
+                    let input = td.querySelector('input');
+                    if (input) {
+                        td.textContent = input.value;
+                    }
+                    td.className = 'container-tbody-tr-budget';
+                });
+                
+                document.querySelector('#listBudgetTable tbody').appendChild(row);
+            } else if (!qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
+                Swal.fire("Error", "Qty Additional Cannot Be Empty", "error");
+            } else if (qtyAdditional && !priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
+                Swal.fire("Error", "Price Additional Cannot Be Empty", "error");
+            } else if (qtyAdditional && priceAdditional && totalAdditional && !qtySaving && priceSaving && totalSaving) {
+                Swal.fire("Error", "Qty Saving Cannot Be Empty", "error");
+            } else if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && !priceSaving && totalSaving) {
+                Swal.fire("Error", "Price Saving Cannot Be Empty", "error");
+            }
+        });
+    });
+</script>
+
 <!-- FORM ADD NEW ITEM -->
 <script>
     const addNewItemBtn = document.getElementById('addNewItemBtn');
