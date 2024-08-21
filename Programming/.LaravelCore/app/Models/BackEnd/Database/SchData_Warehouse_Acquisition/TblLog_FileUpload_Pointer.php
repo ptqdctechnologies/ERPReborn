@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_Warehouse_Acquisition                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 - 2022 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_Warehouse_Acquisition
@@ -23,8 +23,8 @@ namespace App\Models\Database\SchData_Warehouse_Acquisition
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-26                                                                                           |
-        | ▪ Creation Date   : 2021-07-26                                                                                           |
+        | ▪ Last Update     : 2024-08-21                                                                                           |
+        | ▪ Creation Date   : 2024-08-21                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,9 +43,9 @@ namespace App\Models\Database\SchData_Warehouse_Acquisition
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-08-08                                                                                           |
-        | ▪ Creation Date   : 2021-07-26                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-08-21                                                                                           |
+        | ▪ Creation Date   : 2024-08-21                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -55,7 +55,6 @@ namespace App\Models\Database\SchData_Warehouse_Acquisition
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varLog_FileUpload_PointerHistory_RefID ► Log File Upload Pointer History Reference ID                    |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
@@ -63,8 +62,8 @@ namespace App\Models\Database\SchData_Warehouse_Acquisition
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varLog_FileUpload_PointerHistory_RefID = null)
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -78,9 +77,7 @@ namespace App\Models\Database\SchData_Warehouse_Acquisition
                             [$varSysDataAnnotation, 'varchar'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
-                            [$varSysBaseCurrency_RefID, 'bigint'],
-
-                            [$varLog_FileUpload_PointerHistory_RefID, 'bigint']
+                            [$varSysBaseCurrency_RefID, 'bigint']
                         ]
                         )
                     );
@@ -93,9 +90,9 @@ namespace App\Models\Database\SchData_Warehouse_Acquisition
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-08-08                                                                                           |
-        | ▪ Creation Date   : 2021-07-26                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-08-21                                                                                           |
+        | ▪ Creation Date   : 2024-08-21                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -106,7 +103,6 @@ namespace App\Models\Database\SchData_Warehouse_Acquisition
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varLog_FileUpload_PointerHistory_RefID ► Log File Upload Pointer History Reference ID                    |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -114,8 +110,8 @@ namespace App\Models\Database\SchData_Warehouse_Acquisition
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varLog_FileUpload_PointerHistory_RefID = null)
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -129,9 +125,7 @@ namespace App\Models\Database\SchData_Warehouse_Acquisition
                             [$varSysDataAnnotation, 'varchar'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
-                            [$varSysBaseCurrency_RefID, 'bigint'],
-
-                            [$varLog_FileUpload_PointerHistory_RefID, 'bigint']
+                            [$varSysBaseCurrency_RefID, 'bigint']
                         ]
                         )
                     );

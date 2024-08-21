@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Carbon\Traits;
 
 use Carbon\Exceptions\UnknownUnitException;
+use Carbon\Unit;
 use Carbon\WeekDay;
 
 /**
@@ -294,7 +295,7 @@ trait Boundaries
      * echo Carbon::parse('2018-07-25 12:45:16')->endOfWeek(Carbon::SATURDAY) . "\n";
      * ```
      *
-     * @param WeekDay|int|null $weekEndsAt optional start allow you to specify the day of week to use to end the week
+     * @param WeekDay|int|null $weekEndsAt optional end allow you to specify the day of week to use to end the week
      *
      * @return static
      */
@@ -391,18 +392,52 @@ trait Boundaries
     }
 
     /**
+     * Modify to start of current millisecond, microseconds such as 12345 become 123000
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16.334455')
+     *   ->startOfSecond()
+     *   ->format('H:i:s.u');
+     * ```
+     */
+    public function startOfMillisecond(): static
+    {
+        $millisecond = (int) floor($this->micro / 1000);
+
+        return $this->setTime($this->hour, $this->minute, $this->second, $millisecond * 1000);
+    }
+
+    /**
+     * Modify to end of current millisecond, microseconds such as 12345 become 123999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16.334455')
+     *   ->endOfSecond()
+     *   ->format('H:i:s.u');
+     * ```
+     */
+    public function endOfMillisecond(): static
+    {
+        $millisecond = (int) floor($this->micro / 1000);
+
+        return $this->setTime($this->hour, $this->minute, $this->second, $millisecond * 1000 + 999);
+    }
+
+    /**
      * Modify to start of current given unit.
      *
      * @example
      * ```
      * echo Carbon::parse('2018-07-25 12:45:16.334455')
-     *   ->startOf('month')
-     *   ->endOf('week', Carbon::FRIDAY);
+     *   ->startOf(Unit::Month)
+     *   ->endOf(Unit::Week, Carbon::FRIDAY);
      * ```
      */
-    public function startOf(string $unit, mixed ...$params): static
+    public function startOf(Unit|string $unit, mixed ...$params): static
     {
-        $ucfUnit = ucfirst(static::singularUnit($unit));
+        $ucfUnit = ucfirst($unit instanceof Unit ? $unit->value : static::singularUnit($unit));
         $method = "startOf$ucfUnit";
         if (!method_exists($this, $method)) {
             throw new UnknownUnitException($unit);
@@ -417,13 +452,13 @@ trait Boundaries
      * @example
      * ```
      * echo Carbon::parse('2018-07-25 12:45:16.334455')
-     *   ->startOf('month')
-     *   ->endOf('week', Carbon::FRIDAY);
+     *   ->startOf(Unit::Month)
+     *   ->endOf(Unit::Week, Carbon::FRIDAY);
      * ```
      */
-    public function endOf(string $unit, mixed ...$params): static
+    public function endOf(Unit|string $unit, mixed ...$params): static
     {
-        $ucfUnit = ucfirst(static::singularUnit($unit));
+        $ucfUnit = ucfirst($unit instanceof Unit ? $unit->value : static::singularUnit($unit));
         $method = "endOf$ucfUnit";
         if (!method_exists($this, $method)) {
             throw new UnknownUnitException($unit);

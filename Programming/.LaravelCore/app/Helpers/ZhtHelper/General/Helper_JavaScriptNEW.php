@@ -194,7 +194,7 @@ namespace App\Helpers\ZhtHelper\General
 
 
 
-        public static function getSyntaxCreateZhtObject_InputFile($varUserSession, $varObjectID, $varValue)
+        public static function getSyntaxCreateZhtObject_InputFile($varUserSession, $varAPIWebToken, $varObjectID, $varValue)
             {
             $varArrayProperties =
                 [ 
@@ -209,15 +209,13 @@ namespace App\Helpers\ZhtHelper\General
             $varJSFunctionName = 'JSFuncZhtObjectInputFile_'.$varObjectID;
 
 
-            
- //           echo '<input type="text" id="'.$varObjectID.'_ZhtSignEligibleToProcess" value="false">';
+
             echo '<input type="text" id="'.$varObjectID.'" value="'.$varValue.'">';
             echo '<textarea id="'.$varObjectID.'_ZhtDataRecord" cols=50 rows=10"></textarea>';
             echo '<input type="file" id="'.$varObjectID.'_ZhtFile" style="display:none" onchange="javascript:'.$varJSFunctionName.'(this.files);" multiple/>';
             echo '<button id="'.$varObjectID.'_Button" onclick="document.getElementById(\''.$varObjectID.'_ZhtFile\').click();">Image Upload</button>';
 
             echo '<script type="text/JavaScript">'.
-
                 //-----[ MAIN FUNCTION ]----(START)----
                 /*
                 //'setTimeout('.
@@ -296,7 +294,7 @@ namespace App\Helpers\ZhtHelper\General
                             'for (let i = 0; i < varObjFiles.length; i++) {'.
                                 $varJSFunctionName.'_ReadFileFromBrowser(i, varObjFiles[i]); '.
                                 '} '.
-
+                    
                             //---> Membaca file-file dari browser
                             'function '.$varJSFunctionName.'_ReadFileFromBrowser(varIndex, varObjFile) {'.
                                 'var varObjFileReader = new FileReader();'.
@@ -325,6 +323,7 @@ namespace App\Helpers\ZhtHelper\General
 
                             //---> Proses apabila seluruh file sudah terupload pada browser
                             'function '.$varJSFunctionName.'_AfterReadProcessing() {'.
+                                ''.$varJSFunctionName.'_SetID(); '.
                                 'varJSONData = \'\'; '.
                                 'for (let i = 0; i < varFileJSONArray.length; i++) {'.
                                     'if (varJSONData != \'\') {'.
@@ -338,13 +337,47 @@ namespace App\Helpers\ZhtHelper\General
                                 '}; '.
 
 
+                    
+                            //---> Inisialisasi ID
+                            'function '.$varJSFunctionName.'_SetID() {'.
+                                'varReturn = null; '.
+                                'try {'.
+                                    'varReturn = ('.
+                                        'JSON.parse('.
+                                            str_replace(
+                                                '"', 
+                                                '\'', 
+                                                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                    $varUserSession, 
+                                                    $varAPIWebToken, 
+                                                    'dataWarehouse.create.acquisition.setLog_FileUpload_Pointer', 
+                                                    'latest',
+                                                    '{'.
+                                                        '"parameter" : {'.
+                                                            '}'.
+                                                    '}'
+                                                    )
+                                                ).
+                                            ').data.recordID'.
+                                        '); '.
+                                    'varReturn = (JSON.stringify(varReturn)); '.
+                                    //'alert(varReturn); '.
+                                    '}'.
+                                'catch(varError) {'.
+                                    'alert(\'Log File Upload Pointer ID cann\\\'t be initilized\'); '.
+                                    '}' .
+                                'finnaly {'.
+                                    'return varReturn; '.
+                                    '}' .
+                                '}' .
+                    
                             '}'.
 
 
 
                         '} '.
                     'else {'.
-                        'alert(\'ZhtObject not proper to continue the process\'); '.
+                        'alert(\'ZhtObject was not initialized correctly\'); '.
                         '} '.
                     '}; '.
 

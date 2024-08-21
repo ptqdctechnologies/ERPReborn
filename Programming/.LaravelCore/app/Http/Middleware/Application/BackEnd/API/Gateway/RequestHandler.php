@@ -124,18 +124,22 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                     
 
                 //--->---> Check Content Integrity
-                if(strcmp(
+                if (strcmp(
                     $varHTTPHeader['x-content-md5'], 
                     \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5(
                         $varUserSession, 
                         \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession))
                         )) != 0
                     )
+
+
+// if (1 == 1 )
                     {
+                    
                     throw new \Exception(implode($varDataSeparatorTag,
                         [403, 'Content integrity is invalid']));
 
-                    /*
+/*
                     throw new \Exception(implode($varDataSeparatorTag,
                         [403, 'Content integrity is invalid ---> '.
                         "<br>HTTP MD5 Header : ".$varHTTPHeader['x-content-md5'].
@@ -150,7 +154,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                         "<br><br>".\App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession))).
                         ""
                         ]));
-                    */                                                
+*/                                                                    
                     }
 
                 $varReturn = $varObjNext($varObjRequest);
