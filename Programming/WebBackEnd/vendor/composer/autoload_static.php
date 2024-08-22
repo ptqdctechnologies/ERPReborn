@@ -3385,8 +3385,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\CodePipeline\\Exception\\CodePipelineException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/CodePipeline/Exception/CodePipelineException.php',
         'Aws\\CodeStarNotifications\\CodeStarNotificationsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/CodeStarNotifications/CodeStarNotificationsClient.php',
         'Aws\\CodeStarNotifications\\Exception\\CodeStarNotificationsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/CodeStarNotifications/Exception/CodeStarNotificationsException.php',
-        'Aws\\CodeStar\\CodeStarClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/CodeStar/CodeStarClient.php',
-        'Aws\\CodeStar\\Exception\\CodeStarException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/CodeStar/Exception/CodeStarException.php',
         'Aws\\CodeStarconnections\\CodeStarconnectionsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/CodeStarconnections/CodeStarconnectionsClient.php',
         'Aws\\CodeStarconnections\\Exception\\CodeStarconnectionsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/CodeStarconnections/Exception/CodeStarconnectionsException.php',
         'Aws\\CognitoIdentityProvider\\CognitoIdentityProviderClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/CognitoIdentityProvider/CognitoIdentityProviderClient.php',

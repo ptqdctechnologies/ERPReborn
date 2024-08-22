@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.320.4',
-            'version' => '3.320.4.0',
-            'reference' => 'e6af3e760864d43a30d8b7deb4f9dc6a49a5f66a',
+            'pretty_version' => '3.320.5',
+            'version' => '3.320.5.0',
+            'reference' => 'afda5aefd59da90208d2f59427ce81e91535b1f2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
@@ -917,9 +917,9 @@
             ),
         ),
         'psr/log' => array(
-            'pretty_version' => '3.0.0',
-            'version' => '3.0.0.0',
-            'reference' => 'fe5ea303b0887d5caefd3d431c3e61ad47037001',
+            'pretty_version' => '3.0.1',
+            'version' => '3.0.1.0',
+            'reference' => '79dff0b268932c640297f5208d6298f71855c03e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../psr/log',
             'aliases' => array(),
@@ -928,8 +928,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '3.0.0',
-                1 => '1.0|2.0|3.0',
+                0 => '1.0|2.0|3.0',
+                1 => '3.0.0',
             ),
         ),
         'psr/simple-cache' => array(

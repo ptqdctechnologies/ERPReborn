@@ -2723,8 +2723,6 @@ return array(
     'Aws\\CodePipeline\\Exception\\CodePipelineException' => $vendorDir . '/aws/aws-sdk-php/src/CodePipeline/Exception/CodePipelineException.php',
     'Aws\\CodeStarNotifications\\CodeStarNotificationsClient' => $vendorDir . '/aws/aws-sdk-php/src/CodeStarNotifications/CodeStarNotificationsClient.php',
     'Aws\\CodeStarNotifications\\Exception\\CodeStarNotificationsException' => $vendorDir . '/aws/aws-sdk-php/src/CodeStarNotifications/Exception/CodeStarNotificationsException.php',
-    'Aws\\CodeStar\\CodeStarClient' => $vendorDir . '/aws/aws-sdk-php/src/CodeStar/CodeStarClient.php',
-    'Aws\\CodeStar\\Exception\\CodeStarException' => $vendorDir . '/aws/aws-sdk-php/src/CodeStar/Exception/CodeStarException.php',
     'Aws\\CodeStarconnections\\CodeStarconnectionsClient' => $vendorDir . '/aws/aws-sdk-php/src/CodeStarconnections/CodeStarconnectionsClient.php',
     'Aws\\CodeStarconnections\\Exception\\CodeStarconnectionsException' => $vendorDir . '/aws/aws-sdk-php/src/CodeStarconnections/Exception/CodeStarconnectionsException.php',
     'Aws\\CognitoIdentityProvider\\CognitoIdentityProviderClient' => $vendorDir . '/aws/aws-sdk-php/src/CognitoIdentityProvider/CognitoIdentityProviderClient.php',

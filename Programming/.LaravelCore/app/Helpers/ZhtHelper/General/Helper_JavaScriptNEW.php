@@ -217,46 +217,6 @@ namespace App\Helpers\ZhtHelper\General
 
             echo '<script type="text/JavaScript">'.
                 //-----[ MAIN FUNCTION ]----(START)----
-                /*
-                //'setTimeout('.
-                    '(function '.$varJSFunctionName.'_Main() {'.
-                        'try {'.
-                            'alert(window.document.classList); '.
-                            'if('.self::getSyntaxFunc_IsClassLoaded($varUserSession, 'zht_JSAPIRequest').' === true) {'.
-                                'alert(\'xxxxxxx\'); '.
-                               '}'.
-                            'else {'.
-                                'throw new Error('.self::getSyntaxFunc_SetMessage($varUserSession, true, 'JavaScript Class zht_JSAPIRequest is not loaded').'); '.
-                                '}'.
-                            '}'.
-                        'catch (varError) {'.
-                            'alert(varError); '.
-                            '}'.
-                        '}) (); '.
-                //    '), 1);'.
-                
-                */
-                
-                /*
-                'setTimeout('.
-                    'function '.$varJSFunctionName.'_Main() {'.
-                        'try {'.
-                            'if('.self::getSyntaxFunc_IsClassLoaded($varUserSession, 'zht_JSAPIRequest').' === true) {'.
-                                'alert(\'xxxxxxx\'); '.
-                               '}'.
-                            'else {'.
-                                'throw new Error('.self::getSyntaxFunc_SetMessage($varUserSession, true, 'JavaScript Class zht_JSAPIRequest is not loaded').'); '.
-                                '}'.
-                            'alert(\'xxx\'); '.
-                            '}'.
-                        'catch (varError) {'.
-                            'alert(varError); '.
-                            '}'.
-                        '}'.
-                    ', 1); '.
-                
-                 */
-
                 'document.onreadystatechange = function () {'.
                     'if (document.readyState == "complete") {'.
                         '(function '.$varJSFunctionName.'_Main() {'.
@@ -269,7 +229,7 @@ namespace App\Helpers\ZhtHelper\General
                                     '} '.
                                 '} '.
                             'catch (varError) {'.
-                                'alert(varError); '.
+                                'alert (varError); '.
                                 '} '.
                             '}) (); '.
                             '} '.
@@ -323,24 +283,76 @@ namespace App\Helpers\ZhtHelper\General
 
                             //---> Proses apabila seluruh file sudah terupload pada browser
                             'function '.$varJSFunctionName.'_AfterReadProcessing() {'.
-                                ''.$varJSFunctionName.'_SetID(); '.
-                                'varJSONData = \'\'; '.
-                                'for (let i = 0; i < varFileJSONArray.length; i++) {'.
-                                    'if (varJSONData != \'\') {'.
-                                        'varJSONData = varJSONData + \', \'; '.
+                                'if (!document.getElementById(\''.$varObjectID.'\').value) {'.
+                                    'document.getElementById(\''.$varObjectID.'\').value = '.$varJSFunctionName.'_GetLogFileUploadPointerID(); '.
+                                    '}'.
+                                'if (document.getElementById(\''.$varObjectID.'\').value) {'.
+                                    'let varLocLastSequence = 0; '.
+                                    //---> Gat Previous Data
+                                    'let varLocJSONData = '.$varJSFunctionName.'_GetDataList_FileUploadObjectDetail(document.getElementById(\''.$varObjectID.'\').value);'.
+                                    'if (!varLocJSONData) {'.
+                                        'varLocLastSequence = varLocLastSequence + varLocJSONData.length; '.
+                                        'for (let i = 0; i < varLocJSONData.length; i++) {'.
+                                            'let varLocJSONDataDetail = varLocJSONData[i]; '.
+                                            'alert(varLocJSONDataDetail); '.
+                                            '}'.
+                                        '}'.
+
+
+                                    //---> Get New Data
+                                    'let varJSONData = \'\'; '.
+                                    'for (let i = 0; i < varFileJSONArray.length; i++) {'.
+                                        'if (varJSONData != \'\') {'.
+                                            'varJSONData = varJSONData + \', \'; '.
+                                            '} '.
+                                        'varJSONData = varJSONData + varFileJSONArray[i]; '.
                                         '} '.
-                                    'varJSONData = varJSONData + varFileJSONArray[i]; '.
-                                    '} '.
-                                'varJSONData = \'[\' + varJSONData + \']\'; '.
-                                //  'alert(varJSONData); '.
-                                'document.getElementById(\''.$varObjectID.'_ZhtDataRecord\').value = varJSONData;'.
+                                    'varJSONData = \'[\' + varJSONData + \']\'; '.
+                                    //  'alert(varJSONData); '.
+                                    'document.getElementById(\''.$varObjectID.'_ZhtDataRecord\').value = varJSONData;'.
+                                    '}'.
                                 '}; '.
 
+                            //---> Mendapatkan List File Upload Object Detail
+                            'function '.$varJSFunctionName.'_GetDataList_FileUploadObjectDetail(varFileUploadObjectPointerID) {'.
+                                'try {'.
+                                    'varReturn = ('.
+                                        'JSON.parse('.
+                                            str_replace(
+                                                '"', 
+                                                '\'', 
+                                                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                    $varUserSession, 
+                                                    $varAPIWebToken, 
+                                                    'dataWarehouse.read.dataList.acquisition.getFileUpload_ObjectDetail', 
+                                                    'latest',
+                                                    '{'.
+                                                        '"parameter" : {'.
+                                                            '"log_FileUpload_Pointer_RefID" : parseInt(varFileUploadObjectPointerID) '.
+                                                            '}, '.
+                                                        '"SQLStatement" : {'.
+                                                            '"pick" : null, '.
+                                                            '"sort" : null, '.
+                                                            '"filter" : null, '.
+                                                            '"paging" : null'.
+                                                            '}'.
+                                                    '}'
+                                                    )
+                                                ).
+                                            ').data'.
+                                        '); '.
+                                    '} '.
+                                'catch (varError) {'.
+                                    'varReturn = null; '.
+                                    'alert(\'File Upload Object Detail List cann\\\'t be retrieved\'); '.
+                                    '} '.
+                                'finally {'.
+                                    'return varReturn; '.
+                                    '}'.
+                                '}; '.
 
-                    
-                            //---> Inisialisasi ID
-                            'function '.$varJSFunctionName.'_SetID() {'.
-                                'varReturn = null; '.
+                            //---> Get Log File Upload Pointer ID
+                            'function '.$varJSFunctionName.'_GetLogFileUploadPointerID() {'.
                                 'try {'.
                                     'varReturn = ('.
                                         'JSON.parse('.
@@ -360,21 +372,23 @@ namespace App\Helpers\ZhtHelper\General
                                                 ).
                                             ').data.recordID'.
                                         '); '.
-                                    'varReturn = (JSON.stringify(varReturn)); '.
-                                    //'alert(varReturn); '.
-                                    '}'.
-                                'catch(varError) {'.
+                                    '} '.
+                                'catch (varError) {'.
+                                    'varReturn = null; '.
                                     'alert(\'Log File Upload Pointer ID cann\\\'t be initilized\'); '.
-                                    '}' .
-                                'finnaly {'.
+                                    '} '.
+                                'finally {'.
+                                    //'alert(varReturn); '.
                                     'return varReturn; '.
                                     '}' .
-                                '}' .
+
+                   
                     
+                    
+                    
+                    
+                                '}'.
                             '}'.
-
-
-
                         '} '.
                     'else {'.
                         'alert(\'ZhtObject was not initialized correctly\'); '.

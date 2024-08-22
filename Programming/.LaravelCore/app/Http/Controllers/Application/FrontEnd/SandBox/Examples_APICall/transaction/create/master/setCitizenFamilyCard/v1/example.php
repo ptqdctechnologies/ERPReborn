@@ -125,7 +125,7 @@ echo '<div style="position: relative; z-index: 3">Hello world</div>';
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'dataInput_Log_FileUpload_1',
-                    'xxxx'
+                    ''
                     ).
                     '';
 
