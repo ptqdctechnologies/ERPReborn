@@ -42,6 +42,10 @@ class BudgetController extends Controller
         return view('Budget.Budget.Transactions.ModifyBudget');
     }
 
+    public function PreviewModifyBudget(Request $request) {
+        return view('Budget.Budget.Transactions.PreviewModifyBudget');
+    }
+
     public function create()
     {
         return view('Budget.Budget.Transactions.create');

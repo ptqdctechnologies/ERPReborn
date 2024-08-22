@@ -61,7 +61,7 @@
                             @csrf
                                 <td>
                                     <select name="print_type" id="print_type" class="form-control">
-                                        <option value="PDF">Export PDF</option>
+                                        <!-- <option value="PDF">Export PDF</option> -->
                                         <option value="Excel">Export Excel</option>
                                     </select>
                                 </td>

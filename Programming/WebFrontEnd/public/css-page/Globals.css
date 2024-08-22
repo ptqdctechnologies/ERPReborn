@@ -2,6 +2,14 @@
     background-color: #4b586a;
 }
 
+.title {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    color: white;
+}
+
 .button-submit {
     background-color: #e9ecef;
     border: 1px solid #ced4da;
