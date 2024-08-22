@@ -368,6 +368,7 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                         },
                     "data" : varDataJSObject
                     });
+                //alert(varDataJSON);
               
                 var varDataJSONUnicodeEscaped = varDataJSON;
                 varDataJSONUnicodeEscaped = 
@@ -377,7 +378,9 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                 //alert(varDataJSONUnicodeEscaped);
                                
                 //alert(varDataJSON);
-                //alert(this.getBase64OfMD5(varDataJSON));
+                varDataJSONUnicodeEscaped = varDataJSONUnicodeEscaped.replace("\"parameter\":{}", "\"parameter\":[]");;
+                //alert(varDataJSONUnicodeEscaped);
+                //alert(this.getBase64OfMD5(varDataJSONUnicodeEscaped));
                 //---> Request Parse
                 $.ajax(varURL, {
                     async : false, 
