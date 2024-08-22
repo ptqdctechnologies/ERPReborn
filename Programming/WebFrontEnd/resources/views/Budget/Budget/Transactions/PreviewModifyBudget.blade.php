@@ -15,7 +15,7 @@
 
             <!-- CONTENT -->
             <div class="card px-3 py-4">
-                <div style="text-align: center; font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+                <div class="text-center font-weight-bold title_approval">
                     APPROVAL FOR EXPENDITURE
                 </div>
 
@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col">
                         <!-- SUBMITTED DATE -->
-                        <div class="row" style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">
+                        <div class="row font-weight-bold information_approval">
                             <div class="col-lg-3">
                                 Submitted Date
                             </div>
@@ -33,7 +33,7 @@
                         </div>
 
                         <!-- FINAL APPROVED DATE -->
-                        <div class="row" style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">
+                        <div class="row font-weight-bold information_approval">
                             <div class="col-lg-3">
                                 Final Approved Date
                             </div>
@@ -43,7 +43,7 @@
                         </div>
 
                         <!-- AFE NUMBER -->
-                        <div class="row" style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">
+                        <div class="row font-weight-bold information_approval">
                             <div class="col-lg-3">
                                 AFE Number
                             </div>
@@ -53,7 +53,7 @@
                         </div>
 
                         <!-- PIC -->
-                        <div class="row" style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">
+                        <div class="row font-weight-bold information_approval">
                             <div class="col-lg-3">
                                 PIC
                             </div>
@@ -63,7 +63,7 @@
                         </div>
 
                         <!-- PROJECT -->
-                        <div class="row" style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">
+                        <div class="row font-weight-bold information_approval">
                             <div class="col-lg-3">
                                 Project
                             </div>
@@ -75,7 +75,7 @@
 
                     <div class="col">
                         <!-- CURRENCY -->
-                        <div class="row" style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">
+                        <div class="row font-weight-bold information_approval">
                             <div class="col-lg-3">
                                 Currency
                             </div>
@@ -85,7 +85,7 @@
                         </div>
 
                         <!-- EXCHANGE RATE -->
-                        <div class="row" style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">
+                        <div class="row font-weight-bold information_approval">
                             <div class="col-lg-3">
                                 Exchange Rate
                             </div>
@@ -95,7 +95,7 @@
                         </div>
 
                         <!-- SITE -->
-                        <div class="row" style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">
+                        <div class="row font-weight-bold information_approval">
                             <div class="col-lg-3">
                                 Site
                             </div>
@@ -105,7 +105,7 @@
                         </div>
 
                         <!-- REASON -->
-                        <div class="row" style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">
+                        <div class="row font-weight-bold information_approval">
                             <div class="col-lg-3">
                                 Reason
                             </div>
@@ -117,13 +117,13 @@
                 </div>
 
                 <!-- ATTACHMENT FILE -->
-                <div class="row" style="background-color: #E0ECEE; border: solid 1px #DEDEDE; padding: 4px; margin: 10px 0px;">
-                    <div class="col-12" style="color: #C15119; font-size: 12px; font-weight: bold;">
+                <div class="row container_attachment">
+                    <div class="col-12 title_attachment">
                         Attachment Files For Additional Revenue :
                     </div>
                     
                     <div class="col-12 mt-2">
-                        <ul class="mb-0" style="padding-left: 11px; line-height: 20px;">
+                        <ul class="mb-0 container_attachment_list">
                             <li>
                                 Testing
                             </li>
@@ -137,195 +137,195 @@
                 <!-- TABLE -->
                 <div class="row m-0">
                     <div class="card-body p-0 d-flex justify-content-center">
-                        <table class="table table-hover text-nowrap" style="width: max-content; border: 1px solid #000;">
+                        <table class="table table-hover text-nowrap border border-dark" style="width: max-content;">
                             <thead>
-                                <tr>
-                                    <th style="font-weight: bold; color: #FFF; text-align: center; background-color: #4b586a;">Description</th>
-                                    <th style="font-weight: bold; color: #FFF; text-align: center; background-color: #4b586a;">Valuta</th>
-                                    <th style="font-weight: bold; color: #FFF; text-align: center; background-color: #4b586a;">Origin</th>
-                                    <th style="font-weight: bold; color: #FFF; text-align: center; background-color: #4b586a;">Previous</th>
-                                    <th style="font-weight: bold; color: #FFF; text-align: center; background-color: #4b586a;">Add(subt)</th>
-                                    <th style="font-weight: bold; color: #FFF; text-align: center; background-color: #4b586a;">Total Current</th>
+                                <tr style="background-color: #4b586a;">
+                                    <th class="font-weight-bold text-white text-center">Description</th>
+                                    <th class="font-weight-bold text-white text-center">Valuta</th>
+                                    <th class="font-weight-bold text-white text-center">Origin</th>
+                                    <th class="font-weight-bold text-white text-center">Previous</th>
+                                    <th class="font-weight-bold text-white text-center">Add(subt)</th>
+                                    <th class="font-weight-bold text-white text-center">Total Current</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td style="color: #404040;">Customer Order (CO)</td>
-                                    <td style="color: #404040; text-align: center;">IDR</td>
-                                    <td style="color: #404040; text-align: right;">0</td>
-                                    <td style="color: #404040; text-align: right;">456,000,000</td>
-                                    <td style="color: #404040; text-align: right;">0</td>
-                                    <td style="color: #404040; text-align: right;">456,000,000</td>
+                                <tr style="color: #404040;">
+                                    <td>Customer Order (CO)</td>
+                                    <td class="text-center">IDR</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">456,000,000</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">456,000,000</td>
                                 </tr>
                                 <tr>
-                                    <td style="border-top: 1px dotted #6699CC;"></td>
-                                    <td style="border-top: 1px dotted #6699CC; color: #404040; text-align: center;">Cross Currency</td>
-                                    <td style="border-top: 1px dotted #6699CC; color: #404040; text-align: right;">0.00</td>
-                                    <td style="border-top: 1px dotted #6699CC; color: #404040; text-align: right;">0.00</td>
-                                    <td style="border-top: 1px dotted #6699CC; color: #404040; text-align: right;">0.00</td>
-                                    <td style="border-top: 1px dotted #6699CC; color: #404040; text-align: right;">0.00</td>
+                                    <td class="border_top_dotted"></td>
+                                    <td class="border_top_dotted text-center">Cross Currency</td>
+                                    <td class="border_top_dotted text-right">0.00</td>
+                                    <td class="border_top_dotted text-right">0.00</td>
+                                    <td class="border_top_dotted text-right">0.00</td>
+                                    <td class="border_top_dotted text-right">0.00</td>
                                 </tr>
                                 <tr>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold;">Total</td>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold; text-align: center;">IDR</td>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark">Total</td>
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark text-center">IDR</td>
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             0
                                         </div>
                                     </td>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             456,000,000
                                         </div>
                                     </td>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold; text-align: right;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             0
                                         </div>
                                     </td>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold; text-align: right;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             456,000,000
                                         </div>
                                     </td>
                                 </tr>
 
-                                <tr>
-                                    <td style="color: #404040;">Add(Subt) Cost</td>
-                                    <td style="color: #404040; text-align: center;">IDR</td>
-                                    <td style="color: #404040; text-align: right;">0</td>
-                                    <td style="color: #404040; text-align: right;">376,712,000</td>
-                                    <td style="color: #404040; text-align: right;">0</td>
-                                    <td style="color: #404040; text-align: right;">376,712,000</td>
+                                <tr style="color: #404040;">
+                                    <td>Add(Subt) Cost</td>
+                                    <td class="text-center">IDR</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">376,712,000</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">376,712,000</td>
+                                </tr>
+                                <tr style="color: #404040;">
+                                    <td></td>
+                                    <td class="text-center">Cross Currency</td>
+                                    <td class="text-right">0.00</td>
+                                    <td class="text-right">0.00</td>
+                                    <td class="text-right">0.00</td>
+                                    <td class="text-right">0.00</td>
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td style="color: #404040; text-align: center;">Cross Currency</td>
-                                    <td style="color: #404040; text-align: right;">0.00</td>
-                                    <td style="color: #404040; text-align: right;">0.00</td>
-                                    <td style="color: #404040; text-align: right;">0.00</td>
-                                    <td style="color: #404040; text-align: right;">0.00</td>
-                                </tr>
-                                <tr>
                                     <td></td>
-                                    <td></td>
-                                    <td style="color: #000000; font-weight: bold;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="font-weight-bold text-dark">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             Recorded Cost
                                         </div>
                                     </td>
-                                    <td style="color: #404040; text-align: right;">0</td>
+                                    <td class="text-right" style="color: #404040;">0</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td></td>
-                                    <td style="color: #000000; font-weight: bold;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="text-dark font-weight-bold">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             Balanced Budget
                                         </div>
                                     </td>
-                                    <td style="color: #404040; text-align: right;">0</td>
+                                    <td class="text-right" style="color: #404040;">0</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold;">Total</td>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold; text-align: center;">IDR</td>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark">Total</td>
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark text-center">IDR</td>
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             0
                                         </div>
                                     </td>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             376,712,000
                                         </div>
                                     </td>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold; text-align: right;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             0
                                         </div>
                                     </td>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold; text-align: right;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             376,712,000
                                         </div>
                                     </td>
                                 </tr>
 
-                                <tr>
-                                    <td style="color: #404040;">Gross Margin</td>
-                                    <td style="color: #404040; text-align: center;">IDR</td>
-                                    <td style="color: #404040; text-align: right;">0</td>
-                                    <td style="color: #404040; text-align: right;">79,288,000</td>
-                                    <td style="color: #404040; text-align: right;">0</td>
-                                    <td style="color: #404040; text-align: right;">79,288,000</td>
+                                <tr style="color: #404040;">
+                                    <td>Gross Margin</td>
+                                    <td class="text-center">IDR</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">79,288,000</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">79,288,000</td>
+                                </tr>
+                                <tr style="color: #404040;">
+                                    <td class="border_top_dotted"></td>
+                                    <td class="border_top_dotted text-center">Cross Currency</td>
+                                    <td class="border_top_dotted text-right">0.00</td>
+                                    <td class="border_top_dotted text-right">0.00</td>
+                                    <td class="border_top_dotted text-right">0.00</td>
+                                    <td class="border_top_dotted text-right">0.00</td>
                                 </tr>
                                 <tr>
-                                    <td style="border-top: 1px dotted #6699CC;"></td>
-                                    <td style="border-top: 1px dotted #6699CC; color: #404040; text-align: center;">Cross Currency</td>
-                                    <td style="border-top: 1px dotted #6699CC; color: #404040; text-align: right;">0.00</td>
-                                    <td style="border-top: 1px dotted #6699CC; color: #404040; text-align: right;">0.00</td>
-                                    <td style="border-top: 1px dotted #6699CC; color: #404040; text-align: right;">0.00</td>
-                                    <td style="border-top: 1px dotted #6699CC; color: #404040; text-align: right;">0.00</td>
-                                </tr>
-                                <tr>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold;">Total</td>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold; text-align: center;">IDR</td>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark">Total</td>
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark text-center">IDR</td>
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             0
                                         </div>
                                     </td>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             79,288,000
                                         </div>
                                     </td>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold; text-align: right;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             0
                                         </div>
                                     </td>
-                                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; color: #000000; font-weight: bold; text-align: right;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="border-dark border-top border-bottom font-weight-bold text-dark">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             79,288,000
                                         </div>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td style="color: red; font-weight: bold;">Gross Margin</td>
-                                    <td style="color: red; text-align: center; font-weight: bold;">%</td>
-                                    <td style="color: #000000; font-weight: bold;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="font-weight-bold text-danger">Gross Margin</td>
+                                    <td class="font-weight-bold text-danger text-center">%</td>
+                                    <td class="text-dark font-weight-bold">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             0.00 %
                                         </div>
                                     </td>
-                                    <td style="color: #000000; font-weight: bold;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="text-dark font-weight-bold">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             17.39 %
                                         </div>
                                     </td>
                                     <td></td>
-                                    <td style="color: #000000; font-weight: bold;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="text-dark font-weight-bold">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             17.39 %
                                         </div>
                                     </td>
                                 </tr>
                                 <tr style="background-color: #ffff00;">
-                                    <td style="color: red; font-weight: bold;">Gross Margin Movement</td>
-                                    <td style="color: red; text-align: center; font-weight: bold;">%</td>
-                                    <td style="color: #000000; font-weight: bold;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="font-weight-bold text-danger">Gross Margin Movement</td>
+                                    <td class="font-weight-bold text-danger text-center">%</td>
+                                    <td class="text-dark font-weight-bold">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             17.39 %
                                         </div>
                                     </td>
-                                    <td style="color: #000000; font-weight: bold;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="text-dark font-weight-bold">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             0.00 %
                                         </div>
                                     </td>
@@ -333,49 +333,43 @@
                                     <td></td>
                                 </tr>
 
-                                <tr>
-                                    <td style="border-top: 1px solid #000; color: #404040;">Recorded Cost</td>
-                                    <td style="border-top: 1px solid #000; color: #404040; text-align: center;">IDR</td>
-                                    <td style="border-top: 1px solid #000;"></td>
-                                    <td style="border-top: 1px solid #000;"></td>
-                                    <td style="border-top: 1px solid #000;"></td>
-                                    <td style="border-top: 1px solid #000; color: #404040; text-align: right;">0</td>
+                                <tr style="color: #404040;">
+                                    <td class="border-dark border-top">Recorded Cost</td>
+                                    <td class="border-dark border-top text-center">IDR</td>
+                                    <td class="border-dark border-top"></td>
+                                    <td class="border-dark border-top"></td>
+                                    <td class="border-dark border-top"></td>
+                                    <td class="border-dark border-top text-right">0</td>
                                 </tr>
-                                <tr>
-                                    <td style="border-top: 1px dotted #6699CC;"></td>
-                                    <td style="border-top: 1px dotted #6699CC; color: #404040; text-align: center;">Cross Currency</td>
-                                    <td style="border-top: 1px dotted #6699CC;"></td>
-                                    <td style="border-top: 1px dotted #6699CC;"></td>
-                                    <td style="border-top: 1px dotted #6699CC;"></td>
-                                    <td style="border-top: 1px dotted #6699CC; color: #404040; text-align: right;">0.00</td>
+                                <tr style="color: #404040;">
+                                    <td class="border_top_dotted"></td>
+                                    <td class="border_top_dotted text-center">Cross Currency</td>
+                                    <td class="border_top_dotted"></td>
+                                    <td class="border_top_dotted"></td>
+                                    <td class="border_top_dotted"></td>
+                                    <td class="border_top_dotted text-right">0.00</td>
                                 </tr>
 
                                 <tr>
-                                    <td style="border-top: 1px solid #000000; color: #000000; font-weight: bold;">Total</td>
-                                    <td style="border-top: 1px solid #000000; color: #000000; font-weight: bold; text-align: center;">IDR</td>
-                                    <td style="border-top: 1px solid #000000; color: #000000; font-weight: bold;">
-                                        
-                                    </td>
-                                    <td style="border-top: 1px solid #000000; color: #000000; font-weight: bold;">
-                                        
-                                    </td>
-                                    <td style="border-top: 1px solid #000000; color: #000000; font-weight: bold; text-align: right;">
-                                        
-                                    </td>
-                                    <td style="border-top: 1px solid #000000; color: #000000; font-weight: bold; text-align: right;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="border-dark border-top font-weight-bold text-dark">Total</td>
+                                    <td class="border-dark border-top font-weight-bold text-dark text-center">IDR</td>
+                                    <td class="border-dark border-top font-weight-bold text-dark"></td>
+                                    <td class="border-dark border-top font-weight-bold text-dark"></td>
+                                    <td class="border-dark border-top font-weight-bold text-dark"></td>
+                                    <td class="border-dark border-top font-weight-bold text-dark text-right">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             0
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="border-top: 1px solid #000000; color: red; font-weight: bold;">Actual Gross Margin</td>
-                                    <td style="border-top: 1px solid #000000; color: red; font-weight: bold; text-align: center;">%</td>
-                                    <td style="border-top: 1px solid #000000;"></td>
-                                    <td style="border-top: 1px solid #000000;"></td>
-                                    <td style="border-top: 1px solid #000000;"></td>
-                                    <td style="border-top: 1px solid #000000; color: #000000; font-weight: bold; text-align: right;">
-                                        <div class="float-right" style="border-bottom: 1px dotted #000; width: max-content;">
+                                    <td class="border-dark border-top font-weight-bold text-red">Actual Gross Margin</td>
+                                    <td class="border-dark border-top font-weight-bold text-red text-center">%</td>
+                                    <td class="border-dark border-top"></td>
+                                    <td class="border-dark border-top"></td>
+                                    <td class="border-dark border-top"></td>
+                                    <td class="border-dark border-top font-weight-bold text-dark text-right">
+                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
                                             0.00 %
                                         </div>
                                     </td>
@@ -387,7 +381,7 @@
 
                 <!-- AFE ADDITIONAL TABLE -->
                 <div class="row mx-0" style="margin-top: 30px;">
-                    <div class="text-center font-weight-bold" style="width: 100%; font-size: 14px; margin: 10px 0px; ">
+                    <div class="text-center font-weight-bold table_title">
                         AFE Additional Table
                     </div>
 
@@ -395,18 +389,18 @@
                         <table class="table table-bordered table-hover text-nowrap" style="border: 2px solid #e9e9e9;">
                             <thead>
                                 <tr>
-                                    <th style="text-align: center; vertical-align: middle;">NO</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">SITE <br /> CODE</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">CFS <br /> CODE</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">WORK <br /> ID</th>
-                                    <th style="vertical-align: middle;">NAME MATERIAL</th>
-                                    <th style="text-align: center; vertical-align: middle;">UOM</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">QTY <br /> (BOQ3)</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">UNIT PRICE <br /> (BOQ3)</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">TOTAL <br /> (BOQ3)</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">QTY <br /> (REQUEST)</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">UNIT PRICE <br /> (REQUEST)</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">TOTAL <br /> (REQUEST)</th>
+                                    <th class="text-center align-middle">NO</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">SITE <br /> CODE</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">CFS <br /> CODE</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">WORK <br /> ID</th>
+                                    <th class="align-middle">NAME MATERIAL</th>
+                                    <th class="text-center align-middle">UOM</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">QTY <br /> (BOQ3)</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">UNIT PRICE <br /> (BOQ3)</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">TOTAL <br /> (BOQ3)</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">QTY <br /> (REQUEST)</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">UNIT PRICE <br /> (REQUEST)</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">TOTAL <br /> (REQUEST)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -453,7 +447,7 @@
 
                 <!-- AFE SAVINGS TABLE -->
                 <div class="row mx-0">
-                    <div class="text-center font-weight-bold" style="width: 100%; font-size: 14px; margin: 10px 0px; ">
+                    <div class="text-center font-weight-bold table_title">
                         AFE Saving Table
                     </div>
 
@@ -461,18 +455,18 @@
                         <table class="table table-bordered table-hover text-nowrap" style="border: 2px solid #e9e9e9;">
                             <thead>
                                 <tr>
-                                    <th style="text-align: center; vertical-align: middle;">NO</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">SITE <br /> CODE</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">CFS <br /> CODE</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">WORK <br /> ID</th>
-                                    <th style="vertical-align: middle;">NAME MATERIAL</th>
-                                    <th style="text-align: center; vertical-align: middle;">UOM</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">QTY <br /> (BOQ3)</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">UNIT PRICE <br /> (BOQ3)</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">TOTAL <br /> (BOQ3)</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">QTY <br /> (REQUEST)</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">UNIT PRICE <br /> (REQUEST)</th>
-                                    <th style="text-align: center; vertical-align: middle; line-height: 15px;">TOTAL <br /> (REQUEST)</th>
+                                    <th class="text-center align-middle">NO</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">SITE <br /> CODE</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">CFS <br /> CODE</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">WORK <br /> ID</th>
+                                    <th class="align-middle">NAME MATERIAL</th>
+                                    <th class="text-center align-middle">UOM</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">QTY <br /> (BOQ3)</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">UNIT PRICE <br /> (BOQ3)</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">TOTAL <br /> (BOQ3)</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">QTY <br /> (REQUEST)</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">UNIT PRICE <br /> (REQUEST)</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">TOTAL <br /> (REQUEST)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -523,3 +517,7 @@
 
 @include('Partials.footer')
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css-page/PreviewModifyBudget.css') }}">
+@endpush
