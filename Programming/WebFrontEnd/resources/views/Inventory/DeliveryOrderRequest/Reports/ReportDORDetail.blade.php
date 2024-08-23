@@ -12,6 +12,7 @@
                     <label style="font-size:15px;position:relative;top:7px;color:white;">DOR Detail Report</label>
                 </div>
             </div>
+
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
                     <div class="row">
@@ -21,9 +22,9 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-sm-12 col-md-4 col-lg-4">
                                             <div class="form-group">
-                                                <table>
+                                                <table class="col-lg-10">
                                                     <tr>
                                                         <th style="padding-top: 10px;"><label>DOR Number&nbsp;</label></th>
                                                         <td>
@@ -53,7 +54,7 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-sm-12 col-md-4 col-lg-4">
                                             <div class="form-group">
                                                 <table>
                                                     <tr>
