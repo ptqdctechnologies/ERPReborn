@@ -15,7 +15,9 @@
                     Modify Budget
                 </div>
             </div>
-
+        
+        <form method="post" enctype="multipart/form-data" action="{{ route('Budget.PreviewModifyBudget') }}">
+        @csrf
             <!-- CONTENT -->
             <div class="card">
                 <!-- Add New Advance Request -->
@@ -334,10 +336,10 @@
                                 <!-- ADD TO CART -->
                                 <div class="card-body py-0">
                                     <div class="row py-3 d-flex justify-content-end">
-                                        <button id="buttonBudgetDetails" class="btn btn-default btn-sm button-submit" type="submit">
+                                        <a id="buttonBudgetDetails" class="btn btn-default btn-sm button-submit">
                                             <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
                                             <div>Add to Cart</div>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -390,14 +392,19 @@
                                 <div id="budgetForm" class="card-body py-0">
                                     <!-- BUTTON ADD NEW ITEM -->
                                     <div class="row py-3">
-                                        <button id="addNewItemBtn" class="btn btn-default btn-sm button-submit" type="submit">
+                                        <a id="addNewItemBtn" class="btn btn-default btn-sm button-submit">
+                                            <i class="fas fa-plus-circle"></i>
+                                            Add New Item
+                                        </a>
+                                        
+                                        <!-- <button id="addNewItemBtn" class="btn btn-default btn-sm button-submit" type="submit">
                                             <i class="fas fa-plus-circle"></i>
                                             <div>Add New Item</div>
-                                        </button>
+                                        </button> -->
                                     </div>
 
                                     <!-- CONTENT -->
-                                    <form id="formAddNewItem">
+                                    <div id="formAddNewItem">
                                         <div id="newItemForm" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
                                             <div class="col-sm-12 cold-md-12 col-lg-3">
                                                 <div class="row">
@@ -439,12 +446,15 @@
                                         <div id="buttonItemForm" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
                                             <div class="col-sm-12 cold-md-12 col-lg-3"></div>
                                             <div class="col-sm-12 cold-md-12 col-lg-3 p-0 d-flex justify-content-end">
-                                                <button class="btn btn-default btn-sm button-submit" type="submit" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                                <a id="addToCartNewFormItem" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                                     Add to Cart
-                                                </button>
+                                                </a>
+                                                <!-- <button id="addToCartNewFormItem" class="btn btn-default btn-sm" type="button" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                                    Add to Cart
+                                                </button> -->
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -469,6 +479,7 @@
                     </div>
                 </div>
             </div>
+        </form>
         </div>
     </section>
 </div>

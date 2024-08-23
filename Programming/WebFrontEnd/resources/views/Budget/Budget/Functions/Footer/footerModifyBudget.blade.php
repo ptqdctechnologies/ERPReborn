@@ -242,7 +242,7 @@
     const productIdInput = document.getElementById('product_id');
     const budgetTable = document.getElementById('budgetTable');
     const listBudgetTable = document.getElementById('listBudgetTable');
-    const formAddNewItem = document.getElementById('formAddNewItem');
+    const addToCartBtn = document.getElementById('addToCartNewFormItem');
 
     function hideFormAddNewItem() {
         newItemForm.style.display = 'none';
@@ -257,7 +257,7 @@
             buttonItemFormTwo.style.display = 'flex';
         } else {
             hideFormAddNewItem();
-            formAddNewItem.reset();
+            document.getElementById('formAddNewItem').reset();
         }
     });
 
@@ -301,7 +301,7 @@
         tbody.appendChild(newRow);
     }
 
-    formAddNewItem.addEventListener('submit', function(e) {
+    addToCartBtn.addEventListener('click', function(e) {
         e.preventDefault();
         const newProductId = productIdInput.value.trim();
         const newProductName = document.getElementById('product_name').value.trim();
@@ -310,7 +310,7 @@
         
         if (validateProductId(newProductId)) {
             addRowToTable(newProductId, newProductName, newQty, newPrice);
-            formAddNewItem.reset();
+            document.getElementById('formAddNewItem').reset();
             hideFormAddNewItem();
         } else {
             swal({
