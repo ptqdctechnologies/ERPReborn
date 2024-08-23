@@ -262,14 +262,14 @@ namespace App\Helpers\ZhtHelper\General
                                     'var varArrayBuffer = this.result; '.
                                     'varFileJSONArray[varIndex] = '.
                                         '\'{\' + '.
-                                        'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (varIndex+1) + \', \' + '.
+                                        //'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (varIndex+1) + \', \' + '.
                                         'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjFile.name) + String.fromCharCode(34) + \', \' + '.
                                         'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjFile.size) + \', \' + '.
                                         'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
                                         'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
                                         'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
-                                        'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjFile.lastModified) + \' \' + '.
-                                        //'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
+                                        'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjFile.lastModified) + \', \' + '.
+                                        'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
                                         '\'}\'; '.
                                     'varAccumulatedFiles++; '.
 
@@ -283,10 +283,17 @@ namespace App\Helpers\ZhtHelper\General
 
                             //---> Proses apabila seluruh file sudah terupload pada browser
                             'function '.$varJSFunctionName.'_AfterReadProcessing() {'.
-                                'if (!document.getElementById(\''.$varObjectID.'\').value) {'.
-                                    'document.getElementById(\''.$varObjectID.'\').value = '.$varJSFunctionName.'_GetLogFileUploadPointerID(); '.
-                                    '}'.
-                                'if (document.getElementById(\''.$varObjectID.'\').value) {'.
+                                //'if (!document.getElementById(\''.$varObjectID.'\').value) {'.
+                                //    'document.getElementById(\''.$varObjectID.'\').value = '.$varJSFunctionName.'_GetLogFileUploadPointerID(); '.
+                                //    '}'.
+                                //'if (document.getElementById(\''.$varObjectID.'\').value) {'.
+                                    /*
+                                    'if (!varLocJSONData) {'.
+                                        'alert(123345); '.
+                                        '}'.
+                                    */
+
+                                    /*
                                     'let varLocLastSequence = 0; '.
                                     //---> Gat Previous Data
                                     'let varLocJSONData = '.$varJSFunctionName.'_GetDataList_FileUploadObjectDetail(document.getElementById(\''.$varObjectID.'\').value);'.
@@ -297,6 +304,7 @@ namespace App\Helpers\ZhtHelper\General
                                             'alert(varLocJSONDataDetail); '.
                                             '}'.
                                         '}'.
+                                    */
 
 
                                     //---> Get New Data
@@ -305,13 +313,71 @@ namespace App\Helpers\ZhtHelper\General
                                         'if (varJSONData != \'\') {'.
                                             'varJSONData = varJSONData + \', \'; '.
                                             '} '.
-                                        'varJSONData = varJSONData + varFileJSONArray[i]; '.
+                                        'varJSONData = varJSONData + '.
+                                            '\'{\' + '.
+                                            'String.fromCharCode(34) + \'entities\' + String.fromCharCode(34) + \' : \' + '.
+                                            'varFileJSONArray[i] + '.
+                                            '\'}\''.
+                                            '; '.
+                                        //'alert(varJSONData); '.
                                         '} '.
                                     'varJSONData = \'[\' + varJSONData + \']\'; '.
-                                    //  'alert(varJSONData); '.
-                                    'document.getElementById(\''.$varObjectID.'_ZhtDataRecord\').value = varJSONData;'.
+                                    'varJSONData = JSON.parse(varJSONData); '.
+                                    //'alert(varJSONData); '.
+
+                                    'varJSONData = '.$varJSFunctionName.'_SetFilesAppend(document.getElementById(\''.$varObjectID.'\').value, varJSONData); '.
+                                    'document.getElementById(\''.$varObjectID.'\').value = varJSONData.log_FileUpload_Pointer_RefID; '.
+                                    'document.getElementById(\''.$varObjectID.'_ZhtDataRecord\').value = JSON.stringify(varJSONData.JSONData); '.
+
+                                    
+
+                                //    '}'.
+                                '}; '.
+
+
+                            //---> Mengeset Append File
+                            'function '.$varJSFunctionName.'_SetFilesAppend(varLocLogFileUploadPointerRefID, varLocJSONData) {'.
+                                'try {'.
+                                    'varReturn = ('.
+                                        'JSON.parse('.
+                                            str_replace(
+                                                '"', 
+                                                '\'', 
+                                                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                    $varUserSession, 
+                                                    $varAPIWebToken, 
+                                                    'fileHandling.upload.general.setFilesAppend', 
+                                                    'latest',
+                                                    '{'.
+                                                        '"parameter" : {'.
+                                                            '"log_FileUpload_Pointer_RefID" : (!varLocLogFileUploadPointerRefID ? null : parseInt(varLocLogFileUploadPointerRefID)), '.
+                                                            '"additionalData" : {'.
+                                                                '"itemList" : {'.
+                                                                    '"items" : varLocJSONData'.
+                                                                    '} '.
+                                                                '} '.
+                                                            '}, '.
+                                                        '"SQLStatement" : {'.
+                                                            '"pick" : null, '.
+                                                            '"sort" : null, '.
+                                                            '"filter" : null, '.
+                                                            '"paging" : null'.
+                                                            '}'.
+                                                    '}'
+                                                    )
+                                                ).
+                                            ').data.data[0]'.
+                                        '); '.
+                                    '} '.
+                                'catch (varError) {'.
+                                    'varReturn = null; '.
+                                    'alert(\'Files Append Process Failed\'); '.
+                                    '} '.
+                                'finally {'.
+                                    'return varReturn; '.
                                     '}'.
                                 '}; '.
+
 
                             //---> Mendapatkan List File Upload Object Detail
                             'function '.$varJSFunctionName.'_GetDataList_FileUploadObjectDetail(varFileUploadObjectPointerID) {'.

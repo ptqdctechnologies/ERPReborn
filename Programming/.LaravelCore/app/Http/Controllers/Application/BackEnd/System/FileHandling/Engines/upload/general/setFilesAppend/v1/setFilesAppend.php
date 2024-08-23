@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\finance\getAdvance\v1          |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\general\setFilesAppend\v1            |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\finance\getAdvance\v1 {
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\general\setFilesAppend\v1
+    {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getAdvance                                                                                                   |
-    | ▪ Description : Menangani API transaction.read.dataList.finance.getAdvance Version 1                                         |
+    | ▪ Class Name  : setFilesAppend                                                                                               |
+    | ▪ Description : Menangani API fileHandling.upload.general.setFilesAppend Version 1                                           |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getAdvance extends \App\Http\Controllers\Controller
-    {
+    class setFilesAppend extends \App\Http\Controllers\Controller
+        {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-05-31                                                                                           |
-        | ▪ Creation Date   : 2022-05-31                                                                                           |
+        | ▪ Last Update     : 2024-08-23                                                                                           |
+        | ▪ Creation Date   : 2024-08-23                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -34,17 +34,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function __construct()
-        {
-        }
-
+            {
+            }
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-05-31                                                                                           |
-        | ▪ Creation Date   : 2022-05-31                                                                                           |
+        | ▪ Last Update     : 2024-08-23                                                                                           |
+        | ▪ Creation Date   : 2024-08-23                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -56,61 +55,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         */
         function main($varUserSession, $varData)
             {
-            $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-            $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
-            $workerCareerInternal_RefID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['userIdentity']['workerCareerInternal_RefID'];
-
-            /*
-            $varTTL = 86400; // 24 Jam
-            // GET DATA MASTER BUDGET 
-            $varDataListAdvance =
-                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataList_Advance(
-                    $userSessionID,
-                    $branchID
-                    );
-
-            //SET REDIS BUDGET
-
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                $userSessionID,
-                "DataListAdvance",
-                json_encode($varDataListAdvance),
-                $varTTL
-            );
-
-
-            return [];
-
-            */
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Advance Data List (version 1)');
-                    try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set File on Local Storage (version 1)');
+                try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE))
-                            {
-                            throw new \Exception('SQL Injection Threat Prevention');
-                            }
-
-                        if (!($varDataSend =
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                        //dd($varData);
+                        $varDataSend = 
+                            $this->dataProcessing(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataList_Advance(
-                                    $varUserSession, 
-                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
-
-                                    $varData['SQLStatement']['pick'], 
-                                    $varData['SQLStatement']['sort'], 
-                                    $varData['SQLStatement']['filter'], 
-                                    $varData['SQLStatement']['paging']
-                                    )
-                                )
-                            ))
-                            {
-                            throw new \Exception();
-                            }
-
+                                $varData);
+                        //dd($varDataSend);
+                        
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -119,8 +76,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                     }
-
+                    } 
                 catch (\Exception $ex) {
                     $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
@@ -130,6 +86,68 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        private function dataProcessing($varUserSession, $varData)
+            {
+            $varHashMethod_RefID = 199000000000002;
+            
+            for ($i = 0, $iMax = count($varData['parameter']['additionalData']['itemList']['items']); $i != $iMax; $i++)
+                {
+                $varAdditionalDataElement[$i] = [
+                    'entities' => [
+                        'name' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['name'],
+                        'size' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['size'],
+                        'MIME' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['MIME'],
+                        'extension' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['extension'],
+                        'lastModifiedDateTimeTZ' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['lastModifiedDateTimeTZ'],
+                        'lastModifiedUnixTimestamp' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['lastModifiedUnixTimestamp'],
+                        'hashMethod_RefID' => $varHashMethod_RefID,
+                        'contentBase64Hash' => 
+                            \App\Helpers\ZhtHelper\General\Helper_Hash::getSHA256(
+                                $varUserSession, 
+                                $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['contentBase64']
+                                ),
+                        'URLDelete' => null
+                        ]
+                    ];
+                }
+            
+            $varAdditionalData = [
+                'itemList' => [
+                    'items' => $varAdditionalDataElement
+                    ]
+                ];
+            
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysAsset.FuncSys_FileHandling_SetFilesAppend',
+                        [
+                            [$varUserSession, 'bigint'],
+                            [$varData['parameter']['log_FileUpload_Pointer_RefID'], 'bigint'],
+                            
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+
+                        ]
+                        )
+                    );
+            
+            $varReturn['data'][0] = [
+                'log_FileUpload_Pointer_RefID' => $varReturn['data'][0]['Log_FileUpload_Pointer_RefID'],
+                'JSONData' => 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['JSONData']
+                        )
+                ];
+
+            return $varReturn;
+            }
+
+
         }
     }
-}
