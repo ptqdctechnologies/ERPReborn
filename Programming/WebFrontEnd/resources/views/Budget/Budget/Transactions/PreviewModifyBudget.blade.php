@@ -23,95 +23,95 @@
                 <div class="row">
                     <div class="col">
                         <!-- SUBMITTED DATE -->
-                        <div class="row font-weight-bold information_approval">
-                            <div class="col-lg-3">
+                        <div class="row information_approval">
+                            <dt class="col-lg-3">
                                 Submitted Date
-                            </div>
-                            <div class="col">
+                            </dt>
+                            <dd class="col">
                                 31 Jul 2024
-                            </div>
+                            </dd>
                         </div>
 
                         <!-- FINAL APPROVED DATE -->
-                        <div class="row font-weight-bold information_approval">
-                            <div class="col-lg-3">
+                        <div class="row information_approval">
+                            <dt class="col-lg-3">
                                 Final Approved Date
-                            </div>
-                            <div class="col">
+                            </dt>
+                            <dd class="col">
                                 31 Jul 2024
-                            </div>
+                            </dd>
                         </div>
 
                         <!-- AFE NUMBER -->
-                        <div class="row font-weight-bold information_approval">
-                            <div class="col-lg-3">
+                        <div class="row information_approval">
+                            <dt class="col-lg-3">
                                 AFE Number
-                            </div>
-                            <div class="col">
+                            </dt>
+                            <dd class="col">
                                 AFE-24000080
-                            </div>
+                            </dd>
                         </div>
 
                         <!-- PIC -->
-                        <div class="row font-weight-bold information_approval">
-                            <div class="col-lg-3">
+                        <div class="row information_approval">
+                            <dt class="col-lg-3">
                                 PIC
-                            </div>
-                            <div class="col">
+                            </dt>
+                            <dd class="col">
                                 caesarandi
-                            </div>
+                            </dd>
                         </div>
 
                         <!-- PROJECT -->
-                        <div class="row font-weight-bold information_approval">
-                            <div class="col-lg-3">
+                        <div class="row information_approval">
+                            <dt class="col-lg-3">
                                 Project
-                            </div>
-                            <div class="col" style="line-height: 15px;">
+                            </dt>
+                            <dd class="col" style="line-height: 15px;">
                                 Q000197 - Pembangunan Gardu Induk 150 kV Siak Sri Indrapura Ext 2 Line Bay
-                            </div>
+                            </dd>
                         </div>
                     </div>
 
                     <div class="col">
                         <!-- CURRENCY -->
-                        <div class="row font-weight-bold information_approval">
-                            <div class="col-lg-3">
+                        <div class="row information_approval">
+                            <dt class="col-lg-3">
                                 Currency
-                            </div>
-                            <div class="col">
+                            </dt>
+                            <dd class="col">
                                 EUR
-                            </div>
+                            </dd>
                         </div>
 
                         <!-- EXCHANGE RATE -->
-                        <div class="row font-weight-bold information_approval">
-                            <div class="col-lg-3">
+                        <div class="row information_approval">
+                            <dt class="col-lg-3">
                                 Exchange Rate
-                            </div>
-                            <div class="col">
+                            </dt>
+                            <dd class="col">
                                 17,725
-                            </div>
+                            </dd>
                         </div>
 
                         <!-- SITE -->
-                        <div class="row font-weight-bold information_approval">
-                            <div class="col-lg-3">
+                        <div class="row information_approval">
+                            <dt class="col-lg-3">
                                 Site
-                            </div>
-                            <div class="col" style="line-height: 15px;">
+                            </dt>
+                            <dd class="col" style="line-height: 15px;">
                                 2000 - Material Gardu Induk 150 kV Siak Sri Indrapura Ext 2 Line Bay
-                            </div>
+                            </dd>
                         </div>
 
                         <!-- REASON -->
-                        <div class="row font-weight-bold information_approval">
-                            <div class="col-lg-3">
+                        <div class="row information_approval">
+                            <dt class="col-lg-3">
                                 Reason
-                            </div>
-                            <div class="col" style="line-height: 15px;">
+                            </dt>
+                            <dd class="col" style="line-height: 15px;">
                                 AFE untuk menambah item pekerjaan Sondir
-                            </div>
+                            </dd>
                         </div>
                     </div>
                 </div>
@@ -125,10 +125,7 @@
                     <div class="col-12 mt-2">
                         <ul class="mb-0 container_attachment_list">
                             <li>
-                                Testing
-                            </li>
-                            <li>
-                                Testing
+                                
                             </li>
                         </ul>
                     </div>
@@ -446,7 +443,7 @@
                 </div>
 
                 <!-- AFE SAVINGS TABLE -->
-                <div class="row mx-0">
+                <div class="row mx-0" style="margin-top: 30px;">
                     <div class="text-center font-weight-bold table_title">
                         AFE Saving Table
                     </div>

@@ -244,6 +244,13 @@
     const listBudgetTable = document.getElementById('listBudgetTable');
     const addToCartBtn = document.getElementById('addToCartNewFormItem');
 
+    function resetFormInputs() {
+        document.getElementById('product_id').value = '';
+        document.getElementById('product_name').value = '';
+        document.getElementById('qty').value = '';
+        document.getElementById('price').value = '';
+    }
+
     function hideFormAddNewItem() {
         newItemForm.style.display = 'none';
         newItemFormTwo.style.display = 'none';
@@ -257,7 +264,7 @@
             buttonItemFormTwo.style.display = 'flex';
         } else {
             hideFormAddNewItem();
-            document.getElementById('formAddNewItem').reset();
+            resetFormInputs();
         }
     });
 
@@ -310,7 +317,7 @@
         
         if (validateProductId(newProductId)) {
             addRowToTable(newProductId, newProductName, newQty, newPrice);
-            document.getElementById('formAddNewItem').reset();
+            resetFormInputs();
             hideFormAddNewItem();
         } else {
             swal({
