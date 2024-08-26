@@ -19,14 +19,15 @@
     var time = new Date();
     var date = time.getDate();
     var year = time.getFullYear();
-    var hrs = time.getHours();
-    var min = time.getMinutes();
-    var sec = time.getSeconds();
+    var hrs = time.getHours() < 10 ? `0${time.getHours()}` : time.getHours();
+    var min = time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes();
+    var sec = time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds();
     var ampm = (time.getHours() >= 12) ? "PM" : "AM";
 
-    var dow = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
-    var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-    document.getElementById('clock').innerHTML = dow[time.getDay()] + ", " + date + " " + month[time.getMonth()] + " " + year + "  " + hrs + ":" + min + ":" + sec + " " + ampm;
+    var dow = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    document.getElementById('clock').innerHTML = dow[time.getDay()] + ", " + month[time.getMonth()] + " " + date + ", " + year + "  " + hrs + ":" + min + ":" + sec;
+    // document.getElementById('clock').innerHTML = dow[time.getDay()] + ", " + date + " " + month[time.getMonth()] + " " + year + "  " + hrs + ":" + min + ":" + sec + " " + ampm;
   }
 </script>
 
