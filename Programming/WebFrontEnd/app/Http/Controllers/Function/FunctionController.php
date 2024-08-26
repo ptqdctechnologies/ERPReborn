@@ -566,6 +566,38 @@ class FunctionController extends Controller
         return response()->json($DocumentType);
     }
 
+    //FUNCTION CURRENCY
+    public function getCurrency(Request $request)
+    {
+        if (Redis::get("Currency") == null) {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varDataCurrency = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataList.master.getCurrency', 
+                'latest', 
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ]
+            );
+
+            Redis::set("Currency", json_encode($varDataCurrency));
+        }
+
+        $DataCurrency = json_decode(
+            Redis::get("Currency"),
+            true
+        );
+
+        return response()->json($DataCurrency['data']);
+    }
+
     //DEPARTEMENT
 
     public function getDepartement()

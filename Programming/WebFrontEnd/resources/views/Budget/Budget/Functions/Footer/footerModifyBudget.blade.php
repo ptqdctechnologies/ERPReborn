@@ -2,9 +2,6 @@
 <script>
     $("#site_code").prop("disabled", true);
     $("#site_code_popup").prop("disabled", true);
-
-    $("#currency_code").prop("disabled", true);
-    $("#currency_code_popup").prop("disabled", true);
 </script>
 
 <!-- BUDGET CODE -->
@@ -109,6 +106,24 @@
     }
 
     toggleCurrencyField();
+</script>
+
+<!-- CURRENCY -->
+<script>
+    $('#tableGetCurrency tbody').on('click', 'tr', function() {
+
+        $("#myCurrency").modal('toggle');
+
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var sys_id = $('#sys_id_currency' + id).val();
+        var name = row.find("td:nth-child(2)").text();
+        var symbol = row.find("td:nth-child(3)").text();
+
+        $("#currency_id").val(sys_id);
+        $("#currency_name").val(name);
+        $("#currency_symbol").val(symbol);
+    });
 </script>
 
 <!-- FILE ATTACHMENT -->
@@ -597,8 +612,8 @@
 
         $("#reason_modify").val("");
         $("#currency_id").val("");
-        $("#currency_code").val("");
         $("#currency_name").val("");
+        $("#currency_symbol").val("");
         $("#value_co_additional").val("");
         $("#attachment_file").val("");
 

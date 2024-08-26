@@ -19,6 +19,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php $no = 1 @endphp
+                                        @foreach($data4 as $datas)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td data-dismiss="modal" class="klikCurrency" data-id="{{$datas['name']}}" data-name="{{$datas['symbol']}}">{{$datas['name']}}</td>
+                                            <td>{{$datas['symbol']}}</td>
+                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -29,39 +37,15 @@
         </div>
     </div>
 </div>
-
 <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
     $(function() {
-        $('.myCurrency').one('click', function(e) {
-            e.preventDefault();
-
-            var keys = 0;
-
-            $.ajax({
-                type: 'GET',
-                url: '{!! route("getCurrency") !!}',
-                success: function(data) {
-                    var no = 1;
-                    var t = $('#tableGetCurrency').DataTable();
-                    t.clear();
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        t.row.add([
-                            '<tbody><tr><input id="sys_id_currency' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                            '<td>' + val.name + '</td>',
-                            '<td>' + val.symbol + '</td></span></tr></tbody>'
-                        ]).draw();
-                    });
-                }
-            });
-
+        $(".klikCurrency").on('click', function(e) {
+            e.preventDefault(); // in chase you change to a link or button
+            var $this = $(this);
+            var code = $this.data("id");
+            var name = $this.data("name");
+            $("#currencyCodeRem").val(code);
+            $("#currencyNameRem").val(name);
         });
-
     });
 </script>

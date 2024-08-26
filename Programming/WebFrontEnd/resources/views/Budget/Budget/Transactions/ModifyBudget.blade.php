@@ -5,6 +5,7 @@
 @include('getFunction.getSite')
 @include('getFunction.getProject')
 @include('getFunction.getProduct')
+@include('getFunction.getCurrency')
 
 <div class="content-wrapper">
     <section class="content">
@@ -102,16 +103,16 @@
                                                 <div class="col d-flex p-0">
                                                     <div>
                                                         <input id="currency_id" hidden name="currency_id">
-                                                        <input id="currency_code" style="border-radius:0;" data-toggle="modal" data-target="#myCurrency" name="currency_code" class="form-control myCurrency" readonly>
+                                                        <input id="currency_symbol" style="border-radius:0;" class="form-control" name="currency_symbol" readonly>
                                                     </div>
                                                     <div>
                                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a href="#" id="currency_code_popup" data-toggle="modal" data-target="#myCurrency" class="myCurrency"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                            <a href="#" id="currency_popup" data-toggle="modal" data-target="#myCurrency" class="myCurrency"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                         </span>
                                                     </div>
                                                     <div style="flex: 100%;">
                                                         <div class="input-group">
-                                                            <input id="currency_name" style="border-radius:0;" class="form-control" name="currency_name" readonly>
+                                                            <input id="currency_name" style="border-radius:0;" name="currency_name" class="form-control" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
