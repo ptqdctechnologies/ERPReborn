@@ -263,7 +263,7 @@
             let totalSaving = row.querySelector('input[name="total_saving"]').value.trim();
             let productId = row.querySelector('td:first-child').textContent.trim(); // Assuming first td is Product Id
 
-            if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
+            if (qtyAdditional && priceAdditional && totalAdditional || qtySaving && priceSaving && totalSaving) {
                 let listTableBody = document.querySelector('#listBudgetTable tbody');
                 let existingRow = Array.from(listTableBody.querySelectorAll('tr')).find(tr => {
                     return tr.querySelector('td:first-child').textContent.trim() === productId;
@@ -290,13 +290,13 @@
 
                     listTableBody.appendChild(clonedRow);
                 }
-            } else if (!qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
+            } else if (!qtyAdditional && priceAdditional && totalAdditional) {
                 Swal.fire("Error", "Qty Additional Cannot Be Empty", "error");
-            } else if (qtyAdditional && !priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
+            } else if (qtyAdditional && !priceAdditional && totalAdditional) {
                 Swal.fire("Error", "Price Additional Cannot Be Empty", "error");
-            } else if (qtyAdditional && priceAdditional && totalAdditional && !qtySaving && priceSaving && totalSaving) {
+            } else if (!qtySaving && priceSaving && totalSaving) {
                 Swal.fire("Error", "Qty Saving Cannot Be Empty", "error");
-            } else if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && !priceSaving && totalSaving) {
+            } else if (qtySaving && !priceSaving && totalSaving) {
                 Swal.fire("Error", "Price Saving Cannot Be Empty", "error");
             }
         });
@@ -470,6 +470,9 @@
                 } else {
                     toggleSavingInputs(false);
                 }
+                qtySavingInput.value = '0.00';
+                priceSavingInput.value = '0.00';
+                totalSavingInput.value = '0.00';
             }
         }
 
@@ -495,6 +498,10 @@
                 } else {
                     toggleAdditionalInputs(false);
                 }
+
+                qtyAdditionalInput.value = '0.00';
+                priceAdditionalInput.value = '0.00';
+                totalAdditionalInput.value = '0.00';
             }
         }
 

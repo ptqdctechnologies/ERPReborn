@@ -39,26 +39,6 @@ class BudgetController extends Controller
     }
 
     public function ModifyBudget(Request $request) {
-        // $varAPIWebToken = $request->session()->get('SessionLogin');
-
-        // $varData4 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken, 
-        //     'transaction.read.dataList.master.getCurrency', 
-        //     'latest', 
-        //     [
-        //     'parameter' => null,
-        //     'SQLStatement' => [
-        //         'pick' => null,
-        //         'sort' => null,
-        //         'filter' => null,
-        //         'paging' => null
-        //         ]
-        //     ]
-        // );
-
-        // dump($varData4);
-
         return view('Budget.Budget.Transactions.ModifyBudget');
     }
 
@@ -81,10 +61,18 @@ class BudgetController extends Controller
             $additionalCO       = $request->additional_co;
 
             // CURRENCY
-            $currency           = $request->currency;
+            $currencyID         = $request->currency_id;
+            $currencySymbol     = $request->currency_symbol;
+            $currencyName       = $request->currency_name;
+
+            // IDR RATE
+            $idrRate            = $request->value_idr_rate;
 
             // VALUE ADDITIONAL CO
             $valueAdditionalCO  = $request->value_co_additional;
+
+            // VALUE ADDITIONAL CO
+            $valueDeductiveCO   = $request->value_co_deductive;
 
             // FILES
             $files              = $request->uploaded_files;
@@ -102,6 +90,8 @@ class BudgetController extends Controller
                 'valueAdditionalCO' => $valueAdditionalCO,
                 'files'             => $files,
             ];
+
+            dd($compact);
 
             return redirect()->route('Budget.PreviewModifyBudget', $compact);
             
@@ -126,7 +116,7 @@ class BudgetController extends Controller
             'files'             => $request->files,
         ];
 
-        dd($compact);
+        // dd($compact);
 
         return view('Budget.Budget.Transactions.PreviewModifyBudget');
     }
