@@ -132,6 +132,27 @@
     });
 </script>
 
+<!-- VALUE CO ADDITIONAL & DEDUCTIVE -->
+<script>
+    $(document).ready(function() {
+        $('#value_co_additional').on('input', function() {
+            if ($(this).val().trim() !== "") {
+                $('#value_co_deductive').prop('disabled', true);
+            } else {
+                $('#value_co_deductive').prop('disabled', false);
+            }
+        });
+
+        $('#value_co_deductive').on('input', function() {
+            if ($(this).val().trim() !== "") {
+                $('#value_co_additional').prop('disabled', true);
+            } else {
+                $('#value_co_additional').prop('disabled', false);
+            }
+        });
+    });
+</script>
+
 <!-- FILE ATTACHMENT -->
 <script>
     const fileInput = document.getElementById('attachment_file');
