@@ -91,8 +91,6 @@ class BudgetController extends Controller
                 'files'             => $files,
             ];
 
-            dd($compact);
-
             return redirect()->route('Budget.PreviewModifyBudget', $compact);
             
         } catch (\Throwable $th) {
@@ -102,6 +100,10 @@ class BudgetController extends Controller
     }
 
     public function PreviewModifyBudget(Request $request) {
+        // if (!$request->has(['budgetID', 'budgetCode', 'budgetName', 'subBudgetID', 'subBudgetCode', 'subBudgetName', 'reason', 'additionalCO', 'currency', 'valueAdditionalCO', 'files'])) {
+        //     return redirect()->route('Budget.ModifyBudget')->with('NotFound', 'Data not found. Please fill in the data first.');
+        // }
+
         $compact = [
             'budgetID'          => $request->budgetID,
             'budgetCode'        => $request->budgetCode,
@@ -115,8 +117,6 @@ class BudgetController extends Controller
             'valueAdditionalCO' => $request->valueAdditionalCO,
             'files'             => $request->files,
         ];
-
-        // dd($compact);
 
         return view('Budget.Budget.Transactions.PreviewModifyBudget');
     }

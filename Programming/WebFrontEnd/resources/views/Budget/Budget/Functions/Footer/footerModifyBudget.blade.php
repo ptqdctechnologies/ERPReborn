@@ -389,26 +389,38 @@
     }
 
     function addRowToTable(productId, productName, qty, price) {
-        const tbody = listBudgetTable.querySelector('tbody');
+        const tbody = budgetTable.querySelector('tbody');
         const newRow = document.createElement('tr');
-        
+
         newRow.innerHTML = `
-            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${productId}</td>
-            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${productName}</td>
-            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${qty}</td>
-            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${price}</td>
-            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${productId}</td>
-            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${productName}</td>
-            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${qty}</td>
-            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${price}</td>
-            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${productId}</td>
-            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${productName}</td>
-            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${qty}</td>
-            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${price}</td>
-            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${qty}</td>
-            <td style="padding-top: 10px;padding-bottom: 10px;text-align: center;border:1px solid #e9ecef;">${price}</td>
+            <td class="container-tbody-tr-budget">${productId}</td>
+            <td class="container-tbody-tr-budget">${productName}</td>
+            <td class="container-tbody-tr-budget">${qty}</td>
+            <td class="container-tbody-tr-budget">${qty}</td>
+            <td class="container-tbody-tr-budget">${price}</td>
+            <td class="container-tbody-tr-budget">${productName}</td>
+            <td class="container-tbody-tr-budget">${qty}</td>
+            <td class="container-tbody-tr-budget">${price}</td>
+            <td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">
+                <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">
+            </td>
+            <td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">
+                <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">
+            </td>
+            <td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">
+                <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>
+            </td>
+            <td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">
+                <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">
+            </td>
+            <td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">
+                <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">
+            </td>
+            <td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">
+                <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>
+            </td>
         `;
-        
+
         tbody.appendChild(newRow);
     }
 
@@ -436,9 +448,7 @@
 
 <!-- VALIDASI TOTAL ADDITIONAL & TOTAL SAVING PADA TABLE EXISTING BUDGET -->
 <script>
-    const rows = document.querySelectorAll('#budgetTable tbody tr');
-
-    rows.forEach(row => {
+    function initializeRowListeners(row) {
         const qtyAdditionalInput = row.querySelector('input[name="qty_additional"]');
         const priceAdditionalInput = row.querySelector('input[name="price_additional"]');
         const totalAdditionalInput = row.querySelector('input[name="total_additional"]');
@@ -530,63 +540,28 @@
 
         qtySavingInput.addEventListener('blur', calculateTotalSaving);
         priceSavingInput.addEventListener('blur', calculateTotalSaving);
+    }
+
+    function initializeTableListeners() {
+        const rows = document.querySelectorAll('#budgetTable tbody tr');
+
+        rows.forEach(row => {
+            initializeRowListeners(row);
+        });
+    }
+
+    initializeTableListeners();
+
+    const tableBody = document.querySelector('#budgetTable tbody');
+    const observers = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+            if (mutation.type === 'childList') {
+                initializeTableListeners(); // Menginisialisasi ulang event listener jika ada perubahan
+            }
+        });
     });
 
-    // OLD
-    // const rows = document.querySelectorAll('#budgetTable tbody tr');
-
-    // rows.forEach(row => {
-    //     const qtyAdditionalInput = row.querySelector('input[name="qty_additional"]');
-    //     const priceAdditionalInput = row.querySelector('input[name="price_additional"]');
-    //     const totalAdditionalInput = row.querySelector('input[name="total_additional"]');
-    //     const totalBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(8)');
-
-    //     const qtySavingInput = row.querySelector('input[name="qty_saving"]');
-    //     const priceSavingInput = row.querySelector('input[name="price_saving"]');
-    //     const totalSavingInput = row.querySelector('input[name="total_saving"]');
-    //     const balanceBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(7)');
-
-    //     function calculateTotalAdditional() {
-    //         const qtyAdditional = parseFloat(qtyAdditionalInput.value) || 0;
-    //         const priceAdditional = parseFloat(priceAdditionalInput.value) || 0;
-    //         const totalAdditional = qtyAdditional * priceAdditional;
-
-    //         const totalBudget = parseFloat(totalBudgetElement.textContent.replace(/,/g, '')) || 0;
-
-    //         totalAdditionalInput.value = totalAdditional.toFixed(2);
-
-    //         if (totalAdditional && totalAdditional < totalBudget) {
-    //             Swal.fire("Error", "Total Additional must be greater than Total Budget !", "error");
-    //             qtyAdditionalInput.value = '';
-    //             priceAdditionalInput.value = '';
-    //             totalAdditionalInput.value = '';
-    //         }
-    //     }
-
-    //     function calculateTotalSaving() {
-    //         const qtySaving = parseFloat(qtySavingInput.value) || 0;
-    //         const priceSaving = parseFloat(priceSavingInput.value) || 0;
-    //         const totalSaving = qtySaving * priceSaving;
-
-    //         const balanceBudget = parseFloat(balanceBudgetElement.textContent.replace(/,/g, '')) || 0;
-    //         const totalBudget = parseFloat(totalBudgetElement.textContent.replace(/,/g, '')) || 0;
-
-    //         totalSavingInput.value = totalSaving.toFixed(2);
-
-    //         if (totalSaving && totalSaving < balanceBudget || totalSaving && totalSaving > totalBudget) {
-    //             Swal.fire("Error", "Total Saving must be greater than Balance Budget & must be less than Total Budget !", "error");
-    //             qtySavingInput.value = '';
-    //             priceSavingInput.value = '';
-    //             totalSavingInput.value = '';
-    //         }
-    //     }
-
-    //     qtyAdditionalInput.addEventListener('blur', calculateTotalAdditional);
-    //     priceAdditionalInput.addEventListener('blur', calculateTotalAdditional);
-
-    //     qtySavingInput.addEventListener('blur', calculateTotalSaving);
-    //     priceSavingInput.addEventListener('blur', calculateTotalSaving);
-    // });
+    observers.observe(tableBody, { childList: true });
 </script>
 
 <!-- BUTTON SUBMIT OR CANCEL -->
