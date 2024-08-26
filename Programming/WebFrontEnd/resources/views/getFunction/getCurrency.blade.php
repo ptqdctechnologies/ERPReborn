@@ -8,8 +8,17 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card">
-                            <div class="card-body table-responsive p-0" style="height: 400px;">
+                        <div class="text-center loading">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <h3 class="pt-3">
+                                Loading...
+                            </h3>
+                        </div>
+
+                        <div class="card tableCurrency">
+                            <div class="card-body table-responsive p-0">
                                 <table class="table table-head-fixed text-nowrap" id="tableGetCurrency">
                                     <thead>
                                         <tr>
@@ -43,6 +52,8 @@
 
             var keys = 0;
 
+            $('.tableCurrency').hide();
+
             $.ajax({
                 type: 'GET',
                 url: '{!! route("getCurrency") !!}',
@@ -58,6 +69,9 @@
                             '<td>' + val.symbol + '</td></span></tr></tbody>'
                         ]).draw();
                     });
+
+                    $('.loading').hide();
+                    $('.tableCurrency').show();
                 }
             });
 
