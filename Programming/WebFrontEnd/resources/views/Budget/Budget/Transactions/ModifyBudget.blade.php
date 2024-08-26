@@ -99,7 +99,7 @@
                                     <div id="currency_field" class="row" style="margin-bottom: 1rem; display: none;">
                                         <div class="col-lg-5">
                                             <div class="row">
-                                                <label for="currency" class="col-4 col-form-label p-0">Currency</label>
+                                                <label for="currency_popup" class="col-4 col-form-label p-0">Currency</label>
                                                 <div class="col d-flex p-0">
                                                     <div>
                                                         <input id="currency_id" hidden name="currency_id">
@@ -494,7 +494,7 @@
                 <div class="px-3 pb-2">
                     <div style="display: flex; justify-content: flex-end; gap: 8px;">
                         <div style="display: flex;">
-                            <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="submit">
+                            <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button">
                                 <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
                                 <div>Cancel</div>
                             </button>

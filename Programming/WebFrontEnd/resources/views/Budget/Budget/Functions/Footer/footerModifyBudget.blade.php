@@ -76,6 +76,9 @@
         const additionalCORadios = document.getElementsByName('additional_co');
         const currencyField = document.getElementById('currency_field');
         const currencyInput = document.getElementById('currency');
+        const currencyID = document.getElementById('currency_id');
+        const currencySymbol = document.getElementById('currency_symbol');
+        const currencyName = document.getElementById('currency_name');
         const valueIDRRateField = document.getElementById('value_idr_rate_field');
         const valueIDRRateInput = document.getElementById('value_idr_rate');
         const valueCOAdditionalField = document.getElementById('value_co_additional_field');
@@ -92,9 +95,12 @@
                     valueCODeductiveField.style.display = 'flex';
                 } else {
                     currencyField.style.display = 'none';
+                    currencyID.value = '';
+                    currencySymbol.value = '';
+                    currencyName.value = '';
+
                     valueIDRRateField.style.display = 'none';
                     valueIDRRateInput.value = '';
-                    // currencyInput.value = '';
 
                     valueCOAdditionalField.style.display = 'none';
                     valueCOAdditionalInput.value = '';
@@ -609,6 +615,10 @@
         $("#site_name").val("");
         $("#site_code").prop("disabled", true);
         $("#site_code_popup").prop("disabled", true);
+
+        $("#currency_id").val("");
+        $("#currency_name").val("");
+        $("#currency_symbol").val("");
 
         $("#reason_modify").val("");
         $("#currency_id").val("");
