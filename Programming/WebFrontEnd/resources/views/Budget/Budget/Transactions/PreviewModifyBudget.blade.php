@@ -28,7 +28,7 @@
                                 Submitted Date
                             </dt>
                             <dd class="col">
-                                31 Jul 2024
+                                18 Jul 2024
                             </dd>
                         </div>
 
@@ -38,7 +38,7 @@
                                 Final Approved Date
                             </dt>
                             <dd class="col">
-                                31 Jul 2024
+                                29 Jul 2024
                             </dd>
                         </div>
 
@@ -80,7 +80,7 @@
                                 Currency
                             </dt>
                             <dd class="col">
-                                EUR
+                                IDR
                             </dd>
                         </div>
 
@@ -90,7 +90,7 @@
                                 Exchange Rate
                             </dt>
                             <dd class="col">
-                                17,725
+                                16,054
                             </dd>
                         </div>
 
@@ -100,7 +100,7 @@
                                 Site
                             </dt>
                             <dd class="col" style="line-height: 15px;">
-                                2000 - Material Gardu Induk 150 kV Siak Sri Indrapura Ext 2 Line Bay
+                                2300 - Service DPT GI 150 kV New Garuda Sakti
                             </dd>
                         </div>
 
@@ -110,7 +110,7 @@
                                 Reason
                             </dt>
                             <dd class="col" style="line-height: 15px;">
-                                AFE untuk menambah item pekerjaan Sondir
+                                -
                             </dd>
                         </div>
                     </div>
