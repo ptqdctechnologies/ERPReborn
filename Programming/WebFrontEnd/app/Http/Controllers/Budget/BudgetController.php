@@ -39,6 +39,26 @@ class BudgetController extends Controller
     }
 
     public function ModifyBudget(Request $request) {
+        // $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        // $varData4 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'transaction.read.dataList.master.getCurrency', 
+        //     'latest', 
+        //     [
+        //     'parameter' => null,
+        //     'SQLStatement' => [
+        //         'pick' => null,
+        //         'sort' => null,
+        //         'filter' => null,
+        //         'paging' => null
+        //         ]
+        //     ]
+        // );
+
+        // dump($varData4);
+
         return view('Budget.Budget.Transactions.ModifyBudget');
     }
 

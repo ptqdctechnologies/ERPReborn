@@ -119,6 +119,20 @@
                                         </div>
                                     </div>
 
+                                    <!-- IDR RATE -->
+                                    <div id="value_idr_rate_field" class="row" style="margin-bottom: 1rem; display: none;">
+                                        <div class="col-lg-5">
+                                            <div class="row">
+                                                <label for="value_idr_rate" class="col-4 col-form-label p-0">IDR Rate</label>
+                                                <div class="col p-0">
+                                                    <div class="input-group">
+                                                        <input id="value_idr_rate" style="border-radius:0;" class="form-control number-only" name="value_idr_rate" autocomplete="off" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <!-- VALUE CO ADDITIONAL -->
                                     <div id="value_co_additional_field" class="row" style="margin-bottom: 1rem; display: none;">
                                         <div class="col-lg-5">
@@ -127,6 +141,20 @@
                                                 <div class="col p-0">
                                                     <div class="input-group">
                                                         <input id="value_co_additional" style="border-radius:0;" class="form-control number-only" name="value_co_additional" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- VALUE CO DEDUCTIVE -->
+                                    <div id="value_co_deductive_field" class="row" style="margin-bottom: 1rem; display: none;">
+                                        <div class="col-lg-5">
+                                            <div class="row">
+                                                <label for="value_co_deductive" class="col-4 col-form-label p-0">Value CO Deductive</label>
+                                                <div class="col p-0">
+                                                    <div class="input-group">
+                                                        <input id="value_co_deductive" style="border-radius:0;" class="form-control number-only" name="value_co_deductive" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -219,7 +247,7 @@
                                     </div>
                                 </div>
 
-                                <!-- EXISTING BUDGET TABLE -->
+                                <!-- BUDGET DETAILS TABLE -->
                                 <div class="wrapper-budget card-body table-responsive p-0 table-existing-budget">
                                     <table id="budgetTable" class="table table-head-fixed text-nowrap table-sm">
                                         <thead>
@@ -342,56 +370,11 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MODIFY BUDGET LIST (CART) -->
-                <div class="tab-content px-3 pb-2" id="nav-tabContent">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <label class="card-title">
-                                        Modify Budget List (cart)
-                                    </label>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <!-- MODIFY BUDGET LIST TABLE -->
-                                <div class="wrapper-budget card-body table-responsive p-0 table-existing-budget">
-                                    <table id="listBudgetTable" class="table table-head-fixed text-nowrap table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th class="container-thead-tr-budget">Product Id</th>
-                                                <th class="container-thead-tr-budget">Product Name</th>
-                                                <th class="container-thead-tr-budget">Qty Budget</th>
-                                                <th class="container-thead-tr-budget">Qty Avail</th>
-                                                <th class="container-thead-tr-budget">Price</th>
-                                                <th class="container-thead-tr-budget">Currency</th>
-                                                <th class="container-thead-tr-budget">Balance Budget</th>
-                                                <th class="container-thead-tr-budget">Total Budget</th>
-                                                <th class="container-thead-tr-budget">Qty Additional</th>
-                                                <th class="container-thead-tr-budget">Price Additional</th>
-                                                <th class="container-thead-tr-budget">Total Additional</th>
-                                                <th class="container-thead-tr-budget">Qty Saving</th>
-                                                <th class="container-thead-tr-budget">Price Saving</th>
-                                                <th class="container-thead-tr-budget">Total Saving</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-                                </div>
 
                                 <!-- ADD NEW ITEM FORM -->
                                 <div id="budgetForm" class="card-body py-0">
                                     <!-- BUTTON ADD NEW ITEM -->
-                                    <div class="row py-3">
+                                    <div class="row pb-3">
                                         <a id="addNewItemBtn" class="btn btn-default btn-sm button-submit">
                                             <i class="fas fa-plus-circle"></i>
                                             Add New Item
@@ -455,6 +438,51 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODIFY BUDGET LIST (CART) -->
+                <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <label class="card-title">
+                                        Modify Budget List (cart)
+                                    </label>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- MODIFY BUDGET LIST TABLE -->
+                                <div class="wrapper-budget card-body table-responsive p-0 table-existing-budget">
+                                    <table id="listBudgetTable" class="table table-head-fixed text-nowrap table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th class="container-thead-tr-budget">Product Id</th>
+                                                <th class="container-thead-tr-budget">Product Name</th>
+                                                <th class="container-thead-tr-budget">Qty Budget</th>
+                                                <th class="container-thead-tr-budget">Qty Avail</th>
+                                                <th class="container-thead-tr-budget">Price</th>
+                                                <th class="container-thead-tr-budget">Currency</th>
+                                                <th class="container-thead-tr-budget">Balance Budget</th>
+                                                <th class="container-thead-tr-budget">Total Budget</th>
+                                                <th class="container-thead-tr-budget">Qty Additional</th>
+                                                <th class="container-thead-tr-budget">Price Additional</th>
+                                                <th class="container-thead-tr-budget">Total Additional</th>
+                                                <th class="container-thead-tr-budget">Qty Saving</th>
+                                                <th class="container-thead-tr-budget">Price Saving</th>
+                                                <th class="container-thead-tr-budget">Total Saving</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

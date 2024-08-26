@@ -79,20 +79,30 @@
         const additionalCORadios = document.getElementsByName('additional_co');
         const currencyField = document.getElementById('currency_field');
         const currencyInput = document.getElementById('currency');
+        const valueIDRRateField = document.getElementById('value_idr_rate_field');
+        const valueIDRRateInput = document.getElementById('value_idr_rate');
         const valueCOAdditionalField = document.getElementById('value_co_additional_field');
         const valueCOAdditionalInput = document.getElementById('value_co_additional');
+        const valueCODeductiveField = document.getElementById('value_co_deductive_field');
+        const valueCODeductiveInput = document.getElementById('value_co_deductive');
         
         additionalCORadios.forEach(radio => {
             radio.addEventListener('change', function() {
                 if (this.value === 'yes' && this.checked) {
                     currencyField.style.display = 'flex';
+                    valueIDRRateField.style.display = 'flex';
                     valueCOAdditionalField.style.display = 'flex';
+                    valueCODeductiveField.style.display = 'flex';
                 } else {
                     currencyField.style.display = 'none';
+                    valueIDRRateField.style.display = 'none';
+                    valueIDRRateInput.value = '';
                     // currencyInput.value = '';
 
                     valueCOAdditionalField.style.display = 'none';
                     valueCOAdditionalInput.value = '';
+                    valueCODeductiveField.style.display = 'none';
+                    valueCODeductiveInput.value = '';
                 }
             });
         });
@@ -209,17 +219,35 @@
             let qtySaving = row.querySelector('input[name="qty_saving"]').value.trim();
             let priceSaving = row.querySelector('input[name="price_saving"]').value.trim();
             let totalSaving = row.querySelector('input[name="total_saving"]').value.trim();
+            let productId = row.querySelector('td:first-child').textContent.trim(); // Assuming first td is Product Id
 
             if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
-                row.querySelectorAll('td').forEach(function(td) {
-                    let input = td.querySelector('input');
-                    if (input) {
-                        td.textContent = input.value;
-                    }
-                    td.className = 'container-tbody-tr-budget';
+                let listTableBody = document.querySelector('#listBudgetTable tbody');
+                let existingRow = Array.from(listTableBody.querySelectorAll('tr')).find(tr => {
+                    return tr.querySelector('td:first-child').textContent.trim() === productId;
                 });
-                
-                document.querySelector('#listBudgetTable tbody').appendChild(row);
+
+                if (existingRow) {
+                    existingRow.querySelectorAll('td').forEach(function(td, index) {
+                        let input = row.querySelectorAll('td')[index].querySelector('input');
+                        if (input) {
+                            td.textContent = input.value;
+                        }
+                        td.className = 'container-tbody-tr-budget';
+                    });
+                } else {
+                    let clonedRow = row.cloneNode(true);
+
+                    clonedRow.querySelectorAll('td').forEach(function(td) {
+                        let input = td.querySelector('input');
+                        if (input) {
+                            td.textContent = input.value;
+                        }
+                        td.className = 'container-tbody-tr-budget';
+                    });
+
+                    listTableBody.appendChild(clonedRow);
+                }
             } else if (!qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
                 Swal.fire("Error", "Qty Additional Cannot Be Empty", "error");
             } else if (qtyAdditional && !priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
@@ -231,6 +259,40 @@
             }
         });
     });
+
+    // OLD
+    // document.getElementById('buttonBudgetDetails').addEventListener('click', function() {
+    //     let budgetRows = document.querySelectorAll('#budgetTable tbody tr');
+
+    //     budgetRows.forEach(function(row) {
+    //         let qtyAdditional = row.querySelector('input[name="qty_additional"]').value.trim();
+    //         let priceAdditional = row.querySelector('input[name="price_additional"]').value.trim();
+    //         let totalAdditional = row.querySelector('input[name="total_additional"]').value.trim();
+    //         let qtySaving = row.querySelector('input[name="qty_saving"]').value.trim();
+    //         let priceSaving = row.querySelector('input[name="price_saving"]').value.trim();
+    //         let totalSaving = row.querySelector('input[name="total_saving"]').value.trim();
+
+    //         if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
+    //             row.querySelectorAll('td').forEach(function(td) {
+    //                 let input = td.querySelector('input');
+    //                 if (input) {
+    //                     td.textContent = input.value;
+    //                 }
+    //                 td.className = 'container-tbody-tr-budget';
+    //             });
+                
+    //             document.querySelector('#listBudgetTable tbody').appendChild(row);
+    //         } else if (!qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
+    //             Swal.fire("Error", "Qty Additional Cannot Be Empty", "error");
+    //         } else if (qtyAdditional && !priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
+    //             Swal.fire("Error", "Price Additional Cannot Be Empty", "error");
+    //         } else if (qtyAdditional && priceAdditional && totalAdditional && !qtySaving && priceSaving && totalSaving) {
+    //             Swal.fire("Error", "Qty Saving Cannot Be Empty", "error");
+    //         } else if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && !priceSaving && totalSaving) {
+    //             Swal.fire("Error", "Price Saving Cannot Be Empty", "error");
+    //         }
+    //     });
+    // });
 </script>
 
 <!-- FORM ADD NEW ITEM -->
@@ -355,10 +417,17 @@
             totalAdditionalInput.value = totalAdditional.toFixed(2);
 
             if (totalAdditional && totalAdditional < totalBudget) {
-                Swal.fire("Error", "Total Additional is over Total Budget !", "error");
+                Swal.fire("Error", "Total Additional must be greater than Total Budget!", "error");
                 qtyAdditionalInput.value = '';
                 priceAdditionalInput.value = '';
                 totalAdditionalInput.value = '';
+                toggleSavingInputs(false);
+            } else {
+                if (qtyAdditional > 0 && priceAdditional > 0) {
+                    toggleSavingInputs(true);
+                } else {
+                    toggleSavingInputs(false);
+                }
             }
         }
 
@@ -372,11 +441,38 @@
 
             totalSavingInput.value = totalSaving.toFixed(2);
 
-            if (totalSaving && totalSaving < balanceBudget || totalSaving && totalSaving > totalBudget) {
-                Swal.fire("Error", "Total Additional is under Balance Budget & over Total Budget !", "error");
+            if (totalSaving && (totalSaving < balanceBudget || totalSaving > totalBudget)) {
+                Swal.fire("Error", "Total Saving must be greater than Balance Budget & must be less than Total Budget!", "error");
                 qtySavingInput.value = '';
                 priceSavingInput.value = '';
                 totalSavingInput.value = '';
+                toggleAdditionalInputs(false);
+            } else {
+                if (qtySaving > 0 && priceSaving > 0) {
+                    toggleAdditionalInputs(true);
+                } else {
+                    toggleAdditionalInputs(false);
+                }
+            }
+        }
+
+        function toggleSavingInputs(disable) {
+            if (disable) {
+                qtySavingInput.setAttribute('disabled', 'disabled');
+                priceSavingInput.setAttribute('disabled', 'disabled');
+            } else {
+                qtySavingInput.removeAttribute('disabled');
+                priceSavingInput.removeAttribute('disabled');
+            }
+        }
+
+        function toggleAdditionalInputs(disable) {
+            if (disable) {
+                qtyAdditionalInput.setAttribute('disabled', 'disabled');
+                priceAdditionalInput.setAttribute('disabled', 'disabled');
+            } else {
+                qtyAdditionalInput.removeAttribute('disabled');
+                priceAdditionalInput.removeAttribute('disabled');
             }
         }
 
@@ -386,6 +482,62 @@
         qtySavingInput.addEventListener('blur', calculateTotalSaving);
         priceSavingInput.addEventListener('blur', calculateTotalSaving);
     });
+
+    // OLD
+    // const rows = document.querySelectorAll('#budgetTable tbody tr');
+
+    // rows.forEach(row => {
+    //     const qtyAdditionalInput = row.querySelector('input[name="qty_additional"]');
+    //     const priceAdditionalInput = row.querySelector('input[name="price_additional"]');
+    //     const totalAdditionalInput = row.querySelector('input[name="total_additional"]');
+    //     const totalBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(8)');
+
+    //     const qtySavingInput = row.querySelector('input[name="qty_saving"]');
+    //     const priceSavingInput = row.querySelector('input[name="price_saving"]');
+    //     const totalSavingInput = row.querySelector('input[name="total_saving"]');
+    //     const balanceBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(7)');
+
+    //     function calculateTotalAdditional() {
+    //         const qtyAdditional = parseFloat(qtyAdditionalInput.value) || 0;
+    //         const priceAdditional = parseFloat(priceAdditionalInput.value) || 0;
+    //         const totalAdditional = qtyAdditional * priceAdditional;
+
+    //         const totalBudget = parseFloat(totalBudgetElement.textContent.replace(/,/g, '')) || 0;
+
+    //         totalAdditionalInput.value = totalAdditional.toFixed(2);
+
+    //         if (totalAdditional && totalAdditional < totalBudget) {
+    //             Swal.fire("Error", "Total Additional must be greater than Total Budget !", "error");
+    //             qtyAdditionalInput.value = '';
+    //             priceAdditionalInput.value = '';
+    //             totalAdditionalInput.value = '';
+    //         }
+    //     }
+
+    //     function calculateTotalSaving() {
+    //         const qtySaving = parseFloat(qtySavingInput.value) || 0;
+    //         const priceSaving = parseFloat(priceSavingInput.value) || 0;
+    //         const totalSaving = qtySaving * priceSaving;
+
+    //         const balanceBudget = parseFloat(balanceBudgetElement.textContent.replace(/,/g, '')) || 0;
+    //         const totalBudget = parseFloat(totalBudgetElement.textContent.replace(/,/g, '')) || 0;
+
+    //         totalSavingInput.value = totalSaving.toFixed(2);
+
+    //         if (totalSaving && totalSaving < balanceBudget || totalSaving && totalSaving > totalBudget) {
+    //             Swal.fire("Error", "Total Saving must be greater than Balance Budget & must be less than Total Budget !", "error");
+    //             qtySavingInput.value = '';
+    //             priceSavingInput.value = '';
+    //             totalSavingInput.value = '';
+    //         }
+    //     }
+
+    //     qtyAdditionalInput.addEventListener('blur', calculateTotalAdditional);
+    //     priceAdditionalInput.addEventListener('blur', calculateTotalAdditional);
+
+    //     qtySavingInput.addEventListener('blur', calculateTotalSaving);
+    //     priceSavingInput.addEventListener('blur', calculateTotalSaving);
+    // });
 </script>
 
 <!-- BUTTON SUBMIT OR CANCEL -->
@@ -398,7 +550,9 @@
     const budgetTbodyTable = document.querySelector('#budgetTable tbody');
     const additionalCoRadioss = document.getElementsByName('additional_co');
     const currencyField = document.getElementById('currency_field');
+    const valueIDRRateField = document.getElementById('value_idr_rate_field');
     const valueCOAdditionalField = document.getElementById('value_co_additional_field');
+    const valueCODeductiveField = document.getElementById('value_co_deductive_field');
     const fileTableee = document.getElementById('file_table');
 
     function checkTableData() {
@@ -449,7 +603,9 @@
         $("#attachment_file").val("");
 
         currencyField.style.display = 'none';
+        valueIDRRateField.style.display = 'none';
         valueCOAdditionalField.style.display = 'none';
+        valueCODeductiveField.style.display = 'none';
         
         fileTableee.style.display = 'none';
 
