@@ -16,7 +16,7 @@
                 </div>
             </div>
         
-        <form method="post" enctype="multipart/form-data" action="{{ route('Budget.PreviewModifyBudget') }}">
+        <form method="post" enctype="multipart/form-data" action="{{ route('Budget.ModifyBudgetStore') }}">
         @csrf
             <!-- CONTENT -->
             <div class="card">

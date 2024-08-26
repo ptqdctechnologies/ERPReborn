@@ -42,40 +42,73 @@ class BudgetController extends Controller
         return view('Budget.Budget.Transactions.ModifyBudget');
     }
 
-    public function PreviewModifyBudget(Request $request) {
+    public function ModifyBudgetStore(Request $request) {
         try {
             // BUDGET CODE
-            $budgetID   = $request->project_id;
-            $budgetCode = $request->project_code;
-            $budgetName = $request->project_name;
+            $budgetID           = $request->project_id;
+            $budgetCode         = $request->project_code;
+            $budgetName         = $request->project_name;
 
             // SUB BUDGET CODE
-            $subBudgetID    = $request->site_id;
-            $subBudgetCode  = $request->site_code;
-            $subBudgetName  = $request->site_name;
+            $subBudgetID        = $request->site_id;
+            $subBudgetCode      = $request->site_code;
+            $subBudgetName      = $request->site_name;
 
             // REASON FOR MODIFY
-            $reason = $request->reason_modify;
+            $reason             = $request->reason_modify;
 
             // ADDITIONAL CO
-            $additionalCO = $request->additional_co;
+            $additionalCO       = $request->additional_co;
 
             // CURRENCY
-            $currency = $request->currency;
+            $currency           = $request->currency;
 
             // VALUE ADDITIONAL CO
-            $valueAdditionalCO = $request->value_co_additional;
+            $valueAdditionalCO  = $request->value_co_additional;
 
             // FILES
-            $files = $request->uploaded_files;
+            $files              = $request->uploaded_files;
+
+            $compact = [
+                'budgetID'          => $budgetID,
+                'budgetCode'        => $budgetCode,
+                'budgetName'        => $budgetName,
+                'subBudgetID'       => $subBudgetID,
+                'subBudgetCode'     => $subBudgetCode,
+                'subBudgetName'     => $subBudgetName,
+                'reason'            => $reason,
+                'additionalCO'      => $additionalCO,
+                'currency'          => $currency,
+                'valueAdditionalCO' => $valueAdditionalCO,
+                'files'             => $files,
+            ];
+
+            return redirect()->route('Budget.PreviewModifyBudget', $compact);
             
-            // dd($budgetID, $budgetCode, $budgetName, $subBudgetID, $subBudgetCode, $subBudgetName, $reason, $additionalCO, $currency, $valueAdditionalCO, $files);
-            
-            return view('Budget.Budget.Transactions.PreviewModifyBudget');
         } catch (\Throwable $th) {
             Log::error("Error at ModifyBudget: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
+    }
+
+    public function PreviewModifyBudget(Request $request) {
+        $compact = [
+            'budgetID'          => $request->budgetID,
+            'budgetCode'        => $request->budgetCode,
+            'budgetName'        => $request->budgetName,
+            'subBudgetID'       => $request->subBudgetID,
+            'subBudgetCode'     => $request->subBudgetCode,
+            'subBudgetName'     => $request->subBudgetName,
+            'reason'            => $request->reason,
+            'additionalCO'      => $request->additionalCO,
+            'currency'          => $request->currency,
+            'valueAdditionalCO' => $request->valueAdditionalCO,
+            'files'             => $request->files,
+        ];
+
+        dd($compact);
+
+        return view('Budget.Budget.Transactions.PreviewModifyBudget');
     }
 
     public function create()
