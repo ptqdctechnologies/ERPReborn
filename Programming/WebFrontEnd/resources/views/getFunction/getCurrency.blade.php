@@ -46,8 +46,9 @@
         }
     });
 
-    $(function() {
-        $('.myCurrency').one('click', function(e) {
+    // $(function() {
+        $(window).one('load', function(e) {
+        // $('.myCurrency').one('click', function(e) {
             e.preventDefault();
 
             var keys = 0;
@@ -77,5 +78,5 @@
 
         });
 
-    });
+    // });
 </script>
