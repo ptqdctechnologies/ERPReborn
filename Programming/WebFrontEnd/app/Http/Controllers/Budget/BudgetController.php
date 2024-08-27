@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
 use PDO;
+use Illuminate\Support\Facades\Session;
 
 class BudgetController extends Controller
 {
@@ -44,6 +45,9 @@ class BudgetController extends Controller
 
     public function PreviewModifyBudget(Request $request) {
         try {
+            // PIC
+            $PIC                = $request->session()->get("SessionLoginName");
+
             // BUDGET CODE
             $budgetID           = $request->project_id;
             $budgetCode         = $request->project_code;
@@ -78,6 +82,7 @@ class BudgetController extends Controller
             $files              = $request->uploaded_files;
 
             $compact = [
+                'pic'               => $PIC,
                 'budgetID'          => $budgetID,
                 'budgetCode'        => $budgetCode,
                 'budgetName'        => $budgetName,
@@ -93,6 +98,154 @@ class BudgetController extends Controller
                 'valueAdditionalCO' => $valueAdditionalCO,
                 'valueDeductiveCO'  => $valueDeductiveCO,
                 'files'             => $files,
+                'dataTable'         => [
+                    'sectionOne'    => [
+                        'firstRow'  => [
+                            'description'   => 'Customer Oder (CO)',
+                            'valuta'        => 'IDR',
+                            'origin'        => '0',
+                            'previous'      => '456,000,000',
+                            'addSubt'       => '0',
+                            'totalCurrent'  => '456,000,000'
+                        ],
+                        'secondRow' => [
+                            'description'   => '',
+                            'valuta'        => 'Cross Currency',
+                            'origin'        => '0.00',
+                            'previous'      => '0.00',
+                            'addSubt'       => '0.00',
+                            'totalCurrent'  => '0.00'
+                        ],
+                        'thirdRow' => [
+                            'description'   => 'Total',
+                            'valuta'        => 'IDR',
+                            'origin'        => '0.00',
+                            'previous'      => '456,000,000',
+                            'addSubt'       => '0.00',
+                            'totalCurrent'  => '456,000,000'
+                        ],
+                    ],
+                    'sectionTwo'    => [
+                        'firstRow'  => [
+                            'description'   => 'Add(Subt) Cost',
+                            'valuta'        => 'IDR',
+                            'origin'        => '0',
+                            'previous'      => '376,712,000',
+                            'addSubt'       => '0',
+                            'totalCurrent'  => '376,712,000'
+                        ],
+                        'secondRow' => [
+                            'description'   => '',
+                            'valuta'        => 'Cross Currency',
+                            'origin'        => '0.00',
+                            'previous'      => '0.00',
+                            'addSubt'       => '0.00',
+                            'totalCurrent'  => '0.00'
+                        ],
+                        'thirdRow' => [
+                            'description'   => '',
+                            'valuta'        => '',
+                            'origin'        => 'Recorded Cost',
+                            'previous'      => '0',
+                            'addSubt'       => '',
+                            'totalCurrent'  => ''
+                        ],
+                        'fourthRow' => [
+                            'description'   => '',
+                            'valuta'        => '',
+                            'origin'        => 'Balanced Budget',
+                            'previous'      => '0',
+                            'addSubt'       => '',
+                            'totalCurrent'  => ''
+                        ],
+                        'fifthRow' => [
+                            'description'   => 'Total',
+                            'valuta'        => 'IDR',
+                            'origin'        => '0',
+                            'previous'      => '376,712,000',
+                            'addSubt'       => '0',
+                            'totalCurrent'  => '376,712,000'
+                        ]
+                    ],
+                    'sectionThree'  => [
+                        'firstRow'  => [
+                            'description'   => 'Gross Margin',
+                            'valuta'        => 'IDR',
+                            'origin'        => '0',
+                            'previous'      => '79,288,000',
+                            'addSubt'       => '0',
+                            'totalCurrent'  => '79,288,000'
+                        ],
+                        'secondRow' => [
+                            'description'   => '',
+                            'valuta'        => 'Cross Currency',
+                            'origin'        => '0.00',
+                            'previous'      => '0.00',
+                            'addSubt'       => '0.00',
+                            'totalCurrent'  => '0.00'
+                        ],
+                        'thirdRow' => [
+                            'description'   => 'Total',
+                            'valuta'        => 'IDR',
+                            'origin'        => '0.00',
+                            'previous'      => '79,288,000',
+                            'addSubt'       => '0.00',
+                            'totalCurrent'  => '79,288,000'
+                        ],
+                    ],
+                    'sectionFour'  => [
+                        'firstRow'  => [
+                            'description'   => 'Gross Margin',
+                            'valuta'        => '%',
+                            'origin'        => '0.00 %',
+                            'previous'      => '17.39 %',
+                            'addSubt'       => '',
+                            'totalCurrent'  => '17.39 %'
+                        ],
+                        'secondRow' => [
+                            'description'   => 'Gross Margin Movement',
+                            'valuta'        => '%',
+                            'origin'        => '17.39 %',
+                            'previous'      => '0.00 %',
+                            'addSubt'       => '',
+                            'totalCurrent'  => ''
+                        ],
+                    ],
+                    'sectionFive'  => [
+                        'firstRow'  => [
+                            'description'   => 'Recorded Cost',
+                            'valuta'        => 'IDR',
+                            'origin'        => '',
+                            'previous'      => '',
+                            'addSubt'       => '',
+                            'totalCurrent'  => '0'
+                        ],
+                        'secondRow' => [
+                            'description'   => '',
+                            'valuta'        => 'Cross Currency',
+                            'origin'        => '',
+                            'previous'      => '',
+                            'addSubt'       => '',
+                            'totalCurrent'  => '0.00'
+                        ],
+                        'thirdRow' => [
+                            'description'   => 'Total',
+                            'valuta'        => 'IDR',
+                            'origin'        => '',
+                            'previous'      => '',
+                            'addSubt'       => '',
+                            'totalCurrent'  => '0'
+                        ],
+                        'fourthRow' => [
+                            'description'   => 'Actual Gross Margin',
+                            'valuta'        => '%',
+                            'origin'        => '',
+                            'previous'      => '',
+                            'addSubt'       => '',
+                            'totalCurrent'  => '0.00 %'
+                        ],
+                    ],
+                ]
             ];
 
             // dd($compact);
