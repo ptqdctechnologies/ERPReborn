@@ -93,6 +93,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
         | ▪ Creation Date   : 2022-07-25                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
+        /*
         public function throughAPIGatewayJQuery($varAPIWebToken)
             {
             //---Parameter Set---
@@ -134,5 +135,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }
+            */
         }
     }

@@ -194,7 +194,7 @@ namespace App\Helpers\ZhtHelper\General
 
 
 
-        public static function getSyntaxCreateZhtObject_InputFile($varUserSession, $varObjectID, $varValue)
+        public static function getSyntaxCreateZhtObject_InputFile($varUserSession, $varAPIWebToken, $varObjectID, $varValue)
             {
             $varArrayProperties =
                 [ 
@@ -209,56 +209,14 @@ namespace App\Helpers\ZhtHelper\General
             $varJSFunctionName = 'JSFuncZhtObjectInputFile_'.$varObjectID;
 
 
-            
- //           echo '<input type="text" id="'.$varObjectID.'_ZhtSignEligibleToProcess" value="false">';
+
             echo '<input type="text" id="'.$varObjectID.'" value="'.$varValue.'">';
             echo '<textarea id="'.$varObjectID.'_ZhtDataRecord" cols=50 rows=10"></textarea>';
             echo '<input type="file" id="'.$varObjectID.'_ZhtFile" style="display:none" onchange="javascript:'.$varJSFunctionName.'(this.files);" multiple/>';
             echo '<button id="'.$varObjectID.'_Button" onclick="document.getElementById(\''.$varObjectID.'_ZhtFile\').click();">Image Upload</button>';
 
             echo '<script type="text/JavaScript">'.
-
                 //-----[ MAIN FUNCTION ]----(START)----
-                /*
-                //'setTimeout('.
-                    '(function '.$varJSFunctionName.'_Main() {'.
-                        'try {'.
-                            'alert(window.document.classList); '.
-                            'if('.self::getSyntaxFunc_IsClassLoaded($varUserSession, 'zht_JSAPIRequest').' === true) {'.
-                                'alert(\'xxxxxxx\'); '.
-                               '}'.
-                            'else {'.
-                                'throw new Error('.self::getSyntaxFunc_SetMessage($varUserSession, true, 'JavaScript Class zht_JSAPIRequest is not loaded').'); '.
-                                '}'.
-                            '}'.
-                        'catch (varError) {'.
-                            'alert(varError); '.
-                            '}'.
-                        '}) (); '.
-                //    '), 1);'.
-                
-                */
-                
-                /*
-                'setTimeout('.
-                    'function '.$varJSFunctionName.'_Main() {'.
-                        'try {'.
-                            'if('.self::getSyntaxFunc_IsClassLoaded($varUserSession, 'zht_JSAPIRequest').' === true) {'.
-                                'alert(\'xxxxxxx\'); '.
-                               '}'.
-                            'else {'.
-                                'throw new Error('.self::getSyntaxFunc_SetMessage($varUserSession, true, 'JavaScript Class zht_JSAPIRequest is not loaded').'); '.
-                                '}'.
-                            'alert(\'xxx\'); '.
-                            '}'.
-                        'catch (varError) {'.
-                            'alert(varError); '.
-                            '}'.
-                        '}'.
-                    ', 1); '.
-                
-                 */
-
                 'document.onreadystatechange = function () {'.
                     'if (document.readyState == "complete") {'.
                         '(function '.$varJSFunctionName.'_Main() {'.
@@ -271,7 +229,7 @@ namespace App\Helpers\ZhtHelper\General
                                     '} '.
                                 '} '.
                             'catch (varError) {'.
-                                'alert(varError); '.
+                                'alert (varError); '.
                                 '} '.
                             '}) (); '.
                             '} '.
@@ -296,7 +254,7 @@ namespace App\Helpers\ZhtHelper\General
                             'for (let i = 0; i < varObjFiles.length; i++) {'.
                                 $varJSFunctionName.'_ReadFileFromBrowser(i, varObjFiles[i]); '.
                                 '} '.
-
+                    
                             //---> Membaca file-file dari browser
                             'function '.$varJSFunctionName.'_ReadFileFromBrowser(varIndex, varObjFile) {'.
                                 'var varObjFileReader = new FileReader();'.
@@ -325,26 +283,115 @@ namespace App\Helpers\ZhtHelper\General
 
                             //---> Proses apabila seluruh file sudah terupload pada browser
                             'function '.$varJSFunctionName.'_AfterReadProcessing() {'.
-                                'varJSONData = \'\'; '.
-                                'for (let i = 0; i < varFileJSONArray.length; i++) {'.
-                                    'if (varJSONData != \'\') {'.
-                                        'varJSONData = varJSONData + \', \'; '.
+                                'if (!document.getElementById(\''.$varObjectID.'\').value) {'.
+                                    'document.getElementById(\''.$varObjectID.'\').value = '.$varJSFunctionName.'_GetLogFileUploadPointerID(); '.
+                                    '}'.
+                                'if (document.getElementById(\''.$varObjectID.'\').value) {'.
+                                    'let varLocLastSequence = 0; '.
+                                    //---> Gat Previous Data
+                                    'let varLocJSONData = '.$varJSFunctionName.'_GetDataList_FileUploadObjectDetail(document.getElementById(\''.$varObjectID.'\').value);'.
+                                    'if (!varLocJSONData) {'.
+                                        'varLocLastSequence = varLocLastSequence + varLocJSONData.length; '.
+                                        'for (let i = 0; i < varLocJSONData.length; i++) {'.
+                                            'let varLocJSONDataDetail = varLocJSONData[i]; '.
+                                            'alert(varLocJSONDataDetail); '.
+                                            '}'.
+                                        '}'.
+
+
+                                    //---> Get New Data
+                                    'let varJSONData = \'\'; '.
+                                    'for (let i = 0; i < varFileJSONArray.length; i++) {'.
+                                        'if (varJSONData != \'\') {'.
+                                            'varJSONData = varJSONData + \', \'; '.
+                                            '} '.
+                                        'varJSONData = varJSONData + varFileJSONArray[i]; '.
                                         '} '.
-                                    'varJSONData = varJSONData + varFileJSONArray[i]; '.
-                                    '} '.
-                                'varJSONData = \'[\' + varJSONData + \']\'; '.
-                                //  'alert(varJSONData); '.
-                                'document.getElementById(\''.$varObjectID.'_ZhtDataRecord\').value = varJSONData;'.
+                                    'varJSONData = \'[\' + varJSONData + \']\'; '.
+                                    //  'alert(varJSONData); '.
+                                    'document.getElementById(\''.$varObjectID.'_ZhtDataRecord\').value = varJSONData;'.
+                                    '}'.
                                 '}; '.
 
+                            //---> Mendapatkan List File Upload Object Detail
+                            'function '.$varJSFunctionName.'_GetDataList_FileUploadObjectDetail(varFileUploadObjectPointerID) {'.
+                                'try {'.
+                                    'varReturn = ('.
+                                        'JSON.parse('.
+                                            str_replace(
+                                                '"', 
+                                                '\'', 
+                                                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                    $varUserSession, 
+                                                    $varAPIWebToken, 
+                                                    'dataWarehouse.read.dataList.acquisition.getFileUpload_ObjectDetail', 
+                                                    'latest',
+                                                    '{'.
+                                                        '"parameter" : {'.
+                                                            '"log_FileUpload_Pointer_RefID" : parseInt(varFileUploadObjectPointerID) '.
+                                                            '}, '.
+                                                        '"SQLStatement" : {'.
+                                                            '"pick" : null, '.
+                                                            '"sort" : null, '.
+                                                            '"filter" : null, '.
+                                                            '"paging" : null'.
+                                                            '}'.
+                                                    '}'
+                                                    )
+                                                ).
+                                            ').data'.
+                                        '); '.
+                                    '} '.
+                                'catch (varError) {'.
+                                    'varReturn = null; '.
+                                    'alert(\'File Upload Object Detail List cann\\\'t be retrieved\'); '.
+                                    '} '.
+                                'finally {'.
+                                    'return varReturn; '.
+                                    '}'.
+                                '}; '.
 
+                            //---> Get Log File Upload Pointer ID
+                            'function '.$varJSFunctionName.'_GetLogFileUploadPointerID() {'.
+                                'try {'.
+                                    'varReturn = ('.
+                                        'JSON.parse('.
+                                            str_replace(
+                                                '"', 
+                                                '\'', 
+                                                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                    $varUserSession, 
+                                                    $varAPIWebToken, 
+                                                    'dataWarehouse.create.acquisition.setLog_FileUpload_Pointer', 
+                                                    'latest',
+                                                    '{'.
+                                                        '"parameter" : {'.
+                                                            '}'.
+                                                    '}'
+                                                    )
+                                                ).
+                                            ').data.recordID'.
+                                        '); '.
+                                    '} '.
+                                'catch (varError) {'.
+                                    'varReturn = null; '.
+                                    'alert(\'Log File Upload Pointer ID cann\\\'t be initilized\'); '.
+                                    '} '.
+                                'finally {'.
+                                    //'alert(varReturn); '.
+                                    'return varReturn; '.
+                                    '}' .
+
+                   
+                    
+                    
+                    
+                    
+                                '}'.
                             '}'.
-
-
-
                         '} '.
                     'else {'.
-                        'alert(\'ZhtObject not proper to continue the process\'); '.
+                        'alert(\'ZhtObject was not initialized correctly\'); '.
                         '} '.
                     '}; '.
 

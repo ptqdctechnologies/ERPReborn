@@ -59,28 +59,28 @@ namespace App\Helpers\ZhtHelper\System
                         throw new \Exception('Port is closed');
                         }
                     //---> Pengecekan Method
-                    if(!$varMethod)
+                    if (!$varMethod)
                         {
                         $varMethod = 'POST';
                         }
                     //---> Pengecekan data
-                    if(!$varData)
+                    if (!$varData)
                         {
                         $varData=[];                 
                         }
-                    if(!is_array($varData))
+                    if (!is_array($varData))
                         {
                         throw new Exception('Data must be an array');
                         }
                     //---> Pengecekan TTL
-                    if(!$varTTL)
+                    if (!$varTTL)
                         {
                         $varTTL = 300;
                         }
                     //---> Overide TTL untuk API tertentu
-                    if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varData, 'metadata::API::key')==true)
+                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varData, 'metadata::API::key')==true)
                         {
-                        if(
+                        if (
                             (strcmp($varData['metadata']['API']['key'], 'transaction.synchronize.dataAcquisition.setLog_Device_PersonAccess') == 0)
                             )
                             {
@@ -90,7 +90,7 @@ namespace App\Helpers\ZhtHelper\System
                     //---> Set TTL
                     ini_set('max_execution_time', $varTTL);
                     //---> Pengecekan Header
-                    if(!$varHeaders)
+                    if (!$varHeaders)
                         {
                         //---> API AUTH
                         if(strcmp($varURL, \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'))==0)

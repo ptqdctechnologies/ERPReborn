@@ -367,7 +367,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                 try {
                     //dd($varData['SQLStatement']['filter']);
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(!$varAPIVersion)
+                    if (!$varAPIVersion)
                         {
                         $varAPIVersion = 'latest';
                         }
@@ -376,12 +376,12 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         $varAPIVersion = strtolower($varAPIVersion);
                         }
 
-                    if($varSignDisplayErrorPage === NULL)
+                    if ($varSignDisplayErrorPage === NULL)
                         {
                         $varSignDisplayErrorPage = TRUE;
                         }
 
-                    if(!$varData)
+                    if (!$varData)
                         {
                         $varData = [];
                         }
@@ -416,14 +416,14 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         {
                         $varRequesterSegment = (request()->segments())[0];
                         //---> Jika Requester berasal dari Gateway JQuery
-                        if(strcmp($varRequesterSegment, "APIGatewayJQuery_setRequest") == 0)
+                        if (strcmp($varRequesterSegment, "APIGatewayJQuery_setRequest") == 0)
                             {
                             $varReturn = $varResponseData;
                             }
                         //---> Jika Requester berasal dari Gateway PHP
                         else
                             {
-                            if($varSignDisplayErrorPage === TRUE)
+                            if ($varSignDisplayErrorPage === TRUE)
                                 {
                                 echo $varResponseData['data']['message'];
                                 }
@@ -497,6 +497,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             'try '.
                                 '{ '.                            
                                 'varJSONData = JSON.parse(JSON.stringify('.$varData.')); '.
+                                    //'alert(JSON.parse(JSON.stringify('.$varData.'))); '.
 
                                 'varReturn = '.
                                     'new zht_JSAPIRequest_Gateway('.

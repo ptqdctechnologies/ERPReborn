@@ -261,7 +261,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getEngineDataSend_DataRead($varUserSession, array $varDataSend, bool $varSignConvertPHPArrayToJSONCamelCase = TRUE)
+        public static function getEngineDataSend_DataRead($varUserSession, $varDataSend, bool $varSignConvertPHPArrayToJSONCamelCase = TRUE)
             {
             if (is_array($varDataSend) == FALSE)
                 {
@@ -269,7 +269,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                 }
             else
                 {
-                if(count($varDataSend)==0)
+                if (count($varDataSend) == 0)
                     {
                     $varReturn = [];
                     }
@@ -315,8 +315,8 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                     */
                     //dd($varReturn);
                     }
+
                 return $varReturn;
-                
                 }
 /*
             if($varDataSend)
