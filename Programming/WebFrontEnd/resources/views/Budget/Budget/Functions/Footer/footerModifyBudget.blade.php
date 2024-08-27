@@ -106,6 +106,9 @@
                     valueCOAdditionalInput.value = '';
                     valueCODeductiveField.style.display = 'none';
                     valueCODeductiveInput.value = '';
+
+                    $('#value_co_deductive').prop('disabled', false);
+                    $('#value_co_additional').prop('disabled', false);
                 }
             });
         });

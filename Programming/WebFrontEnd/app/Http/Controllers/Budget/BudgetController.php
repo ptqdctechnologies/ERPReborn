@@ -42,7 +42,7 @@ class BudgetController extends Controller
         return view('Budget.Budget.Transactions.ModifyBudget');
     }
 
-    public function ModifyBudgetStore(Request $request) {
+    public function PreviewModifyBudget(Request $request) {
         try {
             // BUDGET CODE
             $budgetID           = $request->project_id;
@@ -86,39 +86,22 @@ class BudgetController extends Controller
                 'subBudgetName'     => $subBudgetName,
                 'reason'            => $reason,
                 'additionalCO'      => $additionalCO,
-                'currency'          => $currency,
+                'currencyID'        => $currencyID,
+                'currencySymbol'    => $currencySymbol,
+                'currencyName'      => $currencyName,
+                'idrRate'           => $idrRate,
                 'valueAdditionalCO' => $valueAdditionalCO,
+                'valueDeductiveCO'  => $valueDeductiveCO,
                 'files'             => $files,
             ];
 
-            return redirect()->route('Budget.PreviewModifyBudget', $compact);
-            
+            // dd($compact);
+
+            return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {
-            Log::error("Error at ModifyBudget: " . $th->getMessage());
+            Log::error("Error at PreviewModifyBudget: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
-    }
-
-    public function PreviewModifyBudget(Request $request) {
-        // if (!$request->has(['budgetID', 'budgetCode', 'budgetName', 'subBudgetID', 'subBudgetCode', 'subBudgetName', 'reason', 'additionalCO', 'currency', 'valueAdditionalCO', 'files'])) {
-        //     return redirect()->route('Budget.ModifyBudget')->with('NotFound', 'Data not found. Please fill in the data first.');
-        // }
-
-        $compact = [
-            'budgetID'          => $request->budgetID,
-            'budgetCode'        => $request->budgetCode,
-            'budgetName'        => $request->budgetName,
-            'subBudgetID'       => $request->subBudgetID,
-            'subBudgetCode'     => $request->subBudgetCode,
-            'subBudgetName'     => $request->subBudgetName,
-            'reason'            => $request->reason,
-            'additionalCO'      => $request->additionalCO,
-            'currency'          => $request->currency,
-            'valueAdditionalCO' => $request->valueAdditionalCO,
-            'files'             => $request->files,
-        ];
-
-        return view('Budget.Budget.Transactions.PreviewModifyBudget');
     }
 
     public function create()

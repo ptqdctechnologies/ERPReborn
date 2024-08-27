@@ -52,13 +52,13 @@
                             </dd>
                         </div>
 
-                        <!-- PROJECT -->
+                        <!-- BUDGET -->
                         <div class="row information_approval">
                             <dt class="col-lg-4">
                                 Budget
                             </dt>
                             <dd class="col" style="line-height: 15px;">
-                                Q000197 - Pembangunan Gardu Induk 150 kV Siak Sri Indrapura Ext 2 Line Bay
+                                <?= $budgetCode; ?> - <?= $budgetName; ?>
                             </dd>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                                 Currency
                             </dt>
                             <dd class="col">
-                                IDR
+                                <?= $currencyName; ?>
                             </dd>
                         </div>
 
@@ -90,7 +90,7 @@
                                 Sub Budget
                             </dt>
                             <dd class="col" style="line-height: 15px;">
-                                2300 - Service DPT GI 150 kV New Garuda Sakti
+                                <?= $subBudgetCode; ?> - <?= $subBudgetName; ?>
                             </dd>
                         </div>
 
@@ -100,7 +100,7 @@
                                 Reason
                             </dt>
                             <dd class="col" style="line-height: 15px;">
-                                -
+                                <?= $reason; ?>
                             </dd>
                         </div>
                     </div>
