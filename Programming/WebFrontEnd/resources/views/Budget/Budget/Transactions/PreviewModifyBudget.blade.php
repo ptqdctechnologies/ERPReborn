@@ -156,22 +156,22 @@
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">Total</td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark text-center">IDR</td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Origin CO IDR + Origin CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Origin CO IDR + Origin CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: help;">
                                             0
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Previous CO IDR : 11,073,733,917 <br /> Previous CO Cross Currency : 0.00 * 17,632 <br />" style="width: max-content; cursor: help;">
                                             456,000,000
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Add(subt) CO IDR + Add(subt) CO Cross Currency <br /> Add(subt) CO IDR : 0 <br /> Add(subt) CO  Cross Currency : 0.00 * 17,632 <br />" style="width: max-content; cursor: help;">
                                             0
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Total Current CO IDR + Total Current CO USD <br /> Total Current CO IDR : 11,073,733,917 <br /> Total Current CO Cross Currency : 0.00 * 17,632 <br />" style="width: max-content; cursor: help;">
                                             456,000,000
                                         </div>
                                     </td>
@@ -197,7 +197,7 @@
                                     <td></td>
                                     <td></td>
                                     <td class="font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="ASF Claim + BSF Claim + Piecemeal + OCA + RPI(to site) + DO - (Material Return + Material Cancel) - Cancel RPI" style="width: max-content; cursor: help;">
                                             Recorded Cost
                                         </div>
                                     </td>
@@ -209,7 +209,7 @@
                                     <td></td>
                                     <td></td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right" style="width: max-content;">
                                             Balanced Budget
                                         </div>
                                     </td>
@@ -221,22 +221,22 @@
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">Total</td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark text-center">IDR</td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Origin Add(Subt) Cost IDR + Origin Add(Subt) Cost Cross Currency <br /> Origin Add(Subt) Cost IDR : 9,938,409,279 <br /> Origin Add(Subt) Cost Cross Currency : 0.00 * Transaction's rate (15,245) <br />" style="width: max-content; cursor: help;">
                                             0
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous Add(Subt) Cost IDR + Recorded Cost Cross Currency + Balance Budget Cross Currency <br /> Previous Add(Subt) Cost IDR : 9,906,620,083 <br /> Recorded Cost Cross Currency : 0.00 (0.00 * Transaction's exchange rate) <br /> Balance Budget Cross Currency : 0.00 * 17,632" style="width: max-content; cursor: help;">
                                             376,712,000
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Add(Subt) Cost IDR + Add(Subt) Cost Cross Currency <br /> Add(Subt) Cost IDR : 0 <br /> Add(Subt) Cost Cross Currency : 6.00 * 17,632 <br />" style="width: max-content; cursor: help;">
                                             0
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Total Current Add(Subt) Cost IDR  + Recorded Cost Cross Currency + Balance Budget Cross Currency + Add(Subt) Cost Cross Currency <br /> Total Current Add(Subt) Cost IDR : 9,906,620,083 <br /> Recorded Cost Cross Currency : 0.00 (0.00 * Transaction's exchange rate) <br /> Balance Budget Cross Currency : 0.00 * 17,632 <br /> Add(Subt) Cost Cross Currency : 6.00 * 17,632 <br />" style="width: max-content; cursor: help;">
                                             376,712,000
                                         </div>
                                     </td>
@@ -262,22 +262,22 @@
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">Total</td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark text-center">IDR</td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Origin Gross Margin IDR + Origin Gross Margin Cross Currency <br /> Origin Gross Margin IDR : 1,135,324,639 <br /> Origin Gross Margin Cross Currency : 0.00 * Transaction's rate (15,245) <br />" style="width: max-content; cursor: help;">
                                             0
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO Total - Previous Add(Subt) Cost Total <br /> Previous CO Total : 11,073,733,917 <br /> Previous Add(Subt) Cost Total : 9,906,620,083 <br />" style="width: max-content; cursor: help;">
                                             79,288,000
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Add(Subt) CO Total - Add(Subt) Add(Subt) Cost Total <br /> Add(Subt) CO Total : 0 <br /> Add(Subt) Add(Subt) Cost Total : 105,792 <br />" style="width: max-content; cursor: help;">
                                             0
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Total Current CO Total - Total Current Add(Subt) Cost Total <br /> Total Current CO Total : 11,073,733,917 <br /> Total Current Add(Subt) Cost Total : 9,906,725,875 <br />" style="width: max-content; cursor: help;">
                                             79,288,000
                                         </div>
                                     </td>
@@ -287,18 +287,18 @@
                                     <td class="font-weight-bold text-danger">Gross Margin</td>
                                     <td class="font-weight-bold text-danger text-center">%</td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Origin Gross Margin Total / Origin CO Total) * 100% <br /> Origin Gross Margin Total : 1,135,324,638.63 <br /> Origin CO Total : 11,073,733,917.13 <br />" style="width: max-content; cursor: help;">
                                             0.00 %
                                         </div>
                                     </td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Previous Gross Margin Total / Previous CO Total) * 100% <br /> Previous Gross Margin Total : 1,167,113,834.63 <br /> Previous CO Total : 11,073,733,917.13 <br />" style="width: max-content; cursor: help;">
                                             17.39 %
                                         </div>
                                     </td>
                                     <td></td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Total Current Gross Margin Total / Total Current CO Total) * 100% <br /> Total Current Gross Margin Total : 1,167,008,042.63 <br /> Total Current CO Total : 11,073,733,917.13 <br />" style="width: max-content; cursor: help;">
                                             17.39 %
                                         </div>
                                     </td>
@@ -307,12 +307,12 @@
                                     <td class="font-weight-bold text-danger">Gross Margin Movement</td>
                                     <td class="font-weight-bold text-danger text-center">%</td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Total Current Gross Margin % - Origin Gross Margin %) <br /> Total Current Gross Margin % : 10.54 % <br /> Origin Gross Margin % : 10.25 % <br />" style="width: max-content; cursor: help;">
                                             17.39 %
                                         </div>
                                     </td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Total Current Gross Margin % - Previous Gross Margin %) <br /> Total Current Gross Margin % : 10.54 % <br /> Previous Gross Margin % : 10.54 % <br />" style="width: max-content; cursor: help;">
                                             0.00 %
                                         </div>
                                     </td>
@@ -344,7 +344,7 @@
                                     <td class="border-dark border-top font-weight-bold text-dark"></td>
                                     <td class="border-dark border-top font-weight-bold text-dark"></td>
                                     <td class="border-dark border-top font-weight-bold text-dark text-right">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Recorded Cost IDR + Recorded Cost Cross Currency <br /> Recorded Cost IDR : 28,847,447 <br /> Recorded Cost Cross Currency : 0 (0.00 * Transaction's exchange rate) <br />" style="width: max-content; cursor: help;">
                                             0
                                         </div>
                                     </td>
@@ -356,7 +356,7 @@
                                     <td class="border-dark border-top"></td>
                                     <td class="border-dark border-top"></td>
                                     <td class="border-dark border-top font-weight-bold text-dark text-right">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="([Total Current CO * % Progress - Total Recorded Cost]/Total Current CO * % Progress)*100% Total Current CO : 11,073,733,917 <br /> % Progress : 0.00 % <br /> Total Recorded Cost : 28,847,447 <br />" style="width: max-content; cursor: help;">
                                             0.00 %
                                         </div>
                                     </td>
