@@ -381,7 +381,7 @@ namespace App\Helpers\ZhtHelper\General
 
         public static function getFileImageContent($varUserSession, $varFilePath = null)
             {
-            if(is_file($varFilePath))
+            if (is_file($varFilePath))
                 {
                 $varImagePath=file_get_contents($varFilePath);
                 $varImageType=mime_content_type($varFilePath);
