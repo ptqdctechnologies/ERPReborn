@@ -3,26 +3,25 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\general\setFilesAppend   |
-|                 \v1                                                                                                              |
-| ▪ API Key     : fileHandling.upload.general.setFilesAppend                                                                       |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\general\getFileList\v1   |
+| ▪ API Key     : fileHandling.upload.general.getFileList                                                                          |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\general\setFilesAppend\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\general\getFileList\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/fileHandling.upload.general.setFilesAppend.v1_throughAPIGateway                     |
-        |                     ► http://172.28.0.4/fileHandling.upload.general.setFilesAppend.v1_throughAPIGateway                  |
+        | ▪ Call URL        : http(s)://<HOST>/fileHandling.upload.general.getFileList.v1_throughAPIGateway                        |
+        |                     ► http://172.28.0.4/fileHandling.upload.general.getFileList.v1_throughAPIGateway                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-08-23                                                                                           |
-        | ▪ Creation Date   : 2024-08-23                                                                                           |
+        | ▪ Last Update     : 2024-08-26                                                                                           |
+        | ▪ Creation Date   : 2024-08-26                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -36,42 +35,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken, 
-                    'fileHandling.upload.general.setFilesAppend', 
+                    'fileHandling.upload.general.getFileList', 
                     'latest', 
                     [
                     'parameter' => [
-//                        'log_FileUpload_Pointer_RefID' => null,
-                        'log_FileUpload_Pointer_RefID' => 264000000000001,
-                        "additionalData" => [
-                            "itemList" => [
-                                "items" => [
-                                        [
-                                        "entities" => [
-                                            'name' => 'ContohTextFile.txt',
-                                            'size' => 9,
-                                            'MIME' => 'text/plain',
-                                            'extension' => 'txt',
-                                            'lastModifiedDateTimeTZ' => 'Mon Jul 19 2021 10:58:30 GMT+0700 (Western Indonesia Time)',
-                                            'lastModifiedUnixTimestamp' => 1626667110901,
-                                            'contentBase64' => 'SGFpIEluaSBGaWxlIFRleHQgMQ==',
-                                            ]                                   
-                                        ],
-                                        [
-                                        "entities" => [
-                                            'name' => 'ContohTextFileKeDua.txt',
-                                            'size' => 9,
-                                            'MIME' => 'text/plain',
-                                            'extension' => 'txt',
-                                            'lastModifiedDateTimeTZ' => 'Mon Jul 19 2021 10:58:30 GMT+0700 (Western Indonesia Time)',
-                                            'lastModifiedUnixTimestamp' => 1626667110901,
-                                            'contentBase64' => 'SGFpIEluaSBGaWxlIFRleHQgMg==',
-                                            ]                                   
-                                        ]
-
-
-                                    ]
-                                ]
-                            ]
+                        'log_FileUpload_Pointer_RefID' => 264000000000001
                         ]
                     ]
                     );
@@ -81,12 +49,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/fileHandling.upload.general.setFilesAppend.v1_throughAPIGatewayJQuery               |
-        |                     ► http://172.28.0.4/fileHandling.upload.general.setFilesAppend.v1_throughAPIGatewayJQuery            |
+        | ▪ Call URL        : http(s)://<HOST>/fileHandling.upload.general.getFileList.v1_throughAPIGatewayJQuery                  |
+        |                     ► http://172.28.0.4/fileHandling.upload.general.getFileList.v1_throughAPIGatewayJQuery               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-08-23                                                                                           |
-        | ▪ Creation Date   : 2024-08-23                                                                                           |
+        | ▪ Last Update     : 2024-08-26                                                                                           |
+        | ▪ Creation Date   : 2024-08-26                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -109,7 +77,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                     $varAPIWebToken, 
-                    'fileHandling.upload.general.setFilesAppend', 
+                    'fileHandling.upload.general.getFileList', 
                     'latest', 
                     '{'.
                         '"parameter" : {'.

@@ -417,6 +417,7 @@ namespace App\Helpers\ZhtHelper\General
                                     '}'.
                                 '}; '.
 
+
                             //---> Get Log File Upload Pointer ID
                             'function '.$varJSFunctionName.'_GetLogFileUploadPointerID() {'.
                                 'try {'.

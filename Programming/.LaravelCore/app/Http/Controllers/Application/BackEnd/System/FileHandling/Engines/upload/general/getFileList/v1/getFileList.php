@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\general\setFilesAppend\v1            |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\general\getFileList\v1               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\general\setFilesAppend\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\general\getFileList\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setFilesAppend                                                                                               |
-    | ▪ Description : Menangani API fileHandling.upload.general.setFilesAppend Version 1                                           |
+    | ▪ Class Name  : getFileList                                                                                                  |
+    | ▪ Description : Menangani API fileHandling.upload.archive.general.getFileList Version 1                                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setFilesAppend extends \App\Http\Controllers\Controller
+    class getFileList extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-08-23                                                                                           |
-        | ▪ Creation Date   : 2024-08-23                                                                                           |
+        | ▪ Last Update     : 2024-08-26                                                                                           |
+        | ▪ Creation Date   : 2024-08-26                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -37,13 +37,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             {
             }
 
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-08-23                                                                                           |
-        | ▪ Creation Date   : 2024-08-23                                                                                           |
+        | ▪ Last Update     : 2024-08-26                                                                                           |
+        | ▪ Creation Date   : 2024-08-26                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,17 +58,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set File on Local Storage (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Files List at Cloud Storage (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        //dd($varData);
                         $varDataSend = 
-                            $this->dataProcessing(
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                $varData);
-                        //dd($varDataSend);
-                        
+                                $this->dataProcessing(
+                                    $varUserSession, 
+                                    $varData['parameter']['log_FileUpload_Pointer_RefID']
+                                    )
+                                );
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -89,83 +92,73 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             }
 
 
-        private function dataProcessing($varUserSession, $varData)
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : dataProcessing                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-08-26                                                                                           |
+        | ▪ Creation Date   : 2024-08-26                                                                                           |
+        | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        |      ▪ (int)    $varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID (Mandatory)                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private function dataProcessing($varUserSession, int $varLog_FileUpload_Pointer_RefID)
             {
-            $varHashMethod_RefID = 199000000000002;
-            
-            for ($i = 0, $iMax = count($varData['parameter']['additionalData']['itemList']['items']); $i != $iMax; $i++)
-                {
-                $varAdditionalDataElement[$i] = [
-                    'entities' => [
-                        'name' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['name'],
-                        'size' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['size'],
-                        'MIME' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['MIME'],
-                        'extension' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['extension'],
-                        'lastModifiedDateTimeTZ' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['lastModifiedDateTimeTZ'],
-                        'lastModifiedUnixTimestamp' => $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['lastModifiedUnixTimestamp'],
-                        'hashMethod_RefID' => $varHashMethod_RefID,
-                        'contentBase64Hash' => 
-                            \App\Helpers\ZhtHelper\General\Helper_Hash::getSHA256(
-                                $varUserSession, 
-                                $varData['parameter']['additionalData']['itemList']['items'][$i]['entities']['contentBase64']
-                                ),
-                        'URLDelete' => null
-                        ]
-                    ];
-                }
-            
-            $varAdditionalData = [
-                'itemList' => [
-                    'items' => $varAdditionalDataElement
-                    ]
-                ];
-            
-            $varReturn =
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysAsset.FuncSys_FileHandling_SetFilesAppend',
-                        [
-                            [$varUserSession, 'bigint'],
-                            [$varData['parameter']['log_FileUpload_Pointer_RefID'], 'bigint'],
-
-                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
-
-                        ]
-                        )
-                    );
-            
-            //---> Normaliasi Data varReturn
-            $varReturn['data'][0] = [
-                'log_FileUpload_Pointer_RefID' => $varReturn['data'][0]['Log_FileUpload_Pointer_RefID'],
-                'JSONData' => 
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession,
-                        $varReturn['data'][0]['JSONData']
-                        ),
-                'signNewSequenceEligibleToUpload' => $varReturn['data'][0]['SignNewSequenceEligibleToUpload']
-                ];
-
-            //---> Set Data $varSignNewSequenceEligibleToUpload
-            $varSignNewSequenceEligibleToUpload =
-                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+            $varDataReturn = 
+                (new \App\Models\Database\SchSysAsset\General())->getFileList(
                     $varUserSession,
-                    $varReturn['data'][0]['signNewSequenceEligibleToUpload']
+                    $varLog_FileUpload_Pointer_RefID
+                    );
+            
+            /*
+            dd($varDataList);
+            
+            $varDataList = 
+                (new \App\Models\CloudStorage\System\General())->getFilesList(
+                    $varUserSession, 
+                    'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK
                     );
 
-            //---> Set File ke Cloud Storage
-            for ($i = 0, $iMax = count($varReturn['data'][0]['JSONData']); $i != $iMax; $i++) {
-                if ($varReturn['data'][0]['JSONData'][$i]['entities']['signNewFile'] == true) {
-                    (new \App\Models\CloudStorage\System\General())->createFile(
-                        $varUserSession,
-                        'StagingAreaTemp'.$varReturn['data'][0]['JSONData'][$i]['entities']['filePath'],
-                        base64_decode($varData['parameter']['additionalData']['itemList']['items'][($varReturn['data'][0]['JSONData'][$i]['entities']['newEntrySequence'])-1]['entities']['contentBase64'])
-                        );
+            $varArrayRPKPhysicalName = '';
+            for ($i=0, $iMax=count($varDataList); $i!=$iMax; $i++)
+                {
+                if(strcmp($varArrayRPKPhysicalName, '')!=0)
+                    {
+                    $varArrayRPKPhysicalName .= ',';
+                    }
+                $varArrayRPKPhysicalName .= $varDataList[$i]['Name'];
+                }
+            $varArrayRPKPhysicalName = '{'.$varArrayRPKPhysicalName.'}';
+            
+            //--->
+            $varDataReturn =
+                (new \App\Models\Database\SchSysAsset\General())->getCloudStorageFilesList(
+                    $varUserSession, 
+                    $varRotateLog_FileUploadStagingArea_RefRPK,
+                    $varArrayRPKPhysicalName
+                    );
+            
+            //$varDataReturn = $varDataList;
+            //$varDataReturn = ['xxx' => $varArrayRPKPhysicalName];
+            //--->
+             for ($i=0, $iMax=count($varDataReturn); $i!=$iMax; $i++)
+                {
+                if(((bool) $varDataReturn[$i]['SignExistOnStorage']) == TRUE) {
+                    $varDataReturn[$i]['Path'] = 'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varDataReturn[$i]['Sys_RPK'];
+                    }
+                else {
+                    $varDataReturn[$i]['Path'] = null;
                     }
                 }
-            
-            return $varReturn;
+             * 
+             */
+            return $varDataReturn;
             }
         }
     }
