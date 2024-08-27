@@ -522,31 +522,45 @@
                     </div>
                 </div>
 
-                <!-- AFE ADDITIONAL TABLE -->
+                <!-- MODIFY BUDGET TABLE -->
                 <div class="row mx-0" style="margin-top: 30px;">
                     <div class="text-center font-weight-bold table_title">
                         Modify Budget Table
                     </div>
 
-                    <div class="card-body p-0">
+                    <div class="card-body table-responsive p-0">
                         <table class="table table-bordered table-hover text-nowrap" style="border: 2px solid #e9e9e9;">
                             <thead>
                                 <tr>
-                                    <th class="text-center align-middle">NO</th>
-                                    <th class="align-middle">NAME MATERIAL</th>
-                                    <th class="text-center align-middle">UOM</th>
+                                    <th>PRODUCT ID</th>
+                                    <th>PRODUCT NAME</th>
+                                    <th>QTY BUDGET</th>
+                                    <th>QTY AVAIL</th>
+                                    <th>PRICE</th>
+                                    <th>CURRENCY</th>
+                                    <th>BALANCE BUDGET</th>
+                                    <th>TOTAL BUDGET</th>
+                                    <th>QTY ADDITIONAL</th>
+                                    <th>PRICE ADDITIONAL</th>
+                                    <th>TOTAL ADDITIONAL</th>
+                                    <th>QTY SAVING</th>
+                                    <th>PRICE SAVING</th>
+                                    <th>TOTAL SAVING</th>
+                                    <!-- <th class="text-center align-middle">PRODUCT ID</th>
+                                    <th class="align-middle">PRODUCT NAME</th>
+                                    <th class="text-center align-middle">QTY BUDGET</th>
                                     <th class="text-center align-middle" style="line-height: 15px;">QTY <br /> (BOQ3)</th>
                                     <th class="text-center align-middle" style="line-height: 15px;">UNIT PRICE <br /> (BOQ3)</th>
                                     <th class="text-center align-middle" style="line-height: 15px;">TOTAL <br /> (BOQ3)</th>
                                     <th class="text-center align-middle" style="line-height: 15px;">QTY <br /> (REQUEST)</th>
                                     <th class="text-center align-middle" style="line-height: 15px;">UNIT PRICE <br /> (REQUEST)</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">TOTAL <br /> (REQUEST)</th>
+                                    <th class="text-center align-middle" style="line-height: 15px;">TOTAL <br /> (REQUEST)</th> -->
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td class="text-wrap" style="line-height: 15px;">129461-0000 - Pengambilan Undisturbed Sample Tanah</td>
+                                    <td style="line-height: 15px;">129461-0000 - Pengambilan Undisturbed Sample Tanah</td>
                                     <td>MI</td>
                                     <td class="text-right">0.00</td>
                                     <td class="text-right">0</td>
@@ -558,7 +572,7 @@
 
                                 <!-- FOOTER -->
                                 <tr>
-                                    <td colspan="5" class="font-weight-bold" style="font-size: 12px;">
+                                    <td colspan="10" class="font-weight-bold" style="font-size: 12px;">
                                         Total
                                     </td>
                                     <td class="text-right">
@@ -570,7 +584,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="8" class="font-weight-bold" style="font-size: 12px;">
+                                    <td colspan="10" class="font-weight-bold" style="font-size: 12px;">
                                         Total Additional Costs
                                     </td>
                                     <td class="text-right">
