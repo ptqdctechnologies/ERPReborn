@@ -3506,7 +3506,8 @@ namespace App\Helpers\ZhtHelper\General
                                                                     'ID' => 'varObjTTD',
                                                                     'ParentID' => 'varObjTTR',
                                                                     'Style' => $varStyle_TableActionPanelHead,
-                                                                    'ColSpan' => 4
+                                                                    'RowSpan' => 1,
+                                                                    'ColSpan' => 1
                                                                     ],
                                                                     'varObjTTD.appendChild(document.createTextNode(\'ACTION\')); '
                                                                     )
