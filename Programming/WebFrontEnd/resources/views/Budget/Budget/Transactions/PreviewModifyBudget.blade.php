@@ -16,7 +16,7 @@
             <!-- CONTENT -->
             <div class="card px-3 py-4">
                 <div class="text-center font-weight-bold title_approval">
-                    APPROVAL FOR EXPENDITURE
+                    PREVIEW MODIFY BUDGET
                 </div>
 
                 <!-- INFORMASI -->
@@ -24,37 +24,27 @@
                     <div class="col">
                         <!-- SUBMITTED DATE -->
                         <div class="row information_approval">
-                            <dt class="col-lg-3">
+                            <dt class="col-lg-4">
                                 Submitted Date
                             </dt>
                             <dd class="col">
-                                18 Jul 2024
+                                <?= date('j F Y'); ?>
                             </dd>
                         </div>
 
-                        <!-- FINAL APPROVED DATE -->
+                        <!-- MODIFY BUDGET NUMBER -->
                         <div class="row information_approval">
-                            <dt class="col-lg-3">
-                                Final Approved Date
+                            <dt class="col-lg-4">
+                                Modify Budget Number
                             </dt>
                             <dd class="col">
-                                29 Jul 2024
-                            </dd>
-                        </div>
-
-                        <!-- AFE NUMBER -->
-                        <div class="row information_approval">
-                            <dt class="col-lg-3">
-                                AFE Number
-                            </dt>
-                            <dd class="col">
-                                AFE-24000080
+                                Budget-24000080
                             </dd>
                         </div>
 
                         <!-- PIC -->
                         <div class="row information_approval">
-                            <dt class="col-lg-3">
+                            <dt class="col-lg-4">
                                 PIC
                             </dt>
                             <dd class="col">
@@ -64,8 +54,8 @@
 
                         <!-- PROJECT -->
                         <div class="row information_approval">
-                            <dt class="col-lg-3">
-                                Project
+                            <dt class="col-lg-4">
+                                Budget
                             </dt>
                             <dd class="col" style="line-height: 15px;">
                                 Q000197 - Pembangunan Gardu Induk 150 kV Siak Sri Indrapura Ext 2 Line Bay
@@ -76,7 +66,7 @@
                     <div class="col">
                         <!-- CURRENCY -->
                         <div class="row information_approval">
-                            <dt class="col-lg-3">
+                            <dt class="col-lg-4">
                                 Currency
                             </dt>
                             <dd class="col">
@@ -86,7 +76,7 @@
 
                         <!-- EXCHANGE RATE -->
                         <div class="row information_approval">
-                            <dt class="col-lg-3">
+                            <dt class="col-lg-4">
                                 Exchange Rate
                             </dt>
                             <dd class="col">
@@ -96,8 +86,8 @@
 
                         <!-- SITE -->
                         <div class="row information_approval">
-                            <dt class="col-lg-3">
-                                Site
+                            <dt class="col-lg-4">
+                                Sub Budget
                             </dt>
                             <dd class="col" style="line-height: 15px;">
                                 2300 - Service DPT GI 150 kV New Garuda Sakti
@@ -106,7 +96,7 @@
 
                         <!-- REASON -->
                         <div class="row information_approval">
-                            <dt class="col-lg-3">
+                            <dt class="col-lg-4">
                                 Reason
                             </dt>
                             <dd class="col" style="line-height: 15px;">
@@ -166,22 +156,22 @@
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">Total</td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark text-center">IDR</td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Origin CO IDR + Origin CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             0
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             456,000,000
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             0
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             456,000,000
                                         </div>
                                     </td>
@@ -231,22 +221,22 @@
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">Total</td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark text-center">IDR</td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             0
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             376,712,000
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             0
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             376,712,000
                                         </div>
                                     </td>
@@ -272,22 +262,22 @@
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">Total</td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark text-center">IDR</td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             0
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             79,288,000
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             0
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             79,288,000
                                         </div>
                                     </td>
@@ -297,18 +287,18 @@
                                     <td class="font-weight-bold text-danger">Gross Margin</td>
                                     <td class="font-weight-bold text-danger text-center">%</td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             0.00 %
                                         </div>
                                     </td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             17.39 %
                                         </div>
                                     </td>
                                     <td></td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             17.39 %
                                         </div>
                                     </td>
@@ -317,12 +307,12 @@
                                     <td class="font-weight-bold text-danger">Gross Margin Movement</td>
                                     <td class="font-weight-bold text-danger text-center">%</td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             17.39 %
                                         </div>
                                     </td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             0.00 %
                                         </div>
                                     </td>
@@ -354,7 +344,7 @@
                                     <td class="border-dark border-top font-weight-bold text-dark"></td>
                                     <td class="border-dark border-top font-weight-bold text-dark"></td>
                                     <td class="border-dark border-top font-weight-bold text-dark text-right">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             0
                                         </div>
                                     </td>
@@ -366,7 +356,7 @@
                                     <td class="border-dark border-top"></td>
                                     <td class="border-dark border-top"></td>
                                     <td class="border-dark border-top font-weight-bold text-dark text-right">
-                                        <div class="float-right border_bottom_dotted" style="width: max-content;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: pointer;">
                                             0.00 %
                                         </div>
                                     </td>
@@ -379,7 +369,7 @@
                 <!-- AFE ADDITIONAL TABLE -->
                 <div class="row mx-0" style="margin-top: 30px;">
                     <div class="text-center font-weight-bold table_title">
-                        AFE Additional Table
+                        Modify Budget Table
                     </div>
 
                     <div class="card-body p-0">
@@ -387,9 +377,6 @@
                             <thead>
                                 <tr>
                                     <th class="text-center align-middle">NO</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">SITE <br /> CODE</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">CFS <br /> CODE</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">WORK <br /> ID</th>
                                     <th class="align-middle">NAME MATERIAL</th>
                                     <th class="text-center align-middle">UOM</th>
                                     <th class="text-center align-middle" style="line-height: 15px;">QTY <br /> (BOQ3)</th>
@@ -403,9 +390,6 @@
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>2300</td>
-                                    <td>5-3-4</td>
-                                    <td>2030</td>
                                     <td class="text-wrap" style="line-height: 15px;">129461-0000 - Pengambilan Undisturbed Sample Tanah</td>
                                     <td>MI</td>
                                     <td class="text-right">0.00</td>
@@ -418,7 +402,7 @@
 
                                 <!-- FOOTER -->
                                 <tr>
-                                    <td colspan="8" class="font-weight-bold" style="font-size: 12px;">
+                                    <td colspan="5" class="font-weight-bold" style="font-size: 12px;">
                                         Total
                                     </td>
                                     <td class="text-right">
@@ -430,74 +414,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="11" class="font-weight-bold" style="font-size: 12px;">
-                                        Total Additional Costs
-                                    </td>
-                                    <td class="text-right">
-                                        4,000,000
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- AFE SAVINGS TABLE -->
-                <div class="row mx-0" style="margin-top: 30px;">
-                    <div class="text-center font-weight-bold table_title">
-                        AFE Saving Table
-                    </div>
-
-                    <div class="card-body p-0">
-                        <table class="table table-bordered table-hover text-nowrap" style="border: 2px solid #e9e9e9;">
-                            <thead>
-                                <tr>
-                                    <th class="text-center align-middle">NO</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">SITE <br /> CODE</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">CFS <br /> CODE</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">WORK <br /> ID</th>
-                                    <th class="align-middle">NAME MATERIAL</th>
-                                    <th class="text-center align-middle">UOM</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">QTY <br /> (BOQ3)</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">UNIT PRICE <br /> (BOQ3)</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">TOTAL <br /> (BOQ3)</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">QTY <br /> (REQUEST)</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">UNIT PRICE <br /> (REQUEST)</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">TOTAL <br /> (REQUEST)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2300</td>
-                                    <td>5-3-4</td>
-                                    <td>2030</td>
-                                    <td class="text-wrap" style="line-height: 15px;">129021-0000 - Soil Investigation Test and Report by Soil Borings, Undistrub Sampling and Laboratory Test</td>
-                                    <td>ea</td>
-                                    <td class="text-right">2.00</td>
-                                    <td class="text-right">14,000,000</td>
-                                    <td class="text-right">28,000,000</td>
-                                    <td class="text-right">2.00</td>
-                                    <td class="text-right">12,000,000</td>
-                                    <td class="text-right">24,000,000</td>
-                                </tr>
-
-                                <!-- FOOTER -->
-                                <tr>
                                     <td colspan="8" class="font-weight-bold" style="font-size: 12px;">
-                                        Total
-                                    </td>
-                                    <td class="text-right">
-                                        28,000,000
-                                    </td>
-                                    <td colspan="2"></td>
-                                    <td class="text-right">
-                                        24,000,000
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="11" class="font-weight-bold" style="font-size: 12px;">
-                                        Total Saving to Compensate
+                                        Total Additional Costs
                                     </td>
                                     <td class="text-right">
                                         4,000,000
@@ -513,6 +431,13 @@
 </div>
 
 @include('Partials.footer')
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip({
+      container: 'body'
+    });
+  });
+</script>
 @endsection
 
 @push('styles')

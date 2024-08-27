@@ -40,3 +40,14 @@
     font-size: 14px;
     margin: 10px 0px;
 }
+
+.tooltip-inner {
+    max-width: max-content !important;
+    background-color: #ffc107 !important;
+    color: #1f2d3d !important;
+    text-align: left;
+}
+
+.tooltip.bs-tooltip-bottom .arrow::before {
+    border-bottom-color: #edb100 !important;
+}
