@@ -275,6 +275,7 @@ class DeliveryOrderRequestController extends Controller
 
             return $compact;
         } catch (\Throwable $th) {
+            Log::error("Error at ReportDORDetailData: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }

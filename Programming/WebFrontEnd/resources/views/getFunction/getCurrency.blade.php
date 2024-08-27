@@ -8,8 +8,17 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card">
-                            <div class="card-body table-responsive p-0" style="height: 400px;">
+                        <div class="text-center loading">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <h3 class="pt-3">
+                                Loading...
+                            </h3>
+                        </div>
+
+                        <div class="card tableCurrency">
+                            <div class="card-body table-responsive p-0">
                                 <table class="table table-head-fixed text-nowrap" id="tableGetCurrency">
                                     <thead>
                                         <tr>
@@ -19,14 +28,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php $no = 1 @endphp
-                                        @foreach($data4 as $datas)
-                                        <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td data-dismiss="modal" class="klikCurrency" data-id="{{$datas['name']}}" data-name="{{$datas['symbol']}}">{{$datas['name']}}</td>
-                                            <td>{{$datas['symbol']}}</td>
-                                        </tr>
-                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -37,15 +38,45 @@
         </div>
     </div>
 </div>
+
 <script>
-    $(function() {
-        $(".klikCurrency").on('click', function(e) {
-            e.preventDefault(); // in chase you change to a link or button
-            var $this = $(this);
-            var code = $this.data("id");
-            var name = $this.data("name");
-            $("#currencyCodeRem").val(code);
-            $("#currencyNameRem").val(name);
-        });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
+
+    // $(function() {
+        $(window).one('load', function(e) {
+        // $('.myCurrency').one('click', function(e) {
+            e.preventDefault();
+
+            var keys = 0;
+
+            $('.tableCurrency').hide();
+
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("getCurrency") !!}',
+                success: function(data) {
+                    var no = 1;
+                    var t = $('#tableGetCurrency').DataTable();
+                    t.clear();
+                    $.each(data, function(key, val) {
+                        keys += 1;
+                        t.row.add([
+                            '<tbody><tr><input id="sys_id_currency' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<td>' + val.name + '</td>',
+                            '<td>' + val.symbol + '</td></span></tr></tbody>'
+                        ]).draw();
+                    });
+
+                    $('.loading').hide();
+                    $('.tableCurrency').show();
+                }
+            });
+
+        });
+
+    // });
 </script>

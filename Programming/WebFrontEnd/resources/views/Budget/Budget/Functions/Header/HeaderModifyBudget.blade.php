@@ -1,4 +1,4 @@
-<div class="row d-flex flex-wrap justify-content-between" style="gap: 15px;">
+<div class="row justify-content-between" style="gap: 15px;">
     <div class="col-md-12 col-lg-5">
         <div class="row">
             <label class="col-4 col-form-label p-0">Budget Code</label>

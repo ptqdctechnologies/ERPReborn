@@ -1,11 +1,3 @@
-.title {
-    height: 30px;
-    display: flex;
-    align-items: center;
-    font-size: 15px;
-    color: white;
-}
-
 .table-existing-budget {
     height: 230px;
     border-bottom: 2px solid #e9ecef;

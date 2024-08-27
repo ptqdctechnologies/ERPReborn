@@ -247,7 +247,7 @@ class TestApiController extends Controller
 
     }
 
-    public function wisnu(Request $request) {
+    public function ModifyBudget(Request $request) {
         try {
             // BUDGET CODE
             $budgetID   = $request->project_id;
@@ -276,7 +276,7 @@ class TestApiController extends Controller
             
             dd($budgetID, $budgetCode, $budgetName, $subBudgetID, $subBudgetCode, $subBudgetName, $reason, $additionalCO, $currency, $valueAdditionalCO, $files);
         } catch (\Throwable $th) {
-            Log::error("Error at PrintExportReportDODetail: " . $th->getMessage());
+            Log::error("Error at ModifyBudget: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }

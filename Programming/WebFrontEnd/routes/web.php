@@ -120,6 +120,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('revisionSupplier', 'Register\SupplierController@revisionSupplier')->name('supplier.revisionSupplier');
     // Budget
     Route::get('ModifyBudget', 'Budget\BudgetController@ModifyBudget')->name('Budget.ModifyBudget');
+    Route::post('PreviewModifyBudget', 'Budget\BudgetController@PreviewModifyBudget')->name('Budget.PreviewModifyBudget');
     Route::resource('Budget', 'BudgetController');
     // Budget Expense
     Route::get('BudgetExpense/GetBudget', 'BudgetExpenseController@GetBudget')->name('BudgetExpense.GetBudget');
@@ -158,6 +159,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getBusinessTripCostComponentEntity', 'Function\FunctionController@getBusinessTripCostComponentEntity')->name('getBusinessTripCostComponentEntity');
     Route::get('getDocumentType', 'Function\FunctionController@getDocumentType')->name('getDocumentType');
     Route::get('getPrivilageMenu', 'Function\FunctionController@getPrivilageMenu')->name('getPrivilageMenu');
+    Route::get('getCurrency', 'Function\FunctionController@getCurrency')->name('getCurrency');
     Route::get('getDepartement', 'Function\FunctionController@getDepartement')->name('getDepartement');
     Route::get('getRole', 'Function\FunctionController@getRole')->name('getRole');
     Route::get('getMenuGroup', 'Function\FunctionController@getMenuGroup')->name('getMenuGroup');
@@ -366,7 +368,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ColorMode', 'Setting\Mode\ColorModeController@ColorMode')->name('ColorMode');
 
     // Wisnu
-    Route::post('ModifyBudget', 'TestApiController@wisnu')->name('ModifyBudget');
+    Route::post('ModifyBudget', 'TestApiController@ModifyBudget')->name('ModifyBudget');
 });
 
 
