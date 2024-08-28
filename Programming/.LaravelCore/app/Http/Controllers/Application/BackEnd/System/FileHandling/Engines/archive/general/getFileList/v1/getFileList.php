@@ -3,17 +3,17 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\general\getFileList\v1               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\archive\general\getFileList\v1              |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\general\getFileList\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\archive\general\getFileList\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : getFileList                                                                                                  |
-    | ▪ Description : Menangani API fileHandling.upload.archive.general.getFileList Version 1                                      |
+    | ▪ Description : Menangani API fileHandling.archive.general.getFileList Version 1                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getFileList extends \App\Http\Controllers\Controller

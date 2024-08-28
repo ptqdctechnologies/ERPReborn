@@ -48,7 +48,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             ]
                         ]
                     );
-dd($varData);
             var_dump($varData);
             }
 

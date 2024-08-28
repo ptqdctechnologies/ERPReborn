@@ -3,27 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\master\setBank\v1                     |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\archive\general\setFileDelete\v1            |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\master\setBank\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\archive\general\setFileDelete\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setBank                                                                                                      |
-    | ▪ Description : Menangani API transaction.delete.master.setBank Version 1                                                    |
+    | ▪ Class Name  : setFileDelete                                                                                                |
+    | ▪ Description : Menangani API fileHandling.archive.general.setFileDelete Version 1                                           |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setBank extends \App\Http\Controllers\Controller
+    class setFileDelete extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-11-26                                                                                           |
+        | ▪ Last Update     : 2024-08-28                                                                                           |
+        | ▪ Creation Date   : 2024-08-28                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-11-26                                                                                           |
+        | ▪ Last Update     : 2024-08-28                                                                                           |
+        | ▪ Creation Date   : 2024-08-28                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,14 +61,20 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Delete Bank Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblBank())->setDataDelete(
-                            $varUserSession,
-                            $varData['recordID']
-                            ))))
+                    try {
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_FileUpload_ObjectDetail())->setDataDelete(
+                                    $varUserSession,
+                                    $varData['recordID']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
