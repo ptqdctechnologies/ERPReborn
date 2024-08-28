@@ -273,11 +273,43 @@ namespace App\Helpers\ZhtHelper\General
                 //-----[ MAIN FUNCTION ]----(END)----
                 'function '.$varJSFunctionName.'_DeleteFile(varIndex) {'.
                     'let varLocJSONData = JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value); '.
-                    'let varLocConfirmation = confirm(\'Do You Want to delete file \' + String.fromCharCode(34) + varLocJSONData[varIndex].entities.name + String.fromCharCode(34) + \' ? \');'.
-                    'if (varLocConfirmation) {'.
+                    'if (confirm('.
+                        '\'Do You Want to delete file \' + String.fromCharCode(34) + varLocJSONData[varIndex].entities.name + String.fromCharCode(34) + \' ? \''.
+                        ')) {'.
                         'let varDeletedItem = varLocJSONData.splice((varIndex), 1); '.
-                        'document.getElementById(\''.$varDOMID_DataRecord.'\').value = JSON.stringify(varLocJSONData); '.
-                        $varJSFunctionName.'_ReloadActionPanel(); '.
+  
+//                        'alert(JSON.stringify(varDeletedItem[0].recordID)); '.
+                    
+                        'try {'.
+                            'varReturn = ('.
+                                'JSON.parse('.
+                                    str_replace(
+                                        '"', 
+                                        '\'', 
+                                        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                            $varUserSession, 
+                                            $varAPIWebToken, 
+                                            'fileHandling.archive.general.setFileDelete', 
+                                            'latest',
+                                            '{'.
+                                            '"recordID" : 268000000014900'.
+//                                            '"recordID" : parseInt(JSON.stringify(varDeletedItem[0].recordID))'.
+                                            '}'
+                                            )
+                                        ).
+                                    ')'. //.data.message'.
+                                '); '.
+                            'alert(JSON.stringify(varReturn)); '.
+                            'document.getElementById(\''.$varDOMID_DataRecord.'\').value = JSON.stringify(varLocJSONData); '.
+                            $varJSFunctionName.'_ReloadActionPanel(); '.
+                            '} '.
+                        'catch (varError) {'.
+                            'alert(varError); '.
+                            '} '.
+                    
+                    
+                    
+                    
                         '}'.
                     '}'.
 
