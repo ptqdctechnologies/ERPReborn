@@ -151,6 +151,46 @@ namespace App\Models\Database\SchSysAsset
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setData_FileHandling_SetFilesAppend                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-08-23                                                                                           |
+        | ▪ Creation Date   : 2024-08-23                                                                                           |
+        | ▪ Description     : Mengeset Files Append                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
+        |      ▪ (int)    varJSONData ► JSON Data                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setData_FileHandling_SetFilesAppend(
+            $varUserSession,
+            int $varLog_FileUpload_Pointer_RefID = null, string $varJSONData = null)
+            {
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysAsset.FuncSys_FileHandling_SetFilesAppend',
+                        [
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                            
+                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                        ]
+                        )
+                    );
+
+            return 
+                $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getData_FileUpload_MasterFileRecord                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -343,6 +383,40 @@ namespace App\Models\Database\SchSysAsset
                         [
                             [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
                             [$varArrayPhysicalName, 'varchar[]'],
+                        ]
+                        )
+                    );
+
+            return $varReturn['data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getFileList                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-08-26                                                                                           |
+        | ▪ Creation Date   : 2024-08-26                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar File pada Cloud Storage                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getFileList($varUserSession, int $varLog_FileUpload_Pointer_RefID)
+            {
+            $varReturn = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysAsset.FuncSys_FileHandling_GetFileList',
+                        [
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                         ]
                         )
                     );
