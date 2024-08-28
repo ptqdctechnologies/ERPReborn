@@ -91,4 +91,43 @@ class PrivilageMenuController extends Controller
 
         return response()->json($compact);
     }
+
+    public function MenuManagement(Request $request) {
+        $MenuGroup = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "MenuGroup"
+            ),
+            true
+        );
+
+        $varAPIWebToken = Session::get('SessionLogin');
+        $SubMenu = json_decode(
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "SubMenu"
+            ),
+            true
+        );
+
+        $varDataCurrency = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.master.getCurrency', 
+            'latest', 
+            [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+
+        // dump($varDataCurrency);
+
+        return view('Register.PrivilageMenu.Transactions.MenuManagement');
+    }
 }

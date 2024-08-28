@@ -142,6 +142,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('CodeOfBudgeting', 'CodeOfBudgetingController');
     // PrivilageMenu
     Route::get('DataListPrivilageMenu', 'Register\PrivilageMenu\PrivilageMenuController@DataListPrivilageMenu')->name('PrivilageMenu.DataListPrivilageMenu');
+    // MenuManagement
+    Route::get('MenuManagement', 'Register\PrivilageMenu\PrivilageMenuController@MenuManagement')->name('PrivilageMenu.MenuManagement');
     Route::resource('PrivilageMenu', 'Register\PrivilageMenu\PrivilageMenuController');
 
     //Function
@@ -164,6 +166,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getRole', 'Function\FunctionController@getRole')->name('getRole');
     Route::get('getMenuGroup', 'Function\FunctionController@getMenuGroup')->name('getMenuGroup');
     Route::get('getSubMenu', 'Function\FunctionController@getSubMenu')->name('getSubMenu');
+    // WISNU
+    Route::get('getOneSubMenu', 'Function\FunctionController@getOneSubMenu')->name('getOneSubMenu');
 
     Route::get('TestApi', 'TestApiController@index')->name('TestApi');
 
