@@ -118,29 +118,36 @@
             success: function(data) {
                 var resultArray = Array.isArray(data) ? data : Object.values(data);
 
+                var groupedData = resultArray.reduce(function(acc, item) {
+                    if (!acc[item.Type]) {
+                        acc[item.Type] = [];
+                    }
+                    acc[item.Type].push(item);
+                    return acc;
+                }, {});
+
                 if (resultArray.length > 0) {
                     var displayData = '';
                     var no = 1;
                     resultArray.forEach(function(item) {
+                        console.log('item',item);
+                        
                         displayData += `<div>Nomor: ${no++}</div>`;
-                        displayData += `<div>Menu Group RefID: ${item.MenuGroup_RefID}</div>`;
-                        displayData += `<div>Order Sequence: ${item.OrderSequence}</div>`;
-                        displayData += `<div>Sys Branch RefID: ${item.Sys_Branch_RefID}</div>`;
-                        displayData += `<div>Sys ID: ${item.Sys_ID}</div>`;
-                        displayData += `<div>Sys PID: ${item.Sys_PID}</div>`;
-                        displayData += `<div>Sys RPK: ${item.Sys_RPK}</div>`;
-                        displayData += `<div>Sys SID: ${item.Sys_SID}</div>`;
+                        displayData += `<div>Caption: ${item.Caption}</div>`;
+                        displayData += `<div>Caption: ${item.Type}</div>`;
                     });
 
                     $('.testing').show();
                     $('.testing').html(displayData);
                     $('.spinner-sub-menu').hide();
                 } else {
-                    $('.testing').html('No data available for this selection.');
+                    $('.testing').html('No data available for this navigation.');
                 }
             },
             error: function(xhr, status, error) {
-                Swal.fire("Error", "Failed to Get Menu Data", "error");
+                $('.spinner-sub-menu').hide();
+                $('.testing').html('No data available for this navigation.');
+                Swal.fire("Error", "Failed to Get Sub Menu Data", "error");
             }
         });
     }
