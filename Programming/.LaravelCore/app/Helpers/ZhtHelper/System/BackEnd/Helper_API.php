@@ -275,6 +275,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                     }
                 else
                     {
+//$varSignConvertPHPArrayToJSONCamelCase = FALSE;
                     //$varReturn = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase($varUserSession, $varDataSend);
                     if ($varSignConvertPHPArrayToJSONCamelCase == TRUE)
                         {
@@ -300,6 +301,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                                 $varUserSession,
                                 $varReturn['data'][0]['Func_General_JSONArray_ConvertKeysToCamelCase']
                                 );
+                        $varReturn = $varReturn['data'];
                         }
                     else
                         {

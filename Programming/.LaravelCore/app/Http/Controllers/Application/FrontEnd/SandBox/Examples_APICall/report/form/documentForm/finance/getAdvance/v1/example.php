@@ -31,19 +31,20 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getAdvance', 
-                'latest',
-                [
-                'parameter' => [
-                    'recordID' => 76000000000002
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'report.form.documentForm.finance.getAdvance', 
+                    'latest',
+                    [
+                    'parameter' => [
+                        'recordID' => 76000000000002
+                        ]
                     ]
-                ]
-                );
-            //dd($varData);
+                    );
             var_dump($varData);
             }
         }

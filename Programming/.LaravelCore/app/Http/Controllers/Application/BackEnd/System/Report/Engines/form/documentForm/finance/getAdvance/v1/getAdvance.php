@@ -62,12 +62,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_Advance(
-                            $varUserSession, 
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                        if (!($varDataSend = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_Advance(
+                                    $varUserSession, 
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
-                            $varData['parameter']['recordID']
-                            ))))
+                                    $varData['parameter']['recordID']
+                                    )//,
+                                //FALSE
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
