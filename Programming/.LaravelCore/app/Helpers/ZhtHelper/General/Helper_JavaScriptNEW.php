@@ -272,10 +272,13 @@ namespace App\Helpers\ZhtHelper\General
                     
                 //-----[ MAIN FUNCTION ]----(END)----
                 'function '.$varJSFunctionName.'_DeleteFile(varIndex) {'.
-                    'alert(varIndex); '.
                     'let varLocJSONData = JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value); '.
-                    'let varDeletedItem = varLocJSONData.splice((varIndex), 1); '.
-                    'alert(JSON.stringify(varLocJSONData)); '.
+                    'let varLocConfirmation = confirm(\'Do You Want to delete file \' + String.fromCharCode(34) + varLocJSONData[varIndex].entities.name + String.fromCharCode(34) + \' ? \');'.
+                    'if (varLocConfirmation) {'.
+                        'let varDeletedItem = varLocJSONData.splice((varIndex), 1); '.
+                        'document.getElementById(\''.$varDOMID_DataRecord.'\').value = JSON.stringify(varLocJSONData); '.
+                        $varJSFunctionName.'_ReloadActionPanel(); '.
+                        '}'.
                     '}'.
 
                 'function '.$varJSFunctionName.'_ReloadActionPanel() {'.
