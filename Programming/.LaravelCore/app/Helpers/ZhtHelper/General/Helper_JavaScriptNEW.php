@@ -273,6 +273,9 @@ namespace App\Helpers\ZhtHelper\General
                 //-----[ MAIN FUNCTION ]----(END)----
                 'function '.$varJSFunctionName.'_DeleteFile(varIndex) {'.
                     'alert(varIndex); '.
+                    'let varLocJSONData = JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value); '.
+                    'let varDeletedItem = varLocJSONData.splice((varIndex), 1); '.
+                    'alert(JSON.stringify(varLocJSONData)); '.
                     '}'.
 
                 'function '.$varJSFunctionName.'_ReloadActionPanel() {'.
