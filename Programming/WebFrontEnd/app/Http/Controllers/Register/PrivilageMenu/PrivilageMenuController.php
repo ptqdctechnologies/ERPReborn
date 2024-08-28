@@ -91,4 +91,8 @@ class PrivilageMenuController extends Controller
 
         return response()->json($compact);
     }
+
+    public function MenuManagement(Request $request) {
+        return view('Register.PrivilageMenu.Transactions.MenuManagement');
+    }
 }

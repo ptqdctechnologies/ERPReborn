@@ -243,9 +243,9 @@
         const form = document.getElementById('budgetForm');
 
         if (tbody.getElementsByTagName('tr').length > 0) {
-        form.style.display = 'block';
+            form.style.display = 'block';
         } else {
-        form.style.display = 'none';
+            form.style.display = 'none';
         }
     }
 
