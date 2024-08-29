@@ -406,9 +406,26 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                         //'$("body").append(JSON.stringify(varDataResponse)); '.
                         //'alert("Success"); '.
                         //'varAJAXReturn = "Success"; '.
-                        varReturn = JSON.stringify(varDataResponse);
+                        //varReturn = JSON.stringify(varDataResponse);
+                        
+                        varReturn = 
+                            JSON.stringify(
+                                JSON.parse(
+                                    '{' +
+                                    '"metadata" : {' + 
+                                        '"HTTPStatusCode" : ' + varObjXHR.status + ', ' +
+                                        '"APIResponse" : ' + JSON.stringify(varDataResponse.metadata.APIResponse) + ', ' +
+                                        '"successStatus" : ' + JSON.stringify(varDataResponse.metadata.successStatus) + 
+                                        '}, ' +
+                                    '"data" : ' + JSON.stringify(varDataResponse.data) +
+                                    '}'
+                                    )
+                                );
+                        //alert(varReturn);
                         },
-                    error : function(varDataResponse, varTextStatus)
+//                    error : function(varDataResponse, varTextStatus, errorThrown)
+                    error : function(varObjXHR, varTextStatus, errorThrown)
+//                    error : function(varObjXHR, varTextStatus, varDataResponse)
                         {
                         //'varStatusCode = varDataResponse.status; '.
                         //'varStatusText = varDataResponse.statusText; '.
@@ -417,7 +434,32 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                         //'$("body").append(JSON.stringify(varDataResponse)); '.
                         //'alert("Failed, Error " + JSON.stringify(varDataResponse));  '.
                         //'varAJAXReturn = "Failed"; '.
-                        varReturn = JSON.stringify(varDataResponse);
+
+                        //let varHTTPStatusCode = varObjXHR.status;
+
+                        let varReponseTextJSON = (JSON.parse(varObjXHR.responseText));
+                        let varReponseTextMessage = JSON.stringify(varReponseTextJSON.message);
+                        let varReponseTextException = JSON.stringify(varReponseTextJSON.exception);
+                        let varReponseTextFile = JSON.stringify(varReponseTextJSON.file);
+
+                        varReponseTextMessage = varReponseTextMessage.slice(0, varReponseTextMessage.length-1);
+                        varReponseTextMessage = (varReponseTextMessage.slice(varReponseTextMessage.indexOf('Error Message ► '))).replace('Error Message ► ', '');
+                            
+                        varReturn = 
+                            JSON.stringify(
+                                JSON.parse(
+                                    '{' +
+                                    '"metadata" : {' + 
+                                        '"HTTPStatusCode" : ' + varObjXHR.status + ', ' +
+                                        '"APIResponse" : ' + JSON.stringify((JSON.parse(varDataJSON)).metadata.API) + ', ' +
+                                        '"successStatus" : false' + 
+                                        '}, ' +
+                                    '"data" : ' + '{' +
+                                        '"message" : "' + varReponseTextMessage + '"' + 
+                                        '}' +
+                                    '}'
+                                    )
+                                );
                         },
                     timeout: varTimeOut
                     });
@@ -426,7 +468,7 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                 return varReturn;
                 }
             catch(varError) {
-                alert("ERP Reborn Error Notification\n\nInvalid Data Requestx\n(" + varError + ")");
+                alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")");
                 }
             }
         else {
