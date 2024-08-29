@@ -59,9 +59,89 @@
                                     </div>
                                 </div>
 
-                                <div class="card-body testing">
-                                    <div class="spinner-border spinner-border-sm spinner-sub-menu" role="status">
-                                        <span class="sr-only">Loading...</span>
+                                <div class="card-body">
+                                    <div class="row pt-3">
+                                        <!-- NEW FOLDER -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                            New Folder
+                                        </button>
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    ...
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- NEW MENU -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalNewMenu">
+                                            New Menu
+                                        </button>
+                                        <div class="modal fade" id="exampleModalNewMenu" tabindex="-1" aria-labelledby="exampleModalNewMenuLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalNewMenuLabel">Modal New Menu</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    ...
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- DELETE -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalDelete">
+                                            Delete
+                                        </button>
+                                        <div class="modal fade" id="exampleModalDelete" tabindex="-1" aria-labelledby="exampleModalDeleteLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalDeleteLabel">Modal Delete</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    ...
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="row pb-3">
+                                        <div class="col testing px-0">
+                                            <div class="spinner-border spinner-border-sm spinner-sub-menu" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -129,13 +209,28 @@
                 if (resultArray.length > 0) {
                     var displayData = '';
                     var no = 1;
-                    resultArray.forEach(function(item) {
-                        console.log('item',item);
+                    // resultArray.forEach(function(item) {
+                    //     console.log('item',item);
                         
-                        displayData += `<div>Nomor: ${no++}</div>`;
-                        displayData += `<div>Caption: ${item.Caption}</div>`;
-                        displayData += `<div>Caption: ${item.Type}</div>`;
-                    });
+                    //     displayData += `<div><i class="fas fa-folder"></i> ${item.Caption}</div>`;
+                    //     displayData += `<div>Caption: ${item.Type}</div>`;
+                    // });
+
+                    if (groupedData.Transaction) {
+                        displayData += `<h3><i class="fas fa-folder"></i> Transaction</h3>`;
+                        groupedData.Transaction.forEach(function(item) {
+                            displayData += `<div>${item.Caption}</div>`;
+                            displayData += `<div>Caption: ${item.Type}</div>`;
+                        });
+                    }
+
+                    if (groupedData.Report) {
+                        displayData += `<h3><i class="fas fa-folder"></i> Report</h3>`;
+                        groupedData.Report.forEach(function(item) {
+                            displayData += `<div>${item.Caption}</div>`;
+                            displayData += `<div>Caption: ${item.Type}</div>`;
+                        });
+                    }
 
                     $('.testing').show();
                     $('.testing').html(displayData);

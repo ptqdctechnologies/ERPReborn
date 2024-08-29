@@ -75,7 +75,7 @@ class BudgetController extends Controller
             // VALUE ADDITIONAL CO
             $valueAdditionalCO  = $request->value_co_additional;
 
-            // VALUE ADDITIONAL CO
+            // VALUE DEDUCTIVE CO
             $valueDeductiveCO   = $request->value_co_deductive;
 
             // FILES
@@ -103,50 +103,50 @@ class BudgetController extends Controller
                         'firstRow'  => [
                             'description'   => 'Customer Oder (CO)',
                             'valuta'        => 'IDR',
-                            'origin'        => '0',
-                            'previous'      => '456,000,000',
-                            'addSubt'       => '0',
-                            'totalCurrent'  => '456,000,000'
+                            'origin'        => 465000000,
+                            'previous'      => 465000000,
+                            'addSubt'       => $additionalCO == "yes" ? $valueAdditionalCO ? +$valueAdditionalCO : -$valueDeductiveCO : 0,
+                            'totalCurrent'  => $additionalCO == "yes" ? $valueAdditionalCO ? 465000000 + $valueAdditionalCO : 465000000 - $valueDeductiveCO : 465000000
                         ],
                         'secondRow' => [
                             'description'   => '',
                             'valuta'        => 'Cross Currency',
-                            'origin'        => '0.00',
-                            'previous'      => '0.00',
-                            'addSubt'       => '0.00',
-                            'totalCurrent'  => '0.00'
+                            'origin'        => 0,
+                            'previous'      => 0,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 0
                         ],
                         'thirdRow' => [
                             'description'   => 'Total',
                             'valuta'        => 'IDR',
-                            'origin'        => '0.00',
-                            'previous'      => '456,000,000',
-                            'addSubt'       => '0.00',
-                            'totalCurrent'  => '456,000,000'
+                            'origin'        => 0,
+                            'previous'      => 0,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 0
                         ],
                     ],
                     'sectionTwo'    => [
                         'firstRow'  => [
                             'description'   => 'Add(Subt) Cost',
                             'valuta'        => 'IDR',
-                            'origin'        => '0',
-                            'previous'      => '376,712,000',
-                            'addSubt'       => '0',
-                            'totalCurrent'  => '376,712,000'
+                            'origin'        => 376712000,
+                            'previous'      => 376712000,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 376712000
                         ],
                         'secondRow' => [
                             'description'   => '',
                             'valuta'        => 'Cross Currency',
-                            'origin'        => '0.00',
-                            'previous'      => '0.00',
-                            'addSubt'       => '0.00',
-                            'totalCurrent'  => '0.00'
+                            'origin'        => 0,
+                            'previous'      => 0,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 0
                         ],
                         'thirdRow' => [
                             'description'   => '',
                             'valuta'        => '',
                             'origin'        => 'Recorded Cost',
-                            'previous'      => '0',
+                            'previous'      => 0,
                             'addSubt'       => '',
                             'totalCurrent'  => ''
                         ],
@@ -154,59 +154,59 @@ class BudgetController extends Controller
                             'description'   => '',
                             'valuta'        => '',
                             'origin'        => 'Balanced Budget',
-                            'previous'      => '0',
+                            'previous'      => 0,
                             'addSubt'       => '',
                             'totalCurrent'  => ''
                         ],
                         'fifthRow' => [
                             'description'   => 'Total',
                             'valuta'        => 'IDR',
-                            'origin'        => '0',
-                            'previous'      => '376,712,000',
-                            'addSubt'       => '0',
-                            'totalCurrent'  => '376,712,000'
+                            'origin'        => 0,
+                            'previous'      => 376712000,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 376712000
                         ]
                     ],
                     'sectionThree'  => [
                         'firstRow'  => [
                             'description'   => 'Gross Margin',
                             'valuta'        => 'IDR',
-                            'origin'        => '0',
-                            'previous'      => '79,288,000',
-                            'addSubt'       => '0',
-                            'totalCurrent'  => '79,288,000'
+                            'origin'        => 0,
+                            'previous'      => 79288000,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 79288000
                         ],
                         'secondRow' => [
                             'description'   => '',
                             'valuta'        => 'Cross Currency',
-                            'origin'        => '0.00',
-                            'previous'      => '0.00',
-                            'addSubt'       => '0.00',
-                            'totalCurrent'  => '0.00'
+                            'origin'        => 0,
+                            'previous'      => 0,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 0
                         ],
                         'thirdRow' => [
                             'description'   => 'Total',
                             'valuta'        => 'IDR',
-                            'origin'        => '0.00',
-                            'previous'      => '79,288,000',
-                            'addSubt'       => '0.00',
-                            'totalCurrent'  => '79,288,000'
+                            'origin'        => 0,
+                            'previous'      => 79288000,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 79288000
                         ],
                     ],
                     'sectionFour'  => [
                         'firstRow'  => [
                             'description'   => 'Gross Margin',
                             'valuta'        => '%',
-                            'origin'        => '0.00 %',
-                            'previous'      => '17.39 %',
+                            'origin'        => 0,
+                            'previous'      => 17.39,
                             'addSubt'       => '',
-                            'totalCurrent'  => '17.39 %'
+                            'totalCurrent'  => 17.39
                         ],
                         'secondRow' => [
                             'description'   => 'Gross Margin Movement',
                             'valuta'        => '%',
-                            'origin'        => '17.39 %',
-                            'previous'      => '0.00 %',
+                            'origin'        => 17.39,
+                            'previous'      => 0,
                             'addSubt'       => '',
                             'totalCurrent'  => ''
                         ],
@@ -218,7 +218,7 @@ class BudgetController extends Controller
                             'origin'        => '',
                             'previous'      => '',
                             'addSubt'       => '',
-                            'totalCurrent'  => '0'
+                            'totalCurrent'  => 0
                         ],
                         'secondRow' => [
                             'description'   => '',
@@ -226,7 +226,7 @@ class BudgetController extends Controller
                             'origin'        => '',
                             'previous'      => '',
                             'addSubt'       => '',
-                            'totalCurrent'  => '0.00'
+                            'totalCurrent'  => 0
                         ],
                         'thirdRow' => [
                             'description'   => 'Total',
@@ -234,7 +234,7 @@ class BudgetController extends Controller
                             'origin'        => '',
                             'previous'      => '',
                             'addSubt'       => '',
-                            'totalCurrent'  => '0'
+                            'totalCurrent'  => 0
                         ],
                         'fourthRow' => [
                             'description'   => 'Actual Gross Margin',
@@ -242,7 +242,7 @@ class BudgetController extends Controller
                             'origin'        => '',
                             'previous'      => '',
                             'addSubt'       => '',
-                            'totalCurrent'  => '0.00 %'
+                            'totalCurrent'  => 0
                         ],
                     ],
                 ]

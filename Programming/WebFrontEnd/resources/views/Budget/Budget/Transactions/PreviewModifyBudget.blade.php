@@ -80,7 +80,7 @@
                                 Exchange Rate
                             </dt>
                             <dd class="col">
-                                16,054
+                                -
                             </dd>
                         </div>
 
@@ -135,16 +135,16 @@
                                         <?= $dataTable['sectionOne']['firstRow']['valuta']; ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionOne']['firstRow']['origin']; ?>
+                                        <?= number_format($dataTable['sectionOne']['firstRow']['origin'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionOne']['firstRow']['previous']; ?>
+                                        <?= number_format($dataTable['sectionOne']['firstRow']['previous'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionOne']['firstRow']['addSubt']; ?>
+                                        <?= number_format($dataTable['sectionOne']['firstRow']['addSubt'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionOne']['firstRow']['totalCurrent']; ?>
+                                        <?= number_format($dataTable['sectionOne']['firstRow']['totalCurrent'], 2); ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -155,16 +155,16 @@
                                         <?= $dataTable['sectionOne']['secondRow']['valuta']; ?>
                                     </td>
                                     <td class="border_top_dotted text-right">
-                                        <?= $dataTable['sectionOne']['secondRow']['origin']; ?>
+                                        <?= number_format($dataTable['sectionOne']['secondRow']['origin'], 2); ?>
                                     </td>
                                     <td class="border_top_dotted text-right">
-                                        <?= $dataTable['sectionOne']['secondRow']['previous']; ?>
+                                        <?= number_format($dataTable['sectionOne']['secondRow']['previous'], 2); ?>
                                     </td>
                                     <td class="border_top_dotted text-right">
-                                        <?= $dataTable['sectionOne']['secondRow']['addSubt']; ?>
+                                        <?= number_format($dataTable['sectionOne']['secondRow']['addSubt'], 2); ?>
                                     </td>
                                     <td class="border_top_dotted text-right">
-                                        <?= $dataTable['sectionOne']['secondRow']['totalCurrent']; ?>
+                                        <?= number_format($dataTable['sectionOne']['secondRow']['totalCurrent'], 2); ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -175,23 +175,51 @@
                                         <?= $dataTable['sectionOne']['thirdRow']['valuta']; ?>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Origin CO IDR + Origin CO Cross Currency <br /> Origin CO IDR : 11,073,733,917 <br /> Origin CO Cross Currency : 0.00 * Transaction's rate (16,165) <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionOne']['thirdRow']['origin']; ?>
+                                        <div 
+                                            class="float-right border_bottom_dotted" 
+                                            data-toggle="tooltip" 
+                                            data-placement="bottom"
+                                            data-html="true"
+                                            title="Origin CO IDR + Origin CO Cross Currency <br /> Origin CO IDR : <?= number_format($dataTable['sectionOne']['firstRow']['origin'], 2); ?> <br /> Origin CO Cross Currency : <?= number_format($dataTable['sectionOne']['secondRow']['origin'], 2); ?> * Transaction's rate (0.00) <br />" 
+                                            style="width: max-content; cursor: help;"
+                                            >
+                                            <?= number_format($dataTable['sectionOne']['firstRow']['origin'] + $dataTable['sectionOne']['secondRow']['origin'], 2); ?>
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO IDR + Previous CO Cross Currency <br /> Previous CO IDR : 11,073,733,917 <br /> Previous CO Cross Currency : 0.00 * 17,632 <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionOne']['thirdRow']['previous']; ?>
+                                        <div
+                                            class="float-right border_bottom_dotted"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            data-html="true"
+                                            title="Previous CO IDR + Previous CO Cross Currency <br /> Previous CO IDR : <?= number_format($dataTable['sectionOne']['firstRow']['previous'], 2); ?> <br /> Previous CO Cross Currency : <?= number_format($dataTable['sectionOne']['secondRow']['previous'], 2); ?> * 0.00 <br />"
+                                            style="width: max-content; cursor: help;"
+                                            >
+                                            <?= number_format($dataTable['sectionOne']['firstRow']['previous'] + $dataTable['sectionOne']['secondRow']['previous'], 2); ?>
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Add(subt) CO IDR + Add(subt) CO Cross Currency <br /> Add(subt) CO IDR : 0 <br /> Add(subt) CO  Cross Currency : 0.00 * 17,632 <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionOne']['thirdRow']['addSubt']; ?>
+                                        <div
+                                            class="float-right border_bottom_dotted"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            data-html="true"
+                                            title="Add(subt) CO IDR + Add(subt) CO Cross Currency <br /> Add(subt) CO IDR : <?= number_format($dataTable['sectionOne']['firstRow']['addSubt'], 2); ?> <br /> Add(subt) CO  Cross Currency : <?= number_format($dataTable['sectionOne']['secondRow']['addSubt'], 2); ?> * 0.00 <br />"
+                                            style="width: max-content; cursor: help;"
+                                            >
+                                            <?= number_format($dataTable['sectionOne']['firstRow']['addSubt'] + $dataTable['sectionOne']['secondRow']['addSubt'], 2); ?>
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Total Current CO IDR + Total Current CO USD <br /> Total Current CO IDR : 11,073,733,917 <br /> Total Current CO Cross Currency : 0.00 * 17,632 <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionOne']['thirdRow']['totalCurrent']; ?>
+                                        <div
+                                            class="float-right border_bottom_dotted"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            data-html="true"
+                                            title="Total Current CO IDR + Total Current CO USD <br /> Total Current CO IDR : <?= number_format($dataTable['sectionOne']['firstRow']['totalCurrent'], 2); ?> <br /> Total Current CO Cross Currency : <?= number_format($dataTable['sectionOne']['secondRow']['totalCurrent'], 2); ?> * 0.00 <br />"
+                                            style="width: max-content; cursor: help;"
+                                            >
+                                            <?= number_format($dataTable['sectionOne']['firstRow']['totalCurrent'] + $dataTable['sectionOne']['secondRow']['totalCurrent'], 2); ?>
                                         </div>
                                     </td>
                                 </tr>
@@ -205,16 +233,16 @@
                                         <?= $dataTable['sectionTwo']['firstRow']['valuta']; ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionTwo']['firstRow']['origin']; ?>
+                                        <?= number_format($dataTable['sectionTwo']['firstRow']['origin'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionTwo']['firstRow']['previous']; ?>
+                                        <?= number_format($dataTable['sectionTwo']['firstRow']['previous'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionTwo']['firstRow']['addSubt']; ?>
+                                        <?= number_format($dataTable['sectionTwo']['firstRow']['addSubt'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionTwo']['firstRow']['totalCurrent']; ?>
+                                        <?= number_format($dataTable['sectionTwo']['firstRow']['totalCurrent'], 2); ?>
                                     </td>
                                 </tr>
                                 <tr style="color: #404040;">
@@ -225,16 +253,16 @@
                                         <?= $dataTable['sectionTwo']['secondRow']['valuta']; ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionTwo']['secondRow']['origin']; ?>
+                                        <?= number_format($dataTable['sectionTwo']['secondRow']['origin'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionTwo']['secondRow']['previous']; ?>
+                                        <?= number_format($dataTable['sectionTwo']['secondRow']['previous'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionTwo']['secondRow']['addSubt']; ?>
+                                        <?= number_format($dataTable['sectionTwo']['secondRow']['addSubt'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionTwo']['secondRow']['totalCurrent']; ?>
+                                        <?= number_format($dataTable['sectionTwo']['secondRow']['totalCurrent'], 2); ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -250,7 +278,7 @@
                                         </div>
                                     </td>
                                     <td class="text-right" style="color: #404040;">
-                                        <?= $dataTable['sectionTwo']['thirdRow']['previous']; ?>
+                                        <?= number_format($dataTable['sectionTwo']['thirdRow']['previous'], 2); ?>
                                     </td>
                                     <td>
                                         <?= $dataTable['sectionTwo']['thirdRow']['addSubt']; ?>
@@ -272,7 +300,7 @@
                                         </div>
                                     </td>
                                     <td class="text-right" style="color: #404040;">
-                                        <?= $dataTable['sectionTwo']['fourthRow']['previous']; ?>
+                                        <?= number_format($dataTable['sectionTwo']['fourthRow']['previous'], 2); ?>
                                     </td>
                                     <td>
                                         <?= $dataTable['sectionTwo']['fourthRow']['addSubt']; ?>
@@ -289,23 +317,49 @@
                                         <?= $dataTable['sectionTwo']['fifthRow']['valuta']; ?>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Origin Add(Subt) Cost IDR + Origin Add(Subt) Cost Cross Currency <br /> Origin Add(Subt) Cost IDR : 9,938,409,279 <br /> Origin Add(Subt) Cost Cross Currency : 0.00 * Transaction's rate (15,245) <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionTwo']['fifthRow']['origin']; ?>
+                                        <div
+                                            class="float-right border_bottom_dotted"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            data-html="true"
+                                            title="Origin Add(Subt) Cost IDR + Origin Add(Subt) Cost Cross Currency <br /> Origin Add(Subt) Cost IDR : <?= number_format($dataTable['sectionTwo']['firstRow']['origin'], 2); ?> <br /> Origin Add(Subt) Cost Cross Currency : <?= number_format($dataTable['sectionTwo']['secondRow']['origin'], 2); ?> * Transaction's rate (0.00) <br />"
+                                            style="width: max-content; cursor: help;">
+                                            <?= number_format($dataTable['sectionTwo']['firstRow']['origin'] + $dataTable['sectionTwo']['secondRow']['origin'], 2); ?>
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous Add(Subt) Cost IDR + Recorded Cost Cross Currency + Balance Budget Cross Currency <br /> Previous Add(Subt) Cost IDR : 9,906,620,083 <br /> Recorded Cost Cross Currency : 0.00 (0.00 * Transaction's exchange rate) <br /> Balance Budget Cross Currency : 0.00 * 17,632" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionTwo']['fifthRow']['previous']; ?>
+                                        <div
+                                            class="float-right border_bottom_dotted"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            data-html="true"
+                                            title="Previous Add(Subt) Cost IDR + Recorded Cost Cross Currency + Balance Budget Cross Currency <br /> Previous Add(Subt) Cost IDR : <?= number_format($dataTable['sectionTwo']['firstRow']['previous'], 2); ?> <br /> Recorded Cost Cross Currency : 0.00 (0.00 * Transaction's exchange rate) <br /> Balance Budget Cross Currency : 0.00 * 0.00"
+                                            style="width: max-content; cursor: help;"
+                                            >
+                                            <?= number_format($dataTable['sectionTwo']['firstRow']['previous'] + $dataTable['sectionTwo']['secondRow']['previous'], 2); ?>
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Add(Subt) Cost IDR + Add(Subt) Cost Cross Currency <br /> Add(Subt) Cost IDR : 0 <br /> Add(Subt) Cost Cross Currency : 6.00 * 17,632 <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionTwo']['fifthRow']['addSubt']; ?>
+                                        <div
+                                            class="float-right border_bottom_dotted"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            data-html="true"
+                                            title="Add(Subt) Cost IDR + Add(Subt) Cost Cross Currency <br /> Add(Subt) Cost IDR : <?= number_format($dataTable['sectionTwo']['firstRow']['addSubt'], 2); ?> <br /> Add(Subt) Cost Cross Currency : <?= number_format($dataTable['sectionTwo']['secondRow']['addSubt'], 2); ?> * 0.00 <br />"
+                                            style="width: max-content; cursor: help;">
+                                            <?= number_format($dataTable['sectionTwo']['firstRow']['addSubt'] + $dataTable['sectionTwo']['secondRow']['addSubt'], 2); ?>
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Total Current Add(Subt) Cost IDR  + Recorded Cost Cross Currency + Balance Budget Cross Currency + Add(Subt) Cost Cross Currency <br /> Total Current Add(Subt) Cost IDR : 9,906,620,083 <br /> Recorded Cost Cross Currency : 0.00 (0.00 * Transaction's exchange rate) <br /> Balance Budget Cross Currency : 0.00 * 17,632 <br /> Add(Subt) Cost Cross Currency : 6.00 * 17,632 <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionTwo']['fifthRow']['totalCurrent']; ?>
+                                        <div
+                                            class="float-right border_bottom_dotted"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            data-html="true"
+                                            title="Total Current Add(Subt) Cost IDR  + Recorded Cost Cross Currency + Balance Budget Cross Currency + Add(Subt) Cost Cross Currency <br /> Total Current Add(Subt) Cost IDR : <?= number_format($dataTable['sectionTwo']['firstRow']['totalCurrent'], 2); ?> <br /> Recorded Cost Cross Currency : 0.00 (0.00 * Transaction's exchange rate) <br /> Balance Budget Cross Currency : 0.00 * 0.00 <br /> Add(Subt) Cost Cross Currency : <?= number_format($dataTable['sectionTwo']['secondRow']['totalCurrent'], 2); ?> * 0.00 <br />"
+                                            style="width: max-content; cursor: help;"
+                                            >
+                                            <?= number_format($dataTable['sectionTwo']['firstRow']['totalCurrent'] + $dataTable['sectionTwo']['secondRow']['totalCurrent'], 2); ?>
                                         </div>
                                     </td>
                                 </tr>
@@ -319,16 +373,16 @@
                                         <?= $dataTable['sectionThree']['firstRow']['valuta']; ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionThree']['firstRow']['origin']; ?>
+                                        <?= number_format($dataTable['sectionOne']['firstRow']['origin'] - $dataTable['sectionTwo']['firstRow']['origin'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionThree']['firstRow']['previous']; ?>
+                                        <?= number_format($dataTable['sectionOne']['firstRow']['previous'] - $dataTable['sectionTwo']['firstRow']['previous'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionThree']['firstRow']['addSubt']; ?>
+                                        <?= number_format($dataTable['sectionThree']['firstRow']['addSubt'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionThree']['firstRow']['totalCurrent']; ?>
+                                        <?= number_format($dataTable['sectionOne']['firstRow']['previous'] - $dataTable['sectionTwo']['firstRow']['previous'], 2); ?>
                                     </td>
                                 </tr>
                                 <tr style="color: #404040;">
@@ -339,16 +393,16 @@
                                         <?= $dataTable['sectionThree']['secondRow']['valuta']; ?>
                                     </td>
                                     <td class="border_top_dotted text-right">
-                                        <?= $dataTable['sectionThree']['secondRow']['origin']; ?>
+                                        <?= number_format($dataTable['sectionOne']['secondRow']['origin'] - $dataTable['sectionTwo']['secondRow']['origin'], 2); ?>
                                     </td>
                                     <td class="border_top_dotted text-right">
-                                        <?= $dataTable['sectionThree']['secondRow']['previous']; ?>
+                                        <?= number_format($dataTable['sectionOne']['secondRow']['previous'] - $dataTable['sectionTwo']['secondRow']['previous'], 2); ?>
                                     </td>
                                     <td class="border_top_dotted text-right">
-                                        <?= $dataTable['sectionThree']['secondRow']['addSubt']; ?>
+                                        <?= number_format($dataTable['sectionOne']['secondRow']['addSubt'] - $dataTable['sectionTwo']['secondRow']['addSubt'], 2); ?>
                                     </td>
                                     <td class="border_top_dotted text-right">
-                                        <?= $dataTable['sectionThree']['secondRow']['totalCurrent']; ?>
+                                        <?= number_format($dataTable['sectionOne']['secondRow']['totalCurrent'] - $dataTable['sectionTwo']['secondRow']['totalCurrent'], 2); ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -359,23 +413,51 @@
                                         <?= $dataTable['sectionThree']['thirdRow']['valuta']; ?>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Origin Gross Margin IDR + Origin Gross Margin Cross Currency <br /> Origin Gross Margin IDR : 1,135,324,639 <br /> Origin Gross Margin Cross Currency : 0.00 * Transaction's rate (15,245) <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionThree']['thirdRow']['origin']; ?>
+                                        <div
+                                            class="float-right border_bottom_dotted"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            data-html="true"
+                                            title="Origin Gross Margin IDR + Origin Gross Margin Cross Currency <br /> Origin Gross Margin IDR : <?= number_format($dataTable['sectionOne']['firstRow']['origin'] - $dataTable['sectionTwo']['firstRow']['origin'], 2); ?> <br /> Origin Gross Margin Cross Currency : <?= number_format($dataTable['sectionOne']['secondRow']['origin'] - $dataTable['sectionTwo']['secondRow']['origin'], 2); ?> * Transaction's rate (0.00) <br />"
+                                            style="width: max-content; cursor: help;"
+                                            >
+                                            <?= number_format(($dataTable['sectionOne']['firstRow']['origin'] - $dataTable['sectionTwo']['firstRow']['origin']) + ($dataTable['sectionOne']['secondRow']['origin'] - $dataTable['sectionTwo']['secondRow']['origin']), 2); ?>
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Previous CO Total - Previous Add(Subt) Cost Total <br /> Previous CO Total : 11,073,733,917 <br /> Previous Add(Subt) Cost Total : 9,906,620,083 <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionThree']['thirdRow']['previous']; ?>
+                                        <div
+                                            class="float-right border_bottom_dotted"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            data-html="true"
+                                            title="Previous CO Total - Previous Add(Subt) Cost Total <br /> Previous CO Total : <?= number_format($dataTable['sectionOne']['firstRow']['previous'] + $dataTable['sectionOne']['secondRow']['previous'], 2); ?> <br /> Previous Add(Subt) Cost Total : <?= number_format($dataTable['sectionTwo']['firstRow']['previous'] + $dataTable['sectionTwo']['secondRow']['previous'], 2); ?> <br />"
+                                            style="width: max-content; cursor: help;"
+                                            >
+                                            <?= number_format(($dataTable['sectionOne']['firstRow']['previous'] + $dataTable['sectionOne']['secondRow']['previous']) - ($dataTable['sectionTwo']['firstRow']['previous'] + $dataTable['sectionTwo']['secondRow']['previous']), 2); ?>
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Add(Subt) CO Total - Add(Subt) Add(Subt) Cost Total <br /> Add(Subt) CO Total : 0 <br /> Add(Subt) Add(Subt) Cost Total : 105,792 <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionThree']['thirdRow']['addSubt']; ?>
+                                        <div
+                                            class="float-right border_bottom_dotted"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            data-html="true"
+                                            title="Add(Subt) CO Total - Add(Subt) Add(Subt) Cost Total <br /> Add(Subt) CO Total : <?= number_format($dataTable['sectionOne']['firstRow']['addSubt'] + $dataTable['sectionOne']['secondRow']['addSubt'], 2); ?> <br /> Add(Subt) Cost Total : <?= number_format($dataTable['sectionTwo']['firstRow']['addSubt'] + $dataTable['sectionTwo']['secondRow']['addSubt'], 2); ?> <br />"
+                                            style="width: max-content; cursor: help;"
+                                            >
+                                            <?= number_format(($dataTable['sectionOne']['firstRow']['addSubt'] + $dataTable['sectionOne']['secondRow']['addSubt']) - ($dataTable['sectionTwo']['firstRow']['addSubt'] + $dataTable['sectionTwo']['secondRow']['addSubt']), 2); ?>
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Total Current CO Total - Total Current Add(Subt) Cost Total <br /> Total Current CO Total : 11,073,733,917 <br /> Total Current Add(Subt) Cost Total : 9,906,725,875 <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionThree']['thirdRow']['totalCurrent']; ?>
+                                        <div
+                                            class="float-right border_bottom_dotted"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            data-html="true"
+                                            title="Total Current CO Total - Total Current Add(Subt) Cost Total <br /> Total Current CO Total : <?= number_format($dataTable['sectionOne']['firstRow']['totalCurrent'] + $dataTable['sectionOne']['secondRow']['totalCurrent'], 2); ?> <br /> Total Current Add(Subt) Cost Total : <?= number_format($dataTable['sectionTwo']['firstRow']['totalCurrent'] + $dataTable['sectionTwo']['secondRow']['totalCurrent'], 2); ?> <br />"
+                                            style="width: max-content; cursor: help;"
+                                            >
+                                            <?= number_format(($dataTable['sectionOne']['firstRow']['totalCurrent'] + $dataTable['sectionOne']['secondRow']['totalCurrent']) - ($dataTable['sectionTwo']['firstRow']['totalCurrent'] + $dataTable['sectionTwo']['secondRow']['totalCurrent']), 2); ?>
                                         </div>
                                     </td>
                                 </tr>
@@ -389,21 +471,60 @@
                                         <?= $dataTable['sectionFour']['firstRow']['valuta']; ?>
                                     </td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Origin Gross Margin Total / Origin CO Total) * 100% <br /> Origin Gross Margin Total : 1,135,324,638.63 <br /> Origin CO Total : 11,073,733,917.13 <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionFour']['firstRow']['origin']; ?>
+                                        <div
+                                            class="float-right border_bottom_dotted"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            data-html="true"
+                                            title="(Origin Gross Margin Total / Origin CO Total) * 100% <br /> Origin Gross Margin Total : <?= number_format(($dataTable['sectionOne']['firstRow']['origin'] - $dataTable['sectionTwo']['firstRow']['origin']) + ($dataTable['sectionOne']['secondRow']['origin'] - $dataTable['sectionTwo']['secondRow']['origin']), 2); ?> <br /> Origin CO Total : <?= number_format($dataTable['sectionOne']['firstRow']['origin'] + $dataTable['sectionOne']['secondRow']['origin'], 2); ?> <br />"
+                                            style="width: max-content; cursor: help;"
+                                            >
+                                            <?php 
+                                                $grossMarginOriginTotal     = ($dataTable['sectionOne']['firstRow']['origin'] - $dataTable['sectionTwo']['firstRow']['origin']) + ($dataTable['sectionOne']['secondRow']['origin'] - $dataTable['sectionTwo']['secondRow']['origin']);
+                                                $customerOrderOriginTotal   = $dataTable['sectionOne']['firstRow']['origin'] + $dataTable['sectionOne']['secondRow']['origin'];
+                                                $result                     = $grossMarginOriginTotal / $customerOrderOriginTotal;
+                                                
+                                                echo number_format($result, 2) . " %";
+                                            ?>
                                         </div>
                                     </td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Previous Gross Margin Total / Previous CO Total) * 100% <br /> Previous Gross Margin Total : 1,167,113,834.63 <br /> Previous CO Total : 11,073,733,917.13 <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionFour']['firstRow']['previous']; ?>
+                                        <div
+                                            class="float-right border_bottom_dotted"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            data-html="true"
+                                            title="(Previous Gross Margin Total / Previous CO Total) * 100% <br /> Previous Gross Margin Total : <?= number_format(($dataTable['sectionOne']['firstRow']['previous'] - $dataTable['sectionTwo']['firstRow']['previous']) + ($dataTable['sectionOne']['secondRow']['previous'] - $dataTable['sectionTwo']['secondRow']['previous']), 2); ?> <br /> Previous CO Total : <?= number_format($dataTable['sectionOne']['firstRow']['previous'] + $dataTable['sectionOne']['secondRow']['previous'], 2); ?> <br />"
+                                            style="width: max-content; cursor: help;"
+                                            >
+                                            <?php 
+                                                $grossMarginPreviousTotal     = ($dataTable['sectionOne']['firstRow']['previous'] - $dataTable['sectionTwo']['firstRow']['previous']) + ($dataTable['sectionOne']['secondRow']['previous'] - $dataTable['sectionTwo']['secondRow']['previous']);
+                                                $customerOrderPreviousTotal   = $dataTable['sectionOne']['firstRow']['previous'] + $dataTable['sectionOne']['secondRow']['previous'];
+                                                $result                     = $grossMarginPreviousTotal / $customerOrderPreviousTotal;
+                                                
+                                                echo number_format($result, 2) . " %";
+                                            ?>
                                         </div>
                                     </td>
                                     <td>
                                         <?= $dataTable['sectionFour']['firstRow']['addSubt']; ?>
                                     </td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Total Current Gross Margin Total / Total Current CO Total) * 100% <br /> Total Current Gross Margin Total : 1,167,008,042.63 <br /> Total Current CO Total : 11,073,733,917.13 <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionFour']['firstRow']['totalCurrent']; ?>
+                                        <div
+                                            class="float-right border_bottom_dotted"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom"
+                                            data-html="true"
+                                            title="(Total Current Gross Margin Total / Total Current CO Total) * 100% <br /> Total Current Gross Margin Total : <?= number_format(($dataTable['sectionOne']['firstRow']['totalCurrent'] - $dataTable['sectionTwo']['firstRow']['totalCurrent']) + ($dataTable['sectionOne']['secondRow']['totalCurrent'] - $dataTable['sectionTwo']['secondRow']['totalCurrent']), 2); ?> <br /> Total Current CO Total : <?= number_format($dataTable['sectionOne']['firstRow']['totalCurrent'] + $dataTable['sectionOne']['secondRow']['totalCurrent'], 2); ?> <br />"
+                                            style="width: max-content; cursor: help;"
+                                            >
+                                            <?php 
+                                                $grossMarginTotalCurrent     = ($dataTable['sectionOne']['firstRow']['totalCurrent'] - $dataTable['sectionTwo']['firstRow']['totalCurrent']) + ($dataTable['sectionOne']['secondRow']['totalCurrent'] - $dataTable['sectionTwo']['secondRow']['totalCurrent']);
+                                                $customerOrderTotalCurrent   = $dataTable['sectionOne']['firstRow']['totalCurrent'] + $dataTable['sectionOne']['secondRow']['totalCurrent'];
+                                                $result                     = $grossMarginTotalCurrent / $customerOrderTotalCurrent;
+                                                
+                                                echo number_format($result, 2) . " %";
+                                            ?>
                                         </div>
                                     </td>
                                 </tr>
@@ -415,13 +536,65 @@
                                         <?= $dataTable['sectionFour']['secondRow']['valuta']; ?>
                                     </td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Total Current Gross Margin % - Origin Gross Margin %) <br /> Total Current Gross Margin % : 10.54 % <br /> Origin Gross Margin % : 10.25 % <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionFour']['secondRow']['origin']; ?>
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Total Current Gross Margin % - Origin Gross Margin %) <br /> Total Current Gross Margin % : <?php
+                                                // TOTAL CURRENT
+                                                $grossMarginTotalCurrent     = ($dataTable['sectionOne']['firstRow']['totalCurrent'] - $dataTable['sectionTwo']['firstRow']['totalCurrent']) + ($dataTable['sectionOne']['secondRow']['totalCurrent'] - $dataTable['sectionTwo']['secondRow']['totalCurrent']);
+                                                $customerOrderTotalCurrent   = $dataTable['sectionOne']['firstRow']['totalCurrent'] + $dataTable['sectionOne']['secondRow']['totalCurrent'];
+                                                $result                     = $grossMarginTotalCurrent / $customerOrderTotalCurrent;
+                                                
+                                                echo number_format($result, 2) . " %";
+                                            ?> <br /> Origin Gross Margin % : <?php 
+                                            // ORIGIN
+                                            $grossMarginOriginTotal     = ($dataTable['sectionOne']['firstRow']['origin'] - $dataTable['sectionTwo']['firstRow']['origin']) + ($dataTable['sectionOne']['secondRow']['origin'] - $dataTable['sectionTwo']['secondRow']['origin']);
+                                            $customerOrderOriginTotal   = $dataTable['sectionOne']['firstRow']['origin'] + $dataTable['sectionOne']['secondRow']['origin'];
+                                            $resultOriginGrossMargin    = $grossMarginOriginTotal / $customerOrderOriginTotal;
+
+                                            echo number_format($resultOriginGrossMargin, 2) . " %";
+                                        ?> <br />" style="width: max-content; cursor: help;">
+                                            <?php 
+                                                // ORIGIN
+                                                $grossMarginOriginTotal     = ($dataTable['sectionOne']['firstRow']['origin'] - $dataTable['sectionTwo']['firstRow']['origin']) + ($dataTable['sectionOne']['secondRow']['origin'] - $dataTable['sectionTwo']['secondRow']['origin']);
+                                                $customerOrderOriginTotal   = $dataTable['sectionOne']['firstRow']['origin'] + $dataTable['sectionOne']['secondRow']['origin'];
+                                                $resultOriginGrossMargin    = $grossMarginOriginTotal / $customerOrderOriginTotal;
+
+                                                // TOTAL CURRENT
+                                                $grossMarginTotalCurrent     = ($dataTable['sectionOne']['firstRow']['totalCurrent'] - $dataTable['sectionTwo']['firstRow']['totalCurrent']) + ($dataTable['sectionOne']['secondRow']['totalCurrent'] - $dataTable['sectionTwo']['secondRow']['totalCurrent']);
+                                                $customerOrderTotalCurrent   = $dataTable['sectionOne']['firstRow']['totalCurrent'] + $dataTable['sectionOne']['secondRow']['totalCurrent'];
+                                                $result                     = $grossMarginTotalCurrent / $customerOrderTotalCurrent;
+                                                
+                                                echo number_format($result - $resultOriginGrossMargin, 2) . " %";
+                                            ?>
                                         </div>
                                     </td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Total Current Gross Margin % - Previous Gross Margin %) <br /> Total Current Gross Margin % : 10.54 % <br /> Previous Gross Margin % : 10.54 % <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionFour']['secondRow']['previous']; ?>
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Total Current Gross Margin % - Previous Gross Margin %) <br /> Total Current Gross Margin % : <?php 
+                                                // TOTAL CURRENT
+                                                $grossMarginTotalCurrent     = ($dataTable['sectionOne']['firstRow']['totalCurrent'] - $dataTable['sectionTwo']['firstRow']['totalCurrent']) + ($dataTable['sectionOne']['secondRow']['totalCurrent'] - $dataTable['sectionTwo']['secondRow']['totalCurrent']);
+                                                $customerOrderTotalCurrent   = $dataTable['sectionOne']['firstRow']['totalCurrent'] + $dataTable['sectionOne']['secondRow']['totalCurrent'];
+                                                $result                     = $grossMarginTotalCurrent / $customerOrderTotalCurrent;
+                                                
+                                                echo number_format($result, 2) . " %";
+                                            ?> <br /> Previous Gross Margin % : <?php 
+                                            // PREVIOUS
+                                            $grossMarginOriginTotal     = ($dataTable['sectionOne']['firstRow']['previous'] - $dataTable['sectionTwo']['firstRow']['previous']) + ($dataTable['sectionOne']['secondRow']['previous'] - $dataTable['sectionTwo']['secondRow']['previous']);
+                                            $customerOrderOriginTotal   = $dataTable['sectionOne']['firstRow']['previous'] + $dataTable['sectionOne']['secondRow']['previous'];
+                                            $resultOriginGrossMargin    = $grossMarginOriginTotal / $customerOrderOriginTotal;
+
+                                            echo number_format($resultOriginGrossMargin, 2) . " %";
+                                        ?> <br />" style="width: max-content; cursor: help;">
+                                            <?php 
+                                                // PREVIOUS
+                                                $grossMarginOriginTotal     = ($dataTable['sectionOne']['firstRow']['previous'] - $dataTable['sectionTwo']['firstRow']['previous']) + ($dataTable['sectionOne']['secondRow']['previous'] - $dataTable['sectionTwo']['secondRow']['previous']);
+                                                $customerOrderOriginTotal   = $dataTable['sectionOne']['firstRow']['previous'] + $dataTable['sectionOne']['secondRow']['previous'];
+                                                $resultOriginGrossMargin    = $grossMarginOriginTotal / $customerOrderOriginTotal;
+
+                                                // TOTAL CURRENT
+                                                $grossMarginTotalCurrent     = ($dataTable['sectionOne']['firstRow']['totalCurrent'] - $dataTable['sectionTwo']['firstRow']['totalCurrent']) + ($dataTable['sectionOne']['secondRow']['totalCurrent'] - $dataTable['sectionTwo']['secondRow']['totalCurrent']);
+                                                $customerOrderTotalCurrent   = $dataTable['sectionOne']['firstRow']['totalCurrent'] + $dataTable['sectionOne']['secondRow']['totalCurrent'];
+                                                $result                     = $grossMarginTotalCurrent / $customerOrderTotalCurrent;
+                                                
+                                                echo number_format($result - $resultOriginGrossMargin, 2) . " %";
+                                            ?>
                                         </div>
                                     </td>
                                     <td>
@@ -450,7 +623,7 @@
                                         <?= $dataTable['sectionFive']['firstRow']['addSubt']; ?>
                                     </td>
                                     <td class="border-dark border-top text-right">
-                                        <?= $dataTable['sectionFive']['firstRow']['totalCurrent']; ?>
+                                        <?= number_format($dataTable['sectionFive']['firstRow']['totalCurrent'], 2); ?>
                                     </td>
                                 </tr>
                                 <tr style="color: #404040;">
@@ -470,7 +643,7 @@
                                         <?= $dataTable['sectionFive']['secondRow']['addSubt']; ?>
                                     </td>
                                     <td class="border_top_dotted text-right">
-                                        <?= $dataTable['sectionFive']['secondRow']['totalCurrent']; ?>
+                                        <?= number_format($dataTable['sectionFive']['secondRow']['totalCurrent'], 2); ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -491,7 +664,7 @@
                                     </td>
                                     <td class="border-dark border-top font-weight-bold text-dark text-right">
                                         <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Recorded Cost IDR + Recorded Cost Cross Currency <br /> Recorded Cost IDR : 28,847,447 <br /> Recorded Cost Cross Currency : 0 (0.00 * Transaction's exchange rate) <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionFive']['thirdRow']['totalCurrent']; ?>
+                                            <?= number_format($dataTable['sectionFive']['thirdRow']['totalCurrent'], 2); ?>
                                         </div>
                                     </td>
                                 </tr>
@@ -513,7 +686,7 @@
                                     </td>
                                     <td class="border-dark border-top font-weight-bold text-dark text-right">
                                         <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="([Total Current CO * % Progress - Total Recorded Cost]/Total Current CO * % Progress)*100% Total Current CO : 11,073,733,917 <br /> % Progress : 0.00 % <br /> Total Recorded Cost : 28,847,447 <br />" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionFive']['fourthRow']['totalCurrent']; ?>
+                                            <?= number_format($dataTable['sectionFive']['fourthRow']['totalCurrent'], 2); ?>
                                         </div>
                                     </td>
                                 </tr>
