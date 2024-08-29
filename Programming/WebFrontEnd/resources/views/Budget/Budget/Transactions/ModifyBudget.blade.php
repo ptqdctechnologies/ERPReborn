@@ -17,7 +17,7 @@
                 </div>
             </div>
         
-        <form method="post" enctype="multipart/form-data" action="{{ route('Budget.PreviewModifyBudget') }}">
+        <form id="modifyBudgetForm" method="post" enctype="multipart/form-data" action="{{ route('Budget.PreviewModifyBudget') }}">
         @csrf
             <!-- CONTENT -->
             <div class="card">
@@ -275,6 +275,94 @@
                                             <tr>
                                                 <td class="container-tbody-tr-budget">
                                                     1
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    PLN - Biaya Penyambungan
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    1.00
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    -,194.64
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    38,878,545.00
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    IDR
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    200,000.00
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    500,000.00
+                                                </td>
+                                                <td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">
+                                                </td>
+                                                <td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">
+                                                </td>
+                                                <td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>
+                                                </td>
+                                                <td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">
+                                                </td>
+                                                <td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">
+                                                </td>
+                                                <td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="container-tbody-tr-budget">
+                                                    2
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    PLN - Biaya Penyambungan
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    1.00
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    -,194.64
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    38,878,545.00
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    IDR
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    200,000.00
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    500,000.00
+                                                </td>
+                                                <td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">
+                                                </td>
+                                                <td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">
+                                                </td>
+                                                <td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>
+                                                </td>
+                                                <td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">
+                                                </td>
+                                                <td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">
+                                                </td>
+                                                <td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="container-tbody-tr-budget">
+                                                    3
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
                                                     PLN - Biaya Penyambungan

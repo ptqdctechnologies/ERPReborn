@@ -264,7 +264,14 @@
             let qtySaving = row.querySelector('input[name="qty_saving"]').value.trim();
             let priceSaving = row.querySelector('input[name="price_saving"]').value.trim();
             let totalSaving = row.querySelector('input[name="total_saving"]').value.trim();
-            let productId = row.querySelector('td:first-child').textContent.trim();
+            let productId = row.querySelector('td:nth-child(1)').textContent.trim();
+            let productName = row.querySelector('td:nth-child(2)').textContent.trim();
+            let qtyBudget = row.querySelector('td:nth-child(3)').textContent.trim();
+            let qtyAvail = row.querySelector('td:nth-child(4)').textContent.trim();
+            let prices = row.querySelector('td:nth-child(5)').textContent.trim();
+            let currencys = row.querySelector('td:nth-child(6)').textContent.trim();
+            let balanceBudget = row.querySelector('td:nth-child(7)').textContent.trim();
+            let totalBudget = row.querySelector('td:nth-child(8)').textContent.trim();
 
             if (qtyAdditional && priceAdditional && totalAdditional || qtySaving && priceSaving && totalSaving) {
                 let listTableBody = document.querySelector('#listBudgetTable tbody');
@@ -289,6 +296,19 @@
                             td.textContent = input.value;
                         }
                         td.className = 'container-tbody-tr-budget';
+                    });
+
+                    let form = document.getElementById('modifyBudgetForm');
+
+                    let hiddenInputIds = ['product_id', 'product_name', 'qty_budget', 'qty_avail', 'price', 'currency', 'balance_budget', 'total_budget', 'qty_additional', 'price_additional', 'total_additional', 'qty_saving', 'price_saving', 'total_saving'];
+                    let inputValues = [productId, productName, qtyBudget, qtyAvail, prices, currencys, balanceBudget, totalBudget, qtyAdditional, priceAdditional, totalAdditional, qtySaving, priceSaving, totalSaving];
+                    
+                    hiddenInputIds.forEach((inputId, index) => {
+                        let hiddenInput = document.createElement('input');
+                        hiddenInput.type = 'hidden';
+                        hiddenInput.name = inputId + '[]';
+                        hiddenInput.value = inputValues[index];
+                        form.appendChild(hiddenInput);
                     });
 
                     listTableBody.appendChild(clonedRow);

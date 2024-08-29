@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use DB;
 use PDO;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 class BudgetController extends Controller
 {
@@ -80,6 +81,43 @@ class BudgetController extends Controller
 
             // FILES
             $files              = $request->uploaded_files;
+
+            // MODIFY BUDGET LIST TABLE (CART)
+            $productIds         = $request->input('product_id');
+            $productName        = $request->input('product_name');
+            $qtyBudget          = $request->input('qty_budget');
+            $qtyAvail           = $request->input('qty_avail');
+            $price              = $request->input('price');
+            $currency           = $request->input('currency');
+            $balanceBudget      = $request->input('balance_budget');
+            $totalBudget        = $request->input('total_budget');
+            $qtyAdditionals     = $request->input('qty_additional');
+            $priceAdditionals   = $request->input('price_additional');
+            $totalAdditionals   = $request->input('total_additional');
+            $qtySavings         = $request->input('qty_saving');
+            $priceSavings       = $request->input('price_saving');
+            $totalSavings       = $request->input('total_saving');
+
+            $dataModifyBudget = [];
+            $i = 0;
+            foreach ($productIds as $index => $productId) {
+                $dataModifyBudget[$i]['no']                 = $i + 1;
+                $dataModifyBudget[$i]['productID']          = $productIds[$index];
+                $dataModifyBudget[$i]['productName']        = $productName[$index];
+                $dataModifyBudget[$i]['qtyBudget']          = $qtyBudget[$index];
+                $dataModifyBudget[$i]['qtyAvail']           = $qtyAvail[$index];
+                $dataModifyBudget[$i]['price']              = $price[$index];
+                $dataModifyBudget[$i]['currency']           = $currency[$index];
+                $dataModifyBudget[$i]['balanceBudget']      = $balanceBudget[$index];
+                $dataModifyBudget[$i]['totalBudget']        = $totalBudget[$index];
+                $dataModifyBudget[$i]['qtyAdditionals']     = $qtyAdditionals[$index];
+                $dataModifyBudget[$i]['priceAdditionals']   = $priceAdditionals[$index];
+                $dataModifyBudget[$i]['totalAdditionals']   = $totalAdditionals[$index];
+                $dataModifyBudget[$i]['qtySavings']         = $qtySavings[$index];
+                $dataModifyBudget[$i]['priceSavings']       = $priceSavings[$index];
+                $dataModifyBudget[$i]['totalSavings']       = $totalSavings[$index];
+                $i++;
+            }
 
             $compact = [
                 'pic'               => $PIC,
@@ -245,10 +283,11 @@ class BudgetController extends Controller
                             'totalCurrent'  => 0
                         ],
                     ],
-                ]
+                ],
+                'dataModifyBudget'  => $dataModifyBudget
             ];
 
-            dd($compact);
+            // dd($dataModifyBudget);
 
             return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {

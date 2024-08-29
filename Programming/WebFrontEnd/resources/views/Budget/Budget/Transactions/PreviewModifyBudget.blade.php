@@ -719,29 +719,27 @@
                                     <th>QTY SAVING</th>
                                     <th>PRICE SAVING</th>
                                     <th>TOTAL SAVING</th>
-                                    <!-- <th class="text-center align-middle">PRODUCT ID</th>
-                                    <th class="align-middle">PRODUCT NAME</th>
-                                    <th class="text-center align-middle">QTY BUDGET</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">QTY <br /> (BOQ3)</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">UNIT PRICE <br /> (BOQ3)</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">TOTAL <br /> (BOQ3)</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">QTY <br /> (REQUEST)</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">UNIT PRICE <br /> (REQUEST)</th>
-                                    <th class="text-center align-middle" style="line-height: 15px;">TOTAL <br /> (REQUEST)</th> -->
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td style="line-height: 15px;">129461-0000 - Pengambilan Undisturbed Sample Tanah</td>
-                                    <td>MI</td>
-                                    <td class="text-right">0.00</td>
-                                    <td class="text-right">0</td>
-                                    <td class="text-right">0</td>
-                                    <td class="text-right">2.00</td>
-                                    <td class="text-right">2,000,000</td>
-                                    <td class="text-right">4,000,000</td>
-                                </tr>
+                                <?php foreach ($dataModifyBudget as $data) { ?>                       
+                                    <tr>
+                                        <td><?= $data['productID']; ?></td>
+                                        <td style="line-height: 15px;"><?= $data['productName']; ?></td>
+                                        <td class="text-right"><?= $data['qtyBudget']; ?></td>
+                                        <td class="text-right"><?= $data['qtyAvail']; ?></td>
+                                        <td class="text-right"><?= $data['price']; ?></td>
+                                        <td><?= $data['currency']; ?></td>
+                                        <td class="text-right"><?= $data['balanceBudget']; ?></td>
+                                        <td class="text-right"><?= $data['totalBudget']; ?></td>
+                                        <td class="text-right"><?= $data['qtyAdditionals']; ?></td>
+                                        <td class="text-right"><?= $data['priceAdditionals']; ?></td>
+                                        <td class="text-right"><?= $data['totalAdditionals']; ?></td>
+                                        <td class="text-right"><?= $data['qtySavings']; ?></td>
+                                        <td class="text-right"><?= $data['priceSavings']; ?></td>
+                                        <td class="text-right"><?= $data['totalSavings']; ?></td>
+                                    </tr>
+                                <?php } ?>
 
                                 <!-- FOOTER -->
                                 <tr>
