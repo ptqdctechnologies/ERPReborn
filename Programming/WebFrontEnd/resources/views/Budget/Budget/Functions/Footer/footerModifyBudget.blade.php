@@ -264,7 +264,7 @@
             let qtySaving = row.querySelector('input[name="qty_saving"]').value.trim();
             let priceSaving = row.querySelector('input[name="price_saving"]').value.trim();
             let totalSaving = row.querySelector('input[name="total_saving"]').value.trim();
-            let productId = row.querySelector('td:first-child').textContent.trim(); // Assuming first td is Product Id
+            let productId = row.querySelector('td:first-child').textContent.trim();
 
             if (qtyAdditional && priceAdditional && totalAdditional || qtySaving && priceSaving && totalSaving) {
                 let listTableBody = document.querySelector('#listBudgetTable tbody');

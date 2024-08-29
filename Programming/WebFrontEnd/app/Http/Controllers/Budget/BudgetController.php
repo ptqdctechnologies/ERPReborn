@@ -248,7 +248,7 @@ class BudgetController extends Controller
                 ]
             ];
 
-            // dd($compact);
+            dd($compact);
 
             return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {
