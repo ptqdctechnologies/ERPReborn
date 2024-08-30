@@ -19,7 +19,7 @@ namespace App\Helpers\ZhtHelper\General
     | ▪ Description : Menangani JavaScript                                                                                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class Helper_JavaScript_OLD
+    class Helper_JavaScriptOLDORI
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -2262,9 +2262,7 @@ namespace App\Helpers\ZhtHelper\General
             return $varReturn;
             }
 
-
             
-    
         public static function getSyntaxFunc_DOMInputFileContentRead(
             $varUserSession, string $varAPIWebToken,
             string $varUniqueID, string $varDOMReturnObjectID)
@@ -3736,96 +3734,6 @@ namespace App\Helpers\ZhtHelper\General
             }
 
 
-
-        public static function getSyntaxFunc_IsClassLoaded(
-            $varUserSession,
-            $varClassName)
-            {
-            $varReturn =
-                'function() {'.
-                    'varReturn = false; '.
-                    'try {'.
-                        'varObj = new '.$varClassName.((!stristr($varClassName, '(')) ? '()' : '').'; '.
-                        'varReturn = true; '.
-                        '}'.
-                    'catch(varError) {'.
-                        '}'.
-                    'return varReturn; '.
-                    '} ()';
-            return $varReturn;
-            }
-
-        private static function getSyntaxFunc_SetMessage(
-            $varUserSession,
-            bool $varThreatMessageAsPHPData = true, string $varMessage)
-            {
-            $varReturn = 
-                'function (varMessage) {'.
-                    'return String.fromCharCode(13) + \''.(basename(__FILE__, '.php').' ► ').'\' + varMessage; '.
-                    '} ('.($varThreatMessageAsPHPData === true ? '\''.$varMessage.'\'': $varMessage).')';
-            return $varReturn;
-            }
-            
-        public static function getSyntaxFunc_IsExist_APIWebToken(
-            $varUserSession,
-            $varAPIWebToken)
-            {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'set Syntax AJAX Post JSON');
-                try {
-                    $varReturn =
-                        'function(varAPIWebToken) {'.
-                            'varReturn = false; '.
-                            'try {'.
-                                'if ('.self::getSyntaxFunc_IsClassLoaded($varUserSession, 'zht_JSAPIRequest').' === true) {'.
-                                    'try {'.
-                                        'varReturn = ('.
-                                            'JSON.parse('.
-                                                str_replace(
-                                                    '"', 
-                                                    '\'', 
-                                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                                                        $varAPIWebToken, 
-                                                        'authentication.general.isSessionExist', 
-                                                        'latest', 
-                                                        '{'.
-                                                            '"parameter" : null'.
-                                                        '}'
-                                                        )
-                                                    ).
-                                                ').data.data.signExist'.
-                                            '); '.
-                                        '}'.
-                                    'catch(varError) {'.
-                                        'alert('.self::getSyntaxFunc_SetMessage($varUserSession, true, 'API with key \' + String.fromCharCode(34) + \'authentication.general.isSessionExist\' + String.fromCharCode(34) + \' encountered an Error').'); '.
-                                        '}'.
-                                    '}'.
-                                'else {'.
-                                    'throw new Error('.self::getSyntaxFunc_SetMessage($varUserSession, true, 'JavaScript Class zht_JSAPIRequest is not loaded').'); '.
-                                    '}'.
-                                '} '.
-                            'catch(varError) {'.
-                                'alert(varError); '.
-                                '} '.
-                            'finally {'.
-                                'return varReturn; '.
-                                '} '.
-                            '} (\''.$varAPIWebToken.'\');';
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    }
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
-
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getSyntaxFunc_DOMInputFileContent                                                                    |
@@ -3849,104 +3757,6 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getSyntaxFunc_DOMInputFileContent(
-            $varUserSession, string $varAPIWebToken, 
-            string $varUniqueID, string $varDOMReturnID, string $varDOMReturnIDAction, string $varDOMActionPanel, string $varDOMAction, string $varAction = null)
-            {
-            //dd($varDOMReturnID);
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get DOM Input Files Content');
-                try {
-                    if(!$varAction)
-                        {
-                        $varAction = 'OverWrite';
-                        }
-                        
-                    $varStyle_TableAction =
-                        [
-                            ['width', '100px'],
-                            ['border', '1px solid #ced4da']
-                        ];
-
-                    $varStyle_TableActionPanelHead =
-                        [
-                            ['backgroundColor', '#E9ECEF'],
-                            ['color', '#212529'],
-                            ['fontFamily', '\\\'verdana\\\''],
-                            ['whiteSpace', 'nowrap'],
-                            ['fontSize', '11px'],
-                            ['textAlign', 'center'],
-                            ['border', '1px solid #ced4da']
-                        ];
-                    
-                    $varStyle_TableActionPanelBody =
-                        [
-                            ['backgroundColor', '#E9ECEF'],
-                            ['color', '#000000'],
-                            ['fontFamily', '\\\'verdana\\\''],
-                            ['whiteSpace', 'nowrap'],
-                            ['fontSize', '13px'],
-                            ['textAlign', 'left'],
-                            ['border', '1px solid #ced4da'],
-                            ['padding', '8px 10px']
-                        ];
-
-                    $varReturn =
-                        'try {'.
-                            //-----[ Parameter Initialization ]----(START)----
-                            //'varSignExistAPIWebToken = false; '.
-                            //'if(\''. $varAPIWebToken .'\' != \'\') {'.
-                            //    'varSignExistAPIWebToken = true; '.
-                            //    '}; '.
-                            'varSignExistAPIWebToken = '.
-                                self::getSyntaxFunc_IsExist_APIWebToken(
-                                    $varUserSession,
-                                    $varAPIWebToken
-                                    ).'; '.
-                            //-----[ Parameter Initialization ]----( END )----
-
-                            //-----[ Main Function ]-----(START)----
-                            'if(varSignExistAPIWebToken === false) {'.
-                                'alert('.self::getSyntaxFunc_SetMessage($varUserSession, true, 'API Web Token Is Not Exist').'); '.
-                                '}'.
-                            'else'.
-                                '{'.
-                                'try {'.
-                                    'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value; '.
-                                    '} '.
-                                'catch(varError) {'.
-                                    //self::getSyntaxCreateDOM_InputText(
-                                    self::getSyntaxCreateDOM_InputHidden(
-                                        $varUserSession, 
-                                        [
-                                            'ID' => 'zhtSysObjDOMText_'.$varUniqueID.'_MainData',
-                                            'ParentID' => 'document.body',
-                                            'Value' => '',
-                                            'Style' => [
-                                                ['width', '200px'],
-                                                ['height', '100px']
-                                                ]
-                                        ]).
-                                    'alert(\'OK deh\');'.
-                                    '} '.
-                                '};'.
-                            //-----[ Main Function ]-----( END )----
-                            '} '.
-                        'catch(varError) {'.
-                            '}';
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    }
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
-
-        public static function getSyntaxFunc_DOMInputFileContentOLD(
             $varUserSession, string $varAPIWebToken, 
             string $varUniqueID, string $varDOMReturnID, string $varDOMReturnIDAction, string $varDOMActionPanel, string $varDOMAction, string $varAction = null)
             {
@@ -4022,6 +3832,7 @@ namespace App\Helpers\ZhtHelper\General
                                     
                             //     'return varSignExistAPIWebToken; '.
 
+                            
                             'varSignExistAPIWebToken = false; '.
                             'if(\''. $varAPIWebToken .'\' != \'\') {'.
                                 'varSignExistAPIWebToken = true; '.
@@ -4048,7 +3859,6 @@ namespace App\Helpers\ZhtHelper\General
                                                 ['height', '100px']
                                                 ]
                                         ]).
-//-------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                     //---> Penambahan Script
                                     self::getSyntaxCreateDOM_JavaScript(
                                         $varUserSession, 
@@ -4879,11 +4689,6 @@ namespace App\Helpers\ZhtHelper\General
                                     'ObjHead.appendChild(ObjScript); '.
                                     '} '.
                                     //---> Main Action (End)
-
-                            
-
-
-    
                                 //---> Main Function ( Start )
                                 '(function(varObj, varReturnDOMObject) {'.
                                     //'alert(\'Masuk\'); '.
@@ -5083,13 +4888,11 @@ namespace App\Helpers\ZhtHelper\General
                                                 'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
                                                 '}'.
                                             '}'.
-//-------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                                         '}'.
                                     'else {'.
                                         'alert(\'ERP Reborn Error Notification\n\nInvalid DOM Objects\'); '.
                                         '}'.
                                     '}) (this, document.getElementById(\''.$varDOMReturnID.'\'))'.
-
 
                                 //---> Main Function ( End )
                                 //'alert(\'ocrehhhhh\'); '.
@@ -5109,33 +4912,6 @@ namespace App\Helpers\ZhtHelper\General
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

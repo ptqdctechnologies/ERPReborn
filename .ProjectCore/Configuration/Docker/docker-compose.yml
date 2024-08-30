@@ -91,10 +91,15 @@ services:
         #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron_Script_Laravel_ArtisanScheduleRun_sh:/etc/cron.d/cron_Script_Laravel_ArtisanScheduleRun_sh'
         #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron.Script.Laravel.ArtisanScheduleRun.sh:/etc/cron.d/cron.Script.Laravel.ArtisanScheduleRun.sh'
       - './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'
+      - './Programming/.SystemCore/SSLCertificate/ERPRebornLocalhost.crt:/etc/ssl/certs/ERPRebornLocalhost.crt'
+      - './Programming/.SystemCore/SSLCertificate/ERPRebornLocalhost.key:/etc/ssl/private/ERPRebornLocalhost.key' 
 #    links:
 #      - 'db-postgresql'
     environment:
-      - COMPOSER_MEMORY_LIMIT=-1
+      APP_FULL_BASE_URL: 'https://localhost:10433'
+      COMPOSER_MEMORY_LIMIT: -1
+
+#      - COMPOSER_MEMORY_LIMIT=-1
 #      DB_CONNECTION: 'pgsql'
 #      DB_HOST: 'db-postgresql'
 #      DB_PORT: 5432
@@ -123,9 +128,10 @@ services:
       - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
       - './Programming/WebFrontEnd:/var/www/html/WebFrontEnd'
       - './.ProjectCore/PermanentStorage/LocalStorage/WebFrontEnd:/var/www/html/WebFrontEnd/storage/app/Application'
-      - './.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/System/etc/ssl/certs/ERPRebornLocalhost.crt:/etc/ssl/certs/ERPRebornLocalhost.crt'
-      - './.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/System/etc/ssl/private/ERPRebornLocalhost.key:/etc/ssl/private/ERPRebornLocalhost.key'
-
+      - './Programming/.SystemCore/SSLCertificate/ERPRebornLocalhost.crt:/etc/ssl/certs/ERPRebornLocalhost.crt'
+      - './Programming/.SystemCore/SSLCertificate/ERPRebornLocalhost.key:/etc/ssl/private/ERPRebornLocalhost.key'
+    environment:
+      APP_FULL_BASE_URL: 'https://localhost:20433'
 
 
   #---> Services : Redis

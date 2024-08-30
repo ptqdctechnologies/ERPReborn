@@ -19,7 +19,7 @@ namespace App\Helpers\ZhtHelper\General
     | ▪ Description : Menangani JavaScript                                                                                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class Helper_JavaScriptMODIFORIGINAL
+    class Helper_JavaScriptOLD
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -2391,6 +2391,1074 @@ namespace App\Helpers\ZhtHelper\General
 
 
 
+
+            $varReturnxxx =
+                'varReturn = null; '.
+                'var varObjFileList = varObj.files; '.
+                'var varAccumulatedFiles = 0; '.
+                'var varPromisesArray = [];'.
+
+
+                'var varDOMReturn = document.createElement(\'input\'); '.
+                'varDOMReturn.setAttribute(\'id\', \'UniqueID\'); '.
+                'varDOMReturn.setAttribute(\'type\', \'text\'); '.
+                'varDOMReturn.value = \'12345\'; '.
+                //'alert(\'varDOMReturn Value : \' + varDOMReturn.value   ); '.
+                
+/*
+                'async function XXXXJSFuncGetDataProcess() {'.
+                    'var varPromise = new Promise(function(resolve) {'.
+                        'for(var i = 0; i < varObjFileList.length; i++) '.
+                            '{'.
+                            'varAccumulatedFiles++; '.
+                            //'JSFuncGetFileRead(varObjFileList[i], i); '.
+                            //'var varFileProcessPromise = JSFuncGetFileRead(varObjFileList[i], i); '.
+                            //'varPromisesArray.push(varFileProcessPromise);'.
+                            '}'.
+                        'resolve(\'NewREturn\'); '.
+                        '}).then(function (value) {alert(\'ccccccc\');});'.
+                    'await varPromise; '.
+                    'varReturn = \'000000\'; '.
+                    'return varPromise; '.
+                    '}; '.
+*/
+
+
+/*
+                'function JSFuncGetFileRead(varObjCurrentFile, varIndex) {'.
+                    'var varObjFileReader = new FileReader();'.
+//                    'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
+//                    'varObjFileReader.onloadend = function(event) {'.
+//                        'alert(varObjFileReader); '.
+//                        '}; '.
+                    '}; '.
+*/
+
+
+                'function JSFuncGetDataProcess() {'.
+                    'for(var i = 0; i < varObjFileList.length; i++) '.
+                        '{'.
+//                        'varAccumulatedFiles++; '.
+//                        //'JSFuncGetFileRead(varObjFileList[i], i); '.
+                        '}'.
+                    'return \'ffffff\'; '.
+                    '}; '.
+
+
+
+                '(async function(varSignAPIWebTokenIsExist, varObj) {'.
+                    'var varPromise = new Promise(function(resolve) {'.
+                        'varReturn = \'88888\'; '.
+                        'varReturn = JSFuncGetDataProcess(); '.
+//                        'alert(\'x : \' + x);'.
+                        'resolve(\'xxxx\'); '.
+                        '})'.
+                            '.then(function(value) {}); '.
+                    'await varPromise; '.
+                    'return varPromise; '.
+
+/*
+                    'var varReturn = null; '.
+                    'var varObjFileList = varObj.files; '.
+                    'var varAccumulatedFiles = 0; '.
+                    'var varPromisesArray = []; '.
+
+                    'async function JSFuncGetDataReturn() {'.
+                        'var varPromise = new Promise(function(resolve) {'.
+                            //'JSFuncGetDataProcess(); '.
+                            'resolve(); '.
+                            '}).then(function (value) {'.
+                                'varReturn = 999; '.
+                                'alert(varReturn); '.
+                                //'return varReturn; '.
+                                '}); '.
+                        'await varPromise; '.
+                        'return varPromise; '.
+                        '}; '.
+                   'JSFuncGetDataReturn(); '.
+
+ */
+ /*
+                            'varPromisesArray.push(varFileProcessPromise); '.
+                            'alert(varPromisesArray); '.                            
+                            'resolve(); '.
+                            '}); '.
+                        'await Promise.all(varPromisesArray); '.
+*/
+
+//                    'return varReturn; '.
+                    '}) ('.($varSignAPIWebTokenIsExist == TRUE ? 'true' : 'false').', this); '.
+                'alert(\'varReturn : \' + varReturn); '.
+//                'alert(\'varReturn : \' + varDOMReturn.value); '.
+
+//                'alert(x.resolve(value)); '.
+                '';
+
+
+            
+           $varReturnCoba =
+                '(function (ObjReturn) {'.
+                    'ObjReturn = {value: \'hello world\' }; '.
+                    'alert(ObjReturn.value); '.
+
+                    '(async function() {'.
+                          'var varMainPromise = new Promise(function(resolve) {'.
+                            'resolve(); '.
+                            '}).then(function(value) {'.
+                                'ObjReturn = {value: \'xxxxxxxxx\' }; '.
+                                'alert(ObjReturn.value); '.
+                                '});'.
+                        'await varMainPromise; '.
+                        'return varMainPromise; '.
+                        '}) (); '.
+
+
+                   '}) ();'.
+                   '';
+                   
+           $varReturnccc =                   
+                'varReturn = (function () {'.
+                    'var ObjReturn = {value: \'hello world\' }; '.
+                    
+                    '(async function() {'.
+                        'var varMainPromise = new Promise(function(resolve) {'.
+                            'alert(\'11111111\'); '.
+                            'resolve(); '.
+                            '}).then(function(value) {'.
+                                'ObjReturn = {value: \'xxxxxxxxx\' }; '.
+                                'alert(\'2222222\'); '.
+                                '});'.
+                        'await varPromise; '.
+                        'return varPromise; '.
+                        '}) (); '.
+                    'return ObjReturn; '.
+                    '}) (); '.
+                '(async function(varSignAPIWebTokenIsExist, varObj) {'.
+                    'var varMainPromise = new Promise(function(resolve) {'.
+                        'var varReturn = null; '.
+                        'var varObjFileList = varObj.files; '.
+                        'var varAccumulatedFiles = 0; '.
+                        'var varPromisesArray = [];'.
+
+                        'function SetVarReturn() {'.
+                            'varReturn = 123456; '.
+                            '}; '.
+
+
+                        'async function JSFuncGetFileRead(varObjCurrentFile, varIndex) {'.
+                            'alert(\'File Index : \' + varIndex); '.
+
+                            'SetVarReturn(); '.
+                            'var varPromise = new Promise(function(resolve, reject) {'.
+                                'resolve(); '.
+                                '}).then(function (value) {'.
+                                'varReturn = 888; '.
+                                'alert(varReturn); '.
+                                '}); '.
+                            'await varPromise; '.
+                            'alert(\'~~~~~~~~~~~~~~\');'.
+                            'return varPromise; '.
+                            '}; '.
+
+
+
+                        'async function JSFuncGetDataProcess() {'.
+                            'var varPromise = new Promise(function(resolve) {'.
+                                'for(var i = 0; i < varObjFileList.length; i++) '.
+                                    '{'.
+                                    'varAccumulatedFiles++; '.
+                                    'JSFuncGetFileRead(varObjFileList[i], i); '.
+                                    //'var varFileProcessPromise = JSFuncGetFileRead(varObjFileList[i], i); '.
+                                    //'varPromisesArray.push(varFileProcessPromise);'.
+                                    '}'.
+                                '});'.
+                            'await varPromise; '.
+                            'return varPromise; '.
+                            '}; '.
+
+
+                        'async function JSFuncGetDataReturn() {'.
+                            'var varPromise = new Promise(function(resolve) {'.
+                                'JSFuncGetDataProcess(); '.
+                                'resolve(); '.
+                                '}).then(function (value) {'.
+                                    'varReturn = 999; '.
+                                    'alert(varReturn); '.
+                                    'return varReturn; '.
+                                    '}); '.
+                            'await varPromise; '.
+                            'return varPromise; '.
+                            '}; '.
+
+                        'JSFuncGetDataReturn(); '.
+    //                    'return varReturn;'.
+                        'resolve(); '.
+                        '}).then(function (value) {'.
+                            'alert (\'xyz\'); '.
+                            '}); '.
+                    'await varMainPromise; '.
+                    'return varMainPromise; '.
+                    '}) ('.($varSignAPIWebTokenIsExist == TRUE ? 'true' : 'false').', this)';
+
+            
+           $varReturnXXX= 
+                '(function(varSignAPIWebTokenIsExist, varObj) {'.
+                    'var varReturn = null; '.
+                    'var varObjFileList = varObj.files; '.
+                    'var varAccumulatedFiles = 0; '.
+                    'var varPromisesArray = [];'.
+
+
+
+
+                    'async function JSFuncGetFileRead(varObjCurrentFile, varIndex) {'.
+                        'alert(\'File Index : \' + varIndex); '.
+
+                        'var varPromise = new Promise(function(resolve, reject) {'.
+                            'resolve(); '.
+                            '}); '.
+                        'await varPromise; '.
+                        'alert(\'~~~~~~~~~~~~~~\');'.
+                        'return varPromise; '.
+                        '}; '.
+
+
+                   
+                    'async function JSFuncGetDataProcess() {'.
+                        'var varPromise = new Promise(function(resolve) {'.
+                            'for(var i = 0; i < varObjFileList.length; i++) '.
+                                '{'.
+                                'varAccumulatedFiles++; '.
+                                'JSFuncGetFileRead(varObjFileList[i], i); '.
+                                //'var varFileProcessPromise = JSFuncGetFileRead(varObjFileList[i], i); '.
+                                //'varPromisesArray.push(varFileProcessPromise);'.
+                                '}'.
+/*
+                            'var varFileProcessPromise = JSFuncGetFileRead(varObjFileList[0], 0); '.
+                            'varPromisesArray.push(varFileProcessPromise); '.
+                            'alert(varPromisesArray); '.                            
+                            'resolve(); '.
+                            '}); '.
+                        'await Promise.all(varPromisesArray); '.
+                        'await Promise.all(varPromisesArray)'.
+                            '.then(data => {'.
+                                'alert(\'before home\');'.
+                                'return \'Success\'; '.
+ */
+                            '});'.
+//                        'varReturn = 123456; '.
+                        'await varPromise; '.
+                        'return varPromise; '.
+                        '}; '.
+
+
+                    'async function JSFuncGetDataReturn() {'.
+                        'var varPromise = new Promise(function(resolve) {'.
+                            'JSFuncGetDataProcess(); '.
+                            'resolve(); '.
+                            '}); '.
+                        'await varPromise; '.
+                        'return varPromise; '.
+                        '}; '.
+
+                    'JSFuncGetDataReturn(); '.
+                    'return varReturn;'.
+                    '}) ('.($varSignAPIWebTokenIsExist == TRUE ? 'true' : 'false').', this)';
+
+            
+
+            
+ 
+
+            
+ 
+
+            
+ 
+
+            
+ 
+ 
+            
+           $varReturnxxx= 
+                '(function(varSignAPIWebTokenIsExist, varObj) {'.
+                    'var varObjFileList = varObj.files; '.
+                    'var varAccumulatedFiles = 0; '.
+                    'var varPromisesArray = [];'.
+                    
+                    'var varSignTerminate = false; '.
+                    'var varReturn = null; '.
+                    'var varMainPromise; '.
+
+                    '(async function() {'.
+                        'var varPromise = new Promise(function(resolve, reject) {'.
+                            'varLocalReturn = \'I love You !!\'; '.
+                            'resolve(varLocalReturn); '.
+                            '});'.
+                        'varX = await varPromise; '.
+                        'alert(varX);'.
+                        'return varLocalReturn;'.
+                        '}) (); '.
+//                    'JSFuncCore();'.
+                    
+                    /*
+                    'async function JSFuncCore() {'.
+                        'var varPromise = new Promise(function(resolve, reject) {'.
+                            'resolve(\'I love You !!\'); '.
+                            '});'.
+                        'varX = await varPromise; '.
+                        'alert(varX);'.
+                        '}'.
+                    'JSFuncCore();'.
+                     */
+
+                    //'return varReturn; '.
+                    '}) ('.($varSignAPIWebTokenIsExist == TRUE ? 'true' : 'false').', this)';
+
+           
+            $varReturnAuhAh = 
+                '(function(varSignAPIWebTokenIsExist, varObj) {'.
+                    'var varReturn = null; '.
+                    'var varSignTerminate = false; '.
+                    
+                    'varIterationWaitCount = 0; '.
+                    'varIterationWaitMax = 3; '.
+                    
+                    'function FuncBreak() {alert(\'break\'); }'.
+                    
+                    'async function JSFuncDataProcessing() {'.
+                        'var varPromise = new Promise(function(resolve) {'.
+                            'varIterationWaitCount++; '.
+                            'if(varIterationWaitCount != varIterationWaitMax) {'.
+                                'varSignTerminate = false; '.
+                                'alert(varIterationWaitCount); '.
+                                'setTimeout(JSFuncDataProcessing, 500); '.
+                                '} '.
+                            'else {'.
+                                'varSignTerminate = true; '.
+                                'varData = 12345; '.
+                                'varReturn = varData; '.
+                                'resolve(); '.
+                                '}'.
+                            '}); '.
+                        'await varPromise; '.
+                        'FuncBreak(); '.
+                        'alert(varReturn); '.
+                        '}'.
+
+                    'function JSFuncGetReturnValue() {'.
+                        'JSFuncDataProcessing(); '.
+                        //'do {} while (varSignTerminate == false); '.
+                        'return varReturn; '.
+                        '}'.
+                    
+                    'return JSFuncGetReturnValue(); '.
+                    '}) ('.($varSignAPIWebTokenIsExist == TRUE ? 'true' : 'false').', this)';
+
+           
+            
+            $varReturnZZZ = 
+                '(function(varSignAPIWebTokenIsExist, varObj) {'.
+                    'var varReturn = null; '.
+                    'var varSignTerminate = false; '.
+                    'var varIteration = 0; '.
+                    'var varWaitIterationCount = 0; '.
+                    'var varWaitIterationMax = 3; '.
+
+                    'function JSFuncCoreSetSignTerminate() {'.
+                        'varSignTerminate = true; '.
+                        'alert(\'varSignTerminate : \' + varSignTerminate); '.
+                        '}; '.
+
+                    'function JSFuncSleep(time) {'.
+                        'const start = Date.now(); '.
+                        'let now = start; '.
+                        'while (now - start < time) {'.
+                            'now = Date.now(); '.
+                            '}'.
+                        '}; '.
+                    
+                    'async function JSFuncAsyncCore() {'.
+                        'alert(\'Async Core Func\'); '.
+                        'var varPromise = new Promise(function(resolve) {'.
+//                            'JSFuncGetFileReader(); '.
+                            'JSFuncGetFileReader().then(function (result) {alert(\'xxxx\'); }); '.
+                            'resolve(); '.
+                            '}); '.
+                        'await varPromise; '.
+                        '}; '.
+                    
+                    'async function JSFuncGetFileReader() {'.
+                        'var varPromise = new Promise(function(resolve) {'.
+                            'alert(\'Async Func\'); '.
+                            'var ObjInterval = setInterval(function () {'.
+                                    'varIteration++; '.
+                                    'alert(\'Iteration : \' +  varIteration); '.
+                                    //'alert(\'ObjInterval : \' + ObjInterval); '.
+                                    'if(varIteration == 3) {'.
+                                        'clearInterval(ObjInterval); '.
+                                        'JSFuncCoreSetSignTerminate(); '.
+                                        'resolve(); '.
+                                        '}'.
+                                    '},'.
+                                '300'.
+                                ');'.
+                            //'resolve(); '.
+                            '}); '.
+                        'await varPromise; '.
+//                        'return varPromise.then(function (result) {'.
+//                            'alert(result);'.
+//                            '});'.
+                        'return varPromise; '.
+                        '}; '.
+
+                    'return (function() {'.
+                        'const varPromise_Level0 = JSFuncAsyncCore(); '.
+                        //'await varPromise_Level0; '.
+                        'alert(varPromise_Level0); '.
+                        'return 123;'.
+                        '}) (); '.
+                    
+/*
+                    '(async function() {'.
+                        'var varPromise = new Promise(function(resolve) {'.
+                            'var ObjInterval = setInterval(function () {'.
+                                    'varIteration++; '.
+                                    'alert(\'Iteration : \' +  varIteration); '.
+                                    'alert(\'ObjInterval : \' + ObjInterval); '.
+                                    'if(varIteration == 3) {'.
+                                        'clearInterval(ObjInterval); '.
+                                        'JSFuncCoreSetSignTerminate(); '.
+                                        'resolve(); '.
+                                        '}'.
+                                    '},'.
+                                '300'.
+                                ');'.
+                            '}); '.
+                        'await varPromise; '.
+                        'alert(\'HHHHHH\'); '.
+//                        'return \'12345\'; '.
+                        '}) (); '.
+*/
+                    
+                            
+/*
+                    'setTimeout('.
+                        '(function() {'.
+                            'try {'.
+                                'alert(\'RETURN\'); '.
+                                'return varReturn;'.
+                                '}'.
+                            'catch(varError) {'.
+                                'alert(\'ERP Reborn Error Notification\n\nInvalid Object\n(\' + varError + \')\'); '.
+                                '}'.
+                            '}'.
+                        '), 1);'.
+                    //varSignTerminate = false;
+                    do
+                        {
+                        varWaitIterationCount++;
+                        alert(\'Looping Wait : \' + varWaitIterationCount);
+                        if (varSignTerminate == false)
+                            {
+                            JSFuncSleep(1000);
+                            if (varWaitIterationCount == varWaitIterationMax)
+                                {
+                                varSignTerminate = true;
+                                }
+                            }
+                        if (varSignTerminate == true)
+                            {
+                            alert(\'selesai dah : \');
+                            return \'TERBAIK\';
+                            }
+
+
+                        if(varSignTerminate == false)
+                            {
+                            varWaitIterationCount++;
+                            alert(\'Looping Wait : \' + varWaitIterationCount);
+                            if (varWaitIterationCount == varWaitIterationCountMax)
+                                {
+                                varSignTerminate = true;
+                                }
+                            }
+                        else
+                            {
+
+                            }
+                        }
+                    while (varSignTerminate == false);
+                    '.
+*/
+ 
+                    '}) ('.($varSignAPIWebTokenIsExist == TRUE ? 'true' : 'false').', this)';
+            
+            
+            
+            $varReturncccc = 
+                '(function(varSignAPIWebTokenIsExist, varObj) {'.
+                    'var varReturn = null; '.
+                    'var varSignTerminate = false; '.
+
+                    'var varObjFileList = varObj.files; '.
+                    'var varDataArray = [];'.
+                    'var varAccumulatedFiles = 0; '.
+
+                    'alert(\'varSignTerminate 1 : \' + varSignTerminate); '.
+
+                    'function JSFuncCoreSetSignTerminate(varSign) {'.
+                        'varSignTerminate = varSign; '.
+                        'alert(\'set : \' + varSign); '.
+                        '}; '.
+                    
+                    'function JSFuncFileReader(varObjCurrentFile, varIndex) {'.
+                        'var varObjFileReader = new FileReader();'.
+                        'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
+                        'varObjFileReader.onloadend = function(event) {'.
+                            'alert(varObjFileReader); '.
+                            '}; '.
+                        '}; '.
+                    
+                    'function JSFuncFileProcess() {'.
+                        '(async function() {'.
+                            'varPromise_Level0 = new Promise((resolve, reject) => {'.
+                                'alert(\'ENTER : JSFuncFileProcess\'); '.
+                                'varFilePromisesArray  = []; '. 
+                                'async function JSFuncReadFile(varObjCurrentFile, varIndex) {'.
+                                    'varPromise_Level1 = new Promise((resolve, reject) => {'.
+                                        'var varObjFileReader = new FileReader();'.
+                                        'varObjFileReader.onloadend = function(event) {'.
+                                            'var varJSONDataBuilderNew = \'{\' + '.
+                                                'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (parseInt(varIndex)+1) + \', \' + '.
+                                                'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
+                                                'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
+//                                                'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \' \' + '.
+                                                '\'}\'; '.
+                                            'alert(varJSONDataBuilderNew); '.
+                                            'resolve(varJSONDataBuilderNew); '.
+                                            '}; '.
+                                        'varObjFileReader.onerror = reject; '.
+                                        'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
+                                        '}); '.
+                                    'await varPromise_Level1; '.
+                                    '}; '.
+
+
+                                'for(var i = 0; i < varObjFileList.length; i++) '.
+                                    '{'.
+                                    'varAccumulatedFiles++; '.
+//                                    'var varFilePromise = JSFuncReadFile(varObjFileList[i], i).then((varData) => {alert(varData); }); '.
+
+                                    'JSFuncFileReader(varObjFileList[i], i); '.
+                    
+                                    //'var varFilePromise = JSFuncReadFile(varObjFileList[i], i); '.                    
+                                    //'varFilePromisesArray.push(varFilePromise);'.
+                                    //'varFilePromise.then(function (varData) {'.
+                                    //    'alert(\'xxxx : \' + varData);'.
+                                    //    'JSFuncCoreSetSignTerminate(false); '.
+                                    //    '});'.
+                                    '}'.
+
+
+                                'alert(\'EXIT : JSFuncFileProcess\'); '.
+                                'resolve(null); '.
+                                '}); '.
+                            'await varPromise_Level0; '.
+                            '}) (); '.
+                        '}; '.
+                                           
+                    '(async function() {'.
+                        'var varPromise = new Promise(function(resolve, reject) {'.
+                            //'varLocalReturn = \'I love You !!\'; '.
+                            'JSFuncFileProcess(); '.
+                            'JSFuncCoreSetSignTerminate(true); '.
+                            //'resolve(varLocalReturn); '.
+                            'resolve(null); '.
+                            '});'.
+                        'await varPromise; '.
+                        '}) (); '.
+
+                    'alert(\'varSignTerminate 2 : \' + varSignTerminate);'.                    
+                    'alert(\'selesai dah : \');'.
+
+                    'return varSignTerminate; '.
+                    '}) ('.($varSignAPIWebTokenIsExist == TRUE ? 'true' : 'false').', this)';
+
+
+
+
+
+
+
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+             $varReturnXXX = 
+                '(function(varSignAPIWebTokenIsExist, varObj) {'.
+                    'var varSignTerminate = false; '.
+                    'varReturn = null; '.
+                    '(async function() {'.
+                        'async function JSFuncAsync() {'.
+                            'alert(\'execute JSFuncAsync\');'.
+                                'var varAccumulatedFiles = 0; '.
+                                'var varObjFileList = varObj.files; '.
+                                'var varDataArray = [];'.
+                                'var varJSONDataBuilder = \'\'; '.
+
+                                'if ((typeof varObjFileList != \'undefined\') && (varObjFileList.length > 0)) '.
+                                    '{'.
+                                    'function JSFuncReadFile(varObjCurrentFile, varIndex) {'.
+                                    'return new Promise((resolve, reject) => {'.
+                                        'var varObjFileReader = new FileReader(); '.
+                                        'varObjFileReader.onloadend = function(event) {'.
+                                            'var varJSONDataBuilderNew = \'{\' + '.
+                                                'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (parseInt(varIndex)+1) + \', \' + '.
+                                                'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
+                                                'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \', \' + '.
+                                                'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
+                                                '\'}\'; '.
+                                            'varDataArray[varIndex] = \'{\' + String.fromCharCode(34) + \'entities\' + String.fromCharCode(34) + \' : \' + varJSONDataBuilderNew + \'}\';'.
+                                            'if(varAccumulatedFiles == varObjFileList.length) '.
+                                                '{'.
+                                                'for(var j = 0; j < varObjFileList.length; j++) '.
+                                                    '{'.
+                                                    'varSignProcess = false;'.
+                                                    'do {'.
+                                                        'if((varDataArray[j] === undefined) || (varDataArray[j] === null)) {'.
+                                                            'varSignProcess = false; '.                                                                
+                                                            '}'.
+                                                        'else {'.
+                                                            'varSignProcess = true; '.     
+                                                            '}'.
+                                                        'if(varSignProcess == false) {'.
+                                                            'sleep(300); '.
+                                                            '}'.
+                                                        '}'.
+                                                    'while (varSignProcess == false);'.
+                                                    '}'.
+                                                'for(var j = 0; j < varObjFileList.length; j++) '.
+                                                    '{'.
+                                                    'if(j != 0) {'.
+                                                        'varJSONDataBuilder = varJSONDataBuilder + \', \'; '.
+                                                        '}'.
+                                                    'varJSONDataBuilder = varJSONDataBuilder + varDataArray[j]; '.
+                                                    '}'.
+                                                'varJSONDataBuilder = \'[\' + varJSONDataBuilder + \']\'; '.
+                                                'varReturn = JSON.stringify(JSON.parse(varJSONDataBuilder));'.
+                                                'alert(varReturn);'.
+                                                'varSignTerminateNormally = true; '.
+                                                '}'.
+                                            '}; '.
+                                        'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
+                                        'if(varAccumulatedFiles == varObjFileList.length) {'.
+                                            'alert(varReturn); '.
+                                            //'varReturn = \'zzzzzzzzzzzzzzzzzzz\';'.
+                                            '}'.
+                                        '})'.
+                                        '}; '.
+                                    'for(var i = 0; i < varObjFileList.length; i++) '.
+                                        '{'.
+                                        'varAccumulatedFiles++; '.
+                                        'x = await JSFuncReadFile(varObjFileList[i], i, varObjFileList.length, varAccumulatedFiles); '.
+//                                        'alert(x); '.
+                                        /*
+                                        '(function(varObjCurrentFile, i) {'.
+                                            'var varObjFileReader = new FileReader(); '.
+                                            'varObjFileReader.onloadend = function(event) {'.
+                                                'var varJSONDataBuilderNew = \'{\' + '.
+                                                    'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (parseInt(i)+1) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \', \' + '.
+                                                    'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
+                                                    '\'}\'; '.
+                                                'varDataArray[i] = \'{\' + String.fromCharCode(34) + \'entities\' + String.fromCharCode(34) + \' : \' + varJSONDataBuilderNew + \'}\';'.
+                                                'if(varAccumulatedFiles == varObjFileList.length) '.
+                                                    '{'.
+                                                    'for(var j = 0; j < varObjFileList.length; j++) '.
+                                                        '{'.
+                                                        'varSignProcess = false;'.
+                                                        'do {'.
+                                                            'if((varDataArray[j] === undefined) || (varDataArray[j] === null)) {'.
+                                                                'varSignProcess = false; '.                                                                
+                                                                '}'.
+                                                            'else {'.
+                                                                'varSignProcess = true; '.     
+                                                                '}'.
+                                                            'if(varSignProcess == false) {'.
+                                                                'sleep(300); '.
+                                                                '}'.
+                                                            '}'.
+                                                        'while (varSignProcess == false);'.
+                                                        '}'.
+                                                    'for(var j = 0; j < varObjFileList.length; j++) '.
+                                                        '{'.
+                                                        'if(j != 0) {'.
+                                                            'varJSONDataBuilder = varJSONDataBuilder + \', \'; '.
+                                                            '}'.
+                                                        'varJSONDataBuilder = varJSONDataBuilder + varDataArray[j]; '.
+                                                        '}'.
+                                                    'varJSONDataBuilder = \'[\' + varJSONDataBuilder + \']\'; '.
+                                                    'varReturn = varJSONDataBuilder;'.
+                                                    'varSignTerminateNormally = true; '.
+                                                    'alert(varReturn); '.
+                                                    'return varReturn;'.
+                                                    //'return varJSONDataBuilder;'.
+                                                    '}'.
+                                                '}; '.
+                                            'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
+                                            '}) (varObjFileList[i], i); '.
+                                         */
+                                        '}'.
+                                    '}'.
+//                                'varReturn = \'xxx\';'.
+
+                            'return varReturn;'.
+                            '}'.
+                        'async function JSFuncWaitAsyncProcessEnd(){'.
+                            'JSFuncAsync(); '.
+                            'alert(\'execute pause\'+ varReturn);'.
+                            '}'.
+                        'await JSFuncWaitAsyncProcessEnd(); '.
+                        '}) ();'.
+                    'return varReturn; '.
+                    '}) ('.($varSignAPIWebTokenIsExist == TRUE ? 'true' : 'false').', this)';
+            
+                       
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            $varReturn333= 
+                '(function(varSignAPIWebTokenIsExist, varObj) {'.
+                    'var varObjFileList = varObj.files; '.
+                    'var varAccumulatedFiles = 0; '.
+                    'var varPromisesArray = [];'.
+                    
+                    'var varSignTerminate = false; '.
+                    'var varReturn = null; '.
+                    'var varMainPromise; '.
+                    
+                    'varPromise = (async function() {'.
+                        'varMainPromise =  new Promise((resolve, reject) => {'.
+                            'x = (async function() {'.
+                                'async function JSFuncReadFile(varObjCurrentFile, varIndex) {'.
+                                    'return new Promise((resolve, reject) => {'.
+                                        'var varObjFileReader = new FileReader();'.
+              //                            'varObjFileReader.onload = function found() {'.
+                                        'varObjFileReader.onloadend = function(event) {'.
+                                            'var varJSONDataBuilderNew = \'{\' + '.
+                                                'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (parseInt(varIndex)+1) + \', \' + '.
+                                                'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
+                                                'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
+               //                                   'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
+               //                                   'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \', \' + '.
+               //                                   'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
+                                                '\'}\'; '.
+                                            'resolve(varObjFileReader.result); '.
+                                            '}; '.
+                                        //'varObjFileReader.readAsText(varObjCurrentFile);'.
+                                        'varNothing = varObjFileReader.readAsDataURL(varObjCurrentFile);'.
+                                        '}); '.
+                                    '}; '.
+
+                                'for(var i = 0; i < varObjFileList.length; i++) '.
+                                    '{'.
+                                    'varAccumulatedFiles++; '.
+                                    'var varFilePromise = JSFuncReadFile(varObjFileList[i], i);'.
+                                    'varPromisesArray.push(varFilePromise);'.
+                                    'varFilePromise.then(function (result) {'.
+                                        'alert(result);'.
+                                        '});'.
+                                    '}'.
+
+                                'await Promise.all(varPromisesArray)'.
+                                    '.then(data => {'.
+                                        'alert(\'before home\');'.
+                                        'return \'Success\'; '.
+                                    '});'.
+
+                                'alert(\'home\'); '.
+                                'resolve(\'MyReturnResolve\'); '.
+                                '}) ();'.
+//                            'alert(\'x : \' + x); '.
+                            '});'.
+                        'await varMainPromise;'.
+                        'alert(\'varMainPromise : \' + varMainPromise); '.
+
+                        'resolve(\'MyReturnResolve\'); '.
+                    
+                        //'return varMainPromise; '.
+                        '})(); '.
+
+                    //'await(varPromise);'.
+                    'alert(\'Promise : \' + varPromise); '.
+                    //'return varReturn; '.
+                    '}) ('.($varSignAPIWebTokenIsExist == TRUE ? 'true' : 'false').', this)';
+
+
+
+
+
+
+        
+            $varReturnKacai = 
+                '(function(varSignAPIWebTokenIsExist, varObj) {'.
+                    'var varObjFileList = varObj.files; '.
+                    'var varAccumulatedFiles = 0; '.
+                    'var varPromisesArray = [];'.
+                    
+                    'var varSignTerminate = false; '.
+                    'varReturn = null; '.
+                    
+                    'x = (async function() {'.
+                        'return new Promise((resolve, reject) => {'.
+                            'async function JSFuncAsync() {'.
+                                'alert(\'Async Core\');'.
+                                'varReturn = \'abcd\'; '.
+
+
+
+
+                               'for(var i = 0; i < varObjFileList.length; i++) '.
+                                    '{'.
+                                    'varAccumulatedFiles++; '.
+                                    'var varFilePromise = JSFuncReadFile(varObjFileList[i], i);'.
+                                    'varPromisesArray.push(varFilePromise);'.
+                                    'varFilePromise.then(function (result) {'.
+                                        'alert(result);'.
+                                        '});'.
+                                    '}'.
+
+                                ' async function JSFuncReadFile(varObjCurrentFile, varIndex) {'.
+                                    'return new Promise((resolve, reject) => {'.
+                                        'var varObjFileReader = new FileReader();'.
+            //                            'varObjFileReader.onload = function found() {'.
+                                        'varObjFileReader.onloadend = function(event) {'.
+                                            'var varJSONDataBuilderNew = \'{\' + '.
+                                                'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (parseInt(varIndex)+1) + \', \' + '.
+                                                'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
+                                                'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
+             //                                   'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
+             //                                   'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \', \' + '.
+             //                                   'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
+                                                '\'}\'; '.
+                                            'resolve(varObjFileReader.result);'.
+                                            '};'.
+                                        //'varObjFileReader.readAsText(varObjCurrentFile);'.
+                                        'varNothing = varObjFileReader.readAsDataURL(varObjCurrentFile);'.
+                                        '});'.
+                                    '}'.
+
+                                'await Promise.all(varPromisesArray).then(fileContents => {'.                        
+                                    'alert(\'OK deh\');'.
+                                        'varReturn = \'abcd12345\'; '.
+                                    'return 1234567;'.
+                                    '});'.
+
+
+
+
+                                '}; '.
+                            //'async function JSFuncWaitAsyncProcessEnd(){'.
+                            'async function JSFuncWaitAsyncProcessEnd(){'.
+                                'await JSFuncAsync(); '.
+                                'alert(\'Wait Pause : \'+ varReturn);'.
+                                'resolve(\'MyReturnResolve\'); '.
+                                '}; '.
+                            //'await JSFuncWaitAsyncProcessEnd(); '.
+                            //'JSFuncWaitAsyncProcessEnd().then({alert \'####\';}); '.
+                            'JSFuncWaitAsyncProcessEnd(); '.
+
+                            'alert(\'123\');'.
+                            'resolve(\'MyReturnResolve\'); '.
+                            '});'.
+                        '}) (); '.
+
+                    'alert(x); '.
+                    
+                    'return varReturn; '.
+                    '}) ('.($varSignAPIWebTokenIsExist == TRUE ? 'true' : 'false').', this)';
+            
+            $varReturn456 = 
+                '(function(varSignAPIWebTokenIsExist, varObj) {'.
+                    'var varObjFileList = varObj.files; '.
+                    'var varAccumulatedFiles = 0; '.
+                    'var varPromisesArray = [];'.
+                    
+                    'var varSignTerminate = false; '.
+                    'varReturn = null; '.
+                    
+                    '(async function() {'.
+                        //'return new Promise((resolve, reject) => {'.
+                        //    '});'.
+
+
+
+                            'async function JSFuncAsync() {'.
+                                'alert(\'aSYNC\');'.
+                                'varReturn = \'abcd\'; '.
+
+                                'for(var i = 0; i < varObjFileList.length; i++) '.
+                                    '{'.
+                                    'varAccumulatedFiles++; '.
+                                    'var varFilePromise = JSFuncReadFile(varObjFileList[i], i);'.
+                                    'varPromisesArray.push(varFilePromise);'.
+                                    'varFilePromise.then(function (result) {'.
+                                        'alert(result);'.
+                                        '});'.
+                                    '}'.
+
+                                ' async function JSFuncReadFile(varObjCurrentFile, varIndex) {'.
+                                    'return new Promise((resolve, reject) => {'.
+                                        'var varObjFileReader = new FileReader();'.
+            //                            'varObjFileReader.onload = function found() {'.
+                                        'varObjFileReader.onloadend = function(event) {'.
+                                            'var varJSONDataBuilderNew = \'{\' + '.
+                                                'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (parseInt(varIndex)+1) + \', \' + '.
+                                                'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
+                                                'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
+             //                                   'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
+             //                                   'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \', \' + '.
+             //                                   'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
+                                                '\'}\'; '.
+                                            'resolve(varObjFileReader.result);'.
+                                            '};'.
+                                        //'varObjFileReader.readAsText(varObjCurrentFile);'.
+                                        'varNothing = varObjFileReader.readAsDataURL(varObjCurrentFile);'.
+                                        '});'.
+                                    '}'.
+
+                                'await Promise.all(varPromisesArray).then(fileContents => {'.                        
+                                    'alert(\'OK deh\');'.
+                                        'varReturn = \'abcd12345\'; '.
+                                    'return 1234567;'.
+                                    '});'.
+
+
+
+                                '}'.
+                            'async function JSFuncWaitAsyncProcessEnd(){'.
+                                'await JSFuncAsync(); '.
+                                'alert(\'Wait Pause : \'+ varReturn);'.
+                                '}'.
+                            'await JSFuncWaitAsyncProcessEnd(); '.
+
+                    
+                    
+                    
+                    
+                        '}) ();'.
+                    'alert(\'x : \' + varReturn); '.
+                    'return varReturn; '.
+                    '}) ('.($varSignAPIWebTokenIsExist == TRUE ? 'true' : 'false').', this)';
+            
+            $varReturnCCC = 
+                '(function(varSignAPIWebTokenIsExist, varObj) {'.
+                    'var varObjFileList = varObj.files; '.
+                    'var varAccumulatedFiles = 0; '.
+                    'var varPromisesArray = [];'.
+
+                    'for(var i = 0; i < varObjFileList.length; i++) '.
+                        '{'.
+                        'varAccumulatedFiles++; '.
+                        'var varFilePromise = JSFuncReadFile(varObjFileList[i], i);'.
+                        'varPromisesArray.push(varFilePromise);'.
+                        'varFilePromise.then(function (result) {'.
+                            'alert(result);'.
+                            '});'.
+                        '}'.
+                    
+                    'function JSFuncReadFile(varObjCurrentFile, varIndex) {'.
+                        'return new Promise((resolve, reject) => {'.
+                            'var varObjFileReader = new FileReader();'.
+//                            'varObjFileReader.onload = function found() {'.
+                            'varObjFileReader.onloadend = function(event) {'.
+                                'var varJSONDataBuilderNew = \'{\' + '.
+                                    'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (parseInt(varIndex)+1) + \', \' + '.
+                                    'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
+                                    'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
+                                    'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
+                                    'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
+ //                                   'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
+ //                                   'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \', \' + '.
+ //                                   'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
+                                    '\'}\'; '.
+                                'resolve(varObjFileReader.result);'.
+                                '};'.
+                            //'varObjFileReader.readAsText(varObjCurrentFile);'.
+                            'varNothing = varObjFileReader.readAsDataURL(varObjCurrentFile);'.
+                            '});'.
+                        '}'.
+                    
+//                    'return Promise.all(varPromisesArray).then(fileContents => {'.                        
+//                        'alert(\'OK deh\');'.
+//                        'return 1234567;'.
+//                        '});'.
+
+
+                    'Promise.all(varPromisesArray).then(data => {'.
+                        'alert(\'OK deh\');'.
+                        '});'.
+                    'alert(\'OK bro\'); '.
+
+                    
+                    
+                    
+//                    'varReturn = 234;'.
+//                    'return varReturn; '.
+                    
+                    '}) ('.($varSignAPIWebTokenIsExist == TRUE ? 'true' : 'false').', this)';           
+            
+
+
             
             $varReturn2 = 
                 '(function(varSignAPIWebTokenIsExist, varObj, varReturnDOMObject) {'.
@@ -2710,7 +3778,7 @@ namespace App\Helpers\ZhtHelper\General
                         'function(varAPIWebToken) {'.
                             'varReturn = false; '.
                             'try {'.
-                                'if ('.self::getSyntaxFunc_IsClassLoaded($varUserSession, 'zht_JSAPIRequest_Gateway').' === true) {'.
+                                'if ('.self::getSyntaxFunc_IsClassLoaded($varUserSession, 'zht_JSAPIRequest').' === true) {'.
                                     'try {'.
                                         'varReturn = ('.
                                             'JSON.parse('.
@@ -2787,7 +3855,6 @@ namespace App\Helpers\ZhtHelper\General
             //dd($varDOMReturnID);
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
-                //dd($varDOMReturnID);
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get DOM Input Files Content');
                 try {
                     if(!$varAction)
@@ -2848,8 +3915,8 @@ namespace App\Helpers\ZhtHelper\General
                                     'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value; '.
                                     '} '.
                                 'catch(varError) {'.
-                                    self::getSyntaxCreateDOM_InputText(
-                                    //self::getSyntaxCreateDOM_InputHidden(
+                                    //self::getSyntaxCreateDOM_InputText(
+                                    self::getSyntaxCreateDOM_InputHidden(
                                         $varUserSession, 
                                         [
                                             'ID' => 'zhtSysObjDOMText_'.$varUniqueID.'_MainData',
@@ -2860,16 +3927,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 ['height', '100px']
                                                 ]
                                         ]).
-                                    //'alert(\'ccccc\');' .
-                                    ''.
-                                    //'if(document.getElementById(\''.$varDOMReturnID.'\') != null) {'.
-                                    //    '}'.
-
-
-
-'alert(document.getElementById(\''.$varDOMReturnID.'\').value); '.
-
-
+                                    'alert(\'OK deh\');'.
                                     '} '.
                                 '};'.
                             //-----[ Main Function ]-----( END )----
@@ -3506,8 +4564,7 @@ namespace App\Helpers\ZhtHelper\General
                                                                     'ID' => 'varObjTTD',
                                                                     'ParentID' => 'varObjTTR',
                                                                     'Style' => $varStyle_TableActionPanelHead,
-                                                                    'RowSpan' => 1,
-                                                                    'ColSpan' => 1
+                                                                    'ColSpan' => 4
                                                                     ],
                                                                     'varObjTTD.appendChild(document.createTextNode(\'ACTION\')); '
                                                                     )
@@ -3822,6 +4879,11 @@ namespace App\Helpers\ZhtHelper\General
                                     'ObjHead.appendChild(ObjScript); '.
                                     '} '.
                                     //---> Main Action (End)
+
+                            
+
+
+    
                                 //---> Main Function ( Start )
                                 '(function(varObj, varReturnDOMObject) {'.
                                     //'alert(\'Masuk\'); '.

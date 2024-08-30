@@ -3,17 +3,17 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\download\general\getFileContent\v1          |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\archive\general\getFileContent\v1           |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\download\general\getFileContent\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\archive\general\getFileContent\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : getFileContent                                                                                               |
-    | ▪ Description : Menangani API fileHandling.download.general.getFileContent Version 1                                         |
+    | ▪ Description : Menangani API fileHandling.archive.general.getFileContent Version 1                                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getFileContent extends \App\Http\Controllers\Controller

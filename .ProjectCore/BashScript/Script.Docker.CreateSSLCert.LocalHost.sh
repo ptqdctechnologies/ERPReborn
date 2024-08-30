@@ -17,7 +17,16 @@
 
 clear;
 
-openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout ./.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/System/etc/ssl/private/ERPRebornLocalhost.key -out ./.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/System/etc/ssl/certs/ERPRebornLocalhost.crt -subj "/C=ID/ST=DaerahKhususJakarta/L=JakartaSelatan/O=PTQDCTechnologies/CN=localhost";
+#openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout ./.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/System/etc/ssl/private/ERPRebornLocalhost.key -out ./.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/System/etc/ssl/certs/ERPRebornLocalhost.crt -subj "/C=ID/ST=DaerahKhususJakarta/L=JakartaSelatan/O=PTQDCTechnologies/CN=localhost";
+
+openssl req \
+   -x509 \
+   -nodes \
+   -days 365 \
+   -newkey rsa:4096 \
+   -keyout ./Programming/.SystemCore/SSLCertificate/ERPRebornLocalhost.key \
+   -out ./Programming/.SystemCore/SSLCertificate/ERPRebornLocalhost.crt \
+   -subj "/C=ID/ST=Daerah Khusus Jakarta/L=Jakarta Selatan/O=PT QDC Technologies/CN=localhost";
 
 #mv mycert.crt ./System/etc/ssl/certs/mycert.crt; mv mycert.key ./System/etc/ssl/private/mycert.key;
 
