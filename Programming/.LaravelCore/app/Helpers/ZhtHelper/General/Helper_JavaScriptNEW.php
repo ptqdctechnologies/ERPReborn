@@ -235,6 +235,7 @@ namespace App\Helpers\ZhtHelper\General
                     'TempObject' : 
                     $varArrayProperties['ID']
                 );
+            $varBasePath = 'StagingAreaTemp';
             $varJSFunctionName = 'JSFuncZhtObjectInputFile_'.$varObjectID;
             $varDOMID_ActionPanel = $varObjectID.'_ZhtActionPanel';
             $varDOMID_DataRecord = $varObjectID.'_ZhtDataRecord';
@@ -271,15 +272,88 @@ namespace App\Helpers\ZhtHelper\General
                     
                     
                 //-----[ MAIN FUNCTION ]----(END)----
+                'function '.$varJSFunctionName.'_DownloadFile(varFilePath, varMIME, varFileName) {'.
+                    'varFilePath = \''.$varBasePath.'\' + varFilePath; '.
+                    
+                    'var XHR = new XMLHttpRequest(); '.
+                    'XHR.open(\'POST\', \'fileHandling.download.general.getFileContent.v1_throughAPIGateway\'); '.
+//                    'XHR.open(\'GET\', \'getFileObjectDownload/\' + parseInt(JSON.stringify(varDeletedItem[0].recordID)) + \'\', true); '.
+                    'XHR.setRequestHeader(\'Content-Type\', \'application/json\'); '.
+                    'XHR.setRequestHeader(\'Access-Control-Allow-Origin\', \'*\'); '.
+//                    'XHR.setRequestHeader(\'Access-Control-Allow-Methods\', \'GET, POST, OPTIONS\'); '.
+                    'XHR.setRequestHeader(\'Access-Control-Allow-Headers\', \'Origin, Content-Type, Accept\'); '.
+                    'XHR.onreadystatechange = function () {'.
+                        'if (XHR.readyState === XMLHttpRequest.DONE && XHR.status === 200) {'.
+                            'const response = XHR.responseText;'.
+                            'alert(response); '.
+                            '}'.
+                        '}; '.
+                    'XHR.send(\'{"parameter" : {"filePath" : "StagingAreaTemp/267000000000001/268000000000001"}}\'); '.
+                    'alert(\'finish\'); '.
+
+/*
+                        'let varObjDownloadLink = document.createElement(\'a\'); '.
+                        'varObjDownloadLink.href = \'getFileObjectDownload\'; '.
+                        'varObjDownloadLink.download = varFileName; '.
+                        'varObjDownloadLink.click(); '.
+                    'alert(\'finish\'); '.
+*/
+
+
+                    
+                    'try {'.
+                        'varBase64Data = ('.
+                            'JSON.parse('.                           
+                                str_replace(
+                                    '"', 
+                                    '\'', 
+                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                        $varUserSession, 
+                                        $varAPIWebToken, 
+                                        'fileHandling.download.general.getFileContent', 
+                                        'latest', 
+                                        '{'.
+                                            '"parameter" : {'.
+                                                '"filePath" : varFilePath'.
+                                                '}'.
+                                        '}'
+                                        )
+                                    ).
+                                ').data.contentBase64'.
+                            '); '.
+                    
+/*
+                    'var meta = document.createElement(\'meta\'); '.
+                    'meta.httpEquiv = \'Content-Security-Policy\'; '.
+                    'meta.content = \'upgrade-insecure-requests\'; '.
+                    'document.getElementsByTagName(\'head\')[0].appendChild(meta); '.
+                    
+                    'var x = document.getElementsByTagName(\'META\')[0]; '.
+//                    'var x = document.querySelector(\'meta[name="description"]\');'.
+                    'alert(x); '.
+*/
+
+
+/*                    
+                        'let varObjDownloadLink = document.createElement(\'a\'); '.
+                        'varObjDownloadLink.href = \'data:\' + varMIME + \';base64,\' + varBase64Data; '.
+                        'varObjDownloadLink.download = varFileName; '.
+                        'varObjDownloadLink.click(); '.
+                        // 'varObjDownloadLink.parentNode.removeChild(varObjDownloadLink); '.
+
+ */
+                        '}'.
+                    'catch(varError) {'.
+                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                        '}'.
+                    '}'.
+
                 'function '.$varJSFunctionName.'_DeleteFile(varIndex) {'.
                     'let varLocJSONData = JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value); '.
                     'if (confirm('.
                         '\'Do You Want to delete file \' + String.fromCharCode(34) + varLocJSONData[varIndex].entities.name + String.fromCharCode(34) + \' ? \''.
                         ')) {'.
                         'let varDeletedItem = varLocJSONData.splice((varIndex), 1); '.
-  
-//                        'alert(JSON.stringify(varDeletedItem[0].recordID)); '.
-                    
                         'try {'.
                             'varReturn = ('.
                                 'JSON.parse('.
@@ -292,24 +366,24 @@ namespace App\Helpers\ZhtHelper\General
                                             'fileHandling.archive.general.setFileDelete', 
                                             'latest',
                                             '{'.
-                                            '"recordID" : 268000000014900'.
-//                                            '"recordID" : parseInt(JSON.stringify(varDeletedItem[0].recordID))'.
+//                                            '"recordID" : 268000000014900'.
+                                            '"recordID" : parseInt(JSON.stringify(varDeletedItem[0].recordID))'.
                                             '}'
                                             )
                                         ).
-                                    ')'. //.data.message'.
+                                    ').metadata.HTTPStatusCode'.
                                 '); '.
-                            'alert(JSON.stringify(varReturn)); '.
-                            'document.getElementById(\''.$varDOMID_DataRecord.'\').value = JSON.stringify(varLocJSONData); '.
-                            $varJSFunctionName.'_ReloadActionPanel(); '.
+                            'if (parseInt(varReturn) == 200) {'.
+                                'document.getElementById(\''.$varDOMID_DataRecord.'\').value = JSON.stringify(varLocJSONData); '.
+                                $varJSFunctionName.'_ReloadActionPanel(); '.
+                                '}'.
+                            'else {'.
+                                'alert(\'File deletion failed\'); '.
+                                '}'.
                             '} '.
                         'catch (varError) {'.
-                            'alert(varError); '.
+                            'alert(\'An error occurred in the file deletion process\'); '.
                             '} '.
-                    
-                    
-                    
-                    
                         '}'.
                     '}'.
 
@@ -584,8 +658,11 @@ namespace App\Helpers\ZhtHelper\General
                                                 'Title' => 'Download File',
                                                 'AddEventListener' => [
                                                     'click' => 
-                                                        'document.getElementById(\''.$varDOMID_File.'\').click(); '.
-                                                        'document.getElementById(\''.$varDOMID_ActionPanel.'_AddButton\').style.visibility = \'hidden\'; '
+                                                        $varJSFunctionName.'_DownloadFile('.
+                                                            '(JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i].entities.filePath,'.
+                                                            '(JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i].entities.MIME,'.
+                                                            '(JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i].entities.name'.
+                                                            '); '
                                                     ]
                                                 ],
                                                 '/images/Icon/Button/Download-300-16.png'

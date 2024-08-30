@@ -52,9 +52,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/fileHandling.download.general.getFileObject.v1_throughAPIGatewayJQuery             |
+        | ▪ Call URL        : http(s)://<HOST>/fileHandling.download.general.getFileObject.v1_throughAPIGatewayJQuery              |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       fileHandling.download.general.getFileObject.v1_throughAPIGatewayJQuery                            |
+        |                       fileHandling.download.general.getFileObject.v1_throughAPIGatewayJQuery                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2024-08-26                                                                                           |

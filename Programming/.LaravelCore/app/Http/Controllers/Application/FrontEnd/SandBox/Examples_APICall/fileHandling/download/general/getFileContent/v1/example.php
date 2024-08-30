@@ -33,18 +33,18 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 }
 
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'fileHandling.download.general.getFileContent', 
-                'latest', 
-                [
-                'parameter' => [
-                    'filePath' => 'StagingAreaTemp/267000000000001/268000000000001'
+            $varData = 
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'fileHandling.download.general.getFileContent', 
+                    'latest', 
+                    [
+                    'parameter' => [
+                        'filePath' => 'StagingAreaTemp/267000000000001/268000000000001'
+                        ]
                     ]
-                ]
-                );
-
+                    );
                 
             var_dump($varData);
             }
@@ -70,17 +70,18 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<br>File Path<input type="text" id="dataInput_filePath" value="Archive/92000000000097/12000000000108">';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'fileHandling.download.general.getFileContent', 
-                'latest', 
-                '{'.
-                    '"parameter" : {'.
-                        '"filePath" : document.getElementById("dataInput_filePath").value'.
-                        '}'.
-                '}'
-                );
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                    $varAPIWebToken, 
+                    'fileHandling.download.general.getFileContent', 
+                    'latest', 
+                    '{'.
+                        '"parameter" : {'.
+                            '"filePath" : document.getElementById("dataInput_filePath").value'.
+                            '}'.
+                    '}'
+                    );
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }

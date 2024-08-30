@@ -114,8 +114,39 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
         */
         private function dataProcessing($varUserSession, string $varFilePath = null)
             {
+            $varTemp = explode('/', $varFilePath);
+            $varID = (int) $varTemp[count($varTemp)-1];
+            
+            $varTemp = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    '
+                    SELECT
+                        "Name",
+                        "Size",
+                        "MIME"
+                    FROM
+                        "SchData-Warehouse-Acquisition"."TblLog_FileUpload_ObjectDetail"
+                    WHERE
+                        (
+                        "Sys_Data_Hidden_DateTimeTZ" IS NULL
+                        AND
+                        "Sys_Data_Delete_DateTimeTZ" IS NULL
+                        AND
+                            (
+                            "Sys_PID" = '.$varID.'::bigint
+                            OR
+                            "Sys_PID" = '.$varID.'::bigint
+                            )
+                        )
+                    '
+                    )['data'][0];
+            
             $varDataReturn = 
                 [
+                'name' => $varTemp['Name'],
+                'size' => $varTemp['Size'],
+                'MIME' => $varTemp['MIME'],
                 'contentBase64' => 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Encode
                         (

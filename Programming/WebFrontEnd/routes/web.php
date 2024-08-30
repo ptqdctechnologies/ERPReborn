@@ -19,7 +19,7 @@ use App\Http\Controllers\UserController;
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzI0ODEyNTAxfQ.YTk0MzlmYWQ0NTM3NDNhYmM0NTJmOGU4NTg1OTBkOTMwNWYyMjUzYzE5ZmQzNGUyNzFlMzc2MTRiNGEwMGUwZg';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzI0ODk2NDU4fQ.NzcxZTVkOTdjYjE0MGI4MDJiZWJlZTk1Yzc4OGQ4ZDcwZjc4NDZmODA2ZDNjNmE0MWIxMGUwYzFkNzAzZGM1Yg';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -30,7 +30,8 @@ $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxk
 
 //---[ Static Route ]--------------------------------------------------------------------[START]---
 
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('getArchivedFileObjectDownload/{encodedData}', 'get', '\App\Http\Controllers\Application\FrontEnd\System\FileHandling\Controller@getArchivedFileObjectDownload', 'webWithoutCSRF');
+//\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('getArchivedFileObjectDownload/{encodedData}', 'get', '\App\Http\Controllers\Application\FrontEnd\System\FileHandling\Controller@getArchivedFileObjectDownload', 'webWithoutCSRF');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('getFileObjectDownload', 'get', '\App\Http\Controllers\Application\FrontEnd\System\FileHandling\Controller@getFileObjectDownload', 'webWithoutCSRF');
 
 //---[ Static Route ]--------------------------------------------------------------------[ END ]---
 
@@ -1660,3 +1661,6 @@ Route::get('showLogError', function () {
 
 
 //---[ Default ERP Reborn (Front End & Back End) ]---(FINISH)-----
+
+
+//URL::forceScheme('https');

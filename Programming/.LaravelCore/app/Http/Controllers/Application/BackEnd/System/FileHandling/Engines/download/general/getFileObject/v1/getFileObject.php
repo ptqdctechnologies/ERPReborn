@@ -3,12 +3,12 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\download\archive\general\getFileObject\v1   |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\download\general\getFileObject\v1           |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\download\archive\general\getFileObject\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\download\general\getFileObject\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
@@ -23,8 +23,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-10-02                                                                                           |
-        | ▪ Creation Date   : 2023-10-02                                                                                           |
+        | ▪ Last Update     : 2024-08-26                                                                                           |
+        | ▪ Creation Date   : 2024-08-26                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-10-02                                                                                           |
-        | ▪ Creation Date   : 2023-10-02                                                                                           |
+        | ▪ Last Update     : 2024-08-26                                                                                           |
+        | ▪ Creation Date   : 2024-08-26                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -55,6 +55,49 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function main($varUserSession, $varData)
+            {
+            $varDataTemp = (explode('/', $varData['parameter']['filePath']));
+            $varID = (int) $varDataTemp[count($varDataTemp)-1];
+/*
+            $varDataTemp = 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    '
+                    SELECT
+                        "Name",
+                        "MIME"
+                    FROM
+                        "SchData-Warehouse-Acquisition"."TblLog_FileUpload_ObjectDetail"
+                    WHERE
+                        (
+                        "Sys_Data_Hidden_DateTimeTZ" IS NULL
+                        AND
+                        "Sys_Data_Delete_DateTimeTZ" IS NULL
+                        AND
+                            (
+                            "Sys_PID" = '.$varID.'::bigint
+                            OR
+                            "Sys_PID" = '.$varID.'::bigint
+                            )
+                        )
+                    '
+                    )['data'][0];
+            
+            $varFileName = $varDataTemp['Name'];
+            $varFileMIME = $varDataTemp['MIME'];
+            
+            dd($varDataTemp);
+*/
+            $download_me = "download me...";
+            header("Content-type: text/plain");
+            header("Content-Disposition: attachment; filename=test.txt");
+            echo $download_me;
+            die();
+            }
+            
+/*
+            
+        function mainOLD($varUserSession, $varData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -90,7 +133,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
-
+*/
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -108,6 +151,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
+            /*
         private function dataProcessing($varUserSession, string $varEncryptedData)
             {
             $varFilePath = 
@@ -175,5 +219,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\d
 
             return $varDataReturn;
             }
+            
+             */
         }
     }

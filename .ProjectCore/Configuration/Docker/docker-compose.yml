@@ -70,6 +70,7 @@ services:
     tty: 'true'
     ports:
       - '10080:80'
+      - '10443:443'
     networks:
       app-network:
         ipv4_address: '172.28.0.3'
@@ -114,6 +115,7 @@ services:
     tty: 'true'
     ports:
       - '20080:80'
+      - '20443:443'
     networks:
       app-network:
         ipv4_address: '172.28.0.4'
@@ -121,6 +123,8 @@ services:
       - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
       - './Programming/WebFrontEnd:/var/www/html/WebFrontEnd'
       - './.ProjectCore/PermanentStorage/LocalStorage/WebFrontEnd:/var/www/html/WebFrontEnd/storage/app/Application'
+      - './.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/System/etc/ssl/certs/ERPRebornLocalhost.crt:/etc/ssl/certs/ERPRebornLocalhost.crt'
+      - './.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/System/etc/ssl/private/ERPRebornLocalhost.key:/etc/ssl/private/ERPRebornLocalhost.key'
 
 
 

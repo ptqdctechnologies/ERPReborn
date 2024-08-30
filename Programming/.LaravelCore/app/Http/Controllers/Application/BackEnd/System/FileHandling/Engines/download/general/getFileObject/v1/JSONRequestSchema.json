@@ -35,14 +35,14 @@
             "parameter": {
                 "type": "object",
                 "properties": {
-                    "encryptedData": {
+                    "filePath": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
-                        "maxLength": 512
+                        "maxLength": 256
                         }
                     },
                 "required": [ 
-                    "encryptedData" 
+                    "filePath" 
                     ]
                 }
             },
