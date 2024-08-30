@@ -237,19 +237,19 @@
 
 <!-- VALIDASI SHOW/HIDE FORM ADD NEW ITEM KETIKA TABLE EXISTING BUDGET ADA DATANYA -->
 <script>
-    function checkTableRows() {
-        const table = document.getElementById('budgetTable');
-        const tbody = table.querySelector('tbody');
-        const form = document.getElementById('budgetForm');
+    // function checkTableRows() {
+    //     const table = document.getElementById('budgetTable');
+    //     const tbody = table.querySelector('tbody');
+    //     const form = document.getElementById('budgetForm');
 
-        if (tbody.getElementsByTagName('tr').length > 0) {
-            form.style.display = 'block';
-        } else {
-            form.style.display = 'none';
-        }
-    }
+    //     if (tbody.getElementsByTagName('tr').length > 0) {
+    //         form.style.display = 'block';
+    //     } else {
+    //         form.style.display = 'none';
+    //     }
+    // }
 
-    checkTableRows();
+    // checkTableRows();
 </script>
 
 <!-- BUTTON ADD TO CART (BUDGET DETAILS) -->
@@ -273,7 +273,7 @@
             let balanceBudget = row.querySelector('td:nth-child(7)').textContent.trim();
             let totalBudget = row.querySelector('td:nth-child(8)').textContent.trim();
 
-            if (qtyAdditional && priceAdditional && totalAdditional || qtySaving && priceSaving && totalSaving) {
+            if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
                 let listTableBody = document.querySelector('#listBudgetTable tbody');
                 let existingRow = Array.from(listTableBody.querySelectorAll('tr')).find(tr => {
                     return tr.querySelector('td:first-child').textContent.trim() === productId;

@@ -272,7 +272,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td class="container-tbody-tr-budget">
                                                     1
                                                 </td>
@@ -283,7 +283,7 @@
                                                     1.00
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
-                                                    -,194.64
+                                                    194.64
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
                                                     38,878,545.00
@@ -327,7 +327,7 @@
                                                     1.00
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
-                                                    -,194.64
+                                                    194.64
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
                                                     38,878,545.00
@@ -371,7 +371,7 @@
                                                     1.00
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
-                                                    -,194.64
+                                                    194.64
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
                                                     38,878,545.00
@@ -403,7 +403,7 @@
                                                 <td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">
                                                     <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                 </div>

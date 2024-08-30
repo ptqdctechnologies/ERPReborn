@@ -698,7 +698,7 @@
                 <!-- MODIFY BUDGET TABLE -->
                 <div class="row mx-0" style="margin-top: 30px;">
                     <div class="text-center font-weight-bold table_title">
-                        Modify Budget Table
+                        MODIFY BUDGET LIST (CART)
                     </div>
 
                     <div class="card-body table-responsive p-0">
@@ -747,19 +747,11 @@
                                         Total
                                     </td>
                                     <td class="text-right">
-                                        0
+                                        <?= $totalAdditional; ?>
                                     </td>
                                     <td colspan="2"></td>
                                     <td class="text-right">
-                                        4,000,000
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="10" class="font-weight-bold" style="font-size: 12px;">
-                                        Total Additional Costs
-                                    </td>
-                                    <td class="text-right">
-                                        4,000,000
+                                        <?= $totalSaving; ?>
                                     </td>
                                 </tr>
                             </tbody>

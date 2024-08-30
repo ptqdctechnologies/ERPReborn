@@ -98,24 +98,29 @@ class BudgetController extends Controller
             $priceSavings       = $request->input('price_saving');
             $totalSavings       = $request->input('total_saving');
 
-            $dataModifyBudget = [];
             $i = 0;
+            $dataModifyBudget = [];
+            $totalAdditional = 0;
+            $totalSaving = 0;
             foreach ($productIds as $index => $productId) {
+                $totalAdditional                            += $totalAdditionals[$index];
+                $totalSaving                                += $totalSavings[$index];
+
                 $dataModifyBudget[$i]['no']                 = $i + 1;
                 $dataModifyBudget[$i]['productID']          = $productIds[$index];
                 $dataModifyBudget[$i]['productName']        = $productName[$index];
-                $dataModifyBudget[$i]['qtyBudget']          = $qtyBudget[$index];
-                $dataModifyBudget[$i]['qtyAvail']           = $qtyAvail[$index];
-                $dataModifyBudget[$i]['price']              = $price[$index];
+                $dataModifyBudget[$i]['qtyBudget']          = number_format($qtyBudget[$index], 2);
+                $dataModifyBudget[$i]['qtyAvail']           = number_format($qtyAvail[$index], 2);
+                $dataModifyBudget[$i]['price']              = number_format($price[$index], 2);
                 $dataModifyBudget[$i]['currency']           = $currency[$index];
-                $dataModifyBudget[$i]['balanceBudget']      = $balanceBudget[$index];
-                $dataModifyBudget[$i]['totalBudget']        = $totalBudget[$index];
-                $dataModifyBudget[$i]['qtyAdditionals']     = $qtyAdditionals[$index];
-                $dataModifyBudget[$i]['priceAdditionals']   = $priceAdditionals[$index];
-                $dataModifyBudget[$i]['totalAdditionals']   = $totalAdditionals[$index];
-                $dataModifyBudget[$i]['qtySavings']         = $qtySavings[$index];
-                $dataModifyBudget[$i]['priceSavings']       = $priceSavings[$index];
-                $dataModifyBudget[$i]['totalSavings']       = $totalSavings[$index];
+                $dataModifyBudget[$i]['balanceBudget']      = number_format($balanceBudget[$index], 2);
+                $dataModifyBudget[$i]['totalBudget']        = number_format($totalBudget[$index], 2);
+                $dataModifyBudget[$i]['qtyAdditionals']     = number_format($qtyAdditionals[$index], 2);
+                $dataModifyBudget[$i]['priceAdditionals']   = number_format($priceAdditionals[$index], 2);
+                $dataModifyBudget[$i]['totalAdditionals']   = number_format($totalAdditionals[$index], 2);
+                $dataModifyBudget[$i]['qtySavings']         = number_format($qtySavings[$index], 2);
+                $dataModifyBudget[$i]['priceSavings']       = number_format($priceSavings[$index], 2);
+                $dataModifyBudget[$i]['totalSavings']       = number_format($totalSavings[$index], 2);
                 $i++;
             }
 
@@ -127,7 +132,7 @@ class BudgetController extends Controller
                 'subBudgetID'       => $subBudgetID,
                 'subBudgetCode'     => $subBudgetCode,
                 'subBudgetName'     => $subBudgetName,
-                'reason'            => $reason,
+                'reason'            => $reason ? $reason : '-',
                 'additionalCO'      => $additionalCO,
                 'currencyID'        => $currencyID,
                 'currencySymbol'    => $currencySymbol,
@@ -136,6 +141,9 @@ class BudgetController extends Controller
                 'valueAdditionalCO' => $valueAdditionalCO,
                 'valueDeductiveCO'  => $valueDeductiveCO,
                 'files'             => $files,
+                'dataModifyBudget'  => $dataModifyBudget,
+                'totalAdditional'   => number_format($totalAdditional, 2),
+                'totalSaving'       => number_format($totalSaving, 2),
                 'dataTable'         => [
                     'sectionOne'    => [
                         'firstRow'  => [
@@ -284,10 +292,9 @@ class BudgetController extends Controller
                         ],
                     ],
                 ],
-                'dataModifyBudget'  => $dataModifyBudget
             ];
 
-            // dd($dataModifyBudget);
+            // dd($files);
 
             return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {
