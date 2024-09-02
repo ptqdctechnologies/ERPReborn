@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use DB;
 use PDO;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 class BudgetController extends Controller
 {
@@ -75,11 +76,53 @@ class BudgetController extends Controller
             // VALUE ADDITIONAL CO
             $valueAdditionalCO  = $request->value_co_additional;
 
-            // VALUE ADDITIONAL CO
+            // VALUE DEDUCTIVE CO
             $valueDeductiveCO   = $request->value_co_deductive;
 
             // FILES
             $files              = $request->uploaded_files;
+
+            // MODIFY BUDGET LIST TABLE (CART)
+            $productIds         = $request->input('product_id');
+            $productName        = $request->input('product_name');
+            $qtyBudget          = $request->input('qty_budget');
+            $qtyAvail           = $request->input('qty_avail');
+            $price              = $request->input('price');
+            $currency           = $request->input('currency');
+            $balanceBudget      = $request->input('balance_budget');
+            $totalBudget        = $request->input('total_budget');
+            $qtyAdditionals     = $request->input('qty_additional');
+            $priceAdditionals   = $request->input('price_additional');
+            $totalAdditionals   = $request->input('total_additional');
+            $qtySavings         = $request->input('qty_saving');
+            $priceSavings       = $request->input('price_saving');
+            $totalSavings       = $request->input('total_saving');
+
+            $i = 0;
+            $dataModifyBudget = [];
+            $totalAdditional = 0;
+            $totalSaving = 0;
+            foreach ($productIds as $index => $productId) {
+                $totalAdditional                            += $totalAdditionals[$index];
+                $totalSaving                                += $totalSavings[$index];
+
+                $dataModifyBudget[$i]['no']                 = $i + 1;
+                $dataModifyBudget[$i]['productID']          = $productIds[$index];
+                $dataModifyBudget[$i]['productName']        = $productName[$index];
+                $dataModifyBudget[$i]['qtyBudget']          = number_format($qtyBudget[$index], 2);
+                $dataModifyBudget[$i]['qtyAvail']           = number_format($qtyAvail[$index], 2);
+                $dataModifyBudget[$i]['price']              = number_format($price[$index], 2);
+                $dataModifyBudget[$i]['currency']           = $currency[$index];
+                $dataModifyBudget[$i]['balanceBudget']      = number_format($balanceBudget[$index], 2);
+                $dataModifyBudget[$i]['totalBudget']        = number_format($totalBudget[$index], 2);
+                $dataModifyBudget[$i]['qtyAdditionals']     = number_format($qtyAdditionals[$index], 2);
+                $dataModifyBudget[$i]['priceAdditionals']   = number_format($priceAdditionals[$index], 2);
+                $dataModifyBudget[$i]['totalAdditionals']   = number_format($totalAdditionals[$index], 2);
+                $dataModifyBudget[$i]['qtySavings']         = number_format($qtySavings[$index], 2);
+                $dataModifyBudget[$i]['priceSavings']       = number_format($priceSavings[$index], 2);
+                $dataModifyBudget[$i]['totalSavings']       = number_format($totalSavings[$index], 2);
+                $i++;
+            }
 
             $compact = [
                 'pic'               => $PIC,
@@ -89,7 +132,7 @@ class BudgetController extends Controller
                 'subBudgetID'       => $subBudgetID,
                 'subBudgetCode'     => $subBudgetCode,
                 'subBudgetName'     => $subBudgetName,
-                'reason'            => $reason,
+                'reason'            => $reason ? $reason : '-',
                 'additionalCO'      => $additionalCO,
                 'currencyID'        => $currencyID,
                 'currencySymbol'    => $currencySymbol,
@@ -98,55 +141,58 @@ class BudgetController extends Controller
                 'valueAdditionalCO' => $valueAdditionalCO,
                 'valueDeductiveCO'  => $valueDeductiveCO,
                 'files'             => $files,
+                'dataModifyBudget'  => $dataModifyBudget,
+                'totalAdditional'   => number_format($totalAdditional, 2),
+                'totalSaving'       => number_format($totalSaving, 2),
                 'dataTable'         => [
                     'sectionOne'    => [
                         'firstRow'  => [
                             'description'   => 'Customer Oder (CO)',
                             'valuta'        => 'IDR',
-                            'origin'        => '0',
-                            'previous'      => '456,000,000',
-                            'addSubt'       => '0',
-                            'totalCurrent'  => '456,000,000'
+                            'origin'        => 465000000,
+                            'previous'      => 465000000,
+                            'addSubt'       => $additionalCO == "yes" ? $valueAdditionalCO ? +$valueAdditionalCO : -$valueDeductiveCO : 0,
+                            'totalCurrent'  => $additionalCO == "yes" ? $valueAdditionalCO ? 465000000 + $valueAdditionalCO : 465000000 - $valueDeductiveCO : 465000000
                         ],
                         'secondRow' => [
                             'description'   => '',
                             'valuta'        => 'Cross Currency',
-                            'origin'        => '0.00',
-                            'previous'      => '0.00',
-                            'addSubt'       => '0.00',
-                            'totalCurrent'  => '0.00'
+                            'origin'        => 0,
+                            'previous'      => 0,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 0
                         ],
                         'thirdRow' => [
                             'description'   => 'Total',
                             'valuta'        => 'IDR',
-                            'origin'        => '0.00',
-                            'previous'      => '456,000,000',
-                            'addSubt'       => '0.00',
-                            'totalCurrent'  => '456,000,000'
+                            'origin'        => 0,
+                            'previous'      => 0,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 0
                         ],
                     ],
                     'sectionTwo'    => [
                         'firstRow'  => [
                             'description'   => 'Add(Subt) Cost',
                             'valuta'        => 'IDR',
-                            'origin'        => '0',
-                            'previous'      => '376,712,000',
-                            'addSubt'       => '0',
-                            'totalCurrent'  => '376,712,000'
+                            'origin'        => 376712000,
+                            'previous'      => 376712000,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 376712000
                         ],
                         'secondRow' => [
                             'description'   => '',
                             'valuta'        => 'Cross Currency',
-                            'origin'        => '0.00',
-                            'previous'      => '0.00',
-                            'addSubt'       => '0.00',
-                            'totalCurrent'  => '0.00'
+                            'origin'        => 0,
+                            'previous'      => 0,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 0
                         ],
                         'thirdRow' => [
                             'description'   => '',
                             'valuta'        => '',
                             'origin'        => 'Recorded Cost',
-                            'previous'      => '0',
+                            'previous'      => 0,
                             'addSubt'       => '',
                             'totalCurrent'  => ''
                         ],
@@ -154,59 +200,59 @@ class BudgetController extends Controller
                             'description'   => '',
                             'valuta'        => '',
                             'origin'        => 'Balanced Budget',
-                            'previous'      => '0',
+                            'previous'      => 0,
                             'addSubt'       => '',
                             'totalCurrent'  => ''
                         ],
                         'fifthRow' => [
                             'description'   => 'Total',
                             'valuta'        => 'IDR',
-                            'origin'        => '0',
-                            'previous'      => '376,712,000',
-                            'addSubt'       => '0',
-                            'totalCurrent'  => '376,712,000'
+                            'origin'        => 0,
+                            'previous'      => 376712000,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 376712000
                         ]
                     ],
                     'sectionThree'  => [
                         'firstRow'  => [
                             'description'   => 'Gross Margin',
                             'valuta'        => 'IDR',
-                            'origin'        => '0',
-                            'previous'      => '79,288,000',
-                            'addSubt'       => '0',
-                            'totalCurrent'  => '79,288,000'
+                            'origin'        => 0,
+                            'previous'      => 79288000,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 79288000
                         ],
                         'secondRow' => [
                             'description'   => '',
                             'valuta'        => 'Cross Currency',
-                            'origin'        => '0.00',
-                            'previous'      => '0.00',
-                            'addSubt'       => '0.00',
-                            'totalCurrent'  => '0.00'
+                            'origin'        => 0,
+                            'previous'      => 0,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 0
                         ],
                         'thirdRow' => [
                             'description'   => 'Total',
                             'valuta'        => 'IDR',
-                            'origin'        => '0.00',
-                            'previous'      => '79,288,000',
-                            'addSubt'       => '0.00',
-                            'totalCurrent'  => '79,288,000'
+                            'origin'        => 0,
+                            'previous'      => 79288000,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 79288000
                         ],
                     ],
                     'sectionFour'  => [
                         'firstRow'  => [
                             'description'   => 'Gross Margin',
                             'valuta'        => '%',
-                            'origin'        => '0.00 %',
-                            'previous'      => '17.39 %',
+                            'origin'        => 0,
+                            'previous'      => 17.39,
                             'addSubt'       => '',
-                            'totalCurrent'  => '17.39 %'
+                            'totalCurrent'  => 17.39
                         ],
                         'secondRow' => [
                             'description'   => 'Gross Margin Movement',
                             'valuta'        => '%',
-                            'origin'        => '17.39 %',
-                            'previous'      => '0.00 %',
+                            'origin'        => 17.39,
+                            'previous'      => 0,
                             'addSubt'       => '',
                             'totalCurrent'  => ''
                         ],
@@ -218,7 +264,7 @@ class BudgetController extends Controller
                             'origin'        => '',
                             'previous'      => '',
                             'addSubt'       => '',
-                            'totalCurrent'  => '0'
+                            'totalCurrent'  => 0
                         ],
                         'secondRow' => [
                             'description'   => '',
@@ -226,7 +272,7 @@ class BudgetController extends Controller
                             'origin'        => '',
                             'previous'      => '',
                             'addSubt'       => '',
-                            'totalCurrent'  => '0.00'
+                            'totalCurrent'  => 0
                         ],
                         'thirdRow' => [
                             'description'   => 'Total',
@@ -234,7 +280,7 @@ class BudgetController extends Controller
                             'origin'        => '',
                             'previous'      => '',
                             'addSubt'       => '',
-                            'totalCurrent'  => '0'
+                            'totalCurrent'  => 0
                         ],
                         'fourthRow' => [
                             'description'   => 'Actual Gross Margin',
@@ -242,13 +288,13 @@ class BudgetController extends Controller
                             'origin'        => '',
                             'previous'      => '',
                             'addSubt'       => '',
-                            'totalCurrent'  => '0.00 %'
+                            'totalCurrent'  => 0
                         ],
                     ],
-                ]
+                ],
             ];
 
-            // dd($compact);
+            // dd($files);
 
             return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {

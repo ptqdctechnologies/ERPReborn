@@ -732,6 +732,29 @@ class FunctionController extends Controller
     {
         $selectedValue = $request->input('selectedValue');
 
+        if (Redis::get("SubMenu") == null) {
+
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.sysConfig.getAppObject_Menu',
+                'latest',
+                [
+                    'parameter' => [
+                        'menuGroup_RefID' => null
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
+        
         $SubMenu = json_decode(
             \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -771,10 +794,13 @@ class FunctionController extends Controller
         }
 
         $DataCurrency = json_decode(
-            Redis::get("Currency"),
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                "Currency"
+            ),
             true
         );
 
-        return response()->json($DataCurrency['data']);
+        return response()->json($DataCurrency['data']['data']);
     }
 }

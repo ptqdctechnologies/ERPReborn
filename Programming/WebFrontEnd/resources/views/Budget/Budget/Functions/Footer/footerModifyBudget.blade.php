@@ -129,9 +129,19 @@
         var name = row.find("td:nth-child(2)").text();
         var symbol = row.find("td:nth-child(3)").text();
 
-        $("#currency_id").val(sys_id);
-        $("#currency_name").val(name);
-        $("#currency_symbol").val(symbol);
+        if (sys_id == "62000000000002" && name == "United States Dollar") {
+            $("#currency_id").val(sys_id);
+            $("#currency_name").val(name);
+            $("#currency_symbol").val(symbol);
+            $("#value_idr_rate").val(16000);
+        } else if (sys_id == "62000000000001" && name == "Indonesian Rupiah") {
+            $("#currency_id").val(sys_id);
+            $("#currency_name").val(name);
+            $("#currency_symbol").val(symbol);
+            $("#value_idr_rate").val(0);
+        } else {
+            Swal.fire("Error", "Please Call Accounting Staffs (Ext. 1101 - 1104). Ask Them to Input Current IDR Rate. Thank You.", "error");
+        }
     });
 </script>
 
@@ -237,19 +247,19 @@
 
 <!-- VALIDASI SHOW/HIDE FORM ADD NEW ITEM KETIKA TABLE EXISTING BUDGET ADA DATANYA -->
 <script>
-    function checkTableRows() {
-        const table = document.getElementById('budgetTable');
-        const tbody = table.querySelector('tbody');
-        const form = document.getElementById('budgetForm');
+    // function checkTableRows() {
+    //     const table = document.getElementById('budgetTable');
+    //     const tbody = table.querySelector('tbody');
+    //     const form = document.getElementById('budgetForm');
 
-        if (tbody.getElementsByTagName('tr').length > 0) {
-            form.style.display = 'block';
-        } else {
-            form.style.display = 'none';
-        }
-    }
+    //     if (tbody.getElementsByTagName('tr').length > 0) {
+    //         form.style.display = 'block';
+    //     } else {
+    //         form.style.display = 'none';
+    //     }
+    // }
 
-    checkTableRows();
+    // checkTableRows();
 </script>
 
 <!-- BUTTON ADD TO CART (BUDGET DETAILS) -->
@@ -264,9 +274,16 @@
             let qtySaving = row.querySelector('input[name="qty_saving"]').value.trim();
             let priceSaving = row.querySelector('input[name="price_saving"]').value.trim();
             let totalSaving = row.querySelector('input[name="total_saving"]').value.trim();
-            let productId = row.querySelector('td:first-child').textContent.trim(); // Assuming first td is Product Id
+            let productId = row.querySelector('td:nth-child(1)').textContent.trim();
+            let productName = row.querySelector('td:nth-child(2)').textContent.trim();
+            let qtyBudget = row.querySelector('td:nth-child(3)').textContent.trim();
+            let qtyAvail = row.querySelector('td:nth-child(4)').textContent.trim();
+            let prices = row.querySelector('td:nth-child(5)').textContent.trim();
+            let currencys = row.querySelector('td:nth-child(6)').textContent.trim();
+            let balanceBudget = row.querySelector('td:nth-child(7)').textContent.trim();
+            let totalBudget = row.querySelector('td:nth-child(8)').textContent.trim();
 
-            if (qtyAdditional && priceAdditional && totalAdditional || qtySaving && priceSaving && totalSaving) {
+            if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
                 let listTableBody = document.querySelector('#listBudgetTable tbody');
                 let existingRow = Array.from(listTableBody.querySelectorAll('tr')).find(tr => {
                     return tr.querySelector('td:first-child').textContent.trim() === productId;
@@ -289,6 +306,19 @@
                             td.textContent = input.value;
                         }
                         td.className = 'container-tbody-tr-budget';
+                    });
+
+                    let form = document.getElementById('modifyBudgetForm');
+
+                    let hiddenInputIds = ['product_id', 'product_name', 'qty_budget', 'qty_avail', 'price', 'currency', 'balance_budget', 'total_budget', 'qty_additional', 'price_additional', 'total_additional', 'qty_saving', 'price_saving', 'total_saving'];
+                    let inputValues = [productId, productName, qtyBudget, qtyAvail, prices, currencys, balanceBudget, totalBudget, qtyAdditional, priceAdditional, totalAdditional, qtySaving, priceSaving, totalSaving];
+                    
+                    hiddenInputIds.forEach((inputId, index) => {
+                        let hiddenInput = document.createElement('input');
+                        hiddenInput.type = 'hidden';
+                        hiddenInput.name = inputId + '[]';
+                        hiddenInput.value = inputValues[index];
+                        form.appendChild(hiddenInput);
                     });
 
                     listTableBody.appendChild(clonedRow);
@@ -345,6 +375,7 @@
     const addNewItemBtn = document.getElementById('addNewItemBtn');
     const newItemForm = document.getElementById('newItemForm');
     const newItemFormTwo = document.getElementById('newItemFormTwo');
+    const newItemFormThree = document.getElementById('newItemFormThree');
     const buttonItemFormTwo = document.getElementById('buttonItemForm');
     const productIdInput = document.getElementById('product_id');
     const budgetTable = document.getElementById('budgetTable');
@@ -361,13 +392,15 @@
     function hideFormAddNewItem() {
         newItemForm.style.display = 'none';
         newItemFormTwo.style.display = 'none';
+        newItemFormThree.style.display = 'none';
         buttonItemFormTwo.style.display = 'none';
     }
 
     addNewItemBtn.addEventListener('click', function() {
-        if (newItemForm.style.display === 'none' || newItemForm.style.display === '' && newItemFormTwo.style.display === 'none' || newItemFormTwo.style.display === '' && buttonItemFormTwo.style.display === 'none' || buttonItemFormTwo.style.display === '') {
+        if (newItemForm.style.display === 'none' || newItemForm.style.display === '' && newItemFormTwo.style.display === 'none' || newItemFormTwo.style.display === '' && newItemFormThree.style.display === 'none' || newItemFormThree.style.display === '' && buttonItemFormTwo.style.display === 'none' || buttonItemFormTwo.style.display === '') {
             newItemForm.style.display = 'flex';
             newItemFormTwo.style.display = 'flex';
+            newItemFormThree.style.display = 'flex';
             buttonItemFormTwo.style.display = 'flex';
         } else {
             hideFormAddNewItem();
@@ -392,7 +425,7 @@
     }
 
     function addRowToTable(productId, productName, qty, price) {
-        const tbody = budgetTable.querySelector('tbody');
+        const tbody = listBudgetTable.querySelector('tbody');
         const newRow = document.createElement('tr');
 
         newRow.innerHTML = `
