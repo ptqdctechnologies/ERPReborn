@@ -59,9 +59,9 @@
                                     </div>
                                 </div>
 
-                                <div class="card-body">
+                                <!-- <div class="card-body">
                                     <div class="row pt-3">
-                                        <!-- NEW FOLDER -->
+                                        NEW FOLDER
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                                             New Folder
                                         </button>
@@ -85,7 +85,7 @@
                                             </div>
                                         </div>
 
-                                        <!-- NEW MENU -->
+                                        NEW MENU
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalNewMenu">
                                             New Menu
                                         </button>
@@ -109,7 +109,7 @@
                                             </div>
                                         </div>
 
-                                        <!-- DELETE -->
+                                        DELETE
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalDelete">
                                             Delete
                                         </button>
@@ -133,14 +133,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="card-body">
-                                    <div class="row pb-3">
-                                        <div class="col testing px-0">
+                                    <div class="row">
+                                        <div class="col px-0">
                                             <div class="spinner-border spinner-border-sm spinner-sub-menu" role="status">
                                                 <span class="sr-only">Loading...</span>
                                             </div>
+                                            <nav class="p-0 col-12">
+                                                <ul class="nav-sidebar p-0 data-menu-management" data-widget="treeviews" role="menu" data-accordion="false">
+
+                                                </ul>
+                                            </nav>
                                         </div>
                                     </div>
                                 </div>
@@ -189,7 +194,7 @@
 
     function loadSubMenu(selectedValue) {
         $('.spinner-sub-menu').show();
-        $('.testing').hide();
+        $('.data-menu-management').hide();
 
         $.ajax({
             type: 'GET',
@@ -209,39 +214,62 @@
                 if (resultArray.length > 0) {
                     var displayData = '';
                     var no = 1;
-                    // resultArray.forEach(function(item) {
-                    //     console.log('item',item);
-                        
-                    //     displayData += `<div><i class="fas fa-folder"></i> ${item.Caption}</div>`;
-                    //     displayData += `<div>Caption: ${item.Type}</div>`;
-                    // });
 
                     if (groupedData.Transaction) {
-                        displayData += `<h3><i class="fas fa-folder"></i> Transaction</h3>`;
+                        displayData += `<li class="nav-item has-treeview" style="list-style-type: none;">`;
+                        displayData += `<a href="#" class="nav-link d-flex align-items-center">`;
+                        displayData += `<i class="fas fa-folder" style="font-size: 14px; margin-right: 0.4rem;"></i>`;
+                        displayData += `<div class="d-flex align-items-center justify-content-between" style="width: 100%; font-size: 14px; font-weight: 400; line-height: 1.5;">`;
+                        displayData += `<div>Transaction</div>`;
+                        displayData += `<i class="right fas fa-angle-left"></i>`;
+                        displayData += `</div>`;
+                        displayData += `</a>`;
                         groupedData.Transaction.forEach(function(item) {
-                            displayData += `<div>${item.Caption}</div>`;
-                            displayData += `<div>Caption: ${item.Type}</div>`;
+                            displayData += `<ul class="nav nav-treeview">`;
+                            displayData += `<li class="nav-item">`;
+                            displayData += `<a href="#" class="nav-link d-flex align-items-center">`;
+                            displayData += `<i class="far fa-file nav-icon" style="font-size: 14px;"></i>`;
+                            displayData += `<p>${item.Caption}</p>`;
+                            displayData += `</a>`;
+                            displayData += `</li>`;
+                            displayData += `</ul>`;
                         });
+                        displayData += `</li>`;
                     }
 
                     if (groupedData.Report) {
-                        displayData += `<h3><i class="fas fa-folder"></i> Report</h3>`;
+                        displayData += `<li class="nav-item has-treeview" style="list-style-type: none;">`;
+                        displayData += `<a href="#" class="nav-link d-flex align-items-center">`;
+                        displayData += `<i class="fas fa-folder" style="font-size: 14px; margin-right: 0.4rem;"></i>`;
+                        displayData += `<div class="d-flex align-items-center justify-content-between" style="width: 100%; font-size: 14px; font-weight: 400; line-height: 1.5;">`;
+                        displayData += `<div>Report</div>`;
+                        displayData += `<i class="right fas fa-angle-left"></i>`;
+                        displayData += `</div>`;
+                        displayData += `</a>`;
                         groupedData.Report.forEach(function(item) {
-                            displayData += `<div>${item.Caption}</div>`;
-                            displayData += `<div>Caption: ${item.Type}</div>`;
+                            displayData += `<ul class="nav nav-treeview">`;
+                            displayData += `<li class="nav-item">`;
+                            displayData += `<a href="#" class="nav-link d-flex align-items-center">`;
+                            displayData += `<i class="far fa-file nav-icon" style="font-size: 14px;"></i>`;
+                            displayData += `<p>${item.Caption}</p>`;
+                            displayData += `</a>`;
+                            displayData += `</li>`;
+                            displayData += `</ul>`;
+
                         });
+                        displayData += `</li>`;
                     }
 
-                    $('.testing').show();
-                    $('.testing').html(displayData);
+                    $('.data-menu-management').show();
+                    $('.data-menu-management').html(displayData);
                     $('.spinner-sub-menu').hide();
                 } else {
-                    $('.testing').html('No data available for this navigation.');
+                    $('.data-menu-management').html('No data available for this navigation.');
                 }
             },
             error: function(xhr, status, error) {
                 $('.spinner-sub-menu').hide();
-                $('.testing').html('No data available for this navigation.');
+                $('.data-menu-management').html('No data available for this navigation.');
                 Swal.fire("Error", "Failed to Get Sub Menu Data", "error");
             }
         });
@@ -251,41 +279,4 @@
         loadSubMenu($(this).val());
     });
 </script>
-
-<!-- <script>
-    $('#menuSelect').on('load', function() {
-        var selectedValue = $(this).val();
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getOneSubMenu") !!}',
-            data: { selectedValue: selectedValue },
-            success: function(data) {
-                var resultArray = Array.isArray(data) ? data : Object.values(data);
-                
-                if (resultArray.length > 0) {
-                    var displayData = '';
-                    var no = 1;
-                    resultArray.forEach(function(item) {
-                        displayData += `<div>Nomor: ${no++}</div>`;
-                        displayData += `<div>Menu Group RefID: ${item.MenuGroup_RefID}</div>`;
-                        displayData += `<div>Order Sequence: ${item.OrderSequence}</div>`;
-                        displayData += `<div>Sys Branch RefID: ${item.Sys_Branch_RefID}</div>`;
-                        displayData += `<div>Sys ID: ${item.Sys_ID}</div>`;
-                        displayData += `<div>Sys PID: ${item.Sys_PID}</div>`;
-                        displayData += `<div>Sys RPK: ${item.Sys_RPK}</div>`;
-                        displayData += `<div>Sys SID: ${item.Sys_SID}</div>`;
-                    });
-
-                    $('.testing').html(displayData);
-                } else {
-                    $('.testing').html('No data available for this selection.');
-                }
-            },
-            error: function(xhr, status, error) {
-                Swal.fire("Error", "Failed to Get Menu Data", "error");
-            }
-        });
-    });
-</script> -->
 @endsection
