@@ -92,6 +92,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         private function dataProcessing($varUserSession, $varData)
             {
             $varHashMethod_RefID = 199000000000002;
+            $varFolder = 'Archive';
             
             for ($i = 0, $iMax = count($varData['parameter']['additionalData']['itemList']['items']); $i != $iMax; $i++)
                 {
@@ -159,7 +160,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 if ($varReturn['data'][0]['JSONData'][$i]['entities']['signNewFile'] == true) {
                     (new \App\Models\CloudStorage\System\General())->createFile(
                         $varUserSession,
-                        'StagingAreaTemp'.$varReturn['data'][0]['JSONData'][$i]['entities']['filePath'],
+                        $varFolder.$varReturn['data'][0]['JSONData'][$i]['entities']['filePath'],
                         base64_decode($varData['parameter']['additionalData']['itemList']['items'][($varReturn['data'][0]['JSONData'][$i]['entities']['newEntrySequence'])-1]['entities']['contentBase64'])
                         );
                     }

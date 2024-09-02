@@ -313,6 +313,34 @@ namespace App\Models\Database
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isRecordIDExist                                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-09-02                                                                                           |
+        | ▪ Creation Date   : 2024-09-02                                                                                           |
+        | ▪ Description     : Check ID Existantion                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varRecordID ► Record ID                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function isRecordIDExist($varUserSession, int $varRecordID)
+            {
+            $varReturn =
+                (new \App\Models\Database\SchSysAsset\General())->isExist_RecordID(
+                    $varUserSession,
+                    $varRecordID
+                    );
+
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataAuthentication                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -338,7 +366,7 @@ namespace App\Models\Database
                         [
                             [$varUserSession, 'bigint'],
                             [$varRecordID, 'bigint']
-                        ],
+                        ]
                         )
                     );
 

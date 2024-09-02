@@ -32,28 +32,29 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.create.master.setCitizenFamilyCard', 
-                'latest', 
-                [
-                'entities' => [
-                    'log_FileUpload_Pointer_RefID' => null,
-                    'cardNumber' => '3174091701099012',
-                    'issuedDate' => '2017-01-24',
-                    'addressCountryAdministrativeAreaLevel1_RefID' => 21000000000013,
-                    'addressCountryAdministrativeAreaLevel2_RefID' => 22000000000192,
-                    'addressCountryAdministrativeAreaLevel3_RefID' => 23000000002670,
-                    'addressCountryAdministrativeAreaLevel4_RefID' => 27000000000003,
-                    'address' => 'Jl. Rancho Indah No. 26F',
-                    'addressNeighbourhoodNumber' => 002,
-                    'addressHamletNumber' => 002,
-                    'postalCode' => '12530',
-                    'cardSerialNumber' => 'K 3100 6431728'    
+            $varData = 
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'transaction.create.master.setCitizenFamilyCard', 
+                    'latest', 
+                    [
+                    'entities' => [
+                        'log_FileUpload_Pointer_RefID' => null,
+                        'cardNumber' => '3174091701099012',
+                        'issuedDate' => '2017-01-24',
+                        'addressCountryAdministrativeAreaLevel1_RefID' => 21000000000013,
+                        'addressCountryAdministrativeAreaLevel2_RefID' => 22000000000192,
+                        'addressCountryAdministrativeAreaLevel3_RefID' => 23000000002670,
+                        'addressCountryAdministrativeAreaLevel4_RefID' => 27000000000003,
+                        'address' => 'Jl. Rancho Indah No. 26F',
+                        'addressNeighbourhoodNumber' => 002,
+                        'addressHamletNumber' => 002,
+                        'postalCode' => '12530',
+                        'cardSerialNumber' => 'K 3100 6431728'    
+                        ]
                     ]
-                ]
-                );
+                    );
             var_dump($varData);
             }
 
@@ -135,7 +136,8 @@ echo '<div style="position: relative; z-index: 3">Hello world</div>';
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'dataInput_Log_FileUpload_2',
-                    'yyyy'
+                    ''
+                    //'yyyy'
                     ).
                     '';
 

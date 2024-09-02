@@ -18,7 +18,7 @@ namespace App\Models\Database\SchData_Warehouse_Acquisition
     */
     class General
         {
-       /*
+        /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_Log_FileUpload_ObjectDetail                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -68,11 +68,23 @@ namespace App\Models\Database\SchData_Warehouse_Acquisition
 
                 if (count($varReturn['data']) > 0) {
                     for ($i = 0, $iMax = count($varReturn['data']); $i != $iMax; $i++) {
+//                dd($varReturn['data'][$i]);
+                        /*
                         $varReturn['data'][$i]['Content'] = 
                             \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                                 $varUserSession, 
                                 $varReturn['data'][$i]['Content']       
                                 );                    
+                        
+                        */
+                        /*
+                        $varReturn['data'][$i]['Content'] = 
+                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                                $varUserSession, 
+                                $varReturn['data'][$i]['Content']       
+                                );
+                         * 
+                         */                    
                         }
                     return $varReturn['data'];
                     }

@@ -116,6 +116,7 @@ namespace App\Helpers\ZhtHelper\General
            
             $varReturn =
                 '<div id="'.$varDOMID_ActionPanel.'" style="display:inline-block">'.
+//                    '<input type="text" id="'.$varObjectID.'" value="'.$varValue.'">'.
                     '<input type="text" id="'.$varObjectID.'" value="'.$varValue.'" style="display:none">'.
                     '<textarea id="'.$varDOMID_DataRecord.'" cols=50 rows=10 style="display:none"></textarea>'.
                     '<input type="file" id="'.$varDOMID_File.'" style="display:none" onchange="javascript:'.$varJSFunctionName.'_AddFiles(this.files); ; " multiple/>'.
@@ -123,29 +124,110 @@ namespace App\Helpers\ZhtHelper\General
             
             $varReturn .=
                 '<script type="text/JavaScript">'.
-                //''.$varJSFunctionName.'_ShowFileList(); '.
 
-                //-----[ MAIN FUNCTION ]----(START)----                    
-                'document.onreadystatechange = function () {'.
-                    'if (document.readyState == "complete") {'.
-                        '(function '.$varJSFunctionName.'_Main() {'.
-                            'try {'.
-                                'if ('.self::getSyntaxFunc_IsJSFileLoaded($varUserSession, 'api-request.js').' == false) {'.
-                                    'throw new Error(\'File \' + String.fromCharCode(34) + \'api-request.js\' + String.fromCharCode(34) + \' not loaded\'); '.
-                                    '} '.
-                                'else {'.
+                //-----[ MAIN FUNCTION ]----(START)----
+                /*
+                +--------------------------------------------------------------------------------------------------------------------------+
+                | ▪ Method Name     : _Main                                                                                                |
+                +--------------------------------------------------------------------------------------------------------------------------+
+                | ▪ Description     : Prosedur utama                                                                                       |
+                +--------------------------------------------------------------------------------------------------------------------------+
+                */
+                'function '.$varJSFunctionName.'_Main(varID) {'.
+                    'if (document.readyState == \'complete\') {'.
+                        'try {'.
+                            'if ('.self::getSyntaxFunc_IsJSFileLoaded($varUserSession, 'api-request.js').' == false) {'.
+                                'throw new Error(\'File \' + String.fromCharCode(34) + \'api-request.js\' + String.fromCharCode(34) + \' not loaded\'); '.
+                                '} '.
+                            'else {'.
+                                'let varSignEligible = '.$varJSFunctionName.'_CheckIDExistantion(varID); '.
+                                'if (varSignEligible == true ) {'.
                                     self::setSyntaxFunc_CreateElementSignEligibleToProcess($varUserSession).
-//                ''.$varJSFunctionName.'_InitDataRecord(document.getElementById(\''.$varObjectID.'\').value); '.
-                                    '} '.
+                                    'setTimeout(function() {'.
+                                        $varJSFunctionName.'_InitDataRecord(varID); '.
+                                        '}, 1);'.
+                                    '}'.
+                                'else {'.
+                                    'alert(\'Record with ID \' + varID + \' is not eligible to process.\' + String.fromCharCode(13) + \'ID will set to null\'); '.
+                                    'document.getElementById(\''.$varObjectID.'\').value = \'\'; '.
+                                    'setTimeout(function() {'.
+                                        $varJSFunctionName.'_InitDataRecord(varID); '.
+                                        '}, 1);'.
+                                    '}'.
                                 '} '.
-                            'catch (varError) {'.
-                                'alert (varError); '.
-                                '} '.
-                            '}) (); '.
                             '} '.
-                        '}; '.
-                //-----[ MAIN FUNCTION ]----(END)----
+                        'catch (varError) {'.
+                            'alert (varError); '.
+                            '} '.
+                        '}'.
+                    'else {'.
+                        'setTimeout(function() {'.
+                            $varJSFunctionName.'_Main(varID); '.
+                            '}, 1);'.
+                        '}'.
+                    '}; '.
 
+                'setTimeout(function() {'.
+                    $varJSFunctionName.'_Main(document.getElementById(\''.$varObjectID.'\').value); '.
+                    '}, 1);'.
+
+                /*
+                +--------------------------------------------------------------------------------------------------------------------------+
+                | ▪ Method Name     : _CheckIDExistantion                                                                                  |
+                +--------------------------------------------------------------------------------------------------------------------------+
+                | ▪ Description     : • Mengecek apakah ID Log File Upload Pointer (varID) merupakan Record yang valid                     |
+                |                     • Apabila varID tidak valid, maka akan diset menjadi null                                            |
+                +--------------------------------------------------------------------------------------------------------------------------+
+                */
+                'function '.$varJSFunctionName.'_CheckIDExistantion(varID) {'.
+                    'let varReturn = false; '.
+                    'if (varID) {'.
+                        'if ((Number.isInteger(parseInt(varID))) === true) {'.
+                            'try {'.
+                                'varID = parseInt(varID); '.
+                                'varJSON = ('.
+                                    'JSON.parse('.
+                                        str_replace(
+                                            '"', 
+                                            '\'', 
+                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                $varUserSession, 
+                                                $varAPIWebToken, 
+                                                'dataWarehouse.dataCheck.recordIDExistantion.acquisition.getFileUpload_Pointer', 
+                                                'latest',
+                                                '{'.
+                                                    '"parameter" : {'.
+                                                        '"recordID" : varID'.
+                                                        '}'.
+                                                '}'
+                                                )
+                                            ).
+                                        ').data.data[0].signExist'.
+                                    '); '.
+                                '}'.
+                            'catch (varError) {'.
+                                '}'.
+                            'finally {'.
+                                'varReturn = varJSON; '.
+                                '}'.
+                            '}'.
+                        '}'.
+                    'else {'.
+                        'varReturn = true; '.
+                        '}'.
+                    
+                    'return varReturn; '.
+                    '}'.
+
+
+                /*
+                +--------------------------------------------------------------------------------------------------------------------------+
+                | ▪ Method Name     : _InitDataRecord                                                                                      |
+                +--------------------------------------------------------------------------------------------------------------------------+
+                | ▪ Description     : • Mencari list file tersimpan berdasarkan ID Log File Upload Pointer (varID) dan menyimpannya        |
+                |                       kedalam Data Record DOM                                                                            |
+                +--------------------------------------------------------------------------------------------------------------------------+
+                */
                 'function '.$varJSFunctionName.'_InitDataRecord(varID) {'.
                     'if (document.readyState == \'complete\') {'.
                         'if ((Number.isInteger(parseInt(varID))) === true) {'.
@@ -214,11 +296,15 @@ namespace App\Helpers\ZhtHelper\General
                             $varJSFunctionName.'_InitDataRecord(document.getElementById(\''.$varObjectID.'\').value); '.
                             '}, 1);'.
                         '}'.
-                    '}'.   
-                'setTimeout(function() {'.
-                    $varJSFunctionName.'_InitDataRecord(document.getElementById(\''.$varObjectID.'\').value); '.
-                    '}, 1);'.
+                    '}'.
                     
+                /*
+                +--------------------------------------------------------------------------------------------------------------------------+
+                | ▪ Method Name     : _AddFiles                                                                                            |
+                +--------------------------------------------------------------------------------------------------------------------------+
+                | ▪ Description     : • Penambahan file-file baru kedalam database, file storage, dan Data Record DOM                      |
+                +--------------------------------------------------------------------------------------------------------------------------+
+                */
                 'function '.$varJSFunctionName.'_AddFiles(varObjFiles) {'.
                     'if (('.self::getSyntaxFunc_CheckElementSignEligibleToProcess($varUserSession).') == true) {'.
                         //---> Proses jika ada file yang diset
@@ -229,7 +315,13 @@ namespace App\Helpers\ZhtHelper\General
                                 $varJSFunctionName.'_ReadFileFromBrowser(i, varObjFiles[i]); '.
                                 '} '.
                     
-                            //---> Membaca file-file dari browser
+                            /*
+                            +--------------------------------------------------------------------------------------------------------------+
+                            | ▪ Method Name     : Sub Function _ReadFileFromBrowser                                                        |
+                            +--------------------------------------------------------------------------------------------------------------+
+                            | ▪ Description     : • Membaca file-file dari browser                                                         |
+                            +--------------------------------------------------------------------------------------------------------------+
+                            */
                             'function '.$varJSFunctionName.'_ReadFileFromBrowser(varIndex, varObjFile) {'.
                                 'var varObjFileReader = new FileReader();'.
                                 'varObjFileReader.onloadend = (function(event) {'.
@@ -255,7 +347,13 @@ namespace App\Helpers\ZhtHelper\General
                                 'varObjFileReader.readAsDataURL(varObjFile); '.
                                 '} '.
 
-                            //---> Proses apabila seluruh file sudah terupload pada browser
+                            /*
+                            +--------------------------------------------------------------------------------------------------------------+
+                            | ▪ Method Name     : Sub Function _AfterReadProcessing                                                        |
+                            +--------------------------------------------------------------------------------------------------------------+
+                            | ▪ Description     : • Proses apabila seluruh file sudah terupload pada browser                               |
+                            +--------------------------------------------------------------------------------------------------------------+
+                            */
                             'function '.$varJSFunctionName.'_AfterReadProcessing() {'.
                                 //---> Get New Data
                                 'let varJSONData = \'\'; '.
@@ -276,16 +374,27 @@ namespace App\Helpers\ZhtHelper\General
                                 //'alert(varJSONData); '.
 
                                 'varJSONData = '.$varJSFunctionName.'_SetFilesAppend(document.getElementById(\''.$varObjectID.'\').value, varJSONData); '.
-                                'document.getElementById(\''.$varObjectID.'\').value = varJSONData.log_FileUpload_Pointer_RefID; '.
-                                'document.getElementById(\''.$varDOMID_DataRecord.'\').value = JSON.stringify(varJSONData.JSONData); '.
+                                
+                                'try {'.
+                                    'document.getElementById(\''.$varObjectID.'\').value = varJSONData.log_FileUpload_Pointer_RefID; '.
+                                    'document.getElementById(\''.$varDOMID_DataRecord.'\').value = JSON.stringify(varJSONData.JSONData); '.
 
-                                'document.getElementById(\''.$varDOMID_File.'\').value = \'\'; '.
-
-                                ''.$varJSFunctionName.'_ShowFileList(); '.
+                                    'document.getElementById(\''.$varDOMID_File.'\').value = \'\'; '.
+                                    '}'.
+                                'catch (varError) {'.
+                                    '}'.
+                                'finally {'.
+                                    ''.$varJSFunctionName.'_ShowFileList(); '.
+                                    '}'.
                                 '}; '.
 
-
-                            //---> Mengeset Append File
+                            /*
+                            +--------------------------------------------------------------------------------------------------------------+
+                            | ▪ Method Name     : Sub Function _SetFilesAppend                                                             |
+                            +--------------------------------------------------------------------------------------------------------------+
+                            | ▪ Description     : • Mengeset Append File                                                                   |
+                            +--------------------------------------------------------------------------------------------------------------+
+                            */
                             'function '.$varJSFunctionName.'_SetFilesAppend(varLocLogFileUploadPointerRefID, varLocJSONData) {'.
                                 'try {'.
                                     'varReturn = ('.
@@ -329,7 +438,13 @@ namespace App\Helpers\ZhtHelper\General
                                 '}; '.
 
 
-                            //---> Mendapatkan List File Upload Object Detail
+                            /*
+                            +--------------------------------------------------------------------------------------------------------------+
+                            | ▪ Method Name     : Sub Function _GetDataList_FileUploadObjectDetail                                         |
+                            +--------------------------------------------------------------------------------------------------------------+
+                            | ▪ Description     : • Mendapatkan List File Upload Object Detail                                             |
+                            +--------------------------------------------------------------------------------------------------------------+
+                            */
                             'function '.$varJSFunctionName.'_GetDataList_FileUploadObjectDetail(varFileUploadObjectPointerID) {'.
                                 'try {'.
                                     'varReturn = ('.
@@ -368,7 +483,13 @@ namespace App\Helpers\ZhtHelper\General
                                 '}; '.
 
 
-                            //---> Get Log File Upload Pointer ID
+                            /*
+                            +--------------------------------------------------------------------------------------------------------------+
+                            | ▪ Method Name     : Sub Function _GetLogFileUploadPointerID                                                  |
+                            +--------------------------------------------------------------------------------------------------------------+
+                            | ▪ Description     : • Get Log File Upload Pointer ID                                                         |
+                            +--------------------------------------------------------------------------------------------------------------+
+                            */
                             'function '.$varJSFunctionName.'_GetLogFileUploadPointerID() {'.
                                 'try {'.
                                     'varReturn = ('.
@@ -407,6 +528,13 @@ namespace App\Helpers\ZhtHelper\General
                     '}; '.
 
 
+                /*
+                +--------------------------------------------------------------------------------------------------------------------------+
+                | ▪ Method Name     : _DownloadFile                                                                                        |
+                +--------------------------------------------------------------------------------------------------------------------------+
+                | ▪ Description     : • Mendownload File                                                                                   |
+                +--------------------------------------------------------------------------------------------------------------------------+
+                */
                 'function '.$varJSFunctionName.'_DownloadFile(varFilePath, varMIME, varFileName) {'.
                     'varFilePath = \''.$varBasePath.'\' + varFilePath; '.
 
@@ -442,6 +570,14 @@ namespace App\Helpers\ZhtHelper\General
                         '}'.
                     '}'.
 
+
+                /*
+                +--------------------------------------------------------------------------------------------------------------------------+
+                | ▪ Method Name     : _DeleteFile                                                                                          |
+                +--------------------------------------------------------------------------------------------------------------------------+
+                | ▪ Description     : • Meghapus File                                                                                      |
+                +--------------------------------------------------------------------------------------------------------------------------+
+                */
                 'function '.$varJSFunctionName.'_DeleteFile(varIndex) {'.
                     'let varLocJSONData = JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value); '.
                     'if (confirm('.
@@ -486,6 +622,14 @@ namespace App\Helpers\ZhtHelper\General
                         '}'.
                     '}'.
 
+
+                /*
+                +--------------------------------------------------------------------------------------------------------------------------+
+                | ▪ Method Name     : _ShowFileList                                                                                        |
+                +--------------------------------------------------------------------------------------------------------------------------+
+                | ▪ Description     : • Menampilkam Daftar File                                                                            |
+                +--------------------------------------------------------------------------------------------------------------------------+
+                */
                 'function '.$varJSFunctionName.'_ShowFileList() {'.
                     //---> Object Table
                     'if (document.getElementById(\''.$varDOMID_ActionPanel.'_Table'.'\') != null) {'.
@@ -860,6 +1004,7 @@ namespace App\Helpers\ZhtHelper\General
                     '} ()';
             return $varReturn;
             }
+
 
         public static function getSyntaxFunc_SetMessage(
             $varUserSession,

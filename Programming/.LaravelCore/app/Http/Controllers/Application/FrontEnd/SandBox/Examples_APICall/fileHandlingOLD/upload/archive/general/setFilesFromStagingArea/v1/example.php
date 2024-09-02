@@ -11,7 +11,7 @@
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\archive\general\setFilesFromStagingArea\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandlingOLD\upload\archive\general\setFilesFromStagingArea\v1
     {
     class example extends \App\Http\Controllers\Controller
         {

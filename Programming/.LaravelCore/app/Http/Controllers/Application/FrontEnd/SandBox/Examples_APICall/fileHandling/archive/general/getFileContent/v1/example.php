@@ -41,7 +41,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                     'latest', 
                     [
                     'parameter' => [
-                        'filePath' => 'StagingAreaTemp/267000000000001/268000000000001'
+                        'filePath' => 'Archive/267000000000001/268000000000001'
                         ]
                     ]
                     );
