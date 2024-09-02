@@ -121,11 +121,11 @@
                                             </div>
                                         </div>
 
-                                        <!-- IDR RATE -->
+                                        <!-- EXCHANGE RATE -->
                                         <div id="value_idr_rate_field" class="row" style="margin-bottom: 1rem; display: none;">
                                             <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label for="value_idr_rate" class="col-4 col-form-label p-0">IDR Rate</label>
+                                                    <label for="value_idr_rate" class="col-4 col-form-label p-0">Exchange Rate</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
                                                             <input id="value_idr_rate" style="border-radius:0;" class="form-control number-only" name="value_idr_rate" autocomplete="off" disabled>
@@ -435,27 +435,34 @@
 
                                     <!-- CONTENT -->
                                     <div id="formAddNewItem">
+                                        <!-- PRODUCT ID -->
                                         <div id="newItemForm" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
-                                            <div class="col-sm-12 cold-md-12 col-lg-3">
+                                            <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label for="product_id" class="col-4 col-form-label p-0">Product ID</label>
-                                                    <div class="col p-0">
-                                                        <input id="product_id" style="border-radius:0;" class="form-control" name="product_id" autocomplete="off">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 cold-md-12 col-lg-3">
-                                                <div class="row">
-                                                    <label for="product_name" class="col-4 col-form-label p-0">Product Name</label>
-                                                    <div class="col p-0">
-                                                        <input id="product_name" style="border-radius:0;" class="form-control" name="product_name" autocomplete="off">
+                                                    <label for="currency_popup" class="col-4 col-form-label p-0">Product</label>
+                                                    <div class="col d-flex p-0">
+                                                        <div>
+                                                            <input id="product_id" hidden name="product_id">
+                                                            <input id="product_name" style="border-radius:0;" class="form-control" name="product_name" readonly>
+                                                        </div>
+                                                        <div>
+                                                            <span style="border-radius:0;" class="input-group-text form-control">
+                                                                <a href="#" id="currency_popup" data-toggle="modal" data-target="#myProduct" class="myProduct"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                            </span>
+                                                        </div>
+                                                        <div style="flex: 100%;">
+                                                            <div class="input-group">
+                                                                <input id="product_name" style="border-radius:0;" name="product_name" class="form-control" readonly>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
+                                        <!-- VALUE CO ADDITIONAL -->
                                         <div id="newItemFormTwo" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
-                                            <div class="col-sm-12 cold-md-12 col-lg-3">
+                                            <div class="col-lg-5">
                                                 <div class="row">
                                                     <label for="qty" class="col-4 col-form-label p-0">Qty</label>
                                                     <div class="col p-0">
@@ -463,25 +470,33 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 cold-md-12 col-lg-3">
+                                        </div>
+
+                                        <!-- PRICE -->
+                                        <div id="newItemFormThree" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
+                                            <div class="col-lg-5">
                                                 <div class="row">
                                                     <label for="price" class="col-4 col-form-label p-0">Price</label>
                                                     <div class="col p-0">
-                                                        <input id="price" style="border-radius:0;" class="form-control number-only" name="price" autocomplete="off">
+                                                        <div class="input-group">
+                                                            <input id="price" style="border-radius:0;" class="form-control number-only" name="price" autocomplete="off">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
+                                        <!-- BUTTON -->
                                         <div id="buttonItemForm" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
-                                            <div class="col-sm-12 cold-md-12 col-lg-3"></div>
-                                            <div class="col-sm-12 cold-md-12 col-lg-3 p-0 d-flex justify-content-end">
-                                                <a id="addToCartNewFormItem" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                                                    Add to Cart
-                                                </a>
-                                                <!-- <button id="addToCartNewFormItem" class="btn btn-default btn-sm" type="button" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                                                    Add to Cart
-                                                </button> -->
+                                            <div class="col-lg-5">
+                                                <div class="row">
+                                                    <label class="col-4 col-form-label p-0"></label>
+                                                    <div class="col p-0 d-flex justify-content-end">
+                                                        <a id="addToCartNewFormItem" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                                            Add to Cart
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

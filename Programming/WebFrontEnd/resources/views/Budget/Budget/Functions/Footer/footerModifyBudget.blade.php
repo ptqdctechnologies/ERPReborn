@@ -365,6 +365,7 @@
     const addNewItemBtn = document.getElementById('addNewItemBtn');
     const newItemForm = document.getElementById('newItemForm');
     const newItemFormTwo = document.getElementById('newItemFormTwo');
+    const newItemFormThree = document.getElementById('newItemFormThree');
     const buttonItemFormTwo = document.getElementById('buttonItemForm');
     const productIdInput = document.getElementById('product_id');
     const budgetTable = document.getElementById('budgetTable');
@@ -381,13 +382,15 @@
     function hideFormAddNewItem() {
         newItemForm.style.display = 'none';
         newItemFormTwo.style.display = 'none';
+        newItemFormThree.style.display = 'none';
         buttonItemFormTwo.style.display = 'none';
     }
 
     addNewItemBtn.addEventListener('click', function() {
-        if (newItemForm.style.display === 'none' || newItemForm.style.display === '' && newItemFormTwo.style.display === 'none' || newItemFormTwo.style.display === '' && buttonItemFormTwo.style.display === 'none' || buttonItemFormTwo.style.display === '') {
+        if (newItemForm.style.display === 'none' || newItemForm.style.display === '' && newItemFormTwo.style.display === 'none' || newItemFormTwo.style.display === '' && newItemFormThree.style.display === 'none' || newItemFormThree.style.display === '' && buttonItemFormTwo.style.display === 'none' || buttonItemFormTwo.style.display === '') {
             newItemForm.style.display = 'flex';
             newItemFormTwo.style.display = 'flex';
+            newItemFormThree.style.display = 'flex';
             buttonItemFormTwo.style.display = 'flex';
         } else {
             hideFormAddNewItem();
@@ -412,7 +415,7 @@
     }
 
     function addRowToTable(productId, productName, qty, price) {
-        const tbody = budgetTable.querySelector('tbody');
+        const tbody = listBudgetTable.querySelector('tbody');
         const newRow = document.createElement('tr');
 
         newRow.innerHTML = `
