@@ -255,6 +255,18 @@
                                     <table id="budgetTable" class="table table-head-fixed text-nowrap table-sm">
                                         <thead>
                                             <tr>
+                                                <th class="container-thead-tr-budget"></th>
+                                                <th class="container-thead-tr-budget"></th>
+                                                <th class="container-thead-tr-budget"></th>
+                                                <th class="container-thead-tr-budget"></th>
+                                                <th class="container-thead-tr-budget"></th>
+                                                <th class="container-thead-tr-budget"></th>
+                                                <th class="container-thead-tr-budget"></th>
+                                                <th class="container-thead-tr-budget"></th>
+                                                <th class="sticky-col sixth-col-modify-budget container-thead-tr-fixed-budget" colspan="3" style="right: 375px;">AFTER ADDITIONAL</th>
+                                                <th class="sticky-col third-col-modify-budget container-thead-tr-fixed-budget" colspan="3" style="right: 0px;">AFTER SAVING</th>
+                                            </tr>
+                                            <tr>
                                                 <th class="container-thead-tr-budget">Product Id</th>
                                                 <th class="container-thead-tr-budget">Product Name</th>
                                                 <th class="container-thead-tr-budget">Qty Budget</th>
@@ -263,148 +275,15 @@
                                                 <th class="container-thead-tr-budget">Currency</th>
                                                 <th class="container-thead-tr-budget">Balance Budget</th>
                                                 <th class="container-thead-tr-budget">Total Budget</th>
-                                                <th class="sticky-col sixth-col-modify-budget container-thead-tr-fixed-budget">Qty Additional</th>
-                                                <th class="sticky-col fifth-col-modify-budget container-thead-tr-fixed-budget">Price Additional</th>
-                                                <th class="sticky-col forth-col-modify-budget container-thead-tr-fixed-budget">Total Additional</th>
-                                                <th class="sticky-col third-col-modify-budget container-thead-tr-fixed-budget">Qty Saving</th>
-                                                <th class="sticky-col second-col-modify-budget container-thead-tr-fixed-budget">Price Saving</th>
-                                                <th class="sticky-col first-col-modify-budget container-thead-tr-fixed-budget">Total Saving</th>
+                                                <th class="sticky-col sixth-col-modify-budget container-thead-tr-fixed-budget">Qty</th>
+                                                <th class="sticky-col fifth-col-modify-budget container-thead-tr-fixed-budget">Price</th>
+                                                <th class="sticky-col forth-col-modify-budget container-thead-tr-fixed-budget">Total</th>
+                                                <th class="sticky-col third-col-modify-budget container-thead-tr-fixed-budget">Qty</th>
+                                                <th class="sticky-col second-col-modify-budget container-thead-tr-fixed-budget">Price</th>
+                                                <th class="sticky-col first-col-modify-budget container-thead-tr-fixed-budget">Total</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <!-- <tr>
-                                                <td class="container-tbody-tr-budget">
-                                                    1
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    PLN - Biaya Penyambungan
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    1.00
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    194.64
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    38,878,545.00
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    IDR
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    200,000.00
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    500,000.00
-                                                </td>
-                                                <td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">
-                                                </td>
-                                                <td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">
-                                                </td>
-                                                <td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>
-                                                </td>
-                                                <td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">
-                                                </td>
-                                                <td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">
-                                                </td>
-                                                <td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="container-tbody-tr-budget">
-                                                    2
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    PLN - Biaya Penyambungan
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    1.00
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    194.64
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    38,878,545.00
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    IDR
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    200,000.00
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    500,000.00
-                                                </td>
-                                                <td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">
-                                                </td>
-                                                <td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">
-                                                </td>
-                                                <td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>
-                                                </td>
-                                                <td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">
-                                                </td>
-                                                <td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">
-                                                </td>
-                                                <td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="container-tbody-tr-budget">
-                                                    3
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    PLN - Biaya Penyambungan
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    1.00
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    194.64
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    38,878,545.00
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    IDR
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    200,000.00
-                                                </td>
-                                                <td class="container-tbody-tr-budget">
-                                                    500,000.00
-                                                </td>
-                                                <td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">
-                                                </td>
-                                                <td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">
-                                                </td>
-                                                <td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>
-                                                </td>
-                                                <td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">
-                                                </td>
-                                                <td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">
-                                                </td>
-                                                <td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">
-                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>
-                                                </td>
-                                            </tr> -->
-                                        </tbody>
+                                        <tbody></tbody>
                                     </table>
                                 </div>
 
@@ -523,24 +402,27 @@
                                 </div>
 
                                 <!-- MODIFY BUDGET LIST TABLE -->
-                                <div class="wrapper-budget card-body table-responsive p-0 table-existing-budget">
+                                <div class="wrapper-budget card-body table-bordered table-responsive p-0 table-existing-budget">
                                     <table id="listBudgetTable" class="table table-head-fixed text-nowrap table-sm">
                                         <thead>
                                             <tr>
-                                                <th class="container-thead-tr-budget">Product Id</th>
-                                                <th class="container-thead-tr-budget">Product Name</th>
-                                                <th class="container-thead-tr-budget">Qty Budget</th>
-                                                <th class="container-thead-tr-budget">Qty Avail</th>
+                                                <th class="container-thead-tr-budget" colspan="2">PRODUCT</th>
+                                                <th class="container-thead-tr-budget" colspan="3">BUDGET</th>
+                                                <th class="container-thead-tr-budget" colspan="3">AFTER ADDITIONAL</th>
+                                                <th class="container-thead-tr-budget" colspan="3">AFTER SAVING</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="container-thead-tr-budget">ID</th>
+                                                <th class="container-thead-tr-budget">Name</th>
+                                                <th class="container-thead-tr-budget">Qty</th>
                                                 <th class="container-thead-tr-budget">Price</th>
-                                                <th class="container-thead-tr-budget">Currency</th>
-                                                <th class="container-thead-tr-budget">Balance Budget</th>
-                                                <th class="container-thead-tr-budget">Total Budget</th>
-                                                <th class="container-thead-tr-budget">Qty Additional</th>
-                                                <th class="container-thead-tr-budget">Price Additional</th>
-                                                <th class="container-thead-tr-budget">Total Additional</th>
-                                                <th class="container-thead-tr-budget">Qty Saving</th>
-                                                <th class="container-thead-tr-budget">Price Saving</th>
-                                                <th class="container-thead-tr-budget">Total Saving</th>
+                                                <th class="container-thead-tr-budget">Total</th>
+                                                <th class="container-thead-tr-budget">Qty</th>
+                                                <th class="container-thead-tr-budget">Price</th>
+                                                <th class="container-thead-tr-budget">Total</th>
+                                                <th class="container-thead-tr-budget">Qty</th>
+                                                <th class="container-thead-tr-budget">Price</th>
+                                                <th class="container-thead-tr-budget">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>

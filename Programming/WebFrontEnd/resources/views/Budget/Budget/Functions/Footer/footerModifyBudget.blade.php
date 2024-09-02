@@ -129,9 +129,19 @@
         var name = row.find("td:nth-child(2)").text();
         var symbol = row.find("td:nth-child(3)").text();
 
-        $("#currency_id").val(sys_id);
-        $("#currency_name").val(name);
-        $("#currency_symbol").val(symbol);
+        if (sys_id == "62000000000002" && name == "United States Dollar") {
+            $("#currency_id").val(sys_id);
+            $("#currency_name").val(name);
+            $("#currency_symbol").val(symbol);
+            $("#value_idr_rate").val(16000);
+        } else if (sys_id == "62000000000001" && name == "Indonesian Rupiah") {
+            $("#currency_id").val(sys_id);
+            $("#currency_name").val(name);
+            $("#currency_symbol").val(symbol);
+            $("#value_idr_rate").val(0);
+        } else {
+            Swal.fire("Error", "Please Call Accounting Staffs (Ext. 1101 - 1104). Ask Them to Input Current IDR Rate. Thank You.", "error");
+        }
     });
 </script>
 
