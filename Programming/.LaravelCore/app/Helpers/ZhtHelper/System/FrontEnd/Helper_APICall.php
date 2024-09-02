@@ -401,14 +401,15 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                     //dd($varDataArray);
                     //dd(json_encode($varDataArray));
 
-                    $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
-                        $varUserSession, 
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY'),
-                        $varDataArray
-                        );
+                    $varResponseData =
+                        \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
+                            $varUserSession, 
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY'),
+                            $varDataArray
+                            );
                     // dd($varResponseData);
                     
-                    if($varResponseData['metadata']['HTTPStatusCode']==200)
+                    if ($varResponseData['metadata']['HTTPStatusCode'] == 200)
                         {
                         $varReturn = $varResponseData;
                         }
@@ -450,8 +451,9 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIGatewayJQuery                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-04                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2024-08-28                                                                                           |
+        | ▪ Creation Date   : 2021-01-04                                                                                           |
         | ▪ Description     : Memanggil API Gateway melalui JQuery                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -507,6 +509,8 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                         '"'.$varAPIVersion.'", '.
                                         'JSON.parse(JSON.stringify(varJSONData)), '.
                                         ''.$varTimeOut.''.
+                                        //'true'.
+                                        //''.(($varSignDisplayErrorPage == TRUE) ? 'true' : 'false').''.
                                         '); '.
     //                                'alert(varJSONData); '.
 //                                'alert("done"); '.

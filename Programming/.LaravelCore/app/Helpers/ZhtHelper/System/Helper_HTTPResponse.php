@@ -54,7 +54,7 @@ namespace App\Helpers\ZhtHelper\System
                         $varPort = 80;
                         }
                     //---> Cek apakah port tujuan terbuka
-                    if (\App\Helpers\ZhtHelper\General\Helper_Network::isPortOpen($varUserSession, $varURL, $varPort)==false)
+                    if (\App\Helpers\ZhtHelper\General\Helper_Network::isPortOpen($varUserSession, $varURL, $varPort) == false)
                         {
                         throw new \Exception('Port is closed');
                         }

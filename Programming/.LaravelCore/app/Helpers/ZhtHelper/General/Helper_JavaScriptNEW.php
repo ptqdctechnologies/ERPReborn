@@ -272,7 +272,45 @@ namespace App\Helpers\ZhtHelper\General
                     
                 //-----[ MAIN FUNCTION ]----(END)----
                 'function '.$varJSFunctionName.'_DeleteFile(varIndex) {'.
-                    'alert(varIndex); '.
+                    'let varLocJSONData = JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value); '.
+                    'if (confirm('.
+                        '\'Do You Want to delete file \' + String.fromCharCode(34) + varLocJSONData[varIndex].entities.name + String.fromCharCode(34) + \' ? \''.
+                        ')) {'.
+                        'let varDeletedItem = varLocJSONData.splice((varIndex), 1); '.
+  
+//                        'alert(JSON.stringify(varDeletedItem[0].recordID)); '.
+                    
+                        'try {'.
+                            'varReturn = ('.
+                                'JSON.parse('.
+                                    str_replace(
+                                        '"', 
+                                        '\'', 
+                                        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                            $varUserSession, 
+                                            $varAPIWebToken, 
+                                            'fileHandling.archive.general.setFileDelete', 
+                                            'latest',
+                                            '{'.
+                                            '"recordID" : 268000000014900'.
+//                                            '"recordID" : parseInt(JSON.stringify(varDeletedItem[0].recordID))'.
+                                            '}'
+                                            )
+                                        ).
+                                    ')'. //.data.message'.
+                                '); '.
+                            'alert(JSON.stringify(varReturn)); '.
+                            'document.getElementById(\''.$varDOMID_DataRecord.'\').value = JSON.stringify(varLocJSONData); '.
+                            $varJSFunctionName.'_ReloadActionPanel(); '.
+                            '} '.
+                        'catch (varError) {'.
+                            'alert(varError); '.
+                            '} '.
+                    
+                    
+                    
+                    
+                        '}'.
                     '}'.
 
                 'function '.$varJSFunctionName.'_ReloadActionPanel() {'.
