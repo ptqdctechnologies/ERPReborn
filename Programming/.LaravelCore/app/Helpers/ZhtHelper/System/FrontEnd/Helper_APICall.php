@@ -491,6 +491,17 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                     
 //                   dd($varData);
 //                    dd(\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY'));
+
+                    $varURL = 
+                        str_replace(
+                            'http:',
+                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(
+                                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                'URL_BACKEND_API_GATEWAY'
+                                )
+                            );
+                        
                     $varReturn = 
                         'function() '.
                             '{ '.
@@ -504,7 +515,8 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                 'varReturn = '.
                                     'new zht_JSAPIRequest_Gateway('.
                                         '"'.$varAPIWebToken.'", '.
-                                        '"'.\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY').'", '.
+                                        //'"'.\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY').'", '.
+                                        '"'.$varURL.'", '.
                                         '"'.$varAPIKey.'", '.
                                         '"'.$varAPIVersion.'", '.
                                         'JSON.parse(JSON.stringify(varJSONData)), '.

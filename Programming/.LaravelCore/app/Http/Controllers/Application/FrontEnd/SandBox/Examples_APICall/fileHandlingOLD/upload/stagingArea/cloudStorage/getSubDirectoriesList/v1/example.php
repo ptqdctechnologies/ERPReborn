@@ -11,7 +11,7 @@
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\stagingArea\cloudStorage\getSubDirectoriesList\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandlingOLD\upload\stagingArea\cloudStorage\getSubDirectoriesList\v1
     {
     class example extends \App\Http\Controllers\Controller
         {

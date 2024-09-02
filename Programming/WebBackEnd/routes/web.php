@@ -29,6 +29,15 @@ Route::get('/', function () {
 //---[ Main System ]---(START)---
 //---[ Main System ]---( END )---
 
+//Route::get('FileDownload', '\App\Http\Controllers\Application\BackEnd\FileHandling\Controller_FileHandling@FileDownload')->name('FileDownload');
+//Route::get('FileDownload', '\App\Http\Controllers\Application\BackEnd\FileHandling\Controller_FileHandling@FileDownload')->middleware('webWithoutCSRF');
+Route::get(
+    'FileDownload', 
+    '\App\Http\Controllers\Application\BackEnd\FileHandling\Controller_FileHandling@FileDownload'
+    )->middleware('webWithoutCSRF');
+
+
+
 
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testAPi', 'get', '\Application\BackEnd\System\Report\Engines\form\documentForm\general\getAllDataFilterByDocumentTypeID\v1\getAllDataFilterByDocumentTypeID@main');
 
@@ -104,3 +113,5 @@ Route::match(['get', 'post'], '/botman', '\App\Http\Controllers\Application\Back
 //Route::get('test', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@init');
 
 //---[ Default ERP Reborn (Front End & Back End) ]---(FINISH)-----
+
+//URL::forceScheme('https');

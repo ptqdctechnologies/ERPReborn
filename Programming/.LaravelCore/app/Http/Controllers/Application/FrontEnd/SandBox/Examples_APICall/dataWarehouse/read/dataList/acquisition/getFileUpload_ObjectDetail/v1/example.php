@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                     'latest', 
                     [
                     'parameter' => [
-                        'log_FileUpload_Pointer_RefID' => 211000000000003
+                        'log_FileUpload_Pointer_RefID' => 91000000000001
                         ],
                     'SQLStatement' => [
                         'pick' => null,
@@ -78,7 +78,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
             echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Parameter</p></td></tr>';
-            echo '<tr><td>FileUpload_Pointer&nbsp;RefID</td><td><input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value=211000000000003></td></tr>';
+            echo '<tr><td>FileUpload_Pointer&nbsp;RefID</td><td><input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value=91000000000001></td></tr>';
             echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
             echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
             echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';

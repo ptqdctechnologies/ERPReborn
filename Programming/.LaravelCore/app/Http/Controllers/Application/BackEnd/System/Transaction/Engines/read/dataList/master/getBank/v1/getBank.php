@@ -60,18 +60,24 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE))
+                        if (($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE))
                             {
                             throw new \Exception('SQL Injection Threat Prevention');
                             }
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_Bank(
-                            $varUserSession, 
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
-                            $varData['SQLStatement']['pick'], 
-                            $varData['SQLStatement']['sort'], 
-                            $varData['SQLStatement']['filter'], 
-                            $varData['SQLStatement']['paging']
-                            ))))
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_Bank(
+                                    $varUserSession, 
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
+
+                                    $varData['SQLStatement']['pick'], 
+                                    $varData['SQLStatement']['sort'], 
+                                    $varData['SQLStatement']['filter'], 
+                                    $varData['SQLStatement']['paging']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }

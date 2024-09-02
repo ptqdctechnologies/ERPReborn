@@ -221,16 +221,32 @@ COPY ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/vhost.conf /etc/apache
 #---> Imagick Convertion for PDF
 COPY ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/ImageMagick-6/policy.xml /etc/ImageMagick-6/policy.xml
 
+
+#---> Aktivasi SSL
+RUN a2enmod ssl \
+    && a2enmod socache_shmcb
+
+RUN sed -i '/DocumentRoot/cDocumentRoot /var/www/html/WebBackEnd/public' /etc/apache2/sites-available/default-ssl.conf
+RUN sed -i '/SSLCertificateFile.*snakeoil\.pem/cSSLCertificateFile /etc/ssl/certs/ERPRebornLocalhost.crt' /etc/apache2/sites-available/default-ssl.conf
+RUN sed -i '/SSLCertificateKeyFile.*snakeoil\.key/cSSLCertificateKeyFile /etc/ssl/private/ERPRebornLocalhost.key' /etc/apache2/sites-available/default-ssl.conf
+
+RUN a2ensite default-ssl
+
+
 #---> Set Ulang Kepemilikan File
 RUN chown -R www-data:www-data /var/www \
     && a2enmod rewrite
+
 
 #---> Set Name Server
 RUN echo "ServerName localhost" | tee /etc/apache2/conf-available/servername.conf
 RUN a2enconf servername
 
+
 #---> Release Port
 EXPOSE 80
+EXPOSE 443
+
 
 #---> ZhtConf Folder
 RUN mkdir -p /zhtConf/tmp/processSign

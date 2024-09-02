@@ -151,6 +151,55 @@ namespace App\Models\Database\SchSysAsset
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isExist_RecordID                                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2024-09-02                                                                                           |
+        | ▪ Last Update     : 2024-09-02                                                                                           |
+        | ▪ Description     : Mengecek Apakah ID Log File Upload Pointer ada didalam database                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (int)    varRecordID ► Record ID                                                                                  |
+        |        ----------------------------------------                                                                          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function isExist_RecordID(
+            $varUserSession,
+            int $varRecordID)
+            {
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysAsset.FuncSys_IsExist_RecordID',
+                            [
+                                [$varRecordID, 'bigint']
+                            ]
+                            )                            
+                        );
+                
+                $varReturn['data'][0] = [
+                    'signExist' => $varReturn['data'][0]['SignExist'],
+                    'message' => $varReturn['data'][0]['Message']
+                    ];
+                }
+            catch (\Exception $ex) {
+                //return [];
+                }
+
+            return 
+                $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setData_FileHandling_SetFilesAppend                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

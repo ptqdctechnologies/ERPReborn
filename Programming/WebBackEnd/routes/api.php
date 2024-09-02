@@ -50,3 +50,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 //---[ Default ERP Reborn (Front End & Back End) ]---(FINISH)-----
+
+
+
+//URL::forceScheme('https');

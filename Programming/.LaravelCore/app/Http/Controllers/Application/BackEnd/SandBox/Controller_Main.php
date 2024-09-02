@@ -19,13 +19,15 @@ class Controller_Main extends \App\Http\Controllers\Controller
 
     public function testAja3()
         {
+        dd(1234567890);
+        /*
         $varData =
             (new \App\Models\Database\SchData_OLTP_Project\General())->getDataPickList_Project(
                 6000000000001,
                 11000000000004
             );
             dd($varData);
-        
+        */
         }
         
 
