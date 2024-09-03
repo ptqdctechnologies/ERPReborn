@@ -181,7 +181,7 @@ class BudgetController extends Controller
                             'valuta'        => 'IDR',
                             'origin'        => 376712000,
                             'previous'      => 376712000,
-                            'addSubt'       => 0,
+                            'addSubt'       => $totalAdditional - $totalSaving,
                             'totalCurrent'  => 376712000
                         ],
                         'secondRow' => [

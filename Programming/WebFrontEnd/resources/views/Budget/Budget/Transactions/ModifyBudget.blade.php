@@ -286,7 +286,7 @@
                                         <tbody>
                                             <tr>
                                                 <td class="container-tbody-tr-budget">
-                                                    1
+                                                    88000000010550
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
                                                     PLN - Biaya Penyambungan

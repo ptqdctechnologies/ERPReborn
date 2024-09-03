@@ -140,6 +140,10 @@
             $("#currency_symbol").val(symbol);
             $("#value_idr_rate").val(0);
         } else {
+            $("#currency_id").val("");
+            $("#currency_name").val("");
+            $("#currency_symbol").val("");
+            $("#value_idr_rate").val("");
             Swal.fire("Error", "Please Call Accounting Staffs (Ext. 1101 - 1104). Ask Them to Input Current IDR Rate. Thank You.", "error");
         }
     });

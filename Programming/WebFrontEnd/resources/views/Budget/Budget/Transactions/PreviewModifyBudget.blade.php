@@ -265,50 +265,50 @@
                                         <?= number_format($dataTable['sectionTwo']['secondRow']['totalCurrent'], 2); ?>
                                     </td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td>
-                                        <?= $dataTable['sectionTwo']['thirdRow']['description']; ?>
+                                        <?php $dataTable['sectionTwo']['thirdRow']['description']; ?>
                                     </td>
                                     <td>
-                                        <?= $dataTable['sectionTwo']['thirdRow']['valuta']; ?>
+                                        <?php $dataTable['sectionTwo']['thirdRow']['valuta']; ?>
                                     </td>
                                     <td class="font-weight-bold text-dark">
                                         <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="ASF Claim + BSF Claim + Piecemeal + OCA + RPI(to site) + DO - (Material Return + Material Cancel) - Cancel RPI" style="width: max-content; cursor: help;">
-                                            <?= $dataTable['sectionTwo']['thirdRow']['origin']; ?>
+                                            <?php $dataTable['sectionTwo']['thirdRow']['origin']; ?>
                                         </div>
                                     </td>
                                     <td class="text-right" style="color: #404040;">
-                                        <?= number_format($dataTable['sectionTwo']['thirdRow']['previous'], 2); ?>
+                                        <?php number_format($dataTable['sectionTwo']['thirdRow']['previous'], 2); ?>
                                     </td>
                                     <td>
-                                        <?= $dataTable['sectionTwo']['thirdRow']['addSubt']; ?>
+                                        <?php $dataTable['sectionTwo']['thirdRow']['addSubt']; ?>
                                     </td>
                                     <td>
-                                        <?= $dataTable['sectionTwo']['thirdRow']['totalCurrent']; ?>
+                                        <?php $dataTable['sectionTwo']['thirdRow']['totalCurrent']; ?>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <?= $dataTable['sectionTwo']['fourthRow']['description']; ?>
+                                        <?php $dataTable['sectionTwo']['fourthRow']['description']; ?>
                                     </td>
                                     <td>
-                                        <?= $dataTable['sectionTwo']['fourthRow']['valuta']; ?>
+                                        <?php $dataTable['sectionTwo']['fourthRow']['valuta']; ?>
                                     </td>
                                     <td class="font-weight-bold text-dark">
                                         <div class="float-right" style="width: max-content;">
-                                            <?= $dataTable['sectionTwo']['fourthRow']['origin']; ?>
+                                            <?php $dataTable['sectionTwo']['fourthRow']['origin']; ?>
                                         </div>
                                     </td>
                                     <td class="text-right" style="color: #404040;">
-                                        <?= number_format($dataTable['sectionTwo']['fourthRow']['previous'], 2); ?>
+                                        <?php number_format($dataTable['sectionTwo']['fourthRow']['previous'], 2); ?>
                                     </td>
                                     <td>
-                                        <?= $dataTable['sectionTwo']['fourthRow']['addSubt']; ?>
+                                        <?php $dataTable['sectionTwo']['fourthRow']['addSubt']; ?>
                                     </td>
                                     <td>
-                                        <?= $dataTable['sectionTwo']['fourthRow']['totalCurrent']; ?>
+                                        <?php $dataTable['sectionTwo']['fourthRow']['totalCurrent']; ?>
                                     </td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
                                         <?= $dataTable['sectionTwo']['fifthRow']['description']; ?>
@@ -382,7 +382,7 @@
                                         <?= number_format($dataTable['sectionThree']['firstRow']['addSubt'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= number_format($dataTable['sectionOne']['firstRow']['previous'] - $dataTable['sectionTwo']['firstRow']['previous'], 2); ?>
+                                        <?= number_format(($dataTable['sectionOne']['firstRow']['totalCurrent'] + $dataTable['sectionOne']['secondRow']['totalCurrent']) - ($dataTable['sectionTwo']['firstRow']['totalCurrent'] + $dataTable['sectionTwo']['secondRow']['totalCurrent']), 2); ?>
                                     </td>
                                 </tr>
                                 <tr style="color: #404040;">
@@ -705,17 +705,23 @@
                         <table class="table table-bordered table-hover text-nowrap" style="border: 2px solid #e9e9e9;">
                             <thead>
                                 <tr>
-                                    <th>PRODUCT ID</th>
-                                    <th>PRODUCT NAME</th>
-                                    <th>QTY BUDGET</th>
-                                    <th>PRICE BUDGET</th>
-                                    <th>TOTAL BUDGET</th>
-                                    <th>QTY ADDITIONAL</th>
-                                    <th>PRICE ADDITIONAL</th>
-                                    <th>TOTAL ADDITIONAL</th>
-                                    <th>QTY SAVING</th>
-                                    <th>PRICE SAVING</th>
-                                    <th>TOTAL SAVING</th>
+                                    <th class="text-center" colspan="2">PRODUCT</th>
+                                    <th class="text-center" colspan="3">BUDGET</th>
+                                    <th class="text-center" colspan="3">AFTER ADDITIONAL</th>
+                                    <th class="text-center" colspan="3">AFTER SAVING</th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center">ID</th>
+                                    <th class="text-center">NAME</th>
+                                    <th class="text-center">QTY</th>
+                                    <th class="text-center">PRICE</th>
+                                    <th class="text-center">TOTAL</th>
+                                    <th class="text-center">QTY</th>
+                                    <th class="text-center">PRICE</th>
+                                    <th class="text-center">TOTAL</th>
+                                    <th class="text-center">QTY</th>
+                                    <th class="text-center">PRICE</th>
+                                    <th class="text-center">TOTAL</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -729,23 +735,23 @@
                                         <td class="text-right"><?= $data['qtyAdditionals']; ?></td>
                                         <td class="text-right"><?= $data['priceAdditionals']; ?></td>
                                         <td class="text-right"><?= $data['totalAdditionals']; ?></td>
-                                        <td class="text-right"><?= $data['qtySavings']; ?></td>
-                                        <td class="text-right"><?= $data['priceSavings']; ?></td>
-                                        <td class="text-right"><?= $data['totalSavings']; ?></td>
+                                        <td class="text-right"><?= $data['qtySavings'] != "0.00" ? $data['qtySavings'] : '-'; ?></td>
+                                        <td class="text-right"><?= $data['priceSavings'] != "0.00" ? $data['priceSavings'] : '-'; ?></td>
+                                        <td class="text-right"><?= $data['totalSavings'] != "0.00" ? $data['totalSavings'] : '-' ; ?></td>
                                     </tr>
                                 <?php } ?>
 
                                 <!-- FOOTER -->
                                 <tr>
                                     <td colspan="7" class="font-weight-bold" style="font-size: 12px;">
-                                        Total
+                                        TOTAL
                                     </td>
                                     <td class="text-right">
                                         <?= $totalAdditional; ?>
                                     </td>
                                     <td colspan="2"></td>
                                     <td class="text-right">
-                                        <?= $totalSaving; ?>
+                                        <?= $totalSaving != "0.00" ? $totalSaving : '-'; ?>
                                     </td>
                                 </tr>
                             </tbody>
