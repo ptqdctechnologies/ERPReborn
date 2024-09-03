@@ -9,6 +9,8 @@ use DB;
 use PDO;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class BudgetController extends Controller
 {
@@ -294,7 +296,7 @@ class BudgetController extends Controller
                 ],
             ];
 
-            // dd($files);
+            // dd($productIds, $compact);
 
             return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {

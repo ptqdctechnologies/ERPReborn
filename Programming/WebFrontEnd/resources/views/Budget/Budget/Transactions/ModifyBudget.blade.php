@@ -4,7 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getSite')
 @include('getFunction.getProject')
-@include('getFunction.getProduct')
+@include('getFunction.getProducts')
 @include('getFunction.getCurrency')
 
 <div class="content-wrapper">
@@ -322,7 +322,7 @@
                                                     <div class="col d-flex p-0">
                                                         <div>
                                                             <input id="product_id" hidden name="product_id">
-                                                            <input id="product_name" style="border-radius:0;" class="form-control" name="product_name" readonly>
+                                                            <input id="product_id_show" style="border-radius:0;" class="form-control" name="product_id_show" readonly>
                                                         </div>
                                                         <div>
                                                             <span style="border-radius:0;" class="input-group-text form-control">
@@ -339,7 +339,7 @@
                                             </div>
                                         </div>
 
-                                        <!-- VALUE CO ADDITIONAL -->
+                                        <!-- QTY -->
                                         <div id="newItemFormTwo" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
                                             <div class="col-lg-5">
                                                 <div class="row">
@@ -359,6 +359,20 @@
                                                     <div class="col p-0">
                                                         <div class="input-group">
                                                             <input id="price" style="border-radius:0;" class="form-control number-only" name="price" autocomplete="off">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- TOTAL -->
+                                        <div id="newItemFormFour" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
+                                            <div class="col-lg-5">
+                                                <div class="row">
+                                                    <label for="total_qty_price" class="col-4 col-form-label p-0">Total</label>
+                                                    <div class="col p-0">
+                                                        <div class="input-group">
+                                                            <input id="total_qty_price" style="border-radius:0;" class="form-control number-only" name="total_qty_price" autocomplete="off" disabled>
                                                         </div>
                                                     </div>
                                                 </div>

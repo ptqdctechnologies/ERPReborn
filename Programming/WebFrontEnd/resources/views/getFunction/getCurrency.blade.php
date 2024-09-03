@@ -59,7 +59,6 @@
                 type: 'GET',
                 url: '{!! route("getCurrency") !!}',
                 success: function(data) {
-                    
                     var no = 1;
                     var t = $('#tableGetCurrency').DataTable();
                     t.clear();

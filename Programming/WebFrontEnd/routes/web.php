@@ -154,6 +154,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getBank', 'Function\FunctionController@getBank')->name('getBank');
     Route::get('getEntityBankAccount', 'Function\FunctionController@getEntityBankAccount')->name('getEntityBankAccount');
     Route::get('getProduct', 'Function\FunctionController@getProduct')->name('getProduct');
+    // START OF ADDED BY WISNU
+    Route::get('getProducts', 'Function\FunctionController@getProducts')->name('getProducts');
+    // END OF ADDED BY WISNU
     Route::get('getWorker', 'Function\FunctionController@getWorker')->name('getWorker');
     Route::get('getSupplier', 'Function\FunctionController@getSupplier')->name('getSupplier');
     Route::get('getDeliverTo', 'Function\FunctionController@getDeliverTo')->name('getDeliverTo');
@@ -166,8 +169,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getRole', 'Function\FunctionController@getRole')->name('getRole');
     Route::get('getMenuGroup', 'Function\FunctionController@getMenuGroup')->name('getMenuGroup');
     Route::get('getSubMenu', 'Function\FunctionController@getSubMenu')->name('getSubMenu');
-    // WISNU
+    // START OF ADDED BY WISNU
     Route::get('getOneSubMenu', 'Function\FunctionController@getOneSubMenu')->name('getOneSubMenu');
+    // END OF ADDED BY WISNU
 
     Route::get('TestApi', 'TestApiController@index')->name('TestApi');
 
