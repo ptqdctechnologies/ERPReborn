@@ -100,7 +100,7 @@ class BudgetController extends Controller
             $priceSavings       = $request->input('price_saving');
             $totalSavings       = $request->input('total_saving');
 
-            // dd($idrRate);
+            // dd($productIds, $productName, $qtyBudget, $price, $totalBudget, $qtyAdditionals, $priceAdditionals, $totalAdditionals, $qtySavings, $priceSavings, $totalSavings);
 
             $i = 0;
             $dataModifyBudget = [];
@@ -141,7 +141,7 @@ class BudgetController extends Controller
                 'currencyID'        => $currencyID,
                 'currencySymbol'    => $currencySymbol,
                 'currencyName'      => $currencyName,
-                'idrRate'           => number_format($idrRate, 2),
+                'idrRate'           => $idrRate ? number_format($idrRate, 2) : '-',
                 'valueAdditionalCO' => $valueAdditionalCO,
                 'valueDeductiveCO'  => $valueDeductiveCO,
                 'files'             => $files,

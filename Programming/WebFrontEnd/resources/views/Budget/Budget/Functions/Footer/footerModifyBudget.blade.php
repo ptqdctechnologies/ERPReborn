@@ -325,6 +325,8 @@
                         form.appendChild(hiddenInput);
                     });
 
+                    console.log('form', form);
+
                     listTableBody.appendChild(clonedRow);
                 }
             } else if (!qtyAdditional && priceAdditional && totalAdditional) {
@@ -417,22 +419,63 @@
         const tbody = listBudgetTable.querySelector('tbody');
         const newRow = document.createElement('tr');
 
+        const qtyBudgetFormatted = numberFormatPHPCustom(0, 2);
+        const priceBudgetFormatted = numberFormatPHPCustom(0, 2);
+        const totalBudgetFormatted = numberFormatPHPCustom(0, 2);
+
         const qtyFormatted = numberFormatPHPCustom(qty, 2);
         const priceFormatted = numberFormatPHPCustom(price, 2);
         const totalFormatted = numberFormatPHPCustom(qty * price, 2);
 
+        const qtySavingFormatted = numberFormatPHPCustom(0, 2);
+        const priceSavingFormatted = numberFormatPHPCustom(0, 2);
+        const totalSavingFormatted = numberFormatPHPCustom(0, 2);
+
         newRow.innerHTML = `
-            <td class="container-tbody-tr-budget">${productId}</td>
-            <td class="container-tbody-tr-budget" style="text-align: left !important;">${productName}</td>
-            <td class="container-tbody-tr-budget">0</td>
-            <td class="container-tbody-tr-budget">0</td>
-            <td class="container-tbody-tr-budget">0</td>
-            <td class="container-tbody-tr-budget">${qtyFormatted}</td>
-            <td class="container-tbody-tr-budget">${priceFormatted}</td>
-            <td class="container-tbody-tr-budget">${totalFormatted}</td>
-            <td class="container-tbody-tr-budget">0</td>
-            <td class="container-tbody-tr-budget">0</td>
-            <td class="container-tbody-tr-budget">0</td>
+            <td class="container-tbody-tr-budget" >
+                ${productId}
+                <input id="project_id" hidden="" name="product_id[]" value="${productId}">
+            </td>
+            <td class="container-tbody-tr-budget" style="text-align: left !important;">
+                ${productName}
+                <input id="project_id" hidden="" name="product_name[]" value="${productName}">
+            </td>
+            <td class="container-tbody-tr-budget">
+                ${qtyBudgetFormatted}
+                <input id="project_id" hidden="" name="qty_budget[]" value="0">
+            </td>
+            <td class="container-tbody-tr-budget">
+                ${priceBudgetFormatted}
+                <input id="project_id" hidden="" name="price[]" value="0">
+            </td>
+            <td class="container-tbody-tr-budget">
+                ${totalBudgetFormatted}
+                <input id="project_id" hidden="" name="total_budget[]" value="0">
+            </td>
+            <td class="container-tbody-tr-budget">
+                ${qtyFormatted}
+                <input id="project_id" hidden="" name="qty_additional[]" value="${qty}">
+            </td>
+            <td class="container-tbody-tr-budget">
+                ${priceFormatted}
+                <input id="project_id" hidden="" name="price_additional[]" value="${price}">
+            </td>
+            <td class="container-tbody-tr-budget">
+                ${totalFormatted}
+                <input id="project_id" hidden="" name="total_additional[]" value="${qty * price}">
+            </td>
+            <td class="container-tbody-tr-budget">
+                ${qtySavingFormatted}
+                <input id="project_id" hidden="" name="qty_saving[]" value="0">
+            </td>
+            <td class="container-tbody-tr-budget">
+                ${priceSavingFormatted}
+                <input id="project_id" hidden="" name="price_saving[]" value="0">
+            </td>
+            <td class="container-tbody-tr-budget">
+                ${totalSavingFormatted}
+                <input id="project_id" hidden="" name="total_saving[]" value="0">
+            </td>
         `;
 
         tbody.appendChild(newRow);
