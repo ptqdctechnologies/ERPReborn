@@ -41,7 +41,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                     'latest', 
                     [
                     'parameter' => [
-                        'filePath' => 'Archive/267000000000001/268000000000001'
+                        'filePath' => 'Archive/92000000000001/12000000000001'
                         ]
                     ]
                     );
@@ -69,7 +69,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<br>File Path<input type="text" id="dataInput_filePath" value="Archive/92000000000097/12000000000108">';
+            echo '<br>File Path<input type="text" id="dataInput_filePath" value="Archive/92000000000001/12000000000001">';
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
