@@ -310,6 +310,34 @@ namespace App\Models\Database
             return $varReturn;
             }
 
+            
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isRecordDeleted                                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-09-02                                                                                           |
+        | ▪ Creation Date   : 2024-09-02                                                                                           |
+        | ▪ Description     : Check Record Deletion                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varRecordID ► Record ID                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function isRecordDeleted($varUserSession, int $varRecordID)
+            {
+            $varReturn =
+                (new \App\Models\Database\SchSysAsset\General())->isRecordDeleted(
+                    $varUserSession,
+                    $varRecordID
+                    );
+
+            return $varReturn;
+            }
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

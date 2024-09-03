@@ -70,13 +70,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
                                     $varData['parameter']['recordID']
-                                    )//,
-                                //FALSE
+                                    )
                                 )
                             ))
                             {
                             throw new \Exception();
                             }
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

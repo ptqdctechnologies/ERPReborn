@@ -66,7 +66,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_FileUpload_ObjectDetail())->isRecordIDExist(
+                                (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_FileUpload_Pointer())->isRecordIDExist(
                                     $varUserSession,
                                     $varData['parameter']['recordID']
                                     ),

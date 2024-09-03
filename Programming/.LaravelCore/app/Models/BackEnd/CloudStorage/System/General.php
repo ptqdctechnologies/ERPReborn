@@ -44,8 +44,16 @@ namespace App\Models\CloudStorage\System
             }*/
         public static function createFile($varUserSession, string $varRemoteFilePath, string $varContent, string $varBucketName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::createFile($varUserSession, $varRemoteFilePath, $varContent, $varBucketName);
-            return $varReturn;            
+            $varReturn =
+                \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::createFile(
+                    $varUserSession,
+                    $varRemoteFilePath,
+                    $varContent,
+                    $varBucketName
+                    );
+
+            return
+                $varReturn;
             }
 
 
@@ -70,8 +78,16 @@ namespace App\Models\CloudStorage\System
         */
         public static function copyFileToCloud($varUserSession, string $varLocalFilePath, string $varRemoteFilePath, string $varBucketName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, $varLocalFilePath, $varRemoteFilePath, $varBucketName);
-            return $varReturn;            
+            $varReturn =
+                \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile(
+                    $varUserSession,
+                    $varLocalFilePath,
+                    $varRemoteFilePath,
+                    $varBucketName
+                    );
+
+            return
+                $varReturn;
             }
 
 
@@ -95,8 +111,15 @@ namespace App\Models\CloudStorage\System
         */
         public static function deleteFile($varUserSession, string $varRemoteFilePath, string $varBucketName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::deleteFile($varUserSession, $varRemoteFilePath, $varBucketName);
-            return $varReturn;
+            $varReturn =
+                \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::deleteFile(
+                    $varUserSession,
+                    $varRemoteFilePath,
+                    $varBucketName
+                    );
+
+            return
+                $varReturn;
             }
 
 
@@ -119,8 +142,14 @@ namespace App\Models\CloudStorage\System
         */
         public function getAllDataRecord($varUserSession, string $varBucketName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getAllDataRecord($varUserSession, $varBucketName);
-            return $varReturn;            
+            $varReturn =
+                \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getAllDataRecord(
+                    $varUserSession,
+                    $varBucketName
+                    );
+
+            return
+                $varReturn;
             }
 
 
@@ -142,8 +171,13 @@ namespace App\Models\CloudStorage\System
         */
         public function getBucketName($varUserSession)
             {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getBucketName($varUserSession);
-            return $varReturn;
+            $varReturn =
+                \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getBucketName(
+                    $varUserSession
+                    );
+
+            return
+                $varReturn;
             }
 
 
@@ -167,8 +201,15 @@ namespace App\Models\CloudStorage\System
         */
         public function getDataRecord($varUserSession, string $varRemoteFilePath, string $varBucketName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileInfo($varUserSession, $varRemoteFilePath, $varBucketName);
-            return $varReturn;            
+            $varReturn = 
+                \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileInfo(
+                    $varUserSession,
+                    $varRemoteFilePath,
+                    $varBucketName
+                    );
+
+            return
+                $varReturn;
             }
 
 
@@ -192,8 +233,15 @@ namespace App\Models\CloudStorage\System
         */
         public static function getFileContent($varUserSession, string $varRemoteFilePath, string $varBucketName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileContent($varUserSession, $varRemoteFilePath, $varBucketName);
-            return $varReturn;            
+            $varReturn = 
+                \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileContent(
+                    $varUserSession,
+                    $varRemoteFilePath,
+                    $varBucketName
+                    );
+
+            return
+                $varReturn;            
             }
 
 
@@ -217,8 +265,15 @@ namespace App\Models\CloudStorage\System
         */
         public static function getFileURL($varUserSession, string $varRemoteFilePath, string $varBucketName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileURL($varUserSession, $varRemoteFilePath, $varBucketName);
-            return $varReturn;            
+            $varReturn = 
+                \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileURL(
+                    $varUserSession,
+                    $varRemoteFilePath,
+                    $varBucketName
+                    );
+
+            return
+                $varReturn;            
             }
 
 
@@ -242,8 +297,15 @@ namespace App\Models\CloudStorage\System
         */
         public function getFilesList($varUserSession, string $varFilePath, string $varDiskID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFilesList($varUserSession, $varFilePath, $varDiskID);
-            return $varReturn;
+            $varReturn =
+                \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFilesList(
+                    $varUserSession,
+                    $varFilePath,
+                    $varDiskID
+                    );
+
+            return
+                $varReturn;
             }
 
 
@@ -267,8 +329,15 @@ namespace App\Models\CloudStorage\System
         */
         public function getSubDirectoriesList($varUserSession, string $varFilePath, string $varDiskID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getSubDirectoriesList($varUserSession, $varFilePath, $varDiskID);
-            return $varReturn;
+            $varReturn =
+                \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getSubDirectoriesList(
+                    $varUserSession,
+                    $varFilePath,
+                    $varDiskID
+                    );
+
+            return
+                $varReturn;
             }
 
 
@@ -292,8 +361,15 @@ namespace App\Models\CloudStorage\System
         */
         public function isFileExist($varUserSession, string $varRemoteFilePath, string $varBucketName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::isFileExist($varUserSession, $varRemoteFilePath, $varBucketName);
-            return $varReturn;
+            $varReturn =
+                \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::isFileExist(
+                    $varUserSession,
+                    $varRemoteFilePath,
+                    $varBucketName
+                    );
+
+            return
+                $varReturn;
             }
 
 
@@ -317,8 +393,15 @@ namespace App\Models\CloudStorage\System
         */
         public function moveFile($varUserSession, $varSourceFilePath, $varDestinationFilePath)
             {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::moveFile($varUserSession, $varSourceFilePath, $varDestinationFilePath);
-            return $varReturn;            
+            $varReturn =
+                \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::moveFile(
+                    $varUserSession,
+                    $varSourceFilePath,
+                    $varDestinationFilePath
+                    );
+
+            return
+                $varReturn;            
             }
 
 
@@ -341,8 +424,14 @@ namespace App\Models\CloudStorage\System
         */
         public static function setBucketName($varUserSession, string $varBucketName)
             {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::setBucketName($varUserSession, $varBucketName);
-            return $varReturn;
+            $varReturn =
+                \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::setBucketName(
+                    $varUserSession,
+                    $varBucketName
+                    );
+
+            return
+                $varReturn;
             }
         }
     }
