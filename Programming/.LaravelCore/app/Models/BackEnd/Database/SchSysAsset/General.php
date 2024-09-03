@@ -151,6 +151,55 @@ namespace App\Models\Database\SchSysAsset
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isRecordDeleted                                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2024-09-03                                                                                           |
+        | ▪ Last Update     : 2024-09-03                                                                                           |
+        | ▪ Description     : Mengecek Apakah Record Terhapus didalam database                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (int)    varRecordID ► Record ID                                                                                  |
+        |        ----------------------------------------                                                                          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function isRecordDeleted(
+            $varUserSession,
+            int $varRecordID)
+            {
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysAsset.FuncSys_DataCheck_RecordDeletion',
+                            [
+                                [$varRecordID, 'bigint']
+                            ]
+                            )                            
+                        );
+                
+                $varReturn['data'][0] = [
+                    'signDelete' => $varReturn['data'][0]['SignDelete'],
+                    'message' => $varReturn['data'][0]['Message']
+                    ];
+                }
+            catch (\Exception $ex) {
+                //return [];
+                }
+
+            return 
+                $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isExist_RecordID                                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -177,7 +226,7 @@ namespace App\Models\Database\SchSysAsset
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchSysAsset.FuncSys_IsExist_RecordID',
+                            'SchSysAsset.FuncSys_DataCheck_RecordIDExistantion',
                             [
                                 [$varRecordID, 'bigint']
                             ]

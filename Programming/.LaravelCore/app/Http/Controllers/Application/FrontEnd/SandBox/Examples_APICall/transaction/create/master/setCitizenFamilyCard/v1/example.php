@@ -121,12 +121,14 @@ echo '<div style="position: relative; z-index: 3">Hello world</div>';
                         '}; '.
                 '</script>';
 
+            echo '<input type=\'text\' id = \'xxx\'>';           
             echo '<br>Log FileUpload Pointer RefID ► '.
                 \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'dataInput_Log_FileUpload_1',
-                    '264000000000228'
+                    '91000000000001',
+                    'xxx'
                     ).
                     '';
             
@@ -135,7 +137,7 @@ echo '<div style="position: relative; z-index: 3">Hello world</div>';
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'dataInput_Log_FileUpload_2',
-                    '91000000000001'
+                    '264000000000228'
                     //'yyyy'
                     ).
                     '';

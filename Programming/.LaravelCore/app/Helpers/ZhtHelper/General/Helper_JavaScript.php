@@ -187,7 +187,8 @@ namespace App\Helpers\ZhtHelper\General
                     $varObjectID.'.removeAttribute(\'id\'); ').
                 '';
       
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 
@@ -205,11 +206,31 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (mixed)  varAPIWebToken (Mandatory) ► API Web Token                                                               |
         |      ▪ (string) varObjectID (Mandatory) ► Object ID                                                                      |
         |      ▪ (int)    varValue (Mandatory) ► Value                                                                             |
+        |      ▪ (string) varObjectReturnID (Optional) ► Object Return ID                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Example :                                                                                                              |
+        |       ▪ ---> Without Return Value to Outside DOM Object                                                                  |
+        |         echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(                   |
+        |                   App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),                            |
+        |                   $varAPIWebToken,                                                                                       |
+        |                   'dataInput_Log_FileUpload',                                                                            |
+        |                   '91000000000001'                                                                                       |
+        |                   );                                                                                                     |
+        |                                                                                                                          |
+        |       ▪ ---> With Return Value to Outside DOM Object                                                                     |
+        |         echo '<input type=\'text\' id=\'dataInput_Return\'>';                                                            |
+        |         echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(                   |
+        |                   \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),                           |
+        |                   $varAPIWebToken,                                                                                       |
+        |                   'dataInput_Log_FileUpload',                                                                            |
+        |                   '91000000000001',                                                                                      |
+        |                   'dataInput_Return'                                                                                     |
+        |                   );                                                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getSyntaxCreateDOM_DivCustom_InputFile($varUserSession, $varAPIWebToken, string $varObjectID, int $varValue)
+        public static function getSyntaxCreateDOM_DivCustom_InputFile($varUserSession, $varAPIWebToken, string $varObjectID, int $varValue, string $varObjectReturnID = null)
             {
             $varStyle_TableAction =
                 [
@@ -255,18 +276,18 @@ namespace App\Helpers\ZhtHelper\General
             $varJSFunctionName = 'JSFuncZhtObjectInputFile_'.$varObjectID;
             $varDOMID_ActionPanel = $varObjectID.'_ZhtActionPanel';
             $varDOMID_DataRecord = $varObjectID.'_ZhtDataRecord';
-            $varDOMID_File = $varObjectID.'_ZhtFile';          
-            
-           
+            $varDOMID_File = $varObjectID.'_ZhtFile';
+
             $varReturn =
                 '<div id="'.$varDOMID_ActionPanel.'" style="display:inline-block">'.
                     '<input type="text" id="'.$varObjectID.'" value="'.$varValue.'" style="display:none">'.
+//                    '<input type="text" id="'.$varObjectID.'" value="'.$varValue.'" >'.
                     '<textarea id="'.$varDOMID_DataRecord.'" cols=50 rows=10 style="display:none"></textarea>'.
                     '<input type="file" id="'.$varDOMID_File.'" style="display:none" onchange="javascript:'.$varJSFunctionName.'_AddFiles(this.files); ; " multiple/>'.
                 '</div>';
             
             $varReturn .=
-                '<script type="text/JavaScript">'.
+                '<script type="text/JavaScript">'.                    
                     /*
                     +--------------------------------------------------------------------------------------------------------------------------+
                     | ▪ Method Name     : _Main                                                                                                |
@@ -544,8 +565,19 @@ namespace App\Helpers\ZhtHelper\General
                                     'try {'.
                                         'document.getElementById(\''.$varObjectID.'\').value = varJSONData.log_FileUpload_Pointer_RefID; '.
                                         'document.getElementById(\''.$varDOMID_DataRecord.'\').value = JSON.stringify(varJSONData.JSONData); '.
-
                                         'document.getElementById(\''.$varDOMID_File.'\').value = \'\'; '.
+
+                                        ($varObjectReturnID ? 
+                                            self::getSyntaxFunc_SetDOMValue(
+                                                $varUserSession,
+                                                $varObjectReturnID,
+                                                'document.getElementById(\''.$varObjectID.'\').value'
+                                                ).'; '
+                                            //'alert(document.getElementById(\''.$varObjectReturnID.'\').constructor.name); ' 
+                                            : 
+                                            '' 
+                                            ).
+
                                         '}'.
                                     'catch (varError) {'.
                                         '}'.
@@ -1081,7 +1113,9 @@ namespace App\Helpers\ZhtHelper\General
                             ).
                         '} '.
                 '</script>';
-            return $varReturn;
+
+            return
+                $varReturn;
             }
 
 
@@ -1178,7 +1212,8 @@ namespace App\Helpers\ZhtHelper\General
                     $varObjectID.'.removeAttribute(\'id\'); ').
                 '';
 
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 
@@ -1375,7 +1410,8 @@ namespace App\Helpers\ZhtHelper\General
                     ''
                     ;
 
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 
@@ -1531,7 +1567,8 @@ namespace App\Helpers\ZhtHelper\General
                 ''
                 ;
 
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 
@@ -1588,7 +1625,8 @@ namespace App\Helpers\ZhtHelper\General
                 ''
                 ;
 
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 
@@ -1664,8 +1702,9 @@ namespace App\Helpers\ZhtHelper\General
                 ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
                     $varObjectID.'.removeAttribute(\'id\'); ').
                 '';
-           
-            return $varReturn;
+
+            return
+                $varReturn;
             }
 
 
@@ -1722,7 +1761,8 @@ namespace App\Helpers\ZhtHelper\General
                 ''
                 ;
 
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 
@@ -1779,7 +1819,53 @@ namespace App\Helpers\ZhtHelper\General
                 ''
                 ;
 
-            return $varReturn;
+            return
+                $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxFunc_SetDOMValue                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-09-03                                                                                           |
+        | ▪ Creation Date   : 2024-09-03                                                                                           |
+        | ▪ Description     : Mendapatkan Syntax Set DOM Value                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
+        |      ▪ (string) varObjectID (Mandatory) ► ID Object                                                                      |
+        |      ▪ (string) varValue (Mandatory) ► Value                                                                             |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxFunc_SetDOMValue($varUserSession, string $varObjectID, string $varValue)
+            {
+            $varReturn = 
+                '(function(varValue) {'.
+                    'try {'.
+                        'switch (document.getElementById(\''.$varObjectID.'\').constructor.name) {'.
+                            'case \'HTMLInputElement\' : '.
+                            'case \'HTMLTextAreaElement\' : '.
+                                'document.getElementById(\''.$varObjectID.'\').value = varValue; '.
+                                'break; '.
+                            'case \'HTMLDivElement\' : '.
+                            'case \'HTMLLabelElement\' : '.
+                                'document.getElementById(\''.$varObjectID.'\').innerHTML = varValue; '.
+                                'break; '.
+                            'default : '.
+                                'alert(\'Value can not be set\'); '.
+                                'break; '.
+                            '}'.
+                        '}'.
+                    'catch (varError) {'.
+                        '}'.
+                    '}) ('.$varValue.')';
+
+            return
+                $varReturn;
             }
 
 

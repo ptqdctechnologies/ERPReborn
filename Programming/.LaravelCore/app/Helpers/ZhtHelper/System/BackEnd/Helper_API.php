@@ -296,6 +296,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                                     ]
                                     )
                                 );
+
                         $varReturn['data'] = 
                             \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                                 $varUserSession,

@@ -110,6 +110,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                             {
                             throw new \Exception();
                             }
+                        
+                        //---> Data Processing
+                        for ($i=0, $iMax = count($varDataSend); $i != $iMax; $i++)
+                            {
+                            $varDataSend[$i]['combinedBudget_RefID'] = substr($varDataSend[$i]['combinedBudget_RefID'], 1, strlen($varDataSend[$i]['combinedBudget_RefID'])-2);
+                            $varDataSend[$i]['combinedBudgetSection_RefID'] = substr($varDataSend[$i]['combinedBudgetSection_RefID'], 1, strlen($varDataSend[$i]['combinedBudgetSection_RefID'])-2);
+                            try {
+                                $varDataSend[$i]['combinedBudget_RefID'] = (int) $varDataSend[$i]['combinedBudget_RefID'];
+                                $varDataSend[$i]['combinedBudgetSection_RefID'] = (int) $varDataSend[$i]['combinedBudgetSection_RefID'];
+                                }
+                            catch (\Exception $ex) {
+                                }
+                            }
 
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
