@@ -80,7 +80,7 @@
                                 Exchange Rate
                             </dt>
                             <dd class="col">
-                                -
+                                <?= $idrRate; ?>
                             </dd>
                         </div>
 
@@ -708,10 +708,7 @@
                                     <th>PRODUCT ID</th>
                                     <th>PRODUCT NAME</th>
                                     <th>QTY BUDGET</th>
-                                    <th>QTY AVAIL</th>
-                                    <th>PRICE</th>
-                                    <th>CURRENCY</th>
-                                    <th>BALANCE BUDGET</th>
+                                    <th>PRICE BUDGET</th>
                                     <th>TOTAL BUDGET</th>
                                     <th>QTY ADDITIONAL</th>
                                     <th>PRICE ADDITIONAL</th>
@@ -727,10 +724,7 @@
                                         <td><?= $data['productID']; ?></td>
                                         <td style="line-height: 15px;"><?= $data['productName']; ?></td>
                                         <td class="text-right"><?= $data['qtyBudget']; ?></td>
-                                        <td class="text-right"><?= $data['qtyAvail']; ?></td>
                                         <td class="text-right"><?= $data['price']; ?></td>
-                                        <td><?= $data['currency']; ?></td>
-                                        <td class="text-right"><?= $data['balanceBudget']; ?></td>
                                         <td class="text-right"><?= $data['totalBudget']; ?></td>
                                         <td class="text-right"><?= $data['qtyAdditionals']; ?></td>
                                         <td class="text-right"><?= $data['priceAdditionals']; ?></td>
@@ -743,7 +737,7 @@
 
                                 <!-- FOOTER -->
                                 <tr>
-                                    <td colspan="10" class="font-weight-bold" style="font-size: 12px;">
+                                    <td colspan="7" class="font-weight-bold" style="font-size: 12px;">
                                         Total
                                     </td>
                                     <td class="text-right">

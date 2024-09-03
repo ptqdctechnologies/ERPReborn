@@ -88,10 +88,10 @@ class BudgetController extends Controller
             $productIds         = $request->input('product_id');
             $productName        = $request->input('product_name');
             $qtyBudget          = $request->input('qty_budget');
-            $qtyAvail           = $request->input('qty_avail');
+            // $qtyAvail           = $request->input('qty_avail');
             $price              = $request->input('price');
-            $currency           = $request->input('currency');
-            $balanceBudget      = $request->input('balance_budget');
+            // $currency           = $request->input('currency');
+            // $balanceBudget      = $request->input('balance_budget');
             $totalBudget        = $request->input('total_budget');
             $qtyAdditionals     = $request->input('qty_additional');
             $priceAdditionals   = $request->input('price_additional');
@@ -99,6 +99,8 @@ class BudgetController extends Controller
             $qtySavings         = $request->input('qty_saving');
             $priceSavings       = $request->input('price_saving');
             $totalSavings       = $request->input('total_saving');
+
+            // dd($idrRate);
 
             $i = 0;
             $dataModifyBudget = [];
@@ -112,10 +114,10 @@ class BudgetController extends Controller
                 $dataModifyBudget[$i]['productID']          = $productIds[$index];
                 $dataModifyBudget[$i]['productName']        = $productName[$index];
                 $dataModifyBudget[$i]['qtyBudget']          = number_format($qtyBudget[$index], 2);
-                $dataModifyBudget[$i]['qtyAvail']           = number_format($qtyAvail[$index], 2);
+                // $dataModifyBudget[$i]['qtyAvail']           = number_format($qtyAvail[$index], 2);
                 $dataModifyBudget[$i]['price']              = number_format($price[$index], 2);
-                $dataModifyBudget[$i]['currency']           = $currency[$index];
-                $dataModifyBudget[$i]['balanceBudget']      = number_format($balanceBudget[$index], 2);
+                // $dataModifyBudget[$i]['currency']           = $currency[$index];
+                // $dataModifyBudget[$i]['balanceBudget']      = number_format($balanceBudget[$index], 2);
                 $dataModifyBudget[$i]['totalBudget']        = number_format($totalBudget[$index], 2);
                 $dataModifyBudget[$i]['qtyAdditionals']     = number_format($qtyAdditionals[$index], 2);
                 $dataModifyBudget[$i]['priceAdditionals']   = number_format($priceAdditionals[$index], 2);
@@ -139,7 +141,7 @@ class BudgetController extends Controller
                 'currencyID'        => $currencyID,
                 'currencySymbol'    => $currencySymbol,
                 'currencyName'      => $currencyName,
-                'idrRate'           => $idrRate,
+                'idrRate'           => number_format($idrRate, 2),
                 'valueAdditionalCO' => $valueAdditionalCO,
                 'valueDeductiveCO'  => $valueDeductiveCO,
                 'files'             => $files,

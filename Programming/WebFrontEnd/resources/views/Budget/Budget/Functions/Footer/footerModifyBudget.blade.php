@@ -277,10 +277,10 @@
             let productId = row.querySelector('td:nth-child(1)').textContent.trim();
             let productName = row.querySelector('td:nth-child(2)').textContent.trim();
             let qtyBudget = row.querySelector('td:nth-child(3)').textContent.trim();
-            let qtyAvail = row.querySelector('td:nth-child(4)').textContent.trim();
+            // let qtyAvail = row.querySelector('td:nth-child(4)').textContent.trim();
             let prices = row.querySelector('td:nth-child(5)').textContent.trim();
-            let currencys = row.querySelector('td:nth-child(6)').textContent.trim();
-            let balanceBudget = row.querySelector('td:nth-child(7)').textContent.trim();
+            // let currencys = row.querySelector('td:nth-child(6)').textContent.trim();
+            // let balanceBudget = row.querySelector('td:nth-child(7)').textContent.trim();
             let totalBudget = row.querySelector('td:nth-child(8)').textContent.trim();
 
             if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
@@ -300,19 +300,23 @@
                 } else {
                     let clonedRow = row.cloneNode(true);
 
-                    clonedRow.querySelectorAll('td').forEach(function(td) {
-                        let input = td.querySelector('input');
-                        if (input) {
-                            td.textContent = input.value;
+                    clonedRow.querySelectorAll('td').forEach(function(td, ind) {
+                        if (ind === 3 || ind === 5 || ind === 6) {
+                            td.remove();
+                        } else {
+                            let input = td.querySelector('input');
+                            if (input) {
+                                td.textContent = input.value;
+                            }
+                            td.className = 'container-tbody-tr-budget';
                         }
-                        td.className = 'container-tbody-tr-budget';
                     });
 
                     let form = document.getElementById('modifyBudgetForm');
 
-                    let hiddenInputIds = ['product_id', 'product_name', 'qty_budget', 'qty_avail', 'price', 'currency', 'balance_budget', 'total_budget', 'qty_additional', 'price_additional', 'total_additional', 'qty_saving', 'price_saving', 'total_saving'];
-                    let inputValues = [productId, productName, qtyBudget, qtyAvail, prices, currencys, balanceBudget, totalBudget, qtyAdditional, priceAdditional, totalAdditional, qtySaving, priceSaving, totalSaving];
-                    
+                    let hiddenInputIds = ['product_id', 'product_name', 'qty_budget', 'price', 'total_budget', 'qty_additional', 'price_additional', 'total_additional', 'qty_saving', 'price_saving', 'total_saving'];
+                    let inputValues = [productId, productName, qtyBudget, prices, totalBudget, qtyAdditional, priceAdditional, totalAdditional, qtySaving, priceSaving, totalSaving];
+
                     hiddenInputIds.forEach((inputId, index) => {
                         let hiddenInput = document.createElement('input');
                         hiddenInput.type = 'hidden';
@@ -651,11 +655,10 @@
         $("#currency_id").val("");
         $("#currency_name").val("");
         $("#currency_symbol").val("");
+        $("#value_idr_rate").val("");
 
         $("#reason_modify").val("");
-        $("#currency_id").val("");
-        $("#currency_name").val("");
-        $("#currency_symbol").val("");
+        $("#value_co_deductive").val("");
         $("#value_co_additional").val("");
         $("#attachment_file").val("");
 

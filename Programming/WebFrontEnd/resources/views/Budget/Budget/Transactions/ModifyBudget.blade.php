@@ -128,7 +128,7 @@
                                                     <label for="value_idr_rate" class="col-4 col-form-label p-0">Exchange Rate</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
-                                                            <input id="value_idr_rate" style="border-radius:0;" class="form-control number-only" name="value_idr_rate" autocomplete="off" disabled>
+                                                            <input id="value_idr_rate" style="border-radius:0;" class="form-control" name="value_idr_rate" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -283,7 +283,52 @@
                                                 <th class="sticky-col first-col-modify-budget container-thead-tr-fixed-budget">Total</th>
                                             </tr>
                                         </thead>
-                                        <tbody></tbody>
+                                        <tbody>
+                                            <tr>
+                                                <td class="container-tbody-tr-budget">
+                                                    1
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    PLN - Biaya Penyambungan
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    1
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    1
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    38878545
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    1
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    1
+                                                </td>
+                                                <td class="container-tbody-tr-budget">
+                                                    500000
+                                                </td>
+                                                <td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">
+                                                </td>
+                                                <td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">
+                                                </td>
+                                                <td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>
+                                                </td>
+                                                <td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">
+                                                </td>
+                                                <td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">
+                                                </td>
+                                                <td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">
+                                                    <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>
+                                                </td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
 
