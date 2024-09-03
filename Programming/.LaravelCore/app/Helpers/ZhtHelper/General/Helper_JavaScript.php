@@ -267,304 +267,75 @@ namespace App\Helpers\ZhtHelper\General
             
             $varReturn .=
                 '<script type="text/JavaScript">'.
-
-                //-----[ MAIN FUNCTION ]----(START)----
-                /*
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Method Name     : _Main                                                                                                |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Description     : Prosedur utama                                                                                       |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                */
-                'function '.$varJSFunctionName.'_Main(varID) {'.
-                    'if (document.readyState == \'complete\') {'.
-                        'try {'.
-                            'if ('.self::getSyntaxFunc_IsJSFileLoaded($varUserSession, 'api-request.js').' == false) {'.
-                                'throw new Error(\'File \' + String.fromCharCode(34) + \'api-request.js\' + String.fromCharCode(34) + \' not loaded\'); '.
-                                '} '.
-                            'else {'.
-                                'let varSignEligible = '.$varJSFunctionName.'_CheckIDExistantion(varID); '.
-                                'if (varSignEligible == true ) {'.
-                                    //---> Pengesetan Object ZhtObject_SignEligibleToProcess
-                                    'if (document.getElementById(\'ZhtObject_SignEligibleToProcess\') == null) {'.
-                                        'varNewElement = document.createElement(\'input\'); '.
-                                        'varNewElement.setAttribute(\'type\', \'text\'); '.
-                                        'varNewElement.setAttribute(\'id\', \'ZhtObject_SignEligibleToProcess\'); '.
-                                        'varNewElement.setAttribute(\'name\', \'ZhtObject_SignEligibleToProcess\'); '.
-                                        'varNewElement.setAttribute(\'value\', true); '.
-                                        'document.body.appendChild(varNewElement); '.
-                                        '} '.
-                                    
-                                    'setTimeout(function() {'.
-                                        $varJSFunctionName.'_InitDataRecord(varID); '.
-                                        '}, 1);'.
-                                    '}'.
+                    /*
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    | ▪ Method Name     : _Main                                                                                                |
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    | ▪ Description     : Prosedur utama                                                                                       |
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    */
+                    'function '.$varJSFunctionName.'_Main(varID) {'.
+                        'if (document.readyState == \'complete\') {'.
+                            'try {'.
+                                'if ('.self::getSyntaxFunc_IsJSFileLoaded($varUserSession, 'api-request.js').' == false) {'.
+                                    'throw new Error(\'File \' + String.fromCharCode(34) + \'api-request.js\' + String.fromCharCode(34) + \' not loaded\'); '.
+                                    '} '.
                                 'else {'.
-                                    'alert(\'Record with ID \' + varID + \' is not eligible to process.\' + String.fromCharCode(13) + \'ID will set to null\'); '.
-                                    'document.getElementById(\''.$varObjectID.'\').value = \'\'; '.
-                                    'setTimeout(function() {'.
-                                        $varJSFunctionName.'_InitDataRecord(varID); '.
-                                        '}, 1);'.
-                                    '}'.
-                                '} '.
-                            '} '.
-                        'catch (varError) {'.
-                            'alert (varError); '.
-                            '} '.
-                        '}'.
-                    'else {'.
-                        'setTimeout(function() {'.
-                            $varJSFunctionName.'_Main(varID); '.
-                            '}, 1);'.
-                        '}'.
-                    '}; '.
+                                    'let varSignEligible = '.$varJSFunctionName.'_CheckIDExistantion(varID); '.
+                                    'if (varSignEligible == true ) {'.
+                                        //---> Pengesetan Object ZhtObject_SignEligibleToProcess
+                                        'if (document.getElementById(\'ZhtObject_SignEligibleToProcess\') == null) {'.
+                                            'varNewElement = document.createElement(\'input\'); '.
+                                            'varNewElement.setAttribute(\'type\', \'text\'); '.
+                                            'varNewElement.setAttribute(\'id\', \'ZhtObject_SignEligibleToProcess\'); '.
+                                            'varNewElement.setAttribute(\'name\', \'ZhtObject_SignEligibleToProcess\'); '.
+                                            'varNewElement.setAttribute(\'value\', true); '.
+                                            'document.body.appendChild(varNewElement); '.
+                                            '} '.
 
-                'setTimeout(function() {'.
-                    $varJSFunctionName.'_Main(document.getElementById(\''.$varObjectID.'\').value); '.
-                    '}, 1);'.
-
-                /*
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Method Name     : _CheckIDExistantion                                                                                  |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Description     : • Mengecek apakah ID Log File Upload Pointer (varID) merupakan Record yang valid                     |
-                |                     • Apabila varID tidak valid, maka akan diset menjadi null                                            |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                */
-                'function '.$varJSFunctionName.'_CheckIDExistantion(varID) {'.
-                    'let varReturn = false; '.
-                    'if (varID) {'.
-                        'if ((Number.isInteger(parseInt(varID))) === true) {'.
-                            'try {'.
-                                'varID = parseInt(varID); '.
-                                'varJSON = ('.
-                                    'JSON.parse('.
-                                        str_replace(
-                                            '"', 
-                                            '\'', 
-                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                $varUserSession, 
-                                                $varAPIWebToken, 
-                                                'dataWarehouse.dataCheck.recordIDExistantion.acquisition.getFileUpload_Pointer', 
-                                                'latest',
-                                                '{'.
-                                                    '"parameter" : {'.
-                                                        '"recordID" : varID'.
-                                                        '}'.
-                                                '}'
-                                                )
-                                            ).
-                                        ').data.data[0].signExist'.
-                                    '); '.
-                                '}'.
-                            'catch (varError) {'.
-                                '}'.
-                            'finally {'.
-                                'varReturn = varJSON; '.
-                                '}'.
-                            '}'.
-                        '}'.
-                    'else {'.
-                        'varReturn = true; '.
-                        '}'.
-                    
-                    'return varReturn; '.
-                    '}'.
-
-
-                /*
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Method Name     : _InitDataRecord                                                                                      |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Description     : • Mencari list file tersimpan berdasarkan ID Log File Upload Pointer (varID) dan menyimpannya        |
-                |                       kedalam Data Record DOM                                                                            |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                */
-                'function '.$varJSFunctionName.'_InitDataRecord(varID) {'.
-                    'if (document.readyState == \'complete\') {'.
-                        'if ((Number.isInteger(parseInt(varID))) === true) {'.
-                            'varID = parseInt(varID); '.
-                            'try {'.
-                                'varJSON = ('.
-                                    'JSON.parse('.
-                                        str_replace(
-                                            '"', 
-                                            '\'', 
-                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                $varUserSession, 
-                                                $varAPIWebToken, 
-                                                'fileHandling.archive.general.getFileList', 
-                                                'latest',
-                                                '{'.
-                                                    '"parameter" : {'.
-                                                        '"log_FileUpload_Pointer_RefID" : varID'.
-                                                        '}'.
-                                                '}'
-                                                )
-                                            ).
-                                        ').data'.
-                                    '); '.
-
-                                'let varJSONReturn = \'\'; '.
-                                'for (let i=0, iMax = varJSON.length; i != iMax; i++) {'.
-                                    'if (varJSONReturn != \'\') {'.
-                                        'varJSONReturn = varJSONReturn + \', \'; '.
+                                        'setTimeout(function() {'.
+                                            $varJSFunctionName.'_InitDataRecord(varID); '.
+                                            '}, 1);'.
                                         '}'.
-                                    'varJSONReturn = varJSONReturn + \'{\' + '.
-                                        'String.fromCharCode(34) + \'recordID\' + String.fromCharCode(34) + \' : \' + varJSON[i].log_FileUpload_ObjectDetail_RefID + \', \' + '. 
-                                        'String.fromCharCode(34) + \'entities\' + String.fromCharCode(34) + \' : {\' + '. 
-                                            'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (i+1) + \', \' + '.
-                                            'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + varJSON[i].name + String.fromCharCode(34) + \', \' + '.
-                                            'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + varJSON[i].size + \', \' + '.
-                                            'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + varJSON[i].MIME + String.fromCharCode(34) + \', \' + '.
-                                            'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + varJSON[i].extension + String.fromCharCode(34) + \', \' + '.
-                                            'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + varJSON[i].lastModifiedDateTimeTZ + String.fromCharCode(34) + \', \' + '.
-                                            'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + varJSON[i].lastModifiedUnixTimestamp + \', \' + '.
-                                            'String.fromCharCode(34) + \'hashMethod_RefID\' + String.fromCharCode(34) + \' : \' + varJSON[i].hashMethod_RefID + \', \' + '.
-                                            'String.fromCharCode(34) + \'contentBase64Hash\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + varJSON[i].contentBase64Hash + String.fromCharCode(34) + \', \' + '.
-                                            'String.fromCharCode(34) + \'dataCompression_RefID\' + String.fromCharCode(34) + \' : \' + (varJSON[i].dataCompression_RefID == 0 ? \'null\' : varJSON[i].dataCompression_RefID) + \', \' + '.
-                                            'String.fromCharCode(34) + \'signNewFile\' + String.fromCharCode(34) + \' : \' + false + \', \' + '.
-                                            'String.fromCharCode(34) + \'filePath\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + \'/\' + varJSON[i].log_FileUpload_Object_RefID + \'/\' + varJSON[i].log_FileUpload_ObjectDetail_RefID + String.fromCharCode(34) + \', \' + '.
-                                            'String.fromCharCode(34) + \'uploadDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + varJSON[i].uploadDateTimeTZ + String.fromCharCode(34) + \', \' + '.
-                                            'String.fromCharCode(34) + \'newEntrySequence\' + String.fromCharCode(34) + \' : \' + \'null\' + '.
-                                            '\'}\' + '.
-                                        '\'}\';'.
-                                    '}'.
-                                'varJSONReturn = \'[\' + varJSONReturn + \']\'; '.
-                                'document.getElementById(\''.$varDOMID_DataRecord.'\').value = JSON.stringify(JSON.parse(varJSONReturn)); '.
-                                ''.$varJSFunctionName.'_ShowFileList(); '.
+                                    'else {'.
+                                        'alert(\'Record with ID \' + varID + \' is not eligible to process.\' + String.fromCharCode(13) + \'ID will set to null\'); '.
+                                        'document.getElementById(\''.$varObjectID.'\').value = \'\'; '.
+                                        'setTimeout(function() {'.
+                                            $varJSFunctionName.'_InitDataRecord(varID); '.
+                                            '}, 1);'.
+                                        '}'.
+                                    '} '.
                                 '} '.
                             'catch (varError) {'.
-                                'varReturn = null; '.
-                                'alert(\'Files Append Process Failed\'); '.
+                                'alert (varError); '.
                                 '} '.
                             '}'.
                         'else {'.
-                            ''.$varJSFunctionName.'_ShowFileList(); '.
+                            'setTimeout(function() {'.
+                                $varJSFunctionName.'_Main(varID); '.
+                                '}, 1);'.
                             '}'.
-                        '}'.
-                    'else {'.
-                        'setTimeout(function() {'.
-                            $varJSFunctionName.'_InitDataRecord(document.getElementById(\''.$varObjectID.'\').value); '.
-                            '}, 1);'.
-                        '}'.
-                    '}'.
-                    
-                /*
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Method Name     : _AddFiles                                                                                            |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Description     : • Penambahan file-file baru kedalam database, file storage, dan Data Record DOM                      |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                */
-                'function '.$varJSFunctionName.'_AddFiles(varObjFiles) {'.
+                        '}; '.
+
+                    'setTimeout(function() {'.
+                        $varJSFunctionName.'_Main(document.getElementById(\''.$varObjectID.'\').value); '.
+                        '}, 1);'.
+
                     /*
-                    +--------------------------------------------------------------------------------------------------------------+
-                    | ▪ Method Name     : Sub Function _CheckSignEligibleToProcess                                                 |
-                    +--------------------------------------------------------------------------------------------------------------+
-                    | ▪ Description     : • Mengecek apakah ZhtObject_SignEligibleToProcess sudah terbentuk atau belum             |
-                    +--------------------------------------------------------------------------------------------------------------+
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    | ▪ Method Name     : _CheckIDExistantion                                                                                  |
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    | ▪ Description     : • Mengecek apakah ID Log File Upload Pointer (varID) merupakan Record yang valid                     |
+                    |                     • Apabila varID tidak valid, maka akan diset menjadi null                                            |
+                    +--------------------------------------------------------------------------------------------------------------------------+
                     */
-                    'function '.$varJSFunctionName.'_CheckSignEligibleToProcess() {'.
+                    'function '.$varJSFunctionName.'_CheckIDExistantion(varID) {'.
                         'let varReturn = false; '.
-                        'if (document.getElementById(\'ZhtObject_SignEligibleToProcess\') != null) {'.
-                            'varReturn = true; '.
-                            '}'.
-                        'return varReturn; '.
-                        '} '.
-
-                    'if ('.$varJSFunctionName.'_CheckSignEligibleToProcess() == true) {'.
-                        //---> Proses jika ada file yang diset
-                        'if (varObjFiles.length > 0) {'.
-                            'var varAccumulatedFiles = 0;'.
-                            'var varFileJSONArray = []; '.
-                            'for (let i = 0; i < varObjFiles.length; i++) {'.
-                                $varJSFunctionName.'_ReadFileFromBrowser(i, varObjFiles[i]); '.
-                                '} '.
-                    
-                            /*
-                            +--------------------------------------------------------------------------------------------------------------+
-                            | ▪ Method Name     : Sub Function _ReadFileFromBrowser                                                        |
-                            +--------------------------------------------------------------------------------------------------------------+
-                            | ▪ Description     : • Membaca file-file dari browser                                                         |
-                            +--------------------------------------------------------------------------------------------------------------+
-                            */
-                            'function '.$varJSFunctionName.'_ReadFileFromBrowser(varIndex, varObjFile) {'.
-                                'var varObjFileReader = new FileReader();'.
-                                'varObjFileReader.onloadend = (function(event) {'.
-                                    'var varArrayBuffer = this.result; '.
-                                    'varFileJSONArray[varIndex] = '.
-                                        '\'{\' + '.
-                                        //'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (varIndex+1) + \', \' + '.
-                                        'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjFile.name) + String.fromCharCode(34) + \', \' + '.
-                                        'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjFile.size) + \', \' + '.
-                                        'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
-                                        'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
-                                        'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
-                                        'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjFile.lastModified) + \', \' + '.
-                                        'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
-                                        '\'}\'; '.
-                                    'varAccumulatedFiles++; '.
-
-                                    //---> Proses bila seluruh file sudah terbaca saat upload
-                                    'if (varAccumulatedFiles == varObjFiles.length) {'.
-                                        ''.$varJSFunctionName.'_AfterReadProcessing(); '.
-                                        '} '.
-                                    '}); '.
-                                'varObjFileReader.readAsDataURL(varObjFile); '.
-                                '} '.
-
-                            /*
-                            +--------------------------------------------------------------------------------------------------------------+
-                            | ▪ Method Name     : Sub Function _AfterReadProcessing                                                        |
-                            +--------------------------------------------------------------------------------------------------------------+
-                            | ▪ Description     : • Proses apabila seluruh file sudah terupload pada browser                               |
-                            +--------------------------------------------------------------------------------------------------------------+
-                            */
-                            'function '.$varJSFunctionName.'_AfterReadProcessing() {'.
-                                //---> Get New Data
-                                'let varJSONData = \'\'; '.
-                                'for (let i = 0; i < varFileJSONArray.length; i++) {'.
-                                    'if (varJSONData != \'\') {'.
-                                        'varJSONData = varJSONData + \', \'; '.
-                                        '} '.
-                                    'varJSONData = varJSONData + '.
-                                        '\'{\' + '.
-                                        'String.fromCharCode(34) + \'entities\' + String.fromCharCode(34) + \' : \' + '.
-                                        'varFileJSONArray[i] + '.
-                                        '\'}\''.
-                                        '; '.
-                                    //'alert(varJSONData); '.
-                                    '} '.
-                                'varJSONData = \'[\' + varJSONData + \']\'; '.
-                                'varJSONData = JSON.parse(varJSONData); '.
-                                //'alert(varJSONData); '.
-
-                                'varJSONData = '.$varJSFunctionName.'_SetFilesAppend(document.getElementById(\''.$varObjectID.'\').value, varJSONData); '.
-                                
+                        'if (varID) {'.
+                            'if ((Number.isInteger(parseInt(varID))) === true) {'.
                                 'try {'.
-                                    'document.getElementById(\''.$varObjectID.'\').value = varJSONData.log_FileUpload_Pointer_RefID; '.
-                                    'document.getElementById(\''.$varDOMID_DataRecord.'\').value = JSON.stringify(varJSONData.JSONData); '.
-
-                                    'document.getElementById(\''.$varDOMID_File.'\').value = \'\'; '.
-                                    '}'.
-                                'catch (varError) {'.
-                                    '}'.
-                                'finally {'.
-                                    ''.$varJSFunctionName.'_ShowFileList(); '.
-                                    '}'.
-                                '}; '.
-
-                            /*
-                            +--------------------------------------------------------------------------------------------------------------+
-                            | ▪ Method Name     : Sub Function _SetFilesAppend                                                             |
-                            +--------------------------------------------------------------------------------------------------------------+
-                            | ▪ Description     : • Mengeset Append File                                                                   |
-                            +--------------------------------------------------------------------------------------------------------------+
-                            */
-                            'function '.$varJSFunctionName.'_SetFilesAppend(varLocLogFileUploadPointerRefID, varLocJSONData) {'.
-                                'try {'.
-                                    'varReturn = ('.
+                                    'varID = parseInt(varID); '.
+                                    'varJSON = ('.
                                         'JSON.parse('.
                                             str_replace(
                                                 '"', 
@@ -572,49 +343,47 @@ namespace App\Helpers\ZhtHelper\General
                                                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                     $varUserSession, 
                                                     $varAPIWebToken, 
-                                                    'fileHandling.upload.general.setFilesAppend', 
+                                                    'dataWarehouse.dataCheck.recordIDExistantion.acquisition.getFileUpload_Pointer', 
                                                     'latest',
                                                     '{'.
                                                         '"parameter" : {'.
-                                                            '"log_FileUpload_Pointer_RefID" : (!varLocLogFileUploadPointerRefID ? null : parseInt(varLocLogFileUploadPointerRefID)), '.
-                                                            '"additionalData" : {'.
-                                                                '"itemList" : {'.
-                                                                    '"items" : varLocJSONData'.
-                                                                    '} '.
-                                                                '} '.
-                                                            '}, '.
-                                                        '"SQLStatement" : {'.
-                                                            '"pick" : null, '.
-                                                            '"sort" : null, '.
-                                                            '"filter" : null, '.
-                                                            '"paging" : null'.
+                                                            '"recordID" : varID'.
                                                             '}'.
                                                     '}'
                                                     )
                                                 ).
-                                            ').data.data[0]'.
+                                            ').data.data[0].signExist'.
                                         '); '.
-                                    '} '.
-                                'catch (varError) {'.
-                                    'varReturn = null; '.
-                                    'alert(\'Files Append Process Failed\'); '.
-                                    '} '.
-                                'finally {'.
-                                    'return varReturn; '.
                                     '}'.
-                                '}; '.
+                                'catch (varError) {'.
+                                    '}'.
+                                'finally {'.
+                                    'varReturn = varJSON; '.
+                                    '}'.
+                                '}'.
+                            '}'.
+                        'else {'.
+                            'varReturn = true; '.
+                            '}'.
+
+                        'return varReturn; '.
+                        '}'.
 
 
-                            /*
-                            +--------------------------------------------------------------------------------------------------------------+
-                            | ▪ Method Name     : Sub Function _GetDataList_FileUploadObjectDetail                                         |
-                            +--------------------------------------------------------------------------------------------------------------+
-                            | ▪ Description     : • Mendapatkan List File Upload Object Detail                                             |
-                            +--------------------------------------------------------------------------------------------------------------+
-                            */
-                            'function '.$varJSFunctionName.'_GetDataList_FileUploadObjectDetail(varFileUploadObjectPointerID) {'.
+                    /*
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    | ▪ Method Name     : _InitDataRecord                                                                                      |
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    | ▪ Description     : • Mencari list file tersimpan berdasarkan ID Log File Upload Pointer (varID) dan menyimpannya        |
+                    |                       kedalam Data Record DOM                                                                            |
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    */
+                    'function '.$varJSFunctionName.'_InitDataRecord(varID) {'.
+                        'if (document.readyState == \'complete\') {'.
+                            'if ((Number.isInteger(parseInt(varID))) === true) {'.
+                                'varID = parseInt(varID); '.
                                 'try {'.
-                                    'varReturn = ('.
+                                    'varJSON = ('.
                                         'JSON.parse('.
                                             str_replace(
                                                 '"', 
@@ -622,464 +391,695 @@ namespace App\Helpers\ZhtHelper\General
                                                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                     $varUserSession, 
                                                     $varAPIWebToken, 
-                                                    'dataWarehouse.read.dataList.acquisition.getFileUpload_ObjectDetail', 
+                                                    'fileHandling.archive.general.getFileList', 
                                                     'latest',
                                                     '{'.
                                                         '"parameter" : {'.
-                                                            '"log_FileUpload_Pointer_RefID" : parseInt(varFileUploadObjectPointerID) '.
-                                                            '}, '.
-                                                        '"SQLStatement" : {'.
-                                                            '"pick" : null, '.
-                                                            '"sort" : null, '.
-                                                            '"filter" : null, '.
-                                                            '"paging" : null'.
+                                                            '"log_FileUpload_Pointer_RefID" : varID'.
                                                             '}'.
                                                     '}'
                                                     )
                                                 ).
                                             ').data'.
                                         '); '.
+
+                                    'let varJSONReturn = \'\'; '.
+                                    'for (let i=0, iMax = varJSON.length; i != iMax; i++) {'.
+                                        'if (varJSONReturn != \'\') {'.
+                                            'varJSONReturn = varJSONReturn + \', \'; '.
+                                            '}'.
+                                        'varJSONReturn = varJSONReturn + \'{\' + '.
+                                            'String.fromCharCode(34) + \'recordID\' + String.fromCharCode(34) + \' : \' + varJSON[i].log_FileUpload_ObjectDetail_RefID + \', \' + '. 
+                                            'String.fromCharCode(34) + \'entities\' + String.fromCharCode(34) + \' : {\' + '. 
+                                                'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (i+1) + \', \' + '.
+                                                'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + varJSON[i].name + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + varJSON[i].size + \', \' + '.
+                                                'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + varJSON[i].MIME + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + varJSON[i].extension + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + varJSON[i].lastModifiedDateTimeTZ + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + varJSON[i].lastModifiedUnixTimestamp + \', \' + '.
+                                                'String.fromCharCode(34) + \'hashMethod_RefID\' + String.fromCharCode(34) + \' : \' + varJSON[i].hashMethod_RefID + \', \' + '.
+                                                'String.fromCharCode(34) + \'contentBase64Hash\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + varJSON[i].contentBase64Hash + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'dataCompression_RefID\' + String.fromCharCode(34) + \' : \' + (varJSON[i].dataCompression_RefID == 0 ? \'null\' : varJSON[i].dataCompression_RefID) + \', \' + '.
+                                                'String.fromCharCode(34) + \'signNewFile\' + String.fromCharCode(34) + \' : \' + false + \', \' + '.
+                                                'String.fromCharCode(34) + \'filePath\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + \'/\' + varJSON[i].log_FileUpload_Object_RefID + \'/\' + varJSON[i].log_FileUpload_ObjectDetail_RefID + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'uploadDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + varJSON[i].uploadDateTimeTZ + String.fromCharCode(34) + \', \' + '.
+                                                'String.fromCharCode(34) + \'newEntrySequence\' + String.fromCharCode(34) + \' : \' + \'null\' + '.
+                                                '\'}\' + '.
+                                            '\'}\';'.
+                                        '}'.
+                                    'varJSONReturn = \'[\' + varJSONReturn + \']\'; '.
+                                    'document.getElementById(\''.$varDOMID_DataRecord.'\').value = JSON.stringify(JSON.parse(varJSONReturn)); '.
+                                    ''.$varJSFunctionName.'_ShowFileList(); '.
                                     '} '.
                                 'catch (varError) {'.
                                     'varReturn = null; '.
-                                    'alert(\'File Upload Object Detail List cann\\\'t be retrieved\'); '.
+                                    'alert(\'Files Append Process Failed\'); '.
                                     '} '.
-                                'finally {'.
-                                    'return varReturn; '.
-                                    '}'.
-                                '}; '.
-
-
-                            /*
-                            +--------------------------------------------------------------------------------------------------------------+
-                            | ▪ Method Name     : Sub Function _GetLogFileUploadPointerID                                                  |
-                            +--------------------------------------------------------------------------------------------------------------+
-                            | ▪ Description     : • Get Log File Upload Pointer ID                                                         |
-                            +--------------------------------------------------------------------------------------------------------------+
-                            */
-                            'function '.$varJSFunctionName.'_GetLogFileUploadPointerID() {'.
-                                'try {'.
-                                    'varReturn = ('.
-                                        'JSON.parse('.
-                                            str_replace(
-                                                '"', 
-                                                '\'', 
-                                                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                    $varUserSession, 
-                                                    $varAPIWebToken, 
-                                                    'dataWarehouse.create.acquisition.setLog_FileUpload_Pointer', 
-                                                    'latest',
-                                                    '{'.
-                                                        '"parameter" : {'.
-                                                            '}'.
-                                                    '}'
-                                                    )
-                                                ).
-                                            ').data.recordID'.
-                                        '); '.
-                                    '} '.
-                                'catch (varError) {'.
-                                    'varReturn = null; '.
-                                    'alert(\'Log File Upload Pointer ID cann\\\'t be initilized\'); '.
-                                    '} '.
-                                'finally {'.
-                                    //'alert(varReturn); '.
-                                    'return varReturn; '.
-                                    '}' .
+                                '}'.
+                            'else {'.
+                                ''.$varJSFunctionName.'_ShowFileList(); '.
                                 '}'.
                             '}'.
-                        '} '.
-                    'else {'.
-                        'alert(\'ZhtObject was not initialized correctly\'); '.
-                        '} '.
-                    '}; '.
-
-
-                /*
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Method Name     : _DownloadFile                                                                                        |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Description     : • Mendownload File                                                                                   |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                */
-                'function '.$varJSFunctionName.'_DownloadFile(varFilePath, varMIME, varFileName) {'.
-                    'varFilePath = \''.$varBasePath.'\' + varFilePath; '.
-
-                    'try {'.
-                        'varBase64Data = ('.
-                            'JSON.parse('.                           
-                                str_replace(
-                                    '"', 
-                                    '\'', 
-                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                        $varUserSession, 
-                                        $varAPIWebToken, 
-                                        'fileHandling.archive.general.getFileContent', 
-                                        'latest', 
-                                        '{'.
-                                            '"parameter" : {'.
-                                                '"filePath" : varFilePath'.
-                                                '}'.
-                                        '}'
-                                        )
-                                    ).
-                                ').data.contentBase64'.
-                            '); '.
+                        'else {'.
+                            'setTimeout(function() {'.
+                                $varJSFunctionName.'_InitDataRecord(document.getElementById(\''.$varObjectID.'\').value); '.
+                                '}, 1);'.
+                            '}'.
+                        '}'.
                     
-                        'let varObjDownloadLink = document.createElement(\'a\'); '.
-                        'varObjDownloadLink.href = \'data:\' + varMIME + \';base64,\' + varBase64Data; '.
-                        'varObjDownloadLink.download = varFileName; '.
-                        'varObjDownloadLink.click(); '.
-                        //'varObjDownloadLink.parentNode.removeChild(varObjDownloadLink); '.
-                        '}'.
-                    'catch(varError) {'.
-                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                        '}'.
-                    '}'.
+                    /*
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    | ▪ Method Name     : _AddFiles                                                                                            |
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    | ▪ Description     : • Penambahan file-file baru kedalam database, file storage, dan Data Record DOM                      |
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    */
+                    'function '.$varJSFunctionName.'_AddFiles(varObjFiles) {'.
+                        /*
+                        +--------------------------------------------------------------------------------------------------------------+
+                        | ▪ Method Name     : Sub Function _CheckSignEligibleToProcess                                                 |
+                        +--------------------------------------------------------------------------------------------------------------+
+                        | ▪ Description     : • Mengecek apakah ZhtObject_SignEligibleToProcess sudah terbentuk atau belum             |
+                        +--------------------------------------------------------------------------------------------------------------+
+                        */
+                        'function '.$varJSFunctionName.'_CheckSignEligibleToProcess() {'.
+                            'let varReturn = false; '.
+                            'if (document.getElementById(\'ZhtObject_SignEligibleToProcess\') != null) {'.
+                                'varReturn = true; '.
+                                '}'.
+                            'return varReturn; '.
+                            '} '.
+
+                        'if ('.$varJSFunctionName.'_CheckSignEligibleToProcess() == true) {'.
+                            //---> Proses jika ada file yang diset
+                            'if (varObjFiles.length > 0) {'.
+                                'var varAccumulatedFiles = 0;'.
+                                'var varFileJSONArray = []; '.
+                                'for (let i = 0; i < varObjFiles.length; i++) {'.
+                                    $varJSFunctionName.'_ReadFileFromBrowser(i, varObjFiles[i]); '.
+                                    '} '.
+
+                                /*
+                                +--------------------------------------------------------------------------------------------------------------+
+                                | ▪ Method Name     : Sub Function _ReadFileFromBrowser                                                        |
+                                +--------------------------------------------------------------------------------------------------------------+
+                                | ▪ Description     : • Membaca file-file dari browser                                                         |
+                                +--------------------------------------------------------------------------------------------------------------+
+                                */
+                                'function '.$varJSFunctionName.'_ReadFileFromBrowser(varIndex, varObjFile) {'.
+                                    'var varObjFileReader = new FileReader();'.
+                                    'varObjFileReader.onloadend = (function(event) {'.
+                                        'var varArrayBuffer = this.result; '.
+                                        'varFileJSONArray[varIndex] = '.
+                                            '\'{\' + '.
+                                            //'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (varIndex+1) + \', \' + '.
+                                            'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjFile.name) + String.fromCharCode(34) + \', \' + '.
+                                            'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjFile.size) + \', \' + '.
+                                            'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
+                                            'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
+                                            'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
+                                            'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjFile.lastModified) + \', \' + '.
+                                            'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
+                                            '\'}\'; '.
+                                        'varAccumulatedFiles++; '.
+
+                                        //---> Proses bila seluruh file sudah terbaca saat upload
+                                        'if (varAccumulatedFiles == varObjFiles.length) {'.
+                                            ''.$varJSFunctionName.'_AfterReadProcessing(); '.
+                                            '} '.
+                                        '}); '.
+                                    'varObjFileReader.readAsDataURL(varObjFile); '.
+                                    '} '.
 
 
-                /*
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Method Name     : _DeleteFile                                                                                          |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Description     : • Meghapus File                                                                                      |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                */
-                'function '.$varJSFunctionName.'_DeleteFile(varIndex) {'.
-                    'let varLocJSONData = JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value); '.
-                    'if (confirm('.
-                        '\'Do You Want to delete file \' + String.fromCharCode(34) + varLocJSONData[varIndex].entities.name + String.fromCharCode(34) + \' ? \''.
-                        ')) {'.
-                        'let varDeletedItem = varLocJSONData.splice((varIndex), 1); '.
+                                /*
+                                +--------------------------------------------------------------------------------------------------------------+
+                                | ▪ Method Name     : Sub Function _AfterReadProcessing                                                        |
+                                +--------------------------------------------------------------------------------------------------------------+
+                                | ▪ Description     : • Proses apabila seluruh file sudah terupload pada browser                               |
+                                +--------------------------------------------------------------------------------------------------------------+
+                                */
+                                'function '.$varJSFunctionName.'_AfterReadProcessing() {'.
+                                    //---> Get New Data
+                                    'let varJSONData = \'\'; '.
+                                    'for (let i = 0; i < varFileJSONArray.length; i++) {'.
+                                        'if (varJSONData != \'\') {'.
+                                            'varJSONData = varJSONData + \', \'; '.
+                                            '} '.
+                                        'varJSONData = varJSONData + '.
+                                            '\'{\' + '.
+                                            'String.fromCharCode(34) + \'entities\' + String.fromCharCode(34) + \' : \' + '.
+                                            'varFileJSONArray[i] + '.
+                                            '\'}\''.
+                                            '; '.
+                                        //'alert(varJSONData); '.
+                                        '} '.
+                                    'varJSONData = \'[\' + varJSONData + \']\'; '.
+                                    'varJSONData = JSON.parse(varJSONData); '.
+                                    //'alert(varJSONData); '.
+
+                                    'varJSONData = '.$varJSFunctionName.'_SetFilesAppend(document.getElementById(\''.$varObjectID.'\').value, varJSONData); '.
+
+                                    'try {'.
+                                        'document.getElementById(\''.$varObjectID.'\').value = varJSONData.log_FileUpload_Pointer_RefID; '.
+                                        'document.getElementById(\''.$varDOMID_DataRecord.'\').value = JSON.stringify(varJSONData.JSONData); '.
+
+                                        'document.getElementById(\''.$varDOMID_File.'\').value = \'\'; '.
+                                        '}'.
+                                    'catch (varError) {'.
+                                        '}'.
+                                    'finally {'.
+                                        ''.$varJSFunctionName.'_ShowFileList(); '.
+                                        '}'.
+                                    '}; '.
+
+
+                                /*
+                                +--------------------------------------------------------------------------------------------------------------+
+                                | ▪ Method Name     : Sub Function _SetFilesAppend                                                             |
+                                +--------------------------------------------------------------------------------------------------------------+
+                                | ▪ Description     : • Mengeset Append File                                                                   |
+                                +--------------------------------------------------------------------------------------------------------------+
+                                */
+                                'function '.$varJSFunctionName.'_SetFilesAppend(varLocLogFileUploadPointerRefID, varLocJSONData) {'.
+                                    'try {'.
+                                        'varReturn = ('.
+                                            'JSON.parse('.
+                                                str_replace(
+                                                    '"', 
+                                                    '\'', 
+                                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                        $varUserSession, 
+                                                        $varAPIWebToken, 
+                                                        'fileHandling.upload.general.setFilesAppend', 
+                                                        'latest',
+                                                        '{'.
+                                                            '"parameter" : {'.
+                                                                '"log_FileUpload_Pointer_RefID" : (!varLocLogFileUploadPointerRefID ? null : parseInt(varLocLogFileUploadPointerRefID)), '.
+                                                                '"additionalData" : {'.
+                                                                    '"itemList" : {'.
+                                                                        '"items" : varLocJSONData'.
+                                                                        '} '.
+                                                                    '} '.
+                                                                '}, '.
+                                                            '"SQLStatement" : {'.
+                                                                '"pick" : null, '.
+                                                                '"sort" : null, '.
+                                                                '"filter" : null, '.
+                                                                '"paging" : null'.
+                                                                '}'.
+                                                        '}'
+                                                        )
+                                                    ).
+                                                ').data.data[0]'.
+                                            '); '.
+                                        '} '.
+                                    'catch (varError) {'.
+                                        'varReturn = null; '.
+                                        'alert(\'Files Append Process Failed\'); '.
+                                        '} '.
+                                    'finally {'.
+                                        'return varReturn; '.
+                                        '}'.
+                                    '}; '.
+
+
+                                /*
+                                +--------------------------------------------------------------------------------------------------------------+
+                                | ▪ Method Name     : Sub Function _GetDataList_FileUploadObjectDetail                                         |
+                                +--------------------------------------------------------------------------------------------------------------+
+                                | ▪ Description     : • Mendapatkan List File Upload Object Detail                                             |
+                                +--------------------------------------------------------------------------------------------------------------+
+                                */
+                                'function '.$varJSFunctionName.'_GetDataList_FileUploadObjectDetail(varFileUploadObjectPointerID) {'.
+                                    'try {'.
+                                        'varReturn = ('.
+                                            'JSON.parse('.
+                                                str_replace(
+                                                    '"', 
+                                                    '\'', 
+                                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                        $varUserSession, 
+                                                        $varAPIWebToken, 
+                                                        'dataWarehouse.read.dataList.acquisition.getFileUpload_ObjectDetail', 
+                                                        'latest',
+                                                        '{'.
+                                                            '"parameter" : {'.
+                                                                '"log_FileUpload_Pointer_RefID" : parseInt(varFileUploadObjectPointerID) '.
+                                                                '}, '.
+                                                            '"SQLStatement" : {'.
+                                                                '"pick" : null, '.
+                                                                '"sort" : null, '.
+                                                                '"filter" : null, '.
+                                                                '"paging" : null'.
+                                                                '}'.
+                                                        '}'
+                                                        )
+                                                    ).
+                                                ').data'.
+                                            '); '.
+                                        '} '.
+                                    'catch (varError) {'.
+                                        'varReturn = null; '.
+                                        'alert(\'File Upload Object Detail List cann\\\'t be retrieved\'); '.
+                                        '} '.
+                                    'finally {'.
+                                        'return varReturn; '.
+                                        '}'.
+                                    '}; '.
+
+
+                                /*
+                                +--------------------------------------------------------------------------------------------------------------+
+                                | ▪ Method Name     : Sub Function _GetLogFileUploadPointerID                                                  |
+                                +--------------------------------------------------------------------------------------------------------------+
+                                | ▪ Description     : • Get Log File Upload Pointer ID                                                         |
+                                +--------------------------------------------------------------------------------------------------------------+
+                                */
+                                'function '.$varJSFunctionName.'_GetLogFileUploadPointerID() {'.
+                                    'try {'.
+                                        'varReturn = ('.
+                                            'JSON.parse('.
+                                                str_replace(
+                                                    '"', 
+                                                    '\'', 
+                                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                        $varUserSession, 
+                                                        $varAPIWebToken, 
+                                                        'dataWarehouse.create.acquisition.setLog_FileUpload_Pointer', 
+                                                        'latest',
+                                                        '{'.
+                                                            '"parameter" : {'.
+                                                                '}'.
+                                                        '}'
+                                                        )
+                                                    ).
+                                                ').data.recordID'.
+                                            '); '.
+                                        '} '.
+                                    'catch (varError) {'.
+                                        'varReturn = null; '.
+                                        'alert(\'Log File Upload Pointer ID cann\\\'t be initilized\'); '.
+                                        '} '.
+                                    'finally {'.
+                                        //'alert(varReturn); '.
+                                        'return varReturn; '.
+                                        '}' .
+                                    '}'.
+                                '}'.
+                            '} '.
+                        'else {'.
+                            'alert(\'ZhtObject was not initialized correctly\'); '.
+                            '} '.
+                        '}; '.
+
+
+                    /*
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    | ▪ Method Name     : _DownloadFile                                                                                        |
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    | ▪ Description     : • Mendownload File                                                                                   |
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    */
+                    'function '.$varJSFunctionName.'_DownloadFile(varFilePath, varMIME, varFileName) {'.
+                        'varFilePath = \''.$varBasePath.'\' + varFilePath; '.
+
                         'try {'.
-                            'varReturn = ('.
-                                'JSON.parse('.
+                            'varBase64Data = ('.
+                                'JSON.parse('.                           
                                     str_replace(
                                         '"', 
                                         '\'', 
                                         \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                             $varUserSession, 
                                             $varAPIWebToken, 
-                                            'fileHandling.archive.general.setFileDelete', 
-                                            'latest',
+                                            'fileHandling.archive.general.getFileContent', 
+                                            'latest', 
                                             '{'.
-                                            '"recordID" : parseInt(JSON.stringify(varDeletedItem[0].recordID))'.
+                                                '"parameter" : {'.
+                                                    '"filePath" : varFilePath'.
+                                                    '}'.
                                             '}'
                                             )
                                         ).
-                                    ').metadata.HTTPStatusCode'.
+                                    ').data.contentBase64'.
                                 '); '.
-                            'if (parseInt(varReturn) == 200) {'.
-                                'if (JSON.stringify(varLocJSONData) == \'[]\') {'.
-                                    'document.getElementById(\''.$varDOMID_DataRecord.'\').value = \'\'; '.                                    
+
+                            'let varObjDownloadLink = document.createElement(\'a\'); '.
+                            'varObjDownloadLink.href = \'data:\' + varMIME + \';base64,\' + varBase64Data; '.
+                            'varObjDownloadLink.download = varFileName; '.
+                            'varObjDownloadLink.click(); '.
+                            //'varObjDownloadLink.parentNode.removeChild(varObjDownloadLink); '.
+                            '}'.
+                        'catch(varError) {'.
+                            'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                            '}'.
+                        '}'.
+
+
+                    /*
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    | ▪ Method Name     : _DeleteFile                                                                                          |
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    | ▪ Description     : • Meghapus File                                                                                      |
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    */
+                    'function '.$varJSFunctionName.'_DeleteFile(varIndex) {'.
+                        'let varLocJSONData = JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value); '.
+                        'if (confirm('.
+                            '\'Do You Want to delete file \' + String.fromCharCode(34) + varLocJSONData[varIndex].entities.name + String.fromCharCode(34) + \' ? \''.
+                            ')) {'.
+                            'let varDeletedItem = varLocJSONData.splice((varIndex), 1); '.
+                            'try {'.
+                                'varReturn = ('.
+                                    'JSON.parse('.
+                                        str_replace(
+                                            '"', 
+                                            '\'', 
+                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                $varUserSession, 
+                                                $varAPIWebToken, 
+                                                'fileHandling.archive.general.setFileDelete', 
+                                                'latest',
+                                                '{'.
+                                                '"recordID" : parseInt(JSON.stringify(varDeletedItem[0].recordID))'.
+                                                '}'
+                                                )
+                                            ).
+                                        ').metadata.HTTPStatusCode'.
+                                    '); '.
+                                'if (parseInt(varReturn) == 200) {'.
+                                    'if (JSON.stringify(varLocJSONData) == \'[]\') {'.
+                                        'document.getElementById(\''.$varDOMID_DataRecord.'\').value = \'\'; '.                                    
+                                        '}'.
+                                    'else {'.
+                                        'document.getElementById(\''.$varDOMID_DataRecord.'\').value = JSON.stringify(varLocJSONData); '.
+                                        '}'.
+                                    $varJSFunctionName.'_ShowFileList(); '.
                                     '}'.
                                 'else {'.
-                                    'document.getElementById(\''.$varDOMID_DataRecord.'\').value = JSON.stringify(varLocJSONData); '.
+                                    'alert(\'File deletion failed\'); '.
                                     '}'.
-                                $varJSFunctionName.'_ShowFileList(); '.
-                                '}'.
-                            'else {'.
-                                'alert(\'File deletion failed\'); '.
-                                '}'.
-                            '} '.
-                        'catch (varError) {'.
-                            'alert(\'An error occurred in the file deletion process\'); '.
-                            '} '.
+                                '} '.
+                            'catch (varError) {'.
+                                'alert(\'An error occurred in the file deletion process\'); '.
+                                '} '.
+                            '}'.
                         '}'.
-                    '}'.
 
 
-                /*
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Method Name     : _ShowFileList                                                                                        |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                | ▪ Description     : • Menampilkam Daftar File                                                                            |
-                +--------------------------------------------------------------------------------------------------------------------------+
-                */
-                'function '.$varJSFunctionName.'_ShowFileList() {'.
-                    //---> Object Table
-                    'if (document.getElementById(\''.$varDOMID_ActionPanel.'_Table'.'\') != null) {'.
-                        'document.getElementById(\''.$varDOMID_ActionPanel.'_Table'.'\').remove(); '.
-                        '}'.
+                    /*
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    | ▪ Method Name     : _ShowFileList                                                                                        |
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    | ▪ Description     : • Menampilkam Daftar File                                                                            |
+                    +--------------------------------------------------------------------------------------------------------------------------+
+                    */
+                    'function '.$varJSFunctionName.'_ShowFileList() {'.
+                        //---> Object Table
+                        'if (document.getElementById(\''.$varDOMID_ActionPanel.'_Table'.'\') != null) {'.
+                            'document.getElementById(\''.$varDOMID_ActionPanel.'_Table'.'\').remove(); '.
+                            '}'.
                     
-                    self::getSyntaxCreateDOM_Table(
-                        $varUserSession, 
-                        [
-                        'ID' => $varDOMID_ActionPanel.'_Table',
-                        'ParentID' => 'document.getElementById(\''.$varDOMID_ActionPanel.'\')',
-                        'Style' => $varStyle_TableAction
-                        ],
-                        (
-                        //---> Table Head
-                        self::getSyntaxCreateDOM_TableHead(
+                        self::getSyntaxCreateDOM_Table(
                             $varUserSession, 
                             [
-                            'ID' => $varDOMID_ActionPanel.'_THead',
-                            'ParentID' => $varDOMID_ActionPanel.'_Table'
+                            'ID' => $varDOMID_ActionPanel.'_Table',
+                            'ParentID' => 'document.getElementById(\''.$varDOMID_ActionPanel.'\')',
+                            'Style' => $varStyle_TableAction
                             ],
                             (
-                            self::getSyntaxCreateDOM_TableRow(
+                            //---> Table Head
+                            self::getSyntaxCreateDOM_TableHead(
                                 $varUserSession, 
                                 [
-                                'ID' => $varDOMID_ActionPanel.'_TTR',
-                                'ParentID' => $varDOMID_ActionPanel.'_THead'
-                                ], 
+                                'ID' => $varDOMID_ActionPanel.'_THead',
+                                'ParentID' => $varDOMID_ActionPanel.'_Table'
+                                ],
                                 (
-                                self::getSyntaxCreateDOM_TableData(
+                                self::getSyntaxCreateDOM_TableRow(
                                     $varUserSession, 
                                     [
-                                    'ID' => $varDOMID_ActionPanel.'_TTD',
-                                    'ParentID' => $varDOMID_ActionPanel.'_TTR',
-                                    'Style' => $varStyle_TableActionPanelHead,
-                                    'RowSpan' => 2
-                                    ],
-                                    $varDOMID_ActionPanel.'_TTD'.'.appendChild(document.createTextNode(\'NO\')); '
+                                    'ID' => $varDOMID_ActionPanel.'_TTR',
+                                    'ParentID' => $varDOMID_ActionPanel.'_THead'
+                                    ], 
+                                    (
+                                    self::getSyntaxCreateDOM_TableData(
+                                        $varUserSession, 
+                                        [
+                                        'ID' => $varDOMID_ActionPanel.'_TTD',
+                                        'ParentID' => $varDOMID_ActionPanel.'_TTR',
+                                        'Style' => $varStyle_TableActionPanelHead,
+                                        'RowSpan' => 2
+                                        ],
+                                        $varDOMID_ActionPanel.'_TTD'.'.appendChild(document.createTextNode(\'NO\')); '
+                                        ).
+                                    self::getSyntaxCreateDOM_TableData(
+                                        $varUserSession, 
+                                        [
+                                        'ID' => $varDOMID_ActionPanel.'_TTD',
+                                        'ParentID' => $varDOMID_ActionPanel.'_TTR',
+                                        'Style' => $varStyle_TableActionPanelHead,
+                                        'RowSpan' => 2
+                                        ],
+                                        $varDOMID_ActionPanel.'_TTD'.'.appendChild(document.createTextNode(\'NAME\')); '
+                                        ).
+                                    self::getSyntaxCreateDOM_TableData(
+                                        $varUserSession, 
+                                        [
+                                        'ID' => $varDOMID_ActionPanel.'_TTD',
+                                        'ParentID' => $varDOMID_ActionPanel.'_TTR',
+                                        'Style' => $varStyle_TableActionPanelHead,
+                                        'RowSpan' => 2
+                                        ],
+                                        $varDOMID_ActionPanel.'_TTD'.'.appendChild(document.createTextNode(\'SIZE\')); '
+                                        ).
+                                    self::getSyntaxCreateDOM_TableData(
+                                        $varUserSession, 
+                                        [
+                                        'ID' => $varDOMID_ActionPanel.'_TTD',
+                                        'ParentID' => $varDOMID_ActionPanel.'_TTR',
+                                        'Style' => $varStyle_TableActionPanelHead,
+                                        'RowSpan' => 2
+                                        ],
+                                        $varDOMID_ActionPanel.'_TTD'.'.appendChild(document.createTextNode(\'UPLOAD DATETIME\')); '
+                                        ).
+                                    self::getSyntaxCreateDOM_TableData(
+                                        $varUserSession, 
+                                        [
+                                        'ID' => $varDOMID_ActionPanel.'_TTD',
+                                        'ParentID' => $varDOMID_ActionPanel.'_TTR',
+                                        'Style' => $varStyle_TableActionPanelHead,
+                                        'RowSpan' => 1,
+                                        'ColSpan' => 2
+                                        ],
+                                        $varDOMID_ActionPanel.'_TTD'.'.appendChild(document.createTextNode(\'ACTION\')); '
+                                        )
+                                    )
                                     ).
-                                self::getSyntaxCreateDOM_TableData(
+                                self::getSyntaxCreateDOM_TableRow(
                                     $varUserSession, 
                                     [
-                                    'ID' => $varDOMID_ActionPanel.'_TTD',
-                                    'ParentID' => $varDOMID_ActionPanel.'_TTR',
-                                    'Style' => $varStyle_TableActionPanelHead,
-                                    'RowSpan' => 2
-                                    ],
-                                    $varDOMID_ActionPanel.'_TTD'.'.appendChild(document.createTextNode(\'NAME\')); '
-                                    ).
-                                self::getSyntaxCreateDOM_TableData(
-                                    $varUserSession, 
-                                    [
-                                    'ID' => $varDOMID_ActionPanel.'_TTD',
-                                    'ParentID' => $varDOMID_ActionPanel.'_TTR',
-                                    'Style' => $varStyle_TableActionPanelHead,
-                                    'RowSpan' => 2
-                                    ],
-                                    $varDOMID_ActionPanel.'_TTD'.'.appendChild(document.createTextNode(\'SIZE\')); '
-                                    ).
-                                self::getSyntaxCreateDOM_TableData(
-                                    $varUserSession, 
-                                    [
-                                    'ID' => $varDOMID_ActionPanel.'_TTD',
-                                    'ParentID' => $varDOMID_ActionPanel.'_TTR',
-                                    'Style' => $varStyle_TableActionPanelHead,
-                                    'RowSpan' => 2
-                                    ],
-                                    $varDOMID_ActionPanel.'_TTD'.'.appendChild(document.createTextNode(\'UPLOAD DATETIME\')); '
-                                    ).
-                                self::getSyntaxCreateDOM_TableData(
-                                    $varUserSession, 
-                                    [
-                                    'ID' => $varDOMID_ActionPanel.'_TTD',
-                                    'ParentID' => $varDOMID_ActionPanel.'_TTR',
-                                    'Style' => $varStyle_TableActionPanelHead,
-                                    'RowSpan' => 1,
-                                    'ColSpan' => 2
-                                    ],
-                                    $varDOMID_ActionPanel.'_TTD'.'.appendChild(document.createTextNode(\'ACTION\')); '
+                                    'ID' => $varDOMID_ActionPanel.'_TTR',
+                                    'ParentID' => $varDOMID_ActionPanel.'_THead'
+                                    ], 
+                                    (
+                                    self::getSyntaxCreateDOM_TableData(
+                                        $varUserSession, 
+                                        [
+                                        'ID' => $varDOMID_ActionPanel.'_TTD',
+                                        'ParentID' => $varDOMID_ActionPanel.'_TTR',
+                                        'Style' => $varStyle_TableActionPanelHead,
+                                        'RowSpan' => 1,
+                                        'ColSpan' => 2
+                                        ],
+                                        (
+                                        self::getSyntaxCreateDOM_Image(
+                                            $varUserSession,
+                                            [
+                                            'ID' => $varDOMID_ActionPanel.'_AddButton',
+                                            'ParentID' => $varDOMID_ActionPanel.'_TTD',
+                                            'Title' => 'Add File(s)',
+                                            'AddEventListener' => [
+                                                'click' => 
+                                                    'document.getElementById(\''.$varDOMID_File.'\').click(); '
+                                                ]
+                                            ],
+                                            '/images/Icon/Button/Add-300-16.png'
+                                            ).
+                                        'if (document.getElementById(\''.$varDOMID_ActionPanel.'_AddButton\') != null) {'.
+                                            'document.getElementById(\''.$varDOMID_ActionPanel.'_AddButton\').addEventListener('.
+                                                '\'click\', '.
+                                                'function() {'.
+                                                    '}'.
+                                                '); '.
+                                            '}'
+                                        )
+                                        )
+                                    )
                                     )
                                 )
                                 ).
-                            self::getSyntaxCreateDOM_TableRow(
+                            //---> Table Body
+                            self::getSyntaxCreateDOM_TableBody(
                                 $varUserSession, 
                                 [
-                                'ID' => $varDOMID_ActionPanel.'_TTR',
-                                'ParentID' => $varDOMID_ActionPanel.'_THead'
-                                ], 
-                                (
-                                self::getSyntaxCreateDOM_TableData(
-                                    $varUserSession, 
-                                    [
-                                    'ID' => $varDOMID_ActionPanel.'_TTD',
-                                    'ParentID' => $varDOMID_ActionPanel.'_TTR',
-                                    'Style' => $varStyle_TableActionPanelHead,
-                                    'RowSpan' => 1,
-                                    'ColSpan' => 2
-                                    ],
-                                    (
-                                    self::getSyntaxCreateDOM_Image(
-                                        $varUserSession,
-                                        [
-                                        'ID' => $varDOMID_ActionPanel.'_AddButton',
-                                        'ParentID' => $varDOMID_ActionPanel.'_TTD',
-                                        'Title' => 'Add File(s)',
-                                        'AddEventListener' => [
-                                            'click' => 
-                                                'document.getElementById(\''.$varDOMID_File.'\').click(); '
-                                            ]
-                                        ],
-                                        '/images/Icon/Button/Add-300-16.png'
-                                        ).
-                                    'if (document.getElementById(\''.$varDOMID_ActionPanel.'_AddButton\') != null) {'.
-                                        'document.getElementById(\''.$varDOMID_ActionPanel.'_AddButton\').addEventListener('.
-                                            '\'click\', '.
-                                            'function() {'.
-                                                '}'.
-                                            '); '.
-                                        '}'
-                                    )
-                                    )
-                                )
+                                'ID' => $varDOMID_ActionPanel.'_TBody',
+                                'ParentID' => $varDOMID_ActionPanel.'_Table'
+                                ],
+                                'try {'.
+                                    'for (let i=0, iMax = (JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value)).length; i != iMax; i++) {'.
+                                        //' alert (JSON.stringify(    (JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i]   )    ); '.
+
+                                        self::getSyntaxCreateDOM_TableRow(
+                                            $varUserSession, 
+                                            [
+                                            'ID' => 'varObjTTR',
+                                            'ParentID' => $varDOMID_ActionPanel.'_TBody'
+                                            ], 
+                                            (
+                                            self::getSyntaxCreateDOM_TableData(
+                                                $varUserSession, 
+                                                [
+                                                'ID' => 'varObjTTD',
+                                                'ParentID' => 'varObjTTR',
+                                                'Style' => array_merge(
+                                                    $varStyle_TableActionPanelBody,
+                                                    [
+                                                        ['textAlign', 'center']
+                                                    ]
+                                                    ),
+                                                ],
+                                                'varObjTTD.appendChild(document.createTextNode((i+1))); '
+                                                ).
+                                            self::getSyntaxCreateDOM_TableData(
+                                                $varUserSession, 
+                                                [
+                                                'ID' => 'varObjTTD',
+                                                'ParentID' => 'varObjTTR',
+                                                'Style' => array_merge(
+                                                    $varStyle_TableActionPanelBody,
+                                                    [
+                                                        ['textAlign', 'left']
+                                                    ]
+                                                    ),
+                                                ],
+                                                'varObjTTD.appendChild('.
+                                                    'document.createTextNode('.
+                                                        '(JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i].entities.name'.
+                                                        ')'.
+                                                    '); '
+                                                ).
+                                            self::getSyntaxCreateDOM_TableData(
+                                                $varUserSession, 
+                                                [
+                                                'ID' => 'varObjTTD',
+                                                'ParentID' => 'varObjTTR',
+                                                'Style' => array_merge(
+                                                    $varStyle_TableActionPanelBody,
+                                                    [
+                                                        ['textAlign', 'right']
+                                                    ]
+                                                    ),
+                                                ],
+                                                'varObjTTD.appendChild('.
+                                                    'document.createTextNode('.
+                                                        '(JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i].entities.size'.
+                                                        ')'.
+                                                    '); '
+                                                ).
+                                            self::getSyntaxCreateDOM_TableData(
+                                                $varUserSession, 
+                                                [
+                                                'ID' => 'varObjTTD',
+                                                'ParentID' => 'varObjTTR',
+                                                'Style' => array_merge(
+                                                    $varStyle_TableActionPanelBody,
+                                                    [
+                                                        ['textAlign', 'center']
+                                                    ]
+                                                    ),
+                                                ],
+                                                'varObjTTD.appendChild('.
+                                                    'document.createTextNode('.
+                                                        '(JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i].entities.uploadDateTimeTZ'.
+                                                        ')'.
+                                                    '); '
+                                                ).
+                                            self::getSyntaxCreateDOM_TableData(
+                                                $varUserSession, 
+                                                [
+                                                'ID' => 'varObjTTD',
+                                                'ParentID' => 'varObjTTR',
+                                                'Style' => array_merge(
+                                                    $varStyle_TableActionPanelBody,
+                                                    [
+                                                        ['textAlign', 'center']
+                                                    ]
+                                                    ),
+                                                ],
+                                                (
+                                                self::getSyntaxCreateDOM_Image(
+                                                    $varUserSession,
+                                                    [
+                                                    'ID' => $varDOMID_ActionPanel.'_DeleteButton',
+                                                    'ParentID' => 'varObjTTD',
+                                                    'Title' => 'Delete File',
+                                                    'AddEventListener' => [
+                                                        'click' =>
+                                                            //'alert(i); '
+                                                            $varJSFunctionName.'_DeleteFile(i); '
+                                                            //'document.getElementById(\''.$varDOMID_File.'\').click(); '.
+                                                            //'document.getElementById(\''.$varDOMID_ActionPanel.'_AddButton\').style.visibility = \'hidden\'; '
+                                                        ]
+                                                    ],
+                                                    '/images/Icon/Button/Delete-300-16.png'
+                                                    )
+                                                )
+                                                ).
+                                            self::getSyntaxCreateDOM_TableData(
+                                                $varUserSession, 
+                                                [
+                                                'ID' => 'varObjTTD',
+                                                'ParentID' => 'varObjTTR',
+                                                'Style' => array_merge(
+                                                    $varStyle_TableActionPanelBody,
+                                                    [
+                                                        ['textAlign', 'center']
+                                                    ]
+                                                    ),
+                                                ],
+                                                (
+                                                self::getSyntaxCreateDOM_Image(
+                                                    $varUserSession,
+                                                    [
+                                                    'ID' => $varDOMID_ActionPanel.'_DownloadButton',
+                                                    'ParentID' => 'varObjTTD',
+                                                    'Title' => 'Download File',
+                                                    'AddEventListener' => [
+                                                        'click' => 
+                                                            $varJSFunctionName.'_DownloadFile('.
+                                                                '(JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i].entities.filePath,'.
+                                                                '(JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i].entities.MIME,'.
+                                                                '(JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i].entities.name'.
+                                                                '); '
+                                                        ]
+                                                    ],
+                                                    '/images/Icon/Button/Download-300-16.png'
+                                                    )
+                                                )
+                                                )
+                                            )
+                                            ).
+                                        '}'.
+                                    '}'.
+                                'catch (varError) {'.
+                                    '}'
                                 )
                             )
                             ).
-                        //---> Table Body
-                        self::getSyntaxCreateDOM_TableBody(
-                            $varUserSession, 
-                            [
-                            'ID' => $varDOMID_ActionPanel.'_TBody',
-                            'ParentID' => $varDOMID_ActionPanel.'_Table'
-                            ],
-                            'try {'.
-                                'for (let i=0, iMax = (JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value)).length; i != iMax; i++) {'.
-                                    //' alert (JSON.stringify(    (JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i]   )    ); '.
-
-                                    self::getSyntaxCreateDOM_TableRow(
-                                        $varUserSession, 
-                                        [
-                                        'ID' => 'varObjTTR',
-                                        'ParentID' => $varDOMID_ActionPanel.'_TBody'
-                                        ], 
-                                        (
-                                        self::getSyntaxCreateDOM_TableData(
-                                            $varUserSession, 
-                                            [
-                                            'ID' => 'varObjTTD',
-                                            'ParentID' => 'varObjTTR',
-                                            'Style' => array_merge(
-                                                $varStyle_TableActionPanelBody,
-                                                [
-                                                    ['textAlign', 'center']
-                                                ]
-                                                ),
-                                            ],
-                                            'varObjTTD.appendChild(document.createTextNode((i+1))); '
-                                            ).
-                                        self::getSyntaxCreateDOM_TableData(
-                                            $varUserSession, 
-                                            [
-                                            'ID' => 'varObjTTD',
-                                            'ParentID' => 'varObjTTR',
-                                            'Style' => array_merge(
-                                                $varStyle_TableActionPanelBody,
-                                                [
-                                                    ['textAlign', 'left']
-                                                ]
-                                                ),
-                                            ],
-                                            'varObjTTD.appendChild('.
-                                                'document.createTextNode('.
-                                                    '(JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i].entities.name'.
-                                                    ')'.
-                                                '); '
-                                            ).
-                                        self::getSyntaxCreateDOM_TableData(
-                                            $varUserSession, 
-                                            [
-                                            'ID' => 'varObjTTD',
-                                            'ParentID' => 'varObjTTR',
-                                            'Style' => array_merge(
-                                                $varStyle_TableActionPanelBody,
-                                                [
-                                                    ['textAlign', 'right']
-                                                ]
-                                                ),
-                                            ],
-                                            'varObjTTD.appendChild('.
-                                                'document.createTextNode('.
-                                                    '(JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i].entities.size'.
-                                                    ')'.
-                                                '); '
-                                            ).
-                                        self::getSyntaxCreateDOM_TableData(
-                                            $varUserSession, 
-                                            [
-                                            'ID' => 'varObjTTD',
-                                            'ParentID' => 'varObjTTR',
-                                            'Style' => array_merge(
-                                                $varStyle_TableActionPanelBody,
-                                                [
-                                                    ['textAlign', 'center']
-                                                ]
-                                                ),
-                                            ],
-                                            'varObjTTD.appendChild('.
-                                                'document.createTextNode('.
-                                                    '(JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i].entities.uploadDateTimeTZ'.
-                                                    ')'.
-                                                '); '
-                                            ).
-                                        self::getSyntaxCreateDOM_TableData(
-                                            $varUserSession, 
-                                            [
-                                            'ID' => 'varObjTTD',
-                                            'ParentID' => 'varObjTTR',
-                                            'Style' => array_merge(
-                                                $varStyle_TableActionPanelBody,
-                                                [
-                                                    ['textAlign', 'center']
-                                                ]
-                                                ),
-                                            ],
-                                            (
-                                            self::getSyntaxCreateDOM_Image(
-                                                $varUserSession,
-                                                [
-                                                'ID' => $varDOMID_ActionPanel.'_DeleteButton',
-                                                'ParentID' => 'varObjTTD',
-                                                'Title' => 'Delete File',
-                                                'AddEventListener' => [
-                                                    'click' =>
-                                                        //'alert(i); '
-                                                        $varJSFunctionName.'_DeleteFile(i); '
-                                                        //'document.getElementById(\''.$varDOMID_File.'\').click(); '.
-                                                        //'document.getElementById(\''.$varDOMID_ActionPanel.'_AddButton\').style.visibility = \'hidden\'; '
-                                                    ]
-                                                ],
-                                                '/images/Icon/Button/Delete-300-16.png'
-                                                )
-                                            )
-                                            ).
-                                        self::getSyntaxCreateDOM_TableData(
-                                            $varUserSession, 
-                                            [
-                                            'ID' => 'varObjTTD',
-                                            'ParentID' => 'varObjTTR',
-                                            'Style' => array_merge(
-                                                $varStyle_TableActionPanelBody,
-                                                [
-                                                    ['textAlign', 'center']
-                                                ]
-                                                ),
-                                            ],
-                                            (
-                                            self::getSyntaxCreateDOM_Image(
-                                                $varUserSession,
-                                                [
-                                                'ID' => $varDOMID_ActionPanel.'_DownloadButton',
-                                                'ParentID' => 'varObjTTD',
-                                                'Title' => 'Download File',
-                                                'AddEventListener' => [
-                                                    'click' => 
-                                                        $varJSFunctionName.'_DownloadFile('.
-                                                            '(JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i].entities.filePath,'.
-                                                            '(JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i].entities.MIME,'.
-                                                            '(JSON.parse(document.getElementById(\''.$varDOMID_DataRecord.'\').value))[i].entities.name'.
-                                                            '); '
-                                                    ]
-                                                ],
-                                                '/images/Icon/Button/Download-300-16.png'
-                                                )
-                                            )
-                                            )
-                                        )
-                                        ).
-                                    '}'.
-                                '}'.
-                            'catch (varError) {'.
-                                '}'
-                            )
-                        )
-                        ).
-                    '} '.
+                        '} '.
                 '</script>';
             return $varReturn;
             }
