@@ -646,6 +646,8 @@
 
 <!-- BUTTON SUBMIT OR CANCEL -->
 <script>
+    const siteCode = document.getElementById('site_code');
+    const reasonForModify = document.getElementById('reason_modify');
     const submitButton = document.getElementById('submitButton');
     const cancelButton = document.getElementById('cancelButton');
     const fileInputssss = document.querySelector('#hidden_inputs');
@@ -660,7 +662,11 @@
     const fileTableee = document.getElementById('file_table');
 
     function checkTableData() {
-        if (listBudgetTableBody.rows.length > 0) {
+        const isTableNotEmpty = listBudgetTableBody.rows.length > 0;
+        const isSiteCodeNotEmpty = siteCode.value.trim() !== '';
+        const isReasonNotEmpty = reasonForModify.value.trim() !== '';
+
+        if (isTableNotEmpty && isSiteCodeNotEmpty && isReasonNotEmpty) {
             submitButton.disabled = false;
         } else {
             submitButton.disabled = true;
@@ -671,6 +677,9 @@
 
     const observer = new MutationObserver(checkTableData);
     observer.observe(listBudgetTableBody, { childList: true });
+
+    siteCode.addEventListener('input', checkTableData);
+    reasonForModify.addEventListener('input', checkTableData);
 
     cancelButton.addEventListener('click', function() {
         while (listBudgetTableBody.firstChild) {
