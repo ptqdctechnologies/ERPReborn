@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class FunctionController extends Controller
 {
@@ -494,6 +496,40 @@ class FunctionController extends Controller
         );
 
         return response()->json($DataProduct);
+    }
+
+    public function getProducts()
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.master.getProduct',
+            'latest',
+            [
+                'parameter' => [
+                    'dateTime' => null
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
+        );
+
+        // Konversi data API menjadi koleksi
+        $productsCollection = collect($varData['data']['data']);
+
+        // Lakukan paginasi pada koleksi
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $perPage = 100;
+        $currentItems = $productsCollection->slice(($currentPage - 1) * $perPage, $perPage)->values();
+        // $paginatedItems = new LengthAwarePaginator($currentItems, $productsCollection->count(), $perPage);
+
+        return response()->json($currentItems);
     }
 
     // FUNCTION DOCUMENT TYPE 

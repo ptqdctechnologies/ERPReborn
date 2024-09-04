@@ -140,6 +140,10 @@
             $("#currency_symbol").val(symbol);
             $("#value_idr_rate").val(0);
         } else {
+            $("#currency_id").val("");
+            $("#currency_name").val("");
+            $("#currency_symbol").val("");
+            $("#value_idr_rate").val("");
             Swal.fire("Error", "Please Call Accounting Staffs (Ext. 1101 - 1104). Ask Them to Input Current IDR Rate. Thank You.", "error");
         }
     });
@@ -277,10 +281,10 @@
             let productId = row.querySelector('td:nth-child(1)').textContent.trim();
             let productName = row.querySelector('td:nth-child(2)').textContent.trim();
             let qtyBudget = row.querySelector('td:nth-child(3)').textContent.trim();
-            let qtyAvail = row.querySelector('td:nth-child(4)').textContent.trim();
+            // let qtyAvail = row.querySelector('td:nth-child(4)').textContent.trim();
             let prices = row.querySelector('td:nth-child(5)').textContent.trim();
-            let currencys = row.querySelector('td:nth-child(6)').textContent.trim();
-            let balanceBudget = row.querySelector('td:nth-child(7)').textContent.trim();
+            // let currencys = row.querySelector('td:nth-child(6)').textContent.trim();
+            // let balanceBudget = row.querySelector('td:nth-child(7)').textContent.trim();
             let totalBudget = row.querySelector('td:nth-child(8)').textContent.trim();
 
             if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
@@ -300,19 +304,23 @@
                 } else {
                     let clonedRow = row.cloneNode(true);
 
-                    clonedRow.querySelectorAll('td').forEach(function(td) {
-                        let input = td.querySelector('input');
-                        if (input) {
-                            td.textContent = input.value;
+                    clonedRow.querySelectorAll('td').forEach(function(td, ind) {
+                        if (ind === 3 || ind === 5 || ind === 6) {
+                            td.remove();
+                        } else {
+                            let input = td.querySelector('input');
+                            if (input) {
+                                td.textContent = input.value;
+                            }
+                            td.className = 'container-tbody-tr-budget';
                         }
-                        td.className = 'container-tbody-tr-budget';
                     });
 
                     let form = document.getElementById('modifyBudgetForm');
 
-                    let hiddenInputIds = ['product_id', 'product_name', 'qty_budget', 'qty_avail', 'price', 'currency', 'balance_budget', 'total_budget', 'qty_additional', 'price_additional', 'total_additional', 'qty_saving', 'price_saving', 'total_saving'];
-                    let inputValues = [productId, productName, qtyBudget, qtyAvail, prices, currencys, balanceBudget, totalBudget, qtyAdditional, priceAdditional, totalAdditional, qtySaving, priceSaving, totalSaving];
-                    
+                    let hiddenInputIds = ['product_id', 'product_name', 'qty_budget', 'price', 'total_budget', 'qty_additional', 'price_additional', 'total_additional', 'qty_saving', 'price_saving', 'total_saving'];
+                    let inputValues = [productId, productName, qtyBudget, prices, totalBudget, qtyAdditional, priceAdditional, totalAdditional, qtySaving, priceSaving, totalSaving];
+
                     hiddenInputIds.forEach((inputId, index) => {
                         let hiddenInput = document.createElement('input');
                         hiddenInput.type = 'hidden';
@@ -320,6 +328,8 @@
                         hiddenInput.value = inputValues[index];
                         form.appendChild(hiddenInput);
                     });
+
+                    console.log('form', form);
 
                     listTableBody.appendChild(clonedRow);
                 }
@@ -334,40 +344,6 @@
             }
         });
     });
-
-    // OLD
-    // document.getElementById('buttonBudgetDetails').addEventListener('click', function() {
-    //     let budgetRows = document.querySelectorAll('#budgetTable tbody tr');
-
-    //     budgetRows.forEach(function(row) {
-    //         let qtyAdditional = row.querySelector('input[name="qty_additional"]').value.trim();
-    //         let priceAdditional = row.querySelector('input[name="price_additional"]').value.trim();
-    //         let totalAdditional = row.querySelector('input[name="total_additional"]').value.trim();
-    //         let qtySaving = row.querySelector('input[name="qty_saving"]').value.trim();
-    //         let priceSaving = row.querySelector('input[name="price_saving"]').value.trim();
-    //         let totalSaving = row.querySelector('input[name="total_saving"]').value.trim();
-
-    //         if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
-    //             row.querySelectorAll('td').forEach(function(td) {
-    //                 let input = td.querySelector('input');
-    //                 if (input) {
-    //                     td.textContent = input.value;
-    //                 }
-    //                 td.className = 'container-tbody-tr-budget';
-    //             });
-                
-    //             document.querySelector('#listBudgetTable tbody').appendChild(row);
-    //         } else if (!qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
-    //             Swal.fire("Error", "Qty Additional Cannot Be Empty", "error");
-    //         } else if (qtyAdditional && !priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
-    //             Swal.fire("Error", "Price Additional Cannot Be Empty", "error");
-    //         } else if (qtyAdditional && priceAdditional && totalAdditional && !qtySaving && priceSaving && totalSaving) {
-    //             Swal.fire("Error", "Qty Saving Cannot Be Empty", "error");
-    //         } else if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && !priceSaving && totalSaving) {
-    //             Swal.fire("Error", "Price Saving Cannot Be Empty", "error");
-    //         }
-    //     });
-    // });
 </script>
 
 <!-- FORM ADD NEW ITEM -->
@@ -376,6 +352,7 @@
     const newItemForm = document.getElementById('newItemForm');
     const newItemFormTwo = document.getElementById('newItemFormTwo');
     const newItemFormThree = document.getElementById('newItemFormThree');
+    const newItemFormFour = document.getElementById('newItemFormFour');
     const buttonItemFormTwo = document.getElementById('buttonItemForm');
     const productIdInput = document.getElementById('product_id');
     const budgetTable = document.getElementById('budgetTable');
@@ -384,29 +361,47 @@
 
     function resetFormInputs() {
         document.getElementById('product_id').value = '';
+        document.getElementById('product_id_show').value = '';
         document.getElementById('product_name').value = '';
         document.getElementById('qty').value = '';
         document.getElementById('price').value = '';
+        document.getElementById('total_qty_price').value = '';
     }
 
     function hideFormAddNewItem() {
         newItemForm.style.display = 'none';
         newItemFormTwo.style.display = 'none';
         newItemFormThree.style.display = 'none';
+        newItemFormFour.style.display = 'none';
         buttonItemFormTwo.style.display = 'none';
     }
 
     addNewItemBtn.addEventListener('click', function() {
-        if (newItemForm.style.display === 'none' || newItemForm.style.display === '' && newItemFormTwo.style.display === 'none' || newItemFormTwo.style.display === '' && newItemFormThree.style.display === 'none' || newItemFormThree.style.display === '' && buttonItemFormTwo.style.display === 'none' || buttonItemFormTwo.style.display === '') {
+        if (newItemForm.style.display === 'none' || newItemForm.style.display === '' && newItemFormTwo.style.display === 'none' || newItemFormTwo.style.display === '' && newItemFormThree.style.display === 'none' || newItemFormThree.style.display === '' && newItemFormFour.style.display === 'none' || newItemFormFour.style.display === '' && buttonItemFormTwo.style.display === 'none' || buttonItemFormTwo.style.display === '') {
             newItemForm.style.display = 'flex';
             newItemFormTwo.style.display = 'flex';
             newItemFormThree.style.display = 'flex';
+            newItemFormFour.style.display = 'flex';
             buttonItemFormTwo.style.display = 'flex';
         } else {
             hideFormAddNewItem();
             resetFormInputs();
         }
     });
+
+    const qtyInput = document.getElementById('qty');
+    const priceInput = document.getElementById('price');
+    const totalInput = document.getElementById('total_qty_price');
+
+    function calculateTotal() {
+        const qty = parseFloat(qtyInput.value) || 0;
+        const price = parseFloat(priceInput.value) || 0;
+        const total = qty * price;
+        totalInput.value = total;
+    }
+
+    qtyInput.addEventListener('input', calculateTotal);
+    priceInput.addEventListener('input', calculateTotal);
 
     function getExistingProductIds() {
         const productIds = [];
@@ -428,32 +423,62 @@
         const tbody = listBudgetTable.querySelector('tbody');
         const newRow = document.createElement('tr');
 
+        const qtyBudgetFormatted = numberFormatPHPCustom(0, 2);
+        const priceBudgetFormatted = numberFormatPHPCustom(0, 2);
+        const totalBudgetFormatted = numberFormatPHPCustom(0, 2);
+
+        const qtyFormatted = numberFormatPHPCustom(qty, 2);
+        const priceFormatted = numberFormatPHPCustom(price, 2);
+        const totalFormatted = numberFormatPHPCustom(qty * price, 2);
+
+        const qtySavingFormatted = numberFormatPHPCustom(0, 2);
+        const priceSavingFormatted = numberFormatPHPCustom(0, 2);
+        const totalSavingFormatted = numberFormatPHPCustom(0, 2);
+
         newRow.innerHTML = `
-            <td class="container-tbody-tr-budget">${productId}</td>
-            <td class="container-tbody-tr-budget">${productName}</td>
-            <td class="container-tbody-tr-budget">${qty}</td>
-            <td class="container-tbody-tr-budget">${qty}</td>
-            <td class="container-tbody-tr-budget">${price}</td>
-            <td class="container-tbody-tr-budget">${productName}</td>
-            <td class="container-tbody-tr-budget">${qty}</td>
-            <td class="container-tbody-tr-budget">${price}</td>
-            <td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">
-                <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">
+            <td class="container-tbody-tr-budget" >
+                ${productId}
+                <input id="project_id" hidden="" name="product_id[]" value="${productId}">
             </td>
-            <td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">
-                <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">
+            <td class="container-tbody-tr-budget" style="text-align: left !important;">
+                ${productName}
+                <input id="project_id" hidden="" name="product_name[]" value="${productName}">
             </td>
-            <td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">
-                <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>
+            <td class="container-tbody-tr-budget">
+                ${qtyBudgetFormatted}
+                <input id="project_id" hidden="" name="qty_budget[]" value="0">
             </td>
-            <td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">
-                <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">
+            <td class="container-tbody-tr-budget">
+                ${priceBudgetFormatted}
+                <input id="project_id" hidden="" name="price[]" value="0">
             </td>
-            <td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">
-                <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">
+            <td class="container-tbody-tr-budget">
+                ${totalBudgetFormatted}
+                <input id="project_id" hidden="" name="total_budget[]" value="0">
             </td>
-            <td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">
-                <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>
+            <td class="container-tbody-tr-budget">
+                ${qtyFormatted}
+                <input id="project_id" hidden="" name="qty_additional[]" value="${qty}">
+            </td>
+            <td class="container-tbody-tr-budget">
+                ${priceFormatted}
+                <input id="project_id" hidden="" name="price_additional[]" value="${price}">
+            </td>
+            <td class="container-tbody-tr-budget">
+                ${totalFormatted}
+                <input id="project_id" hidden="" name="total_additional[]" value="${qty * price}">
+            </td>
+            <td class="container-tbody-tr-budget">
+                ${qtySavingFormatted}
+                <input id="project_id" hidden="" name="qty_saving[]" value="0">
+            </td>
+            <td class="container-tbody-tr-budget">
+                ${priceSavingFormatted}
+                <input id="project_id" hidden="" name="price_saving[]" value="0">
+            </td>
+            <td class="container-tbody-tr-budget">
+                ${totalSavingFormatted}
+                <input id="project_id" hidden="" name="total_saving[]" value="0">
             </td>
         `;
 
@@ -479,6 +504,25 @@
                 }
             });
         }
+    });
+</script>
+
+<!-- PRODUCT -->
+<script>
+    $('#tableGetProduct tbody').on('click', 'tr', function() {
+
+        $("#myProduct").modal('toggle');
+
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var sys_id = $('#sys_id_products' + id).val();
+        var sys_pid = row.find("td:nth-child(2)").text();
+        var uom = row.find("td:nth-child(3)").text();
+        var name = row.find("td:nth-child(4)").text();
+
+        $("#product_id").val(sys_id);
+        $("#product_id_show").val(sys_pid);
+        $("#product_name").val(name);
     });
 </script>
 
@@ -602,6 +646,8 @@
 
 <!-- BUTTON SUBMIT OR CANCEL -->
 <script>
+    const siteCode = document.getElementById('site_code');
+    const reasonForModify = document.getElementById('reason_modify');
     const submitButton = document.getElementById('submitButton');
     const cancelButton = document.getElementById('cancelButton');
     const fileInputssss = document.querySelector('#hidden_inputs');
@@ -616,7 +662,11 @@
     const fileTableee = document.getElementById('file_table');
 
     function checkTableData() {
-        if (listBudgetTableBody.rows.length > 0) {
+        const isTableNotEmpty = listBudgetTableBody.rows.length > 0;
+        const isSiteCodeNotEmpty = siteCode.value.trim() !== '';
+        const isReasonNotEmpty = reasonForModify.value.trim() !== '';
+
+        if (isTableNotEmpty && isSiteCodeNotEmpty && isReasonNotEmpty) {
             submitButton.disabled = false;
         } else {
             submitButton.disabled = true;
@@ -627,6 +677,9 @@
 
     const observer = new MutationObserver(checkTableData);
     observer.observe(listBudgetTableBody, { childList: true });
+
+    siteCode.addEventListener('input', checkTableData);
+    reasonForModify.addEventListener('input', checkTableData);
 
     cancelButton.addEventListener('click', function() {
         while (listBudgetTableBody.firstChild) {
@@ -658,11 +711,10 @@
         $("#currency_id").val("");
         $("#currency_name").val("");
         $("#currency_symbol").val("");
+        $("#value_idr_rate").val("");
 
         $("#reason_modify").val("");
-        $("#currency_id").val("");
-        $("#currency_name").val("");
-        $("#currency_symbol").val("");
+        $("#value_co_deductive").val("");
         $("#value_co_additional").val("");
         $("#attachment_file").val("");
 
