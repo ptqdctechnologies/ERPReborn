@@ -310,7 +310,11 @@
                         } else {
                             let input = td.querySelector('input');
                             if (input) {
-                                td.textContent = input.value;
+                                if (ind <= 1) {
+                                    td.textContent = input.value;
+                                } else {
+                                    td.textContent = numberFormatPHPCustom(input.value, 2);
+                                }
                             }
                             td.className = 'container-tbody-tr-budget';
                         }
@@ -319,7 +323,19 @@
                     let form = document.getElementById('modifyBudgetForm');
 
                     let hiddenInputIds = ['product_id', 'product_name', 'qty_budget', 'price', 'total_budget', 'qty_additional', 'price_additional', 'total_additional', 'qty_saving', 'price_saving', 'total_saving'];
-                    let inputValues = [productId, productName, qtyBudget, prices, totalBudget, qtyAdditional, priceAdditional, totalAdditional, qtySaving, priceSaving, totalSaving];
+                    let inputValues = [
+                        productId,
+                        productName,
+                        parseInt(qtyBudget),
+                        parseInt(prices),
+                        parseInt(totalBudget),
+                        parseInt(qtyAdditional),
+                        parseInt(priceAdditional),
+                        parseInt(totalAdditional),
+                        parseInt(qtySaving),
+                        parseInt(priceSaving),
+                        parseInt(totalSaving)
+                    ];
 
                     hiddenInputIds.forEach((inputId, index) => {
                         let hiddenInput = document.createElement('input');
@@ -328,8 +344,6 @@
                         hiddenInput.value = inputValues[index];
                         form.appendChild(hiddenInput);
                     });
-
-                    console.log('form', form);
 
                     listTableBody.appendChild(clonedRow);
                 }

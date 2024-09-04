@@ -292,22 +292,22 @@
                                                     PLN - Biaya Penyambungan
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
-                                                    1
+                                                    <?= number_format(1, 2); ?>
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
-                                                    1
+                                                    <?= number_format(1, 2); ?>
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
-                                                    38878545
+                                                    <?= number_format(38878545, 2); ?>
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
-                                                    1
+                                                    <?= number_format(1, 2); ?>
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
-                                                    1
+                                                    <?= number_format(1, 2); ?>
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
-                                                    500000
+                                                    <?= number_format(500000, 2); ?>
                                                 </td>
                                                 <td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">
                                                     <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">
