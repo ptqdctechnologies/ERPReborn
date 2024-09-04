@@ -270,7 +270,7 @@
         </div>
         <div class="row">
             <div class="input-group">
-                <input type="password" id="menu_password" class="form-control" maxlength="6" autocomplete="off" autofocus required style="border-radius:0; font-size: 14px;">
+                <input type="password" id="menu_password" class="form-control number-only" maxlength="6" autocomplete="off" autofocus required style="border-radius:0; font-size: 14px;">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="togglePassword" style="border-radius:0; height: 21.8px; font-size: 14px; padding: 0 0.5rem;">
                         Show

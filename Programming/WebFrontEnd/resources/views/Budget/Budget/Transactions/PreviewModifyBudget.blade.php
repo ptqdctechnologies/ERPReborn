@@ -15,8 +15,26 @@
 
             <!-- CONTENT -->
             <div class="card px-3 py-4">
-                <div class="text-center font-weight-bold title_approval">
-                    PREVIEW MODIFY BUDGET
+                <div class="row mb-3">
+                    <div class="col">
+                        <form method="get" action="{{ route('Budget.ModifyBudget') }}">
+                            <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit">
+                                <i class="fas fa-arrow-left"></i>
+                                <div class="ml-1">Back</div>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="col text-center font-weight-bold d-flex align-items-center justify-content-center" style="font-size: 18px;">
+                        PREVIEW MODIFY BUDGET
+                    </div>
+
+                    <div class="col invisible">
+                        <button class="btn btn-default btn-sm button-submit">
+                            <i class="fas fa-arrow-left"></i>
+                            <div>Back</div>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- INFORMASI -->
@@ -99,15 +117,32 @@
                 <!-- ATTACHMENT FILE -->
                 <div class="row container_attachment">
                     <div class="col-12 title_attachment">
-                        Attachment Files For Additional Revenue :
+                        Attachment Files For Additional Revenue:
                     </div>
                     
                     <div class="col-12 mt-2">
-                        <ul class="mb-0 container_attachment_list">
-                            <li>
-                                
-                            </li>
-                        </ul>
+                        @if(count($files) > 0)
+                            <ul class="mb-0 container_attachment_list">
+                                @foreach($files as $file)
+                                    @php
+                                        $fileData = json_decode($file, true);
+                                    @endphp
+                                    <li>
+                                        <div class="file-details">
+                                            <a href="{{ $fileData['previewUrl'] }}" target="_blank">{{ $fileData['name'] }}</a>
+                                        </div>
+                                        <!-- <div class="file-details">
+                                            <strong>File Name:</strong> {{ $fileData['name'] }}<br>
+                                            <strong>File Size:</strong> {{ number_format($fileData['size'] / 1024, 2) }} KB<br>
+                                            <strong>Upload Date:</strong> {{ $fileData['uploadDate'] }}<br>
+                                            <a href="{{ $fileData['previewUrl'] }}" target="_blank" class="btn btn-primary btn-sm mt-1">Preview</a>
+                                        </div> -->
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <p>-</p>
+                        @endif
                     </div>
                 </div>
 

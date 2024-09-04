@@ -82,7 +82,7 @@ class BudgetController extends Controller
             $valueDeductiveCO   = $request->value_co_deductive;
 
             // FILES
-            $files              = $request->uploaded_files;
+            $files              = $request->uploaded_files ?? [];
 
             // MODIFY BUDGET LIST TABLE (CART)
             $productIds         = $request->input('product_id');
@@ -100,7 +100,7 @@ class BudgetController extends Controller
             $priceSavings       = $request->input('price_saving');
             $totalSavings       = $request->input('total_saving');
 
-            // dd($productIds, $productName, $qtyBudget, $price, $totalBudget, $qtyAdditionals, $priceAdditionals, $totalAdditionals, $qtySavings, $priceSavings, $totalSavings);
+            // dd($files);
 
             $i = 0;
             $dataModifyBudget = [];
@@ -297,8 +297,6 @@ class BudgetController extends Controller
                     ],
                 ],
             ];
-
-            // dd($productIds, $compact);
 
             return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {

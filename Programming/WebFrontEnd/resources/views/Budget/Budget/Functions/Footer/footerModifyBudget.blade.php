@@ -225,10 +225,20 @@
 
             fileList.appendChild(row);
 
+            // Membuat objek file untuk disimpan dalam input tersembunyi
+            const fileData = {
+                name: file.name,
+                size: file.size,
+                uploadDate: currentDateTime,
+                previewUrl: URL.createObjectURL(file)
+            };
+
             const hiddenInput = document.createElement('input');
             hiddenInput.type = 'hidden';
             hiddenInput.name = 'uploaded_files[]';
-            hiddenInput.value = file;
+            // DISINI
+            // hiddenInput.value = file;
+            hiddenInput.value = JSON.stringify(fileData);
             hiddenInputs.appendChild(hiddenInput);
         });
 
