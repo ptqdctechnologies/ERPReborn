@@ -62,19 +62,19 @@
                                 <div class="card-body pb-0 pt-3">
                                     <div class="row" style="gap: 8px;">
                                         <div>
-                                            <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modalNewFolder" style="font-size: 12px; gap: 4px; width: max-content;">
+                                            <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#modalNewFolder" style="font-size: 12px; gap: 4px; width: max-content;">
                                                 <i class="fas fa-plus-circle"></i>
                                                 New Folder
                                             </button>
                                         </div>
                                         <div>
-                                            <button type="button" class="btn btn-block btn-info" data-toggle="modal" data-target="#modalNewMenu" style="font-size: 12px; gap: 4px; width: max-content;">
+                                            <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#modalNewMenu" style="font-size: 12px; gap: 4px; width: max-content;">
                                                 <i class="fas fa-plus-circle"></i>
                                                 New Menu
                                             </button>
                                         </div>
                                         <div>
-                                            <button type="button" class="btn btn-block btn-danger" data-toggle="modal" data-target="#modalDelete" style="font-size: 12px; gap: 4px; width: max-content;">
+                                            <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#modalDelete" style="font-size: 12px; gap: 4px; width: max-content;">
                                                 <i class="fas fa-minus-circle"></i>
                                                 Delete
                                             </button>
@@ -109,12 +109,12 @@
 <div class="modal fade" id="modalNewFolder" tabindex="-1" aria-labelledby="modalNewFolderLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-primary align-items-center">
+      <div class="modal-header align-items-center">
         <div style="font-size: 16px;">
             Add New Folder
         </div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="opacity: 1;">
-          <span aria-hidden="true" style="color: #FFF;">&times;</span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
@@ -158,12 +158,12 @@
 <div class="modal fade" id="modalNewMenu" tabindex="-1" aria-labelledby="modalNewMenuLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info align-items-center">
+      <div class="modal-header align-items-center">
         <div style="font-size: 16px;">
             Add New Menu
         </div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="opacity: 1;">
-          <span aria-hidden="true" style="color: #FFF;">&times;</span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
@@ -205,7 +205,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding: .275rem .75rem; font-size: 16px;">Close</button>
-        <button type="button" class="btn btn-info" style="padding: .275rem .75rem; font-size: 16px;">Submit</button>
+        <button type="button" class="btn btn-primary" style="padding: .275rem .75rem; font-size: 16px;">Submit</button>
       </div>
     </div>
   </div>
@@ -215,12 +215,12 @@
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-danger align-items-center">
+      <div class="modal-header align-items-center">
         <div style="font-size: 16px;">
             Delete
         </div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="opacity: 1;">
-          <span aria-hidden="true" style="color: #FFF;">&times;</span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
@@ -229,8 +229,66 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding: .275rem .75rem; font-size: 16px;">Close</button>
-        <button type="button" class="btn btn-danger" style="padding: .275rem .75rem; font-size: 16px;">Submit</button>
+        <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            style="padding: .275rem .75rem; font-size: 16px;"
+        >
+            Close
+        </button>
+        <button
+            type="button"
+            class="btn btn-primary"
+            data-dismiss="modal"
+            data-toggle="modal"
+            data-target="#modalPin"
+            style="padding: .275rem .75rem; font-size: 16px;"
+        >
+            Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal PIN -->
+<div class="modal fade" id="modalPin" tabindex="-1" aria-labelledby="modalPinLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header align-items-center">
+        <div style="font-size: 16px;">
+            Confirmation PIN
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <label for="menu_password" class="col-form-label pt-0 pb-1" style="font-size: 14px;">To confirm, please enter your PIN below</label>
+        </div>
+        <div class="row">
+            <div class="input-group">
+                <input type="password" id="menu_password" class="form-control" maxlength="6" autocomplete="off" autofocus required style="border-radius:0; font-size: 14px;">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="togglePassword" style="border-radius:0; height: 21.8px; font-size: 14px; padding: 0 0.5rem;">
+                        Show
+                    </button>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            style="padding: .275rem .75rem; font-size: 16px;"
+        >
+            Close
+        </button>
+        <button type="button" class="btn btn-primary" style="padding: .275rem .75rem; font-size: 16px;">Submit</button>
       </div>
     </div>
   </div>
@@ -280,8 +338,6 @@
             data: { selectedValue: selectedValue },
             success: function(data) {
                 var resultArray = Array.isArray(data) ? data : Object.values(data);
-
-                console.log('resultArray', resultArray);
 
                 var groupedData = resultArray.reduce(function(acc, item) {
                     if (!acc[item.Type]) {
@@ -357,6 +413,20 @@
 
     $('#menuSelect').on('input', function() {
         loadSubMenu($(this).val());
+    });
+</script>
+
+<!-- PASSWORD (MODAL DELETE) -->
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const passwordInput = document.querySelector('#menu_password');
+
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        // toggle the text of the button
+        this.textContent = type === 'password' ? 'Show' : 'Hide';
     });
 </script>
 @endsection
