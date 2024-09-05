@@ -210,21 +210,14 @@ class DeliveryOrderController extends Controller
 
             $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceReport',
+                $varAPIWebToken, 
+                'report.form.documentForm.finance.getAdvance', 
                 'latest',
                 [
                     'parameter' => [
-                        'advance_RefID' => (int) $id,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
+                        'recordID' => (int) $id
                     ]
-                ],
-                false
+                ]
             );
 
             if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
