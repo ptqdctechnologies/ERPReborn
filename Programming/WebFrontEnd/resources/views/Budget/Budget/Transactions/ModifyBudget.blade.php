@@ -484,7 +484,94 @@
                                                 <th class="container-thead-tr-budget">Total</th>
                                             </tr>
                                         </thead>
-                                        <tbody></tbody>
+                                        <tbody>
+                                            <?php if (request('dataModifyBudget')) : ?>
+                                                <?php foreach (request('dataModifyBudget') as $data) { ?>
+                                                    <tr>
+                                                        <td>
+                                                            <?= $data['productID']; ?>
+                                                            <input type="hidden" name="product_id[]" value="<?= $data['productID']; ?>">
+                                                        </td>
+                                                        <td class="text-wrap" style="line-height: 15px;">
+                                                            <?= $data['productName']; ?>
+                                                            <input type="hidden" name="product_name[]" value="<?= $data['productName']; ?>">
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['qtyBudget']; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="qty_budget[]"
+                                                                value="<?= str_replace(',', '', $data['qtyBudget']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['price']; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="price[]"
+                                                                value="<?= str_replace(',', '', $data['price']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['totalBudget']; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="total_budget[]"
+                                                                value="<?= str_replace(',', '', $data['totalBudget']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['qtyAdditionals']; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="qty_additional[]"
+                                                                value="<?= str_replace(',', '', $data['qtyAdditionals']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['priceAdditionals']; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="price_additional[]"
+                                                                value="<?= str_replace(',', '', $data['priceAdditionals']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['totalAdditionals']; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="total_additional[]"
+                                                                value="<?= str_replace(',', '', $data['totalAdditionals']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['qtySavings'] != "0.00" ? $data['qtySavings'] : '-'; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="qty_saving[]"
+                                                                value="<?= str_replace(',', '', $data['qtySavings']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['priceSavings'] != "0.00" ? $data['priceSavings'] : '-'; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="price_saving[]"
+                                                                value="<?= str_replace(',', '', $data['priceSavings']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['totalSavings'] != "0.00" ? $data['totalSavings'] : '-' ; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="total_saving[]"
+                                                                value="<?= str_replace(',', '', $data['totalSavings']); ?>"
+                                                            >
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                            <?php endif; ?>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>

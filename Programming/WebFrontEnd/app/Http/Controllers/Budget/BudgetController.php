@@ -100,7 +100,7 @@ class BudgetController extends Controller
             $priceSavings       = $request->input('price_saving');
             $totalSavings       = $request->input('total_saving');
 
-            // dd($files);
+            // dd($productIds, $productName, $qtyBudget, $price, $totalBudget, $qtyAdditionals, $priceAdditionals, $totalAdditionals, $qtySavings, $priceSavings, $totalSavings);
 
             $i = 0;
             $dataModifyBudget = [];
@@ -127,6 +127,8 @@ class BudgetController extends Controller
                 $dataModifyBudget[$i]['totalSavings']       = number_format($totalSavings[$index], 2);
                 $i++;
             }
+
+            // dd($dataModifyBudget);
 
             $compact = [
                 'pic'               => $PIC,

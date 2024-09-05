@@ -556,7 +556,7 @@
                 ${productId}
                 <input id="project_id" hidden="" name="product_id[]" value="${productId}">
             </td>
-            <td class="container-tbody-tr-budget" style="text-align: left !important;">
+            <td class="container-tbody-tr-budget text-wrap" style="text-align: left !important; line-height: 15px;">
                 ${productName}
                 <input id="project_id" hidden="" name="product_name[]" value="${productName}">
             </td>
