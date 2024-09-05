@@ -95,7 +95,7 @@
                                 Sub Budget
                             </dt>
                             <dd class="col" style="line-height: 15px;">
-                                <?= $subBudgetCode; ?> - <?= $subBudgetName; ?>
+                                <?= $subBudgetCode; ?>
                             </dd>
                         </div>
                     </div>
