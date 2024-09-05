@@ -62,19 +62,19 @@
                                 <div class="card-body pb-0 pt-3">
                                     <div class="row" style="gap: 8px;">
                                         <div>
-                                            <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#modalNewFolder" style="font-size: 12px; gap: 4px; width: max-content;">
+                                            <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#modalNewFolder" style="font-size: 12px; gap: 4px; width: max-content; height: 30px;">
                                                 <i class="fas fa-plus-circle"></i>
                                                 New Folder
                                             </button>
                                         </div>
                                         <div>
-                                            <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#modalNewMenu" style="font-size: 12px; gap: 4px; width: max-content;">
+                                            <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#modalNewMenu" style="font-size: 12px; gap: 4px; width: max-content; height: 30px;">
                                                 <i class="fas fa-plus-circle"></i>
                                                 New Menu
                                             </button>
                                         </div>
                                         <div>
-                                            <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#modalDelete" style="font-size: 12px; gap: 4px; width: max-content;">
+                                            <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#modalDelete" style="font-size: 12px; gap: 4px; width: max-content; height: 30px;">
                                                 <i class="fas fa-minus-circle"></i>
                                                 Delete
                                             </button>

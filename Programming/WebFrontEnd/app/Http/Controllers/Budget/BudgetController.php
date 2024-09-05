@@ -69,8 +69,8 @@ class BudgetController extends Controller
 
             // CURRENCY
             $currencyID         = $request->currency_id;
-            $currencySymbol     = $request->currency_symbol;
-            $currencyName       = $request->currency_name;
+            $currencySymbol     = $request->currency_symbol ?? '';
+            $currencyName       = $request->currency_name ?? '-';
 
             // IDR RATE
             $idrRate            = $request->value_idr_rate;
@@ -142,6 +142,7 @@ class BudgetController extends Controller
                 'currencySymbol'    => $currencySymbol,
                 'currencyName'      => $currencyName,
                 'idrRate'           => $idrRate ? number_format($idrRate, 2) : '-',
+                'valueIDRRate'      => $idrRate,
                 'valueAdditionalCO' => $valueAdditionalCO,
                 'valueDeductiveCO'  => $valueDeductiveCO,
                 'files'             => $files,
