@@ -216,7 +216,7 @@ namespace App\Helpers\ZhtHelper\General
         |                   App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),                            |
         |                   $varAPIWebToken,                                                                                       |
         |                   'dataInput_Log_FileUpload',                                                                            |
-        |                   '91000000000001'                                                                                       |
+        |                   91000000000001                                                                                         |
         |                   );                                                                                                     |
         |                                                                                                                          |
         |       ▪ ---> With Return Value to Outside DOM Object                                                                     |
@@ -225,7 +225,7 @@ namespace App\Helpers\ZhtHelper\General
         |                   \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),                           |
         |                   $varAPIWebToken,                                                                                       |
         |                   'dataInput_Log_FileUpload',                                                                            |
-        |                   '91000000000001',                                                                                      |
+        |                   91000000000001,                                                                                        |
         |                   'dataInput_Return'                                                                                     |
         |                   );                                                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+

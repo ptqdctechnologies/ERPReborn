@@ -94,21 +94,23 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_CombinedBudgetSectionDetail(
+                                (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataListJSON_CombinedBudgetSectionDetail(
                                     $varUserSession,
-
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
                                     $varData['parameter']['combinedBudgetSection_RefID'],
 
-                                    $varData['SQLStatement']['pick'],
-                                    $varData['SQLStatement']['sort'],
-                                    $varData['SQLStatement']['filter'],
+                                    $varData['SQLStatement']['pick'], 
+                                    $varData['SQLStatement']['sort'], 
+                                    $varData['SQLStatement']['filter'], 
                                     $varData['SQLStatement']['paging']
-                                    )
+                                    ),
+                                FALSE
                                 )
                             )) {
                             throw new \Exception();
                             }
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                     } catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
