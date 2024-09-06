@@ -357,7 +357,7 @@
                                         </button> -->
                                     </div>
 
-                                    <!-- CONTENT -->
+                                    <!-- CONTENT FORM -->
                                     <div id="formAddNewItem">
                                         <!-- PRODUCT ID -->
                                         <div id="newItemForm" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
