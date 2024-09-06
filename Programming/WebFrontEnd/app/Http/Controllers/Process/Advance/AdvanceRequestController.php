@@ -273,7 +273,7 @@ class AdvanceRequestController extends Controller
 
             // if (Redis::get("DataListAdvance") == null) {
                 $varAPIWebToken = Session::get('SessionLogin');
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                $DataListAdvance = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'transaction.read.dataList.finance.getAdvance',
@@ -291,13 +291,13 @@ class AdvanceRequestController extends Controller
                 );
             // }
 
-            $DataListAdvance = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    "DataListAdvance"
-                ),
-                true
-            );
+            // $DataListAdvance = json_decode(
+            //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+            //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            //         "DataListAdvance"
+            //     ),
+            //     true
+            // );
 
             $collection = collect($DataListAdvance);
 

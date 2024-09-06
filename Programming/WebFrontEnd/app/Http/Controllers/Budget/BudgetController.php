@@ -69,8 +69,8 @@ class BudgetController extends Controller
 
             // CURRENCY
             $currencyID         = $request->currency_id;
-            $currencySymbol     = $request->currency_symbol;
-            $currencyName       = $request->currency_name;
+            $currencySymbol     = $request->currency_symbol ?? '';
+            $currencyName       = $request->currency_name ?? '-';
 
             // IDR RATE
             $idrRate            = $request->value_idr_rate;
@@ -82,7 +82,7 @@ class BudgetController extends Controller
             $valueDeductiveCO   = $request->value_co_deductive;
 
             // FILES
-            $files              = $request->uploaded_files;
+            $files              = $request->uploaded_files ?? [];
 
             // MODIFY BUDGET LIST TABLE (CART)
             $productIds         = $request->input('product_id');
@@ -128,6 +128,8 @@ class BudgetController extends Controller
                 $i++;
             }
 
+            // dd($dataModifyBudget);
+
             $compact = [
                 'pic'               => $PIC,
                 'budgetID'          => $budgetID,
@@ -142,6 +144,7 @@ class BudgetController extends Controller
                 'currencySymbol'    => $currencySymbol,
                 'currencyName'      => $currencyName,
                 'idrRate'           => $idrRate ? number_format($idrRate, 2) : '-',
+                'valueIDRRate'      => $idrRate,
                 'valueAdditionalCO' => $valueAdditionalCO,
                 'valueDeductiveCO'  => $valueDeductiveCO,
                 'files'             => $files,
@@ -297,8 +300,6 @@ class BudgetController extends Controller
                     ],
                 ],
             ];
-
-            // dd($productIds, $compact);
 
             return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {

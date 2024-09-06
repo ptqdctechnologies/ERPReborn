@@ -70,7 +70,7 @@
                                                     <label for="reason_modify" class="col-4 col-form-label p-0">Reason for Modify</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
-                                                            <input id="reason_modify" style="border-radius:0;" class="form-control" name="reason_modify" autocomplete="off">
+                                                            <input id="reason_modify" style="border-radius:0;" class="form-control" name="reason_modify" autocomplete="off" value="{{ request('reason', old('reason_modify')) }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -84,11 +84,11 @@
                                                     <label class="col-4 col-form-label p-0">Additional CO</label>
                                                     <div class="col p-0" style="display: flex; gap: 16px;">
                                                         <div>
-                                                            <input type="radio" name="additional_co" value="yes">
+                                                            <input type="radio" name="additional_co" value="yes" {{ request('additionalCO') == 'yes' ? 'checked' : '' }}>
                                                             <label>Yes</label>
                                                         </div>
                                                         <div>
-                                                            <input type="radio" name="additional_co" value="no">
+                                                            <input type="radio" name="additional_co" value="no" {{ request('additionalCO') == 'no' ? 'checked' : '' }}>
                                                             <label>No</label>
                                                         </div>
                                                     </div>
@@ -103,8 +103,8 @@
                                                     <label for="currency_popup" class="col-4 col-form-label p-0">Currency</label>
                                                     <div class="col d-flex p-0">
                                                         <div>
-                                                            <input id="currency_id" hidden name="currency_id">
-                                                            <input id="currency_symbol" style="border-radius:0;" class="form-control" name="currency_symbol" readonly>
+                                                            <input id="currency_id" hidden name="currency_id" value="{{ request('currencyID', old('currency_id')) }}">
+                                                            <input id="currency_symbol" style="border-radius:0;" class="form-control" name="currency_symbol" value="{{ request('currencySymbol', old('currency_symbol')) }}" readonly>
                                                         </div>
                                                         <div>
                                                             <span style="border-radius:0;" class="input-group-text form-control">
@@ -113,7 +113,7 @@
                                                         </div>
                                                         <div style="flex: 100%;">
                                                             <div class="input-group">
-                                                                <input id="currency_name" style="border-radius:0;" name="currency_name" class="form-control" readonly>
+                                                                <input id="currency_name" style="border-radius:0;" name="currency_name" class="form-control" value="{{ request('currencyName', old('currency_name')) }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -128,7 +128,7 @@
                                                     <label for="value_idr_rate" class="col-4 col-form-label p-0">Exchange Rate</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
-                                                            <input id="value_idr_rate" style="border-radius:0;" class="form-control" name="value_idr_rate" readonly>
+                                                            <input id="value_idr_rate" style="border-radius:0;" class="form-control" name="value_idr_rate" value="{{ request('idrRate', old('value_idr_rate')) }}" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -142,7 +142,7 @@
                                                     <label for="value_co_additional" class="col-4 col-form-label p-0">Value CO Additional</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
-                                                            <input id="value_co_additional" style="border-radius:0;" class="form-control number-only" name="value_co_additional" autocomplete="off">
+                                                            <input id="value_co_additional" style="border-radius:0;" class="form-control number-only" name="value_co_additional" value="{{ request('valueAdditionalCO', old('value_co_additional')) }}" autocomplete="off">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -156,7 +156,7 @@
                                                     <label for="value_co_deductive" class="col-4 col-form-label p-0">Value CO Deductive</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
-                                                            <input id="value_co_deductive" style="border-radius:0;" class="form-control number-only" name="value_co_deductive" autocomplete="off">
+                                                            <input id="value_co_deductive" style="border-radius:0;" class="form-control number-only" name="value_co_deductive" value="{{ request('valueDeductiveCO', old('value_co_deductive')) }}" autocomplete="off">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -292,22 +292,22 @@
                                                     PLN - Biaya Penyambungan
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
-                                                    1
+                                                    <?= number_format(1, 2); ?>
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
-                                                    1
+                                                    <?= number_format(1, 2); ?>
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
-                                                    38878545
+                                                    <?= number_format(38878545, 2); ?>
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
-                                                    1
+                                                    <?= number_format(1, 2); ?>
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
-                                                    1
+                                                    <?= number_format(1, 2); ?>
                                                 </td>
                                                 <td class="container-tbody-tr-budget">
-                                                    500000
+                                                    <?= number_format(500000, 2); ?>
                                                 </td>
                                                 <td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">
                                                     <input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">
@@ -357,7 +357,7 @@
                                         </button> -->
                                     </div>
 
-                                    <!-- CONTENT -->
+                                    <!-- CONTENT FORM -->
                                     <div id="formAddNewItem">
                                         <!-- PRODUCT ID -->
                                         <div id="newItemForm" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
@@ -484,7 +484,94 @@
                                                 <th class="container-thead-tr-budget">Total</th>
                                             </tr>
                                         </thead>
-                                        <tbody></tbody>
+                                        <tbody>
+                                            <?php if (request('dataModifyBudget')) : ?>
+                                                <?php foreach (request('dataModifyBudget') as $data) { ?>
+                                                    <tr>
+                                                        <td>
+                                                            <?= $data['productID']; ?>
+                                                            <input type="hidden" name="product_id[]" value="<?= $data['productID']; ?>">
+                                                        </td>
+                                                        <td class="text-wrap" style="line-height: 15px;">
+                                                            <?= $data['productName']; ?>
+                                                            <input type="hidden" name="product_name[]" value="<?= $data['productName']; ?>">
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['qtyBudget']; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="qty_budget[]"
+                                                                value="<?= str_replace(',', '', $data['qtyBudget']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['price']; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="price[]"
+                                                                value="<?= str_replace(',', '', $data['price']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['totalBudget']; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="total_budget[]"
+                                                                value="<?= str_replace(',', '', $data['totalBudget']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['qtyAdditionals']; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="qty_additional[]"
+                                                                value="<?= str_replace(',', '', $data['qtyAdditionals']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['priceAdditionals']; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="price_additional[]"
+                                                                value="<?= str_replace(',', '', $data['priceAdditionals']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['totalAdditionals']; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="total_additional[]"
+                                                                value="<?= str_replace(',', '', $data['totalAdditionals']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['qtySavings'] != "0.00" ? $data['qtySavings'] : '-'; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="qty_saving[]"
+                                                                value="<?= str_replace(',', '', $data['qtySavings']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['priceSavings'] != "0.00" ? $data['priceSavings'] : '-'; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="price_saving[]"
+                                                                value="<?= str_replace(',', '', $data['priceSavings']); ?>"
+                                                            >
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <?= $data['totalSavings'] != "0.00" ? $data['totalSavings'] : '-' ; ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="total_saving[]"
+                                                                value="<?= str_replace(',', '', $data['totalSavings']); ?>"
+                                                            >
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                            <?php endif; ?>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>

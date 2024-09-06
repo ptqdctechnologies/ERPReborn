@@ -85,14 +85,43 @@
         const valueCOAdditionalInput = document.getElementById('value_co_additional');
         const valueCODeductiveField = document.getElementById('value_co_deductive_field');
         const valueCODeductiveInput = document.getElementById('value_co_deductive');
-        
+
+        // PARAMS
+        const urlParams = new URLSearchParams(window.location.search);
+        const additionalCOUrl = urlParams.get('additionalCO');
+
         additionalCORadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                if (this.value === 'yes' && this.checked) {
+            if (additionalCOUrl) {
+                if (additionalCOUrl == "yes") {
                     currencyField.style.display = 'flex';
                     valueIDRRateField.style.display = 'flex';
                     valueCOAdditionalField.style.display = 'flex';
                     valueCODeductiveField.style.display = 'flex';
+
+                    radio.addEventListener('change', function() {
+                        if (radio.value === 'yes' && radio.checked) {
+                            currencyField.style.display = 'flex';
+                            valueIDRRateField.style.display = 'flex';
+                            valueCOAdditionalField.style.display = 'flex';
+                            valueCODeductiveField.style.display = 'flex';
+                        } else {
+                            currencyField.style.display = 'none';
+                            currencyID.value = '';
+                            currencySymbol.value = '';
+                            currencyName.value = '';
+
+                            valueIDRRateField.style.display = 'none';
+                            valueIDRRateInput.value = '';
+
+                            valueCOAdditionalField.style.display = 'none';
+                            valueCOAdditionalInput.value = '';
+                            valueCODeductiveField.style.display = 'none';
+                            valueCODeductiveInput.value = '';
+
+                            $('#value_co_deductive').prop('disabled', false);
+                            $('#value_co_additional').prop('disabled', false);
+                        }
+                    });
                 } else {
                     currencyField.style.display = 'none';
                     currencyID.value = '';
@@ -109,8 +138,58 @@
 
                     $('#value_co_deductive').prop('disabled', false);
                     $('#value_co_additional').prop('disabled', false);
+
+                    radio.addEventListener('change', function() {
+                        if (radio.value === 'yes' && radio.checked) {
+                            currencyField.style.display = 'flex';
+                            valueIDRRateField.style.display = 'flex';
+                            valueCOAdditionalField.style.display = 'flex';
+                            valueCODeductiveField.style.display = 'flex';
+                        } else {
+                            currencyField.style.display = 'none';
+                            currencyID.value = '';
+                            currencySymbol.value = '';
+                            currencyName.value = '';
+
+                            valueIDRRateField.style.display = 'none';
+                            valueIDRRateInput.value = '';
+
+                            valueCOAdditionalField.style.display = 'none';
+                            valueCOAdditionalInput.value = '';
+                            valueCODeductiveField.style.display = 'none';
+                            valueCODeductiveInput.value = '';
+
+                            $('#value_co_deductive').prop('disabled', false);
+                            $('#value_co_additional').prop('disabled', false);
+                        }
+                    });
                 }
-            });
+            } else {
+                radio.addEventListener('change', function() {
+                    if (radio.value === 'yes' && radio.checked) {
+                        currencyField.style.display = 'flex';
+                        valueIDRRateField.style.display = 'flex';
+                        valueCOAdditionalField.style.display = 'flex';
+                        valueCODeductiveField.style.display = 'flex';
+                    } else {
+                        currencyField.style.display = 'none';
+                        currencyID.value = '';
+                        currencySymbol.value = '';
+                        currencyName.value = '';
+
+                        valueIDRRateField.style.display = 'none';
+                        valueIDRRateInput.value = '';
+
+                        valueCOAdditionalField.style.display = 'none';
+                        valueCOAdditionalInput.value = '';
+                        valueCODeductiveField.style.display = 'none';
+                        valueCODeductiveInput.value = '';
+
+                        $('#value_co_deductive').prop('disabled', false);
+                        $('#value_co_additional').prop('disabled', false);
+                    }
+                });
+            }
         });
     }
 
@@ -151,22 +230,35 @@
 
 <!-- VALUE CO ADDITIONAL & DEDUCTIVE -->
 <script>
+    // PARAMS
+    const urlParams = new URLSearchParams(window.location.search);
+    const valueAdditionalCOUrl = urlParams.get('valueAdditionalCO');
+    const valueDeductiveCOUrl = urlParams.get('valueDeductiveCO');
+
     $(document).ready(function() {
-        $('#value_co_additional').on('input', function() {
-            if ($(this).val().trim() !== "") {
+        if (valueAdditionalCOUrl || valueDeductiveCOUrl) {
+            if (valueAdditionalCOUrl) {
                 $('#value_co_deductive').prop('disabled', true);
             } else {
-                $('#value_co_deductive').prop('disabled', false);
-            }
-        });
-
-        $('#value_co_deductive').on('input', function() {
-            if ($(this).val().trim() !== "") {
                 $('#value_co_additional').prop('disabled', true);
-            } else {
-                $('#value_co_additional').prop('disabled', false);
             }
-        });
+        } else {
+            $('#value_co_additional').on('input', function() {
+                if ($(this).val().trim() !== "") {
+                    $('#value_co_deductive').prop('disabled', true);
+                } else {
+                    $('#value_co_deductive').prop('disabled', false);
+                }
+            });
+
+            $('#value_co_deductive').on('input', function() {
+                if ($(this).val().trim() !== "") {
+                    $('#value_co_additional').prop('disabled', true);
+                } else {
+                    $('#value_co_additional').prop('disabled', false);
+                }
+            });
+        }
     });
 </script>
 
@@ -225,10 +317,20 @@
 
             fileList.appendChild(row);
 
+            // Membuat objek file untuk disimpan dalam input tersembunyi
+            const fileData = {
+                name: file.name,
+                size: file.size,
+                uploadDate: currentDateTime,
+                previewUrl: URL.createObjectURL(file)
+            };
+
             const hiddenInput = document.createElement('input');
             hiddenInput.type = 'hidden';
             hiddenInput.name = 'uploaded_files[]';
-            hiddenInput.value = file;
+            // DISINI
+            // hiddenInput.value = file;
+            hiddenInput.value = JSON.stringify(fileData);
             hiddenInputs.appendChild(hiddenInput);
         });
 
@@ -310,7 +412,11 @@
                         } else {
                             let input = td.querySelector('input');
                             if (input) {
-                                td.textContent = input.value;
+                                if (ind <= 1) {
+                                    td.textContent = input.value;
+                                } else {
+                                    td.textContent = numberFormatPHPCustom(input.value, 2);
+                                }
                             }
                             td.className = 'container-tbody-tr-budget';
                         }
@@ -319,7 +425,19 @@
                     let form = document.getElementById('modifyBudgetForm');
 
                     let hiddenInputIds = ['product_id', 'product_name', 'qty_budget', 'price', 'total_budget', 'qty_additional', 'price_additional', 'total_additional', 'qty_saving', 'price_saving', 'total_saving'];
-                    let inputValues = [productId, productName, qtyBudget, prices, totalBudget, qtyAdditional, priceAdditional, totalAdditional, qtySaving, priceSaving, totalSaving];
+                    let inputValues = [
+                        productId,
+                        productName,
+                        parseInt(qtyBudget),
+                        parseInt(prices),
+                        parseInt(totalBudget),
+                        parseInt(qtyAdditional),
+                        parseInt(priceAdditional),
+                        parseInt(totalAdditional),
+                        parseInt(qtySaving),
+                        parseInt(priceSaving),
+                        parseInt(totalSaving)
+                    ];
 
                     hiddenInputIds.forEach((inputId, index) => {
                         let hiddenInput = document.createElement('input');
@@ -328,8 +446,6 @@
                         hiddenInput.value = inputValues[index];
                         form.appendChild(hiddenInput);
                     });
-
-                    console.log('form', form);
 
                     listTableBody.appendChild(clonedRow);
                 }
@@ -440,7 +556,7 @@
                 ${productId}
                 <input id="project_id" hidden="" name="product_id[]" value="${productId}">
             </td>
-            <td class="container-tbody-tr-budget" style="text-align: left !important;">
+            <td class="container-tbody-tr-budget text-wrap" style="text-align: left !important; line-height: 15px;">
                 ${productName}
                 <input id="project_id" hidden="" name="product_name[]" value="${productName}">
             </td>
