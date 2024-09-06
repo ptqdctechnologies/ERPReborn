@@ -2077,7 +2077,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2024-08-09                                                                                           |
         | ▪ Creation Date   : 2024-08-09                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Jenis Produk                                                                      |
+        | ▪ Description     : Mendapatkan Daftar Jenis Produk                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
