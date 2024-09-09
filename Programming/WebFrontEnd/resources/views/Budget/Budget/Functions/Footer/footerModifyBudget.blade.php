@@ -23,6 +23,7 @@
         $("#site_code_popup").prop("disabled", false);
         $("#site_id").val("");
         $("#site_code").val("");
+        $("#site_name").val("");
 
         $.ajaxSetup({
             headers: {
@@ -67,6 +68,40 @@
         $("#site_id").val(sys_id);
         $("#site_code").val(code);
         $("#site_name").val(name);
+    });
+</script>
+
+<!-- FUNCTION DISABLED KLIK KETIKA BUDGET & SITE CODE TIDAK KOSONG -->
+<script>
+    function checkAndDisable() {
+        var projectId = $('#project_id').val();
+        var projectCode = $('#project_code').val();
+        var projectName = $('#project_name').val();
+        var siteId = $('#site_id').val();
+        var siteCode = $('#site_code').val();
+        var siteName = $('#site_name').val();
+
+        if (projectId && projectCode && projectName && siteId && siteCode && siteName) {
+            $('#project_code_popup').addClass('disabled').css('pointer-events', 'none');
+            $('#site_code_popup').addClass('disabled').css('pointer-events', 'none');
+        } else {
+            $('#project_code_popup').removeClass('disabled').css('pointer-events', 'auto');
+            $('#site_code_popup').removeClass('disabled').css('pointer-events', 'auto');
+        }
+    }
+
+    checkAndDisable();
+
+    $('#myProject').on('click', function() {
+        checkAndDisable();
+    });
+
+    $('#mySiteCode').on('click', function() {
+        checkAndDisable();
+    });
+
+    $('#project_code, #site_code').on('input change', function() {
+        checkAndDisable();
     });
 </script>
 
