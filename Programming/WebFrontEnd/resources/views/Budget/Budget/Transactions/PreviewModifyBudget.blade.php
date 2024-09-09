@@ -107,7 +107,7 @@
                                 Currency
                             </dt>
                             <dd class="col">
-                                <?= $currencyName; ?> <?= $currencySymbol ? "(" . $currencySymbol . ")" : $currencySymbol; ?>
+                                <?= $currencySymbol . " - " . $currencyName; ?>
                             </dd>
                         </div>
 

@@ -240,8 +240,8 @@
         var row = $(this).closest("tr");
         var id = row.find("td:nth-child(1)").text();
         var sys_id = $('#sys_id_currency' + id).val();
-        var name = row.find("td:nth-child(2)").text();
-        var symbol = row.find("td:nth-child(3)").text();
+        var symbol = row.find("td:nth-child(2)").text();
+        var name = row.find("td:nth-child(3)").text();
 
         if (sys_id == "62000000000002" && name == "United States Dollar") {
             $("#currency_id").val(sys_id);
@@ -258,7 +258,7 @@
             $("#currency_name").val("");
             $("#currency_symbol").val("");
             $("#value_idr_rate").val("");
-            Swal.fire("Error", "Please Call Accounting Staffs (Ext. 1101 - 1104). Ask Them to Input Current IDR Rate. Thank You.", "error");
+            Swal.fire("Error", "Please Call Accounting Staffs (Ext. 1101 - 1104). Ask Them to Input Current Exchange Rate. Thank You.", "error");
         }
     });
 </script>
