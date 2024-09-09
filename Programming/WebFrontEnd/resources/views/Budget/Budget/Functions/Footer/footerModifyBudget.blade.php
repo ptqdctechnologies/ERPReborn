@@ -642,16 +642,25 @@
         const newProductName = document.getElementById('product_name').value.trim();
         const newQty = document.getElementById('qty').value.trim();
         const newPrice = document.getElementById('price').value.trim();
-        
-        if (validateProductId(newProductId)) {
-            addRowToTable(newProductId, newProductName, newQty, newPrice);
-            resetFormInputs();
-            hideFormAddNewItem();
+
+        if (newProductId && newProductName && newQty && newPrice) {
+            if (validateProductId(newProductId)) {
+                addRowToTable(newProductId, newProductName, newQty, newPrice);
+                resetFormInputs();
+                hideFormAddNewItem();
+            } else {
+                swal({
+                    onOpen: function() {
+                        swal.disableConfirmButton();
+                        Swal.fire("Error !", "Product ID already exists in the existing budget table.", "error");
+                    }
+                });
+            }
         } else {
             swal({
                 onOpen: function() {
                     swal.disableConfirmButton();
-                    Swal.fire("Error !", "Product ID already exists in the existing budget table.", "error");
+                    Swal.fire("Error !", "Product ID, Qty, Price, & Total cannot be empty.", "error");
                 }
             });
         }
