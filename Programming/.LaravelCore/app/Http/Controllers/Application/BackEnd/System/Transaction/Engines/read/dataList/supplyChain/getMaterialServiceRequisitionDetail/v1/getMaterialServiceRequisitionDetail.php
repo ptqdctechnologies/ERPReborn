@@ -4,28 +4,28 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\supplyChain                    |
-|                \getPurchaseRequisitionDetail\v1                                                                                  |
+|                \getMaterialServiceRequisitionDetail\v1                                                                           |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\supplyChain\getPurchaseRequisitionDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\supplyChain\getMaterialServiceRequisitionDetail\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getPurchaseRequisitionDetail                                                                                 |
-    | ▪ Description : Menangani API transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail Version 1                   |
+    | ▪ Class Name  : getMaterialServiceRequisitionDetail                                                                          |
+    | ▪ Description : Menangani API transaction.read.dataList.supplyChain.getMaterialServiceRequisitionDetail Version 1            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getPurchaseRequisitionDetail extends \App\Http\Controllers\Controller
+    class getMaterialServiceRequisitionDetail extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-19                                                                                           |
-        | ▪ Creation Date   : 2022-07-19                                                                                           |
+        | ▪ Last Update     : 2024-09-09                                                                                           |
+        | ▪ Creation Date   : 2024-09-09                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-19                                                                                           |
-        | ▪ Creation Date   : 2022-07-19                                                                                           |
+        | ▪ Last Update     : 2024-09-09                                                                                           |
+        | ▪ Creation Date   : 2024-09-09                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,7 +59,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Purchase Requisition Detail Data List (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Material Service Requisition Detail Data List (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
@@ -71,11 +71,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getDataListJSON_PurchaseRequisitionDetail(
+                                (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getDataListJSON_MaterialServiceRequisitionDetail(
                                     $varUserSession,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
-                                    $varData['parameter']['purchaseRequisition_RefID'],
+                                    $varData['parameter']['materialServiceRequisition_RefID'],
 
                                     $varData['SQLStatement']['pick'],
                                     $varData['SQLStatement']['sort'],
