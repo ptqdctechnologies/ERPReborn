@@ -99,6 +99,7 @@ class BudgetController extends Controller
             $qtySavings         = $request->input('qty_saving');
             $priceSavings       = $request->input('price_saving');
             $totalSavings       = $request->input('total_saving');
+            $type               = $request->input('type');
 
             // dd($productIds, $productName, $qtyBudget, $price, $totalBudget, $qtyAdditionals, $priceAdditionals, $totalAdditionals, $qtySavings, $priceSavings, $totalSavings);
 
@@ -125,6 +126,8 @@ class BudgetController extends Controller
                 $dataModifyBudget[$i]['qtySavings']         = number_format($qtySavings[$index], 2);
                 $dataModifyBudget[$i]['priceSavings']       = number_format($priceSavings[$index], 2);
                 $dataModifyBudget[$i]['totalSavings']       = number_format($totalSavings[$index], 2);
+                $dataModifyBudget[$i]['type']               = $type[$index] ?? 'formBudgetDetails';
+                
                 $i++;
             }
 

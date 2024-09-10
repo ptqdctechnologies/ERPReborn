@@ -252,7 +252,7 @@
             $("#currency_id").val(sys_id);
             $("#currency_name").val(name);
             $("#currency_symbol").val(symbol);
-            $("#value_idr_rate").val(0);
+            $("#value_idr_rate").val("");
         } else {
             $("#currency_id").val("");
             $("#currency_name").val("");
@@ -388,19 +388,19 @@
 
 <!-- VALIDASI SHOW/HIDE FORM ADD NEW ITEM KETIKA TABLE EXISTING BUDGET ADA DATANYA -->
 <script>
-    // function checkTableRows() {
-    //     const table = document.getElementById('budgetTable');
-    //     const tbody = table.querySelector('tbody');
-    //     const form = document.getElementById('budgetForm');
+    function checkTableRows() {
+        const table = document.getElementById('budgetTable');
+        const tbody = table.querySelector('tbody');
+        const form = document.getElementById('budgetForm');
 
-    //     if (tbody.getElementsByTagName('tr').length > 0) {
-    //         form.style.display = 'block';
-    //     } else {
-    //         form.style.display = 'none';
-    //     }
-    // }
+        if (tbody.getElementsByTagName('tr').length > 0) {
+            form.style.display = 'block';
+        } else {
+            form.style.display = 'none';
+        }
+    }
 
-    // checkTableRows();
+    checkTableRows();
 </script>
 
 <!-- BUTTON ADD TO CART (BUDGET DETAILS) -->
@@ -415,6 +415,7 @@
             let qtySaving = row.querySelector('input[name="qty_saving"]').value.trim();
             let priceSaving = row.querySelector('input[name="price_saving"]').value.trim();
             let totalSaving = row.querySelector('input[name="total_saving"]').value.trim();
+            let type = row.querySelector('input[name="type"]').value.trim();
             let productId = row.querySelector('td:nth-child(1)').textContent.trim();
             let productName = row.querySelector('td:nth-child(2)').textContent.trim();
             let qtyBudget = row.querySelector('td:nth-child(3)').textContent.trim();
@@ -430,36 +431,45 @@
                     return tr.querySelector('td:first-child').textContent.trim() === productId;
                 });
 
+                let form = document.getElementById('modifyBudgetForm');
+
                 if (existingRow) {
                     existingRow.querySelectorAll('td').forEach(function(td, index) {
                         let input = row.querySelectorAll('td')[index].querySelector('input');
-                        if (input) {
-                            td.textContent = input.value;
-                        }
-                        td.className = 'container-tbody-tr-budget';
-                    });
-                } else {
-                    let clonedRow = row.cloneNode(true);
 
-                    clonedRow.querySelectorAll('td').forEach(function(td, ind) {
-                        if (ind === 3 || ind === 5 || ind === 6) {
-                            td.remove();
-                        } else {
-                            let input = td.querySelector('input');
-                            if (input) {
-                                if (ind <= 1) {
-                                    td.textContent = input.value;
-                                } else {
-                                    td.textContent = numberFormatPHPCustom(input.value, 2);
-                                }
+                        if (input) {
+                            if (index <= 1) {
+                                td.textContent = input.value;
+                            } else if (index === 8) {
+                                td.textContent = numberFormatPHPCustom(qtySaving, 2);
+                            } else if (index === 9) {
+                                td.textContent = numberFormatPHPCustom(priceSaving, 2);
+                            } else if (index === 10) {
+                                td.textContent = numberFormatPHPCustom(totalSaving, 2);
+                            } else if (index !== 5 || index !== 6 || index !== 7) {
+                                td.textContent = numberFormatPHPCustom(input.value, 2);
                             }
+                        } else {
+                            if (index === 5) {
+                                td.textContent = numberFormatPHPCustom(qtyAdditional, 2);
+                            } 
+                            if (index === 6) {
+                                td.textContent = numberFormatPHPCustom(priceAdditional, 2);
+                            } 
+                            if (index === 7) {
+                                td.textContent = numberFormatPHPCustom(totalAdditional, 2);
+                            }
+                        }
+
+                        if (index == 11) {
+                            td.className = 'd-none';
+                        } else {
                             td.className = 'container-tbody-tr-budget';
                         }
                     });
 
-                    let form = document.getElementById('modifyBudgetForm');
-
-                    let hiddenInputIds = ['product_id', 'product_name', 'qty_budget', 'price', 'total_budget', 'qty_additional', 'price_additional', 'total_additional', 'qty_saving', 'price_saving', 'total_saving'];
+                    let hiddenInputIds = ['product_id', 'product_name', 'qty_budget', 'price', 'total_budget', 'qty_additional', 'price_additional', 'total_additional', 'qty_saving', 'price_saving', 'total_saving', 'type'];
+                    
                     let inputValues = [
                         productId,
                         productName,
@@ -471,7 +481,55 @@
                         parseInt(totalAdditional),
                         parseInt(qtySaving),
                         parseInt(priceSaving),
-                        parseInt(totalSaving)
+                        parseInt(totalSaving),
+                        type
+                    ];
+
+                    hiddenInputIds.forEach((inputId, index) => {
+                        let existingInput = form.querySelector(`input[name="${inputId}[]"]`);
+                        
+                        if (existingInput) {
+                            existingInput.value = inputValues[index];
+                        }
+                    });
+                } else {
+                    let clonedRow = row.cloneNode(true);
+                    clonedRow.querySelectorAll('td').forEach(function(td, ind) {
+                        if (ind === 3 || ind === 5 || ind === 6) {
+                            td.remove();
+                        } else {
+                            let input = td.querySelector('input');
+                            
+                            if (input) {
+                                if (ind <= 1) {
+                                    td.textContent = input.value;
+                                } else {
+                                    td.textContent = numberFormatPHPCustom(input.value, 2);
+                                }
+
+                                if (ind == 14) {
+                                    td.className = 'd-none';
+                                } else {
+                                    td.className = 'container-tbody-tr-budget';
+                                }
+                            }
+                        }
+                    });
+
+                    let hiddenInputIds = ['product_id', 'product_name', 'qty_budget', 'price', 'total_budget', 'qty_additional', 'price_additional', 'total_additional', 'qty_saving', 'price_saving', 'total_saving', 'type'];
+                    let inputValues = [
+                        productId,
+                        productName,
+                        parseInt(qtyBudget),
+                        parseInt(prices),
+                        parseInt(totalBudget),
+                        parseInt(qtyAdditional),
+                        parseInt(priceAdditional),
+                        parseInt(totalAdditional),
+                        parseInt(qtySaving),
+                        parseInt(priceSaving),
+                        parseInt(totalSaving),
+                        type
                     ];
 
                     hiddenInputIds.forEach((inputId, index) => {
@@ -495,6 +553,290 @@
             }
         });
     });
+</script>
+
+<!-- DUMMY DATA BUDGET DETAILS TABLE -->
+<script>
+    var dummyData = [
+        {
+            siteCode: 235,
+            currencyCode: "USD",
+            productID: 88000000003832,
+            productName: "1.0 Jasa Pemasangan Conductors, including All Joint and Jumper Connections",
+            qtyBudget: 1,
+            qtyAvail: 2,
+            price: 4000,
+            currency: 30000,
+            balanceBudget: 15000,
+            totalBuget: 500000,
+            qtyAdditional: null,
+            priceAdditional: null,
+            totalAdditional: null,
+            qtySaving: null,
+            priceSaving: null,
+            totalSaving: null,
+        },
+        {
+            siteCode: 235,
+            currencyCode: "IDR",
+            productID: 88000000010554,
+            productName: "110V DC battery, 625Ah, 86 cells, 8 hours Autonomy",
+            qtyBudget: 1,
+            qtyAvail: 2,
+            price: 4000,
+            currency: 30000,
+            balanceBudget: 15000,
+            totalBuget: 500000,
+            qtyAdditional: null,
+            priceAdditional: null,
+            totalAdditional: null,
+            qtySaving: null,
+            priceSaving: null,
+            totalSaving: null,
+        },
+        {
+            siteCode: 248,
+            currencyCode: "USD",
+            productID: 88000000010553,
+            productName: "110V DC battery, 625Ah, 86 cells, 8 hours Autonomy",
+            qtyBudget: 1,
+            qtyAvail: 2,
+            price: 4000,
+            currency: 30000,
+            balanceBudget: 15000,
+            totalBuget: 500000,
+            qtyAdditional: null,
+            priceAdditional: null,
+            totalAdditional: null,
+            qtySaving: null,
+            priceSaving: null,
+            totalSaving: null,
+        },
+        {
+            siteCode: 248,
+            currencyCode: "IDR",
+            productID: 88000000009339,
+            productName: "110 VDC BATTERY SUITABLE FOR SUPPLYING VDC LOAD INCLUDING 20 KV CUBICLE  FOR 8 HOURS DISCHARGE INCLUDING VOLTAGE DROPPER. (MINIMUM CAPACITY IS 250 AH 110 VDC) BATTERY CHARGER MIN 100 A FOR 110 VDC BATTERY COMPLETE WITH PANEL",
+            qtyBudget: 1,
+            qtyAvail: 2,
+            price: 4000,
+            currency: 30000,
+            balanceBudget: 15000,
+            totalBuget: 500000,
+            qtyAdditional: null,
+            priceAdditional: null,
+            totalAdditional: null,
+            qtySaving: null,
+            priceSaving: null,
+            totalSaving: null,
+        },
+        {
+            siteCode: 235,
+            currencyCode: "USD",
+            productID: 88000000009435,
+            productName: "110 VDC BATTERY SUITABLE FOR SUPPLYING VDC LOAD INCLUDING 20 KV CUBICLE  FOR 8 HOURS DISCHARGE INCLUDING VOLTAGE DROPPER. (MINIMUM CAPACITY IS 250 AH 110 VDC) BATTERY CHARGER MIN 100 A FOR 110 VDC BATTERY COMPLETE WITH PANEL",
+            qtyBudget: 1,
+            qtyAvail: 2,
+            price: 4000,
+            currency: 30000,
+            balanceBudget: 15000,
+            totalBuget: 500000,
+            qtyAdditional: null,
+            priceAdditional: null,
+            totalAdditional: null,
+            qtySaving: null,
+            priceSaving: null,
+            totalSaving: null,
+        },
+        {
+            siteCode: 235,
+            currencyCode: "IDR",
+            productID: 88000000004671,
+            productName: "11 6A",
+            qtyBudget: 1,
+            qtyAvail: 2,
+            price: 4000,
+            currency: 30000,
+            balanceBudget: 15000,
+            totalBuget: 500000,
+            qtyAdditional: null,
+            priceAdditional: null,
+            totalAdditional: null,
+            qtySaving: null,
+            priceSaving: null,
+            totalSaving: null,
+        },
+        {
+            siteCode: 248,
+            currencyCode: "USD",
+            productID: 88000000003324,
+            productName: "1.1. Six twin line conductors ACCC/TW Dublin 520",
+            qtyBudget: 1,
+            qtyAvail: 2,
+            price: 4000,
+            currency: 30000,
+            balanceBudget: 15000,
+            totalBuget: 500000,
+            qtyAdditional: null,
+            priceAdditional: null,
+            totalAdditional: null,
+            qtySaving: null,
+            priceSaving: null,
+            totalSaving: null,
+        },
+        {
+            siteCode: 248,
+            currencyCode: "IDR",
+            productID: 88000000003601,
+            productName: "1.2b. One earth conductor, OPGW  70 mm2",
+            qtyBudget: 1,
+            qtyAvail: 2,
+            price: 4000,
+            currency: 30000,
+            balanceBudget: 15000,
+            totalBuget: 500000,
+            qtyAdditional: null,
+            priceAdditional: null,
+            totalAdditional: null,
+            qtySaving: null,
+            priceSaving: null,
+            totalSaving: null,
+        },
+    ];
+
+    function filterData() {
+        var siteCodesss = $('#site_code').val();
+        var currencySymbols = $('#currency_symbol').val();
+
+        if (siteCodesss !== '' && currencySymbols !== '') {
+            var filteredData = dummyData.filter(function(item) {
+                return item.siteCode == siteCodesss && item.currencyCode == currencySymbols;
+            });
+
+            updateTableBody(filteredData);
+        } else {
+            var tbody = $('#budgetTable tbody');
+            tbody.empty();
+
+            checkTableRows();
+        }
+    }
+
+    function updateTableBody(data) {
+        var tbody = $('#budgetTable tbody');
+        tbody.empty();
+
+        // PARAMS
+        const urlParamssss = new URLSearchParams(window.location.search);
+        const dataModifyBudgetUrl = urlParamssss.get('dataModifyBudget[0][no]');
+        const dataModifyBudgetUrlArray = [];
+
+        // Temporary object to store items while looping
+        const tempData = {};
+
+        // Loop through each entry in URLSearchParams
+        urlParams.forEach((value, key) => {
+            // Check if the key starts with "dataModifyBudget"
+            const match = key.match(/dataModifyBudget\[(\d+)\]\[(.+)\]/);
+            
+            if (match) {
+                const index = parseInt(match[1], 10);  // Get the index
+                const field = match[2];                // Get the field name
+
+                // If the array at this index doesn't exist, create an empty object
+                if (!tempData[index]) {
+                    tempData[index] = {};
+                }
+
+                // Assign the value to the corresponding field in the temp object
+                tempData[index][field] = value;
+            }
+        });
+
+        // Filter objects where type is 'budgetDetails' and push them to dataModifyBudget
+        Object.values(tempData).forEach(item => {
+            if (item.type === 'budgetDetails') {
+                dataModifyBudgetUrlArray.push(item);
+            }
+        });
+
+        if (dataModifyBudgetUrl) {
+            data.forEach(function(item, ind) {
+                var row = '';
+                if (item.productID == dataModifyBudgetUrlArray[0]["productID"]) {
+                    row = '<tr>' +
+                        '<td class="container-tbody-tr-budget">' + item.productID + '</td>' +
+                        '<td class="container-tbody-tr-budget" style="text-align: left !important;">' + item.productName + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.qtyBudget, 2) + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.qtyAvail, 2) + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.price, 2) + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.currency, 2) + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.balanceBudget, 2) + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.totalBuget, 2) + '</td>' +
+                        '<td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional" value="5000">' + '</td>' +
+                        '<td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">' + '</td>' +
+                        '<td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>' + '</td>' +
+                        '<td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">' + '</td>' +
+                        '<td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">' + '</td>' +
+                        '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>' + '</td>' +
+                    '</tr>';   
+                } else {
+                    row = '<tr>' +
+                        '<td class="container-tbody-tr-budget">' + item.productID + '</td>' +
+                        '<td class="container-tbody-tr-budget" style="text-align: left !important;">' + item.productName + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.qtyBudget, 2) + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.qtyAvail, 2) + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.price, 2) + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.currency, 2) + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.balanceBudget, 2) + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.totalBuget, 2) + '</td>' +
+                        '<td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">' + '</td>' +
+                        '<td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">' + '</td>' +
+                        '<td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>' + '</td>' +
+                        '<td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">' + '</td>' +
+                        '<td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">' + '</td>' +
+                        '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>' + '</td>' +
+                    '</tr>';
+                }
+                
+                tbody.append(row); 
+            });
+        } else {
+            data.forEach(function(item) {
+                var row = '<tr>' +
+                    '<td class="container-tbody-tr-budget">' + item.productID + '</td>' +
+                    '<td class="container-tbody-tr-budget" style="text-align: left !important;">' + item.productName + '</td>' +
+                    '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.qtyBudget, 2) + '</td>' +
+                    '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.qtyAvail, 2) + '</td>' +
+                    '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.price, 2) + '</td>' +
+                    '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.currency, 2) + '</td>' +
+                    '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.balanceBudget, 2) + '</td>' +
+                    '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.totalBuget, 2) + '</td>' +
+                    '<td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">' + '</td>' +
+                    '<td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">' + '</td>' +
+                    '<td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>' + '</td>' +
+                    '<td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">' + '</td>' +
+                    '<td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">' + '</td>' +
+                    '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>' + '</td>' +
+                    '<td class="d-none">' + '<input autocomplete="off" id="type" name="type" value="budgetDetails" disabled>' + '</td>' +
+                    '</tr>';
+
+                tbody.append(row); 
+            });
+        }
+
+        checkTableRows();
+    }
+
+    $('#site_code, #currency_symbol').on('change', function() {
+        filterData();
+    });
+
+    $('#mySiteCode, #myCurrency').on('hidden.bs.modal', function() {
+        filterData();
+    });
+
+    filterData();
 </script>
 
 <!-- FORM ADD NEW ITEM -->
