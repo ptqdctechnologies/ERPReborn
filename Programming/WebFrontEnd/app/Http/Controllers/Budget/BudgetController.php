@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Budget;
 
+use App\Http\Controllers\ExportExcel\Budget\ExportReportModifyBudgetDetail;
 use App\Http\Controllers\ExportExcel\Budget\ExportReportModifyBudgetSummary;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -466,6 +467,144 @@ class BudgetController extends Controller
             }
         } catch (\Throwable $th) {
             Log::error("Error at PrintExportReportModifyBudgetSummary: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportModifyBudgetDetail(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $isSubmitButton = $request->session()->get('isButtonReportModifyBudgetDetailSubmit');
+
+        $dataReport = $isSubmitButton ? $request->session()->get('dataReportModifyBudgetDetail', []) : [];
+
+        $compact = [
+            'varAPIWebToken'    => [],
+            'dataReport'        => $dataReport
+        ];
+
+        return view('Budget.Budget.Reports.ReportModifyBudgetDetail', $compact);
+    }
+
+    public function ReportModifyBudgetDetailData($id) 
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.form.documentForm.finance.getAdvance', 
+                'latest',
+                [
+                    'parameter' => [
+                        'recordID' => (int) $id
+                    ]
+                ]
+            );
+
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Data not found in the API response.');
+            }
+
+            $getData = $filteredArray['data'][0]['document'];
+
+            // DATA HEADER
+            $dataHeaders = [
+                'doNumber'      => 'DO01-53000004',
+                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0],
+                'budgetName'    => $getData['content']['general']['budget']['combinedBudgetNameList'][0],
+                'subBudget'     => $getData['content']['general']['budget']['combinedBudgetSectionCodeList'][0],
+                'date'          => $getData['header']['date'],
+                'transporter'   => "VDR-2594 - Aman Jaya",
+                'deliveryFrom'  => "QDC",
+                'deliveryTo'    => 'Gudang Tigaraksa',
+                'PIC'           => $getData['content']['general']['involvedPersons'][0]['requesterWorkerName'],
+            ];
+
+            $dataDetails = [];
+            $i = 0;
+            $totalQty = 0;
+            foreach ($getData['content']['details']['itemList'] as $dataReports) {
+                $totalQty += $dataReports['entities']['quantity'];
+            
+                $dataDetails[$i]['no']          = $i + 1;
+                $dataDetails[$i]['dorNumber']   = "DOR1-23000004";
+                $dataDetails[$i]['productId']   = $dataReports['entities']['product_RefID'];
+                $dataDetails[$i]['productName'] = $dataReports['entities']['productName'];
+                $dataDetails[$i]['qty']         = number_format($dataReports['entities']['quantity'], 2, ',', '.');
+                $dataDetails[$i]['uom']         = 'Set';
+                $dataDetails[$i]['remark']      = $dataReports['entities']['quantityUnitName'];
+                $i++;
+            }
+
+            $compact = [
+                'dataHeader'    => $dataHeaders,
+                'dataDetail'    => $dataDetails,
+                'totalQty'      => number_format($totalQty, 2, ',', '.'),
+            ];
+
+            Session::put("isButtonReportModifyBudgetDetailSubmit", true);
+            Session::put("dataReportModifyBudgetDetail", $compact);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            Log::error("Error at ReportModifyBudgetDetailData: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportModifyBudgetDetailStore(Request $request) 
+    {
+        try {
+            $advanceRefID   = $request->advance_RefID;
+            $advanceNumber  = $request->advance_number;
+
+            if (!$advanceRefID && !$advanceNumber) {
+                Session::forget("isButtonReportModifyBudgetDetailSubmit");
+                Session::forget("dataReportModifyBudgetDetail");
+
+                return redirect()->route('Budget.ReportModifyBudgetDetail')->with('NotFound', 'Modify Number Cannot Empty');
+            }
+
+            $compact = $this->ReportModifyBudgetDetailData($advanceRefID);
+
+            if ($compact === null || empty($compact)) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            return redirect()->route('Budget.ReportModifyBudgetDetail');
+        } catch (\Throwable $th) {
+            Log::error("Error at ReportModifyBudgetDetailStore: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportModifyBudgetDetail(Request $request) {
+        try {
+            $dataReport = Session::get("dataReportModifyBudgetDetail");
+
+            if ($dataReport) {
+                if ($request->print_type == "PDF") {
+                    $pdf = PDF::loadView('Budget.Budget.Reports.ReportModifyBudgetDetail_pdf', ['dataReport' => $dataReport]);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+    
+                    return $pdf->download('Export Report Modify Budget Detail.pdf');
+                } else {
+                    return Excel::download(new ExportReportModifyBudgetDetail, 'Export Report Modify Budget Detail.xlsx');
+                }
+            } else {
+                return redirect()->route('Budget.ReportModifyBudgetDetail')->with('NotFound', 'Modify Number Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Error at PrintExportReportModifyBudgetDetail: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
