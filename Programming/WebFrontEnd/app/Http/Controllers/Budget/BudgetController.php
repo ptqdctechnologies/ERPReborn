@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Budget;
 
+use App\Http\Controllers\ExportExcel\Budget\ExportReportModifyBudgetSummary;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -9,8 +10,11 @@ use DB;
 use PDO;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BudgetController extends Controller
 {
@@ -307,6 +311,161 @@ class BudgetController extends Controller
             return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at PreviewModifyBudget: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportModifyBudgetSummary(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $isSubmitButton = $request->session()->get('isButtonReportModifyBudgetSummarySubmit');
+
+        $dataReport = $isSubmitButton ? $request->session()->get('dataReportModifyBudgetSummary', []) : [];
+
+        $compact = [
+            'varAPIWebToken' => [],
+            'dataReport' => $dataReport
+        ];
+
+        return view('Budget.Budget.Reports.ReportModifyBudgetSummary', $compact);
+    }
+
+    public function ReportModifyBudgetSummaryData($projectId, $siteId, $projectCode, $projectName)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'report.form.documentForm.finance.getReportAdvanceSummary',
+                'latest',
+                [
+                    'parameter' => [
+                        'dataFilter' => [
+                            'budgetID' => 1,
+                            'subBudgetID' => 1,
+                            'workID' => 1,
+                            'productID' => 1,
+                            'beneficiaryID' => 1,
+                        ]
+                    ]
+                ],
+                false
+            );
+
+            $DataReportModifyBudgetSummary = json_decode(
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    "ReportAdvanceSummary"
+                ),
+                true
+            );
+
+            $collection = collect($DataReportModifyBudgetSummary);
+
+            if ($projectId != "") {
+                $collection = $collection->where('CombinedBudget_RefID', $projectId);
+            }
+            if ($siteId != "") {
+                $collection = $collection->where('CombinedBudgetSection_RefID', $siteId);
+            }
+
+            $collection = $collection->all();
+
+            $dataHeaders = [
+                'budget'        => $projectCode . " - " . $projectName
+            ];
+
+            $dataDetails = [];
+            $i = 0;
+            $total = 0;
+            foreach ($collection as $collections) {
+                $total                                  += $collections['TotalAdvance'];
+
+                $dataDetails[$i]['no']                  = $i + 1;
+                $dataDetails[$i]['ModifyNumber']        = "MB01-23000004";
+                $dataDetails[$i]['budgetCode']          = $collections['CombinedBudgetCode'];
+                $dataDetails[$i]['date']                = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
+                $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
+                $i++;
+            }
+
+            $compact = [
+                'dataHeader'            => $dataHeaders,
+                'dataDetail'            => $dataDetails,
+                'total'                 => number_format($total, 2),
+            ];
+
+            Session::put("isButtonReportModifyBudgetSummarySubmit", true);
+            Session::put("dataReportModifyBudgetSummary", $compact);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            Log::error("Error at ReportModifyBudgetSummaryData: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportModifyBudgetSummaryStore(Request $request) 
+    {
+        try {
+            $budget         = $request->budget;
+            $budgetID       = $request->budget_id;
+            $budgetName     = $request->budget_name;
+            $subBudgetID    = $request->sub_budget_id;
+
+            if (!$budgetID && !$subBudgetID) {
+                $message = 'Budget & Sub Budget Cannot Empty';
+            } else if ($budgetID && !$subBudgetID) {
+                $message = 'Sub Budget Cannot Empty';
+            }
+
+            if (isset($message)) {
+                Session::forget("isButtonReportModifyBudgetSummarySubmit");
+                Session::forget("dataReportModifyBudgetSummary");
+
+                return redirect()->route('Budget.ReportModifyBudgetSummary')->with('NotFound', $message);
+            }
+
+            $compact = $this->ReportModifyBudgetSummaryData($budgetID, $subBudgetID, $budget, $budgetName);
+
+            if ($compact === null || empty($compact['dataHeader'])) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            return redirect()->route('Budget.ReportModifyBudgetSummary');
+        } catch (\Throwable $th) {
+            Log::error("Error at ReportModifyBudgetSummaryStore: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportModifyBudgetSummary(Request $request) {
+        try {
+            $dataReport = Session::get("dataReportModifyBudgetSummary");
+
+            if ($dataReport) {
+                if ($request->print_type == "PDF") {
+                    $pdf = PDF::loadView('Budget.Budget.Reports.ReportModifyBudgetSummary_pdf', ['dataReport' => $dataReport]);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+    
+                    return $pdf->download('Export Report Modify Budget Summary.pdf');
+                } else {
+                    return Excel::download(new ExportReportModifyBudgetSummary, 'Export Report Modify Budget Summary.xlsx');
+                }
+            } else {
+                return redirect()->route('Budget.ReportModifyBudgetSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Error at PrintExportReportModifyBudgetSummary: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }

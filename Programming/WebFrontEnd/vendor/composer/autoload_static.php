@@ -1531,6 +1531,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\Document\\MyDocumentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Document/MyDocumentController.php',
         'App\\Http\\Controllers\\ExportExcel\\AdvanceRequest\\ExportReportAdvanceSummary' => __DIR__ . '/../..' . '/app/Http/Controllers/ExportExcel/AdvanceRequest/ExportReportAdvanceSummary.php',
         'App\\Http\\Controllers\\ExportExcel\\AdvanceRequest\\ExportReportAdvanceSummaryDetail' => __DIR__ . '/../..' . '/app/Http/Controllers/ExportExcel/AdvanceRequest/ExportReportAdvanceSummaryDetail.php',
+        'App\\Http\\Controllers\\ExportExcel\\Budget\\ExportReportModifyBudgetSummary' => __DIR__ . '/../..' . '/app/Http/Controllers/ExportExcel/Budget/ExportReportModifyBudgetSummary.php',
         'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportDODetail' => __DIR__ . '/../..' . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportDODetail.php',
         'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportDORDetail' => __DIR__ . '/../..' . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportDORDetail.php',
         'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportDORSummary' => __DIR__ . '/../..' . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportDORSummary.php',

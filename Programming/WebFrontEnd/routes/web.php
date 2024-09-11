@@ -122,6 +122,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Budget
     Route::get('ModifyBudget', 'Budget\BudgetController@ModifyBudget')->name('Budget.ModifyBudget');
     Route::post('PreviewModifyBudget', 'Budget\BudgetController@PreviewModifyBudget')->name('Budget.PreviewModifyBudget');
+    Route::get('ReportModifyBudgetSummary', 'Budget\BudgetController@ReportModifyBudgetSummary')->name('Budget.ReportModifyBudgetSummary');
+    Route::post('ReportModifyBudgetSummaryStore', 'Budget\BudgetController@ReportModifyBudgetSummaryStore')->name('Budget.ReportModifyBudgetSummaryStore');
+    Route::post('PrintExportReportModifyBudgetSummary', 'Budget\BudgetController@PrintExportReportModifyBudgetSummary')->name('Budget.PrintExportReportModifyBudgetSummary');
+    Route::get('ReportModifyBudgetDetail', 'Budget\BudgetController@ReportModifyBudgetDetail')->name('Budget.ReportModifyBudgetDetail');
     Route::resource('Budget', 'BudgetController');
     // Budget Expense
     Route::get('BudgetExpense/GetBudget', 'BudgetExpenseController@GetBudget')->name('BudgetExpense.GetBudget');
