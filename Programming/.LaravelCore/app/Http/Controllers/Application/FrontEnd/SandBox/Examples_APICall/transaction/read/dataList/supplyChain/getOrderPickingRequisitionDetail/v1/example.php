@@ -4,27 +4,27 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\supplyChain        |
-|                 \getPurchaseRequisitionDetail\v1                                                                                 |
-| ▪ API Key     : transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail                                               |
+|                 \getOrderPickingRequisitionDetail\v1                                                                             |
+| ▪ API Key     : transaction.read.dataList.supplyChain.getOrderPickingRequisitionDetail                                           |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\supplyChain\getPurchaseRequisitionDetail\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\supplyChain\getOrderPickingRequisitionDetail\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail.v1_throughAPIGateway              |
+        |                     transaction.read.dataList.supplyChain.getOrderPickingRequisitionDetail.v1_throughAPIGateway          |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail.v1_throughAPIGateway            |
+        |                       transaction.read.dataList.supplyChain.getOrderPickingRequisitionDetail.v1_throughAPIGateway        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-27                                                                                           |
-        | ▪ Creation Date   : 2022-07-27                                                                                           |
+        | ▪ Last Update     : 2024-09-11                                                                                           |
+        | ▪ Creation Date   : 2024-09-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -39,11 +39,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken, 
-                    'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail', 
+                    'transaction.read.dataList.supplyChain.getOrderPickingRequisitionDetail', 
                     'latest', 
                     [
                     'parameter' => [
-                        'purchaseRequisition_RefID' => 83000000000001
+                        'orderPickingRequisition_RefID' => 248000000000001
                         ],
                     'SQLStatement' => [
                         'pick' => null,
@@ -60,13 +60,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail.v1_throughAPIGatewayJQuery        |
+        |                     transaction.read.dataList.supplyChain.getOrderPickingRequisitionDetail.v1_throughAPIGatewayJQuery    |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail.v1_throughAPIGatewayJQuery      |
+        |                       transaction.read.dataList.supplyChain.getOrderPickingRequisitionDetail.v1_throughAPIGatewayJQuery  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-27                                                                                           |
-        | ▪ Creation Date   : 2022-07-27                                                                                           |
+        | ▪ Last Update     : 2024-09-11                                                                                           |
+        | ▪ Creation Date   : 2024-09-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -79,7 +79,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
             echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Parameter</p></td></tr>';
-            echo '<tr><td>PurchaseRequisition&nbsp;RefID</td><td><input type="text" id="dataInput_PurchaseRequisition_RefID" value=83000000000001></td></tr>';
+            echo '<tr><td>OrderPickingRequisition&nbsp;RefID</td><td><input type="text" id="dataInput_OrderPickingRequisition_RefID" value=248000000000001></td></tr>';
             echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
             echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
             echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
@@ -90,11 +90,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                     $varAPIWebToken, 
-                    'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail', 
+                    'transaction.read.dataList.supplyChain.getOrderPickingRequisitionDetail', 
                     'latest', 
                     '{'.
                         '"parameter" : {'.
-                            '"purchaseRequisition_RefID" : parseInt(document.getElementById("dataInput_PurchaseRequisition_RefID").value) '.
+                            '"orderPickingRequisition_RefID" : parseInt(document.getElementById("dataInput_OrderPickingRequisition_RefID").value) '.
                             '}, '.
                         '"SQLStatement" : {'.
                             '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
