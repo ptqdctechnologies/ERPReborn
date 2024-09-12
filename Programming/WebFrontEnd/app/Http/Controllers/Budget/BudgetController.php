@@ -119,12 +119,12 @@ class BudgetController extends Controller
                 $dataModifyBudget[$i]['no']                 = $i + 1;
                 $dataModifyBudget[$i]['productID']          = $productIds[$index];
                 $dataModifyBudget[$i]['productName']        = $productName[$index];
-                $dataModifyBudget[$i]['qtyBudget']          = number_format($qtyBudget[$index], 2);
+                $dataModifyBudget[$i]['qtyBudget']          = $qtyBudget[$index];
                 // $dataModifyBudget[$i]['qtyAvail']           = number_format($qtyAvail[$index], 2);
-                $dataModifyBudget[$i]['price']              = number_format($price[$index], 2);
+                $dataModifyBudget[$i]['price']              = $price[$index];
                 // $dataModifyBudget[$i]['currency']           = $currency[$index];
                 // $dataModifyBudget[$i]['balanceBudget']      = number_format($balanceBudget[$index], 2);
-                $dataModifyBudget[$i]['totalBudget']        = number_format($totalBudget[$index], 2);
+                $dataModifyBudget[$i]['totalBudget']        = $totalBudget[$index];
                 $dataModifyBudget[$i]['qtyAdditionals']     = number_format($qtyAdditionals[$index], 2);
                 $dataModifyBudget[$i]['priceAdditionals']   = number_format($priceAdditionals[$index], 2);
                 $dataModifyBudget[$i]['totalAdditionals']   = number_format($totalAdditionals[$index], 2);

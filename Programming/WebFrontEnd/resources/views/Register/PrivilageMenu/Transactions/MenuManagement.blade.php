@@ -107,51 +107,45 @@
 
 <!-- Modal New Folder -->
 <div class="modal fade" id="modalNewFolder" tabindex="-1" aria-labelledby="modalNewFolderLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header align-items-center">
-        <div style="font-size: 16px;">
-            Add New Folder
-        </div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <label for="menu_caption" class="col-3 col-form-label pt-0" style="font-size: 14px;">Menu Caption</label>
-            <div class="col">
-                <div class="input-group">
-                    <input id="menu_caption" style="border-radius:0;" class="form-control" name="menu_caption" autocomplete="off">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header align-items-center">
+                <h5 style="font-size: 16px;">
+                    Add New Folder
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="menu_caption" class="col-3 col-form-label" style="font-size: 14px;">Menu Caption</label>
+                    <div class="col-9 d-flex">
+                        <input id="menu_caption" class="form-control" name="menu_caption" autocomplete="off" style="border-radius:0; margin: auto;">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="menu_id" class="col-3 col-form-label" style="font-size: 14px;">Menu ID</label>
+                    <div class="col-9 d-flex">
+                        <input id="menu_id" class="form-control" name="menu_id" autocomplete="off" style="border-radius:0; margin: auto;">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="type_folder" class="col-3 col-form-label" style="font-size: 14px;">Type</label>
+                    <div class="col-9 d-flex">
+                        <select id="type_folder" class="custom-select" style="border-radius: 0; font-size: 0.875rem; padding: .10rem .10rem; margin: auto;">
+                            <option value="Transaction">Transaction</option>
+                            <option value="Report">Report</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <label for="menu_id" class="col-3 col-form-label pt-0" style="font-size: 14px;">Menu ID</label>
-            <div class="col">
-                <div class="input-group">
-                    <input id="menu_id" style="border-radius:0;" class="form-control" name="menu_id" autocomplete="off">
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="addNewFolder()">Submit</button>
             </div>
         </div>
-        <div class="row">
-            <label for="type_folder" class="col-3 col-form-label pt-0" style="font-size: 14px;">Type</label>
-            <div class="col">
-                <div class="input-group">
-                    <select class="custom-select" style="width: 100%; padding: .10rem .10rem; font-size: 0.75rem; border-radius: 0;">
-                        <option>REPORT</option>
-                        <option>TRANSACTION</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding: .275rem .75rem; font-size: 16px;">Close</button>
-        <button type="button" class="btn btn-primary" style="padding: .275rem .75rem; font-size: 16px;">Submit</button>
-      </div>
     </div>
-  </div>
 </div>
 
 <!-- Modal New Menu -->
@@ -168,36 +162,36 @@
       </div>
       <div class="modal-body">
         <div class="row">
-            <label for="menu_caption" class="col-3 col-form-label pt-0" style="font-size: 14px;">Menu Caption</label>
+            <label for="new_menu_caption" class="col-3 col-form-label pt-0" style="font-size: 14px;">Menu Caption</label>
             <div class="col">
                 <div class="input-group">
-                    <input id="menu_caption" style="border-radius:0;" class="form-control" name="menu_caption" autocomplete="off">
+                    <input id="new_menu_caption" style="border-radius:0;" class="form-control" name="new_menu_caption" autocomplete="off">
                 </div>
             </div>
         </div>
         <div class="row">
-            <label for="menu_id" class="col-3 col-form-label pt-0" style="font-size: 14px;">Menu ID</label>
+            <label for="new_menu_id" class="col-3 col-form-label pt-0" style="font-size: 14px;">Menu ID</label>
             <div class="col">
                 <div class="input-group">
-                    <input id="menu_id" style="border-radius:0;" class="form-control" name="menu_id" autocomplete="off">
+                    <input id="new_menu_id" style="border-radius:0;" class="form-control" name="new_menu_id" autocomplete="off">
                 </div>
             </div>
         </div>
         <div class="row">
-            <label for="menu_link" class="col-3 col-form-label pt-0" style="font-size: 14px;">Link</label>
+            <label for="new_menu_link" class="col-3 col-form-label pt-0" style="font-size: 14px;">Link</label>
             <div class="col">
                 <div class="input-group">
-                    <input id="menu_link" style="border-radius:0;" class="form-control" name="menu_link" autocomplete="off">
+                    <input id="new_menu_link" style="border-radius:0;" class="form-control" name="new_menu_link" autocomplete="off">
                 </div>
             </div>
         </div>
         <div class="row">
-            <label for="type_folder" class="col-3 col-form-label pt-0" style="font-size: 14px;">Type</label>
+            <label for="new_type_folder" class="col-3 col-form-label pt-0" style="font-size: 14px;">Type</label>
             <div class="col">
                 <div class="input-group">
-                    <select class="custom-select" style="width: 100%; padding: .10rem .10rem; font-size: 0.75rem; border-radius: 0;">
-                        <option>REPORT</option>
-                        <option>TRANSACTION</option>
+                    <select id="new_type_folder" class="custom-select" style="width: 100%; padding: .10rem .10rem; font-size: 0.75rem; border-radius: 0;">
+                        <option value="Transaction">TRANSACTION</option>
+                        <option value="Report">REPORT</option>
                     </select>
                 </div>
             </div>
@@ -205,7 +199,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding: .275rem .75rem; font-size: 16px;">Close</button>
-        <button type="button" class="btn btn-primary" style="padding: .275rem .75rem; font-size: 16px;">Submit</button>
+        <button type="button" class="btn btn-primary" onclick="addNewSubMenu()" style="padding: .275rem .75rem; font-size: 16px;">Submit</button>
       </div>
     </div>
   </div>
