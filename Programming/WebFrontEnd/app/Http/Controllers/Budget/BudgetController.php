@@ -511,7 +511,7 @@ class BudgetController extends Controller
 
             // DATA HEADER
             $dataHeaders = [
-                'doNumber'      => 'DO01-53000004',
+                'doNumber'      => 'MB01-53000004',
                 'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0],
                 'budgetName'    => $getData['content']['general']['budget']['combinedBudgetNameList'][0],
                 'subBudget'     => $getData['content']['general']['budget']['combinedBudgetSectionCodeList'][0],
@@ -529,7 +529,7 @@ class BudgetController extends Controller
                 $totalQty += $dataReports['entities']['quantity'];
             
                 $dataDetails[$i]['no']          = $i + 1;
-                $dataDetails[$i]['dorNumber']   = "DOR1-23000004";
+                $dataDetails[$i]['dorNumber']   = "MB1-23000004";
                 $dataDetails[$i]['productId']   = $dataReports['entities']['product_RefID'];
                 $dataDetails[$i]['productName'] = $dataReports['entities']['productName'];
                 $dataDetails[$i]['qty']         = number_format($dataReports['entities']['quantity'], 2, ',', '.');

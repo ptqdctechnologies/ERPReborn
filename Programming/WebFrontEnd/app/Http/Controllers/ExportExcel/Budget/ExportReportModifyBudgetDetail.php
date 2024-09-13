@@ -52,7 +52,7 @@ class ExportReportModifyBudgetDetail implements FromCollection, WithHeadings, Sh
     {
         return [
             ["", "", "", "", "", ""],
-            ["No", "DOR Number", "Product Id", "Qty", "UOM", "Remark"]
+            ["No", "Modify Number", "Product Id", "Qty", "UOM", "Remark"]
         ];
     }
 

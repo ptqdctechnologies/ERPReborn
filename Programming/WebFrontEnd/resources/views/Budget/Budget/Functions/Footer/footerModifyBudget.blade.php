@@ -352,7 +352,6 @@
 
             fileList.appendChild(row);
 
-            // Membuat objek file untuk disimpan dalam input tersembunyi
             const fileData = {
                 name: file.name,
                 size: file.size,
@@ -363,8 +362,6 @@
             const hiddenInput = document.createElement('input');
             hiddenInput.type = 'hidden';
             hiddenInput.name = 'uploaded_files[]';
-            // DISINI
-            // hiddenInput.value = file;
             hiddenInput.value = JSON.stringify(fileData);
             hiddenInputs.appendChild(hiddenInput);
         });
@@ -434,6 +431,8 @@
                 let form = document.getElementById('modifyBudgetForm');
 
                 if (existingRow) {
+                    console.log('1');
+                    
                     existingRow.querySelectorAll('td').forEach(function(td, index) {
                         let input = row.querySelectorAll('td')[index].querySelector('input');
 
@@ -485,8 +484,12 @@
                         type
                     ];
 
+                    console.log('inputValues', inputValues);
+
                     hiddenInputIds.forEach((inputId, index) => {
                         let existingInput = form.querySelector(`input[name="${inputId}[]"]`);
+
+                        console.log('existingInput', existingInput);
 
                         if (existingInput) {
                             existingInput.value = inputValues[index];
@@ -545,6 +548,8 @@
 
                     listTableBody.appendChild(clonedRow);
                 }
+
+                console.log('form', form);
             } else if (!qtyAdditional && priceAdditional && totalAdditional) {
                 Swal.fire("Error", "Qty Additional Cannot Be Empty", "error");
             } else if (qtyAdditional && !priceAdditional && totalAdditional) {
@@ -734,29 +739,23 @@
         const dataModifyBudgetUrl = urlParamssss.get('dataModifyBudget[0][no]');
         const dataModifyBudgetUrlArray = [];
 
-        // Temporary object to store items while looping
         const tempData = {};
 
-        // Loop through each entry in URLSearchParams
         urlParams.forEach((value, key) => {
-            // Check if the key starts with "dataModifyBudget"
             const match = key.match(/dataModifyBudget\[(\d+)\]\[(.+)\]/);
             
             if (match) {
-                const index = parseInt(match[1], 10);  // Get the index
-                const field = match[2];                // Get the field name
+                const index = parseInt(match[1], 10); 
+                const field = match[2];
 
-                // If the array at this index doesn't exist, create an empty object
                 if (!tempData[index]) {
                     tempData[index] = {};
                 }
 
-                // Assign the value to the corresponding field in the temp object
                 tempData[index][field] = value;
             }
         });
 
-        // Filter objects where type is 'budgetDetails' and push them to dataModifyBudget
         Object.values(tempData).forEach(item => {
             if (item.type === 'budgetDetails') {
                 dataModifyBudgetUrlArray.push(item);
@@ -766,7 +765,7 @@
         if (dataModifyBudgetUrl) {
             data.forEach(function(item, ind) {
                 var row = '';
-                if (item.productID == dataModifyBudgetUrlArray[0]["productID"]) {
+                if (dataModifyBudgetUrlArray[ind] && item.productID == dataModifyBudgetUrlArray[ind]["productID"]) {
                     row = '<tr>' +
                         '<td class="container-tbody-tr-budget">' + item.productID + '</td>' +
                         '<td class="container-tbody-tr-budget" style="text-align: left !important;">' + item.productName + '</td>' +
@@ -776,13 +775,14 @@
                         '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.currency, 2) + '</td>' +
                         '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.balanceBudget, 2) + '</td>' +
                         '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(item.totalBuget, 2) + '</td>' +
-                        '<td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional" value="5000">' + '</td>' +
-                        '<td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">' + '</td>' +
-                        '<td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>' + '</td>' +
-                        '<td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">' + '</td>' +
-                        '<td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">' + '</td>' +
-                        '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>' + '</td>' +
-                    '</tr>';   
+                        '<td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional" value=' + cleanNumber(dataModifyBudgetUrlArray[ind].qtyAdditionals) + '>' + '</td>' +
+                        '<td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional" value=' + cleanNumber(dataModifyBudgetUrlArray[ind].priceAdditionals) + '>' + '</td>' +
+                        '<td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" value=' + cleanNumber(dataModifyBudgetUrlArray[ind].totalAdditionals) + ' disabled>' + '</td>' +
+                        '<td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving" value=' + cleanNumber(dataModifyBudgetUrlArray[ind].qtySavings) + '>' + '</td>' +
+                        '<td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving" value=' + cleanNumber(dataModifyBudgetUrlArray[ind].priceSavings) + '>' + '</td>' +
+                        '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" value=' + cleanNumber(dataModifyBudgetUrlArray[ind].totalSavings) + ' disabled>' + '</td>' +
+                        '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget d-none">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="type" name="type" value=' + dataModifyBudgetUrlArray[ind].type + ' disabled>' + '</td>' +
+                    '</tr>';
                 } else {
                     row = '<tr>' +
                         '<td class="container-tbody-tr-budget">' + item.productID + '</td>' +
@@ -799,6 +799,7 @@
                         '<td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">' + '</td>' +
                         '<td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">' + '</td>' +
                         '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>' + '</td>' +
+                        '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget d-none">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="type" name="type" hidden disabled>' + '</td>' +
                     '</tr>';
                 }
                 
@@ -1141,7 +1142,7 @@
     const observers = new MutationObserver(mutations => {
         mutations.forEach(mutation => {
             if (mutation.type === 'childList') {
-                initializeTableListeners(); // Menginisialisasi ulang event listener jika ada perubahan
+                initializeTableListeners();
             }
         });
     });

@@ -436,19 +436,24 @@
 </script>
 
 <script>
+  // OUTPUT 412393 = 412,393.00
   function numberFormatPHPCustom(number, decimals = 0, decPoint = '.', thousandsSep = ',') {
     // Convert the number to a string, retaining the sign
     const n = Math.abs(number).toFixed(decimals);
     const sign = number < 0 ? '-' : '';
 
-    // Split the number into the integer and decimal parts
     let [integerPart, decimalPart] = n.split('.');
-
-    // Add thousands separator
     integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSep);
 
-    // Construct the final formatted number
     return sign + integerPart + (decimalPart ? decPoint + decimalPart : '');
+  }
+
+  // OUTPUT 412,393.00 = 412393
+  function cleanNumber(number) {
+    var numberWithoutComma = number.replace(/,/g, '');
+    var result = numberWithoutComma.replace('.', '');
+    
+    return result;
   }
 </script>
 
