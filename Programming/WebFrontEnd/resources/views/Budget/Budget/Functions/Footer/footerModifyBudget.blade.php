@@ -821,6 +821,10 @@
             });
         }
 
+        document.querySelectorAll('.number-only').forEach(function(input) {
+            allowNumbersOnly(input);
+        });
+
         checkTableRows();
     }
 
@@ -927,47 +931,47 @@
         newRow.innerHTML = `
             <td class="container-tbody-tr-budget" >
                 ${productId}
-                <input id="project_id" hidden="" name="product_id[]" value="${productId}">
+                <input id="product_id" hidden="" name="product_id[]" value="${productId}">
             </td>
             <td class="container-tbody-tr-budget text-wrap" style="text-align: left !important; line-height: 15px;">
                 ${productName}
-                <input id="project_id" hidden="" name="product_name[]" value="${productName}">
+                <input id="product_name" hidden="" name="product_name[]" value="${productName}">
             </td>
             <td class="container-tbody-tr-budget">
                 ${qtyBudgetFormatted}
-                <input id="project_id" hidden="" name="qty_budget[]" value="0">
+                <input id="qty_budget" hidden="" name="qty_budget[]" value="0">
             </td>
             <td class="container-tbody-tr-budget">
                 ${priceBudgetFormatted}
-                <input id="project_id" hidden="" name="price[]" value="0">
+                <input id="price" hidden="" name="price[]" value="0">
             </td>
             <td class="container-tbody-tr-budget">
                 ${totalBudgetFormatted}
-                <input id="project_id" hidden="" name="total_budget[]" value="0">
+                <input id="total_budget" hidden="" name="total_budget[]" value="0">
             </td>
             <td class="container-tbody-tr-budget">
                 ${qtyFormatted}
-                <input id="project_id" hidden="" name="qty_additional[]" value="${qty}">
+                <input id="qty_additional" hidden="" name="qty_additional[]" value="${qty}">
             </td>
             <td class="container-tbody-tr-budget">
                 ${priceFormatted}
-                <input id="project_id" hidden="" name="price_additional[]" value="${price}">
+                <input id="price_additional" hidden="" name="price_additional[]" value="${price}">
             </td>
             <td class="container-tbody-tr-budget">
                 ${totalFormatted}
-                <input id="project_id" hidden="" name="total_additional[]" value="${qty * price}">
+                <input id="total_additional" hidden="" name="total_additional[]" value="${qty * price}">
             </td>
             <td class="container-tbody-tr-budget">
                 ${qtySavingFormatted}
-                <input id="project_id" hidden="" name="qty_saving[]" value="0">
+                <input id="qty_saving" hidden="" name="qty_saving[]" value="0">
             </td>
             <td class="container-tbody-tr-budget">
                 ${priceSavingFormatted}
-                <input id="project_id" hidden="" name="price_saving[]" value="0">
+                <input id="price_saving" hidden="" name="price_saving[]" value="0">
             </td>
             <td class="container-tbody-tr-budget">
                 ${totalSavingFormatted}
-                <input id="project_id" hidden="" name="total_saving[]" value="0">
+                <input id="total_saving" hidden="" name="total_saving[]" value="0">
             </td>
         `;
 
