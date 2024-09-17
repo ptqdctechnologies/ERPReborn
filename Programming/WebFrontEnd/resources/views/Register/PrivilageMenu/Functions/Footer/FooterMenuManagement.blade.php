@@ -1,3 +1,4 @@
+<!-- MENU & SUB MENU -->
 <script>
     // GET MENU OPTION
     $(window).one('load', function(e) {
@@ -58,6 +59,7 @@
         });
     }
 
+    // ADD NEW FOLDER
     function addNewFolder() {
         const menuCaption = $('#menu_caption').val();
         const menuId = $('#menu_id').val();
@@ -83,6 +85,7 @@
         $('#modalNewFolder').modal('hide');
     }
 
+    // ADD NEW MENU
     function addNewSubMenu() {
         const menuCaption = $('#new_menu_caption').val();
         const menuId = $('#new_menu_id').val();
@@ -110,6 +113,7 @@
         $('#modalNewMenu').modal('hide');
     }
 
+    // SHOW FOLDER/MENU
     function displaySubMenu() {
         let groupedData = localMenuData.reduce(function(acc, item) {
             if (!acc[item.Type]) {
@@ -121,7 +125,32 @@
 
         let displayData = '';
 
-        if (groupedData.Transaction) {
+        const groupedDatasss = {
+            Transaction: {},
+            Reports: {}
+        };
+
+        localMenuData.forEach(item => {
+            const { Type, id } = item;
+
+            if (!groupedDatasss[Type]) {
+                groupedDatasss[Type] = {};
+            }
+
+            if (id) {
+                if (!groupedDatasss[Type][id]) {
+                    groupedDatasss[Type][id] = [];
+                }
+                groupedDatasss[Type][id].push(item);
+            } else {
+                if (!groupedDatasss[Type].main) {
+                    groupedDatasss[Type].main = [];
+                }
+                groupedDatasss[Type].main.push(item);
+            }
+        });
+
+        if (groupedDatasss.Transaction) {
             displayData += `<li class="nav-item has-treeview" style="list-style-type: none;">`;
             displayData += `<a href="#" class="nav-link d-flex align-items-center">`;
             displayData += `<i class="fas fa-folder" style="font-size: 14px; margin-right: 0.4rem;"></i>`;
@@ -130,23 +159,52 @@
             displayData += `<i class="right fas fa-angle-left"></i>`;
             displayData += `</div>`;
             displayData += `</a>`;
-            groupedData.Transaction.forEach(function(item) {
-                displayData += `<ul class="nav nav-treeview">`;
-                displayData += `<li class="nav-item" data-id="${item.id}" data-caption="${item.Caption}">`;
 
-                const icon = item.isNew ? 'fas fa-folder' : 'far fa-file';
+            // Looping untuk `main`
+            if (groupedDatasss.Transaction.main) {
+                groupedDatasss.Transaction.main.forEach(function(item) {
+                    displayData += `<ul class="nav nav-treeview">`;
+                    displayData += `<li class="nav-item" data-id="${item.Key}" data-caption="${item.Caption}">`;
+                    displayData += `<a href="#" class="nav-link d-flex align-items-center trigger-modal-delete">`;
+                    displayData += `<i class="far fa-file nav-icon" style="font-size: 14px;"></i>`;
+                    displayData += `<p>${item.Caption}</p>`;
+                    displayData += `</a>`;
+                    displayData += `</li>`;
+                    displayData += `</ul>`;
+                });
+            }
 
-                displayData += `<a href="#" class="nav-link d-flex align-items-center trigger-modal-delete">`;
-                displayData += `<i class="${icon} nav-icon" style="font-size: 14px;"></i>`;
-                displayData += `<p>${item.Caption}</p>`;
-                displayData += `</a>`;
-                displayData += `</li>`;
-                displayData += `</ul>`;
+            // Looping untuk `id` selain `main`
+            Object.keys(groupedDatasss.Transaction).forEach(function(id) {
+                if (id !== 'main' && Array.isArray(groupedDatasss.Transaction[id])) {  // skip `main` karena sudah diproses di atas
+                    displayData += `<ul class="nav nav-treeview" style="margin-left: 0.5rem;">`;
+                    displayData += `<a href="#" class="nav-link d-flex align-items-center">`;
+                    displayData += `<i class="fas fa-folder" style="font-size: 14px; margin-right: 0.4rem;"></i>`;
+                    displayData += `<div class="d-flex align-items-center justify-content-between" style="width: 100%; font-size: 14px; font-weight: 400; line-height: 1.5;">`;
+                    displayData += `<div>${id}</div>`;
+                    displayData += `<i class="right fas fa-angle-left"></i>`;
+                    displayData += `</div>`;
+                    displayData += `</a>`;
+
+                    groupedDatasss.Transaction[id].forEach(function(item) {
+                        displayData += `<ul class="nav nav-treeview">`;
+                        displayData += `<li class="nav-item" data-id="${item.Key}" data-caption="${item.Caption}">`;
+                        displayData += `<a href="#" class="nav-link d-flex align-items-center trigger-modal-delete">`;
+                        displayData += `<i class="far fa-file nav-icon" style="font-size: 14px;"></i>`;
+                        displayData += `<p>${item.Caption}</p>`;
+                        displayData += `</a>`;
+                        displayData += `</li>`;
+                        displayData += `</ul>`;
+                    });
+
+                    displayData += `</ul>`;
+                }
             });
+
             displayData += `</li>`;
         }
-        
-        if (groupedData.Report) {
+
+        if (groupedDatasss.Report) {
             displayData += `<li class="nav-item has-treeview" style="list-style-type: none;">`;
             displayData += `<a href="#" class="nav-link d-flex align-items-center">`;
             displayData += `<i class="fas fa-folder" style="font-size: 14px; margin-right: 0.4rem;"></i>`;
@@ -155,19 +213,48 @@
             displayData += `<i class="right fas fa-angle-left"></i>`;
             displayData += `</div>`;
             displayData += `</a>`;
-            groupedData.Report.forEach(function(item) {
-                displayData += `<ul class="nav nav-treeview">`;
-                displayData += `<li class="nav-item" data-id="${item.id}" data-caption="${item.Caption}">`;
 
-                const icon = item.isNew ? 'fas fa-folder' : 'far fa-file';
+            // Looping untuk `main`
+            if (groupedDatasss.Report.main) {
+                groupedDatasss.Report.main.forEach(function(item) {
+                    displayData += `<ul class="nav nav-treeview">`;
+                    displayData += `<li class="nav-item" data-id="${item.Key}" data-caption="${item.Caption}">`;
+                    displayData += `<a href="#" class="nav-link d-flex align-items-center trigger-modal-delete">`;
+                    displayData += `<i class="far fa-file nav-icon" style="font-size: 14px;"></i>`;
+                    displayData += `<p>${item.Caption}</p>`;
+                    displayData += `</a>`;
+                    displayData += `</li>`;
+                    displayData += `</ul>`;
+                });
+            }
 
-                displayData += `<a href="#" class="nav-link d-flex align-items-center trigger-modal-delete">`;
-                displayData += `<i class="${icon} nav-icon" style="font-size: 14px;"></i>`;
-                displayData += `<p>${item.Caption}</p>`;
-                displayData += `</a>`;
-                displayData += `</li>`;
-                displayData += `</ul>`;
+            // Looping untuk `id` selain `main`
+            Object.keys(groupedDatasss.Report).forEach(function(id) {
+                if (id !== 'main' && Array.isArray(groupedDatasss.Report[id])) {  // skip `main` karena sudah diproses di atas
+                    displayData += `<ul class="nav nav-treeview" style="margin-left: 0.5rem;">`;
+                    displayData += `<a href="#" class="nav-link d-flex align-items-center">`;
+                    displayData += `<i class="fas fa-folder" style="font-size: 14px; margin-right: 0.4rem;"></i>`;
+                    displayData += `<div class="d-flex align-items-center justify-content-between" style="width: 100%; font-size: 14px; font-weight: 400; line-height: 1.5;">`;
+                    displayData += `<div>${id}</div>`;
+                    displayData += `<i class="right fas fa-angle-left"></i>`;
+                    displayData += `</div>`;
+                    displayData += `</a>`;
+
+                    groupedDatasss.Report[id].forEach(function(item) {
+                        displayData += `<ul class="nav nav-treeview">`;
+                        displayData += `<li class="nav-item" data-id="${item.Key}" data-caption="${item.Caption}">`;
+                        displayData += `<a href="#" class="nav-link d-flex align-items-center trigger-modal-delete">`;
+                        displayData += `<i class="far fa-file nav-icon" style="font-size: 14px;"></i>`;
+                        displayData += `<p>${item.Caption}</p>`;
+                        displayData += `</a>`;
+                        displayData += `</li>`;
+                        displayData += `</ul>`;
+                    });
+
+                    displayData += `</ul>`;
+                }
             });
+
             displayData += `</li>`;
         }
 
@@ -187,10 +274,8 @@
     const passwordInput = document.querySelector('#menu_password');
 
     togglePassword.addEventListener('click', function (e) {
-        // toggle the type attribute
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
-        // toggle the text of the button
         this.textContent = type === 'password' ? 'Show' : 'Hide';
     });
 </script>
