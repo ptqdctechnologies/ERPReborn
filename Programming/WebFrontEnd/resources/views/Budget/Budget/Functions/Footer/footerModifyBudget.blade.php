@@ -431,8 +431,6 @@
                 let form = document.getElementById('modifyBudgetForm');
 
                 if (existingRow) {
-                    console.log('1');
-                    
                     existingRow.querySelectorAll('td').forEach(function(td, index) {
                         let input = row.querySelectorAll('td')[index].querySelector('input');
 
@@ -484,12 +482,8 @@
                         type
                     ];
 
-                    console.log('inputValues', inputValues);
-
                     hiddenInputIds.forEach((inputId, index) => {
                         let existingInput = form.querySelector(`input[name="${inputId}[]"]`);
-
-                        console.log('existingInput', existingInput);
 
                         if (existingInput) {
                             existingInput.value = inputValues[index];
@@ -548,8 +542,6 @@
 
                     listTableBody.appendChild(clonedRow);
                 }
-
-                console.log('form', form);
             } else if (!qtyAdditional && priceAdditional && totalAdditional) {
                 Swal.fire("Error", "Qty Additional Cannot Be Empty", "error");
             } else if (qtyAdditional && !priceAdditional && totalAdditional) {

@@ -404,7 +404,6 @@
   });
 </script>
 
-<!-- Perubahan Wisnu -->
 <script>
   // Example Output: 1 Januari 2024
   function formatDate(dateString) {
@@ -438,7 +437,6 @@
 <script>
   // OUTPUT 412393 = 412,393.00
   function numberFormatPHPCustom(number, decimals = 0, decPoint = '.', thousandsSep = ',') {
-    // Convert the number to a string, retaining the sign
     const n = Math.abs(number).toFixed(decimals);
     const sign = number < 0 ? '-' : '';
 
@@ -451,10 +449,9 @@
   // OUTPUT 412,393.00 = 412393
   function cleanNumber(number) {
     var numberWithoutComma = number.replace(/,/g, '');
-    var result = numberWithoutComma.replace('.', '');
+    
+    var result = numberWithoutComma.split('.')[0];
     
     return result;
   }
 </script>
-
-<!-- Perubahan Wisnu -->
