@@ -763,7 +763,6 @@ class FunctionController extends Controller
         return response()->json($collection->all());
     }
 
-    // WISNU
     public function getOneSubMenu(Request $request)
     {
         $selectedValue = $request->input('selectedValue');

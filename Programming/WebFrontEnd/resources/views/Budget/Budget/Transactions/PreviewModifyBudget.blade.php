@@ -15,8 +15,9 @@
 
             <!-- CONTENT -->
             <div class="card px-3 py-4">
+                <!-- TITLE CARD -->
                 <div class="row mb-3">
-                    <div class="col">
+                    <!-- <div class="col">
                         <a
                             class="btn btn-default btn-sm button-submit"
                             id="submitButton"
@@ -42,18 +43,18 @@
                             <i class="fas fa-arrow-left"></i>
                             <div class="ml-1">Back</div>
                         </a>
-                    </div>
+                    </div> -->
 
                     <div class="col text-center font-weight-bold d-flex align-items-center justify-content-center" style="font-size: 18px;">
                         PREVIEW MODIFY BUDGET
                     </div>
 
-                    <div class="col invisible">
+                    <!-- <div class="col invisible">
                         <button class="btn btn-default btn-sm button-submit">
                             <i class="fas fa-arrow-left"></i>
                             <div>Back</div>
                         </button>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- INFORMASI -->
@@ -107,7 +108,7 @@
                                 Currency
                             </dt>
                             <dd class="col">
-                                <?= $currencyName; ?> <?= $currencySymbol ? "(" . $currencySymbol . ")" : $currencySymbol; ?>
+                                <?= $currencySymbol . " - " . $currencyName; ?>
                             </dd>
                         </div>
 
@@ -832,6 +833,63 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+
+                <!-- BUTTON CANCEL -->
+                <div class="row pt-2" style="margin-top: 1rem;">
+                    <div class="col d-flex justify-content-end">
+                        <a
+                            class="btn btn-default btn-sm button-submit"
+                            id="submitButton"
+                            style="width: max-content;"
+                            href="{{ route('Budget.ModifyBudget', [
+                                'budgetID'          => $budgetID,
+                                'budgetCode'        => $budgetCode,
+                                'budgetName'        => $budgetName,
+                                'subBudgetID'       => $subBudgetID,
+                                'subBudgetCode'     => $subBudgetCode,
+                                'subBudgetName'     => $subBudgetName,
+                                'reason'            => $reason,
+                                'additionalCO'      => $additionalCO,
+                                'currencyID'        => $currencyID,
+                                'currencySymbol'    => $currencySymbol,
+                                'currencyName'      => $currencyName,
+                                'idrRate'           => $valueIDRRate,
+                                'valueAdditionalCO' => $valueAdditionalCO,
+                                'valueDeductiveCO'  => $valueDeductiveCO,
+                                'dataModifyBudget'  => $dataModifyBudget
+                            ]) }}"
+                            >
+                            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
+                            <div>Cancel</div>
+                        </a>
+                        
+                        <!-- <a
+                            class="btn btn-default btn-sm button-submit"
+                            id="submitButton"
+                            style="width: max-content;"
+                            href="{{ route('Budget.ModifyBudget', [
+                                'budgetID'          => $budgetID,
+                                'budgetCode'        => $budgetCode,
+                                'budgetName'        => $budgetName,
+                                'subBudgetID'       => $subBudgetID,
+                                'subBudgetCode'     => $subBudgetCode,
+                                'subBudgetName'     => $subBudgetName,
+                                'reason'            => $reason,
+                                'additionalCO'      => $additionalCO,
+                                'currencyID'        => $currencyID,
+                                'currencySymbol'    => $currencySymbol,
+                                'currencyName'      => $currencyName,
+                                'idrRate'           => $valueIDRRate,
+                                'valueAdditionalCO' => $valueAdditionalCO,
+                                'valueDeductiveCO'  => $valueDeductiveCO,
+                                'dataModifyBudget'  => $dataModifyBudget
+                            ]) }}"
+                        >
+                            <i class="fas fa-window-close" style="color: red;"></i>
+                            <div class="ml-1">Cancel</div>
+                        </a> -->
                     </div>
                 </div>
             </div>

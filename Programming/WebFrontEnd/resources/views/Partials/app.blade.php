@@ -51,11 +51,8 @@
     new zht_JSCore(false)
   </script>
 
-  <!-- START OF TAMBAHAN FROM WISNU -->
   <link rel="stylesheet" href="{{ asset('css-page/Globals.css') }}"> 
   @stack('styles')
-  <!-- END OF TAMBAHAN FROM WISNU -->
-
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -76,9 +73,7 @@
   <!-- jQuery -->
   <script src="{{ asset('AdminLTE-master/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/moment/moment.min.js') }}"></script>
-  <!-- BS-CUSTOM-FILE-INPUT ===WISNU=== -->
   <script src="{{ asset('AdminLTE-master/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
-  <!-- ===WISNU=== -->
   <script>
     $(function () {
       bsCustomFileInput.init();

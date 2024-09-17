@@ -32,11 +32,13 @@
         });
     });
 
+    let localMenuData = []; 
+
     // GET SUB MENU OPTION
     function loadSubMenu(selectedValue) {
         $('.spinner-sub-menu').show();
         $('.data-menu-management').hide();
-
+        
         $.ajax({
             type: 'GET',
             url: '{!! route("getOneSubMenu") !!}',
@@ -44,96 +46,9 @@
             success: function(data) {
                 var resultArray = Array.isArray(data) ? data : Object.values(data);
 
-                console.log('resultArray', resultArray);
+                localMenuData = [...localMenuData, ...resultArray];
 
-                var groupedData = resultArray.reduce(function(acc, item) {
-                    if (!acc[item.Type]) {
-                        acc[item.Type] = [];
-                    }
-                    acc[item.Type].push(item);
-                    return acc;
-                }, {});
-
-                if (resultArray.length > 0) {
-                    var displayData = '';
-                    var no = 1;
-
-                    if (groupedData.Transaction) {
-                        displayData += `<li class="nav-item has-treeview" style="list-style-type: none;">`;
-                        displayData += `<a href="#" class="nav-link d-flex align-items-center">`;
-                        displayData += `<i class="fas fa-folder" style="font-size: 14px; margin-right: 0.4rem;"></i>`;
-                        displayData += `<div class="d-flex align-items-center justify-content-between" style="width: 100%; font-size: 14px; font-weight: 400; line-height: 1.5;">`;
-                        displayData += `<div>Transaction</div>`;
-                        displayData += `<i class="right fas fa-angle-left"></i>`;
-                        displayData += `</div>`;
-                        displayData += `</a>`;
-                        groupedData.Transaction.forEach(function(item) {
-                        // DISINI
-                        displayData += `<ul class="nav nav-treeview">`;
-                        displayData += `<li class="nav-item" data-id="${item.id}" data-caption="${item.Caption}">`;
-                        displayData += `<a href="#" class="nav-link d-flex align-items-center trigger-modal-delete">`;
-                        displayData += `<i class="far fa-file nav-icon" style="font-size: 14px;"></i>`;
-                        displayData += `<p>${item.Caption}</p>`;
-                        displayData += `</a>`;
-                        displayData += `</li>`;
-                        displayData += `</ul>`;
-                        });
-                        displayData += `</li>`;
-                    }
-
-                    if (groupedData.Report) {
-                        displayData += `<li class="nav-item has-treeview" style="list-style-type: none;">`;
-                        displayData += `<a href="#" class="nav-link d-flex align-items-center">`;
-                        displayData += `<i class="fas fa-folder" style="font-size: 14px; margin-right: 0.4rem;"></i>`;
-                        displayData += `<div class="d-flex align-items-center justify-content-between" style="width: 100%; font-size: 14px; font-weight: 400; line-height: 1.5;">`;
-                        displayData += `<div>Report</div>`;
-                        displayData += `<i class="right fas fa-angle-left"></i>`;
-                        displayData += `</div>`;
-                        displayData += `</a>`;
-                        groupedData.Report.forEach(function(item) {
-                        // DISINI
-                        displayData += `<ul class="nav nav-treeview">`;
-                        displayData += `<li class="nav-item" data-id="${item.id}" data-caption="${item.Caption}">`;
-                        displayData += `<a href="#" class="nav-link d-flex align-items-center trigger-modal-delete">`;
-                        displayData += `<i class="far fa-file nav-icon" style="font-size: 14px;"></i>`;
-                        displayData += `<p>${item.Caption}</p>`;
-                        displayData += `</a>`;
-                        displayData += `</li>`;
-                        displayData += `</ul>`;
-                        });
-                        displayData += `</li>`;
-                    }
-
-                    $('.data-menu-management').show();
-                    $('.data-menu-management').html(displayData);
-                    $('.spinner-sub-menu').hide();
-
-                    $('.trigger-modal-delete').on('click', function(e) {
-                        e.preventDefault();
-
-                        // Menghapus background biru dari semua item yang sudah di-klik sebelumnya
-                        $('.trigger-modal-delete').closest('li').css('background-color', '');
-                        $('.trigger-modal-delete').closest('li').css('width', '');
-                        $('.trigger-modal-delete').closest('li').css('padding', '');
-                        $('.trigger-modal-delete').closest('li').css('border', '');
-                        $('.trigger-modal-delete').closest('li').css('border-radius', '');
-                        $('.trigger-modal-delete').closest('li').css('margin-bottom', '');
-
-                        // Menambahkan background biru ke item yang diklik
-                        $(this).closest('li').css('background-color', '#E9ECEF');
-                        $(this).closest('li').css('width', 'max-content');
-                        $(this).closest('li').css('padding', '6px 8px 4px 0px');
-                        $(this).closest('li').css('border', '1px solid #17a2b8');
-                        $(this).closest('li').css('border-radius', '4px');
-                        $(this).closest('li').css('margin-bottom', '4px');
-
-                        const caption = $(this).closest('li').data('caption');
-                        $('#modalDelete .modal-body').text(`Are you sure you want to delete "${caption}"?`);
-                        // $('#modalDelete').modal('show');
-                    });
-                } else {
-                    $('.data-menu-management').html('No data available for this navigation.');
-                }
+                displaySubMenu(); 
             },
             error: function(xhr, status, error) {
                 $('.spinner-sub-menu').hide();
@@ -141,6 +56,124 @@
                 Swal.fire("Error", "Failed to Get Sub Menu Data", "error");
             }
         });
+    }
+
+    function addNewFolder() {
+        const menuCaption = $('#menu_caption').val();
+        const menuId = $('#menu_id').val();
+        const typeFolder = $('#type_folder').val();
+
+        if (!menuCaption) {
+            alert('Please fill in all fields.');
+            return;
+        }
+
+        localMenuData.push({
+            id: menuId,
+            Caption: menuCaption,
+            Type: typeFolder,
+            isNew: true
+        });
+
+        displaySubMenu();
+
+        $('#menu_caption').val('');
+        $('#menu_id').val('');
+        $('#type_folder').val('Transaction');
+        $('#modalNewFolder').modal('hide');
+    }
+
+    function addNewSubMenu() {
+        const menuCaption = $('#new_menu_caption').val();
+        const menuId = $('#new_menu_id').val();
+        const menuLink = $('#new_menu_link').val();
+        const typeFolder = $('#new_type_folder').val();
+
+        if (!menuCaption) {
+            alert('Please fill in all fields.');
+            return;
+        }
+
+        localMenuData.push({
+            id: menuId,
+            Caption: menuCaption,
+            Link: menuLink,
+            Type: typeFolder,
+        });
+
+        displaySubMenu();
+
+        $('#new_menu_caption').val('');
+        $('#new_menu_id').val('');
+        $('#new_menu_link').val('');
+        $('#new_type_folder').val('Transaction');
+        $('#modalNewMenu').modal('hide');
+    }
+
+    function displaySubMenu() {
+        let groupedData = localMenuData.reduce(function(acc, item) {
+            if (!acc[item.Type]) {
+                acc[item.Type] = [];
+            }
+            acc[item.Type].push(item);
+            return acc;
+        }, {});
+
+        let displayData = '';
+
+        if (groupedData.Transaction) {
+            displayData += `<li class="nav-item has-treeview" style="list-style-type: none;">`;
+            displayData += `<a href="#" class="nav-link d-flex align-items-center">`;
+            displayData += `<i class="fas fa-folder" style="font-size: 14px; margin-right: 0.4rem;"></i>`;
+            displayData += `<div class="d-flex align-items-center justify-content-between" style="width: 100%; font-size: 14px; font-weight: 400; line-height: 1.5;">`;
+            displayData += `<div>Transaction</div>`;
+            displayData += `<i class="right fas fa-angle-left"></i>`;
+            displayData += `</div>`;
+            displayData += `</a>`;
+            groupedData.Transaction.forEach(function(item) {
+                displayData += `<ul class="nav nav-treeview">`;
+                displayData += `<li class="nav-item" data-id="${item.id}" data-caption="${item.Caption}">`;
+
+                const icon = item.isNew ? 'fas fa-folder' : 'far fa-file';
+
+                displayData += `<a href="#" class="nav-link d-flex align-items-center trigger-modal-delete">`;
+                displayData += `<i class="${icon} nav-icon" style="font-size: 14px;"></i>`;
+                displayData += `<p>${item.Caption}</p>`;
+                displayData += `</a>`;
+                displayData += `</li>`;
+                displayData += `</ul>`;
+            });
+            displayData += `</li>`;
+        }
+        
+        if (groupedData.Report) {
+            displayData += `<li class="nav-item has-treeview" style="list-style-type: none;">`;
+            displayData += `<a href="#" class="nav-link d-flex align-items-center">`;
+            displayData += `<i class="fas fa-folder" style="font-size: 14px; margin-right: 0.4rem;"></i>`;
+            displayData += `<div class="d-flex align-items-center justify-content-between" style="width: 100%; font-size: 14px; font-weight: 400; line-height: 1.5;">`;
+            displayData += `<div>Report</div>`;
+            displayData += `<i class="right fas fa-angle-left"></i>`;
+            displayData += `</div>`;
+            displayData += `</a>`;
+            groupedData.Report.forEach(function(item) {
+                displayData += `<ul class="nav nav-treeview">`;
+                displayData += `<li class="nav-item" data-id="${item.id}" data-caption="${item.Caption}">`;
+
+                const icon = item.isNew ? 'fas fa-folder' : 'far fa-file';
+
+                displayData += `<a href="#" class="nav-link d-flex align-items-center trigger-modal-delete">`;
+                displayData += `<i class="${icon} nav-icon" style="font-size: 14px;"></i>`;
+                displayData += `<p>${item.Caption}</p>`;
+                displayData += `</a>`;
+                displayData += `</li>`;
+                displayData += `</ul>`;
+            });
+            displayData += `</li>`;
+        }
+
+        $('.data-menu-management').show();
+        $('.data-menu-management').html(displayData);
+        $('.spinner-sub-menu').hide();
     }
 
     $('#menuSelect').on('input', function() {

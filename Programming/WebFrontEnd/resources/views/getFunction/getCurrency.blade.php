@@ -23,8 +23,8 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Currency Name</th>
-                                            <th>Currency Symbol</th>
+                                            <th>Code</th>
+                                            <th>Name</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -66,8 +66,8 @@
                         keys += 1;
                         t.row.add([
                             '<tbody><tr><input id="sys_id_currency' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                            '<td>' + val.name + '</td>',
-                            '<td>' + val.symbol + '</td></span></tr></tbody>'
+                            '<td>' + val.ISOCode + '</td>',
+                            '<td>' + val.name + '</td></span></tr></tbody>'
                         ]).draw();
                     });
 
