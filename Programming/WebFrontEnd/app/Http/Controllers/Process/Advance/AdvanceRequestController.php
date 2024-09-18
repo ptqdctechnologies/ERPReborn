@@ -299,16 +299,16 @@ class AdvanceRequestController extends Controller
             //     true
             // );
 
-            $collection = collect($DataListAdvance);
+            $collection = collect($DataListAdvance["data"]);
 
             $project_id = $request->project_id;
             $site_id = $request->site_id;
 
             if ($project_id != "") {
-                $collection = $collection->where('CombinedBudget_RefID', $project_id);
+                $collection = $collection->where('combinedBudget_RefID', $project_id);
             }
             if ($site_id != "") {
-                $collection = $collection->where('CombinedBudgetSection_RefID', $site_id);
+                $collection = $collection->where('combinedBudgetSection_RefID', $site_id);
             }
 
             $collection = $collection->all();
@@ -526,21 +526,14 @@ class AdvanceRequestController extends Controller
 
             $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceReport',
+                $varAPIWebToken, 
+                'report.form.documentForm.finance.getAdvance', 
                 'latest',
                 [
                     'parameter' => [
-                        'advance_RefID' => (int) $id,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
+                        'recordID' => (int) $id
                     ]
-                ],
-                false
+                ]
             );
 
             $varDataExcel = [];

@@ -73,8 +73,6 @@ if (strpos($current_url, 'ReportDORequestDetail') !== false) {
                 success: function(data) {
                     var result = data.data ? data.data : data;
 
-                    console.log('result', result);
-                    
                     var no = 1; t = $('#TableSearchArfRevision').DataTable();
                     t.clear();
                     $.each(result, function(key, val) {
