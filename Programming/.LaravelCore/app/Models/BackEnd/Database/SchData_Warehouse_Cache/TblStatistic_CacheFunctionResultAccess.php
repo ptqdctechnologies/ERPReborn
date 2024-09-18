@@ -3,17 +3,17 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Models                                                                                                    |
-| ▪ Name Space : \App\Models\Database\SchData_Warehouse_Log                                                                        |
+| ▪ Name Space : \App\Models\Database\SchData_Warehouse_Cache                                                                      |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_Warehouse_Log
+namespace App\Models\Database\SchData_Warehouse_Cache
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : TblStatistic_CacheFunctionResultAccess                                                                       |
-    | ▪ Description : Menangani Models Database ► SchData-Warehouse-Log ► TblStatistic_CacheFunctionResultAccess                   |
+    | ▪ Description : Menangani Models Database ► SchData-Warehouse-Cache ► TblStatistic_CacheFunctionResultAccess                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class TblStatistic_CacheFunctionResultAccess extends \App\Models\Database\DefaultClassPrototype
