@@ -17,8 +17,6 @@
       <div class="card">
         <div class="tab-content p-3" id="nav-tabContent">
           <div class="row">
-
-
             @if($statusHeader == "Yes")
             @include('Process.Advance.AdvanceRequest.Functions.Header.HeaderReportAdvanceSummaryDetail')
             @endif
@@ -26,7 +24,6 @@
             @if($statusDetail == 1 && $dataHeader['recordID'] != "")
             <div class="card">
               <div class="tab-content p-3" id="nav-tabContent">
-
                 <div class="row">
                   <div class="col-12 ShowDocumentList" style="font-weight: bold;">
                     <div class="card">
@@ -95,7 +92,6 @@
                     </div>
                   </div>
 
-                  
                   <div class="col-12 ShowDocumentList">
                     <div class="card">
                       <div class="card-body table-responsive p-0">
@@ -132,13 +128,10 @@
                       </div>
                     </div>
                   </div>
-
-
                 </div>
               </div>
             </div>
             @endif
-
           </div>
         </div>
       </div>
