@@ -324,7 +324,6 @@ class AdvanceRequestController extends Controller
     // |                                        REPORTS                                                                           |
     // +--------------------------------------------------------------------------------------------------------------------------+
 
-
     public function ReportAdvanceSummary(Request $request)
     {
         try {
@@ -343,6 +342,7 @@ class AdvanceRequestController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
     public function ReportAdvanceSummaryStore(Request $request)
     {
         try {
@@ -463,8 +463,17 @@ class AdvanceRequestController extends Controller
                         'data' => $dataAdvance
                     ];
 
-                    $pdf = Pdf::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->setPaper('a4', 'landscape')->loadView('Process.Advance.AdvanceRequest.Reports.PrintReportAdvanceSummary', $data);
-                    return $pdf->download('Print Report Advance Summary.pdf');
+                    $pdf = PDF::loadView('Process.Advance.AdvanceRequest.Reports.PrintReportAdvanceSummary', $data);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Advance Summary.pdf');
                 } else if ($print_type == "Excel") {
 
                     return Excel::download(new ExportReportAdvanceSummary, 'Export Report Advance Summary.xlsx');
