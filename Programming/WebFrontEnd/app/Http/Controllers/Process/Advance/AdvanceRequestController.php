@@ -489,45 +489,25 @@ class AdvanceRequestController extends Controller
 
     public function ReportAdvanceSummaryDetail(Request $request)
     {
-        try {
-            Session::put("AdvanceSummaryReportDetailIsSubmit", "No");
-            $varAPIWebToken = Session::get('SessionLogin');
-            
-            if ($request->has('dataReport')) {
-                $compact = $request->dataReport;
-            } else {
-                $compact = [
-                    'varAPIWebToken' => $varAPIWebToken,
-                    'statusDetail' => 0,
-                    'advance_RefID' => "",
-                    'advance_number' => "",
-                    'statusHeader' => "Yes"
-                ];
-            }
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $isSubmitButton = $request->session()->get('AdvanceSummaryReportDetailIsSubmit');
 
-            return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummaryDetail', $compact);
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
+        $dataReport = $isSubmitButton ? $request->session()->get('AdvanceSummaryReportDetailDataPDF', []) : [];
 
-    public function ReportAdvanceSummaryDetailID(Request $request, $id)
-    {
-        try {
+        $compact = [
+            'varAPIWebToken'    => [],
+            'dataReport'        => $isSubmitButton ? true : false,
+            "dataHeader"        => $dataReport["dataHeader"] ?? null,
+            "dataContent"       => $dataReport["dataContent"] ?? null,
+            "dataDetail"        => $dataReport["dataDetail"] ?? null,
+            "dataExcel"         => $dataReport["dataExcel"] ?? null,
+            "statusDetail"      => $dataReport["statusDetail"] ?? null,
+            "advance_RefID"     => $dataReport["advance_RefID"] ?? null,
+            "advance_number"    => $dataReport["advance_number"] ?? null,
+            "statusHeader"      => $dataReport["statusHeader"] ?? null
+        ];
 
-            Session::put("AdvanceSummaryReportDetailIsSubmit", "Yes");
-            $advance_RefID = $id;
-            $advance_number = "";
-            $statusHeader = "No";
-
-            $compact = $this->ReportAdvanceSummaryDetailData($advance_RefID, $advance_number, $statusHeader);
-
-            return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummaryDetail', $compact);
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
+        return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummaryDetail', $compact);
     }
 
     public function ReportAdvanceSummaryDetailData($id, $number, $statusHeader)
@@ -566,14 +546,14 @@ class AdvanceRequestController extends Controller
             }
             
             $compact = [
-                'dataHeader' => $filteredArray['data'][0]['document']['header'],
-                'dataContent' => $filteredArray['data'][0]['document']['content']['general'],
-                'dataDetail' => $filteredArray['data'][0]['document']['content']['details']['itemList'],
-                'dataExcel' => $varDataExcel,
-                'statusDetail' => 1,
-                'advance_RefID' => $filteredArray['data'][0]['document']['header']['recordID'],
-                'advance_number' => $filteredArray['data'][0]['document']['header']['number'],
-                'statusHeader' => $statusHeader
+                'dataHeader'        => $filteredArray['data'][0]['document']['header'],
+                'dataContent'       => $filteredArray['data'][0]['document']['content']['general'],
+                'dataDetail'        => $filteredArray['data'][0]['document']['content']['details']['itemList'],
+                'dataExcel'         => $varDataExcel,
+                'statusDetail'      => 1,
+                'advance_RefID'     => $filteredArray['data'][0]['document']['header']['recordID'],
+                'advance_number'    => $filteredArray['data'][0]['document']['header']['number'],
+                'statusHeader'      => $statusHeader
             ];
 
             Session::put("AdvanceSummaryReportDetailIsSubmit", "Yes");
@@ -612,7 +592,7 @@ class AdvanceRequestController extends Controller
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
 
-            return redirect()->route('AdvanceRequest.ReportAdvanceSummaryDetail', ['dataReport' => $compact]);
+            return redirect()->route('AdvanceRequest.ReportAdvanceSummaryDetail');
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -647,6 +627,24 @@ class AdvanceRequestController extends Controller
             } else {
                 return redirect()->route('AdvanceRequest.ReportAdvanceSummaryDetail')->with('NotFound', 'Data Cannot Empty');
             }
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportAdvanceSummaryDetailID(Request $request, $id)
+    {
+        try {
+
+            Session::put("AdvanceSummaryReportDetailIsSubmit", "Yes");
+            $advance_RefID = $id;
+            $advance_number = "";
+            $statusHeader = "No";
+
+            $compact = $this->ReportAdvanceSummaryDetailData($advance_RefID, $advance_number, $statusHeader);
+
+            return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummaryDetail', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

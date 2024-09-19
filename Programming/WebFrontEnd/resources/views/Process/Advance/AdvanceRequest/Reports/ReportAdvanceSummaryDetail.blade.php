@@ -17,11 +17,9 @@
       <div class="card">
         <div class="tab-content p-3" id="nav-tabContent">
           <div class="row">
-            @if($statusHeader == "Yes")
             @include('Process.Advance.AdvanceRequest.Functions.Header.HeaderReportAdvanceSummaryDetail')
-            @endif
 
-            @if($statusDetail == 1 && $dataHeader['recordID'] != "")
+            <?php if ($dataReport) { ?>
             <div class="card">
               <div class="tab-content p-3" id="nav-tabContent">
                 <div class="row">
@@ -131,7 +129,7 @@
                 </div>
               </div>
             </div>
-            @endif
+            <?php }; Session::forget("AdvanceSummaryReportDetailIsSubmit"); ?>
           </div>
         </div>
       </div>
