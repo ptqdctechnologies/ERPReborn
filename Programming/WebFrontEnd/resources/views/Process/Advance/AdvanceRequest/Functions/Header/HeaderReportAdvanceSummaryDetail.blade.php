@@ -1,6 +1,6 @@
 <div class="col-12 ShowDocument">
   <div class="card">
-    <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.ReportAdvanceSummaryDetailStore') }}"  id="FormSubmitReportAdvanceSummaryDetail">
+    <form method="post" action="{{ route('AdvanceRequest.ReportAdvanceSummaryDetailStore') }}"  id="FormSubmitReportAdvanceSummaryDetail">
       @csrf
       <div class="card-body">
         <div class="row">
@@ -64,8 +64,6 @@
               </table>
             </div>
           </div>
-                 </form>
-          
           <div class="col-md-3">
             <div class="form-group">
               <table>
@@ -76,8 +74,9 @@
                     </button>
                     &nbsp;&nbsp;&nbsp;
                   </td>
+                  </form>
 
-                 <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.PrintExportReportAdvanceSummaryDetail') }}" id="FormPrintReportAdvanceSummaryDetail">
+                  <form method="post" action="{{ route('AdvanceRequest.PrintExportReportAdvanceSummaryDetail') }}" id="FormPrintReportAdvanceSummaryDetail">
                     @csrf
                     <td>
                       <select name="print_type" id="print_type" class="form-control">
@@ -90,13 +89,11 @@
                         <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="" title="Print">
                       </button>
                     </td>
-
                   </form>
                 </tr>
               </table>
             </div>
           </div>
-
         </div>
       </div>
   </div>

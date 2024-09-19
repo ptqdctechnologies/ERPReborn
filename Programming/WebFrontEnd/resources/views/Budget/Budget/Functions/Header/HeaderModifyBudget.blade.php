@@ -5,7 +5,7 @@
             <div class="col d-flex p-0">
                 <div>
                     <input id="project_id" hidden name="project_id" value="{{ request('budgetID', old('project_id')) }}">
-                    <input id="project_code" style="border-radius:0;" data-toggle="modal" data-target="#myProject" name="project_code" class="form-control myProject" value="{{ request('budgetCode', old('project_code')) }}" readonly>
+                    <input id="project_code" style="border-radius:0;" name="project_code" class="form-control myProject" value="{{ request('budgetCode', old('project_code')) }}" readonly>
                 </div>
                 <div>
                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -27,7 +27,7 @@
             <div class="col d-flex p-0">
                 <div>
                     <input id="site_id" hidden name="site_id" value="{{ request('subBudgetID', old('site_id')) }}">
-                    <input id="site_code" style="border-radius:0;" data-toggle="modal" data-target="#mySiteCode" name="site_code" class="form-control" value="{{ request('subBudgetCode', old('site_code')) }}" readonly>
+                    <input id="site_code" style="border-radius:0;" name="site_code" class="form-control" value="{{ request('subBudgetCode', old('site_code')) }}" readonly>
                 </div>
                 <div>
                     <span style="border-radius:0;" class="input-group-text form-control">

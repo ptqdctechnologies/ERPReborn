@@ -299,16 +299,16 @@ class AdvanceRequestController extends Controller
             //     true
             // );
 
-            $collection = collect($DataListAdvance);
+            $collection = collect($DataListAdvance["data"]);
 
             $project_id = $request->project_id;
             $site_id = $request->site_id;
 
             if ($project_id != "") {
-                $collection = $collection->where('CombinedBudget_RefID', $project_id);
+                $collection = $collection->where('combinedBudget_RefID', $project_id);
             }
             if ($site_id != "") {
-                $collection = $collection->where('CombinedBudgetSection_RefID', $site_id);
+                $collection = $collection->where('combinedBudgetSection_RefID', $site_id);
             }
 
             $collection = $collection->all();
@@ -323,7 +323,6 @@ class AdvanceRequestController extends Controller
     // +--------------------------------------------------------------------------------------------------------------------------+
     // |                                        REPORTS                                                                           |
     // +--------------------------------------------------------------------------------------------------------------------------+
-
 
     public function ReportAdvanceSummary(Request $request)
     {
@@ -343,6 +342,7 @@ class AdvanceRequestController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
     public function ReportAdvanceSummaryStore(Request $request)
     {
         try {
@@ -463,8 +463,17 @@ class AdvanceRequestController extends Controller
                         'data' => $dataAdvance
                     ];
 
-                    $pdf = Pdf::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->setPaper('a4', 'landscape')->loadView('Process.Advance.AdvanceRequest.Reports.PrintReportAdvanceSummary', $data);
-                    return $pdf->download('Print Report Advance Summary.pdf');
+                    $pdf = PDF::loadView('Process.Advance.AdvanceRequest.Reports.PrintReportAdvanceSummary', $data);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Advance Summary.pdf');
                 } else if ($print_type == "Excel") {
 
                     return Excel::download(new ExportReportAdvanceSummary, 'Export Report Advance Summary.xlsx');
@@ -480,67 +489,43 @@ class AdvanceRequestController extends Controller
 
     public function ReportAdvanceSummaryDetail(Request $request)
     {
-        try {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $isSubmitButton = $request->session()->get('AdvanceSummaryReportDetailIsSubmit');
 
-            Session::put("AdvanceSummaryReportDetailIsSubmit", "No");
-            $varAPIWebToken = Session::get('SessionLogin');
-            $compact = [
-                'varAPIWebToken' => $varAPIWebToken,
-                'statusDetail' => 0,
-                'advance_RefID' => "",
-                'advance_number' => "",
-                'statusHeader' => "Yes"
-            ];
+        $dataReport = $isSubmitButton ? $request->session()->get('AdvanceSummaryReportDetailDataPDF', []) : [];
 
-            return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummaryDetail', $compact);
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
+        $compact = [
+            'varAPIWebToken'    => [],
+            'dataReport'        => $isSubmitButton ? true : false,
+            "dataHeader"        => $dataReport["dataHeader"] ?? null,
+            "dataContent"       => $dataReport["dataContent"] ?? null,
+            "dataDetail"        => $dataReport["dataDetail"] ?? null,
+            "dataExcel"         => $dataReport["dataExcel"] ?? null,
+            "statusDetail"      => $dataReport["statusDetail"] ?? null,
+            "advance_RefID"     => $dataReport["advance_RefID"] ?? null,
+            "advance_number"    => $dataReport["advance_number"] ?? null,
+            "statusHeader"      => $dataReport["statusHeader"] ?? null
+        ];
 
-    public function ReportAdvanceSummaryDetailID(Request $request, $id)
-    {
-        try {
-
-            Session::put("AdvanceSummaryReportDetailIsSubmit", "Yes");
-            $advance_RefID = $id;
-            $advance_number = "";
-            $statusHeader = "No";
-
-            $compact = $this->ReportAdvanceSummaryDetailData($advance_RefID, $advance_number, $statusHeader);
-
-            return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummaryDetail', $compact);
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
+        return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummaryDetail', $compact);
     }
 
     public function ReportAdvanceSummaryDetailData($id, $number, $statusHeader)
     {
-        
         try {
             
             $varAPIWebToken = Session::get('SessionLogin');
 
             $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceReport',
+                $varAPIWebToken, 
+                'report.form.documentForm.finance.getAdvance', 
                 'latest',
                 [
                     'parameter' => [
-                        'advance_RefID' => (int) $id,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
+                        'recordID' => (int) $id
                     ]
-                ],
-                false
+                ]
             );
 
             $varDataExcel = [];
@@ -561,14 +546,14 @@ class AdvanceRequestController extends Controller
             }
             
             $compact = [
-                'dataHeader' => $filteredArray['data'][0]['document']['header'],
-                'dataContent' => $filteredArray['data'][0]['document']['content']['general'],
-                'dataDetail' => $filteredArray['data'][0]['document']['content']['details']['itemList'],
-                'dataExcel' => $varDataExcel,
-                'statusDetail' => 1,
-                'advance_RefID' => $filteredArray['data'][0]['document']['header']['recordID'],
-                'advance_number' => $filteredArray['data'][0]['document']['header']['number'],
-                'statusHeader' => $statusHeader
+                'dataHeader'        => $filteredArray['data'][0]['document']['header'],
+                'dataContent'       => $filteredArray['data'][0]['document']['content']['general'],
+                'dataDetail'        => $filteredArray['data'][0]['document']['content']['details']['itemList'],
+                'dataExcel'         => $varDataExcel,
+                'statusDetail'      => 1,
+                'advance_RefID'     => $filteredArray['data'][0]['document']['header']['recordID'],
+                'advance_number'    => $filteredArray['data'][0]['document']['header']['number'],
+                'statusHeader'      => $statusHeader
             ];
 
             Session::put("AdvanceSummaryReportDetailIsSubmit", "Yes");
@@ -586,58 +571,80 @@ class AdvanceRequestController extends Controller
     public function ReportAdvanceSummaryDetailStore(Request $request)
     {
         try {
-
             $advance_RefID = $request->advance_RefID;
             $advance_number = $request->advance_number;
 
             $statusHeader = "Yes";
 
             if ($advance_RefID == "" && $advance_number == "") {
+                Session::forget("AdvanceSummaryReportDetailDataPDF");
+                Session::forget("AdvanceSummaryReportDetailDataExcel");
+                
                 return redirect()->route('AdvanceRequest.ReportAdvanceSummaryDetail')->with('NotFound', 'Advance Number Cannot Empty');
             }
 
             $compact = $this->ReportAdvanceSummaryDetailData($advance_RefID, $advance_number, $statusHeader);
 
             if ($compact['dataHeader'] == []) {
+                Session::forget("AdvanceSummaryReportDetailDataPDF");
+                Session::forget("AdvanceSummaryReportDetailDataExcel");
+
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
 
-            return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummaryDetail', $compact);
+            return redirect()->route('AdvanceRequest.ReportAdvanceSummaryDetail');
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
 
-
     public function PrintExportReportAdvanceSummaryDetail(Request $request)
     {
         try {
-            $isSubmit = Session::get("AdvanceSummaryReportDetailIsSubmit");
-            if ($isSubmit == "Yes") {
+            $dataPDF = Session::get("AdvanceSummaryReportDetailDataPDF");
+            $dataExcel = Session::get("AdvanceSummaryReportDetailDataExcel");
+
+            if ($dataPDF && $dataExcel) {
                 $print_type = $request->print_type;
                 if ($print_type == "PDF") {
-
                     $dataAdvance = Session::get("AdvanceSummaryReportDetailDataPDF");
 
-                    $data = [
-                        'title' => 'ADVANCE REQUEST',
-                        'date' => date('d/m/Y H:m:s'),
-                        'projectCode' => $dataAdvance['dataContent']['budget']['combinedBudgetCodeList'][0],
-                        'projectName' => $dataAdvance['dataContent']['budget']['combinedBudgetNameList'][0],
-                        'printedBy' => Session::get('SessionLoginName'),
-                        'data' => $dataAdvance
-                    ];
+                    $pdf = PDF::loadView('Process.Advance.AdvanceRequest.Reports.PrintReportAdvanceSummaryDetail', ['dataReport' => $dataAdvance]);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
 
-                    $pdf = Pdf::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->setPaper('a4', 'landscape')->loadView('Process.Advance.AdvanceRequest.Reports.PrintReportAdvanceSummaryDetail', $data);
-                    return $pdf->download('Print Report Advance Detail.pdf');
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Advance Summary Detail.pdf');
                 } else if ($print_type == "Excel") {
-
                     return Excel::download(new ExportReportAdvanceSummaryDetail, 'Export Report Advance Summary Detail.xlsx');
                 }
             } else {
                 return redirect()->route('AdvanceRequest.ReportAdvanceSummaryDetail')->with('NotFound', 'Data Cannot Empty');
             }
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportAdvanceSummaryDetailID(Request $request, $id)
+    {
+        try {
+
+            Session::put("AdvanceSummaryReportDetailIsSubmit", "Yes");
+            $advance_RefID = $id;
+            $advance_number = "";
+            $statusHeader = "No";
+
+            $compact = $this->ReportAdvanceSummaryDetailData($advance_RefID, $advance_number, $statusHeader);
+
+            return view('Process.Advance.AdvanceRequest.Reports.ReportAdvanceSummaryDetail', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

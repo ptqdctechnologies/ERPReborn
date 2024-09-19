@@ -230,7 +230,7 @@ namespace App\Helpers\ZhtHelper\General
         |                   );                                                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getSyntaxCreateDOM_DivCustom_InputFile($varUserSession, $varAPIWebToken, string $varObjectID, int $varValue, string $varObjectReturnID = null)
+        public static function getSyntaxCreateDOM_DivCustom_InputFile($varUserSession, $varAPIWebToken, string $varObjectID, int $varValue = null, string $varObjectReturnID = null)
             {
             $varStyle_TableAction =
                 [

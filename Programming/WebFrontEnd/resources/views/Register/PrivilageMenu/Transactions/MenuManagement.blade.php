@@ -6,6 +6,7 @@
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
+            <!-- TITLE MENU MANAGEMENT -->
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
                     <label style="font-size:15px;position:relative;top:7px;color:white;">Menu Management</label>
@@ -13,10 +14,12 @@
             </div>
 
             <div class="card">
+                <!-- MODULE CARD -->
                 <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
+                                <!-- TITLE -->
                                 <div class="card-header">
                                     <label class="card-title">
                                         Module
@@ -28,6 +31,7 @@
                                     </div>
                                 </div>
 
+                                <!-- SELECT COMPONENT -->
                                 <div class="card-body">
                                     <div class="row py-3">
                                         <label class="col-2 col-form-label p-0">Select Menu</label>
@@ -43,11 +47,13 @@
                         </div>
                     </div>
                 </div>
-                
+
+                <!-- NAVIGATION CARD -->
                 <div class="tab-content px-3 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
+                                <!-- TITLE -->
                                 <div class="card-header">
                                     <label class="card-title">
                                         Navigation
@@ -59,20 +65,26 @@
                                     </div>
                                 </div>
 
+                                <!-- BUTTON -->
                                 <div class="card-body pb-0 pt-3">
                                     <div class="row" style="gap: 8px;">
+                                        <!-- NEW FOLDER -->
                                         <div>
                                             <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#modalNewFolder" style="font-size: 12px; gap: 4px; width: max-content; height: 30px;">
                                                 <i class="fas fa-plus-circle"></i>
                                                 New Folder
                                             </button>
                                         </div>
+
+                                        <!-- NEW MENU -->
                                         <div>
                                             <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#modalNewMenu" style="font-size: 12px; gap: 4px; width: max-content; height: 30px;">
                                                 <i class="fas fa-plus-circle"></i>
                                                 New Menu
                                             </button>
                                         </div>
+
+                                        <!-- DELETE -->
                                         <div>
                                             <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#modalDelete" style="font-size: 12px; gap: 4px; width: max-content; height: 30px;">
                                                 <i class="fas fa-minus-circle"></i>
@@ -82,12 +94,16 @@
                                     </div>
                                 </div>
 
+                                <!-- DATA -->
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col px-0">
+                                            <!-- LOADING ANIMATION -->
                                             <div class="spinner-border spinner-border-sm spinner-sub-menu" role="status">
                                                 <span class="sr-only">Loading...</span>
                                             </div>
+
+                                            <!-- DATA LISTS -->
                                             <nav class="p-0 col-12">
                                                 <ul class="nav-sidebar p-0 data-menu-management" data-widget="treeviews" role="menu" data-accordion="false">
 
@@ -105,7 +121,7 @@
     </section>
 </div>
 
-<!-- Modal New Folder -->
+<!-- MODAL ADD NEW FOLDER -->
 <div class="modal fade" id="modalNewFolder" tabindex="-1" aria-labelledby="modalNewFolderLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -148,7 +164,7 @@
     </div>
 </div>
 
-<!-- Modal New Menu -->
+<!-- MODAL ADD NEW MENU -->
 <div class="modal fade" id="modalNewMenu" tabindex="-1" aria-labelledby="modalNewMenuLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -205,7 +221,7 @@
   </div>
 </div>
 
-<!-- Modal Delete -->
+<!-- MODAL DELETE -->
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -246,7 +262,7 @@
   </div>
 </div>
 
-<!-- Modal PIN -->
+<!-- MODAL CONFIRM PIN -->
 <div class="modal fade" id="modalPin" tabindex="-1" aria-labelledby="modalPinLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">

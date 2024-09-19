@@ -76,8 +76,14 @@
                     <div class="card-body">
                       <div class="row">
                           <div class="col-md-12">
-                              <input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readonly="true" name="dataInput_Log_FileUpload_Pointer_RefID">
-                              <input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" name="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" onchange="javascript: @php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataInput_Log_FileUpload_Pointer_RefID_Action', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord'); @endphp;" />
+                            <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                            $varAPIWebToken,
+                            'dataInput_Log_FileUpload_1',
+                            null,
+                            'dataInput_Return'
+                            ).
+                            ''; ?>
                           </div>
                           <br><br>
                           <div class="col-md-12">

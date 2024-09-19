@@ -1,141 +1,287 @@
-@extends('Partials.app')
-@section('main')
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- <style>
-  table,
-  th,
-  td {
-    border: 1px solid #ced4da;
-    border-collapse: collapse;
-  }
-</style> -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-<div class="content-wrapper">
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row mb-1">
-        <div class="col-sm-12">
-          <center>
-            <b><label style="font-size:20px;">{{ $title}} <br><br><br> </label></b>
-          </center>
-          <table style="float:left;">
-            <tr>
-              <td><label>Advance Number</label></td>
-              <td>:</td>
-              <td>{{ $data['dataHeader']['number'] }}</td>
-            </tr>
-            <tr>
-              <td><label>Budget</label></td>
-              <td>:</td>
-              <td>{{ $data['dataContent']['budget']['combinedBudgetCodeList'][0] }} - {{ $data['dataContent']['budget']['combinedBudgetNameList'][0] }}</td>
-            </tr>
-            <tr>
-              <td><label>Sub Budget</label></td>
-              <td>:</td>
-              <td>{{ $data['dataContent']['budget']['combinedBudgetSectionCodeList'][0] }} - {{ $data['dataContent']['budget']['combinedBudgetSectionNameList'][0] }}</td>
-            </tr>
-            <tr>
-              <td><label>Date</label></td>
-              <td>:</td>
-              <td>{{ date("d-m-Y", strtotime($data['dataHeader']['date'])) }}</td>
-            </tr>
-            <tr>
-              <td><label>Currency</label></td>
-              <td>:</td>
-              <td>{{ $data['dataDetail'][0]['entities']['priceCurrencyISOCode'] }}</td>
-            </tr>
-            <tr>
-              <td><label>Requester</label></td>
-              <td>:</td>
-              <td>{{ $data['dataContent']['involvedPersons'][0]['requesterWorkerName'] }}</td>
-            </tr>
-            <tr>
-              <td><label>Beneficiary</label></td>
-              <td>:</td>
-              <td>{{ $data['dataContent']['involvedPersons'][0]['requesterWorkerName'] }}</td>
-            </tr>
-          </table>
+  <title>ERP Reborn</title>
 
-          <table style="float:right;">
-            <tr>
-              <td><img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/AdminLTE-master/dist/img/qdc.png'))) }}" width="190"></td>
-            </tr>
-          </table>
-          <br><br><br><br><br><br>
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
+</head>
 
-          <table style="float:right;">
-            <tr>
-              <td>Bank Name</td>
-              <td>:</td>
-              <td>{{ $data['dataContent']['bankAccount']['beneficiary']['bankAcronym'] }} - {{ $data['dataContent']['bankAccount']['beneficiary']['bankName'] }}</td>
-            </tr>
-            <tr>
-              <td>Bank Account</td>
-              <td>:</td>
-              <td>{{ $data['dataContent']['bankAccount']['beneficiary']['bankAccountNumber'] }} - {{ $data['dataContent']['bankAccount']['beneficiary']['bankAccountName'] }}</td>
-            </tr>
-          </table>
+<body>
+  <div class="card-body table-responsive p-0">
+    <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
+    <div style="text-align: center; font-size: 20px; font-weight: bold;">Advance Summary Detail Report</div>
+    <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
 
-          <br><br><br><br><br>
-        </div>
-      </div>
-      <div class="card">
-        <div class="tab-content p-3" id="nav-tabContent">
-          <div class="row">
-
-            <div class="col-12 ShowTableReportAdvanceSummaryDetail">
-              <div class="card">
-                <div class="card-body table-responsive p-0">
-                  <table class="TableReportAdvanceSummaryDetail" id="TableReportAdvanceSummaryDetail" style="font-size: 13px;width:100%;border: 1px solid #ced4da;border-collapse: collapse;">
-                    <thead>
-                      <tr style="border: 1px solid #ced4da;border-collapse: collapse;">
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">No</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Product ID</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Description & Spesification</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Quantity</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Unit Price</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total Advance</th>
-                      </tr>
-                    </thead>
-                    @php $no = 1; $total = 0; @endphp
-                    @foreach($data['dataDetail'] as $dataDetails)
-                    @php $total += $dataDetails['entities']['priceBaseCurrencyValue'] @endphp
-                    <tbody>
-                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $no++ }}</td>
-                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetails['entities']['product_RefID'] }}</td>
-                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetails['entities']['productName'] }}</td>
-                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetails['entities']['quantity'],2) }}</td>
-                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetails['entities']['productUnitPriceBaseCurrencyValue'],2) }}</td>
-                      <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ number_format($dataDetails['entities']['priceBaseCurrencyValue'],2) }}</td>
-                    </tbody>
-                    @endforeach
-                    <tfoot>
-                      <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">
-                        <th style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="5">GRAND TOTAL ADVANCE</th>
-                        <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><span id="GrandTotal">{{ number_format($total,2) }}</span></td>
-                      </tr>
-                    </tfoot>
-                  </table>
+    <!-- HEADER -->
+    <table style="margin: 30px 0px 15px 1px;">
+      <tr>
+        <!-- ADVANCE NUMBER -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Advance Number
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row mb-1">
-        <div class="col-sm-12">
-          <table style="position: fixed;bottom: 0;left: 0;right: 0;height: 50px;float:right;">
-            <tr>
-              <td>Printed By</td>
-              <td>:</td>
-              <td>{{ $printedBy }} - {{ $date }}</td>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px;">
+                  <?= $dataReport['dataHeader']['number']; ?>
+                </div>
+              </td>
             </tr>
           </table>
-        </div>
-      </div>
+        </td>
 
-    </div>
-  </section>
-</div>
-@endsection
+        <!-- CURRENCY -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Currency
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px;">
+                  <?= $dataReport['dataDetail'][0]['entities']['priceCurrencyISOCode']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr>
+        <!-- BUDGET -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Budget
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px;">
+                  <?= $dataReport['dataContent']['budget']['combinedBudgetCodeList'][0]; ?> - <?= $dataReport['dataContent']['budget']['combinedBudgetNameList'][0]; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- REQUESTER -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Requester
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px;">
+                  <?= $dataReport['dataContent']['involvedPersons'][0]['requesterWorkerName']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr>
+        <!-- SUB BUDGET -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Sub Budget
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px;">
+                  <?= $dataReport['dataContent']['budget']['combinedBudgetSectionCodeList'][0]; ?> - <?= $dataReport['dataContent']['budget']['combinedBudgetSectionNameList'][0]; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- BENEFICIARY -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Beneficiary
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px;">
+                  <?= $dataReport['dataContent']['involvedPersons'][0]['requesterWorkerName']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr>
+        <!-- DATE -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Date
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px;">
+                  <?= date("d-m-Y", strtotime($dataReport['dataHeader']['date'])); ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- BANK -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Bank Account
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px;">
+                  <?= $dataReport["dataContent"]['bankAccount']['beneficiary']['bankAcronym']; ?> - <?= $dataReport["dataContent"]['bankAccount']['beneficiary']['bankAccountName']; ?> - <?= $dataReport["dataContent"]['bankAccount']['beneficiary']['bankAccountNumber']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+    </table>
+
+    <!-- DETAIL -->
+    <table class="TableReportAdvanceSummary" style="margin-left: 1px; width: 100%;" id="TableReportAdvanceSummary">
+      <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            No
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Product ID
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Description & Spesification
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Quantity
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Unit Price
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Total Advance
+          </div>
+        </td>
+      </tr>
+
+      @php $no = 1; $total = 0; @endphp
+      @foreach($dataReport['dataDetail'] as $dataDetails)
+      @php $total += $dataDetails['entities']['priceBaseCurrencyValue'] @endphp
+      <tr>
+        <td>
+          <div style="margin-top: 4px;">
+            {{ $no++ }}
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px;">
+            {{ $dataDetails['entities']['product_RefID'] }}
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px;">
+            {{ $dataDetails['entities']['productName'] }}
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px;">
+            {{ number_format($dataDetails['entities']['quantity'],2) }}
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px;">
+            {{ number_format($dataDetails['entities']['productUnitPriceBaseCurrencyValue'],2) }}
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px;">
+            {{ number_format($dataDetails['entities']['priceBaseCurrencyValue'],2) }}
+          </div>
+        </td>
+      </tr>
+      @endforeach
+
+      <div style="height: 16px;"></div>
+
+      <tr style="border-top: 1px solid black;">
+        <td style="height: 20px; text-align: left;" colspan="5">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL ADVANCE</div>
+        </td>
+        <td style="height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">{{ number_format($total,2) }}</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>
