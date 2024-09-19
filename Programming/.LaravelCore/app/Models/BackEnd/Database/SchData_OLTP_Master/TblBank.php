@@ -74,8 +74,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-08                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2024-09-18                                                                                           |
         | ▪ Creation Date   : 2021-11-25                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -88,6 +88,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varName ► Bank Name                                                                                      |
         |      ▪ (string) varAcronym ► Bank Acronym                                                                                |
+        |      ▪ (string) varSWIFTCode ► Society for Worldwide Interbank Financial Telecommunications (SWIFT) Code                 |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -96,7 +97,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varName = null, string $varAcronym = null)
+            string $varName = null, string $varAcronym = null, string $varSWIFTCode = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -113,7 +114,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varName, 'varchar'],
-                            [$varAcronym, 'varchar']
+                            [$varAcronym, 'varchar'],
+                            [$varSWIFTCode, 'varchar']
                         ]
                         )
                     );
@@ -126,8 +128,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-08                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2024-09-18                                                                                           |
         | ▪ Creation Date   : 2021-11-25                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -141,6 +143,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varName ► Bank Name                                                                                      |
         |      ▪ (string) varAcronym ► Bank Acronym                                                                                |
+        |      ▪ (string) varSWIFTCode ► Society for Worldwide Interbank Financial Telecommunications (SWIFT) Code                 |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -149,7 +152,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varName = null, string $varAcronym = null)
+            string $varName = null, string $varAcronym = null, string $varSWIFTCode = null)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -166,7 +169,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varName, 'varchar'],
-                            [$varAcronym, 'varchar']
+                            [$varAcronym, 'varchar'],
+                            [$varSWIFTCode, 'varchar']
                         ]
                         )
                     );

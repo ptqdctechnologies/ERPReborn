@@ -50,11 +50,17 @@
                         "type": [ "string", "null" ],
                         "minLength": 1,
                         "maxLength": 16
+                        },
+                    "SWIFTCode": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 11
                         }
                     },
                 "required": [
                     "name",
-                    "acronym"
+                    "acronym",
+                    "SWIFTCode"
                     ]
                 }
             },
