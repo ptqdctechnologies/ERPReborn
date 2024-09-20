@@ -298,7 +298,7 @@
 </script>
 
 <!-- FILE ATTACHMENT -->
-<script>
+<!-- <script>
     const fileInput = document.getElementById('attachment_file');
     const fileList = document.getElementById('file_list');
     const hiddenInputs = document.getElementById('hidden_inputs');
@@ -381,7 +381,7 @@
     function resetFileInput() {
         fileInput.value = ''; 
     }
-</script>
+</script> -->
 
 <!-- VALIDASI SHOW/HIDE FORM ADD NEW ITEM KETIKA TABLE EXISTING BUDGET ADA DATANYA -->
 <script>

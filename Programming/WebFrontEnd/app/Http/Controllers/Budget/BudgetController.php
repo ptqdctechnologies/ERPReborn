@@ -48,7 +48,13 @@ class BudgetController extends Controller
     }
 
     public function ModifyBudget(Request $request) {
-        return view('Budget.Budget.Transactions.ModifyBudget');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken
+        ];
+
+        return view('Budget.Budget.Transactions.ModifyBudget', $compact);
     }
 
     public function PreviewModifyBudget(Request $request) {
