@@ -47,6 +47,8 @@
             success: function(data) {
                 var resultArray = Array.isArray(data) ? data : Object.values(data);
 
+                localMenuData = [];
+
                 localMenuData = [...localMenuData, ...resultArray];
 
                 displaySubMenu(); 
