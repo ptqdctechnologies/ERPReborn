@@ -384,17 +384,25 @@ class BudgetController extends Controller
                 'budget'        => $projectCode . " - " . $projectName
             ];
 
+            // dd($collection);
+
             $dataDetails = [];
             $i = 0;
             $total = 0;
+            $productID = 88000000003832;
             foreach ($collection as $collections) {
-                $total                                  += $collections['TotalAdvance'];
+                $total                              += $collections['TotalAdvance'];
 
-                $dataDetails[$i]['no']                  = $i + 1;
-                $dataDetails[$i]['ModifyNumber']        = "MB01-23000004";
-                $dataDetails[$i]['budgetCode']          = $collections['CombinedBudgetCode'];
-                $dataDetails[$i]['date']                = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
-                $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
+                $dataDetails[$i]['no']              = $i + 1;
+                $dataDetails[$i]['productID']       = $productID + $i;
+                $dataDetails[$i]['productName']     = $collections['remark'];
+                $dataDetails[$i]['price']           = $collections['TotalAdvance'];
+                $dataDetails[$i]['total']           = ($i + 1) * $collections['TotalAdvance'];
+    
+                // $dataDetails[$i]['ModifyNumber']        = "MB01-23000004";
+                // $dataDetails[$i]['budgetCode']          = $collections['CombinedBudgetCode'];
+                // $dataDetails[$i]['date']                = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
+                // $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
                 $i++;
             }
 

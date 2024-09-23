@@ -48,26 +48,6 @@
                 <div class="form-group">
                     <table>
                         <tr>
-                            <th style="padding-top: 7px;"><label>Warehouse&nbsp;</label></th>
-                            <td>
-                                <div class="input-group">
-                                    <input id="warehouse_from_id" style="border-radius:0;margin-left:33px;" name="warehouse_from_id" class="form-control" hidden>
-                                    <input id="warehouse_from" style="border-radius:0;margin-left:33px;" name="warehouse_from" class="form-control">
-                                    <div class="input-group-append">
-                                        <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#"><i id="warehouse_from_2" data-toggle="modal" data-target="#myGetWarehouse" class="fas fa-gift myGetWarehouseFrom" style="color:grey;"></i></a>
-                                        </span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <table>
-                        <tr>
                             <td>
                                 <button class="btn btn-default btn-sm" type="submit">
                                     <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="" title="Show"> Show
