@@ -258,7 +258,7 @@
             $("#currency_name").val("");
             $("#currency_symbol").val("");
             $("#value_idr_rate").val("");
-            Swal.fire("Error", "Please Call Accounting Staffs (Ext. 1101 - 1104). Ask Them to Input Current Exchange Rate. Thank You.", "error");
+            Swal.fire("Error", "Please Call Accounting Staffs to Input Current Exchange Rate. Thank You.", "error");
         }
     });
 </script>
