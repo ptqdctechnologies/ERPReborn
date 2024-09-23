@@ -487,15 +487,15 @@ class FunctionController extends Controller
             );
         }
 
-        $DataProduct = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "Product"
-            ),
-            true
-        );
+        // $DataProduct = json_decode(
+        //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //         "Product"
+        //     ),
+        //     true
+        // );
 
-        return response()->json($DataProduct);
+        return response()->json($varData);
     }
 
     public function getProducts()

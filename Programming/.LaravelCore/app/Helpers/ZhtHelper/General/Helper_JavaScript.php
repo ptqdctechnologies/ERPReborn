@@ -311,6 +311,7 @@ namespace App\Helpers\ZhtHelper\General
                                             'varNewElement.setAttribute(\'id\', \'ZhtObject_SignEligibleToProcess\'); '.
                                             'varNewElement.setAttribute(\'name\', \'ZhtObject_SignEligibleToProcess\'); '.
                                             'varNewElement.setAttribute(\'value\', true); '.
+                                            'varNewElement.setAttribute(\'hidden\', true); '.
                                             'document.body.appendChild(varNewElement); '.
                                             '} '.
 

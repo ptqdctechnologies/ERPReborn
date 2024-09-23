@@ -51,14 +51,16 @@
                 type: 'GET',
                 url: '{!! route("getProduct") !!}',
                 success: function(data) {
-                    for (var i = 0; i < Object.keys(data).length; i++) {
+                    var result = data.data.data;
+                    
+                    for (var i = 0; i < result.length; i++) {
                         var no = i + 1;
                         dataShow.push([
                             '<tbody><tr><td>' + no + '</td>',
-                            '<td>' + data[i]['Sys_ID'] + '</td>',
-                            '<td>' + data[i]['Name'] + '</td>',
-                            '<td>' + data[i]['QuantityUnitName'] + '</td>',
-                            '<span style="display:none;"><td">' + data[i]['QuantityUnit_RefID'] + '</td></span></tr></tbody>'
+                            '<td>' + result[i]['sys_ID'] + '</td>',
+                            '<td>' + result[i]['name'] + '</td>',
+                            '<td>' + result[i]['quantityUnitName'] + '</td>',
+                            '<span style="display:none;"><td">' + result[i]['quantityUnit_RefID'] + '</td></span></tr></tbody>'
                         ]);
                     }
 
@@ -82,7 +84,6 @@
 
         var row = $(this).closest("tr");
         var sys_id = row.find("td:nth-child(2)").text();
-        console.log(sys_id);
         var name = row.find("td:nth-child(3)").text();
         var uom = row.find("td:nth-child(4)").text();
         var budget_qty_id = row.find("td:nth-child(5)").text();
@@ -103,7 +104,5 @@
         $("#accomodation_req" + key).prop("disabled", false);
         $("#other_req" + key).prop("disabled", false);
         $("#note_req" + key).prop("disabled", false);
-
-
     });
 </script>

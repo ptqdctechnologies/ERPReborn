@@ -66,7 +66,6 @@ class AdvanceRequestController extends Controller
                 $var =  $_GET['var'];
             }
 
-
             $compact = [
                 'var' => $var,
                 'varAPIWebToken' => $varAPIWebToken,
