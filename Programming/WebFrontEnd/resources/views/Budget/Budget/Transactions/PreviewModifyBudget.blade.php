@@ -838,7 +838,7 @@
 
                 <!-- BUTTON CANCEL -->
                 <div class="row pt-2" style="margin-top: 1rem;">
-                    <div class="col d-flex justify-content-end">
+                    <div class="col d-flex justify-content-end" style="gap: 8px;">
                         <a
                             class="btn btn-default btn-sm button-submit"
                             id="submitButton"
@@ -864,32 +864,13 @@
                             <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
                             <div>Cancel</div>
                         </a>
-                        
-                        <!-- <a
-                            class="btn btn-default btn-sm button-submit"
-                            id="submitButton"
-                            style="width: max-content;"
-                            href="{{ route('Budget.ModifyBudget', [
-                                'budgetID'          => $budgetID,
-                                'budgetCode'        => $budgetCode,
-                                'budgetName'        => $budgetName,
-                                'subBudgetID'       => $subBudgetID,
-                                'subBudgetCode'     => $subBudgetCode,
-                                'subBudgetName'     => $subBudgetName,
-                                'reason'            => $reason,
-                                'additionalCO'      => $additionalCO,
-                                'currencyID'        => $currencyID,
-                                'currencySymbol'    => $currencySymbol,
-                                'currencyName'      => $currencyName,
-                                'idrRate'           => $valueIDRRate,
-                                'valueAdditionalCO' => $valueAdditionalCO,
-                                'valueDeductiveCO'  => $valueDeductiveCO,
-                                'dataModifyBudget'  => $dataModifyBudget
-                            ]) }}"
-                        >
-                            <i class="fas fa-window-close" style="color: red;"></i>
-                            <div class="ml-1">Cancel</div>
-                        </a> -->
+
+                        <div style="display: flex;">
+                            <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit" disabled>
+                                <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
+                                <div>Submit</div>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
