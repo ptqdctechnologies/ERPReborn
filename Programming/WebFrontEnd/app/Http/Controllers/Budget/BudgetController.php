@@ -492,6 +492,8 @@ class BudgetController extends Controller
 
         $dataReport = $isSubmitButton ? $request->session()->get('dataReportModifyBudgetDetail', []) : [];
 
+        // dump($dataReport);
+
         $compact = [
             'varAPIWebToken'    => [],
             'dataReport'        => $dataReport
@@ -536,19 +538,26 @@ class BudgetController extends Controller
                 'PIC'           => $getData['content']['general']['involvedPersons'][0]['requesterWorkerName'],
             ];
 
+            // dd($getData['content']['details']['itemList']);
+
             $dataDetails = [];
             $i = 0;
             $totalQty = 0;
             foreach ($getData['content']['details']['itemList'] as $dataReports) {
-                $totalQty += $dataReports['entities']['quantity'];
+                $totalQty += ($i + 1) * $dataReports['entities']['quantity'];
             
                 $dataDetails[$i]['no']          = $i + 1;
-                $dataDetails[$i]['dorNumber']   = "MB1-23000004";
-                $dataDetails[$i]['productId']   = $dataReports['entities']['product_RefID'];
+                $dataDetails[$i]['productID']   = $dataReports['entities']['product_RefID'];
                 $dataDetails[$i]['productName'] = $dataReports['entities']['productName'];
-                $dataDetails[$i]['qty']         = number_format($dataReports['entities']['quantity'], 2, ',', '.');
-                $dataDetails[$i]['uom']         = 'Set';
-                $dataDetails[$i]['remark']      = $dataReports['entities']['quantityUnitName'];
+                $dataDetails[$i]['price']       = $dataReports['entities']['quantity'];
+                $dataDetails[$i]['total']       = ($i + 1) * $dataReports['entities']['quantity'];
+
+                // $dataDetails[$i]['dorNumber']   = "MB1-23000004";
+                // $dataDetails[$i]['productId']   = $dataReports['entities']['product_RefID'];
+                // $dataDetails[$i]['productName'] = $dataReports['entities']['productName'];
+                // $dataDetails[$i]['qty']         = number_format($dataReports['entities']['quantity'], 2, ',', '.');
+                // $dataDetails[$i]['uom']         = 'Set';
+                // $dataDetails[$i]['remark']      = $dataReports['entities']['quantityUnitName'];
                 $i++;
             }
 
