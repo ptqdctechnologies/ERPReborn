@@ -82,9 +82,11 @@ class BudgetController extends Controller
             $currencyID         = $request->currency_id;
             $currencySymbol     = $request->currency_symbol ?? '';
             $currencyName       = $request->currency_name ?? '-';
-
+            
             // IDR RATE
             $idrRate            = $request->value_idr_rate;
+            
+            // dump($currencySymbol, $idrRate);
 
             // VALUE ADDITIONAL CO
             $valueAdditionalCO  = $request->value_co_additional;
@@ -113,6 +115,29 @@ class BudgetController extends Controller
             $type               = $request->input('type');
 
             // dd($productIds, $productName, $qtyBudget, $price, $totalBudget, $qtyAdditionals, $priceAdditionals, $totalAdditionals, $qtySavings, $priceSavings, $totalSavings);
+
+            $addSubtSectionOne = 0;
+            if ($currencySymbol !== "IDR") {
+                if ($additionalCO == "yes") {
+                    if ($valueAdditionalCO) {
+                        $addSubtSectionOne = '+' . ($valueAdditionalCO * $idrRate);
+                    } else {
+                        $addSubtSectionOne = '-' . ($valueDeductiveCO * $idrRate);
+                    }
+                } else {
+                    $addSubtSectionOne = 0;
+                }
+            } else {
+                if ($additionalCO == "yes") {
+                    if ($valueAdditionalCO) {
+                        $addSubtSectionOne = '+' . $valueAdditionalCO;
+                    } else {
+                        $addSubtSectionOne = '-' . $valueDeductiveCO;
+                    }
+                } else {
+                    $addSubtSectionOne = 0;
+                }
+            }
 
             $i = 0;
             $dataModifyBudget = [];
@@ -172,15 +197,15 @@ class BudgetController extends Controller
                             'valuta'        => 'IDR',
                             'origin'        => 465000000,
                             'previous'      => 465000000,
-                            'addSubt'       => $additionalCO == "yes" ? $valueAdditionalCO ? +$valueAdditionalCO : -$valueDeductiveCO : 0,
-                            'totalCurrent'  => $additionalCO == "yes" ? $valueAdditionalCO ? 465000000 + $valueAdditionalCO : 465000000 - $valueDeductiveCO : 465000000
+                            'addSubt'       => $addSubtSectionOne,
+                            'totalCurrent'  => $additionalCO == "yes" ? $valueAdditionalCO ? 465000000 + $addSubtSectionOne : 465000000 - $addSubtSectionOne : 465000000
                         ],
                         'secondRow' => [
                             'description'   => '',
                             'valuta'        => 'Cross Currency',
                             'origin'        => 0,
                             'previous'      => 0,
-                            'addSubt'       => 0,
+                            'addSubt'       => $additionalCO == "yes" ? $valueAdditionalCO ? '+' . $valueAdditionalCO : '-' . $valueDeductiveCO : 0,
                             'totalCurrent'  => 0
                         ],
                         'thirdRow' => [
@@ -198,7 +223,8 @@ class BudgetController extends Controller
                             'valuta'        => 'IDR',
                             'origin'        => 376712000,
                             'previous'      => 376712000,
-                            'addSubt'       => $totalAdditional - $totalSaving,
+                            'addSubt'       => $addSubtSectionOne,
+                            // 'addSubt'       => $totalAdditional - $totalSaving,
                             'totalCurrent'  => 376712000
                         ],
                         'secondRow' => [
@@ -206,7 +232,8 @@ class BudgetController extends Controller
                             'valuta'        => 'Cross Currency',
                             'origin'        => 0,
                             'previous'      => 0,
-                            'addSubt'       => 0,
+                            'addSubt'       => $currencySymbol != "IDR" && $additionalCO == "yes" ? $valueAdditionalCO ? '+' . $valueAdditionalCO : '-' . $valueDeductiveCO : 0,
+                            // 'addSubt'       => 0,
                             'totalCurrent'  => 0
                         ],
                         'thirdRow' => [
