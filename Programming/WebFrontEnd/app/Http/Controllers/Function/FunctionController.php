@@ -498,40 +498,6 @@ class FunctionController extends Controller
         return response()->json($varData);
     }
 
-    public function getProducts()
-    {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.master.getProduct',
-            'latest',
-            [
-                'parameter' => [
-                    'dateTime' => null
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ],
-            false
-        );
-
-        // Konversi data API menjadi koleksi
-        $productsCollection = collect($varData['data']['data']);
-
-        // Lakukan paginasi pada koleksi
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 100;
-        $currentItems = $productsCollection->slice(($currentPage - 1) * $perPage, $perPage)->values();
-        // $paginatedItems = new LengthAwarePaginator($currentItems, $productsCollection->count(), $perPage);
-
-        return response()->json($currentItems);
-    }
-
     // FUNCTION DOCUMENT TYPE 
     public function getDocumentType()
     {

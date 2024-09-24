@@ -86,8 +86,6 @@ class BudgetController extends Controller
             // IDR RATE
             $idrRate            = $request->value_idr_rate;
             
-            // dump($currencySymbol, $idrRate);
-
             // VALUE ADDITIONAL CO
             $valueAdditionalCO  = $request->value_co_additional;
 
@@ -167,8 +165,6 @@ class BudgetController extends Controller
                 $i++;
             }
 
-            // dd($dataModifyBudget);
-
             $compact = [
                 'pic'               => $PIC,
                 'budgetID'          => $budgetID,
@@ -205,7 +201,7 @@ class BudgetController extends Controller
                             'valuta'        => 'Cross Currency',
                             'origin'        => 0,
                             'previous'      => 0,
-                            'addSubt'       => $additionalCO == "yes" ? $valueAdditionalCO ? '+' . $valueAdditionalCO : '-' . $valueDeductiveCO : 0,
+                            'addSubt'       => $currencySymbol != "IDR" && $additionalCO == "yes" ? $valueAdditionalCO ? '+' . $valueAdditionalCO : '-' . $valueDeductiveCO : 0,
                             'totalCurrent'  => 0
                         ],
                         'thirdRow' => [

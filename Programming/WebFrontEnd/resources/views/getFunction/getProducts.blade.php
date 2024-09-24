@@ -1,4 +1,4 @@
-<div id="myProduct" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myProducts" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,7 +11,7 @@
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 425px;">
                                 <input type="text" id="key" hidden>
-                                <table class="table table-head-fixed table-sm text-nowrap" id="tableGetProduct">
+                                <table class="table table-head-fixed table-sm text-nowrap" id="tableGetProducts">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -33,39 +33,39 @@
 </div>
 
 <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+    $(window).one('load', function(e) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-    // $(function() {
-    //     $('.myProduct').one('click', function(e) {
-        $(window).one('load', function(e) {
-        e.preventDefault();
+        var dataShow = [];
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("getProducts") !!}',
+            url: '{!! route("getProduct") !!}',
             success: function(data) {
-                // var result = data.data.data;
-                var result = data;
+                var result = data.data.data;
+                
+                for (var i = 0; i < result.length; i++) {
+                    var no = i + 1;
+                    dataShow.push([
+                        '<tbody><tr><input id="sys_id_products' + no + '" value="' + result[i]['sys_ID'] + '" type="hidden"><td>' + no + '</td>',
+                        '<td>' + result[i]['sys_ID'] + '</td>',
+                        '<td>' + result[i]['name'] + '</td>',
+                        '<td>' + result[i]['quantityUnitName'] + '</td>',
+                        '<span style="display:none;"><td">' + result[i]['quantityUnit_RefID'] + '</td></span></tr></tbody>'
+                    ]);
+                }
 
-                var no = 1;
-                var t = $('#tableGetProduct').DataTable();
-                t.clear();
-                $.each(result, function(key, val) {
-                    t.row.add([
-                        '<tbody><tr><input id="sys_id_products' + no + '" value="' + val.sys_ID + '" type="hidden"><td>' + no + '</td>',
-                        '<td>' + val.sys_PID + '</td>',
-                        '<td>' + val.quantityUnitName + '</td>',
-                        '<td>' + val.name + '</td>',
-                        '<span style="display:none;"><td">' + val.quantityUnit_RefID + '</td></span></tr></tbody>'
-                    ]).draw();
-                    no++;
+                $('#tableGetProducts').DataTable({
+                    data: dataShow,
+                    deferRender: true,
+                    scrollCollapse: true,
+                    scroller: true
                 });
             }
         });
-        });
-    // });
+    });
 </script>

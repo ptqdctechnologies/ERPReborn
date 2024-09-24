@@ -68,6 +68,83 @@
         $("#site_id").val(sys_id);
         $("#site_code").val(code);
         $("#site_name").val(name);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getBudget") !!}?site_code=' + sys_id,
+            success: function(data) {
+                var no = 1;
+                applied = 0;
+                status = "";
+                statusDisplay = [];
+                statusDisplay2 = [];
+                statusForm = [];
+
+                $.each(data, function(key, val2) {
+                    var used = val2.quantityAbsorptionRatio * 100;
+
+                    if (used == "0.00" && val2.quantity == "0.00") {
+                        var applied = 0;
+                    } else {
+                        var applied = Math.round(used);
+                    }
+                    if (applied >= 100) {
+                        var status = "disabled";
+                    }
+                    if (val2.productName == "Unspecified Product") {
+                        statusDisplay[key] = "";
+                        statusDisplay2[key] = "none";
+                        statusForm[key] = "disabled";
+                        balance_qty = "-";
+                    } else {
+                        statusDisplay[key] = "none";
+                        statusDisplay2[key] = "";
+                        statusForm[key] = "";
+                        balance_qty = currencyTotal(val2.quantityRemaining);
+                    }
+
+                    var html = 
+                    '<tr>' +
+                        '<td class="container-tbody-tr-budget" style="display:' + statusDisplay[key] + '";">' + 
+                            '<div class="input-group" style="min-width: 150px !important;">' + 
+                                '<input id="product_id' + key + '" style="border-radius:0;" class="form-control" name="product_id_show" readonly>' +
+                                '<div>' +
+                                    '<span style="border-radius:0;" class="input-group-text form-control">' +
+                                        '<a href="#" id="product_popup" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
+                                    '</span>' +
+                                '</div>' +
+                            '</div>' +
+                        '</td>' +
+
+                        '<td class="container-tbody-tr-budget" style="text-align: left !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
+                        '<td class="container-tbody-tr-budget" style="text-align: left !important;">' + val2.productName + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(balance_qty, 2) + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + val2.priceBaseCurrencyISOCode + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(50000, 2) + '</td>' +
+                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) + '</td>' +
+                        '<td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">' + '</td>' +
+                        '<td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">' + '</td>' +
+                        '<td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>' + '</td>' +
+                        '<td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">' + '</td>' +
+                        '<td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">' + '</td>' +
+                        '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>' + '</td>' +
+                        '<td class="d-none">' + '<input autocomplete="off" id="type" name="type" value="budgetDetails" disabled>' + '</td>' +
+                    '</tr>';
+
+                    $('table#budgetTable tbody').append(html);
+                });
+
+                checkTableRows();
+            }
+        });
     });
 </script>
 
@@ -413,14 +490,14 @@
             let priceSaving = row.querySelector('input[name="price_saving"]').value.trim();
             let totalSaving = row.querySelector('input[name="total_saving"]').value.trim();
             let type = row.querySelector('input[name="type"]').value.trim();
-            let productId = row.querySelector('td:nth-child(1)').textContent.trim();
-            let productName = row.querySelector('td:nth-child(2)').textContent.trim();
-            let qtyBudget = row.querySelector('td:nth-child(3)').textContent.trim();
-            // let qtyAvail = row.querySelector('td:nth-child(4)').textContent.trim();
-            let prices = row.querySelector('td:nth-child(5)').textContent.trim();
-            // let currencys = row.querySelector('td:nth-child(6)').textContent.trim();
-            // let balanceBudget = row.querySelector('td:nth-child(7)').textContent.trim();
-            let totalBudget = row.querySelector('td:nth-child(8)').textContent.trim();
+            let productId = row.querySelector('td:nth-child(2)').textContent.trim();
+            let productName = row.querySelector('td:nth-child(3)').textContent.trim();
+            let qtyBudget = row.querySelector('td:nth-child(4)').textContent.trim();
+            // let qtyAvail = row.querySelector('td:nth-child(5)').textContent.trim();
+            let prices = row.querySelector('td:nth-child(6)').textContent.trim();
+            // let currencys = row.querySelector('td:nth-child(7)').textContent.trim();
+            // let balanceBudget = row.querySelector('td:nth-child(8)').textContent.trim();
+            let totalBudget = row.querySelector('td:nth-child(9)').textContent.trim();
 
             if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
                 let listTableBody = document.querySelector('#listBudgetTable tbody');
@@ -435,30 +512,30 @@
                         let input = row.querySelectorAll('td')[index].querySelector('input');
 
                         if (input) {
-                            if (index <= 1) {
+                            if (index <= 2) {
                                 td.textContent = input.value;
-                            } else if (index === 8) {
-                                td.textContent = numberFormatPHPCustom(qtySaving, 2);
                             } else if (index === 9) {
-                                td.textContent = numberFormatPHPCustom(priceSaving, 2);
+                                td.textContent = numberFormatPHPCustom(qtySaving, 2);
                             } else if (index === 10) {
+                                td.textContent = numberFormatPHPCustom(priceSaving, 2);
+                            } else if (index === 11) {
                                 td.textContent = numberFormatPHPCustom(totalSaving, 2);
-                            } else if (index !== 5 || index !== 6 || index !== 7) {
+                            } else if (index !== 6 || index !== 7 || index !== 8) {
                                 td.textContent = numberFormatPHPCustom(input.value, 2);
                             }
                         } else {
-                            if (index === 5) {
+                            if (index === 6) {
                                 td.textContent = numberFormatPHPCustom(qtyAdditional, 2);
                             } 
-                            if (index === 6) {
+                            if (index === 7) {
                                 td.textContent = numberFormatPHPCustom(priceAdditional, 2);
                             } 
-                            if (index === 7) {
+                            if (index === 8) {
                                 td.textContent = numberFormatPHPCustom(totalAdditional, 2);
                             }
                         }
 
-                        if (index == 11) {
+                        if (index == 12) {
                             td.className = 'd-none';
                         } else {
                             td.className = 'container-tbody-tr-budget';
@@ -494,19 +571,19 @@
                 } else {
                     let clonedRow = row.cloneNode(true);
                     clonedRow.querySelectorAll('td').forEach(function(td, ind) {
-                        if (ind === 3 || ind === 5 || ind === 6) {
+                        if (ind === 4 || ind === 6 || ind === 7) {
                             td.remove();
                         } else {
                             let input = td.querySelector('input');
                             
                             if (input) {
-                                if (ind <= 1) {
+                                if (ind <= 2) {
                                     td.textContent = input.value;
                                 } else {
                                     td.textContent = numberFormatPHPCustom(input.value, 2);
                                 }
 
-                                if (ind == 14) {
+                                if (ind == 15) {
                                     td.className = 'd-none';
                                 } else {
                                     td.className = 'container-tbody-tr-budget';
@@ -556,7 +633,7 @@
 </script>
 
 <!-- DUMMY DATA BUDGET DETAILS TABLE -->
-<script>
+<!-- <script>
     var dummyData = [
         {
             siteCode: 235,
@@ -837,7 +914,7 @@
     });
 
     filterData();
-</script>
+</script> -->
 
 <!-- FORM ADD NEW ITEM -->
 <script>
@@ -847,15 +924,15 @@
     const newItemFormThree = document.getElementById('newItemFormThree');
     const newItemFormFour = document.getElementById('newItemFormFour');
     const buttonItemFormTwo = document.getElementById('buttonItemForm');
-    const productIdInput = document.getElementById('product_id');
+    const productIdInput = document.getElementById('products_id');
     const budgetTable = document.getElementById('budgetTable');
     const listBudgetTable = document.getElementById('listBudgetTable');
     const addToCartBtn = document.getElementById('addToCartNewFormItem');
 
     function resetFormInputs() {
-        document.getElementById('product_id').value = '';
-        document.getElementById('product_id_show').value = '';
-        document.getElementById('product_name').value = '';
+        document.getElementById('products_id').value = '';
+        document.getElementById('products_id_show').value = '';
+        document.getElementById('products_name').value = '';
         document.getElementById('qty').value = '';
         document.getElementById('price').value = '';
         document.getElementById('total_qty_price').value = '';
@@ -981,7 +1058,7 @@
     addToCartBtn.addEventListener('click', function(e) {
         e.preventDefault();
         const newProductId = productIdInput.value.trim();
-        const newProductName = document.getElementById('product_name').value.trim();
+        const newProductName = document.getElementById('products_name').value.trim();
         const newQty = document.getElementById('qty').value.trim();
         const newPrice = document.getElementById('price').value.trim();
 
@@ -1011,9 +1088,9 @@
 
 <!-- PRODUCT -->
 <script>
-    $('#tableGetProduct tbody').on('click', 'tr', function() {
+    $('#tableGetProducts tbody').on('click', 'tr', function() {
 
-        $("#myProduct").modal('toggle');
+        $("#myProducts").modal('toggle');
 
         var row = $(this).closest("tr");
         var id = row.find("td:nth-child(1)").text();
@@ -1022,9 +1099,9 @@
         var uom = row.find("td:nth-child(3)").text();
         var name = row.find("td:nth-child(4)").text();
 
-        $("#product_id").val(sys_id);
-        $("#product_id_show").val(sys_pid);
-        $("#product_name").val(name);
+        $("#products_id").val(sys_id);
+        $("#products_id_show").val(sys_pid);
+        $("#products_name").val(name);
     });
 </script>
 
@@ -1034,12 +1111,12 @@
         const qtyAdditionalInput = row.querySelector('input[name="qty_additional"]');
         const priceAdditionalInput = row.querySelector('input[name="price_additional"]');
         const totalAdditionalInput = row.querySelector('input[name="total_additional"]');
-        const totalBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(8)');
+        const totalBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(9)');
 
         const qtySavingInput = row.querySelector('input[name="qty_saving"]');
         const priceSavingInput = row.querySelector('input[name="price_saving"]');
         const totalSavingInput = row.querySelector('input[name="total_saving"]');
-        const balanceBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(7)');
+        const balanceBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(8)');
 
         function calculateTotalAdditional() {
             const qtyAdditional = parseFloat(qtyAdditionalInput.value) || 0;
