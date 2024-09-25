@@ -26,11 +26,11 @@
             type: 'GET',
             url: '{!! route("PurchaseRequisition.PurchaseRequisitionListData") !!}',
             success: function(data) {
-                console.log(data);
+                console.log(data.data.data);
                 var keys=0;
                 var no = 1;
                 t = $('#TableSearchPRinPO').DataTable();
-                $.each(data.data, function(key, val) {
+                $.each(data.data.data, function(key, val) {
                     keys += 1;
                     t.row.add([
                         '<tbody><tr><input id="pr_RefID' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="supplier_id' + keys + '" value="' + val.requesterWorkerJobsPosition_RefID + '" type="hidden"><input id="supplier_code' + keys + '" value="' + val.requesterWorkerJobsPosition_RefID + '" type="hidden"><input id="supplier_name' + keys + '" value="' + val.requesterWorkerName + '" type="hidden"><td>' + no++ + '</td>',

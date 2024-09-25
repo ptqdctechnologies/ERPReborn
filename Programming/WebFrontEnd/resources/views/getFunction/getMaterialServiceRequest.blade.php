@@ -52,7 +52,7 @@
                     var no = 1;
                     var t = $('#TableGetMaterialServiceRequest').DataTable();
                     t.clear();
-                    $.each(data.data, function(key, val) {
+                    $.each(data.data.data, function(key, val) {
                         keys += 1;
                         t.row.add([
                             '<tbody><tr><input id="sys_id_msr' + keys + '" value="' + val.Sys_ID + '" type="hidden"<td>' + no++ + '</td>',

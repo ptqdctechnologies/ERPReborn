@@ -23,14 +23,16 @@
 
         var keys = 0;
 
+        // console.log('data', data);
+
         $.each(data, function(key, val) {
             keys += 1;
             t.row.add([
-                '<tbody><tr><input id="delivery_order_request_id' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="supplier_id' + keys + '" value="' + val.RequesterWorkerJobsPosition_RefID + '" type="hidden"><td>' + no++ + '</td>',
-                '<td>' + val.DocumentNumber + '</td>',
-                '<td>' + val.CombinedBudgetCode + '</td>',
-                '<td>' + val.CombinedBudgetSectionCode + '</td>',
-                '<td>' + val.RequesterWorkerName + '</td></tr></tbody>'
+                '<tbody><tr><input id="delivery_order_request_id' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="supplier_id' + keys + '" value="' + val.requesterWorkerJobsPosition_RefID + '" type="hidden"><td>' + no++ + '</td>',
+                '<td>' + val.documentNumber + '</td>',
+                '<td>' + val.combinedBudgetCode + '</td>',
+                '<td>' + val.combinedBudgetSectionCode + '</td>',
+                '<td>' + val.requesterWorkerName + '</td></tr></tbody>'
             ]).draw();
 
         });

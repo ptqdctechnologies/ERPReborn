@@ -18,12 +18,12 @@
         $.each(data, function(key, val) {
             keys += 1;
             t.row.add([
-                '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="beneficiary_id' + keys + '" value="' + val.BeneficiaryWorkerJobsPosition_RefID + '" type="hidden"><td>' + no++ + '</td>',
-                '<td>' + val.DocumentNumber + '</td>',
-                '<td>' + val.CombinedBudgetCode + '</td>',
-                '<td>' + val.CombinedBudgetSectionCode + '</td>',
-                '<td>' + val.RequesterWorkerName + '</td>',
-                '<td>' + val.BeneficiaryWorkerName + '</td></tr></tbody>'
+                '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="beneficiary_id' + keys + '" value="' + val.beneficiaryWorkerJobsPosition_RefID + '" type="hidden"><td>' + no++ + '</td>',
+                '<td>' + val.documentNumber + '</td>',
+                '<td>' + val.combinedBudgetCode + '</td>',
+                '<td>' + val.combinedBudgetSectionCode + '</td>',
+                '<td>' + val.requesterWorkerName + '</td>',
+                '<td>' + val.beneficiaryWorkerName + '</td></tr></tbody>'
             ]).draw();
 
         });

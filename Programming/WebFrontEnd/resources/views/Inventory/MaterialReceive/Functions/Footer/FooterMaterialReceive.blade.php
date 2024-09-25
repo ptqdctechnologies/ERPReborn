@@ -476,15 +476,15 @@
         t.clear().draw();
 
         var keys = 0;
-
+        
         $.each(data, function(key, val) {
             keys += 1;
             t.row.add([
-                '<tbody><tr><input id="purchase_order_id' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="supplier_id' + keys + '" value="' + val.RequesterWorkerJobsPosition_RefID + '" type="hidden"><input id="budget_name' + keys + '" value="' + val.CombinedBudgetName + '" type="hidden"><td>' + no++ + '</td>',
-                '<td>' + val.DocumentNumber + '</td>',
-                '<td>' + val.CombinedBudgetCode + '</td>',
-                '<td>' + val.CombinedBudgetSectionCode + '</td>',
-                '<td>' + val.RequesterWorkerName + '</td></tr></tbody>'
+                '<tbody><tr><input id="purchase_order_id' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="supplier_id' + keys + '" value="' + val.requesterWorkerJobsPosition_RefID + '" type="hidden"><input id="budget_name' + keys + '" value="' + val.combinedBudgetName + '" type="hidden"><td>' + no++ + '</td>',
+                '<td>' + val.documentNumber + '</td>',
+                '<td>' + val.combinedBudgetCode + '</td>',
+                '<td>' + val.combinedBudgetSectionCode + '</td>',
+                '<td>' + val.requesterWorkerName + '</td></tr></tbody>'
             ]).draw();
 
         });
@@ -578,10 +578,10 @@
         $.each(data, function(key, val) {
             keys += 1;
             t.row.add([
-                '<tbody><tr><input id="delivery_order_id' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="budget_name' + keys + '" value="' + val.CombinedBudgetName + '" type="hidden"><td>' + no++ + '</td>',
-                '<td>' + val.DocumentNumber + '</td>',
-                '<td>' + val.CombinedBudgetCode + '</td>',
-                '<td>' + val.CombinedBudgetSectionCode + '</td></tr></tbody>'
+                '<tbody><tr><input id="delivery_order_id' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="budget_name' + keys + '" value="' + val.combinedBudgetName + '" type="hidden"><td>' + no++ + '</td>',
+                '<td>' + val.documentNumber + '</td>',
+                '<td>' + val.combinedBudgetCode + '</td>',
+                '<td>' + val.combinedBudgetSectionCode + '</td></tr></tbody>'
             ]).draw();
 
         });
