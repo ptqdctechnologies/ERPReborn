@@ -481,6 +481,9 @@
 <script>
     document.getElementById('buttonBudgetDetails').addEventListener('click', function() {
         let budgetRows = document.querySelectorAll('#budgetTable tbody tr');
+        let totalBudgetSum = 0;
+        let totalAdditionalSum = 0;
+        let totalSavingSum = 0;
 
         budgetRows.forEach(function(row) {
             let qtyAdditional = row.querySelector('input[name="qty_additional"]').value.trim();
@@ -499,10 +502,20 @@
             // let balanceBudget = row.querySelector('td:nth-child(8)').textContent.trim();
             let totalBudget = row.querySelector('td:nth-child(9)').textContent.trim();
 
+            if (totalBudget) {
+                totalBudgetSum += parseFloat(totalBudget);
+            }
+            if (totalAdditional) {
+                totalAdditionalSum += parseFloat(totalAdditional);
+            }
+            if (totalSaving) {
+                totalSavingSum += parseFloat(totalSaving);
+            }
+
             if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
                 let listTableBody = document.querySelector('#listBudgetTable tbody');
                 let existingRow = Array.from(listTableBody.querySelectorAll('tr')).find(tr => {
-                    return tr.querySelector('td:first-child').textContent.trim() === productId;
+                    return tr.querySelector('td:nth-child(2)').textContent.trim() === productId;
                 });
 
                 let form = document.getElementById('modifyBudgetForm');
@@ -629,6 +642,22 @@
                 Swal.fire("Error", "Price Saving Cannot Be Empty", "error");
             }
         });
+
+        let footerRow = document.querySelector('#listBudgetTable tfoot tr');
+        if (!footerRow) {
+            let tfoot = document.createElement('tfoot');
+            tfoot.innerHTML = `
+                <tr>
+                    <td colspan="7" class="container-thead-tr-budget" style="text-align: left !important;">GRAND TOTAL</td>
+                    <td>${numberFormatPHPCustom(totalAdditionalSum, 2)}</td>
+                    <td colspan="2" class="container-tbody-tr-budget" style="text-align:right"></td>
+                    <td>${numberFormatPHPCustom(totalSavingSum, 2)}</td>
+                </tr>`;
+            document.querySelector('#listBudgetTable').appendChild(tfoot);
+        } else {
+            footerRow.querySelector('td:nth-child(2)').textContent = numberFormatPHPCustom(totalAdditionalSum, 2);
+            footerRow.querySelector('td:nth-child(4)').textContent = numberFormatPHPCustom(totalSavingSum, 2);
+        }
     });
 </script>
 

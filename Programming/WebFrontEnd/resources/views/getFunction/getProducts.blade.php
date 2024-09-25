@@ -44,7 +44,7 @@
                 type: 'GET',
                 url: '{!! route("getProduct") !!}',
                 success: function(data) {
-                    var result = data.data.data;
+                    var result = data.data ? data.data.data : [];
 
                     if (!result || result.length === 0) {
                         setTimeout(fetchProducts, 3000);
