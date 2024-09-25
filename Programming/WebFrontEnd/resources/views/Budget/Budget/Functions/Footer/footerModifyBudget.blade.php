@@ -1101,7 +1101,7 @@
 
         $("#products_id").val(sys_id);
         $("#products_id_show").val(sys_pid);
-        $("#products_name").val(name);
+        $("#products_name").val(uom);
     });
 </script>
 

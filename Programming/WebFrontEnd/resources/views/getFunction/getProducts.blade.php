@@ -11,17 +11,16 @@
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 425px;">
                                 <input type="text" id="key" hidden>
-                                <table class="table table-head-fixed table-sm text-nowrap" id="tableGetProducts">
+                                <table class="table table-head-fixed table-sm text-nowrap" id="tableGetProducts" style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>ID</th>
-                                            <th>UOM</th>
                                             <th>Name</th>
+                                            <th>UOM</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
                             </div>
                         </div>
@@ -40,32 +39,43 @@
             }
         });
 
-        var dataShow = [];
+        function fetchProducts() {
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("getProduct") !!}',
+                success: function(data) {
+                    var result = data.data.data;
 
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getProduct") !!}',
-            success: function(data) {
-                var result = data.data.data;
-                
-                for (var i = 0; i < result.length; i++) {
-                    var no = i + 1;
-                    dataShow.push([
-                        '<tbody><tr><input id="sys_id_products' + no + '" value="' + result[i]['sys_ID'] + '" type="hidden"><td>' + no + '</td>',
-                        '<td>' + result[i]['sys_ID'] + '</td>',
-                        '<td>' + result[i]['name'] + '</td>',
-                        '<td>' + result[i]['quantityUnitName'] + '</td>',
-                        '<span style="display:none;"><td">' + result[i]['quantityUnit_RefID'] + '</td></span></tr></tbody>'
-                    ]);
+                    if (!result || result.length === 0) {
+                        setTimeout(fetchProducts, 3000);
+                        return;
+                    } else {
+                        var dataShow = [];
+                        for (var i = 0; i < result.length; i++) {
+                            var no = i + 1;
+                            dataShow.push([
+                                '<tbody><tr><input id="sys_id_products' + no + '" value="' + result[i]['sys_ID'] + '" type="hidden"><td>' + no + '</td>',
+                                '<td>' + result[i]['sys_ID'] + '</td>',
+                                '<td>' + result[i]['name'] + '</td>',
+                                '<td>' + result[i]['quantityUnitName'] + '</td>',
+                                '<span style="display:none;"><td">' + result[i]['quantityUnit_RefID'] + '</td></span></tr></tbody>'
+                            ]);
+                        }
+
+                        $('#tableGetProducts').DataTable({
+                            data: dataShow,
+                            deferRender: true,
+                            scrollCollapse: true,
+                            scroller: true
+                        });
+                    }
+                },
+                error: function() {
+                    setTimeout(fetchProducts, 3000);
                 }
+            });
+        }
 
-                $('#tableGetProducts').DataTable({
-                    data: dataShow,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true
-                });
-            }
-        });
+        fetchProducts();
     });
 </script>

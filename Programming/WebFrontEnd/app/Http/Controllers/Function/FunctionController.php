@@ -465,7 +465,6 @@ class FunctionController extends Controller
     public function getProduct()
     {
         if (Redis::get("Product") == null) {
-
             $varAPIWebToken = Session::get('SessionLogin');
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -569,7 +568,6 @@ class FunctionController extends Controller
     }
 
     //DEPARTEMENT
-
     public function getDepartement()
     {
         if (Redis::get("Departement") == null) {
@@ -606,7 +604,6 @@ class FunctionController extends Controller
     }
 
     //ROLE
-
     public function getRole(Request $request)
     {
 
