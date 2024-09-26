@@ -190,19 +190,25 @@
                                     <div class="row pt-3">
                                         <div class="col-lg-5">
                                             <div class="row">
-                                                <!-- <label class="col-4 col-form-label p-0">Select a File</label> -->
                                                 <div class="col p-0">
-                                                    <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile( \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                                    $varAPIWebToken,
-                                                    'dataInput_Log_FileUpload_1',
-                                                    null,
-                                                    'dataInput_Return'
-                                                    ).
-                                                    ''; ?>
-                                                    <!-- <div class="custom-file">
-                                                        <div id="hidden_inputs"></div>
-                                                        <input type="file" id="attachment_file" multiple>
-                                                    </div> -->
+                                                    <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" value="{{ request('files', old('dataInput_Log_FileUpload_1')) }}" style="display:none">
+                                                    @if(request('files'))
+                                                        <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile( \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                        $varAPIWebToken,
+                                                        'dataInput_Log_FileUpload_1',
+                                                        request('files'),
+                                                        'dataInput_Return'
+                                                        ).
+                                                        ''; ?>
+                                                    @else
+                                                        <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile( \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                        $varAPIWebToken,
+                                                        'dataInput_Log_FileUpload_1',
+                                                        null,
+                                                        'dataInput_Return'
+                                                        ).
+                                                        ''; ?>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

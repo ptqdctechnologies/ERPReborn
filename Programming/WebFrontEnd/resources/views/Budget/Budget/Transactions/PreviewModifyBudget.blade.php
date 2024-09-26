@@ -139,27 +139,16 @@
                     <div class="col-12 title_attachment">
                         Attachment Files For Additional Revenue:
                     </div>
-                    
+
                     <div class="col-12 mt-2">
-                        @if(count($files) > 0)
-                            <ul class="mb-0 container_attachment_list">
-                                @foreach($files as $file)
-                                    @php
-                                        $fileData = json_decode($file, true);
-                                    @endphp
-                                    <li>
-                                        <div class="file-details">
-                                            <a href="{{ $fileData['previewUrl'] }}" target="_blank">{{ $fileData['name'] }}</a>
-                                        </div>
-                                        <!-- <div class="file-details">
-                                            <strong>File Name:</strong> {{ $fileData['name'] }}<br>
-                                            <strong>File Size:</strong> {{ number_format($fileData['size'] / 1024, 2) }} KB<br>
-                                            <strong>Upload Date:</strong> {{ $fileData['uploadDate'] }}<br>
-                                            <a href="{{ $fileData['previewUrl'] }}" target="_blank" class="btn btn-primary btn-sm mt-1">Preview</a>
-                                        </div> -->
-                                    </li>
-                                @endforeach
-                            </ul>
+                        @if($files)
+                            <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile( \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                            $varAPIWebToken,
+                            'dataInput_Log_FileUpload_1',
+                            $files,
+                            'dataInput_Return'
+                            ).
+                            ''; ?>
                         @else
                             <p>-</p>
                         @endif
@@ -836,7 +825,7 @@
                     </div>
                 </div>
 
-                <!-- BUTTON CANCEL -->
+                <!-- BUTTON CANCEL OR SUBMIT -->
                 <div class="row pt-2" style="margin-top: 1rem;">
                     <div class="col d-flex justify-content-end" style="gap: 8px;">
                         <a
@@ -844,6 +833,7 @@
                             id="submitButton"
                             style="width: max-content;"
                             href="{{ route('Budget.ModifyBudget', [
+                                'files'             => $files,
                                 'budgetID'          => $budgetID,
                                 'budgetCode'        => $budgetCode,
                                 'budgetName'        => $budgetName,

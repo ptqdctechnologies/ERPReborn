@@ -59,6 +59,8 @@ class BudgetController extends Controller
 
     public function PreviewModifyBudget(Request $request) {
         try {
+            $varAPIWebToken = $request->session()->get('SessionLogin');
+
             // PIC
             $PIC                = $request->session()->get("SessionLoginName");
 
@@ -93,7 +95,7 @@ class BudgetController extends Controller
             $valueDeductiveCO   = $request->value_co_deductive;
 
             // FILES
-            $files              = $request->uploaded_files ?? [];
+            $files              = $request->dataInput_Log_FileUpload_1 ?? [];
 
             // MODIFY BUDGET LIST TABLE (CART)
             $productIds         = $request->input('product_id');
@@ -166,6 +168,7 @@ class BudgetController extends Controller
             }
 
             $compact = [
+                'varAPIWebToken'   => $varAPIWebToken,
                 'pic'               => $PIC,
                 'budgetID'          => $budgetID,
                 'budgetCode'        => $budgetCode,
