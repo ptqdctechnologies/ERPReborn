@@ -74,6 +74,8 @@ class BudgetController extends Controller
             $subBudgetCode      = $request->site_code;
             $subBudgetName      = $request->site_name;
 
+            // dd($subBudgetID, $subBudgetCode, $subBudgetName, $request->site_code, $request->subBudgetCode);
+
             // REASON FOR MODIFY
             $reason             = $request->reason_modify;
 
@@ -167,8 +169,10 @@ class BudgetController extends Controller
                 $i++;
             }
 
+            // dd($dataModifyBudget);
+
             $compact = [
-                'varAPIWebToken'   => $varAPIWebToken,
+                'varAPIWebToken'    => $varAPIWebToken,
                 'pic'               => $PIC,
                 'budgetID'          => $budgetID,
                 'budgetCode'        => $budgetCode,

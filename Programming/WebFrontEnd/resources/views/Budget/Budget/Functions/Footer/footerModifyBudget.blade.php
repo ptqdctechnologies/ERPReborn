@@ -1,7 +1,12 @@
 <!-- DISABLE SUD BUDGET CODE KETIKA BUDGET CODE BELUM DIPILIH -->
 <script>
-    $("#site_code").prop("disabled", true);
-    $("#site_code_popup").prop("disabled", true);
+    const urlParamsssss = new URLSearchParams(window.location.search);
+    const subBudgetCOUrl = urlParamsssss.get('subBudgetCode');
+
+    if (!subBudgetCOUrl) {
+        $("#site_code").prop("disabled", true);
+        $("#site_code_popup").prop("disabled", true);
+    }
 </script>
 
 <!-- BUDGET CODE -->
@@ -55,6 +60,9 @@
 
 <!-- SITE CODE -->
 <script>
+    const urlParamsssssss = new URLSearchParams(window.location.search);
+    const subBudgetCOUrls = urlParamsssssss.get('subBudgetCode');
+
     $('#tableGetSite tbody').on('click', 'tr', function() {
 
         $("#mySiteCode").modal('toggle');
