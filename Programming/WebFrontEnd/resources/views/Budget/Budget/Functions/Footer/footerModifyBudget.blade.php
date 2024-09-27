@@ -487,12 +487,19 @@
 
 <!-- BUTTON ADD TO CART (BUDGET DETAILS) -->
 <script>
+    let totalBudgetSum = 0;
+    let totalAdditionalSum = 0;
+    let totalAdditionalSumMirroring = 0;
+    let totalSavingSum = 0;
+    
     document.getElementById('buttonBudgetDetails').addEventListener('click', function() {
-        let budgetRows = document.querySelectorAll('#budgetTable tbody tr');
-        let totalBudgetSum = 0;
-        let totalAdditionalSum = 0;
-        let totalSavingSum = 0;
+        totalBudgetSum = 0;
+        totalAdditionalSum = 0;
+        totalAdditionalSum += totalAdditionalSumMirroring;
+        totalSavingSum = 0;
 
+        let budgetRows = document.querySelectorAll('#budgetTable tbody tr');
+        let processedProductIds = new Set();
 
         budgetRows.forEach(function(row) {
             let qtyAdditional = row.querySelector('input[name="qty_additional"]').value.trim();
@@ -510,16 +517,6 @@
             // let currencys = row.querySelector('td:nth-child(7)').textContent.trim();
             // let balanceBudget = row.querySelector('td:nth-child(8)').textContent.trim();
             let totalBudget = row.querySelector('td:nth-child(9)').textContent.trim();
-
-            if (totalBudget) {
-                totalBudgetSum += parseFloat(totalBudget);
-            }
-            if (totalAdditional) {
-                totalAdditionalSum += parseFloat(totalAdditional);
-            }
-            if (totalSaving) {
-                totalSavingSum += parseFloat(totalSaving);
-            }
 
             if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
                 let listTableBody = document.querySelector('#listBudgetTable tbody');
@@ -640,6 +637,20 @@
                     });
 
                     listTableBody.appendChild(clonedRow);
+                }
+
+                if (!processedProductIds.has(productId)) {
+                    if (totalBudget) {
+                        totalBudgetSum += parseFloat(totalBudget);
+                    }
+                    if (totalAdditional) {
+                        totalAdditionalSum += parseFloat(totalAdditional);
+                    }
+                    if (totalSaving) {
+                        totalSavingSum += parseFloat(totalSaving);
+                    }
+                    
+                    processedProductIds.add(productId);
                 }
             } else if (!qtyAdditional && priceAdditional && totalAdditional) {
                 Swal.fire("Error", "Qty Additional Cannot Be Empty", "error");
@@ -1043,6 +1054,9 @@
         const priceSavingFormatted = numberFormatPHPCustom(0, 2);
         const totalSavingFormatted = numberFormatPHPCustom(0, 2);
 
+        totalAdditionalSum += parseFloat(qty * price);
+        totalAdditionalSumMirroring += parseFloat(qty * price);
+
         newRow.innerHTML = `
             <td class="container-tbody-tr-budget" >
                 ${productId}
@@ -1091,6 +1105,11 @@
         `;
 
         tbody.appendChild(newRow);
+
+        let footerRow = document.querySelector('#listBudgetTable tfoot tr');
+        if (footerRow) {
+            footerRow.querySelector('td:nth-child(2)').textContent = numberFormatPHPCustom(totalAdditionalSum, 2);
+        }
     }
 
     addToCartBtn.addEventListener('click', function(e) {
