@@ -5,6 +5,7 @@
 @include('getFunction.getSite')
 @include('getFunction.getProject')
 @include('getFunction.getProducts')
+@include('getFunction.getProduct')
 @include('getFunction.getCurrency')
 
 <div class="content-wrapper">
@@ -189,12 +190,25 @@
                                     <div class="row pt-3">
                                         <div class="col-lg-5">
                                             <div class="row">
-                                                <label class="col-4 col-form-label p-0">Select a File</label>
                                                 <div class="col p-0">
-                                                    <div class="custom-file">
-                                                        <div id="hidden_inputs"></div>
-                                                        <input type="file" id="attachment_file" multiple>
-                                                    </div>
+                                                    <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" value="{{ request('files', old('dataInput_Log_FileUpload_1')) }}" style="display:none">
+                                                    @if(request('files'))
+                                                        <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile( \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                        $varAPIWebToken,
+                                                        'dataInput_Log_FileUpload_1',
+                                                        request('files'),
+                                                        'dataInput_Return'
+                                                        ).
+                                                        ''; ?>
+                                                    @else
+                                                        <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile( \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                        $varAPIWebToken,
+                                                        'dataInput_Log_FileUpload_1',
+                                                        null,
+                                                        'dataInput_Return'
+                                                        ).
+                                                        ''; ?>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -320,20 +334,20 @@
                                         <div id="newItemForm" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
                                             <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label for="currency_popup" class="col-4 col-form-label p-0">Product</label>
+                                                    <label for="products_popup" class="col-4 col-form-label p-0">Product</label>
                                                     <div class="col d-flex p-0">
                                                         <div>
-                                                            <input id="product_id" hidden name="product_id">
-                                                            <input id="product_id_show" style="border-radius:0;" class="form-control" name="product_id_show" readonly>
+                                                            <input id="products_id" hidden name="products_id">
+                                                            <input id="products_id_show" style="border-radius:0;" class="form-control" name="products_id_show" readonly>
                                                         </div>
                                                         <div>
                                                             <span style="border-radius:0;" class="input-group-text form-control">
-                                                                <a href="#" id="currency_popup" data-toggle="modal" data-target="#myProduct" class="myProduct"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                                <a href="#" id="products_popup" data-toggle="modal" data-target="#myProducts" class="myProduct"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                             </span>
                                                         </div>
                                                         <div style="flex: 100%;">
                                                             <div class="input-group">
-                                                                <input id="product_name" style="border-radius:0;" name="product_name" class="form-control" readonly>
+                                                                <input id="products_name" style="border-radius:0;" name="products_name" class="form-control" readonly>
                                                             </div>
                                                         </div>
                                                     </div>

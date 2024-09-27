@@ -24,8 +24,16 @@ class ExportReportModifyBudgetSummary implements FromCollection, WithHeadings, S
             $collection->push(
                 [
                     $detail['no'],
-                    $detail['ModifyNumber'],
-                    $detail['date'],
+                    $detail['productID'],
+                    $detail['productName'],
+                    $detail['no'],
+                    $detail['price'],
+                    $detail['total'],
+                    $detail['no'],
+                    $detail['price'],
+                    $detail['total'],
+                    $detail['no'],
+                    $detail['price'],
                     $detail['total'],
                 ]
             );
@@ -34,8 +42,16 @@ class ExportReportModifyBudgetSummary implements FromCollection, WithHeadings, S
         $collection->push(
             [
                 '',
+                'Grand Total',
                 '',
-                'Total',
+                '',
+                '',
+                $data['total'],
+                '',
+                '',
+                $data['total'],
+                '',
+                '',
                 $data['total'],
             ]
         );
@@ -47,7 +63,8 @@ class ExportReportModifyBudgetSummary implements FromCollection, WithHeadings, S
     {
         return [
             ["", "", "", "", "", ""],
-            ["No", "Modify Number", "Date", "Qty"]
+            ["No", "Product", "", "Budget", "", "", "After Additional", "", "", "After Saving", "", ""],
+            ["", "ID", "Name", "Qty", "Price", "Total", "Qty", "Price", "Total", "Qty", "Price", "Total"]
         ];
     }
 

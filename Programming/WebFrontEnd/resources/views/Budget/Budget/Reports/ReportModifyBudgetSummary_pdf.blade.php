@@ -46,26 +46,118 @@
 
         <!-- DETAIL -->
         <table class="TableReportAdvanceSummary" style="margin-left: 1px; width: 100%; margin-top: 30px;" id="TableReportAdvanceSummary">
-            <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            <tr style="border-top: 1px solid black; border-bottom: 1px solid black;">
+                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 4px 0px;">
                         No
                     </div>
                 </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        Modify Number
-                    </div>
+                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <table>
+                        <tr>
+                            <td colspan="2" style="text-align: center;">
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 8px 0px;">
+                                    Product
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                    ID
+                                </div>
+                            </td>
+                            <td>
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                    Name
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        Date
-                    </div>
+                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <table>
+                        <tr>
+                            <td colspan="3" style="text-align: center;">
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 8px 0px;">
+                                    Budget
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                    Qty
+                                </div>
+                            </td>
+                            <td>
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                    Price
+                                </div>
+                            </td>
+                            <td>
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                    Total
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        Qty
-                    </div>
+                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <table>
+                        <tr>
+                            <td colspan="3" style="text-align: center;">
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 8px 0px;">
+                                    After Additional
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                    Qty
+                                </div>
+                            </td>
+                            <td>
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                    Price
+                                </div>
+                            </td>
+                            <td>
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                    Total
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
+                    <table>
+                        <tr>
+                            <td colspan="3" style="text-align: center;">
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 8px 0px;">
+                                    After Saving
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                    Qty
+                                </div>
+                            </td>
+                            <td>
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                    Price
+                                </div>
+                            </td>
+                            <td>
+                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                    Total
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
 
@@ -78,17 +170,57 @@
                     </td>
                     <td>
                         <div style="margin-top: 4px;">
-                            <?= $dataDetail['ModifyNumber']; ?>
+                            <?= $dataDetail['productID']; ?>
                         </div>
                     </td>
                     <td>
                         <div style="margin-top: 4px;">
-                            <?= $dataDetail['date']; ?>
+                            <?= $dataDetail['productName']; ?>
                         </div>
                     </td>
                     <td>
                         <div style="margin-top: 4px;">
-                            <?= $dataDetail['total']; ?>
+                            <?= number_format($dataDetail['no'], 2); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= number_format($dataDetail['price'], 2); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= number_format($dataDetail['total'], 2); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= number_format($dataDetail['no'], 2); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= number_format($dataDetail['price'], 2); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= number_format($dataDetail['total'], 2); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= number_format($dataDetail['no'], 2); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= number_format($dataDetail['price'], 2); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 4px;">
+                            <?= number_format($dataDetail['total'], 2); ?>
                         </div>
                     </td>
                 </tr>

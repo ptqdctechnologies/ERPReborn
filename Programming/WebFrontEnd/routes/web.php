@@ -161,7 +161,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getBank', 'Function\FunctionController@getBank')->name('getBank');
     Route::get('getEntityBankAccount', 'Function\FunctionController@getEntityBankAccount')->name('getEntityBankAccount');
     Route::get('getProduct', 'Function\FunctionController@getProduct')->name('getProduct');
-    Route::get('getProducts', 'Function\FunctionController@getProducts')->name('getProducts');
     Route::get('getWorker', 'Function\FunctionController@getWorker')->name('getWorker');
     Route::get('getSupplier', 'Function\FunctionController@getSupplier')->name('getSupplier');
     Route::get('getDeliverTo', 'Function\FunctionController@getDeliverTo')->name('getDeliverTo');

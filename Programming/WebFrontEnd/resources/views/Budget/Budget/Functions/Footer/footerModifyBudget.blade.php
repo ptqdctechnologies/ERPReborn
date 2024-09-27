@@ -1,7 +1,12 @@
 <!-- DISABLE SUD BUDGET CODE KETIKA BUDGET CODE BELUM DIPILIH -->
 <script>
-    $("#site_code").prop("disabled", true);
-    $("#site_code_popup").prop("disabled", true);
+    const urlParamsssss = new URLSearchParams(window.location.search);
+    const subBudgetCOUrl = urlParamsssss.get('subBudgetCode');
+
+    if (!subBudgetCOUrl) {
+        $("#site_code").prop("disabled", true);
+        $("#site_code_popup").prop("disabled", true);
+    }
 </script>
 
 <!-- BUDGET CODE -->
@@ -68,6 +73,94 @@
         $("#site_id").val(sys_id);
         $("#site_code").val(code);
         $("#site_name").val(name);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getBudget") !!}?site_code=' + sys_id,
+            success: function(data) {
+                var no = 1;
+                applied = 0;
+                status = "";
+                statusDisplay = [];
+                statusDisplay2 = [];
+                statusForm = [];
+
+                if (data.message == "Invalid SQL Syntax") {
+                    var html = 
+                        '<tr>' +
+                            '<td class="container-tbody-tr-budget" colspan="14" style="color: red; font-style: italic;">' + 
+                                'No Data Available' +
+                            '</td>' +
+                        '</tr>';
+
+                        $('table#budgetTable tbody').append(html);
+                } else {
+                    $.each(data, function(key, val2) {
+                    var used = val2.quantityAbsorptionRatio * 100;
+
+                    if (used == "0.00" && val2.quantity == "0.00") {
+                        var applied = 0;
+                    } else {
+                        var applied = Math.round(used);
+                    }
+                    if (applied >= 100) {
+                        var status = "disabled";
+                    }
+                    if (val2.productName == "Unspecified Product") {
+                        statusDisplay[key] = "";
+                        statusDisplay2[key] = "none";
+                        statusForm[key] = "disabled";
+                        balance_qty = "-";
+                    } else {
+                        statusDisplay[key] = "none";
+                        statusDisplay2[key] = "";
+                        statusForm[key] = "";
+                        balance_qty = numberFormatPHPCustom(val2.quantityRemaining, 2);
+                    }
+                    
+                    var html = 
+                        '<tr>' +
+                            '<td class="container-tbody-tr-budget" style="display:' + statusDisplay[key] + '";">' + 
+                                '<div class="input-group" style="min-width: 150px !important;">' + 
+                                    '<input id="product_id' + key + '" style="border-radius:0;" class="form-control" name="product_id_show" readonly>' +
+                                    '<div>' +
+                                        '<span style="border-radius:0;" class="input-group-text form-control">' +
+                                            '<a href="#" id="product_popup" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
+                                        '</span>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</td>' +
+
+                            '<td class="container-tbody-tr-budget" style="text-align: left !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
+                            '<td class="container-tbody-tr-budget" style="text-align: left !important;">' + val2.productName + '</td>' +
+                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
+                            '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
+                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
+                            '<td class="container-tbody-tr-budget">' + val2.priceBaseCurrencyISOCode + '</td>' +
+                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(50000, 2) + '</td>' +
+                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) + '</td>' +
+                            '<td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">' + '</td>' +
+                            '<td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">' + '</td>' +
+                            '<td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>' + '</td>' +
+                            '<td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">' + '</td>' +
+                            '<td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">' + '</td>' +
+                            '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>' + '</td>' +
+                            '<td class="d-none">' + '<input autocomplete="off" id="type" name="type" value="budgetDetails" disabled>' + '</td>' +
+                        '</tr>';
+
+                        $('table#budgetTable tbody').append(html);
+                    });
+                }
+
+                checkTableRows();
+            }
+        });
     });
 </script>
 
@@ -258,7 +351,7 @@
             $("#currency_name").val("");
             $("#currency_symbol").val("");
             $("#value_idr_rate").val("");
-            Swal.fire("Error", "Please Call Accounting Staffs (Ext. 1101 - 1104). Ask Them to Input Current Exchange Rate. Thank You.", "error");
+            Swal.fire("Error", "Please Call Accounting Staffs to Input Current Exchange Rate. Thank You.", "error");
         }
     });
 </script>
@@ -298,7 +391,7 @@
 </script>
 
 <!-- FILE ATTACHMENT -->
-<script>
+<!-- <script>
     const fileInput = document.getElementById('attachment_file');
     const fileList = document.getElementById('file_list');
     const hiddenInputs = document.getElementById('hidden_inputs');
@@ -381,7 +474,7 @@
     function resetFileInput() {
         fileInput.value = ''; 
     }
-</script>
+</script> -->
 
 <!-- VALIDASI SHOW/HIDE FORM ADD NEW ITEM KETIKA TABLE EXISTING BUDGET ADA DATANYA -->
 <script>
@@ -402,8 +495,19 @@
 
 <!-- BUTTON ADD TO CART (BUDGET DETAILS) -->
 <script>
+    let totalBudgetSum = 0;
+    let totalAdditionalSum = 0;
+    let totalAdditionalSumMirroring = 0;
+    let totalSavingSum = 0;
+    
     document.getElementById('buttonBudgetDetails').addEventListener('click', function() {
+        totalBudgetSum = 0;
+        totalAdditionalSum = 0;
+        totalAdditionalSum += totalAdditionalSumMirroring;
+        totalSavingSum = 0;
+
         let budgetRows = document.querySelectorAll('#budgetTable tbody tr');
+        let processedProductIds = new Set();
 
         budgetRows.forEach(function(row) {
             let qtyAdditional = row.querySelector('input[name="qty_additional"]').value.trim();
@@ -413,19 +517,24 @@
             let priceSaving = row.querySelector('input[name="price_saving"]').value.trim();
             let totalSaving = row.querySelector('input[name="total_saving"]').value.trim();
             let type = row.querySelector('input[name="type"]').value.trim();
-            let productId = row.querySelector('td:nth-child(1)').textContent.trim();
-            let productName = row.querySelector('td:nth-child(2)').textContent.trim();
-            let qtyBudget = row.querySelector('td:nth-child(3)').textContent.trim();
-            // let qtyAvail = row.querySelector('td:nth-child(4)').textContent.trim();
-            let prices = row.querySelector('td:nth-child(5)').textContent.trim();
-            // let currencys = row.querySelector('td:nth-child(6)').textContent.trim();
-            // let balanceBudget = row.querySelector('td:nth-child(7)').textContent.trim();
-            let totalBudget = row.querySelector('td:nth-child(8)').textContent.trim();
+            let productIdInput = row.querySelector('input[name="product_id_show"]');
+            let productId = productIdInput.value ? productIdInput.value : row.querySelector('td:nth-child(2)').textContent.trim();
+            let productName = row.querySelector('td:nth-child(3)').textContent.trim();
+            let qtyBudget = row.querySelector('td:nth-child(4)').textContent.trim();
+            // let qtyAvail = row.querySelector('td:nth-child(5)').textContent.trim();
+            let prices = row.querySelector('td:nth-child(6)').textContent.trim();
+            // let currencys = row.querySelector('td:nth-child(7)').textContent.trim();
+            // let balanceBudget = row.querySelector('td:nth-child(8)').textContent.trim();
+            let totalBudget = row.querySelector('td:nth-child(9)').textContent.trim();
 
             if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
                 let listTableBody = document.querySelector('#listBudgetTable tbody');
                 let existingRow = Array.from(listTableBody.querySelectorAll('tr')).find(tr => {
-                    return tr.querySelector('td:first-child').textContent.trim() === productId;
+                    if (productIdInput.value) {
+                        return tr.querySelector('td:nth-child(1)').textContent.trim() === productId;
+                    } else {
+                        return tr.querySelector('td:nth-child(2)').textContent.trim() === productId;
+                    }
                 });
 
                 let form = document.getElementById('modifyBudgetForm');
@@ -435,30 +544,30 @@
                         let input = row.querySelectorAll('td')[index].querySelector('input');
 
                         if (input) {
-                            if (index <= 1) {
+                            if (index <= 2) {
                                 td.textContent = input.value;
-                            } else if (index === 8) {
-                                td.textContent = numberFormatPHPCustom(qtySaving, 2);
                             } else if (index === 9) {
-                                td.textContent = numberFormatPHPCustom(priceSaving, 2);
+                                td.textContent = numberFormatPHPCustom(qtySaving, 2);
                             } else if (index === 10) {
+                                td.textContent = numberFormatPHPCustom(priceSaving, 2);
+                            } else if (index === 11) {
                                 td.textContent = numberFormatPHPCustom(totalSaving, 2);
-                            } else if (index !== 5 || index !== 6 || index !== 7) {
+                            } else if (index !== 6 || index !== 7 || index !== 8) {
                                 td.textContent = numberFormatPHPCustom(input.value, 2);
                             }
                         } else {
-                            if (index === 5) {
+                            if (index === 6) {
                                 td.textContent = numberFormatPHPCustom(qtyAdditional, 2);
                             } 
-                            if (index === 6) {
+                            if (index === 7) {
                                 td.textContent = numberFormatPHPCustom(priceAdditional, 2);
                             } 
-                            if (index === 7) {
+                            if (index === 8) {
                                 td.textContent = numberFormatPHPCustom(totalAdditional, 2);
                             }
                         }
 
-                        if (index == 11) {
+                        if (index == 12) {
                             td.className = 'd-none';
                         } else {
                             td.className = 'container-tbody-tr-budget';
@@ -494,19 +603,19 @@
                 } else {
                     let clonedRow = row.cloneNode(true);
                     clonedRow.querySelectorAll('td').forEach(function(td, ind) {
-                        if (ind === 3 || ind === 5 || ind === 6) {
+                        if (ind === 4 || ind === 6 || ind === 7) {
                             td.remove();
                         } else {
                             let input = td.querySelector('input');
                             
                             if (input) {
-                                if (ind <= 1) {
+                                if (ind <= 2) {
                                     td.textContent = input.value;
                                 } else {
                                     td.textContent = numberFormatPHPCustom(input.value, 2);
                                 }
 
-                                if (ind == 14) {
+                                if (ind == 15) {
                                     td.className = 'd-none';
                                 } else {
                                     td.className = 'container-tbody-tr-budget';
@@ -542,6 +651,20 @@
 
                     listTableBody.appendChild(clonedRow);
                 }
+
+                if (!processedProductIds.has(productId)) {
+                    if (totalBudget) {
+                        totalBudgetSum += parseFloat(totalBudget);
+                    }
+                    if (totalAdditional) {
+                        totalAdditionalSum += parseFloat(totalAdditional);
+                    }
+                    if (totalSaving) {
+                        totalSavingSum += parseFloat(totalSaving);
+                    }
+                    
+                    processedProductIds.add(productId);
+                }
             } else if (!qtyAdditional && priceAdditional && totalAdditional) {
                 Swal.fire("Error", "Qty Additional Cannot Be Empty", "error");
             } else if (qtyAdditional && !priceAdditional && totalAdditional) {
@@ -552,11 +675,27 @@
                 Swal.fire("Error", "Price Saving Cannot Be Empty", "error");
             }
         });
+
+        let footerRow = document.querySelector('#listBudgetTable tfoot tr');
+        if (!footerRow) {
+            let tfoot = document.createElement('tfoot');
+            tfoot.innerHTML = `
+                <tr>
+                    <td colspan="7" class="container-thead-tr-budget font-weight-bold" style="text-align: left !important;">GRAND TOTAL</td>
+                    <td class="text-center">${numberFormatPHPCustom(totalAdditionalSum, 2)}</td>
+                    <td colspan="2" class="container-tbody-tr-budget" style="text-align:right"></td>
+                    <td class="text-center">${numberFormatPHPCustom(totalSavingSum, 2)}</td>
+                </tr>`;
+            document.querySelector('#listBudgetTable').appendChild(tfoot);
+        } else {
+            footerRow.querySelector('td:nth-child(2)').textContent = numberFormatPHPCustom(totalAdditionalSum, 2);
+            footerRow.querySelector('td:nth-child(4)').textContent = numberFormatPHPCustom(totalSavingSum, 2);
+        }
     });
 </script>
 
 <!-- DUMMY DATA BUDGET DETAILS TABLE -->
-<script>
+<!-- <script>
     var dummyData = [
         {
             siteCode: 235,
@@ -837,7 +976,7 @@
     });
 
     filterData();
-</script>
+</script> -->
 
 <!-- FORM ADD NEW ITEM -->
 <script>
@@ -847,15 +986,15 @@
     const newItemFormThree = document.getElementById('newItemFormThree');
     const newItemFormFour = document.getElementById('newItemFormFour');
     const buttonItemFormTwo = document.getElementById('buttonItemForm');
-    const productIdInput = document.getElementById('product_id');
+    const productIdInput = document.getElementById('products_id');
     const budgetTable = document.getElementById('budgetTable');
     const listBudgetTable = document.getElementById('listBudgetTable');
     const addToCartBtn = document.getElementById('addToCartNewFormItem');
 
     function resetFormInputs() {
-        document.getElementById('product_id').value = '';
-        document.getElementById('product_id_show').value = '';
-        document.getElementById('product_name').value = '';
+        document.getElementById('products_id').value = '';
+        document.getElementById('products_id_show').value = '';
+        document.getElementById('products_name').value = '';
         document.getElementById('qty').value = '';
         document.getElementById('price').value = '';
         document.getElementById('total_qty_price').value = '';
@@ -928,6 +1067,9 @@
         const priceSavingFormatted = numberFormatPHPCustom(0, 2);
         const totalSavingFormatted = numberFormatPHPCustom(0, 2);
 
+        totalAdditionalSum += parseFloat(qty * price);
+        totalAdditionalSumMirroring += parseFloat(qty * price);
+
         newRow.innerHTML = `
             <td class="container-tbody-tr-budget" >
                 ${productId}
@@ -976,12 +1118,17 @@
         `;
 
         tbody.appendChild(newRow);
+
+        let footerRow = document.querySelector('#listBudgetTable tfoot tr');
+        if (footerRow) {
+            footerRow.querySelector('td:nth-child(2)').textContent = numberFormatPHPCustom(totalAdditionalSum, 2);
+        }
     }
 
     addToCartBtn.addEventListener('click', function(e) {
         e.preventDefault();
         const newProductId = productIdInput.value.trim();
-        const newProductName = document.getElementById('product_name').value.trim();
+        const newProductName = document.getElementById('products_name').value.trim();
         const newQty = document.getElementById('qty').value.trim();
         const newPrice = document.getElementById('price').value.trim();
 
@@ -1011,9 +1158,9 @@
 
 <!-- PRODUCT -->
 <script>
-    $('#tableGetProduct tbody').on('click', 'tr', function() {
+    $('#tableGetProducts tbody').on('click', 'tr', function() {
 
-        $("#myProduct").modal('toggle');
+        $("#myProducts").modal('toggle');
 
         var row = $(this).closest("tr");
         var id = row.find("td:nth-child(1)").text();
@@ -1022,9 +1169,9 @@
         var uom = row.find("td:nth-child(3)").text();
         var name = row.find("td:nth-child(4)").text();
 
-        $("#product_id").val(sys_id);
-        $("#product_id_show").val(sys_pid);
-        $("#product_name").val(name);
+        $("#products_id").val(sys_id);
+        $("#products_id_show").val(sys_pid);
+        $("#products_name").val(uom);
     });
 </script>
 
@@ -1034,12 +1181,12 @@
         const qtyAdditionalInput = row.querySelector('input[name="qty_additional"]');
         const priceAdditionalInput = row.querySelector('input[name="price_additional"]');
         const totalAdditionalInput = row.querySelector('input[name="total_additional"]');
-        const totalBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(8)');
+        const totalBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(9)');
 
         const qtySavingInput = row.querySelector('input[name="qty_saving"]');
         const priceSavingInput = row.querySelector('input[name="price_saving"]');
         const totalSavingInput = row.querySelector('input[name="total_saving"]');
-        const balanceBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(7)');
+        const balanceBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(8)');
 
         function calculateTotalAdditional() {
             const qtyAdditional = parseFloat(qtyAdditionalInput.value) || 0;

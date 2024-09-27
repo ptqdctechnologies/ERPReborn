@@ -465,7 +465,6 @@ class FunctionController extends Controller
     public function getProduct()
     {
         if (Redis::get("Product") == null) {
-
             $varAPIWebToken = Session::get('SessionLogin');
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -487,49 +486,15 @@ class FunctionController extends Controller
             );
         }
 
-        $DataProduct = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "Product"
-            ),
-            true
-        );
+        // $DataProduct = json_decode(
+        //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //         "Product"
+        //     ),
+        //     true
+        // );
 
-        return response()->json($DataProduct);
-    }
-
-    public function getProducts()
-    {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.master.getProduct',
-            'latest',
-            [
-                'parameter' => [
-                    'dateTime' => null
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ],
-            false
-        );
-
-        // Konversi data API menjadi koleksi
-        $productsCollection = collect($varData['data']['data']);
-
-        // Lakukan paginasi pada koleksi
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 100;
-        $currentItems = $productsCollection->slice(($currentPage - 1) * $perPage, $perPage)->values();
-        // $paginatedItems = new LengthAwarePaginator($currentItems, $productsCollection->count(), $perPage);
-
-        return response()->json($currentItems);
+        return response()->json($varData);
     }
 
     // FUNCTION DOCUMENT TYPE 
@@ -603,7 +568,6 @@ class FunctionController extends Controller
     }
 
     //DEPARTEMENT
-
     public function getDepartement()
     {
         if (Redis::get("Departement") == null) {
@@ -640,7 +604,6 @@ class FunctionController extends Controller
     }
 
     //ROLE
-
     public function getRole(Request $request)
     {
 

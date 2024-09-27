@@ -48,11 +48,19 @@ class BudgetController extends Controller
     }
 
     public function ModifyBudget(Request $request) {
-        return view('Budget.Budget.Transactions.ModifyBudget');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken
+        ];
+
+        return view('Budget.Budget.Transactions.ModifyBudget', $compact);
     }
 
     public function PreviewModifyBudget(Request $request) {
         try {
+            $varAPIWebToken = $request->session()->get('SessionLogin');
+
             // PIC
             $PIC                = $request->session()->get("SessionLoginName");
 
@@ -66,6 +74,8 @@ class BudgetController extends Controller
             $subBudgetCode      = $request->site_code;
             $subBudgetName      = $request->site_name;
 
+            // dd($subBudgetID, $subBudgetCode, $subBudgetName, $request->site_code, $request->subBudgetCode);
+
             // REASON FOR MODIFY
             $reason             = $request->reason_modify;
 
@@ -76,10 +86,10 @@ class BudgetController extends Controller
             $currencyID         = $request->currency_id;
             $currencySymbol     = $request->currency_symbol ?? '';
             $currencyName       = $request->currency_name ?? '-';
-
+            
             // IDR RATE
             $idrRate            = $request->value_idr_rate;
-
+            
             // VALUE ADDITIONAL CO
             $valueAdditionalCO  = $request->value_co_additional;
 
@@ -87,7 +97,7 @@ class BudgetController extends Controller
             $valueDeductiveCO   = $request->value_co_deductive;
 
             // FILES
-            $files              = $request->uploaded_files ?? [];
+            $files              = $request->dataInput_Log_FileUpload_1 ?? [];
 
             // MODIFY BUDGET LIST TABLE (CART)
             $productIds         = $request->input('product_id');
@@ -107,6 +117,29 @@ class BudgetController extends Controller
             $type               = $request->input('type');
 
             // dd($productIds, $productName, $qtyBudget, $price, $totalBudget, $qtyAdditionals, $priceAdditionals, $totalAdditionals, $qtySavings, $priceSavings, $totalSavings);
+
+            $addSubtSectionOne = 0;
+            if ($currencySymbol !== "IDR") {
+                if ($additionalCO == "yes") {
+                    if ($valueAdditionalCO) {
+                        $addSubtSectionOne = '+' . ($valueAdditionalCO * $idrRate);
+                    } else {
+                        $addSubtSectionOne = '-' . ($valueDeductiveCO * $idrRate);
+                    }
+                } else {
+                    $addSubtSectionOne = 0;
+                }
+            } else {
+                if ($additionalCO == "yes") {
+                    if ($valueAdditionalCO) {
+                        $addSubtSectionOne = '+' . $valueAdditionalCO;
+                    } else {
+                        $addSubtSectionOne = '-' . $valueDeductiveCO;
+                    }
+                } else {
+                    $addSubtSectionOne = 0;
+                }
+            }
 
             $i = 0;
             $dataModifyBudget = [];
@@ -139,6 +172,7 @@ class BudgetController extends Controller
             // dd($dataModifyBudget);
 
             $compact = [
+                'varAPIWebToken'    => $varAPIWebToken,
                 'pic'               => $PIC,
                 'budgetID'          => $budgetID,
                 'budgetCode'        => $budgetCode,
@@ -166,15 +200,15 @@ class BudgetController extends Controller
                             'valuta'        => 'IDR',
                             'origin'        => 465000000,
                             'previous'      => 465000000,
-                            'addSubt'       => $additionalCO == "yes" ? $valueAdditionalCO ? +$valueAdditionalCO : -$valueDeductiveCO : 0,
-                            'totalCurrent'  => $additionalCO == "yes" ? $valueAdditionalCO ? 465000000 + $valueAdditionalCO : 465000000 - $valueDeductiveCO : 465000000
+                            'addSubt'       => $addSubtSectionOne,
+                            'totalCurrent'  => $additionalCO == "yes" ? $valueAdditionalCO ? 465000000 + $addSubtSectionOne : 465000000 - $addSubtSectionOne : 465000000
                         ],
                         'secondRow' => [
                             'description'   => '',
                             'valuta'        => 'Cross Currency',
                             'origin'        => 0,
                             'previous'      => 0,
-                            'addSubt'       => 0,
+                            'addSubt'       => $currencySymbol != "IDR" && $additionalCO == "yes" ? $valueAdditionalCO ? '+' . $valueAdditionalCO : '-' . $valueDeductiveCO : 0,
                             'totalCurrent'  => 0
                         ],
                         'thirdRow' => [
@@ -192,7 +226,8 @@ class BudgetController extends Controller
                             'valuta'        => 'IDR',
                             'origin'        => 376712000,
                             'previous'      => 376712000,
-                            'addSubt'       => $totalAdditional - $totalSaving,
+                            'addSubt'       => $addSubtSectionOne,
+                            // 'addSubt'       => $totalAdditional - $totalSaving,
                             'totalCurrent'  => 376712000
                         ],
                         'secondRow' => [
@@ -200,7 +235,8 @@ class BudgetController extends Controller
                             'valuta'        => 'Cross Currency',
                             'origin'        => 0,
                             'previous'      => 0,
-                            'addSubt'       => 0,
+                            'addSubt'       => $currencySymbol != "IDR" && $additionalCO == "yes" ? $valueAdditionalCO ? '+' . $valueAdditionalCO : '-' . $valueDeductiveCO : 0,
+                            // 'addSubt'       => 0,
                             'totalCurrent'  => 0
                         ],
                         'thirdRow' => [
@@ -378,17 +414,25 @@ class BudgetController extends Controller
                 'budget'        => $projectCode . " - " . $projectName
             ];
 
+            // dd($collection);
+
             $dataDetails = [];
             $i = 0;
             $total = 0;
+            $productID = 88000000003832;
             foreach ($collection as $collections) {
-                $total                                  += $collections['TotalAdvance'];
+                $total                              += $collections['TotalAdvance'];
 
-                $dataDetails[$i]['no']                  = $i + 1;
-                $dataDetails[$i]['ModifyNumber']        = "MB01-23000004";
-                $dataDetails[$i]['budgetCode']          = $collections['CombinedBudgetCode'];
-                $dataDetails[$i]['date']                = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
-                $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
+                $dataDetails[$i]['no']              = $i + 1;
+                $dataDetails[$i]['productID']       = $productID + $i;
+                $dataDetails[$i]['productName']     = $collections['remark'];
+                $dataDetails[$i]['price']           = $collections['TotalAdvance'];
+                $dataDetails[$i]['total']           = ($i + 1) * $collections['TotalAdvance'];
+    
+                // $dataDetails[$i]['ModifyNumber']        = "MB01-23000004";
+                // $dataDetails[$i]['budgetCode']          = $collections['CombinedBudgetCode'];
+                // $dataDetails[$i]['date']                = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
+                // $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
                 $i++;
             }
 
@@ -478,6 +522,8 @@ class BudgetController extends Controller
 
         $dataReport = $isSubmitButton ? $request->session()->get('dataReportModifyBudgetDetail', []) : [];
 
+        // dump($dataReport);
+
         $compact = [
             'varAPIWebToken'    => [],
             'dataReport'        => $dataReport
@@ -522,19 +568,26 @@ class BudgetController extends Controller
                 'PIC'           => $getData['content']['general']['involvedPersons'][0]['requesterWorkerName'],
             ];
 
+            // dd($getData['content']['details']['itemList']);
+
             $dataDetails = [];
             $i = 0;
             $totalQty = 0;
             foreach ($getData['content']['details']['itemList'] as $dataReports) {
-                $totalQty += $dataReports['entities']['quantity'];
+                $totalQty += ($i + 1) * $dataReports['entities']['quantity'];
             
                 $dataDetails[$i]['no']          = $i + 1;
-                $dataDetails[$i]['dorNumber']   = "MB1-23000004";
-                $dataDetails[$i]['productId']   = $dataReports['entities']['product_RefID'];
+                $dataDetails[$i]['productID']   = $dataReports['entities']['product_RefID'];
                 $dataDetails[$i]['productName'] = $dataReports['entities']['productName'];
-                $dataDetails[$i]['qty']         = number_format($dataReports['entities']['quantity'], 2, ',', '.');
-                $dataDetails[$i]['uom']         = 'Set';
-                $dataDetails[$i]['remark']      = $dataReports['entities']['quantityUnitName'];
+                $dataDetails[$i]['price']       = $dataReports['entities']['quantity'];
+                $dataDetails[$i]['total']       = ($i + 1) * $dataReports['entities']['quantity'];
+
+                // $dataDetails[$i]['dorNumber']   = "MB1-23000004";
+                // $dataDetails[$i]['productId']   = $dataReports['entities']['product_RefID'];
+                // $dataDetails[$i]['productName'] = $dataReports['entities']['productName'];
+                // $dataDetails[$i]['qty']         = number_format($dataReports['entities']['quantity'], 2, ',', '.');
+                // $dataDetails[$i]['uom']         = 'Set';
+                // $dataDetails[$i]['remark']      = $dataReports['entities']['quantityUnitName'];
                 $i++;
             }
 
