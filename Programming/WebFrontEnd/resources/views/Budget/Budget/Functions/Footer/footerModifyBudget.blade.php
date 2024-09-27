@@ -60,9 +60,6 @@
 
 <!-- SITE CODE -->
 <script>
-    const urlParamsssssss = new URLSearchParams(window.location.search);
-    const subBudgetCOUrls = urlParamsssssss.get('subBudgetCode');
-
     $('#tableGetSite tbody').on('click', 'tr', function() {
 
         $("#mySiteCode").modal('toggle');
@@ -94,7 +91,17 @@
                 statusDisplay2 = [];
                 statusForm = [];
 
-                $.each(data, function(key, val2) {
+                if (data.message == "Invalid SQL Syntax") {
+                    var html = 
+                        '<tr>' +
+                            '<td class="container-tbody-tr-budget" colspan="14" style="color: red; font-style: italic;">' + 
+                                'No Data Available' +
+                            '</td>' +
+                        '</tr>';
+
+                        $('table#budgetTable tbody').append(html);
+                } else {
+                    $.each(data, function(key, val2) {
                     var used = val2.quantityAbsorptionRatio * 100;
 
                     if (used == "0.00" && val2.quantity == "0.00") {
@@ -118,37 +125,38 @@
                     }
                     
                     var html = 
-                    '<tr>' +
-                        '<td class="container-tbody-tr-budget" style="display:' + statusDisplay[key] + '";">' + 
-                            '<div class="input-group" style="min-width: 150px !important;">' + 
-                                '<input id="product_id' + key + '" style="border-radius:0;" class="form-control" name="product_id_show" readonly>' +
-                                '<div>' +
-                                    '<span style="border-radius:0;" class="input-group-text form-control">' +
-                                        '<a href="#" id="product_popup" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
-                                    '</span>' +
+                        '<tr>' +
+                            '<td class="container-tbody-tr-budget" style="display:' + statusDisplay[key] + '";">' + 
+                                '<div class="input-group" style="min-width: 150px !important;">' + 
+                                    '<input id="product_id' + key + '" style="border-radius:0;" class="form-control" name="product_id_show" readonly>' +
+                                    '<div>' +
+                                        '<span style="border-radius:0;" class="input-group-text form-control">' +
+                                            '<a href="#" id="product_popup" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
+                                        '</span>' +
+                                    '</div>' +
                                 '</div>' +
-                            '</div>' +
-                        '</td>' +
+                            '</td>' +
 
-                        '<td class="container-tbody-tr-budget" style="text-align: left !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
-                        '<td class="container-tbody-tr-budget" style="text-align: left !important;">' + val2.productName + '</td>' +
-                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
-                        '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
-                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
-                        '<td class="container-tbody-tr-budget">' + val2.priceBaseCurrencyISOCode + '</td>' +
-                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(50000, 2) + '</td>' +
-                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) + '</td>' +
-                        '<td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">' + '</td>' +
-                        '<td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">' + '</td>' +
-                        '<td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>' + '</td>' +
-                        '<td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">' + '</td>' +
-                        '<td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">' + '</td>' +
-                        '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>' + '</td>' +
-                        '<td class="d-none">' + '<input autocomplete="off" id="type" name="type" value="budgetDetails" disabled>' + '</td>' +
-                    '</tr>';
+                            '<td class="container-tbody-tr-budget" style="text-align: left !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
+                            '<td class="container-tbody-tr-budget" style="text-align: left !important;">' + val2.productName + '</td>' +
+                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
+                            '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
+                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
+                            '<td class="container-tbody-tr-budget">' + val2.priceBaseCurrencyISOCode + '</td>' +
+                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(50000, 2) + '</td>' +
+                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) + '</td>' +
+                            '<td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">' + '</td>' +
+                            '<td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">' + '</td>' +
+                            '<td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>' + '</td>' +
+                            '<td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">' + '</td>' +
+                            '<td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">' + '</td>' +
+                            '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>' + '</td>' +
+                            '<td class="d-none">' + '<input autocomplete="off" id="type" name="type" value="budgetDetails" disabled>' + '</td>' +
+                        '</tr>';
 
-                    $('table#budgetTable tbody').append(html);
-                });
+                        $('table#budgetTable tbody').append(html);
+                    });
+                }
 
                 checkTableRows();
             }
@@ -509,7 +517,8 @@
             let priceSaving = row.querySelector('input[name="price_saving"]').value.trim();
             let totalSaving = row.querySelector('input[name="total_saving"]').value.trim();
             let type = row.querySelector('input[name="type"]').value.trim();
-            let productId = row.querySelector('td:nth-child(2)').textContent.trim();
+            let productIdInput = row.querySelector('input[name="product_id_show"]');
+            let productId = productIdInput ? productIdInput.value : row.querySelector('td:nth-child(2)').textContent.trim();
             let productName = row.querySelector('td:nth-child(3)').textContent.trim();
             let qtyBudget = row.querySelector('td:nth-child(4)').textContent.trim();
             // let qtyAvail = row.querySelector('td:nth-child(5)').textContent.trim();
@@ -521,7 +530,11 @@
             if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
                 let listTableBody = document.querySelector('#listBudgetTable tbody');
                 let existingRow = Array.from(listTableBody.querySelectorAll('tr')).find(tr => {
-                    return tr.querySelector('td:nth-child(2)').textContent.trim() === productId;
+                    if (productIdInput) {
+                        return tr.querySelector('td:nth-child(1)').textContent.trim() === productId;
+                    } else {
+                        return tr.querySelector('td:nth-child(2)').textContent.trim() === productId;
+                    }
                 });
 
                 let form = document.getElementById('modifyBudgetForm');
