@@ -518,7 +518,7 @@
             let totalSaving = row.querySelector('input[name="total_saving"]').value.trim();
             let type = row.querySelector('input[name="type"]').value.trim();
             let productIdInput = row.querySelector('input[name="product_id_show"]');
-            let productId = productIdInput ? productIdInput.value : row.querySelector('td:nth-child(2)').textContent.trim();
+            let productId = productIdInput.value ? productIdInput.value : row.querySelector('td:nth-child(2)').textContent.trim();
             let productName = row.querySelector('td:nth-child(3)').textContent.trim();
             let qtyBudget = row.querySelector('td:nth-child(4)').textContent.trim();
             // let qtyAvail = row.querySelector('td:nth-child(5)').textContent.trim();
@@ -530,7 +530,7 @@
             if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
                 let listTableBody = document.querySelector('#listBudgetTable tbody');
                 let existingRow = Array.from(listTableBody.querySelectorAll('tr')).find(tr => {
-                    if (productIdInput) {
+                    if (productIdInput.value) {
                         return tr.querySelector('td:nth-child(1)').textContent.trim() === productId;
                     } else {
                         return tr.querySelector('td:nth-child(2)').textContent.trim() === productId;
