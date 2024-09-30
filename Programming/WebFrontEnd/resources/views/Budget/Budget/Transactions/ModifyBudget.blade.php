@@ -20,6 +20,8 @@
         
         <form id="modifyBudgetForm" method="post" enctype="multipart/form-data" action="{{ route('Budget.PreviewModifyBudget') }}">
         @csrf
+            <input type="hidden" id="hiddenBudgetData" name="hiddenBudgetData" value="">
+
             <!-- CONTENT -->
             <div class="card">
                 <!-- Add New Advance Request -->
@@ -297,9 +299,16 @@
                                                 <th class="sticky-col first-col-modify-budget container-thead-tr-fixed-budget">Total</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            
-                                        </tbody>
+                                        @if(request('parsedData'))
+                                            <tbody>
+                                                <tr>
+                                                    <td>Testing</td>
+                                                </tr>
+                                            </tbody>
+                                        @else
+                                            <tbody>
+                                            </tbody>
+                                        @endif
                                     </table>
                                 </div>
 

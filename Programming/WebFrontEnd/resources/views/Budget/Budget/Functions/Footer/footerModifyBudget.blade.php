@@ -508,6 +508,7 @@
 
         let budgetRows = document.querySelectorAll('#budgetTable tbody tr');
         let processedProductIds = new Set();
+        let budgetData = [];
 
         budgetRows.forEach(function(row) {
             let qtyAdditional = row.querySelector('input[name="qty_additional"]').value.trim();
@@ -526,6 +527,22 @@
             // let currencys = row.querySelector('td:nth-child(7)').textContent.trim();
             // let balanceBudget = row.querySelector('td:nth-child(8)').textContent.trim();
             let totalBudget = row.querySelector('td:nth-child(9)').textContent.trim();
+
+            let data = {
+                product_id: productId,
+                product_name: productName,
+                qty_budget: qtyBudget,
+                price: prices,
+                total_budget: totalBudget,
+                qty_additional: qtyAdditional,
+                price_additional: priceAdditional,
+                total_additional: totalAdditional,
+                qty_saving: qtySaving,
+                price_saving: priceSaving,
+                total_saving: totalSaving
+            };
+
+            budgetData.push(data);
 
             if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
                 let listTableBody = document.querySelector('#listBudgetTable tbody');
@@ -674,6 +691,15 @@
             } else if (qtySaving && !priceSaving && totalSaving) {
                 Swal.fire("Error", "Price Saving Cannot Be Empty", "error");
             }
+        });
+
+        // Menyimpan data ke elemen hidden di view
+        let hiddenInputBudgetData = document.getElementById('hiddenBudgetData');
+        hiddenInputBudgetData.value = JSON.stringify({
+            budgetData: budgetData,
+            totalBudgetSum: totalBudgetSum,
+            totalAdditionalSum: totalAdditionalSum,
+            totalSavingSum: totalSavingSum
         });
 
         let footerRow = document.querySelector('#listBudgetTable tfoot tr');

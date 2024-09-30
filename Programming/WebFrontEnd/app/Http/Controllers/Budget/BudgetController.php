@@ -86,6 +86,12 @@ class BudgetController extends Controller
             $currencyID         = $request->currency_id;
             $currencySymbol     = $request->currency_symbol ?? '';
             $currencyName       = $request->currency_name ?? '-';
+
+            $hiddenBudgetData   = $request->input('hiddenBudgetData');
+
+            $parsedData         = json_decode($hiddenBudgetData, true);
+
+            // dd($parsedData);
             
             // IDR RATE
             $idrRate            = $request->value_idr_rate;
@@ -193,6 +199,7 @@ class BudgetController extends Controller
                 'dataModifyBudget'  => $dataModifyBudget,
                 'totalAdditional'   => number_format($totalAdditional, 2),
                 'totalSaving'       => number_format($totalSaving, 2),
+                'parsedData'        => $parsedData,
                 'dataTable'         => [
                     'sectionOne'    => [
                         'firstRow'  => [
@@ -344,6 +351,8 @@ class BudgetController extends Controller
                     ],
                 ],
             ];
+
+            // dd($compact);
 
             return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {

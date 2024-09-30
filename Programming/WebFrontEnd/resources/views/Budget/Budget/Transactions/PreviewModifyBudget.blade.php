@@ -848,7 +848,8 @@
                                 'idrRate'           => $valueIDRRate,
                                 'valueAdditionalCO' => $valueAdditionalCO,
                                 'valueDeductiveCO'  => $valueDeductiveCO,
-                                'dataModifyBudget'  => $dataModifyBudget
+                                'dataModifyBudget'  => $dataModifyBudget,
+                                'parsedData'        => $parsedData,
                             ]) }}"
                             >
                             <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
