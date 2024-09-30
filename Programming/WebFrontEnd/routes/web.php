@@ -122,6 +122,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Budget
     Route::get('ModifyBudget', 'Budget\BudgetController@ModifyBudget')->name('Budget.ModifyBudget');
     Route::post('PreviewModifyBudget', 'Budget\BudgetController@PreviewModifyBudget')->name('Budget.PreviewModifyBudget');
+    Route::post('UpdateModifyBudget', 'Budget\BudgetController@UpdateModifyBudget')->name('Budget.UpdateModifyBudget');
     Route::get('ReportModifyBudgetSummary', 'Budget\BudgetController@ReportModifyBudgetSummary')->name('Budget.ReportModifyBudgetSummary');
     Route::post('ReportModifyBudgetSummaryStore', 'Budget\BudgetController@ReportModifyBudgetSummaryStore')->name('Budget.ReportModifyBudgetSummaryStore');
     Route::post('PrintExportReportModifyBudgetSummary', 'Budget\BudgetController@PrintExportReportModifyBudgetSummary')->name('Budget.PrintExportReportModifyBudgetSummary');
@@ -377,7 +378,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     //SETTING
     Route::get('ColorMode', 'Setting\Mode\ColorModeController@ColorMode')->name('ColorMode');
 
-    Route::post('ModifyBudget', 'TestApiController@ModifyBudget')->name('ModifyBudget');
+    // Route::post('ModifyBudget', 'TestApiController@ModifyBudget')->name('ModifyBudget');
 });
 
 

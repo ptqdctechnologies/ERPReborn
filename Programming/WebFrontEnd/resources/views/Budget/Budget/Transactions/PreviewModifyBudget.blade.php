@@ -828,33 +828,33 @@
                 <!-- BUTTON CANCEL OR SUBMIT -->
                 <div class="row pt-2" style="margin-top: 1rem;">
                     <div class="col d-flex justify-content-end" style="gap: 8px;">
-                        <a
-                            class="btn btn-default btn-sm button-submit"
-                            id="submitButton"
-                            style="width: max-content;"
-                            href="{{ route('Budget.ModifyBudget', [
-                                'files'             => $files,
-                                'budgetID'          => $budgetID,
-                                'budgetCode'        => $budgetCode,
-                                'budgetName'        => $budgetName,
-                                'subBudgetID'       => $subBudgetID,
-                                'subBudgetCode'     => $subBudgetCode,
-                                'subBudgetName'     => $subBudgetName,
-                                'reason'            => $reason,
-                                'additionalCO'      => $additionalCO,
-                                'currencyID'        => $currencyID,
-                                'currencySymbol'    => $currencySymbol,
-                                'currencyName'      => $currencyName,
-                                'idrRate'           => $valueIDRRate,
-                                'valueAdditionalCO' => $valueAdditionalCO,
-                                'valueDeductiveCO'  => $valueDeductiveCO,
-                                'dataModifyBudget'  => $dataModifyBudget,
-                                'parsedData'        => $parsedData,
-                            ]) }}"
-                            >
-                            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
-                            <div>Cancel</div>
-                        </a>
+                        <div style="display: flex;">
+                            <form method="post" enctype="multipart/form-data" action="{{ route('Budget.UpdateModifyBudget') }}">
+                            @csrf
+                                <input type="hidden" id="files" name="files" value="{{ json_encode($files) }}">
+                                <input type="hidden" id="budgetID" name="budgetID" value="{{ $budgetID }}">
+                                <input type="hidden" id="budgetCode" name="budgetCode" value="{{ $budgetCode }}">
+                                <input type="hidden" id="budgetName" name="budgetName" value="{{ $budgetName }}">
+                                <input type="hidden" id="subBudgetID" name="subBudgetID" value="{{ $subBudgetID }}">
+                                <input type="hidden" id="subBudgetCode" name="subBudgetCode" value="{{ $subBudgetCode }}">
+                                <input type="hidden" id="subBudgetName" name="subBudgetName" value="{{ $subBudgetName }}">
+                                <input type="hidden" id="reason" name="reason" value="{{ $reason }}">
+                                <input type="hidden" id="additionalCO" name="additionalCO" value="{{ $additionalCO }}">
+                                <input type="hidden" id="currencyID" name="currencyID" value="{{ $currencyID }}">
+                                <input type="hidden" id="currencySymbol" name="currencySymbol" value="{{ $currencySymbol }}">
+                                <input type="hidden" id="currencyName" name="currencyName" value="{{ $currencyName }}">
+                                <input type="hidden" id="idrRate" name="idrRate" value="{{ $idrRate }}">
+                                <input type="hidden" id="valueAdditionalCO" name="valueAdditionalCO" value="{{ $valueAdditionalCO }}">
+                                <input type="hidden" id="valueDeductiveCO" name="valueDeductiveCO" value="{{ $valueDeductiveCO }}">
+                                <input type="hidden" id="dataModifyBudget" name="dataModifyBudget" value="{{ json_encode($dataModifyBudget) }}">
+                                <input type="hidden" id="parsedData" name="parsedData" value="{{ json_encode($parsedData) }}">
+                                
+                                <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="submit">
+                                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
+                                    <div>Cancel</div>
+                                </button>
+                            </form>
+                        </div>
 
                         <div style="display: flex;">
                             <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit" disabled>

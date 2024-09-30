@@ -1,7 +1,8 @@
 <!-- DISABLE SUD BUDGET CODE KETIKA BUDGET CODE BELUM DIPILIH -->
 <script>
-    const urlParamsssss = new URLSearchParams(window.location.search);
-    const subBudgetCOUrl = urlParamsssss.get('subBudgetCode');
+    // const urlParamsssss = new URLSearchParams(window.location.search);
+    // const subBudgetCOUrl = urlParamsssss.get('subBudgetCode');
+    const subBudgetCOUrl = '{{ $subBudgetCode }}';
 
     if (!subBudgetCOUrl) {
         $("#site_code").prop("disabled", true);
@@ -215,11 +216,12 @@
         const valueCODeductiveInput = document.getElementById('value_co_deductive');
 
         // PARAMS
-        const urlParams = new URLSearchParams(window.location.search);
-        const additionalCOUrl = urlParams.get('additionalCO');
+        // const urlParams = new URLSearchParams(window.location.search);
+        // const additionalCOUrl = urlParams.get('additionalCO');
+        const additionalCOUrl = '{{ $additionalCO }}';
 
         additionalCORadios.forEach(radio => {
-            if (additionalCOUrl) {
+            if (additionalCOUrl == 'yes') {
                 if (additionalCOUrl == "yes") {
                     currencyField.style.display = 'flex';
                     valueIDRRateField.style.display = 'flex';
@@ -359,9 +361,11 @@
 <!-- VALUE CO ADDITIONAL & DEDUCTIVE -->
 <script>
     // PARAMS
-    const urlParams = new URLSearchParams(window.location.search);
-    const valueAdditionalCOUrl = urlParams.get('valueAdditionalCO');
-    const valueDeductiveCOUrl = urlParams.get('valueDeductiveCO');
+    // const urlParams = new URLSearchParams(window.location.search);
+    // const valueAdditionalCOUrl = urlParams.get('valueAdditionalCO');
+    // const valueDeductiveCOUrl = urlParams.get('valueDeductiveCO');
+    const valueAdditionalCOUrl = '{{ $valueAdditionalCO }}';
+    const valueDeductiveCOUrl = '{{ $valueDeductiveCO }}';
 
     $(document).ready(function() {
         if (valueAdditionalCOUrl || valueDeductiveCOUrl) {
@@ -955,14 +959,16 @@
     const reasonForModify = document.getElementById('reason_modify');
     const submitButton = document.getElementById('submitButton');
     const cancelButton = document.getElementById('cancelButton');
+    const fileInputssss = document.querySelector('#hidden_inputs');
+    const fileListTable = document.querySelector('#file_table tbody');
     const listBudgetTableBody = document.querySelector('#listBudgetTable tbody');
-    const listBudgetTableFoot = document.getElementById('listBudgetTable');
     const budgetTbodyTable = document.querySelector('#budgetTable tbody');
     const additionalCoRadioss = document.getElementsByName('additional_co');
     const currencyField = document.getElementById('currency_field');
     const valueIDRRateField = document.getElementById('value_idr_rate_field');
     const valueCOAdditionalField = document.getElementById('value_co_additional_field');
     const valueCODeductiveField = document.getElementById('value_co_deductive_field');
+    const fileTableee = document.getElementById('file_table');
 
     function checkTableData() {
         const isTableNotEmpty = listBudgetTableBody.rows.length > 0;
@@ -993,12 +999,12 @@
             budgetTbodyTable.removeChild(budgetTbodyTable.firstChild);
         }
 
-        if (listBudgetTableFoot) {
-            const tfoot = listBudgetTableFoot.querySelector('tfoot');
-            
-            if (tfoot) {
-                tfoot.remove();
-            } 
+        while (fileListTable.firstChild) {
+            fileListTable.removeChild(fileListTable.firstChild);
+        }
+
+        while (fileInputssss.firstChild) {
+            fileInputssss.removeChild(fileInputssss.firstChild);
         }
 
         $("#project_id").val("");
@@ -1025,12 +1031,13 @@
         valueIDRRateField.style.display = 'none';
         valueCOAdditionalField.style.display = 'none';
         valueCODeductiveField.style.display = 'none';
+        
+        fileTableee.style.display = 'none';
 
         additionalCoRadioss.forEach(function(radio) {
             radio.checked = false;
         });
 
         checkTableData(); 
-        checkAndDisable();
     });
 </script>

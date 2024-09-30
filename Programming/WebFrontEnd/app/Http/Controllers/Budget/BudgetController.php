@@ -57,6 +57,35 @@ class BudgetController extends Controller
         return view('Budget.Budget.Transactions.ModifyBudget', $compact);
     }
 
+    public function UpdateModifyBudget(Request $request) {
+        $varAPIWebToken     = $request->session()->get('SessionLogin');
+
+        $compact = [
+            'varAPIWebToken'    => $varAPIWebToken,
+            'files'             => json_decode($request->input('files'), true) == [] ? null : json_decode($request->input('files'), true),
+            'budgetID'          => $request->budgetID,
+            'budgetCode'        => $request->budgetCode,
+            'budgetName'        => $request->budgetName,
+            'subBudgetID'       => $request->subBudgetID,
+            'subBudgetCode'     => $request->subBudgetCode,
+            'subBudgetName'     => $request->subBudgetName,
+            'reason'            => $request->reason,
+            'additionalCO'      => $request->additionalCO,
+            'currencyID'        => $request->currencyID,
+            'currencySymbol'    => $request->currencySymbol,
+            'currencyName'      => $request->currencyName,
+            'idrRate'           => $request->valueIDRRate,
+            'valueAdditionalCO' => $request->valueAdditionalCO,
+            'valueDeductiveCO'  => $request->valueDeductiveCO,
+            'dataModifyBudget'  => json_decode($request->input('dataModifyBudget'), true),
+            'parsedData'        => json_decode($request->input('parsedData'), true),
+        ];
+        
+        // dump($compact);
+        
+        return view('Budget.Budget.Transactions.UpdateModifyBudget', $compact);
+    }
+
     public function PreviewModifyBudget(Request $request) {
         try {
             $varAPIWebToken = $request->session()->get('SessionLogin');
