@@ -1,5 +1,5 @@
 <!-- DISABLE SUD BUDGET CODE KETIKA BUDGET CODE BELUM DIPILIH -->
-<script>
+<!-- <script>
     // const urlParamsssss = new URLSearchParams(window.location.search);
     // const subBudgetCOUrl = urlParamsssss.get('subBudgetCode');
     const subBudgetCOUrl = '{{ $subBudgetCode }}';
@@ -8,10 +8,10 @@
         $("#site_code").prop("disabled", true);
         $("#site_code_popup").prop("disabled", true);
     }
-</script>
+</script> -->
 
 <!-- BUDGET CODE -->
-<script>
+<!-- <script>
     $('#tableGetProject tbody').on('click', 'tr', function() {
 
         $("#myProject").modal('toggle');
@@ -57,10 +57,10 @@
             }
         });
     });
-</script>
+</script> -->
 
 <!-- SITE CODE -->
-<script>
+<!-- <script>
     $('#tableGetSite tbody').on('click', 'tr', function() {
 
         $("#mySiteCode").modal('toggle');
@@ -163,6 +163,105 @@
             }
         });
     });
+</script> -->
+
+<!-- VALIDASI SHOW/HIDE FORM ADD NEW ITEM KETIKA TABLE EXISTING BUDGET ADA DATANYA -->
+<script>
+    function checkTableRows() {
+        const table = document.getElementById('budgetTable');
+        const tbody = table.querySelector('tbody');
+        const form = document.getElementById('budgetForm');
+
+        if (tbody.getElementsByTagName('tr').length > 0) {
+            form.style.display = 'block';
+        } else {
+            form.style.display = 'none';
+        }
+    }
+
+    checkTableRows();
+</script>
+
+<script>
+    // var parsedData = JSON.parse("{{ json_encode($parsedData['budgetData']) }}");
+    const parsedDatas = @json($parsedData);
+
+    var no = 1;
+        applied = 0;
+        status = "";
+        statusDisplay = [];
+        statusDisplay2 = [];
+        statusForm = [];
+
+    if (parsedDatas.budgetData && parsedDatas.budgetData.length > 0) {
+        $.each(parsedDatas.budgetData, function(key, val2) {
+            var used = val2.quantityAbsorptionRatio * 100;
+            var productsIDS = val2.product_id && val2.product_id !== "null" ? val2.product_id : '';
+
+            if (used == "0.00" && val2.quantity == "0.00") {
+                var applied = 0;
+            } else {
+                var applied = Math.round(used);
+            }
+            if (applied >= 100) {
+                var status = "disabled";
+            }
+            if (val2.product_name == "Unspecified Product") {
+                statusDisplay[key] = "";
+                statusDisplay2[key] = "none";
+                statusForm[key] = "disabled";
+                balance_qty = "-";
+            } else {
+                statusDisplay[key] = "none";
+                statusDisplay2[key] = "";
+                statusForm[key] = "";
+                balance_qty = numberFormatPHPCustom(val2.quantityRemaining, 2);
+            }
+
+            var html = 
+                '<tr>' +
+                    '<td class="container-tbody-tr-budget" style="display:' + statusDisplay[key] + '";">' + 
+                        '<div class="input-group" style="min-width: 150px !important;">' + 
+                            '<input id="product_id' + key + '" style="border-radius:0;" class="form-control" name="product_id_show" value="' + productsIDS + '" readonly>' +
+                            '<div>' +
+                                '<span style="border-radius:0;" class="input-group-text form-control">' +
+                                    '<a href="#" id="product_popup" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
+                                '</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</td>' +
+
+                    '<td class="container-tbody-tr-budget" style="text-align: left !important; display:' + statusDisplay2[key] + '";">' + val2.product_id + '</td>' +
+                    '<td class="container-tbody-tr-budget" style="text-align: left !important;">' + val2.product_name + '</td>' +
+                    '<td class="container-tbody-tr-budget">' + val2.qty_budget + '</td>' +
+                    '<td class="container-tbody-tr-budget">' + val2.qty_avail + '</td>' +
+                    '<td class="container-tbody-tr-budget">' + val2.price + '</td>' +
+                    '<td class="container-tbody-tr-budget">' + val2.currency + '</td>' +
+                    '<td class="container-tbody-tr-budget">' + val2.balance_budget + '</td>' +
+                    '<td class="container-tbody-tr-budget">' + val2.total_budget + '</td>' +
+                    '<td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional" value="' + val2.qty_additional +'">' + '</td>' +
+                    '<td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional" value="' + val2.price_additional +'">' + '</td>' +
+                    '<td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" value="' + val2.total_additional +'" disabled>' + '</td>' +
+                    '<td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving" value="' + val2.qty_saving +'">' + '</td>' +
+                    '<td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving" value="' + val2.price_saving +'">' + '</td>' +
+                    '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" value="' + val2.total_saving +'" disabled>' + '</td>' +
+                    '<td class="d-none">' + '<input autocomplete="off" id="type" name="type" value="budgetDetails" disabled>' + '</td>' +
+                '</tr>';
+
+            $('table#budgetTable tbody').append(html);
+        });
+    } else {
+        var html = 
+            '<tr>' +
+                '<td class="container-tbody-tr-budget" colspan="14" style="color: red; font-style: italic;">' + 
+                    'No Data Available' +
+                '</td>' +
+            '</tr>';
+
+            $('table#budgetTable tbody').append(html);
+    }
+
+    checkTableRows();
 </script>
 
 <!-- FUNCTION DISABLED KLIK KETIKA BUDGET & SITE CODE TIDAK KOSONG -->
@@ -215,9 +314,6 @@
         const valueCODeductiveField = document.getElementById('value_co_deductive_field');
         const valueCODeductiveInput = document.getElementById('value_co_deductive');
 
-        // PARAMS
-        // const urlParams = new URLSearchParams(window.location.search);
-        // const additionalCOUrl = urlParams.get('additionalCO');
         const additionalCOUrl = '{{ $additionalCO }}';
 
         additionalCORadios.forEach(radio => {
@@ -394,23 +490,6 @@
     });
 </script>
 
-<!-- VALIDASI SHOW/HIDE FORM ADD NEW ITEM KETIKA TABLE EXISTING BUDGET ADA DATANYA -->
-<script>
-    function checkTableRows() {
-        const table = document.getElementById('budgetTable');
-        const tbody = table.querySelector('tbody');
-        const form = document.getElementById('budgetForm');
-
-        if (tbody.getElementsByTagName('tr').length > 0) {
-            form.style.display = 'block';
-        } else {
-            form.style.display = 'none';
-        }
-    }
-
-    checkTableRows();
-</script>
-
 <!-- BUTTON ADD TO CART (BUDGET DETAILS) -->
 <script>
     let totalBudgetSum = 0;
@@ -479,25 +558,25 @@
                         let input = row.querySelectorAll('td')[index].querySelector('input');
 
                         if (input) {
-                            if (index <= 2) {
+                            if (index <= 1) {
                                 td.textContent = input.value;
-                            } else if (index === 9) {
+                            } else if (index === 8) {
                                 td.textContent = numberFormatPHPCustom(qtySaving, 2);
-                            } else if (index === 10) {
+                            } else if (index === 9) {
                                 td.textContent = numberFormatPHPCustom(priceSaving, 2);
-                            } else if (index === 11) {
+                            } else if (index === 10) {
                                 td.textContent = numberFormatPHPCustom(totalSaving, 2);
-                            } else if (index !== 6 || index !== 7 || index !== 8) {
+                            } else if (index !== 5 || index !== 6 || index !== 7) {
                                 td.textContent = numberFormatPHPCustom(input.value, 2);
                             }
                         } else {
-                            if (index === 6) {
+                            if (index === 5) {
                                 td.textContent = numberFormatPHPCustom(qtyAdditional, 2);
                             } 
-                            if (index === 7) {
+                            if (index === 6) {
                                 td.textContent = numberFormatPHPCustom(priceAdditional, 2);
                             } 
-                            if (index === 8) {
+                            if (index === 7) {
                                 td.textContent = numberFormatPHPCustom(totalAdditional, 2);
                             }
                         }

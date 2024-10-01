@@ -436,17 +436,20 @@
             let productId = productIdInput.value ? productIdInput.value : row.querySelector('td:nth-child(2)').textContent.trim();
             let productName = row.querySelector('td:nth-child(3)').textContent.trim();
             let qtyBudget = row.querySelector('td:nth-child(4)').textContent.trim();
-            // let qtyAvail = row.querySelector('td:nth-child(5)').textContent.trim();
+            let qtyAvail = row.querySelector('td:nth-child(5)').textContent.trim();
             let prices = row.querySelector('td:nth-child(6)').textContent.trim();
-            // let currencys = row.querySelector('td:nth-child(7)').textContent.trim();
-            // let balanceBudget = row.querySelector('td:nth-child(8)').textContent.trim();
+            let currencys = row.querySelector('td:nth-child(7)').textContent.trim();
+            let balanceBudget = row.querySelector('td:nth-child(8)').textContent.trim();
             let totalBudget = row.querySelector('td:nth-child(9)').textContent.trim();
 
             let data = {
                 product_id: productId,
                 product_name: productName,
                 qty_budget: qtyBudget,
+                qty_avail: qtyAvail,
                 price: prices,
+                currency: currencys,
+                balance_budget: balanceBudget,
                 total_budget: totalBudget,
                 qty_additional: qtyAdditional,
                 price_additional: priceAdditional,

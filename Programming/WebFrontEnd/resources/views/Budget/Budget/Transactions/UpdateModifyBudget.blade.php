@@ -20,6 +20,8 @@
         
         <form id="modifyBudgetForm" method="post" enctype="multipart/form-data" action="{{ route('Budget.PreviewModifyBudget') }}">
         @csrf
+            <input type="hidden" id="hiddenBudgetData" name="hiddenBudgetData" value="">
+
             <!-- CONTENT -->
             <div class="card">
                 <!-- Add New Advance Request -->
