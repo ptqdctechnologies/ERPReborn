@@ -848,6 +848,9 @@
                                 <input type="hidden" id="valueDeductiveCO" name="valueDeductiveCO" value="{{ $valueDeductiveCO }}">
                                 <input type="hidden" id="dataModifyBudget" name="dataModifyBudget" value="{{ json_encode($dataModifyBudget) }}">
                                 <input type="hidden" id="parsedData" name="parsedData" value="{{ json_encode($parsedData) }}">
+                                <input type="hidden" id="hiddenBudgetData" name="hiddenBudgetData" value="{{ json_encode($hiddenBudgetData) }}">
+                                <input type="hidden" id="totalAdditional" name="totalAdditional" value="{{ $totalAdditional }}">
+                                <input type="hidden" id="totalSaving" name="totalSaving" value="{{ $totalSaving }}">
                                 
                                 <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="submit">
                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />

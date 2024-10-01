@@ -80,8 +80,11 @@ class BudgetController extends Controller
                 'idrRate'           => $request->valueIDRRate,
                 'valueAdditionalCO' => $request->valueAdditionalCO,
                 'valueDeductiveCO'  => $request->valueDeductiveCO,
+                'totalAdditional'   => $request->totalAdditional,
+                'totalSaving'       => $request->totalSaving,
                 'dataModifyBudget'  => json_decode($request->input('dataModifyBudget'), true),
                 'parsedData'        => json_decode($request->input('parsedData'), true),
+                'hiddenBudgetData'  => json_decode($request->input('hiddenBudgetData'), true),
             ];
             
             // dump($compact);
@@ -129,7 +132,7 @@ class BudgetController extends Controller
 
             $parsedData         = json_decode($hiddenBudgetData, true);
 
-            // dd($parsedData);
+            // dump($hiddenBudgetData, $parsedData);
             
             // IDR RATE
             $idrRate            = floatval($request->value_idr_rate);
@@ -179,7 +182,20 @@ class BudgetController extends Controller
             //     $files,
             // );
 
-            // dd("sana");
+            // dd(
+            //     $productIds,
+            //     $productName,
+            //     $qtyBudget,
+            //     $price,
+            //     $totalBudget,
+            //     $qtyAdditionals,
+            //     $priceAdditionals,
+            //     $totalAdditionals,
+            //     $qtySavings,
+            //     $priceSavings,
+            //     $totalSavings,
+            //     $type
+            // );
 
             $addSubtSectionOne = 0;
             if ($currencySymbol !== "IDR") {
@@ -257,6 +273,7 @@ class BudgetController extends Controller
                 'totalAdditional'   => number_format($totalAdditional, 2),
                 'totalSaving'       => number_format($totalSaving, 2),
                 'parsedData'        => $parsedData,
+                'hiddenBudgetData'  => $hiddenBudgetData,
                 'dataTable'         => [
                     'sectionOne'    => [
                         'firstRow'  => [

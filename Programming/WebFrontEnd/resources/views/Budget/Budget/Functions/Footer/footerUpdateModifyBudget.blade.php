@@ -183,8 +183,7 @@
 </script>
 
 <script>
-    // var parsedData = JSON.parse("{{ json_encode($parsedData['budgetData']) }}");
-    const parsedDatas = @json($parsedData);
+    const parsedDatas = @json($parsedData ?? []);
 
     var no = 1;
         applied = 0;

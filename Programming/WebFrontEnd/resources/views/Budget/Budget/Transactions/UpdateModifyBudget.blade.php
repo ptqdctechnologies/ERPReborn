@@ -20,7 +20,7 @@
         
         <form id="modifyBudgetForm" method="post" enctype="multipart/form-data" action="{{ route('Budget.PreviewModifyBudget') }}">
         @csrf
-            <input type="hidden" id="hiddenBudgetData" name="hiddenBudgetData" value="">
+            <input type="hidden" id="hiddenBudgetData" name="hiddenBudgetData" value="{{ $hiddenBudgetData }}">
 
             <!-- CONTENT -->
             <div class="card">
@@ -515,6 +515,14 @@
                                                 <?php } ?>
                                             <?php endif; ?>
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="7" class="container-thead-tr-budget font-weight-bold" style="text-align: left !important;">GRAND TOTAL</td>
+                                                <td class="text-center"><?= $totalAdditional; ?></td>
+                                                <td colspan="2" class="container-tbody-tr-budget" style="text-align:right"></td>
+                                                <td class="text-center"><?= $totalSaving; ?></td>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
