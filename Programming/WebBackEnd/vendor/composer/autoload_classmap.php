@@ -3557,8 +3557,6 @@ return array(
     'Aws\\WellArchitected\\WellArchitectedClient' => $vendorDir . '/aws/aws-sdk-php/src/WellArchitected/WellArchitectedClient.php',
     'Aws\\WorkDocs\\Exception\\WorkDocsException' => $vendorDir . '/aws/aws-sdk-php/src/WorkDocs/Exception/WorkDocsException.php',
     'Aws\\WorkDocs\\WorkDocsClient' => $vendorDir . '/aws/aws-sdk-php/src/WorkDocs/WorkDocsClient.php',
-    'Aws\\WorkLink\\Exception\\WorkLinkException' => $vendorDir . '/aws/aws-sdk-php/src/WorkLink/Exception/WorkLinkException.php',
-    'Aws\\WorkLink\\WorkLinkClient' => $vendorDir . '/aws/aws-sdk-php/src/WorkLink/WorkLinkClient.php',
     'Aws\\WorkMailMessageFlow\\Exception\\WorkMailMessageFlowException' => $vendorDir . '/aws/aws-sdk-php/src/WorkMailMessageFlow/Exception/WorkMailMessageFlowException.php',
     'Aws\\WorkMailMessageFlow\\WorkMailMessageFlowClient' => $vendorDir . '/aws/aws-sdk-php/src/WorkMailMessageFlow/WorkMailMessageFlowClient.php',
     'Aws\\WorkMail\\Exception\\WorkMailException' => $vendorDir . '/aws/aws-sdk-php/src/WorkMail/Exception/WorkMailException.php',
