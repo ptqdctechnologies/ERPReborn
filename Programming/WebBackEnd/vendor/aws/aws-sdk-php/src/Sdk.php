@@ -234,6 +234,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionDirectConnect(array $args = [])
  * @method \Aws\DirectoryService\DirectoryServiceClient createDirectoryService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionDirectoryService(array $args = [])
+ * @method \Aws\DirectoryServiceData\DirectoryServiceDataClient createDirectoryServiceData(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionDirectoryServiceData(array $args = [])
  * @method \Aws\DocDB\DocDBClient createDocDB(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionDocDB(array $args = [])
  * @method \Aws\DocDBElastic\DocDBElasticClient createDocDBElastic(array $args = [])
@@ -746,8 +748,6 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionWellArchitected(array $args = [])
  * @method \Aws\WorkDocs\WorkDocsClient createWorkDocs(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionWorkDocs(array $args = [])
- * @method \Aws\WorkLink\WorkLinkClient createWorkLink(array $args = [])
- * @method \Aws\MultiRegionClient createMultiRegionWorkLink(array $args = [])
  * @method \Aws\WorkMail\WorkMailClient createWorkMail(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionWorkMail(array $args = [])
  * @method \Aws\WorkMailMessageFlow\WorkMailMessageFlowClient createWorkMailMessageFlow(array $args = [])
@@ -777,7 +777,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.321.5';
+    const VERSION = '3.322.8';
 
     /** @var array Arguments for creating clients */
     private $args;

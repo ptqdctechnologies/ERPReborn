@@ -53,10 +53,8 @@ abstract class TemporaryFile
     public function copyFrom($filePath, string $disk = null): TemporaryFile
     {
         if ($filePath instanceof UploadedFile) {
-            $filePath = $filePath->getRealPath();
-        }
-
-        if ($disk === null && realpath($filePath) !== false) {
+            $readStream = fopen($filePath->getRealPath(), 'rb');
+        } elseif ($disk === null && realpath($filePath) !== false) {
             $readStream = fopen($filePath, 'rb');
         } else {
             $diskInstance = app('filesystem')->disk($disk);
