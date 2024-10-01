@@ -806,11 +806,11 @@
                                         </td>
                                     </tr>
                                 <?php } ?>
-
-                                <!-- FOOTER -->
+                            </tbody>
+                            <tfoot>
                                 <tr>
                                     <td colspan="7" class="font-weight-bold" style="font-size: 12px;">
-                                        TOTAL
+                                        GRAND TOTAL
                                     </td>
                                     <td class="text-right">
                                         <?= $totalAdditional; ?>
@@ -820,7 +820,7 @@
                                         <?= $totalSaving != "0.00" ? $totalSaving : '-'; ?>
                                     </td>
                                 </tr>
-                            </tbody>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

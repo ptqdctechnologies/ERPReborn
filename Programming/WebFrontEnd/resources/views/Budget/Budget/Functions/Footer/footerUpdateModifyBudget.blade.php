@@ -945,6 +945,9 @@
                 ${totalSavingFormatted}
                 <input id="total_saving" hidden="" name="total_saving[]" value="0">
             </td>
+            <td class="container-tbody-tr-budget" hidden>
+                <input id="type" hidden="" name="type[]" value="budgetDetails">
+            </td>
         `;
 
         tbody.appendChild(newRow);
