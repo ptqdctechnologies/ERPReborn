@@ -495,7 +495,99 @@
     let totalAdditionalSum = 0;
     let totalAdditionalSumMirroring = 0;
     let totalSavingSum = 0;
-    
+    let totalAdditionalsss = "{{ $totalAdditional }}";
+    let totalSavingsss = "{{ $totalSaving }}";
+
+    let listTableBodys = document.querySelector('#listBudgetTable tbody');
+    const dataModifyBudgetsss = @json($dataModifyBudget ?? []);
+
+    if (dataModifyBudgetsss.length > 0) {
+        listTableBodys.innerHTML = '';
+
+        let forms = document.getElementById('modifyBudgetForm');
+
+        dataModifyBudgetsss.forEach(function(items) {
+            let row = document.createElement('tr');
+
+            // Buat dan tambahkan setiap elemen <td> ke dalam <tr>
+            row.innerHTML = `
+                <td class="container-tbody-tr-budget">${items.productID}</td>
+                <td class="container-tbody-tr-budget">${items.productName}</td>
+                <td class="container-tbody-tr-budget">${items.qtyBudget}</td>
+                <td class="container-tbody-tr-budget">${items.price}</td>
+                <td class="container-tbody-tr-budget">${items.totalBudget}</td>
+                <td class="container-tbody-tr-budget">${items.qtyAdditionals}</td>
+                <td class="container-tbody-tr-budget">${items.priceAdditionals}</td>
+                <td class="container-tbody-tr-budget">${items.totalAdditionals}</td>
+                <td class="container-tbody-tr-budget">${items.qtySavings}</td>
+                <td class="container-tbody-tr-budget">${items.priceSavings}</td>
+                <td class="container-tbody-tr-budget">${items.totalSavings}</td>
+                <td hidden>${items.type}</td>
+            `;
+
+            // Tambahkan <tr> ke dalam <tbody>
+            listTableBodys.appendChild(row);
+
+            let hiddenInputIds = [
+                'product_id',
+                'product_name',
+                'qty_budget',
+                'price',
+                'total_budget',
+                'qty_additional',
+                'price_additional',
+                'total_additional',
+                'qty_saving',
+                'price_saving',
+                'total_saving',
+                'type'
+            ];
+
+            let inputValues = [
+                items.productID,
+                items.productName,
+                items.qtyBudget,
+                items.price,
+                items.totalBudget,
+                items.qtyAdditionals.replace(/,/g, ''),
+                items.priceAdditionals.replace(/,/g, ''),
+                items.totalAdditionals.replace(/,/g, ''),
+                items.qtySavings.replace(/,/g, ''),
+                items.priceSavings.replace(/,/g, ''),
+                items.totalSavings.replace(/,/g, ''),
+                items.type
+            ];
+
+            hiddenInputIds.forEach((inputId, index) => {
+                let hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = inputId + '[]';
+                hiddenInput.value = inputValues[index];
+                forms.appendChild(hiddenInput);
+            });
+        });
+
+        let footerRows = document.querySelector('#listBudgetTable tfoot tr');
+        
+        if (!footerRows) {
+            let tfoot = document.createElement('tfoot');
+            totalAdditionalSum += parseFloat(totalAdditionalsss.replace(/,/g, ''));
+            totalSavingSum += parseFloat(totalSavingsss.replace(/,/g, ''));
+
+            tfoot.innerHTML = `
+                <tr>
+                    <td colspan="7" class="container-thead-tr-budget font-weight-bold" style="text-align: left !important;">GRAND TOTAL</td>
+                    <td class="text-center">${numberFormatPHPCustom(totalAdditionalSum, 2)}</td>
+                    <td colspan="2" class="container-tbody-tr-budget" style="text-align:right"></td>
+                    <td class="text-center">${numberFormatPHPCustom(totalSavingSum, 2)}</td>
+                </tr>`;
+            document.querySelector('#listBudgetTable').appendChild(tfoot);
+        } else {
+            footerRows.querySelector('td:nth-child(2)').textContent = 5999;
+            footerRows.querySelector('td:nth-child(4)').textContent = 1232;
+        }
+    }
+
     document.getElementById('buttonBudgetDetails').addEventListener('click', function() {
         totalBudgetSum = 0;
         totalAdditionalSum = 0;
