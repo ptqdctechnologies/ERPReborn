@@ -154,6 +154,10 @@
                             '<td class="d-none">' + '<input autocomplete="off" id="type" name="type" value="budgetDetails" disabled>' + '</td>' +
                         '</tr>';
 
+                        document.querySelectorAll('.number-only').forEach(function(input) {
+                            allowNumbersOnly(input);
+                        });
+
                         $('table#budgetTable tbody').append(html);
                     });
                 }

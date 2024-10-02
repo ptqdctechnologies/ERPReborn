@@ -1219,3 +1219,9 @@
         // checkTableData(); 
     });
 </script>
+
+<script>
+    document.querySelectorAll('.number-only').forEach(function(input) {
+        allowNumbersOnly(input);
+    });
+</script>
