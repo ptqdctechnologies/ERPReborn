@@ -14,13 +14,13 @@
             <!-- TITTLE -->
             <div class="row mb-1 title-pages">
                 <div class="col-sm-6 title">
-                    Modify Budget
+                    Update Modify Budget
                 </div>
             </div>
         
         <form id="modifyBudgetForm" method="post" enctype="multipart/form-data" action="{{ route('Budget.PreviewModifyBudget') }}">
         @csrf
-            <input type="hidden" id="hiddenBudgetData" name="hiddenBudgetData" value="">
+            <input type="hidden" id="hiddenBudgetData" name="hiddenBudgetData" value="{{ $hiddenBudgetData }}">
 
             <!-- CONTENT -->
             <div class="card">
@@ -31,7 +31,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Add Budget & Sub Budget Code
+                                        Update Budget & Sub Budget Code
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -41,7 +41,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    @include('Budget.Budget.Functions.Header.HeaderModifyBudget')
+                                    @include('Budget.Budget.Functions.Header.HeaderUpdateModifyBudget')
                                 </div>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                                                     <label for="reason_modify" class="col-4 col-form-label p-0">Reason for Modify</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
-                                                            <input id="reason_modify" style="border-radius:0;" class="form-control" name="reason_modify" autocomplete="off">
+                                                            <input id="reason_modify" style="border-radius:0;" class="form-control" name="reason_modify" autocomplete="off" value="{{ request('reason') }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -87,11 +87,11 @@
                                                     <label class="col-4 col-form-label p-0">Additional CO</label>
                                                     <div class="col p-0" style="display: flex; gap: 16px;">
                                                         <div>
-                                                            <input type="radio" name="additional_co" value="yes">
+                                                            <input type="radio" name="additional_co" value="yes" {{ $additionalCO == 'yes' ? 'checked' : '' }}>
                                                             <label>Yes</label>
                                                         </div>
                                                         <div>
-                                                            <input type="radio" name="additional_co" value="no">
+                                                            <input type="radio" name="additional_co" value="no" {{ $additionalCO == 'no' ? 'checked' : '' }}>
                                                             <label>No</label>
                                                         </div>
                                                     </div>
@@ -106,19 +106,17 @@
                                                     <label for="currency_popup" class="col-4 col-form-label p-0">Currency</label>
                                                     <div class="col d-flex p-0">
                                                         <div>
-                                                            <input id="currency_id" hidden name="currency_id">
-                                                            <input id="currency_symbol" style="border-radius:0;" class="form-control" name="currency_symbol" readonly>
+                                                            <input id="currency_id" hidden name="currency_id" value="{{ request('currencyID') }}">
+                                                            <input id="currency_symbol" style="border-radius:0;" class="form-control" name="currency_symbol" value="{{ request('currencySymbol') }}" readonly>
                                                         </div>
                                                         <div>
                                                             <span style="border-radius:0;" class="input-group-text form-control">
-                                                                <a href="#" id="currency_popup" data-toggle="modal" data-target="#myCurrency" class="myCurrency">
-                                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-                                                                </a>
+                                                                <a href="#" id="currency_popup" data-toggle="modal" data-target="#myCurrency" class="myCurrency"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                             </span>
                                                         </div>
                                                         <div style="flex: 100%;">
                                                             <div class="input-group">
-                                                                <input id="currency_name" style="border-radius:0;" name="currency_name" class="form-control" readonly>
+                                                                <input id="currency_name" style="border-radius:0;" name="currency_name" class="form-control" value="{{ request('currencyName') }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -133,7 +131,7 @@
                                                     <label for="value_idr_rate" class="col-4 col-form-label p-0">Exchange Rate</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
-                                                            <input id="value_idr_rate" style="border-radius:0;" class="form-control" name="value_idr_rate" readonly>
+                                                            <input id="value_idr_rate" style="border-radius:0;" class="form-control" name="value_idr_rate" value="{{ request('idrRate') }}" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -147,7 +145,7 @@
                                                     <label for="value_co_additional" class="col-4 col-form-label p-0">Value CO Additional</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
-                                                            <input id="value_co_additional" style="border-radius:0;" class="form-control number-only" name="value_co_additional" autocomplete="off">
+                                                            <input id="value_co_additional" style="border-radius:0;" class="form-control number-only" name="value_co_additional" value="{{ request('valueAdditionalCO') }}" autocomplete="off">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -161,7 +159,7 @@
                                                     <label for="value_co_deductive" class="col-4 col-form-label p-0">Value CO Deductive</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
-                                                            <input id="value_co_deductive" style="border-radius:0;" class="form-control number-only" name="value_co_deductive" autocomplete="off">
+                                                            <input id="value_co_deductive" style="border-radius:0;" class="form-control number-only" name="value_co_deductive" value="{{ request('valueDeductiveCO') }}" autocomplete="off">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -195,14 +193,24 @@
                                         <div class="col-lg-5">
                                             <div class="row">
                                                 <div class="col p-0">
-                                                    <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
-                                                    <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                    <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" value="{{ $files }}" style="display:none">
+                                                    @if($files)
+                                                        <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile( \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                        $varAPIWebToken,
+                                                        'dataInput_Log_FileUpload_1',
+                                                        $files,
+                                                        'dataInput_Return'
+                                                        ).
+                                                        ''; ?>
+                                                    @else
+                                                        <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile( \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                                                         $varAPIWebToken,
                                                         'dataInput_Log_FileUpload_1',
                                                         null,
                                                         'dataInput_Return'
                                                         ).
-                                                    ''; ?>
+                                                        ''; ?>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -420,6 +428,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -452,7 +461,7 @@
 </div>
 
 @include('Partials.footer')
-@include('Budget.Budget.Functions.Footer.footerModifyBudget')
+@include('Budget.Budget.Functions.Footer.footerUpdateModifyBudget')
 @endsection
 
 @push('styles')

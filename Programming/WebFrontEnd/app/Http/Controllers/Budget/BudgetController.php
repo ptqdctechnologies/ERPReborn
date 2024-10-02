@@ -50,6 +50,8 @@ class BudgetController extends Controller
     public function ModifyBudget(Request $request) {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
+        // dd('Testing');
+
         $compact = [
             'varAPIWebToken' => $varAPIWebToken
         ];
@@ -57,9 +59,48 @@ class BudgetController extends Controller
         return view('Budget.Budget.Transactions.ModifyBudget', $compact);
     }
 
+    public function UpdateModifyBudget(Request $request) {
+        try {
+            $varAPIWebToken     = $request->session()->get('SessionLogin');
+
+            $compact = [
+                'varAPIWebToken'    => $varAPIWebToken,
+                'files'             => json_decode($request->input('files'), true) == [] ? null : json_decode($request->input('files'), true),
+                'budgetID'          => $request->budgetID,
+                'budgetCode'        => $request->budgetCode,
+                'budgetName'        => $request->budgetName,
+                'subBudgetID'       => $request->subBudgetID,
+                'subBudgetCode'     => $request->subBudgetCode,
+                'subBudgetName'     => $request->subBudgetName,
+                'reason'            => $request->reason,
+                'additionalCO'      => $request->additionalCO,
+                'currencyID'        => $request->currencyID,
+                'currencySymbol'    => $request->currencySymbol,
+                'currencyName'      => $request->currencyName,
+                'idrRate'           => $request->valueIDRRate,
+                'valueAdditionalCO' => $request->valueAdditionalCO,
+                'valueDeductiveCO'  => $request->valueDeductiveCO,
+                'totalAdditional'   => $request->totalAdditional,
+                'totalSaving'       => $request->totalSaving,
+                'dataModifyBudget'  => json_decode($request->input('dataModifyBudget'), true),
+                'parsedData'        => json_decode($request->input('parsedData'), true),
+                'hiddenBudgetData'  => json_decode($request->input('hiddenBudgetData'), true),
+            ];
+            
+            // dump($compact);
+            
+            return view('Budget.Budget.Transactions.UpdateModifyBudget', $compact);
+        } catch (\Throwable $th) {
+            Log::error("Error at UpdateModifyBudget: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function PreviewModifyBudget(Request $request) {
         try {
             $varAPIWebToken = $request->session()->get('SessionLogin');
+
+            // dd('Testing 1');
 
             // PIC
             $PIC                = $request->session()->get("SessionLoginName");
@@ -86,15 +127,21 @@ class BudgetController extends Controller
             $currencyID         = $request->currency_id;
             $currencySymbol     = $request->currency_symbol ?? '';
             $currencyName       = $request->currency_name ?? '-';
+
+            $hiddenBudgetData   = $request->input('hiddenBudgetData');
+
+            $parsedData         = json_decode($hiddenBudgetData, true);
+
+            // dump($hiddenBudgetData, $parsedData);
             
             // IDR RATE
-            $idrRate            = $request->value_idr_rate;
+            $idrRate            = floatval($request->value_idr_rate);
             
             // VALUE ADDITIONAL CO
-            $valueAdditionalCO  = $request->value_co_additional;
+            $valueAdditionalCO  = floatval($request->value_co_additional);
 
             // VALUE DEDUCTIVE CO
-            $valueDeductiveCO   = $request->value_co_deductive;
+            $valueDeductiveCO   = floatval($request->value_co_deductive);
 
             // FILES
             $files              = $request->dataInput_Log_FileUpload_1 ?? [];
@@ -116,7 +163,39 @@ class BudgetController extends Controller
             $totalSavings       = $request->input('total_saving');
             $type               = $request->input('type');
 
-            // dd($productIds, $productName, $qtyBudget, $price, $totalBudget, $qtyAdditionals, $priceAdditionals, $totalAdditionals, $qtySavings, $priceSavings, $totalSavings);
+            // dd(
+            //     $budgetID, 
+            //     $budgetCode, 
+            //     $budgetName, 
+            //     $subBudgetID, 
+            //     $subBudgetCode, 
+            //     $subBudgetName, 
+            //     $reason, 
+            //     $additionalCO, 
+            //     $currencyID, 
+            //     $currencySymbol,
+            //     $currencyName,
+            //     $parsedData,
+            //     $idrRate,
+            //     $valueAdditionalCO,
+            //     $valueDeductiveCO,
+            //     $files,
+            // );
+
+            // dd(
+            //     $productIds,
+            //     $productName,
+            //     $qtyBudget,
+            //     $price,
+            //     $totalBudget,
+            //     $qtyAdditionals,
+            //     $priceAdditionals,
+            //     $totalAdditionals,
+            //     $qtySavings,
+            //     $priceSavings,
+            //     $totalSavings,
+            //     $type
+            // );
 
             $addSubtSectionOne = 0;
             if ($currencySymbol !== "IDR") {
@@ -193,6 +272,8 @@ class BudgetController extends Controller
                 'dataModifyBudget'  => $dataModifyBudget,
                 'totalAdditional'   => number_format($totalAdditional, 2),
                 'totalSaving'       => number_format($totalSaving, 2),
+                'parsedData'        => $parsedData,
+                'hiddenBudgetData'  => $hiddenBudgetData,
                 'dataTable'         => [
                     'sectionOne'    => [
                         'firstRow'  => [
@@ -344,6 +425,8 @@ class BudgetController extends Controller
                     ],
                 ],
             ];
+
+            // dd($compact);
 
             return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {
