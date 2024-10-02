@@ -610,17 +610,20 @@
             let productId = productIdInput.value ? productIdInput.value : row.querySelector('td:nth-child(2)').textContent.trim();
             let productName = row.querySelector('td:nth-child(3)').textContent.trim();
             let qtyBudget = row.querySelector('td:nth-child(4)').textContent.trim();
-            // let qtyAvail = row.querySelector('td:nth-child(5)').textContent.trim();
+            let qtyAvail = row.querySelector('td:nth-child(5)').textContent.trim();
             let prices = row.querySelector('td:nth-child(6)').textContent.trim();
-            // let currencys = row.querySelector('td:nth-child(7)').textContent.trim();
-            // let balanceBudget = row.querySelector('td:nth-child(8)').textContent.trim();
+            let currencys = row.querySelector('td:nth-child(7)').textContent.trim();
+            let balanceBudget = row.querySelector('td:nth-child(8)').textContent.trim();
             let totalBudget = row.querySelector('td:nth-child(9)').textContent.trim();
 
             let data = {
                 product_id: productId,
                 product_name: productName,
                 qty_budget: qtyBudget,
+                qty_avail: qtyAvail,
                 price: prices,
+                currency: currencys,
+                balance_budget: balanceBudget,
                 total_budget: totalBudget,
                 qty_additional: qtyAdditional,
                 price_additional: priceAdditional,
@@ -1164,53 +1167,55 @@
     reasonForModify.addEventListener('input', checkTableData);
 
     cancelButton.addEventListener('click', function() {
-        while (listBudgetTableBody.firstChild) {
-            listBudgetTableBody.removeChild(listBudgetTableBody.firstChild);
-        }
-
-        while (budgetTbodyTable.firstChild) {
-            budgetTbodyTable.removeChild(budgetTbodyTable.firstChild);
-        }
-
-        while (fileListTable.firstChild) {
-            fileListTable.removeChild(fileListTable.firstChild);
-        }
-
-        while (fileInputssss.firstChild) {
-            fileInputssss.removeChild(fileInputssss.firstChild);
-        }
-
-        $("#project_id").val("");
-        $("#project_code").val("");
-        $("#project_name").val("");
-
-        $("#site_id").val("");
-        $("#site_code").val("");
-        $("#site_name").val("");
-        $("#site_code").prop("disabled", true);
-        $("#site_code_popup").prop("disabled", true);
-
-        $("#currency_id").val("");
-        $("#currency_name").val("");
-        $("#currency_symbol").val("");
-        $("#value_idr_rate").val("");
-
-        $("#reason_modify").val("");
-        $("#value_co_deductive").val("");
-        $("#value_co_additional").val("");
-        $("#attachment_file").val("");
-
-        currencyField.style.display = 'none';
-        valueIDRRateField.style.display = 'none';
-        valueCOAdditionalField.style.display = 'none';
-        valueCODeductiveField.style.display = 'none';
+        window.location.href = '/ModifyBudget';
         
-        fileTableee.style.display = 'none';
+        // while (listBudgetTableBody.firstChild) {
+        //     listBudgetTableBody.removeChild(listBudgetTableBody.firstChild);
+        // }
 
-        additionalCoRadioss.forEach(function(radio) {
-            radio.checked = false;
-        });
+        // while (budgetTbodyTable.firstChild) {
+        //     budgetTbodyTable.removeChild(budgetTbodyTable.firstChild);
+        // }
 
-        checkTableData(); 
+        // while (fileListTable.firstChild) {
+        //     fileListTable.removeChild(fileListTable.firstChild);
+        // }
+
+        // while (fileInputssss.firstChild) {
+        //     fileInputssss.removeChild(fileInputssss.firstChild);
+        // }
+
+        // $("#project_id").val("");
+        // $("#project_code").val("");
+        // $("#project_name").val("");
+
+        // $("#site_id").val("");
+        // $("#site_code").val("");
+        // $("#site_name").val("");
+        // $("#site_code").prop("disabled", true);
+        // $("#site_code_popup").prop("disabled", true);
+
+        // $("#currency_id").val("");
+        // $("#currency_name").val("");
+        // $("#currency_symbol").val("");
+        // $("#value_idr_rate").val("");
+
+        // $("#reason_modify").val("");
+        // $("#value_co_deductive").val("");
+        // $("#value_co_additional").val("");
+        // $("#attachment_file").val("");
+
+        // currencyField.style.display = 'none';
+        // valueIDRRateField.style.display = 'none';
+        // valueCOAdditionalField.style.display = 'none';
+        // valueCODeductiveField.style.display = 'none';
+        
+        // fileTableee.style.display = 'none';
+
+        // additionalCoRadioss.forEach(function(radio) {
+        //     radio.checked = false;
+        // });
+
+        // checkTableData(); 
     });
 </script>
