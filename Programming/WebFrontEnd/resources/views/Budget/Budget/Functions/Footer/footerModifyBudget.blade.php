@@ -697,11 +697,13 @@
     function getExistingProductIds() {
         const productIds = [];
         const rows = budgetTable.querySelectorAll('tbody tr');
+        
         rows.forEach(row => {
-            const productId = row.cells[0].textContent.trim();
+            const productId = row.cells[1].textContent.trim();
 
             productIds.push(productId);
         });
+        
         return productIds;
     }
 
