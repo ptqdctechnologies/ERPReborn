@@ -151,218 +151,149 @@
     <!-- Select2 -->
     <script src="{{ asset('AdminLTE-master/plugins/select2/js/select2.full.min.js') }}"></script>
 
-
-    <!-- FUNCTION SELECT 2 IN COMBO BOX-->
     <script>
-        $(function() {
-            //Initialize Select2 Elements
-            $('#branch_id').select2({
-                theme: 'bootstrap4'
+        $(document).ready(function() {
+            // Constants
+            const $form = $("#FormLogin");
+            const $username = $(".username");
+            const $password = $(".password");
+            const $branchId = $("#branch_id");
+            const $roleId = $("#role_id");
+            const $submitButton = $(".submit_button");
+            
+            // Initialize Select2
+            [$branchId, $roleId].forEach($el => {
+                $el.select2({ theme: 'bootstrap4' });
+            });
+            
+            // Hide elements initially
+            $("#role, #branch").hide();
+            
+            // AJAX setup
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
 
-            $('#role_id').select2({
-                theme: 'bootstrap4'
-            })
-        })
-    </script>
+            // Loading functions
+            const toggleLoading = (show) => {
+                $("#loading, .loader").toggle(show);
+            };
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#role").hide();
-            $("#branch").hide();
-        });
-    </script>
+            // Password visibility toggle
+            window.ShowHidePass = function() {
+                const $pass = $('#login_password');
+                const isPassword = $pass.attr('type') === 'password';
+                
+                $pass.attr('type', isPassword ? 'text' : 'password');
+                $('#eyeShow').toggle(isPassword);
+                $('#eyeSlash').toggle(!isPassword);
+            };
 
-    <!-- FUNCTION SHOW HIDE -->
-
-    <script>
-        function ShowLoading() {
-            $("#loading").show();
-            $(".loader").show();
-        }
-
-        function HideLoading() {
-            $("#loading").hide();
-            $(".loader").hide();
-        }
-    </script>
-
-    <!-- END FUNCTION SHOW HIDE -->
-
-    <script>
-        function ShowHidePass() {
-            var x = document.getElementById('login_password');
-            if (x.type === 'password') {
-                x.type = "text";
-                $('#eyeShow').show();
-                $('#eyeSlash').hide();
-            } else {
-                x.type = "password";
-                $('#eyeShow').hide();
-                $('#eyeSlash').show();
-            }
-        }
-    </script>
-
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $(function() {
-            $("#FormLogin").on("submit", function(e) { //id of form 
+            // Form submission
+            $form.on("submit", function(e) {
                 e.preventDefault();
-                var action = $(this).attr("action"); //get submit action from form
-                var method = $(this).attr("method"); // get submit method
-                var form_data = new FormData($(this)[0]); // convert form into formdata 
-                var form = $(this);
+                
+                const formData = new FormData(this);
+                const action = $(this).attr("action");
+                const method = $(this).attr("method");
 
-                ShowLoading();
+                toggleLoading(true);
 
                 $.ajax({
                     url: action,
-                    dataType: 'json', // what to expect back from the server
+                    type: method,
+                    data: formData,
+                    dataType: 'json',
                     cache: false,
                     contentType: false,
-                    processData: false,
-                    data: form_data,
-                    type: method,
-                    success: function(response) {
-                        var len = 0;
-                        if (response.status_code == 0) {
-
-                            HideLoading();
-                            Swal.fire("Cancelled", "Make sure the username and password are correct", "error");
-
-                        } else if (response.status_code == 1) {
-
-                            window.location.href = '/dashboard';
-
-                        } else if (response.status_code == 2) {
-
-                            HideLoading();
-
-                            $(".varAPIWebToken").val(response.varAPIWebToken);
-                            $(".user_RefID").val(response.user_RefID);
-                            $(".personName").val(response.personName);
-                            $(".workerCareerInternal_RefID").val(response.workerCareerInternal_RefID);
-                            $(".organizationalDepartmentName").val(response.organizationalDepartmentName);
-
-                            $(".branch_id").empty();
-
-                            var option = "<option value='" + '' + "'>" + 'Select Company Name' + "</option>";
-                            $(".branch_id").append(option);
-
-                            len = response.data.length;
-                            for (var i = 0; i < len; i++) {
-                                var id = response.data[i].Sys_ID;
-                                var name = response.data[i].Name;
-                                var option2 = "<option value='" + id + "'>" + name + "</option>";
-                                $(".branch_id").append(option2);
-                            }
-                            $(".username").prop("readonly", true);
-                            $(".password").prop("readonly", true);
-
-                            $("#branch").show();
-                            $("#role").show();
-
-                            $(".submit_button").prop("disabled", true);
-                        } else if (response.status_code == 3) {
-
-                            HideLoading();
-                            Swal.fire("Cancelled", "You have not access", "error");
-
-                        }
-                    },
-                    error: function(response) { // handle the error
-
-                        HideLoading();
-
-                        Swal.fire("Cancelled", "Make sure the username and password are correct", "error");
-                    },
-
+                    processData: false
                 })
+                .done(function(response) {
+                    switch(response.status_code) {
+                        case 1:
+                            window.location.href = '/dashboard';
+                            return;
+                        case 2:
+                            handleMultiCompanyResponse(response);
+                            break;
+                        case 0:
+                        case 3:
+                            Swal.fire("Cancelled", response.status_code === 3 ? 
+                                "You have no access" : 
+                                "Make sure the username and password are correct", "error");
+                            break;
+                    }
+                })
+                .fail(() => {
+                    Swal.fire("Cancelled", "Make sure the username and password are correct", "error");
+                })
+                .always(() => {
+                    toggleLoading(false);
+                });
             });
-        });
-    </script>
 
-    <script type="text/javascript">
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            function handleMultiCompanyResponse(response) {
+                // Set values
+                ["varAPIWebToken", "user_RefID", "personName", 
+                "workerCareerInternal_RefID", "organizationalDepartmentName"]
+                .forEach(key => $(`.${key}`).val(response[key]));
+
+                // Handle branch options
+                $branchId.empty().append(`<option value="">Select Company Name</option>`);
+                response.data.forEach(item => {
+                    $branchId.append(`<option value="${item.Sys_ID}">${item.Name}</option>`);
+                });
+
+                // UI updates
+                $username.add($password).prop("readonly", true);
+                $("#branch, #role").show();
+                $submitButton.prop("disabled", true);
             }
-        });
 
-        $(document).ready(function() {
-            $(".branch_id").change(function() {
+            // Branch change handler
+            $branchId.on("change", function() {
+                const branchId = $(this).val();
+                $roleId.empty().append(`<option value="">Select User Role</option>`);
+                $submitButton.prop("disabled", true);
 
-                var id = $(this).val();
-                
-                if (id != "") {
+                if (!branchId) return;
 
-                    ShowLoading();
+                toggleLoading(true);
 
-                    $.ajax({
-                        type: 'GET',
-                        url: '{!! route("getRoleLogin") !!}?user_RefID=' + $('.user_RefID').val() + '&varAPIWebToken=' + $('.varAPIWebToken').val() + '&branch_id=' + $('.branch_id').val() + '&organizationalDepartmentName=' + $('.organizationalDepartmentName').val(),
-                        success: function(data) {
+                $.get('{!! route("getRoleLogin") !!}', {
+                    user_RefID: $('.user_RefID').val(),
+                    varAPIWebToken: $('.varAPIWebToken').val(),
+                    branch_id: branchId,
+                    organizationalDepartmentName: $('.organizationalDepartmentName').val()
+                })
+                .done(function(data) {
+                    if (data.status === '401') {
+                        Swal.fire("Cancelled", "Make sure the username and password are correct", "error");
+                        return;
+                    }
 
-                            var len = 0;
-                            if (data.status == '401') {
+                    const roles = data.data;
+                    if (roles.length === 1) {
+                        $submitButton.prop("disabled", false);
+                    }
 
-                                Swal.fire("Cancelled", "Make sure the username and password are correct", "error");
-                                HideLoading();
-
-                            } else {
-                                HideLoading();
-                                len = data.length;
-                                arrData = data.data;
-                                $(".role_id").empty();
-
-                                if (len > 1) {
-                                    var option = "<option value='" + '' + "'>" + 'Select User Role' + "</option>";
-                                    $(".role_id").append(option);
-                                    $(".submit_button").prop("disabled", true);
-                                } else {
-                                    $(".submit_button").prop("disabled", false);
-                                }
-                                for (var i = 0; i < len; i++) {
-                                    var ids = arrData[i].Sys_ID;
-                                    var names = arrData[i].UserRoleName;
-                                    var option = "<option value='" + ids + "'>" + names + "</option>";
-                                    $(".role_id").append(option);
-                                }
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            Swal.fire("Cancelled", "Make sure the username and password are correct", "error");
-
-                            HideLoading();
-                        }
+                    roles.forEach(role => {
+                        $roleId.append(`<option value="${role.Sys_ID}">${role.UserRoleName}</option>`);
                     });
-                } else {
-                    $(".role_id").empty();
-                    var option = "<option value='" + '' + "'>" + 'Select User Role' + "</option>";
-                    $(".role_id").append(option);
-                    $(".submit_button").prop("disabled", true);
-                }
+                })
+                .fail(() => {
+                    Swal.fire("Cancelled", "Make sure the username and password are correct", "error");
+                })
+                .always(() => {
+                    toggleLoading(false);
+                });
             });
-        });
-    </script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(".role_id").change(function() {
-                var id = $(this).val();
-                
-                if (id != "") {
-                    $(".submit_button").prop("disabled", false);
-                } else {
-                    $(".submit_button").prop("disabled", true);
-                }
-
+            // Role change handler
+            $roleId.on("change", function() {
+                $submitButton.prop("disabled", !$(this).val());
             });
         });
     </script>

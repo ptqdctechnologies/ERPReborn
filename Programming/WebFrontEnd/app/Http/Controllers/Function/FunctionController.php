@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 
 class FunctionController extends Controller
 {
@@ -23,8 +26,8 @@ class FunctionController extends Controller
 
         if (Redis::get("Budget") == null) {
             $varAPIWebToken = Session::get('SessionLogin');
-            $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varDataProject = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'dataPickList.project.getProject',
                 'latest',
@@ -36,8 +39,8 @@ class FunctionController extends Controller
         }
 
         $DataBudget = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "Budget"
             ),
             true
@@ -54,8 +57,8 @@ class FunctionController extends Controller
 
         if (Redis::get("SubBudget") == null) {
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'dataPickList.project.getProjectSectionItem',
                 'latest',
@@ -69,8 +72,8 @@ class FunctionController extends Controller
         }
 
         $DataSubBudget = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "SubBudget"
             ),
             true
@@ -102,8 +105,8 @@ class FunctionController extends Controller
         $site_code = $request->input('site_code');
 
         $varAPIWebToken = Session::get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail',
             'latest',
@@ -129,8 +132,8 @@ class FunctionController extends Controller
         // if (Redis::get("DataBudget") == null) {
 
         //     $varAPIWebToken = Session::get('SessionLogin');
-        //     $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varData = Helper_APICall::setCallAPIGateway(
+        //         Helper_Environment::getUserSessionID_System(),
         //         $varAPIWebToken,
         //         'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail',
         //         'latest',
@@ -150,8 +153,8 @@ class FunctionController extends Controller
         // }
 
         // $varDataBudget = json_decode(
-        //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     Helper_Redis::getValue(
+        //         Helper_Environment::getUserSessionID_System(),
         //         "DataBudget"
         //     ),
         //     true
@@ -174,8 +177,8 @@ class FunctionController extends Controller
     {
         $projectcode = $request->input('projectcode');
         $varAPIWebToken = Session::get('SessionLogin');
-        $varDataPurchaseRequisition = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataPurchaseRequisition = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.supplyChain.getPurchaseRequisition',
             'latest',
@@ -204,8 +207,8 @@ class FunctionController extends Controller
 
             $varAPIWebToken = Session::get('SessionLogin');
 
-            $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varDataWorker = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent',
                 'latest',
@@ -225,14 +228,15 @@ class FunctionController extends Controller
         }
 
         $DataWorker = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "Worker"
             ),
             true
         );
 
         // dd($DataWorker);
+
         return response()->json($DataWorker);
     }
 
@@ -244,8 +248,8 @@ class FunctionController extends Controller
         if (Redis::get("Supplier") == null) {
 
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.supplyChain.getSupplier',
                 'latest',
@@ -263,8 +267,8 @@ class FunctionController extends Controller
         }
 
         $DataSupplier = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "Supplier"
             ),
             true
@@ -279,8 +283,8 @@ class FunctionController extends Controller
         if (Redis::get("Warehouse") == null) {
 
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.supplyChain.getWarehouse',
                 'latest',
@@ -298,8 +302,8 @@ class FunctionController extends Controller
         }
 
         $varDataDeliverTo = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "Warehouse"
             ),
             true
@@ -313,8 +317,8 @@ class FunctionController extends Controller
         if (Redis::get("Warehouse") == null) {
 
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.supplyChain.getWarehouse',
                 'latest',
@@ -332,8 +336,8 @@ class FunctionController extends Controller
         }
 
         $DataWarehouse = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "Warehouse"
             ),
             true
@@ -347,8 +351,8 @@ class FunctionController extends Controller
     {
         $varAPIWebToken = Session::get('SessionLogin');
         $TripTransportationType = $request->input('TripTransportationType');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataPickList.humanResource.getBusinessTripCostComponentEntity',
             'latest',
@@ -373,8 +377,8 @@ class FunctionController extends Controller
         if (Redis::get("Bank") == null) {
 
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.master.getEntityBankAccount',
                 'latest',
@@ -394,8 +398,8 @@ class FunctionController extends Controller
         }
 
         $DataBank = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "Bank"
             ),
             true
@@ -419,8 +423,8 @@ class FunctionController extends Controller
         if (Redis::get("Bank") == null) {
 
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.master.getEntityBankAccount',
                 'latest',
@@ -442,8 +446,8 @@ class FunctionController extends Controller
         $person_refID = $request->input('person_refID');
         $Bank_RefID = $request->input('Bank_RefID');
         $DataBank = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "Bank"
             ),
             true
@@ -466,8 +470,8 @@ class FunctionController extends Controller
     {
         if (Redis::get("Product") == null) {
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.master.getProduct',
                 'latest',
@@ -487,8 +491,8 @@ class FunctionController extends Controller
         }
 
         // $DataProduct = json_decode(
-        //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     Helper_Redis::getValue(
+        //         Helper_Environment::getUserSessionID_System(),
         //         "Product"
         //     ),
         //     true
@@ -503,8 +507,8 @@ class FunctionController extends Controller
         if (Redis::get("DocumentType") == null) {
 
             $varAPIWebToken = Session::get('SessionLogin');
-            $varBusinessDocumentType = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varBusinessDocumentType = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.master.getBusinessDocumentType',
                 'latest',
@@ -522,8 +526,8 @@ class FunctionController extends Controller
         }
 
         $DocumentType = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "DocumentType"
             ),
             true
@@ -538,8 +542,8 @@ class FunctionController extends Controller
         if (Redis::get("DocumentType") == null) {
 
             $varAPIWebToken = Session::get('SessionLogin');
-            $varBusinessDocumentType = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varBusinessDocumentType = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.master.getBusinessDocumentType',
                 'latest',
@@ -557,8 +561,8 @@ class FunctionController extends Controller
         }
 
         $DocumentType = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "DocumentType"
             ),
             true
@@ -572,8 +576,8 @@ class FunctionController extends Controller
     {
         if (Redis::get("Departement") == null) {
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.sysConfig.getAppObject_UserRoleGroup',
                 'latest',
@@ -591,8 +595,8 @@ class FunctionController extends Controller
         }
 
         $Departement = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "Departement"
             ),
             true
@@ -610,8 +614,8 @@ class FunctionController extends Controller
         if (Redis::get("RoleMenu") == null) {
 
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.sysConfig.getAppObject_UserRole',
                 'latest',
@@ -631,8 +635,8 @@ class FunctionController extends Controller
         }
 
         $RoleMenu = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "RoleMenu"
             ),
             true
@@ -652,8 +656,8 @@ class FunctionController extends Controller
         if (Redis::get("MenuGroup") == null) {
 
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.sysConfig.getAppObject_MenuGroup',
                 'latest',
@@ -671,8 +675,8 @@ class FunctionController extends Controller
         }
 
         $MenuGroup = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "MenuGroup"
             ),
             true
@@ -686,8 +690,8 @@ class FunctionController extends Controller
         if (Redis::get("SubMenu") == null) {
 
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.sysConfig.getAppObject_Menu',
                 'latest',
@@ -707,8 +711,8 @@ class FunctionController extends Controller
         }
 
         $SubMenu = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "SubMenu"
             ),
             true
@@ -733,8 +737,8 @@ class FunctionController extends Controller
         if (Redis::get("SubMenu") == null) {
 
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.sysConfig.getAppObject_Menu',
                 'latest',
@@ -754,8 +758,8 @@ class FunctionController extends Controller
         }
         
         $SubMenu = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "SubMenu"
             ),
             true
@@ -772,8 +776,8 @@ class FunctionController extends Controller
     {
         if (Redis::get("Currency") == null) {
             $varAPIWebToken = Session::get('SessionLogin');
-            $varDataCurrency = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varDataCurrency = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
                 'transaction.read.dataList.master.getCurrency', 
                 'latest', 
@@ -792,13 +796,13 @@ class FunctionController extends Controller
         }
 
         $DataCurrency = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "Currency"
             ),
             true
         );
 
-        return response()->json($DataCurrency['data']['data']);
+        return response()->json($DataCurrency['data']);
     }
 }
