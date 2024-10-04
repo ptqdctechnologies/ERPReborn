@@ -3,12 +3,13 @@
     @csrf
     <div class="card-body">
         <div class="row">
-            <div class="col-md-3">
+            <!-- BUDGET -->
+            <div class="col-sm-12 col-md-3">
                 <div class="form-group">
-                    <table>
+                    <table style="width: 100%;">
                         <tr>
-                            <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
-                            <td>
+                            <th class="col-3 pl-0" style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
+                            <td class="col-9 p-0">
                                 <div class="input-group">
                                     <input id="budget_id" style="border-radius:0;" class="form-control" name="budget_id" type="hidden">
                                     <input id="budget_name" style="border-radius:0;" class="form-control" name="budget_name" type="hidden">
@@ -24,12 +25,14 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-3">
+
+            <!-- SUB BUDGET -->
+            <div class="col-sm-12 col-md-3">
                 <div class="form-group">
-                    <table>
+                    <table style="width: 100%;">
                         <tr>
-                            <th style="padding-top: 7px;"><label>Sub&nbsp;Budget&nbsp;</label></th>
-                            <td>
+                            <th class="col-3 pl-0" style="padding-top: 7px;"><label>Sub&nbsp;Budget&nbsp;</label></th>
+                            <td class="col-9 p-0">
                                 <div class="input-group">
                                     <input id="sub_budget_id" style="border-radius:0;" class="form-control" name="sub_budget_id" type="hidden">
                                     <input id="sub_budget" style="border-radius:0;background-color:white;" class="form-control mySiteCode" name="sub_budget" readonly data-toggle="modal" data-target="#mySiteCode">
@@ -44,15 +47,28 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-3">
+
+            <!-- WAREHOUSE -->
+            <div class="col-sm-12 col-md-3">
                 <div class="form-group">
-                    <table>
+                    <table style="width: 100%;">
                         <tr>
-                            <th style="padding-top: 7px;"><label>Warehouse&nbsp;</label></th>
-                            <td>
+                            <th class="col-3 pl-0" style="padding-top: 7px;"><label>Warehouse&nbsp;</label></th>
+                            <td class="col-9 p-0">
                                 <div class="input-group">
-                                    <input id="warehouse_from_id" style="border-radius:0;margin-left:33px;" name="warehouse_from_id" class="form-control" hidden>
-                                    <input id="warehouse_from" style="border-radius:0;margin-left:33px;" name="warehouse_from" class="form-control">
+                                    <input 
+                                        id="warehouse_from_id" 
+                                        style="border-radius:0;" 
+                                        name="warehouse_from_id" 
+                                        class="form-control" 
+                                        hidden
+                                    >
+                                    <input 
+                                        id="warehouse_from" 
+                                        style="border-radius:0;" 
+                                        name="warehouse_from" 
+                                        class="form-control"
+                                    >
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
                                             <a href="#"><i id="warehouse_from_2" data-toggle="modal" data-target="#myGetWarehouse" class="fas fa-gift myGetWarehouseFrom" style="color:grey;"></i></a>
@@ -64,8 +80,10 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
+
+            <!-- BUTTON -->
+            <div class="col-sm-12 col-md-3">
+                <div class="form-group mt-3 mt-sm-3 mt-md-0 d-flex d-sm-flex d-md-block justify-content-end justify-content-sm-end">
                     <table>
                         <tr>
                             <td>
@@ -79,13 +97,13 @@
                             <form method="post" action="{{ route('Inventory.PrintExportReportDORequestSummary') }}" id="FormPrintReportDORSummary">
                                 @csrf
                                 <td>
-                                    <select name="print_type" id="print_type" class="form-control">
+                                    <select name="print_type" id="print_type" class="form-control p-0">
                                         <option value="PDF">Export PDF</option>
                                         <option value="Excel">Export Excel</option>
                                     </select>
                                 </td>
 
-                                <td>
+                                <td class="align-middle">
                                     <button class="btn btn-default btn-sm" type="submit">
                                         <span><img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt=""></span>
                                     </button>

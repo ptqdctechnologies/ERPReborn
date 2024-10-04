@@ -22,11 +22,11 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-4 col-lg-4">
+                                        <div class="col-sm-12 col-md-5 col-lg-4">
                                             <div class="form-group">
                                                 <table class="col-lg-10">
                                                     <tr>
-                                                        <th style="padding-top: 10px;"><label>DOR Number&nbsp;</label></th>
+                                                        <th style="padding-top: 10px;"><label style="min-width: max-content;">DOR Number&nbsp;</label></th>
                                                         <td>
                                                             <div class="input-group">
                                                                 <input id="project_id" name="project_id" value="" hidden>
@@ -54,9 +54,9 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-4 col-lg-4">
+                                        <div class="col-sm-12 col-md-5 col-lg-4 mt-2 mt-sm-2 mt-md-0 mt-lg-0 mt-xl-0">
                                             <div class="form-group">
-                                                <table>
+                                                <table class="d-flex justify-content-end d-sm-flex justify-content-sm-end d-md-flex justify-content-md-end d-lg-block justify-content-lg-start">
                                                     <tr>
                                                         <td>
                                                             <button class="btn btn-default btn-sm" type="submit">
