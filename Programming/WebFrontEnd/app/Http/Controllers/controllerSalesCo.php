@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
 use PDO;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class controllerSalesCo extends Controller
 {
@@ -18,8 +20,8 @@ class controllerSalesCo extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataProject = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataPickList.project.getProject',
             'latest',
@@ -36,8 +38,8 @@ class controllerSalesCo extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataPickList.project.getProject',
             'latest',
@@ -121,8 +123,8 @@ class controllerSalesCo extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIAuthentication(
+            Helper_Environment::getUserSessionID_System(),
             $username,
             $password
         );
@@ -135,8 +137,8 @@ class controllerSalesCo extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIAuthentication(
+            Helper_Environment::getUserSessionID_System(),
             $username,
             $password
         );

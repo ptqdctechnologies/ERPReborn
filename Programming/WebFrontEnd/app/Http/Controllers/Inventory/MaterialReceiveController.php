@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 
 class MaterialReceiveController extends Controller
 {
@@ -88,8 +91,8 @@ class MaterialReceiveController extends Controller
 
             if (Redis::get("DataListAdvance") == null) {
                 $varAPIWebToken = Session::get('SessionLogin');
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'transaction.read.dataList.finance.getAdvance',
                     'latest',
@@ -107,8 +110,8 @@ class MaterialReceiveController extends Controller
             }
 
             $DataListAdvance = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
                     "DataListAdvance"
                 ),
                 true
@@ -143,8 +146,8 @@ class MaterialReceiveController extends Controller
 
         // DATA REVISION ADVANCE
         if (Redis::get("DataListAdvanceDetailComplex") == null) {
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.finance.getAdvanceDetailComplex',
                 'latest',
@@ -164,8 +167,8 @@ class MaterialReceiveController extends Controller
         }
 
         $DataAdvanceDetailComplex = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "DataListAdvanceDetailComplex"
             ),
             true
@@ -192,8 +195,8 @@ class MaterialReceiveController extends Controller
 
         // DATA REVISION ADVANCE
         if (Redis::get("DataListAdvanceDetailComplex") == null) {
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.finance.getAdvanceDetailComplex',
                 'latest',
@@ -213,8 +216,8 @@ class MaterialReceiveController extends Controller
         }
 
         $DataAdvanceDetailComplex = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "DataListAdvanceDetailComplex"
             ),
             true
@@ -244,8 +247,8 @@ class MaterialReceiveController extends Controller
 
             // DATA REVISION ADVANCE
             if (Redis::get("DataListAdvanceDetailComplex") == null) {
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'transaction.read.dataList.finance.getAdvanceDetailComplex',
                     'latest',
@@ -265,8 +268,8 @@ class MaterialReceiveController extends Controller
             }
 
             $DataAdvanceDetailComplex = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
                     "DataListAdvanceDetailComplex"
                 ),
                 true
@@ -295,8 +298,8 @@ class MaterialReceiveController extends Controller
 
             //DOCUMENT TYPE ID ADVANCE
             $DocumentType = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
                     "DocumentType"
                 ),
                 true
@@ -342,8 +345,8 @@ class MaterialReceiveController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $var_recordID = $request->input('var_recordID');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.finance.getAdvanceDetail',
             'latest',
@@ -371,8 +374,8 @@ class MaterialReceiveController extends Controller
 
         if (Redis::get("DataListAdvance") == null) {
             $varAPIWebToken = Session::get('SessionLogin');
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.finance.getAdvance',
                 'latest',
@@ -390,8 +393,8 @@ class MaterialReceiveController extends Controller
         }
 
         $DataListAdvance = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "DataListAdvance"
             ),
             true

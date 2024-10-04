@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use App\Helpers\ZhtHelper\Cache\Helper_Redis;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 
 class MyDocumentController extends Controller
 {
@@ -22,8 +25,8 @@ class MyDocumentController extends Controller
     {
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
         $ShowMyDocumentListData = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID
             ),
             true
@@ -91,8 +94,8 @@ class MyDocumentController extends Controller
         $varAPIWebToken = Session::get('SessionLogin'); 
 
         if (Redis::get("ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID) == null) {
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
                 'latest',

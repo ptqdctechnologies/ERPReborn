@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Workflow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class WorkflowController extends Controller
 {
@@ -119,8 +121,8 @@ class WorkflowController extends Controller
     public function AdvanceListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataAdvanceRequest = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
             'transaction.read.dataList.finance.getAdvance', 
             'latest', 
@@ -143,8 +145,8 @@ class WorkflowController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionAdvance");
 
-        $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataAdvanceRevision = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'report.form.documentForm.finance.getAdvance', 
         'latest',
@@ -195,8 +197,8 @@ class WorkflowController extends Controller
                 ];
             }
         }
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
             'transaction.update.finance.setAdvance', 
             'latest', 
@@ -230,8 +232,8 @@ class WorkflowController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $advance_RefID = $request->input('advance_RefID');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.read.dataList.finance.getAdvanceDetail', 
         'latest', 

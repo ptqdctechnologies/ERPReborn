@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
+use App\Helpers\ZhtHelper\Cache\Helper_Redis;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 
 class Controller extends BaseController
 {
@@ -20,8 +23,8 @@ class Controller extends BaseController
     {
         $SessionWorkerCareerInternal_RefID =  Session::get('SessionWorkerCareerInternal_RefID');
         $privilageMenu = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "RedisGetMenu" . $SessionWorkerCareerInternal_RefID
             ),
             true
@@ -52,8 +55,8 @@ class Controller extends BaseController
 
             if (Redis::get("BusinessDocumentTypeWorkFlowPath" . $DocumentTypeID) == null) {
                 $varAPIWebToken = Session::get('SessionLogin');
-                $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $VarSelectWorkFlow = Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID',
                     'latest',
@@ -69,8 +72,8 @@ class Controller extends BaseController
             }
 
             $BusinessDocumentTypeWorkFlowPath = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
                     "BusinessDocumentTypeWorkFlowPath" . $DocumentTypeID
                 ),
                 true
@@ -127,8 +130,8 @@ class Controller extends BaseController
         try {
             $varAPIWebToken = Session::get('SessionLogin');
 
-            $VarSubmitWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $VarSubmitWorkflow = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'userAction.documentWorkFlow.approvalStage.setUserSubmission',
                 'latest',
@@ -169,8 +172,8 @@ class Controller extends BaseController
         try {
             $varAPIWebToken = Session::get('SessionLogin');
 
-            $VarResubmitWorkflow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $VarResubmitWorkflow = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'userAction.documentWorkFlow.approvalStage.setUserResubmission',
                 'latest',
@@ -245,8 +248,8 @@ class Controller extends BaseController
 
             if (Redis::get("BusinessDocumentTypeWorkFlowPath" . $documentTypeID) == null) {
                 $varAPIWebToken = Session::get('SessionLogin');
-                $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $VarSelectWorkFlow = Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID',
                     'latest',
@@ -262,8 +265,8 @@ class Controller extends BaseController
             }
 
             $BusinessDocumentTypeWorkFlowPath = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
                     "BusinessDocumentTypeWorkFlowPath" . $documentTypeID
                 ),
                 true
