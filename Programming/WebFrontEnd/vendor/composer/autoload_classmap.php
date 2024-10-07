@@ -983,6 +983,7 @@ return array(
     'App\\Http\\Controllers\\TestApiController' => $baseDir . '/app/Http/Controllers/TestApiController.php',
     'App\\Http\\Controllers\\controllerSalesCo' => $baseDir . '/app/Http/Controllers/controllerSalesCo.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
+    'App\\Http\\Middleware\\APIPerformanceMiddleware' => $baseDir . '/app/Http/Middleware/APIPerformanceMiddleware.php',
     'App\\Http\\Middleware\\Application\\FrontEnd\\RequestHandler_General' => $baseDir . '/app/Http/Middleware/Application/FrontEnd/RequestHandler_General.php',
     'App\\Http\\Middleware\\Application\\FrontEnd\\ResponseHandler_General' => $baseDir . '/app/Http/Middleware/Application/FrontEnd/ResponseHandler_General.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',

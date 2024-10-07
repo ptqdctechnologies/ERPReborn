@@ -1588,6 +1588,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\TestApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/TestApiController.php',
         'App\\Http\\Controllers\\controllerSalesCo' => __DIR__ . '/../..' . '/app/Http/Controllers/controllerSalesCo.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
+        'App\\Http\\Middleware\\APIPerformanceMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/APIPerformanceMiddleware.php',
         'App\\Http\\Middleware\\Application\\FrontEnd\\RequestHandler_General' => __DIR__ . '/../..' . '/app/Http/Middleware/Application/FrontEnd/RequestHandler_General.php',
         'App\\Http\\Middleware\\Application\\FrontEnd\\ResponseHandler_General' => __DIR__ . '/../..' . '/app/Http/Middleware/Application/FrontEnd/ResponseHandler_General.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',

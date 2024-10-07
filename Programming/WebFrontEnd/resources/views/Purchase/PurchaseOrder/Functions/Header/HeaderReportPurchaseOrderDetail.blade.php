@@ -3,12 +3,13 @@
     @csrf
     <div class="card-body">
         <div class="row">
-            <div class="col-md-3">
+            <!-- BUDGET -->
+            <div class="col-sm-12 col-md-4 col-lg-3">
                 <div class="form-group">
-                    <table>
+                    <table style="width: 100%;">
                         <tr>
-                            <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
-                            <td>
+                            <th class="col-3 pl-0" style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
+                            <td class="col-9 p-0">
                                 <div class="input-group">
                                     <input id="budget_id" style="border-radius:0;" class="form-control" name="budget_id" type="hidden">
                                     <input id="budget" style="border-radius:0;background-color:white;" class="form-control myProject" name="budget" readonly data-toggle="modal" data-target="#myProject">
@@ -23,12 +24,14 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-3">
+
+            <!-- SUB BUDGET -->
+            <div class="col-sm-12 col-md-4 col-lg-3">
                 <div class="form-group">
-                    <table>
+                    <table style="width: 100%;">
                         <tr>
-                            <th style="padding-top: 7px;"><label>Sub&nbsp;Budget&nbsp;</label></th>
-                            <td>
+                            <th class="col-3 pl-0" style="padding-top: 7px;"><label>Sub&nbsp;Budget&nbsp;</label></th>
+                            <td class="col-9 p-0">
                                 <div class="input-group">
                                     <input id="sub_budget_id" style="border-radius:0;" class="form-control" name="sub_budget_id" type="hidden">
                                     <input id="sub_budget" style="border-radius:0;background-color:white;" class="form-control mySiteCode" name="sub_budget" readonly data-toggle="modal" data-target="#mySiteCode">
@@ -43,12 +46,14 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-3">
+
+            <!-- SUPPLIER -->
+            <div class="col-sm-12 col-md-4 col-lg-3">
                 <div class="form-group">
-                    <table>
+                    <table style="width: 100%;">
                         <tr>
-                            <th style="padding-top: 7px;"><label>Supplier&nbsp;</label></th>
-                            <td>
+                            <th class="col-3 pl-0" style="padding-top: 7px;"><label>Supplier&nbsp;</label></th>
+                            <td class="col-9 p-0">
                                 <div class="input-group">
                                     <input id="project_id" name="project_id" value="" hidden>
                                     <input id="site_id" name="site_id" value="" hidden>
@@ -74,8 +79,10 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
+
+            <!-- BUTTON -->
+            <div class="col-sm-12 col-md-12 col-lg-3 mt-sm-0 mt-md-2 mt-lg-0 d-md-flex justify-content-md-end d-lg-block justify-content-lg-start">
+                <div class="form-group mt-3 mt-sm-3 mt-md-0 d-flex d-sm-flex d-md-block justify-content-end justify-content-sm-end">
                     <table>
                         <tr>
                             <td>

@@ -4,7 +4,7 @@
     <div class="card-body">
         <div class="row">
             <!-- BUDGET -->
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md-4 col-lg-3">
                 <div class="form-group">
                     <table style="width: 100%;">
                         <tr>
@@ -27,7 +27,7 @@
             </div>
 
             <!-- SUB BUDGET -->
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md-4 col-lg-3">
                 <div class="form-group">
                     <table style="width: 100%;">
                         <tr>
@@ -49,7 +49,7 @@
             </div>
 
             <!-- WAREHOUSE -->
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md-4 col-lg-3">
                 <div class="form-group">
                     <table style="width: 100%;">
                         <tr>
@@ -82,7 +82,7 @@
             </div>
 
             <!-- BUTTON -->
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md-12 col-lg-3 mt-sm-0 mt-md-2 mt-lg-0 d-md-flex justify-content-md-end d-lg-block justify-content-lg-start">
                 <div class="form-group mt-3 mt-sm-3 mt-md-0 d-flex d-sm-flex d-md-block justify-content-end justify-content-sm-end">
                     <table>
                         <tr>

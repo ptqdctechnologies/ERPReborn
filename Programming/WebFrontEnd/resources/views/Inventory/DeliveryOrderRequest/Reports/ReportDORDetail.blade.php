@@ -22,12 +22,13 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
+                                        <!-- DOR NUMBER -->
                                         <div class="col-sm-12 col-md-5 col-lg-4">
                                             <div class="form-group">
                                                 <table class="col-lg-10">
                                                     <tr>
-                                                        <th style="padding-top: 10px;"><label style="min-width: max-content;">DOR Number&nbsp;</label></th>
-                                                        <td>
+                                                        <th class="col-3" style="padding-top: 10px;"><label style="min-width: max-content;">DOR Number&nbsp;</label></th>
+                                                        <td class="col-9 p-0">
                                                             <div class="input-group">
                                                                 <input id="project_id" name="project_id" value="" hidden>
                                                                 <input id="site_id" name="site_id" value="" hidden>
@@ -49,11 +50,13 @@
                                                                     </span>
                                                                 </div>
                                                             </div> -->
-                                                        </td>
+                                                        <!-- </td> -->
                                                     </tr>
                                                 </table>
                                             </div>
                                         </div>
+
+                                        <!-- BUTTON -->
                                         <div class="col-sm-12 col-md-5 col-lg-4 mt-2 mt-sm-2 mt-md-0 mt-lg-0 mt-xl-0">
                                             <div class="form-group">
                                                 <table class="d-flex justify-content-end d-sm-flex justify-content-sm-end d-md-flex justify-content-md-end d-lg-block justify-content-lg-start">
