@@ -25,6 +25,7 @@
         <form method="post" enctype="multipart/form-data" action="{{ route('PurchaseRequisition.store') }}" id="FormSubmitProcReq">
           @csrf
           <div class="tab-content p-3" id="nav-tabContent">
+            <!-- ADD NEW MATERIAL SERVICE REQUEST -->
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -42,6 +43,8 @@
                 </div>
               </div>
             </div>
+
+            <!-- MATERIAL SERVICE REQUEST DETAIL -->
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -59,7 +62,9 @@
                 </div>
               </div>
             </div>
+            
             <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+              <!-- FILE ATTACHMENT -->
               <div class="row">
                 <div class="col-12">
                   <div class="card">
@@ -75,7 +80,7 @@
                     </div>
                     <div class="card-body">
                       <div class="row">
-                          <div class="col-md-12">
+                          <div class="col-md-12 p-0">
                             <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
                             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                             $varAPIWebToken,
@@ -104,14 +109,13 @@
 
                               </div>
                           </div>
-
                         </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-
+              <!-- BUDGET DETAILS -->
               <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
                 <div class="row">
                   <div class="col-12">
@@ -132,6 +136,7 @@
                 </div>
               </div>
 
+              <!-- MATERIAL SERVICE REQUEST LIST (CART) -->
               <div class="row">
                 <div class="col-12">
                   <div class="card">

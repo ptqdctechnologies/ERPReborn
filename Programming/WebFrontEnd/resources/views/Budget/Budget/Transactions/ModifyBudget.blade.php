@@ -24,7 +24,7 @@
 
             <!-- CONTENT -->
             <div class="card">
-                <!-- Add New Advance Request -->
+                <!-- ADD BUDGET & SUB BUDGET CODE -->
                 <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">

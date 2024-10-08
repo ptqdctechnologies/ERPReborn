@@ -16,8 +16,10 @@
       <div class="card" style="position:relative;bottom:10px;">
         <div class="tab-content p-3" id="nav-tabContent">
           <div class="row">
+            <!-- MY PROCESS DOCUMENT -->
             <div class="col-12 ShowDocument">
               <div class="card">
+                <!-- TITLE -->
                 <div class="card-header">
                   <label class="card-title">
                     My Process Document
@@ -28,12 +30,13 @@
                   @csrf
                   <div class="card-body">
                     <div class="row">
-                      <div class="col-md-3">
+                      <!-- TRANSACTION NUMBER -->
+                      <div class="col-sm-12 col-md-4 col-lg-3">
                         <div class="form-group">
-                          <table>
+                          <table style="width: 100%;">
                             <tr>
-                              <th><label>Transaction&nbsp;Number</label></th>
-                              <td>
+                              <th class="col-5 pl-0"><label>Transaction&nbsp;Number</label></th>
+                              <td class="col-7 p-0">
                                 <div class="input-group" style="padding-bottom: 7px;">
                                   <input id="trano" style="border-radius:0;" class="form-control" name="trano" type="text">
                                 </div>
@@ -42,14 +45,16 @@
                           </table>
                         </div>
                       </div>
-                      <div class="col-md-3">
+
+                      <!-- DOCUMENT TYPE -->
+                      <div class="col-sm-12 col-md-4 col-lg-4">
                         <div class="form-group">
-                          <table>
+                          <table style="width: 100%;">
                             <tr>
-                              <th style="padding-top: 7px;"><label>Document Type</label></th>
-                              <td>
+                              <th class="col-5 pl-0" style="padding-top: 7px;"><label>Document Type</label></th>
+                              <td class="col-7 p-0">
                                 <div class="input-group" style="padding-bottom: 3px;">
-                                  <select id="DocumentType" class="form-control DocumentType select2" name="DocumentType">
+                                  <select id="DocumentType" class="form-control DocumentType select2" name="DocumentType" style="width: 100%;">
                                     <option selected="selected" value=""> Select Document Type </option>
                                   </select>
                                 </div>
@@ -58,12 +63,14 @@
                           </table>
                         </div>
                       </div>
-                      <div class="col-md-3">
+
+                      <!-- BUDGET -->
+                      <div class="col-sm-12 col-md-4 col-lg-3">
                         <div class="form-group">
-                          <table>
+                          <table style="width: 100%;">
                             <tr>
-                              <th style="padding-top: 7px;"><label>Budget</label></th>
-                              <td>
+                              <th class="col-5 pl-0" style="padding-top: 7px;"><label>Budget</label></th>
+                              <td class="col-7 p-0">
                                 <div class="input-group" style="padding-bottom: 3px;">
                                   <input id="projectid" style="border-radius:0;" class="form-control" name="projectid" type="hidden">
                                   <input id="projectcode" style="border-radius:0;background-color:white;" class="form-control myProject" name="projectcode" readonly data-toggle="modal" data-target="#myProject">
@@ -78,8 +85,10 @@
                           </table>
                         </div>
                       </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
+
+                      <!-- BUTTON -->
+                      <div class="col-sm-12 col-md-12 col-lg-2 mt-sm-0 mt-md-2 mt-lg-0 d-md-flex justify-content-md-end d-lg-block justify-content-lg-start">
+                        <div class="form-group mt-3 mt-sm-3 mt-md-0 d-flex d-sm-flex d-md-block justify-content-end justify-content-sm-end">
                           <table>
                             <tr>
                               <button class="btn btn-default btn-sm" style="position: relative;bottom:1px;" type="submit">
@@ -99,6 +108,7 @@
               </div>
             </div>
 
+            <!-- TABLE -->
             <div class="col-12 ShowDocument">
               <div class="card">
                 <div class="card-body table-responsive p-0">

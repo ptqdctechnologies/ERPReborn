@@ -22,6 +22,7 @@
         <form method="post" enctype="multipart/form-data" action="{{ route('BusinessTripRequest.store') }}" id="FormSubmitBusinessTrip">
           @csrf
           <div class="tab-content p-3" id="nav-tabContent">
+            <!-- ADD NEW BUSINESS REQUEST TRIP FORM -->
             <div class="row">
               @csrf
               <div class="col-12">
@@ -41,6 +42,7 @@
               </div>
             </div>
 
+            <!-- FILE ATTACHMENT -->
             <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
               <div class="row">
                 <div class="col-12">
@@ -87,6 +89,7 @@
               </div>
             </div>
 
+            <!-- PLEASE FILL THIS FORM BELOW -->
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -104,9 +107,9 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <table>
+                          <table class="col-lg-10">
                             <tr>
-                              <td style="padding-top: 5px;"><label>Requester</label></td>
+                              <td class="col-4 pl-0" style="padding-top: 5px;"><label>Requester</label></td>
                               <td>
                                 <div class="input-group">
                                   <input name="requester" id="requester" style="border-radius:0;" type="text" class="col-4 form-control" readonly>
@@ -124,7 +127,7 @@
                               </td>
                             </tr>
                             <tr>
-                              <td><label>Contact Phone</label></td>
+                              <td class="col-4 pl-0"><label>Contact Phone</label></td>
                               <td>
                                 <div class="input-group">
                                   <input id="contactPhone" name="contactPhone" style="border-radius:0;" type="text" class="form-control" disabled>
@@ -132,7 +135,7 @@
                               </td>
                             </tr>
                             <tr>
-                              <td><label>Date Commance Travel</label></td>
+                              <td class="col-4 pl-0"><label>Date Commance Travel</label></td>
                               <td>
                                 <div class="input-group">
                                   <input id="dateCommance" name="dateCommance" style="border-radius:0;" type="date" class="form-control">
@@ -140,7 +143,7 @@
                               </td>
                             </tr>
                             <tr>
-                              <td><label>Date End Travel</label></td>
+                              <td class="col-4 pl-0"><label>Date End Travel</label></td>
                               <td>
                                 <div class="input-group">
                                   <input id="dateEnd" name="dateEnd" style="border-radius:0;" type="date" class="form-control">
@@ -152,31 +155,32 @@
                       </div>
 
                       <div class="col-md-6">
-                        <table>
-
-                          <tr>
-                            <td><label>Head Station Location</label></td>
-                            <td>
-                              <div class="input-group">
-                                <input id="headStationLocation" name="headStationLocation" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td><label>Business Trip Location</label></td>
-                            <td>
-                              <div class="input-group">
-                                <input id="bussinesLocation" name="bussinesLocation" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td><label>Reason To Travel</label></td>
-                            <td>
-                              <textarea id="reasonTravel" name="reasonTravel" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
-                            </td>
-                          </tr>
-                        </table>
+                        <div class="form-group">
+                          <table class="col-lg-10">
+                            <tr>
+                              <td class="col-4 pl-0"><label>Head Station Location</label></td>
+                              <td>
+                                <div class="input-group">
+                                  <input id="headStationLocation" name="headStationLocation" style="border-radius:0;" type="text" class="form-control">
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="col-4 pl-0"><label>Business Trip Location</label></td>
+                              <td>
+                                <div class="input-group">
+                                  <input id="bussinesLocation" name="bussinesLocation" style="border-radius:0;" type="text" class="form-control">
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="col-4 pl-0"><label>Reason To Travel</label></td>
+                              <td>
+                                <textarea id="reasonTravel" name="reasonTravel" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -184,6 +188,7 @@
               </div>
             </div>
 
+            <!-- TAB -->
             <nav class="w-100">
               <div class="nav nav-tabs" id="product-tab" role="tablist">
                 <a class="nav-item nav-link active idFollowingCondition" id="product-comments-tab" data-toggle="tab" href="#followingCondition" role="tab" aria-controls="product-comments" aria-selected="true"><span style="font-weight:bold;padding:10px;color:#212529;">The following condition</span></a>&nbsp;&nbsp;&nbsp;
@@ -191,6 +196,7 @@
               </div><br>
             </nav>
 
+            <!-- CONTENT THE FOLLOWING CONDITION -->
             <div class="tab-pane fade show active" id="followingCondition" role="tabpanel" aria-labelledby="product-comments-tab">
               <div class="row">
                 <div class="col-12">
@@ -207,7 +213,134 @@
                     </div>
                     <div class="card-body FollowingCondition">
                       <div class="form-group">
-                        <table style="width: 100%;">
+                        <div>
+                          <label>
+                            <strong>Transport Type Applicable</strong>
+                          </label>
+                          <div style="display: flex; column-gap: 16px; row-gap: 8px; flex-wrap: wrap;">
+                            <div class="icheck-primary d-inline">
+                              <input type="checkbox" class="transportApplicable" name="TransportTypeApplicable" value="220000000000011">
+                              <label for="transportApplicableBus"> Airplane
+                              </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                              <input type="checkbox" class="transportApplicable" name="TransportTypeApplicable" value="220000000000007">
+                              <label for="transportApplicableBus"> Commuter Bus / Busway
+                              </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                              <input type="checkbox" class="transportApplicable" name="TransportTypeApplicable" value="220000000000009">
+                              <label for="transportApplicableBus"> Commuter Line, MRT, or LRT
+                              </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                              <input type="checkbox" class="transportApplicable" name="TransportTypeApplicable" value="220000000000004">
+                              <label for="transportApplicableBus"> Company's Car
+                              </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                              <input type="checkbox" class="transportApplicable" name="TransportTypeApplicable" value="220000000000001">
+                              <label for="transportApplicableBus"> Company's Motorcycle
+                              </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                              <input type="checkbox" class="transportApplicable" name="TransportTypeApplicable" value="220000000000006">
+                              <label for="transportApplicableBus"> Employee's Car
+                              </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                              <input type="checkbox" class="transportApplicable" name="TransportTypeApplicable" value="220000000000003">
+                              <label for="transportApplicableBus"> Employee's Motorcycle
+                              </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                              <input type="checkbox" class="transportApplicable" name="TransportTypeApplicable" value="220000000000008">
+                              <label for="transportApplicableBus"> Intercity Bus
+                              </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                              <input type="checkbox" class="transportApplicable" name="TransportTypeApplicable" value="220000000000010">
+                              <label for="transportApplicableBus"> Intercity Train
+                              </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                              <input type="checkbox" class="transportApplicable" name="TransportTypeApplicable" value="220000000000012">
+                              <label for="transportApplicableBus"> Ship
+                              </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                              <input type="checkbox" class="transportApplicable" name="TransportTypeApplicable" value="220000000000002">
+                              <label for="transportApplicableBus"> Taxibike / Rent Motorcycle
+                              </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                              <input type="checkbox" class="transportApplicable" name="TransportTypeApplicable" value="220000000000005">
+                              <label for="transportApplicableBus"> Taxi / Rent Car
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div style="margin-top: 0.6rem;">
+                          <label>
+                            <strong>Travel Arragement</strong>
+                          </label>
+                          <div style="display: flex; column-gap: 16px; row-gap: 8px; flex-wrap: wrap;">
+                            <div class="icheck-primary d-inline">
+                              <input type="radio" id="dayTripTravel" name="travelArragement" value="Day Trip Travel" checked>
+                              <label for="dayTripTravel">Day Trip Travel
+                              </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                              <input type="radio" id="shortTerm" name="travelArragement" value="Short Term">
+                              <label for="shortTerm">Short Term
+                              </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                              <input type="radio" id="longTerm" name="travelArragement" value="Long Term">
+                              <label for="longTerm">Long Term
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div style="margin-top: 0.6rem;">
+                          <label>
+                            <strong>Payment Applicable</strong>
+                          </label>
+                          <div style="display: flex; column-gap: 16px; row-gap: 8px; flex-wrap: wrap;">
+                            <div class="icheck-primary d-inline">
+                              <input type="radio" id="lupsum" name="paymentApplicable" value="218000000000001" checked>
+                              <label for="lupsum">Lump Sum
+                              </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                              <input type="radio" id="nonLupsum" name="paymentApplicable" value="218000000000002">
+                              <label for="nonLupsum">Non Lump Sum
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div style="margin-top: 0.6rem;">
+                          <label>
+                            <strong>Accomodation</strong>
+                          </label>
+                          <div style="display: flex; column-gap: 16px; row-gap: 8px; flex-wrap: wrap;">
+                            <div class="icheck-primary d-inline">
+                              <input type="radio" id="arrangeCompany" name="accomodationArrange" value="219000000000001" checked>
+                              <label for="arrangeCompany"> Arrange By Company
+                              </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                              <input type="radio" id="arrangeEmployee" name="accomodationArrange" value="219000000000002">
+                              <label for="arrangeEmployee"> Arrange By Employee
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- <table style="width: 100%;">
                           <tr>
                             <td><label><strong>Transport Type Applicable</strong></label></td>
                           </tr>
@@ -260,7 +393,6 @@
                           <tr>
                             <div class="form-group clearfix">
                               <td>
-                              <td>
                                 <div class="icheck-primary d-inline">
                                   <input type="checkbox" class="transportApplicable" name="TransportTypeApplicable" value="220000000000003">
                                   <label for="transportApplicableBus"> Employee's Motorcycle
@@ -302,7 +434,6 @@
                                   </label>
                                 </div>
                               </td>
-                              </td>
                             </div>
                           </tr>
 
@@ -334,6 +465,7 @@
                               </td>
                             </div>
                           </tr>
+
                           <tr>
                             <td><label><strong> Payment Applicable</strong></label></td>
                           </tr>
@@ -377,7 +509,7 @@
                               </td>
                             </div>
                           </tr>
-                        </table>
+                        </table> -->
                       </div>
                     </div>
                   </div>
@@ -385,6 +517,7 @@
               </div>
             </div>
 
+            <!-- CONTENT TRANSPORT DETAILS -->
             <div class="tab-pane fade" id="transportDetails" role="tabpanel" aria-labelledby="product-desc-tab">
               <div class="row">
                 <div class="col-12">
@@ -480,6 +613,8 @@
                 </div>
               </div>
             </div>
+
+            <!-- PLEASE SELECT YOUR BUDGET FOR THIS BUSINESS TRIP -->
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -498,6 +633,7 @@
               </div>
             </div>
 
+            <!-- BUSINESS TRIP REQUEST FORM -->
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -548,7 +684,6 @@
 
               </div>
             </div>
-
           </div>
         </form>
       </div>

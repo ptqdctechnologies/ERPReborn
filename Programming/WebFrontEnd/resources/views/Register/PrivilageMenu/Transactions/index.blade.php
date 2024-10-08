@@ -36,7 +36,7 @@
                                             <div class="form-group">
                                                 <table>
                                                     <tr>
-                                                        <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Departement</label></td>
+                                                        <th style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Departement</label></th>
                                                         <td>
                                                             <div class="input-group">
                                                                 <input type="hidden" id="departement_id" style="border-radius:0;background-color:white;" name="departement_id" class="form-control">
@@ -50,7 +50,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Role</label></td>
+                                                        <th style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Role</label></th>
                                                         <td>
                                                             <div class="input-group">
                                                                 <input type="hidden" id="user_role_id" style="border-radius:0;background-color:white;" name="user_role_id" class="form-control">
@@ -63,11 +63,9 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-
                                                 </table>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +91,7 @@
                                             <div class="form-group">
                                                 <table>
                                                     <tr>
-                                                        <td style="padding-top: 7px;"><label>Modul &nbsp;&nbsp;&nbsp;</label></td>
+                                                        <th style="padding-top: 7px;"><label>Modul &nbsp;&nbsp;&nbsp;</label></th>
                                                         <td>
                                                             <div class="input-group" style="padding-bottom: 3px;">
                                                                 <select id="Modul" class="form-control Modul select2" name="Modul" style="width: 200px;">
@@ -109,7 +107,7 @@
                                             <div class="form-group">
                                                 <table>
                                                     <tr>
-                                                        <td style="padding-top: 7px;"><label>Menu Type &nbsp;&nbsp;&nbsp;</label></td>
+                                                        <th style="padding-top: 7px;"><label>Menu Type &nbsp;&nbsp;&nbsp;</label></th>
                                                         <td>
                                                             <div class="input-group" style="padding-bottom: 3px;">
                                                                 <select id="Type" class="form-control Type select2" name="Type" style="width: 200px;">
@@ -139,7 +137,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td style="padding-top: 7px;"><label>&nbsp;&nbsp;&nbsp;Select All</label></td>
+                                                        <th style="padding-top: 7px;"><label>&nbsp;&nbsp;&nbsp;Select All</label></th>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -159,7 +157,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td style="padding-top: 7px;"><label>&nbsp;&nbsp;&nbsp;Unselect All</label></td>
+                                                        <th style="padding-top: 7px;"><label>&nbsp;&nbsp;&nbsp;Unselect All</label></th>
                                                     </tr>
                                                 </table>
                                             </div>

@@ -1,10 +1,11 @@
 <div class="card-body">
     <div class="row">
-        <div class="col-md-6">
+        <!-- BUDGET CODE -->
+        <div class="col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <table>
+                <table class="col-lg-10">
                     <tr>
-                        <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Budget Code</label></td>
+                        <td class="col-4 pl-0" style="padding-top: 5px;"><label style="min-width: max-content;">Budget Code</label></td>
                         <td>
                             <div class="input-group" style="width: 70%;">
                                 <input id="projectcode" style="border-radius:0;" name="projectcode" class="form-control" readonly>
@@ -24,11 +25,13 @@
                 </table>
             </div>
         </div>
-        <div class="col-md-6">
+
+        <!-- SUB BUDGET CODE -->
+        <div class="col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <table>
+                <table class="col-lg-10">
                     <tr>
-                        <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Sub Budget Code</label></td>
+                        <td class="col-4 pl-0" style="padding-top: 5px;"><label style="min-width: max-content;">Sub Budget Code</label></td>
                         <td>
                             <div class="input-group" style="width: 70%;">
                                 <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" readonly>
@@ -49,6 +52,7 @@
                 </table>
             </div>
         </div>
+        
         <!-- <div class="col-md-4">
             <div class="card-body table-responsive p-0">
                 <table>
