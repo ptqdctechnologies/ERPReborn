@@ -4145,6 +4145,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\SnowDeviceManagement\\SnowDeviceManagementClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SnowDeviceManagement/SnowDeviceManagementClient.php',
         'Aws\\Sns\\Exception\\SnsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Sns/Exception/SnsException.php',
         'Aws\\Sns\\SnsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Sns/SnsClient.php',
+        'Aws\\SocialMessaging\\Exception\\SocialMessagingException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SocialMessaging/Exception/SocialMessagingException.php',
+        'Aws\\SocialMessaging\\SocialMessagingClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SocialMessaging/SocialMessagingClient.php',
         'Aws\\Sqs\\Exception\\SqsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Sqs/Exception/SqsException.php',
         'Aws\\Sqs\\SqsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Sqs/SqsClient.php',
         'Aws\\SsmSap\\Exception\\SsmSapException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SsmSap/Exception/SsmSapException.php',
