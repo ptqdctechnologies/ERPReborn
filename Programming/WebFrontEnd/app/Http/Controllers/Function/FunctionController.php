@@ -799,6 +799,7 @@ class FunctionController extends Controller
             true
         );
 
-        return response()->json($DataCurrency['data']['data']);
+        // return response()->json($DataCurrency['data']['data']);
+        return response()->json($DataCurrency['data']);
     }
 }
