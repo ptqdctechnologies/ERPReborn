@@ -96,7 +96,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataList_Advance(
+                                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataListJSON_Advance(
                                     $varUserSession, 
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
 
@@ -104,13 +104,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                                     $varData['SQLStatement']['sort'], 
                                     $varData['SQLStatement']['filter'], 
                                     $varData['SQLStatement']['paging']
-                                    )
+                                    ),
+                                FALSE
                                 )
                             ))
                             {
                             throw new \Exception();
                             }
                         
+                        /*
                         //---> Data Processing
                         for ($i=0, $iMax = count($varDataSend); $i != $iMax; $i++)
                             {
@@ -123,6 +125,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                             catch (\Exception $ex) {
                                 }
                             }
+                        */
 
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
