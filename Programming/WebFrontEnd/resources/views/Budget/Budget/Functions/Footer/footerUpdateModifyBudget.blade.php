@@ -1,170 +1,3 @@
-<!-- DISABLE SUD BUDGET CODE KETIKA BUDGET CODE BELUM DIPILIH -->
-<!-- <script>
-    // const urlParamsssss = new URLSearchParams(window.location.search);
-    // const subBudgetCOUrl = urlParamsssss.get('subBudgetCode');
-    const subBudgetCOUrl = '{{ $subBudgetCode }}';
-
-    if (!subBudgetCOUrl) {
-        $("#site_code").prop("disabled", true);
-        $("#site_code_popup").prop("disabled", true);
-    }
-</script> -->
-
-<!-- BUDGET CODE -->
-<!-- <script>
-    $('#tableGetProject tbody').on('click', 'tr', function() {
-
-        $("#myProject").modal('toggle');
-
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var sys_id = $('#sys_id_budget' + id).val();
-        var code = row.find("td:nth-child(2)").text();
-        var name = row.find("td:nth-child(3)").text();
-
-        $("#project_id").val(sys_id);
-        $("#project_code").val(code);
-        $("#project_name").val(name);
-        $("#site_code").prop("disabled", false);
-        $("#site_code_popup").prop("disabled", false);
-        $("#site_id").val("");
-        $("#site_code").val("");
-        $("#site_name").val("");
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        var keys = 0;
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getSite") !!}?project_code=' + sys_id,
-            success: function(data) {
-
-                var no = 1;
-                var t = $('#tableGetSite').DataTable();
-                t.clear();
-                $.each(data, function(key, val) {
-                    keys += 1;
-                    t.row.add([
-                        '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                        '<td>' + val.Code + '</td>',
-                        '<td>' + val.Name + '</td></tr></tbody>'
-                    ]).draw();
-                });
-            }
-        });
-    });
-</script> -->
-
-<!-- SITE CODE -->
-<!-- <script>
-    $('#tableGetSite tbody').on('click', 'tr', function() {
-
-        $("#mySiteCode").modal('toggle');
-
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var sys_id = $('#sys_id_site' + id).val();
-        var code = row.find("td:nth-child(2)").text();
-        var name = row.find("td:nth-child(3)").text();
-
-        $("#site_id").val(sys_id);
-        $("#site_code").val(code);
-        $("#site_name").val(name);
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getBudget") !!}?site_code=' + sys_id,
-            success: function(data) {
-                var no = 1;
-                applied = 0;
-                status = "";
-                statusDisplay = [];
-                statusDisplay2 = [];
-                statusForm = [];
-
-                if (data.message == "Invalid SQL Syntax") {
-                    var html = 
-                        '<tr>' +
-                            '<td class="container-tbody-tr-budget" colspan="14" style="color: red; font-style: italic;">' + 
-                                'No Data Available' +
-                            '</td>' +
-                        '</tr>';
-
-                        $('table#budgetTable tbody').append(html);
-                } else {
-                    $.each(data, function(key, val2) {
-                    var used = val2.quantityAbsorptionRatio * 100;
-
-                    if (used == "0.00" && val2.quantity == "0.00") {
-                        var applied = 0;
-                    } else {
-                        var applied = Math.round(used);
-                    }
-                    if (applied >= 100) {
-                        var status = "disabled";
-                    }
-                    if (val2.productName == "Unspecified Product") {
-                        statusDisplay[key] = "";
-                        statusDisplay2[key] = "none";
-                        statusForm[key] = "disabled";
-                        balance_qty = "-";
-                    } else {
-                        statusDisplay[key] = "none";
-                        statusDisplay2[key] = "";
-                        statusForm[key] = "";
-                        balance_qty = numberFormatPHPCustom(val2.quantityRemaining, 2);
-                    }
-                    
-                    var html = 
-                        '<tr>' +
-                            '<td class="container-tbody-tr-budget" style="display:' + statusDisplay[key] + '";">' + 
-                                '<div class="input-group" style="min-width: 150px !important;">' + 
-                                    '<input id="product_id' + key + '" style="border-radius:0;" class="form-control" name="product_id_show" readonly>' +
-                                    '<div>' +
-                                        '<span style="border-radius:0;" class="input-group-text form-control">' +
-                                            '<a href="#" id="product_popup" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
-                                        '</span>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</td>' +
-
-                            '<td class="container-tbody-tr-budget" style="text-align: left !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
-                            '<td class="container-tbody-tr-budget" style="text-align: left !important;">' + val2.productName + '</td>' +
-                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
-                            '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
-                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
-                            '<td class="container-tbody-tr-budget">' + val2.priceBaseCurrencyISOCode + '</td>' +
-                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(50000, 2) + '</td>' +
-                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) + '</td>' +
-                            '<td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">' + '</td>' +
-                            '<td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">' + '</td>' +
-                            '<td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>' + '</td>' +
-                            '<td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">' + '</td>' +
-                            '<td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">' + '</td>' +
-                            '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>' + '</td>' +
-                            '<td class="d-none">' + '<input autocomplete="off" id="type" name="type" value="budgetDetails" disabled>' + '</td>' +
-                        '</tr>';
-
-                        $('table#budgetTable tbody').append(html);
-                    });
-                }
-
-                checkTableRows();
-            }
-        });
-    });
-</script> -->
-
 <!-- VALIDASI SHOW/HIDE FORM ADD NEW ITEM KETIKA TABLE EXISTING BUDGET ADA DATANYA -->
 <script>
     function checkTableRows() {
@@ -455,37 +288,22 @@
 
 <!-- VALUE CO ADDITIONAL & DEDUCTIVE -->
 <script>
-    // PARAMS
-    // const urlParams = new URLSearchParams(window.location.search);
-    // const valueAdditionalCOUrl = urlParams.get('valueAdditionalCO');
-    // const valueDeductiveCOUrl = urlParams.get('valueDeductiveCO');
-    const valueAdditionalCOUrl = '{{ $valueAdditionalCO }}';
-    const valueDeductiveCOUrl = '{{ $valueDeductiveCO }}';
-
     $(document).ready(function() {
-        if (valueAdditionalCOUrl || valueDeductiveCOUrl) {
-            if (valueAdditionalCOUrl) {
+        $('#value_co_additional').on('input', function() {
+            if ($(this).val().trim() !== "") {
                 $('#value_co_deductive').prop('disabled', true);
             } else {
-                $('#value_co_additional').prop('disabled', true);
+                $('#value_co_deductive').prop('disabled', false);
             }
-        } else {
-            $('#value_co_additional').on('input', function() {
-                if ($(this).val().trim() !== "") {
-                    $('#value_co_deductive').prop('disabled', true);
-                } else {
-                    $('#value_co_deductive').prop('disabled', false);
-                }
-            });
+        });
 
-            $('#value_co_deductive').on('input', function() {
-                if ($(this).val().trim() !== "") {
-                    $('#value_co_additional').prop('disabled', true);
-                } else {
-                    $('#value_co_additional').prop('disabled', false);
-                }
-            });
-        }
+        $('#value_co_deductive').on('input', function() {
+            if ($(this).val().trim() !== "") {
+                $('#value_co_additional').prop('disabled', true);
+            } else {
+                $('#value_co_additional').prop('disabled', false);
+            }
+        });
     });
 </script>
 

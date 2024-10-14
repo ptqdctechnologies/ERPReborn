@@ -362,35 +362,22 @@
 
 <!-- VALUE CO ADDITIONAL & DEDUCTIVE -->
 <script>
-    // PARAMS
-    const urlParams = new URLSearchParams(window.location.search);
-    const valueAdditionalCOUrl = urlParams.get('valueAdditionalCO');
-    const valueDeductiveCOUrl = urlParams.get('valueDeductiveCO');
-
     $(document).ready(function() {
-        if (valueAdditionalCOUrl || valueDeductiveCOUrl) {
-            if (valueAdditionalCOUrl) {
+        $('#value_co_additional').on('input', function() {
+            if ($(this).val().trim() !== "") {
                 $('#value_co_deductive').prop('disabled', true);
             } else {
-                $('#value_co_additional').prop('disabled', true);
+                $('#value_co_deductive').prop('disabled', false);
             }
-        } else {
-            $('#value_co_additional').on('input', function() {
-                if ($(this).val().trim() !== "") {
-                    $('#value_co_deductive').prop('disabled', true);
-                } else {
-                    $('#value_co_deductive').prop('disabled', false);
-                }
-            });
+        });
 
-            $('#value_co_deductive').on('input', function() {
-                if ($(this).val().trim() !== "") {
-                    $('#value_co_additional').prop('disabled', true);
-                } else {
-                    $('#value_co_additional').prop('disabled', false);
-                }
-            });
-        }
+        $('#value_co_deductive').on('input', function() {
+            if ($(this).val().trim() !== "") {
+                $('#value_co_additional').prop('disabled', true);
+            } else {
+                $('#value_co_additional').prop('disabled', false);
+            }
+        });
     });
 </script>
 

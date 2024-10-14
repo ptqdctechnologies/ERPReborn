@@ -131,7 +131,7 @@
                                                     <label for="value_idr_rate" class="col-4 col-form-label p-0">Exchange Rate</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
-                                                            <input id="value_idr_rate" style="border-radius:0;" class="form-control" name="value_idr_rate" value="{{ request('idrRate') }}" readonly>
+                                                            <input id="value_idr_rate" style="border-radius:0;" class="form-control" name="value_idr_rate" value="{{ request('idrRate') && request('idrRate') != '-' ? request('idrRate') : '' }}" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -145,7 +145,7 @@
                                                     <label for="value_co_additional" class="col-4 col-form-label p-0">Value CO Additional</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
-                                                            <input id="value_co_additional" style="border-radius:0;" class="form-control number-only" name="value_co_additional" value="{{ request('valueAdditionalCO') }}" autocomplete="off">
+                                                            <input id="value_co_additional" style="border-radius:0;" class="form-control number-only" name="value_co_additional" value="{{ request('valueAdditionalCO') ? request('valueAdditionalCO') : '' }}" autocomplete="off" {{ $valueDeductiveCO ? 'disabled' : '' }}>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -159,7 +159,7 @@
                                                     <label for="value_co_deductive" class="col-4 col-form-label p-0">Value CO Deductive</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
-                                                            <input id="value_co_deductive" style="border-radius:0;" class="form-control number-only" name="value_co_deductive" value="{{ request('valueDeductiveCO') }}" autocomplete="off">
+                                                            <input id="value_co_deductive" style="border-radius:0;" class="form-control number-only" name="value_co_deductive" value="{{ request('valueDeductiveCO') ? request('valueDeductiveCO') : '' }}" autocomplete="off" {{ $valueAdditionalCO ? 'disabled' : '' }}>
                                                         </div>
                                                     </div>
                                                 </div>
