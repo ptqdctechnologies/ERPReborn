@@ -53,7 +53,7 @@
             var html = 
                 '<tr>' +
                     '<td class="container-tbody-tr-budget" style="display:' + statusDisplay[key] + '";">' + 
-                        '<div class="input-group" style="min-width: 150px !important;">' + 
+                        '<div class="input-group" style="min-width: 130px !important;">' + 
                             '<input id="product_id' + key + '" style="border-radius:0;" class="form-control" name="product_id_show" value="' + productsIDS + '" readonly>' +
                             '<div>' +
                                 '<span style="border-radius:0;" class="input-group-text form-control">' +

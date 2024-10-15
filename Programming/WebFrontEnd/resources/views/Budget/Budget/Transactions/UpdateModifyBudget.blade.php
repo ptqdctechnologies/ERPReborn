@@ -48,14 +48,14 @@
                     </div>
                 </div>
 
-                <!-- ADD NEW AFE (APPROVAL FOR EXPENDITURE) -->
+                <!-- ADD NEW MODIFY BUDGET -->
                 <div class="tab-content px-3 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Add New AFE (Approval For Expenditure)
+                                        Add New Modify Budget
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -107,7 +107,7 @@
                                                     <div class="col d-flex p-0">
                                                         <div>
                                                             <input id="currency_id" hidden name="currency_id" value="{{ request('currencyID') }}">
-                                                            <input id="currency_symbol" style="border-radius:0;" class="form-control" name="currency_symbol" value="{{ request('currencySymbol') }}" readonly>
+                                                            <input id="currency_symbol" style="border-radius:0; width: 40px;" class="form-control" name="currency_symbol" value="{{ request('currencySymbol') }}" readonly>
                                                         </div>
                                                         <div>
                                                             <span style="border-radius:0;" class="input-group-text form-control">
@@ -250,7 +250,7 @@
                                                 <th class="container-thead-tr-budget"></th>
                                                 <th class="container-thead-tr-budget"></th>
                                                 <th class="container-thead-tr-budget"></th>
-                                                <th class="sticky-col sixth-col-modify-budget container-thead-tr-fixed-budget" colspan="3" style="right: 375px;">AFTER ADDITIONAL</th>
+                                                <th class="sticky-col sixth-col-modify-budget container-thead-tr-fixed-budget" colspan="3" style="right: 270px;">AFTER ADDITIONAL</th>
                                                 <th class="sticky-col third-col-modify-budget container-thead-tr-fixed-budget" colspan="3" style="right: 0px;">AFTER SAVING</th>
                                             </tr>
                                             <tr>
