@@ -1,4 +1,4 @@
-<!-- DISABLE SUD BUDGET CODE KETIKA BUDGET CODE BELUM DIPILIH -->
+<!-- DISABLE SUB BUDGET CODE KETIKA BUDGET CODE BELUM DIPILIH -->
 <script>
     $("#site_code").prop("disabled", true);
     $("#site_code_popup").prop("disabled", true);
@@ -551,26 +551,26 @@
             let balanceBudget = row.querySelector('td:nth-child(8)').textContent.trim();
             let totalBudget = row.querySelector('td:nth-child(9)').textContent.trim();
 
-            let data = {
-                product_id: productId,
-                product_name: productName,
-                qty_budget: qtyBudget,
-                qty_avail: qtyAvail,
-                price: prices,
-                currency: currencys,
-                balance_budget: balanceBudget,
-                total_budget: totalBudget,
-                qty_additional: qtyAdditional,
-                price_additional: priceAdditional,
-                total_additional: totalAdditional,
-                qty_saving: qtySaving,
-                price_saving: priceSaving,
-                total_saving: totalSaving
-            };
+            if (productId != "null" && qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
+                let data = {
+                    product_id: productId,
+                    product_name: productName,
+                    qty_budget: qtyBudget,
+                    qty_avail: qtyAvail,
+                    price: prices,
+                    currency: currencys,
+                    balance_budget: balanceBudget,
+                    total_budget: totalBudget,
+                    qty_additional: qtyAdditional,
+                    price_additional: priceAdditional,
+                    total_additional: totalAdditional,
+                    qty_saving: qtySaving,
+                    price_saving: priceSaving,
+                    total_saving: totalSaving
+                };
 
-            budgetData.push(data);
+                budgetData.push(data);
 
-            if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
                 let listTableBody = document.querySelector('#listBudgetTable tbody');
                 let existingRow = Array.from(listTableBody.querySelectorAll('tr')).find(tr => {
                     if (productIdInput.value) {
@@ -708,14 +708,16 @@
                     
                     processedProductIds.add(productId);
                 }
-            } else if (!qtyAdditional && priceAdditional && totalAdditional) {
+            } else if (!qtyAdditional && priceAdditional && totalAdditional && productId != "null") {
                 Swal.fire("Error", "Qty Additional Cannot Be Empty", "error");
-            } else if (qtyAdditional && !priceAdditional && totalAdditional) {
+            } else if (qtyAdditional && !priceAdditional && totalAdditional && productId != "null") {
                 Swal.fire("Error", "Price Additional Cannot Be Empty", "error");
-            } else if (!qtySaving && priceSaving && totalSaving) {
+            } else if (!qtySaving && priceSaving && totalSaving && productId != "null") {
                 Swal.fire("Error", "Qty Saving Cannot Be Empty", "error");
-            } else if (qtySaving && !priceSaving && totalSaving) {
+            } else if (qtySaving && !priceSaving && totalSaving && productId != "null") {
                 Swal.fire("Error", "Price Saving Cannot Be Empty", "error");
+            } else if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving && productId == "null") {
+                Swal.fire("Error", "Product ID Cannot Be Empty", "error");
             }
         });
 

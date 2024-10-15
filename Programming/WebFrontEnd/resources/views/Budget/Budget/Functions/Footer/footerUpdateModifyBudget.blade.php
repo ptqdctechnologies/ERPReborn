@@ -1,3 +1,7 @@
+<script>
+    $("#currency_popup").prop("disabled", true);
+</script>
+
 <!-- VALIDASI SHOW/HIDE FORM ADD NEW ITEM KETIKA TABLE EXISTING BUDGET ADA DATANYA -->
 <script>
     function checkTableRows() {

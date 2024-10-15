@@ -303,7 +303,7 @@
                                                     <div class="col d-flex p-0">
                                                         <div>
                                                             <input id="products_id" hidden name="products_id">
-                                                            <input id="products_id_show" style="border-radius:0;" class="form-control" name="products_id_show" readonly>
+                                                            <input id="products_id_show" style="border-radius:0; width: 105px;" class="form-control" name="products_id_show" readonly>
                                                         </div>
                                                         <div>
                                                             <span style="border-radius:0;" class="input-group-text form-control">

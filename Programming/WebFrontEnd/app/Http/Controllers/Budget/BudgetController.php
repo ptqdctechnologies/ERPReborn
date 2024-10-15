@@ -286,14 +286,14 @@ class BudgetController extends Controller
                         ],
                         'secondRow' => [
                             'description'   => '',
-                            'valuta'        => 'Cross Currency',
+                            'valuta'        => 'Foreign Currency',
                             'origin'        => 0,
                             'previous'      => 0,
                             'addSubt'       => $currencySymbol != "IDR" && $additionalCO == "yes" ? $valueAdditionalCO ? '+' . $valueAdditionalCO : '-' . $valueDeductiveCO : 0,
                             'totalCurrent'  => 0
                         ],
                         'thirdRow' => [
-                            'description'   => 'Total',
+                            'description'   => 'Total Ekuivalen',
                             'valuta'        => 'IDR',
                             'origin'        => 0,
                             'previous'      => 0,
@@ -309,11 +309,11 @@ class BudgetController extends Controller
                             'previous'      => 376712000,
                             'addSubt'       => $addSubtSectionOne,
                             // 'addSubt'       => $totalAdditional - $totalSaving,
-                            'totalCurrent'  => 376712000
+                            'totalCurrent'  => 376712000 + $addSubtSectionOne
                         ],
                         'secondRow' => [
                             'description'   => '',
-                            'valuta'        => 'Cross Currency',
+                            'valuta'        => 'Foreign Currency',
                             'origin'        => 0,
                             'previous'      => 0,
                             'addSubt'       => $currencySymbol != "IDR" && $additionalCO == "yes" ? $valueAdditionalCO ? '+' . $valueAdditionalCO : '-' . $valueDeductiveCO : 0,
@@ -337,7 +337,7 @@ class BudgetController extends Controller
                             'totalCurrent'  => ''
                         ],
                         'fifthRow' => [
-                            'description'   => 'Total',
+                            'description'   => 'Total Ekuivalen',
                             'valuta'        => 'IDR',
                             'origin'        => 0,
                             'previous'      => 376712000,
@@ -356,14 +356,14 @@ class BudgetController extends Controller
                         ],
                         'secondRow' => [
                             'description'   => '',
-                            'valuta'        => 'Cross Currency',
+                            'valuta'        => 'Foreign Currency',
                             'origin'        => 0,
                             'previous'      => 0,
                             'addSubt'       => 0,
                             'totalCurrent'  => 0
                         ],
                         'thirdRow' => [
-                            'description'   => 'Total',
+                            'description'   => 'Total Ekuivalen',
                             'valuta'        => 'IDR',
                             'origin'        => 0,
                             'previous'      => 79288000,
@@ -400,14 +400,14 @@ class BudgetController extends Controller
                         ],
                         'secondRow' => [
                             'description'   => '',
-                            'valuta'        => 'Cross Currency',
+                            'valuta'        => 'Foreign Currency',
                             'origin'        => '',
                             'previous'      => '',
                             'addSubt'       => '',
                             'totalCurrent'  => 0
                         ],
                         'thirdRow' => [
-                            'description'   => 'Total',
+                            'description'   => 'Total Ekuivalen',
                             'valuta'        => 'IDR',
                             'origin'        => '',
                             'previous'      => '',
