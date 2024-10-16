@@ -520,7 +520,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2024-10-16                                                                                           |
         | ▪ Creation Date   : 2022-05-31                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Advance                                                              |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Advance Semua Versi                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -562,7 +562,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2024-10-16                                                                                           |
         | ▪ Creation Date   : 2022-05-31                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Advance                                                              |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Advance Versi Terakhir                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
