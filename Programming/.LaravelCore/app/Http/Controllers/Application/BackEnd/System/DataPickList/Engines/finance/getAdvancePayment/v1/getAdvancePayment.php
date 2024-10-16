@@ -3,21 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\finance\getAdvancePayment\v1   |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\finance\getAdvancePayment\v1                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\finance\getAdvancePayment\v1 {
+namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\finance\getAdvancePayment\v1
+    {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : getAdvancePayment                                                                                            |
-    | ▪ Description : Menangani API transaction.read.dataList.finance.getAdvancePayment Version 1                                  |
+    | ▪ Description : Menangani API dataPickList.finance.getAdvancePayment Version 1                                               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getAdvancePayment extends \App\Http\Controllers\Controller
-    {
+        {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
@@ -34,8 +34,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function __construct()
-        {
-        }
+            {
+            }
 
 
         /*
@@ -58,34 +58,22 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Purchase Requisition Data List (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Advance (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE))
-                            {
-                            throw new \Exception('SQL Injection Threat Prevention');
-                            }
-
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataListJSON_AdvancePayment_LatestVersion(
+                                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataPickList_AdvancePayment_LatestVersion(
                                     $varUserSession,
-                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-
-                                    $varData['SQLStatement']['pick'],
-                                    $varData['SQLStatement']['sort'],
-                                    $varData['SQLStatement']['filter'],
-                                    $varData['SQLStatement']['paging']
-                                    ),
-                                FALSE
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
+                                    )
                                 )
                             ))
                             {
                             throw new \Exception();
                             }
-
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
