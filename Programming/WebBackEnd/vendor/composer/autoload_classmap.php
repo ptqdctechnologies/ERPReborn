@@ -3487,6 +3487,8 @@ return array(
     'Aws\\SnowDeviceManagement\\SnowDeviceManagementClient' => $vendorDir . '/aws/aws-sdk-php/src/SnowDeviceManagement/SnowDeviceManagementClient.php',
     'Aws\\Sns\\Exception\\SnsException' => $vendorDir . '/aws/aws-sdk-php/src/Sns/Exception/SnsException.php',
     'Aws\\Sns\\SnsClient' => $vendorDir . '/aws/aws-sdk-php/src/Sns/SnsClient.php',
+    'Aws\\SocialMessaging\\Exception\\SocialMessagingException' => $vendorDir . '/aws/aws-sdk-php/src/SocialMessaging/Exception/SocialMessagingException.php',
+    'Aws\\SocialMessaging\\SocialMessagingClient' => $vendorDir . '/aws/aws-sdk-php/src/SocialMessaging/SocialMessagingClient.php',
     'Aws\\Sqs\\Exception\\SqsException' => $vendorDir . '/aws/aws-sdk-php/src/Sqs/Exception/SqsException.php',
     'Aws\\Sqs\\SqsClient' => $vendorDir . '/aws/aws-sdk-php/src/Sqs/SqsClient.php',
     'Aws\\SsmSap\\Exception\\SsmSapException' => $vendorDir . '/aws/aws-sdk-php/src/SsmSap/Exception/SsmSapException.php',

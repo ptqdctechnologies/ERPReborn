@@ -24,6 +24,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\s
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-03-07                                                                                           |
+        | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -63,7 +64,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\s
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getDataPickList_PurchaseRequisition(
+                                (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getDataPickList_PurchaseRequisition_LatestVersion(
                                     $varUserSession, 
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
                                     )
