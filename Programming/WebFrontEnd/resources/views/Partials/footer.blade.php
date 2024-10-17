@@ -425,7 +425,9 @@
 <script>
   function allowNumbersOnly(inputElement) {
     inputElement.addEventListener('input', function(e) {
-      this.value = this.value.replace(/[^0-9]/g, '');
+      // Mengizinkan hanya angka dan simbol minus di awal
+      this.value = this.value.replace(/(?!^-)[^0-9]/g, ''); // Hapus semua karakter kecuali angka
+      this.value = this.value.replace(/(.)-+/g, '$1'); // Hapus minus di posisi selain awal
     });
   }
 
