@@ -44,43 +44,43 @@
 
 /* MODIFY BUDGET */
 .first-col-modify-budget {
-    width: 125px;
-    min-width: 125px;
+    width: 100px;
+    min-width: 100px;
     max-width: 125px;
     right: 0px;
 }
 
 .second-col-modify-budget {
-    width: 125px;
-    min-width: 125px;
+    width: 100px;
+    min-width: 100px;
     max-width: 125px;
-    right: 125px;
+    right: 100px;
 }
 
 .third-col-modify-budget {
-    width: 125px;
-    min-width: 125px;
+    width: 70px;
+    min-width: 70px;
     max-width: 125px;
-    right: 250px;
+    right: 200px;
 }
 
 .forth-col-modify-budget {
-    width: 125px;
-    min-width: 125px;
+    width: 100px;
+    min-width: 100px;
     max-width: 125px;
-    right: 375px;
+    right: 270px;
 }
 
 .fifth-col-modify-budget {
-    width: 125px;
-    min-width: 125px;
+    width: 100px;
+    min-width: 100px;
     max-width: 125px;
-    right: 500px;
+    right: 370px;
 }
 
 .sixth-col-modify-budget {
-    width: 125px;
-    min-width: 125px;
+    width: 70px;
+    min-width: 70px;
     max-width: 125px;
-    right: 625px;
+    right: 470px;
 }

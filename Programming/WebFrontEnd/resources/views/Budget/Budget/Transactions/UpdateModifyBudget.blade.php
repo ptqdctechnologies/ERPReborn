@@ -48,14 +48,14 @@
                     </div>
                 </div>
 
-                <!-- ADD NEW AFE (APPROVAL FOR EXPENDITURE) -->
+                <!-- ADD NEW MODIFY BUDGET -->
                 <div class="tab-content px-3 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Add New AFE (Approval For Expenditure)
+                                        Add New Modify Budget
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -107,7 +107,7 @@
                                                     <div class="col d-flex p-0">
                                                         <div>
                                                             <input id="currency_id" hidden name="currency_id" value="{{ request('currencyID') }}">
-                                                            <input id="currency_symbol" style="border-radius:0;" class="form-control" name="currency_symbol" value="{{ request('currencySymbol') }}" readonly>
+                                                            <input id="currency_symbol" style="border-radius:0; width: 40px;" class="form-control" name="currency_symbol" value="{{ request('currencySymbol') }}" readonly>
                                                         </div>
                                                         <div>
                                                             <span style="border-radius:0;" class="input-group-text form-control">
@@ -131,7 +131,7 @@
                                                     <label for="value_idr_rate" class="col-4 col-form-label p-0">Exchange Rate</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
-                                                            <input id="value_idr_rate" style="border-radius:0;" class="form-control" name="value_idr_rate" value="{{ request('idrRate') }}" readonly>
+                                                            <input id="value_idr_rate" style="border-radius:0;" class="form-control" name="value_idr_rate" value="{{ request('idrRate') && request('idrRate') != '-' ? request('idrRate') : '' }}" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -145,7 +145,7 @@
                                                     <label for="value_co_additional" class="col-4 col-form-label p-0">Value CO Additional</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
-                                                            <input id="value_co_additional" style="border-radius:0;" class="form-control number-only" name="value_co_additional" value="{{ request('valueAdditionalCO') }}" autocomplete="off">
+                                                            <input id="value_co_additional" style="border-radius:0;" class="form-control number-only" name="value_co_additional" value="{{ request('valueAdditionalCO') ? request('valueAdditionalCO') : '' }}" autocomplete="off" {{ $valueDeductiveCO ? 'disabled' : '' }}>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -159,7 +159,7 @@
                                                     <label for="value_co_deductive" class="col-4 col-form-label p-0">Value CO Deductive</label>
                                                     <div class="col p-0">
                                                         <div class="input-group">
-                                                            <input id="value_co_deductive" style="border-radius:0;" class="form-control number-only" name="value_co_deductive" value="{{ request('valueDeductiveCO') }}" autocomplete="off">
+                                                            <input id="value_co_deductive" style="border-radius:0;" class="form-control number-only" name="value_co_deductive" value="{{ request('valueDeductiveCO') ? request('valueDeductiveCO') : '' }}" autocomplete="off" {{ $valueAdditionalCO ? 'disabled' : '' }}>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -250,7 +250,7 @@
                                                 <th class="container-thead-tr-budget"></th>
                                                 <th class="container-thead-tr-budget"></th>
                                                 <th class="container-thead-tr-budget"></th>
-                                                <th class="sticky-col sixth-col-modify-budget container-thead-tr-fixed-budget" colspan="3" style="right: 375px;">AFTER ADDITIONAL</th>
+                                                <th class="sticky-col sixth-col-modify-budget container-thead-tr-fixed-budget" colspan="3" style="right: 270px;">AFTER ADDITIONAL</th>
                                                 <th class="sticky-col third-col-modify-budget container-thead-tr-fixed-budget" colspan="3" style="right: 0px;">AFTER SAVING</th>
                                             </tr>
                                             <tr>

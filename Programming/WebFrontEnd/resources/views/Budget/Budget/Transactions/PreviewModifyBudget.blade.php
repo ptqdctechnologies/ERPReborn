@@ -224,7 +224,7 @@
                                             data-toggle="tooltip" 
                                             data-placement="bottom"
                                             data-html="true"
-                                            title="Origin CO IDR + Origin CO Cross Currency <br /> Origin CO IDR : <?= number_format($dataTable['sectionOne']['firstRow']['origin'], 2); ?> <br /> Origin CO Cross Currency : <?= number_format($dataTable['sectionOne']['secondRow']['origin'], 2); ?> * Transaction's rate (0.00) <br />" 
+                                            title="Origin CO IDR + Origin CO Foreign Currency <br /> Origin CO IDR : <?= number_format($dataTable['sectionOne']['firstRow']['origin'], 2); ?> <br /> Origin CO Foreign Currency : <?= number_format($dataTable['sectionOne']['secondRow']['origin'], 2); ?> * Transaction's rate (0.00) <br />" 
                                             style="width: max-content; cursor: help;"
                                             >
                                             <?= number_format($dataTable['sectionOne']['firstRow']['origin'] + $dataTable['sectionOne']['secondRow']['origin'], 2); ?>
@@ -236,7 +236,7 @@
                                             data-toggle="tooltip"
                                             data-placement="bottom"
                                             data-html="true"
-                                            title="Previous CO IDR + Previous CO Cross Currency <br /> Previous CO IDR : <?= number_format($dataTable['sectionOne']['firstRow']['previous'], 2); ?> <br /> Previous CO Cross Currency : <?= number_format($dataTable['sectionOne']['secondRow']['previous'], 2); ?> * 0.00 <br />"
+                                            title="Previous CO IDR + Previous CO Foreign Currency <br /> Previous CO IDR : <?= number_format($dataTable['sectionOne']['firstRow']['previous'], 2); ?> <br /> Previous CO Foreign Currency : <?= number_format($dataTable['sectionOne']['secondRow']['previous'], 2); ?> * 0.00 <br />"
                                             style="width: max-content; cursor: help;"
                                             >
                                             <?= number_format($dataTable['sectionOne']['firstRow']['previous'] + $dataTable['sectionOne']['secondRow']['previous'], 2); ?>
@@ -248,7 +248,7 @@
                                             data-toggle="tooltip"
                                             data-placement="bottom"
                                             data-html="true"
-                                            title="Add(subt) CO IDR + Add(subt) CO Cross Currency <br /> Add(subt) CO IDR : <?= number_format($dataTable['sectionOne']['firstRow']['addSubt'], 2); ?> <br /> Add(subt) CO  Cross Currency : <?= number_format($dataTable['sectionOne']['secondRow']['addSubt'], 2); ?> * 0.00 <br />"
+                                            title="Add(subt) CO IDR + Add(subt) CO Foreign Currency <br /> Add(subt) CO IDR : <?= number_format($dataTable['sectionOne']['firstRow']['addSubt'], 2); ?> <br /> Add(subt) CO  Foreign Currency : <?= number_format($dataTable['sectionOne']['secondRow']['addSubt'], 2); ?> * 0.00 <br />"
                                             style="width: max-content; cursor: help;"
                                             >
                                             <?= number_format($dataTable['sectionOne']['firstRow']['addSubt'] + $dataTable['sectionOne']['secondRow']['addSubt'], 2); ?>
@@ -260,7 +260,7 @@
                                             data-toggle="tooltip"
                                             data-placement="bottom"
                                             data-html="true"
-                                            title="Total Current CO IDR + Total Current CO USD <br /> Total Current CO IDR : <?= number_format($dataTable['sectionOne']['firstRow']['totalCurrent'], 2); ?> <br /> Total Current CO Cross Currency : <?= number_format($dataTable['sectionOne']['secondRow']['totalCurrent'], 2); ?> * 0.00 <br />"
+                                            title="Total Current CO IDR + Total Current CO USD <br /> Total Current CO IDR : <?= number_format($dataTable['sectionOne']['firstRow']['totalCurrent'], 2); ?> <br /> Total Current CO Foreign Currency : <?= number_format($dataTable['sectionOne']['secondRow']['totalCurrent'], 2); ?> * 0.00 <br />"
                                             style="width: max-content; cursor: help;"
                                             >
                                             <?= number_format($dataTable['sectionOne']['firstRow']['totalCurrent'] + $dataTable['sectionOne']['secondRow']['totalCurrent'], 2); ?>
@@ -366,7 +366,7 @@
                                             data-toggle="tooltip"
                                             data-placement="bottom"
                                             data-html="true"
-                                            title="Origin Add(Subt) Cost IDR + Origin Add(Subt) Cost Cross Currency <br /> Origin Add(Subt) Cost IDR : <?= number_format($dataTable['sectionTwo']['firstRow']['origin'], 2); ?> <br /> Origin Add(Subt) Cost Cross Currency : <?= number_format($dataTable['sectionTwo']['secondRow']['origin'], 2); ?> * Transaction's rate (0.00) <br />"
+                                            title="Origin Add(Subt) Cost IDR + Origin Add(Subt) Cost Foreign Currency <br /> Origin Add(Subt) Cost IDR : <?= number_format($dataTable['sectionTwo']['firstRow']['origin'], 2); ?> <br /> Origin Add(Subt) Cost Foreign Currency : <?= number_format($dataTable['sectionTwo']['secondRow']['origin'], 2); ?> * Transaction's rate (0.00) <br />"
                                             style="width: max-content; cursor: help;">
                                             <?= number_format($dataTable['sectionTwo']['firstRow']['origin'] + $dataTable['sectionTwo']['secondRow']['origin'], 2); ?>
                                         </div>
@@ -377,7 +377,7 @@
                                             data-toggle="tooltip"
                                             data-placement="bottom"
                                             data-html="true"
-                                            title="Previous Add(Subt) Cost IDR + Recorded Cost Cross Currency + Balance Budget Cross Currency <br /> Previous Add(Subt) Cost IDR : <?= number_format($dataTable['sectionTwo']['firstRow']['previous'], 2); ?> <br /> Recorded Cost Cross Currency : 0.00 (0.00 * Transaction's exchange rate) <br /> Balance Budget Cross Currency : 0.00 * 0.00"
+                                            title="Previous Add(Subt) Cost IDR + Recorded Cost Foreign Currency + Balance Budget Foreign Currency <br /> Previous Add(Subt) Cost IDR : <?= number_format($dataTable['sectionTwo']['firstRow']['previous'], 2); ?> <br /> Recorded Cost Foreign Currency : 0.00 (0.00 * Transaction's exchange rate) <br /> Balance Budget Foreign Currency : 0.00 * 0.00"
                                             style="width: max-content; cursor: help;"
                                             >
                                             <?= number_format($dataTable['sectionTwo']['firstRow']['previous'] + $dataTable['sectionTwo']['secondRow']['previous'], 2); ?>
@@ -389,7 +389,7 @@
                                             data-toggle="tooltip"
                                             data-placement="bottom"
                                             data-html="true"
-                                            title="Add(Subt) Cost IDR + Add(Subt) Cost Cross Currency <br /> Add(Subt) Cost IDR : <?= number_format($dataTable['sectionTwo']['firstRow']['addSubt'], 2); ?> <br /> Add(Subt) Cost Cross Currency : <?= number_format($dataTable['sectionTwo']['secondRow']['addSubt'], 2); ?> * 0.00 <br />"
+                                            title="Add(Subt) Cost IDR + Add(Subt) Cost Foreign Currency <br /> Add(Subt) Cost IDR : <?= number_format($dataTable['sectionTwo']['firstRow']['addSubt'], 2); ?> <br /> Add(Subt) Cost Foreign Currency : <?= number_format($dataTable['sectionTwo']['secondRow']['addSubt'], 2); ?> * 0.00 <br />"
                                             style="width: max-content; cursor: help;">
                                             <?= number_format($dataTable['sectionTwo']['firstRow']['addSubt'] + $dataTable['sectionTwo']['secondRow']['addSubt'], 2); ?>
                                         </div>
@@ -400,7 +400,7 @@
                                             data-toggle="tooltip"
                                             data-placement="bottom"
                                             data-html="true"
-                                            title="Total Current Add(Subt) Cost IDR  + Recorded Cost Cross Currency + Balance Budget Cross Currency + Add(Subt) Cost Cross Currency <br /> Total Current Add(Subt) Cost IDR : <?= number_format($dataTable['sectionTwo']['firstRow']['totalCurrent'], 2); ?> <br /> Recorded Cost Cross Currency : 0.00 (0.00 * Transaction's exchange rate) <br /> Balance Budget Cross Currency : 0.00 * 0.00 <br /> Add(Subt) Cost Cross Currency : <?= number_format($dataTable['sectionTwo']['secondRow']['totalCurrent'], 2); ?> * 0.00 <br />"
+                                            title="Total Current Add(Subt) Cost IDR  + Recorded Cost Foreign Currency + Balance Budget Foreign Currency + Add(Subt) Cost Foreign Currency <br /> Total Current Add(Subt) Cost IDR : <?= number_format($dataTable['sectionTwo']['firstRow']['totalCurrent'], 2); ?> <br /> Recorded Cost Foreign Currency : 0.00 (0.00 * Transaction's exchange rate) <br /> Balance Budget Foreign Currency : 0.00 * 0.00 <br /> Add(Subt) Cost Foreign Currency : <?= number_format($dataTable['sectionTwo']['secondRow']['totalCurrent'], 2); ?> * 0.00 <br />"
                                             style="width: max-content; cursor: help;"
                                             >
                                             <?= number_format($dataTable['sectionTwo']['firstRow']['totalCurrent'] + $dataTable['sectionTwo']['secondRow']['totalCurrent'], 2); ?>
@@ -462,7 +462,7 @@
                                             data-toggle="tooltip"
                                             data-placement="bottom"
                                             data-html="true"
-                                            title="Origin Gross Margin IDR + Origin Gross Margin Cross Currency <br /> Origin Gross Margin IDR : <?= number_format($dataTable['sectionOne']['firstRow']['origin'] - $dataTable['sectionTwo']['firstRow']['origin'], 2); ?> <br /> Origin Gross Margin Cross Currency : <?= number_format($dataTable['sectionOne']['secondRow']['origin'] - $dataTable['sectionTwo']['secondRow']['origin'], 2); ?> * Transaction's rate (0.00) <br />"
+                                            title="Origin Gross Margin IDR + Origin Gross Margin Foreign Currency <br /> Origin Gross Margin IDR : <?= number_format($dataTable['sectionOne']['firstRow']['origin'] - $dataTable['sectionTwo']['firstRow']['origin'], 2); ?> <br /> Origin Gross Margin Foreign Currency : <?= number_format($dataTable['sectionOne']['secondRow']['origin'] - $dataTable['sectionTwo']['secondRow']['origin'], 2); ?> * Transaction's rate (0.00) <br />"
                                             style="width: max-content; cursor: help;"
                                             >
                                             <?= number_format(($dataTable['sectionOne']['firstRow']['origin'] - $dataTable['sectionTwo']['firstRow']['origin']) + ($dataTable['sectionOne']['secondRow']['origin'] - $dataTable['sectionTwo']['secondRow']['origin']), 2); ?>
@@ -707,7 +707,7 @@
                                         <?= $dataTable['sectionFive']['thirdRow']['addSubt']; ?>
                                     </td>
                                     <td class="border-dark border-top font-weight-bold text-dark text-right">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Recorded Cost IDR + Recorded Cost Cross Currency <br /> Recorded Cost IDR : 28,847,447 <br /> Recorded Cost Cross Currency : 0 (0.00 * Transaction's exchange rate) <br />" style="width: max-content; cursor: help;">
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Recorded Cost IDR + Recorded Cost Foreign Currency <br /> Recorded Cost IDR : 28,847,447 <br /> Recorded Cost Foreign Currency : 0 (0.00 * Transaction's exchange rate) <br />" style="width: max-content; cursor: help;">
                                             <?= number_format($dataTable['sectionFive']['thirdRow']['totalCurrent'], 2); ?>
                                         </div>
                                     </td>

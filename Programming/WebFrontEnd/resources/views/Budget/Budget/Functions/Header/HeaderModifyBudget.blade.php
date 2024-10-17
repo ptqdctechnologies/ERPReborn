@@ -5,7 +5,7 @@
             <div class="col d-flex p-0">
                 <div>
                     <input id="project_id" hidden name="project_id">
-                    <input id="project_code" style="border-radius:0;" name="project_code" class="form-control myProject" readonly>
+                    <input id="project_code" style="border-radius:0; width: 60px;" name="project_code" class="form-control myProject" readonly>
                 </div>
                 <div>
                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -27,7 +27,7 @@
             <div class="col d-flex p-0">
                 <div>
                     <input id="site_id" hidden name="site_id">
-                    <input id="site_code" style="border-radius:0;" name="site_code" class="form-control" readonly>
+                    <input id="site_code" style="border-radius:0; width: 30px;" name="site_code" class="form-control" readonly>
                 </div>
                 <div>
                     <span style="border-radius:0;" class="input-group-text form-control">
