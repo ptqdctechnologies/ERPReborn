@@ -45,7 +45,7 @@ class Application extends Container implements ApplicationContract, CachesConfig
      *
      * @var string
      */
-    const VERSION = '11.27.2';
+    const VERSION = '11.28.1';
 
     /**
      * The base path for the Laravel installation.
@@ -1426,7 +1426,7 @@ class Application extends Container implements ApplicationContract, CachesConfig
     /**
      * Get the service providers that have been loaded.
      *
-     * @return array<string, boolean>
+     * @return array<string, bool>
      */
     public function getLoadedProviders()
     {
