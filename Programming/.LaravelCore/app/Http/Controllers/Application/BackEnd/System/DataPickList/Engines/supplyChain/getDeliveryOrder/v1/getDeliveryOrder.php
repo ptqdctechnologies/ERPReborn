@@ -5,7 +5,7 @@
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\supplyChain\getDeliveryOrder\v1             |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 - 2024 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\supplyChain\getDeliveryOrder\v1
@@ -42,8 +42,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\s
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-10                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-10-17                                                                                           |
         | ▪ Creation Date   : 2022-03-10                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -65,7 +65,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\s
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getDataPickList_DeliveryOrder(
+                                (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getDataPickList_DeliveryOrder_LatestVersion(
                                     $varUserSession, 
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
                                     )

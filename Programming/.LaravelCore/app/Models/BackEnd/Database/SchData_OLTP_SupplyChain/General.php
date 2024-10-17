@@ -234,12 +234,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_DeliveryOrder                                                                            |
+        | ▪ Method Name     : getDataList_DeliveryOrder_AllVersion                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-10                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-10-17                                                                                           |
         | ▪ Creation Date   : 2022-03-10                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pesanan Pengiriman (DO)                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pesanan Pengiriman (DO) Semua Versi                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -253,7 +253,60 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_DeliveryOrder(
+        public function getDataList_DeliveryOrder_AllVersion(
+            $varUserSession, int $varSysBranch_RefID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryOrder',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [TRUE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                return $varReturn['data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_DeliveryOrder_LatestVersion                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-10-17                                                                                           |
+        | ▪ Creation Date   : 2022-03-10                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pesanan Pengiriman (DO) Versi Terakhir                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_DeliveryOrder_LatestVersion(
             $varUserSession, int $varSysBranch_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -266,6 +319,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryOrder',
                             [
                                 [$varSysBranch_RefID, 'bigint' ],
+
+                                [FALSE, 'boolean'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -318,7 +373,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_MaterialServiceRequisition',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean'],
 
@@ -373,7 +428,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_MaterialServiceRequisition',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean'],
 
@@ -427,7 +482,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseOrder',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean'],
 
@@ -481,7 +536,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseOrder',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean'],
 
@@ -535,7 +590,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseRequisition',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean'],
 
@@ -589,7 +644,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseRequisition',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean'],
 
@@ -642,7 +697,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_Supplier',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -693,7 +748,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_Warehouse',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -744,7 +799,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseInboundOrder',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -1806,12 +1861,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataPickList_DeliveryOrder                                                                        |
+        | ▪ Method Name     : getDataPickList_DeliveryOrder_AllVersion                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-10                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-10-17                                                                                           |
         | ▪ Creation Date   : 2022-03-10                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Pesanan Pengiriman (DO)                                              |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Pesanan Pengiriman (DO) Semua Versi                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -1820,7 +1875,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_DeliveryOrder(
+        public function getDataPickList_DeliveryOrder_AllVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
@@ -1831,7 +1886,51 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_DeliveryOrder',
                             [
-                                [$varSysBranch_RefID, 'bigint' ]
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [TRUE, 'boolean']
+                            ]
+                            )
+                        );
+
+                return $varReturn['data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_DeliveryOrder_LatestVersion                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-10-17                                                                                           |
+        | ▪ Creation Date   : 2022-03-10                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Pesanan Pengiriman (DO) Versi Terakhir                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_DeliveryOrder_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID)
+            {
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataPickList_DeliveryOrder',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [FALSE, 'boolean']
                             ]
                             )
                         );
