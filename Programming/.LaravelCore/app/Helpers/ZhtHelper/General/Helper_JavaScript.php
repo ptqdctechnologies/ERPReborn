@@ -287,7 +287,7 @@ namespace App\Helpers\ZhtHelper\General
                 '</div>';
             
             $varReturn .=
-                '<script type="text/JavaScript">'.                    
+                '<script type="text/JavaScript">'.
                     /*
                     +--------------------------------------------------------------------------------------------------------------------------+
                     | ▪ Method Name     : _Main                                                                                                |

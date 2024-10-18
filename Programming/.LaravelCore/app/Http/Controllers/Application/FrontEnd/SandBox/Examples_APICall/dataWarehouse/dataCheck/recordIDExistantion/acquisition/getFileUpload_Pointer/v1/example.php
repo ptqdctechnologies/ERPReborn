@@ -33,6 +33,56 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+
+
+            $ObjClient = new \GuzzleHttp\Client();
+            $varData = 
+                [
+                'dataWarehouse.dataCheck.recordIDExistantion.acquisition.getFileUpload_Pointer', 
+                'latest', 
+                [
+                'parameter' => [
+                    'recordID' => 91000000000001
+                    ]
+                ]
+                ];
+            
+            $varUserSession = 1;
+            $varHeaders = [
+                'Authorization' => (((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'header', $varData) == true) && (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'authorization', $varData['header']) == true)) ? $varData['header']['authorization'] : null),
+                'User-Agent' => (empty($_SERVER['HTTP_USER_AGENT'])? 'Non Browser' : $_SERVER['HTTP_USER_AGENT']),
+                'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),
+                'Expires' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateExpires($varUserSession, (10*60)),
+                'Content-Type' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentType($varUserSession, json_encode($varData)),
+                'X-Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5(
+                    $varUserSession, 
+                    json_encode(
+                        \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey(
+                            \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession), 
+                            'header', 
+                            $varData
+                            )
+                        )
+                    ),
+                'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
+                ];
+            
+            $varResponse = 
+                $ObjClient->request(
+                    'GET',
+                    'https://172.28.0.4/getAPIRedirect',
+                    [
+                    'verify' => false,
+                    'headers' => $varHeaders, 
+                    'body' =>  json_encode($varData, true)
+                    //'timeout' => 5,
+                    //'connect_timeout' => 2
+                    ]
+                    );
+                
+            dd($varResponse);    
+
+/*            
             //---Core---
             $varData = 
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -46,6 +96,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                         ]
                     ]
                     );
+ 
+ */
             var_dump($varData);
             }
 

@@ -401,10 +401,24 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                     //dd($varDataArray);
                     //dd(json_encode($varDataArray));
 
+                    $varURL = 
+                        str_replace(
+                            'http:',
+                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY')
+                            );
+/*
+                    $varURL = 
+                        str_replace(
+                            'http:',
+                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
+                            'http://172.28.0.4/getAPIRedirect'
+                            );
+*/
                     $varResponseData =
                         \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
-                            $varUserSession, 
-                            \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY'),
+                            $varUserSession,
+                            $varURL,
                             $varDataArray
                             );
                     // dd($varResponseData);
@@ -492,6 +506,8 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
 //                   dd($varData);
 //                    dd(\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY'));
 
+/* ORIGINAL CODE ---> Error saat menggunakan https yang merupakan self signed certificate
+ */
                     $varURL = 
                         str_replace(
                             'http:',
@@ -501,6 +517,25 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                 'URL_BACKEND_API_GATEWAY'
                                 )
                             );
+
+                    /*
+                    $varURL = 
+                        str_replace(
+                            'http:',
+                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
+                            'http://172.28.0.4/getAPIRedirect'
+                            );
+                     */
+
+//Code sementara untuk mengatasi Error HTTPS dengan memaksa menggunakan HTTP
+/*
+                    $varURL = 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                            'URL_BACKEND_API_GATEWAY'
+                            );
+*/
+
                         
                     $varReturn = 
                         'function() '.
@@ -529,7 +564,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                 'varReturnValue = varReturn.value; '.
                                 '} '.
                             'catch(varError) '.
-                                '{ '.
+                                '{'.
                                 'alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")"); '.
                                 '} '.
 //                            'return varReturn.value; '.

@@ -49,7 +49,7 @@ namespace App\Helpers\ZhtHelper\System
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get HTTP Response');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(!$varPort)
+                    if (!$varPort)
                         {
                         $varPort = 80;
                         }
@@ -133,7 +133,7 @@ namespace App\Helpers\ZhtHelper\System
                             dd($x);
 */
                             
-                            $varHeaders=[
+                            $varHeaders = [
                                 'Authorization' => (((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'header', $varData) == true) && (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'authorization', $varData['header']) == true)) ? $varData['header']['authorization'] : null),
                                 'User-Agent' => (empty($_SERVER['HTTP_USER_AGENT'])? 'Non Browser' : $_SERVER['HTTP_USER_AGENT']),
                                 'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),
@@ -153,15 +153,26 @@ namespace App\Helpers\ZhtHelper\System
                                 'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
                                 ];
 
-                            $varData = \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey(
-                                \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession), 
-                                'header', 
-                                $varData);
+                            $varData =
+                                \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey(
+                                    \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession), 
+                                    'header', 
+                                    $varData);
                             }
                         }
                     //---> Main process
 //dd($varData);
-                    $varReturn = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setRequest($varUserSession, $varURL, $varMethod, $varData, $varPort, $varHeaders);
+//dd($varURL);
+
+                    $varReturn = 
+                        \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setRequest(
+                            $varUserSession,
+                            $varURL,
+                            $varMethod,
+                            $varData,
+                            $varPort,
+                            $varHeaders
+                            );
 //dd($varReturn);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

@@ -156,24 +156,24 @@ namespace App\Helpers\ZhtHelper\System
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Send HTTP Request');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    
                     $varResponseData = '';
                     $ObjClient = new \GuzzleHttp\Client();
                     try {
 //dd($varURL);
 //dd($varHeaders);
 //dd(json_encode($varData, true));
-                        $varResponse = $ObjClient->request(
-                            $varMethod,
-                            $varURL,
-                            [
-                            'verify' => false,
-                            'headers' => $varHeaders, 
-                            'body' =>  json_encode($varData, true)
-                            //'timeout' => 5,
-                            //'connect_timeout' => 2
-                            ]
-                            );
+                        $varResponse =
+                            $ObjClient->request(
+                                $varMethod,
+                                $varURL,
+                                [
+                                    'verify' => false,
+                                    'headers' => $varHeaders, 
+                                    'body' =>  json_encode($varData, true)
+                                    //'timeout' => 5,
+                                    //'connect_timeout' => 2
+                                    ]
+                                );
 //echo  "@@@";
 //dd($varData);
 
