@@ -79,3 +79,22 @@
         fetchProducts();
     });
 </script>
+
+<!-- PRODUCT -->
+<script>
+    $('#tableGetProducts tbody').on('click', 'tr', function() {
+
+        $("#myProducts").modal('toggle');
+
+        var row = $(this).closest("tr");
+        var id = row.find("td:nth-child(1)").text();
+        var sys_id = $('#sys_id_products' + id).val();
+        var sys_pid = row.find("td:nth-child(2)").text();
+        var uom = row.find("td:nth-child(3)").text();
+        var name = row.find("td:nth-child(4)").text();
+
+        $("#products_id").val(sys_id);
+        $("#products_id_show").val(sys_pid);
+        $("#products_name").val(uom);
+    });
+</script>

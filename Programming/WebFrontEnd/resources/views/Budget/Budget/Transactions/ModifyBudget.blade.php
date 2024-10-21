@@ -71,8 +71,8 @@
                                         <div class="row" style="margin-bottom: 1rem;">
                                             <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label for="reason_modify" class="col-4 col-form-label p-0">Reason for Modify</label>
-                                                    <div class="col p-0">
+                                                    <label for="reason_modify" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Reason for Modify</label>
+                                                    <div class="col-sm-9 col-md-8 col-lg-7 p-0">
                                                         <div class="input-group">
                                                             <input id="reason_modify" style="border-radius:0;" class="form-control" name="reason_modify" autocomplete="off">
                                                         </div>
@@ -85,8 +85,8 @@
                                         <div class="row">
                                             <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label class="col-4 col-form-label p-0">Additional CO</label>
-                                                    <div class="col p-0" style="display: flex; gap: 16px;">
+                                                    <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Additional CO</label>
+                                                    <div class="col-sm-9 col-md-8 col-lg-7 p-0" style="display: flex; gap: 16px;">
                                                         <div>
                                                             <input type="radio" name="additional_co" value="yes">
                                                             <label>Yes</label>
@@ -104,8 +104,8 @@
                                         <div id="currency_field" class="row" style="margin-bottom: 1rem; display: none; margin-top: 1rem;">
                                             <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label for="currency_popup" class="col-4 col-form-label p-0">Currency</label>
-                                                    <div class="col d-flex p-0">
+                                                    <label for="currency_popup" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Currency</label>
+                                                    <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                                         <div>
                                                             <input id="currency_id" hidden name="currency_id">
                                                             <input id="currency_symbol" style="border-radius:0; width: 40px;" class="form-control" name="currency_symbol" readonly>
@@ -131,9 +131,9 @@
                                         <div id="value_idr_rate_field" class="row" style="margin-bottom: 1rem; display: none;">
                                             <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label for="value_idr_rate" class="col-4 col-form-label p-0">Exchange Rate</label>
-                                                    <div class="col p-0">
-                                                        <div class="input-group" style="width: 70px;">
+                                                    <label for="value_idr_rate" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Exchange Rate</label>
+                                                    <div class="col-sm-9 col-md-8 col-lg-2 p-0">
+                                                        <div class="input-group">
                                                             <input id="value_idr_rate" style="border-radius:0;" class="form-control" name="value_idr_rate" readonly>
                                                         </div>
                                                     </div>
@@ -141,28 +141,14 @@
                                             </div>
                                         </div>
 
-                                        <!-- VALUE CO ADDITIONAL -->
-                                        <div id="value_co_additional_field" class="row" style="margin-bottom: 1rem; display: none;">
+                                        <!-- VALUE CO -->
+                                        <div id="value_co_field" class="row" style="margin-bottom: 1rem; display: none;">
                                             <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label for="value_co_additional" class="col-4 col-form-label p-0">Value CO Additional</label>
-                                                    <div class="col p-0">
-                                                        <div class="input-group" style="width: 70px;">
-                                                            <input id="value_co_additional" style="border-radius:0;" class="form-control number-only" name="value_co_additional" autocomplete="off">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- VALUE CO DEDUCTIVE -->
-                                        <div id="value_co_deductive_field" class="row" style="display: none;">
-                                            <div class="col-lg-5">
-                                                <div class="row">
-                                                    <label for="value_co_deductive" class="col-4 col-form-label p-0">Value CO Deductive</label>
-                                                    <div class="col p-0">
-                                                        <div class="input-group" style="width: 70px;">
-                                                            <input id="value_co_deductive" style="border-radius:0;" class="form-control number-only" name="value_co_deductive" autocomplete="off">
+                                                    <label for="value_co" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Value CO(+/-)</label>
+                                                    <div class="col-sm-9 col-md-8 col-lg-2 p-0">
+                                                        <div class="input-group" data-toggle="tooltip" data-placement="top" title="Pesan">
+                                                            <input id="value_co" style="border-radius:0;" class="form-control number-only" name="value_co" autocomplete="off">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -231,21 +217,9 @@
                                 </div>
 
                                 <!-- BUDGET DETAILS TABLE -->
-                                <div class="wrapper-budget card-body table-responsive p-0 table-existing-budget">
-                                    <table id="budgetTable" class="table table-head-fixed text-nowrap table-sm">
+                                <div class="wrapper-budget table-responsive card-body p-0 table-existing-budget">
+                                    <table id="budgetTable" class="table table-head-fixed text-wrap table-sm">
                                         <thead>
-                                            <tr>
-                                                <th class="container-thead-tr-budget"></th>
-                                                <th class="container-thead-tr-budget"></th>
-                                                <th class="container-thead-tr-budget"></th>
-                                                <th class="container-thead-tr-budget"></th>
-                                                <th class="container-thead-tr-budget"></th>
-                                                <th class="container-thead-tr-budget"></th>
-                                                <th class="container-thead-tr-budget"></th>
-                                                <th class="container-thead-tr-budget"></th>
-                                                <th class="sticky-col sixth-col-modify-budget container-thead-tr-fixed-budget" colspan="3" style="right: 270px;">AFTER ADDITIONAL</th>
-                                                <th class="sticky-col third-col-modify-budget container-thead-tr-fixed-budget" colspan="3" style="right: 0px;">AFTER SAVING</th>
-                                            </tr>
                                             <tr>
                                                 <th class="container-thead-tr-budget">Product Id</th>
                                                 <th class="container-thead-tr-budget">Product Name</th>
@@ -255,12 +229,9 @@
                                                 <th class="container-thead-tr-budget">Currency</th>
                                                 <th class="container-thead-tr-budget">Balance Budget</th>
                                                 <th class="container-thead-tr-budget">Total Budget</th>
-                                                <th class="sticky-col sixth-col-modify-budget container-thead-tr-fixed-budget">Qty</th>
-                                                <th class="sticky-col fifth-col-modify-budget container-thead-tr-fixed-budget">Price</th>
-                                                <th class="sticky-col forth-col-modify-budget container-thead-tr-fixed-budget">Total</th>
-                                                <th class="sticky-col third-col-modify-budget container-thead-tr-fixed-budget">Qty</th>
-                                                <th class="sticky-col second-col-modify-budget container-thead-tr-fixed-budget">Price</th>
-                                                <th class="sticky-col first-col-modify-budget container-thead-tr-fixed-budget">Total</th>
+                                                <th class="container-thead-tr-budget">Modify (+/-)</th>
+                                                <th class="container-thead-tr-budget">Price</th>
+                                                <th class="container-thead-tr-budget">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -307,7 +278,7 @@
                                                         </div>
                                                         <div>
                                                             <span style="border-radius:0;" class="input-group-text form-control">
-                                                                <a href="#" id="products_popup" data-toggle="modal" data-target="#myProducts" class="myProduct"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                                <a href="#" id="products_popup" data-toggle="modal" data-target="#myProducts" class="myProducts"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                             </span>
                                                         </div>
                                                         <div style="flex: 100%;">
@@ -440,6 +411,7 @@
                         </div>
                         <div style="display: flex;">
                             <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit" disabled>
+                            <!-- <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit"> -->
                                 <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
                                 <div>Submit</div>
                             </button>

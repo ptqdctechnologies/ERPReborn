@@ -434,6 +434,16 @@
   document.querySelectorAll('.number-only').forEach(function(input) {
     allowNumbersOnly(input);
   });
+
+  function allowNumbersWithoutNegative(inputElement) {
+    inputElement.addEventListener('input', function(e) {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
+  }
+
+  document.querySelectorAll('.number-without-negative').forEach(function(input) {
+    allowNumbersWithoutNegative(input);
+  });
 </script>
 
 <script>
