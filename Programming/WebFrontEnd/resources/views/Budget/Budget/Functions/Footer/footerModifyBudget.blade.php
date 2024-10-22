@@ -126,7 +126,6 @@
                     var statusJustifyContentCenter2 = [];
                     var statusForm = [];
                     
-                    console.log('data', data);
                     if (data.message == "Invalid SQL Syntax") {
                         var html = 
                             '<tr>' +
@@ -138,7 +137,102 @@
                         $('table#budgetTable tbody').append(html);
                     } else {
                         if (code == "USD") {
+                            const dummy = [
+                                {
+                                    quantityAbsorptionRatio: 1.8,
+                                    quantity: 50,
+                                    productName: "Unspecified Product",
+                                    quantityRemaining: 0,
+                                    product_RefID: null,
+                                    priceBaseCurrencyValue: 29.99,
+                                    priceBaseCurrencyISOCode: "USD",
+                                    balancedBudget: 499.50
+                                },
+                                {
+                                    quantityAbsorptionRatio: 2.2,
+                                    quantity: 20,
+                                    productName: "Unspecified Product",
+                                    quantityRemaining: 0,
+                                    product_RefID: null,
+                                    priceBaseCurrencyValue: 120.50,
+                                    priceBaseCurrencyISOCode: "USD",
+                                    balancedBudget: 410.00
+                                },
+                                {
+                                    quantityAbsorptionRatio: 1.5,
+                                    quantity: 100,
+                                    productName: "Unspecified Product",
+                                    quantityRemaining: 10,
+                                    product_RefID: null,
+                                    priceBaseCurrencyValue: 50.00,
+                                    priceBaseCurrencyISOCode: "USD",
+                                    balancedBudget: 1000.00
+                                },
+                            ];
 
+                            $.each(dummy, function(key, val2) {
+                                var used = val2.quantityAbsorptionRatio * 100;
+
+                                if (used == "0.00" && val2.quantity == "0.00") {
+                                    var applied = 0;
+                                } else {
+                                    var applied = Math.round(used);
+                                }
+
+                                if (applied >= 100) {
+                                    var status = "disabled";
+                                }
+
+                                if (val2.productName == "Unspecified Product") {
+                                    statusDisplay[key] = "flex";
+                                    statusJustifyContentCenter[key] = "center";
+                                    statusDisplay2[key] = "none";
+                                    statusForm[key] = "disabled";
+                                    balance_qty = numberFormatPHPCustom(val2.quantityRemaining, 2);
+                                } else {
+                                    statusDisplay[key] = "none";
+                                    statusJustifyContentCenter2[key] = "center";
+                                    statusDisplay2[key] = "";
+                                    statusForm[key] = "";
+                                    balance_qty = numberFormatPHPCustom(val2.quantityRemaining, 2);
+                                }
+
+                                var html = 
+                                    '<tr>' +
+                                        '<td class="container-tbody-tr-budget" style="justify-content: center; display:' + statusDisplay[key] + '";">' + 
+                                            '<div class="input-group" style="max-width: 140px !important;">' + 
+                                                '<input id="product_id' + key + '" style="border-radius:0;" class="form-control" name="product_id_show" readonly>' +
+                                                '<div>' +
+                                                    '<span style="border-radius:0;" class="input-group-text form-control">' +
+                                                        '<a href="#" id="product_popup" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
+                                                    '</span>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</td>' +
+
+                                        '<td class="container-tbody-tr-budget" style="text-align: center !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
+                                        '<td class="container-tbody-tr-budget" style="text-align: left !important; width: 50px;">' + val2.productName + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + val2.priceBaseCurrencyISOCode + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(50000, 2) + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center" data-toggle="tooltip" data-placement="top" title="Pesan"> <input style="border-radius:0; width: 55px !important;" class="form-control number-only" autocomplete="off" id="modify_budget_details" name="modify_budget_details"> </div>' + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-without-negative" autocomplete="off" id="price_budget_details" name="price_budget_details"> </div>' + '</td>' +
+                                        '<td class="container-tbody-tr-budget" style="padding-right: 0px !important;">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-only" autocomplete="off" id="total_budget_details" name="total_budget_details" disabled> </div>' + '</td>' +
+                                    '</tr>';
+
+                                document.querySelectorAll('.number-only').forEach(function(input) {
+                                    allowNumbersOnly(input);
+                                });
+
+                                document.querySelectorAll('.number-without-negative').forEach(function(input) {
+                                    allowNumbersWithoutNegative(input);
+                                });
+
+                                $('table#budgetTable tbody').append(html);
+                            });
                         } else {
                             $.each(data, function(key, val2) {
                                 var used = val2.quantityAbsorptionRatio * 100;
@@ -148,9 +242,11 @@
                                 } else {
                                     var applied = Math.round(used);
                                 }
+
                                 if (applied >= 100) {
                                     var status = "disabled";
                                 }
+
                                 if (val2.productName == "Unspecified Product") {
                                     statusDisplay[key] = "flex";
                                     statusJustifyContentCenter[key] = "center";
@@ -188,7 +284,7 @@
                                         '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center" data-toggle="tooltip" data-placement="top" title="Pesan"> <input style="border-radius:0; width: 55px !important;" class="form-control number-only" autocomplete="off" id="modify_budget_details" name="modify_budget_details"> </div>' + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-without-negative" autocomplete="off" id="price_budget_details" name="price_budget_details"> </div>' + '</td>' +
-                                        '<td class="container-tbody-tr-budget" style="padding-right: 0px !important;">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-only" autocomplete="off" id="total_budget_details" name="total_budget_details"> </div>' + '</td>' +
+                                        '<td class="container-tbody-tr-budget" style="padding-right: 0px !important;">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-only" autocomplete="off" id="total_budget_details" name="total_budget_details" disabled> </div>' + '</td>' +
                                     '</tr>';
 
                                 document.querySelectorAll('.number-only').forEach(function(input) {
@@ -200,7 +296,7 @@
                                 });
 
                                 $('table#budgetTable tbody').append(html);
-                            })
+                            });
                         }
                     }
                 }
@@ -318,5 +414,39 @@
             hideFormAddNewItem();
             resetFormInputs();
         }
+    });
+</script>
+
+<script>
+    // Fungsi untuk menghitung total dan validasi
+    function calculateTotal(row) {
+        // Ambil elemen-elemen yang relevan dalam baris yang sama
+        const modifyInput = row.querySelector('input[name="modify_budget_details"]');
+        const priceInput = row.querySelector('input[name="price_budget_details"]');
+        const totalInput = row.querySelector('input[name="total_budget_details"]');
+        const qtyAvail = row.children[4].textContent.trim().replace(/,/g, '') == '-' ? 0 : parseFloat(row.children[4].textContent.trim().replace(/,/g, ''));
+
+        // Ambil nilai dari input modify dan price
+        const modifyValue = parseFloat(modifyInput.value) || 0;
+        const priceValue = parseFloat(priceInput.value) || 0;
+
+        // Validasi modify tidak bisa melebihi qty avail
+        if (modifyValue > qtyAvail) {
+            alert(`Modify value cannot exceed available quantity of ${qtyAvail}`);
+            modifyInput.value = qtyAvail; // Set ke maximum qty avail
+        }
+
+        // Hitung total (modify * price)
+        const totalValue = modifyInput.value * priceValue;
+
+        // Set hasil perhitungan ke input total
+        totalInput.value = totalValue.toFixed(2);
+    }
+
+    // Event delegation: Tambahkan event listener ke tbody untuk menangkap event dari input yang di-generate
+    $('#budgetTable tbody').on('blur', 'input[name="modify_budget_details"], input[name="price_budget_details"]', function () {
+        // Temukan baris tempat input yang diubah
+        const row = $(this).closest('tr')[0];
+        calculateTotal(row);
     });
 </script>

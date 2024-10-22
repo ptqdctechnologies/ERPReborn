@@ -21,6 +21,8 @@
         <form id="modifyBudgetForm" method="post" enctype="multipart/form-data" action="{{ route('Budget.PreviewModifyBudget') }}">
         @csrf
             <input type="hidden" id="hiddenBudgetData" name="hiddenBudgetData" value="">
+            <!-- <input type="hidden" id="budgetData" name="budgetData"> -->
+            <input type="hidden" id="hiddenDataInput" name="final_budget_data" value="">
 
             <!-- CONTENT -->
             <div class="card">
@@ -263,15 +265,15 @@
                                             <div>Add New Item</div>
                                         </button> -->
                                     </div>
-
+                                    
                                     <!-- CONTENT FORM -->
                                     <div id="formAddNewItem">
                                         <!-- PRODUCT ID -->
                                         <div id="newItemForm" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
                                             <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label for="products_popup" class="col-4 col-form-label p-0">Product</label>
-                                                    <div class="col d-flex p-0">
+                                                    <label for="products_popup" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Product</label>
+                                                    <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                                         <div>
                                                             <input id="products_id" hidden name="products_id">
                                                             <input id="products_id_show" style="border-radius:0; width: 105px;" class="form-control" name="products_id_show" readonly>
