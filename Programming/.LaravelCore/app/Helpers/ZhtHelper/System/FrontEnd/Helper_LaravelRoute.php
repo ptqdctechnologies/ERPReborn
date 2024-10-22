@@ -39,28 +39,32 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         */
         public static function setDynamicRoute_Examples_APICall($varUserSession, $varAPIWebToken)
             {
-            $varArrayExampleAPIKey = \App\Helpers\ZhtHelper\General\Helper_File::getDeepestSubFoldersInFolder(
-                $varUserSession,
-                \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchDirectoryPath(
-                    $varUserSession, 
-                    getcwd(), 
-                    '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall'
-                    )
-                );
+            $varArrayExampleAPIKey =
+                \App\Helpers\ZhtHelper\General\Helper_File::getDeepestSubFoldersInFolder(
+                    $varUserSession,
+                    \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchDirectoryPath(
+                        $varUserSession, 
+                        getcwd(), 
+                        '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall'
+                        )
+                    );
 
-            for($i=0, $iMax=count($varArrayExampleAPIKey); $i!=$iMax; $i++)
+            for ($i=0, $iMax=count($varArrayExampleAPIKey); $i!=$iMax; $i++)
                 {
                 $varClass = '\App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall'.str_replace('/', '\\', $varArrayExampleAPIKey[$i]).'\example';
-                $varFilePath = \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath(
-                    $varUserSession, 
-                    getcwd(), 
-                    '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall'.$varArrayExampleAPIKey[$i].'/example.php'
-                    );
-                if(is_file($varFilePath))
+
+                $varFilePath =
+                    \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath(
+                        $varUserSession, 
+                        getcwd(), 
+                        '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall'.$varArrayExampleAPIKey[$i].'/example.php'
+                        );
+
+                if (is_file($varFilePath))
                     {
                     $varArrayFunctionEntities = \App\Helpers\ZhtHelper\General\Helper_PHPObject::getAllFunctionEntitiesFromPHPFile($varUserSession, $varFilePath);
 
-                    for($j=0, $jMax=count($varArrayFunctionEntities); $j!=$jMax; $j++)
+                    for ($j=0, $jMax=count($varArrayFunctionEntities); $j!=$jMax; $j++)
                         {
                         Route::get(
                             str_replace('/', '.', str_replace('#/', '', '#'.$varArrayExampleAPIKey[$i])).'_'.$varArrayFunctionEntities[$j]['Name'], 
@@ -92,29 +96,32 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         public static function setDynamicRoute_Examples_UIComponent($varUserSession, $varAPIWebToken)
             {
             $varView = '';
-            $varArrayExampleAPIKey = \App\Helpers\ZhtHelper\General\Helper_File::getDeepestSubFoldersInFolder(
-                $varUserSession,
-                \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchDirectoryPath(
-                    $varUserSession, 
-                    getcwd(), 
-                    '/resources/views/SandBox/Examples_UIComponent'
-                    )
-                );
+            $varArrayExampleAPIKey =
+                \App\Helpers\ZhtHelper\General\Helper_File::getDeepestSubFoldersInFolder(
+                    $varUserSession,
+                    \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchDirectoryPath(
+                        $varUserSession, 
+                        getcwd(), 
+                        '/resources/views/SandBox/Examples_UIComponent'
+                        )
+                    );
             //dd($varArrayExampleAPIKey);
-            for($i=0, $iMax=count($varArrayExampleAPIKey); $i!=$iMax; $i++)
+            for ($i=0, $iMax=count($varArrayExampleAPIKey); $i!=$iMax; $i++)
                 {
                 $varView = 'SandBox/Examples_UIComponent'.$varArrayExampleAPIKey[$i].'/example';
-                $varFilePath = \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath(
-                    $varUserSession, 
-                    getcwd(), 
-                    '/resources/views/SandBox/Examples_UIComponent'.$varArrayExampleAPIKey[$i].'/example.blade.php'
-                    );
-                if(is_file($varFilePath))
-                    {
-                    $varArrayViewName = explode(
-                        '/', 
-                        str_replace('SandBox/Examples_UIComponent/', '', $varView)
+                $varFilePath = 
+                    \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath(
+                        $varUserSession,
+                        getcwd(), 
+                        '/resources/views/SandBox/Examples_UIComponent'.$varArrayExampleAPIKey[$i].'/example.blade.php'
                         );
+                if (is_file($varFilePath))
+                    {
+                    $varArrayViewName = 
+                        explode(
+                            '/', 
+                            str_replace('SandBox/Examples_UIComponent/', '', $varView)
+                            );
                     array_pop($varArrayViewName);
                     $varArrayViewName = 'UIComponent.'.implode('.', $varArrayViewName);
 

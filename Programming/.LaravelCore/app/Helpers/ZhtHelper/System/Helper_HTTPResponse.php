@@ -42,43 +42,52 @@ namespace App\Helpers\ZhtHelper\System
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getResponse($varUserSession, $varURL, $varData=null, $varMethod=null, int $varPort=null, int $varTTL=null, array $varHeaders=null)
+        public static function getResponse(
+            $varUserSession,
+            $varURL, $varData = null, $varMethod = null, int $varPort = null, int $varTTL = null, array $varHeaders = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get HTTP Response');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(!$varPort)
+                    //---> Reinisialisasi varPort
+                    if (!$varPort)
                         {
                         $varPort = 80;
                         }
+
                     //---> Cek apakah port tujuan terbuka
                     if (\App\Helpers\ZhtHelper\General\Helper_Network::isPortOpen($varUserSession, $varURL, $varPort) == false)
                         {
                         throw new \Exception('Port is closed');
                         }
+
                     //---> Pengecekan Method
                     if (!$varMethod)
                         {
                         $varMethod = 'POST';
                         }
+                        
                     //---> Pengecekan data
                     if (!$varData)
                         {
                         $varData=[];                 
                         }
+
                     if (!is_array($varData))
                         {
                         throw new Exception('Data must be an array');
                         }
+
                     //---> Pengecekan TTL
                     if (!$varTTL)
                         {
                         $varTTL = 300;
                         }
+
                     //---> Overide TTL untuk API tertentu
-                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varData, 'metadata::API::key')==true)
+                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varData, 'metadata::API::key') == true)
                         {
                         if (
                             (strcmp($varData['metadata']['API']['key'], 'transaction.synchronize.dataAcquisition.setLog_Device_PersonAccess') == 0)
@@ -87,15 +96,20 @@ namespace App\Helpers\ZhtHelper\System
                             $varTTL = 300;
                             }
                         }
+
                     //---> Set TTL
                     ini_set('max_execution_time', $varTTL);
+
+//dd($varURL);
+//dd($varData['header']['URL']);
+
                     //---> Pengecekan Header
                     if (!$varHeaders)
                         {
                         //---> API AUTH
-                        if(strcmp($varURL, \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'))==0)
+                        if (strcmp($varURL, \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'))==0)
                             {
-                            $varHeaders=[
+                            $varHeaders = [
                                 'User-Agent' => (empty($_SERVER['HTTP_USER_AGENT'])? 'Non Browser' : $_SERVER['HTTP_USER_AGENT']),
                                 'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),
                                 'Expires' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateExpires($varUserSession, (10*60)),
@@ -133,7 +147,7 @@ namespace App\Helpers\ZhtHelper\System
                             dd($x);
 */
                             
-                            $varHeaders=[
+                            $varHeaders = [
                                 'Authorization' => (((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'header', $varData) == true) && (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'authorization', $varData['header']) == true)) ? $varData['header']['authorization'] : null),
                                 'User-Agent' => (empty($_SERVER['HTTP_USER_AGENT'])? 'Non Browser' : $_SERVER['HTTP_USER_AGENT']),
                                 'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),
@@ -151,18 +165,37 @@ namespace App\Helpers\ZhtHelper\System
                                         )
                                     ),
                                 'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
+//                                'X-URL' => $varData['header']['URL']
                                 ];
 
-                            $varData = \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey(
-                                \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession), 
-                                'header', 
-                                $varData);
+/*                            
+                            if (\App\Helpers\ZhtHelper\General\Helper_Array::isElementExist($varUserSession, $varElement, $varData) == TRUE)
+                                {                                
+                                }
+*/
+
+                            $varData =
+                                \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey(
+                                    \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession), 
+                                    'header', 
+                                    $varData);
                             }
                         }
                     //---> Main process
-//dd($varData);
-                    $varReturn = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setRequest($varUserSession, $varURL, $varMethod, $varData, $varPort, $varHeaders);
-//dd($varReturn);
+                    //dd($varData);
+                    //dd($varURL);
+                    //dd($varData);
+                    $varReturn = 
+                        \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setRequest(
+                            $varUserSession,
+                            $varURL,
+                            $varMethod,
+                            $varData,
+                            $varPort,
+                            $varHeaders
+                            );
+                    //dd($varReturn);
+
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
@@ -246,14 +279,27 @@ namespace App\Helpers\ZhtHelper\System
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Body Content of HTTP Response');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    //$varObjResponseArray = ((array) $varObjResponse);
+
+                    $varGuzzleMode = TRUE;
+                    if (stristr(json_encode(((array) $varObjResponse)), 'GuzzleHttp') === FALSE) {
+                        $varGuzzleMode = FALSE;
+                        }
+//dd($varObjResponse);
+//dd($varGuzzleMode);
+
                     //---> Jika $varObjResponse dari Guzzle
                     try {
-                        $varReturn = $varObjResponse->getBody()->getContents();                        
-                        } 
+                        $varReturn =
+                            $varObjResponse->getBody()->getContents();                        
+                        }
+
                     //---> Jika $varObjResponse bukan dari Guzzle
                     catch (\Exception $ex) {
-                        $varReturn = $varObjResponse->getContent();
+                        $varReturn =
+                            $varObjResponse->getContent();
                         }
+
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }          

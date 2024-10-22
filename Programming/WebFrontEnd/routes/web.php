@@ -19,7 +19,7 @@ use App\Http\Controllers\UserController;
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzI5MTI5MTI0fQ.YmZmMmJmYzExZTAyZGY1Mjk2OTMyYTY2ZjljMGE2MzQ4NDVhMWJjM2VjZWNjNTM3YjY1ODY3YmQzMzE1N2VlOQ';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzI5NTYzNzMyfQ.ODhkYzEzOWQxNTAwNzEyNGY0OTFkMDZkZmY3Y2M1MDY1ZTM2ZDYzZjc1ODIxZmZjMGIyNzk1ZjM3OGNiYzkwMQ';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -29,6 +29,14 @@ $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxk
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[ END ]---
 
 //---[ Static Route ]--------------------------------------------------------------------[START]---
+
+
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute(
+    'setAPIRedirect',
+    'match[post, get]',
+    '\App\Http\Controllers\Application\FrontEnd\System\API\setAPIRedirect@main',
+    'webWithoutCSRF'
+    );
 
 //\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('getArchivedFileObjectDownload/{encodedData}', 'get', '\App\Http\Controllers\Application\FrontEnd\System\FileHandling\Controller@getArchivedFileObjectDownload', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('getFileObjectDownload', 'get', '\App\Http\Controllers\Application\FrontEnd\System\FileHandling\Controller@getFileObjectDownload', 'webWithoutCSRF');

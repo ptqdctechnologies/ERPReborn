@@ -1,4 +1,4 @@
-FROM php:8.3.10-apache
+FROM php:8.3.12-apache
 ENV DEBIAN_FRONTEND=noninteractive
 
 #    && add-apt-repository ppa:ondrej/php \
@@ -81,10 +81,11 @@ RUN pecl install redis \
 
 
 #---> PHP Extension : CURL
-RUN apt-get install -y \ 
+RUN apt-get install -y \
    libcurl4-gnutls-dev \
    && docker-php-ext-install \
       curl
+#libcurl4-openssl-dev \
 
 
 #---> PHP Extension : LDAP

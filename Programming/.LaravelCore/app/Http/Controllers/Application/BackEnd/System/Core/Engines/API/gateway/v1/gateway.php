@@ -113,11 +113,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                     else
                         {
                         try {
-                            if(is_numeric($varAPIVersion*1)==TRUE)
+                            if (is_numeric($varAPIVersion*1) == TRUE)
                                 {
-                                if(is_int($varAPIVersion*1)==TRUE)
+                                if (is_int($varAPIVersion*1) == TRUE)
                                     {
-                                    $varAPIVersionValidity=TRUE;                                    
+                                    $varAPIVersionValidity = TRUE;                                    
                                     }
                                 }
                             } 

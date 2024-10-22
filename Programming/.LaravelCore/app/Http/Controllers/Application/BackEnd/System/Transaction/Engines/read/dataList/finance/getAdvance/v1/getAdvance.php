@@ -9,7 +9,8 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\finance\getAdvance\v1 {
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\finance\getAdvance\v1
+    {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : getAdvance                                                                                                   |
@@ -17,7 +18,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getAdvance extends \App\Http\Controllers\Controller
-    {
+        {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
@@ -34,8 +35,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function __construct()
-        {
-        }
+            {
+            }
 
 
         /*
@@ -111,7 +112,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                             {
                             throw new \Exception();
                             }
-                        
+
                         /*
                         //---> Data Processing
                         for ($i=0, $iMax = count($varDataSend); $i != $iMax; $i++)
@@ -128,7 +129,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                         */
 
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
-                        } 
+                        }
+
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
@@ -142,10 +144,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
+
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
         }
     }
-}

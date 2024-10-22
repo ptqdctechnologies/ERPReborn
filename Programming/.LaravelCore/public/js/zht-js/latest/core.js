@@ -56,6 +56,7 @@ class zht_JSCore
         this.setJSSource(varJQueryEnable);
         }
 
+
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Method Name     : isScriptAlreadyIncluded                                                                                  |

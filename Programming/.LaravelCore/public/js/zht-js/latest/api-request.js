@@ -333,7 +333,16 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
     constructor(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject, varTimeOut)
         {
         super();
-        var varReturn = this.main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject, varTimeOut);
+        
+        var varReturn = 
+            this.main(
+                varAPIWebToken,
+                varURL,
+                varAPIKey,
+                varAPIVersion,
+                varDataJSObject,
+                varTimeOut
+                );
         this.value = varReturn;
         }
 
@@ -359,44 +368,67 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
     */
     main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject, varTimeOut)
         {
-        if(varTimeOut == null) {
+        //alert(varAPIWebToken);
+        //alert(varURL);
+        
+        if (varTimeOut == null) {
             varTimeOut = 5000;
             }
         //alert(JSON.stringify(varDataJSObject));
+
         var varReturn = null;
+
         if (window.jQuery) {
             try
                 {
                 //---> Replace Empty With Null value
-                var varDataJSON = this.setJSONWithEmptyValueToNullReplacement({
-                    "metadata" : {
-                        "API" : {
-                            "key" : varAPIKey,
-                            "version" : varAPIVersion
-                            }
-                        },
-                    "data" : varDataJSObject
-                    });
+                var varDataJSON = 
+                    this.setJSONWithEmptyValueToNullReplacement(
+                        {
+                        "metadata" : {
+                            "API" : {
+                                "key" : varAPIKey,
+                                "version" : varAPIVersion
+                                }
+                            },
+                        "data" : varDataJSObject
+                        }
+                        );
                 //alert(varDataJSON);
               
                 var varDataJSONUnicodeEscaped = varDataJSON;
                 varDataJSONUnicodeEscaped = 
-                    varDataJSONUnicodeEscaped.replace(/[^\0-~]/g, function(ch) {
-                        return "\\u" + ("000" + ch.charCodeAt().toString(16)).slice(-4);
-                        });
+                    varDataJSONUnicodeEscaped.replace(
+                        /[^\0-~]/g,
+                        function(ch) {
+                            return "\\u" + ("000" + ch.charCodeAt().toString(16)).slice(-4);
+                            }
+                        );
                 //alert(varDataJSONUnicodeEscaped);
                                
                 //alert(varDataJSON);
-                varDataJSONUnicodeEscaped = varDataJSONUnicodeEscaped.replace("\"parameter\":{}", "\"parameter\":[]");;
+                varDataJSONUnicodeEscaped = 
+                    varDataJSONUnicodeEscaped.replace(
+                        "\"parameter\":{}",
+                        "\"parameter\":[]"
+                        );
                 //alert(varDataJSONUnicodeEscaped);
                 //alert(this.getBase64OfMD5(varDataJSONUnicodeEscaped));
+
+
+                //alert(varDataJSONUnicodeEscaped);
+
                 //---> Request Parse
-                $.ajax(varURL, {
+                $.ajax(
+                    varURL, 
+                    {
                     async : false, 
                     type : "POST",
-                    beforeSend: function(varObjXHR) {
-                        varObjXHR.setRequestHeader('X-Test-Header', 'test-value');
-                        },
+                    beforeSend :
+                        function (varObjXHR) {
+                            //varObjXHR.withCredentials = false;
+                            varObjXHR.setRequestHeader('X-Test-Header', 'test-value');
+                            },
                     headers : {
                         'Authorization' : this.getJSONWebTokens(varAPIWebToken),
 //                        'User-Agent' : this.getUserAgent(),
@@ -406,77 +438,86 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
 //                        'X-Request-ID' : this.getXRequestID(varAPIWebToken, varURL),
                         },
                     dataType: "json",
+                    //dataType: "jsonp",
                     data : varDataJSON,
                     contentType : "application/json",
-                    success : function(varDataResponse, varTextStatus, varObjXHR)
-                        {
-                        //'$("body").append(JSON.stringify(varObjXHR)); '.
-                        //'$("body").append(JSON.stringify(varTextStatus)); '.
-                        //'$("body").append(JSON.stringify(varDataResponse)); '.
-                        //'alert("Success"); '.
-                        //'varAJAXReturn = "Success"; '.
-                        //varReturn = JSON.stringify(varDataResponse);
-                        
-                        varReturn = 
-                            JSON.stringify(
-                                JSON.parse(
-                                    '{' +
-                                    '"metadata" : {' + 
-                                        '"HTTPStatusCode" : ' + varObjXHR.status + ', ' +
-                                        '"APIResponse" : ' + JSON.stringify(varDataResponse.metadata.APIResponse) + ', ' +
-                                        '"successStatus" : ' + JSON.stringify(varDataResponse.metadata.successStatus) + 
-                                        '}, ' +
-                                    '"data" : ' + JSON.stringify(varDataResponse.data) +
-                                    '}'
-                                    )
-                                );
-                        //alert(varReturn);
-                        },
+                    success : 
+                        function (varDataResponse, varTextStatus, varObjXHR) {
+                        //alert(varDataJSON);
+                        //alert(varObjXHR.status);
+
+                        //alert(JSON.stringify(varDataResponse));
+                        //alert(JSON.stringify(varDataResponse.metadata.successStatus));
+
+
+                            //'$("body").append(JSON.stringify(varObjXHR)); '.
+                            //'$("body").append(JSON.stringify(varTextStatus)); '.
+                            //'$("body").append(JSON.stringify(varDataResponse)); '.
+                            //'alert("Success"); '.
+                            //'varAJAXReturn = "Success"; '.
+                            //varReturn = JSON.stringify(varDataResponse);
+
+                            varReturn = 
+                                JSON.stringify(
+                                    JSON.parse(
+                                        '{' +
+                                        '"metadata" : {' + 
+                                            '"HTTPStatusCode" : ' + varObjXHR.status + ', ' +
+                                            '"APIResponse" : ' + JSON.stringify(varDataResponse.metadata.APIResponse) + ', ' +
+                                            '"successStatus" : ' + JSON.stringify(varDataResponse.metadata.successStatus) + 
+                                            '}, ' +
+                                        '"data" : ' + JSON.stringify(varDataResponse.data) +
+                                        '}'
+                                        )
+                                    );
+                            //alert(varReturn);
+                            },
 //                    error : function(varDataResponse, varTextStatus, errorThrown)
-                    error : function(varObjXHR, varTextStatus, errorThrown)
-//                    error : function(varObjXHR, varTextStatus, varDataResponse)
-                        {
-                        //'varStatusCode = varDataResponse.status; '.
-                        //'varStatusText = varDataResponse.statusText; '.
-                        //'varContent = varDataResponse.responseText; '.
-                        //'varReadyState = varDataResponse.readyState; '.
-                        //'$("body").append(JSON.stringify(varDataResponse)); '.
-                        //'alert("Failed, Error " + JSON.stringify(varDataResponse));  '.
-                        //'varAJAXReturn = "Failed"; '.
+                    error :
+                        function(varObjXHR, varTextStatus, errorThrown)
+    //                    error : function(varObjXHR, varTextStatus, varDataResponse)
+                            {
+                            //'varStatusCode = varDataResponse.status; '.
+                            //'varStatusText = varDataResponse.statusText; '.
+                            //'varContent = varDataResponse.responseText; '.
+                            //'varReadyState = varDataResponse.readyState; '.
+                            //'$("body").append(JSON.stringify(varDataResponse)); '.
+                            //'alert("Failed, Error " + JSON.stringify(varDataResponse));  '.
+                            //'varAJAXReturn = "Failed"; '.
 
-                        //let varHTTPStatusCode = varObjXHR.status;
+                            //let varHTTPStatusCode = varObjXHR.status;
 
-                        let varReponseTextJSON = (JSON.parse(varObjXHR.responseText));
-                        let varReponseTextMessage = JSON.stringify(varReponseTextJSON.message);
-                        let varReponseTextException = JSON.stringify(varReponseTextJSON.exception);
-                        let varReponseTextFile = JSON.stringify(varReponseTextJSON.file);
+                            let varReponseTextJSON = (JSON.parse(varObjXHR.responseText));
+                            let varReponseTextMessage = JSON.stringify(varReponseTextJSON.message);
+                            let varReponseTextException = JSON.stringify(varReponseTextJSON.exception);
+                            let varReponseTextFile = JSON.stringify(varReponseTextJSON.file);
 
-                        varReponseTextMessage = varReponseTextMessage.slice(0, varReponseTextMessage.length-1);
-                        varReponseTextMessage = (varReponseTextMessage.slice(varReponseTextMessage.indexOf('Error Message ► '))).replace('Error Message ► ', '');
-                            
-                        varReturn = 
-                            JSON.stringify(
-                                JSON.parse(
-                                    '{' +
-                                    '"metadata" : {' + 
-                                        '"HTTPStatusCode" : ' + varObjXHR.status + ', ' +
-                                        '"APIResponse" : ' + JSON.stringify((JSON.parse(varDataJSON)).metadata.API) + ', ' +
-                                        '"successStatus" : false' + 
-                                        '}, ' +
-                                    '"data" : ' + '{' +
-                                        '"message" : "' + varReponseTextMessage + '"' + 
-                                        '}' +
-                                    '}'
-                                    )
-                                );
-                        },
-                    timeout: varTimeOut
+                            varReponseTextMessage = varReponseTextMessage.slice(0, varReponseTextMessage.length-1);
+                            varReponseTextMessage = (varReponseTextMessage.slice(varReponseTextMessage.indexOf('Error Message ► '))).replace('Error Message ► ', '');
+
+                            varReturn = 
+                                JSON.stringify(
+                                    JSON.parse(
+                                        '{' +
+                                        '"metadata" : {' + 
+                                            '"HTTPStatusCode" : ' + varObjXHR.status + ', ' +
+                                            '"APIResponse" : ' + JSON.stringify((JSON.parse(varDataJSON)).metadata.API) + ', ' +
+                                            '"successStatus" : false' + 
+                                            '}, ' +
+                                        '"data" : ' + '{' +
+                                            '"message" : "' + varReponseTextMessage + '"' + 
+                                            '}' +
+                                        '}'
+                                        )
+                                    );
+                            },
+                    timeout : varTimeOut
                     });
                 //alert(varReturn);
                 //$("body").append(JSON.stringify(varReturn));
                 return varReturn;
                 }
-            catch(varError) {
+            catch (varError) {
                 alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")");
                 }
             }
