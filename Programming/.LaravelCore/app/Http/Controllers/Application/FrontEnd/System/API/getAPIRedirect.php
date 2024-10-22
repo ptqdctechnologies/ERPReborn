@@ -11,44 +11,49 @@ namespace App\Http\Controllers\Application\FrontEnd\System\API
             {
             }
         
-        public function main()
+        public function main(Request $varRequest)
             {
             $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
+
+            $varData = null;
+            try {
+                /*
+                $varData = 
+                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        ($varRequest->all())[0],
+                        ($varRequest->all())[1],
+                        ($varRequest->all())[2],
+                        FALSE,
+                        FALSE
+                        );
+                */
+                $varData = 
+                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        ($varRequest->all())['metadata']['API']['key'],
+                        ($varRequest->all())['metadata']['API']['version'],
+                        ($varRequest->all())['data'],
+                        FALSE,
+                        FALSE
+                        );
+                }
+            catch (\Exception $ex) {
+                }
+
+            //$varReturn = response()->json($varData);
             
-            $varData = 
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            $varReturn = 
+                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'dataWarehouse.dataCheck.recordIDExistantion.acquisition.getFileUpload_Pointer', 
-                    'latest', 
-                    [
-                    'parameter' => [
-                        'recordID' => 91000000000001
-                        ]
-                    ]
+                    $varData
                     );
-
-            $varData = [
-                'metadata' => [
-                    'APIResponse' => [
-                        'key' => $varData['metadata']['APIResponse']['key'],
-                        'version' => $varData['metadata']['APIResponse']['version']
-                        ],
-                    'successStatus' => ($varData['metadata']['HTTPStatusCode'] == 200 ? true : false)
-                    ],
-                'data' => $varData['data']
-                ];
+            ///dd($varReturn);
             
-            return $varData;
-            
-            
-/*            
-            $x = request()->json()->all();
-            dd($x);
-            echo "OK";
-            //dd($varRequest->post());
-
- */
+            return
+                $varReturn;
             }
         }
     }

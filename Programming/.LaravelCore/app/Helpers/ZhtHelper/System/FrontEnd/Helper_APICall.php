@@ -343,8 +343,9 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIGateway                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-26                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2024-10-21                                                                                           |
+        | ▪ Create Date     : 2021-07-26                                                                                           |
         | ▪ Description     : Memanggil API Gateway                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -354,11 +355,15 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         |      ▪ (mixed)  varAPIVersion ► API Version                                                                              |
         |      ▪ (array)  varData ► Data                                                                                           |
         |      ▪ (bool)   varSignDisplayErrorPage ► Sign Display Error Page (Optional)                                             |
+        |      ▪ (bool)   varSignUseHTTPProxy ► Sign Use HTTP Proxy (Optional)                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setCallAPIGateway($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion=null, array $varData=null, bool $varSignDisplayErrorPage = null)
+        public static function setCallAPIGateway(
+            $varUserSession, string $varAPIWebToken,
+            string $varAPIKey, $varAPIVersion = null, array $varData = null,
+            bool $varSignDisplayErrorPage = null, bool $varSignUseHTTPSProxy = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             
@@ -381,14 +386,45 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         $varSignDisplayErrorPage = TRUE;
                         }
 
+                    if ($varSignUseHTTPSProxy === NULL)
+                        {
+                        $varSignUseHTTPSProxy = FALSE;
+                        }
+
+                        
                     if (!$varData)
                         {
                         $varData = [];
                         }
 
+                    //---> Inisialisasi varURL
+                    $varURL = 
+                        str_replace(
+                            'http:',
+                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY')
+                            );
+
+                    
+                    $varURL = 
+                        str_replace(
+                            'http:',
+                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(
+                                $varUserSession,
+                                (
+                                $varSignUseHTTPSProxy === FALSE ? 
+                                    'URL_BACKEND_API_GATEWAY' :
+                                    'URL_FRONTEND_JQUERY_API_GATEWAY_HTTPSPROXY'
+                                )
+                                )
+                            );
+
+                    //--->
                     $varDataArray = [
                         'header' => [
                             'authorization' => 'Bearer'.' '.$varAPIWebToken,
+                            'URL' => $varURL
                             ],
                         'metadata' => [
                             'API' => [
@@ -401,28 +437,14 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                     //dd($varDataArray);
                     //dd(json_encode($varDataArray));
 
-                    $varURL = 
-                        str_replace(
-                            'http:',
-                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
-                            \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY')
-                            );
-/*
-                    $varURL = 
-                        str_replace(
-                            'http:',
-                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
-                            'http://172.28.0.4/getAPIRedirect'
-                            );
-*/
                     $varResponseData =
                         \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
                             $varUserSession,
                             $varURL,
                             $varDataArray
                             );
-                    // dd($varResponseData);
-                    
+                    //dd($varResponseData);
+
                     if ($varResponseData['metadata']['HTTPStatusCode'] == 200)
                         {
                         $varReturn = $varResponseData;
@@ -430,6 +452,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                     else
                         {
                         $varRequesterSegment = (request()->segments())[0];
+
                         //---> Jika Requester berasal dari Gateway JQuery
                         if (strcmp($varRequesterSegment, "APIGatewayJQuery_setRequest") == 0)
                             {
@@ -465,8 +488,8 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIGatewayJQuery                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0002.0000000                                                                                       |
-        | ▪ Last Update     : 2024-08-28                                                                                           |
+        | ▪ Version         : 1.0003.0000000                                                                                       |
+        | ▪ Last Update     : 2024-10-22                                                                                           |
         | ▪ Creation Date   : 2021-01-04                                                                                           |
         | ▪ Description     : Memanggil API Gateway melalui JQuery                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -480,7 +503,10 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setCallAPIGatewayJQuery($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, string $varData=null, int $varTimeOut = null)
+        public static function setCallAPIGatewayJQuery(
+            $varUserSession, string $varAPIWebToken,
+            string $varAPIKey, $varAPIVersion = null, string $varData=null, int $varTimeOut = null
+            )
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -508,6 +534,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
 
 /* ORIGINAL CODE ---> Error saat menggunakan https yang merupakan self signed certificate
  */
+                    /*
                     $varURL = 
                         str_replace(
                             'http:',
@@ -517,15 +544,32 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                 'URL_BACKEND_API_GATEWAY'
                                 )
                             );
+                    */
 
-                    /*
                     $varURL = 
                         str_replace(
                             'http:',
                             (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
-                            'http://172.28.0.4/getAPIRedirect'
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(
+                                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                'URL_FRONTEND_JQUERY_API_GATEWAY_HTTPSPROXY'
+                                )
                             );
-                     */
+
+                    $varURL = 
+                        str_replace(
+                            'http:',
+                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(
+                                $varUserSession,
+                                (
+                                \App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) === FALSE ? 
+                                    'URL_BACKEND_API_GATEWAY' :
+                                    'URL_FRONTEND_JQUERY_API_GATEWAY_HTTPSPROXY'
+                                )
+                                )
+                            );
+                    
 
 //Code sementara untuk mengatasi Error HTTPS dengan memaksa menggunakan HTTP
 /*

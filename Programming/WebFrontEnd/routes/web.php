@@ -19,7 +19,7 @@ use App\Http\Controllers\UserController;
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzI5MjQxNTAzfQ.YzcyMGM2Mjc5M2Q3MzJhZDIzODU2MjMxOGZlNTVlMjQwYTk0N2E0Yzc0M2Q3MWViNzRjMDRmMjAyZmIzZTI5MQ';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzI5NTYzNzMyfQ.ODhkYzEzOWQxNTAwNzEyNGY0OTFkMDZkZmY3Y2M1MDY1ZTM2ZDYzZjc1ODIxZmZjMGIyNzk1ZjM3OGNiYzkwMQ';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -30,10 +30,11 @@ $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxk
 
 //---[ Static Route ]--------------------------------------------------------------------[START]---
 
+
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute(
-    'getAPIRedirect',
-    '[post, get]',
-    '\App\Http\Controllers\Application\FrontEnd\System\API\getAPIRedirect@main',
+    'setAPIRedirect',
+    'match[post, get]',
+    '\App\Http\Controllers\Application\FrontEnd\System\API\setAPIRedirect@main',
     'webWithoutCSRF'
     );
 

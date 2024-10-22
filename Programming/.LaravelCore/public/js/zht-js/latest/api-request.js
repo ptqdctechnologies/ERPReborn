@@ -333,6 +333,7 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
     constructor(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject, varTimeOut)
         {
         super();
+        
         var varReturn = 
             this.main(
                 varAPIWebToken,
@@ -367,11 +368,16 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
     */
     main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject, varTimeOut)
         {
-        if(varTimeOut == null) {
+        //alert(varAPIWebToken);
+        //alert(varURL);
+        
+        if (varTimeOut == null) {
             varTimeOut = 5000;
             }
         //alert(JSON.stringify(varDataJSObject));
+
         var varReturn = null;
+
         if (window.jQuery) {
             try
                 {
@@ -392,15 +398,26 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
               
                 var varDataJSONUnicodeEscaped = varDataJSON;
                 varDataJSONUnicodeEscaped = 
-                    varDataJSONUnicodeEscaped.replace(/[^\0-~]/g, function(ch) {
-                        return "\\u" + ("000" + ch.charCodeAt().toString(16)).slice(-4);
-                        });
+                    varDataJSONUnicodeEscaped.replace(
+                        /[^\0-~]/g,
+                        function(ch) {
+                            return "\\u" + ("000" + ch.charCodeAt().toString(16)).slice(-4);
+                            }
+                        );
                 //alert(varDataJSONUnicodeEscaped);
                                
                 //alert(varDataJSON);
-                varDataJSONUnicodeEscaped = varDataJSONUnicodeEscaped.replace("\"parameter\":{}", "\"parameter\":[]");;
+                varDataJSONUnicodeEscaped = 
+                    varDataJSONUnicodeEscaped.replace(
+                        "\"parameter\":{}",
+                        "\"parameter\":[]"
+                        );
                 //alert(varDataJSONUnicodeEscaped);
                 //alert(this.getBase64OfMD5(varDataJSONUnicodeEscaped));
+
+
+                //alert(varDataJSONUnicodeEscaped);
+
                 //---> Request Parse
                 $.ajax(
                     varURL, 
@@ -426,6 +443,13 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                     contentType : "application/json",
                     success : 
                         function (varDataResponse, varTextStatus, varObjXHR) {
+                        //alert(varDataJSON);
+                        //alert(varObjXHR.status);
+
+                        //alert(JSON.stringify(varDataResponse));
+                        //alert(JSON.stringify(varDataResponse.metadata.successStatus));
+
+
                             //'$("body").append(JSON.stringify(varObjXHR)); '.
                             //'$("body").append(JSON.stringify(varTextStatus)); '.
                             //'$("body").append(JSON.stringify(varDataResponse)); '.
@@ -493,7 +517,7 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                 //$("body").append(JSON.stringify(varReturn));
                 return varReturn;
                 }
-            catch(varError) {
+            catch (varError) {
                 alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")");
                 }
             }

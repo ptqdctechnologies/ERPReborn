@@ -18,5 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute(
+    'getAPIRedirect',
+    ['get', 'post'],
+    '\App\Http\Controllers\Application\FrontEnd\System\API\getAPIRedirect@main'
+    );
 
 //URL::forceScheme('https');

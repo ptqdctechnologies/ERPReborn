@@ -1529,6 +1529,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\userAction\\documentWorkFlow\\remapping\\manual\\setWorkFlowPathSequenceRemapping\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/userAction/documentWorkFlow/remapping/manual/setWorkFlowPathSequenceRemapping/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\SendWSRequest' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/SendWSRequest.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\System\\API\\getAPIRedirect' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/System/API/getAPIRedirect.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\System\\API\\setAPIRedirect' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/System/API/setAPIRedirect.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\System\\FileHandling\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/System/FileHandling/Controller.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Budget\\BudgetController' => __DIR__ . '/../..' . '/app/Http/Controllers/Budget/BudgetController.php',

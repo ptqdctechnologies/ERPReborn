@@ -35,7 +35,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                 }
 
 
-            $ObjClient = new \GuzzleHttp\Client();
             $varData = 
                 [
                 'dataWarehouse.dataCheck.recordIDExistantion.acquisition.getFileUpload_Pointer', 
@@ -47,6 +46,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                 ]
                 ];
             
+
             $varUserSession = 1;
             $varHeaders = [
                 'Authorization' => (((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'header', $varData) == true) && (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'authorization', $varData['header']) == true)) ? $varData['header']['authorization'] : null),
@@ -67,6 +67,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                 'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
                 ];
             
+            $ObjClient = new \GuzzleHttp\Client();
             $varResponse = 
                 $ObjClient->request(
                     'GET',
@@ -79,8 +80,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                     //'connect_timeout' => 2
                     ]
                     );
-                
-            dd($varResponse);    
+
+$varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varResponse);
+            
+            dd($varResponseData);    
 
 /*            
             //---Core---
