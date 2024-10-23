@@ -924,7 +924,6 @@ return array(
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\userAction\\documentWorkFlow\\remapping\\manual\\setWorkFlowPathSequenceRemapping\\v1\\example' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/userAction/documentWorkFlow/remapping/manual/setWorkFlowPathSequenceRemapping/v1/example.php',
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\SendWSRequest' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/SendWSRequest.php',
     'App\\Http\\Controllers\\Application\\FrontEnd\\System\\API\\getAPIRedirect' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/System/API/getAPIRedirect.php',
-    'App\\Http\\Controllers\\Application\\FrontEnd\\System\\API\\setAPIRedirect' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/System/API/setAPIRedirect.php',
     'App\\Http\\Controllers\\Application\\FrontEnd\\System\\FileHandling\\Controller' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/System/FileHandling/Controller.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
     'App\\Http\\Controllers\\Budget\\BudgetController' => $baseDir . '/app/Http/Controllers/Budget/BudgetController.php',
