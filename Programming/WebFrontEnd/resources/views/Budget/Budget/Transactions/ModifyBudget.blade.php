@@ -21,8 +21,8 @@
         <form id="modifyBudgetForm" method="post" enctype="multipart/form-data" action="{{ route('Budget.PreviewModifyBudget') }}">
         @csrf
             <input type="hidden" id="hiddenBudgetData" name="hiddenBudgetData" value="">
-            <!-- <input type="hidden" id="budgetData" name="budgetData"> -->
-            <input type="hidden" id="hiddenDataInput" name="final_budget_data" value="">
+            <input type="hidden" id="budgetDetailsData" name="budgetDetailsData" />
+            <input type="hidden" id="modifyBudgetListData" name="modifyBudgetListData" />
 
             <!-- CONTENT -->
             <div class="card">
@@ -130,13 +130,13 @@
                                         </div>
 
                                         <!-- EXCHANGE RATE -->
-                                        <div id="value_idr_rate_field" class="row" style="margin-bottom: 1rem; display: none;">
+                                        <div id="exchange_rate_field" class="row" style="margin-bottom: 1rem; display: none;">
                                             <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label for="value_idr_rate" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Exchange Rate</label>
+                                                    <label for="exchange_rate" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Exchange Rate</label>
                                                     <div class="col-sm-9 col-md-8 col-lg-2 p-0">
                                                         <div class="input-group">
-                                                            <input id="value_idr_rate" style="border-radius:0;" class="form-control" name="value_idr_rate" readonly>
+                                                            <input id="exchange_rate" style="border-radius:0;" class="form-control" name="exchange_rate" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -297,8 +297,8 @@
                                         <div id="newItemFormTwo" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
                                             <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label for="qty" class="col-4 col-form-label p-0">Qty</label>
-                                                    <div class="col p-0">
+                                                    <label for="qty" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Qty</label>
+                                                    <div class="col-sm-9 col-md-8 col-lg-2 p-0">
                                                         <input id="qty" style="border-radius:0;" class="form-control number-only" name="qty" autocomplete="off">
                                                     </div>
                                                 </div>
@@ -309,8 +309,8 @@
                                         <div id="newItemFormThree" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
                                             <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label for="price" class="col-4 col-form-label p-0">Price</label>
-                                                    <div class="col p-0">
+                                                    <label for="price" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Price</label>
+                                                    <div class="col-sm-9 col-md-8 col-lg-2 p-0">
                                                         <div class="input-group">
                                                             <input id="price" style="border-radius:0;" class="form-control number-only" name="price" autocomplete="off">
                                                         </div>
@@ -323,8 +323,8 @@
                                         <div id="newItemFormFour" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
                                             <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label for="total_qty_price" class="col-4 col-form-label p-0">Total</label>
-                                                    <div class="col p-0">
+                                                    <label for="total_qty_price" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Total</label>
+                                                    <div class="col-sm-9 col-md-8 col-lg-2 p-0">
                                                         <div class="input-group">
                                                             <input id="total_qty_price" style="border-radius:0;" class="form-control number-only" name="total_qty_price" autocomplete="off" disabled>
                                                         </div>
@@ -337,8 +337,8 @@
                                         <div id="buttonItemForm" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
                                             <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label class="col-4 col-form-label p-0"></label>
-                                                    <div class="col p-0 d-flex justify-content-end">
+                                                    <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                                                    <div class="col-sm-9 col-md-8 col-lg-7 p-0 d-flex justify-content-end">
                                                         <a id="addToCartNewFormItem" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                                             Add to Cart
                                                         </a>
@@ -371,24 +371,18 @@
 
                                 <!-- MODIFY BUDGET LIST TABLE -->
                                 <div class="wrapper-budget card-body table-bordered table-responsive p-0 table-existing-budget">
-                                    <table id="listBudgetTable" class="table table-head-fixed text-nowrap table-sm">
+                                    <table id="listBudgetTable" class="table table-head-fixed text-wrap table-sm">
                                         <thead>
                                             <tr>
-                                                <th class="container-thead-tr-budget" colspan="2">PRODUCT</th>
-                                                <th class="container-thead-tr-budget" colspan="3">BUDGET</th>
-                                                <th class="container-thead-tr-budget" colspan="3">AFTER ADDITIONAL</th>
-                                                <th class="container-thead-tr-budget" colspan="3">AFTER SAVING</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="container-thead-tr-budget">ID</th>
-                                                <th class="container-thead-tr-budget">Name</th>
-                                                <th class="container-thead-tr-budget">Qty</th>
+                                                <th class="container-thead-tr-budget">Product Id</th>
+                                                <th class="container-thead-tr-budget">Product Name</th>
+                                                <th class="container-thead-tr-budget">Qty Budget</th>
+                                                <th class="container-thead-tr-budget">Qty Avail</th>
                                                 <th class="container-thead-tr-budget">Price</th>
-                                                <th class="container-thead-tr-budget">Total</th>
-                                                <th class="container-thead-tr-budget">Qty</th>
-                                                <th class="container-thead-tr-budget">Price</th>
-                                                <th class="container-thead-tr-budget">Total</th>
-                                                <th class="container-thead-tr-budget">Qty</th>
+                                                <th class="container-thead-tr-budget">Currency</th>
+                                                <th class="container-thead-tr-budget">Balance Budget</th>
+                                                <th class="container-thead-tr-budget">Total Budget</th>
+                                                <th class="container-thead-tr-budget">Modify (+/-)</th>
                                                 <th class="container-thead-tr-budget">Price</th>
                                                 <th class="container-thead-tr-budget">Total</th>
                                             </tr>
@@ -412,8 +406,8 @@
                             </button>
                         </div>
                         <div style="display: flex;">
-                            <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit" disabled>
-                            <!-- <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit"> -->
+                            <!-- <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit" disabled> -->
+                            <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit">
                                 <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
                                 <div>Submit</div>
                             </button>

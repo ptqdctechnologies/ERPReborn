@@ -93,14 +93,14 @@
             $("#currency_id").val("");
             $("#currency_name").val("");
             $("#currency_symbol").val("");
-            $("#value_idr_rate").val("");
+            $("#exchange_rate").val("");
             
             Swal.fire("Error", "Please Call Accounting Staffs to Input Current Exchange Rate. Thank You.", "error");
         } else {
             if (code == "USD") {
-                $("#value_idr_rate").val(16000);
+                $("#exchange_rate").val(16000);
             } else if (code == "IDR") {
-                $("#value_idr_rate").val("");
+                $("#exchange_rate").val("");
             }
 
             $("#currency_id").val(sys_id);
@@ -216,7 +216,7 @@
                                         '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + val2.priceBaseCurrencyISOCode + '</td>' +
-                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(50000, 2) + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(1000, 2) + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center" data-toggle="tooltip" data-placement="top" title="Pesan"> <input style="border-radius:0; width: 55px !important;" class="form-control number-only" autocomplete="off" id="modify_budget_details" name="modify_budget_details"> </div>' + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-without-negative" autocomplete="off" id="price_budget_details" name="price_budget_details"> </div>' + '</td>' +
@@ -347,8 +347,8 @@
         const currencyID = document.getElementById('currency_id');
         const currencySymbol = document.getElementById('currency_symbol');
         const currencyName = document.getElementById('currency_name');
-        const valueIDRRateField = document.getElementById('value_idr_rate_field');
-        const valueIDRRateInput = document.getElementById('value_idr_rate');
+        const valueIDRRateField = document.getElementById('exchange_rate_field');
+        const valueIDRRateInput = document.getElementById('exchange_rate');
         const valueCOAdditionalField = document.getElementById('value_co_field');
         const valueCOAdditionalInput = document.getElementById('value_co');
 
@@ -418,35 +418,146 @@
 </script>
 
 <script>
-    // Fungsi untuk menghitung total dan validasi
     function calculateTotal(row) {
-        // Ambil elemen-elemen yang relevan dalam baris yang sama
         const modifyInput = row.querySelector('input[name="modify_budget_details"]');
         const priceInput = row.querySelector('input[name="price_budget_details"]');
         const totalInput = row.querySelector('input[name="total_budget_details"]');
         const qtyAvail = row.children[4].textContent.trim().replace(/,/g, '') == '-' ? 0 : parseFloat(row.children[4].textContent.trim().replace(/,/g, ''));
+        const balancedBudget = row.children[7].textContent.trim().replace(/,/g, '') == '-' ? 0 : parseFloat(row.children[7].textContent.trim().replace(/,/g, ''));
+        const totalBudget = row.children[8].textContent.trim().replace(/,/g, '') == '-' ? 0 : parseFloat(row.children[8].textContent.trim().replace(/,/g, ''));
 
-        // Ambil nilai dari input modify dan price
         const modifyValue = parseFloat(modifyInput.value) || 0;
         const priceValue = parseFloat(priceInput.value) || 0;
 
-        // Validasi modify tidak bisa melebihi qty avail
-        if (modifyValue > qtyAvail) {
-            alert(`Modify value cannot exceed available quantity of ${qtyAvail}`);
-            modifyInput.value = qtyAvail; // Set ke maximum qty avail
+        if (qtyAvail >= 0) {
+            if (modifyValue > qtyAvail) {
+                Swal.fire("Error", `Modify must be less than Qty Avail`, "error");
+                modifyInput.value = qtyAvail;
+            }    
+        } else {
+            if (modifyValue < qtyAvail) {
+                Swal.fire("Error", `Modify must be greater than Qty Avail`, "error");
+                modifyInput.value = qtyAvail;
+            }
         }
 
-        // Hitung total (modify * price)
         const totalValue = modifyInput.value * priceValue;
 
-        // Set hasil perhitungan ke input total
-        totalInput.value = totalValue.toFixed(2);
+        if (totalValue < 0) {
+            if (totalValue < totalBudget) {
+                Swal.fire("Error", "Total must be greater than Total Budget!", "error");
+            }
+        } else {
+            if (totalValue > totalBudget && totalValue < balancedBudget) {
+                Swal.fire("Error", "Total must be greater than Balance Budget & must be less than Total Budget!", "error");
+            }
+        }
+
+        totalInput.value = Math.abs(totalValue).toFixed(2);
     }
 
-    // Event delegation: Tambahkan event listener ke tbody untuk menangkap event dari input yang di-generate
     $('#budgetTable tbody').on('blur', 'input[name="modify_budget_details"], input[name="price_budget_details"]', function () {
-        // Temukan baris tempat input yang diubah
         const row = $(this).closest('tr')[0];
         calculateTotal(row);
+    });
+</script>
+
+<script>
+    document.getElementById('buttonBudgetDetails').addEventListener('click', function () {
+        const budgetTable = document.getElementById('budgetTable').querySelector('tbody');
+        const listBudgetTable = document.getElementById('listBudgetTable').querySelector('tbody');
+        let updated = false;
+        let allBudgetDetailsData = [];
+        let modifiedBudgetListData = [];
+
+        // Loop over all rows in the budgetTable
+        [...budgetTable.rows].forEach((row, index) => {
+            const productIdTemp = row.querySelector('input[name="product_id_show"]');
+            const productId     = row.cells[1].textContent != "null" ? row.cells[1].textContent.trim() : productIdTemp.value;
+            const productName   = row.cells[2].textContent.trim();
+            const qtyBudget     = row.cells[3].textContent.trim();
+            const qtyAvail      = row.cells[4].textContent.trim();
+            const price         = row.cells[5].textContent.trim();
+            const currency      = row.cells[6].textContent.trim();
+            const balanceBudget = row.cells[7].textContent.trim();
+            const totalBudget   = row.cells[8].textContent.trim();
+            const modifyInput   = row.querySelector('input[name="modify_budget_details"]');
+            const priceInput    = row.querySelector('input[name="price_budget_details"]');
+            const totalInput    = row.querySelector('input[name="total_budget_details"]');
+
+            // Store all data from "Budget Details" table in the array
+            allBudgetDetailsData.push({
+                productId,
+                productName,
+                qtyBudget,
+                qtyAvail,
+                price,
+                currency,
+                balanceBudget,
+                totalBudget,
+                modifyInput: numberFormatPHPCustom(modifyInput.value, 2),
+                priceInput: numberFormatPHPCustom(priceInput.value, 2),
+                totalInput: numberFormatPHPCustom(totalInput.value, 2)
+            });
+
+            // Validasi Product Id, Modify, Price, dan Total untuk baris ini
+            if (productId && modifyInput.value && priceInput.value && totalInput.value) {
+                // Cari apakah Product Id sudah ada di Modify Budget List Table
+                let existingRow = [...listBudgetTable.rows].find(listRow => listRow.cells[0].textContent.trim() === productId);
+
+                if (existingRow) {
+                    // Jika Product Id sudah ada, update nilai di Modify Budget List
+                    existingRow.cells[9].textContent = modifyInput.value;
+                    existingRow.cells[10].textContent = priceInput.value;
+                    existingRow.cells[11].textContent = totalInput.value;
+                    updated = true;
+                } else {
+                    // Jika Product Id belum ada, duplikat baris
+                    const clonedRow = row.cloneNode(true);
+
+                    // Ubah input menjadi teks biasa sebelum append ke listBudgetTable
+                    const productIdValue = productId;
+                    const modifyValue = modifyInput.value;
+                    const priceValue = priceInput.value;
+                    const totalValue = totalInput.value;
+
+                    // Ubah elemen input menjadi teks
+                    clonedRow.cells[0].textContent = productIdValue;
+                    clonedRow.cells[9].textContent = modifyValue;
+                    clonedRow.cells[10].textContent = priceValue;
+                    clonedRow.cells[11].textContent = totalValue;
+
+                    // Append cloned row ke Modify Budget List
+                    listBudgetTable.appendChild(clonedRow);
+                    updated = true;
+                }
+
+                // Add data for the "Modify Budget List" table
+                modifiedBudgetListData.push({
+                    productId,
+                    productName,
+                    qtyBudget,
+                    qtyAvail,
+                    price,
+                    currency,
+                    balanceBudget,
+                    totalBudget,
+                    modifyInput: modifyInput.value,
+                    priceInput: priceInput.value,
+                    totalInput: totalInput.value
+                });
+            }
+        });
+
+        // Show success message if any rows were updated or duplicated
+        if (updated) {
+            Swal.fire("Success", "Rows updated or duplicated to Modify Budget List", "success");
+
+            document.getElementById('budgetDetailsData').value = JSON.stringify(allBudgetDetailsData);
+            document.getElementById('modifyBudgetListData').value = JSON.stringify(modifiedBudgetListData);
+        } else {
+            // Show error message if no rows were valid
+            Swal.fire("Error", "Please fill in Product Id, Modify(+/-), Price, and Total for at least one row", "error");
+        }
     });
 </script>
