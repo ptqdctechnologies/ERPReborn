@@ -11,18 +11,18 @@
     ),
     'versions' => array(
         'aws/aws-crt-php' => array(
-            'pretty_version' => 'v1.2.6',
-            'version' => '1.2.6.0',
-            'reference' => 'a63485b65b6b3367039306496d49737cf1995408',
+            'pretty_version' => 'v1.2.7',
+            'version' => '1.2.7.0',
+            'reference' => 'd71d9906c7bb63a28295447ba12e74723bd3730e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-crt-php',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.324.8',
-            'version' => '3.324.8.0',
-            'reference' => '22ac6655d95ac9e068f39364c7756fbc1460ffbb',
+            'pretty_version' => '3.324.9',
+            'version' => '3.324.9.0',
+            'reference' => 'e6cb2597e6365c420f42d218a3a4e82a20df700d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
@@ -934,8 +934,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '3.0.0',
-                1 => '1.0|2.0|3.0',
+                0 => '1.0|2.0|3.0',
+                1 => '3.0.0',
             ),
         ),
         'psr/simple-cache' => array(
