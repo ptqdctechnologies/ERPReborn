@@ -312,7 +312,7 @@
                                                     <label for="price" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Price</label>
                                                     <div class="col-sm-9 col-md-8 col-lg-2 p-0">
                                                         <div class="input-group">
-                                                            <input id="price" style="border-radius:0;" class="form-control number-only" name="price" autocomplete="off">
+                                                            <input id="price" style="border-radius:0;" class="form-control number-without-negative" name="price" autocomplete="off">
                                                         </div>
                                                     </div>
                                                 </div>

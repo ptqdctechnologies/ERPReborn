@@ -223,14 +223,6 @@
                                         '<td class="container-tbody-tr-budget" style="padding-right: 0px !important;">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-only" autocomplete="off" id="total_budget_details" name="total_budget_details" disabled> </div>' + '</td>' +
                                     '</tr>';
 
-                                document.querySelectorAll('.number-only').forEach(function(input) {
-                                    allowNumbersOnly(input);
-                                });
-
-                                document.querySelectorAll('.number-without-negative').forEach(function(input) {
-                                    allowNumbersWithoutNegative(input);
-                                });
-
                                 $('table#budgetTable tbody').append(html);
                             });
                         } else {
@@ -287,14 +279,6 @@
                                         '<td class="container-tbody-tr-budget" style="padding-right: 0px !important;">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-only" autocomplete="off" id="total_budget_details" name="total_budget_details" disabled> </div>' + '</td>' +
                                     '</tr>';
 
-                                document.querySelectorAll('.number-only').forEach(function(input) {
-                                    allowNumbersOnly(input);
-                                });
-
-                                document.querySelectorAll('.number-without-negative').forEach(function(input) {
-                                    allowNumbersWithoutNegative(input);
-                                });
-
                                 $('table#budgetTable tbody').append(html);
                             });
                         }
@@ -303,6 +287,17 @@
             });
         }
     })
+</script>
+
+<!-- FUNCTION INPUT NUMBER ONLY OR WITHOUT NEGATIVE -->
+<script>
+    $(document).on('input', '.number-only', function() {
+        allowNumbersOnly(this);
+    });
+
+    $(document).on('input', '.number-without-negative', function() {
+        allowNumbersWithoutNegative(this);
+    });
 </script>
 
 <!-- FUNCTION DISABLED KLIK KETIKA BUDGET & SITE CODE TIDAK KOSONG -->
@@ -417,6 +412,7 @@
     });
 </script>
 
+<!-- FUNCTION MENGHITUNG TOTAL SETIAP BARIS PADA BUDGET DETAILS (TABLE) -->
 <script>
     function calculateTotal(row) {
         const modifyInput = row.querySelector('input[name="modify_budget_details"]');
@@ -542,8 +538,8 @@
                     currency,
                     balanceBudget,
                     totalBudget,
-                    modifyInput: modifyInput.value,
-                    priceInput: priceInput.value,
+                    modifyInput: numberFormatPHPCustom(modifyInput.value, 2),
+                    priceInput: numberFormatPHPCustom(priceInput.value, 2),
                     totalInput: totalInput.value
                 });
             }
