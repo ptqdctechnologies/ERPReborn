@@ -458,6 +458,7 @@
     });
 </script>
 
+<!-- FUNCTION BUTTON ADD TO CART FROM BUDGET DETAILS TABLE -->
 <script>
     document.getElementById('buttonBudgetDetails').addEventListener('click', function () {
         const budgetTable = document.getElementById('budgetTable').querySelector('tbody');
@@ -555,5 +556,105 @@
             // Show error message if no rows were valid
             Swal.fire("Error", "Please fill in Product Id, Modify(+/-), Price, and Total for at least one row", "error");
         }
+    });
+</script>
+
+<script>
+    // Function untuk menghitung total
+    function calculateTotalForm() {
+        const qty = parseFloat(document.getElementById("qty_form").value) || 0;
+        const price = parseFloat(document.getElementById("price_form").value) || 0;
+        const total = qty * price;
+        document.getElementById("total_qty_price").value = total.toFixed(2);
+    }
+
+    // Event listener untuk qty dan price
+    document.getElementById("qty_form").addEventListener("input", calculateTotalForm);
+    document.getElementById("price_form").addEventListener("input", calculateTotalForm);
+</script>
+
+<!-- FUNCTION BUTTON ADD TO CART FORM ADD NEW ITEM -->
+<script>
+    document.getElementById("addToCartNewFormItem").addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // Ambil nilai dari form input
+        const productId = document.getElementById("products_id_show").value;
+        const productName = document.getElementById("products_name").value;
+        const qty = document.getElementById("qty_form").value;
+        const price = document.getElementById("price_form").value;
+        const total = document.getElementById("total_qty_price").value;
+        const currencySymbolll = document.getElementById("currency_symbol").value;
+
+        // Validasi input (cek apakah input tidak kosong)
+        if (!productId || !productName || !qty || !price) {
+            Swal.fire("Error", "Please fill all the fields before adding to cart.", "error");
+            return;
+        }
+
+        let budgetListDataaa = [];
+        const existingData = document.getElementById("modifyBudgetListData").value;
+        if (existingData) {
+            budgetListData = JSON.parse(existingData);
+        }
+
+        // Ambil elemen tbody dari tabel
+        const tbody = document.getElementById("listBudgetTable").getElementsByTagName("tbody")[0];
+
+        // Validasi untuk cek apakah productId sudah ada di tabel
+        let productExists = false;
+        for (let row of tbody.rows) {
+            if (row.cells[0].textContent === productId) {
+                productExists = true;
+                break;
+            }
+        }
+
+        // Jika productId sudah ada, tampilkan pesan dan hentikan proses
+        if (productExists) {
+            Swal.fire("Error", "Product ID already exists in the table.", "error");
+            return;
+        }
+
+        // Push data form ke dalam array budgetListData
+        budgetListDataaa.push({
+            productId       : productId,
+            productName     : productName,
+            qtyBudget       : 0.00,
+            qtyAvail        : 0.00,
+            price           : 0.00,
+            currency        : "USD",
+            balanceBudget   : 0.00,
+            totalBudget     : 0.00,
+            modifyInput     : qty,
+            priceInput      : price,
+            totalInput      : total,
+        });
+
+        // Update input hidden dengan data JSON
+        document.getElementById("modifyBudgetListData").value = JSON.stringify(budgetListDataaa);
+
+        // Buat baris baru
+        const row = tbody.insertRow();
+
+        // Tambahkan kolom dengan nilai input ke dalam baris
+        row.insertCell().textContent = productId;
+        row.insertCell().textContent = productName;
+        row.insertCell().textContent = 0.00;
+        row.insertCell().textContent = 0.00; // Quantity yang tersedia, Anda dapat mengubah ini sesuai kebutuhan
+        row.insertCell().textContent = 0.00;
+        row.insertCell().textContent = currencySymbolll; // Currency, sesuaikan sesuai kebutuhan
+        row.insertCell().textContent = 0.00; // Balance Budget, sesuaikan sesuai kebutuhan
+        row.insertCell().textContent = 0.00; // Total Budget, sesuaikan sesuai kebutuhan
+        row.insertCell().textContent = qty; // Modify (+/-), sesuaikan sesuai kebutuhan
+        row.insertCell().textContent = price; // Price, duplikat untuk menyesuaikan kolom tabel
+        row.insertCell().textContent = total; // Total
+
+        // Reset input setelah menambahkan ke tabel
+        document.getElementById("products_id_show").value = "";
+        document.getElementById("products_name").value = "";
+        document.getElementById("qty_form").value = "";
+        document.getElementById("price_form").value = "";
+        document.getElementById("total_qty_price").value = "";
     });
 </script>

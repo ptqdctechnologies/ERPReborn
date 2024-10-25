@@ -150,7 +150,7 @@ class BudgetController extends Controller
                 'modifyBudgetListData'  => json_decode($modifyBudgetListData),
             ];
 
-            // dd($compact);
+            dd($compact);
 
             return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {

@@ -259,11 +259,6 @@
                                             <i class="fas fa-plus-circle"></i>
                                             Add New Item
                                         </a>
-                                        
-                                        <!-- <button id="addNewItemBtn" class="btn btn-default btn-sm button-submit" type="submit">
-                                            <i class="fas fa-plus-circle"></i>
-                                            <div>Add New Item</div>
-                                        </button> -->
                                     </div>
                                     
                                     <!-- CONTENT FORM -->
@@ -297,9 +292,9 @@
                                         <div id="newItemFormTwo" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
                                             <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label for="qty" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Qty</label>
+                                                    <label for="qty_form" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Qty</label>
                                                     <div class="col-sm-9 col-md-8 col-lg-2 p-0">
-                                                        <input id="qty" style="border-radius:0;" class="form-control number-only" name="qty" autocomplete="off">
+                                                        <input id="qty_form" style="border-radius:0;" class="form-control number-only" name="qty_form" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -309,10 +304,10 @@
                                         <div id="newItemFormThree" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
                                             <div class="col-lg-5">
                                                 <div class="row">
-                                                    <label for="price" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Price</label>
+                                                    <label for="price_form" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Price</label>
                                                     <div class="col-sm-9 col-md-8 col-lg-2 p-0">
                                                         <div class="input-group">
-                                                            <input id="price" style="border-radius:0;" class="form-control number-without-negative" name="price" autocomplete="off">
+                                                            <input id="price_form" style="border-radius:0;" class="form-control number-without-negative" name="price_form" autocomplete="off">
                                                         </div>
                                                     </div>
                                                 </div>
