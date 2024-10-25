@@ -144,12 +144,13 @@ class BudgetController extends Controller
                 'currencySymbol'        => $currencySymbol,
                 'currencyName'          => $currencyName,
                 'exchangeRate'          => $exchangeRate,
+                'valueCO'               => $valueCO,
                 'files'                 => $files,
                 'budgetDetailsData'     => json_decode($budgetDetailsData),
                 'modifyBudgetListData'  => json_decode($modifyBudgetListData),
             ];
 
-            dd($compact);
+            // dd($compact);
 
             return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {
