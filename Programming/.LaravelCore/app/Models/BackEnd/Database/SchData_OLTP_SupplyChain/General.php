@@ -252,7 +252,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2024-10-17                                                                                           |
         | ▪ Creation Date   : 2022-03-10                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pesanan Pengiriman (DO) Semua Versi                                               |
+        | ▪ Description     : Mendapatkan Daftar Pesanan Pengiriman (Delivery Order) Semua Versi                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -2285,7 +2285,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 }
 
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
