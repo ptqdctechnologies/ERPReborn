@@ -1036,22 +1036,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
             }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_PurchaseInvoiceBillingPurpose                                                            |
@@ -1106,9 +1090,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     [];
                 }
             }
-
-
-
 
 
         /*
@@ -1166,8 +1147,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -1227,17 +1210,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
-
-
-
-
-
-
-
 
 
         /*
@@ -1295,8 +1273,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -1356,8 +1336,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -1417,8 +1399,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -1478,8 +1462,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -1539,8 +1525,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -1600,8 +1588,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -1661,8 +1651,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -1722,8 +1714,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -1783,8 +1777,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -1844,8 +1840,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -1905,8 +1903,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -1966,8 +1966,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2025,8 +2027,262 @@ namespace App\Models\Database\SchData_OLTP_Finance
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_SalesInvoice_AllVersion                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-10-28                                                                                           |
+        | ▪ Creation Date   : 2024-10-28                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Faktur Penjualan (Sales Invoice) Semua Versi                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_SalesInvoice_AllVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataListJSON_SalesInvoice',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [TRUE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );                
+
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_SalesInvoice']
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_SalesInvoice_LatestVersion                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-10-17                                                                                           |
+        | ▪ Creation Date   : 2024-10-17                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Faktur Penjualan (Sales Invoice) Versi Terakhir                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_SalesInvoice_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataListJSON_SalesInvoice',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [FALSE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_SalesInvoice']
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_SalesInvoiceRequisition_AllVersion                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-10-28                                                                                           |
+        | ▪ Creation Date   : 2024-10-28                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Faktur Permintaan Penjualan (Sales Invoice Requisition) Semua Versi               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_SalesInvoiceRequisition_AllVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataListJSON_SalesInvoiceRequisition',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [TRUE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );                
+
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_SalesInvoiceRequisition']
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_SalesInvoiceRequisition_LatestVersion                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-10-17                                                                                           |
+        | ▪ Creation Date   : 2024-10-17                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Permintaan Faktur Penjualan (Sales Invoice Requisition) Versi Terakhir            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_SalesInvoiceRequisition_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataListJSON_SalesInvoiceRequisition',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [FALSE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_SalesInvoiceRequisition']
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
                 }
             }
 
@@ -2065,10 +2321,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2107,10 +2366,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2149,10 +2411,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2191,10 +2456,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2233,10 +2501,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2275,10 +2546,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2317,10 +2591,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2359,10 +2636,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2401,10 +2681,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2443,10 +2726,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2485,10 +2771,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2527,10 +2816,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2569,10 +2861,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2611,10 +2906,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2651,10 +2949,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2691,10 +2992,193 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_SalesInvoice_AllVersion                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-10-28                                                                                           |
+        | ▪ Creation Date   : 2024-10-28                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Faktur Penjualan (Sales Invoice) Semua Versi                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_SalesInvoice_AllVersion(
+            $varUserSession, int $varSysBranch_RefID)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataPickList_SalesInvoice',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [TRUE, 'boolean']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn['data'];
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_SalesInvoice_LatestVersion                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-10-28                                                                                           |
+        | ▪ Creation Date   : 2024-10-28                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Faktur Penjualan (Sales Invoice) Versi Terakhir                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_SalesInvoice_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataPickList_SalesInvoice',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [FALSE, 'boolean']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn['data'];
                 }
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_SalesInvoiceRequisition_AllVersion                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-10-28                                                                                           |
+        | ▪ Creation Date   : 2024-10-28                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Permintaan Faktur Penjualan (Sales Invoice Requisition) Semua Versi  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_SalesInvoiceRequisition_AllVersion(
+            $varUserSession, int $varSysBranch_RefID)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataPickList_SalesInvoiceRequisition',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [TRUE, 'boolean']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn['data'];
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_SalesInvoiceRequisition_LatestVersion                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-10-28                                                                                           |
+        | ▪ Creation Date   : 2024-10-28                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Permintaan Faktur Penjualan (Sales Invoice Requisition) Versi        |
+        |                     Terakhir                                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_SalesInvoiceRequisition_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataPickList_SalesInvoiceRequisition',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [FALSE, 'boolean']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn['data'];
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
                 }
             }
 

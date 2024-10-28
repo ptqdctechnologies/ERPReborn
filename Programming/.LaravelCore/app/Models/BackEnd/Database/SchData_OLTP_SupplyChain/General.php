@@ -2658,7 +2658,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataPickList_PurchaseOrder_AllVersion                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2024-10-16                                                                                           |
         | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Pesanan Pembelian (Purchase Order) Semua Versi                       |
@@ -2703,7 +2703,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataPickList_PurchaseOrder_LatestVersion                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2024-10-16                                                                                           |
         | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Pesanan Pembelian (Purchase Order) Versi Terakhir                    |
@@ -2794,7 +2794,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2024-10-16                                                                                           |
         | ▪ Creation Date   : 2022-03-07                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Permintaan Pembelian (PR) Semua Versi                                |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Permintaan Pembelian (Purchase Requisition) Semua Versi              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -2839,7 +2839,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2024-10-16                                                                                           |
         | ▪ Creation Date   : 2022-03-07                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Permintaan Pembelian (PR) Versi Terakhir                             |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Permintaan Pembelian (Purchase Requisition) Versi Terakhir           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
