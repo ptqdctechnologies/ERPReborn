@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\finance\getInvoiceSupplierBillingPurpose\v1 |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\finance\getPurchaseInvoice\v1               |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\finance\getInvoiceSupplierBillingPurpose\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\finance\getPurchaseInvoice\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getInvoiceSupplierBillingPurpose                                                                             |
-    | ▪ Description : Menangani API dataPickList.finance.getInvoiceSupplierBillingPurpose Version 1                                |
+    | ▪ Class Name  : getPurchaseInvoice                                                                                           |
+    | ▪ Description : Menangani API dataPickList.finance.getPurchaseInvoice Version 1                                              |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getInvoiceSupplierBillingPurpose extends \App\Http\Controllers\Controller
+    class getPurchaseInvoice extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-04-14                                                                                           |
-        | ▪ Last Update     : 2022-04-14                                                                                           |
+        | ▪ Last Update     : 2024-10-17                                                                                           |
+        | ▪ Creation Date   : 2024-10-17                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\f
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-04-14                                                                                           |
-        | ▪ Last Update     : 2022-04-14                                                                                           |
+        | ▪ Last Update     : 2024-10-17                                                                                           |
+        | ▪ Creation Date   : 2024-10-17                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,15 +58,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\f
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Supplier Invoice Billing Purpose (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Advance (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataPickList_InvoiceSupplierBillingPurpose(
-                                    $varUserSession, 
+                                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataPickList_PurchaseInvoice_LatestVersion(
+                                    $varUserSession,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
                                     )
                                 )

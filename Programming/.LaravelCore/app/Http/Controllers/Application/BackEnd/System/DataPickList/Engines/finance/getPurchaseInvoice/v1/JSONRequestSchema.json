@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of dataPickList.finance.getInvoiceSupplierBillingPurpose (version 1)",
+"description": "JSON Request Schema of dataPickList.finance.getPurchaseInvoice (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "dataPickList.finance.getInvoiceSupplierBillingPurpose" ]
+                        "enum": [ "dataPickList.finance.getPurchaseInvoice" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
