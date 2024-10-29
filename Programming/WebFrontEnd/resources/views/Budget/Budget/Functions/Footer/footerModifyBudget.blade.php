@@ -466,8 +466,10 @@
         let updated = false;
         let allBudgetDetailsData = [];
         let modifiedBudgetListData = [];
+        let totalModify = 0;
+        let totalPrice = 0;
+        let totalAmount = 0;
 
-        // Loop over all rows in the budgetTable
         [...budgetTable.rows].forEach((row, index) => {
             const productIdTemp = row.querySelector('input[name="product_id_show"]');
             const productId     = row.cells[1].textContent != "null" ? row.cells[1].textContent.trim() : productIdTemp.value;
@@ -482,7 +484,6 @@
             const priceInput    = row.querySelector('input[name="price_budget_details"]');
             const totalInput    = row.querySelector('input[name="total_budget_details"]');
 
-            // Store all data from "Budget Details" table in the array
             allBudgetDetailsData.push({
                 productId,
                 productName,
@@ -492,44 +493,40 @@
                 currency,
                 balanceBudget,
                 totalBudget,
-                modifyInput: numberFormatPHPCustom(modifyInput.value, 2),
-                priceInput: numberFormatPHPCustom(priceInput.value, 2),
-                totalInput: numberFormatPHPCustom(totalInput.value, 2)
+                modifyInput: modifyInput.value,
+                priceInput: priceInput.value,
+                totalInput: totalInput.value
             });
 
-            // Validasi Product Id, Modify, Price, dan Total untuk baris ini
             if (productId && modifyInput.value && priceInput.value && totalInput.value) {
-                // Cari apakah Product Id sudah ada di Modify Budget List Table
                 let existingRow = [...listBudgetTable.rows].find(listRow => listRow.cells[0].textContent.trim() === productId);
 
+                const modifyValue = parseFloat(modifyInput.value) || 0;
+                const priceValue = parseFloat(priceInput.value) || 0;
+                const totalValue = parseFloat(totalInput.value) || 0;
+
                 if (existingRow) {
-                    // Jika Product Id sudah ada, update nilai di Modify Budget List
-                    existingRow.cells[9].textContent = modifyInput.value;
-                    existingRow.cells[10].textContent = priceInput.value;
-                    existingRow.cells[11].textContent = totalInput.value;
+                    existingRow.cells[9].textContent = numberFormatPHPCustom(modifyInput.value, 2);
+                    existingRow.cells[10].textContent = numberFormatPHPCustom(priceInput.value, 2);
+                    existingRow.cells[11].textContent = numberFormatPHPCustom(totalInput.value, 2);
                     updated = true;
                 } else {
-                    // Jika Product Id belum ada, duplikat baris
                     const clonedRow = row.cloneNode(true);
 
-                    // Ubah input menjadi teks biasa sebelum append ke listBudgetTable
                     const productIdValue = productId;
                     const modifyValue = modifyInput.value;
                     const priceValue = priceInput.value;
                     const totalValue = totalInput.value;
 
-                    // Ubah elemen input menjadi teks
                     clonedRow.cells[0].textContent = productIdValue;
-                    clonedRow.cells[9].textContent = modifyValue;
-                    clonedRow.cells[10].textContent = priceValue;
-                    clonedRow.cells[11].textContent = totalValue;
+                    clonedRow.cells[9].textContent = numberFormatPHPCustom(modifyValue, 2);
+                    clonedRow.cells[10].textContent = numberFormatPHPCustom(priceValue, 2);
+                    clonedRow.cells[11].textContent = numberFormatPHPCustom(totalValue, 2);
 
-                    // Append cloned row ke Modify Budget List
                     listBudgetTable.appendChild(clonedRow);
                     updated = true;
                 }
 
-                // Add data for the "Modify Budget List" table
                 modifiedBudgetListData.push({
                     productId,
                     productName,
@@ -539,28 +536,34 @@
                     currency,
                     balanceBudget,
                     totalBudget,
-                    modifyInput: numberFormatPHPCustom(modifyInput.value, 2),
-                    priceInput: numberFormatPHPCustom(priceInput.value, 2),
+                    modifyInput: modifyInput.value,
+                    priceInput: priceInput.value,
                     totalInput: totalInput.value
                 });
+
+                totalModify += modifyValue;
+                totalPrice += priceValue;
+                totalAmount += totalValue;
             }
         });
 
-        // Show success message if any rows were updated or duplicated
+        document.getElementById('totalModifyFooter').textContent = numberFormatPHPCustom(totalModify, 2);
+        document.getElementById('totalPriceFooter').textContent = numberFormatPHPCustom(totalPrice, 2);
+        document.getElementById('totalAmountFooter').textContent = numberFormatPHPCustom(totalAmount, 2);
+
         if (updated) {
             Swal.fire("Success", "Rows updated or duplicated to Modify Budget List", "success");
 
             document.getElementById('budgetDetailsData').value = JSON.stringify(allBudgetDetailsData);
             document.getElementById('modifyBudgetListData').value = JSON.stringify(modifiedBudgetListData);
         } else {
-            // Show error message if no rows were valid
             Swal.fire("Error", "Please fill in Product Id, Modify(+/-), Price, and Total for at least one row", "error");
         }
     });
 </script>
 
+<!-- FUNCTION UNTUK MENGHITUNG TOTAL (MODIFY * PRICE) -->
 <script>
-    // Function untuk menghitung total
     function calculateTotalForm() {
         const qty = parseFloat(document.getElementById("qty_form").value) || 0;
         const price = parseFloat(document.getElementById("price_form").value) || 0;
@@ -568,7 +571,6 @@
         document.getElementById("total_qty_price").value = total.toFixed(2);
     }
 
-    // Event listener untuk qty dan price
     document.getElementById("qty_form").addEventListener("input", calculateTotalForm);
     document.getElementById("price_form").addEventListener("input", calculateTotalForm);
 </script>
@@ -578,7 +580,6 @@
     document.getElementById("addToCartNewFormItem").addEventListener("click", function (event) {
         event.preventDefault();
 
-        // Ambil nilai dari form input
         const productId = document.getElementById("products_id_show").value;
         const productName = document.getElementById("products_name").value;
         const qty = document.getElementById("qty_form").value;
@@ -586,7 +587,6 @@
         const total = document.getElementById("total_qty_price").value;
         const currencySymbolll = document.getElementById("currency_symbol").value;
 
-        // Validasi input (cek apakah input tidak kosong)
         if (!productId || !productName || !qty || !price) {
             Swal.fire("Error", "Please fill all the fields before adding to cart.", "error");
             return;
@@ -598,10 +598,8 @@
             budgetListData = JSON.parse(existingData);
         }
 
-        // Ambil elemen tbody dari tabel
         const tbody = document.getElementById("listBudgetTable").getElementsByTagName("tbody")[0];
 
-        // Validasi untuk cek apakah productId sudah ada di tabel
         let productExists = false;
         for (let row of tbody.rows) {
             if (row.cells[0].textContent === productId) {
@@ -610,13 +608,11 @@
             }
         }
 
-        // Jika productId sudah ada, tampilkan pesan dan hentikan proses
         if (productExists) {
             Swal.fire("Error", "Product ID already exists in the table.", "error");
             return;
         }
 
-        // Push data form ke dalam array budgetListData
         budgetListDataaa.push({
             productId       : productId,
             productName     : productName,
@@ -631,26 +627,22 @@
             totalInput      : total,
         });
 
-        // Update input hidden dengan data JSON
         document.getElementById("modifyBudgetListData").value = JSON.stringify(budgetListDataaa);
 
-        // Buat baris baru
         const row = tbody.insertRow();
 
-        // Tambahkan kolom dengan nilai input ke dalam baris
         row.insertCell().textContent = productId;
         row.insertCell().textContent = productName;
         row.insertCell().textContent = 0.00;
-        row.insertCell().textContent = 0.00; // Quantity yang tersedia, Anda dapat mengubah ini sesuai kebutuhan
         row.insertCell().textContent = 0.00;
-        row.insertCell().textContent = currencySymbolll; // Currency, sesuaikan sesuai kebutuhan
-        row.insertCell().textContent = 0.00; // Balance Budget, sesuaikan sesuai kebutuhan
-        row.insertCell().textContent = 0.00; // Total Budget, sesuaikan sesuai kebutuhan
-        row.insertCell().textContent = qty; // Modify (+/-), sesuaikan sesuai kebutuhan
-        row.insertCell().textContent = price; // Price, duplikat untuk menyesuaikan kolom tabel
-        row.insertCell().textContent = total; // Total
+        row.insertCell().textContent = 0.00;
+        row.insertCell().textContent = currencySymbolll;
+        row.insertCell().textContent = 0.00;
+        row.insertCell().textContent = 0.00;
+        row.insertCell().textContent = qty;
+        row.insertCell().textContent = price;
+        row.insertCell().textContent = total;
 
-        // Reset input setelah menambahkan ke tabel
         document.getElementById("products_id_show").value = "";
         document.getElementById("products_name").value = "";
         document.getElementById("qty_form").value = "";

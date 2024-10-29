@@ -20,7 +20,6 @@
         
         <form id="modifyBudgetForm" method="post" enctype="multipart/form-data" action="{{ route('Budget.PreviewModifyBudget') }}">
         @csrf
-            <input type="hidden" id="hiddenBudgetData" name="hiddenBudgetData" value="">
             <input type="hidden" id="budgetDetailsData" name="budgetDetailsData" />
             <input type="hidden" id="modifyBudgetListData" name="modifyBudgetListData" />
 
@@ -384,6 +383,14 @@
                                         </thead>
                                         <tbody>
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="container-tbody-tr-budget" colspan="8" style="text-align: left !important;">GRAND TOTAL</th>
+                                                <th class="container-tbody-tr-budget" id="totalModifyFooter">0</th>
+                                                <th class="container-tbody-tr-budget" id="totalPriceFooter">0</th>
+                                                <th class="container-tbody-tr-budget" id="totalAmountFooter">0</th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -401,7 +408,6 @@
                             </button>
                         </div>
                         <div style="display: flex;">
-                            <!-- <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit" disabled> -->
                             <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit">
                                 <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
                                 <div>Submit</div>

@@ -64,27 +64,23 @@ class BudgetController extends Controller
             $varAPIWebToken     = $request->session()->get('SessionLogin');
 
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'files'             => json_decode($request->input('files'), true) == [] ? null : json_decode($request->input('files'), true),
-                'budgetID'          => $request->budgetID,
-                'budgetCode'        => $request->budgetCode,
-                'budgetName'        => $request->budgetName,
-                'subBudgetID'       => $request->subBudgetID,
-                'subBudgetCode'     => $request->subBudgetCode,
-                'subBudgetName'     => $request->subBudgetName,
-                'reason'            => $request->reason,
-                'additionalCO'      => $request->additionalCO,
-                'currencyID'        => $request->currencyID,
-                'currencySymbol'    => $request->currencySymbol,
-                'currencyName'      => $request->currencyName,
-                'idrRate'           => $request->valueIDRRate,
-                'valueAdditionalCO' => $request->valueAdditionalCO,
-                'valueDeductiveCO'  => $request->valueDeductiveCO,
-                'totalAdditional'   => $request->totalAdditional,
-                'totalSaving'       => $request->totalSaving,
-                'dataModifyBudget'  => json_decode($request->input('dataModifyBudget'), true),
-                'parsedData'        => json_decode($request->input('parsedData'), true),
-                'hiddenBudgetData'  => json_decode($request->input('hiddenBudgetData'), true),
+                'varAPIWebToken'        => $varAPIWebToken,
+                'files'                 => json_decode($request->input('files'), true) == [] ? null : json_decode($request->input('files'), true),
+                'budgetID'              => $request->budgetID,
+                'budgetCode'            => $request->budgetCode,
+                'budgetName'            => $request->budgetName,
+                'subBudgetID'           => $request->subBudgetID,
+                'subBudgetCode'         => $request->subBudgetCode,
+                'subBudgetName'         => $request->subBudgetName,
+                'reason'                => $request->reason,
+                'additionalCO'          => $request->additionalCO,
+                'currencyID'            => $request->currencyID,
+                'currencySymbol'        => $request->currencySymbol,
+                'currencyName'          => $request->currencyName,
+                'exchangeRate'          => $request->exchangeRate,
+                'valueCO'               => $request->valueCO,
+                'budgetDetailsData'     => json_decode($request->input('budgetDetailsData'), true),
+                'modifyBudgetListData'  => json_decode($request->input('modifyBudgetListData'), true),
             ];
             
             // dump($compact);
@@ -101,8 +97,6 @@ class BudgetController extends Controller
             $varAPIWebToken         = $request->session()->get('SessionLogin');
             $PIC                    = $request->session()->get("SessionLoginName");
             
-            $hiddenBudgetData       = $request->input('hiddenBudgetData');
-
             // Add Budget & Sub Budget Code
             $budgetID               = $request->project_id;
             $budgetCode             = $request->project_code;
@@ -150,7 +144,7 @@ class BudgetController extends Controller
                 'modifyBudgetListData'  => json_decode($modifyBudgetListData),
             ];
 
-            dd($compact);
+            // dd($compact);
 
             return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {

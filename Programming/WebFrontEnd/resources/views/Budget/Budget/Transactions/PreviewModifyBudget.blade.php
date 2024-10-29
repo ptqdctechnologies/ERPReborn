@@ -600,6 +600,9 @@
                         <div style="display: flex;">
                             <form method="post" enctype="multipart/form-data" action="{{ route('Budget.UpdateModifyBudget') }}">
                             @csrf
+                                <input type="hidden" id="budgetDetailsData" name="budgetDetailsData" value="{{ json_encode($budgetDetailsData) }}"/>
+                                <input type="hidden" id="modifyBudgetListData" name="modifyBudgetListData" value="{{ json_encode($modifyBudgetListData) }}"/>
+
                                 <input type="hidden" id="files" name="files" value="{{ json_encode($files) }}">
                                 <input type="hidden" id="budgetID" name="budgetID" value="{{ $budgetID }}">
                                 <input type="hidden" id="budgetCode" name="budgetCode" value="{{ $budgetCode }}">

@@ -4,8 +4,8 @@
             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Budget Code</label>
             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                 <div>
-                    <input id="project_id" hidden name="project_id" value="{{ request('budgetID') }}">
-                    <input id="project_code" style="border-radius:0; width: 60px;" name="project_code" class="form-control myProject" value="{{ request('budgetCode') }}" readonly>
+                    <input id="project_id" hidden name="project_id" value="{{ $budgetID }}">
+                    <input id="project_code" style="border-radius:0; width: 60px;" name="project_code" class="form-control myProject" value="{{ $budgetCode }}" readonly>
                 </div>
                 <div>
                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -14,7 +14,7 @@
                 </div>
                 <div style="flex: 100%;">
                     <div class="input-group">
-                        <input id="project_name" style="border-radius:0;" class="form-control" name="project_name" value="{{ request('budgetName') }}" readonly>
+                        <input id="project_name" style="border-radius:0;" class="form-control" name="project_name" value="{{ $budgetName }}" readonly>
                     </div>
                 </div>
             </div>
