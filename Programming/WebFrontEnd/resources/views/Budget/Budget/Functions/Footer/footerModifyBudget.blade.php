@@ -385,8 +385,8 @@
         document.getElementById('products_id').value = '';
         document.getElementById('products_id_show').value = '';
         document.getElementById('products_name').value = '';
-        document.getElementById('qty').value = '';
-        document.getElementById('price').value = '';
+        document.getElementById('qty_form').value = '';
+        document.getElementById('price_form').value = '';
         document.getElementById('total_qty_price').value = '';
     }
 
@@ -562,6 +562,28 @@
     });
 </script>
 
+<script>
+    // Function to check tbody rows and toggle the add new item button visibility
+    function toggleAddNewItemButton() {
+        const tbody = document.querySelector('#budgetTable tbody');
+        const addNewItemBtn = document.getElementById('addNewItemBtn');
+        
+        // Show or hide the button based on the number of rows in tbody
+        if (tbody && tbody.rows.length > 0) {
+            addNewItemBtn.style.display = 'block';
+        } else {
+            addNewItemBtn.style.display = 'none';
+        }
+    }
+
+    // Initial check when the page loads
+    document.addEventListener('DOMContentLoaded', toggleAddNewItemButton);
+
+    // Re-run the check whenever rows are added or removed
+    const observer = new MutationObserver(toggleAddNewItemButton);
+    observer.observe(document.querySelector('#budgetTable tbody'), { childList: true });
+</script>
+
 <!-- FUNCTION UNTUK MENGHITUNG TOTAL (MODIFY * PRICE) -->
 <script>
     function calculateTotalForm() {
@@ -638,7 +660,7 @@
 
         const cell2 = row.insertCell();
         cell2.textContent = productName;
-        cell2.classList.add("container-tbody-tr-budget");
+        // cell2.classList.add("container-tbody-tr-budget");
 
         const cell3 = row.insertCell();
         cell3.textContent = numberFormatPHPCustom(0, 2);
