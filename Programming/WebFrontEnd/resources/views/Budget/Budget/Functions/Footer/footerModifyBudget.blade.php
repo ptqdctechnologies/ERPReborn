@@ -412,7 +412,7 @@
     });
 </script>
 
-<!-- FUNCTION MENGHITUNG TOTAL SETIAP BARIS PADA BUDGET DETAILS (TABLE) -->
+<!-- FUNCTION UNTUK MENGHITUNG TOTAL SETIAP BARIS PADA BUDGET DETAILS (TABLE) -->
 <script>
     function calculateTotal(row) {
         const modifyInput = row.querySelector('input[name="modify_budget_details"]');
@@ -458,6 +458,39 @@
     });
 </script>
 
+<!-- FUNCTION UNTUK PENJUMLAHAN MODIFY, PRICE, TOTAL PADA MODIFY BUDGET LIST (CART) TABLE -->
+<script>
+    function calculateBudgetTotals() {
+        let totalModify = 0;
+        let totalPrice = 0;
+        let totalAmount = 0;
+
+        document.querySelectorAll('#listBudgetTable tbody tr').forEach(row => {
+            let modifyValue = 0;
+            let priceValue = 0;
+            let totalValue = 0;
+
+            if (row.cells.length > 11) {
+                modifyValue = row.cells[9].textContent;
+                priceValue = row.cells[10].textContent;
+                totalValue = row.cells[11].textContent;
+            } else {
+                modifyValue = row.cells[8].textContent;
+                priceValue = row.cells[9].textContent;
+                totalValue = row.cells[10].textContent;
+            }
+
+            totalModify += parseFloat(modifyValue.replace(/,/g, ""));
+            totalPrice += parseFloat(priceValue.replace(/,/g, ""));
+            totalAmount += parseFloat(totalValue.replace(/,/g, ""));
+        });
+
+        document.getElementById('totalModifyFooter').textContent = numberFormatPHPCustom(totalModify, 2);
+        document.getElementById('totalPriceFooter').textContent = numberFormatPHPCustom(totalPrice, 2);
+        document.getElementById('totalAmountFooter').textContent = numberFormatPHPCustom(totalAmount, 2);
+    }
+</script>
+
 <!-- FUNCTION BUTTON ADD TO CART FROM BUDGET DETAILS TABLE -->
 <script>
     document.getElementById('buttonBudgetDetails').addEventListener('click', function () {
@@ -466,9 +499,6 @@
         let updated = false;
         let allBudgetDetailsData = [];
         let modifiedBudgetListData = [];
-        let totalModify = 0;
-        let totalPrice = 0;
-        let totalAmount = 0;
 
         [...budgetTable.rows].forEach((row, index) => {
             const productIdTemp = row.querySelector('input[name="product_id_show"]');
@@ -500,10 +530,6 @@
 
             if (productId && modifyInput.value && priceInput.value && totalInput.value) {
                 let existingRow = [...listBudgetTable.rows].find(listRow => listRow.cells[0].textContent.trim() === productId);
-
-                const modifyValue = parseFloat(modifyInput.value) || 0;
-                const priceValue = parseFloat(priceInput.value) || 0;
-                const totalValue = parseFloat(totalInput.value) || 0;
 
                 if (existingRow) {
                     existingRow.cells[9].textContent = numberFormatPHPCustom(modifyInput.value, 2);
@@ -540,18 +566,11 @@
                     priceInput: priceInput.value,
                     totalInput: totalInput.value
                 });
-
-                totalModify += modifyValue;
-                totalPrice += priceValue;
-                totalAmount += totalValue;
             }
         });
 
-        document.getElementById('totalModifyFooter').textContent = numberFormatPHPCustom(totalModify, 2);
-        document.getElementById('totalPriceFooter').textContent = numberFormatPHPCustom(totalPrice, 2);
-        document.getElementById('totalAmountFooter').textContent = numberFormatPHPCustom(totalAmount, 2);
-
         if (updated) {
+            calculateBudgetTotals();
             Swal.fire("Success", "Rows updated or duplicated to Modify Budget List", "success");
 
             document.getElementById('budgetDetailsData').value = JSON.stringify(allBudgetDetailsData);
@@ -562,13 +581,12 @@
     });
 </script>
 
+<!-- FUNCTION UNTUK MENAMPILKAN/MENYEMBUNYIKAN BUTTON & FORM ADD NEW ITEM -->
 <script>
-    // Function to check tbody rows and toggle the add new item button visibility
     function toggleAddNewItemButton() {
         const tbody = document.querySelector('#budgetTable tbody');
         const addNewItemBtn = document.getElementById('addNewItemBtn');
         
-        // Show or hide the button based on the number of rows in tbody
         if (tbody && tbody.rows.length > 0) {
             addNewItemBtn.style.display = 'block';
         } else {
@@ -576,10 +594,8 @@
         }
     }
 
-    // Initial check when the page loads
     document.addEventListener('DOMContentLoaded', toggleAddNewItemButton);
 
-    // Re-run the check whenever rows are added or removed
     const observer = new MutationObserver(toggleAddNewItemButton);
     observer.observe(document.querySelector('#budgetTable tbody'), { childList: true });
 </script>
@@ -653,7 +669,6 @@
 
         const row = tbody.insertRow();
 
-        // Insert cells with class "container-tbody-tr-budget"
         const cell1 = row.insertCell();
         cell1.textContent = productId;
         cell1.classList.add("container-tbody-tr-budget");
@@ -697,6 +712,8 @@
         const cell11 = row.insertCell();
         cell11.textContent = numberFormatPHPCustom(total, 2);
         cell11.classList.add("container-tbody-tr-budget");
+
+        calculateBudgetTotals();
 
         document.getElementById("products_id_show").value = "";
         document.getElementById("products_name").value = "";
