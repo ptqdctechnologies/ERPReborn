@@ -752,9 +752,9 @@
             'dev_requirement' => true,
         ),
         'phpunit/phpunit' => array(
-            'pretty_version' => '10.5.37',
-            'version' => '10.5.37.0',
-            'reference' => 'c7cffa0efa2b70c22366523e6d804c9419eb2400',
+            'pretty_version' => '10.5.38',
+            'version' => '10.5.38.0',
+            'reference' => 'a86773b9e887a67bc53efa9da9ad6e3f2498c132',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpunit/phpunit',
             'aliases' => array(),
