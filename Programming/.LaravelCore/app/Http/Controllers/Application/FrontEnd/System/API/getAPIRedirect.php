@@ -50,7 +50,6 @@ namespace App\Http\Controllers\Application\FrontEnd\System\API
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varData
                     );
-            ///dd($varReturn);
             
             return
                 $varReturn;

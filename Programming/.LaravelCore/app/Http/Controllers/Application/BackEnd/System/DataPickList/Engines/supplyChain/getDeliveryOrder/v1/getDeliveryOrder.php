@@ -75,7 +75,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\s
                             throw new \Exception();
                             }
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
-                        } 
+                        }
+
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));

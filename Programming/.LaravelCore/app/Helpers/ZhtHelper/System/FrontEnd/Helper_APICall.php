@@ -532,30 +532,6 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
 //                   dd($varData);
 //                    dd(\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY'));
 
-/* ORIGINAL CODE ---> Error saat menggunakan https yang merupakan self signed certificate
- */
-                    /*
-                    $varURL = 
-                        str_replace(
-                            'http:',
-                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
-                            \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(
-                                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                'URL_BACKEND_API_GATEWAY'
-                                )
-                            );
-                    */
-
-                    $varURL = 
-                        str_replace(
-                            'http:',
-                            (\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession) == TRUE ? 'https:' : 'http:'),
-                            \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(
-                                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                'URL_FRONTEND_JQUERY_API_GATEWAY_HTTPSPROXY'
-                                )
-                            );
-
                     $varURL = 
                         str_replace(
                             'http:',
@@ -569,17 +545,6 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                 )
                                 )
                             );
-                    
-
-//Code sementara untuk mengatasi Error HTTPS dengan memaksa menggunakan HTTP
-/*
-                    $varURL = 
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(
-                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                            'URL_BACKEND_API_GATEWAY'
-                            );
-*/
-
                         
                     $varReturn = 
                         'function() '.
