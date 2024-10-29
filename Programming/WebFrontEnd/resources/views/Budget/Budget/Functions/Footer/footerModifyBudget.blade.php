@@ -595,7 +595,7 @@
         let budgetListDataaa = [];
         const existingData = document.getElementById("modifyBudgetListData").value;
         if (existingData) {
-            budgetListData = JSON.parse(existingData);
+            budgetListDataaa = JSON.parse(existingData);
         }
 
         const tbody = document.getElementById("listBudgetTable").getElementsByTagName("tbody")[0];
@@ -631,17 +631,50 @@
 
         const row = tbody.insertRow();
 
-        row.insertCell().textContent = productId;
-        row.insertCell().textContent = productName;
-        row.insertCell().textContent = 0.00;
-        row.insertCell().textContent = 0.00;
-        row.insertCell().textContent = 0.00;
-        row.insertCell().textContent = currencySymbolll;
-        row.insertCell().textContent = 0.00;
-        row.insertCell().textContent = 0.00;
-        row.insertCell().textContent = qty;
-        row.insertCell().textContent = price;
-        row.insertCell().textContent = total;
+        // Insert cells with class "container-tbody-tr-budget"
+        const cell1 = row.insertCell();
+        cell1.textContent = productId;
+        cell1.classList.add("container-tbody-tr-budget");
+
+        const cell2 = row.insertCell();
+        cell2.textContent = productName;
+        cell2.classList.add("container-tbody-tr-budget");
+
+        const cell3 = row.insertCell();
+        cell3.textContent = numberFormatPHPCustom(0, 2);
+        cell3.classList.add("container-tbody-tr-budget");
+
+        const cell4 = row.insertCell();
+        cell4.textContent = numberFormatPHPCustom(0, 2);
+        cell4.classList.add("container-tbody-tr-budget");
+
+        const cell5 = row.insertCell();
+        cell5.textContent = numberFormatPHPCustom(0, 2);
+        cell5.classList.add("container-tbody-tr-budget");
+
+        const cell6 = row.insertCell();
+        cell6.textContent = currencySymbolll;
+        cell6.classList.add("container-tbody-tr-budget");
+
+        const cell7 = row.insertCell();
+        cell7.textContent = numberFormatPHPCustom(0, 2);
+        cell7.classList.add("container-tbody-tr-budget");
+
+        const cell8 = row.insertCell();
+        cell8.textContent = numberFormatPHPCustom(0, 2);
+        cell8.classList.add("container-tbody-tr-budget");
+
+        const cell9 = row.insertCell();
+        cell9.textContent = numberFormatPHPCustom(qty, 2);
+        cell9.classList.add("container-tbody-tr-budget");
+
+        const cell10 = row.insertCell();
+        cell10.textContent = numberFormatPHPCustom(price, 2);
+        cell10.classList.add("container-tbody-tr-budget");
+
+        const cell11 = row.insertCell();
+        cell11.textContent = numberFormatPHPCustom(total, 2);
+        cell11.classList.add("container-tbody-tr-budget");
 
         document.getElementById("products_id_show").value = "";
         document.getElementById("products_name").value = "";
