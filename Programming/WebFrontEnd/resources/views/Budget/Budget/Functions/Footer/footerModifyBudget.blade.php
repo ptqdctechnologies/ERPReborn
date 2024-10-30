@@ -335,7 +335,7 @@
 </script>
 
 <!-- FUNCTION KETIKA ADDITIONAL YES OR NO -->
-<script>
+<!-- <script>
     function toggleCurrencyField() {
         const additionalCORadios = document.getElementsByName('additional_co');
         const currencyField = document.getElementById('currency_field');
@@ -370,7 +370,7 @@
     }
 
     toggleCurrencyField();
-</script>
+</script> -->
 
 <!-- FORM ADD NEW ITEM -->
 <script>
@@ -721,4 +721,32 @@
         document.getElementById("price_form").value = "";
         document.getElementById("total_qty_price").value = "";
     });
+</script>
+
+<!-- BUTTON SUBMIT OR CANCEL -->
+<script>
+    const siteCode = document.getElementById('site_code');
+    const reasonForModify = document.getElementById('reason_modify');
+    const submitButton = document.getElementById('submitButton');
+    const listBudgetTableBody = document.querySelector('#listBudgetTable tbody');
+
+    function checkTableData() {
+        const isTableNotEmpty = listBudgetTableBody.rows.length > 0;
+        const isSiteCodeNotEmpty = siteCode.value.trim() !== '';
+        const isReasonNotEmpty = reasonForModify.value.trim() !== '';
+
+        if (isTableNotEmpty && isSiteCodeNotEmpty && isReasonNotEmpty) {
+            submitButton.disabled = false;
+        } else {
+            submitButton.disabled = true;
+        }
+    }
+
+    checkTableData();
+
+    const observerListBudgetTableBody = new MutationObserver(checkTableData);
+    observerListBudgetTableBody.observe(listBudgetTableBody, { childList: true });
+
+    siteCode.addEventListener('input', checkTableData);
+    reasonForModify.addEventListener('input', checkTableData);
 </script>

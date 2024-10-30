@@ -25,7 +25,7 @@
 
                 <!-- CONTENT -->
                 <div class="card">
-                    <!-- Add New Advance Request -->
+                    <!-- ADD BUDGET & SUB BUDGET CODE -->
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col-12">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
 
-                    <!-- ADD NEW MODIFY BUDGET -->
+                    <!-- ADD MODIFY BUDGET -->
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col-12">
@@ -83,7 +83,7 @@
                                             </div>
 
                                             <!-- ADDITIONAL CO -->
-                                            <div class="row">
+                                            <!-- <div class="row">
                                                 <div class="col-lg-5">
                                                     <div class="row">
                                                         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Additional CO</label>
@@ -99,17 +99,17 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <!-- CURRENCY -->
-                                            <div id="currency_field" class="row" style="margin-bottom: 1rem; display: none; margin-top: 1rem;">
+                                            <div id="currency_field" class="row" style="margin-bottom: 1rem; margin-top: 1rem;">
                                                 <div class="col-lg-5">
                                                     <div class="row">
                                                         <label for="currency_popup" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Currency</label>
                                                         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                                             <div>
                                                                 <input id="currency_id" hidden name="currency_id">
-                                                                <input id="currency_symbol" style="border-radius:0; width: 40px;" class="form-control" name="currency_symbol" readonly>
+                                                                <input id="currency_symbol" style="border-radius:0; width: 60px;" class="form-control" name="currency_symbol" readonly>
                                                             </div>
                                                             <div>
                                                                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -129,7 +129,7 @@
                                             </div>
 
                                             <!-- EXCHANGE RATE -->
-                                            <div id="exchange_rate_field" class="row" style="margin-bottom: 1rem; display: none;">
+                                            <div id="exchange_rate_field" class="row" style="margin-bottom: 1rem;">
                                                 <div class="col-lg-5">
                                                     <div class="row">
                                                         <label for="exchange_rate" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Exchange Rate</label>
@@ -143,7 +143,7 @@
                                             </div>
 
                                             <!-- VALUE CO -->
-                                            <div id="value_co_field" class="row" style="margin-bottom: 1rem; display: none;">
+                                            <div id="value_co_field" class="row" style="margin-bottom: 1rem;">
                                                 <div class="col-lg-5">
                                                     <div class="row">
                                                         <label for="value_co" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Value CO(+/-)</label>
@@ -231,7 +231,7 @@
                                                     <th class="container-thead-tr-budget">Currency</th>
                                                     <th class="container-thead-tr-budget">Balance Budget</th>
                                                     <th class="container-thead-tr-budget">Total Budget</th>
-                                                    <th class="container-thead-tr-budget">Modify (+/-)</th>
+                                                    <th class="container-thead-tr-budget">Qty (+/-)</th>
                                                     <th class="container-thead-tr-budget">Price</th>
                                                     <th class="container-thead-tr-budget">Total</th>
                                                 </tr>
@@ -292,7 +292,7 @@
                                             <div id="newItemFormTwo" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
                                                 <div class="col-lg-5">
                                                     <div class="row">
-                                                        <label for="qty_form" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Qty</label>
+                                                        <label for="qty_form" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Qty (+/-)</label>
                                                         <div class="col-sm-9 col-md-8 col-lg-2 p-0">
                                                             <input id="qty_form" style="border-radius:0;" class="form-control number-only" name="qty_form" autocomplete="off">
                                                         </div>
@@ -377,7 +377,7 @@
                                                     <th class="container-thead-tr-budget">Currency</th>
                                                     <th class="container-thead-tr-budget">Balance Budget</th>
                                                     <th class="container-thead-tr-budget">Total Budget</th>
-                                                    <th class="container-thead-tr-budget">Modify (+/-)</th>
+                                                    <th class="container-thead-tr-budget">Qty (+/-)</th>
                                                     <th class="container-thead-tr-budget">Price</th>
                                                     <th class="container-thead-tr-budget">Total</th>
                                                 </tr>
