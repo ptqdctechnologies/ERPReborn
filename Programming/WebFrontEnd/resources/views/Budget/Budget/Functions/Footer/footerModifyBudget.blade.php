@@ -561,7 +561,6 @@
 
         if (updated) {
             calculateBudgetTotals();
-            Swal.fire("Success", "Rows updated or duplicated to Modify Budget List", "success");
 
             document.getElementById('budgetDetailsData').value = JSON.stringify(allBudgetDetailsData);
             document.getElementById('modifyBudgetListData').value = JSON.stringify(modifiedBudgetListData);
