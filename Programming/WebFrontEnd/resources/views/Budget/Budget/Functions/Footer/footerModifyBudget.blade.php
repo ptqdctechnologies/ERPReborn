@@ -424,32 +424,22 @@
 
         const modifyValue = parseFloat(modifyInput.value) || 0;
         const priceValue = parseFloat(priceInput.value) || 0;
+        
+        const resultQtyInput = qtyAvail + modifyValue;
 
-        if (qtyAvail >= 0) {
-            if (modifyValue > qtyAvail) {
-                Swal.fire("Error", `Modify must be less than Qty Avail`, "error");
-                modifyInput.value = qtyAvail;
-            }    
-        } else {
-            if (modifyValue < qtyAvail) {
-                Swal.fire("Error", `Modify must be greater than Qty Avail`, "error");
-                modifyInput.value = qtyAvail;
-            }
+        if (resultQtyInput < 0) {
+            Swal.fire("Error", `Qty must be greater than 0`, "error");
+            modifyInput.value = qtyAvail;
         }
 
         const totalValue = modifyInput.value * priceValue;
+        const resultTotalInput = balancedBudget + totalValue;
 
-        if (totalValue < 0) {
-            if (totalValue < totalBudget) {
-                Swal.fire("Error", "Total must be greater than Total Budget!", "error");
-            }
-        } else {
-            if (totalValue > totalBudget && totalValue < balancedBudget) {
-                Swal.fire("Error", "Total must be greater than Balance Budget & must be less than Total Budget!", "error");
-            }
+        if (resultTotalInput < 0) {
+            Swal.fire("Error", `Total must be greater than 0`, "error");
         }
 
-        totalInput.value = Math.abs(totalValue).toFixed(2);
+        totalInput.value = numberFormatPHPCustom(totalValue, 2);
     }
 
     $('#budgetTable tbody').on('blur', 'input[name="modify_budget_details"], input[name="price_budget_details"]', function () {
