@@ -123,7 +123,24 @@ class BudgetController extends Controller
             // Modify Budget List (table)
             $modifyBudgetListData   = $request->input('modifyBudgetListData');
 
-            $originDummy            = 465000000;
+            $addSubtCO              = 0;
+            $addSubtFC              = 0; // FC -> FOREIGN CURRENCY
+            if ($currencySymbol != "IDR") {
+                if ($valueCO) {
+                    $addSubtCO = $valueCO * $exchangeRate;
+                    $addSubtFC = $valueCO;
+                }
+            } else {
+                if ($valueCO) {
+                    $addSubtCO = $valueCO;
+                }
+            }
+
+            $originDummyCO          = 465000000;
+            $originDummyFC          = 1000000;
+            $totalCurrentCO         = $originDummyCO + $addSubtCO;
+            $totalCurrentFC         = $originDummyFC + $addSubtFC;
+
             $compact = [
                 'varAPIWebToken'            => $varAPIWebToken,
                 'pic'                       => $PIC,
@@ -148,28 +165,28 @@ class BudgetController extends Controller
                         'firstRow'          => [
                             'description'   => 'Customer Order (CO)',
                             'valuta'        => 'IDR',
-                            'origin'        => $originDummy,
-                            'previous'      => $originDummy,
-                            'addSubt'       => $valueCO,
-                            'totalCurrent'  => $originDummy + $valueCO,
+                            'origin'        => $originDummyCO,
+                            'previous'      => $originDummyCO,
+                            'addSubt'       => $addSubtCO,
+                            'totalCurrent'  => $totalCurrentCO,
                         ],
                         'secondRow'          => [
                             'description'   => '',
                             'valuta'        => 'Foreign Currency',
-                            'origin'        => 0,
-                            'previous'      => 0,
-                            'addSubt'       => $valueCO,
-                            'totalCurrent'  => $originDummy + $valueCO,
+                            'origin'        => $originDummyFC,
+                            'previous'      => $originDummyFC,
+                            'addSubt'       => $addSubtFC,
+                            'totalCurrent'  => $totalCurrentFC,
                         ],
                         'thirdRow'          => [
-                            'description'   => '',
+                            'description'   => 'Total Ekuivalen',
                             'valuta'        => 'IDR',
-                            'origin'        => $originDummy,
-                            'previous'      => $originDummy,
-                            'addSubt'       => $valueCO,
-                            'totalCurrent'  => $originDummy + $valueCO,
+                            'origin'        => $originDummyCO + $originDummyFC,
+                            'previous'      => $originDummyCO + $originDummyFC,
+                            'addSubt'       => $addSubtCO + $addSubtFC,
+                            'totalCurrent'  => $totalCurrentCO + $totalCurrentFC,
                         ],
-                    ]
+                    ],
                 ]
             ];
 

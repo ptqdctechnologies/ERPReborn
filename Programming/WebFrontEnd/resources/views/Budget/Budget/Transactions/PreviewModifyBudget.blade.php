@@ -83,7 +83,7 @@
                                 Exchange Rate
                             </dt>
                             <dd class="col">
-                                <?= $exchangeRate; ?>
+                                <?= number_format($exchangeRate, 2); ?>
                             </dd>
                         </div>
 
@@ -144,16 +144,16 @@
                                         <?= $dataTable['sectionOne']['firstRow']['valuta']; ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionOne']['firstRow']['origin']; ?>
+                                        <?= number_format($dataTable['sectionOne']['firstRow']['origin'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionOne']['firstRow']['previous']; ?>
+                                        <?= number_format($dataTable['sectionOne']['firstRow']['previous'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionOne']['firstRow']['addSubt']; ?>
+                                        <?= number_format($dataTable['sectionOne']['firstRow']['addSubt'], 2); ?>
                                     </td>
                                     <td class="text-right">
-                                        <?= $dataTable['sectionOne']['firstRow']['totalCurrent']; ?>
+                                        <?= number_format($dataTable['sectionOne']['firstRow']['totalCurrent'], 2); ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -162,24 +162,24 @@
                                         <?= $dataTable['sectionOne']['secondRow']['valuta']; ?>
                                     </td>
                                     <td class="border_top_dotted text-right">
-                                        0
+                                        <?= number_format($dataTable['sectionOne']['secondRow']['origin'], 2); ?>
                                     </td>
                                     <td class="border_top_dotted text-right">
-                                        0
+                                        <?= number_format($dataTable['sectionOne']['secondRow']['previous'], 2); ?>
                                     </td>
                                     <td class="border_top_dotted text-right">
-                                        Hello
+                                        <?= number_format($dataTable['sectionOne']['secondRow']['addSubt'], 2); ?>
                                     </td>
                                     <td class="border_top_dotted text-right">
-                                        World
+                                        <?= number_format($dataTable['sectionOne']['secondRow']['totalCurrent'], 2); ?>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
-                                        Total Ekuivalen
+                                        <?= $dataTable['sectionOne']['thirdRow']['description']; ?>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark text-center">
-                                        IDR
+                                        <?= $dataTable['sectionOne']['thirdRow']['valuta']; ?>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
                                         <div 
@@ -190,7 +190,7 @@
                                             title="Origin CO IDR + Origin CO Foreign Currency <br /> Origin CO IDR : <?= number_format(0, 2); ?> <br /> Origin CO Foreign Currency : <?= number_format(0, 2); ?> * Transaction's rate (0.00) <br />" 
                                             style="width: max-content; cursor: help;"
                                             >
-                                            <?= number_format(0, 2); ?>
+                                            <?= number_format($dataTable['sectionOne']['thirdRow']['origin'], 2); ?>
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
@@ -202,7 +202,7 @@
                                             title="Previous CO IDR + Previous CO Foreign Currency <br /> Previous CO IDR : <?= number_format(0, 2); ?> <br /> Previous CO Foreign Currency : <?= number_format(0, 2); ?> * 0.00 <br />"
                                             style="width: max-content; cursor: help;"
                                             >
-                                            <?= number_format(0, 2); ?>
+                                            <?= number_format($dataTable['sectionOne']['thirdRow']['previous'], 2); ?>
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
@@ -214,7 +214,7 @@
                                             title="Add(subt) CO IDR + Add(subt) CO Foreign Currency <br /> Add(subt) CO IDR : <?= number_format(0, 2); ?> <br /> Add(subt) CO  Foreign Currency : <?= number_format(0, 2); ?> * 0.00 <br />"
                                             style="width: max-content; cursor: help;"
                                             >
-                                            <?= number_format(0, 2); ?>
+                                            <?= number_format($dataTable['sectionOne']['thirdRow']['addSubt'], 2); ?>
                                         </div>
                                     </td>
                                     <td class="border-dark border-top border-bottom font-weight-bold text-dark">
@@ -226,7 +226,7 @@
                                             title="Total Current CO IDR + Total Current CO USD <br /> Total Current CO IDR : <?= number_format(0, 2); ?> <br /> Total Current CO Foreign Currency : <?= number_format(0, 2); ?> * 0.00 <br />"
                                             style="width: max-content; cursor: help;"
                                             >
-                                            <?= number_format(0, 2); ?>
+                                            <?= number_format($dataTable['sectionOne']['thirdRow']['totalCurrent'], 2); ?>
                                         </div>
                                     </td>
                                 </tr>
