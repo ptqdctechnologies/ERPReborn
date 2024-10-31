@@ -23,6 +23,10 @@
                 <input type="hidden" id="budgetDetailsData" name="budgetDetailsData" />
                 <input type="hidden" id="modifyBudgetListData" name="modifyBudgetListData" />
 
+                <input type="hidden" id="totalModifyFooterData" name="totalModifyFooterData" />
+                <input type="hidden" id="totalPriceFooterData" name="totalPriceFooterData" />
+                <input type="hidden" id="totalAmountFooterData" name="totalAmountFooterData" />
+
                 <!-- CONTENT -->
                 <div class="card">
                     <!-- ADD BUDGET & SUB BUDGET CODE -->

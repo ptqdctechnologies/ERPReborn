@@ -478,6 +478,10 @@
         document.getElementById('totalModifyFooter').textContent = numberFormatPHPCustom(totalModify, 2);
         document.getElementById('totalPriceFooter').textContent = numberFormatPHPCustom(totalPrice, 2);
         document.getElementById('totalAmountFooter').textContent = numberFormatPHPCustom(totalAmount, 2);
+
+        document.getElementById('totalModifyFooterData').value = totalModify;
+        document.getElementById('totalPriceFooterData').value = totalPrice;
+        document.getElementById('totalAmountFooterData').value = totalAmount;
     }
 </script>
 

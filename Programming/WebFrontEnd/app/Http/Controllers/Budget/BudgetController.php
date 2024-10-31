@@ -122,24 +122,49 @@ class BudgetController extends Controller
 
             // Modify Budget List (table)
             $modifyBudgetListData   = $request->input('modifyBudgetListData');
+            $totalModifyFooter      = $request->input('totalModifyFooterData');
+            $totalPriceFooter       = $request->input('totalPriceFooterData');
+            $totalAmountFooter      = $request->input('totalAmountFooterData');
 
-            $addSubtCO              = 0;
-            $addSubtFC              = 0; // FC -> FOREIGN CURRENCY
+            // dd($totalModifyFooter, $totalPriceFooter, $totalAmountFooter);
+
+            // SECTION ONE
+            $addSubtSectionOneCO    = 0;
+            $addSubtSectionOneFC    = 0; // FC -> FOREIGN CURRENCY
+
+            // SECTION TWO
+            $addSubtSectionTwoCO    = 0;
+            $addSubtSectionTwoFC    = 0; // FC -> FOREIGN CURRENCY
+
             if ($currencySymbol != "IDR") {
                 if ($valueCO) {
-                    $addSubtCO = $valueCO * $exchangeRate;
-                    $addSubtFC = $valueCO;
+                    $addSubtSectionOneCO = $valueCO * $exchangeRate;
+                    $addSubtSectionOneFC = $valueCO;
+
+                    $addSubtSectionTwoCO = $valueCO * $totalAmountFooter;
+                    $addSubtSectionTwoFC = $valueCO;
                 }
             } else {
                 if ($valueCO) {
-                    $addSubtCO = $valueCO;
+                    $addSubtSectionOneCO = $valueCO;
+
+                    $addSubtSectionTwoCO = $valueCO;
                 }
             }
 
+            // dump($valueCO * $totalAmountFooter);
+
+            // SECTION ONE
             $originDummyCO          = 465000000;
-            $originDummyFC          = 1000000;
-            $totalCurrentCO         = $originDummyCO + $addSubtCO;
-            $totalCurrentFC         = $originDummyFC + $addSubtFC;
+            $originDummyFC          = 0;
+            $totalCurrentCO         = $originDummyCO + $addSubtSectionOneCO;
+            $totalCurrentFC         = $originDummyFC + $addSubtSectionOneFC;
+
+            // SECTION TWO
+            $originDummyAddSubt     = 376712000;
+            $originDummyAddSubtFC   = 0;
+            $totalCurrentAddSubt    = $originDummyAddSubt + $addSubtSectionOneCO;
+            $totalCurrentAddSubtFC  = $originDummyAddSubtFC + $addSubtSectionOneFC;
 
             $compact = [
                 'varAPIWebToken'            => $varAPIWebToken,
@@ -167,7 +192,7 @@ class BudgetController extends Controller
                             'valuta'        => 'IDR',
                             'origin'        => $originDummyCO,
                             'previous'      => $originDummyCO,
-                            'addSubt'       => $addSubtCO,
+                            'addSubt'       => $addSubtSectionOneCO,
                             'totalCurrent'  => $totalCurrentCO,
                         ],
                         'secondRow'          => [
@@ -175,7 +200,7 @@ class BudgetController extends Controller
                             'valuta'        => 'Foreign Currency',
                             'origin'        => $originDummyFC,
                             'previous'      => $originDummyFC,
-                            'addSubt'       => $addSubtFC,
+                            'addSubt'       => $addSubtSectionOneFC,
                             'totalCurrent'  => $totalCurrentFC,
                         ],
                         'thirdRow'          => [
@@ -183,8 +208,60 @@ class BudgetController extends Controller
                             'valuta'        => 'IDR',
                             'origin'        => $originDummyCO + $originDummyFC,
                             'previous'      => $originDummyCO + $originDummyFC,
-                            'addSubt'       => $addSubtCO + $addSubtFC,
+                            'addSubt'       => $addSubtSectionOneCO + $addSubtSectionOneFC,
                             'totalCurrent'  => $totalCurrentCO + $totalCurrentFC,
+                        ],
+                    ],
+                    'sectionTwo'            => [
+                        'firstRow'          => [
+                            'description'   => 'Add(Subt) Cost',
+                            'valuta'        => 'IDR',
+                            'origin'        => $originDummyAddSubt,
+                            'previous'      => $originDummyAddSubt,
+                            'addSubt'       => $addSubtSectionTwoCO,
+                            'totalCurrent'  => $totalCurrentAddSubt,
+                        ],
+                        'secondRow'          => [
+                            'description'   => '',
+                            'valuta'        => 'Foreign Currency',
+                            'origin'        => $originDummyAddSubtFC,
+                            'previous'      => $originDummyAddSubtFC,
+                            'addSubt'       => $addSubtSectionTwoFC,
+                            'totalCurrent'  => $totalCurrentAddSubtFC,
+                        ],
+                        'thirdRow'          => [
+                            'description'   => 'Total Ekuivalen',
+                            'valuta'        => 'IDR',
+                            'origin'        => $originDummyAddSubt + $originDummyAddSubtFC,
+                            'previous'      => $originDummyAddSubt + $originDummyAddSubtFC,
+                            'addSubt'       => $addSubtSectionTwoCO + $addSubtSectionTwoFC,
+                            'totalCurrent'  => $totalCurrentAddSubt + $totalCurrentAddSubtFC,
+                        ],
+                    ],
+                    'sectionThree'          => [
+                        'firstRow'          => [
+                            'description'   => 'Gross Margin',
+                            'valuta'        => 'IDR',
+                            'origin'        => 79288000,
+                            'previous'      => 79288000,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 79288000,
+                        ],
+                        'secondRow'          => [
+                            'description'   => '',
+                            'valuta'        => 'Foreign Currency',
+                            'origin'        => 0,
+                            'previous'      => 0,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 0,
+                        ],
+                        'thirdRow'          => [
+                            'description'   => 'Total Ekuivalen',
+                            'valuta'        => 'IDR',
+                            'origin'        => 79288000,
+                            'previous'      => 79288000,
+                            'addSubt'       => 0,
+                            'totalCurrent'  => 79288000,
                         ],
                     ],
                 ]
