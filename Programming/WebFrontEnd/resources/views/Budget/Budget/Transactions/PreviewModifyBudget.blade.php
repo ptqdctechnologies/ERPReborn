@@ -138,28 +138,28 @@
                                 <!-- SECTION ONE -->
                                 <tr style="color: #404040;">
                                     <td>
-                                        Customer Oder (CO)
+                                        <?= $dataTable['sectionOne']['firstRow']['description']; ?>
                                     </td>
                                     <td class="text-center">
-                                        IDR
+                                        <?= $dataTable['sectionOne']['firstRow']['valuta']; ?>
                                     </td>
                                     <td class="text-right">
-                                        465000000
+                                        <?= $dataTable['sectionOne']['firstRow']['origin']; ?>
                                     </td>
                                     <td class="text-right">
-                                        465000000
+                                        <?= $dataTable['sectionOne']['firstRow']['previous']; ?>
                                     </td>
                                     <td class="text-right">
-                                        Hello
+                                        <?= $dataTable['sectionOne']['firstRow']['addSubt']; ?>
                                     </td>
                                     <td class="text-right">
-                                        World
+                                        <?= $dataTable['sectionOne']['firstRow']['totalCurrent']; ?>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="border_top_dotted"></td>
                                     <td class="border_top_dotted text-center">
-                                        Foreign Currency
+                                        <?= $dataTable['sectionOne']['secondRow']['valuta']; ?>
                                     </td>
                                     <td class="border_top_dotted text-right">
                                         0

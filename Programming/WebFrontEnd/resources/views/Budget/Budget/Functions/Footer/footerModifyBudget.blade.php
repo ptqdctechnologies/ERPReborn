@@ -524,7 +524,7 @@
                 if (existingRow) {
                     existingRow.cells[9].textContent = numberFormatPHPCustom(modifyInput.value, 2);
                     existingRow.cells[10].textContent = numberFormatPHPCustom(priceInput.value, 2);
-                    existingRow.cells[11].textContent = numberFormatPHPCustom(totalInput.value, 2);
+                    existingRow.cells[11].textContent = totalInput.value;
                     updated = true;
                 } else {
                     const clonedRow = row.cloneNode(true);
@@ -537,7 +537,7 @@
                     clonedRow.cells[0].textContent = productIdValue;
                     clonedRow.cells[9].textContent = numberFormatPHPCustom(modifyValue, 2);
                     clonedRow.cells[10].textContent = numberFormatPHPCustom(priceValue, 2);
-                    clonedRow.cells[11].textContent = numberFormatPHPCustom(totalValue, 2);
+                    clonedRow.cells[11].textContent = totalValue;
 
                     listBudgetTable.appendChild(clonedRow);
                     updated = true;

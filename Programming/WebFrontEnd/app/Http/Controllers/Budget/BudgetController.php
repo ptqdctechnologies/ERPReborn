@@ -123,25 +123,54 @@ class BudgetController extends Controller
             // Modify Budget List (table)
             $modifyBudgetListData   = $request->input('modifyBudgetListData');
 
+            $originDummy            = 465000000;
             $compact = [
-                'varAPIWebToken'        => $varAPIWebToken,
-                'pic'                   => $PIC,
-                'budgetID'              => $budgetID,
-                'budgetCode'            => $budgetCode,
-                'budgetName'            => $budgetName,
-                'subBudgetID'           => $subBudgetID,
-                'subBudgetCode'         => $subBudgetCode,
-                'subBudgetName'         => $subBudgetName,
-                'reason'                => $reason,
-                'additionalCO'          => $additionalCO,
-                'currencyID'            => $currencyID,
-                'currencySymbol'        => $currencySymbol,
-                'currencyName'          => $currencyName,
-                'exchangeRate'          => $exchangeRate,
-                'valueCO'               => $valueCO,
-                'files'                 => $files,
-                'budgetDetailsData'     => json_decode($budgetDetailsData),
-                'modifyBudgetListData'  => json_decode($modifyBudgetListData),
+                'varAPIWebToken'            => $varAPIWebToken,
+                'pic'                       => $PIC,
+                'budgetID'                  => $budgetID,
+                'budgetCode'                => $budgetCode,
+                'budgetName'                => $budgetName,
+                'subBudgetID'               => $subBudgetID,
+                'subBudgetCode'             => $subBudgetCode,
+                'subBudgetName'             => $subBudgetName,
+                'reason'                    => $reason,
+                'additionalCO'              => $additionalCO,
+                'currencyID'                => $currencyID,
+                'currencySymbol'            => $currencySymbol,
+                'currencyName'              => $currencyName,
+                'exchangeRate'              => $exchangeRate,
+                'valueCO'                   => $valueCO,
+                'files'                     => $files,
+                'budgetDetailsData'         => json_decode($budgetDetailsData),
+                'modifyBudgetListData'      => json_decode($modifyBudgetListData),
+                'dataTable'                 => [
+                    'sectionOne'            => [
+                        'firstRow'          => [
+                            'description'   => 'Customer Order (CO)',
+                            'valuta'        => 'IDR',
+                            'origin'        => $originDummy,
+                            'previous'      => $originDummy,
+                            'addSubt'       => $valueCO,
+                            'totalCurrent'  => $originDummy + $valueCO,
+                        ],
+                        'secondRow'          => [
+                            'description'   => '',
+                            'valuta'        => 'Foreign Currency',
+                            'origin'        => 0,
+                            'previous'      => 0,
+                            'addSubt'       => $valueCO,
+                            'totalCurrent'  => $originDummy + $valueCO,
+                        ],
+                        'thirdRow'          => [
+                            'description'   => '',
+                            'valuta'        => 'IDR',
+                            'origin'        => $originDummy,
+                            'previous'      => $originDummy,
+                            'addSubt'       => $valueCO,
+                            'totalCurrent'  => $originDummy + $valueCO,
+                        ],
+                    ]
+                ]
             ];
 
             // dd($compact);
