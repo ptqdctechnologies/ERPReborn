@@ -2834,6 +2834,7 @@ return array(
     'Illuminate\\Database\\Eloquent\\Concerns\\HasTimestamps' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasTimestamps.php',
     'Illuminate\\Database\\Eloquent\\Concerns\\HasUlids' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasUlids.php',
     'Illuminate\\Database\\Eloquent\\Concerns\\HasUniqueIds' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasUniqueIds.php',
+    'Illuminate\\Database\\Eloquent\\Concerns\\HasUniqueStringIds' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasUniqueStringIds.php',
     'Illuminate\\Database\\Eloquent\\Concerns\\HasUuids' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasUuids.php',
     'Illuminate\\Database\\Eloquent\\Concerns\\HasVersion7Uuids' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasVersion7Uuids.php',
     'Illuminate\\Database\\Eloquent\\Concerns\\HidesAttributes' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HidesAttributes.php',

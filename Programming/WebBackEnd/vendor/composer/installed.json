@@ -59,17 +59,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.324.12",
-            "version_normalized": "3.324.12.0",
+            "version": "3.325.0",
+            "version_normalized": "3.325.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c4aea23ee93e4567e353a0f3b907d154056bf4f6"
+                "reference": "ea36e53745cff21519c2dadd808e2482f0bfadf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c4aea23ee93e4567e353a0f3b907d154056bf4f6",
-                "reference": "c4aea23ee93e4567e353a0f3b907d154056bf4f6",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ea36e53745cff21519c2dadd808e2482f0bfadf5",
+                "reference": "ea36e53745cff21519c2dadd808e2482f0bfadf5",
                 "shasum": ""
             },
             "require": {
@@ -110,7 +110,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2024-10-28T18:07:02+00:00",
+            "time": "2024-10-30T18:11:21+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -154,7 +154,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.324.12"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.325.0"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -1762,17 +1762,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v11.29.0",
-            "version_normalized": "11.29.0.0",
+            "version": "v11.30.0",
+            "version_normalized": "11.30.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "425054512c362835ba9c0307561973c8eeac7385"
+                "reference": "dff716442d9c229d716be82ccc9a7de52eb97193"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/425054512c362835ba9c0307561973c8eeac7385",
-                "reference": "425054512c362835ba9c0307561973c8eeac7385",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/dff716442d9c229d716be82ccc9a7de52eb97193",
+                "reference": "dff716442d9c229d716be82ccc9a7de52eb97193",
                 "shasum": ""
             },
             "require": {
@@ -1923,7 +1923,7 @@
                 "symfony/postmark-mailer": "Required to enable support for the Postmark mail transport (^7.0).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^7.0)."
             },
-            "time": "2024-10-22T14:13:31+00:00",
+            "time": "2024-10-30T15:00:34+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
