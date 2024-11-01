@@ -96,7 +96,7 @@ class BudgetController extends Controller
         try {
             $varAPIWebToken         = $request->session()->get('SessionLogin');
             $PIC                    = $request->session()->get("SessionLoginName");
-            
+
             // Add Budget & Sub Budget Code
             $budgetID               = $request->project_id;
             $budgetCode             = $request->project_code;
@@ -167,9 +167,10 @@ class BudgetController extends Controller
             $totalCurrentAddSubtFC  = $originDummyAddSubtFC + $addSubtSectionOneFC;
 
             // SECTION FOUR
-            $originDummyGrossMargin     = 79288000 / ($originDummyCO + $originDummyFC);
-            $previousDummyGrossMargin   = 79288000 / ($originDummyCO + $originDummyFC);
-            $totalCurrentGrossMargin    = 79288000 / ($totalCurrentCO + $totalCurrentFC);
+            $tempData                   = $originDummyCO - $originDummyAddSubt;
+            $originDummyGrossMargin     = $tempData / ($originDummyCO + $originDummyFC);
+            $previousDummyGrossMargin   = $tempData / ($originDummyCO + $originDummyFC);
+            $totalCurrentGrossMargin    = $tempData / ($totalCurrentCO + $totalCurrentFC);
 
             $compact = [
                 'varAPIWebToken'            => $varAPIWebToken,
@@ -247,10 +248,10 @@ class BudgetController extends Controller
                         'firstRow'          => [
                             'description'   => 'Gross Margin',
                             'valuta'        => 'IDR',
-                            'origin'        => 79288000,
-                            'previous'      => 79288000,
+                            'origin'        => $tempData,
+                            'previous'      => $tempData,
                             'addSubt'       => 0,
-                            'totalCurrent'  => 79288000,
+                            'totalCurrent'  => $tempData,
                         ],
                         'secondRow'          => [
                             'description'   => '',
@@ -263,10 +264,10 @@ class BudgetController extends Controller
                         'thirdRow'          => [
                             'description'   => 'Total Ekuivalen',
                             'valuta'        => 'IDR',
-                            'origin'        => 79288000,
-                            'previous'      => 79288000,
+                            'origin'        => $tempData,
+                            'previous'      => $tempData,
                             'addSubt'       => 0,
-                            'totalCurrent'  => 79288000,
+                            'totalCurrent'  => $tempData,
                         ],
                     ],
                     'sectionFour'          => [
