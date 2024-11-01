@@ -428,10 +428,10 @@
                                 <!-- SECTION FOUR -->
                                 <tr>
                                     <td class="font-weight-bold text-danger">
-                                        Gross Margin
+                                        <?= $dataTable['sectionFour']['firstRow']['description']; ?>
                                     </td>
                                     <td class="font-weight-bold text-danger text-center">
-                                        %
+                                        <?= $dataTable['sectionFour']['firstRow']['valuta']; ?>
                                     </td>
                                     <td class="text-dark font-weight-bold">
                                         <div
@@ -439,10 +439,10 @@
                                             data-toggle="tooltip"
                                             data-placement="bottom"
                                             data-html="true"
-                                            title="(Origin Gross Margin Total / Origin CO Total) * 100% <br /> Origin Gross Margin Total : <?= number_format(0, 2); ?> <br /> Origin CO Total : <?= number_format(0, 2); ?> <br />"
+                                            title="(Origin Gross Margin Total / Origin CO Total) * 100% <br /> Origin Gross Margin Total : <?= number_format($dataTable['sectionThree']['thirdRow']['origin'], 2); ?> <br /> Origin CO Total : <?= number_format($dataTable['sectionOne']['thirdRow']['origin'], 2); ?> <br />"
                                             style="width: max-content; cursor: help;"
                                             >
-                                            <?= number_format(0, 2) . " %";?>
+                                            <?= number_format($dataTable['sectionFour']['firstRow']['origin'], 2) . " %"; ?>
                                         </div>
                                     </td>
                                     <td class="text-dark font-weight-bold">
@@ -451,10 +451,10 @@
                                             data-toggle="tooltip"
                                             data-placement="bottom"
                                             data-html="true"
-                                            title="(Previous Gross Margin Total / Previous CO Total) * 100% <br /> Previous Gross Margin Total : <?= number_format(17.39, 2); ?> <br /> Previous CO Total : <?= number_format(17.39, 2); ?> <br />"
+                                            title="(Previous Gross Margin Total / Previous CO Total) * 100% <br /> Previous Gross Margin Total : <?= number_format($dataTable['sectionThree']['thirdRow']['previous'], 2); ?> <br /> Previous CO Total : <?= number_format($dataTable['sectionOne']['thirdRow']['previous'], 2); ?> <br />"
                                             style="width: max-content; cursor: help;"
                                             >
-                                            <?= number_format(17.39, 2) . " %";?>
+                                            <?= number_format($dataTable['sectionFour']['firstRow']['previous'], 2) . " %"; ?>
                                         </div>
                                     </td>
                                     <td></td>
@@ -464,28 +464,28 @@
                                             data-toggle="tooltip"
                                             data-placement="bottom"
                                             data-html="true"
-                                            title="(Total Current Gross Margin Total / Total Current CO Total) * 100% <br /> Total Current Gross Margin Total : <?= number_format(17.39, 2); ?> <br /> Total Current CO Total : <?= number_format(17.39, 2); ?> <br />"
+                                            title="(Total Current Gross Margin Total / Total Current CO Total) * 100% <br /> Total Current Gross Margin Total : <?= number_format($dataTable['sectionThree']['thirdRow']['totalCurrent'], 2); ?> <br /> Total Current CO Total : <?= number_format($dataTable['sectionOne']['thirdRow']['totalCurrent'], 2); ?> <br />"
                                             style="width: max-content; cursor: help;"
                                             >
-                                            <?= number_format(17.39, 2) . " %";?>
+                                            <?= number_format($dataTable['sectionFour']['firstRow']['totalCurrent'], 2) . " %"; ?>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr style="background-color: #ffff00;">
                                     <td class="font-weight-bold text-danger">
-                                        Gross Margin Movement
+                                        <?= $dataTable['sectionFour']['secondRow']['description']; ?>
                                     </td>
                                     <td class="font-weight-bold text-danger text-center">
-                                        %
+                                        <?= $dataTable['sectionFour']['secondRow']['valuta']; ?>
                                     </td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Total Current Gross Margin % - Origin Gross Margin %) <br /> Total Current Gross Margin % : <?= number_format(17.39, 2) . " %";?> <br /> Origin Gross Margin % : <?= number_format(17.39, 2) . " %";?> <br />" style="width: max-content; cursor: help;">
-                                            <?= number_format(17.39, 2) . " %";?>
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Total Current Gross Margin % - Origin Gross Margin %) <br /> Total Current Gross Margin % : <?= number_format($dataTable['sectionFour']['firstRow']['totalCurrent'], 2) . " %"; ?> <br /> Origin Gross Margin % : <?= number_format($dataTable['sectionFour']['firstRow']['origin'], 2) . " %"; ?> <br />" style="width: max-content; cursor: help;">
+                                            <?= number_format($dataTable['sectionFour']['secondRow']['origin'], 2) . " %"; ?>
                                         </div>
                                     </td>
                                     <td class="text-dark font-weight-bold">
-                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Total Current Gross Margin % - Previous Gross Margin %) <br /> Total Current Gross Margin % : <?php echo number_format(0, 2) . " %";?> <br /> Previous Gross Margin % : <?= number_format(0, 2) . " %";?> <br />" style="width: max-content; cursor: help;">
-                                            <?= number_format(0, 2) . " %";?>
+                                        <div class="float-right border_bottom_dotted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="(Total Current Gross Margin % - Previous Gross Margin %) <br /> Total Current Gross Margin % : <?= number_format($dataTable['sectionFour']['firstRow']['totalCurrent'], 2) . " %"; ?> <br /> Previous Gross Margin % : <?= number_format($dataTable['sectionFour']['firstRow']['previous'], 2) . " %"; ?> <br />" style="width: max-content; cursor: help;">
+                                            <?= number_format($dataTable['sectionFour']['secondRow']['previous'], 2) . " %"; ?>
                                         </div>
                                     </td>
                                     <td></td>

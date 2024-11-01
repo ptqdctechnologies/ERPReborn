@@ -166,6 +166,11 @@ class BudgetController extends Controller
             $totalCurrentAddSubt    = $originDummyAddSubt + $addSubtSectionOneCO;
             $totalCurrentAddSubtFC  = $originDummyAddSubtFC + $addSubtSectionOneFC;
 
+            // SECTION FOUR
+            $originDummyGrossMargin     = 79288000 / ($originDummyCO + $originDummyFC);
+            $previousDummyGrossMargin   = 79288000 / ($originDummyCO + $originDummyFC);
+            $totalCurrentGrossMargin    = 79288000 / ($totalCurrentCO + $totalCurrentFC);
+
             $compact = [
                 'varAPIWebToken'            => $varAPIWebToken,
                 'pic'                       => $PIC,
@@ -262,6 +267,58 @@ class BudgetController extends Controller
                             'previous'      => 79288000,
                             'addSubt'       => 0,
                             'totalCurrent'  => 79288000,
+                        ],
+                    ],
+                    'sectionFour'          => [
+                        'firstRow'          => [
+                            'description'   => 'Gross Margin',
+                            'valuta'        => '%',
+                            'origin'        => $originDummyGrossMargin,
+                            'previous'      => $previousDummyGrossMargin,
+                            'addSubt'       => '',
+                            'totalCurrent'  => $totalCurrentGrossMargin,
+                        ],
+                        'secondRow'          => [
+                            'description'   => 'Gross Margin Movement',
+                            'valuta'        => '%',
+                            'origin'        => $totalCurrentGrossMargin - $originDummyGrossMargin,
+                            'previous'      => $totalCurrentGrossMargin - $previousDummyGrossMargin,
+                            'addSubt'       => '',
+                            'totalCurrent'  => '',
+                        ],
+                        'thirdRow'          => [
+                            'description'   => 'Recorded Cost',
+                            'valuta'        => 'IDR',
+                            'origin'        => '',
+                            'previous'      => '',
+                            'addSubt'       => '',
+                            'totalCurrent'  => 0,
+                        ],
+                        'fourthRow'          => [
+                            'description'   => '',
+                            'valuta'        => 'Foreign Currency',
+                            'origin'        => '',
+                            'previous'      => '',
+                            'addSubt'       => '',
+                            'totalCurrent'  => 0,
+                        ],
+                        'fifthRow'          => [
+                            'description'   => 'Total Ekuivalen',
+                            'valuta'        => 'IDR',
+                            'origin'        => '',
+                            'previous'      => '',
+                            'addSubt'       => '',
+                            'totalCurrent'  => 0,
+                        ],
+                    ],
+                    'sectionFive'          => [
+                        'firstRow'          => [
+                            'description'   => 'Actual Gross Margin',
+                            'valuta'        => '%',
+                            'origin'        => '',
+                            'previous'      => '',
+                            'addSubt'       => '',
+                            'totalCurrent'  => 0,
                         ],
                     ],
                 ]
