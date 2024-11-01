@@ -141,8 +141,8 @@ class BudgetController extends Controller
                     $addSubtSectionOneCO = $valueCO * $exchangeRate;
                     $addSubtSectionOneFC = $valueCO;
 
-                    $addSubtSectionTwoCO = $valueCO * $totalAmountFooter;
-                    $addSubtSectionTwoFC = $valueCO;
+                    $addSubtSectionTwoCO = $exchangeRate * $totalAmountFooter;
+                    $addSubtSectionTwoFC = $totalAmountFooter;
                 }
             } else {
                 if ($valueCO) {
@@ -155,16 +155,16 @@ class BudgetController extends Controller
             // dump($valueCO * $totalAmountFooter);
 
             // SECTION ONE
-            $originDummyCO          = 465000000;
-            $originDummyFC          = 0;
-            $totalCurrentCO         = $originDummyCO + $addSubtSectionOneCO;
-            $totalCurrentFC         = $originDummyFC + $addSubtSectionOneFC;
+            $originDummyCO              = 465000000;
+            $originDummyFC              = 0;
+            $totalCurrentCO             = $originDummyCO + $addSubtSectionOneCO;
+            $totalCurrentFC             = $originDummyFC + $addSubtSectionOneFC;
 
             // SECTION TWO
-            $originDummyAddSubt     = 376712000;
-            $originDummyAddSubtFC   = 0;
-            $totalCurrentAddSubt    = $originDummyAddSubt + $addSubtSectionOneCO;
-            $totalCurrentAddSubtFC  = $originDummyAddSubtFC + $addSubtSectionOneFC;
+            $originDummyAddSubt         = 376712000;
+            $originDummyAddSubtFC       = 0;
+            $totalCurrentAddSubt        = $originDummyAddSubt + $addSubtSectionTwoCO;
+            $totalCurrentAddSubtFC      = $originDummyAddSubtFC + $addSubtSectionTwoFC;
 
             // SECTION FOUR
             $tempData                   = $originDummyCO - $originDummyAddSubt;
@@ -251,7 +251,7 @@ class BudgetController extends Controller
                             'origin'        => $tempData,
                             'previous'      => $tempData,
                             'addSubt'       => 0,
-                            'totalCurrent'  => $tempData,
+                            'totalCurrent'  => $totalCurrentCO - $totalCurrentAddSubt,
                         ],
                         'secondRow'          => [
                             'description'   => '',
@@ -267,7 +267,7 @@ class BudgetController extends Controller
                             'origin'        => $tempData,
                             'previous'      => $tempData,
                             'addSubt'       => 0,
-                            'totalCurrent'  => $tempData,
+                            'totalCurrent'  => ($totalCurrentCO + $totalCurrentFC) - ($totalCurrentAddSubt + $totalCurrentAddSubtFC),
                         ],
                     ],
                     'sectionFour'          => [

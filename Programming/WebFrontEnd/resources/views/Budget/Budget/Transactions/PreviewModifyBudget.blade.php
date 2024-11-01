@@ -393,7 +393,7 @@
                                             data-toggle="tooltip"
                                             data-placement="bottom"
                                             data-html="true"
-                                            title="Previous CO Total - Previous Add(Subt) Cost Total <br /> Previous CO Total : <?= number_format($dataTable['sectionThree']['firstRow']['previous'], 2); ?> <br /> Previous Add(Subt) Cost Total : <?= number_format($dataTable['sectionThree']['secondRow']['previous'], 2); ?> <br />"
+                                            title="Previous CO Total - Previous Add(Subt) Cost Total <br /> Previous CO Total : <?= number_format($dataTable['sectionOne']['thirdRow']['previous'], 2); ?> <br /> Previous Add(Subt) Cost Total : <?= number_format($dataTable['sectionTwo']['thirdRow']['previous'], 2); ?> <br />"
                                             style="width: max-content; cursor: help;"
                                             >
                                             <?= number_format($dataTable['sectionThree']['thirdRow']['previous'], 2); ?>
@@ -417,7 +417,7 @@
                                             data-toggle="tooltip"
                                             data-placement="bottom"
                                             data-html="true"
-                                            title="Total Current CO Total - Total Current Add(Subt) Cost Total <br /> Total Current CO Total : <?= number_format($dataTable['sectionThree']['firstRow']['totalCurrent'], 2); ?> <br /> Total Current Add(Subt) Cost Total : <?= number_format($dataTable['sectionThree']['secondRow']['totalCurrent'], 2); ?> <br />"
+                                            title="Total Current CO Total - Total Current Add(Subt) Cost Total <br /> Total Current CO Total : <?= number_format($dataTable['sectionOne']['firstRow']['totalCurrent'], 2); ?> <br /> Total Current Add(Subt) Cost Total : <?= number_format($dataTable['sectionTwo']['firstRow']['totalCurrent'], 2); ?> <br />"
                                             style="width: max-content; cursor: help;"
                                             >
                                             <?= number_format($dataTable['sectionThree']['thirdRow']['totalCurrent'], 2); ?>
