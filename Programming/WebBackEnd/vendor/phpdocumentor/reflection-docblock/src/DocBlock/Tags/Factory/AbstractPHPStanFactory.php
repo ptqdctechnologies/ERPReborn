@@ -104,12 +104,12 @@ class AbstractPHPStanFactory implements Factory
                 $fixed[] = [
                     rtrim($token[Lexer::VALUE_OFFSET], " \t"),
                     Lexer::TOKEN_PHPDOC_EOL,
-                    $token[2] ?? null,
+                    $token[2],
                 ];
                 $fixed[] = [
                     ltrim($token[Lexer::VALUE_OFFSET], "\n\r"),
                     Lexer::TOKEN_HORIZONTAL_WS,
-                    ($token[2] ?? null) + 1,
+                    $token[2] + 1,
                 ];
                 continue;
             }

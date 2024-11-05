@@ -39,28 +39,34 @@ namespace App\Models\Database\SchData_OLTP_Accounting
             {
             try {
                 $varFunctionName = 'SchData-OLTP-Accounting.Func_GetDataEntities_Underlying_JournalDetail';
-                $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                $varTemp =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                         $varUserSession,
-                        $varFunctionName,
-                            [
-                                [$varUserSession, 'bigint'],
-                                [$varIDSet, 'bigint[]']
-                            ]
-                        )
-                    ); 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            $varFunctionName,
+                                [
+                                    [$varUserSession, 'bigint'],
+                                    [$varIDSet, 'bigint[]']
+                                ]
+                            )
+                        ); 
                 
-                for ($i=0; $i!=count($varTemp['data']); $i++)
-                    {
-                    $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
-                        $varTemp['data'][$i][explode('.', $varFunctionName)[1]]);
+                for ($i=0; $i!=count($varTemp['data']); $i++) {
+                    $varReturn[$i] =
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                            $varUserSession, 
+                            $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
+                            );
                     }
-                return $varReturn;
+
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -112,10 +118,14 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             ]
                             )
                         );
-                return $varReturn['data'];
+
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -156,9 +166,9 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataList_ChartOfAccountLinkage',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varBranchID, 'bigint'],
 
-                                [$varEffectiveDateTimeTZ, 'timestamptz' ],
+                                [$varEffectiveDateTimeTZ, 'timestamptz'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -167,10 +177,14 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             ]
                             )
                         );
-                return $varReturn['data'];
+
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -205,15 +219,19 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataPickList_ChartOfAccount',
                             [
-                                [$varBranchID, 'bigint' ],
-                                [$varEffectiveDateTimeTZ, 'timestamptz' ]
+                                [$varBranchID, 'bigint'],
+                                [$varEffectiveDateTimeTZ, 'timestamptz']
                             ]
                             )
                         );
-                return $varReturn;
+
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -248,15 +266,20 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataPickList_ChartOfAccountLinkage',
                             [
-                                [$varBranchID, 'bigint' ],
-                                [$varEffectiveDateTimeTZ, 'timestamptz' ]
+                                [$varBranchID, 'bigint'],
+
+                                [$varEffectiveDateTimeTZ, 'timestamptz']
                             ]
                             )
                         );
-                return $varReturn;
+
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
         }
