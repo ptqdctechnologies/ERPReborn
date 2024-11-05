@@ -18,34 +18,34 @@
 
 <!-- FUNCTION KETIKA ADDITIONAL YES OR NO -->
 <script>
-    function toggleCurrencyField() {
-        const additionalCORadios = document.getElementsByName('additional_co');
-        const currencyField = document.getElementById('currency_field');
-        const valueIDRRateField = document.getElementById('value_idr_rate_field');
-        const valueCOField = document.getElementById('value_co_field');
-        const additionalCOUrl = '{{ $additionalCO }}';
+    // function toggleCurrencyField() {
+    //     const additionalCORadios = document.getElementsByName('additional_co');
+    //     const currencyField = document.getElementById('currency_field');
+    //     const valueIDRRateField = document.getElementById('value_idr_rate_field');
+    //     const valueCOField = document.getElementById('value_co_field');
+    //     const additionalCOUrl = '{{ $additionalCO }}';
 
-        const toggleFields = (isVisible) => {
-            const displayStyle = isVisible ? 'flex' : 'none';
-            currencyField.style.display = displayStyle;
-            valueIDRRateField.style.display = displayStyle;
-            valueCOField.style.display = displayStyle;
-        };
+    //     const toggleFields = (isVisible) => {
+    //         const displayStyle = isVisible ? 'flex' : 'none';
+    //         currencyField.style.display = displayStyle;
+    //         valueIDRRateField.style.display = displayStyle;
+    //         valueCOField.style.display = displayStyle;
+    //     };
 
-        if (additionalCOUrl === 'yes') {
-            toggleFields(true);
-        } else {
-            toggleFields(false);
-        }
+    //     if (additionalCOUrl === 'yes') {
+    //         toggleFields(true);
+    //     } else {
+    //         toggleFields(false);
+    //     }
 
-        additionalCORadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                toggleFields(radio.value === 'yes' && radio.checked);
-            });
-        });
-    }
+    //     additionalCORadios.forEach(radio => {
+    //         radio.addEventListener('change', function() {
+    //             toggleFields(radio.value === 'yes' && radio.checked);
+    //         });
+    //     });
+    // }
 
-    toggleCurrencyField();
+    // toggleCurrencyField();
 </script>
 
 <!-- CURRENCY -->
@@ -119,8 +119,6 @@
             $('table#budgetTable tbody').append(html);
         });
     }
-    
-    console.log('budgetArrayData', budgetArrayData);
 </script>
 
 <!-- FUNCTION INPUT NUMBER ONLY OR WITHOUT NEGATIVE -->
@@ -411,4 +409,14 @@
         document.getElementById("price_form").value = "";
         document.getElementById("total_qty_price").value = "";
     });
+</script>
+
+<script>
+    const modifyDataElement = document.getElementById('modifyBudgetListData');
+    const modifyArrayData = JSON.parse(modifyDataElement.value);
+
+    if (modifyArrayData.length > 0) {
+    }
+
+    console.log('modifyArrayData', modifyArrayData);
 </script>

@@ -521,7 +521,7 @@
                                 </tr>
                                 <tr>
                                     <td class="border-dark border-top font-weight-bold text-dark">
-                                        Total Ekuivalen
+                                        Total Equivalent
                                     </td>
                                     <td class="border-dark border-top font-weight-bold text-dark text-center">
                                         IDR
@@ -616,7 +616,7 @@
                 <div class="row pt-2" style="margin-top: 1rem;">
                     <div class="col d-flex justify-content-end" style="gap: 8px;">
                         <div style="display: flex;">
-                            <form method="post" enctype="multipart/form-data" action="{{ route('Budget.UpdateModifyBudget') }}">
+                            <form method="post" enctype="multipart/form-data" action="{{ route('Budget.ModifyBudgetPost') }}">
                             @csrf
                                 <input type="hidden" id="budgetDetailsData" name="budgetDetailsData" value="{{ json_encode($budgetDetailsData) }}"/>
                                 <input type="hidden" id="modifyBudgetListData" name="modifyBudgetListData" value="{{ json_encode($modifyBudgetListData) }}"/>
@@ -635,8 +635,6 @@
                                 <input type="hidden" id="currencyName" name="currencyName" value="{{ $currencyName }}">
                                 <input type="hidden" id="exchangeRate" name="exchangeRate" value="{{ $exchangeRate }}">
                                 <input type="hidden" id="valueCO" name="valueCO" value="{{ $valueCO }}">
-                                <input type="hidden" id="budgetDetailsData" name="budgetDetailsData" value="{{ json_encode($budgetDetailsData) }}">
-                                <input type="hidden" id="modifyBudgetListData" name="modifyBudgetListData" value="{{ json_encode($modifyBudgetListData) }}">
                                 
                                 <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="submit">
                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />

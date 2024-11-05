@@ -14,7 +14,7 @@
             <!-- TITTLE -->
             <div class="row mb-1 title-pages">
                 <div class="col-sm-6 title">
-                    Update Modify Budget
+                    Modify Budget
                 </div>
             </div>
 
@@ -25,14 +25,14 @@
 
                 <!-- CONTENT -->
                 <div class="card">
-                    <!-- Add New Advance Request -->
+                    <!-- BUDGET & SUB BUDGET CODE -->
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Update Budget & Sub Budget Code
+                                            Budget & Sub Budget Code
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -49,14 +49,14 @@
                         </div>
                     </div>
 
-                    <!-- ADD NEW MODIFY BUDGET -->
+                    <!-- MODIFY BUDGET -->
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Add New Modify Budget
+                                            Modify Budget
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -82,7 +82,7 @@
                                             </div>
 
                                             <!-- ADDITIONAL CO -->
-                                            <div class="row">
+                                            <!-- <div class="row">
                                                 <div class="col-lg-5">
                                                     <div class="row">
                                                         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Additional CO</label>
@@ -98,10 +98,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <!-- CURRENCY -->
-                                            <div id="currency_field" class="row" style="margin-bottom: 1rem; display: none; margin-top: 1rem;">
+                                            <div id="currency_field" class="row" style="margin-bottom: 1rem; margin-top: 1rem;">
                                                 <div class="col-lg-5">
                                                     <div class="row">
                                                         <label for="currency_popup" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Currency</label>
@@ -128,7 +128,7 @@
                                             </div>
 
                                             <!-- EXCHANGE RATE -->
-                                            <div id="value_idr_rate_field" class="row" style="margin-bottom: 1rem; display: none;">
+                                            <div id="value_idr_rate_field" class="row" style="margin-bottom: 1rem;">
                                                 <div class="col-lg-5">
                                                     <div class="row">
                                                         <label for="value_idr_rate" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Exchange Rate</label>
@@ -142,7 +142,7 @@
                                             </div>
 
                                             <!-- VALUE CO -->
-                                            <div id="value_co_field" class="row" style="margin-bottom: 1rem; display: none;">
+                                            <div id="value_co_field" class="row" style="margin-bottom: 1rem;">
                                                 <div class="col-lg-5">
                                                     <div class="row">
                                                         <label for="value_co" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Value CO(+/-)</label>

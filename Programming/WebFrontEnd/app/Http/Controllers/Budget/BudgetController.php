@@ -59,7 +59,7 @@ class BudgetController extends Controller
         return view('Budget.Budget.Transactions.ModifyBudget', $compact);
     }
 
-    public function UpdateModifyBudget(Request $request) {
+    public function ModifyBudgetPost(Request $request) {
         try {
             $varAPIWebToken     = $request->session()->get('SessionLogin');
 
@@ -85,9 +85,9 @@ class BudgetController extends Controller
             
             // dump($compact);
             
-            return view('Budget.Budget.Transactions.UpdateModifyBudget', $compact);
+            return view('Budget.Budget.Transactions.ModifyBudgetPost', $compact);
         } catch (\Throwable $th) {
-            Log::error("Error at UpdateModifyBudget: " . $th->getMessage());
+            Log::error("Error at ModifyBudgetPost: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -211,12 +211,16 @@ class BudgetController extends Controller
                             'totalCurrent'  => $totalCurrentFC,
                         ],
                         'thirdRow'          => [
-                            'description'   => 'Total Ekuivalen',
+                            'description'   => 'Total Equivalent',
                             'valuta'        => 'IDR',
-                            'origin'        => $originDummyCO + $originDummyFC,
-                            'previous'      => $originDummyCO + $originDummyFC,
-                            'addSubt'       => $addSubtSectionOneCO + $addSubtSectionOneFC,
-                            'totalCurrent'  => $totalCurrentCO + $totalCurrentFC,
+                            'origin'        => $originDummyCO,
+                            'previous'      => $originDummyCO,
+                            'addSubt'       => $addSubtSectionOneCO,
+                            'totalCurrent'  => $totalCurrentCO,
+                            // 'origin'        => $originDummyCO + $originDummyFC,
+                            // 'previous'      => $originDummyCO + $originDummyFC,
+                            // 'addSubt'       => $addSubtSectionOneCO + $addSubtSectionOneFC,
+                            // 'totalCurrent'  => $totalCurrentCO + $totalCurrentFC,
                         ],
                     ],
                     'sectionTwo'            => [
@@ -237,12 +241,16 @@ class BudgetController extends Controller
                             'totalCurrent'  => $totalCurrentAddSubtFC,
                         ],
                         'thirdRow'          => [
-                            'description'   => 'Total Ekuivalen',
+                            'description'   => 'Total Equivalent',
                             'valuta'        => 'IDR',
-                            'origin'        => $originDummyAddSubt + $originDummyAddSubtFC,
-                            'previous'      => $originDummyAddSubt + $originDummyAddSubtFC,
-                            'addSubt'       => $addSubtSectionTwoCO + $addSubtSectionTwoFC,
-                            'totalCurrent'  => $totalCurrentAddSubt + $totalCurrentAddSubtFC,
+                            // 'origin'        => $originDummyAddSubt + $originDummyAddSubtFC,
+                            // 'previous'      => $originDummyAddSubt + $originDummyAddSubtFC,
+                            // 'addSubt'       => $addSubtSectionTwoCO + $addSubtSectionTwoFC,
+                            // 'totalCurrent'  => $totalCurrentAddSubt + $totalCurrentAddSubtFC,
+                            'origin'        => $originDummyAddSubt,
+                            'previous'      => $originDummyAddSubt,
+                            'addSubt'       => $addSubtSectionTwoCO,
+                            'totalCurrent'  => $totalCurrentAddSubt,
                         ],
                     ],
                     'sectionThree'          => [
@@ -263,12 +271,13 @@ class BudgetController extends Controller
                             'totalCurrent'  => 0,
                         ],
                         'thirdRow'          => [
-                            'description'   => 'Total Ekuivalen',
+                            'description'   => 'Total Equivalent',
                             'valuta'        => 'IDR',
                             'origin'        => $tempData,
                             'previous'      => $tempData,
                             'addSubt'       => 0,
-                            'totalCurrent'  => ($totalCurrentCO + $totalCurrentFC) - ($totalCurrentAddSubt + $totalCurrentAddSubtFC),
+                            'totalCurrent'  => $totalCurrentCO - $totalCurrentAddSubt,
+                            // 'totalCurrent'  => ($totalCurrentCO + $totalCurrentFC) - ($totalCurrentAddSubt + $totalCurrentAddSubtFC),
                         ],
                     ],
                     'sectionFour'          => [
@@ -305,7 +314,7 @@ class BudgetController extends Controller
                             'totalCurrent'  => 0,
                         ],
                         'fifthRow'          => [
-                            'description'   => 'Total Ekuivalen',
+                            'description'   => 'Total Equivalent',
                             'valuta'        => 'IDR',
                             'origin'        => '',
                             'previous'      => '',

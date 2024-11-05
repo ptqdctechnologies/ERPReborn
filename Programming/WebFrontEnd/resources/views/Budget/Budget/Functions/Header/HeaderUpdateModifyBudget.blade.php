@@ -27,7 +27,7 @@
             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                 <div>
                     <input id="site_id" hidden name="site_id" value="{{ request('subBudgetID') }}">
-                    <input id="site_code" style="border-radius:0; width: 30px;" name="site_code" class="form-control" value="{{ request('subBudgetCode') }}" readonly>
+                    <input id="site_code" style="border-radius:0; width: 60px;" name="site_code" class="form-control" value="{{ request('subBudgetCode') }}" readonly>
                 </div>
                 <div>
                     <span style="border-radius:0;" class="input-group-text form-control">
