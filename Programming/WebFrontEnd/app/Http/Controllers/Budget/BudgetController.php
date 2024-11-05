@@ -191,6 +191,7 @@ class BudgetController extends Controller
                 'files'                     => $files,
                 'budgetDetailsData'         => json_decode($budgetDetailsData),
                 'modifyBudgetListData'      => json_decode($modifyBudgetListData),
+                'totalAmountFooter'         => $totalAmountFooter,
                 'dataTable'                 => [
                     'sectionOne'            => [
                         'firstRow'          => [
@@ -325,7 +326,7 @@ class BudgetController extends Controller
                 ]
             ];
 
-            // dd($compact);
+            // dump(json_decode($modifyBudgetListData));
 
             return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {

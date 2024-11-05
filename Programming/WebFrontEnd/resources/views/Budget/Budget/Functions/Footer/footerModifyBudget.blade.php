@@ -89,7 +89,7 @@
         var code = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
 
-        if (code != "USD" && code != "IDR" && code != "BAM") {
+        if (code != "USD" && code != "IDR" && code != "EUR") {
             $("#currency_id").val("");
             $("#currency_name").val("");
             $("#currency_symbol").val("");
@@ -99,6 +99,8 @@
         } else {
             if (code == "USD") {
                 $("#exchange_rate").val(16000);
+            } else if (code == "EUR") {
+                $("#exchange_rate").val(17205);
             } else if (code == "IDR") {
                 $("#exchange_rate").val("");
             }
@@ -136,7 +138,7 @@
 
                         $('table#budgetTable tbody').append(html);
                     } else {
-                        if (code == "USD") {
+                        if (code == "USD" || code == "EUR") {
                             const dummy = [
                                 {
                                     quantityAbsorptionRatio: 1.8,
@@ -145,7 +147,7 @@
                                     quantityRemaining: 0,
                                     product_RefID: null,
                                     priceBaseCurrencyValue: 29.99,
-                                    priceBaseCurrencyISOCode: "USD",
+                                    priceBaseCurrencyISOCode: code,
                                     balancedBudget: 499.50
                                 },
                                 {
@@ -155,7 +157,7 @@
                                     quantityRemaining: 0,
                                     product_RefID: null,
                                     priceBaseCurrencyValue: 120.50,
-                                    priceBaseCurrencyISOCode: "USD",
+                                    priceBaseCurrencyISOCode: code,
                                     balancedBudget: 410.00
                                 },
                                 {
@@ -165,7 +167,7 @@
                                     quantityRemaining: 10,
                                     product_RefID: null,
                                     priceBaseCurrencyValue: 50.00,
-                                    priceBaseCurrencyISOCode: "USD",
+                                    priceBaseCurrencyISOCode: code,
                                     balancedBudget: 1000.00
                                 },
                             ];

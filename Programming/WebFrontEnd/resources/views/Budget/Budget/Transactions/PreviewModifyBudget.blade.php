@@ -566,33 +566,45 @@
                         <table class="table table-bordered table-hover text-nowrap" style="border: 2px solid #e9e9e9;">
                             <thead>
                                 <tr>
-                                    <th class="text-center" colspan="2">PRODUCT</th>
-                                    <th class="text-center" colspan="3">BUDGET</th>
-                                    <th class="text-center" colspan="3">AFTER ADDITIONAL</th>
-                                    <th class="text-center" colspan="3">AFTER SAVING</th>
-                                </tr>
-                                <tr>
-                                    <th class="text-center">ID</th>
-                                    <th class="text-center">NAME</th>
-                                    <th class="text-center">QTY</th>
-                                    <th class="text-center">PRICE</th>
-                                    <th class="text-center">TOTAL</th>
-                                    <th class="text-center">QTY</th>
-                                    <th class="text-center">PRICE</th>
-                                    <th class="text-center">TOTAL</th>
-                                    <th class="text-center">QTY</th>
-                                    <th class="text-center">PRICE</th>
-                                    <th class="text-center">TOTAL</th>
+                                    <th class="text-center">Product ID</th>
+                                    <th class="text-center">Product Name</th>
+                                    <th class="text-center">Origin</th>
+                                    <th class="text-center">Previous</th>
+                                    <th class="text-center">Add(subt)</th>
+                                    <th class="text-center">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                </tr>
+                                <?php foreach ($modifyBudgetListData as $modifyBudgetData) { ?>
+                                    <tr>
+                                        <td class="text-center">
+                                            <?= $modifyBudgetData->productId; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $modifyBudgetData->productName; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $modifyBudgetData->totalBudget; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $modifyBudgetData->totalBudget; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= number_format($modifyBudgetData->priceInput, 2); ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $modifyBudgetData->totalInput; ?>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="7" class="font-weight-bold" style="font-size: 12px;">
+                                    <td colspan="5" class="font-weight-bold" style="font-size: 12px;">
                                         GRAND TOTAL
+                                    </td>
+                                    <td class="font-weight-bold text-center">
+                                        <?= number_format($totalAmountFooter, 2); ?>
                                     </td>
                                 </tr>
                             </tfoot>
