@@ -42,7 +42,7 @@
                                     </div>
 
                                     <div class="card-body">
-                                        @include('Budget.Budget.Functions.Header.HeaderUpdateModifyBudget')
+                                        @include('Budget.Budget.Functions.Header.HeaderModifyBudgetPost')
                                     </div>
                                 </div>
                             </div>
@@ -431,7 +431,7 @@
 </div>
 
 @include('Partials.footer')
-@include('Budget.Budget.Functions.Footer.footerUpdateModifyBudget')
+@include('Budget.Budget.Functions.Footer.footerModifyBudgetPost')
 @endsection
 
 @push('styles')
