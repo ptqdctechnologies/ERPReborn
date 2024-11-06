@@ -170,6 +170,36 @@
                                     priceBaseCurrencyISOCode: code,
                                     balancedBudget: 1000.00
                                 },
+                                {
+                                    quantityAbsorptionRatio: 2.8,
+                                    quantity: 100,
+                                    productName: "Wiring, Testing dan Commisioning Peralatan Telekomunikasi PLC Teleproteksi",
+                                    quantityRemaining: 0,
+                                    product_RefID: 88000000010609,
+                                    priceBaseCurrencyValue: 30.99,
+                                    priceBaseCurrencyISOCode: code,
+                                    balancedBudget: 599.50
+                                },
+                                {
+                                    quantityAbsorptionRatio: 1.2,
+                                    quantity: 10,
+                                    productName: "150kV Single suspension string set for 2xAAAC 630Qmm, 120kN, w/o insulator, envelope type",
+                                    quantityRemaining: 0,
+                                    product_RefID: 88000000010968,
+                                    priceBaseCurrencyValue: 110.50,
+                                    priceBaseCurrencyISOCode: code,
+                                    balancedBudget: 400.00
+                                },
+                                {
+                                    quantityAbsorptionRatio: 3.5,
+                                    quantity: 200,
+                                    productName: "Jumper 5 m Din Male - Din Right Angels",
+                                    quantityRemaining: 20,
+                                    product_RefID: 88000000005886,
+                                    priceBaseCurrencyValue: 100.00,
+                                    priceBaseCurrencyISOCode: code,
+                                    balancedBudget: 10000.00
+                                },
                             ];
 
                             $.each(dummy, function(key, val2) {
