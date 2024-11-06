@@ -61,7 +61,6 @@
                                     <div class="card-header">
                                         <label class="card-title">
                                             Add Modify Budget
-                                            <!-- Add New AFE (Approval For Expenditure) -->
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">

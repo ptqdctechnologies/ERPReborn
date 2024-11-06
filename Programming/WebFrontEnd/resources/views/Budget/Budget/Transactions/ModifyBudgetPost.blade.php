@@ -25,14 +25,14 @@
 
                 <!-- CONTENT -->
                 <div class="card">
-                    <!-- BUDGET & SUB BUDGET CODE -->
+                    <!-- ADD BUDGET & SUB BUDGET CODE -->
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Budget & Sub Budget Code
+                                            Add Budget & Sub Budget Code
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -49,14 +49,14 @@
                         </div>
                     </div>
 
-                    <!-- MODIFY BUDGET -->
+                    <!-- ADD MODIFY BUDGET -->
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Modify Budget
+                                            Add Modify Budget
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
