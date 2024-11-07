@@ -555,9 +555,10 @@
             });
 
             if (productId && modifyInput.value && priceInput.value && totalInput.value) {
-                let existingRow = [...listBudgetTable.rows].find(listRow => listRow.cells[0].textContent.trim() === productId);
+                let existingRow = [...listBudgetTable.rows].find(listRow => listRow.cells[2].textContent.trim() === productName && listRow.cells[3].textContent.trim() === qtyBudget && listRow.cells[4].textContent.trim() === qtyAvail && listRow.cells[5].textContent.trim() === price && listRow.cells[6].textContent.trim() === currency && listRow.cells[7].textContent.trim() === balanceBudget && listRow.cells[8].textContent.trim() === totalBudget);
 
                 if (existingRow) {
+                    existingRow.cells[0].textContent = productId;
                     existingRow.cells[9].textContent = numberFormatPHPCustom(modifyInput.value, 2);
                     existingRow.cells[10].textContent = numberFormatPHPCustom(priceInput.value, 2);
                     existingRow.cells[11].textContent = totalInput.value;
