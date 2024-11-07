@@ -467,3 +467,24 @@
     return result;
   }
 </script>
+
+<!-- DIGUNAKAN PADA HALAMAN MODIFY BUDGET -->
+<script>
+  function isProductIdDuplicate(productId, currentRowIndex) {
+    let isDuplicate = false;
+    const tableRows = document.querySelectorAll('#budgetTable tbody tr');
+    
+    tableRows.forEach((row, index) => {
+      if (index !== currentRowIndex) { // Skip checking against self
+        const existingProductId = row.querySelector('[id^="product_id"]').value;
+        const existingProductIdTd = row.querySelector('td:nth-child(2)')?.textContent;
+        
+        if (existingProductId === productId || existingProductIdTd === productId) {
+          isDuplicate = true;
+        }
+      }
+    });
+    
+    return isDuplicate;
+  }
+</script>
