@@ -86,7 +86,7 @@ class BudgetController extends Controller
                 'totalAmountFooterData' => $request->totalAmountFooter,
             ];
             
-            // dump($compact);
+            // dd($request->exchangeRate);
             
             return view('Budget.Budget.Transactions.ModifyBudgetPost', $compact);
         } catch (\Throwable $th) {
@@ -340,7 +340,7 @@ class BudgetController extends Controller
                 ]
             ];
 
-            // dump(json_decode($modifyBudgetListData));
+            // dd($compact);
 
             return view('Budget.Budget.Transactions.PreviewModifyBudget', $compact);
         } catch (\Throwable $th) {

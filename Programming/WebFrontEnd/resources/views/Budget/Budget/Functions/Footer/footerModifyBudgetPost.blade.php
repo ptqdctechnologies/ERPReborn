@@ -16,38 +16,6 @@
     });
 </script>
 
-<!-- FUNCTION KETIKA ADDITIONAL YES OR NO -->
-<script>
-    // function toggleCurrencyField() {
-    //     const additionalCORadios = document.getElementsByName('additional_co');
-    //     const currencyField = document.getElementById('currency_field');
-    //     const valueIDRRateField = document.getElementById('value_idr_rate_field');
-    //     const valueCOField = document.getElementById('value_co_field');
-    //     const additionalCOUrl = '{{ $additionalCO }}';
-
-    //     const toggleFields = (isVisible) => {
-    //         const displayStyle = isVisible ? 'flex' : 'none';
-    //         currencyField.style.display = displayStyle;
-    //         valueIDRRateField.style.display = displayStyle;
-    //         valueCOField.style.display = displayStyle;
-    //     };
-
-    //     if (additionalCOUrl === 'yes') {
-    //         toggleFields(true);
-    //     } else {
-    //         toggleFields(false);
-    //     }
-
-    //     additionalCORadios.forEach(radio => {
-    //         radio.addEventListener('change', function() {
-    //             toggleFields(radio.value === 'yes' && radio.checked);
-    //         });
-    //     });
-    // }
-
-    // toggleCurrencyField();
-</script>
-
 <!-- CURRENCY -->
 <script>
     var no = 1;
@@ -184,38 +152,65 @@
 
         const modifyValue = parseFloat(modifyInput.value) || 0;
         const priceValue = parseFloat(priceInput.value) || 0;
+        
+        const resultQtyInput = qtyAvail + modifyValue;
 
-        if (qtyAvail >= 0) {
-            if (modifyValue > qtyAvail) {
-                Swal.fire("Error", `Modify must be less than Qty Avail`, "error");
-                modifyInput.value = qtyAvail;
-            }    
-        } else {
-            if (modifyValue < qtyAvail) {
-                Swal.fire("Error", `Modify must be greater than Qty Avail`, "error");
-                modifyInput.value = qtyAvail;
-            }
+        if (resultQtyInput < 0) {
+            Swal.fire("Error", `Qty must be greater than 0`, "error");
+            modifyInput.value = qtyAvail;
         }
 
         const totalValue = modifyInput.value * priceValue;
+        const resultTotalInput = balancedBudget + totalValue;
 
-        if (totalValue < 0) {
-            if (totalValue < totalBudget) {
-                Swal.fire("Error", "Total must be greater than Total Budget!", "error");
-            }
-        } else {
-            if (totalValue > totalBudget && totalValue < balancedBudget) {
-                Swal.fire("Error", "Total must be greater than Balance Budget & must be less than Total Budget!", "error");
-            }
+        if (resultTotalInput < 0) {
+            Swal.fire("Error", `Total must be greater than 0`, "error");
         }
 
-        totalInput.value = Math.abs(totalValue).toFixed(2);
+        totalInput.value = numberFormatPHPCustom(totalValue, 2);
     }
 
     $('#budgetTable tbody').on('blur', 'input[name="modify_budget_details"], input[name="price_budget_details"]', function () {
         const row = $(this).closest('tr')[0];
         calculateTotal(row);
     });
+</script>
+
+<!-- FUNCTION UNTUK PENJUMLAHAN MODIFY, PRICE, TOTAL PADA MODIFY BUDGET LIST (CART) TABLE -->
+<script>
+    function calculateBudgetTotals() {
+        let totalModify = 0;
+        let totalPrice = 0;
+        let totalAmount = 0;
+
+        document.querySelectorAll('#listBudgetTable tbody tr').forEach(row => {
+            let modifyValue = 0;
+            let priceValue = 0;
+            let totalValue = 0;
+
+            if (row.cells.length > 11) {
+                modifyValue = row.cells[9].textContent;
+                priceValue = row.cells[10].textContent;
+                totalValue = row.cells[11].textContent;
+            } else {
+                modifyValue = row.cells[8].textContent;
+                priceValue = row.cells[9].textContent;
+                totalValue = row.cells[10].textContent;
+            }
+
+            totalModify += parseFloat(modifyValue.replace(/,/g, ""));
+            totalPrice += parseFloat(priceValue.replace(/,/g, ""));
+            totalAmount += parseFloat(totalValue.replace(/,/g, ""));
+        });
+
+        document.getElementById('totalModifyFooter').textContent = numberFormatPHPCustom(totalModify, 2);
+        document.getElementById('totalPriceFooter').textContent = numberFormatPHPCustom(totalPrice, 2);
+        document.getElementById('totalAmountFooter').textContent = numberFormatPHPCustom(totalAmount, 2);
+
+        document.getElementById('totalModifyFooterData').value = totalModify;
+        document.getElementById('totalPriceFooterData').value = totalPrice;
+        document.getElementById('totalAmountFooterData').value = totalAmount;
+    }
 </script>
 
 <!-- FUNCTION BUTTON ADD TO CART FROM BUDGET DETAILS TABLE -->
@@ -226,9 +221,6 @@
         let updated = false;
         let allBudgetDetailsData = [];
         let modifiedBudgetListData = [];
-        let totalModify = 0;
-        let totalPrice = 0;
-        let totalAmount = 0;
 
         [...budgetTable.rows].forEach((row, index) => {
             const productIdTemp = row.querySelector('input[name="product_id_show"]');
@@ -259,16 +251,13 @@
             });
 
             if (productId && modifyInput.value && priceInput.value && totalInput.value) {
-                let existingRow = [...listBudgetTable.rows].find(listRow => listRow.cells[0].textContent.trim() === productId);
-
-                const modifyValue = parseFloat(modifyInput.value) || 0;
-                const priceValue = parseFloat(priceInput.value) || 0;
-                const totalValue = parseFloat(totalInput.value) || 0;
+                let existingRow = [...listBudgetTable.rows].find(listRow => listRow.cells[2].textContent.trim() === productName && listRow.cells[3].textContent.trim() === qtyBudget && listRow.cells[4].textContent.trim() === qtyAvail && listRow.cells[5].textContent.trim() === price && listRow.cells[6].textContent.trim() === currency && listRow.cells[7].textContent.trim() === balanceBudget && listRow.cells[8].textContent.trim() === totalBudget);
 
                 if (existingRow) {
+                    existingRow.cells[0].textContent = productId;
                     existingRow.cells[9].textContent = numberFormatPHPCustom(modifyInput.value, 2);
                     existingRow.cells[10].textContent = numberFormatPHPCustom(priceInput.value, 2);
-                    existingRow.cells[11].textContent = numberFormatPHPCustom(totalInput.value, 2);
+                    existingRow.cells[11].textContent = totalInput.value;
                     updated = true;
                 } else {
                     const clonedRow = row.cloneNode(true);
@@ -281,7 +270,7 @@
                     clonedRow.cells[0].textContent = productIdValue;
                     clonedRow.cells[9].textContent = numberFormatPHPCustom(modifyValue, 2);
                     clonedRow.cells[10].textContent = numberFormatPHPCustom(priceValue, 2);
-                    clonedRow.cells[11].textContent = numberFormatPHPCustom(totalValue, 2);
+                    clonedRow.cells[11].textContent = totalValue;
 
                     listBudgetTable.appendChild(clonedRow);
                     updated = true;
@@ -300,19 +289,11 @@
                     priceInput: priceInput.value,
                     totalInput: totalInput.value
                 });
-
-                totalModify += modifyValue;
-                totalPrice += priceValue;
-                totalAmount += totalValue;
             }
         });
 
-        document.getElementById('totalModifyFooter').textContent = numberFormatPHPCustom(totalModify, 2);
-        document.getElementById('totalPriceFooter').textContent = numberFormatPHPCustom(totalPrice, 2);
-        document.getElementById('totalAmountFooter').textContent = numberFormatPHPCustom(totalAmount, 2);
-
         if (updated) {
-            Swal.fire("Success", "Rows updated or duplicated to Modify Budget List", "success");
+            calculateBudgetTotals();
 
             document.getElementById('budgetDetailsData').value = JSON.stringify(allBudgetDetailsData);
             document.getElementById('modifyBudgetListData').value = JSON.stringify(modifiedBudgetListData);
@@ -355,7 +336,7 @@
         let budgetListDataaa = [];
         const existingData = document.getElementById("modifyBudgetListData").value;
         if (existingData) {
-            budgetListData = JSON.parse(existingData);
+            budgetListDataaa = JSON.parse(existingData);
         }
 
         const tbody = document.getElementById("listBudgetTable").getElementsByTagName("tbody")[0];
@@ -391,17 +372,51 @@
 
         const row = tbody.insertRow();
 
-        row.insertCell().textContent = productId;
-        row.insertCell().textContent = productName;
-        row.insertCell().textContent = 0.00;
-        row.insertCell().textContent = 0.00;
-        row.insertCell().textContent = 0.00;
-        row.insertCell().textContent = currencySymbolll;
-        row.insertCell().textContent = 0.00;
-        row.insertCell().textContent = 0.00;
-        row.insertCell().textContent = qty;
-        row.insertCell().textContent = price;
-        row.insertCell().textContent = total;
+        const cell1 = row.insertCell();
+        cell1.textContent = productId;
+        cell1.classList.add("container-tbody-tr-budget");
+
+        const cell2 = row.insertCell();
+        cell2.textContent = productName;
+        // cell2.classList.add("container-tbody-tr-budget");
+
+        const cell3 = row.insertCell();
+        cell3.textContent = numberFormatPHPCustom(0, 2);
+        cell3.classList.add("container-tbody-tr-budget");
+
+        const cell4 = row.insertCell();
+        cell4.textContent = numberFormatPHPCustom(0, 2);
+        cell4.classList.add("container-tbody-tr-budget");
+
+        const cell5 = row.insertCell();
+        cell5.textContent = numberFormatPHPCustom(0, 2);
+        cell5.classList.add("container-tbody-tr-budget");
+
+        const cell6 = row.insertCell();
+        cell6.textContent = currencySymbolll;
+        cell6.classList.add("container-tbody-tr-budget");
+
+        const cell7 = row.insertCell();
+        cell7.textContent = numberFormatPHPCustom(0, 2);
+        cell7.classList.add("container-tbody-tr-budget");
+
+        const cell8 = row.insertCell();
+        cell8.textContent = numberFormatPHPCustom(0, 2);
+        cell8.classList.add("container-tbody-tr-budget");
+
+        const cell9 = row.insertCell();
+        cell9.textContent = numberFormatPHPCustom(qty, 2);
+        cell9.classList.add("container-tbody-tr-budget");
+
+        const cell10 = row.insertCell();
+        cell10.textContent = numberFormatPHPCustom(price, 2);
+        cell10.classList.add("container-tbody-tr-budget");
+
+        const cell11 = row.insertCell();
+        cell11.textContent = numberFormatPHPCustom(total, 2);
+        cell11.classList.add("container-tbody-tr-budget");
+
+        calculateBudgetTotals();
 
         document.getElementById("products_id_show").value = "";
         document.getElementById("products_name").value = "";
@@ -429,6 +444,9 @@
         $.each(modifyArrayData, function(key, val2) {
             var html = 
                 '<tr>' +
+                    '<td class="container-tbody-tr-budget" style="text-align: center !important; display: none;">' +
+                        val2.productId +
+                    '</td>' +
                     '<td class="container-tbody-tr-budget" style="text-align: center !important;">' +
                         val2.productId +
                     '</td>' +

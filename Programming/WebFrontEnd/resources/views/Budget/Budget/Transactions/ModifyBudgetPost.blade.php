@@ -132,13 +132,13 @@
                                             </div>
 
                                             <!-- EXCHANGE RATE -->
-                                            <div id="value_idr_rate_field" class="row" style="margin-bottom: 1rem;">
+                                            <div id="exchange_rate_field" class="row" style="margin-bottom: 1rem;">
                                                 <div class="col-lg-5">
                                                     <div class="row">
-                                                        <label for="value_idr_rate" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Exchange Rate</label>
+                                                        <label for="exchange_rate" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Exchange Rate</label>
                                                         <div class="col-sm-9 col-md-8 col-lg-2 p-0">
                                                             <div class="input-group">
-                                                                <input id="value_idr_rate" style="border-radius:0;" class="form-control" name="value_idr_rate" value="{{ $exchangeRate && $exchangeRate != '-' ? $exchangeRate : '' }}" readonly>
+                                                                <input id="exchange_rate" style="border-radius:0;" class="form-control" name="exchange_rate" value="{{ $exchangeRate && $exchangeRate != '-' ? $exchangeRate : '' }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
