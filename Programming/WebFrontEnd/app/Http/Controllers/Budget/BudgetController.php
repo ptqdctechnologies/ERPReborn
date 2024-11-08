@@ -81,6 +81,9 @@ class BudgetController extends Controller
                 'valueCO'               => $request->valueCO,
                 'budgetDetailsData'     => json_decode($request->input('budgetDetailsData'), true),
                 'modifyBudgetListData'  => json_decode($request->input('modifyBudgetListData'), true),
+                'totalModifyFooterData' => $request->totalModifyFooter,
+                'totalPriceFooterData'  => $request->totalPriceFooter,
+                'totalAmountFooterData' => $request->totalAmountFooter,
             ];
             
             // dump($compact);
@@ -191,6 +194,8 @@ class BudgetController extends Controller
                 'files'                     => $files,
                 'budgetDetailsData'         => json_decode($budgetDetailsData),
                 'modifyBudgetListData'      => json_decode($modifyBudgetListData),
+                'totalModifyFooter'         => $totalModifyFooter,
+                'totalPriceFooter'          => $totalPriceFooter,
                 'totalAmountFooter'         => $totalAmountFooter,
                 'dataTable'                 => [
                     'sectionOne'            => [

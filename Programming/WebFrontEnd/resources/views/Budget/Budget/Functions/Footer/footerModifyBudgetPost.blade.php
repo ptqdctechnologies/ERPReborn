@@ -414,9 +414,57 @@
 <script>
     const modifyDataElement = document.getElementById('modifyBudgetListData');
     const modifyArrayData = JSON.parse(modifyDataElement.value);
+    const modifyFooterDataElement = document.getElementById('totalModifyFooterData');
+    const modifyFooterElement = document.getElementById('totalModifyFooter');
+    const priceFooterDataElement = document.getElementById('totalPriceFooterData');
+    const priceFooterElement = document.getElementById('totalPriceFooter');
+    const amountFooterDataElement = document.getElementById('totalAmountFooterData');
+    const amountFooterElement = document.getElementById('totalAmountFooter');
 
     if (modifyArrayData.length > 0) {
-    }
+        modifyFooterElement.textContent = numberFormatPHPCustom(modifyFooterDataElement.value, 2);
+        priceFooterElement.textContent = numberFormatPHPCustom(priceFooterDataElement.value, 2);
+        amountFooterElement.textContent = numberFormatPHPCustom(amountFooterDataElement.value, 2);
 
-    console.log('modifyArrayData', modifyArrayData);
+        $.each(modifyArrayData, function(key, val2) {
+            var html = 
+                '<tr>' +
+                    '<td class="container-tbody-tr-budget" style="text-align: center !important;">' +
+                        val2.productId +
+                    '</td>' +
+                    '<td class="container-tbody-tr-budget" style="text-align: left !important; width: 50px;">' +
+                        val2.productName +
+                    '</td>' +
+                    '<td class="container-tbody-tr-budget">' + 
+                        val2.qtyBudget +
+                    '</td>' +
+                    '<td class="container-tbody-tr-budget">' +
+                        val2.qtyAvail +
+                    '</td>' +
+                    '<td class="container-tbody-tr-budget">' + 
+                        val2.price + 
+                    '</td>' + 
+                    '<td class="container-tbody-tr-budget">' + 
+                        val2.currency +
+                    '</td>' +
+                    '<td class="container-tbody-tr-budget">' + 
+                        val2.balanceBudget + 
+                    '</td>' + 
+                    '<td class="container-tbody-tr-budget">' + 
+                        val2.totalBudget + 
+                    '</td>' + 
+                    '<td class="container-tbody-tr-budget">' +
+                        numberFormatPHPCustom(val2.modifyInput, 2) + 
+                    '</td>' +
+                    '<td class="container-tbody-tr-budget">' + 
+                        numberFormatPHPCustom(val2.priceInput, 2) + 
+                    '</td>' +
+                    '<td class="container-tbody-tr-budget" style="padding-right: 0px !important;">' + 
+                        val2.totalInput +
+                    '</td>'
+                '</tr>';
+
+            $('table#listBudgetTable tbody').append(html);
+        });
+    }
 </script>

@@ -635,6 +635,9 @@
                                 <input type="hidden" id="currencyName" name="currencyName" value="{{ $currencyName }}">
                                 <input type="hidden" id="exchangeRate" name="exchangeRate" value="{{ $exchangeRate }}">
                                 <input type="hidden" id="valueCO" name="valueCO" value="{{ $valueCO }}">
+                                <input type="hidden" id="totalModifyFooter" name="totalModifyFooter" value="{{ $totalModifyFooter }}">
+                                <input type="hidden" id="totalPriceFooter" name="totalPriceFooter" value="{{ $totalPriceFooter }}">
+                                <input type="hidden" id="totalAmountFooter" name="totalAmountFooter" value="{{ $totalAmountFooter }}">
                                 
                                 <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="submit">
                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />

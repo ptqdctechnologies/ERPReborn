@@ -23,6 +23,10 @@
                 <input type="hidden" id="budgetDetailsData" name="budgetDetailsData" value="{{ json_encode($budgetDetailsData) }}"/>
                 <input type="hidden" id="modifyBudgetListData" name="modifyBudgetListData" value="{{ json_encode($modifyBudgetListData) }}"/>
 
+                <input type="hidden" id="totalModifyFooterData" name="totalModifyFooterData" value="{{ $totalModifyFooterData }}"/>
+                <input type="hidden" id="totalPriceFooterData" name="totalPriceFooterData" value="{{ $totalPriceFooterData }}"/>
+                <input type="hidden" id="totalAmountFooterData" name="totalAmountFooterData" value="{{ $totalAmountFooterData }}"/>
+
                 <!-- CONTENT -->
                 <div class="card">
                     <!-- ADD BUDGET & SUB BUDGET CODE -->
