@@ -35,15 +35,16 @@ class FunctionController extends Controller
             );
         }
 
-        $DataBudget = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "Budget"
-            ),
-            true
-        );
+        // $DataBudget = json_decode(
+        //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //         "Budget"
+        //     ),
+        //     true
+        // );
 
-        return response()->json($DataBudget);
+        // return response()->json($DataBudget);
+        return response()->json($varDataProject['data']['data']);
     }
 
     // FUNCTION SITE PROJECT
