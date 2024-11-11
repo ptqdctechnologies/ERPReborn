@@ -3791,6 +3791,7 @@ return array(
     'DeepCopy\\Matcher\\PropertyTypeMatcher' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/Matcher/PropertyTypeMatcher.php',
     'DeepCopy\\Reflection\\ReflectionHelper' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/Reflection/ReflectionHelper.php',
     'DeepCopy\\TypeFilter\\Date\\DateIntervalFilter' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Date/DateIntervalFilter.php',
+    'DeepCopy\\TypeFilter\\Date\\DatePeriodFilter' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Date/DatePeriodFilter.php',
     'DeepCopy\\TypeFilter\\ReplaceFilter' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/ReplaceFilter.php',
     'DeepCopy\\TypeFilter\\ShallowCopyFilter' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/ShallowCopyFilter.php',
     'DeepCopy\\TypeFilter\\Spl\\ArrayObjectFilter' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Spl/ArrayObjectFilter.php',
