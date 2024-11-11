@@ -1,8 +1,8 @@
 <div class="row py-3 justify-content-between" style="gap: 15px;">
     <div class="col-md-12 col-lg-5">
         <div class="row">
-            <label class="col-4 col-form-label p-0">Budget Code</label>
-            <div class="col d-flex p-0">
+            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Budget Code</label>
+            <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                 <div>
                     <input id="project_id" hidden name="project_id">
                     <input id="project_code" style="border-radius:0; width: 60px;" name="project_code" class="form-control myProject" readonly>
@@ -23,11 +23,11 @@
 
     <div class="col-md-12 col-lg-5">
         <div class="row">
-            <label class="col-4 col-form-label p-0">Sub Budget Code</label>
-            <div class="col d-flex p-0">
+            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Sub Budget Code</label>
+            <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                 <div>
                     <input id="site_id" hidden name="site_id">
-                    <input id="site_code" style="border-radius:0; width: 30px;" name="site_code" class="form-control" readonly>
+                    <input id="site_code" style="border-radius:0; width: 60px;" name="site_code" class="form-control" readonly>
                 </div>
                 <div>
                     <span style="border-radius:0;" class="input-group-text form-control">

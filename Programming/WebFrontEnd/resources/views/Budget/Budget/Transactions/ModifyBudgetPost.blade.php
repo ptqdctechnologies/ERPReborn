@@ -17,15 +17,15 @@
                     Modify Budget
                 </div>
             </div>
-        
+
             <form id="modifyBudgetForm" method="post" enctype="multipart/form-data" action="{{ route('Budget.PreviewModifyBudget') }}">
             @csrf
-                <input type="hidden" id="budgetDetailsData" name="budgetDetailsData" />
-                <input type="hidden" id="modifyBudgetListData" name="modifyBudgetListData" />
+                <input type="hidden" id="budgetDetailsData" name="budgetDetailsData" value="{{ json_encode($budgetDetailsData) }}"/>
+                <input type="hidden" id="modifyBudgetListData" name="modifyBudgetListData" value="{{ json_encode($modifyBudgetListData) }}"/>
 
-                <input type="hidden" id="totalModifyFooterData" name="totalModifyFooterData" />
-                <input type="hidden" id="totalPriceFooterData" name="totalPriceFooterData" />
-                <input type="hidden" id="totalAmountFooterData" name="totalAmountFooterData" />
+                <input type="hidden" id="totalModifyFooterData" name="totalModifyFooterData" value="{{ $totalModifyFooterData }}"/>
+                <input type="hidden" id="totalPriceFooterData" name="totalPriceFooterData" value="{{ $totalPriceFooterData }}"/>
+                <input type="hidden" id="totalAmountFooterData" name="totalAmountFooterData" value="{{ $totalAmountFooterData }}"/>
 
                 <!-- CONTENT -->
                 <div class="card">
@@ -46,7 +46,7 @@
                                     </div>
 
                                     <div class="card-body">
-                                        @include('Budget.Budget.Functions.Header.HeaderModifyBudget')
+                                        @include('Budget.Budget.Functions.Header.HeaderModifyBudgetPost')
                                     </div>
                                 </div>
                             </div>
@@ -70,15 +70,15 @@
                                     </div>
 
                                     <div class="card-body">
-                                        <div class="py-3" >
-                                            <!-- REASON FOR MODIFY -->
+                                        <div class="py-3">
+                                            <!-- =====REASON FOR MODIFY===== -->
                                             <div class="row" style="margin-bottom: 1rem;">
                                                 <div class="col-lg-5">
                                                     <div class="row">
                                                         <label for="reason_modify" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Reason for Modify</label>
                                                         <div class="col-sm-9 col-md-8 col-lg-7 p-0">
                                                             <div class="input-group">
-                                                                <input id="reason_modify" style="border-radius:0;" class="form-control" name="reason_modify" autocomplete="off">
+                                                                <input id="reason_modify" style="border-radius:0;" class="form-control" name="reason_modify" autocomplete="off" value="{{ $reason }}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -92,11 +92,11 @@
                                                         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Additional CO</label>
                                                         <div class="col-sm-9 col-md-8 col-lg-7 p-0" style="display: flex; gap: 16px;">
                                                             <div>
-                                                                <input type="radio" name="additional_co" value="yes">
+                                                                <input type="radio" name="additional_co" value="yes" {{ $additionalCO == 'yes' ? 'checked' : '' }}>
                                                                 <label>Yes</label>
                                                             </div>
                                                             <div>
-                                                                <input type="radio" name="additional_co" value="no">
+                                                                <input type="radio" name="additional_co" value="no" {{ $additionalCO == 'no' ? 'checked' : '' }}>
                                                                 <label>No</label>
                                                             </div>
                                                         </div>
@@ -111,8 +111,8 @@
                                                         <label for="currency_popup" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Currency</label>
                                                         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                                             <div>
-                                                                <input id="currency_id" hidden name="currency_id">
-                                                                <input id="currency_symbol" style="border-radius:0; width: 60px;" class="form-control" name="currency_symbol" readonly>
+                                                                <input id="currency_id" hidden name="currency_id" value="{{ $currencyID }}">
+                                                                <input id="currency_symbol" style="border-radius:0; width: 40px;" class="form-control" name="currency_symbol" value="{{ $currencySymbol }}" readonly>
                                                             </div>
                                                             <div>
                                                                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -123,7 +123,7 @@
                                                             </div>
                                                             <div style="flex: 100%;">
                                                                 <div class="input-group">
-                                                                    <input id="currency_name" style="border-radius:0;" name="currency_name" class="form-control" readonly>
+                                                                    <input id="currency_name" style="border-radius:0;" name="currency_name" class="form-control" value="{{ $currencyName }}" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -138,7 +138,7 @@
                                                         <label for="exchange_rate" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Exchange Rate</label>
                                                         <div class="col-sm-9 col-md-8 col-lg-2 p-0">
                                                             <div class="input-group">
-                                                                <input id="exchange_rate" style="border-radius:0;" class="form-control" name="exchange_rate" readonly>
+                                                                <input id="exchange_rate" style="border-radius:0;" class="form-control" name="exchange_rate" value="{{ $exchangeRate && $exchangeRate != '-' ? $exchangeRate : '' }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -152,7 +152,7 @@
                                                         <label for="value_co" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Value CO(+/-)</label>
                                                         <div class="col-sm-9 col-md-8 col-lg-2 p-0">
                                                             <div class="input-group" data-toggle="tooltip" data-placement="top" title="Pesan">
-                                                                <input id="value_co" style="border-radius:0;" class="form-control number-only" name="value_co" autocomplete="off">
+                                                                <input id="value_co" style="border-radius:0;" class="form-control number-only" name="value_co" autocomplete="off" value="{{ $valueCO }}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -186,14 +186,24 @@
                                             <div class="col-lg-5">
                                                 <div class="row">
                                                     <div class="col p-0">
-                                                        <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
-                                                        <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                        <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" value="{{ $files }}" style="display:none">
+                                                        @if($files)
+                                                            <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile( \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                            $varAPIWebToken,
+                                                            'dataInput_Log_FileUpload_1',
+                                                            $files,
+                                                            'dataInput_Return'
+                                                            ).
+                                                            ''; ?>
+                                                        @else
+                                                            <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile( \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                                                             $varAPIWebToken,
                                                             'dataInput_Log_FileUpload_1',
                                                             null,
                                                             'dataInput_Return'
                                                             ).
-                                                        ''; ?>
+                                                            ''; ?>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -209,7 +219,6 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-                                    <!-- TITLE -->
                                     <div class="card-header">
                                         <label class="card-title">
                                             Budget Details
@@ -234,7 +243,7 @@
                                                     <th class="container-thead-tr-budget">Currency</th>
                                                     <th class="container-thead-tr-budget">Balance Budget</th>
                                                     <th class="container-thead-tr-budget">Total Budget</th>
-                                                    <th class="container-thead-tr-budget">Qty (+/-)</th>
+                                                    <th class="container-thead-tr-budget">Modify (+/-)</th>
                                                     <th class="container-thead-tr-budget">Price</th>
                                                     <th class="container-thead-tr-budget">Total</th>
                                                 </tr>
@@ -263,7 +272,7 @@
                                                 Add New Item
                                             </a>
                                         </div>
-                                        
+
                                         <!-- CONTENT FORM -->
                                         <div id="formAddNewItem">
                                             <!-- PRODUCT ID -->
@@ -295,7 +304,7 @@
                                             <div id="newItemFormTwo" class="row" style="gap: 15px; margin-bottom: 1rem; display: none;">
                                                 <div class="col-lg-5">
                                                     <div class="row">
-                                                        <label for="qty_form" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Qty (+/-)</label>
+                                                        <label for="qty_form" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Qty</label>
                                                         <div class="col-sm-9 col-md-8 col-lg-2 p-0">
                                                             <input id="qty_form" style="border-radius:0;" class="form-control number-only" name="qty_form" autocomplete="off">
                                                         </div>
@@ -380,7 +389,7 @@
                                                     <th class="container-thead-tr-budget">Currency</th>
                                                     <th class="container-thead-tr-budget">Balance Budget</th>
                                                     <th class="container-thead-tr-budget">Total Budget</th>
-                                                    <th class="container-thead-tr-budget">Qty (+/-)</th>
+                                                    <th class="container-thead-tr-budget">Modify (+/-)</th>
                                                     <th class="container-thead-tr-budget">Price</th>
                                                     <th class="container-thead-tr-budget">Total</th>
                                                 </tr>
@@ -426,7 +435,7 @@
 </div>
 
 @include('Partials.footer')
-@include('Budget.Budget.Functions.Footer.footerModifyBudget')
+@include('Budget.Budget.Functions.Footer.footerModifyBudgetPost')
 @endsection
 
 @push('styles')

@@ -1,15 +1,7 @@
 <!-- DISABLE SUB BUDGET CODE KETIKA BUDGET CODE BELUM DIPILIH -->
 <script>
-    $("#site_code").prop("disabled", true);
     $("#site_code_popup").prop("disabled", true);
-
-    // const urlParamsssss = new URLSearchParams(window.location.search);
-    // const subBudgetCOUrl = urlParamsssss.get('subBudgetCode');
-
-    // if (!subBudgetCOUrl) {
-    //     $("#site_code").prop("disabled", true);
-    //     $("#site_code_popup").prop("disabled", true);
-    // }
+    $("#currency_popup").prop("disabled", true);
 </script>
 
 <!-- BUDGET CODE -->
@@ -64,7 +56,7 @@
 <!-- SITE CODE -->
 <script>
     $('#tableGetSite tbody').on('click', 'tr', function() {
-
+        $("#currency_popup").prop("disabled", false);
         $("#mySiteCode").modal('toggle');
 
         var row = $(this).closest("tr");
@@ -97,193 +89,247 @@
         var code = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        if (code != "USD" && code != "IDR" && code != "EUR") {
+            $("#currency_id").val("");
+            $("#currency_name").val("");
+            $("#currency_symbol").val("");
+            $("#exchange_rate").val("");
+            
+            Swal.fire("Error", "Please Call Accounting Staffs to Input Current Exchange Rate. Thank You.", "error");
+        } else {
+            if (code == "USD") {
+                $("#exchange_rate").val(16000);
+            } else if (code == "EUR") {
+                $("#exchange_rate").val(17205);
+            } else if (code == "IDR") {
+                $("#exchange_rate").val("");
             }
-        });
 
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getBudget") !!}?site_code=' + siteId,
-            success: function(data) {
-                var no = 1;
-                applied = 0;
-                status = "";
-                statusDisplay = [];
-                statusDisplay2 = [];
-                statusForm = [];
+            $("#currency_id").val(sys_id);
+            $("#currency_name").val(name);
+            $("#currency_symbol").val(code);
 
-                if (data.message == "Invalid SQL Syntax") {
-                    var html = 
-                        '<tr>' +
-                            '<td class="container-tbody-tr-budget" colspan="14" style="color: red; font-style: italic;">' + 
-                                'No Data Available' +
-                            '</td>' +
-                        '</tr>';
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("getBudget") !!}?site_code=' + siteId,
+                success: function(data) {
+                    var no = 1;
+                    var applied = 0;
+                    var status = "";
+                    var statusDisplay = [];
+                    var statusJustifyContentCenter = [];
+                    var statusDisplay2 = [];
+                    var statusJustifyContentCenter2 = [];
+                    var statusForm = [];
+                    
+                    if (data.message == "Invalid SQL Syntax") {
+                        var html = 
+                            '<tr>' +
+                                '<td class="container-tbody-tr-budget" colspan="14" style="color: red; font-style: italic;">' + 
+                                    'No Data Available' +
+                                '</td>' +
+                            '</tr>';
 
                         $('table#budgetTable tbody').append(html);
-                } else {
-                    if (code == "USD") {
-                        const dummy = [
-                            {
-                                quantityAbsorptionRatio: 1.8,
-                                quantity: 50,
-                                productName: "Unspecified Product",
-                                quantityRemaining: 0,
-                                product_RefID: null,
-                                priceBaseCurrencyValue: 29.99,
-                                priceBaseCurrencyISOCode: "USD",
-                                balancedBudget: 499.50
-                            },
-                            {
-                                quantityAbsorptionRatio: 2.2,
-                                quantity: 20,
-                                productName: "Unspecified Product",
-                                quantityRemaining: 0,
-                                product_RefID: null,
-                                priceBaseCurrencyValue: 120.50,
-                                priceBaseCurrencyISOCode: "USD",
-                                balancedBudget: 410.00
-                            },
-                            {
-                                quantityAbsorptionRatio: 1.5,
-                                quantity: 100,
-                                productName: "Unspecified Product",
-                                quantityRemaining: 10,
-                                product_RefID: null,
-                                priceBaseCurrencyValue: 50.00,
-                                priceBaseCurrencyISOCode: "USD",
-                                balancedBudget: 1000.00
-                            },
-                        ];
-
-                        $.each(dummy, function(key, val2) {
-                            var used = val2.quantityAbsorptionRatio * 100;
-
-                            if (used == "0.00" && val2.quantity == "0.00") {
-                                var applied = 0;
-                            } else {
-                                var applied = Math.round(used);
-                            }
-                            if (applied >= 100) {
-                                var status = "disabled";
-                            }
-                            if (val2.productName == "Unspecified Product") {
-                                statusDisplay[key] = "";
-                                statusDisplay2[key] = "none";
-                                statusForm[key] = "disabled";
-                                balance_qty = "-";
-                            } else {
-                                statusDisplay[key] = "none";
-                                statusDisplay2[key] = "";
-                                statusForm[key] = "";
-                                balance_qty = numberFormatPHPCustom(val2.quantityRemaining, 2);
-                            }
-
-                            var html = 
-                                '<tr>' +
-                                    '<td class="container-tbody-tr-budget" style="display:' + statusDisplay[key] + '";">' + 
-                                        '<div class="input-group" style="min-width: 130px !important;">' + 
-                                            '<input id="product_id' + key + '" style="border-radius:0;" class="form-control" name="product_id_show" readonly>' +
-                                            '<div>' +
-                                                '<span style="border-radius:0;" class="input-group-text form-control">' +
-                                                    '<a href="#" id="product_popup" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
-                                                '</span>' +
-                                            '</div>' +
-                                        '</div>' +
-                                    '</td>' +
-
-                                    '<td class="container-tbody-tr-budget" style="text-align: left !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
-                                    '<td class="container-tbody-tr-budget" style="text-align: left !important;">' + val2.productName + '</td>' +
-                                    '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
-                                    '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
-                                    '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
-                                    '<td class="container-tbody-tr-budget">' + val2.priceBaseCurrencyISOCode + '</td>' +
-                                    '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.balancedBudget, 2) + '</td>' +
-                                    '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) + '</td>' +
-                                    '<td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">' + '</td>' +
-                                    '<td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">' + '</td>' +
-                                    '<td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>' + '</td>' +
-                                    '<td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">' + '</td>' +
-                                    '<td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">' + '</td>' +
-                                    '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>' + '</td>' +
-                                    '<td class="d-none">' + '<input autocomplete="off" id="type" name="type" value="budgetDetails" disabled>' + '</td>' +
-                                '</tr>';
-
-                            document.querySelectorAll('.number-only').forEach(function(input) {
-                                allowNumbersOnly(input);
-                            });
-
-                            $('table#budgetTable tbody').append(html);
-                        });
                     } else {
-                        $.each(data, function(key, val2) {
-                            var used = val2.quantityAbsorptionRatio * 100;
+                        if (code == "USD" || code == "EUR") {
+                            const dummy = [
+                                {
+                                    quantityAbsorptionRatio: 1.8,
+                                    quantity: 50,
+                                    productName: "Unspecified Product",
+                                    quantityRemaining: 0,
+                                    product_RefID: null,
+                                    priceBaseCurrencyValue: 29.99,
+                                    priceBaseCurrencyISOCode: code,
+                                    balancedBudget: 499.50
+                                },
+                                {
+                                    quantityAbsorptionRatio: 2.2,
+                                    quantity: 20,
+                                    productName: "Unspecified Product",
+                                    quantityRemaining: 0,
+                                    product_RefID: null,
+                                    priceBaseCurrencyValue: 120.50,
+                                    priceBaseCurrencyISOCode: code,
+                                    balancedBudget: 410.00
+                                },
+                                {
+                                    quantityAbsorptionRatio: 1.5,
+                                    quantity: 100,
+                                    productName: "Unspecified Product",
+                                    quantityRemaining: 10,
+                                    product_RefID: null,
+                                    priceBaseCurrencyValue: 50.00,
+                                    priceBaseCurrencyISOCode: code,
+                                    balancedBudget: 1000.00
+                                },
+                                {
+                                    quantityAbsorptionRatio: 2.8,
+                                    quantity: 100,
+                                    productName: "Wiring, Testing dan Commisioning Peralatan Telekomunikasi PLC Teleproteksi",
+                                    quantityRemaining: 0,
+                                    product_RefID: 88000000010609,
+                                    priceBaseCurrencyValue: 30.99,
+                                    priceBaseCurrencyISOCode: code,
+                                    balancedBudget: 599.50
+                                },
+                                {
+                                    quantityAbsorptionRatio: 1.2,
+                                    quantity: 10,
+                                    productName: "150kV Single suspension string set for 2xAAAC 630Qmm, 120kN, w/o insulator, envelope type",
+                                    quantityRemaining: 0,
+                                    product_RefID: 88000000010968,
+                                    priceBaseCurrencyValue: 110.50,
+                                    priceBaseCurrencyISOCode: code,
+                                    balancedBudget: 400.00
+                                },
+                                {
+                                    quantityAbsorptionRatio: 3.5,
+                                    quantity: 200,
+                                    productName: "Jumper 5 m Din Male - Din Right Angels",
+                                    quantityRemaining: 20,
+                                    product_RefID: 88000000005886,
+                                    priceBaseCurrencyValue: 100.00,
+                                    priceBaseCurrencyISOCode: code,
+                                    balancedBudget: 10000.00
+                                },
+                            ];
 
-                            if (used == "0.00" && val2.quantity == "0.00") {
-                                var applied = 0;
-                            } else {
-                                var applied = Math.round(used);
-                            }
-                            if (applied >= 100) {
-                                var status = "disabled";
-                            }
-                            if (val2.productName == "Unspecified Product") {
-                                statusDisplay[key] = "";
-                                statusDisplay2[key] = "none";
-                                statusForm[key] = "disabled";
-                                balance_qty = "-";
-                            } else {
-                                statusDisplay[key] = "none";
-                                statusDisplay2[key] = "";
-                                statusForm[key] = "";
-                                balance_qty = numberFormatPHPCustom(val2.quantityRemaining, 2);
-                            }
-                            
-                            var html = 
-                                '<tr>' +
-                                    '<td class="container-tbody-tr-budget" style="display:' + statusDisplay[key] + '";">' + 
-                                        '<div class="input-group" style="min-width: 150px !important;">' + 
-                                            '<input id="product_id' + key + '" style="border-radius:0;" class="form-control" name="product_id_show" readonly>' +
-                                            '<div>' +
-                                                '<span style="border-radius:0;" class="input-group-text form-control">' +
-                                                    '<a href="#" id="product_popup" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
-                                                '</span>' +
+                            $.each(dummy, function(key, val2) {
+                                var used = val2.quantityAbsorptionRatio * 100;
+
+                                if (used == "0.00" && val2.quantity == "0.00") {
+                                    var applied = 0;
+                                } else {
+                                    var applied = Math.round(used);
+                                }
+
+                                if (applied >= 100) {
+                                    var status = "disabled";
+                                }
+
+                                if (val2.productName == "Unspecified Product") {
+                                    statusDisplay[key] = "flex";
+                                    statusJustifyContentCenter[key] = "center";
+                                    statusDisplay2[key] = "none";
+                                    statusForm[key] = "disabled";
+                                    balance_qty = numberFormatPHPCustom(val2.quantityRemaining, 2);
+                                } else {
+                                    statusDisplay[key] = "none";
+                                    statusJustifyContentCenter2[key] = "center";
+                                    statusDisplay2[key] = "";
+                                    statusForm[key] = "";
+                                    balance_qty = numberFormatPHPCustom(val2.quantityRemaining, 2);
+                                }
+
+                                var html = 
+                                    '<tr>' +
+                                        '<td class="container-tbody-tr-budget" style="justify-content: center; display:' + statusDisplay[key] + '";">' + 
+                                            '<div class="input-group" style="max-width: 140px !important;">' + 
+                                                '<input id="product_id' + key + '" style="border-radius:0;" class="form-control" name="product_id_show" readonly>' +
+                                                '<div>' +
+                                                    '<span style="border-radius:0;" class="input-group-text form-control">' +
+                                                        '<a href="#" id="product_popup" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
+                                                    '</span>' +
+                                                '</div>' +
                                             '</div>' +
-                                        '</div>' +
-                                    '</td>' +
+                                        '</td>' +
 
-                                    '<td class="container-tbody-tr-budget" style="text-align: left !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
-                                    '<td class="container-tbody-tr-budget" style="text-align: left !important;">' + val2.productName + '</td>' +
-                                    '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
-                                    '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
-                                    '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
-                                    '<td class="container-tbody-tr-budget">' + val2.priceBaseCurrencyISOCode + '</td>' +
-                                    '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(50000, 2) + '</td>' +
-                                    '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) + '</td>' +
-                                    '<td class="sticky-col sixth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_additional" name="qty_additional">' + '</td>' +
-                                    '<td class="sticky-col fifth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_additional" name="price_additional">' + '</td>' +
-                                    '<td class="sticky-col forth-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_additional" name="total_additional" disabled>' + '</td>' +
-                                    '<td class="sticky-col third-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="qty_saving" name="qty_saving">' + '</td>' +
-                                    '<td class="sticky-col second-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="price_saving" name="price_saving">' + '</td>' +
-                                    '<td class="sticky-col first-col-modify-budget container-tbody-tr-fixed-budget">' + '<input style="border-radius:0;" class="form-control number-only" autocomplete="off" id="total_saving" name="total_saving" disabled>' + '</td>' +
-                                    '<td class="d-none">' + '<input autocomplete="off" id="type" name="type" value="budgetDetails" disabled>' + '</td>' +
-                                '</tr>';
+                                        '<td class="container-tbody-tr-budget" style="text-align: center !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
+                                        '<td class="container-tbody-tr-budget" style="text-align: left !important; width: 50px;">' + val2.productName + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + val2.priceBaseCurrencyISOCode + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(1000, 2) + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center" data-toggle="tooltip" data-placement="top" title="Pesan"> <input style="border-radius:0; width: 55px !important;" class="form-control number-only" autocomplete="off" id="modify_budget_details" name="modify_budget_details"> </div>' + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-without-negative" autocomplete="off" id="price_budget_details" name="price_budget_details"> </div>' + '</td>' +
+                                        '<td class="container-tbody-tr-budget" style="padding-right: 0px !important;">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-only" autocomplete="off" id="total_budget_details" name="total_budget_details" disabled> </div>' + '</td>' +
+                                    '</tr>';
 
-                            document.querySelectorAll('.number-only').forEach(function(input) {
-                                allowNumbersOnly(input);
+                                $('table#budgetTable tbody').append(html);
                             });
+                        } else {
+                            $.each(data, function(key, val2) {
+                                var used = val2.quantityAbsorptionRatio * 100;
 
-                            $('table#budgetTable tbody').append(html);
-                        });
+                                if (used == "0.00" && val2.quantity == "0.00") {
+                                    var applied = 0;
+                                } else {
+                                    var applied = Math.round(used);
+                                }
+
+                                if (applied >= 100) {
+                                    var status = "disabled";
+                                }
+
+                                if (val2.productName == "Unspecified Product") {
+                                    statusDisplay[key] = "flex";
+                                    statusJustifyContentCenter[key] = "center";
+                                    statusDisplay2[key] = "none";
+                                    statusForm[key] = "disabled";
+                                    balance_qty = "-";
+                                } else {
+                                    statusDisplay[key] = "none";
+                                    statusJustifyContentCenter2[key] = "center";
+                                    statusDisplay2[key] = "";
+                                    statusForm[key] = "";
+                                    balance_qty = numberFormatPHPCustom(val2.quantityRemaining, 2);
+                                }
+
+                                var html = 
+                                    '<tr>' +
+                                        '<td class="container-tbody-tr-budget" style="justify-content: center; display:' + statusDisplay[key] + '";">' + 
+                                            '<div class="input-group" style="max-width: 140px !important;">' + 
+                                                '<input id="product_id' + key + '" style="border-radius:0;" class="form-control" name="product_id_show" readonly>' +
+                                                '<div>' +
+                                                    '<span style="border-radius:0;" class="input-group-text form-control">' +
+                                                        '<a href="#" id="product_popup" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
+                                                    '</span>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</td>' +
+
+                                        '<td class="container-tbody-tr-budget" style="text-align: center !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
+                                        '<td class="container-tbody-tr-budget" style="text-align: left !important; width: 50px;">' + val2.productName + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + val2.priceBaseCurrencyISOCode + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(50000, 2) + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center" data-toggle="tooltip" data-placement="top" title="Pesan"> <input style="border-radius:0; width: 55px !important;" class="form-control number-only" autocomplete="off" id="modify_budget_details" name="modify_budget_details"> </div>' + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-without-negative" autocomplete="off" id="price_budget_details" name="price_budget_details"> </div>' + '</td>' +
+                                        '<td class="container-tbody-tr-budget" style="padding-right: 0px !important;">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-only" autocomplete="off" id="total_budget_details" name="total_budget_details" disabled> </div>' + '</td>' +
+                                    '</tr>';
+
+                                $('table#budgetTable tbody').append(html);
+                            });
+                        }
                     }
-                    
                 }
-                checkTableRows();
-            }
-        });
+            });
+        }
     })
+</script>
+
+<!-- FUNCTION INPUT NUMBER ONLY OR WITHOUT NEGATIVE -->
+<script>
+    $(document).on('input', '.number-only', function() {
+        allowNumbersOnly(this);
+    });
+
+    $(document).on('input', '.number-without-negative', function() {
+        allowNumbersWithoutNegative(this);
+    });
 </script>
 
 <!-- FUNCTION DISABLED KLIK KETIKA BUDGET & SITE CODE TIDAK KOSONG -->
@@ -321,57 +367,24 @@
 </script>
 
 <!-- FUNCTION KETIKA ADDITIONAL YES OR NO -->
-<script>
+<!-- <script>
     function toggleCurrencyField() {
         const additionalCORadios = document.getElementsByName('additional_co');
         const currencyField = document.getElementById('currency_field');
-        const currencyInput = document.getElementById('currency');
         const currencyID = document.getElementById('currency_id');
         const currencySymbol = document.getElementById('currency_symbol');
         const currencyName = document.getElementById('currency_name');
-        const valueIDRRateField = document.getElementById('value_idr_rate_field');
-        const valueIDRRateInput = document.getElementById('value_idr_rate');
-        const valueCOAdditionalField = document.getElementById('value_co_additional_field');
-        const valueCOAdditionalInput = document.getElementById('value_co_additional');
-        const valueCODeductiveField = document.getElementById('value_co_deductive_field');
-        const valueCODeductiveInput = document.getElementById('value_co_deductive');
-
-        // PARAMS
-        const urlParams = new URLSearchParams(window.location.search);
-        const additionalCOUrl = urlParams.get('additionalCO');
+        const valueIDRRateField = document.getElementById('exchange_rate_field');
+        const valueIDRRateInput = document.getElementById('exchange_rate');
+        const valueCOAdditionalField = document.getElementById('value_co_field');
+        const valueCOAdditionalInput = document.getElementById('value_co');
 
         additionalCORadios.forEach(radio => {
-            if (additionalCOUrl) {
-                if (additionalCOUrl == "yes") {
+            radio.addEventListener('change', function() {
+                if (radio.value === 'yes' && radio.checked) {
                     currencyField.style.display = 'flex';
                     valueIDRRateField.style.display = 'flex';
                     valueCOAdditionalField.style.display = 'flex';
-                    valueCODeductiveField.style.display = 'flex';
-
-                    radio.addEventListener('change', function() {
-                        if (radio.value === 'yes' && radio.checked) {
-                            currencyField.style.display = 'flex';
-                            valueIDRRateField.style.display = 'flex';
-                            valueCOAdditionalField.style.display = 'flex';
-                            valueCODeductiveField.style.display = 'flex';
-                        } else {
-                            currencyField.style.display = 'none';
-                            currencyID.value = '';
-                            currencySymbol.value = '';
-                            currencyName.value = '';
-
-                            valueIDRRateField.style.display = 'none';
-                            valueIDRRateInput.value = '';
-
-                            valueCOAdditionalField.style.display = 'none';
-                            valueCOAdditionalInput.value = '';
-                            valueCODeductiveField.style.display = 'none';
-                            valueCODeductiveInput.value = '';
-
-                            $('#value_co_deductive').prop('disabled', false);
-                            $('#value_co_additional').prop('disabled', false);
-                        }
-                    });
                 } else {
                     currencyField.style.display = 'none';
                     currencyID.value = '';
@@ -383,370 +396,13 @@
 
                     valueCOAdditionalField.style.display = 'none';
                     valueCOAdditionalInput.value = '';
-                    valueCODeductiveField.style.display = 'none';
-                    valueCODeductiveInput.value = '';
-
-                    $('#value_co_deductive').prop('disabled', false);
-                    $('#value_co_additional').prop('disabled', false);
-
-                    radio.addEventListener('change', function() {
-                        if (radio.value === 'yes' && radio.checked) {
-                            currencyField.style.display = 'flex';
-                            valueIDRRateField.style.display = 'flex';
-                            valueCOAdditionalField.style.display = 'flex';
-                            valueCODeductiveField.style.display = 'flex';
-                        } else {
-                            currencyField.style.display = 'none';
-                            currencyID.value = '';
-                            currencySymbol.value = '';
-                            currencyName.value = '';
-
-                            valueIDRRateField.style.display = 'none';
-                            valueIDRRateInput.value = '';
-
-                            valueCOAdditionalField.style.display = 'none';
-                            valueCOAdditionalInput.value = '';
-                            valueCODeductiveField.style.display = 'none';
-                            valueCODeductiveInput.value = '';
-
-                            $('#value_co_deductive').prop('disabled', false);
-                            $('#value_co_additional').prop('disabled', false);
-                        }
-                    });
                 }
-            } else {
-                radio.addEventListener('change', function() {
-                    if (radio.value === 'yes' && radio.checked) {
-                        currencyField.style.display = 'flex';
-                        valueIDRRateField.style.display = 'flex';
-                        valueCOAdditionalField.style.display = 'flex';
-                        valueCODeductiveField.style.display = 'flex';
-                    } else {
-                        currencyField.style.display = 'none';
-                        currencyID.value = '';
-                        currencySymbol.value = '';
-                        currencyName.value = '';
-
-                        valueIDRRateField.style.display = 'none';
-                        valueIDRRateInput.value = '';
-
-                        valueCOAdditionalField.style.display = 'none';
-                        valueCOAdditionalInput.value = '';
-                        valueCODeductiveField.style.display = 'none';
-                        valueCODeductiveInput.value = '';
-
-                        $('#value_co_deductive').prop('disabled', false);
-                        $('#value_co_additional').prop('disabled', false);
-                    }
-                });
-            }
+            });
         });
     }
 
     toggleCurrencyField();
-</script>
-
-<!-- CURRENCY -->
-<script>
-    $('#tableGetCurrency tbody').on('click', 'tr', function() {
-
-        $("#myCurrency").modal('toggle');
-
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var sys_id = $('#sys_id_currency' + id).val();
-        var symbol = row.find("td:nth-child(2)").text();
-        var name = row.find("td:nth-child(3)").text();
-
-        if (sys_id == "62000000000002" && name == "United States Dollar") {
-            $("#currency_id").val(sys_id);
-            $("#currency_name").val(name);
-            $("#currency_symbol").val(symbol);
-            $("#value_idr_rate").val(16000);
-        } else if (sys_id == "62000000000001" && name == "Indonesian Rupiah") {
-            $("#currency_id").val(sys_id);
-            $("#currency_name").val(name);
-            $("#currency_symbol").val(symbol);
-            $("#value_idr_rate").val("");
-        } else {
-            $("#currency_id").val("");
-            $("#currency_name").val("");
-            $("#currency_symbol").val("");
-            $("#value_idr_rate").val("");
-            Swal.fire("Error", "Please Call Accounting Staffs to Input Current Exchange Rate. Thank You.", "error");
-        }
-    });
-</script>
-
-<!-- VALUE CO ADDITIONAL & DEDUCTIVE -->
-<script>
-    $(document).ready(function() {
-        $('#value_co_additional').on('input', function() {
-            if ($(this).val().trim() !== "") {
-                $('#value_co_deductive').prop('disabled', true);
-            } else {
-                $('#value_co_deductive').prop('disabled', false);
-            }
-        });
-
-        $('#value_co_deductive').on('input', function() {
-            if ($(this).val().trim() !== "") {
-                $('#value_co_additional').prop('disabled', true);
-            } else {
-                $('#value_co_additional').prop('disabled', false);
-            }
-        });
-    });
-</script>
-
-<!-- VALIDASI SHOW/HIDE FORM ADD NEW ITEM KETIKA TABLE EXISTING BUDGET ADA DATANYA -->
-<script>
-    function checkTableRows() {
-        const table = document.getElementById('budgetTable');
-        const tbody = table.querySelector('tbody');
-        const form = document.getElementById('budgetForm');
-
-        if (tbody.getElementsByTagName('tr').length > 0) {
-            form.style.display = 'block';
-        } else {
-            form.style.display = 'none';
-        }
-    }
-
-    checkTableRows();
-</script>
-
-<!-- BUTTON ADD TO CART (BUDGET DETAILS) -->
-<script>
-    let totalBudgetSum = 0;
-    let totalAdditionalSum = 0;
-    let totalAdditionalSumMirroring = 0;
-    let totalSavingSum = 0;
-    
-    document.getElementById('buttonBudgetDetails').addEventListener('click', function() {
-        totalBudgetSum = 0;
-        totalAdditionalSum = 0;
-        totalAdditionalSum += totalAdditionalSumMirroring;
-        totalSavingSum = 0;
-
-        let budgetRows = document.querySelectorAll('#budgetTable tbody tr');
-        let processedProductIds = new Set();
-        let budgetData = [];
-
-        budgetRows.forEach(function(row) {
-            let qtyAdditional = row.querySelector('input[name="qty_additional"]').value.trim();
-            let priceAdditional = row.querySelector('input[name="price_additional"]').value.trim();
-            let totalAdditional = row.querySelector('input[name="total_additional"]').value.trim();
-            let qtySaving = row.querySelector('input[name="qty_saving"]').value.trim();
-            let priceSaving = row.querySelector('input[name="price_saving"]').value.trim();
-            let totalSaving = row.querySelector('input[name="total_saving"]').value.trim();
-            let type = row.querySelector('input[name="type"]').value.trim();
-            let productIdInput = row.querySelector('input[name="product_id_show"]');
-            let productId = productIdInput.value ? productIdInput.value : row.querySelector('td:nth-child(2)').textContent.trim();
-            let productName = row.querySelector('td:nth-child(3)').textContent.trim();
-            let qtyBudget = row.querySelector('td:nth-child(4)').textContent.trim();
-            let qtyAvail = row.querySelector('td:nth-child(5)').textContent.trim();
-            let prices = row.querySelector('td:nth-child(6)').textContent.trim();
-            let currencys = row.querySelector('td:nth-child(7)').textContent.trim();
-            let balanceBudget = row.querySelector('td:nth-child(8)').textContent.trim();
-            let totalBudget = row.querySelector('td:nth-child(9)').textContent.trim();
-
-            if (productId != "null" && qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving) {
-                let data = {
-                    product_id: productId,
-                    product_name: productName,
-                    qty_budget: qtyBudget,
-                    qty_avail: qtyAvail,
-                    price: prices,
-                    currency: currencys,
-                    balance_budget: balanceBudget,
-                    total_budget: totalBudget,
-                    qty_additional: qtyAdditional,
-                    price_additional: priceAdditional,
-                    total_additional: totalAdditional,
-                    qty_saving: qtySaving,
-                    price_saving: priceSaving,
-                    total_saving: totalSaving
-                };
-
-                budgetData.push(data);
-
-                let listTableBody = document.querySelector('#listBudgetTable tbody');
-                let existingRow = Array.from(listTableBody.querySelectorAll('tr')).find(tr => {
-                    if (productIdInput.value) {
-                        return tr.querySelector('td:nth-child(1)').textContent.trim() === productId;
-                    } else {
-                        return tr.querySelector('td:nth-child(2)').textContent.trim() === productId;
-                    }
-                });
-
-                let form = document.getElementById('modifyBudgetForm');
-
-                if (existingRow) {
-                    existingRow.querySelectorAll('td').forEach(function(td, index) {
-                        let input = row.querySelectorAll('td')[index].querySelector('input');
-
-                        if (input) {
-                            if (index <= 2) {
-                                td.textContent = input.value;
-                            } else if (index === 9) {
-                                td.textContent = numberFormatPHPCustom(qtySaving, 2);
-                            } else if (index === 10) {
-                                td.textContent = numberFormatPHPCustom(priceSaving, 2);
-                            } else if (index === 11) {
-                                td.textContent = numberFormatPHPCustom(totalSaving, 2);
-                            } else if (index !== 6 || index !== 7 || index !== 8) {
-                                td.textContent = numberFormatPHPCustom(input.value, 2);
-                            }
-                        } else {
-                            if (index === 6) {
-                                td.textContent = numberFormatPHPCustom(qtyAdditional, 2);
-                            } 
-                            if (index === 7) {
-                                td.textContent = numberFormatPHPCustom(priceAdditional, 2);
-                            } 
-                            if (index === 8) {
-                                td.textContent = numberFormatPHPCustom(totalAdditional, 2);
-                            }
-                        }
-
-                        if (index == 12) {
-                            td.className = 'd-none';
-                        } else {
-                            td.className = 'container-tbody-tr-budget';
-                        }
-                    });
-
-                    let hiddenInputIds = ['product_id', 'product_name', 'qty_budget', 'price', 'total_budget', 'qty_additional', 'price_additional', 'total_additional', 'qty_saving', 'price_saving', 'total_saving', 'type'];
-                    
-                    let inputValues = [
-                        productId,
-                        productName,
-                        qtyBudget,
-                        prices,
-                        totalBudget,
-                        parseInt(qtyAdditional),
-                        parseInt(priceAdditional),
-                        parseInt(totalAdditional),
-                        parseInt(qtySaving),
-                        parseInt(priceSaving),
-                        parseInt(totalSaving),
-                        type
-                    ];
-
-                    hiddenInputIds.forEach((inputId, index) => {
-                        let existingInput = form.querySelector(`input[name="${inputId}[]"]`);
-
-                        if (existingInput) {
-                            existingInput.value = inputValues[index];
-
-                            form.appendChild(existingInput);
-                        }
-                    });
-                } else {
-                    let clonedRow = row.cloneNode(true);
-                    clonedRow.querySelectorAll('td').forEach(function(td, ind) {
-                        if (ind === 4 || ind === 6 || ind === 7) {
-                            td.remove();
-                        } else {
-                            let input = td.querySelector('input');
-                            
-                            if (input) {
-                                if (ind <= 2) {
-                                    td.textContent = input.value;
-                                } else {
-                                    td.textContent = numberFormatPHPCustom(input.value, 2);
-                                }
-
-                                if (ind == 15) {
-                                    td.className = 'd-none';
-                                } else {
-                                    td.className = 'container-tbody-tr-budget';
-                                }
-                            }
-                        }
-                    });
-
-                    let hiddenInputIds = ['product_id', 'product_name', 'qty_budget', 'price', 'total_budget', 'qty_additional', 'price_additional', 'total_additional', 'qty_saving', 'price_saving', 'total_saving', 'type'];
-
-                    let inputValues = [
-                        productId,
-                        productName,
-                        qtyBudget,
-                        prices,
-                        totalBudget,
-                        parseInt(qtyAdditional),
-                        parseInt(priceAdditional),
-                        parseInt(totalAdditional),
-                        parseInt(qtySaving),
-                        parseInt(priceSaving),
-                        parseInt(totalSaving),
-                        type
-                    ];
-
-                    hiddenInputIds.forEach((inputId, index) => {
-                        let hiddenInput = document.createElement('input');
-                        hiddenInput.type = 'hidden';
-                        hiddenInput.name = inputId + '[]';
-                        hiddenInput.value = inputValues[index];
-                        form.appendChild(hiddenInput);
-                    });
-
-                    listTableBody.appendChild(clonedRow);
-                }
-
-                if (!processedProductIds.has(productId)) {
-                    if (totalBudget) {
-                        totalBudgetSum += parseFloat(totalBudget);
-                    }
-                    if (totalAdditional) {
-                        totalAdditionalSum += parseFloat(totalAdditional);
-                    }
-                    if (totalSaving) {
-                        totalSavingSum += parseFloat(totalSaving);
-                    }
-                    
-                    processedProductIds.add(productId);
-                }
-            } else if (!qtyAdditional && priceAdditional && totalAdditional && productId != "null") {
-                Swal.fire("Error", "Qty Additional Cannot Be Empty", "error");
-            } else if (qtyAdditional && !priceAdditional && totalAdditional && productId != "null") {
-                Swal.fire("Error", "Price Additional Cannot Be Empty", "error");
-            } else if (!qtySaving && priceSaving && totalSaving && productId != "null") {
-                Swal.fire("Error", "Qty Saving Cannot Be Empty", "error");
-            } else if (qtySaving && !priceSaving && totalSaving && productId != "null") {
-                Swal.fire("Error", "Price Saving Cannot Be Empty", "error");
-            } else if (qtyAdditional && priceAdditional && totalAdditional && qtySaving && priceSaving && totalSaving && productId == "null") {
-                Swal.fire("Error", "Product ID Cannot Be Empty", "error");
-            }
-        });
-
-        // Menyimpan data ke elemen hidden di view
-        let hiddenInputBudgetData = document.getElementById('hiddenBudgetData');
-        hiddenInputBudgetData.value = JSON.stringify({
-            budgetData: budgetData,
-            totalBudgetSum: totalBudgetSum,
-            totalAdditionalSum: totalAdditionalSum,
-            totalSavingSum: totalSavingSum
-        });
-
-        let footerRow = document.querySelector('#listBudgetTable tfoot tr');
-        if (!footerRow) {
-            let tfoot = document.createElement('tfoot');
-            tfoot.innerHTML = `
-                <tr>
-                    <td colspan="7" class="container-thead-tr-budget font-weight-bold" style="text-align: left !important;">GRAND TOTAL</td>
-                    <td class="text-center">${numberFormatPHPCustom(totalAdditionalSum, 2)}</td>
-                    <td colspan="2" class="container-tbody-tr-budget" style="text-align:right"></td>
-                    <td class="text-center">${numberFormatPHPCustom(totalSavingSum, 2)}</td>
-                </tr>`;
-            document.querySelector('#listBudgetTable').appendChild(tfoot);
-        } else {
-            footerRow.querySelector('td:nth-child(2)').textContent = numberFormatPHPCustom(totalAdditionalSum, 2);
-            footerRow.querySelector('td:nth-child(4)').textContent = numberFormatPHPCustom(totalSavingSum, 2);
-        }
-    });
-</script>
+</script> -->
 
 <!-- FORM ADD NEW ITEM -->
 <script>
@@ -756,17 +412,13 @@
     const newItemFormThree = document.getElementById('newItemFormThree');
     const newItemFormFour = document.getElementById('newItemFormFour');
     const buttonItemFormTwo = document.getElementById('buttonItemForm');
-    const productIdInput = document.getElementById('products_id');
-    const budgetTable = document.getElementById('budgetTable');
-    const listBudgetTable = document.getElementById('listBudgetTable');
-    const addToCartBtn = document.getElementById('addToCartNewFormItem');
 
     function resetFormInputs() {
         document.getElementById('products_id').value = '';
         document.getElementById('products_id_show').value = '';
         document.getElementById('products_name').value = '';
-        document.getElementById('qty').value = '';
-        document.getElementById('price').value = '';
+        document.getElementById('qty_form').value = '';
+        document.getElementById('price_form').value = '';
         document.getElementById('total_qty_price').value = '';
     }
 
@@ -790,279 +442,311 @@
             resetFormInputs();
         }
     });
+</script>
 
-    const qtyInput = document.getElementById('qty');
-    const priceInput = document.getElementById('price');
-    const totalInput = document.getElementById('total_qty_price');
+<!-- FUNCTION UNTUK MENGHITUNG TOTAL SETIAP BARIS PADA BUDGET DETAILS (TABLE) -->
+<script>
+    function calculateTotal(row) {
+        const modifyInput = row.querySelector('input[name="modify_budget_details"]');
+        const priceInput = row.querySelector('input[name="price_budget_details"]');
+        const totalInput = row.querySelector('input[name="total_budget_details"]');
+        const qtyAvail = row.children[4].textContent.trim().replace(/,/g, '') == '-' ? 0 : parseFloat(row.children[4].textContent.trim().replace(/,/g, ''));
+        const balancedBudget = row.children[7].textContent.trim().replace(/,/g, '') == '-' ? 0 : parseFloat(row.children[7].textContent.trim().replace(/,/g, ''));
+        const totalBudget = row.children[8].textContent.trim().replace(/,/g, '') == '-' ? 0 : parseFloat(row.children[8].textContent.trim().replace(/,/g, ''));
 
-    function calculateTotal() {
-        const qty = parseFloat(qtyInput.value) || 0;
-        const price = parseFloat(priceInput.value) || 0;
-        const total = qty * price;
-        totalInput.value = total;
-    }
-
-    qtyInput.addEventListener('input', calculateTotal);
-    priceInput.addEventListener('input', calculateTotal);
-
-    function getExistingProductIds() {
-        const productIds = [];
-        const rows = budgetTable.querySelectorAll('tbody tr');
+        const modifyValue = parseFloat(modifyInput.value) || 0;
+        const priceValue = parseFloat(priceInput.value) || 0;
         
-        rows.forEach(row => {
-            const productId = row.cells[1].textContent.trim();
+        const resultQtyInput = qtyAvail + modifyValue;
 
-            productIds.push(productId);
-        });
-        
-        return productIds;
-    }
-
-    function validateProductId(productId) {
-        const existingIds = getExistingProductIds();
-        return !existingIds.includes(productId);
-    }
-
-    function addRowToTable(productId, productName, qty, price) {
-        const tbody = listBudgetTable.querySelector('tbody');
-        const newRow = document.createElement('tr');
-
-        const qtyBudgetFormatted = numberFormatPHPCustom(0, 2);
-        const priceBudgetFormatted = numberFormatPHPCustom(0, 2);
-        const totalBudgetFormatted = numberFormatPHPCustom(0, 2);
-
-        const qtyFormatted = numberFormatPHPCustom(qty, 2);
-        const priceFormatted = numberFormatPHPCustom(price, 2);
-        const totalFormatted = numberFormatPHPCustom(qty * price, 2);
-
-        const qtySavingFormatted = numberFormatPHPCustom(0, 2);
-        const priceSavingFormatted = numberFormatPHPCustom(0, 2);
-        const totalSavingFormatted = numberFormatPHPCustom(0, 2);
-
-        totalAdditionalSum += parseFloat(qty * price);
-        totalAdditionalSumMirroring += parseFloat(qty * price);
-
-        newRow.innerHTML = `
-            <td class="container-tbody-tr-budget" >
-                ${productId}
-                <input id="product_id" hidden="" name="product_id[]" value="${productId}">
-            </td>
-            <td class="container-tbody-tr-budget text-wrap" style="text-align: left !important; line-height: 15px;">
-                ${productName}
-                <input id="product_name" hidden="" name="product_name[]" value="${productName}">
-            </td>
-            <td class="container-tbody-tr-budget">
-                ${qtyBudgetFormatted}
-                <input id="qty_budget" hidden="" name="qty_budget[]" value="0">
-            </td>
-            <td class="container-tbody-tr-budget">
-                ${priceBudgetFormatted}
-                <input id="price" hidden="" name="price[]" value="0">
-            </td>
-            <td class="container-tbody-tr-budget">
-                ${totalBudgetFormatted}
-                <input id="total_budget" hidden="" name="total_budget[]" value="0">
-            </td>
-            <td class="container-tbody-tr-budget">
-                ${qtyFormatted}
-                <input id="qty_additional" hidden="" name="qty_additional[]" value="${qty}">
-            </td>
-            <td class="container-tbody-tr-budget">
-                ${priceFormatted}
-                <input id="price_additional" hidden="" name="price_additional[]" value="${price}">
-            </td>
-            <td class="container-tbody-tr-budget">
-                ${totalFormatted}
-                <input id="total_additional" hidden="" name="total_additional[]" value="${qty * price}">
-            </td>
-            <td class="container-tbody-tr-budget">
-                ${qtySavingFormatted}
-                <input id="qty_saving" hidden="" name="qty_saving[]" value="0">
-            </td>
-            <td class="container-tbody-tr-budget">
-                ${priceSavingFormatted}
-                <input id="price_saving" hidden="" name="price_saving[]" value="0">
-            </td>
-            <td class="container-tbody-tr-budget">
-                ${totalSavingFormatted}
-                <input id="total_saving" hidden="" name="total_saving[]" value="0">
-            </td>
-        `;
-
-        tbody.appendChild(newRow);
-
-        let footerRow = document.querySelector('#listBudgetTable tfoot tr');
-        if (footerRow) {
-            footerRow.querySelector('td:nth-child(2)').textContent = numberFormatPHPCustom(totalAdditionalSum, 2);
+        if (resultQtyInput < 0) {
+            Swal.fire("Error", `Qty must be greater than 0`, "error");
+            modifyInput.value = qtyAvail;
         }
+
+        const totalValue = modifyInput.value * priceValue;
+        const resultTotalInput = balancedBudget + totalValue;
+
+        if (resultTotalInput < 0) {
+            Swal.fire("Error", `Total must be greater than 0`, "error");
+        }
+
+        totalInput.value = numberFormatPHPCustom(totalValue, 2);
     }
 
-    addToCartBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const newProductId = productIdInput.value.trim();
-        const newProductName = document.getElementById('products_name').value.trim();
-        const newQty = document.getElementById('qty').value.trim();
-        const newPrice = document.getElementById('price').value.trim();
+    $('#budgetTable tbody').on('blur', 'input[name="modify_budget_details"], input[name="price_budget_details"]', function () {
+        const row = $(this).closest('tr')[0];
+        calculateTotal(row);
+    });
+</script>
 
-        if (newProductId && newProductName && newQty && newPrice) {
-            if (validateProductId(newProductId)) {
-                addRowToTable(newProductId, newProductName, newQty, newPrice);
-                resetFormInputs();
-                hideFormAddNewItem();
+<!-- FUNCTION UNTUK PENJUMLAHAN MODIFY, PRICE, TOTAL PADA MODIFY BUDGET LIST (CART) TABLE -->
+<script>
+    function calculateBudgetTotals() {
+        let totalModify = 0;
+        let totalPrice = 0;
+        let totalAmount = 0;
+
+        document.querySelectorAll('#listBudgetTable tbody tr').forEach(row => {
+            let modifyValue = 0;
+            let priceValue = 0;
+            let totalValue = 0;
+
+            if (row.cells.length > 11) {
+                modifyValue = row.cells[9].textContent;
+                priceValue = row.cells[10].textContent;
+                totalValue = row.cells[11].textContent;
             } else {
-                swal({
-                    onOpen: function() {
-                        swal.disableConfirmButton();
-                        Swal.fire("Error !", "Product ID already exists in the existing budget table.", "error");
-                    }
+                modifyValue = row.cells[8].textContent;
+                priceValue = row.cells[9].textContent;
+                totalValue = row.cells[10].textContent;
+            }
+
+            totalModify += parseFloat(modifyValue.replace(/,/g, ""));
+            totalPrice += parseFloat(priceValue.replace(/,/g, ""));
+            totalAmount += parseFloat(totalValue.replace(/,/g, ""));
+        });
+
+        document.getElementById('totalModifyFooter').textContent = numberFormatPHPCustom(totalModify, 2);
+        document.getElementById('totalPriceFooter').textContent = numberFormatPHPCustom(totalPrice, 2);
+        document.getElementById('totalAmountFooter').textContent = numberFormatPHPCustom(totalAmount, 2);
+
+        document.getElementById('totalModifyFooterData').value = totalModify;
+        document.getElementById('totalPriceFooterData').value = totalPrice;
+        document.getElementById('totalAmountFooterData').value = totalAmount;
+    }
+</script>
+
+<!-- FUNCTION BUTTON ADD TO CART FROM BUDGET DETAILS TABLE -->
+<script>
+    document.getElementById('buttonBudgetDetails').addEventListener('click', function () {
+        const budgetTable = document.getElementById('budgetTable').querySelector('tbody');
+        const listBudgetTable = document.getElementById('listBudgetTable').querySelector('tbody');
+        let updated = false;
+        let allBudgetDetailsData = [];
+        let modifiedBudgetListData = [];
+
+        [...budgetTable.rows].forEach((row, index) => {
+            const productIdTemp = row.querySelector('input[name="product_id_show"]');
+            const productId     = row.cells[1].textContent != "null" ? row.cells[1].textContent.trim() : productIdTemp.value;
+            const productName   = row.cells[2].textContent.trim();
+            const qtyBudget     = row.cells[3].textContent.trim();
+            const qtyAvail      = row.cells[4].textContent.trim();
+            const price         = row.cells[5].textContent.trim();
+            const currency      = row.cells[6].textContent.trim();
+            const balanceBudget = row.cells[7].textContent.trim();
+            const totalBudget   = row.cells[8].textContent.trim();
+            const modifyInput   = row.querySelector('input[name="modify_budget_details"]');
+            const priceInput    = row.querySelector('input[name="price_budget_details"]');
+            const totalInput    = row.querySelector('input[name="total_budget_details"]');
+
+            allBudgetDetailsData.push({
+                productId,
+                productName,
+                qtyBudget,
+                qtyAvail,
+                price,
+                currency,
+                balanceBudget,
+                totalBudget,
+                modifyInput: modifyInput.value,
+                priceInput: priceInput.value,
+                totalInput: totalInput.value
+            });
+
+            if (productId && modifyInput.value && priceInput.value && totalInput.value) {
+                let existingRow = [...listBudgetTable.rows].find(listRow => listRow.cells[2].textContent.trim() === productName && listRow.cells[3].textContent.trim() === qtyBudget && listRow.cells[4].textContent.trim() === qtyAvail && listRow.cells[5].textContent.trim() === price && listRow.cells[6].textContent.trim() === currency && listRow.cells[7].textContent.trim() === balanceBudget && listRow.cells[8].textContent.trim() === totalBudget);
+
+                if (existingRow) {
+                    existingRow.cells[0].textContent = productId;
+                    existingRow.cells[9].textContent = numberFormatPHPCustom(modifyInput.value, 2);
+                    existingRow.cells[10].textContent = numberFormatPHPCustom(priceInput.value, 2);
+                    existingRow.cells[11].textContent = totalInput.value;
+                    updated = true;
+                } else {
+                    const clonedRow = row.cloneNode(true);
+
+                    const productIdValue = productId;
+                    const modifyValue = modifyInput.value;
+                    const priceValue = priceInput.value;
+                    const totalValue = totalInput.value;
+
+                    clonedRow.cells[0].textContent = productIdValue;
+                    clonedRow.cells[9].textContent = numberFormatPHPCustom(modifyValue, 2);
+                    clonedRow.cells[10].textContent = numberFormatPHPCustom(priceValue, 2);
+                    clonedRow.cells[11].textContent = totalValue;
+
+                    listBudgetTable.appendChild(clonedRow);
+                    updated = true;
+                }
+
+                modifiedBudgetListData.push({
+                    productId,
+                    productName,
+                    qtyBudget,
+                    qtyAvail,
+                    price,
+                    currency,
+                    balanceBudget,
+                    totalBudget,
+                    modifyInput: modifyInput.value,
+                    priceInput: priceInput.value,
+                    totalInput: totalInput.value
                 });
             }
+        });
+
+        if (updated) {
+            calculateBudgetTotals();
+
+            document.getElementById('budgetDetailsData').value = JSON.stringify(allBudgetDetailsData);
+            document.getElementById('modifyBudgetListData').value = JSON.stringify(modifiedBudgetListData);
         } else {
-            swal({
-                onOpen: function() {
-                    swal.disableConfirmButton();
-                    Swal.fire("Error !", "Product ID, Qty, Price, & Total cannot be empty.", "error");
-                }
-            });
+            Swal.fire("Error", "Please fill in Product Id, Modify(+/-), Price, and Total for at least one row", "error");
         }
     });
 </script>
 
-<!-- PRODUCT -->
+<!-- FUNCTION UNTUK MENAMPILKAN/MENYEMBUNYIKAN BUTTON & FORM ADD NEW ITEM -->
 <script>
-    $('#tableGetProducts tbody').on('click', 'tr', function() {
+    function toggleAddNewItemButton() {
+        const tbody = document.querySelector('#budgetTable tbody');
+        const addNewItemBtn = document.getElementById('addNewItemBtn');
+        
+        if (tbody && tbody.rows.length > 0) {
+            addNewItemBtn.style.display = 'block';
+        } else {
+            addNewItemBtn.style.display = 'none';
+        }
+    }
 
-        $("#myProducts").modal('toggle');
+    document.addEventListener('DOMContentLoaded', toggleAddNewItemButton);
 
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var sys_id = $('#sys_id_products' + id).val();
-        var sys_pid = row.find("td:nth-child(2)").text();
-        var uom = row.find("td:nth-child(3)").text();
-        var name = row.find("td:nth-child(4)").text();
-
-        $("#products_id").val(sys_id);
-        $("#products_id_show").val(sys_pid);
-        $("#products_name").val(uom);
-    });
+    const observer = new MutationObserver(toggleAddNewItemButton);
+    observer.observe(document.querySelector('#budgetTable tbody'), { childList: true });
 </script>
 
-<!-- VALIDASI TOTAL ADDITIONAL & TOTAL SAVING PADA TABLE EXISTING BUDGET -->
+<!-- FUNCTION UNTUK MENGHITUNG TOTAL (MODIFY * PRICE) -->
 <script>
-    function initializeRowListeners(row) {
-        const qtyAdditionalInput = row.querySelector('input[name="qty_additional"]');
-        const priceAdditionalInput = row.querySelector('input[name="price_additional"]');
-        const totalAdditionalInput = row.querySelector('input[name="total_additional"]');
-        const totalBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(9)');
-
-        const qtySavingInput = row.querySelector('input[name="qty_saving"]');
-        const priceSavingInput = row.querySelector('input[name="price_saving"]');
-        const totalSavingInput = row.querySelector('input[name="total_saving"]');
-        const balanceBudgetElement = row.querySelector('.container-tbody-tr-budget:nth-child(8)');
-
-        function calculateTotalAdditional() {
-            const qtyAdditional = parseFloat(qtyAdditionalInput.value) || 0;
-            const priceAdditional = parseFloat(priceAdditionalInput.value) || 0;
-            const totalAdditional = qtyAdditional * priceAdditional;
-
-            const totalBudget = parseFloat(totalBudgetElement.textContent.replace(/,/g, '')) || 0;
-
-            totalAdditionalInput.value = totalAdditional.toFixed(2);
-
-            if (totalAdditional && totalAdditional < totalBudget) {
-                Swal.fire("Error", "Total Additional must be greater than Total Budget!", "error");
-                qtyAdditionalInput.value = '';
-                priceAdditionalInput.value = '';
-                totalAdditionalInput.value = '';
-                toggleSavingInputs(false);
-            } else {
-                if (qtyAdditional > 0 && priceAdditional > 0) {
-                    toggleSavingInputs(true);
-                } else {
-                    toggleSavingInputs(false);
-                }
-                qtySavingInput.value = '0.00';
-                priceSavingInput.value = '0.00';
-                totalSavingInput.value = '0.00';
-            }
-        }
-
-        function calculateTotalSaving() {
-            const qtySaving = parseFloat(qtySavingInput.value) || 0;
-            const priceSaving = parseFloat(priceSavingInput.value) || 0;
-            const totalSaving = qtySaving * priceSaving;
-
-            const balanceBudget = parseFloat(balanceBudgetElement.textContent.replace(/,/g, '')) || 0;
-            const totalBudget = parseFloat(totalBudgetElement.textContent.replace(/,/g, '')) || 0;
-
-            totalSavingInput.value = totalSaving.toFixed(2);
-
-            if (totalSaving && (totalSaving < balanceBudget || totalSaving > totalBudget)) {
-                Swal.fire("Error", "Total Saving must be greater than Balance Budget & must be less than Total Budget!", "error");
-                qtySavingInput.value = '';
-                priceSavingInput.value = '';
-                totalSavingInput.value = '';
-                toggleAdditionalInputs(false);
-            } else {
-                if (qtySaving > 0 && priceSaving > 0) {
-                    toggleAdditionalInputs(true);
-                } else {
-                    toggleAdditionalInputs(false);
-                }
-
-                qtyAdditionalInput.value = '0.00';
-                priceAdditionalInput.value = '0.00';
-                totalAdditionalInput.value = '0.00';
-            }
-        }
-
-        function toggleSavingInputs(disable) {
-            if (disable) {
-                qtySavingInput.setAttribute('disabled', 'disabled');
-                priceSavingInput.setAttribute('disabled', 'disabled');
-            } else {
-                qtySavingInput.removeAttribute('disabled');
-                priceSavingInput.removeAttribute('disabled');
-            }
-        }
-
-        function toggleAdditionalInputs(disable) {
-            if (disable) {
-                qtyAdditionalInput.setAttribute('disabled', 'disabled');
-                priceAdditionalInput.setAttribute('disabled', 'disabled');
-            } else {
-                qtyAdditionalInput.removeAttribute('disabled');
-                priceAdditionalInput.removeAttribute('disabled');
-            }
-        }
-
-        qtyAdditionalInput.addEventListener('blur', calculateTotalAdditional);
-        priceAdditionalInput.addEventListener('blur', calculateTotalAdditional);
-
-        qtySavingInput.addEventListener('blur', calculateTotalSaving);
-        priceSavingInput.addEventListener('blur', calculateTotalSaving);
+    function calculateTotalForm() {
+        const qty = parseFloat(document.getElementById("qty_form").value) || 0;
+        const price = parseFloat(document.getElementById("price_form").value) || 0;
+        const total = qty * price;
+        document.getElementById("total_qty_price").value = total.toFixed(2);
     }
 
-    function initializeTableListeners() {
-        const rows = document.querySelectorAll('#budgetTable tbody tr');
+    document.getElementById("qty_form").addEventListener("input", calculateTotalForm);
+    document.getElementById("price_form").addEventListener("input", calculateTotalForm);
+</script>
 
-        rows.forEach(row => {
-            initializeRowListeners(row);
-        });
-    }
+<!-- FUNCTION BUTTON ADD TO CART FORM ADD NEW ITEM -->
+<script>
+    document.getElementById("addToCartNewFormItem").addEventListener("click", function (event) {
+        event.preventDefault();
 
-    initializeTableListeners();
+        const productId = document.getElementById("products_id_show").value;
+        const productName = document.getElementById("products_name").value;
+        const qty = document.getElementById("qty_form").value;
+        const price = document.getElementById("price_form").value;
+        const total = document.getElementById("total_qty_price").value;
+        const currencySymbolll = document.getElementById("currency_symbol").value;
 
-    const tableBody = document.querySelector('#budgetTable tbody');
-    const observers = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
-            if (mutation.type === 'childList') {
-                initializeTableListeners();
+        if (!productId || !productName || !qty || !price) {
+            Swal.fire("Error", "Please fill all the fields before adding to cart.", "error");
+            return;
+        }
+
+        let budgetListDataaa = [];
+        const existingData = document.getElementById("modifyBudgetListData").value;
+        if (existingData) {
+            budgetListDataaa = JSON.parse(existingData);
+        }
+
+        const tbody = document.getElementById("listBudgetTable").getElementsByTagName("tbody")[0];
+
+        let productExists = false;
+        for (let row of tbody.rows) {
+            if (row.cells[0].textContent === productId) {
+                productExists = true;
+                break;
             }
+        }
+
+        if (productExists) {
+            Swal.fire("Error", "Product ID already exists in the table.", "error");
+            return;
+        }
+
+        budgetListDataaa.push({
+            productId       : productId,
+            productName     : productName,
+            qtyBudget       : 0.00,
+            qtyAvail        : 0.00,
+            price           : 0.00,
+            currency        : "USD",
+            balanceBudget   : 0.00,
+            totalBudget     : 0.00,
+            modifyInput     : qty,
+            priceInput      : price,
+            totalInput      : total,
         });
+
+        document.getElementById("modifyBudgetListData").value = JSON.stringify(budgetListDataaa);
+
+        const row = tbody.insertRow();
+
+        const cell1 = row.insertCell();
+        cell1.textContent = productId;
+        cell1.classList.add("container-tbody-tr-budget");
+
+        const cell2 = row.insertCell();
+        cell2.textContent = productName;
+        // cell2.classList.add("container-tbody-tr-budget");
+
+        const cell3 = row.insertCell();
+        cell3.textContent = numberFormatPHPCustom(0, 2);
+        cell3.classList.add("container-tbody-tr-budget");
+
+        const cell4 = row.insertCell();
+        cell4.textContent = numberFormatPHPCustom(0, 2);
+        cell4.classList.add("container-tbody-tr-budget");
+
+        const cell5 = row.insertCell();
+        cell5.textContent = numberFormatPHPCustom(0, 2);
+        cell5.classList.add("container-tbody-tr-budget");
+
+        const cell6 = row.insertCell();
+        cell6.textContent = currencySymbolll;
+        cell6.classList.add("container-tbody-tr-budget");
+
+        const cell7 = row.insertCell();
+        cell7.textContent = numberFormatPHPCustom(0, 2);
+        cell7.classList.add("container-tbody-tr-budget");
+
+        const cell8 = row.insertCell();
+        cell8.textContent = numberFormatPHPCustom(0, 2);
+        cell8.classList.add("container-tbody-tr-budget");
+
+        const cell9 = row.insertCell();
+        cell9.textContent = numberFormatPHPCustom(qty, 2);
+        cell9.classList.add("container-tbody-tr-budget");
+
+        const cell10 = row.insertCell();
+        cell10.textContent = numberFormatPHPCustom(price, 2);
+        cell10.classList.add("container-tbody-tr-budget");
+
+        const cell11 = row.insertCell();
+        cell11.textContent = numberFormatPHPCustom(total, 2);
+        cell11.classList.add("container-tbody-tr-budget");
+
+        calculateBudgetTotals();
+
+        document.getElementById("products_id_show").value = "";
+        document.getElementById("products_name").value = "";
+        document.getElementById("qty_form").value = "";
+        document.getElementById("price_form").value = "";
+        document.getElementById("total_qty_price").value = "";
     });
-
-    observers.observe(tableBody, { childList: true });
 </script>
 
 <!-- BUTTON SUBMIT OR CANCEL -->
@@ -1070,15 +754,7 @@
     const siteCode = document.getElementById('site_code');
     const reasonForModify = document.getElementById('reason_modify');
     const submitButton = document.getElementById('submitButton');
-    const cancelButton = document.getElementById('cancelButton');
     const listBudgetTableBody = document.querySelector('#listBudgetTable tbody');
-    const listBudgetTableFoot = document.getElementById('listBudgetTable');
-    const budgetTbodyTable = document.querySelector('#budgetTable tbody');
-    const additionalCoRadioss = document.getElementsByName('additional_co');
-    const currencyField = document.getElementById('currency_field');
-    const valueIDRRateField = document.getElementById('value_idr_rate_field');
-    const valueCOAdditionalField = document.getElementById('value_co_additional_field');
-    const valueCODeductiveField = document.getElementById('value_co_deductive_field');
 
     function checkTableData() {
         const isTableNotEmpty = listBudgetTableBody.rows.length > 0;
@@ -1094,59 +770,9 @@
 
     checkTableData();
 
-    const observer = new MutationObserver(checkTableData);
-    observer.observe(listBudgetTableBody, { childList: true });
+    const observerListBudgetTableBody = new MutationObserver(checkTableData);
+    observerListBudgetTableBody.observe(listBudgetTableBody, { childList: true });
 
     siteCode.addEventListener('input', checkTableData);
     reasonForModify.addEventListener('input', checkTableData);
-
-    cancelButton.addEventListener('click', function() {
-        while (listBudgetTableBody.firstChild) {
-            listBudgetTableBody.removeChild(listBudgetTableBody.firstChild);
-        }
-
-        while (budgetTbodyTable.firstChild) {
-            budgetTbodyTable.removeChild(budgetTbodyTable.firstChild);
-        }
-
-        if (listBudgetTableFoot) {
-            const tfoot = listBudgetTableFoot.querySelector('tfoot');
-            
-            if (tfoot) {
-                tfoot.remove();
-            } 
-        }
-
-        $("#project_id").val("");
-        $("#project_code").val("");
-        $("#project_name").val("");
-
-        $("#site_id").val("");
-        $("#site_code").val("");
-        $("#site_name").val("");
-        $("#site_code").prop("disabled", true);
-        $("#site_code_popup").prop("disabled", true);
-
-        $("#currency_id").val("");
-        $("#currency_name").val("");
-        $("#currency_symbol").val("");
-        $("#value_idr_rate").val("");
-
-        $("#reason_modify").val("");
-        $("#value_co_deductive").val("");
-        $("#value_co_additional").val("");
-        $("#attachment_file").val("");
-
-        currencyField.style.display = 'none';
-        valueIDRRateField.style.display = 'none';
-        valueCOAdditionalField.style.display = 'none';
-        valueCODeductiveField.style.display = 'none';
-
-        additionalCoRadioss.forEach(function(radio) {
-            radio.checked = false;
-        });
-
-        checkTableData(); 
-        checkAndDisable();
-    });
 </script>

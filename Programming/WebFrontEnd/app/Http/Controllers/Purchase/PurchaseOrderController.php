@@ -378,7 +378,7 @@ class PurchaseOrderController extends Controller
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
 
-                    $canvas->page_text($width / 2 + 12, 47, "{PAGE_NUM} of {PAGE_COUNT}", null, 8, array(0, 0, 0));
+                    $canvas->page_text($width / 2 + 20, 52, "{PAGE_NUM} of {PAGE_COUNT}", null, 8, array(0, 0, 0));
                     // $canvas->page_text($width / 2.5, $height - 20, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
                     // Preview PDF

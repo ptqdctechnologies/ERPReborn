@@ -9,7 +9,7 @@
 
     <style>
         @page {
-            margin: 100px 30px 480px 30px;
+            margin: 100px 30px 530px 30px;
         }
         header, footer {
             position: fixed;
@@ -27,7 +27,7 @@
         }
         body {
             margin-top: 20px;
-            padding-top: 240px;
+            padding-top: 255px;
         }
         /* main {
             background-color: lightblue;
@@ -39,48 +39,48 @@
         <table style="width: 100%;">
             <tr>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px; font-weight: bold;">
+                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 11px; font-weight: bold;">
                         PO No
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px; font-weight: bold;">
+                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 11px; font-weight: bold;">
                         Rev No
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px; font-weight: bold;">
+                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 11px; font-weight: bold;">
                         PO Date
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px; font-weight: bold;">
+                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 11px; font-weight: bold;">
                         Page No
                     </div>
                 </td>
                 <td rowspan="2">
-                    <img src="{{ url('/image/qdc.png') }}" alt="qdc" height="50" style="margin-left: 10px;" />
+                    <img src="{{ public_path('image/qdc.png') }}" alt="qdc" height="50" style="margin-left: 10px;" />
                 </td>
             </tr>
 
             <tr>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
+                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 10px;">
                         <?= $dataReport['dataHeader']['poNumber']; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
+                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 10px;">
                         <?= $dataReport['dataHeader']['revision']; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
+                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 10px;">
                         <?= $dataReport['dataHeader']['date']; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
+                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 10px;">
                     </div>
                 </td>
             </tr>
@@ -90,10 +90,12 @@
             <tr>
                 <td style="width: 463px;">
                     <table style="width: 251.5px;">
-                        <tr><td style="height: 40px;"></td></tr>
+                        <tr>
+                            <td style="height: 40px;"></td>
+                        </tr>
                         <tr style="border: 1px solid black;">
                             <td style="padding: 4px;">
-                                <div style="vertical-align: top; font-size: 10px; height: 20px; font-weight: bold;">
+                                <div style="vertical-align: top; font-size: 11px; height: 20px; font-weight: bold;">
                                     Supplier :
                                 </div>
                                 <div style="vertical-align: top; font-size: 10px; height: 20px;">
@@ -105,7 +107,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td style="font-size: 24px; font-weight: bold;">
+                            <td style="font-size: 14px; font-weight: bold;">
                                 Purchase Order
                             </td>
                         </tr>
@@ -115,7 +117,7 @@
                     <table style="width: 100%;">
                         <tr style="border: 1px solid black;">
                             <td style="padding: 4px;">
-                                <div style="vertical-align: top; font-size: 10px; height: 20px; font-weight: bold;">
+                                <div style="vertical-align: top; font-size: 11px; height: 20px; font-weight: bold;">
                                     Deliver To :
                                 </div>
                                 <div style="vertical-align: top; font-size: 10px; height: 50px;">
@@ -126,7 +128,7 @@
                         <tr><td style="height: 4px;"></td></tr>
                         <tr style="border: 1px solid black;">
                             <td style="padding: 4px;">
-                                <div style="vertical-align: top; font-size: 10px; height: 20px; font-weight: bold;">
+                                <div style="vertical-align: top; font-size: 11px; height: 20px; font-weight: bold;">
                                     Invoice To :
                                 </div>
                                 <div style="vertical-align: top; font-size: 10px; line-height: 15px;">
@@ -308,7 +310,7 @@
         <table style="width: 100%; border-collapse: collapse; margin-top: 4px;">
             <tr>
                 <td style="border: 1px solid black; width: 160px; height: 30px;">
-                    <div style="font-size: 12px; vertical-align: top; line-height: 30px;"> 
+                    <div style="font-size: 11px; vertical-align: top; line-height: 30px;"> 
                         Manager/PM Approval
                     </div>
                 </td>
@@ -327,7 +329,7 @@
                 </td>
                 <td rowspan="5" style="vertical-align: top;">
                     <div style="vertical-align: top; padding: 0px 8px;">
-                        <div style="text-align: center; font-weight: bold;">
+                        <div style="text-align: center; font-weight: bold; font-size: 11px;">
                             Approved by Director
                         </div>
                         <div style="margin-top: 24px;">
@@ -351,7 +353,7 @@
                 </td>
                 <td rowspan="5" style="vertical-align: top;">
                     <div style="vertical-align: top; padding: 0 8px;">
-                        <div style="text-align: center; font-weight: bold;">
+                        <div style="text-align: center; font-weight: bold; font-size: 11px;">
                             Accepted by Vendor
                         </div>
                         <div style="margin-top: 24px;">
@@ -377,7 +379,7 @@
 
             <tr>
                 <td style="border: 1px solid black; width: 160px; height: 30px;">
-                    <div style="font-size: 12px; vertical-align: top; line-height: 30px;"> 
+                    <div style="font-size: 11px; vertical-align: top; line-height: 30px;"> 
                         Reviewed by P & C Mgr
                     </div>
                 </td>
@@ -398,7 +400,7 @@
 
             <tr>
                 <td style="border: 1px solid black; width: 160px; height: 30px;">
-                    <div style="font-size: 12px; vertical-align: top; line-height: 30px;"> 
+                    <div style="font-size: 11px; vertical-align: top; line-height: 30px;"> 
                         Related GM Approval
                     </div>
                 </td>
@@ -419,7 +421,7 @@
 
             <tr>
                 <td style="border: 1px solid black; width: 160px; height: 30px;">
-                    <div style="font-size: 12px; vertical-align: top; line-height: 30px;"> 
+                    <div style="font-size: 11px; vertical-align: top; line-height: 30px;"> 
                         Operations Director Approval
                     </div>
                 </td>
@@ -440,7 +442,7 @@
 
             <tr>
                 <td style="border: 1px solid black; width: 160px; height: 30px;">
-                    <div style="font-size: 12px; vertical-align: top; line-height: 30px;"> 
+                    <div style="font-size: 11px; vertical-align: top; line-height: 30px;"> 
                         Finance & Acc GM Approval
                     </div>
                 </td>
@@ -468,22 +470,22 @@
                 </div>
             </tr>
             <tr>
-                <div style="font-size: 8px; vertical-align: top; line-height: 15px;"> 
+                <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
                     - Supplier shall subject to the terms and conditions set forth on this PO General Terms and Conditions or Contract Condition and amendment if any
                 </div>
             </tr>
             <tr>
-                <div style="font-size: 8px; vertical-align: top; line-height: 15px;">
+                <div style="font-size: 10px; vertical-align: top; line-height: 15px;">
                     - Supplier shall return the confirmation of acceptance by signature and title, this should be facsimile to Qdc at +62 21 79193333
                 </div>
             </tr>
             <tr>
-                <div style="font-size: 8px; vertical-align: top; line-height: 15px;">
+                <div style="font-size: 10px; vertical-align: top; line-height: 15px;">
                     - Supplier shall PO reference number in every invoice submitted and shall attach the "Faktur Pajak" (Qdc NPWP : 02.194.081.2-058.000)
                 </div>
             </tr>
             <tr>
-                <div style="font-size: 8px; vertical-align: top; line-height: 15px;">
+                <div style="font-size: 10px; vertical-align: top; line-height: 15px;">
                     - Supplier shall submit copy of PO, Material received report (if any), final BoQ(if any),FAT or BAST(if any) to Qdc otherwise it will be rejected
                 </div>
             </tr>
@@ -494,27 +496,27 @@
         <table class="TableReportAdvanceSummary" style="width: 100%;" id="TableReportAdvanceSummary">
             <tr style="border-top: 1px solid black; border-bottom: 1px solid black;">
                 <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 4px 0px;">
                         No
                     </div>
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 4px 0px;">
                         Product Name
                     </div>
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 4px 0px;">
                         Qty
                     </div>
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 4px 0px;">
                         Price
                     </div>
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 4px 0px;">
                         UOM
                     </div>
                 </td>
@@ -522,19 +524,19 @@
                     <table>
                         <tr>
                             <td colspan="2" style="text-align: center;">
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 8px 0px;">
+                                <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 8px 0px;">
                                     Total IDR
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                <div style="font-size: 11px; font-weight: bold; margin: 4px 8px 4px 8px;">
                                     With VAT
                                 </div>
                             </td>
                             <td>
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                <div style="font-size: 11px; font-weight: bold; margin: 4px 8px 4px 8px;">
                                     Without VAT
                                 </div>
                             </td>
@@ -545,19 +547,19 @@
                     <table>
                         <tr>
                             <td colspan="2" style="text-align: center;">
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 8px 0px;">
+                                <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 8px 0px;">
                                     Total Other Currency
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                <div style="font-size: 11px; font-weight: bold; margin: 4px 8px 4px 8px;">
                                     With VAT
                                 </div>
                             </td>
                             <td>
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                <div style="font-size: 11px; font-weight: bold; margin: 4px 8px 4px 8px;">
                                     Without VAT
                                 </div>
                             </td>
@@ -565,7 +567,7 @@
                     </table>
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 4px 0px;">
                         Currency
                     </div>
                 </td>
@@ -574,27 +576,27 @@
             <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
                 <tr>
                     <td>
-                        <div style="margin-top: 4px;">
+                        <div style="margin-top: 4px; font-size: 11px;">
                             <?= $dataDetail['no']; ?>
                         </div>
                     </td>
                     <td>
-                        <div style="margin-top: 4px; max-width: 125px;">
+                        <div style="margin-top: 4px; max-width: 125px; font-size: 11px;">
                             <?= $dataDetail['productId'] . " - " . $dataDetail['productName']; ?>
                         </div>
                     </td>
                     <td>
-                        <div style="margin-top: 4px;">
+                        <div style="margin-top: 4px; font-size: 11px;">
                             <?= $dataDetail['qty']; ?>
                         </div>
                     </td>
                     <td>
-                        <div style="margin-top: 4px;">
+                        <div style="margin-top: 4px; font-size: 11px;">
                             <?= $dataDetail['price']; ?>
                         </div>
                     </td>
                     <td>
-                        <div style="margin-top: 4px;">
+                        <div style="margin-top: 4px; font-size: 11px;">
                             <?= $dataDetail['uom']; ?>
                         </div>
                     </td>
@@ -602,12 +604,12 @@
                         <table style="width: 100%;">
                             <tr>
                                 <td>
-                                    <div style="margin-top: 4px;">
+                                    <div style="margin-top: 4px; font-size: 11px;">
                                         <?= $dataDetail['totalIDRWithPPN']; ?>
                                     </div>
                                 </td>
                                 <td>
-                                    <div style="margin-top: 4px;">
+                                    <div style="margin-top: 4px; font-size: 11px;">
                                         <?= $dataDetail['totalIDRWithoutPPN']; ?>
                                     </div>
                                 </td>
@@ -618,12 +620,12 @@
                         <table style="width: 100%;">
                             <tr>
                                 <td>
-                                    <div style="margin-top: 4px;">
+                                    <div style="margin-top: 4px; font-size: 11px;">
                                         <?= $dataDetail['totalOtherCurrencyWithPPN']; ?>
                                     </div>
                                 </td>
                                 <td>
-                                    <div style="margin-top: 4px;">
+                                    <div style="margin-top: 4px; font-size: 11px;">
                                         <?= $dataDetail['totalOtherCurrencyWithPPN']; ?>
                                     </div>
                                 </td>
@@ -631,67 +633,12 @@
                         </table>
                     </td>
                     <td>
-                        <div style="margin-top: 4px;">
+                        <div style="margin-top: 4px; font-size: 11px;">
                             <?= $dataDetail['currency']; ?>
                         </div>
                     </td>
                 </tr>
             <?php } ?>
-
-            <!-- <div style="height: 16px;"></div>
-
-            <tr style="border-top: 1px solid black;">
-                <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
-                </td>
-                <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">Total</div>
-                </td>
-                <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?php $dataReport['totalQty']; ?></div>
-                </td>
-                <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
-                </td>
-                <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
-                </td>
-                <td style="height: 20px;">
-                    <table style="width: 100%;">
-                        <tr>
-                            <td style="height: 20px;">
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                                    <?= $dataReport['totalIDRWithPPN']; ?>
-                                </div>
-                            </td>
-                            <td style="height: 20px;">
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                                    <?= $dataReport['totalIDRWithoutPPN']; ?>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td style="height: 20px;">
-                    <table style="width: 100%;">
-                        <tr>
-                            <td style="height: 20px;">
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                                    <?= $dataReport['totalOtherCurrencyWithPPN']; ?>
-                                </div>
-                            </td>
-                            <td style="height: 20px;">
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                                    <?= $dataReport['totalOtherCurrencyWithoutPPN']; ?>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
-                </td>
-            </tr> -->
         </table>
     </main>
 </body>

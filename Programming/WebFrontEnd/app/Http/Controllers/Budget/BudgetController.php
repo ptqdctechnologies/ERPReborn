@@ -59,371 +59,285 @@ class BudgetController extends Controller
         return view('Budget.Budget.Transactions.ModifyBudget', $compact);
     }
 
-    public function UpdateModifyBudget(Request $request) {
+    public function ModifyBudgetPost(Request $request) {
         try {
             $varAPIWebToken     = $request->session()->get('SessionLogin');
 
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'files'             => json_decode($request->input('files'), true) == [] ? null : json_decode($request->input('files'), true),
-                'budgetID'          => $request->budgetID,
-                'budgetCode'        => $request->budgetCode,
-                'budgetName'        => $request->budgetName,
-                'subBudgetID'       => $request->subBudgetID,
-                'subBudgetCode'     => $request->subBudgetCode,
-                'subBudgetName'     => $request->subBudgetName,
-                'reason'            => $request->reason,
-                'additionalCO'      => $request->additionalCO,
-                'currencyID'        => $request->currencyID,
-                'currencySymbol'    => $request->currencySymbol,
-                'currencyName'      => $request->currencyName,
-                'idrRate'           => $request->valueIDRRate,
-                'valueAdditionalCO' => $request->valueAdditionalCO,
-                'valueDeductiveCO'  => $request->valueDeductiveCO,
-                'totalAdditional'   => $request->totalAdditional,
-                'totalSaving'       => $request->totalSaving,
-                'dataModifyBudget'  => json_decode($request->input('dataModifyBudget'), true),
-                'parsedData'        => json_decode($request->input('parsedData'), true),
-                'hiddenBudgetData'  => json_decode($request->input('hiddenBudgetData'), true),
+                'varAPIWebToken'        => $varAPIWebToken,
+                'files'                 => json_decode($request->input('files'), true) == [] ? null : json_decode($request->input('files'), true),
+                'budgetID'              => $request->budgetID,
+                'budgetCode'            => $request->budgetCode,
+                'budgetName'            => $request->budgetName,
+                'subBudgetID'           => $request->subBudgetID,
+                'subBudgetCode'         => $request->subBudgetCode,
+                'subBudgetName'         => $request->subBudgetName,
+                'reason'                => $request->reason,
+                'additionalCO'          => $request->additionalCO,
+                'currencyID'            => $request->currencyID,
+                'currencySymbol'        => $request->currencySymbol,
+                'currencyName'          => $request->currencyName,
+                'exchangeRate'          => $request->exchangeRate,
+                'valueCO'               => $request->valueCO,
+                'budgetDetailsData'     => json_decode($request->input('budgetDetailsData'), true),
+                'modifyBudgetListData'  => json_decode($request->input('modifyBudgetListData'), true),
+                'totalModifyFooterData' => $request->totalModifyFooter,
+                'totalPriceFooterData'  => $request->totalPriceFooter,
+                'totalAmountFooterData' => $request->totalAmountFooter,
             ];
             
-            // dump($compact);
+            // dd($request->exchangeRate);
             
-            return view('Budget.Budget.Transactions.UpdateModifyBudget', $compact);
+            return view('Budget.Budget.Transactions.ModifyBudgetPost', $compact);
         } catch (\Throwable $th) {
-            Log::error("Error at UpdateModifyBudget: " . $th->getMessage());
+            Log::error("Error at ModifyBudgetPost: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
 
     public function PreviewModifyBudget(Request $request) {
         try {
-            $varAPIWebToken = $request->session()->get('SessionLogin');
+            $varAPIWebToken         = $request->session()->get('SessionLogin');
+            $PIC                    = $request->session()->get("SessionLoginName");
 
-            // dd('Testing 1');
+            // Add Budget & Sub Budget Code
+            $budgetID               = $request->project_id;
+            $budgetCode             = $request->project_code;
+            $budgetName             = $request->project_name;
+            $subBudgetID            = $request->site_id;
+            $subBudgetCode          = $request->site_code;
+            $subBudgetName          = $request->site_name;
 
-            // PIC
-            $PIC                = $request->session()->get("SessionLoginName");
+            // Add Modify Budget
+            $reason                 = $request->reason_modify ?? '-';
+            $additionalCO           = $request->additional_co;
+            $currencyID             = $request->currency_id;
+            $currencySymbol         = $request->currency_symbol ?? '';
+            $currencyName           = $request->currency_name ?? '-';
+            $exchangeRate           = floatval($request->exchange_rate);
+            $valueCO                = floatval($request->value_co);
 
-            // BUDGET CODE
-            $budgetID           = $request->project_id;
-            $budgetCode         = $request->project_code;
-            $budgetName         = $request->project_name;
+            // File Attachment
+            $files                  = $request->dataInput_Log_FileUpload_1 ?? [];
 
-            // SUB BUDGET CODE
-            $subBudgetID        = $request->site_id;
-            $subBudgetCode      = $request->site_code;
-            $subBudgetName      = $request->site_name;
+            // Budget Details (table)
+            $budgetDetailsData      = $request->input('budgetDetailsData');
 
-            // dd($subBudgetID, $subBudgetCode, $subBudgetName, $request->site_code, $request->subBudgetCode);
+            // Modify Budget List (table)
+            $modifyBudgetListData   = $request->input('modifyBudgetListData');
+            $totalModifyFooter      = $request->input('totalModifyFooterData');
+            $totalPriceFooter       = $request->input('totalPriceFooterData');
+            $totalAmountFooter      = $request->input('totalAmountFooterData');
 
-            // REASON FOR MODIFY
-            $reason             = $request->reason_modify;
+            // dd($totalModifyFooter, $totalPriceFooter, $totalAmountFooter);
 
-            // ADDITIONAL CO
-            $additionalCO       = $request->additional_co;
+            // SECTION ONE
+            $addSubtSectionOneCO    = 0;
+            $addSubtSectionOneFC    = 0; // FC -> FOREIGN CURRENCY
 
-            // CURRENCY
-            $currencyID         = $request->currency_id;
-            $currencySymbol     = $request->currency_symbol ?? '';
-            $currencyName       = $request->currency_name ?? '-';
+            // SECTION TWO
+            $addSubtSectionTwoCO    = 0;
+            $addSubtSectionTwoFC    = 0; // FC -> FOREIGN CURRENCY
 
-            $hiddenBudgetData   = $request->input('hiddenBudgetData');
+            if ($currencySymbol != "IDR") {
+                if ($valueCO) {
+                    $addSubtSectionOneCO = $valueCO * $exchangeRate;
+                    $addSubtSectionOneFC = $valueCO;
 
-            $parsedData         = json_decode($hiddenBudgetData, true);
-
-            // dump($hiddenBudgetData, $parsedData);
-            
-            // IDR RATE
-            $idrRate            = floatval($request->value_idr_rate);
-            
-            // VALUE ADDITIONAL CO
-            $valueAdditionalCO  = floatval($request->value_co_additional);
-
-            // VALUE DEDUCTIVE CO
-            $valueDeductiveCO   = floatval($request->value_co_deductive);
-
-            // FILES
-            $files              = $request->dataInput_Log_FileUpload_1 ?? [];
-
-            // MODIFY BUDGET LIST TABLE (CART)
-            $productIds         = $request->input('product_id');
-            $productName        = $request->input('product_name');
-            $qtyBudget          = $request->input('qty_budget');
-            // $qtyAvail           = $request->input('qty_avail');
-            $price              = $request->input('price');
-            // $currency           = $request->input('currency');
-            // $balanceBudget      = $request->input('balance_budget');
-            $totalBudget        = $request->input('total_budget');
-            $qtyAdditionals     = $request->input('qty_additional');
-            $priceAdditionals   = $request->input('price_additional');
-            $totalAdditionals   = $request->input('total_additional');
-            $qtySavings         = $request->input('qty_saving');
-            $priceSavings       = $request->input('price_saving');
-            $totalSavings       = $request->input('total_saving');
-            $type               = $request->input('type');
-
-            // dd(
-            //     $budgetID, 
-            //     $budgetCode, 
-            //     $budgetName, 
-            //     $subBudgetID, 
-            //     $subBudgetCode, 
-            //     $subBudgetName, 
-            //     $reason, 
-            //     $additionalCO, 
-            //     $currencyID, 
-            //     $currencySymbol,
-            //     $currencyName,
-            //     $parsedData,
-            //     $idrRate,
-            //     $valueAdditionalCO,
-            //     $valueDeductiveCO,
-            //     $files,
-            // );
-
-            // dd(
-            //     $productIds,
-            //     $productName,
-            //     $qtyBudget,
-            //     $price,
-            //     $totalBudget,
-            //     $qtyAdditionals,
-            //     $priceAdditionals,
-            //     $totalAdditionals,
-            //     $qtySavings,
-            //     $priceSavings,
-            //     $totalSavings,
-            //     $type
-            // );
-
-            $addSubtSectionOne = 0;
-            if ($currencySymbol !== "IDR") {
-                if ($additionalCO == "yes") {
-                    if ($valueAdditionalCO) {
-                        $addSubtSectionOne = '+' . ($valueAdditionalCO * $idrRate);
-                    } else {
-                        $addSubtSectionOne = '-' . ($valueDeductiveCO * $idrRate);
-                    }
-                } else {
-                    $addSubtSectionOne = 0;
+                    $addSubtSectionTwoCO = $exchangeRate * $totalAmountFooter;
+                    $addSubtSectionTwoFC = $totalAmountFooter;
                 }
             } else {
-                if ($additionalCO == "yes") {
-                    if ($valueAdditionalCO) {
-                        $addSubtSectionOne = '+' . $valueAdditionalCO;
-                    } else {
-                        $addSubtSectionOne = '-' . $valueDeductiveCO;
-                    }
-                } else {
-                    $addSubtSectionOne = 0;
+                if ($valueCO) {
+                    $addSubtSectionOneCO = $valueCO;
+
+                    $addSubtSectionTwoCO = $valueCO;
                 }
             }
 
-            $i = 0;
-            $dataModifyBudget = [];
-            $totalAdditional = 0;
-            $totalSaving = 0;
-            foreach ($productIds as $index => $productId) {
-                $totalAdditional                            += $totalAdditionals[$index];
-                $totalSaving                                += $totalSavings[$index];
+            // dump($valueCO * $totalAmountFooter);
 
-                $dataModifyBudget[$i]['no']                 = $i + 1;
-                $dataModifyBudget[$i]['productID']          = $productIds[$index];
-                $dataModifyBudget[$i]['productName']        = $productName[$index];
-                $dataModifyBudget[$i]['qtyBudget']          = $qtyBudget[$index];
-                // $dataModifyBudget[$i]['qtyAvail']           = number_format($qtyAvail[$index], 2);
-                $dataModifyBudget[$i]['price']              = $price[$index];
-                // $dataModifyBudget[$i]['currency']           = $currency[$index];
-                // $dataModifyBudget[$i]['balanceBudget']      = number_format($balanceBudget[$index], 2);
-                $dataModifyBudget[$i]['totalBudget']        = $totalBudget[$index];
-                $dataModifyBudget[$i]['qtyAdditionals']     = number_format($qtyAdditionals[$index], 2);
-                $dataModifyBudget[$i]['priceAdditionals']   = number_format($priceAdditionals[$index], 2);
-                $dataModifyBudget[$i]['totalAdditionals']   = number_format($totalAdditionals[$index], 2);
-                $dataModifyBudget[$i]['qtySavings']         = number_format($qtySavings[$index], 2);
-                $dataModifyBudget[$i]['priceSavings']       = number_format($priceSavings[$index], 2);
-                $dataModifyBudget[$i]['totalSavings']       = number_format($totalSavings[$index], 2);
-                $dataModifyBudget[$i]['type']               = $type[$index] ?? 'formBudgetDetails';
-                
-                $i++;
-            }
+            // SECTION ONE
+            $originDummyCO              = 465000000;
+            $originDummyFC              = 0;
+            $totalCurrentCO             = $originDummyCO + $addSubtSectionOneCO;
+            $totalCurrentFC             = $originDummyFC + $addSubtSectionOneFC;
 
-            // dd($dataModifyBudget);
+            // SECTION TWO
+            $originDummyAddSubt         = 376712000;
+            $originDummyAddSubtFC       = 0;
+            $totalCurrentAddSubt        = $originDummyAddSubt + $addSubtSectionTwoCO;
+            $totalCurrentAddSubtFC      = $originDummyAddSubtFC + $addSubtSectionTwoFC;
+
+            // SECTION FOUR
+            $tempData                   = $originDummyCO - $originDummyAddSubt;
+            $originDummyGrossMargin     = $tempData / ($originDummyCO + $originDummyFC);
+            $previousDummyGrossMargin   = $tempData / ($originDummyCO + $originDummyFC);
+            $totalCurrentGrossMargin    = $tempData / ($totalCurrentCO + $totalCurrentFC);
 
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'pic'               => $PIC,
-                'budgetID'          => $budgetID,
-                'budgetCode'        => $budgetCode,
-                'budgetName'        => $budgetName,
-                'subBudgetID'       => $subBudgetID,
-                'subBudgetCode'     => $subBudgetCode,
-                'subBudgetName'     => $subBudgetName,
-                'reason'            => $reason ? $reason : '-',
-                'additionalCO'      => $additionalCO,
-                'currencyID'        => $currencyID,
-                'currencySymbol'    => $currencySymbol,
-                'currencyName'      => $currencyName,
-                'idrRate'           => $idrRate ? number_format($idrRate, 2) : '-',
-                'valueIDRRate'      => $idrRate,
-                'valueAdditionalCO' => $valueAdditionalCO,
-                'valueDeductiveCO'  => $valueDeductiveCO,
-                'files'             => $files,
-                'dataModifyBudget'  => $dataModifyBudget,
-                'totalAdditional'   => number_format($totalAdditional, 2),
-                'totalSaving'       => number_format($totalSaving, 2),
-                'parsedData'        => $parsedData,
-                'hiddenBudgetData'  => $hiddenBudgetData,
-                'dataTable'         => [
-                    'sectionOne'    => [
-                        'firstRow'  => [
-                            'description'   => 'Customer Oder (CO)',
+                'varAPIWebToken'            => $varAPIWebToken,
+                'pic'                       => $PIC,
+                'budgetID'                  => $budgetID,
+                'budgetCode'                => $budgetCode,
+                'budgetName'                => $budgetName,
+                'subBudgetID'               => $subBudgetID,
+                'subBudgetCode'             => $subBudgetCode,
+                'subBudgetName'             => $subBudgetName,
+                'reason'                    => $reason,
+                'additionalCO'              => $additionalCO,
+                'currencyID'                => $currencyID,
+                'currencySymbol'            => $currencySymbol,
+                'currencyName'              => $currencyName,
+                'exchangeRate'              => $exchangeRate,
+                'valueCO'                   => $valueCO,
+                'files'                     => $files,
+                'budgetDetailsData'         => json_decode($budgetDetailsData),
+                'modifyBudgetListData'      => json_decode($modifyBudgetListData),
+                'totalModifyFooter'         => $totalModifyFooter,
+                'totalPriceFooter'          => $totalPriceFooter,
+                'totalAmountFooter'         => $totalAmountFooter,
+                'dataTable'                 => [
+                    'sectionOne'            => [
+                        'firstRow'          => [
+                            'description'   => 'Customer Order (CO)',
                             'valuta'        => 'IDR',
-                            'origin'        => 465000000,
-                            'previous'      => 465000000,
-                            'addSubt'       => $addSubtSectionOne,
-                            'totalCurrent'  => $additionalCO == "yes" ? $valueAdditionalCO ? 465000000 + $addSubtSectionOne : 465000000 - $addSubtSectionOne : 465000000
+                            'origin'        => $originDummyCO,
+                            'previous'      => $originDummyCO,
+                            'addSubt'       => $addSubtSectionOneCO,
+                            'totalCurrent'  => $totalCurrentCO,
                         ],
-                        'secondRow' => [
+                        'secondRow'          => [
                             'description'   => '',
                             'valuta'        => 'Foreign Currency',
-                            'origin'        => 0,
-                            'previous'      => 0,
-                            'addSubt'       => $currencySymbol != "IDR" && $additionalCO == "yes" ? $valueAdditionalCO ? '+' . $valueAdditionalCO : '-' . $valueDeductiveCO : 0,
-                            'totalCurrent'  => 0
+                            'origin'        => $originDummyFC,
+                            'previous'      => $originDummyFC,
+                            'addSubt'       => $addSubtSectionOneFC,
+                            'totalCurrent'  => $totalCurrentFC,
                         ],
-                        'thirdRow' => [
-                            'description'   => 'Total Ekuivalen',
+                        'thirdRow'          => [
+                            'description'   => 'Total Equivalent',
                             'valuta'        => 'IDR',
-                            'origin'        => 0,
-                            'previous'      => 0,
-                            'addSubt'       => 0,
-                            'totalCurrent'  => 0
+                            'origin'        => $originDummyCO,
+                            'previous'      => $originDummyCO,
+                            'addSubt'       => $addSubtSectionOneCO,
+                            'totalCurrent'  => $totalCurrentCO,
+                            // 'origin'        => $originDummyCO + $originDummyFC,
+                            // 'previous'      => $originDummyCO + $originDummyFC,
+                            // 'addSubt'       => $addSubtSectionOneCO + $addSubtSectionOneFC,
+                            // 'totalCurrent'  => $totalCurrentCO + $totalCurrentFC,
                         ],
                     ],
-                    'sectionTwo'    => [
-                        'firstRow'  => [
+                    'sectionTwo'            => [
+                        'firstRow'          => [
                             'description'   => 'Add(Subt) Cost',
                             'valuta'        => 'IDR',
-                            'origin'        => 376712000,
-                            'previous'      => 376712000,
-                            'addSubt'       => $addSubtSectionOne,
-                            // 'addSubt'       => $totalAdditional - $totalSaving,
-                            'totalCurrent'  => 376712000 + $addSubtSectionOne
+                            'origin'        => $originDummyAddSubt,
+                            'previous'      => $originDummyAddSubt,
+                            'addSubt'       => $addSubtSectionTwoCO,
+                            'totalCurrent'  => $totalCurrentAddSubt,
                         ],
-                        'secondRow' => [
+                        'secondRow'          => [
                             'description'   => '',
                             'valuta'        => 'Foreign Currency',
-                            'origin'        => 0,
-                            'previous'      => 0,
-                            'addSubt'       => $currencySymbol != "IDR" && $additionalCO == "yes" ? $valueAdditionalCO ? '+' . $valueAdditionalCO : '-' . $valueDeductiveCO : 0,
-                            // 'addSubt'       => 0,
-                            'totalCurrent'  => 0
+                            'origin'        => $originDummyAddSubtFC,
+                            'previous'      => $originDummyAddSubtFC,
+                            'addSubt'       => $addSubtSectionTwoFC,
+                            'totalCurrent'  => $totalCurrentAddSubtFC,
                         ],
-                        'thirdRow' => [
-                            'description'   => '',
-                            'valuta'        => '',
-                            'origin'        => 'Recorded Cost',
-                            'previous'      => 0,
-                            'addSubt'       => '',
-                            'totalCurrent'  => ''
-                        ],
-                        'fourthRow' => [
-                            'description'   => '',
-                            'valuta'        => '',
-                            'origin'        => 'Balanced Budget',
-                            'previous'      => 0,
-                            'addSubt'       => '',
-                            'totalCurrent'  => ''
-                        ],
-                        'fifthRow' => [
-                            'description'   => 'Total Ekuivalen',
+                        'thirdRow'          => [
+                            'description'   => 'Total Equivalent',
                             'valuta'        => 'IDR',
-                            'origin'        => 0,
-                            'previous'      => 376712000,
-                            'addSubt'       => 0,
-                            'totalCurrent'  => 376712000
-                        ]
+                            // 'origin'        => $originDummyAddSubt + $originDummyAddSubtFC,
+                            // 'previous'      => $originDummyAddSubt + $originDummyAddSubtFC,
+                            // 'addSubt'       => $addSubtSectionTwoCO + $addSubtSectionTwoFC,
+                            // 'totalCurrent'  => $totalCurrentAddSubt + $totalCurrentAddSubtFC,
+                            'origin'        => $originDummyAddSubt,
+                            'previous'      => $originDummyAddSubt,
+                            'addSubt'       => $addSubtSectionTwoCO,
+                            'totalCurrent'  => $totalCurrentAddSubt,
+                        ],
                     ],
-                    'sectionThree'  => [
-                        'firstRow'  => [
+                    'sectionThree'          => [
+                        'firstRow'          => [
                             'description'   => 'Gross Margin',
                             'valuta'        => 'IDR',
-                            'origin'        => 0,
-                            'previous'      => 79288000,
+                            'origin'        => $tempData,
+                            'previous'      => $tempData,
                             'addSubt'       => 0,
-                            'totalCurrent'  => 79288000
+                            'totalCurrent'  => $totalCurrentCO - $totalCurrentAddSubt,
                         ],
-                        'secondRow' => [
+                        'secondRow'          => [
                             'description'   => '',
                             'valuta'        => 'Foreign Currency',
                             'origin'        => 0,
                             'previous'      => 0,
                             'addSubt'       => 0,
-                            'totalCurrent'  => 0
+                            'totalCurrent'  => 0,
                         ],
-                        'thirdRow' => [
-                            'description'   => 'Total Ekuivalen',
+                        'thirdRow'          => [
+                            'description'   => 'Total Equivalent',
                             'valuta'        => 'IDR',
-                            'origin'        => 0,
-                            'previous'      => 79288000,
+                            'origin'        => $tempData,
+                            'previous'      => $tempData,
                             'addSubt'       => 0,
-                            'totalCurrent'  => 79288000
+                            'totalCurrent'  => $totalCurrentCO - $totalCurrentAddSubt,
+                            // 'totalCurrent'  => ($totalCurrentCO + $totalCurrentFC) - ($totalCurrentAddSubt + $totalCurrentAddSubtFC),
                         ],
                     ],
-                    'sectionFour'  => [
-                        'firstRow'  => [
+                    'sectionFour'          => [
+                        'firstRow'          => [
                             'description'   => 'Gross Margin',
                             'valuta'        => '%',
-                            'origin'        => 0,
-                            'previous'      => 17.39,
+                            'origin'        => $originDummyGrossMargin,
+                            'previous'      => $previousDummyGrossMargin,
                             'addSubt'       => '',
-                            'totalCurrent'  => 17.39
+                            'totalCurrent'  => $totalCurrentGrossMargin,
                         ],
-                        'secondRow' => [
+                        'secondRow'          => [
                             'description'   => 'Gross Margin Movement',
                             'valuta'        => '%',
-                            'origin'        => 17.39,
-                            'previous'      => 0,
+                            'origin'        => $totalCurrentGrossMargin - $originDummyGrossMargin,
+                            'previous'      => $totalCurrentGrossMargin - $previousDummyGrossMargin,
                             'addSubt'       => '',
-                            'totalCurrent'  => ''
+                            'totalCurrent'  => '',
                         ],
-                    ],
-                    'sectionFive'  => [
-                        'firstRow'  => [
+                        'thirdRow'          => [
                             'description'   => 'Recorded Cost',
                             'valuta'        => 'IDR',
                             'origin'        => '',
                             'previous'      => '',
                             'addSubt'       => '',
-                            'totalCurrent'  => 0
+                            'totalCurrent'  => 0,
                         ],
-                        'secondRow' => [
+                        'fourthRow'          => [
                             'description'   => '',
                             'valuta'        => 'Foreign Currency',
                             'origin'        => '',
                             'previous'      => '',
                             'addSubt'       => '',
-                            'totalCurrent'  => 0
+                            'totalCurrent'  => 0,
                         ],
-                        'thirdRow' => [
-                            'description'   => 'Total Ekuivalen',
+                        'fifthRow'          => [
+                            'description'   => 'Total Equivalent',
                             'valuta'        => 'IDR',
                             'origin'        => '',
                             'previous'      => '',
                             'addSubt'       => '',
-                            'totalCurrent'  => 0
+                            'totalCurrent'  => 0,
                         ],
-                        'fourthRow' => [
+                    ],
+                    'sectionFive'          => [
+                        'firstRow'          => [
                             'description'   => 'Actual Gross Margin',
                             'valuta'        => '%',
                             'origin'        => '',
                             'previous'      => '',
                             'addSubt'       => '',
-                            'totalCurrent'  => 0
+                            'totalCurrent'  => 0,
                         ],
                     ],
-                ],
+                ]
             ];
 
             // dd($compact);
