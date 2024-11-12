@@ -3,29 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\accounting                     |
-|                \getChartOfAccountLinkage\v1                                                                                      |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\accounting\getCombinedChartOfAccount\v1     |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\accounting\getChartOfAccountLinkage\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\accounting\getCombinedChartOfAccount\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getChartOfAccountLinkage                                                                                     |
-    | ▪ Description : Menangani API transaction.read.dataList.accounting.getChartOfAccountLinkage Version 1                        |
+    | ▪ Class Name  : getCombinedChartOfAccount                                                                                    |
+    | ▪ Description : Menangani API dataPickList.accounting.getCombinedChartOfAccount Version 1                                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getChartOfAccountLinkage extends \App\Http\Controllers\Controller
+    class getCombinedChartOfAccount extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-02                                                                                           |
-        | ▪ Creation Date   : 2024-05-02                                                                                           |
+        | ▪ Last Update     : 2024-11-12                                                                                           |
+        | ▪ Creation Date   : 2024-11-12                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-02                                                                                           |
-        | ▪ Creation Date   : 2024-05-02                                                                                           |
+        | ▪ Last Update     : 2024-11-12                                                                                           |
+        | ▪ Creation Date   : 2024-11-12                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,27 +58,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Code Of Accounting (COA) Data List (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Code Of Accounting (COA) (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE))
-                            {
-                            throw new \Exception('SQL Injection Threat Prevention');
-                            }
-
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_Accounting\General())->getDataListJSON_ChartOfAccountLinkage(
-                                    $varUserSession, 
-                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
-                                    $varData['parameter']['effectiveDateTimeTZ'], 
+                                (new \App\Models\Database\SchData_OLTP_Accounting\General())->getDataPickListJSON_CombinedChartOfAccount(
+                                    $varUserSession,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
-                                    $varData['SQLStatement']['pick'], 
-                                    $varData['SQLStatement']['sort'], 
-                                    $varData['SQLStatement']['filter'], 
-                                    $varData['SQLStatement']['paging']
+                                    $varData['parameter']['effectiveDateTimeTZ']
                                     ),
                                 FALSE
                                 )
@@ -108,5 +98,3 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             }
         }
     }
-
-?>
