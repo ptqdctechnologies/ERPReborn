@@ -4,25 +4,26 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\accounting         |
-|                 \getChartOfAccount\v1                                                                                            |
-| ▪ API Key     : transaction.read.dataList.accounting.getChartOfAccount                                                           |
+|                 \getCombinedChartOfAccount\v1                                                                                    |
+| ▪ API Key     : transaction.read.dataList.accounting.getCombinedChartOfAccount                                                   |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\accounting\getChartOfAccount\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\accounting\getCombinedChartOfAccount\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.accounting.getChartOfAccount.v1_throughAPIGateway         |
-        |                     ► http://172.28.0.4/transaction.read.dataList.accounting.getChartOfAccount.v1_throughAPIGateway      |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.accounting.getCombinedChartOfAccount.v1_throughAPIGateway |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.read.dataList.accounting.getCombinedChartOfAccount.v1_throughAPIGateway                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-08-22                                                                                           |
-        | ▪ Creation Date   : 2023-08-22                                                                                           |
+        | ▪ Last Update     : 2024-11-12                                                                                           |
+        | ▪ Creation Date   : 2024-11-12                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -38,7 +39,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken, 
-                    'transaction.read.dataList.accounting.getChartOfAccount', 
+                    'transaction.read.dataList.accounting.getCombinedChartOfAccount', 
                     'latest', 
                     [
                     'parameter' => [
@@ -59,13 +60,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.accounting.getChartOfAccount.v1_throughAPIGatewayJQuery   |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.accounting.getCombinedChartOfAccount.v1_throughAPIGatewayJQuery   |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.read.dataList.accounting.getChartOfAccount.v1_throughAPIGatewayJQuery                  |
+        |                       transaction.read.dataList.accounting.getCombinedChartOfAccount.v1_throughAPIGatewayJQuery                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-08-22                                                                                           |
-        | ▪ Creation Date   : 2023-08-22                                                                                           |
+        | ▪ Last Update     : 2024-11-12                                                                                           |
+        | ▪ Creation Date   : 2024-11-12                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -89,7 +90,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                     $varAPIWebToken, 
-                    'transaction.read.dataList.accounting.getChartOfAccount', 
+                    'transaction.read.dataList.accounting.getCombinedChartOfAccount', 
                     'latest', 
                     '{'.
                         '"parameter" : {'.

@@ -4,28 +4,28 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\accounting                     |
-|                \getChartOfAccountLinkage\v1                                                                                      |
+|                \getCombinedChartOfAccount\v1                                                                                     |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\accounting\getChartOfAccountLinkage\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\accounting\getCombinedChartOfAccount\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getChartOfAccountLinkage                                                                                     |
-    | ▪ Description : Menangani API transaction.read.dataList.accounting.getChartOfAccountLinkage Version 1                        |
+    | ▪ Class Name  : getCombinedChartOfAccount                                                                                    |
+    | ▪ Description : Menangani API transaction.read.dataList.accounting.getCombinedChartOfAccount Version 1                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getChartOfAccountLinkage extends \App\Http\Controllers\Controller
+    class getCombinedChartOfAccount extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-02                                                                                           |
-        | ▪ Creation Date   : 2024-05-02                                                                                           |
+        | ▪ Last Update     : 2024-11-12                                                                                           |
+        | ▪ Creation Date   : 2024-11-12                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-02                                                                                           |
-        | ▪ Creation Date   : 2024-05-02                                                                                           |
+        | ▪ Last Update     : 2024-11-12                                                                                           |
+        | ▪ Creation Date   : 2024-11-12                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -71,9 +71,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_Accounting\General())->getDataListJSON_ChartOfAccountLinkage(
+                                (new \App\Models\Database\SchData_OLTP_Accounting\General())->getDataListJSON_CombinedChartOfAccount(
                                     $varUserSession, 
-                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                                     $varData['parameter']['effectiveDateTimeTZ'], 
 
                                     $varData['SQLStatement']['pick'], 

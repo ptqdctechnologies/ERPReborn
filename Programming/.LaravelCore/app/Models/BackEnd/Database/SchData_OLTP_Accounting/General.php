@@ -78,7 +78,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-08-22                                                                                           |
         | ▪ Creation Date   : 2023-08-22                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Code Of Accounting (COA)                                                          |
+        | ▪ Description     : Mendapatkan Daftar Chart Of Account (COA)                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -137,7 +137,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2024-05-02                                                                                           |
         | ▪ Creation Date   : 2024-05-02                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Code Of Accounting (COA)                                                          |
+        | ▪ Description     : Mendapatkan Daftar Chart Of Account (COA) Linkage                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -191,6 +191,201 @@ namespace App\Models\Database\SchData_OLTP_Accounting
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_ChartOfAccount                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-11-12                                                                                           |
+        | ▪ Creation Date   : 2024-11-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Chart Of Account (COA)                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varEffectiveDateTimeTZ ► Effective DateTimeTZ                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_ChartOfAccount(
+            $varUserSession, int $varBranchID, 
+            string $varEffectiveDateTimeTZ = null, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Accounting.Func_GetDataListJSON_ChartOfAccount',
+                            [
+                                [$varBranchID, 'bigint' ],
+
+                                [$varEffectiveDateTimeTZ, 'timestamptz' ],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_ChartOfAccount']
+                        );
+
+                return
+                    $varReturn['data'];
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_ChartOfAccountLinkage                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-11-12                                                                                           |
+        | ▪ Creation Date   : 2024-11-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Chart Of Account (COA) Linkage                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varEffectiveDateTimeTZ ► Effective DateTimeTZ                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_ChartOfAccountLinkage(
+            $varUserSession, int $varBranchID, 
+            string $varEffectiveDateTimeTZ = null, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Accounting.Func_GetDataListJSON_ChartOfAccountLinkage',
+                            [
+                                [$varBranchID, 'bigint' ],
+
+                                [$varEffectiveDateTimeTZ, 'timestamptz' ],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_ChartOfAccountLinkage']
+                        );
+
+                return
+                    $varReturn['data'];
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_CombinedChartOfAccount                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-11-12                                                                                           |
+        | ▪ Creation Date   : 2024-11-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Combined Code Of Accounting (COA)                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varEffectiveDateTimeTZ ► Effective DateTimeTZ                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_CombinedChartOfAccount(
+            $varUserSession, int $varBranchID, 
+            string $varEffectiveDateTimeTZ = null, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Accounting.Func_GetDataListJSON_CombinedChartOfAccount',
+                            [
+                                [$varBranchID, 'bigint' ],
+
+                                [$varEffectiveDateTimeTZ, 'timestamptz' ],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_CombinedChartOfAccount']
+                        );
+
+                return
+                    $varReturn['data'];
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataPickList_ChartOfAccount                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -202,7 +397,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
-        |      ▪ (int)    varBank_RefID ► Bank Reference ID                                                                        |
+        |      ▪ (string) varEffectiveDateTimeTZ ► Effective DateTimeTZ                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -243,13 +438,13 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-10-13                                                                                           |
         | ▪ Creation Date   : 2022-10-13                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Bagan Akun                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Bagan Akun Tertaut                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
-        |      ▪ (int)    varBank_RefID ► Bank Reference ID                                                                        |
+        |      ▪ (string) varEffectiveDateTimeTZ ► Effective DateTimeTZ                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -271,6 +466,213 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varEffectiveDateTimeTZ, 'timestamptz']
                             ]
                             )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_CombinedChartOfAccount                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-11-12                                                                                           |
+        | ▪ Creation Date   : 2024-11-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Gabungan Bagan Akun                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varEffectiveDateTimeTZ ► Effective DateTimeTZ                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_CombinedChartOfAccount(
+            $varUserSession, int $varBranchID, 
+            string $varEffectiveDateTimeTZ = null)
+            {
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Accounting.Func_GetDataPickList_CombinedChartOfAccount',
+                            [
+                                [$varBranchID, 'bigint'],
+                                [$varEffectiveDateTimeTZ, 'timestamptz']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickListJSON_ChartOfAccount                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-10-13                                                                                           |
+        | ▪ Creation Date   : 2022-10-13                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Bagan Akun                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varEffectiveDateTimeTZ ► Effective DateTimeTZ                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickListJSON_ChartOfAccount(
+            $varUserSession, int $varBranchID, 
+            string $varEffectiveDateTimeTZ = null)
+            {
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Accounting.Func_GetDataPickListJSON_ChartOfAccount',
+                            [
+                                [$varBranchID, 'bigint'],
+                                [$varEffectiveDateTimeTZ, 'timestamptz']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataPickListJSON_ChartOfAccount']
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickListJSON_ChartOfAccountLinkage                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-10-13                                                                                           |
+        | ▪ Creation Date   : 2022-10-13                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Bagan Akun Tertaut                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varEffectiveDateTimeTZ ► Effective DateTimeTZ                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickListJSON_ChartOfAccountLinkage(
+            $varUserSession, int $varBranchID, 
+            string $varEffectiveDateTimeTZ = null)
+            {
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Accounting.Func_GetDataPickListJSON_ChartOfAccountLinkage',
+                            [
+                                [$varBranchID, 'bigint'],
+
+                                [$varEffectiveDateTimeTZ, 'timestamptz']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataPickListJSON_ChartOfAccountLinkage']
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickListJSON_CombinedChartOfAccount                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-11-12                                                                                           |
+        | ▪ Creation Date   : 2024-11-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Gabungan Bagan Akun                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varEffectiveDateTimeTZ ► Effective DateTimeTZ                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickListJSON_CombinedChartOfAccount(
+            $varUserSession, int $varBranchID, 
+            string $varEffectiveDateTimeTZ = null)
+            {
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Accounting.Func_GetDataPickListJSON_CombinedChartOfAccount',
+                            [
+                                [$varBranchID, 'bigint'],
+                                [$varEffectiveDateTimeTZ, 'timestamptz']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataPickListJSON_CombinedChartOfAccount']
                         );
 
                 return

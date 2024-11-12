@@ -32,18 +32,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'dataPickList.accounting.getChartOfAccountLinkage', 
-                'latest',
-                [
-                'parameter' => [
-                    //'effectiveDateTimeTZ' => '2010-01-01 00:00:00+07'
-                    'effectiveDateTimeTZ' => NULL
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'dataPickList.accounting.getChartOfAccountLinkage', 
+                    'latest',
+                    [
+                    'parameter' => [
+                        //'effectiveDateTimeTZ' => '2010-01-01 00:00:00+07'
+                        'effectiveDateTimeTZ' => NULL
+                        ]
                     ]
-                ]
-                );
+                    );
             var_dump($varData);
             }
 
@@ -70,17 +71,18 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
             echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Parameter</p></td></tr>';
             echo '<tr><td>EffectiveDateTimeTZ</td><td><input type="text" id="dataInput_EffectiveDateTimeTZ" value="2010-01-01 00:00:00+07"></td></tr>';
             echo '</table>';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'dataPickList.accounting.getChartOfAccountLinkage', 
-                'latest', 
-                '{'.
-                    '"parameter" : {'.
-                        'effectiveDateTimeTZ :  document.getElementById("dataInput_EffectiveDateTimeTZ").value '.
-                        '}'.
-                '}'
-                );            
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                    $varAPIWebToken, 
+                    'dataPickList.accounting.getChartOfAccountLinkage', 
+                    'latest', 
+                    '{'.
+                        '"parameter" : {'.
+                            'effectiveDateTimeTZ :  document.getElementById("dataInput_EffectiveDateTimeTZ").value '.
+                            '}'.
+                    '}'
+                    );            
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }
