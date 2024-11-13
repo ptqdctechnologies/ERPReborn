@@ -749,7 +749,7 @@
     });
 </script>
 
-<!-- BUTTON SUBMIT OR CANCEL -->
+<!-- BUTTON SUBMIT DISABLED FALSE -->
 <script>
     const siteCode = document.getElementById('site_code');
     const reasonForModify = document.getElementById('reason_modify');
@@ -775,4 +775,49 @@
 
     siteCode.addEventListener('input', checkTableData);
     reasonForModify.addEventListener('input', checkTableData);
+</script>
+
+<!-- BUTTON CANCEL -->
+<script>
+    const cancelButton = document.getElementById('cancelButton');
+    const budgetTbodyTable = document.querySelector('#budgetTable tbody');
+
+    cancelButton.addEventListener('click', function() {
+        while (listBudgetTableBody.firstChild) {
+            listBudgetTableBody.removeChild(listBudgetTableBody.firstChild);
+        }
+
+        while (budgetTbodyTable.firstChild) {
+            budgetTbodyTable.removeChild(budgetTbodyTable.firstChild);
+        }
+
+        $('#project_code_popup').removeClass('disabled').css('pointer-events', 'auto');
+        $('#site_code_popup').removeClass('disabled').css('pointer-events', 'auto');
+        
+        $("#project_id").val("");
+        $("#project_code").val("");
+        $("#project_name").val("");
+
+        $("#site_id").val("");
+        $("#site_code").val("");
+        $("#site_name").val("");
+
+        $("#reason_modify").val("");
+        $("#currency_id").val("");
+        $("#currency_symbol").val("");
+        $("#currency_name").val("");
+        $("#exchange_rate").val("");
+        $("#value_co").val("");
+
+        $("#budgetDetailsData").val("");
+        $("#modifyBudgetListData").val("");
+        
+        document.getElementById('totalModifyFooter').textContent = 0;
+        document.getElementById('totalPriceFooter').textContent = 0;
+        document.getElementById('totalAmountFooter').textContent = 0;
+
+        document.getElementById('totalModifyFooterData').value = 0;
+        document.getElementById('totalPriceFooterData').value = 0;
+        document.getElementById('totalAmountFooterData').value = 0;
+    });
 </script>

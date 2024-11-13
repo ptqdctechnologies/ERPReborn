@@ -20,12 +20,12 @@
         
             <form id="modifyBudgetForm" method="post" enctype="multipart/form-data" action="{{ route('Budget.PreviewModifyBudget') }}">
             @csrf
-                <input type="hidden" id="budgetDetailsData" name="budgetDetailsData" />
-                <input type="hidden" id="modifyBudgetListData" name="modifyBudgetListData" />
+                <input hidden id="budgetDetailsData" name="budgetDetailsData" />
+                <input hidden id="modifyBudgetListData" name="modifyBudgetListData" />
 
-                <input type="hidden" id="totalModifyFooterData" name="totalModifyFooterData" />
-                <input type="hidden" id="totalPriceFooterData" name="totalPriceFooterData" />
-                <input type="hidden" id="totalAmountFooterData" name="totalAmountFooterData" />
+                <input hidden id="totalModifyFooterData" name="totalModifyFooterData" />
+                <input hidden id="totalPriceFooterData" name="totalPriceFooterData" />
+                <input hidden id="totalAmountFooterData" name="totalAmountFooterData" />
 
                 <!-- CONTENT -->
                 <div class="card">
@@ -70,7 +70,7 @@
                                     </div>
 
                                     <div class="card-body">
-                                        <div class="py-3" >
+                                        <div class="py-3">
                                             <!-- REASON FOR MODIFY -->
                                             <div class="row" style="margin-bottom: 1rem;">
                                                 <div class="col-lg-5">
@@ -146,7 +146,7 @@
                                             </div>
 
                                             <!-- VALUE CO -->
-                                            <div id="value_co_field" class="row" style="margin-bottom: 1rem;">
+                                            <div id="value_co_field" class="row">
                                                 <div class="col-lg-5">
                                                     <div class="row">
                                                         <label for="value_co" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Value CO(+/-)</label>
