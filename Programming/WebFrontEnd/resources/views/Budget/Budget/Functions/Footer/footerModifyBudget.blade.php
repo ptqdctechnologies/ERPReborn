@@ -559,16 +559,16 @@
 
                 if (existingRow) {
                     existingRow.cells[0].textContent = productId;
-                    existingRow.cells[9].textContent = modifyInput.value;
-                    existingRow.cells[10].textContent = priceInput.value;
+                    existingRow.cells[9].textContent = numberFormatPHPCustom(modifyInput.value.replace(/,/g, ""), 2);
+                    existingRow.cells[10].textContent = numberFormatPHPCustom(priceInput.value.replace(/,/g, ""), 2);
                     existingRow.cells[11].textContent = totalInput.value;
                     updated = true;
                 } else {
                     const clonedRow = row.cloneNode(true);
 
                     const productIdValue = productId;
-                    const modifyValue = modifyInput.value;
-                    const priceValue = priceInput.value;
+                    const modifyValue = numberFormatPHPCustom(modifyInput.value.replace(/,/g, ""), 2);
+                    const priceValue = numberFormatPHPCustom(priceInput.value.replace(/,/g, ""), 2);
                     const totalValue = totalInput.value;
 
                     clonedRow.cells[0].textContent = productIdValue;
@@ -589,8 +589,8 @@
                     currency,
                     balanceBudget,
                     totalBudget,
-                    modifyInput: modifyInput.value,
-                    priceInput: priceInput.value,
+                    modifyInput: numberFormatPHPCustom(modifyInput.value.replace(/,/g, ""), 2),
+                    priceInput: numberFormatPHPCustom(priceInput.value.replace(/,/g, ""), 2),
                     totalInput: totalInput.value
                 });
             }
