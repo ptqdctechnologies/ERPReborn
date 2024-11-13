@@ -6,41 +6,27 @@ use LogicException;
 use PHPStan\PhpDocParser\Ast;
 use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
+use PHPStan\PhpDocParser\ParserConfig;
 use function in_array;
 use function str_replace;
 use function strlen;
 use function strpos;
 use function substr_compare;
-use function trim;
 
 class TypeParser
 {
 
-	/** @var ConstExprParser|null */
-	private $constExprParser;
+	private ParserConfig $config;
 
-	/** @var bool */
-	private $quoteAwareConstExprString;
+	private ConstExprParser $constExprParser;
 
-	/** @var bool */
-	private $useLinesAttributes;
-
-	/** @var bool */
-	private $useIndexAttributes;
-
-	/**
-	 * @param array{lines?: bool, indexes?: bool} $usedAttributes
-	 */
 	public function __construct(
-		?ConstExprParser $constExprParser = null,
-		bool $quoteAwareConstExprString = false,
-		array $usedAttributes = []
+		ParserConfig $config,
+		ConstExprParser $constExprParser
 	)
 	{
+		$this->config = $config;
 		$this->constExprParser = $constExprParser;
-		$this->quoteAwareConstExprString = $quoteAwareConstExprString;
-		$this->useLinesAttributes = $usedAttributes['lines'] ?? false;
-		$this->useIndexAttributes = $usedAttributes['indexes'] ?? false;
 	}
 
 	/** @phpstan-impure */
@@ -73,12 +59,12 @@ class TypeParser
 	 */
 	public function enrichWithAttributes(TokenIterator $tokens, Ast\Node $type, int $startLine, int $startIndex): Ast\Node
 	{
-		if ($this->useLinesAttributes) {
+		if ($this->config->useLinesAttributes) {
 			$type->setAttribute(Ast\Attribute::START_LINE, $startLine);
 			$type->setAttribute(Ast\Attribute::END_LINE, $tokens->currentTokenLine());
 		}
 
-		if ($this->useIndexAttributes) {
+		if ($this->config->useIndexAttributes) {
 			$type->setAttribute(Ast\Attribute::START_INDEX, $startIndex);
 			$type->setAttribute(Ast\Attribute::END_INDEX, $tokens->endIndexOfLastRelevantToken());
 		}
@@ -196,7 +182,7 @@ class TypeParser
 					if ($tokens->isCurrentTokenType(Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
 						$type = $this->tryParseArrayOrOffsetAccess(
 							$tokens,
-							$this->enrichWithAttributes($tokens, $type, $startLine, $startIndex)
+							$this->enrichWithAttributes($tokens, $type, $startLine, $startIndex),
 						);
 					}
 				}
@@ -214,19 +200,8 @@ class TypeParser
 		$currentTokenOffset = $tokens->currentTokenOffset();
 		$currentTokenLine = $tokens->currentTokenLine();
 
-		if ($this->constExprParser === null) {
-			throw new ParserException(
-				$currentTokenValue,
-				$currentTokenType,
-				$currentTokenOffset,
-				Lexer::TOKEN_IDENTIFIER,
-				null,
-				$currentTokenLine
-			);
-		}
-
 		try {
-			$constExpr = $this->constExprParser->parse($tokens, true);
+			$constExpr = $this->constExprParser->parse($tokens);
 			if ($constExpr instanceof Ast\ConstExpr\ConstExprArrayNode) {
 				throw new ParserException(
 					$currentTokenValue,
@@ -234,7 +209,7 @@ class TypeParser
 					$currentTokenOffset,
 					Lexer::TOKEN_IDENTIFIER,
 					null,
-					$currentTokenLine
+					$currentTokenLine,
 				);
 			}
 
@@ -242,7 +217,7 @@ class TypeParser
 				$tokens,
 				new Ast\Type\ConstTypeNode($constExpr),
 				$startLine,
-				$startIndex
+				$startIndex,
 			);
 			if ($tokens->isCurrentTokenType(Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
 				$type = $this->tryParseArrayOrOffsetAccess($tokens, $type);
@@ -256,7 +231,7 @@ class TypeParser
 				$currentTokenOffset,
 				Lexer::TOKEN_IDENTIFIER,
 				null,
-				$currentTokenLine
+				$currentTokenLine,
 			);
 		}
 	}
@@ -602,7 +577,7 @@ class TypeParser
 			$tokens,
 			$this->parseTemplateTagValue($tokens),
 			$startLine,
-			$startIndex
+			$startIndex,
 		);
 	}
 
@@ -629,7 +604,7 @@ class TypeParser
 			$tokens,
 			new Ast\Type\CallableTypeParameterNode($type, $isReference, $isVariadic, $parameterName, $isOptional),
 			$startLine,
-			$startIndex
+			$startIndex,
 		);
 	}
 
@@ -657,7 +632,7 @@ class TypeParser
 					$tokens,
 					$type,
 					$startLine,
-					$startIndex
+					$startIndex,
 				));
 			}
 
@@ -676,15 +651,15 @@ class TypeParser
 								$tokens,
 								$type,
 								$startLine,
-								$startIndex
-							)
+								$startIndex,
+							),
 						);
 						if ($tokens->isCurrentTokenType(Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
 							$type = $this->tryParseArrayOrOffsetAccess($tokens, $this->enrichWithAttributes(
 								$tokens,
 								$type,
 								$startLine,
-								$startIndex
+								$startIndex,
 							));
 						}
 
@@ -693,7 +668,7 @@ class TypeParser
 							$tokens,
 							$type,
 							$startLine,
-							$startIndex
+							$startIndex,
 						));
 
 					} elseif (in_array($type->name, [
@@ -710,7 +685,7 @@ class TypeParser
 								$tokens,
 								$type,
 								$startLine,
-								$startIndex
+								$startIndex,
 							), $type->name);
 						}
 
@@ -719,7 +694,7 @@ class TypeParser
 								$tokens,
 								$type,
 								$startLine,
-								$startIndex
+								$startIndex,
 							));
 						}
 					}
@@ -738,19 +713,8 @@ class TypeParser
 		$currentTokenOffset = $tokens->currentTokenOffset();
 		$currentTokenLine = $tokens->currentTokenLine();
 
-		if ($this->constExprParser === null) {
-			throw new ParserException(
-				$currentTokenValue,
-				$currentTokenType,
-				$currentTokenOffset,
-				Lexer::TOKEN_IDENTIFIER,
-				null,
-				$currentTokenLine
-			);
-		}
-
 		try {
-			$constExpr = $this->constExprParser->parse($tokens, true);
+			$constExpr = $this->constExprParser->parse($tokens);
 			if ($constExpr instanceof Ast\ConstExpr\ConstExprArrayNode) {
 				throw new ParserException(
 					$currentTokenValue,
@@ -758,7 +722,7 @@ class TypeParser
 					$currentTokenOffset,
 					Lexer::TOKEN_IDENTIFIER,
 					null,
-					$currentTokenLine
+					$currentTokenLine,
 				);
 			}
 
@@ -766,7 +730,7 @@ class TypeParser
 				$tokens,
 				new Ast\Type\ConstTypeNode($constExpr),
 				$startLine,
-				$startIndex
+				$startIndex,
 			);
 			if ($tokens->isCurrentTokenType(Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
 				$type = $this->tryParseArrayOrOffsetAccess($tokens, $type);
@@ -780,7 +744,7 @@ class TypeParser
 				$currentTokenOffset,
 				Lexer::TOKEN_IDENTIFIER,
 				null,
-				$currentTokenLine
+				$currentTokenLine,
 			);
 		}
 	}
@@ -826,7 +790,7 @@ class TypeParser
 							$tokens,
 							$type,
 							$startLine,
-							$startIndex
+							$startIndex,
 						);
 					}
 				} else {
@@ -839,7 +803,7 @@ class TypeParser
 							$tokens,
 							$type,
 							$startLine,
-							$startIndex
+							$startIndex,
 						);
 					}
 				}
@@ -869,7 +833,7 @@ class TypeParser
 			$tokens->tryConsumeTokenType(Lexer::TOKEN_PHPDOC_EOL);
 
 			if ($tokens->tryConsumeTokenType(Lexer::TOKEN_CLOSE_CURLY_BRACKET)) {
-				return new Ast\Type\ArrayShapeNode($items, true, $kind);
+				return Ast\Type\ArrayShapeNode::createSealed($items, $kind);
 			}
 
 			if ($tokens->tryConsumeTokenType(Lexer::TOKEN_VARIADIC)) {
@@ -897,7 +861,11 @@ class TypeParser
 		$tokens->tryConsumeTokenType(Lexer::TOKEN_PHPDOC_EOL);
 		$tokens->consumeTokenType(Lexer::TOKEN_CLOSE_CURLY_BRACKET);
 
-		return new Ast\Type\ArrayShapeNode($items, $sealed, $kind, $unsealedType);
+		if ($sealed) {
+			return Ast\Type\ArrayShapeNode::createSealed($items, $kind);
+		}
+
+		return Ast\Type\ArrayShapeNode::createUnsealed($items, $unsealedType, $kind);
 	}
 
 
@@ -918,7 +886,7 @@ class TypeParser
 				$tokens,
 				new Ast\Type\ArrayShapeItemNode($key, $optional, $value),
 				$startLine,
-				$startIndex
+				$startIndex,
 			);
 		} catch (ParserException $e) {
 			$tokens->rollback();
@@ -928,7 +896,7 @@ class TypeParser
 				$tokens,
 				new Ast\Type\ArrayShapeItemNode(null, false, $value),
 				$startLine,
-				$startIndex
+				$startIndex,
 			);
 		}
 	}
@@ -947,19 +915,11 @@ class TypeParser
 			$tokens->next();
 
 		} elseif ($tokens->isCurrentTokenType(Lexer::TOKEN_SINGLE_QUOTED_STRING)) {
-			if ($this->quoteAwareConstExprString) {
-				$key = new Ast\ConstExpr\QuoteAwareConstExprStringNode(StringUnescaper::unescapeString($tokens->currentTokenValue()), Ast\ConstExpr\QuoteAwareConstExprStringNode::SINGLE_QUOTED);
-			} else {
-				$key = new Ast\ConstExpr\ConstExprStringNode(trim($tokens->currentTokenValue(), "'"));
-			}
+			$key = new Ast\ConstExpr\ConstExprStringNode(StringUnescaper::unescapeString($tokens->currentTokenValue()), Ast\ConstExpr\ConstExprStringNode::SINGLE_QUOTED);
 			$tokens->next();
 
 		} elseif ($tokens->isCurrentTokenType(Lexer::TOKEN_DOUBLE_QUOTED_STRING)) {
-			if ($this->quoteAwareConstExprString) {
-				$key = new Ast\ConstExpr\QuoteAwareConstExprStringNode(StringUnescaper::unescapeString($tokens->currentTokenValue()), Ast\ConstExpr\QuoteAwareConstExprStringNode::DOUBLE_QUOTED);
-			} else {
-				$key = new Ast\ConstExpr\ConstExprStringNode(trim($tokens->currentTokenValue(), '"'));
-			}
+			$key = new Ast\ConstExpr\ConstExprStringNode(StringUnescaper::unescapeString($tokens->currentTokenValue()), Ast\ConstExpr\ConstExprStringNode::DOUBLE_QUOTED);
 
 			$tokens->next();
 
@@ -972,7 +932,7 @@ class TypeParser
 			$tokens,
 			$key,
 			$startLine,
-			$startIndex
+			$startIndex,
 		);
 	}
 
@@ -1005,7 +965,7 @@ class TypeParser
 			$tokens,
 			new Ast\Type\ArrayShapeUnsealedTypeNode($valueType, $keyType),
 			$startLine,
-			$startIndex
+			$startIndex,
 		);
 	}
 
@@ -1029,7 +989,7 @@ class TypeParser
 			$tokens,
 			new Ast\Type\ArrayShapeUnsealedTypeNode($valueType, null),
 			$startLine,
-			$startIndex
+			$startIndex,
 		);
 	}
 
@@ -1084,19 +1044,11 @@ class TypeParser
 		$startIndex = $tokens->currentTokenIndex();
 
 		if ($tokens->isCurrentTokenType(Lexer::TOKEN_SINGLE_QUOTED_STRING)) {
-			if ($this->quoteAwareConstExprString) {
-				$key = new Ast\ConstExpr\QuoteAwareConstExprStringNode(StringUnescaper::unescapeString($tokens->currentTokenValue()), Ast\ConstExpr\QuoteAwareConstExprStringNode::SINGLE_QUOTED);
-			} else {
-				$key = new Ast\ConstExpr\ConstExprStringNode(trim($tokens->currentTokenValue(), "'"));
-			}
+			$key = new Ast\ConstExpr\ConstExprStringNode(StringUnescaper::unescapeString($tokens->currentTokenValue()), Ast\ConstExpr\ConstExprStringNode::SINGLE_QUOTED);
 			$tokens->next();
 
 		} elseif ($tokens->isCurrentTokenType(Lexer::TOKEN_DOUBLE_QUOTED_STRING)) {
-			if ($this->quoteAwareConstExprString) {
-				$key = new Ast\ConstExpr\QuoteAwareConstExprStringNode(StringUnescaper::unescapeString($tokens->currentTokenValue()), Ast\ConstExpr\QuoteAwareConstExprStringNode::DOUBLE_QUOTED);
-			} else {
-				$key = new Ast\ConstExpr\ConstExprStringNode(trim($tokens->currentTokenValue(), '"'));
-			}
+			$key = new Ast\ConstExpr\ConstExprStringNode(StringUnescaper::unescapeString($tokens->currentTokenValue()), Ast\ConstExpr\ConstExprStringNode::DOUBLE_QUOTED);
 			$tokens->next();
 
 		} else {

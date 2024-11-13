@@ -2427,6 +2427,7 @@ return array(
     'Illuminate\\Auth\\MustVerifyEmail' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/MustVerifyEmail.php',
     'Illuminate\\Auth\\Notifications\\ResetPassword' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/Notifications/ResetPassword.php',
     'Illuminate\\Auth\\Notifications\\VerifyEmail' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/Notifications/VerifyEmail.php',
+    'Illuminate\\Auth\\Passwords\\CacheTokenRepository' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/Passwords/CacheTokenRepository.php',
     'Illuminate\\Auth\\Passwords\\CanResetPassword' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/Passwords/CanResetPassword.php',
     'Illuminate\\Auth\\Passwords\\DatabaseTokenRepository' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/Passwords/DatabaseTokenRepository.php',
     'Illuminate\\Auth\\Passwords\\PasswordBroker' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/Passwords/PasswordBroker.php',
