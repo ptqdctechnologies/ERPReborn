@@ -541,7 +541,7 @@
 
         [...budgetTable.rows].forEach((row, index) => {
             const productIdTemp = row.querySelector('input[name="product_id_show"]');
-            const productId     = row.cells[1].textContent != "null" ? row.cells[1].textContent.trim() : productIdTemp.value;
+            const productId     = row.cells[1].textContent && row.cells[1].textContent != "null" ? row.cells[1].textContent.trim() : productIdTemp.value;
             const productName   = row.cells[2].textContent.trim();
             const qtyBudget     = row.cells[3].textContent.trim();
             const qtyAvail      = row.cells[4].textContent.trim();
