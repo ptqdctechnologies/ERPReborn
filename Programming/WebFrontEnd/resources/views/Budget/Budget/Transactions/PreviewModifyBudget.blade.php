@@ -578,25 +578,25 @@
                             <tbody>
                                 <?php foreach ($modifyBudgetListData as $modifyBudgetData) { ?>
                                     <tr>
-                                        <td class="text-center">
+                                        <td class="text-left" style="padding-left: .70rem;">
                                             <?= $modifyBudgetData->productId; ?>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-left">
                                             <?= $modifyBudgetData->productName; ?>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-left">
                                             <?= $modifyBudgetData->totalBudget; ?>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-left">
                                             <?= $modifyBudgetData->totalBudget; ?>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-left">
                                             <?= $modifyBudgetData->modifyInput; ?>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-left">
                                             <?= $modifyBudgetData->priceInput; ?>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-left">
                                             <?= $modifyBudgetData->totalInput; ?>
                                         </td>
                                     </tr>
@@ -604,10 +604,10 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="6" class="font-weight-bold" style="font-size: 12px;">
+                                    <td colspan="6" class="font-weight-bold text-left" style="font-size: 12px;">
                                         GRAND TOTAL
                                     </td>
-                                    <td class="font-weight-bold text-center">
+                                    <td class="font-weight-bold text-left">
                                         <?= number_format($totalAmountFooter, 2); ?>
                                     </td>
                                 </tr>

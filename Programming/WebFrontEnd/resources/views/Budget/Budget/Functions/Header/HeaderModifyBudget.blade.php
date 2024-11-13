@@ -9,7 +9,9 @@
                 </div>
                 <div>
                     <span style="border-radius:0;" class="input-group-text form-control">
-                        <a href="#" id="project_code_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                        <a href="#" id="project_code_popup" data-toggle="modal" data-target="#myProject" class="myProject">
+                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                        </a>
                     </span>
                 </div>
                 <div style="flex: 100%;">
