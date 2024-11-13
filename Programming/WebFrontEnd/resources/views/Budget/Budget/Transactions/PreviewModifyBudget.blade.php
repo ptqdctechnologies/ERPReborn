@@ -570,6 +570,7 @@
                                     <th class="text-center">Product Name</th>
                                     <th class="text-center">Origin</th>
                                     <th class="text-center">Previous</th>
+                                    <th class="text-center">Qty(+/-)</th>
                                     <th class="text-center">Add(subt)</th>
                                     <th class="text-center">Total</th>
                                 </tr>
@@ -590,7 +591,10 @@
                                             <?= $modifyBudgetData->totalBudget; ?>
                                         </td>
                                         <td class="text-center">
-                                            <?= number_format($modifyBudgetData->priceInput, 2); ?>
+                                            <?= $modifyBudgetData->modifyInput; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $modifyBudgetData->priceInput; ?>
                                         </td>
                                         <td class="text-center">
                                             <?= $modifyBudgetData->totalInput; ?>
@@ -600,7 +604,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="5" class="font-weight-bold" style="font-size: 12px;">
+                                    <td colspan="6" class="font-weight-bold" style="font-size: 12px;">
                                         GRAND TOTAL
                                     </td>
                                     <td class="font-weight-bold text-center">

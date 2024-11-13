@@ -425,9 +425,18 @@
 <script>
   function allowNumbersOnly(inputElement) {
     inputElement.addEventListener('input', function(e) {
-      // Mengizinkan hanya angka dan simbol minus di awal
-      this.value = this.value.replace(/(?!^-)[^0-9]/g, ''); // Hapus semua karakter kecuali angka
-      this.value = this.value.replace(/(.)-+/g, '$1'); // Hapus minus di posisi selain awal
+      let value = this.value
+        .replace(/(?!^-)[^0-9.]/g, '')
+        .replace(/^-{2,}/g, '-')
+        .replace(/^(-?\d*\.?\d{0,2}).*$/, '$1');
+
+      if (value.includes('.')) {
+        let [integerPart, decimalPart] = value.split('.');
+        integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        this.value = `${integerPart}.${decimalPart}`;
+      } else {
+        this.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
     });
   }
 
@@ -437,7 +446,19 @@
 
   function allowNumbersWithoutNegative(inputElement) {
     inputElement.addEventListener('input', function(e) {
-      this.value = this.value.replace(/[^0-9]/g, '');
+      let value = this.value.replace(/[^0-9.]/g, '');
+      const parts = value.split('.');
+
+      if (parts.length > 2) {
+        value = parts[0] + '.' + parts[1];
+      }
+
+      if (parts[1]) {
+        parts[1] = parts[1].substring(0, 2);
+      }
+
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      this.value = parts.join('.');
     });
   }
 

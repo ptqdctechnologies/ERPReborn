@@ -91,7 +91,7 @@
 
         // DIGUNAKAN PADA HALAMAN MODIFY BUDGET
         if (isProductIdDuplicate(sys_id, key)) {
-            Swal.fire("Error", "This product is already selected in another row. Please choose a different product.", "error");
+            Swal.fire("Error", "Product ID already exists, please choose another one.", "error");
             return;
         }
         

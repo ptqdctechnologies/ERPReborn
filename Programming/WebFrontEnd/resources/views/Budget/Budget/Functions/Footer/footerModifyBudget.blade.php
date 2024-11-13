@@ -454,8 +454,8 @@
         const balancedBudget = row.children[7].textContent.trim().replace(/,/g, '') == '-' ? 0 : parseFloat(row.children[7].textContent.trim().replace(/,/g, ''));
         const totalBudget = row.children[8].textContent.trim().replace(/,/g, '') == '-' ? 0 : parseFloat(row.children[8].textContent.trim().replace(/,/g, ''));
 
-        const modifyValue = parseFloat(modifyInput.value) || 0;
-        const priceValue = parseFloat(priceInput.value) || 0;
+        const modifyValue = parseFloat(modifyInput.value.replace(/,/g, '')) || 0;
+        const priceValue = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
         
         const resultQtyInput = qtyAvail + modifyValue;
 
@@ -464,7 +464,7 @@
             modifyInput.value = qtyAvail;
         }
 
-        const totalValue = modifyInput.value * priceValue;
+        const totalValue = modifyValue * priceValue;
         const resultTotalInput = balancedBudget + totalValue;
 
         if (resultTotalInput < 0) {
@@ -474,7 +474,7 @@
         totalInput.value = numberFormatPHPCustom(totalValue, 2);
     }
 
-    $('#budgetTable tbody').on('blur', 'input[name="modify_budget_details"], input[name="price_budget_details"]', function () {
+    $('#budgetTable tbody').on('keyup', 'input[name="modify_budget_details"], input[name="price_budget_details"]', function () {
         const row = $(this).closest('tr')[0];
         calculateTotal(row);
     });
@@ -559,8 +559,8 @@
 
                 if (existingRow) {
                     existingRow.cells[0].textContent = productId;
-                    existingRow.cells[9].textContent = numberFormatPHPCustom(modifyInput.value, 2);
-                    existingRow.cells[10].textContent = numberFormatPHPCustom(priceInput.value, 2);
+                    existingRow.cells[9].textContent = modifyInput.value;
+                    existingRow.cells[10].textContent = priceInput.value;
                     existingRow.cells[11].textContent = totalInput.value;
                     updated = true;
                 } else {
@@ -572,8 +572,8 @@
                     const totalValue = totalInput.value;
 
                     clonedRow.cells[0].textContent = productIdValue;
-                    clonedRow.cells[9].textContent = numberFormatPHPCustom(modifyValue, 2);
-                    clonedRow.cells[10].textContent = numberFormatPHPCustom(priceValue, 2);
+                    clonedRow.cells[9].textContent = modifyValue;
+                    clonedRow.cells[10].textContent = priceValue;
                     clonedRow.cells[11].textContent = totalValue;
 
                     listBudgetTable.appendChild(clonedRow);
