@@ -2693,6 +2693,8 @@ return array(
     'Aws\\Bedrock\\Exception\\BedrockException' => $vendorDir . '/aws/aws-sdk-php/src/Bedrock/Exception/BedrockException.php',
     'Aws\\BillingConductor\\BillingConductorClient' => $vendorDir . '/aws/aws-sdk-php/src/BillingConductor/BillingConductorClient.php',
     'Aws\\BillingConductor\\Exception\\BillingConductorException' => $vendorDir . '/aws/aws-sdk-php/src/BillingConductor/Exception/BillingConductorException.php',
+    'Aws\\Billing\\BillingClient' => $vendorDir . '/aws/aws-sdk-php/src/Billing/BillingClient.php',
+    'Aws\\Billing\\Exception\\BillingException' => $vendorDir . '/aws/aws-sdk-php/src/Billing/Exception/BillingException.php',
     'Aws\\Braket\\BraketClient' => $vendorDir . '/aws/aws-sdk-php/src/Braket/BraketClient.php',
     'Aws\\Braket\\Exception\\BraketException' => $vendorDir . '/aws/aws-sdk-php/src/Braket/Exception/BraketException.php',
     'Aws\\Budgets\\BudgetsClient' => $vendorDir . '/aws/aws-sdk-php/src/Budgets/BudgetsClient.php',

@@ -223,8 +223,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'ZipStream\\' => 
         array (
@@ -3351,6 +3351,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\Bedrock\\Exception\\BedrockException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Bedrock/Exception/BedrockException.php',
         'Aws\\BillingConductor\\BillingConductorClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/BillingConductor/BillingConductorClient.php',
         'Aws\\BillingConductor\\Exception\\BillingConductorException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/BillingConductor/Exception/BillingConductorException.php',
+        'Aws\\Billing\\BillingClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Billing/BillingClient.php',
+        'Aws\\Billing\\Exception\\BillingException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Billing/Exception/BillingException.php',
         'Aws\\Braket\\BraketClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Braket/BraketClient.php',
         'Aws\\Braket\\Exception\\BraketException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Braket/Exception/BraketException.php',
         'Aws\\Budgets\\BudgetsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Budgets/BudgetsClient.php',
