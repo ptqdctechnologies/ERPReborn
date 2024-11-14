@@ -205,6 +205,7 @@
 
                             $.each(dummy, function(key, val2) {
                                 var used = val2.quantityAbsorptionRatio * 100;
+                                var product_name_id = 'product_name' + key;
 
                                 if (used == "0.00" && val2.quantity == "0.00") {
                                     var applied = 0;
@@ -244,7 +245,9 @@
                                         '</td>' +
 
                                         '<td class="container-tbody-tr-budget" style="text-align: center !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
-                                        '<td class="container-tbody-tr-budget" style="text-align: left !important; width: 50px;">' + val2.productName + '</td>' +
+                                        '<td class="container-tbody-tr-budget" style="text-align: left !important; width: 50px;">' + 
+                                            '<span id="' + product_name_id + '">' + val2.productName + '</span>' +
+                                        '</td>' +
                                         '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
@@ -261,6 +264,7 @@
                         } else {
                             $.each(data, function(key, val2) {
                                 var used = val2.quantityAbsorptionRatio * 100;
+                                var product_name_id = 'product_name' + key;
 
                                 if (used == "0.00" && val2.quantity == "0.00") {
                                     var applied = 0;
@@ -300,7 +304,9 @@
                                         '</td>' +
 
                                         '<td class="container-tbody-tr-budget" style="text-align: center !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
-                                        '<td class="container-tbody-tr-budget" style="text-align: left !important; width: 50px;">' + val2.productName + '</td>' +
+                                        '<td class="container-tbody-tr-budget" style="text-align: left !important; width: 50px;">' + 
+                                            '<span id="' + product_name_id + '">' + val2.productName + '</span>' +
+                                        '</td>' +
                                         '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +

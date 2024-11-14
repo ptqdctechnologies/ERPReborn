@@ -581,7 +581,7 @@
                                         <td class="text-left" style="padding-left: .70rem;">
                                             <?= $modifyBudgetData->productId; ?>
                                         </td>
-                                        <td class="text-left">
+                                        <td class="text-left text-wrap">
                                             <?= $modifyBudgetData->productName; ?>
                                         </td>
                                         <td class="text-left">
