@@ -115,7 +115,10 @@ class BudgetController extends Controller
             $currencySymbol         = $request->currency_symbol ?? '';
             $currencyName           = $request->currency_name ?? '-';
             $exchangeRate           = floatval($request->exchange_rate);
-            $valueCO                = floatval($request->value_co);
+            $valueCO                = str_replace(",", "", $request->value_co);
+
+            // dump($request->value_co);
+            // dump($valueCO);
 
             // File Attachment
             $files                  = $request->dataInput_Log_FileUpload_1 ?? [];
