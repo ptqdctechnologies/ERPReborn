@@ -3953,6 +3953,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\PI\\PIClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PI/PIClient.php',
         'Aws\\Panorama\\Exception\\PanoramaException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Panorama/Exception/PanoramaException.php',
         'Aws\\Panorama\\PanoramaClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Panorama/PanoramaClient.php',
+        'Aws\\PartnerCentralSelling\\Exception\\PartnerCentralSellingException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PartnerCentralSelling/Exception/PartnerCentralSellingException.php',
+        'Aws\\PartnerCentralSelling\\PartnerCentralSellingClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PartnerCentralSelling/PartnerCentralSellingClient.php',
         'Aws\\PaymentCryptographyData\\Exception\\PaymentCryptographyDataException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PaymentCryptographyData/Exception/PaymentCryptographyDataException.php',
         'Aws\\PaymentCryptographyData\\PaymentCryptographyDataClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PaymentCryptographyData/PaymentCryptographyDataClient.php',
         'Aws\\PaymentCryptography\\Exception\\PaymentCryptographyException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PaymentCryptography/Exception/PaymentCryptographyException.php',

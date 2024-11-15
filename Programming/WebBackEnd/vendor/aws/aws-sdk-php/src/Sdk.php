@@ -542,6 +542,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionPI(array $args = [])
  * @method \Aws\Panorama\PanoramaClient createPanorama(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPanorama(array $args = [])
+ * @method \Aws\PartnerCentralSelling\PartnerCentralSellingClient createPartnerCentralSelling(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionPartnerCentralSelling(array $args = [])
  * @method \Aws\PaymentCryptography\PaymentCryptographyClient createPaymentCryptography(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPaymentCryptography(array $args = [])
  * @method \Aws\PaymentCryptographyData\PaymentCryptographyDataClient createPaymentCryptographyData(array $args = [])
@@ -787,7 +789,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.326.0';
+    const VERSION = '3.327.1';
 
     /** @var array Arguments for creating clients */
     private $args;

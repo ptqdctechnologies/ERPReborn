@@ -3295,6 +3295,8 @@ return array(
     'Aws\\PI\\PIClient' => $vendorDir . '/aws/aws-sdk-php/src/PI/PIClient.php',
     'Aws\\Panorama\\Exception\\PanoramaException' => $vendorDir . '/aws/aws-sdk-php/src/Panorama/Exception/PanoramaException.php',
     'Aws\\Panorama\\PanoramaClient' => $vendorDir . '/aws/aws-sdk-php/src/Panorama/PanoramaClient.php',
+    'Aws\\PartnerCentralSelling\\Exception\\PartnerCentralSellingException' => $vendorDir . '/aws/aws-sdk-php/src/PartnerCentralSelling/Exception/PartnerCentralSellingException.php',
+    'Aws\\PartnerCentralSelling\\PartnerCentralSellingClient' => $vendorDir . '/aws/aws-sdk-php/src/PartnerCentralSelling/PartnerCentralSellingClient.php',
     'Aws\\PaymentCryptographyData\\Exception\\PaymentCryptographyDataException' => $vendorDir . '/aws/aws-sdk-php/src/PaymentCryptographyData/Exception/PaymentCryptographyDataException.php',
     'Aws\\PaymentCryptographyData\\PaymentCryptographyDataClient' => $vendorDir . '/aws/aws-sdk-php/src/PaymentCryptographyData/PaymentCryptographyDataClient.php',
     'Aws\\PaymentCryptography\\Exception\\PaymentCryptographyException' => $vendorDir . '/aws/aws-sdk-php/src/PaymentCryptography/Exception/PaymentCryptographyException.php',
