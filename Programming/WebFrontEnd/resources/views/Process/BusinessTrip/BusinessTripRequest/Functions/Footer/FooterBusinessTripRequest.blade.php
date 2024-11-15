@@ -22,12 +22,11 @@
     $("#requester_icon").hide();
 </script>
 
-
 <script>
   $('#tableGetProject tbody').on('click', 'tr', function() {
 
     //RESET FORM
-    document.getElementById("FormSubmitBusinessTrip").reset();
+    // document.getElementById("FormSubmitBusinessTrip").reset();
     $("#dataInput_Log_FileUpload_Pointer_RefID").val("");
     $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val("");
     $('#zhtSysObjDOMTable_Upload_ActionPanel').find('tbody').empty();
@@ -532,7 +531,7 @@
   var date = new Date();
   var today = new Date(date.setMonth(date.getMonth() - 3));
   document.getElementById('dateCommance').setAttribute('min', today.toISOString().split('T')[0]);
-  document.getElementById('dateDepart').setAttribute('min', today.toISOString().split('T')[0]);
+  // document.getElementById('dateDepart').setAttribute('min', today.toISOString().split('T')[0]);
 </script>
 
 <script>
@@ -765,5 +764,71 @@
       // }
     });
 
+  });
+</script>
+
+<!-- FUNCTION TOTAL TRANSPORT -->
+<script>
+  function calculateTotalTransport() {
+    const taxi = parseFloat(document.getElementById('taxi').value.replace(/,/g, '')) || 0;
+    const airplane = parseFloat(document.getElementById('airplane').value.replace(/,/g, '')) || 0;
+    const train = parseFloat(document.getElementById('train').value.replace(/,/g, '')) || 0;
+    const bus = parseFloat(document.getElementById('bus').value.replace(/,/g, '')) || 0;
+    const ship = parseFloat(document.getElementById('ship').value.replace(/,/g, '')) || 0;
+    const tolRoad = parseFloat(document.getElementById('tol_road').value.replace(/,/g, '')) || 0;
+    const park = parseFloat(document.getElementById('park').value.replace(/,/g, '')) || 0;
+    const accessBagage = parseFloat(document.getElementById('access_bagage').value.replace(/,/g, '')) || 0;
+    const fuel = parseFloat(document.getElementById('fuel').value.replace(/,/g, '')) || 0;
+
+    const total = taxi + airplane + train + bus + ship + tolRoad + park + accessBagage + fuel;
+
+    document.getElementById('total_transport').value = total.toFixed(2);
+  }
+
+  const transportInputs = [
+    'taxi',
+    'airplane',
+    'train',
+    'bus',
+    'ship',
+    'tol_road',
+    'park',
+    'access_bagage',
+    'fuel'
+  ];
+
+  transportInputs.forEach(id => {
+    const inputElement = document.getElementById(id);
+    if (inputElement) {
+      inputElement.addEventListener('input', calculateTotalTransport);
+    }
+  });
+</script>
+
+<!-- FUNCTION TOTAL ACCOMODATION -->
+<script>
+  function calculateTotalAccomodation() {
+    const hotel = parseFloat(document.getElementById('hotel').value.replace(/,/g, '')) || 0;
+    const mess = parseFloat(document.getElementById('mess').value.replace(/,/g, '')) || 0;
+    const guest_house = parseFloat(document.getElementById('guest_house').value.replace(/,/g, '')) || 0;
+    const other_accomodation = parseFloat(document.getElementById('other_accomodation').value.replace(/,/g, '')) || 0;
+
+    const total = hotel + mess + guest_house + other_accomodation;
+
+    document.getElementById('total_accomodation').value = total.toFixed(2);
+  }
+
+  const accomodationInputs = [
+    'hotel',
+    'mess',
+    'guest_house',
+    'other_accomodation',
+  ];
+
+  accomodationInputs.forEach(id => {
+    const inputElement = document.getElementById(id);
+    if (inputElement) {
+      inputElement.addEventListener('input', calculateTotalAccomodation);
+    }
   });
 </script>

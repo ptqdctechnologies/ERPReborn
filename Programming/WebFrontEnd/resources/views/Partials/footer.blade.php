@@ -445,22 +445,45 @@
   });
 
   function allowNumbersWithoutNegative(inputElement) {
-    inputElement.addEventListener('input', function(e) {
-      let value = this.value.replace(/[^0-9.]/g, '');
+    inputElement.addEventListener('input', function () {
+      let value = this.value;
+
+      value = value.replace(/[^0-9.]/g, '');
+
+      const firstDotIndex = value.indexOf('.');
+      if (firstDotIndex !== -1) {
+        value = value.slice(0, firstDotIndex + 1) + value.slice(firstDotIndex + 1).replace(/\./g, '');
+      }
+
       const parts = value.split('.');
 
-      if (parts.length > 2) {
-        value = parts[0] + '.' + parts[1];
-      }
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
       if (parts[1]) {
         parts[1] = parts[1].substring(0, 2);
       }
 
-      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       this.value = parts.join('.');
     });
   }
+
+  // function allowNumbersWithoutNegative(inputElement) {
+  //   inputElement.addEventListener('input', function(e) {
+  //     let value = this.value.replace(/[^0-9.]/g, '');
+  //     const parts = value.split('.');
+
+  //     if (parts.length > 2) {
+  //       value = parts[0] + '.' + parts[1];
+  //     }
+
+  //     if (parts[1]) {
+  //       parts[1] = parts[1].substring(0, 2);
+  //     }
+
+  //     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  //     this.value = parts.join('.');
+  //   });
+  // }
 
   document.querySelectorAll('.number-without-negative').forEach(function(input) {
     allowNumbersWithoutNegative(input);
