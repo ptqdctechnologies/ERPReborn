@@ -7,6 +7,8 @@
 @include('getFunction.getProject')
 @include('getFunction.getSite')
 @include('getFunction.getWorker')
+@include('getFunction.getBeneficiary')
+@include('getFunction.getBank')
 
 <div class="content-wrapper">
   <section class="content">
@@ -129,7 +131,7 @@
                         <!-- CONTACT PHONE -->
                         <div class="row" style="margin-bottom: 1rem;">
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Contact Phone</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                             <div class="input-group">
                               <input id="contactPhone" name="contactPhone" style="border-radius:0;" type="text" class="form-control" disabled>
                             </div>
@@ -139,7 +141,7 @@
                         <!-- DATE COMMANCE TRAVEL -->
                         <div class="row" style="margin-bottom: 1rem;">
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Date Commance Travel</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                             <div class="input-group">
                               <input id="dateCommance" name="dateCommance" style="border-radius:0;" type="date" class="form-control">
                             </div>
@@ -149,7 +151,7 @@
                         <!-- DATE END TRAVEL -->
                         <div class="row" style="margin-bottom: 1rem;">
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Date End Travel</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                             <div class="input-group">
                               <input id="dateEnd" name="dateEnd" style="border-radius:0;" type="date" class="form-control">
                             </div>
@@ -161,20 +163,17 @@
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
                           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                             <div>
-                              <input id="requester_detail" style="border-radius:0; width: 60px;" class="form-control" name="requester_detail" readonly>
+                              <input id="beneficiary_detail" style="border-radius:0; width: 60px;" class="form-control" name="beneficiary_detail" readonly>
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="#" id="requester_popup" data-toggle="modal" data-target="#myWorker" class="myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                <a href="#" id="beneficiary_popup" data-toggle="modal" data-target="#myBeneficiary" class="myBeneficiary"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                               </span>
                             </div>
                             <div style="flex: 100%;">
-                              <input name="requester" id="requester" style="border-radius:0;" type="text" class="form-control" readonly>
-                              <input name="requester_id" id="requester_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
-                              <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
-                              <!-- <span id="requester_icon" title="Please Input Requester">
-                                <img src="{{ asset('AdminLTE-master/dist/img/mandatory.png') }}" width="17" alt="">
-                              </span> -->
+                              <input name="beneficiary" id="beneficiary" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input name="person_refID" id="person_refID" style="border-radius:0;" type="hidden" class="form-control" readonly>
+                              <input name="beneficiary_id" id="beneficiary_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
                             </div>
                           </div>
                         </div>
@@ -184,9 +183,9 @@
                         <!-- DEPARTING FROM -->
                         <div class="row" style="margin-bottom: 1rem;">
                           <label for="headStationLocation" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Departing From</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                             <div class="input-group">
-                              <input id="headStationLocation" name="headStationLocation" style="border-radius:0;" type="text" class="form-control">
+                              <input id="headStationLocation" name="headStationLocation" style="border-radius:0;" type="text" class="form-control" autocomplete="off">
                             </div>
                           </div>
                         </div>
@@ -194,9 +193,9 @@
                         <!-- DESTINATION TO -->
                         <div class="row" style="margin-bottom: 1rem;">
                           <label for="bussinesLocation" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Destination To</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                             <div class="input-group">
-                              <input id="bussinesLocation" name="bussinesLocation" style="border-radius:0;" type="text" class="form-control">
+                              <input id="bussinesLocation" name="bussinesLocation" style="border-radius:0;" type="text" class="form-control" autocomplete="off">
                             </div>
                           </div>
                         </div>
@@ -214,20 +213,18 @@
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                             <div>
-                              <input id="requester_detail" style="border-radius:0; width: 60px;" class="form-control" name="requester_detail" readonly>
+                              <input id="bank_name" style="border-radius:0; width: 60px;" name="bank_name" class="form-control" readonly>
+                              <input id="bank_code" style="border-radius:0;" class="form-control" name="bank_code" hidden>
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="#" id="requester_popup" data-toggle="modal" data-target="#myWorker" class="myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                <a href="#" id="bank_name_popup" data-toggle="modal" data-target="#myGetBank" class="myGetBank">
+                                  <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                </a>
                               </span>
                             </div>
                             <div style="flex: 100%;">
-                              <input name="requester" id="requester" style="border-radius:0;" type="text" class="form-control" readonly>
-                              <input name="requester_id" id="requester_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
-                              <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
-                              <!-- <span id="requester_icon" title="Please Input Requester">
-                                <img src="{{ asset('AdminLTE-master/dist/img/mandatory.png') }}" width="17" alt="">
-                              </span> -->
+                              <input id="bank_name_detail" style="border-radius:0;" class="form-control" name="bank_name_detail" readonly>
                             </div>
                           </div>
                         </div>
@@ -237,20 +234,16 @@
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                             <div>
-                              <input id="requester_detail" style="border-radius:0; width: 60px;" class="form-control" name="requester_detail" readonly>
+                              <input id="bank_account" style="border-radius:0; width: 90px;" name="bank_account" class="form-control" readonly>
+                              <input id="bank_account_id" style="border-radius:0;" class="form-control" name="bank_account_id" hidden>
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="#" id="requester_popup" data-toggle="modal" data-target="#myWorker" class="myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                <a href="#" id="bank_account_popup" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                               </span>
                             </div>
                             <div style="flex: 100%;">
-                              <input name="requester" id="requester" style="border-radius:0;" type="text" class="form-control" readonly>
-                              <input name="requester_id" id="requester_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
-                              <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
-                              <!-- <span id="requester_icon" title="Please Input Requester">
-                                <img src="{{ asset('AdminLTE-master/dist/img/mandatory.png') }}" width="17" alt="">
-                              </span> -->
+                              <input id="bank_account_detail" style="border-radius:0;" class="form-control" name="bank_account_detail" readonly>
                             </div>
                           </div>
                         </div>
@@ -279,8 +272,8 @@
                   </div>
 
                   <div class="card-body">
-                    <div class="row py-3">
-                      <div class="col-md-12 col-lg-4">
+                    <div class="row py-3 justify-content-between" style="gap: 1rem;">
+                      <div class="col-md-12 col-lg-3">
                         <!-- TITLE -->
                         <div class="row" style="margin-bottom: 1rem;">
                           <div style="font-size: 0.9rem; font-weight: 500;">
@@ -290,8 +283,8 @@
 
                         <!-- TAXI -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <label for="taxi" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">1. Taxi</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 p-0">
+                          <label for="taxi" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">1. Taxi</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 p-0">
                             <div class="input-group">
                               <input id="taxi" name="taxi" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
@@ -300,8 +293,8 @@
 
                         <!-- AIRPLANE -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <label for="airplane" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">2. Airplane</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <label for="airplane" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">2. Airplane</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                             <div class="input-group">
                               <input id="airplane" name="airplane" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
@@ -310,8 +303,8 @@
 
                         <!-- TRAIN -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <label for="train" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">3. Train</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <label for="train" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">3. Train</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                             <div class="input-group">
                               <input id="train" name="train" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
@@ -320,8 +313,8 @@
 
                         <!-- BUS -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <label for="bus" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">4. Bus</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <label for="bus" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">4. Bus</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                             <div class="input-group">
                               <input id="bus" name="bus" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
@@ -330,8 +323,8 @@
 
                         <!-- SHIP -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <label for="ship" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">5. Ship</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <label for="ship" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">5. Ship</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                             <div class="input-group">
                               <input id="ship" name="ship" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
@@ -340,8 +333,8 @@
 
                         <!-- TOL/ROAD -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <label for="tol_road" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">6. Tol/Road</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <label for="tol_road" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">6. Tol/Road</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                             <div class="input-group">
                               <input id="tol_road" name="tol_road" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
@@ -350,8 +343,8 @@
 
                         <!-- PARK -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <label for="park" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">7. Park</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <label for="park" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">7. Park</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                             <div class="input-group">
                               <input id="park" name="park" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
@@ -360,8 +353,8 @@
 
                         <!-- ACCESS BAGAGE -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <label for="access_bagage" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">8. Access Bagage</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <label for="access_bagage" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">8. Access Bagage</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                             <div class="input-group">
                               <input id="access_bagage" name="access_bagage" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
@@ -369,17 +362,27 @@
                         </div>
 
                         <!-- FUEL -->
-                        <div class="row">
-                          <label for="fuel" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">9. Fuel</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                        <div class="row" style="margin-bottom: 1rem;">
+                          <label for="fuel" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">9. Fuel</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                             <div class="input-group">
                               <input id="fuel" name="fuel" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
                           </div>
                         </div>
+
+                        <!-- TOTAL TRANSPORT -->
+                        <div class="row">
+                          <label for="total_transport" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">Total</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
+                            <div class="input-group">
+                              <input disabled id="total_transport" name="total_transport" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
-                      <div class="col-md-12 col-lg-4">
+                      <div class="col-md-12 col-lg-3">
                         <!-- TITLE -->
                         <div class="row" style="margin-bottom: 1rem;">
                           <div style="font-size: 0.9rem; font-weight: 500;">
@@ -389,8 +392,8 @@
 
                         <!-- HOTEL -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <label for="hotel" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">1. Hotel</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <label for="hotel" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">1. Hotel</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                             <div class="input-group">
                               <input id="hotel" name="hotel" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
@@ -399,8 +402,8 @@
 
                         <!-- MESS -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <label for="mess" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">2. Mess</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <label for="mess" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">2. Mess</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                             <div class="input-group">
                               <input id="mess" name="mess" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
@@ -409,8 +412,8 @@
 
                         <!-- GUEST HOUSE -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <label for="guest_house" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">3. Guest House</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <label for="guest_house" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">3. Guest House</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                             <div class="input-group">
                               <input id="guest_house" name="guest_house" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
@@ -418,17 +421,27 @@
                         </div>
 
                         <!-- OTHER -->
-                        <div class="row">
-                          <label for="other_accomodation" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">4. Other</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                        <div class="row" style="margin-bottom: 1rem;">
+                          <label for="other_accomodation" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">4. Other</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                             <div class="input-group">
                               <input id="other_accomodation" name="other_accomodation" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
                           </div>
                         </div>
+
+                        <!-- TOTAL ACCOMODATION -->
+                        <div class="row">
+                          <label for="total_accomodation" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">Total</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
+                            <div class="input-group">
+                              <input disabled id="total_accomodation" name="total_accomodation" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
-                      <div class="col-md-12 col-lg-4">
+                      <div class="col-md-12 col-lg-3">
                         <!-- TITLE -->
                         <div class="row" style="margin-bottom: 1rem;">
                           <div style="font-size: 0.9rem; font-weight: 500;">
@@ -438,8 +451,8 @@
 
                         <!-- ALLOWANCE -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <label for="allowance" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">1. Allowance</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <label for="allowance" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">1. Allowance</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                             <div class="input-group">
                               <input id="allowance" name="allowance" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
@@ -448,8 +461,8 @@
 
                         <!-- ENTERTAINMENT -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <label for="entertainment" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">2. Entertainment</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                          <label for="entertainment" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">2. Entertainment</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                             <div class="input-group">
                               <input id="entertainment" name="entertainment" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
@@ -457,9 +470,9 @@
                         </div>
 
                         <!-- OTHER -->
-                        <div class="row">
-                          <label for="other" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">3. Other</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                        <div class="row" style="margin-bottom: 1rem;">
+                          <label for="other" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">3. Other</label>
+                          <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                             <div class="input-group">
                               <input id="other" name="other" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                             </div>
@@ -468,8 +481,8 @@
                       </div>
                     </div>
 
-                    <div class="row py-3">
-                      <!-- TOTAL TRANSPORT -->
+                    <!-- <div class="row py-3">
+                      TOTAL TRANSPORT
                       <div class="col-md-12 col-lg-4">
                         <div class="row" style="margin-bottom: 1rem;">
                           <label for="total_transport" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Total</label>
@@ -481,7 +494,7 @@
                         </div>
                       </div>
 
-                      <!-- TOTAL ACCOMODATION -->
+                      TOTAL ACCOMODATION
                       <div class="col-md-12 col-lg-4">
                         <div class="row" style="margin-bottom: 1rem;">
                           <label for="total_accomodation" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Total</label>
@@ -492,7 +505,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>

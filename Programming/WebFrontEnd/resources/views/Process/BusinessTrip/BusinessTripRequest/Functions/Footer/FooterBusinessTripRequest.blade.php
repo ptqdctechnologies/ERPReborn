@@ -550,7 +550,6 @@
   });
 </script>
 
-
 <script>
   $(document).ready(function() {
     $('#longTerm').click(function() {
@@ -782,7 +781,7 @@
 
     const total = taxi + airplane + train + bus + ship + tolRoad + park + accessBagage + fuel;
 
-    document.getElementById('total_transport').value = total.toFixed(2);
+    document.getElementById('total_transport').value = numberFormatPHPCustom(total, 2);
   }
 
   const transportInputs = [
@@ -815,7 +814,7 @@
 
     const total = hotel + mess + guest_house + other_accomodation;
 
-    document.getElementById('total_accomodation').value = total.toFixed(2);
+    document.getElementById('total_accomodation').value = numberFormatPHPCustom(total, 2);
   }
 
   const accomodationInputs = [
