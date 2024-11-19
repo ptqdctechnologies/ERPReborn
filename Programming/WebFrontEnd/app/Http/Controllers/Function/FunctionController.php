@@ -11,7 +11,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class FunctionController extends Controller
-{
+    {
     /**
      * Display a listing of the resource.
      *
@@ -19,21 +19,21 @@ class FunctionController extends Controller
      */
     //FUNCTION PROJECT
     public function getProject(Request $request)
-    {
-
+        {
         if (Redis::get("Budget") == null) {
             $varAPIWebToken = Session::get('SessionLogin');
-            $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'dataPickList.project.getProject',
-                'latest',
-                [
-                    'parameter' => null
-                ],
-                false
-            );
-        }
+            $varDataProject = 
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'dataPickList.project.getProject',
+                    'latest',
+                    [
+                        'parameter' => null
+                    ],
+                    false
+                );
+            }
 
         $DataBudget = json_decode(
             \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
@@ -569,36 +569,36 @@ class FunctionController extends Controller
 
     //DEPARTEMENT
     public function getDepartement()
-    {
+        {
         if (Redis::get("Departement") == null) {
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.sysConfig.getAppObject_UserRoleGroup',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-        }
-
-        $Departement = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "Departement"
-            ),
-            true
-        );
-
-        // dd($Departement);
+            $varData = 
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'transaction.read.dataList.sysConfig.getAppObject_UserRoleGroup',
+                    'latest',
+                    [
+                        'parameter' => null,
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                        ]
+                    ],
+                    false
+                    );
+            }
+        
+        $Departement =
+            json_decode(
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    "Departement"
+                    ),
+                true
+                );
 
         return response()->json($Departement);
     }
@@ -647,84 +647,84 @@ class FunctionController extends Controller
     }
 
     public function getMenuGroup(Request $request)
-    {
-
+        {
         if (Redis::get("MenuGroup") == null) {
-
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.sysConfig.getAppObject_MenuGroup',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-        }
-
-        $MenuGroup = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "MenuGroup"
-            ),
-            true
-        );
-        return response()->json($MenuGroup);
-    }
-
-    public function getSubMenu(Request $request)
-    {
-
-        if (Redis::get("SubMenu") == null) {
-
-            $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.sysConfig.getAppObject_Menu',
-                'latest',
-                [
-                    'parameter' => [
-                        'menuGroup_RefID' => null
+            $varData = 
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'transaction.read.dataList.sysConfig.getAppObject_MenuGroup',
+                    'latest',
+                    [
+                        'parameter' => null,
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                        ]
                     ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
+                    false
+                    );
+            }
+
+        $MenuGroup =
+            json_decode(
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    "MenuGroup"
+                    ),
+                true
+                );
+
+        return response()->json($MenuGroup);
         }
 
-        $SubMenu = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "SubMenu"
-            ),
-            true
-        );
 
+    public function getSubMenu(Request $request) {
+        if (Redis::get("SubMenu") == null) {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varData = 
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'transaction.read.dataList.sysConfig.getAppObject_Menu',
+                    'latest',
+                    [
+                        'parameter' => [
+                            'menuGroup_RefID' => null
+                        ],
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                        ]
+                    ],
+                    false
+                    );
+            }
+
+        $SubMenu = 
+            json_decode(
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    "SubMenu"
+                    ),
+                true
+                );
 
         $menu_group_id = $request->input('menu_group_id');
         $type = $request->input('type');
 
         $collection = collect($SubMenu);
         $collection = $collection->where('MenuGroup_RefID', $menu_group_id);
-        
+
         $collection = $collection->where('Type', $type);
 
         return response()->json($collection->all());
-    }
+        }
 
     public function getOneSubMenu(Request $request)
     {
