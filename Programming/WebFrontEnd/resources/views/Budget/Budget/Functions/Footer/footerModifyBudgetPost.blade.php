@@ -629,10 +629,11 @@
 <!-- FUNCTION UNTUK MENGHITUNG TOTAL (MODIFY * PRICE) -->
 <script>
     function calculateTotalForm() {
-        const qty = parseFloat(document.getElementById("qty_form").value) || 0;
-        const price = parseFloat(document.getElementById("price_form").value) || 0;
+        const qty = parseFloat(document.getElementById("qty_form").value.replace(/,/g, '')) || 0;
+        const price = parseFloat(document.getElementById("price_form").value.replace(/,/g, '')) || 0;
         const total = qty * price;
-        document.getElementById("total_qty_price").value = total.toFixed(2);
+        
+        document.getElementById("total_qty_price").value = numberFormatPHPCustom(total, 2);
     }
 
     document.getElementById("qty_form").addEventListener("input", calculateTotalForm);
