@@ -114,7 +114,9 @@
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="#" id="requester_popup" data-toggle="modal" data-target="#myWorker" class="myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                <a href="#" id="requester_popup" data-toggle="modal" data-target="#myWorker" class="myWorker">
+                                  <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                </a>
                               </span>
                             </div>
                             <div style="flex: 100%;">

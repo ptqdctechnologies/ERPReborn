@@ -60,7 +60,6 @@
       type: 'GET',
       url: '{!! route("getSite") !!}?project_code=' + sys_id,
       success: function(data) {
-
         var no = 1;
         var t = $('#tableGetSite').DataTable();
         t.clear();
