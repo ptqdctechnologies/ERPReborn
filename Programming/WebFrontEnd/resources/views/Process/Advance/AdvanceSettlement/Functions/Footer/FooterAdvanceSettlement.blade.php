@@ -15,7 +15,7 @@
 
         var keys = 0;
 
-        $.each(data, function(key, val) {
+        $.each(data.data, function(key, val) {
             keys += 1;
             t.row.add([
                 '<tbody><tr><input id="advance_RefID' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="beneficiary_id' + keys + '" value="' + val.beneficiaryWorkerJobsPosition_RefID + '" type="hidden"><td>' + no++ + '</td>',
