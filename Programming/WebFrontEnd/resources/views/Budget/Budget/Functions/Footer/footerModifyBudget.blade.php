@@ -635,11 +635,17 @@
     function toggleAddNewItemButton() {
         const tbody = document.querySelector('#budgetTable tbody');
         const addNewItemBtn = document.getElementById('addNewItemBtn');
+        const searchBudgetBtn = document.getElementById('budget_detail_search');
+        const budgetDetailsBtn = document.getElementById('buttonBudgetDetails');
         
         if (tbody && tbody.rows.length > 0) {
             addNewItemBtn.style.display = 'block';
+            searchBudgetBtn.style.display = 'block';
+            budgetDetailsBtn.style.display = 'flex';
         } else {
             addNewItemBtn.style.display = 'none';
+            searchBudgetBtn.style.display = 'none';
+            budgetDetailsBtn.style.display = 'none';
         }
     }
 

@@ -214,7 +214,10 @@
                                         <label class="card-title">
                                             Budget Details
                                         </label>
-                                        <div class="card-tools">
+                                        <div class="card-tools d-flex" style="margin-left: -50px !important;">
+                                            <div>
+                                                <input id="budget_detail_search" style="border-radius: 4px;" class="form-control" name="budget_detail_search" autocomplete="off" placeholder="Search Product">
+                                            </div>
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                                 <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                                             </button>
