@@ -5365,6 +5365,7 @@ return array(
     'Illuminate\\Database\\Eloquent\\MassPrunable' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/MassPrunable.php',
     'Illuminate\\Database\\Eloquent\\MissingAttributeException' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/MissingAttributeException.php',
     'Illuminate\\Database\\Eloquent\\Model' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Model.php',
+    'Illuminate\\Database\\Eloquent\\ModelInspector' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/ModelInspector.php',
     'Illuminate\\Database\\Eloquent\\ModelNotFoundException' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/ModelNotFoundException.php',
     'Illuminate\\Database\\Eloquent\\PendingHasThroughRelationship' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/PendingHasThroughRelationship.php',
     'Illuminate\\Database\\Eloquent\\Prunable' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Prunable.php',
