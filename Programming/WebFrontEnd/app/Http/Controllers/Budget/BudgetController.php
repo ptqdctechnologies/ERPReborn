@@ -114,7 +114,7 @@ class BudgetController extends Controller
             $currencyID             = $request->currency_id;
             $currencySymbol         = $request->currency_symbol ?? '';
             $currencyName           = $request->currency_name ?? '-';
-            $exchangeRate           = floatval($request->exchange_rate);
+            $exchangeRate           = number_format(str_replace(",", "", $request->exchange_rate), 2, '.', '');
             $valueCO                = str_replace(",", "", $request->value_co);
 
             // dump($request->value_co);
@@ -131,6 +131,8 @@ class BudgetController extends Controller
             $totalModifyFooter      = $request->input('totalModifyFooterData');
             $totalPriceFooter       = $request->input('totalPriceFooterData');
             $totalAmountFooter      = $request->input('totalAmountFooterData');
+
+            // dump($modifyBudgetListData);
 
             // dd($totalModifyFooter, $totalPriceFooter, $totalAmountFooter);
 

@@ -66,18 +66,20 @@
                                                         <i class="right fas fa-angle-left"></i>
                                                     </a>
                                                     <ul class="nav nav-treeview">
-                                                        @foreach($MenuLayouts3['entities']['itemList'] as $MenuLayouts4)
-                                                        <li class="nav-item">
-                                                            @php $url = "login"; @endphp
-                                                            @if(isset($MenuLayouts4['entities']['URLPath']))
-                                                                @php $url = $MenuLayouts4['entities']['URLPath']; @endphp
-                                                            @endif
-                                                            <a href="{{ route($url) }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                <i class="nav-icon-sm far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                                <label>{{ $MenuLayouts4['entities']['caption'] }}</label>
-                                                            </a>
-                                                        </li>
-                                                    @endforeach
+                                                        @if(isset($MenuLayouts3['entities']['itemList']))
+                                                            @foreach($MenuLayouts3['entities']['itemList'] as $MenuLayouts4)
+                                                                <li class="nav-item">
+                                                                    @php $url = "login"; @endphp
+                                                                    @if(isset($MenuLayouts4['entities']['URLPath']))
+                                                                        @php $url = $MenuLayouts4['entities']['URLPath']; @endphp
+                                                                    @endif
+                                                                    <a href="{{ route($url) }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                        <i class="nav-icon-sm far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
+                                                                        <label>{{ $MenuLayouts4['entities']['caption'] }}</label>
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
+                                                        @endif
                                                     </ul>
                                                 </li>
                                                 @endforeach 

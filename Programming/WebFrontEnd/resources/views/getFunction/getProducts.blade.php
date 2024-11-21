@@ -54,7 +54,7 @@
                         for (var i = 0; i < result.length; i++) {
                             var no = i + 1;
                             dataShow.push([
-                                '<tbody><tr><input id="sys_id_products' + no + '" value="' + result[i]['sys_ID'] + '" type="hidden"><td>' + no + '</td>',
+                                '<tbody><tr><input id="sys_id_products' + no + '" value="' + result[i]['sys_ID'] + '" type="hidden"><input id="key' + i + '" value="' + i + '" type="hidden"><td>' + no + '</td>',
                                 '<td>' + result[i]['sys_ID'] + '</td>',
                                 '<td>' + result[i]['name'] + '</td>',
                                 '<td>' + result[i]['quantityUnitName'] + '</td>',
@@ -92,6 +92,13 @@
         var sys_pid = row.find("td:nth-child(2)").text();
         var uom = row.find("td:nth-child(3)").text();
         var name = row.find("td:nth-child(4)").text();
+        var key = $("#key").val();
+
+        // DIGUNAKAN PADA HALAMAN MODIFY BUDGET
+        if (isProductIdDuplicate(sys_id, key)) {
+            Swal.fire("Error", "Product ID already exists, please choose another one.", "error");
+            return;
+        }
 
         $("#products_id").val(sys_id);
         $("#products_id_show").val(sys_pid);

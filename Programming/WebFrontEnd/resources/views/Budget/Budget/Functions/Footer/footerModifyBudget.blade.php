@@ -98,9 +98,9 @@
             Swal.fire("Error", "Please Call Accounting Staffs to Input Current Exchange Rate. Thank You.", "error");
         } else {
             if (code == "USD") {
-                $("#exchange_rate").val(16000);
+                $("#exchange_rate").val(numberFormatPHPCustom(16000, 2));
             } else if (code == "EUR") {
-                $("#exchange_rate").val(17205);
+                $("#exchange_rate").val(numberFormatPHPCustom(17205, 2));
             } else if (code == "IDR") {
                 $("#exchange_rate").val("");
             }
@@ -143,9 +143,9 @@
                                 {
                                     quantityAbsorptionRatio: 1.8,
                                     quantity: 50,
-                                    productName: "Unspecified Product",
+                                    productName: "Compacted Back Fill",
                                     quantityRemaining: 0,
-                                    product_RefID: null,
+                                    product_RefID: 88000000005292,
                                     priceBaseCurrencyValue: 29.99,
                                     priceBaseCurrencyISOCode: code,
                                     balancedBudget: 499.50
@@ -153,9 +153,9 @@
                                 {
                                     quantityAbsorptionRatio: 2.2,
                                     quantity: 20,
-                                    productName: "Unspecified Product",
+                                    productName: "Acces Roof Top Tangga",
                                     quantityRemaining: 0,
-                                    product_RefID: null,
+                                    product_RefID: 88000000001725,
                                     priceBaseCurrencyValue: 120.50,
                                     priceBaseCurrencyISOCode: code,
                                     balancedBudget: 410.00
@@ -163,9 +163,9 @@
                                 {
                                     quantityAbsorptionRatio: 1.5,
                                     quantity: 100,
-                                    productName: "Unspecified Product",
+                                    productName: "Yoke Plate Triangular 30 KIP Galvanize",
                                     quantityRemaining: 10,
-                                    product_RefID: null,
+                                    product_RefID: 88000000011558,
                                     priceBaseCurrencyValue: 50.00,
                                     priceBaseCurrencyISOCode: code,
                                     balancedBudget: 1000.00
@@ -532,6 +532,17 @@
         let allBudgetDetailsData = [];
         let modifiedBudgetListData = [];
 
+        // Ambil value yang ada sebelumnya di input `modifyBudgetListData`
+        const existingModifyBudgetListData = document.getElementById('modifyBudgetListData').value;
+
+        if (existingModifyBudgetListData) {
+            try {
+                modifiedBudgetListData = JSON.parse(existingModifyBudgetListData);
+            } catch (error) {
+                modifiedBudgetListData = [];
+            }
+        }
+
         [...budgetTable.rows].forEach((row, index) => {
             const productIdTemp = row.querySelector('input[name="product_id_show"]');
             const productId     = row.cells[1].textContent != "null" ? row.cells[1].textContent.trim() : productIdTemp.value;
@@ -606,7 +617,13 @@
             calculateBudgetTotals();
 
             document.getElementById('budgetDetailsData').value = JSON.stringify(allBudgetDetailsData);
-            document.getElementById('modifyBudgetListData').value = JSON.stringify(modifiedBudgetListData);
+
+            // Gabungkan data baru dengan data lama
+            const combinedData = [
+                ...modifiedBudgetListData.reduce((map, obj) => map.set(obj.productId, obj), new Map()).values(),
+            ];
+
+            document.getElementById('modifyBudgetListData').value = JSON.stringify(combinedData);
         } else {
             Swal.fire("Error", "Please fill in Product Id, Modify(+/-), Price, and Total for at least one row", "error");
         }
@@ -653,9 +670,9 @@
 
         const productId = document.getElementById("products_id_show").value;
         const productName = document.getElementById("products_name").value;
-        const qty = document.getElementById("qty_form").value;
-        const price = document.getElementById("price_form").value;
-        const total = document.getElementById("total_qty_price").value;
+        const qty = document.getElementById("qty_form").value.replace(/,/g, '');
+        const price = document.getElementById("price_form").value.replace(/,/g, '');
+        const total = document.getElementById("total_qty_price").value.replace(/,/g, '');
         const currencySymbolll = document.getElementById("currency_symbol").value;
 
         if (!productId || !productName || !qty || !price) {
@@ -693,9 +710,9 @@
             currency        : "USD",
             balanceBudget   : 0.00,
             totalBudget     : 0.00,
-            modifyInput     : qty,
-            priceInput      : price,
-            totalInput      : total,
+            modifyInput     : numberFormatPHPCustom(qty, 2),
+            priceInput      : numberFormatPHPCustom(price, 2),
+            totalInput      : numberFormatPHPCustom(total, 2),
         });
 
         document.getElementById("modifyBudgetListData").value = JSON.stringify(budgetListDataaa);
