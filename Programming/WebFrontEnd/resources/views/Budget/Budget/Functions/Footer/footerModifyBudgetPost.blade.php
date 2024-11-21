@@ -545,6 +545,17 @@
         let allBudgetDetailsData = [];
         let modifiedBudgetListData = [];
 
+        // Ambil value yang ada sebelumnya di input `modifyBudgetListData`
+        const existingModifyBudgetListData = document.getElementById('modifyBudgetListData').value;
+
+        if (existingModifyBudgetListData) {
+            try {
+                modifiedBudgetListData = JSON.parse(existingModifyBudgetListData);
+            } catch (error) {
+                modifiedBudgetListData = [];
+            }
+        }
+
         [...budgetTable.rows].forEach((row, index) => {
             const productIdTemp = row.querySelector('input[name="product_id_show"]');
             const productId     = row.cells[1].textContent && row.cells[1].textContent != "null" ? row.cells[1].textContent.trim() : productIdTemp.value;
@@ -619,7 +630,13 @@
             calculateBudgetTotals();
 
             document.getElementById('budgetDetailsData').value = JSON.stringify(allBudgetDetailsData);
-            document.getElementById('modifyBudgetListData').value = JSON.stringify(modifiedBudgetListData);
+
+            // Gabungkan data baru dengan data lama
+            const combinedData = [
+                ...modifiedBudgetListData.reduce((map, obj) => map.set(obj.productId, obj), new Map()).values(),
+            ];
+
+            document.getElementById('modifyBudgetListData').value = JSON.stringify(combinedData);
         } else {
             Swal.fire("Error", "Please fill in Product Id, Modify(+/-), Price, and Total for at least one row", "error");
         }
@@ -647,9 +664,9 @@
 
         const productId = document.getElementById("products_id_show").value;
         const productName = document.getElementById("products_name").value;
-        const qty = document.getElementById("qty_form").value;
-        const price = document.getElementById("price_form").value;
-        const total = document.getElementById("total_qty_price").value;
+        const qty = document.getElementById("qty_form").value.replace(/,/g, '');
+        const price = document.getElementById("price_form").value.replace(/,/g, '');
+        const total = document.getElementById("total_qty_price").value.replace(/,/g, '');
         const currencySymbolll = document.getElementById("currency_symbol").value;
 
         if (!productId || !productName || !qty || !price) {
@@ -665,18 +682,18 @@
 
         const tbody = document.getElementById("listBudgetTable").getElementsByTagName("tbody")[0];
 
-        let productExists = false;
-        for (let row of tbody.rows) {
-            if (row.cells[0].textContent === productId) {
-                productExists = true;
-                break;
-            }
-        }
+        // let productExists = false;
+        // for (let row of tbody.rows) {
+        //     if (row.cells[0].textContent === productId) {
+        //         productExists = true;
+        //         break;
+        //     }
+        // }
 
-        if (productExists) {
-            Swal.fire("Error", "Product ID already exists in the table.", "error");
-            return;
-        }
+        // if (productExists) {
+        //     Swal.fire("Error", "Product ID already exists in the table.", "error");
+        //     return;
+        // }
 
         budgetListDataaa.push({
             productId       : productId,
@@ -687,9 +704,9 @@
             currency        : "USD",
             balanceBudget   : 0.00,
             totalBudget     : 0.00,
-            modifyInput     : qty,
-            priceInput      : price,
-            totalInput      : total,
+            modifyInput     : numberFormatPHPCustom(qty, 2),
+            priceInput      : numberFormatPHPCustom(price, 2),
+            totalInput      : numberFormatPHPCustom(total, 2),
         });
 
         document.getElementById("modifyBudgetListData").value = JSON.stringify(budgetListDataaa);

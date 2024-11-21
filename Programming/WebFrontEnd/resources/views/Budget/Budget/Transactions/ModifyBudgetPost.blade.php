@@ -138,7 +138,7 @@
                                                         <label for="exchange_rate" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Exchange Rate</label>
                                                         <div class="col-sm-9 col-md-8 col-lg-2 p-0">
                                                             <div class="input-group">
-                                                                <input id="exchange_rate" style="border-radius:0;" class="form-control" name="exchange_rate" value="{{ $exchangeRate && $exchangeRate != '-' ? $exchangeRate : '' }}" readonly>
+                                                                <input id="exchange_rate" style="border-radius:0;" class="form-control" name="exchange_rate" value="{{ $exchangeRate && $exchangeRate != '-' ? number_format($exchangeRate, 2, '.', ',') : '' }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -152,7 +152,7 @@
                                                         <label for="value_co" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Value CO(+/-)</label>
                                                         <div class="col-sm-9 col-md-8 col-lg-2 p-0">
                                                             <div class="input-group" data-toggle="tooltip" data-placement="top" title="Pesan">
-                                                                <input id="value_co" style="border-radius:0;" class="form-control number-only" name="value_co" autocomplete="off" value="{{ $valueCO }}">
+                                                                <input id="value_co" style="border-radius:0;" class="form-control number-only" name="value_co" autocomplete="off" value="{{ number_format($valueCO, 2, '.', ',') }}">
                                                             </div>
                                                         </div>
                                                     </div>

@@ -688,18 +688,18 @@
 
         const tbody = document.getElementById("listBudgetTable").getElementsByTagName("tbody")[0];
 
-        let productExists = false;
-        for (let row of tbody.rows) {
-            if (row.cells[0].textContent === productId) {
-                productExists = true;
-                break;
-            }
-        }
+        // let productExists = false;
+        // for (let row of tbody.rows) {
+        //     if (row.cells[0].textContent === productId) {
+        //         productExists = true;
+        //         break;
+        //     }
+        // }
 
-        if (productExists) {
-            Swal.fire("Error", "Product ID already exists in the table.", "error");
-            return;
-        }
+        // if (productExists) {
+        //     Swal.fire("Error", "Product ID already exists in the table.", "error");
+        //     return;
+        // }
 
         budgetListDataaa.push({
             productId       : productId,
