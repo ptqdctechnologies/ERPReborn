@@ -118,7 +118,7 @@ class Translator extends NamespacedItemResolver implements TranslatorContract
         $locale = $locale ?: $this->locale;
 
         // We should temporarily disable the handling of missing translation keys
-        // while perfroming the existence check. After the check, we will turn
+        // while performing the existence check. After the check, we will turn
         // the missing translation keys handling back to its original value.
         $handleMissingTranslationKeys = $this->handleMissingTranslationKeys;
 
@@ -210,7 +210,9 @@ class Translator extends NamespacedItemResolver implements TranslatorContract
             $number = count($number);
         }
 
-        $replace['count'] = $number;
+        if (! isset($replace['count'])) {
+            $replace['count'] = $number;
+        }
 
         return $this->makeReplacements(
             $this->getSelector()->choose($line, $number, $locale), $replace

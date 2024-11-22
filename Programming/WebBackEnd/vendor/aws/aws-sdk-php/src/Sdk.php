@@ -88,6 +88,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionBedrockAgentRuntime(array $args = [])
  * @method \Aws\BedrockRuntime\BedrockRuntimeClient createBedrockRuntime(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBedrockRuntime(array $args = [])
+ * @method \Aws\Billing\BillingClient createBilling(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionBilling(array $args = [])
  * @method \Aws\BillingConductor\BillingConductorClient createBillingConductor(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBillingConductor(array $args = [])
  * @method \Aws\Braket\BraketClient createBraket(array $args = [])
@@ -188,6 +190,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionConnect(array $args = [])
  * @method \Aws\ConnectCampaignService\ConnectCampaignServiceClient createConnectCampaignService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionConnectCampaignService(array $args = [])
+ * @method \Aws\ConnectCampaignsV2\ConnectCampaignsV2Client createConnectCampaignsV2(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionConnectCampaignsV2(array $args = [])
  * @method \Aws\ConnectCases\ConnectCasesClient createConnectCases(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionConnectCases(array $args = [])
  * @method \Aws\ConnectContactLens\ConnectContactLensClient createConnectContactLens(array $args = [])
@@ -516,6 +520,10 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionNetworkManager(array $args = [])
  * @method \Aws\NetworkMonitor\NetworkMonitorClient createNetworkMonitor(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionNetworkMonitor(array $args = [])
+ * @method \Aws\Notifications\NotificationsClient createNotifications(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionNotifications(array $args = [])
+ * @method \Aws\NotificationsContacts\NotificationsContactsClient createNotificationsContacts(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionNotificationsContacts(array $args = [])
  * @method \Aws\OAM\OAMClient createOAM(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionOAM(array $args = [])
  * @method \Aws\OSIS\OSISClient createOSIS(array $args = [])
@@ -540,6 +548,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionPI(array $args = [])
  * @method \Aws\Panorama\PanoramaClient createPanorama(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPanorama(array $args = [])
+ * @method \Aws\PartnerCentralSelling\PartnerCentralSellingClient createPartnerCentralSelling(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionPartnerCentralSelling(array $args = [])
  * @method \Aws\PaymentCryptography\PaymentCryptographyClient createPaymentCryptography(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPaymentCryptography(array $args = [])
  * @method \Aws\PaymentCryptographyData\PaymentCryptographyDataClient createPaymentCryptographyData(array $args = [])
@@ -785,7 +795,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.325.5';
+    const VERSION = '3.329.0';
 
     /** @var array Arguments for creating clients */
     private $args;
