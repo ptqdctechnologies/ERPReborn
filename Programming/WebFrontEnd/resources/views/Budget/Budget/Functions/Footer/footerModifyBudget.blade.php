@@ -669,6 +669,35 @@
     document.getElementById("price_form").addEventListener("input", calculateTotalForm);
 </script>
 
+<!-- FUNCTION SEARCH BUDGET DETAILS -->
+<script>
+    $(document).ready(function() {
+        $('#budget_detail_search').on('input', function() {
+            const searchValue = $(this).val().toLowerCase();
+            
+            const rows = $('#budgetTable tbody tr');
+            
+            rows.each(function() {
+                const row = $(this);
+                const productId = row.find('td:eq(1)').text().trim().toLowerCase();
+                const productName = row.find('td:eq(2)').text().trim().toLowerCase();
+                
+                if (productId.includes(searchValue) || productName.includes(searchValue)) {
+                    row.show();
+                } else {
+                    row.hide();
+                }
+            });
+        });
+
+        $('#budget_detail_search').on('change', function() {
+            if ($(this).val() === '') {
+                $('#budgetTable tbody tr').show();
+            }
+        });
+    });
+</script>
+
 <!-- FUNCTION BUTTON ADD TO CART FORM ADD NEW ITEM -->
 <script>
     document.getElementById("addToCartNewFormItem").addEventListener("click", function (event) {
