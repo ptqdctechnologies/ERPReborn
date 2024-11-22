@@ -278,7 +278,7 @@
                       <div class="col-md-12 col-lg-3">
                         <!-- TITLE -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <div style="font-size: 0.9rem; font-weight: 500;">
+                          <div style="font-size: 0.9rem; font-weight: bold;">
                             Transport
                           </div>
                         </div>
@@ -387,7 +387,7 @@
                       <div class="col-md-12 col-lg-3">
                         <!-- TITLE -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <div style="font-size: 0.9rem; font-weight: 500;">
+                          <div style="font-size: 0.9rem; font-weight: bold;">
                             Accomodation
                           </div>
                         </div>
@@ -491,7 +491,7 @@
                       <div class="col-md-12 col-lg-3">
                         <!-- TITLE -->
                         <div class="row" style="margin-bottom: 1rem;">
-                          <div style="font-size: 0.9rem; font-weight: 500;">
+                          <div style="font-size: 0.9rem; font-weight: bold;">
                             Allowance, Entertainment, & Others
                           </div>
                         </div>

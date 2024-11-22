@@ -767,6 +767,9 @@
 
 <!-- FUNCTION TOTAL TRANSPORT -->
 <script>
+  const totalBusinessTrip = [];
+  const initialValue = 0;
+
   function calculateTotalTransport() {
     const taxi = parseFloat(document.getElementById('taxi').value.replace(/,/g, '')) || 0;
     const airplane = parseFloat(document.getElementById('airplane').value.replace(/,/g, '')) || 0;
@@ -779,8 +782,12 @@
     const fuel = parseFloat(document.getElementById('fuel').value.replace(/,/g, '')) || 0;
 
     const total = taxi + airplane + train + bus + ship + tolRoad + park + accessBagage + fuel;
+    totalBusinessTrip[0] = total;
 
+    const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue,initialValue);
+    
     document.getElementById('total_transport').value = numberFormatPHPCustom(total, 2);
+    document.getElementById('total_business_trip').value = numberFormatPHPCustom(hello, 2);
   }
 
   const transportInputs = [
@@ -812,8 +819,12 @@
     const other_accomodation = parseFloat(document.getElementById('other_accomodation').value.replace(/,/g, '')) || 0;
 
     const total = hotel + mess + guest_house + other_accomodation;
+    totalBusinessTrip[1] = total;
 
+    const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue,initialValue);
+    
     document.getElementById('total_accomodation').value = numberFormatPHPCustom(total, 2);
+    document.getElementById('total_business_trip').value = numberFormatPHPCustom(hello, 2);
   }
 
   const accomodationInputs = [
@@ -827,6 +838,36 @@
     const inputElement = document.getElementById(id);
     if (inputElement) {
       inputElement.addEventListener('input', calculateTotalAccomodation);
+    }
+  });
+</script>
+
+<!-- FUNCTION TOTAL BUSINESS TRIP -->
+<script>
+  function calculateTotalBusinessTrip() {
+    const allowance = parseFloat(document.getElementById('allowance').value.replace(/,/g, '')) || 0;
+    const entertainment = parseFloat(document.getElementById('entertainment').value.replace(/,/g, '')) || 0;
+    const other = parseFloat(document.getElementById('other').value.replace(/,/g, '')) || 0;
+
+    const total = allowance + entertainment + other;
+    totalBusinessTrip[2] = total;
+
+    const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue,initialValue);
+
+    document.getElementById('total_business_trip').value = numberFormatPHPCustom(hello, 2);
+  }
+
+  const businessTripInputs = [
+    'allowance',
+    'entertainment',
+    'other',
+  ];
+
+  businessTripInputs.forEach(id => {
+    const inputElement = document.getElementById(id);
+    
+    if (inputElement) {
+      inputElement.addEventListener('input', calculateTotalBusinessTrip);
     }
   });
 </script>
