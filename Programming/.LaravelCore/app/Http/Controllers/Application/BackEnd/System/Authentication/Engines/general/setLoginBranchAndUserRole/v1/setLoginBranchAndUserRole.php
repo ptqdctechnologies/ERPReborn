@@ -59,7 +59,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function main($varUserSession, $varData)
-        {
+            {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Login Branch And User Role (version 1)');
@@ -125,10 +125,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                      $varAPIWebToken =
                          \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['APIWebToken'];
+
                      $varBranchID =
                          $varData['branchID'];
+
                      $varUserID =
                          \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userID'];
+
                      $varUserRoleID =
                          $varData['userRoleID'];
 
@@ -305,18 +308,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         private function getUserPrivilegeMenuAccess($varUserSession, int $varUserID, int $varBranchID, int $varUserRoleID = null)
-        {
+            {
             $varData =
                 (new \App\Models\Database\SchSysConfig\General())->getUserRolePrivilegeMenuAndBudget(
                     $varUserSession,
                     $varUserID,
                     $varBranchID,
                     $varUserRoleID
-                );
-
+                    );
+            
             if (is_null($varData)) {
                 $varReturn = NULL;
-            } else {
+                }
+            else {
                 for ($i = 0, $iMax = count($varData); $i != $iMax; $i++) {
                     $varReturn[$i]['branch_RefID'] = $varData[$i]['branch_RefID'];
                     $varReturn[$i]['branchName'] = $varData[$i]['branchName'];

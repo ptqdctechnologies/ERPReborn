@@ -18,8 +18,7 @@ class FunctionController extends Controller
      * @return \Illuminate\Http\Response
      */
     //FUNCTION PROJECT
-    public function getProject(Request $request)
-        {
+    public function getProject (Request $request) {
         if (Redis::get("Budget") == null) {
             $varAPIWebToken = Session::get('SessionLogin');
             $varDataProject = 
@@ -32,68 +31,69 @@ class FunctionController extends Controller
                         'parameter' => null
                     ],
                     false
-                );
+                    );
             }
 
-        $DataBudget = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "Budget"
-            ),
-            true
-        );
+        $DataBudget =
+            json_decode(
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    "Budget"
+                    ),
+                true
+                );
 
-        return response()->json($DataBudget);
-    }
+        return
+            response()->json($DataBudget);
+        }
 
     // FUNCTION SITE PROJECT
-    public function getSite(Request $request)
-    {
-
+    public function getSite (Request $request) {
         $project_code = $request->input('project_code');
 
         if (Redis::get("SubBudget") == null) {
             $varAPIWebToken = Session::get('SessionLogin');
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'dataPickList.project.getProjectSectionItem',
-                'latest',
-                [
-                    'parameter' => [
-                        'project_RefID' => (int)$project_code
-                    ]
-                ],
-                false
-            );
-        }
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'dataPickList.project.getProjectSectionItem',
+                    'latest',
+                    [
+                        'parameter' => [
+                            'project_RefID' => (int)$project_code
+                        ]
+                    ],
+                    false
+                );
+            }
 
-        $DataSubBudget = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                "SubBudget"
-            ),
-            true
-        );
+        $DataSubBudget =
+            json_decode(
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    "SubBudget"
+                    ),
+                true
+                );
 
-        
-        if($project_code){
+        if ($project_code) {
             $num = 0;
             $filteredArray = [];
             for ($i = 0; $i < count($DataSubBudget); $i++) {
                 if ($DataSubBudget[$i]['Project_RefID'] == $project_code) {
                     $filteredArray[$num] = $DataSubBudget[$i];
                     $num++;
+                    }
                 }
             }
-        }   
-
-        else{
+        else {
             $filteredArray = $DataSubBudget;
-        }
+            }
 
-        return response()->json($filteredArray);
-    }
+        return
+            response()->json($filteredArray);
+        }
 
     // FUNCTION BUDGET 
     public function getBudget(Request $request)
