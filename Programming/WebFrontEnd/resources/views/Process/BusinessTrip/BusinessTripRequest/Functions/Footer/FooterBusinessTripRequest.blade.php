@@ -673,7 +673,7 @@
       const totalBusinessTrip = parseFormattedNumber(totalBusinessTripInput.value || '0');
 
       if (totalBusinessTrip > balanceBudget) {
-        Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget.`, "error");
+        Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
       }
     } else {
       // Kosongkan input jika tidak ada checkbox yang dicentang
@@ -698,13 +698,20 @@
     const accessBagage = parseFloat(document.getElementById('access_bagage').value.replace(/,/g, '')) || 0;
     const fuel = parseFloat(document.getElementById('fuel').value.replace(/,/g, '')) || 0;
 
+    const budgetDetailsDataJSON = JSON.parse(document.getElementById('budgetDetailsData').value);
+    const newFormatBudget = parseFloat(budgetDetailsDataJSON.balanceBudget.replace(/,/g, ''));
+
     const total = taxi + airplane + train + bus + ship + tolRoad + park + accessBagage + fuel;
     totalBusinessTrip[0] = total;
 
     const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue,initialValue);
-    
+
     document.getElementById('total_transport').value = numberFormatPHPCustom(total, 2);
     document.getElementById('total_business_trip').value = numberFormatPHPCustom(sumTotalBusinessTrip, 2);
+
+    if (sumTotalBusinessTrip > newFormatBudget) {
+      Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
+    }
   }
 
   const transportInputs = [
@@ -735,6 +742,9 @@
     const guest_house = parseFloat(document.getElementById('guest_house').value.replace(/,/g, '')) || 0;
     const other_accomodation = parseFloat(document.getElementById('other_accomodation').value.replace(/,/g, '')) || 0;
 
+    const budgetDetailsDataJSON = JSON.parse(document.getElementById('budgetDetailsData').value);
+    const newFormatBudget = parseFloat(budgetDetailsDataJSON.balanceBudget.replace(/,/g, ''));
+
     const total = hotel + mess + guest_house + other_accomodation;
     totalBusinessTrip[1] = total;
 
@@ -742,6 +752,10 @@
     
     document.getElementById('total_accomodation').value = numberFormatPHPCustom(total, 2);
     document.getElementById('total_business_trip').value = numberFormatPHPCustom(sumTotalBusinessTrip, 2);
+
+    if (sumTotalBusinessTrip > newFormatBudget) {
+      Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
+    }
   }
 
   const accomodationInputs = [
@@ -766,12 +780,19 @@
     const entertainment = parseFloat(document.getElementById('entertainment').value.replace(/,/g, '')) || 0;
     const other = parseFloat(document.getElementById('other').value.replace(/,/g, '')) || 0;
 
+    const budgetDetailsDataJSON = JSON.parse(document.getElementById('budgetDetailsData').value);
+    const newFormatBudget = parseFloat(budgetDetailsDataJSON.balanceBudget.replace(/,/g, ''));
+
     const total = allowance + entertainment + other;
     totalBusinessTrip[2] = total;
 
     const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue,initialValue);
 
     document.getElementById('total_business_trip').value = numberFormatPHPCustom(sumTotalBusinessTrip, 2);
+
+    if (sumTotalBusinessTrip > newFormatBudget) {
+      Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
+    }
   }
 
   const businessTripInputs = [
