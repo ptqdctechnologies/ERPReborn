@@ -2677,6 +2677,8 @@ return array(
     'Aws\\B2bi\\Exception\\B2biException' => $vendorDir . '/aws/aws-sdk-php/src/B2bi/Exception/B2biException.php',
     'Aws\\BCMDataExports\\BCMDataExportsClient' => $vendorDir . '/aws/aws-sdk-php/src/BCMDataExports/BCMDataExportsClient.php',
     'Aws\\BCMDataExports\\Exception\\BCMDataExportsException' => $vendorDir . '/aws/aws-sdk-php/src/BCMDataExports/Exception/BCMDataExportsException.php',
+    'Aws\\BCMPricingCalculator\\BCMPricingCalculatorClient' => $vendorDir . '/aws/aws-sdk-php/src/BCMPricingCalculator/BCMPricingCalculatorClient.php',
+    'Aws\\BCMPricingCalculator\\Exception\\BCMPricingCalculatorException' => $vendorDir . '/aws/aws-sdk-php/src/BCMPricingCalculator/Exception/BCMPricingCalculatorException.php',
     'Aws\\BackupGateway\\BackupGatewayClient' => $vendorDir . '/aws/aws-sdk-php/src/BackupGateway/BackupGatewayClient.php',
     'Aws\\BackupGateway\\Exception\\BackupGatewayException' => $vendorDir . '/aws/aws-sdk-php/src/BackupGateway/Exception/BackupGatewayException.php',
     'Aws\\Backup\\BackupClient' => $vendorDir . '/aws/aws-sdk-php/src/Backup/BackupClient.php',
