@@ -19,9 +19,10 @@
   // $(".file-attachment").hide();
   // $(".tableShowHideBOQ3").hide();
   // $(".FollowingCondition").hide();
-    $("#requester_icon").hide();
+  $("#requester_icon").hide();
 </script>
 
+<!-- GET SUB BUDGET CODE FROM BUDGET CODE -->
 <script>
   $('#tableGetProject tbody').on('click', 'tr', function() {
 
@@ -76,6 +77,7 @@
   });
 </script>
 
+<!-- GET BUDGET DETAILS FROM SUB BUDGET CODE -->
 <script>
   $('#tableGetSite tbody').on('click', 'tr', function() {
 
@@ -86,7 +88,6 @@
     $('#GrandTotal').html(0);
     $("#SaveBrfList").prop("disabled", true);
     //END RESET FORM
-
 
     $("#mySiteCode").modal('toggle');
 
@@ -99,17 +100,12 @@
     $("#sitecode").val(code);
     $("#sitename").val(name);
 
-    // $("#sitecode2").prop("disabled", true);
-    // $("#projectcode2").prop("disabled", true);
-
     $("#addToDoDetail").prop("disabled", false);
     $(".tableShowHideBOQ3").show();
     $("#request_name2").prop("disabled", false);
     $("#beneficiary_name2").prop("disabled", false);
     $("#bank_name2").prop("disabled", false);
 
-
-    // $(".file-attachment").show();
     $(".advance-detail").show();
 
     $.ajaxSetup({
@@ -121,196 +117,45 @@
     $.ajax({
       type: 'GET',
       url: '{!! route("getBudget") !!}?site_code=' + sys_ID,
-      // url: '{!! route("getBudget") !!}?sitecode=' + 143000000000305,
       success: function(data) {
         var no = 1;
-        applied = 0;
-        status = "";
-        statusDisplay = [];
-        statusDisplay2 = [];
-        statusForm = [];
+
         $.each(data, function(key, val2) {
-          var used = val2.quantityAbsorptionRatio * 100;
-
-          if (used == "0.00" && val2.quantity == "0.00") {
-            var applied = 0;
-          } else {
-            var applied = Math.round(used);
-          }
-          if (applied >= 100) {
-            var status = "disabled";
-          }
-          if (val2.productName == "Unspecified Product") {
-            statusDisplay[key] = "";
-            statusDisplay2[key] = "none";
-            statusForm[key] = "disabled";
-          } else {
-            statusDisplay[key] = "none";
-            statusDisplay2[key] = "";
-            statusForm[key] = "";
-          }
-
-          var html = '<tr>' +
-            // '<input name="getWorkId[]" value="' + val2.combinedBudgetSubSectionLevel1_RefID + '" type="hidden">' +
-            // '<input name="getWorkName[]" value="' + val2.combinedBudgetSubSectionLevel1Name + '" type="hidden">' +
-            '<input name="getProductId[]" value="' + val2.product_RefID + '" type="hidden">' +
-            '<input name="getProductName[]" value="' + val2.productName + '" type="hidden">' +
-            '<input name="getQtyId[]" id="budget_qty_id' + key + '" value="' + val2.quantityUnit_RefID + '" type="hidden">' +
-            '<input name="getQty[]" id="budget_qty' + key + '" value="' + val2.quantity + '" type="hidden">' +
-            '<input name="getPrice[]" id="budget_price' + key + '" value="' + val2.priceBaseCurrencyValue + '" type="hidden">' +
-            '<input name="getBudgetTotal[]" id="budget_total' + key + '" value="' + (val2.quantity * val2.priceBaseCurrencyValue) + '" type="hidden">' +
-            '<input name="getUom[]" value="' + val2.quantityUnitName + '" type="hidden">' +
-            '<input name="getCurrency[]" value="' + val2.priceBaseCurrencyISOCode + '" type="hidden">' +
-            '<input name="getCurrencyId[]" value="' + val2.priceCurrency_RefID + '" type="hidden">' +
-            '<input name="combinedBudgetSectionDetail_RefID[]" value="' + val2.sys_ID + '" type="hidden">' +
-            '<input name="combinedBudget_RefID" value="' + val2.combinedBudget_RefID + '" type="hidden">' +
-
-            '<td style="border:1px solid #e9ecef;display:' + statusDisplay[key] + '";">' +
-            '<div class="input-group">' +
-            '<input id="putProductId' + key + '" style="border-radius:0;width:130px;background-color:white;" name="putProductId" class="form-control" readonly>' +
-            '<div class="input-group-append">' +
-            '<span style="border-radius:0;" class="input-group-text form-control" data-id="10">' +
-            '<a id="product_id2" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
-            '</span>' +
-            '</div>' +
-            '</div>' +
-            '</td>' +
-
-            '<td style="border:1px solid #e9ecef;display:' + statusDisplay2[key] + '">' + '<span>' + val2.product_RefID + '</span>' + '</td>' +
-            '<td style="border:1px solid #e9ecef;max-width:15px;overflow: hidden;" title="' + val2.productName + '">' + '<span id="putProductName' + key + '">' + val2.productName + '</span>' + '</td>' +
-            '<input id="putUom' + key + '" type="hidden">' +
-
-            '<input id="TotalBudget' + key + '" type="hidden">' +
-
-            '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.quantity) + '</span>' + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.quantityRemaining) + '</span>' + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + '<span>' + currencyTotal(val2.priceBaseCurrencyValue) + '</span>' + '</td>' +
-            '<td style="border:1px solid #e9ecef;">' + '<span id="total_balance_value2' + key + '">' + currencyTotal(val2.quantity * val2.priceBaseCurrencyValue) + '</span>' + '</td>' +
-
-            '<td class="sticky-col fifth-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="allowance_req' + key + '" style="border-radius:0;" name="allowance_req[]" class="form-control allowance_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
-            '<td class="sticky-col forth-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="accomodation_req' + key + '" style="border-radius:0;" name="accomodation_req[]" class="form-control accomodation_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
-            '<td class="sticky-col third-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="other_req' + key + '" style="border-radius:0;" name="other_req[]" class="form-control total_req" onkeypress="return isNumberKey(this, event);" autocomplete="off" ' + statusForm[key] + '>' + '</td>' +
-            '<td class="sticky-col second-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_req' + key + '" style="border-radius:0;background-color:white;" name="total_req[]" class="form-control total_req" autocomplete="off" disabled>' + '</td>' +
-            '<td class="sticky-col first-col-brf" style="border:1px solid #e9ecef;background-color:white;">' + '<input id="total_balance_value' + key + '" style="border-radius:0;width:90px;background-color:white;" name="total_balance_value[]" class="form-control total_balance_value" autocomplete="off" disabled value="' + currencyTotal(val2.quantity * val2.priceBaseCurrencyValue) + '">' + '</td>' +
-
+          var html = 
+            '<tr>' +
+              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
+                '<input type="checkbox" aria-label="Checkbox for following text input">' +
+              '</td>' +
+              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
+                val2.product_RefID +
+              '</td>' +
+              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
+                val2.productName +
+              '</td>' +
+              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
+                numberFormatPHPCustom(val2.quantity, 2) +
+              '</td>' +
+              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
+                numberFormatPHPCustom(val2.quantityRemaining, 2) +
+              '</td>' +
+              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
+                numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) +
+              '</td>' +
+              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
+                val2.priceBaseCurrencyISOCode +
+              '</td>' +
+              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
+                numberFormatPHPCustom(50000, 2) +
+              '</td>' +
+              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
+                numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) +
+              '</td>' +
             '</tr>';
-          $('table.tableBudgetDetail tbody').append(html);
 
-          //VALIDASI ALLOWANCE
-          $('#allowance_req' + key).keyup(function() {
-            val2.quantity
-            $(this).val(currency($(this).val()));
-            var allowance_req = $(this).val().replace(/,/g, '');
-            var budget_total = $("#budget_total" + key).val();
-            var accomodation_req = $("#accomodation_req" + key).val().replace(/,/g, '');
-            var other_req = $("#other_req" + key).val().replace(/,/g, '');
-            var totalWith = +allowance_req + +accomodation_req + +other_req;
-            var totalWithout = +accomodation_req + +other_req;
-
-            if (allowance_req == "") {
-              $('#total_req' + key).val(currencyTotal(totalWithout));
-              $("input[name='allowance_req[]']").css("border", "1px solid #ced4da");
-            } else if (parseFloat(totalWith) > parseFloat(budget_total)) {
-
-              swal({
-                onOpen: function() {
-                  swal.disableConfirmButton();
-                  Swal.fire("Error !", "Your request is over budget !", "error");
-                }
-              });
-
-              $('#allowance_req' + key).val("");
-              $('#total_req' + key).val(currencyTotal(totalWithout));
-              $('#allowance_req' + key).css("border", "1px solid red");
-              $('#allowance_req' + key).focus();
-            } else {
-
-              $("input[name='allowance_req[]']").css("border", "1px solid #ced4da");
-              $('#total_req' + key).val(currencyTotal(totalWith));
-            }
-
-            //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
-            TotalBudgetSelected();
-            //MEMANGGIL FUNCTION TOTAL BALANCE QTY SELECTED
-            TotalBalanceValueSelected(key);
-          });
-
-          //VALIDASI ACCOMODATION
-          $('#accomodation_req' + key).keyup(function() {
-            $(this).val(currency($(this).val()));
-            var accomodation_req = $(this).val().replace(/,/g, '');
-            var budget_total = $("#budget_total" + key).val();
-            var allowance_req = $("#allowance_req" + key).val().replace(/,/g, '');
-            var other_req = $("#other_req" + key).val().replace(/,/g, '');
-            var totalWith = +allowance_req + +accomodation_req + +other_req;
-            var totalWithout = +allowance_req + +other_req;
-
-            if (accomodation_req == "") {
-              $('#total_req' + key).val(currencyTotal(totalWithout));
-              $("input[name='accomodation_req[]']").css("border", "1px solid #ced4da");
-            } else if (parseFloat(totalWith) > parseFloat(budget_total)) {
-
-              swal({
-                onOpen: function() {
-                  swal.disableConfirmButton();
-                  Swal.fire("Error !", "Your request is over budget !", "error");
-                }
-              });
-
-              $('#accomodation_req' + key).val("");
-              $('#total_req' + key).val(currencyTotal(totalWithout));
-              $('#accomodation_req' + key).css("border", "1px solid red");
-              $('#accomodation_req' + key).focus();
-            } else {
-
-              $("input[name='accomodation_req[]']").css("border", "1px solid #ced4da");
-              $('#total_req' + key).val(currencyTotal(totalWith));
-            }
-
-            //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
-            TotalBudgetSelected();
-            //MEMANGGIL FUNCTION TOTAL BALANCE QTY SELECTED
-            TotalBalanceValueSelected(key);
-          });
-
-          //VALIDASI OTHER
-          $('#other_req' + key).keyup(function() {
-            $(this).val(currency($(this).val()));
-            var other_req = $(this).val().replace(/,/g, '');
-            var budget_total = $("#budget_total" + key).val();
-            var allowance_req = $("#allowance_req" + key).val().replace(/,/g, '');
-            var accomodation_req = $("#accomodation_req" + key).val().replace(/,/g, '');
-            var totalWith = +allowance_req + +accomodation_req + +other_req;
-            var totalWithout = +allowance_req + +accomodation_req;
-
-            if (other_req == "") {
-              $('#total_req' + key).val(currencyTotal(totalWithout));
-              $("input[name='other_req[]']").css("border", "1px solid #ced4da");
-            } else if (parseFloat(totalWith) > parseFloat(budget_total)) {
-
-              swal({
-                onOpen: function() {
-                  swal.disableConfirmButton();
-                  Swal.fire("Error !", "Your request is over budget !", "error");
-                }
-              });
-
-              $('#other_req' + key).val("");
-              $('#total_req' + key).val(currencyTotal(totalWithout));
-              $('#other_req' + key).css("border", "1px solid red");
-              $('#other_req' + key).focus();
-            } else {
-
-              $("input[name='other_req[]']").css("border", "1px solid #ced4da");
-              $('#total_req' + key).val(currencyTotal(totalWith));
-            }
-
-            //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
-            TotalBudgetSelected();
-            //MEMANGGIL FUNCTION TOTAL BALANCE QTY SELECTED
-            TotalBalanceValueSelected(key);
-          });
+          $('table#budgetTable tbody').append(html);
         });
+
+        handleCheckboxSelection();
       }
     });
   });
@@ -765,6 +610,78 @@
   });
 </script>
 
+<script>
+  // Fungsi untuk menangani checkbox pada tabel
+  function handleCheckboxSelection() {
+    // Ambil semua checkbox dalam tabel
+    const checkboxes = document.querySelectorAll('#budgetTable tbody input[type="checkbox"]');
+    
+    // Tambahkan event listener untuk setiap checkbox
+    checkboxes.forEach((checkbox, index) => {
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          // Jika checkbox ini dicentang, nonaktifkan semua checkbox lainnya
+          checkboxes.forEach((otherCheckbox, otherIndex) => {
+            if (otherIndex !== index) {
+              otherCheckbox.disabled = true;
+              otherCheckbox.checked = false;
+            }
+          });
+          // Panggil fungsi untuk menyimpan data saat checkbox dicentang
+          getSelectedRowData();
+        } else {
+          // Jika checkbox ini dinonaktifkan, aktifkan kembali semua checkbox
+          checkboxes.forEach(otherCheckbox => {
+            otherCheckbox.disabled = false;
+          });
+          // Kosongkan input saat tidak ada checkbox yang dicentang
+          document.getElementById('budgetDetailsData').value = '';
+        }
+      });
+    });
+  }
+
+  // Fungsi untuk mengubah string angka dengan format ke number
+  function parseFormattedNumber(strNumber) {
+    return parseFloat(strNumber.replace(/,/g, ''));
+  }
+  
+  // Fungsi untuk mendapatkan data baris yang dicentang dan menyimpan ke input
+  function getSelectedRowData() {
+    const selectedCheckbox = document.querySelector('#budgetTable tbody input[type="checkbox"]:checked');
+    const budgetDetailsInput = document.getElementById('budgetDetailsData');
+    const totalBusinessTripInput = document.getElementById('total_business_trip');
+    
+    if (selectedCheckbox) {
+      const row = selectedCheckbox.closest('tr');
+      const datas = {
+        productId: row.cells[1].textContent.trim(),
+        productName: row.cells[2].textContent.trim(),
+        qtyBudget: row.cells[3].textContent.trim(),
+        qtyAvail: row.cells[4].textContent.trim(),
+        price: row.cells[5].textContent.trim(),
+        currency: row.cells[6].textContent.trim(),
+        balanceBudget: row.cells[7].textContent.trim(),
+        totalBudget: row.cells[8].textContent.trim()
+      };
+      
+      // Simpan data ke dalam input sebagai JSON string
+      budgetDetailsInput.value = JSON.stringify(datas);
+
+      // Validasi balance budget dengan total business trip
+      const balanceBudget = parseFormattedNumber(datas.balanceBudget);
+      const totalBusinessTrip = parseFormattedNumber(totalBusinessTripInput.value || '0');
+
+      if (totalBusinessTrip > balanceBudget) {
+        Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget.`, "error");
+      }
+    } else {
+      // Kosongkan input jika tidak ada checkbox yang dicentang
+      budgetDetailsInput.value = '';
+    }
+  }
+</script>
+
 <!-- FUNCTION TOTAL TRANSPORT -->
 <script>
   const totalBusinessTrip = [];
@@ -787,7 +704,7 @@
     const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue,initialValue);
     
     document.getElementById('total_transport').value = numberFormatPHPCustom(total, 2);
-    document.getElementById('total_business_trip').value = numberFormatPHPCustom(hello, 2);
+    document.getElementById('total_business_trip').value = numberFormatPHPCustom(sumTotalBusinessTrip, 2);
   }
 
   const transportInputs = [
@@ -824,7 +741,7 @@
     const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue,initialValue);
     
     document.getElementById('total_accomodation').value = numberFormatPHPCustom(total, 2);
-    document.getElementById('total_business_trip').value = numberFormatPHPCustom(hello, 2);
+    document.getElementById('total_business_trip').value = numberFormatPHPCustom(sumTotalBusinessTrip, 2);
   }
 
   const accomodationInputs = [
@@ -854,7 +771,7 @@
 
     const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue,initialValue);
 
-    document.getElementById('total_business_trip').value = numberFormatPHPCustom(hello, 2);
+    document.getElementById('total_business_trip').value = numberFormatPHPCustom(sumTotalBusinessTrip, 2);
   }
 
   const businessTripInputs = [

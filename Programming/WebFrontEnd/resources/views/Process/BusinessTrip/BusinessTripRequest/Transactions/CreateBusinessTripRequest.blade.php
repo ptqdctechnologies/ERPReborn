@@ -22,6 +22,8 @@
 
       @include('Process.BusinessTrip.BusinessTripRequest.Functions.Menu.MenuBusinessTripRequest')
       @if($var == 0)
+        <input id="budgetDetailsData" name="budgetDetailsData" />
+        
         <div class="card">
           <!-- ADD NEW BUSINESS REQUEST TRIP FORM -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -251,6 +253,46 @@
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BUDGET DETAILS -->
+          <div class="tab-content px-3 pb-2" id="nav-tabContent">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <label class="card-title">
+                      Budget Details
+                    </label>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="wrapper-budget table-responsive card-body p-0" style="height: 12em;">
+                    <table id="budgetTable" class="table table-head-fixed text-wrap table-sm">
+                      <thead>
+                        <tr>
+                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;"></th>
+                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Id</th>
+                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Name</th>
+                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Qty Budget</th>
+                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Qty Avail</th>
+                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Price</th>
+                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Currency</th>
+                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Balance Budget</th>
+                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Total Budget</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
