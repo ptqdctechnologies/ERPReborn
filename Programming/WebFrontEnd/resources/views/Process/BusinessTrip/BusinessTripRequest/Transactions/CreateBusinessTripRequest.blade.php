@@ -22,8 +22,8 @@
 
       @include('Process.BusinessTrip.BusinessTripRequest.Functions.Menu.MenuBusinessTripRequest')
       @if($var == 0)
-        <input id="budgetDetailsData" name="budgetDetailsData" />
-        
+        <input hidden id="budgetDetailsData" name="budgetDetailsData" />
+
         <div class="card">
           <!-- ADD NEW BUSINESS REQUEST TRIP FORM -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
