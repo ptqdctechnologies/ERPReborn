@@ -3598,6 +3598,7 @@ return array(
     'Illuminate\\Support\\Traits\\Dumpable' => $vendorDir . '/laravel/framework/src/Illuminate/Support/Traits/Dumpable.php',
     'Illuminate\\Support\\Traits\\EnumeratesValues' => $vendorDir . '/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php',
     'Illuminate\\Support\\Traits\\ForwardsCalls' => $vendorDir . '/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php',
+    'Illuminate\\Support\\Traits\\InteractsWithData' => $vendorDir . '/laravel/framework/src/Illuminate/Support/Traits/InteractsWithData.php',
     'Illuminate\\Support\\Traits\\Localizable' => $vendorDir . '/laravel/framework/src/Illuminate/Support/Traits/Localizable.php',
     'Illuminate\\Support\\Traits\\Macroable' => $vendorDir . '/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php',
     'Illuminate\\Support\\Traits\\ReflectsClosures' => $vendorDir . '/laravel/framework/src/Illuminate/Support/Traits/ReflectsClosures.php',
