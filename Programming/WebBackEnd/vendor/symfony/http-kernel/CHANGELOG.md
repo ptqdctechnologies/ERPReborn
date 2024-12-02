@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+7.2
+---
+
+ * Remove `@internal` flag and add `@final` to `ServicesResetter`
+ * Add support for `SYMFONY_DISABLE_RESOURCE_TRACKING` env var
+ * Add support for configuring trusted proxies/headers/hosts via env vars
+
 7.1
 ---
 

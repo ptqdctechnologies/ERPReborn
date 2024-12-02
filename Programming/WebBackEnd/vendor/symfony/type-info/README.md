@@ -3,11 +3,6 @@ TypeInfo Component
 
 The TypeInfo component extracts PHP types information.
 
-**This Component is experimental**.
-[Experimental features](https://symfony.com/doc/current/contributing/code/experimental.html)
-are not covered by Symfony's
-[Backward Compatibility Promise](https://symfony.com/doc/current/contributing/code/bc.html).
-
 Getting Started
 ---------------
 
@@ -33,14 +28,14 @@ $typeResolver->resolve('bool'); // returns a "bool" Type instance
 $type = Type::list(Type::nullable(Type::bool()));
 
 // Type instances have several helper methods
-$type->getBaseType() // returns an "array" Type instance
+$type->getBaseType(); // returns an "array" Type instance
 $type->getCollectionKeyType(); // returns an "int" Type instance
 $type->getCollectionValueType()->isNullable(); // returns true
 ```
 
 Resources
 ---------
-
+ * [Documentation](https://symfony.com/doc/current/components/type_info.html)
  * [Contributing](https://symfony.com/doc/current/contributing/index.html)
  * [Report issues](https://github.com/symfony/symfony/issues) and
    [send Pull Requests](https://github.com/symfony/symfony/pulls)

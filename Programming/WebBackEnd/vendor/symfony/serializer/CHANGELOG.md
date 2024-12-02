@@ -1,6 +1,19 @@
 CHANGELOG
 =========
 
+7.2
+---
+
+ * Deprecate the `csv_escape_char` context option of `CsvEncoder`, the `CsvEncoder::ESCAPE_CHAR_KEY` constant
+   and the `CsvEncoderContextBuilder::withEscapeChar()` method, following its deprecation in PHP 8.4
+ * Add `SnakeCaseToCamelCaseNameConverter`
+ * Support subclasses of `\DateTime` and `\DateTimeImmutable` for denormalization
+ * Add the `UidNormalizer::NORMALIZATION_FORMAT_RFC9562` constant
+ * Add support for configuring multiple serializer instances with different
+   default contexts, name converters, sets of normalizers and encoders
+ * Add support for collection profiles of multiple serializer instances
+ * Deprecate `AdvancedNameConverterInterface`, use `NameConverterInterface` instead
+
 7.1
 ---
 

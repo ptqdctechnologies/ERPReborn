@@ -22,8 +22,6 @@ use Symfony\Component\TypeInfo\Type;
  *
  * @author Mathias Arlaud <mathias.arlaud@gmail.com>
  * @author Baptiste Leduc <baptiste.leduc@gmail.com>
- *
- * @experimental
  */
 final class TypeContext
 {
@@ -62,11 +60,11 @@ final class TypeContext
             }
             array_shift($nameParts);
 
-            return sprintf('%s\\%s', $this->uses[$firstNamePart], implode('\\', $nameParts));
+            return \sprintf('%s\\%s', $this->uses[$firstNamePart], implode('\\', $nameParts));
         }
 
         if (null !== $this->namespace) {
-            return sprintf('%s\\%s', $this->namespace, $name);
+            return \sprintf('%s\\%s', $this->namespace, $name);
         }
 
         return $name;
@@ -96,7 +94,7 @@ final class TypeContext
         $declaringClassName = $this->getDeclaringClass();
 
         if (false === $parentClass = get_parent_class($declaringClassName)) {
-            throw new LogicException(sprintf('"%s" do not extend any class.', $declaringClassName));
+            throw new LogicException(\sprintf('"%s" do not extend any class.', $declaringClassName));
         }
 
         if (!isset(self::$classExistCache[$parentClass])) {

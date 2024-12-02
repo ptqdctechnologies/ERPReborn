@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+7.2
+---
+
+ * Add the `Requirement::UID_RFC9562` constant to validate UUIDs in the RFC 9562 format
+ * Deprecate the `AttributeClassLoader::$routeAnnotationClass` property
+
 7.1
 ---
 

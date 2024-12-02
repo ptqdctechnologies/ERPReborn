@@ -11,38 +11,49 @@
 
 namespace Symfony\Component\TypeInfo;
 
-use Symfony\Component\TypeInfo\Type\BuiltinType;
-use Symfony\Component\TypeInfo\Type\ObjectType;
+use Symfony\Component\TypeInfo\Type\CompositeTypeInterface;
+use Symfony\Component\TypeInfo\Type\WrappingTypeInterface;
 
 /**
  * @author Mathias Arlaud <mathias.arlaud@gmail.com>
  * @author Baptiste Leduc <baptiste.leduc@gmail.com>
- *
- * @experimental
  */
 abstract class Type implements \Stringable
 {
     use TypeFactoryTrait;
 
-    abstract public function getBaseType(): BuiltinType|ObjectType;
-
     /**
-     * @param TypeIdentifier|class-string $subject
+     * Tells if the type is satisfied by the $specification callable.
+     *
+     * @param callable(self): bool $specification
      */
-    abstract public function isA(TypeIdentifier|string $subject): bool;
-
-    abstract public function asNonNullable(): self;
-
-    /**
-     * @param callable(Type): bool $callable
-     */
-    public function is(callable $callable): bool
+    public function isSatisfiedBy(callable $specification): bool
     {
-        return $callable($this);
+        return $specification($this);
+    }
+
+    /**
+     * Tells if the type (or one of its wrapped/composed parts) is identified by one of the $identifiers.
+     */
+    public function isIdentifiedBy(TypeIdentifier|string ...$identifiers): bool
+    {
+        $specification = static function (Type $type) use (&$specification, $identifiers): bool {
+            if ($type instanceof WrappingTypeInterface) {
+                return $type->wrappedTypeIsSatisfiedBy($specification);
+            }
+
+            if ($type instanceof CompositeTypeInterface) {
+                return $type->composedTypesAreSatisfiedBy($specification);
+            }
+
+            return $type->isIdentifiedBy(...$identifiers);
+        };
+
+        return $this->isSatisfiedBy($specification);
     }
 
     public function isNullable(): bool
     {
-        return $this->is(fn (Type $t): bool => $t->isA(TypeIdentifier::NULL) || $t->isA(TypeIdentifier::MIXED));
+        return false;
     }
 }

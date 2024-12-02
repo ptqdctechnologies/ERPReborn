@@ -74,6 +74,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionB2bi(array $args = [])
  * @method \Aws\BCMDataExports\BCMDataExportsClient createBCMDataExports(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBCMDataExports(array $args = [])
+ * @method \Aws\BCMPricingCalculator\BCMPricingCalculatorClient createBCMPricingCalculator(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionBCMPricingCalculator(array $args = [])
  * @method \Aws\Backup\BackupClient createBackup(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBackup(array $args = [])
  * @method \Aws\BackupGateway\BackupGatewayClient createBackupGateway(array $args = [])
@@ -528,6 +530,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionOAM(array $args = [])
  * @method \Aws\OSIS\OSISClient createOSIS(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionOSIS(array $args = [])
+ * @method \Aws\ObservabilityAdmin\ObservabilityAdminClient createObservabilityAdmin(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionObservabilityAdmin(array $args = [])
  * @method \Aws\Omics\OmicsClient createOmics(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionOmics(array $args = [])
  * @method \Aws\OpenSearchServerless\OpenSearchServerlessClient createOpenSearchServerless(array $args = [])
@@ -795,7 +799,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.329.0';
+    const VERSION = '3.331.0';
 
     /** @var array Arguments for creating clients */
     private $args;

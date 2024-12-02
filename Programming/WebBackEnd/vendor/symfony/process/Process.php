@@ -85,6 +85,7 @@ class Process implements \IteratorAggregate
     private ?int $cachedExitCode = null;
 
     private static ?bool $sigchild = null;
+    private static array $executables = [];
 
     /**
      * Exit codes translation table.
@@ -338,7 +339,7 @@ class Process implements \IteratorAggregate
         }
 
         if (!is_dir($this->cwd)) {
-            throw new RuntimeException(sprintf('The provided cwd "%s" does not exist.', $this->cwd));
+            throw new RuntimeException(\sprintf('The provided cwd "%s" does not exist.', $this->cwd));
         }
 
         $lastError = null;
@@ -1220,7 +1221,7 @@ class Process implements \IteratorAggregate
         foreach ($options as $key => $value) {
             if (!\in_array($key, $existingOptions)) {
                 $this->options = $defaultOptions;
-                throw new LogicException(sprintf('Invalid option "%s" passed to "%s()". Supported options are "%s".', $key, __METHOD__, implode('", "', $existingOptions)));
+                throw new LogicException(\sprintf('Invalid option "%s" passed to "%s()". Supported options are "%s".', $key, __METHOD__, implode('", "', $existingOptions)));
             }
             $this->options[$key] = $value;
         }
@@ -1504,10 +1505,10 @@ class Process implements \IteratorAggregate
         }
 
         if ('\\' === \DIRECTORY_SEPARATOR) {
-            exec(sprintf('taskkill /F /T /PID %d 2>&1', $pid), $output, $exitCode);
+            exec(\sprintf('taskkill /F /T /PID %d 2>&1', $pid), $output, $exitCode);
             if ($exitCode && $this->isRunning()) {
                 if ($throwException) {
-                    throw new RuntimeException(sprintf('Unable to kill the process (%s).', implode(' ', $output)));
+                    throw new RuntimeException(\sprintf('Unable to kill the process (%s).', implode(' ', $output)));
                 }
 
                 return false;
@@ -1517,12 +1518,12 @@ class Process implements \IteratorAggregate
                 $ok = @proc_terminate($this->process, $signal);
             } elseif (\function_exists('posix_kill')) {
                 $ok = @posix_kill($pid, $signal);
-            } elseif ($ok = proc_open(sprintf('kill -%d %d', $signal, $pid), [2 => ['pipe', 'w']], $pipes)) {
+            } elseif ($ok = proc_open(\sprintf('kill -%d %d', $signal, $pid), [2 => ['pipe', 'w']], $pipes)) {
                 $ok = false === fgets($pipes[2]);
             }
             if (!$ok) {
                 if ($throwException) {
-                    throw new RuntimeException(sprintf('Error while sending signal "%s".', $signal));
+                    throw new RuntimeException(\sprintf('Error while sending signal "%s".', $signal));
                 }
 
                 return false;
@@ -1543,13 +1544,19 @@ class Process implements \IteratorAggregate
             return $commandline;
         }
 
+        if ('\\' === \DIRECTORY_SEPARATOR && isset($commandline[0][0]) && \strlen($commandline[0]) === strcspn($commandline[0], ':/\\')) {
+            // On Windows, we don't rely on the OS to find the executable if possible to avoid lookups
+            // in the current directory which could be untrusted. Instead we use the ExecutableFinder.
+            $commandline[0] = (self::$executables[$commandline[0]] ??= (new ExecutableFinder())->find($commandline[0])) ?? $commandline[0];
+        }
+
         return implode(' ', array_map($this->escapeArgument(...), $commandline));
     }
 
     private function prepareWindowsCommandLine(string|array $cmd, array &$env): string
     {
         $cmd = $this->buildShellCommandline($cmd);
-        $uid = uniqid('', true);
+        $uid = bin2hex(random_bytes(4));
         $cmd = preg_replace_callback(
             '/"(?:(
                 [^"%!^]*+
@@ -1608,7 +1615,7 @@ class Process implements \IteratorAggregate
     private function requireProcessIsStarted(string $functionName): void
     {
         if (!$this->isStarted()) {
-            throw new LogicException(sprintf('Process must be started before calling "%s()".', $functionName));
+            throw new LogicException(\sprintf('Process must be started before calling "%s()".', $functionName));
         }
     }
 
@@ -1620,7 +1627,7 @@ class Process implements \IteratorAggregate
     private function requireProcessIsTerminated(string $functionName): void
     {
         if (!$this->isTerminated()) {
-            throw new LogicException(sprintf('Process must be terminated before calling "%s()".', $functionName));
+            throw new LogicException(\sprintf('Process must be terminated before calling "%s()".', $functionName));
         }
     }
 
@@ -1650,7 +1657,7 @@ class Process implements \IteratorAggregate
     {
         return preg_replace_callback('/"\$\{:([_a-zA-Z]++[_a-zA-Z0-9]*+)\}"/', function ($matches) use ($commandline, $env) {
             if (!isset($env[$matches[1]]) || false === $env[$matches[1]]) {
-                throw new InvalidArgumentException(sprintf('Command line is missing a value for parameter "%s": ', $matches[1]).$commandline);
+                throw new InvalidArgumentException(\sprintf('Command line is missing a value for parameter "%s": ', $matches[1]).$commandline);
             }
 
             return $this->escapeArgument($env[$matches[1]]);

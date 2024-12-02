@@ -17,6 +17,7 @@
 
 namespace Symfony\Component\HttpKernel\HttpCache;
 
+use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -87,7 +88,6 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
         private ?SurrogateInterface $surrogate = null,
         array $options = [],
     ) {
-
         // needed in case there is a fatal error because the backend is too slow to respond
         register_shutdown_function($this->store->cleanup(...));
 
@@ -149,7 +149,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     {
         $log = [];
         foreach ($this->traces as $request => $traces) {
-            $log[] = sprintf('%s: %s', $request, implode(', ', $traces));
+            $log[] = \sprintf('%s: %s', $request, implode(', ', $traces));
         }
 
         return implode('; ', $log);
@@ -705,7 +705,11 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
             $path .= '?'.$qs;
         }
 
-        return $request->getMethod().' '.$path;
+        try {
+            return $request->getMethod().' '.$path;
+        } catch (SuspiciousOperationException) {
+            return '_BAD_METHOD_ '.$path;
+        }
     }
 
     /**
