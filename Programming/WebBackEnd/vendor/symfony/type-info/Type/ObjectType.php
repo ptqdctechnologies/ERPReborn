@@ -19,8 +19,6 @@ use Symfony\Component\TypeInfo\TypeIdentifier;
  * @author Baptiste Leduc <baptiste.leduc@gmail.com>
  *
  * @template T of class-string
- *
- * @experimental
  */
 class ObjectType extends Type
 {
@@ -32,23 +30,9 @@ class ObjectType extends Type
     ) {
     }
 
-    public function getBaseType(): BuiltinType|self
-    {
-        return $this;
-    }
-
     public function getTypeIdentifier(): TypeIdentifier
     {
         return TypeIdentifier::OBJECT;
-    }
-
-    public function isA(TypeIdentifier|string $subject): bool
-    {
-        if ($subject instanceof TypeIdentifier) {
-            return $this->getTypeIdentifier() === $subject;
-        }
-
-        return is_a($this->getClassName(), $subject, allow_string: true);
     }
 
     /**
@@ -59,9 +43,27 @@ class ObjectType extends Type
         return $this->className;
     }
 
-    public function asNonNullable(): static
+    public function isIdentifiedBy(TypeIdentifier|string ...$identifiers): bool
     {
-        return $this;
+        foreach ($identifiers as $identifier) {
+            if ($identifier instanceof TypeIdentifier) {
+                if (TypeIdentifier::OBJECT === $identifier) {
+                    return true;
+                }
+
+                continue;
+            }
+
+            if (TypeIdentifier::OBJECT->value === $identifier) {
+                return true;
+            }
+
+            if (is_a($this->className, $identifier, allow_string: true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function __toString(): string

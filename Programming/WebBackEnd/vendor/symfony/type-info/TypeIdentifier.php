@@ -16,8 +16,6 @@ namespace Symfony\Component\TypeInfo;
  *
  * @author Mathias Arlaud <mathias.arlaud@gmail.com>
  * @author Baptiste Leduc <baptiste.leduc@gmail.com>
- *
- * @experimental
  */
 enum TypeIdentifier: string
 {
@@ -43,5 +41,20 @@ enum TypeIdentifier: string
     public static function values(): array
     {
         return array_column(self::cases(), 'value');
+    }
+
+    public function isStandalone(): bool
+    {
+        return \in_array($this, [self::MIXED, self::NEVER, self::VOID], true);
+    }
+
+    public function isScalar(): bool
+    {
+        return \in_array($this, [self::STRING, self::FLOAT, self::INT, self::BOOL, self::FALSE, self::TRUE], true);
+    }
+
+    public function isBool(): bool
+    {
+        return \in_array($this, [self::BOOL, self::FALSE, self::TRUE], true);
     }
 }

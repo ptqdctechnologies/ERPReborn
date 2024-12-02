@@ -179,7 +179,7 @@ final class ObjectNormalizer extends AbstractObjectNormalizer
             return false;
         }
 
-        $class = \is_object($classOrObject) ? \get_class($classOrObject) : $classOrObject;
+        $class = \is_object($classOrObject) ? $classOrObject::class : $classOrObject;
 
         if ($context['_read_attributes'] ?? true) {
             if (!isset(self::$isReadableCache[$class.$attribute])) {

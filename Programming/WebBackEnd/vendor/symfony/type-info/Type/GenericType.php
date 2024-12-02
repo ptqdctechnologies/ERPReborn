@@ -11,22 +11,21 @@
 
 namespace Symfony\Component\TypeInfo\Type;
 
+use Symfony\Component\TypeInfo\Exception\InvalidArgumentException;
 use Symfony\Component\TypeInfo\Type;
 use Symfony\Component\TypeInfo\TypeIdentifier;
 
 /**
  * Represents a generic type, which is a type that holds variable parts.
  *
- * It proxies every method to the main type and adds methods related to variable types.
- *
  * @author Mathias Arlaud <mathias.arlaud@gmail.com>
  * @author Baptiste Leduc <baptiste.leduc@gmail.com>
  *
  * @template T of BuiltinType<TypeIdentifier::ARRAY>|BuiltinType<TypeIdentifier::ITERABLE>|ObjectType
  *
- * @experimental
+ * @implements WrappingTypeInterface<T>
  */
-final class GenericType extends Type
+final class GenericType extends Type implements WrappingTypeInterface
 {
     /**
      * @var list<Type>
@@ -40,30 +39,16 @@ final class GenericType extends Type
         private readonly BuiltinType|ObjectType $type,
         Type ...$variableTypes,
     ) {
+        if ($type instanceof BuiltinType && TypeIdentifier::ARRAY !== $type->getTypeIdentifier() && TypeIdentifier::ITERABLE !== $type->getTypeIdentifier()) {
+            throw new InvalidArgumentException(\sprintf('Cannot create "%s" with "%s" type.', self::class, $type));
+        }
+
         $this->variableTypes = $variableTypes;
     }
 
-    public function getBaseType(): BuiltinType|ObjectType
-    {
-        return $this->getType();
-    }
-
-    /**
-     * @return T
-     */
-    public function getType(): BuiltinType|ObjectType
+    public function getWrappedType(): Type
     {
         return $this->type;
-    }
-
-    public function isA(TypeIdentifier|string $subject): bool
-    {
-        return $this->getType()->isA($subject);
-    }
-
-    public function asNonNullable(): self
-    {
-        return $this;
     }
 
     /**
@@ -74,6 +59,11 @@ final class GenericType extends Type
         return $this->variableTypes;
     }
 
+    public function wrappedTypeIsSatisfiedBy(callable $specification): bool
+    {
+        return $this->getWrappedType()->isSatisfiedBy($specification);
+    }
+
     public function __toString(): string
     {
         $typeString = (string) $this->type;
@@ -81,20 +71,10 @@ final class GenericType extends Type
         $variableTypesString = '';
         $glue = '';
         foreach ($this->variableTypes as $t) {
-            $variableTypesString .= $glue.((string) $t);
+            $variableTypesString .= $glue.$t;
             $glue = ',';
         }
 
         return $typeString.'<'.$variableTypesString.'>';
-    }
-
-    /**
-     * Proxies all method calls to the original type.
-     *
-     * @param list<mixed> $arguments
-     */
-    public function __call(string $method, array $arguments): mixed
-    {
-        return $this->type->{$method}(...$arguments);
     }
 }

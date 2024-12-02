@@ -28,8 +28,6 @@ use Symfony\Component\TypeInfo\TypeResolver\StringTypeResolver;
  *
  * @author Mathias Arlaud <mathias.arlaud@gmail.com>
  * @author Baptiste Leduc <baptiste.leduc@gmail.com>
- *
- * @experimental
  */
 final class TypeContextFactory
 {
@@ -119,7 +117,7 @@ final class TypeContextFactory
         }
 
         if (false === $lines = @file($fileName)) {
-            throw new RuntimeException(sprintf('Unable to read file "%s".', $fileName));
+            throw new RuntimeException(\sprintf('Unable to read file "%s".', $fileName));
         }
 
         $uses = [];

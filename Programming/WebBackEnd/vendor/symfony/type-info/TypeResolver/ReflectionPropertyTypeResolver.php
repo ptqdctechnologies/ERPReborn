@@ -21,8 +21,6 @@ use Symfony\Component\TypeInfo\TypeContext\TypeContextFactory;
  *
  * @author Mathias Arlaud <mathias.arlaud@gmail.com>
  * @author Baptiste Leduc <baptiste.leduc@gmail.com>
- *
- * @internal
  */
 final readonly class ReflectionPropertyTypeResolver implements TypeResolverInterface
 {
@@ -35,7 +33,7 @@ final readonly class ReflectionPropertyTypeResolver implements TypeResolverInter
     public function resolve(mixed $subject, ?TypeContext $typeContext = null): Type
     {
         if (!$subject instanceof \ReflectionProperty) {
-            throw new UnsupportedException(sprintf('Expected subject to be a "ReflectionProperty", "%s" given.', get_debug_type($subject)), $subject);
+            throw new UnsupportedException(\sprintf('Expected subject to be a "ReflectionProperty", "%s" given.', get_debug_type($subject)), $subject);
         }
 
         $typeContext ??= $this->typeContextFactory->createFromReflection($subject);
@@ -43,9 +41,9 @@ final readonly class ReflectionPropertyTypeResolver implements TypeResolverInter
         try {
             return $this->reflectionTypeResolver->resolve($subject->getType(), $typeContext);
         } catch (UnsupportedException $e) {
-            $path = sprintf('%s::$%s', $subject->getDeclaringClass()->getName(), $subject->getName());
+            $path = \sprintf('%s::$%s', $subject->getDeclaringClass()->getName(), $subject->getName());
 
-            throw new UnsupportedException(sprintf('Cannot resolve type for "%s".', $path), $subject, previous: $e);
+            throw new UnsupportedException(\sprintf('Cannot resolve type for "%s".', $path), $subject, previous: $e);
         }
     }
 }
