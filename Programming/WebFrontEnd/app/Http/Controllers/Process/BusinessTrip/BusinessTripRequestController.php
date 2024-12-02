@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 
 class BusinessTripRequestController extends Controller
 {
@@ -73,8 +76,8 @@ class BusinessTripRequestController extends Controller
         // dd($detailBrf);
 
         //HEADER
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
             'transaction.create.humanResource.setPersonBusinessTrip', 
             'latest', 
@@ -126,8 +129,8 @@ class BusinessTripRequestController extends Controller
 
             // if (Redis::get("DataListAdvance") == null) {
                 $varAPIWebToken = Session::get('SessionLogin');
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'transaction.read.dataList.finance.getAdvance',
                     'latest',
@@ -145,8 +148,8 @@ class BusinessTripRequestController extends Controller
             // }
 
             $DataListAdvance = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
                     "DataListAdvance"
                 ),
                 true
@@ -182,8 +185,8 @@ class BusinessTripRequestController extends Controller
             $varAPIWebToken = Session::get('SessionLogin');
 
             // DATA REVISION
-            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $filteredArray = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.finance.getAdvanceReport',
                 'latest',
@@ -218,8 +221,8 @@ class BusinessTripRequestController extends Controller
         // $varAPIWebToken = $request->session()->get('SessionLogin');
         // $request->session()->forget("SessionBusinessTripRequest");
 
-        // $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        // $varDataAdvanceRevision = Helper_APICall::setCallAPIGateway(
+        //     Helper_Environment::getUserSessionID_System(),
         //     $varAPIWebToken, 
         //     'report.form.documentForm.finance.getAdvance', 
         //     'latest',
@@ -246,8 +249,8 @@ class BusinessTripRequestController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $advance_RefID = $request->input('advance_RefID');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.read.dataList.finance.getAdvanceDetail', 
         'latest', 

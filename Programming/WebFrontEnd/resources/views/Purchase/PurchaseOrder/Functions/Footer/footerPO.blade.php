@@ -26,7 +26,7 @@
             type: 'GET',
             url: '{!! route("PurchaseRequisition.PurchaseRequisitionListData") !!}',
             success: function(data) {
-                console.log(data.data.data);
+                console.log('data', data);
                 var keys=0;
                 var no = 1;
                 t = $('#TableSearchPRinPO').DataTable();
@@ -70,20 +70,27 @@
             }
         });
 
+        console.log('supplier_id', supplier_id);
+        console.log('supplier_code', supplier_code);
+        console.log('supplier_name', supplier_name);
+
         $.ajax({
             type: "POST",
           url: '{!! route("PurchaseOrder.StoreValidatePurchaseOrderPrNumber") !!}?supplier_id=' + supplier_id + '&supplier_code=' + supplier_code + '&supplier_name=' + supplier_name + '&pr_RefID=' + pr_RefID,
             success: function(data) {
-                console.log('data', data);
-                
-                if(data.status == 200){
-                 
-                    $("#supplier_id").val(data.supplier_id);
-                    $("#supplier_code").val(data.supplier_code);
-                    $("#supplier_name").val(data.supplier_name);
-                   
+                if(data.status == 200 || data.DataPurchaseRequisitionList.data.length > 0){
+                    console.log('data.DataPurchaseRequisitionList.data', data);
+
+                    $("#supplier_id").val(supplier_id);
+                    $("#supplier_code").val(supplier_code);
+                    $("#supplier_name").val(supplier_name);
+
+                    // $("#supplier_id").val(data.supplier_id);
+                    // $("#supplier_code").val(data.supplier_code);
+                    // $("#supplier_name").val(data.supplier_name);
+
                     var no = 1; applied = 0; status = ""; statusDisplay = [];statusDisplay2 = []; statusForm = [];
-                    $.each(data.data, function(key, value) {
+                    $.each(data.DataPurchaseRequisitionList.data, function(key, value) {
                         keys += 1;
                         // console.log(value);
                         // if(value.quantityAbsorption == "0.00" && value.quantity == "0.00"){

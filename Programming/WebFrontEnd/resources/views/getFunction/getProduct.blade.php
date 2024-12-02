@@ -89,12 +89,6 @@
         var budget_qty_id = row.find("td:nth-child(5)").text();
         var key = $("#key").val();
 
-        // DIGUNAKAN PADA HALAMAN MODIFY BUDGET
-        if (isProductIdDuplicate(sys_id, key)) {
-            Swal.fire("Error", "This product is already selected in another row. Please choose a different product.", "error");
-            return;
-        }
-        
         $("#product_id" + key).val(sys_id);
         $("#product_name" + key).val(name);
         $("#product_name" + key).html(name);

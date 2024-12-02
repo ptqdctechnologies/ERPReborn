@@ -98,9 +98,9 @@
             Swal.fire("Error", "Please Call Accounting Staffs to Input Current Exchange Rate. Thank You.", "error");
         } else {
             if (code == "USD") {
-                $("#exchange_rate").val(16000);
+                $("#exchange_rate").val(numberFormatPHPCustom(16000, 2));
             } else if (code == "EUR") {
-                $("#exchange_rate").val(17205);
+                $("#exchange_rate").val(numberFormatPHPCustom(17205, 2));
             } else if (code == "IDR") {
                 $("#exchange_rate").val("");
             }
@@ -143,9 +143,9 @@
                                 {
                                     quantityAbsorptionRatio: 1.8,
                                     quantity: 50,
-                                    productName: "Unspecified Product",
+                                    productName: "Compacted Back Fill",
                                     quantityRemaining: 0,
-                                    product_RefID: null,
+                                    product_RefID: 88000000005292,
                                     priceBaseCurrencyValue: 29.99,
                                     priceBaseCurrencyISOCode: code,
                                     balancedBudget: 499.50
@@ -153,9 +153,9 @@
                                 {
                                     quantityAbsorptionRatio: 2.2,
                                     quantity: 20,
-                                    productName: "Unspecified Product",
+                                    productName: "Acces Roof Top Tangga",
                                     quantityRemaining: 0,
-                                    product_RefID: null,
+                                    product_RefID: 88000000001725,
                                     priceBaseCurrencyValue: 120.50,
                                     priceBaseCurrencyISOCode: code,
                                     balancedBudget: 410.00
@@ -163,9 +163,9 @@
                                 {
                                     quantityAbsorptionRatio: 1.5,
                                     quantity: 100,
-                                    productName: "Unspecified Product",
+                                    productName: "Yoke Plate Triangular 30 KIP Galvanize",
                                     quantityRemaining: 10,
-                                    product_RefID: null,
+                                    product_RefID: 88000000011558,
                                     priceBaseCurrencyValue: 50.00,
                                     priceBaseCurrencyISOCode: code,
                                     balancedBudget: 1000.00
@@ -204,6 +204,7 @@
 
                             $.each(dummy, function(key, val2) {
                                 var used = val2.quantityAbsorptionRatio * 100;
+                                var product_name_id = 'product_name' + key;
 
                                 if (used == "0.00" && val2.quantity == "0.00") {
                                     var applied = 0;
@@ -243,12 +244,14 @@
                                         '</td>' +
 
                                         '<td class="container-tbody-tr-budget" style="text-align: center !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
-                                        '<td class="container-tbody-tr-budget" style="text-align: left !important; width: 50px;">' + val2.productName + '</td>' +
+                                        '<td class="container-tbody-tr-budget" style="text-align: left !important; width: 50px;">' + 
+                                            '<span id="' + product_name_id + '">' + val2.productName + '</span>' +
+                                        '</td>' +
                                         '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + val2.priceBaseCurrencyISOCode + '</td>' +
-                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(1000, 2) + '</td>' +
+                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(balance_qty * val2.priceBaseCurrencyValue , 2) + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center" data-toggle="tooltip" data-placement="top" title="Pesan"> <input style="border-radius:0; width: 55px !important;" class="form-control number-only" autocomplete="off" id="modify_budget_details" name="modify_budget_details"> </div>' + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-without-negative" autocomplete="off" id="price_budget_details" name="price_budget_details"> </div>' + '</td>' +
@@ -260,6 +263,7 @@
                         } else {
                             $.each(data, function(key, val2) {
                                 var used = val2.quantityAbsorptionRatio * 100;
+                                var product_name_id = 'product_name' + key;
 
                                 if (used == "0.00" && val2.quantity == "0.00") {
                                     var applied = 0;
@@ -299,7 +303,9 @@
                                         '</td>' +
 
                                         '<td class="container-tbody-tr-budget" style="text-align: center !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
-                                        '<td class="container-tbody-tr-budget" style="text-align: left !important; width: 50px;">' + val2.productName + '</td>' +
+                                        '<td class="container-tbody-tr-budget" style="text-align: left !important; width: 50px;">' + 
+                                            '<span id="' + product_name_id + '">' + val2.productName + '</span>' +
+                                        '</td>' +
                                         '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
                                         '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
@@ -454,8 +460,8 @@
         const balancedBudget = row.children[7].textContent.trim().replace(/,/g, '') == '-' ? 0 : parseFloat(row.children[7].textContent.trim().replace(/,/g, ''));
         const totalBudget = row.children[8].textContent.trim().replace(/,/g, '') == '-' ? 0 : parseFloat(row.children[8].textContent.trim().replace(/,/g, ''));
 
-        const modifyValue = parseFloat(modifyInput.value) || 0;
-        const priceValue = parseFloat(priceInput.value) || 0;
+        const modifyValue = parseFloat(modifyInput.value.replace(/,/g, '')) || 0;
+        const priceValue = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
         
         const resultQtyInput = qtyAvail + modifyValue;
 
@@ -464,7 +470,7 @@
             modifyInput.value = qtyAvail;
         }
 
-        const totalValue = modifyInput.value * priceValue;
+        const totalValue = modifyValue * priceValue;
         const resultTotalInput = balancedBudget + totalValue;
 
         if (resultTotalInput < 0) {
@@ -474,7 +480,7 @@
         totalInput.value = numberFormatPHPCustom(totalValue, 2);
     }
 
-    $('#budgetTable tbody').on('blur', 'input[name="modify_budget_details"], input[name="price_budget_details"]', function () {
+    $('#budgetTable tbody').on('keyup', 'input[name="modify_budget_details"], input[name="price_budget_details"]', function () {
         const row = $(this).closest('tr')[0];
         calculateTotal(row);
     });
@@ -526,6 +532,17 @@
         let allBudgetDetailsData = [];
         let modifiedBudgetListData = [];
 
+        // Ambil value yang ada sebelumnya di input `modifyBudgetListData`
+        const existingModifyBudgetListData = document.getElementById('modifyBudgetListData').value;
+
+        if (existingModifyBudgetListData) {
+            try {
+                modifiedBudgetListData = JSON.parse(existingModifyBudgetListData);
+            } catch (error) {
+                modifiedBudgetListData = [];
+            }
+        }
+
         [...budgetTable.rows].forEach((row, index) => {
             const productIdTemp = row.querySelector('input[name="product_id_show"]');
             const productId     = row.cells[1].textContent != "null" ? row.cells[1].textContent.trim() : productIdTemp.value;
@@ -559,21 +576,21 @@
 
                 if (existingRow) {
                     existingRow.cells[0].textContent = productId;
-                    existingRow.cells[9].textContent = numberFormatPHPCustom(modifyInput.value, 2);
-                    existingRow.cells[10].textContent = numberFormatPHPCustom(priceInput.value, 2);
+                    existingRow.cells[9].textContent = numberFormatPHPCustom(modifyInput.value.replace(/,/g, ""), 2);
+                    existingRow.cells[10].textContent = numberFormatPHPCustom(priceInput.value.replace(/,/g, ""), 2);
                     existingRow.cells[11].textContent = totalInput.value;
                     updated = true;
                 } else {
                     const clonedRow = row.cloneNode(true);
 
                     const productIdValue = productId;
-                    const modifyValue = modifyInput.value;
-                    const priceValue = priceInput.value;
+                    const modifyValue = numberFormatPHPCustom(modifyInput.value.replace(/,/g, ""), 2);
+                    const priceValue = numberFormatPHPCustom(priceInput.value.replace(/,/g, ""), 2);
                     const totalValue = totalInput.value;
 
                     clonedRow.cells[0].textContent = productIdValue;
-                    clonedRow.cells[9].textContent = numberFormatPHPCustom(modifyValue, 2);
-                    clonedRow.cells[10].textContent = numberFormatPHPCustom(priceValue, 2);
+                    clonedRow.cells[9].textContent = modifyValue;
+                    clonedRow.cells[10].textContent = priceValue;
                     clonedRow.cells[11].textContent = totalValue;
 
                     listBudgetTable.appendChild(clonedRow);
@@ -589,8 +606,8 @@
                     currency,
                     balanceBudget,
                     totalBudget,
-                    modifyInput: modifyInput.value,
-                    priceInput: priceInput.value,
+                    modifyInput: numberFormatPHPCustom(modifyInput.value.replace(/,/g, ""), 2),
+                    priceInput: numberFormatPHPCustom(priceInput.value.replace(/,/g, ""), 2),
                     totalInput: totalInput.value
                 });
             }
@@ -600,7 +617,13 @@
             calculateBudgetTotals();
 
             document.getElementById('budgetDetailsData').value = JSON.stringify(allBudgetDetailsData);
-            document.getElementById('modifyBudgetListData').value = JSON.stringify(modifiedBudgetListData);
+
+            // Gabungkan data baru dengan data lama
+            const combinedData = [
+                ...modifiedBudgetListData.reduce((map, obj) => map.set(obj.productId, obj), new Map()).values(),
+            ];
+
+            document.getElementById('modifyBudgetListData').value = JSON.stringify(combinedData);
         } else {
             Swal.fire("Error", "Please fill in Product Id, Modify(+/-), Price, and Total for at least one row", "error");
         }
@@ -612,11 +635,17 @@
     function toggleAddNewItemButton() {
         const tbody = document.querySelector('#budgetTable tbody');
         const addNewItemBtn = document.getElementById('addNewItemBtn');
+        const searchBudgetBtn = document.getElementById('budget_detail_search');
+        const budgetDetailsBtn = document.getElementById('buttonBudgetDetails');
         
         if (tbody && tbody.rows.length > 0) {
             addNewItemBtn.style.display = 'block';
+            searchBudgetBtn.style.display = 'block';
+            budgetDetailsBtn.style.display = 'flex';
         } else {
             addNewItemBtn.style.display = 'none';
+            searchBudgetBtn.style.display = 'none';
+            budgetDetailsBtn.style.display = 'none';
         }
     }
 
@@ -629,14 +658,44 @@
 <!-- FUNCTION UNTUK MENGHITUNG TOTAL (MODIFY * PRICE) -->
 <script>
     function calculateTotalForm() {
-        const qty = parseFloat(document.getElementById("qty_form").value) || 0;
-        const price = parseFloat(document.getElementById("price_form").value) || 0;
+        const qty = parseFloat(document.getElementById("qty_form").value.replace(/,/g, '')) || 0;
+        const price = parseFloat(document.getElementById("price_form").value.replace(/,/g, '')) || 0;
         const total = qty * price;
-        document.getElementById("total_qty_price").value = total.toFixed(2);
+        
+        document.getElementById("total_qty_price").value = numberFormatPHPCustom(total, 2);
     }
 
     document.getElementById("qty_form").addEventListener("input", calculateTotalForm);
     document.getElementById("price_form").addEventListener("input", calculateTotalForm);
+</script>
+
+<!-- FUNCTION SEARCH BUDGET DETAILS -->
+<script>
+    $(document).ready(function() {
+        $('#budget_detail_search').on('input', function() {
+            const searchValue = $(this).val().toLowerCase();
+            
+            const rows = $('#budgetTable tbody tr');
+            
+            rows.each(function() {
+                const row = $(this);
+                const productId = row.find('td:eq(1)').text().trim().toLowerCase();
+                const productName = row.find('td:eq(2)').text().trim().toLowerCase();
+                
+                if (productId.includes(searchValue) || productName.includes(searchValue)) {
+                    row.show();
+                } else {
+                    row.hide();
+                }
+            });
+        });
+
+        $('#budget_detail_search').on('change', function() {
+            if ($(this).val() === '') {
+                $('#budgetTable tbody tr').show();
+            }
+        });
+    });
 </script>
 
 <!-- FUNCTION BUTTON ADD TO CART FORM ADD NEW ITEM -->
@@ -646,9 +705,9 @@
 
         const productId = document.getElementById("products_id_show").value;
         const productName = document.getElementById("products_name").value;
-        const qty = document.getElementById("qty_form").value;
-        const price = document.getElementById("price_form").value;
-        const total = document.getElementById("total_qty_price").value;
+        const qty = document.getElementById("qty_form").value.replace(/,/g, '');
+        const price = document.getElementById("price_form").value.replace(/,/g, '');
+        const total = document.getElementById("total_qty_price").value.replace(/,/g, '');
         const currencySymbolll = document.getElementById("currency_symbol").value;
 
         if (!productId || !productName || !qty || !price) {
@@ -664,18 +723,18 @@
 
         const tbody = document.getElementById("listBudgetTable").getElementsByTagName("tbody")[0];
 
-        let productExists = false;
-        for (let row of tbody.rows) {
-            if (row.cells[0].textContent === productId) {
-                productExists = true;
-                break;
-            }
-        }
+        // let productExists = false;
+        // for (let row of tbody.rows) {
+        //     if (row.cells[0].textContent === productId) {
+        //         productExists = true;
+        //         break;
+        //     }
+        // }
 
-        if (productExists) {
-            Swal.fire("Error", "Product ID already exists in the table.", "error");
-            return;
-        }
+        // if (productExists) {
+        //     Swal.fire("Error", "Product ID already exists in the table.", "error");
+        //     return;
+        // }
 
         budgetListDataaa.push({
             productId       : productId,
@@ -686,9 +745,9 @@
             currency        : "USD",
             balanceBudget   : 0.00,
             totalBudget     : 0.00,
-            modifyInput     : qty,
-            priceInput      : price,
-            totalInput      : total,
+            modifyInput     : numberFormatPHPCustom(qty, 2),
+            priceInput      : numberFormatPHPCustom(price, 2),
+            totalInput      : numberFormatPHPCustom(total, 2),
         });
 
         document.getElementById("modifyBudgetListData").value = JSON.stringify(budgetListDataaa);
@@ -749,7 +808,7 @@
     });
 </script>
 
-<!-- BUTTON SUBMIT OR CANCEL -->
+<!-- BUTTON SUBMIT DISABLED FALSE -->
 <script>
     const siteCode = document.getElementById('site_code');
     const reasonForModify = document.getElementById('reason_modify');
@@ -775,4 +834,49 @@
 
     siteCode.addEventListener('input', checkTableData);
     reasonForModify.addEventListener('input', checkTableData);
+</script>
+
+<!-- BUTTON CANCEL -->
+<script>
+    const cancelButton = document.getElementById('cancelButton');
+    const budgetTbodyTable = document.querySelector('#budgetTable tbody');
+
+    cancelButton.addEventListener('click', function() {
+        while (listBudgetTableBody.firstChild) {
+            listBudgetTableBody.removeChild(listBudgetTableBody.firstChild);
+        }
+
+        while (budgetTbodyTable.firstChild) {
+            budgetTbodyTable.removeChild(budgetTbodyTable.firstChild);
+        }
+
+        $('#project_code_popup').removeClass('disabled').css('pointer-events', 'auto');
+        $('#site_code_popup').removeClass('disabled').css('pointer-events', 'auto');
+        
+        $("#project_id").val("");
+        $("#project_code").val("");
+        $("#project_name").val("");
+
+        $("#site_id").val("");
+        $("#site_code").val("");
+        $("#site_name").val("");
+
+        $("#reason_modify").val("");
+        $("#currency_id").val("");
+        $("#currency_symbol").val("");
+        $("#currency_name").val("");
+        $("#exchange_rate").val("");
+        $("#value_co").val("");
+
+        $("#budgetDetailsData").val("");
+        $("#modifyBudgetListData").val("");
+        
+        document.getElementById('totalModifyFooter').textContent = 0;
+        document.getElementById('totalPriceFooter').textContent = 0;
+        document.getElementById('totalAmountFooter').textContent = 0;
+
+        document.getElementById('totalModifyFooterData').value = 0;
+        document.getElementById('totalPriceFooterData').value = 0;
+        document.getElementById('totalAmountFooterData').value = 0;
+    });
 </script>
