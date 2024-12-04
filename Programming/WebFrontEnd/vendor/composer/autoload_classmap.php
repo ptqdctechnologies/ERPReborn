@@ -7661,6 +7661,7 @@ return array(
     'Spatie\\FlareClient\\Context\\RequestContextProvider' => $vendorDir . '/spatie/flare-client-php/src/Context/RequestContextProvider.php',
     'Spatie\\FlareClient\\Contracts\\ProvidesFlareContext' => $vendorDir . '/spatie/flare-client-php/src/Contracts/ProvidesFlareContext.php',
     'Spatie\\FlareClient\\Enums\\MessageLevels' => $vendorDir . '/spatie/flare-client-php/src/Enums/MessageLevels.php',
+    'Spatie\\FlareClient\\Enums\\OverriddenGrouping' => $vendorDir . '/spatie/flare-client-php/src/Enums/OverriddenGrouping.php',
     'Spatie\\FlareClient\\Flare' => $vendorDir . '/spatie/flare-client-php/src/Flare.php',
     'Spatie\\FlareClient\\FlareMiddleware\\AddDocumentationLinks' => $vendorDir . '/spatie/flare-client-php/src/FlareMiddleware/AddDocumentationLinks.php',
     'Spatie\\FlareClient\\FlareMiddleware\\AddEnvironmentInformation' => $vendorDir . '/spatie/flare-client-php/src/FlareMiddleware/AddEnvironmentInformation.php',
