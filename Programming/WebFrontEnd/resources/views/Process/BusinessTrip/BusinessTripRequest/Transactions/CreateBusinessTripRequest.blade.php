@@ -125,9 +125,6 @@
                               <input name="requester" id="requester" style="border-radius:0;" type="text" class="form-control" readonly>
                               <input name="requester_id" id="requester_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
                               <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
-                              <!-- <span id="requester_icon" title="Please Input Requester">
-                                <img src="{{ asset('AdminLTE-master/dist/img/mandatory.png') }}" width="17" alt="">
-                              </span> -->
                             </div>
                           </div>
                         </div>
@@ -243,7 +240,9 @@
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="#" id="bank_account_popup" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                <a href="#" id="bank_account_popup" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount">
+                                  <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                </a>
                               </span>
                             </div>
                             <div style="flex: 100%;">
@@ -285,16 +284,30 @@
                           <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;"></th>
                           <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Id</th>
                           <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Name</th>
+                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Total Budget</th>
                           <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Qty Budget</th>
                           <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Qty Avail</th>
                           <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Price</th>
                           <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Currency</th>
-                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Balance Budget</th>
-                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Total Budget</th>
+                          <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Current Budget</th>
                         </tr>
                       </thead>
                       <tbody>
                       </tbody>
+                      <tfoot>
+                        <tr class="loading">
+                          <td colspan="9">
+                            <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                              <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                Loading...
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
                 </div>
@@ -646,7 +659,7 @@
           <div class="px-3 pb-3">
             <div style="display: flex; justify-content: flex-end; gap: 8px;">
               <div style="display: flex;">
-                <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button">
+                <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button" onclick="CancelBusinessTrip();">
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
                   <div>Cancel</div>
                 </button>

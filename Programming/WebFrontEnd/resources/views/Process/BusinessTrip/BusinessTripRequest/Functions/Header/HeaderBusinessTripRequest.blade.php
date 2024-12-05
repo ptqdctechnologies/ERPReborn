@@ -28,7 +28,6 @@
             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                 <div>
                     <input id="sitecode" style="border-radius:0; width: 60px;" name="sitecode" class="form-control" readonly>
-                    <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
                 </div>
                 <div>
                     <span style="border-radius:0;" class="input-group-text form-control">
