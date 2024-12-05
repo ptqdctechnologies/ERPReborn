@@ -28,6 +28,7 @@
   var today = new Date(date.setMonth(date.getMonth() - 3));
 
   document.getElementById('dateCommance').setAttribute('min', today.toISOString().split('T')[0]);
+  document.getElementById('dateEnd').setAttribute('min', today.toISOString().split('T')[0]);
 
   // FUNGSI UNTUK BUTTON CANCEL FORM
   function CancelBusinessTrip() {
@@ -388,4 +389,34 @@
     var dateCommance = new Date($("#dateCommance").val());
     document.getElementById('dateEnd').setAttribute('min', dateCommance.toISOString().split('T')[0]);
   });
+
+  $("#FormSubmitBusinessTrip").on("submit", function(e) {
+    e.preventDefault();
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: true,
+    });
+
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "Please confirm to save this data.",
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, submit it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        swalWithBootstrapButtons.fire({
+          title: 'Cancelled',
+          text: "The action has been canceled.",
+          type: 'error',
+        });
+      }
+    });
+  })
 </script>
