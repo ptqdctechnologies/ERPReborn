@@ -106,7 +106,7 @@
                     </div>
 
                     <div class="card-body">
-                      <div class="row py-3 justify-content-between" style="gap: 15px;">
+                      <div class="row py-3" style="gap: 15px;">
                         <div class="col-md-12 col-lg-5">
                           <!-- REQUESTER -->
                           <div class="row" style="margin-bottom: 1rem;">
@@ -185,7 +185,7 @@
                           <!-- DEPARTING FROM -->
                           <div class="row" style="margin-bottom: 1rem;">
                             <label for="headStationLocation" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Departing From</label>
-                            <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
+                            <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                               <div class="input-group">
                                 <input id="headStationLocation" name="headStationLocation" style="border-radius:0;" type="text" class="form-control" autocomplete="off">
                               </div>
@@ -316,7 +316,7 @@
               </div>
             </div>
 
-            <!-- BUDGET TRIP -->
+            <!-- BUSINESS TRIP BUDGET DETAILS -->
             <div class="tab-content px-3 pb-2" id="nav-tabContent">
               <div class="row">
                 <div class="col-12">
@@ -333,7 +333,9 @@
                     </div>
 
                     <div class="card-body">
-                      <div class="row py-3 justify-content-between" style="gap: 1rem;">
+                      <!-- TRANSPORT, ACCOMMODATION, ALLOWANCE, ENTERTAINMENT, & OTHER -->
+                      <div class="row pt-3 justify-content-between" style="gap: 1rem;">
+                        <!-- TRANSPORT COLUMN -->
                         <div class="col-md-12 col-lg-3">
                           <!-- TITLE -->
                           <div class="row" style="margin-bottom: 1rem;">
@@ -443,11 +445,12 @@
                           </div>
                         </div>
 
+                        <!-- ACCOMMODATION COLUMN -->
                         <div class="col-md-12 col-lg-3">
                           <!-- TITLE -->
                           <div class="row" style="margin-bottom: 1rem;">
                             <div style="font-size: 0.9rem; font-weight: bold;">
-                              Accomodation
+                              Accommodation
                             </div>
                           </div>
 
@@ -547,11 +550,12 @@
                           </div>
                         </div>
 
+                        <!-- ALLOWANCE, ENTERTAINMENT, & OTHER COLUMN -->
                         <div class="col-md-12 col-lg-3">
                           <!-- TITLE -->
                           <div class="row" style="margin-bottom: 1rem;">
                             <div style="font-size: 0.9rem; font-weight: bold;">
-                              Allowance, Entertainment, & Others
+                              Allowance, Entertainment, & Other
                             </div>
                           </div>
 
@@ -645,6 +649,233 @@
                             <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                               <div class="input-group">
                                 <input disabled id="total_business_trip" name="total_business_trip" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- PAYMENT -->
+                      <div class="row py-3">
+                        <div class="col-12 p-0">
+                          <!-- PAYMENT -->
+                          <div class="row m-0">
+                            <div class="text-center" style="margin-bottom: 1rem; font-size: 0.9rem; font-weight: bold;">
+                              Payment
+                            </div>
+                          </div>
+
+                          <!-- DIRECT TO VENDOR -->
+                          <div class="row m-0">
+                            <div class="col-md-12 col-lg-5 p-0">
+                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                                <label for="direct_to_vendor" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Direct to Vendor</label>
+                                <div class="col-sm-9 col-md-8 col-lg-3 p-0">
+                                  <div class="input-group">
+                                    <input id="direct_to_vendor" name="direct_to_vendor" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-12 col-lg-5 p-0">
+                              <!-- BANK NAME -->
+                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div>
+                                    <input id="bank_name" style="border-radius:0; width: 60px;" name="bank_name" class="form-control" readonly>
+                                    <input id="bank_code" style="border-radius:0;" class="form-control" name="bank_code" hidden>
+                                  </div>
+                                  <div>
+                                    <span style="border-radius:0;" class="input-group-text form-control">
+                                      <a href="#" id="bank_name_popup" data-toggle="modal" data-target="#myGetBank" class="myGetBank">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                      </a>
+                                    </span>
+                                  </div>
+                                  <div style="flex: 100%;">
+                                    <input id="bank_name_detail" style="border-radius:0;" class="form-control" name="bank_name_detail" readonly>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- BANK ACCOUNT -->
+                              <div class="row mt-0 mx-0">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div>
+                                    <input id="bank_account" style="border-radius:0; width: 90px;" name="bank_account" class="form-control" readonly>
+                                    <input id="bank_account_id" style="border-radius:0;" class="form-control" name="bank_account_id" hidden>
+                                  </div>
+                                  <div>
+                                    <span style="border-radius:0;" class="input-group-text form-control">
+                                      <a href="#" id="bank_account_popup" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                      </a>
+                                    </span>
+                                  </div>
+                                  <div style="flex: 100%;">
+                                    <input id="bank_account_detail" style="border-radius:0;" class="form-control" name="bank_account_detail" readonly>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <hr />
+
+                          <!-- BY CORP CARD -->
+                          <div class="row m-0">
+                            <div class="col-md-12 col-lg-5 p-0">
+                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                                <label for="by_corp_card" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">By Corp Card</label>
+                                <div class="col-sm-9 col-md-8 col-lg-3 p-0">
+                                  <div class="input-group">
+                                    <input id="by_corp_card" name="by_corp_card" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-12 col-lg-5 p-0">
+                              <!-- BANK NAME -->
+                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div>
+                                    <input id="bank_name" style="border-radius:0; width: 60px;" name="bank_name" class="form-control" readonly>
+                                    <input id="bank_code" style="border-radius:0;" class="form-control" name="bank_code" hidden>
+                                  </div>
+                                  <div>
+                                    <span style="border-radius:0;" class="input-group-text form-control">
+                                      <a href="#" id="bank_name_popup" data-toggle="modal" data-target="#myGetBank" class="myGetBank">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                      </a>
+                                    </span>
+                                  </div>
+                                  <div style="flex: 100%;">
+                                    <input id="bank_name_detail" style="border-radius:0;" class="form-control" name="bank_name_detail" readonly>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- BANK ACCOUNT -->
+                              <div class="row mt-0 mx-0">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div>
+                                    <input id="bank_account" style="border-radius:0; width: 90px;" name="bank_account" class="form-control" readonly>
+                                    <input id="bank_account_id" style="border-radius:0;" class="form-control" name="bank_account_id" hidden>
+                                  </div>
+                                  <div>
+                                    <span style="border-radius:0;" class="input-group-text form-control">
+                                      <a href="#" id="bank_account_popup" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                      </a>
+                                    </span>
+                                  </div>
+                                  <div style="flex: 100%;">
+                                    <input id="bank_account_detail" style="border-radius:0;" class="form-control" name="bank_account_detail" readonly>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <hr />
+
+                          <!-- TO OTHER -->
+                          <div class="row m-0">
+                            <div class="col-md-12 col-lg-5 p-0">
+                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                                <label for="to_other" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">To Other</label>
+                                <div class="col-sm-9 col-md-8 col-lg-3 p-0">
+                                  <div class="input-group">
+                                    <input id="to_other" name="to_other" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-12 col-lg-5 p-0">
+                              <!-- BENEFICIARY -->
+                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div>
+                                    <input id="bank_name" style="border-radius:0; width: 60px;" name="bank_name" class="form-control" readonly>
+                                    <input id="bank_code" style="border-radius:0;" class="form-control" name="bank_code" hidden>
+                                  </div>
+                                  <div>
+                                    <span style="border-radius:0;" class="input-group-text form-control">
+                                      <a href="#" id="bank_name_popup" data-toggle="modal" data-target="#myGetBank" class="myGetBank">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                      </a>
+                                    </span>
+                                  </div>
+                                  <div style="flex: 100%;">
+                                    <input id="bank_name_detail" style="border-radius:0;" class="form-control" name="bank_name_detail" readonly>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- BANK NAME -->
+                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div>
+                                    <input id="bank_name" style="border-radius:0; width: 60px;" name="bank_name" class="form-control" readonly>
+                                    <input id="bank_code" style="border-radius:0;" class="form-control" name="bank_code" hidden>
+                                  </div>
+                                  <div>
+                                    <span style="border-radius:0;" class="input-group-text form-control">
+                                      <a href="#" id="bank_name_popup" data-toggle="modal" data-target="#myGetBank" class="myGetBank">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                      </a>
+                                    </span>
+                                  </div>
+                                  <div style="flex: 100%;">
+                                    <input id="bank_name_detail" style="border-radius:0;" class="form-control" name="bank_name_detail" readonly>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- BANK ACCOUNT -->
+                              <div class="row mt-0 mx-0">
+                                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
+                                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                                  <div>
+                                    <input id="bank_account" style="border-radius:0; width: 90px;" name="bank_account" class="form-control" readonly>
+                                    <input id="bank_account_id" style="border-radius:0;" class="form-control" name="bank_account_id" hidden>
+                                  </div>
+                                  <div>
+                                    <span style="border-radius:0;" class="input-group-text form-control">
+                                      <a href="#" id="bank_account_popup" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                      </a>
+                                    </span>
+                                  </div>
+                                  <div style="flex: 100%;">
+                                    <input id="bank_account_detail" style="border-radius:0;" class="form-control" name="bank_account_detail" readonly>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <hr />
+
+                          <!-- TOTAL PAYMENT -->
+                          <div class="row m-0">
+                            <div class="col-md-12 col-lg-5 p-0">
+                              <div class="row mt-0 mx-0" style="margin-bottom: 1rem;">
+                                <label for="total_payment" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Total Payment</label>
+                                <div class="col-sm-9 col-md-8 col-lg-3 p-0">
+                                  <div class="input-group">
+                                    <input id="total_payment" name="total_payment" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" disabled>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>

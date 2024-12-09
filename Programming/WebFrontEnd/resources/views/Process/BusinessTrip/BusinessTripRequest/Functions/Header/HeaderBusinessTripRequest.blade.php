@@ -1,4 +1,4 @@
-<div class="row py-3 justify-content-between" style="gap: 15px;">
+<div class="row py-3" style="gap: 15px;">
     <div class="col-md-12 col-lg-5">
         <div class="row">
             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Budget Code</label>

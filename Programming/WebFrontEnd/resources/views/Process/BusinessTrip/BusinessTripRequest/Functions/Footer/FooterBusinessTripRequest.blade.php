@@ -23,6 +23,11 @@
     'entertainment',
     'other',
   ];
+  const paymentsInputs = [
+    'direct_to_vendor',
+    'by_corp_card',
+    'to_other',
+  ];
 
   var date = new Date();
   var today = new Date(date.setMonth(date.getMonth() - 3));
@@ -227,6 +232,44 @@
     }
   });
 
+  // FUNGSI TOTAL PAYMENT (DIRECT TO VENDOR + BY CORP CARD + TO OTHER)
+  function calculateTotalPayments() {
+    const directToVendor = parseFloat(document.getElementById('direct_to_vendor').value.replace(/,/g, '')) || 0;
+    const byCorpCard = parseFloat(document.getElementById('by_corp_card').value.replace(/,/g, '')) || 0;
+    const toOther = parseFloat(document.getElementById('to_other').value.replace(/,/g, '')) || 0;
+
+    let newFormatBudget = 0;
+    let budgetDetailsDataJSON = null;
+    try {
+      budgetDetailsDataJSON = document.getElementById('budgetDetailsData').value;
+      if (budgetDetailsDataJSON) {
+        const parsedData = JSON.parse(budgetDetailsDataJSON);
+        newFormatBudget = parseFloat(parsedData.balanceBudget.replace(/,/g, '')) || 0;
+      } else {
+        // console.warn('Budget details data is empty');
+      }
+    } catch (error) {
+      console.error('Error parsing budget details JSON:', error);
+      return;
+    }
+
+    const total = directToVendor + byCorpCard + toOther;
+
+    document.getElementById('total_payment').value = numberFormatPHPCustom(total, 2);
+
+    if (budgetDetailsDataJSON && total > newFormatBudget) {
+      Swal.fire("Error", `Total Payments must not exceed the selected Balanced Budget`, "error");
+    }
+  }
+
+  paymentsInputs.forEach(id => {
+    const inputElement = document.getElementById(id);
+    
+    if (inputElement) {
+      inputElement.addEventListener('input', calculateTotalPayments);
+    }
+  });
+
   $("#myWorker").prop("disabled", true);
   $("#requester_popup").prop("disabled", true);
   $("#beneficiary_popup").prop("disabled", true);
@@ -314,10 +357,103 @@
       type: 'GET',
       url: '{!! route("getBudget") !!}?site_code=' + sys_ID,
       success: function(data) {
+        const datas = [
+          {
+            product_RefID: 88000000003486,
+            productName: "Tiket Pesawat Pulang Pergi",
+            quantity: 2,
+            priceBaseCurrencyValue: 3000000,
+            quantityRemaining: 1,
+            priceBaseCurrencyISOCode: "IDR",
+            currentBudget: 6000000,
+          },
+          {
+            product_RefID: 88000000003487,
+            productName: "Hotel Penginapan 3 Malam",
+            quantity: 1,
+            priceBaseCurrencyValue: 2500000,
+            quantityRemaining: 0,
+            priceBaseCurrencyISOCode: "IDR",
+            currentBudget: 2500000,
+          },
+          {
+            product_RefID: 88000000003488,
+            productName: "Transportasi Lokal",
+            quantity: 3,
+            priceBaseCurrencyValue: 150000,
+            quantityRemaining: 1,
+            priceBaseCurrencyISOCode: "IDR",
+            currentBudget: 450000,
+          },
+          {
+            product_RefID: 88000000003489,
+            productName: "Makan Siang Selama Perjalanan",
+            quantity: 5,
+            priceBaseCurrencyValue: 50000,
+            quantityRemaining: 2,
+            priceBaseCurrencyISOCode: "IDR",
+            currentBudget: 250000,
+          },
+          {
+            product_RefID: 88000000003490,
+            productName: "Meeting Room Rental",
+            quantity: 1,
+            priceBaseCurrencyValue: 1000000,
+            quantityRemaining: 0,
+            priceBaseCurrencyISOCode: "IDR",
+            currentBudget: 1000000,
+          },
+          {
+            product_RefID: 88000000003491,
+            productName: "Sim Card dengan Paket Data",
+            quantity: 1,
+            priceBaseCurrencyValue: 200000,
+            quantityRemaining: 0,
+            priceBaseCurrencyISOCode: "IDR",
+            currentBudget: 200000,
+          },
+          {
+            product_RefID: 88000000003492,
+            productName: "Tiket Kereta Antar Kota",
+            quantity: 2,
+            priceBaseCurrencyValue: 500000,
+            quantityRemaining: 1,
+            priceBaseCurrencyISOCode: "IDR",
+            currentBudget: 1000000,
+          },
+          {
+            product_RefID: 88000000003493,
+            productName: "Pengeluaran Lain-Lain",
+            quantity: 1,
+            priceBaseCurrencyValue: 300000,
+            quantityRemaining: 0,
+            priceBaseCurrencyISOCode: "IDR",
+            currentBudget: 300000,
+          },
+          {
+            product_RefID: 88000000003494,
+            productName: "Biaya Overweight Bagasi",
+            quantity: 1,
+            priceBaseCurrencyValue: 100000,
+            quantityRemaining: 0,
+            priceBaseCurrencyISOCode: "IDR",
+            currentBudget: 100000,
+          },
+          {
+            product_RefID: 88000000003495,
+            productName: "Souvenir untuk Klien",
+            quantity: 4,
+            priceBaseCurrencyValue: 250000,
+            quantityRemaining: 2,
+            priceBaseCurrencyISOCode: "IDR",
+            currentBudget: 1000000,
+          }
+        ];
+
         $(".loading").hide();
         searchBudgetBtn.style.display = 'block';
 
-        $.each(data, function(key, val2) {
+        $.each(datas, function(key, val2) {
           var html = 
             '<tr>' +
               '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
@@ -345,7 +481,8 @@
                 val2.priceBaseCurrencyISOCode +
               '</td>' +
               '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-                numberFormatPHPCustom(50000, 2) +
+                numberFormatPHPCustom(val2.currentBudget, 2) +
+                // numberFormatPHPCustom(50000, 2) +
               '</td>' +
             '</tr>';
 
@@ -390,6 +527,7 @@
     document.getElementById('dateEnd').setAttribute('min', dateCommance.toISOString().split('T')[0]);
   });
 
+  // SUBMIT FORM
   $("#FormSubmitBusinessTrip").on("submit", function(e) {
     e.preventDefault();
 
