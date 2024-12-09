@@ -106,7 +106,7 @@
                     </div>
 
                     <div class="card-body">
-                      <div class="row py-3" style="gap: 15px;">
+                      <div class="row pt-3" style="gap: 15px;">
                         <div class="col-md-12 col-lg-5">
                           <!-- REQUESTER -->
                           <div class="row" style="margin-bottom: 1rem;">
@@ -151,31 +151,11 @@
                           </div>
 
                           <!-- DATE END TRAVEL -->
-                          <div class="row" style="margin-bottom: 1rem;">
+                          <div class="row">
                             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Date End Travel</label>
                             <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                               <div class="input-group">
                                 <input id="dateEnd" name="dateEnd" style="border-radius:0;" type="date" class="form-control">
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <!-- BENEFICIARY -->
-                          <div class="row" style="margin-bottom: 1rem;">
-                            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
-                            <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                              <div>
-                                <input id="beneficiary_detail" style="border-radius:0; width: 60px;" class="form-control" name="beneficiary_detail" readonly>
-                              </div>
-                              <div>
-                                <span style="border-radius:0;" class="input-group-text form-control">
-                                  <a href="#" id="beneficiary_popup" data-toggle="modal" data-target="#myBeneficiary" class="myBeneficiary"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                </span>
-                              </div>
-                              <div style="flex: 100%;">
-                                <input name="beneficiary" id="beneficiary" style="border-radius:0;" type="text" class="form-control" readonly>
-                                <input name="person_refID" id="person_refID" style="border-radius:0;" type="hidden" class="form-control" readonly>
-                                <input name="beneficiary_id" id="beneficiary_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
                               </div>
                             </div>
                           </div>
@@ -203,13 +183,39 @@
                           </div>
 
                           <!-- REASON TO TRAVEL -->
-                          <div class="row" style="margin-bottom: 1rem;">
+                          <div class="row">
                             <label for="reasonTravel" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Reason To Travel</label>
                             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                               <textarea id="reasonTravel" name="reasonTravel" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
                             </div>
                           </div>
+                        </div>
+                      </div>
 
+                      <div class="row py-3" style="gap: 15px;">
+                        <div class="col-md-12 col-lg-5">
+                          <!-- BENEFICIARY -->
+                          <div class="row">
+                            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
+                            <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                              <div>
+                                <input id="beneficiary_detail" style="border-radius:0; width: 60px;" class="form-control" name="beneficiary_detail" readonly>
+                              </div>
+                              <div>
+                                <span style="border-radius:0;" class="input-group-text form-control">
+                                  <a href="#" id="beneficiary_popup" data-toggle="modal" data-target="#myBeneficiary" class="myBeneficiary"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                </span>
+                              </div>
+                              <div style="flex: 100%;">
+                                <input name="beneficiary" id="beneficiary" style="border-radius:0;" type="text" class="form-control" readonly>
+                                <input name="person_refID" id="person_refID" style="border-radius:0;" type="hidden" class="form-control" readonly>
+                                <input name="beneficiary_id" id="beneficiary_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-5">
                           <!-- BANK NAME -->
                           <div class="row" style="margin-bottom: 1rem;">
                             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
@@ -232,7 +238,7 @@
                           </div>
 
                           <!-- BANK ACCOUNT -->
-                          <div class="row" style="margin-bottom: 1rem;">
+                          <div class="row">
                             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                               <div>
@@ -684,18 +690,18 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_name" style="border-radius:0; width: 60px;" name="bank_name" class="form-control" readonly>
-                                    <input id="bank_code" style="border-radius:0;" class="form-control" name="bank_code" hidden>
+                                    <input id="bank_name_vendor" style="border-radius:0; width: 60px;" name="bank_name_vendor" class="form-control" readonly>
+                                    <input id="bank_code_vendor" style="border-radius:0;" class="form-control" name="bank_code_vendor" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#" id="bank_name_popup" data-toggle="modal" data-target="#myGetBank" class="myGetBank">
+                                      <a href="#" id="bank_name_popup_vendor" data-toggle="modal" data-target="#myGetBank" class="myGetBank">
                                         <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                       </a>
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_name_detail" style="border-radius:0;" class="form-control" name="bank_name_detail" readonly>
+                                    <input id="bank_name_detail_vendor" style="border-radius:0;" class="form-control" name="bank_name_detail_vendor" readonly>
                                   </div>
                                 </div>
                               </div>

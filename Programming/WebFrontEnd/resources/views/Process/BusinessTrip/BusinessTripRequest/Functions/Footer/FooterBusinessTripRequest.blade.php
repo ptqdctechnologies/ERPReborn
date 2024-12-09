@@ -527,6 +527,34 @@
     document.getElementById('dateEnd').setAttribute('min', dateCommance.toISOString().split('T')[0]);
   });
 
+  $('#bank_name_popup_vendor').on('click', function(e) {
+    e.preventDefault();
+
+    var keys = 0;
+    $.ajax({
+      type: 'GET',
+      url: '{!! route("getBankList") !!}',
+      success: function(data) {
+        console.log('data', data);
+        
+        var no = 1;
+        t = $('#tableGetBank').DataTable();
+        t.clear();
+
+        $.each(data, function(key, val) {
+          keys += 1;
+          t.row.add([
+            '<tbody><tr><input id="sys_id_bank_list' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+            '<td>' + val.acronym + '</td>',
+            '<td>' + val.name + '</td></span></tr></tbody>'
+          ]).draw();
+        });
+      }
+    });
+
+    console.log('sini');
+  })
+
   // SUBMIT FORM
   $("#FormSubmitBusinessTrip").on("submit", function(e) {
     e.preventDefault();
@@ -556,5 +584,5 @@
         });
       }
     });
-  })
+  });
 </script>

@@ -365,6 +365,30 @@ class FunctionController extends Controller
         return response()->json($varData['data']['data']);
     }
 
+    // FUNCTION BANK LIST
+    public function getBankList() 
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.master.getBank', 
+            'latest', 
+            [
+            'parameter' => [
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
+
+        return response()->json($varData['data']);
+    }
+
     // FUNCTION BANK 
     public function getBank(Request $request)
     {

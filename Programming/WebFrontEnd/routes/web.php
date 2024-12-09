@@ -19,7 +19,7 @@ use App\Http\Controllers\UserController;
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzMxOTgyMTkwfQ.YTc4MDhlMDRhMzMwY2IyYjE0Yzk0ODc3MTkxZDE2OGFkNTU2NWVjMGM0NmE3YmY2N2Q3ZmI2NTUyZjdjYzdiYg';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzMzNzE2ODAzfQ.NjMzMTEyNTYzNWMzNDZlMDI0NmM0NTJkZTM4MzNhOWZmNzRhMjFkYzM2MWY0N2MyYWVhNDI4MmI0Zjk5OTYwOQ';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -168,6 +168,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getSite', 'Function\FunctionController@getSite')->name('getSite');
     Route::get('getBudget', 'Function\FunctionController@getBudget')->name('getBudget');
     Route::get('getBank', 'Function\FunctionController@getBank')->name('getBank');
+    Route::get('getBankList', 'Function\FunctionController@getBankList')->name('getBankList');
     Route::get('getEntityBankAccount', 'Function\FunctionController@getEntityBankAccount')->name('getEntityBankAccount');
     Route::get('getProduct', 'Function\FunctionController@getProduct')->name('getProduct');
     Route::get('getWorker', 'Function\FunctionController@getWorker')->name('getWorker');
