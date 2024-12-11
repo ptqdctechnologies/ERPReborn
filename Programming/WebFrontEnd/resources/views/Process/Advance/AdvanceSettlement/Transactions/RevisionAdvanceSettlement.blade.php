@@ -87,7 +87,7 @@
                                   <input id="bank_account" style="border-radius:0;" name="bank_account" class="form-control" readonly value="{{$dataContent['bankAccount']['beneficiary']['bankAccountNumber']}}">
                                   <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#" id="bank_account2" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                      <a href="#" id="bank_account2" data-toggle="modal" data-target="#myEntityBankAccount" class="myEntityBankAccount"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                     </span>
                                   </div>
                                 </div>

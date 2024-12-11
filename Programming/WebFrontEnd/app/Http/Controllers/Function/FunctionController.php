@@ -389,6 +389,33 @@ class FunctionController extends Controller
         return response()->json($varData['data']);
     }
 
+    // FUNCTION BANK ACCOUNT
+    public function getBankAccount(Request $request) 
+    {
+        $bank_RefID = $request->input('bank_RefID') ? (int) $request->input('bank_RefID') : null;
+
+        $varAPIWebToken = Session::get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.master.getBankAccount', 
+            'latest', 
+            [
+            'parameter' => [
+                'bank_RefID' => $bank_RefID,
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
+
+        return response()->json($varData['data']);
+    }
+
     // FUNCTION BANK 
     public function getBank(Request $request)
     {

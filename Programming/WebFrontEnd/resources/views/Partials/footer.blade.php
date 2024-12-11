@@ -532,3 +532,62 @@
     return isDuplicate;
   }
 </script>
+
+<!-- FUNGSI UNTUK MENENTUKAN WIDTH/LEBAR KOMPONEN INPUT -->
+<script>
+  function defineDefaultValue(length, type) {
+    if (type == "string") {
+      if (length <= 2) {
+        return 0.8;
+      } else if (length <= 4) {
+        return 1;
+      } else if (length <= 6) {
+        return 1.2;
+      } else if (length <= 8) {
+        return 1.4;
+      } else if (length <= 10) {
+        return 1.6;
+      } else if (length <= 13) {
+        return 1.8;
+      } else if (length <= 15) {
+        return 2;
+      } else if (length <= 17) {
+        return 2.2;
+      } else if (length <= 19) {
+        return 2.4;
+      }
+    } else {
+      if (length <= 2) {
+        return 0.7;
+      } else if (length <= 4) {
+        return 0.9;
+      } else if (length <= 6) {
+        return 1.1;
+      } else if (length <= 8) {
+        return 1.3;
+      } else if (length <= 10) {
+        return 1.5;
+      } else if (length <= 13) {
+        return 1.7;
+      } else if (length <= 15) {
+        return 1.9;
+      } else if (length <= 17) {
+        return 2.1;
+      } else if (length <= 19) {
+        return 2.3;
+      }
+    }
+
+    // NOTE
+    // Jika validasi length ditambah 2, maka return ditambah 0.2. Misal, jika length <= 21 maka return 2.5 dan jika length <= 23 maka return 2.7, dan seterusnya.
+  }
+
+  function adjustInputSize(componentInput, valueType) {
+    var componentLenghtInput = componentInput.value.length;
+    
+    var defaultValue = defineDefaultValue(componentLenghtInput, valueType);
+    defaultValue = defaultValue < 1 ? 1 : defaultValue;
+
+    componentInput.size = componentLenghtInput * defaultValue;
+  }
+</script>

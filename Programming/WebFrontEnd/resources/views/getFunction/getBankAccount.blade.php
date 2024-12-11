@@ -1,5 +1,6 @@
+<!-- DEFAULT MODAL -->
 <div id="myBankAccount" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Choose Bank Account</h4>
@@ -20,8 +21,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                     </tbody>
+                                    <tfoot>
+                                        <tr class="loadingGetBankAccount">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div class="spinner-border" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                    <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                                        Loading...
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="errorMessageContainer">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div id="errorMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;">
+                                                        
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -32,28 +55,76 @@
     </div>
 </div>
 
+<!-- SECOND MODAL -->
+<div id="myBankAccountSecond" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Choose Bank Account</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body table-responsive p-0" style="height: 400px;">
+                                <table class="table table-head-fixed text-nowrap" id="tableGetBankAccountSecond">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Bank Name</th>
+                                            <th>Bank Account</th>
+                                            <th>Account Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="loadingGetBankAccountSecond">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div class="spinner-border" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                    <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                                        Loading...
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="errorMessageContainerSecond">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div id="errorMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
-    $('#tableGetBank tbody').on('click', 'tr', function() {
+    $(".errorMessageContainer").hide();
+    $(".errorMessageContainerSecond").hide();
 
-        $("#myGetBank").modal('toggle');
-
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();  
-        var Bank_RefID = $('#sys_id_bank' + id).val();
-        var acronym = row.find("td:nth-child(2)").text();
-        var name = row.find("td:nth-child(3)").text();
-
-        $("#bank_code").val(Bank_RefID);
-        $("#bank_name").val(acronym);
-        $("#bank_name_detail").val(name);
-
-        $("#bank_account").val("");
-        $("#bank_account_detail").val("");
-
-        $("#bank_account_popup").prop("disabled", false);
-
-        MandatoryFormFunctionFalse("#bank_name", "#bank_name_detail");
+    // HIT API
+    function getBankAccountData(bank_RefID, source) {
+        if (source === "second_modal") {
+            $('#tableGetBankAccountSecond tbody').empty();
+            $(".loadingGetBankAccountSecond").show();
+            $(".errorMessageContainerSecond").hide();
+        } else {
+            $('#tableGetBankAccount tbody').empty();
+            $(".loadingGetBankAccount").show();
+            $(".errorMessageContainer").hide();
+        }
 
         $.ajaxSetup({
             headers: {
@@ -61,56 +132,115 @@
             }
         });
 
-        var person_refID = $("#person_refID").val();
-
         var keys = 0;
-
         $.ajax({
             type: 'GET',
-            url: '{!! route("getEntityBankAccount") !!}?person_refID=' + person_refID + '&Bank_RefID=' + Bank_RefID,
+            url: '{!! route("getBankAccount") !!}?bank_RefID=' + bank_RefID,
             success: function(data) {
+                if (source === "second_modal") {
+                    $(".loadingGetBankAccountSecond").hide();
 
-                if(data.length == 1){
-                    $("#bank_account_id").val(data[0].Sys_ID);
-                    $("#bank_account").val(data[0].AccountNumber);
-                    $("#bank_account_detail").val(data[0].AccountName);
+                    var no = 1;
+                    var tableBankAccount = $('#tableGetBankAccountSecond').DataTable();
                     
-                    MandatoryFormFunctionFalse("#bank_account", "#bank_account_detail");
+                    tableBankAccount.clear();
+
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function(key, val) {
+                            keys += 1;
+                            tableBankAccount.row.add([
+                                no++,
+                                '<input id="sys_id_bank_account_second' + keys + '" value="' + val.sys_ID + '" type="hidden">' + val.bankAcronym || '-',
+                                val.accountNumber || '-',
+                                val.accountName || '-',
+                            ]).draw();
+                        });
+
+                        $("#tableGetBankAccountSecond_length").show();
+                        $("#tableGetBankAccountSecond_filter").show();
+                        $("#tableGetBankAccountSecond_info").show();
+                        $("#tableGetBankAccountSecond_paginate").show();
+                    } else {
+                        $(".errorMessageContainerSecond").show();
+                        $("#errorMessageSecond").text(`Data not found.`);
+
+                        $("#tableGetBankAccountSecond_length").hide();
+                        $("#tableGetBankAccountSecond_filter").hide();
+                        $("#tableGetBankAccountSecond_info").hide();
+                        $("#tableGetBankAccountSecond_paginate").hide();
+                    }
+                } else {
+                    $(".loadingGetBankAccount").hide();
+
+                    var no = 1;
+                    var tableBankAccount = $('#tableGetBankAccount').DataTable();
+                    
+                    tableBankAccount.clear();
+
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function(key, val) {
+                            keys += 1;
+                            tableBankAccount.row.add([
+                                no++,
+                                '<input id="sys_id_bank_account' + keys + '" value="' + val.sys_ID + '" type="hidden">' + val.bankAcronym || '-',
+                                val.accountNumber || '-',
+                                val.accountName || '-',
+                            ]).draw();
+                        });
+
+                        $("#tableGetBankAccount_length").show();
+                        $("#tableGetBankAccount_filter").show();
+                        $("#tableGetBankAccount_info").show();
+                        $("#tableGetBankAccount_paginate").show();
+                    } else {
+                        $(".errorMessageContainer").show();
+                        $("#errorMessage").text(`Data not found.`);
+
+                        $("#tableGetBankAccount_length").hide();
+                        $("#tableGetBankAccount_filter").hide();
+                        $("#tableGetBankAccount_info").hide();
+                        $("#tableGetBankAccount_paginate").hide();
+                    }
                 }
-                
-                var no = 1;
-                var t = $('#tableGetBankAccount').DataTable();
-                t.clear();
-                $.each(data, function(key, val) {
-                    keys += 1;
-                    t.row.add([
-                        '<tbody><tr><input id="sys_id_bank_account' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                        '<td>' + val.BankAcronym + '</td>',
-                        '<td>' + val.AccountNumber + '</td>',
-                        '<td>' + val.AccountName + '</td></tr></tbody>'
-                    ]).draw();
-                });
+            },
+            error: function (textStatus, errorThrown) {
+                if (source === "second_modal") {
+                    $('#tableGetBankAccountSecond tbody').empty();
+                    $(".loadingGetBankAccountSecond").hide();
+                    $(".errorMessageContainerSecond").show();
+                    $("#errorMessageSecond").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                } else {
+                    $('#tableGetBankAccount tbody').empty();
+                    $(".loadingGetBankAccount").hide();
+                    $(".errorMessageContainer").show();
+                    $("#errorMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                }
             }
         });
+    }
+
+    // GET DATA KETIKA HALAMAN BERHASIL DI LOAD
+    $(window).one('load', function(e) {
+        // TAMPILKAN SEMUA DATA PADA DEFAULT MODAL
+        getBankAccountData('','');
+
+        // TAMPILKAN SEMUA DATA PADA SECOND MODAL
+        getBankAccountData('','second_modal');
     });
-</script>
 
-<script>
-    $('#tableGetBankAccount tbody').on('click', 'tr', function() {
-
-        $("#myBankAccount").modal('toggle');
-
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();  
-        var sys_id_bank_account = $('#sys_id_bank_account' + id).val();
-        var accountNumber = row.find("td:nth-child(3)").text();
+    // FUNGSI DEFAULT KETIKA INGIN MENGGUNAKAN KOMPONEN INI (STAND-ALONE)
+    $('#tableGetBankAccount').on('click', 'tbody tr', function() {
+        var row         = $(this).closest("tr");
+        var id          = row.find("td:nth-child(1)").text();
+        var sysID       = $('#sys_id_bank_account' + id).val();
+        var bankName    = row.find("td:nth-child(2)").text();
+        var bankAccount = row.find("td:nth-child(3)").text();
         var accountName = row.find("td:nth-child(4)").text();
 
-        $("#bank_account_id").val(sys_id_bank_account);
-        $("#bank_account").val(accountNumber);
-        $("#bank_account_detail").val(accountName);
+        $("#bank_accounts").val(bankAccount);
+        $("#bank_accounts_id").val(sysID);
+        $("#bank_accounts_detail").val(accountName);
 
-        MandatoryFormFunctionFalse("#bank_account", "#bank_account_detail");
-
+        $('#myBankAccount').modal('hide');
     });
 </script>

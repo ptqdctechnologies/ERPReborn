@@ -10,7 +10,7 @@
 @include('getFunction.getWorker')
 @include('getFunction.getBeneficiary')
 @include('getFunction.getBank')
-@include('getFunction.getBankAccount')
+@include('getFunction.getEntityBankAccount')
 @include('getFunction.getWorkFlow')
 
 <div class="content-wrapper">

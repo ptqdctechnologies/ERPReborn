@@ -92,7 +92,7 @@
         $("#bank_account_detail").val("");
 
         $('#tableGetBank').find('tbody').empty();
-        $('#tableGetBankAccount').find('tbody').empty();
+        $('#tableGetEntityBankAccount').find('tbody').empty();
 
         $("#bank_name_popup").prop("disabled", false);
 

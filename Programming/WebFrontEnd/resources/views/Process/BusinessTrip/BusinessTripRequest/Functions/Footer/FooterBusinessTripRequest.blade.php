@@ -1,4 +1,5 @@
 <script type="text/javascript">
+  var currentModalSource = '';
   const initialValue = 0;
   const totalBusinessTrip = [];
   const transportInputs = [
@@ -527,33 +528,74 @@
     document.getElementById('dateEnd').setAttribute('min', dateCommance.toISOString().split('T')[0]);
   });
 
-  $('#bank_name_popup_vendor').on('click', function(e) {
-    e.preventDefault();
+  // TRIGGER UNTUK BANK NAME APAKAH DIRECT TO VENDOR ATAU TO OTHER
+  $('.myGetBankList').on('click', function() {
+    currentModalSource = $(this).attr('id');
+  });
 
-    var keys = 0;
-    $.ajax({
-      type: 'GET',
-      url: '{!! route("getBankList") !!}',
-      success: function(data) {
-        console.log('data', data);
-        
-        var no = 1;
-        t = $('#tableGetBank').DataTable();
-        t.clear();
+  // PILIH BANK PADA MODAL BANK NAME
+  $('#tableGetBankList').on('click', 'tbody tr', function() {
+    var sysId = $(this).find('input[type="hidden"]').val();
+    var bankAcronym = $(this).find('td:nth-child(2)').text();
+    var bankFullName = $(this).find('td:nth-child(3)').text();
 
-        $.each(data, function(key, val) {
-          keys += 1;
-          t.row.add([
-            '<tbody><tr><input id="sys_id_bank_list' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-            '<td>' + val.acronym + '</td>',
-            '<td>' + val.name + '</td></span></tr></tbody>'
-          ]).draw();
-        });
-      }
-    });
+    switch(currentModalSource) {
+      case 'bank_name_popup_vendor':
+        $('#bank_name_vendor').val(bankAcronym);
+        $('#bank_code_vendor').val(sysId);
+        $('#bank_name_detail_vendor').val(bankFullName);
+        $("#bank_account_popup_vendor").prop("disabled", false);
 
-    console.log('sini');
-  })
+        getBankAccountData(sysId);
+        adjustInputSize(document.getElementById("bank_name_vendor"), "string");
+        break;
+      
+      case 'bank_name_popup_corp_card':
+        $('#bank_name_corp_card').val(bankAcronym);
+        $('#bank_code_corp_card').val(sysId);
+        $('#bank_name_detail_corp_card').val(bankFullName);
+
+        getBankAccountData(sysId, 'second_modal');
+        adjustInputSize(document.getElementById("bank_name_corp_card"), "string");
+        break;
+    }
+
+    $('#myGetBankList').modal('hide');
+  });
+
+  // PILIH BANK ACCOUNT PADA MODAL BANK ACCOUNT DIRECT TO VENDOR
+  $('#tableGetBankAccount').on('click', 'tbody tr', function() {
+    var row         = $(this).closest("tr");
+    var id          = row.find("td:nth-child(1)").text();
+    var sysID       = $('#sys_id_bank_account' + id).val();
+    var bankName    = row.find("td:nth-child(2)").text();
+    var bankAccount = row.find("td:nth-child(3)").text();
+    var accountName = row.find("td:nth-child(4)").text();
+
+    $('#bank_account_vendor').val(bankAccount);
+    $('#bank_account_id_vendor').val(sysID);
+    $('#bank_account_detail_vendor').val(accountName);
+
+    $('#myBankAccount').modal('hide');
+    adjustInputSize(document.getElementById("bank_account_vendor"));
+  });
+
+  // PILIH BANK ACCOUNT PADA MODAL BANK ACCOUNT BY CORP CARD
+  $('#tableGetBankAccountSecond').on('click', 'tbody tr', function() {
+    var row         = $(this).closest("tr");
+    var id          = row.find("td:nth-child(1)").text();
+    var sysID       = $('#sys_id_bank_account_second' + id).val();
+    var bankName    = row.find("td:nth-child(2)").text();
+    var bankAccount = row.find("td:nth-child(3)").text();
+    var accountName = row.find("td:nth-child(4)").text();
+
+    $('#bank_account_corp_card').val(bankAccount);
+    $('#bank_account_id_corp_card').val(sysID);
+    $('#bank_account_detail_corp_card').val(accountName);
+
+    $('#myBankAccountSecond').modal('hide');
+    adjustInputSize(document.getElementById("bank_account_corp_card"));
+  });
 
   // SUBMIT FORM
   $("#FormSubmitBusinessTrip").on("submit", function(e) {
