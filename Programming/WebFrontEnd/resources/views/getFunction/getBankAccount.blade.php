@@ -219,15 +219,6 @@
         });
     }
 
-    // GET DATA KETIKA HALAMAN BERHASIL DI LOAD
-    $(window).one('load', function(e) {
-        // TAMPILKAN SEMUA DATA PADA DEFAULT MODAL
-        getBankAccountData('','');
-
-        // TAMPILKAN SEMUA DATA PADA SECOND MODAL
-        getBankAccountData('','second_modal');
-    });
-
     // FUNGSI DEFAULT KETIKA INGIN MENGGUNAKAN KOMPONEN INI (STAND-ALONE)
     $('#tableGetBankAccount').on('click', 'tbody tr', function() {
         var row         = $(this).closest("tr");
@@ -242,5 +233,32 @@
         $("#bank_accounts_detail").val(accountName);
 
         $('#myBankAccount').modal('hide');
+        adjustInputSize(document.getElementById("bank_accounts"));
+    });
+
+    // PILIH BANK ACCOUNT PADA MODAL BANK ACCOUNT BY CORP CARD
+    $('#tableGetBankAccountSecond').on('click', 'tbody tr', function() {
+        var row         = $(this).closest("tr");
+        var id          = row.find("td:nth-child(1)").text();
+        var sysID       = $('#sys_id_bank_account_second' + id).val();
+        var bankName    = row.find("td:nth-child(2)").text();
+        var bankAccount = row.find("td:nth-child(3)").text();
+        var accountName = row.find("td:nth-child(4)").text();
+
+        $('#bank_accounts_second').val(bankAccount);
+        $('#bank_accounts_id_second').val(sysID);
+        $('#bank_accounts_detail_second').val(accountName);
+
+        $('#myBankAccountSecond').modal('hide');
+        adjustInputSize(document.getElementById("bank_accounts_second"));
+    });
+
+    // GET DATA KETIKA HALAMAN BERHASIL DI LOAD
+    $(window).one('load', function(e) {
+        // TAMPILKAN SEMUA DATA PADA DEFAULT MODAL
+        // getBankAccountData('','');
+
+        // TAMPILKAN SEMUA DATA PADA SECOND MODAL
+        // getBankAccountData('','second_modal');
     });
 </script>

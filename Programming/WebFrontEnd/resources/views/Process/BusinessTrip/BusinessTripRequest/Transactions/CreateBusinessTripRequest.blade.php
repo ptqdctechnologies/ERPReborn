@@ -630,7 +630,7 @@
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#" id="bank_name_popup_vendor" data-toggle="modal" data-target="#myGetBankList" class="myGetBankList">
+                                      <a href="javascript:;" id="bank_name_popup_vendor" data-toggle="modal" data-target="#myGetBankList" class="myGetBankList">
                                         <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                       </a>
                                     </span>
@@ -646,18 +646,18 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_account_vendor" style="border-radius:0;" name="bank_account_vendor" class="form-control" size="17" readonly>
-                                    <input id="bank_account_id_vendor" style="border-radius:0;" class="form-control" name="bank_account_id_vendor" hidden>
+                                    <input id="bank_accounts" style="border-radius:0;" name="bank_accounts" class="form-control" size="17" readonly>
+                                    <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_accounts_id" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#" id="bank_account_popup_vendor" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount">
+                                      <a href="javascript:;" id="bank_accounts_popup_vendor" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount">
                                         <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                       </a>
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_account_detail_vendor" style="border-radius:0;" class="form-control" name="bank_account_detail_vendor" readonly>
+                                    <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" name="bank_accounts_detail" readonly>
                                   </div>
                                 </div>
                               </div>
@@ -690,7 +690,7 @@
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#" id="bank_name_popup_corp_card" data-toggle="modal" data-target="#myGetBankList" class="myGetBankList">
+                                      <a href="javascript:;" id="bank_name_popup_corp_card" data-toggle="modal" data-target="#myGetBankList" class="myGetBankList">
                                         <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                       </a>
                                     </span>
@@ -706,18 +706,18 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_account_corp_card" style="border-radius:0;" name="bank_account_corp_card" class="form-control" size="17" readonly>
-                                    <input id="bank_account_id_corp_card" style="border-radius:0;" class="form-control" name="bank_account_id_corp_card" hidden>
+                                    <input id="bank_accounts_second" style="border-radius:0;" name="bank_accounts_second" class="form-control" size="17" readonly>
+                                    <input id="bank_accounts_id_second" style="border-radius:0;" class="form-control" name="bank_accounts_id_second" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#" id="bank_account_popup_corp_card" data-toggle="modal" data-target="#myBankAccountSecond" class="myBankAccountSecond">
+                                      <a href="javascript:;" id="bank_accounts_popup_corp_card" data-toggle="modal" data-target="#myBankAccountSecond" class="myBankAccountSecond">
                                         <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                       </a>
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_account_detail_corp_card" style="border-radius:0;" class="form-control" name="bank_account_detail_corp_card" readonly>
+                                    <input id="bank_accounts_detail_second" style="border-radius:0;" class="form-control" name="bank_accounts_detail_second" readonly>
                                   </div>
                                 </div>
                               </div>

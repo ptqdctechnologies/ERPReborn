@@ -276,6 +276,8 @@
   $("#beneficiary_popup").prop("disabled", true);
   $("#bank_name_popup").prop("disabled", true);
   $("#bank_account_popup").prop("disabled", true);
+  $("#bank_accounts_popup_vendor").prop("disabled", true);
+  $("#bank_accounts_popup_corp_card").prop("disabled", true);
   $("#sitecode2").prop("disabled", true);
   $("#dateEnd").prop("disabled", true);
   $("#dateEnd").css("background-color", "white");
@@ -544,7 +546,8 @@
         $('#bank_name_vendor').val(bankAcronym);
         $('#bank_code_vendor').val(sysId);
         $('#bank_name_detail_vendor').val(bankFullName);
-        $("#bank_account_popup_vendor").prop("disabled", false);
+
+        $("#bank_accounts_popup_vendor").prop("disabled", false);
 
         getBankAccountData(sysId);
         adjustInputSize(document.getElementById("bank_name_vendor"), "string");
@@ -555,46 +558,14 @@
         $('#bank_code_corp_card').val(sysId);
         $('#bank_name_detail_corp_card').val(bankFullName);
 
+        $("#bank_accounts_popup_corp_card").prop("disabled", false);
+
         getBankAccountData(sysId, 'second_modal');
         adjustInputSize(document.getElementById("bank_name_corp_card"), "string");
         break;
     }
 
     $('#myGetBankList').modal('hide');
-  });
-
-  // PILIH BANK ACCOUNT PADA MODAL BANK ACCOUNT DIRECT TO VENDOR
-  $('#tableGetBankAccount').on('click', 'tbody tr', function() {
-    var row         = $(this).closest("tr");
-    var id          = row.find("td:nth-child(1)").text();
-    var sysID       = $('#sys_id_bank_account' + id).val();
-    var bankName    = row.find("td:nth-child(2)").text();
-    var bankAccount = row.find("td:nth-child(3)").text();
-    var accountName = row.find("td:nth-child(4)").text();
-
-    $('#bank_account_vendor').val(bankAccount);
-    $('#bank_account_id_vendor').val(sysID);
-    $('#bank_account_detail_vendor').val(accountName);
-
-    $('#myBankAccount').modal('hide');
-    adjustInputSize(document.getElementById("bank_account_vendor"));
-  });
-
-  // PILIH BANK ACCOUNT PADA MODAL BANK ACCOUNT BY CORP CARD
-  $('#tableGetBankAccountSecond').on('click', 'tbody tr', function() {
-    var row         = $(this).closest("tr");
-    var id          = row.find("td:nth-child(1)").text();
-    var sysID       = $('#sys_id_bank_account_second' + id).val();
-    var bankName    = row.find("td:nth-child(2)").text();
-    var bankAccount = row.find("td:nth-child(3)").text();
-    var accountName = row.find("td:nth-child(4)").text();
-
-    $('#bank_account_corp_card').val(bankAccount);
-    $('#bank_account_id_corp_card').val(sysID);
-    $('#bank_account_detail_corp_card').val(accountName);
-
-    $('#myBankAccountSecond').modal('hide');
-    adjustInputSize(document.getElementById("bank_account_corp_card"));
   });
 
   // SUBMIT FORM
