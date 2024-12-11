@@ -154,7 +154,7 @@
                           </div>
 
                           <!-- DATE END TRAVEL -->
-                          <div class="row" style="margin-bottom: 1rem;">
+                          <div class="row">
                             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Date End Travel</label>
                             <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                               <div class="input-group">
