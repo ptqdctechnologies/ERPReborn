@@ -83,6 +83,8 @@
         $("#beneficiary").val(name);
         $("#beneficiary_detail").val(position);
 
+        adjustInputSize(document.getElementById("beneficiary_detail"), "string");
+
         $("#person_refID").val(person_refID);
 
         $("#bank_code").val("");
@@ -110,6 +112,8 @@
                     $("#bank_name").val(data[0].BankAcronym);
                     $("#bank_name_detail").val(data[0].BankName);
 
+                    adjustInputSize(document.getElementById("bank_name"), "string");
+
                     MandatoryFormFunctionFalse("#bank_name", "#bank_name_detail");
 
                     $.ajax({
@@ -121,6 +125,8 @@
                                 $("#bank_account_id").val(data[0].Sys_ID);
                                 $("#bank_account").val(data[0].AccountNumber);
                                 $("#bank_account_detail").val(data[0].AccountName);
+
+                                adjustInputSize(document.getElementById("bank_account"), "string");
                                 
                                 MandatoryFormFunctionFalse("#bank_account", "#bank_account_detail");
                             }

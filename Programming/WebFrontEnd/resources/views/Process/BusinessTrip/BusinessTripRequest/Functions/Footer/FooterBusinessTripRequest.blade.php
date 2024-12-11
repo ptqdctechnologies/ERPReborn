@@ -1,5 +1,5 @@
 <script type="text/javascript">
-  var currentModalSource = '';
+  // var currentModalSource = '';
   const initialValue = 0;
   const totalBusinessTrip = [];
   const transportInputs = [
@@ -273,16 +273,24 @@
 
   $("#myWorker").prop("disabled", true);
   $("#requester_popup").prop("disabled", true);
-  $("#beneficiary_popup").prop("disabled", true);
-  $("#bank_name_popup").prop("disabled", true);
-  $("#bank_account_popup").prop("disabled", true);
-  $("#bank_accounts_popup_vendor").prop("disabled", true);
-  $("#bank_accounts_popup_corp_card").prop("disabled", true);
   $("#sitecode2").prop("disabled", true);
   $("#dateEnd").prop("disabled", true);
   $("#dateEnd").css("background-color", "white");
   $(".loading").hide();
 
+  // TO OTHER
+  $("#beneficiary_popup").prop("disabled", true);
+  $("#bank_name_popup").prop("disabled", true);
+  $("#bank_account_popup").prop("disabled", true);
+
+  // DIRECT TO VENDOR
+  $("#bank_list_popup_vendor").prop("disabled", true);
+  $("#bank_accounts_popup_vendor").prop("disabled", true);
+
+  // BY CORP CARD
+  $("#bank_list_popup_corp_card").prop("disabled", true);
+  $("#bank_accounts_popup_corp_card").prop("disabled", true);
+  
   // BUDGET CODE
   $('#tableGetProject tbody').on('click', 'tr', function() {
     $("#sitecode").val("");
@@ -299,6 +307,8 @@
 
     $("#projectcode").val(code);
     $("#projectname").val(name);
+
+    adjustInputSize(document.getElementById("projectcode"), "string");
     
     $.ajaxSetup({
       headers: {
@@ -334,6 +344,8 @@
     $("#beneficiary_popup").prop("disabled", false);
     $("#bank_name_popup").prop("disabled", false);
     $("#bank_account_popup").prop("disabled", false);
+    $("#bank_list_popup_vendor").prop("disabled", false);
+    $("#bank_list_popup_corp_card").prop("disabled", false);
     $('table#budgetTable tbody').empty();
     $(".loading").show();
     
@@ -349,6 +361,8 @@
     
     $("#sitecode").val(code);
     $("#sitename").val(name);
+
+    adjustInputSize(document.getElementById("sitecode"));
 
     $.ajaxSetup({
       headers: {
@@ -530,42 +544,28 @@
     document.getElementById('dateEnd').setAttribute('min', dateCommance.toISOString().split('T')[0]);
   });
 
-  // TRIGGER UNTUK BANK NAME APAKAH DIRECT TO VENDOR ATAU TO OTHER
-  $('.myGetBankList').on('click', function() {
-    currentModalSource = $(this).attr('id');
+  // GET BANK ACCOUNT VENDOR KETIKA MODAL BANK NAME VENDOR KE CLOSE
+  $('#myGetBankList').on('hidden.bs.modal', function () {
+    const bankVendorID = document.getElementById('bank_list_code');
+
+    // CEK APAKAH BANK NAME VENDOR SUDAH TERISI
+    if (bankVendorID.value) {
+      $("#bank_accounts_popup_vendor").prop("disabled", false);
+
+      getBankAccountData(bankVendorID.value);
+    }
   });
 
-  // PILIH BANK PADA MODAL BANK NAME
-  $('#tableGetBankList').on('click', 'tbody tr', function() {
-    var sysId = $(this).find('input[type="hidden"]').val();
-    var bankAcronym = $(this).find('td:nth-child(2)').text();
-    var bankFullName = $(this).find('td:nth-child(3)').text();
+  // GET BANK ACCOUNT CORP CARD KETIKA MODAL BANK NAME CORP CARD KE CLOSE
+  $('#myGetBankListSecond').on('hidden.bs.modal', function () {
+    const bankCorpCardID = document.getElementById('bank_list_second_code');
 
-    switch(currentModalSource) {
-      case 'bank_name_popup_vendor':
-        $('#bank_name_vendor').val(bankAcronym);
-        $('#bank_code_vendor').val(sysId);
-        $('#bank_name_detail_vendor').val(bankFullName);
+    // CEK APAKAH BANK NAME CORP CARD SUDAH TERISI
+    if (bankCorpCardID.value) {
+      $("#bank_accounts_popup_corp_card").prop("disabled", false);
 
-        $("#bank_accounts_popup_vendor").prop("disabled", false);
-
-        getBankAccountData(sysId);
-        adjustInputSize(document.getElementById("bank_name_vendor"), "string");
-        break;
-      
-      case 'bank_name_popup_corp_card':
-        $('#bank_name_corp_card').val(bankAcronym);
-        $('#bank_code_corp_card').val(sysId);
-        $('#bank_name_detail_corp_card').val(bankFullName);
-
-        $("#bank_accounts_popup_corp_card").prop("disabled", false);
-
-        getBankAccountData(sysId, 'second_modal');
-        adjustInputSize(document.getElementById("bank_name_corp_card"), "string");
-        break;
+      getBankAccountData(bankCorpCardID.value, "second_modal");
     }
-
-    $('#myGetBankList').modal('hide');
   });
 
   // SUBMIT FORM

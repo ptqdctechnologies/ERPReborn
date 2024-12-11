@@ -221,12 +221,10 @@
 
     // FUNGSI DEFAULT KETIKA INGIN MENGGUNAKAN KOMPONEN INI (STAND-ALONE)
     $('#tableGetBankAccount').on('click', 'tbody tr', function() {
-        var row         = $(this).closest("tr");
-        var id          = row.find("td:nth-child(1)").text();
-        var sysID       = $('#sys_id_bank_account' + id).val();
-        var bankName    = row.find("td:nth-child(2)").text();
-        var bankAccount = row.find("td:nth-child(3)").text();
-        var accountName = row.find("td:nth-child(4)").text();
+        var sysID       = $(this).find('input[type="hidden"]').val();
+        var bankName    = $(this).find('td:nth-child(2)').text();
+        var bankAccount = $(this).find('td:nth-child(3)').text();
+        var accountName = $(this).find('td:nth-child(4)').text();
 
         $("#bank_accounts").val(bankAccount);
         $("#bank_accounts_id").val(sysID);
@@ -238,12 +236,10 @@
 
     // PILIH BANK ACCOUNT PADA MODAL BANK ACCOUNT BY CORP CARD
     $('#tableGetBankAccountSecond').on('click', 'tbody tr', function() {
-        var row         = $(this).closest("tr");
-        var id          = row.find("td:nth-child(1)").text();
-        var sysID       = $('#sys_id_bank_account_second' + id).val();
-        var bankName    = row.find("td:nth-child(2)").text();
-        var bankAccount = row.find("td:nth-child(3)").text();
-        var accountName = row.find("td:nth-child(4)").text();
+        var sysID       = $(this).find('input[type="hidden"]').val();
+        var bankName    = $(this).find('td:nth-child(2)').text();
+        var bankAccount = $(this).find('td:nth-child(3)').text();
+        var accountName = $(this).find('td:nth-child(4)').text();
 
         $('#bank_accounts_second').val(bankAccount);
         $('#bank_accounts_id_second').val(sysID);

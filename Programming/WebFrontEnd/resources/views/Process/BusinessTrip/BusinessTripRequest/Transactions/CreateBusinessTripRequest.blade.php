@@ -116,11 +116,11 @@
                             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Requester</label>
                             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                               <div>
-                                <input id="requester_detail" style="border-radius:0; width: 60px;" class="form-control" name="requester_detail" readonly>
+                                <input id="requester_detail" style="border-radius:0;" class="form-control" size="17" name="requester_detail" readonly>
                               </div>
                               <div>
                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                  <a href="#" id="requester_popup" data-toggle="modal" data-target="#myWorker" class="myWorker">
+                                  <a href="javascript:;" id="requester_popup" data-toggle="modal" data-target="#myWorker" class="myWorker">
                                     <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                   </a>
                                 </span>
@@ -625,18 +625,18 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_name_vendor" style="border-radius:0;" name="bank_name_vendor" class="form-control" size="17" readonly>
-                                    <input id="bank_code_vendor" style="border-radius:0;" class="form-control" name="bank_code_vendor" hidden>
+                                    <input id="bank_list_name" style="border-radius:0;" name="bank_list_name" class="form-control" size="17" readonly>
+                                    <input id="bank_list_code" style="border-radius:0;" class="form-control" name="bank_list_code" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="javascript:;" id="bank_name_popup_vendor" data-toggle="modal" data-target="#myGetBankList" class="myGetBankList">
+                                      <a href="javascript:;" id="bank_list_popup_vendor" data-toggle="modal" data-target="#myGetBankList" class="myGetBankList">
                                         <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                       </a>
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_name_detail_vendor" style="border-radius:0;" class="form-control" name="bank_name_detail_vendor" readonly>
+                                    <input id="bank_list_detail" style="border-radius:0;" class="form-control" name="bank_list_detail" readonly>
                                   </div>
                                 </div>
                               </div>
@@ -685,18 +685,18 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_name_corp_card" style="border-radius:0;" name="bank_name_corp_card" class="form-control" size="17" readonly>
-                                    <input id="bank_code_corp_card" style="border-radius:0;" class="form-control" name="bank_code_corp_card" hidden>
+                                    <input id="bank_list_second_name" style="border-radius:0;" name="bank_list_second_name" class="form-control" size="17" readonly>
+                                    <input id="bank_list_second_code" style="border-radius:0;" class="form-control" name="bank_list_second_code" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="javascript:;" id="bank_name_popup_corp_card" data-toggle="modal" data-target="#myGetBankList" class="myGetBankList">
+                                      <a href="javascript:;" id="bank_list_popup_corp_card" data-toggle="modal" data-target="#myGetBankListSecond" class="myGetBankListSecond">
                                         <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                       </a>
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_name_detail_corp_card" style="border-radius:0;" class="form-control" name="bank_name_detail_corp_card" readonly>
+                                    <input id="bank_list_second_detail" style="border-radius:0;" class="form-control" name="bank_list_second_detail" readonly>
                                   </div>
                                 </div>
                               </div>
@@ -745,7 +745,7 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="beneficiary_detail" style="border-radius:0; width: 60px;" class="form-control" name="beneficiary_detail" readonly>
+                                    <input id="beneficiary_detail" style="border-radius:0;" size="17" class="form-control" name="beneficiary_detail" readonly>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -765,7 +765,7 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_name" style="border-radius:0; width: 60px;" name="bank_name" class="form-control" readonly>
+                                    <input id="bank_name" style="border-radius:0;" size="17" name="bank_name" class="form-control" readonly>
                                     <input id="bank_code" style="border-radius:0;" class="form-control" name="bank_code" hidden>
                                   </div>
                                   <div>
@@ -786,7 +786,7 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_account" style="border-radius:0; width: 90px;" name="bank_account" class="form-control" readonly>
+                                    <input id="bank_account" style="border-radius:0;" size="17" name="bank_account" class="form-control" readonly>
                                     <input id="bank_account_id" style="border-radius:0;" class="form-control" name="bank_account_id" hidden>
                                   </div>
                                   <div>

@@ -82,6 +82,8 @@
         $("#requester_detail").val(position);
         $("#contactPhone").val(contact_number_requester);
 
+        adjustInputSize(document.getElementById("requester_detail"), "string");
+
         MandatoryFormFunctionFalse("#requester", "#requester_detail");
 
     });
