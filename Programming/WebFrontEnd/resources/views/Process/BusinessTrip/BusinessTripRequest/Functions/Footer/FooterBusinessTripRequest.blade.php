@@ -76,6 +76,7 @@
     const selectedCheckbox = document.querySelector('#budgetTable tbody input[type="checkbox"]:checked');
     const budgetDetailsInput = document.getElementById('budgetDetailsData');
     const totalBusinessTripInput = document.getElementById('total_business_trip');
+    const totalPaymentBusinessTripInput = document.getElementById('total_payment');
     
     if (selectedCheckbox) {
       const row = selectedCheckbox.closest('tr');
@@ -94,9 +95,14 @@
 
       const balanceBudget = parseFormattedNumber(datas.balanceBudget);
       const totalBusinessTrip = parseFormattedNumber(totalBusinessTripInput.value || '0');
+      const totalPaymentBusinessTrip = parseFormattedNumber(totalPaymentBusinessTripInput.value || '0');
 
       if (totalBusinessTrip > balanceBudget) {
         Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
+      }
+
+      if (totalPaymentBusinessTrip > balanceBudget) {
+        Swal.fire("Error", `Total Payment must not exceed the selected Balanced Budget`, "error");
       }
     } else {
       budgetDetailsInput.value = '';
