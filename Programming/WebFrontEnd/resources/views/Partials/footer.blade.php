@@ -423,6 +423,18 @@
 </script>
 
 <script>
+  function allowNumbersWithoutCharacter(inputElement) {
+    inputElement.addEventListener('input', function(e) {
+      let value = this.value.replace(/[^0-9]/g, '');
+      
+      this.value = value;
+  });
+  }
+
+  document.querySelectorAll('.number-without-characters').forEach(function(input) {
+    allowNumbersWithoutCharacter(input);
+  });
+
   function allowNumbersOnly(inputElement) {
     inputElement.addEventListener('input', function(e) {
       let value = this.value

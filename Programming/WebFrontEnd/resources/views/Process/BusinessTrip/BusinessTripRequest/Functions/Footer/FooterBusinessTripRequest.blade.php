@@ -284,11 +284,6 @@
   $("#dateEnd").css("background-color", "white");
   $(".loading").hide();
 
-  // TO OTHER
-  $("#beneficiary_popup").prop("disabled", true);
-  $("#bank_name_popup").prop("disabled", true);
-  $("#bank_account_popup").prop("disabled", true);
-
   // DIRECT TO VENDOR
   $("#bank_list_popup_vendor").prop("disabled", true);
   $("#bank_accounts_popup_vendor").prop("disabled", true);
@@ -296,6 +291,11 @@
   // BY CORP CARD
   $("#bank_list_popup_corp_card").prop("disabled", true);
   $("#bank_accounts_popup_corp_card").prop("disabled", true);
+
+  // TO OTHER
+  $("#beneficiary_popup").prop("disabled", true);
+  $("#bank_name_popup").prop("disabled", true);
+  $("#bank_account_popup").prop("disabled", true);
   
   // BUDGET CODE
   $('#tableGetProject tbody').on('click', 'tr', function() {
@@ -550,6 +550,7 @@
     document.getElementById('dateEnd').setAttribute('min', dateCommance.toISOString().split('T')[0]);
   });
 
+  // ========== VENDOR ==========
   // GET BANK ACCOUNT VENDOR KETIKA MODAL BANK NAME VENDOR KE CLOSE
   $('#myGetBankList').on('hidden.bs.modal', function () {
     const bankVendorID = document.getElementById('bank_list_code');
@@ -557,11 +558,28 @@
     // CEK APAKAH BANK NAME VENDOR SUDAH TERISI
     if (bankVendorID.value) {
       $("#bank_accounts_popup_vendor").prop("disabled", false);
+      $("#bank_accounts").removeAttr("readonly");
+      $("#bank_accounts_detail").removeAttr("readonly");
 
       getBankAccountData(bankVendorID.value);
     }
   });
 
+  // KETIKA MODAL BANK NAME VENDOR DIPILIH, MAKA MENGHAPUS VALUE BANK ACCOUNT VENDOR
+  $('#tableGetBankList').on('click', 'tbody tr', function() {
+    $("#bank_accounts").val("");
+    $("#bank_accounts_id").val("");
+    $("#bank_accounts_detail").val("");
+  });
+
+  // MENAMBAHKAN READ-ONLY PADA KOMPONEN BANK ACCOUNT VENDOR
+  $('#tableGetBankAccount').on('click', 'tbody tr', function() {
+    $("#bank_accounts").attr("readonly", "");
+    $("#bank_accounts_detail").attr("readonly", "");
+  });
+  // ========== VENDOR ==========
+
+  // ========== CORP CARD ==========
   // GET BANK ACCOUNT CORP CARD KETIKA MODAL BANK NAME CORP CARD KE CLOSE
   $('#myGetBankListSecond').on('hidden.bs.modal', function () {
     const bankCorpCardID = document.getElementById('bank_list_second_code');
@@ -569,10 +587,26 @@
     // CEK APAKAH BANK NAME CORP CARD SUDAH TERISI
     if (bankCorpCardID.value) {
       $("#bank_accounts_popup_corp_card").prop("disabled", false);
+      $("#bank_accounts_second").removeAttr("readonly");
+      $("#bank_accounts_detail_second").removeAttr("readonly");
 
       getBankAccountData(bankCorpCardID.value, "second_modal");
     }
   });
+
+  // KETIKA MODAL BANK NAME CORP CARD DIPILIH, MAKA MENGHAPUS VALUE BANK ACCOUNT CORP CARD
+  $('#tableGetBankListSecond').on('click', 'tbody tr', function() {
+    $("#bank_accounts_second").val("");
+    $("#bank_accounts_id_second").val("");
+    $("#bank_accounts_detail_second").val("");
+  });
+
+  // MENAMBAHKAN READ-ONLY PADA KOMPONEN BANK ACCOUNT CORP CARD
+  $('#tableGetBankAccountSecond').on('click', 'tbody tr', function() {
+    $("#bank_accounts_second").attr("readonly", "");
+    $("#bank_accounts_detail_second").attr("readonly", "");
+  });
+  // ========== CORP CARD ==========
 
   // SUBMIT FORM
   $("#FormSubmitBusinessTrip").on("submit", function(e) {

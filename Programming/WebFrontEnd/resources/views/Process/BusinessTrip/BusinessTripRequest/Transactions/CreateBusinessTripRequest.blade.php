@@ -646,7 +646,7 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_accounts" style="border-radius:0;" name="bank_accounts" class="form-control" size="17" readonly>
+                                    <input id="bank_accounts" style="border-radius:0;" name="bank_accounts" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
                                     <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_accounts_id" hidden>
                                   </div>
                                   <div>
@@ -657,7 +657,7 @@
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" name="bank_accounts_detail" readonly>
+                                    <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" name="bank_accounts_detail" autocomplete="off" readonly>
                                   </div>
                                 </div>
                               </div>
