@@ -45,7 +45,7 @@ class UnionType extends Type implements CompositeTypeInterface
             }
 
             if ($type instanceof BuiltinType) {
-                if ($type->getTypeIdentifier() === TypeIdentifier::NULL && !is_a(static::class, NullableType::class, allow_string: true)) {
+                if (TypeIdentifier::NULL === $type->getTypeIdentifier() && !is_a(static::class, NullableType::class, allow_string: true)) {
                     throw new InvalidArgumentException(\sprintf('Cannot create union with "null", please use "%s" instead.', NullableType::class));
                 }
 

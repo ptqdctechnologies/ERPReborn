@@ -31,6 +31,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
+        '476ca15b8d69b04665cd879be9cb4c68' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/functions.php',
         '265b4faa2b3a9766332744949e83bf97' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/helpers.php',
         'c7a3c339e7e14b60e06a2d7fcce9476b' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Events/functions.php',
         'f57d353b41eb2e234b26064d63d8c5dd' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Filesystem/functions.php',
@@ -147,6 +148,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         ),
         'L' => 
         array (
+            'League\\Uri\\' => 11,
             'League\\MimeTypeDetection\\' => 25,
             'League\\Flysystem\\Local\\' => 23,
             'League\\Flysystem\\AwsS3V3\\' => 25,
@@ -223,8 +225,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'ZipStream\\' => 
         array (
@@ -388,13 +390,13 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         ),
         'Spatie\\LaravelIgnition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
-            1 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
+            0 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
+            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
         ),
         'Spatie\\Ignition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
-            1 => __DIR__ . '/..' . '/spatie/ignition/src',
+            0 => __DIR__ . '/..' . '/spatie/ignition/src',
+            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
         ),
         'Spatie\\FlareClient\\' => 
         array (
@@ -496,6 +498,11 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Maatwebsite\\Excel\\' => 
         array (
             0 => __DIR__ . '/..' . '/maatwebsite/excel/src',
+        ),
+        'League\\Uri\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/uri-interfaces',
+            1 => __DIR__ . '/..' . '/league/uri',
         ),
         'League\\MimeTypeDetection\\' => 
         array (
@@ -6785,6 +6792,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Illuminate\\Support\\Traits\\Macroable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php',
         'Illuminate\\Support\\Traits\\ReflectsClosures' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Traits/ReflectsClosures.php',
         'Illuminate\\Support\\Traits\\Tappable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Traits/Tappable.php',
+        'Illuminate\\Support\\Uri' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Uri.php',
+        'Illuminate\\Support\\UriQueryString' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/UriQueryString.php',
         'Illuminate\\Support\\ValidatedInput' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/ValidatedInput.php',
         'Illuminate\\Support\\ViewErrorBag' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/ViewErrorBag.php',
         'Illuminate\\Testing\\Assert' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Testing/Assert.php',
@@ -7397,6 +7406,53 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'League\\MimeTypeDetection\\GeneratedExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/GeneratedExtensionToMimeTypeMap.php',
         'League\\MimeTypeDetection\\MimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/MimeTypeDetector.php',
         'League\\MimeTypeDetection\\OverridingExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/OverridingExtensionToMimeTypeMap.php',
+        'League\\Uri\\BaseUri' => __DIR__ . '/..' . '/league/uri/BaseUri.php',
+        'League\\Uri\\Contracts\\AuthorityInterface' => __DIR__ . '/..' . '/league/uri-interfaces/Contracts/AuthorityInterface.php',
+        'League\\Uri\\Contracts\\DataPathInterface' => __DIR__ . '/..' . '/league/uri-interfaces/Contracts/DataPathInterface.php',
+        'League\\Uri\\Contracts\\DomainHostInterface' => __DIR__ . '/..' . '/league/uri-interfaces/Contracts/DomainHostInterface.php',
+        'League\\Uri\\Contracts\\FragmentInterface' => __DIR__ . '/..' . '/league/uri-interfaces/Contracts/FragmentInterface.php',
+        'League\\Uri\\Contracts\\HostInterface' => __DIR__ . '/..' . '/league/uri-interfaces/Contracts/HostInterface.php',
+        'League\\Uri\\Contracts\\IpHostInterface' => __DIR__ . '/..' . '/league/uri-interfaces/Contracts/IpHostInterface.php',
+        'League\\Uri\\Contracts\\PathInterface' => __DIR__ . '/..' . '/league/uri-interfaces/Contracts/PathInterface.php',
+        'League\\Uri\\Contracts\\PortInterface' => __DIR__ . '/..' . '/league/uri-interfaces/Contracts/PortInterface.php',
+        'League\\Uri\\Contracts\\QueryInterface' => __DIR__ . '/..' . '/league/uri-interfaces/Contracts/QueryInterface.php',
+        'League\\Uri\\Contracts\\SegmentedPathInterface' => __DIR__ . '/..' . '/league/uri-interfaces/Contracts/SegmentedPathInterface.php',
+        'League\\Uri\\Contracts\\UriAccess' => __DIR__ . '/..' . '/league/uri-interfaces/Contracts/UriAccess.php',
+        'League\\Uri\\Contracts\\UriComponentInterface' => __DIR__ . '/..' . '/league/uri-interfaces/Contracts/UriComponentInterface.php',
+        'League\\Uri\\Contracts\\UriException' => __DIR__ . '/..' . '/league/uri-interfaces/Contracts/UriException.php',
+        'League\\Uri\\Contracts\\UriInterface' => __DIR__ . '/..' . '/league/uri-interfaces/Contracts/UriInterface.php',
+        'League\\Uri\\Contracts\\UserInfoInterface' => __DIR__ . '/..' . '/league/uri-interfaces/Contracts/UserInfoInterface.php',
+        'League\\Uri\\Encoder' => __DIR__ . '/..' . '/league/uri-interfaces/Encoder.php',
+        'League\\Uri\\Exceptions\\ConversionFailed' => __DIR__ . '/..' . '/league/uri-interfaces/Exceptions/ConversionFailed.php',
+        'League\\Uri\\Exceptions\\MissingFeature' => __DIR__ . '/..' . '/league/uri-interfaces/Exceptions/MissingFeature.php',
+        'League\\Uri\\Exceptions\\OffsetOutOfBounds' => __DIR__ . '/..' . '/league/uri-interfaces/Exceptions/OffsetOutOfBounds.php',
+        'League\\Uri\\Exceptions\\SyntaxError' => __DIR__ . '/..' . '/league/uri-interfaces/Exceptions/SyntaxError.php',
+        'League\\Uri\\FeatureDetection' => __DIR__ . '/..' . '/league/uri-interfaces/FeatureDetection.php',
+        'League\\Uri\\Http' => __DIR__ . '/..' . '/league/uri/Http.php',
+        'League\\Uri\\HttpFactory' => __DIR__ . '/..' . '/league/uri/HttpFactory.php',
+        'League\\Uri\\IPv4\\BCMathCalculator' => __DIR__ . '/..' . '/league/uri-interfaces/IPv4/BCMathCalculator.php',
+        'League\\Uri\\IPv4\\Calculator' => __DIR__ . '/..' . '/league/uri-interfaces/IPv4/Calculator.php',
+        'League\\Uri\\IPv4\\Converter' => __DIR__ . '/..' . '/league/uri-interfaces/IPv4/Converter.php',
+        'League\\Uri\\IPv4\\GMPCalculator' => __DIR__ . '/..' . '/league/uri-interfaces/IPv4/GMPCalculator.php',
+        'League\\Uri\\IPv4\\NativeCalculator' => __DIR__ . '/..' . '/league/uri-interfaces/IPv4/NativeCalculator.php',
+        'League\\Uri\\IPv6\\Converter' => __DIR__ . '/..' . '/league/uri-interfaces/IPv6/Converter.php',
+        'League\\Uri\\Idna\\Converter' => __DIR__ . '/..' . '/league/uri-interfaces/Idna/Converter.php',
+        'League\\Uri\\Idna\\Error' => __DIR__ . '/..' . '/league/uri-interfaces/Idna/Error.php',
+        'League\\Uri\\Idna\\Option' => __DIR__ . '/..' . '/league/uri-interfaces/Idna/Option.php',
+        'League\\Uri\\Idna\\Result' => __DIR__ . '/..' . '/league/uri-interfaces/Idna/Result.php',
+        'League\\Uri\\KeyValuePair\\Converter' => __DIR__ . '/..' . '/league/uri-interfaces/KeyValuePair/Converter.php',
+        'League\\Uri\\QueryString' => __DIR__ . '/..' . '/league/uri-interfaces/QueryString.php',
+        'League\\Uri\\Uri' => __DIR__ . '/..' . '/league/uri/Uri.php',
+        'League\\Uri\\UriInfo' => __DIR__ . '/..' . '/league/uri/UriInfo.php',
+        'League\\Uri\\UriResolver' => __DIR__ . '/..' . '/league/uri/UriResolver.php',
+        'League\\Uri\\UriString' => __DIR__ . '/..' . '/league/uri-interfaces/UriString.php',
+        'League\\Uri\\UriTemplate' => __DIR__ . '/..' . '/league/uri/UriTemplate.php',
+        'League\\Uri\\UriTemplate\\Expression' => __DIR__ . '/..' . '/league/uri/UriTemplate/Expression.php',
+        'League\\Uri\\UriTemplate\\Operator' => __DIR__ . '/..' . '/league/uri/UriTemplate/Operator.php',
+        'League\\Uri\\UriTemplate\\Template' => __DIR__ . '/..' . '/league/uri/UriTemplate/Template.php',
+        'League\\Uri\\UriTemplate\\TemplateCanNotBeExpanded' => __DIR__ . '/..' . '/league/uri/UriTemplate/TemplateCanNotBeExpanded.php',
+        'League\\Uri\\UriTemplate\\VarSpecifier' => __DIR__ . '/..' . '/league/uri/UriTemplate/VarSpecifier.php',
+        'League\\Uri\\UriTemplate\\VariableBag' => __DIR__ . '/..' . '/league/uri/UriTemplate/VariableBag.php',
         'Maatwebsite\\Excel\\Cache\\BatchCache' => __DIR__ . '/..' . '/maatwebsite/excel/src/Cache/BatchCache.php',
         'Maatwebsite\\Excel\\Cache\\BatchCacheDeprecated' => __DIR__ . '/..' . '/maatwebsite/excel/src/Cache/BatchCacheDeprecated.php',
         'Maatwebsite\\Excel\\Cache\\CacheManager' => __DIR__ . '/..' . '/maatwebsite/excel/src/Cache/CacheManager.php',
@@ -8448,7 +8504,9 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'PHPUnit\\Logging\\TeamCity\\TestPreparedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TeamCity/Subscriber/TestPreparedSubscriber.php',
         'PHPUnit\\Logging\\TeamCity\\TestRunnerExecutionFinishedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TeamCity/Subscriber/TestRunnerExecutionFinishedSubscriber.php',
         'PHPUnit\\Logging\\TeamCity\\TestSkippedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TeamCity/Subscriber/TestSkippedSubscriber.php',
+        'PHPUnit\\Logging\\TeamCity\\TestSuiteBeforeFirstTestMethodErroredSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TeamCity/Subscriber/TestSuiteBeforeFirstTestMethodErroredSubscriber.php',
         'PHPUnit\\Logging\\TeamCity\\TestSuiteFinishedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TeamCity/Subscriber/TestSuiteFinishedSubscriber.php',
+        'PHPUnit\\Logging\\TeamCity\\TestSuiteSkippedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TeamCity/Subscriber/TestSuiteSkippedSubscriber.php',
         'PHPUnit\\Logging\\TeamCity\\TestSuiteStartedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TeamCity/Subscriber/TestSuiteStartedSubscriber.php',
         'PHPUnit\\Logging\\TestDox\\HtmlRenderer' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TestDox/HtmlRenderer.php',
         'PHPUnit\\Logging\\TestDox\\NamePrettifier' => __DIR__ . '/..' . '/phpunit/phpunit/src/Logging/TestDox/NamePrettifier.php',

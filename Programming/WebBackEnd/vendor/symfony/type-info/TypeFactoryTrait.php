@@ -330,11 +330,11 @@ trait TypeFactoryTrait
      *
      * @param T $type
      *
-     * @return ($type is NullableType ? T : NullableType<T>)
+     * @return T|NullableType<T>
      */
-    public static function nullable(Type $type): NullableType
+    public static function nullable(Type $type): Type
     {
-        if ($type instanceof NullableType) {
+        if ($type->isNullable()) {
             return $type;
         }
 
