@@ -745,17 +745,19 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="beneficiary_detail" style="border-radius:0;" size="17" class="form-control" name="beneficiary_detail" readonly>
+                                    <input id="beneficiary_second_id" style="border-radius:0;" class="form-control" name="beneficiary_second_id">
+                                    <input id="beneficiary_second_person_ref_id" style="border-radius:0;" class="form-control" name="beneficiary_second_person_ref_id">
+                                    <input id="beneficiary_second_person_position" style="border-radius:0;" size="17" class="form-control" name="beneficiary_second_person_position" readonly>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#" id="beneficiary_popup" data-toggle="modal" data-target="#myBeneficiary" class="myBeneficiary"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                      <a href="javascript:;" id="beneficiary_second_popup" data-toggle="modal" data-target="#myBeneficiarySecond">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                      </a>
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input name="beneficiary" id="beneficiary" style="border-radius:0;" type="text" class="form-control" readonly>
-                                    <input name="person_refID" id="person_refID" style="border-radius:0;" type="hidden" class="form-control" readonly>
-                                    <input name="beneficiary_id" id="beneficiary_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
+                                    <input id="beneficiary_second_person_name" name="beneficiary_second_person_name" style="border-radius:0;" type="text" class="form-control" readonly>
                                   </div>
                                 </div>
                               </div>

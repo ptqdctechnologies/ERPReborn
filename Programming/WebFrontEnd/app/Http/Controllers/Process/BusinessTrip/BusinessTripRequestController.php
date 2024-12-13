@@ -23,6 +23,7 @@ class BusinessTripRequestController extends Controller
         if(!empty($_GET['var'])){
            $var =  $_GET['var'];
         }
+        
         $compact = [
             'var' => $var,
             'varAPIWebToken' => $varAPIWebToken,
@@ -31,6 +32,7 @@ class BusinessTripRequestController extends Controller
     
         return view('Process.BusinessTrip.BusinessTripRequest.Transactions.CreateBusinessTripRequest', $compact);
     }
+
     public function store(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');

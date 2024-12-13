@@ -132,6 +132,8 @@
             type: 'GET',
             url: '{!! route("getBankList") !!}',
             success: function(data) {
+                console.log('datasss', data);
+                
                 if (source === "second_modal") {
                     $(".loadingGetBankNameSecond").hide();
 
@@ -195,10 +197,17 @@
                 }
             },
             error: function (textStatus, errorThrown) {
-                $('#tableGetBankList tbody').empty();
-                $(".loadingGetBankName").hide();
-                $(".errorMessageContainer").show();
-                $("#errorMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                if (source === "second_modal") {
+                    $('#tableGetBankListSecond tbody').empty();
+                    $(".loadingGetBankNameSecond").hide();
+                    $(".errorMessageContainerSecond").show();
+                    $("#errorMessageSecond").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                } else {
+                    $('#tableGetBankList tbody').empty();
+                    $(".loadingGetBankName").hide();
+                    $(".errorMessageContainer").show();
+                    $("#errorMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                }
             }
         });
     }
