@@ -626,7 +626,7 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="bank_list_name" style="border-radius:0;" name="bank_list_name" class="form-control" size="17" readonly>
-                                    <input id="bank_list_code" style="border-radius:0;" class="form-control" name="bank_list_code" hidden>
+                                    <input id="bank_list_code" style="border-radius:0;" class="form-control" name="bank_list_code">
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -647,7 +647,7 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="bank_accounts" style="border-radius:0;" name="bank_accounts" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
-                                    <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_accounts_id" hidden>
+                                    <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_accounts_id">
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -686,7 +686,7 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="bank_list_second_name" style="border-radius:0;" name="bank_list_second_name" class="form-control" size="17" readonly>
-                                    <input id="bank_list_second_code" style="border-radius:0;" class="form-control" name="bank_list_second_code" hidden>
+                                    <input id="bank_list_second_code" style="border-radius:0;" class="form-control" name="bank_list_second_code">
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -707,7 +707,7 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="bank_accounts_second" style="border-radius:0;" name="bank_accounts_second" class="form-control" size="17" readonly>
-                                    <input id="bank_accounts_id_second" style="border-radius:0;" class="form-control" name="bank_accounts_id_second" hidden>
+                                    <input id="bank_accounts_id_second" style="border-radius:0;" class="form-control" name="bank_accounts_id_second">
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -745,9 +745,9 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
+                                    <input id="beneficiary_second_person_position" style="border-radius:0;" size="17" class="form-control" name="beneficiary_second_person_position" readonly>
                                     <input id="beneficiary_second_id" style="border-radius:0;" class="form-control" name="beneficiary_second_id">
                                     <input id="beneficiary_second_person_ref_id" style="border-radius:0;" class="form-control" name="beneficiary_second_person_ref_id">
-                                    <input id="beneficiary_second_person_position" style="border-radius:0;" size="17" class="form-control" name="beneficiary_second_person_position" readonly>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -767,18 +767,18 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_name" style="border-radius:0;" size="17" name="bank_name" class="form-control" readonly>
-                                    <input id="bank_code" style="border-radius:0;" class="form-control" name="bank_code" hidden>
+                                    <input id="bank_name_second_name" style="border-radius:0;" name="bank_name_second_name" class="form-control" size="17" readonly>
+                                    <input id="bank_name_second_id" style="border-radius:0;" class="form-control" name="bank_name_second_id">
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#" id="bank_name_popup" data-toggle="modal" data-target="#myGetBank" class="myGetBank">
+                                      <a href="javascript:;" id="bank_list_popup_second" data-toggle="modal" data-target="#myGetBankSecond" class="myGetBankSecond">
                                         <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                       </a>
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_name_detail" style="border-radius:0;" class="form-control" name="bank_name_detail" readonly>
+                                    <input id="bank_name_second_detail" style="border-radius:0;" class="form-control" name="bank_name_second_detail" readonly>
                                   </div>
                                 </div>
                               </div>
@@ -788,18 +788,18 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_account" style="border-radius:0;" size="17" name="bank_account" class="form-control" readonly>
-                                    <input id="bank_account_id" style="border-radius:0;" class="form-control" name="bank_account_id" hidden>
+                                    <input id="bank_accounts_third" style="border-radius:0;" size="17" name="bank_accounts_third" class="form-control" readonly>
+                                    <input id="bank_accounts_third_id" style="border-radius:0;" class="form-control" name="bank_accounts_third_id">
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#" id="bank_account_popup" data-toggle="modal" data-target="#myEntityBankAccount" class="myEntityBankAccount">
+                                      <a href="javascript:;" id="bank_accounts_third_popup" data-toggle="modal" data-target="#myBankAccountThird">
                                         <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                       </a>
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_account_detail" style="border-radius:0;" class="form-control" name="bank_account_detail" readonly>
+                                    <input id="bank_accounts_third_detail" style="border-radius:0;" class="form-control" name="bank_accounts_third_detail" readonly>
                                   </div>
                                 </div>
                               </div>

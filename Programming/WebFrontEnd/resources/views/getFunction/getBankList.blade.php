@@ -132,8 +132,6 @@
             type: 'GET',
             url: '{!! route("getBankList") !!}',
             success: function(data) {
-                console.log('datasss', data);
-                
                 if (source === "second_modal") {
                     $(".loadingGetBankNameSecond").hide();
 

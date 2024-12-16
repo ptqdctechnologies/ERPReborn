@@ -293,9 +293,9 @@
   $("#bank_accounts_popup_corp_card").prop("disabled", true);
 
   // TO OTHER
-  $("#beneficiary_popup").prop("disabled", true);
-  $("#bank_name_popup").prop("disabled", true);
-  $("#bank_account_popup").prop("disabled", true);
+  $("#beneficiary_second_popup").prop("disabled", true);
+  $("#bank_list_popup_second").prop("disabled", true);
+  $("#bank_accounts_third_popup").prop("disabled", true);
   
   // BUDGET CODE
   $('#tableGetProject tbody').on('click', 'tr', function() {
@@ -607,6 +607,33 @@
     $("#bank_accounts_detail_second").attr("readonly", "");
   });
   // ========== CORP CARD ==========
+
+  // ========== TO OTHER ==========
+  $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function() {
+    const bankCorpCardID = document.getElementById('beneficiary_second_person_ref_id');
+    
+    if (bankCorpCardID.value) {
+      $("#bank_name_second_id").val("");
+      $("#bank_name_second_name").val("");
+      $("#bank_name_second_detail").val("");
+
+      $("#bank_accounts_third").val("");
+      $("#bank_accounts_third_id").val("");
+      $("#bank_accounts_third_detail").val("");
+
+      getBankSecond(bankCorpCardID.value);
+    }
+  });
+
+  $('#myGetBankSecond').on('hidden.bs.modal', function () {
+    const bank_RefID = document.getElementById('bank_name_second_id');
+    const person_RefID = document.getElementById('beneficiary_second_person_ref_id');
+
+    if (bank_RefID.value && person_RefID.value) {
+      getBankAccountData(bank_RefID.value, "third_modal", person_RefID.value);
+    }
+  });
+  // ========== TO OTHER ==========
 
   // SUBMIT FORM
   $("#FormSubmitBusinessTrip").on("submit", function(e) {

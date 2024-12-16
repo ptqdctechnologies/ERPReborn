@@ -110,16 +110,76 @@
     </div>
 </div>
 
+<!-- THIRD MODAL -->
+<div id="myBankAccountThird" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Choose Bank Account</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body table-responsive p-0" style="height: 400px;">
+                                <table class="table table-head-fixed text-nowrap" id="tableGetBankAccountThird">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Bank Name</th>
+                                            <th>Bank Account</th>
+                                            <th>Account Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="loadingGetBankAccountThird">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div class="spinner-border" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                    <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                                        Loading...
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="errorMessageContainerThird">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div id="errorMessageThird" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(".errorMessageContainer").hide();
     $(".errorMessageContainerSecond").hide();
+    $(".errorMessageContainerThird").hide();
 
     // HIT API
-    function getBankAccountData(bank_RefID, source) {
+    function getBankAccountData(bank_RefID, source, person_RefID) {
         if (source === "second_modal") {
             $('#tableGetBankAccountSecond tbody').empty();
             $(".loadingGetBankAccountSecond").show();
             $(".errorMessageContainerSecond").hide();
+        } else if (source === "third_modal") {
+            $('#tableGetBankAccountThird tbody').empty();
+            $(".loadingGetBankAccountThird").show();
+            $(".errorMessageContainerThird").hide();
         } else {
             $('#tableGetBankAccount tbody').empty();
             $(".loadingGetBankAccount").show();
@@ -135,7 +195,7 @@
         var keys = 0;
         $.ajax({
             type: 'GET',
-            url: '{!! route("getBankAccount") !!}?bank_RefID=' + bank_RefID,
+            url: '{!! route("getBankAccount") !!}?bank_RefID=' + bank_RefID + '&person_RefID=' + person_RefID,
             success: function(data) {
                 if (source === "second_modal") {
                     $(".loadingGetBankAccountSecond").hide();
@@ -168,6 +228,38 @@
                         $("#tableGetBankAccountSecond_filter").hide();
                         $("#tableGetBankAccountSecond_info").hide();
                         $("#tableGetBankAccountSecond_paginate").hide();
+                    }
+                } else if (source === "third_modal") {
+                    $(".loadingGetBankAccountThird").hide();
+
+                    var no = 1;
+                    var tableBankAccount = $('#tableGetBankAccountThird').DataTable();
+                    
+                    tableBankAccount.clear();
+
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function(key, val) {
+                            keys += 1;
+                            tableBankAccount.row.add([
+                                no++,
+                                '<input id="sys_id_bank_account_third' + keys + '" value="' + val.sys_ID + '" type="hidden">' + val.bankAcronym || '-',
+                                val.accountNumber || '-',
+                                val.accountName || '-',
+                            ]).draw();
+                        });
+
+                        $("#tableGetBankAccountThird_length").show();
+                        $("#tableGetBankAccountThird_filter").show();
+                        $("#tableGetBankAccountThird_info").show();
+                        $("#tableGetBankAccountThird_paginate").show();
+                    } else {
+                        $(".errorMessageContainerThird").show();
+                        $("#errorMessageThird").text(`Data not found.`);
+
+                        $("#tableGetBankAccountThird_length").hide();
+                        $("#tableGetBankAccountThird_filter").hide();
+                        $("#tableGetBankAccountThird_info").hide();
+                        $("#tableGetBankAccountThird_paginate").hide();
                     }
                 } else {
                     $(".loadingGetBankAccount").hide();
@@ -209,6 +301,11 @@
                     $(".loadingGetBankAccountSecond").hide();
                     $(".errorMessageContainerSecond").show();
                     $("#errorMessageSecond").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                } else if (source === "third_modal") {
+                    $('#tableGetBankAccountThird tbody').empty();
+                    $(".loadingGetBankAccountThird").hide();
+                    $(".errorMessageContainerThird").show();
+                    $("#errorMessageThird").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
                 } else {
                     $('#tableGetBankAccount tbody').empty();
                     $(".loadingGetBankAccount").hide();
@@ -219,7 +316,6 @@
         });
     }
 
-    // FUNGSI DEFAULT KETIKA INGIN MENGGUNAKAN KOMPONEN INI (STAND-ALONE)
     $('#tableGetBankAccount').on('click', 'tbody tr', function() {
         var sysID       = $(this).find('input[type="hidden"]').val();
         var bankName    = $(this).find('td:nth-child(2)').text();
@@ -234,7 +330,6 @@
         adjustInputSize(document.getElementById("bank_accounts"));
     });
 
-    // PILIH BANK ACCOUNT PADA MODAL BANK ACCOUNT BY CORP CARD
     $('#tableGetBankAccountSecond').on('click', 'tbody tr', function() {
         var sysID       = $(this).find('input[type="hidden"]').val();
         var bankName    = $(this).find('td:nth-child(2)').text();
@@ -249,6 +344,20 @@
         adjustInputSize(document.getElementById("bank_accounts_second"));
     });
 
+    $('#tableGetBankAccountThird').on('click', 'tbody tr', function() {
+        var sysID       = $(this).find('input[type="hidden"]').val();
+        var bankName    = $(this).find('td:nth-child(2)').text();
+        var bankAccount = $(this).find('td:nth-child(3)').text();
+        var accountName = $(this).find('td:nth-child(4)').text();
+
+        $('#bank_accounts_third').val(bankAccount);
+        $('#bank_accounts_third_id').val(sysID);
+        $('#bank_accounts_third_detail').val(accountName);
+
+        $('#myBankAccountThird').modal('hide');
+        adjustInputSize(document.getElementById("bank_accounts_third"));
+    });
+
     // GET DATA KETIKA HALAMAN BERHASIL DI LOAD
     $(window).one('load', function(e) {
         // TAMPILKAN SEMUA DATA PADA DEFAULT MODAL
@@ -256,5 +365,8 @@
 
         // TAMPILKAN SEMUA DATA PADA SECOND MODAL
         // getBankAccountData('','second_modal');
+
+        // TAMPILKAN SEMUA DATA PADA THIRD MODAL
+        // getBankAccountData('','third_modal');
     });
 </script>

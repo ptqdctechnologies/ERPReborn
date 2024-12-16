@@ -397,7 +397,8 @@ class FunctionController extends Controller
     // FUNCTION BANK ACCOUNT
     public function getBankAccount(Request $request) 
     {
-        $bank_RefID = $request->input('bank_RefID') ? (int) $request->input('bank_RefID') : null;
+        $bank_RefID     = $request->input('bank_RefID') ? (int) $request->input('bank_RefID') : null;
+        $person_RefID   = $request->input('person_RefID') ? (int) $request->input('person_RefID') : null;
 
         $varAPIWebToken = Session::get('SessionLogin');
         $varData = Helper_APICall::setCallAPIGateway(
@@ -418,7 +419,15 @@ class FunctionController extends Controller
             ]
         );
 
-        return response()->json($varData['data']);
+        if ($person_RefID && isset($varData['data'])) {
+            $filteredData = array_filter($varData['data'], function($item) use ($person_RefID) {
+                return $item['entity_RefID'] === $person_RefID;
+            });
+        } else {
+            $filteredData = $varData['data'] ?? [];
+        }
+
+        return response()->json(array_values($filteredData));
     }
 
     // FUNCTION BANK 
