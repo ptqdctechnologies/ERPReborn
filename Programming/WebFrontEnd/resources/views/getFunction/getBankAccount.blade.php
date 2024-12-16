@@ -248,6 +248,13 @@
                             ]).draw();
                         });
 
+                        if (Array.isArray(data) && data.length === 1) {
+                            $("#bank_accounts_third").val(data[0].accountNumber);
+                            $("#bank_accounts_third_id").val(data[0].sys_PID);
+                            $("#bank_accounts_third_detail").val(data[0].accountName);
+                            adjustInputSize(document.getElementById("bank_accounts_third"), "string");
+                        }
+
                         $("#tableGetBankAccountThird_length").show();
                         $("#tableGetBankAccountThird_filter").show();
                         $("#tableGetBankAccountThird_info").show();

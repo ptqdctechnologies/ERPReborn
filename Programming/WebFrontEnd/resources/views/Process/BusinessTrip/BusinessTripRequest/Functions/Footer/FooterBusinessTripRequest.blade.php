@@ -347,7 +347,7 @@
     $("#budgetDetailsData").val("");
     $("#myWorker").prop("disabled", false);
     $("#requester_popup").prop("disabled", false);
-    $("#beneficiary_popup").prop("disabled", false);
+    $("#beneficiary_second_popup").prop("disabled", false);
     $("#bank_name_popup").prop("disabled", false);
     $("#bank_account_popup").prop("disabled", false);
     $("#bank_list_popup_vendor").prop("disabled", false);
@@ -609,6 +609,16 @@
   // ========== CORP CARD ==========
 
   // ========== TO OTHER ==========
+  $('#myBeneficiarySecond').on('hidden.bs.modal', function () {
+    const beneficiaryRefID = document.getElementById('beneficiary_second_id');
+    const beneficiaryPersonRefID = document.getElementById('beneficiary_second_person_ref_id');
+
+    if (beneficiaryRefID.value && beneficiaryPersonRefID.value) {
+      $("#bank_list_popup_second").prop("disabled", false);
+      $("#bank_accounts_third_popup").prop("disabled", false);
+    }
+  });
+
   $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function() {
     const bankCorpCardID = document.getElementById('beneficiary_second_person_ref_id');
     
@@ -632,6 +642,10 @@
     if (bank_RefID.value && person_RefID.value) {
       getBankAccountData(bank_RefID.value, "third_modal", person_RefID.value);
     }
+  });
+
+  $('#tableGetBankSecond').on('click', 'tbody tr', function() {
+    $("#bank_accounts_third_popup").prop("disabled", false);
   });
   // ========== TO OTHER ==========
 
