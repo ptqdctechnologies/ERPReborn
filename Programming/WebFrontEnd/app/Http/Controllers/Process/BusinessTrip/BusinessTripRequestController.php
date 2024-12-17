@@ -270,4 +270,21 @@ class BusinessTripRequestController extends Controller
         );
         return response()->json($varData['data']);
     }
+
+    public function ReportBusinessTripRequestSummary(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $compact = [
+                'varAPIWebToken' => $varAPIWebToken,
+                'statusRevisi' => 0,
+            ];
+    
+            return view('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestSummary', $compact);
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
 }

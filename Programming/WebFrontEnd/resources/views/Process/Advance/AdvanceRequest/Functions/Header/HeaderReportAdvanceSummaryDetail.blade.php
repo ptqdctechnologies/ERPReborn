@@ -50,7 +50,7 @@
                 <tr>
                   <th style="padding-top: 7px;"><label>Advance&nbsp;Number&nbsp;</label></th>
                   <td>
-                  <div class="input-group">
+                    <div class="input-group">
                       <input id="advance_RefID" hidden name="advance_RefID" value="">
                       <input id="advance_number" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#PopUpTableAdvanceRevision" class="PopUpTableAdvanceRevision form-control" name="advance_number" value="" readonly>
                       <div class="input-group-append">
