@@ -13,16 +13,18 @@
             </div>
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
+                    <!-- FORM -->
                     <div class="row">
-                        <div class="col-12 ShowDocument">
+                        <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="row">
+                                    <div class="row p-1" style="row-gap: 1rem;">
+                                        <div class="col-sm-12 col-md-12 col-lg-4">
+                                            <!-- BUDGET -->
+                                            <div class="row p-0" style="margin-bottom: 1rem;">
                                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
                                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                                                    <div>
+                                                    <div style="flex: 100%;">
                                                         <input id="project_code" style="border-radius:0;" name="project_code" class="form-control" size="17" readonly>
                                                         <input id="project_id" style="border-radius:0;" name="project_id" class="form-control" readonly hidden>
                                                     </div>
@@ -35,12 +37,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
+
+                                            <!-- SUB BUDGET -->
+                                            <div class="row p-0">
                                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
                                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                                                    <div>
+                                                    <div style="flex: 100%;">
                                                         <input id="site_code" style="border-radius:0;" name="site_code" class="form-control" size="17" readonly>
                                                         <input id="site_id" style="border-radius:0;" name="site_id" class="form-control" readonly hidden>
                                                     </div>
@@ -54,11 +56,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col">
-                                            <div class="row">
+                                        <div class="col-sm-12 col-md-12 col-lg-4">
+                                            <!-- REQUESTER -->
+                                            <div class="row p-0" style="margin-bottom: 1rem;">
                                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Requester</label>
                                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                                                    <div>
+                                                    <div style="flex: 100%;">
                                                         <input id="requester_name" style="border-radius:0;" name="requester_name" class="form-control" size="17" readonly>
                                                         <input id="requester_id" style="border-radius:0;" name="requester_id" class="form-control" readonly hidden>
                                                     </div>
@@ -71,12 +74,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
+
+                                            <!-- BENEFICIARY -->
+                                            <div class="row p-0">
                                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Beneficiary</label>
                                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                                                    <div>
+                                                    <div style="flex: 100%;">
                                                         <input id="beneficiary_name" style="border-radius:0;" name="beneficiary_name" class="form-control" size="17" readonly>
                                                         <input id="beneficiary_id" style="border-radius:0;" name="beneficiary_id" class="form-control" readonly hidden>
                                                     </div>
@@ -90,7 +93,76 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-4">
+                                            <!-- EXPORT -->
+                                            <div class="justify-content-sm-end justify-content-md-end justify-content-lg-start row align-items-center p-0" style="margin-bottom: 1rem; gap: 0.5rem;">
+                                                <select name="print_type" id="print_type" class="form-control" style="width: max-content;">
+                                                    <option value="PDF">Export PDF</option>
+                                                    <option value="Excel">Export Excel</option>
+                                                </select>
+                                                <button class="btn btn-default btn-sm" type="submit">
+                                                    <span>
+                                                        <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="">
+                                                    </span>
+                                                </button>
+                                            </div>
+
+                                            <!-- SUBMIT -->
+                                            <div class="justify-content-sm-end justify-content-md-end justify-content-lg-start row p-0">
+                                                <button class="btn btn-default btn-sm" type="submit" style="margin-top: -5px;">
+                                                    <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="" title="Show">
+                                                    Show
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- HEADER -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row py-2 px-1" style="gap: 1rem;">
+                                        <label class="p-0 text-bold mb-0">Budget</label>
+                                        <div>-</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TABLE -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body table-responsive p-0">
+                                    <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DOR Number</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Product</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UOM</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Remark</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: right;background-color:#4B586A;color:white;">Total</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;"></th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;"></th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;"></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
                                 </div>
                             </div>
                         </div>
