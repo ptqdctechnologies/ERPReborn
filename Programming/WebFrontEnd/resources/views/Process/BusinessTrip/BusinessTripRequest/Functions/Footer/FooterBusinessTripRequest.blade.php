@@ -632,8 +632,6 @@
       $("#bank_accounts_third").val("");
       $("#bank_accounts_third_id").val("");
       $("#bank_accounts_third_detail").val("");
-
-      getBankSecond(bankCorpCardID.value);
     }
   });
 
