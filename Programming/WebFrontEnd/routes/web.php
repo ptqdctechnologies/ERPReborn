@@ -19,7 +19,7 @@ use App\Http\Controllers\UserController;
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzM0NDI2MDQ1fQ.Yjc4NDU3MzgzN2RkZGZjNzRlNjlhN2EwYzlhNzU4NzdhODg4NTQ2YzlhOWJhOTI0OWUyZTgyYmNlYTM5Nzg3Nw';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzM0NDk1ODY5fQ.YzUyZmNkMGVlMGIyZjBlMDFiZDcyNDg1OTNjNWVkNzg3NWQxMDhhMmIxNjVjMjIxOWZjZjEwZDM1ZTgzNTFhYQ';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -234,6 +234,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('BusinessTripRequestListData', 'Process\BusinessTrip\BusinessTripRequestController@BusinessTripRequestListData')->name('BusinessTripRequest.BusinessTripRequestListData');
     Route::post('BusinessTripRequestListCartRevision', 'Process\BusinessTrip\BusinessTripRequestController@BusinessTripRequestListCartRevision')->name('BusinessTripRequest.BusinessTripRequestListCartRevision');
     Route::get('ReportBusinessTripRequestSummary', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripRequestSummary')->name('BusinessTripRequest.ReportBusinessTripRequestSummary');
+    Route::post('ReportBusinessTripRequestSummaryStore', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripRequestSummaryStore')->name('BusinessTripRequest.ReportBusinessTripRequestSummaryStore');
+    Route::post('PrintExportReportBusinessTripRequestSummary', 'Process\BusinessTrip\BusinessTripRequestController@PrintExportReportBusinessTripRequestSummary')->name('BusinessTripRequest.PrintExportReportBusinessTripRequestSummary');
     Route::resource('BusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController');
 
     // REM
