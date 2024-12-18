@@ -38,7 +38,7 @@
                                     <div class="card-body">
                                         <div class="row py-2 px-1" style="gap: 1rem;">
                                             <label class="p-0 text-bold mb-0">Budget</label>
-                                            <div><?= $dataReport['budget']; ?></div>
+                                            <div>: <?= $dataReport['budgetCode']; ?> - <?= $dataReport['budgetName']; ?></div>
                                         </div>
                                     </div>
                                 </div>
