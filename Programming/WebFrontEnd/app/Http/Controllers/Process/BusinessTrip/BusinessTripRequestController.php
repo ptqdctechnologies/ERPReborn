@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BusinessTripRequestController extends Controller
 {
@@ -407,7 +409,32 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function PrintExportReportBusinessTripRequestSummary() {
-        
+    public function PrintExportReportBusinessTripRequestSummary(Request $request) {
+        try {
+            $dataReport = Session::get("dataReportBusinessTripRequestSummary");
+            $print_type = $request->print_type;
+
+            if ($dataReport) {
+                if ($print_type === "PDF") {
+                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestSummary_pdf', ['dataReport' => $dataReport]);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Business Trip Request Summary.pdf');
+                } else {
+                }
+            } else {
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("PrintExportReportBusinessTripRequestSummary Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 }
