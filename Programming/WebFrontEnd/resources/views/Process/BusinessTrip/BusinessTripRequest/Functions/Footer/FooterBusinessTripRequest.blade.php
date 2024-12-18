@@ -633,6 +633,8 @@
       $("#bank_accounts_third_id").val("");
       $("#bank_accounts_third_detail").val("");
     }
+
+    adjustInputSize(document.getElementById("beneficiary_second_person_position"), "string");
   });
 
   $('#myGetBankSecond').on('hidden.bs.modal', function () {

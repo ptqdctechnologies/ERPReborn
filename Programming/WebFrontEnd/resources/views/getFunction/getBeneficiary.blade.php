@@ -127,7 +127,7 @@
             $("#beneficiary_second_person_name").val(personName);
             $("#beneficiary_second_person_position").val(personPosition);
 
-            adjustInputSize(document.getElementById("beneficiary_second_person_position"), "string");
+            // adjustInputSize(document.getElementById("beneficiary_second_person_position"), "string");
 
             $('#myBeneficiarySecond').modal('hide');
         });

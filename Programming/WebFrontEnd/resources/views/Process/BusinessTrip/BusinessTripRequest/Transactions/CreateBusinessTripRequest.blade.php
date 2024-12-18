@@ -626,7 +626,7 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="bank_list_name" style="border-radius:0;" name="bank_list_name" class="form-control" size="17" readonly>
-                                    <input id="bank_list_code" style="border-radius:0;" class="form-control" name="bank_list_code">
+                                    <input id="bank_list_code" style="border-radius:0;" class="form-control" name="bank_list_code" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -647,7 +647,7 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="bank_accounts" style="border-radius:0;" name="bank_accounts" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
-                                    <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_accounts_id">
+                                    <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_accounts_id" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -686,7 +686,7 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="bank_list_second_name" style="border-radius:0;" name="bank_list_second_name" class="form-control" size="17" readonly>
-                                    <input id="bank_list_second_code" style="border-radius:0;" class="form-control" name="bank_list_second_code">
+                                    <input id="bank_list_second_code" style="border-radius:0;" class="form-control" name="bank_list_second_code" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -707,7 +707,7 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="bank_accounts_second" style="border-radius:0;" name="bank_accounts_second" class="form-control" size="17" readonly>
-                                    <input id="bank_accounts_id_second" style="border-radius:0;" class="form-control" name="bank_accounts_id_second">
+                                    <input id="bank_accounts_id_second" style="border-radius:0;" class="form-control" name="bank_accounts_id_second" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -746,8 +746,8 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="beneficiary_second_person_position" style="border-radius:0;" size="17" class="form-control" name="beneficiary_second_person_position" readonly>
-                                    <input id="beneficiary_second_id" style="border-radius:0;" class="form-control" name="beneficiary_second_id">
-                                    <input id="beneficiary_second_person_ref_id" style="border-radius:0;" class="form-control" name="beneficiary_second_person_ref_id">
+                                    <input id="beneficiary_second_id" style="border-radius:0;" class="form-control" name="beneficiary_second_id" hidden>
+                                    <input id="beneficiary_second_person_ref_id" style="border-radius:0;" class="form-control" name="beneficiary_second_person_ref_id" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -768,7 +768,7 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="bank_list_third_name" style="border-radius:0;" name="bank_list_third_name" class="form-control" size="17" readonly>
-                                    <input id="bank_list_third_code" style="border-radius:0;" class="form-control" name="bank_list_third_code">
+                                    <input id="bank_list_third_code" style="border-radius:0;" class="form-control" name="bank_list_third_code" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -789,7 +789,7 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="bank_accounts_third" style="border-radius:0;" size="17" name="bank_accounts_third" class="form-control" readonly>
-                                    <input id="bank_accounts_third_id" style="border-radius:0;" class="form-control" name="bank_accounts_third_id">
+                                    <input id="bank_accounts_third_id" style="border-radius:0;" class="form-control" name="bank_accounts_third_id" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
