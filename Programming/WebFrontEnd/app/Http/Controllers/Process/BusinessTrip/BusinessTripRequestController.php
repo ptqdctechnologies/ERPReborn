@@ -293,8 +293,31 @@ class BusinessTripRequestController extends Controller
 
     public function ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name) {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $getReportAdvanceSummary = Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary");
+            $varAPIWebToken             = Session::get('SessionLogin');
+            $getReportAdvanceSummary    = null;
+
+            if (!Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary")) {
+                $getReportAdvanceSummary = Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'report.form.documentForm.finance.getReportAdvanceSummary',
+                    'latest',
+                    [
+                        'parameter' => [
+                            'dataFilter' => [
+                                'budgetID' => 1,
+                                'subBudgetID' => 1,
+                                'workID' => 1,
+                                'productID' => 1,
+                                'beneficiaryID' => 1,
+                            ]
+                        ]
+                    ],
+                    false
+                );
+            } else {
+                $getReportAdvanceSummary = Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary");
+            }
 
             $reportData = is_string($getReportAdvanceSummary) ? json_decode($getReportAdvanceSummary, true) : $getReportAdvanceSummary;
 
@@ -325,7 +348,7 @@ class BusinessTripRequestController extends Controller
 
             return $compact;
         } catch (\Throwable $th) {
-            Log::error("ReportBusinessTripRequestSummaryStore Error at " . $th->getMessage());
+            Log::error("ReportBusinessTripRequestSummaryData Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
