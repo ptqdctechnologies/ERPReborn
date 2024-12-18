@@ -911,7 +911,7 @@ namespace App\Models\Database\SchSysConfig
                         '.$varUserRoleID.'::bigint
                         )
                 ';
-            dd($varSQL);
+            //dd($varSQL);
                     
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -924,7 +924,7 @@ namespace App\Models\Database\SchSysConfig
                             '.$varUserRoleID.'::bigint
                             )                    '
                     );
-dd($varReturn);
+//dd($varReturn);
             return
                 \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                     $varUserSession,

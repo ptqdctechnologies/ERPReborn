@@ -2904,6 +2904,7 @@ return array(
     'Illuminate\\Database\\Events\\MigrationStarted' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Events/MigrationStarted.php',
     'Illuminate\\Database\\Events\\MigrationsEnded' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Events/MigrationsEnded.php',
     'Illuminate\\Database\\Events\\MigrationsEvent' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Events/MigrationsEvent.php',
+    'Illuminate\\Database\\Events\\MigrationsPruned' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Events/MigrationsPruned.php',
     'Illuminate\\Database\\Events\\MigrationsStarted' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Events/MigrationsStarted.php',
     'Illuminate\\Database\\Events\\ModelPruningFinished' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Events/ModelPruningFinished.php',
     'Illuminate\\Database\\Events\\ModelPruningStarting' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Events/ModelPruningStarting.php',
