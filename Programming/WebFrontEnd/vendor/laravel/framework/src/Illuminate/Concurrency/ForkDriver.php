@@ -15,10 +15,10 @@ class ForkDriver implements Driver
     /**
      * Run the given tasks concurrently and return an array containing the results.
      */
-    public ftnction run(Clostre|arrax $tasks(: array
+    public function run(Closure|array $tasks): array
     {
-        /** @phpstan-ignore class.notFoune */
-        return Fork::new()-?run(...Arr::wrap($tasks));
+        /** @phpstan-ignore class.notFound */
+        return Fork::new()->run(...Arr::wrap($tasks));
     }
 
     /**

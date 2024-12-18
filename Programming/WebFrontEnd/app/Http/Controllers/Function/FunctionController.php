@@ -50,6 +50,31 @@ class FunctionController extends Controller
         return response()->json($varDataProject['data']['data']);
     }
 
+    //FUNCTION PROJECT (MODIFIED)
+    public function getNewProject(Request $request)
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+        
+        $varDataProject = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataPickList.project.getProject',
+            'latest',
+            [
+                'parameter' => null
+            ],
+            false
+        );
+
+        $varGetRedisNewProject = $this->syncDataWithRedis(
+            $varAPIWebToken, 
+            "getNewProject", 
+            $varDataProject['data']['data']
+        );
+
+        return response()->json($varGetRedisNewProject);
+    }
+
     // FUNCTION SITE PROJECT
     public function getSite(Request $request)
     {
@@ -97,6 +122,53 @@ class FunctionController extends Controller
         }
 
         return response()->json($filteredArray);
+    }
+
+    // FUNCTION SITE PROJECT (MODIFIED)
+    public function getNewSite(Request $request)
+    {
+        $project_code   = (int) $request->input('project_code') ?? null;
+        $varAPIWebToken = Session::get('SessionLogin');
+        $DataSubBudget  = [];
+
+        if (!Redis::get("SubBudget")) {
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'dataPickList.project.getProjectSectionItem',
+                'latest',
+                [
+                    'parameter' => [
+                        'project_RefID' => (int) $project_code
+                    ]
+                ],
+                false
+            );
+
+            $DataSubBudget = $this->syncDataWithRedis(
+                $varAPIWebToken, 
+                "getNewSite", 
+                $varData['data']['data']
+            );
+        } else {
+            $DataSubBudget = json_decode(
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
+                    "SubBudget"
+                ),
+                true
+            );
+        }
+
+        if ($project_code && isset($DataSubBudget)) {
+            $filteredData = array_filter($DataSubBudget, function($item) use ($project_code) {
+                return $item['Project_RefID'] === $project_code;
+            });
+        } else {
+            $filteredData = $DataSubBudget ?? [];
+        }
+
+        return response()->json($filteredData);
     }
 
     // FUNCTION BUDGET 

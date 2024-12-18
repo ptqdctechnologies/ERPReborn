@@ -2,6 +2,10 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getProject')
+@include('getFunction.getSite')
+@include('getFunction.getBeneficiary')
+@include('getFunction.getWorker')
 
 <div class="content-wrapper">
     <section class="content">
@@ -79,4 +83,5 @@
 </div>
 
 @include('Partials.footer')
+@include('Process.BusinessTrip.BusinessTripRequest.Functions.Footer.FooterReportBusinessTripRequestSummary')
 @endsection

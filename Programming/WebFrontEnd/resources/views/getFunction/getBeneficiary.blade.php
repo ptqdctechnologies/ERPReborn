@@ -1,4 +1,4 @@
-@if (request()->is('BusinessTripRequest'))
+@if (request()->is('BusinessTripRequest') || request()->is('ReportBusinessTripRequestSummary'))
     <!-- BENEFICIARY SECOND (MODIFIED) -->
     <div id="myBeneficiarySecond" class="modal fade" role="dialog" aria-labelledby="ModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -34,10 +34,10 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr class="errorMessageContainerSecond">
+                                            <tr class="errorBeneficiaryMessageContainerSecond">
                                                 <td colspan="4" class="p-0" style="height: 22rem;">
                                                     <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                        <div id="errorMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                        <div id="errorBeneficiaryMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -53,12 +53,12 @@
     </div>
 
     <script>
-        $(".errorMessageContainerSecond").hide();
+        $(".errorBeneficiaryMessageContainerSecond").hide();
 
         function getBeneficiary() {
             $('#tableGetBeneficiarySecond tbody').empty();
             $(".loadingGetBeneficiarySecond").show();
-            $(".errorMessageContainerSecond").hide();
+            $(".errorBeneficiaryMessageContainerSecond").hide();
 
             $.ajaxSetup({
                 headers: {
@@ -77,20 +77,37 @@
                     var table = $('#tableGetBeneficiarySecond').DataTable();
                     table.clear();
 
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_beneficiary_second' + keys + '" value="' + val.Sys_ID + '" data-trigger="sys_id_beneficiary_second" type="hidden">' + '<input id="person_ref_id_beneficiary_second' + keys + '" value="' + val.Person_RefID + '" data-trigger="person_ref_id_beneficiary_second" type="hidden">' + no++,
-                            val.PersonName || '-',
-                            val.OrganizationalJobPositionName || '-',
-                        ]).draw();
-                    });
+                    if (Array.isArray(data) && data.length > 0) {
+                        $.each(data, function(key, val) {
+                            keys += 1;
+                            table.row.add([
+                                '<input id="sys_id_beneficiary_second' + keys + '" value="' + val.Sys_ID + '" data-trigger="sys_id_beneficiary_second" type="hidden">' + '<input id="person_ref_id_beneficiary_second' + keys + '" value="' + val.Person_RefID + '" data-trigger="person_ref_id_beneficiary_second" type="hidden">' + no++,
+                                val.PersonName || '-',
+                                val.OrganizationalJobPositionName || '-',
+                            ]).draw();
+                        });
+
+                        $("#tableGetBeneficiarySecond_length").show();
+                        $("#tableGetBeneficiarySecond_filter").show();
+                        $("#tableGetBeneficiarySecond_info").show();
+                        $("#tableGetBeneficiarySecond_paginate").show();
+                    } else {
+                        $('#tableGetBeneficiarySecond tbody').empty();
+
+                        $(".errorBeneficiaryMessageContainerSecond").show();
+                        $("#errorBeneficiaryMessageSecond").text(`Data not found.`);
+
+                        $("#tableGetBeneficiarySecond_length").hide();
+                        $("#tableGetBeneficiarySecond_filter").hide();
+                        $("#tableGetBeneficiarySecond_info").hide();
+                        $("#tableGetBeneficiarySecond_paginate").hide();
+                    }
                 },
                 error: function (textStatus, errorThrown) {
                     $('#tableGetBeneficiarySecond tbody').empty();
                     $(".loadingGetBeneficiarySecond").hide();
-                    $(".errorMessageContainerSecond").show();
-                    $("#errorMessageSecond").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                    $(".errorBeneficiaryMessageContainerSecond").show();
+                    $("#errorBeneficiaryMessageSecond").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
                 }
             });
         }

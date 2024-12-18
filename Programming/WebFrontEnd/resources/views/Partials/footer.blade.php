@@ -567,6 +567,20 @@
         return 2.2;
       } else if (length <= 19) {
         return 2.4;
+      } else if (length <= 21) {
+        return 2.6;
+      } else if (length <= 23) {
+        return 2.8;
+      } else if (length <= 25) {
+        return 3;
+      } else if (length <= 27) {
+        return 3.2;
+      } else if (length <= 29) {
+        return 3.4;
+      } else if (length <= 31) {
+        return 3.6;
+      } else if (length <= 33) {
+        return 3.8;
       }
     } else {
       if (length <= 2) {
