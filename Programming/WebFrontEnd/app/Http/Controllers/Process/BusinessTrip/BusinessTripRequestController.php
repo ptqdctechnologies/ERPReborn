@@ -555,7 +555,27 @@ class BusinessTripRequestController extends Controller
     public function PrintExportReportBusinessTripRequestDetail(Request $request) 
     {
         try {
-            //code...
+            $dataReport = Session::get("dataReportBusinessTripRequestDetail");
+            $print_type = $request->print_type;
+
+            if ($dataReport) {
+                if ($print_type === "PDF") {
+                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestDetail_pdf', ['dataReport' => $dataReport]);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Business Trip Request Detail.pdf');
+                } else {
+                }
+            } else {
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'Budget, Sub Budget, & Advance Number Cannot Empty');
+            }
         } catch (\Throwable $th) {
             Log::error("PrintExportReportBusinessTripRequestDetail Function Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

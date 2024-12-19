@@ -30,6 +30,7 @@
                     </div>
 
                     <?php if ($dataReport) { ?>
+                        <!-- HEADER -->
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
@@ -43,7 +44,7 @@
                                                                 <label style="margin-right: 1rem;">Advance Number</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataHeader']['number']; ?>
+                                                                : <?= $dataReport['dataHeader']['number'] ?? '-'; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -51,7 +52,7 @@
                                                                 <label style="margin-right: 1rem;">Date</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataHeader']['date']; ?>
+                                                                : <?= $dataReport['dataHeader']['date'] ?? '-'; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -81,7 +82,7 @@
                                                                 <label style="margin-right: 1rem;">Currency</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode']; ?>
+                                                                : <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'] ?? '-'; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -89,7 +90,7 @@
                                                                 <label style="margin-right: 1rem;">Requester</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerFullName']; ?>
+                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerFullName'] ?? '-'; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -97,7 +98,7 @@
                                                                 <label style="margin-right: 1rem;">Beneficiary</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName']; ?>
+                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'] ?? '-'; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -117,6 +118,7 @@
                             </div>
                         </div>
 
+                        <!-- DETAIL -->
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
