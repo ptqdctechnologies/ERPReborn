@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Process\BusinessTrip;
 
 use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripRequestSummary;
+use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripRequestDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
@@ -572,6 +573,7 @@ class BusinessTripRequestController extends Controller
 
                     return $pdf->download('Export Report Business Trip Request Detail.pdf');
                 } else {
+                    return Excel::download(new ExportReportBusinessTripRequestDetail, 'Export Report Business Trip Request Detail.xlsx');
                 }
             } else {
                 return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'Budget, Sub Budget, & Advance Number Cannot Empty');
