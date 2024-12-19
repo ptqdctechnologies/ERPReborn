@@ -49,7 +49,7 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Advance Number</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-start justify-content-md-end">
             <div>
-                <input id="modal_advance_document_number" style="border-radius:0;" name="modal_advance_document_number" class="form-control" size="34" value="<?= $dataReport['requesterName'] ?? ''; ?>" readonly>
+                <input id="modal_advance_document_number" style="border-radius:0;" name="modal_advance_document_number" class="form-control" size="34" value="<?= $dataReport['advanceNumber'] ?? ''; ?>" readonly>
                 <input id="modal_advance_id" style="border-radius:0;" name="modal_advance_id" class="form-control" hidden>
             </div>
             <div>

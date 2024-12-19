@@ -466,7 +466,7 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function ReportBusinessTripRequestDetailData($advance_id)
+    public function ReportBusinessTripRequestDetailData($advance_id, $project_code, $site_code, $advance_document)
     {
         try {
             $varAPIWebToken         = Session::get('SessionLogin');
@@ -491,6 +491,9 @@ class BusinessTripRequestController extends Controller
             $compact = [
                 'dataHeader'    => $splitResponse['header'],
                 'dataDetails'   => $splitResponse['content'],
+                'budgetCode'    => $project_code, 
+                'siteCode'      => $site_code,
+                'advanceNumber' => $advance_document,
                 'total'         => $totalAdvance
             ];
 
@@ -507,9 +510,14 @@ class BusinessTripRequestController extends Controller
     public function ReportBusinessTripRequestDetailStore(Request $request)
     {
         try {
-            $project_id = $request->project_id_second;
-            $site_id    = $request->site_id_second;
-            $advance_id = $request->modal_advance_id;
+            $project_code       = $request->project_code_second;
+            $project_id         = $request->project_id_second;
+
+            $site_code          = $request->site_code_second;
+            $site_id            = $request->site_id_second;
+            
+            $advance_document   = $request->modal_advance_document_number;
+            $advance_id         = $request->modal_advance_id;
 
             $errors = [];
 
@@ -534,7 +542,7 @@ class BusinessTripRequestController extends Controller
                 return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', $message);
             }
 
-            $compact = $this->ReportBusinessTripRequestDetailData($advance_id);
+            $compact = $this->ReportBusinessTripRequestDetailData($advance_id, $project_code, $site_code, $advance_document);
 
             // dd($compact);
 
