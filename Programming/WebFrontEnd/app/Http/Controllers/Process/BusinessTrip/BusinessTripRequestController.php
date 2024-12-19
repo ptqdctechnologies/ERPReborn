@@ -449,9 +449,6 @@ class BusinessTripRequestController extends Controller
             $varAPIWebToken = Session::get('SessionLogin');
             $isSubmitButton = $request->session()->get('isButtonReportBusinessTripRequestDetailSubmit');
 
-            // Session::forget("isButtonReportBusinessTripRequestDetailSubmit");
-            // Session::forget("dataReportBusinessTripRequestDetail");
-
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportBusinessTripRequestDetail', []) : [];
 
             $compact = [
@@ -543,8 +540,6 @@ class BusinessTripRequestController extends Controller
             }
 
             $compact = $this->ReportBusinessTripRequestDetailData($advance_id, $project_code, $site_code, $advance_document);
-
-            // dd($compact);
 
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
