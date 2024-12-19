@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers\Process\BusinessTrip;
 
+use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripSettlementDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Helpers\ZhtHelper\Cache\Helper_Redis;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BusinessTripSettlementController extends Controller
 {
@@ -433,6 +439,7 @@ class BusinessTripSettlementController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
     public function update(Request $request, $id)
     {
         $input = $request->all();
@@ -441,5 +448,145 @@ class BusinessTripSettlementController extends Controller
         ];
 
         return response()->json($compact);
+    }
+
+    public function ReportBusinessTripSettlementDetail(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $isSubmitButton = $request->session()->get('isButtonReportBusinessTripSettlementDetailSubmit');
+
+            $dataReport = $isSubmitButton ? $request->session()->get('dataReportBusinessTripSettlementDetail', []) : [];
+
+            $compact = [
+                'varAPIWebToken'    => $varAPIWebToken,
+                'dataReport'        => $dataReport
+            ];
+
+            return view('Process.BusinessTrip.BusinessTripSettlement.Reports.ReportBusinessTripSettlementDetail', $compact);
+        } catch (\Throwable $th) {
+            Log::error("ReportBusinessTripSettlementDetail Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportBusinessTripSettlementDetailData($advance_id, $project_code, $site_code, $advance_document)
+    {
+        try {
+            $varAPIWebToken         = Session::get('SessionLogin');
+            $getReportAdvanceDetail = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.form.documentForm.finance.getAdvance', 
+                'latest',
+                [
+                    'parameter' => [
+                        'recordID' => (int) $advance_id
+                    ]
+                ]
+            );
+
+            $splitResponse = $getReportAdvanceDetail['data'][0]['document'];
+
+            $totalAdvance = array_reduce($splitResponse['content']['details']['itemList'], function ($carry, $item) {
+                return $carry + ($item['entities']['priceBaseCurrencyValue'] ?? 0);
+            }, 0);
+
+            $compact = [
+                'dataHeader'    => $splitResponse['header'],
+                'dataDetails'   => $splitResponse['content'],
+                'budgetCode'    => $project_code, 
+                'siteCode'      => $site_code,
+                'advanceNumber' => $advance_document,
+                'total'         => $totalAdvance
+            ];
+
+            Session::put("isButtonReportBusinessTripSettlementDetailSubmit", true);
+            Session::put("dataReportBusinessTripSettlementDetail", $compact);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            Log::error("ReportBusinessTripSettlementDetailData Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportBusinessTripSettlementDetailStore(Request $request) 
+    {
+        try {
+            $project_code       = $request->project_code_second;
+            $project_id         = $request->project_id_second;
+
+            $site_code          = $request->site_code_second;
+            $site_id            = $request->site_id_second;
+            
+            $advance_document   = $request->modal_advance_document_number;
+            $advance_id         = $request->modal_advance_id;
+
+            $errors = [];
+
+            if (!$project_id) {
+                $errors[] = 'Budget';
+            }
+            if (!$site_id) {
+                $errors[] = 'Sub Budget';
+            }
+            if (!$advance_id) {
+                $errors[] = 'Advance Number';
+            }
+
+            if (!empty($errors)) {
+                $message = implode(', ', $errors) . ' Cannot Be Empty';
+            }
+
+            if (isset($message)) {
+                Session::forget("isButtonReportBusinessTripSettlementDetailSubmit");
+                Session::forget("dataReportBusinessTripSettlementDetail");
+        
+                return redirect()->route('BusinessTripSettlement.ReportBusinessTripSettlementDetail')->with('NotFound', $message);
+            }
+
+            $compact = $this->ReportBusinessTripSettlementDetailData($advance_id, $project_code, $site_code, $advance_document);
+
+            if ($compact === null || empty($compact)) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            return redirect()->route('BusinessTripSettlement.ReportBusinessTripSettlementDetail');
+        } catch (\Throwable $th) {
+            Log::error("ReportBusinessTripSettlementDetailStore Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportBusinessTripSettlementDetail(Request $request) 
+    {
+        try {
+            $dataReport = Session::get("dataReportBusinessTripSettlementDetail");
+            $print_type = $request->print_type;
+
+            if ($dataReport) {
+                if ($print_type === "PDF") {
+                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripSettlement.Reports.ReportBusinessTripSettlementDetail_pdf', ['dataReport' => $dataReport]);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Business Trip Settlement Detail.pdf');
+                } else {
+                    return Excel::download(new ExportReportBusinessTripSettlementDetail, 'Export Report Business Trip Settlement Detail.xlsx');
+                }
+            } else {
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'Budget, Sub Budget, & Advance Number Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("PrintExportReportBusinessTripSettlementDetail Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 }

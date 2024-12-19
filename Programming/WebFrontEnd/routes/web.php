@@ -226,6 +226,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('BusinessTripSettlementListDataById', 'Process\BusinessTrip\BusinessTripSettlementController@BusinessTripSettlementListDataById')->name('BusinessTripSettlement.BusinessTripSettlementListDataById');
     Route::get('BusinessTripSettlementListCartRevision', 'Process\BusinessTrip\BusinessTripSettlementController@BusinessTripSettlementListCartRevision')->name('BusinessTripSettlement.BusinessTripSettlementListCartRevision');
     Route::post('SearchBusinessTripRequest', 'Process\BusinessTrip\BusinessTripSettlementController@SearchBusinessTripRequest')->name('BusinessTripSettlement.SearchBusinessTripRequest');
+    Route::get('ReportBusinessTripSettlementDetail', 'Process\BusinessTrip\BusinessTripSettlementController@ReportBusinessTripSettlementDetail')->name('BusinessTripSettlement.ReportBusinessTripSettlementDetail');
+    Route::post('ReportBusinessTripSettlementDetailStore', 'Process\BusinessTrip\BusinessTripSettlementController@ReportBusinessTripSettlementDetailStore')->name('BusinessTripSettlement.ReportBusinessTripSettlementDetailStore');
+    Route::post('PrintExportReportBusinessTripSettlementDetail', 'Process\BusinessTrip\BusinessTripSettlementController@PrintExportReportBusinessTripSettlementDetail')->name('BusinessTripSettlement.PrintExportReportBusinessTripSettlementDetail');
     Route::resource('BusinessTripSettlement', 'Process\BusinessTrip\BusinessTripSettlementController');
 
     // BRF
