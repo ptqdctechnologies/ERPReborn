@@ -1,4 +1,4 @@
-@if (request()->is('BusinessTripRequest') || request()->is('ReportBusinessTripRequestSummary'))
+@if (request()->is('BusinessTripRequest') || request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripSettlementSummary'))
     <!-- BENEFICIARY SECOND (MODIFIED) -->
     <div id="myBeneficiarySecond" class="modal fade" role="dialog" aria-labelledby="ModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">

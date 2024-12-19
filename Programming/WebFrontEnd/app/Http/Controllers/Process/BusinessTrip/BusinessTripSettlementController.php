@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Process\BusinessTrip;
 
+use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripSettlementSummary;
 use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripSettlementDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -448,6 +449,175 @@ class BusinessTripSettlementController extends Controller
         ];
 
         return response()->json($compact);
+    }
+
+    public function ReportBusinessTripSettlementSummary(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $isSubmitButton = $request->session()->get('isButtonReportReportBusinessTripSettlementSummarySubmit');
+
+            $dataReport = $isSubmitButton ? $request->session()->get('dataReportReportBusinessTripSettlementSummary', []) : [];
+
+            $compact = [
+                'varAPIWebToken' => $varAPIWebToken,
+                'dataReport' => $dataReport
+            ];
+    
+            return view('Process.BusinessTrip.BusinessTripSettlement.Reports.ReportBusinessTripSettlementSummary', $compact);
+        } catch (\Throwable $th) {
+            Log::error("ReportBusinessTripSettlementSummary Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportBusinessTripSettlementSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name) 
+    {
+        try {
+            $varAPIWebToken             = Session::get('SessionLogin');
+            $getReportAdvanceSummary    = null;
+
+            if (!Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary")) {
+                $getReportAdvanceSummary = Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'report.form.documentForm.finance.getReportAdvanceSummary',
+                    'latest',
+                    [
+                        'parameter' => [
+                            'dataFilter' => [
+                                'budgetID' => 1,
+                                'subBudgetID' => 1,
+                                'workID' => 1,
+                                'productID' => 1,
+                                'beneficiaryID' => 1,
+                            ]
+                        ]
+                    ],
+                    false
+                );
+            } else {
+                $getReportAdvanceSummary = Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary");
+            }
+
+            $reportData = is_string($getReportAdvanceSummary) ? json_decode($getReportAdvanceSummary, true) : $getReportAdvanceSummary;
+
+            $filteredData = array_filter($reportData, function ($item) use ($project_id, $site_id, $requester_id, $beneficiary_id) {
+                return 
+                    (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
+                    (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
+                    (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
+                    (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
+            });
+
+            $totalAdvance = array_reduce($filteredData, function ($carry, $item) {
+                return $carry + ($item['TotalAdvance'] ?? 0);
+            }, 0);
+
+            $compact = [
+                'dataDetail'        => $filteredData,
+                'budgetCode'        => $project_code,
+                'budgetName'        => $project_name,
+                'siteCode'          => $site_code,
+                'requesterName'     => $requester_name,
+                'beneficiaryName'   => $beneficiary_name,
+                'total'             => $totalAdvance,
+            ];
+
+            Session::put("isButtonReportReportBusinessTripSettlementSummarySubmit", true);
+            Session::put("dataReportReportBusinessTripSettlementSummary", $compact);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            Log::error("ReportBusinessTripSettlementSummaryData Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportBusinessTripSettlementSummaryStore(Request $request) 
+    {
+        try {
+            $project_code       = $request->project_code_second;
+            $project_name       = $request->project_name_second;
+            $project_id         = $request->project_id_second;
+
+            $site_id            = $request->site_id_second;
+            $site_code          = $request->site_code_second;
+
+            $requester_id       = $request->worker_id_second;
+            $requester_name     = $request->worker_name_second;
+
+            $beneficiary_id     = $request->beneficiary_second_id;
+            $beneficiary_name   = $request->beneficiary_second_person_name;
+
+            $errors = [];
+
+            if (!$project_id) {
+                $errors[] = 'Budget';
+            }
+            if (!$site_id) {
+                $errors[] = 'Sub Budget';
+            }
+            if (!$requester_id) {
+                $errors[] = 'Requester';
+            }
+            if (!$beneficiary_id) {
+                $errors[] = 'Beneficiary';
+            }
+
+            if (!empty($errors)) {
+                $message = implode(', ', $errors) . ' Cannot Be Empty';
+            }
+
+            if (isset($message)) {
+                Session::forget("isButtonReportReportBusinessTripSettlementSummarySubmit");
+                Session::forget("dataReportReportBusinessTripSettlementSummary");
+        
+                return redirect()->route('BusinessTripSettlement.ReportBusinessTripSettlementSummary')->with('NotFound', $message);
+            }
+
+            $compact = $this->ReportBusinessTripSettlementSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name);
+
+            if ($compact === null || empty($compact)) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+            
+            return redirect()->route('BusinessTripSettlement.ReportBusinessTripSettlementSummary');
+        } catch (\Throwable $th) {
+            Log::error("ReportBusinessTripSettlementSummaryStore Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportBusinessTripSettlementSummary(Request $request) 
+    {
+        try {
+            $dataReport = Session::get("dataReportReportBusinessTripSettlementSummary");
+            $print_type = $request->print_type;
+
+            if ($dataReport) {
+                if ($print_type === "PDF") {
+                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripSettlement.Reports.ReportBusinessTripSettlementSummary_pdf', ['dataReport' => $dataReport]);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Business Trip Settlement Summary.pdf');
+                } else {
+                    return Excel::download(new ExportReportBusinessTripSettlementSummary, 'Export Report Business Trip Settlement Summary.xlsx');
+                }
+            } else {
+                return redirect()->route('BusinessTripSettlement.ReportBusinessTripSettlementSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("PrintExportReportBusinessTripSettlementSummary Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function ReportBusinessTripSettlementDetail(Request $request)

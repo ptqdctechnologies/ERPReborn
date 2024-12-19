@@ -226,6 +226,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('BusinessTripSettlementListDataById', 'Process\BusinessTrip\BusinessTripSettlementController@BusinessTripSettlementListDataById')->name('BusinessTripSettlement.BusinessTripSettlementListDataById');
     Route::get('BusinessTripSettlementListCartRevision', 'Process\BusinessTrip\BusinessTripSettlementController@BusinessTripSettlementListCartRevision')->name('BusinessTripSettlement.BusinessTripSettlementListCartRevision');
     Route::post('SearchBusinessTripRequest', 'Process\BusinessTrip\BusinessTripSettlementController@SearchBusinessTripRequest')->name('BusinessTripSettlement.SearchBusinessTripRequest');
+    
+    Route::get('ReportBusinessTripSettlementSummary', 'Process\BusinessTrip\BusinessTripSettlementController@ReportBusinessTripSettlementSummary')->name('BusinessTripSettlement.ReportBusinessTripSettlementSummary');
+    Route::post('ReportBusinessTripSettlementSummaryStore', 'Process\BusinessTrip\BusinessTripSettlementController@ReportBusinessTripSettlementSummaryStore')->name('BusinessTripSettlement.ReportBusinessTripSettlementSummaryStore');
+    Route::post('PrintExportReportBusinessTripSettlementSummary', 'Process\BusinessTrip\BusinessTripSettlementController@PrintExportReportBusinessTripSettlementSummary')->name('BusinessTripSettlement.PrintExportReportBusinessTripSettlementSummary');
+
     Route::get('ReportBusinessTripSettlementDetail', 'Process\BusinessTrip\BusinessTripSettlementController@ReportBusinessTripSettlementDetail')->name('BusinessTripSettlement.ReportBusinessTripSettlementDetail');
     Route::post('ReportBusinessTripSettlementDetailStore', 'Process\BusinessTrip\BusinessTripSettlementController@ReportBusinessTripSettlementDetailStore')->name('BusinessTripSettlement.ReportBusinessTripSettlementDetailStore');
     Route::post('PrintExportReportBusinessTripSettlementDetail', 'Process\BusinessTrip\BusinessTripSettlementController@PrintExportReportBusinessTripSettlementDetail')->name('BusinessTripSettlement.PrintExportReportBusinessTripSettlementDetail');
