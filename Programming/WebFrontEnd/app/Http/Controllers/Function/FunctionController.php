@@ -90,7 +90,7 @@ class FunctionController extends Controller
                 'latest',
                 [
                     'parameter' => [
-                        'project_RefID' => (int)$project_code
+                        'project_RefID' => (int) $project_code
                     ]
                 ],
                 false
@@ -939,6 +939,62 @@ class FunctionController extends Controller
 
         // return response()->json($DataCurrency['data']['data']);
         return response()->json($DataCurrency['data']);
+    }
+
+    public function getAdvance(Request $request) 
+    {
+        $project_id     = (int) $request->input('project_id') ?? null;
+        $site_id        = (int) $request->input('site_id') ?? null;
+        $varAPIWebToken = Session::get('SessionLogin');
+        $DataAdvance    = [];
+
+        if (!Redis::get("DataListAdvance")) {
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.finance.getAdvance',
+                'latest',
+                [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+
+            $DataAdvance = $this->syncDataWithRedis(
+                $varAPIWebToken, 
+                "DataListAdvance", 
+                $varData['data']['data']
+            );
+        } else {
+            $DataAdvance = json_decode(
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
+                    "DataListAdvance"
+                ),
+                true
+            );
+        }
+
+        if ($project_id && $site_id && isset($DataAdvance)) {
+            $filteredData = array_filter($DataAdvance, function($item) use ($project_id, $site_id) {
+                return 
+                    isset($item['combinedBudget_RefID'], $item['combinedBudgetSection_RefID']) &&
+                    is_array($item['combinedBudget_RefID']) && 
+                    is_array($item['combinedBudgetSection_RefID']) &&
+                    in_array($project_id, $item['combinedBudget_RefID']) && 
+                    in_array($site_id, $item['combinedBudgetSection_RefID']);
+            });
+        } else {
+            $filteredData = $DataAdvance ?? [];
+        }
+
+        return response()->json($filteredData);
     }
 
     // NITIP

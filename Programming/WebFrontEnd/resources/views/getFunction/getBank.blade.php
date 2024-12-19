@@ -34,10 +34,10 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr class="errorMessageContainerSecond">
+                                            <tr class="errorBankMessageContainerSecond">
                                                 <td colspan="4" class="p-0" style="height: 22rem;">
                                                     <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                        <div id="errorMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                        <div id="errorBankMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -53,12 +53,12 @@
     </div>
 
     <script>
-        $(".errorMessageContainerSecond").hide();
+        $(".errorBankMessageContainerSecond").hide();
 
         function getBankSecond(person_refID) {
             $('#tableGetBankSecond tbody').empty();
             $(".loadingGetBankSecond").show();
-            $(".errorMessageContainerSecond").hide();
+            $(".errorBankMessageContainerSecond").hide();
 
             $.ajaxSetup({
                 headers: {
@@ -105,8 +105,8 @@
                 error: function (textStatus, errorThrown) {
                     $('#tableGetBankSecond tbody').empty();
                     $(".loadingGetBankSecond").hide();
-                    $(".errorMessageContainerSecond").show();
-                    $("#errorMessageSecond").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                    $(".errorBankMessageContainerSecond").show();
+                    $("#errorBankMessageSecond").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
                 }
             });
         }

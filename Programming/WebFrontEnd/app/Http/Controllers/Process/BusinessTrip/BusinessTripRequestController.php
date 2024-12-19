@@ -294,7 +294,8 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name) {
+    public function ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name) 
+    {
         try {
             $varAPIWebToken             = Session::get('SessionLogin');
             $getReportAdvanceSummary    = null;
@@ -356,7 +357,8 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function ReportBusinessTripRequestSummaryStore(Request $request) {
+    public function ReportBusinessTripRequestSummaryStore(Request $request) 
+    {
         try {
             $project_code       = $request->project_code_second;
             $project_name       = $request->project_name_second;
@@ -410,7 +412,8 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function PrintExportReportBusinessTripRequestSummary(Request $request) {
+    public function PrintExportReportBusinessTripRequestSummary(Request $request) 
+    {
         try {
             $dataReport = Session::get("dataReportBusinessTripRequestSummary");
             $print_type = $request->print_type;
@@ -436,6 +439,122 @@ class BusinessTripRequestController extends Controller
             }
         } catch (\Throwable $th) {
             Log::error("PrintExportReportBusinessTripRequestSummary Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportBusinessTripRequestDetail(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $isSubmitButton = $request->session()->get('isButtonReportBusinessTripRequestDetailSubmit');
+
+            // Session::forget("isButtonReportBusinessTripRequestDetailSubmit");
+            // Session::forget("dataReportBusinessTripRequestDetail");
+
+            $dataReport = $isSubmitButton ? $request->session()->get('dataReportBusinessTripRequestDetail', []) : [];
+
+            $compact = [
+                'varAPIWebToken'    => $varAPIWebToken,
+                'dataReport'        => $dataReport
+            ];
+
+            return view('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestDetail', $compact);
+        } catch (\Throwable $th) {
+            Log::error("ReportBusinessTripRequestDetail Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportBusinessTripRequestDetailData($advance_id)
+    {
+        try {
+            $varAPIWebToken         = Session::get('SessionLogin');
+            $getReportAdvanceDetail = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.form.documentForm.finance.getAdvance', 
+                'latest',
+                [
+                    'parameter' => [
+                        'recordID' => (int) $advance_id
+                    ]
+                ]
+            );
+
+            $splitResponse = $getReportAdvanceDetail['data'][0]['document'];
+
+            $totalAdvance = array_reduce($splitResponse['content']['details']['itemList'], function ($carry, $item) {
+                return $carry + ($item['entities']['priceBaseCurrencyValue'] ?? 0);
+            }, 0);
+
+            $compact = [
+                'dataHeader'    => $splitResponse['header'],
+                'dataDetails'   => $splitResponse['content'],
+                'total'         => $totalAdvance
+            ];
+
+            Session::put("isButtonReportBusinessTripRequestDetailSubmit", true);
+            Session::put("dataReportBusinessTripRequestDetail", $compact);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            Log::error("ReportBusinessTripRequestDetailData Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportBusinessTripRequestDetailStore(Request $request)
+    {
+        try {
+            $project_id = $request->project_id_second;
+            $site_id    = $request->site_id_second;
+            $advance_id = $request->modal_advance_id;
+
+            $errors = [];
+
+            if (!$project_id) {
+                $errors[] = 'Budget';
+            }
+            if (!$site_id) {
+                $errors[] = 'Sub Budget';
+            }
+            if (!$advance_id) {
+                $errors[] = 'Advance Number';
+            }
+
+            if (!empty($errors)) {
+                $message = implode(', ', $errors) . ' Cannot Be Empty';
+            }
+
+            if (isset($message)) {
+                Session::forget("isButtonReportBusinessTripRequestDetailSubmit");
+                Session::forget("dataReportBusinessTripRequestDetail");
+        
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', $message);
+            }
+
+            $compact = $this->ReportBusinessTripRequestDetailData($advance_id);
+
+            // dd($compact);
+
+            if ($compact === null || empty($compact)) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail');
+        } catch (\Throwable $th) {
+            Log::error("ReportBusinessTripRequestDetailStore Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportBusinessTripRequestDetail(Request $request) 
+    {
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            Log::error("PrintExportReportBusinessTripRequestDetail Function Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }

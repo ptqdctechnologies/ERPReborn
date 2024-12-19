@@ -19,7 +19,7 @@ use App\Http\Controllers\UserController;
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzM0NDk1ODY5fQ.YzUyZmNkMGVlMGIyZjBlMDFiZDcyNDg1OTNjNWVkNzg3NWQxMDhhMmIxNjVjMjIxOWZjZjEwZDM1ZTgzNTFhYQ';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWxkaS5tdWx5YWRpIiwiaWF0IjoxNzM0NTc2OTI3fQ.Y2UwNzczN2IyYTRjYWI3MTE2NGFlZTJjN2FhYTNjZGY4ZjcwNzIxNDVkNjlkNjM5YTA0N2YzNTEzY2RjMGIyOQ';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -169,6 +169,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getSite', 'Function\FunctionController@getSite')->name('getSite');
     Route::get('getNewSite', 'Function\FunctionController@getNewSite')->name('getNewSite');
     Route::get('getBudget', 'Function\FunctionController@getBudget')->name('getBudget');
+    Route::get('getAdvance', 'Function\FunctionController@getAdvance')->name('getAdvance');
     Route::get('getBank', 'Function\FunctionController@getBank')->name('getBank');
     Route::get('getBankList', 'Function\FunctionController@getBankList')->name('getBankList');
     Route::get('getBankAccount', 'Function\FunctionController@getBankAccount')->name('getBankAccount');
@@ -236,6 +237,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ReportBusinessTripRequestSummary', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripRequestSummary')->name('BusinessTripRequest.ReportBusinessTripRequestSummary');
     Route::post('ReportBusinessTripRequestSummaryStore', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripRequestSummaryStore')->name('BusinessTripRequest.ReportBusinessTripRequestSummaryStore');
     Route::post('PrintExportReportBusinessTripRequestSummary', 'Process\BusinessTrip\BusinessTripRequestController@PrintExportReportBusinessTripRequestSummary')->name('BusinessTripRequest.PrintExportReportBusinessTripRequestSummary');
+    Route::get('ReportBusinessTripRequestDetail', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripRequestDetail')->name('BusinessTripRequest.ReportBusinessTripRequestDetail');
+    Route::post('ReportBusinessTripRequestDetailStore', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripRequestDetailStore')->name('BusinessTripRequest.ReportBusinessTripRequestDetailStore');
+    Route::post('PrintExportReportBusinessTripRequestDetail', 'Process\BusinessTrip\BusinessTripRequestController@PrintExportReportBusinessTripRequestDetail')->name('BusinessTripRequest.PrintExportReportBusinessTripRequestDetail');
     Route::resource('BusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController');
 
     // REM

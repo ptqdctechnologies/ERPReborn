@@ -1,4 +1,4 @@
-@if (request()->is('ReportBusinessTripRequestSummary'))
+@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripRequestDetail'))
     <div id="mySiteCodeSecond" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -81,7 +81,7 @@
                         $.each(data, function(key, val) {
                             keys += 1;
                             table.row.add([
-                                '<input id="sys_id_site_second' + keys + '" value="' + val.Sys_ID + '" data-trigger="sys_id_project_second" type="hidden">' + no++,
+                                '<input id="sys_id_site_second' + keys + '" value="' + val.Sys_ID + '" data-trigger="sys_id_site_second" type="hidden">' + no++,
                                 val.Code || '-',
                                 val.Name || '-',
                             ]).draw();
@@ -115,7 +115,7 @@
         });
 
         $('#tableGetSiteSecond').on('click', 'tbody tr', function() {
-            var sysId       = $(this).find('input[data-trigger="sys_id_project_second"]').val();
+            var sysId       = $(this).find('input[data-trigger="sys_id_site_second"]').val();
             var siteCode    = $(this).find('td:nth-child(2)').text();
             var siteName    = $(this).find('td:nth-child(3)').text();
 

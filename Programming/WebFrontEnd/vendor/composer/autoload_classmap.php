@@ -956,6 +956,7 @@ return array(
     'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportDOSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportDOSummary.php',
     'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportMaterialReturnDetail' => $baseDir . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportMaterialReturnDetail.php',
     'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportMaterialReturnSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportMaterialReturnSummary.php',
+    'App\\Http\\Controllers\\ExportExcel\\Process\\ExportReportBusinessTripRequestSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/Process/ExportReportBusinessTripRequestSummary.php',
     'App\\Http\\Controllers\\ExportExcel\\PurchaseRequisition\\ExportReportAdvanceSummaryDetail' => $baseDir . '/app/Http/Controllers/ExportExcel/PurchaseRequisition/ExportReportAdvanceSummaryDetail.php',
     'App\\Http\\Controllers\\ExportExcel\\PurchaseRequisition\\ExportReportPurchaseRequisitionSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/PurchaseRequisition/ExportReportPurchaseRequisitionSummary.php',
     'App\\Http\\Controllers\\ExportExcel\\Purchase\\ExportReportCFS' => $baseDir . '/app/Http/Controllers/ExportExcel/Purchase/ExportReportCFS.php',

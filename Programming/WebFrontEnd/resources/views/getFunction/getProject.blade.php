@@ -1,4 +1,4 @@
-@if (request()->is('ReportBusinessTripRequestSummary'))
+@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripRequestDetail'))
     <div id="myProjectSecond" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">

@@ -368,12 +368,12 @@
     // GET DATA KETIKA HALAMAN BERHASIL DI LOAD
     $(window).one('load', function(e) {
         // TAMPILKAN SEMUA DATA PADA DEFAULT MODAL
-        // getBankAccountData('','');
+        getBankAccountData('','');
 
         // TAMPILKAN SEMUA DATA PADA SECOND MODAL
-        // getBankAccountData('','second_modal');
+        getBankAccountData('','second_modal');
 
         // TAMPILKAN SEMUA DATA PADA THIRD MODAL
-        // getBankAccountData('','third_modal');
+        getBankAccountData('','third_modal');
     });
 </script>
