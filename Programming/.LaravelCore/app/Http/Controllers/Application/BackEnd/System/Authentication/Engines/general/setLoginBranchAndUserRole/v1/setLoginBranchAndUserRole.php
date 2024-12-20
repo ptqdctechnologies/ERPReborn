@@ -123,17 +123,21 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
 
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                     $varAPIWebToken =
-                         \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['APIWebToken'];
+                    $varAPIWebToken =
+                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                            $varUserSession
+                            )['APIWebToken'];
 
-                     $varBranchID =
-                         $varData['branchID'];
+                    $varBranchID =
+                        $varData['branchID'];
 
-                     $varUserID =
-                         \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userID'];
+                    $varUserID =
+                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                            $varUserSession
+                            )['userID'];
 
-                     $varUserRoleID =
-                         $varData['userRoleID'];
+                    $varUserRoleID =
+                        $varData['userRoleID'];
 
 
                 //     //                   $varTemp = (new \App\Models\Database\SchSysConfig\General())->setUserSessionLogout($varUserSession, $varUserSession);        
@@ -146,19 +150,20 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                 //     //dd((new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, $varUserSession)[0]['OptionsList']);
                 //     //$varDataOptionList = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, $varUserSession)[0]['OptionsList']);
                 //     //dd($varDataOptionList);
+                     
+                    $varDataOptionList =
+                        $this->getUserPrivilegeMenuAccess(
+                            $varUserSession,
+                            $varUserID,
+                            $varBranchID,
+                            $varUserRoleID
+                        );
+                    //dd($varDataOptionList);
 
-                     $varDataOptionList =
-                         $this->getUserPrivilegeMenuAccess(
-                             $varUserSession,
-                             $varUserID,
-                             $varBranchID,
-                             $varUserRoleID
-                         );
-                     //dd($varDataOptionList);
-
-                     if ($varDataOptionList == null) {
+                    if ($varDataOptionList == null) {
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'User Role ID mismatch');
-                     } else {
+                        }
+                    else {
                          $varCachedData = [];
                          for ($i = 0; $i != count($varDataOptionList); $i++) {
                              $varDataBranchList[$i] = $varDataOptionList[$i]['branch_RefID'];

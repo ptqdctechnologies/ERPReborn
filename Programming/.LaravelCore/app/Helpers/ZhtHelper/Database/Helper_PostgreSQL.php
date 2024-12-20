@@ -807,7 +807,7 @@ namespace App\Helpers\ZhtHelper\Database
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Query Execution');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(!$varSQLQuery)
+                    if (!$varSQLQuery)
                         {
                         throw new \Exception('Incorrect SQL syntax');
                         }
