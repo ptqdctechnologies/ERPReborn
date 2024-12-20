@@ -605,7 +605,7 @@
                               Payment
                             </div>
                           </div>
-
+                          
                           <!-- DIRECT TO VENDOR -->
                           <div class="row m-0">
                             <div class="col-md-12 col-lg-5 p-0">
@@ -706,7 +706,7 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_accounts_second" style="border-radius:0;" name="bank_accounts_second" class="form-control" size="17" readonly>
+                                    <input id="bank_accounts_second" style="border-radius:0;" name="bank_accounts_second" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
                                     <input id="bank_accounts_id_second" style="border-radius:0;" class="form-control" name="bank_accounts_id_second" hidden>
                                   </div>
                                   <div>
@@ -717,7 +717,7 @@
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_accounts_detail_second" style="border-radius:0;" class="form-control" name="bank_accounts_detail_second" readonly>
+                                    <input id="bank_accounts_detail_second" style="border-radius:0;" class="form-control" name="bank_accounts_detail_second" autocomplete="off" readonly>
                                   </div>
                                 </div>
                               </div>
@@ -788,7 +788,7 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_accounts_third" style="border-radius:0;" size="17" name="bank_accounts_third" class="form-control" readonly>
+                                    <input id="bank_accounts_third" style="border-radius:0;" size="17" name="bank_accounts_third" class="form-control number-without-characters" autocomplete="off" readonly>
                                     <input id="bank_accounts_third_id" style="border-radius:0;" class="form-control" name="bank_accounts_third_id" hidden>
                                   </div>
                                   <div>
@@ -799,7 +799,7 @@
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_accounts_third_detail" style="border-radius:0;" class="form-control" name="bank_accounts_third_detail" readonly>
+                                    <input id="bank_accounts_third_detail" style="border-radius:0;" class="form-control" name="bank_accounts_third_detail" autocomplete="off" readonly>
                                   </div>
                                 </div>
                               </div>

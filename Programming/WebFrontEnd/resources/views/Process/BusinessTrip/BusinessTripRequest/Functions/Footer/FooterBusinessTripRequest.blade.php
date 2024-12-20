@@ -617,7 +617,7 @@
 
     if (beneficiaryRefID.value && beneficiaryPersonRefID.value) {
       $("#bank_list_popup_second").prop("disabled", false);
-      $("#bank_accounts_third_popup").prop("disabled", false);
+      // $("#bank_accounts_third_popup").prop("disabled", false);
     }
   });
 
@@ -625,30 +625,52 @@
     const bankCorpCardID = document.getElementById('beneficiary_second_person_ref_id');
     
     if (bankCorpCardID.value) {
-      $("#bank_name_second_id").val("");
-      $("#bank_name_second_name").val("");
-      $("#bank_name_second_detail").val("");
+      // $("#bank_list_third_name").val("");
+      // $("#bank_list_third_code").val("");
+      // $("#bank_list_third_detail").val("");
 
-      $("#bank_accounts_third").val("");
-      $("#bank_accounts_third_id").val("");
-      $("#bank_accounts_third_detail").val("");
+      // $("#bank_accounts_third").val("");
+      // $("#bank_accounts_third_id").val("");
+      // $("#bank_accounts_third_detail").val("");
     }
 
     adjustInputSize(document.getElementById("beneficiary_second_person_position"), "string");
   });
 
-  $('#myGetBankSecond').on('hidden.bs.modal', function () {
-    const bank_RefID = document.getElementById('bank_name_second_id');
-    const person_RefID = document.getElementById('beneficiary_second_person_ref_id');
+  $('#myGetBankListThird').on('hidden.bs.modal', function () {
+    const bankListThirdCode = document.getElementById('bank_list_third_code');
 
-    if (bank_RefID.value && person_RefID.value) {
-      getBankAccountData(bank_RefID.value, "third_modal", person_RefID.value);
+    if (bankListThirdCode.value) {
+      getBankAccountData(bankListThirdCode.value,'third_modal');
+
+      $("#bank_accounts_third").val("");
+      $("#bank_accounts_third_id").val("");
+      $("#bank_accounts_third_detail").val("");
+
+      $("#bank_accounts_third").removeAttr("readonly");
+      $("#bank_accounts_third_detail").removeAttr("readonly");
+
+      $("#bank_accounts_third_popup").prop("disabled", false);
     }
   });
-
-  $('#tableGetBankSecond').on('click', 'tbody tr', function() {
-    $("#bank_accounts_third_popup").prop("disabled", false);
+  
+  $('#tableGetBankAccountThird').on('click', 'tbody tr', function() {
+    $("#bank_accounts_third").attr("readonly", "");
+    $("#bank_accounts_third_detail").attr("readonly", "");
   });
+
+  // $('#myGetBankSecond').on('hidden.bs.modal', function () {
+  //   const bank_RefID = document.getElementById('bank_name_second_id');
+  //   const person_RefID = document.getElementById('beneficiary_second_person_ref_id');
+
+  //   if (bank_RefID.value && person_RefID.value) {
+  //     getBankAccountData(bank_RefID.value, "third_modal", person_RefID.value);
+  //   }
+  // });
+
+  // $('#tableGetBankSecond').on('click', 'tbody tr', function() {
+  //   $("#bank_accounts_third_popup").prop("disabled", false);
+  // });
   // ========== TO OTHER ==========
 
   // SUBMIT FORM
