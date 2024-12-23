@@ -648,7 +648,7 @@
                                   <div>
                                     <input id="bank_accounts" style="border-radius:0;" name="bank_accounts" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
                                     <input id="bank_accounts_duplicate" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate" hidden>
-                                    <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_accounts_id">
+                                    <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_accounts_id" hidden>
                                     <input id="bank_accounts_duplicate_id" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_id" hidden>
                                   </div>
                                   <div>
@@ -710,7 +710,9 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="bank_accounts_second" style="border-radius:0;" name="bank_accounts_second" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
+                                    <input id="bank_accounts_duplicate_second" style="border-radius:0;" name="bank_accounts_duplicate_second" class="form-control number-without-characters" size="17" autocomplete="off" hidden>
                                     <input id="bank_accounts_id_second" style="border-radius:0;" class="form-control" name="bank_accounts_id_second" hidden>
+                                    <input id="bank_accounts_duplicate_id_second" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_id_second" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -721,6 +723,7 @@
                                   </div>
                                   <div style="flex: 100%;">
                                     <input id="bank_accounts_detail_second" style="border-radius:0;" class="form-control" name="bank_accounts_detail_second" autocomplete="off" readonly>
+                                    <input id="bank_accounts_detail_duplicate_second" style="border-radius:0;" class="form-control" name="bank_accounts_detail_duplicate_second" autocomplete="off" hidden>
                                   </div>
                                 </div>
                               </div>

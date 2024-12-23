@@ -635,8 +635,37 @@
 
   // MENAMBAHKAN READ-ONLY PADA KOMPONEN BANK ACCOUNT CORP CARD
   $('#tableGetBankAccountSecond').on('click', 'tbody tr', function() {
-    // $("#bank_accounts_second").attr("readonly", "");
-    // $("#bank_accounts_detail_second").attr("readonly", "");
+    var sysID       = $(this).find('input[type="hidden"]').val();
+    var bankAccount = $(this).find('td:nth-child(3)').text();
+    var accountName = $(this).find('td:nth-child(4)').text();
+
+    $("#bank_accounts_duplicate_id_second").val(sysID);
+    $("#bank_accounts_duplicate_second").val(bankAccount);
+    $("#bank_accounts_detail_duplicate_second").val(accountName);
+  });
+
+  $('#bank_accounts_second').on('input', function() {
+    var bankAccountSecond             = document.getElementById('bank_accounts_second');
+    var bankAccountSecondDuplicate    = document.getElementById('bank_accounts_duplicate_second');
+    var bankAccountSecondDuplicateId  = document.getElementById('bank_accounts_duplicate_id_second');
+
+    if (bankAccountSecond.value !== bankAccountSecondDuplicate.value) {
+      $("#bank_accounts_id_second").val("");
+    } else {
+      $("#bank_accounts_id_second").val(bankAccountSecondDuplicateId.value);
+    }
+  });
+
+  $('#bank_accounts_detail_second').on('input', function() {
+    var bankAccountDetailSecond           = document.getElementById('bank_accounts_detail_second');
+    var bankAccountDuplicateDetailSecond  = document.getElementById('bank_accounts_detail_duplicate_second');
+    var bankAccountDuplicateIdSecond      = document.getElementById('bank_accounts_duplicate_id_second');
+
+    if (bankAccountDetailSecond.value !== bankAccountDuplicateDetailSecond.value) {
+      $("#bank_accounts_id_second").val("");
+    } else {
+      $("#bank_accounts_id_second").val(bankAccountDuplicateIdSecond.value);
+    }
   });
   // ========== CORP CARD ==========
 
