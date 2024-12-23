@@ -795,7 +795,9 @@
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
                                     <input id="bank_accounts_third" style="border-radius:0;" size="17" name="bank_accounts_third" class="form-control number-without-characters" autocomplete="off" readonly>
-                                    <input id="bank_accounts_third_id" style="border-radius:0;" class="form-control" name="bank_accounts_third_id" hidden>
+                                    <input id="bank_accounts_duplicate_third" style="border-radius:0;" size="17" name="bank_accounts_duplicate_third" class="form-control number-without-characters">
+                                    <input id="bank_accounts_third_id" style="border-radius:0;" class="form-control" name="bank_accounts_third_id">
+                                    <input id="bank_accounts_duplicate_third_id" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_third_id">
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -806,6 +808,7 @@
                                   </div>
                                   <div style="flex: 100%;">
                                     <input id="bank_accounts_third_detail" style="border-radius:0;" class="form-control" name="bank_accounts_third_detail" autocomplete="off" readonly>
+                                    <input id="bank_accounts_duplicate_third_detail" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_third_detail" autocomplete="off">
                                   </div>
                                 </div>
                               </div>

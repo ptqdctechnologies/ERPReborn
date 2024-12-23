@@ -714,8 +714,37 @@
   });
   
   $('#tableGetBankAccountThird').on('click', 'tbody tr', function() {
-    // $("#bank_accounts_third").attr("readonly", "");
-    // $("#bank_accounts_third_detail").attr("readonly", "");
+    var sysID       = $(this).find('input[type="hidden"]').val();
+    var bankAccount = $(this).find('td:nth-child(3)').text();
+    var accountName = $(this).find('td:nth-child(4)').text();
+
+    $("#bank_accounts_duplicate_third_id").val(sysID);
+    $("#bank_accounts_duplicate_third").val(bankAccount);
+    $("#bank_accounts_duplicate_third_detail").val(accountName);
+  });
+
+  $('#bank_accounts_third').on('input', function() {
+    var bankAccountThird             = document.getElementById('bank_accounts_third');
+    var bankAccountThirdDuplicate    = document.getElementById('bank_accounts_duplicate_third');
+    var bankAccountThirdDuplicateId  = document.getElementById('bank_accounts_duplicate_third_id');
+
+    if (bankAccountThird.value !== bankAccountThirdDuplicate.value) {
+      $("#bank_accounts_third_id").val("");
+    } else {
+      $("#bank_accounts_third_id").val(bankAccountThirdDuplicateId.value);
+    }
+  });
+
+  $('#bank_accounts_third_detail').on('input', function() {
+    var bankAccountDetailThird           = document.getElementById('bank_accounts_third_detail');
+    var bankAccountDuplicateDetailThird  = document.getElementById('bank_accounts_duplicate_third_detail');
+    var bankAccountDuplicateIdThird      = document.getElementById('bank_accounts_duplicate_third_id');
+
+    if (bankAccountDetailThird.value !== bankAccountDuplicateDetailThird.value) {
+      $("#bank_accounts_third_id").val("");
+    } else {
+      $("#bank_accounts_third_id").val(bankAccountDuplicateIdThird.value);
+    }
   });
 
   // $('#myGetBankSecond').on('hidden.bs.modal', function () {
