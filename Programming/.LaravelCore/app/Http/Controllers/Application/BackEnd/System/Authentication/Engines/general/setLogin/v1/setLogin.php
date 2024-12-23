@@ -81,7 +81,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     $varUserName = $varData['userName'];
                     $varUserPassword = $varData['userPassword'];
 
-
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     $varHost = 
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment(
@@ -144,8 +143,8 @@ $varDataSend = [
                                     'HS256',
                                     (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession)
                                     );
-                        } while ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
-
+                            } 
+                        while ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
 
                         //---> Insert Data to PostgreSQL
                         $varBufferDB =
@@ -164,7 +163,7 @@ $varDataSend = [
                                 null,
                                 'NOW()',
                                 '(NOW() + \'' . $varSessionIntervalInSeconds . ' seconds\'::interval)'
-                            );
+                                );
                         //var_dump($varUserName);
                         //var_dump(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession));
 

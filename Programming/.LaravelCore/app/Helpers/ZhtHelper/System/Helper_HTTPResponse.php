@@ -52,37 +52,31 @@ namespace App\Helpers\ZhtHelper\System
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     //---> Reinisialisasi varPort
-                    if (!$varPort)
-                        {
+                    if (!$varPort) {
                         $varPort = 80;
                         }
 
                     //---> Cek apakah port tujuan terbuka
-                    if (\App\Helpers\ZhtHelper\General\Helper_Network::isPortOpen($varUserSession, $varURL, $varPort) == false)
-                        {
+                    if (\App\Helpers\ZhtHelper\General\Helper_Network::isPortOpen($varUserSession, $varURL, $varPort) == false) {
                         throw new \Exception('Port is closed');
                         }
 
                     //---> Pengecekan Method
-                    if (!$varMethod)
-                        {
+                    if (!$varMethod) {
                         $varMethod = 'POST';
                         }
                         
                     //---> Pengecekan data
-                    if (!$varData)
-                        {
+                    if (!$varData) {
                         $varData=[];                 
                         }
 
-                    if (!is_array($varData))
-                        {
+                    if (!is_array($varData)) {
                         throw new Exception('Data must be an array');
                         }
 
                     //---> Pengecekan TTL
-                    if (!$varTTL)
-                        {
+                    if (!$varTTL) {
                         $varTTL = 300;
                         }
 

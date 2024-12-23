@@ -38,7 +38,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         */
         function __construct()
             {
-            $this->varAPIIdentity = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), __CLASS__);
+            $this->varAPIIdentity =
+                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    __CLASS__
+                    );
             }
 
 
@@ -60,7 +64,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         */          
         function main($varUserSession, $varData)
             {
-
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get User Privilege Institution Branch (version 1)');

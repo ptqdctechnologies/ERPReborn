@@ -151,7 +151,13 @@ namespace App\Helpers\ZhtHelper\General
                         }
                     else
                         {
-                        $varUserPrincipalName = self::getUserPrincipalNameFromSAMAccountName($varUserSession, $varBaseDN, $varSAMAccountName);
+                        $varUserPrincipalName =
+                            self::getUserPrincipalNameFromSAMAccountName(
+                                $varUserSession,
+                                $varBaseDN,
+                                $varSAMAccountName
+                                );
+
                         if (!$ObjLDAPBind = ldap_bind($ObjLDAPConnection, $varUserPrincipalName, $varPassword))
                             {
                             throw new \Exception("LDAP Bind Failed");
@@ -163,14 +169,17 @@ namespace App\Helpers\ZhtHelper\General
                             }
                         }
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
+
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
         }

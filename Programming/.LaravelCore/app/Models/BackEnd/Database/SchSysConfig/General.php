@@ -911,17 +911,14 @@ namespace App\Models\Database\SchSysConfig
                         '.$varUserRoleID.'::bigint
                         )
                 ';
-$varUserID = 4000000000399;
-dd($varSQL);
-            
-            //dd($varUserID);
 
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
                     $varSQL
                     );
-dd($varReturn);
+            //dd($varReturn);
+
             return
                 \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                     $varUserSession,

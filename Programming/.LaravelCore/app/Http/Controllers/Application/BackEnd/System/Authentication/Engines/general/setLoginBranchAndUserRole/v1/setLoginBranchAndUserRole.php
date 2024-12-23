@@ -8,9 +8,8 @@
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-
-namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLoginBranchAndUserRole\v1 {
-
+namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLoginBranchAndUserRole\v1
+    {
     use Illuminate\Support\Facades\Redis;
 
     /*
@@ -19,9 +18,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
     | ▪ Description : Menangani API authentication.general.setLoginBranchAndUserRole Version 1                                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-
     class setLoginBranchAndUserRole extends \App\Http\Controllers\Controller
-    {
+        {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
@@ -38,8 +36,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function __construct()
-        {
-        }
+            {
+            }
 
 
         /*
@@ -164,33 +162,33 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'User Role ID mismatch');
                         }
                     else {
-                         $varCachedData = [];
-                         for ($i = 0; $i != count($varDataOptionList); $i++) {
-                             $varDataBranchList[$i] = $varDataOptionList[$i]['branch_RefID'];
+                        $varCachedData = [];
+                        for ($i = 0; $i != count($varDataOptionList); $i++) {
+                            $varDataBranchList[$i] = $varDataOptionList[$i]['branch_RefID'];
 
-                             for ($j = 0, $jMax = count($varDataOptionList[$i]['userRole']); $j != $jMax; $j++) {
-                                 $varDataUserRoleList[$varDataOptionList[$i]['branch_RefID']][$j] = $varDataOptionList[$i]['userRole'][$j]['userRole_RefID'];
+                            for ($j = 0, $jMax = count($varDataOptionList[$i]['userRole']); $j != $jMax; $j++) {
+                                $varDataUserRoleList[$varDataOptionList[$i]['branch_RefID']][$j] = $varDataOptionList[$i]['userRole'][$j]['userRole_RefID'];
 
-                                 //---> Cached Data Combined Budget
-                                 for ($k = 0, $kMax = count($varDataOptionList[$i]['userRole'][$j]['combinedBudget']); $k != $kMax; $k++) {
-                                     $varCachedData[$varDataBranchList[$i]][($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['combinedBudget']['keyList'][] = $varDataOptionList[$i]['userRole'][$j]['combinedBudget'][$k]['recordID'];
-                                     $varCachedData[$varDataBranchList[$i]][($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['combinedBudget']['dataTable'][] =
-                                         [
-                                             'sys_ID' => $varDataOptionList[$i]['userRole'][$j]['combinedBudget'][$k]['recordID'],
-                                             'sys_TEXT' => $varDataOptionList[$i]['userRole'][$j]['combinedBudget'][$k]['entities']['name']
-                                         ];
-                                 }
+                                //---> Cached Data Combined Budget
+                                for ($k = 0, $kMax = count($varDataOptionList[$i]['userRole'][$j]['combinedBudget']); $k != $kMax; $k++) {
+                                    $varCachedData[$varDataBranchList[$i]][($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['combinedBudget']['keyList'][] = $varDataOptionList[$i]['userRole'][$j]['combinedBudget'][$k]['recordID'];
+                                    $varCachedData[$varDataBranchList[$i]][($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['combinedBudget']['dataTable'][] =
+                                        [
+                                            'sys_ID' => $varDataOptionList[$i]['userRole'][$j]['combinedBudget'][$k]['recordID'],
+                                            'sys_TEXT' => $varDataOptionList[$i]['userRole'][$j]['combinedBudget'][$k]['entities']['name']
+                                        ];
+                                    }
 
                                  //---> Cached Data Menu
                                  for ($k = 0, $kMax = count($varDataOptionList[$i]['userRole'][$j]['menu']); $k != $kMax; $k++) {
-                                     $varCachedData[$varDataBranchList[$i]][($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['menu']['keyList'][] = $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['key'];
-                                     $varCachedData[$varDataBranchList[$i]][($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['menu']['dataTable'][] =
-                                         [
-                                             'sys_ID' => $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['key'],
-                                             'sys_TEXT' => $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['caption']
-                                         ];
-                                 }
-                             }
+                                    $varCachedData[$varDataBranchList[$i]][($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['menu']['keyList'][] = $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['key'];
+                                    $varCachedData[$varDataBranchList[$i]][($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['menu']['dataTable'][] =
+                                        [
+                                        'sys_ID' => $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['key'],
+                                        'sys_TEXT' => $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['caption']
+                                        ];
+                                }
+                            }
                          }
                 //         //dd($varCachedData);
                 //         //dd($varCachedData[$varUserRoleID]['menu']['index']);
@@ -268,10 +266,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                 }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-            } catch (\Exception $ex) {
-            }
+            } 
+                catch (\Exception $ex) {
+                    }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-        }
+            }
 
 
         /*
@@ -290,10 +289,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         private function isSet($varUserSession, string $varAPIWebToken)
-        {
-            $varReturn = (new \App\Models\Database\SchSysConfig\General())->isSet_UserSessionBranchAndUserRole($varUserSession, $varAPIWebToken);
-            return $varReturn;
-        }
+            {
+            $varReturn = 
+                (new \App\Models\Database\SchSysConfig\General())->isSet_UserSessionBranchAndUserRole(
+                    $varUserSession,
+                    $varAPIWebToken
+                    );
+            
+            return
+                $varReturn;
+            }
 
 
         /*
@@ -337,18 +342,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             $varReturn[$i]['userRole'][$j]['combinedBudget'][$k]['recordID'] = $varData[$i]['userRole'][$j]['combinedBudget'][$k]['combinedBudget_RefID'];
                             $varReturn[$i]['userRole'][$j]['combinedBudget'][$k]['entities']['name'] = $varData[$i]['userRole'][$j]['combinedBudget'][$k]['combinedBudgetFullName'];
                             //dd($varReturn[$i]['userRole'][$j]['combinedBudget'][$k]);
-                        }
+                            }
                         for ($k = 0, $kMax = count($varData[$i]['userRole'][$j]['menu']); $k != $kMax; $k++) {
                             $varReturn[$i]['userRole'][$j]['menu'][$k]['recordID'] = $varData[$i]['userRole'][$j]['menu'][$k]['menu_RefID'];
                             $varReturn[$i]['userRole'][$j]['menu'][$k]['entities']['key'] = $varData[$i]['userRole'][$j]['menu'][$k]['menuKey'];
                             $varReturn[$i]['userRole'][$j]['menu'][$k]['entities']['caption'] = $varData[$i]['userRole'][$j]['menu'][$k]['menuCaption'];
                             //dd($varReturn[$i]['userRole'][$j]['menu'][$k]);
+                            }
                         }
                     }
                 }
-            }
 
-            return $varReturn;
+            return
+                $varReturn;
+            }
         }
     }
-}

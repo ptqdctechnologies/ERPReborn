@@ -863,16 +863,17 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
         public static function getUserIdentity($varUserSession, string $varLDAPUserID = null)
             {
             //$varLDAPUserID = 'teguh.pratama';
-            $varData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+            $varData =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
-                    'SchSysConfig.FuncSys_General_GetUserIdentityByLDAPUserID',
-                    [
-                        [$varLDAPUserID, 'varchar']
-                    ]
-                    )
-                )['data'][0];
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_GetUserIdentityByLDAPUserID',
+                        [
+                            [$varLDAPUserID, 'varchar']
+                        ]
+                        )
+                    )['data'][0];
             
             $varReturn = [
                 'user_RefID' => $varData['User_RefID'],

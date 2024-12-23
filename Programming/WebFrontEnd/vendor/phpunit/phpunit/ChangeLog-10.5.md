@@ -2,6 +2,13 @@
 
 All notable changes of the PHPUnit 10.5 release series are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
+## [10.5.40] - 2024-12-21
+
+### Fixed
+
+* [#6082](https://github.com/sebastianbergmann/phpunit/issues/6082): `assertArrayHasKey()`, `assertArrayNotHasKey()`, `arrayHasKey()`, and `ArrayHasKey::__construct()` do not support all possible key types
+* [#6087](https://github.com/sebastianbergmann/phpunit/issues/6087): `--migrate-configuration` does not remove `beStrictAboutTodoAnnotatedTests` attribute from XML configuration file
+
 ## [10.5.39] - 2024-12-11
 
 ### Added
@@ -356,6 +363,7 @@ All notable changes of the PHPUnit 10.5 release series are documented in this fi
 
 * [#5563](https://github.com/sebastianbergmann/phpunit/issues/5563): `createMockForIntersectionOfInterfaces()` does not automatically register mock object for expectation verification
 
+[10.5.40]: https://github.com/sebastianbergmann/phpunit/compare/10.5.39...10.5.40
 [10.5.39]: https://github.com/sebastianbergmann/phpunit/compare/10.5.38...10.5.39
 [10.5.38]: https://github.com/sebastianbergmann/phpunit/compare/10.5.37...10.5.38
 [10.5.37]: https://github.com/sebastianbergmann/phpunit/compare/10.5.36...10.5.37
