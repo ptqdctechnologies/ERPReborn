@@ -575,9 +575,39 @@
 
   // MENAMBAHKAN READ-ONLY PADA KOMPONEN BANK ACCOUNT VENDOR
   $('#tableGetBankAccount').on('click', 'tbody tr', function() {
-    $("#bank_accounts").attr("readonly", "");
-    $("#bank_accounts_detail").attr("readonly", "");
+    var sysID       = $(this).find('input[type="hidden"]').val();
+    var bankAccount = $(this).find('td:nth-child(3)').text();
+    var accountName = $(this).find('td:nth-child(4)').text();
+
+    $("#bank_accounts_duplicate_id").val(sysID);
+    $("#bank_accounts_duplicate").val(bankAccount);
+    $("#bank_accounts_duplicate_detail").val(accountName);
   });
+
+  $('#bank_accounts').on('input', function() {
+    var bankAccount                 = document.getElementById('bank_accounts');
+    var bankAccountDuplicate        = document.getElementById('bank_accounts_duplicate');
+    var bankAccountDuplicateId      = document.getElementById('bank_accounts_duplicate_id');
+
+    if (bankAccount.value !== bankAccountDuplicate.value) {
+      $("#bank_accounts_id").val("");
+    } else {
+      $("#bank_accounts_id").val(bankAccountDuplicateId.value);
+    }
+  });
+
+  $('#bank_accounts_detail').on('input', function() {
+    var bankAccountDetail           = document.getElementById('bank_accounts_detail');
+    var bankAccountDuplicateDetail  = document.getElementById('bank_accounts_duplicate_detail');
+    var bankAccountDuplicateId      = document.getElementById('bank_accounts_duplicate_id');
+
+    if (bankAccountDetail.value !== bankAccountDuplicateDetail.value) {
+      $("#bank_accounts_id").val("");
+    } else {
+      $("#bank_accounts_id").val(bankAccountDuplicateId.value);
+    }
+  });
+  
   // ========== VENDOR ==========
 
   // ========== CORP CARD ==========
@@ -605,8 +635,8 @@
 
   // MENAMBAHKAN READ-ONLY PADA KOMPONEN BANK ACCOUNT CORP CARD
   $('#tableGetBankAccountSecond').on('click', 'tbody tr', function() {
-    $("#bank_accounts_second").attr("readonly", "");
-    $("#bank_accounts_detail_second").attr("readonly", "");
+    // $("#bank_accounts_second").attr("readonly", "");
+    // $("#bank_accounts_detail_second").attr("readonly", "");
   });
   // ========== CORP CARD ==========
 
@@ -655,8 +685,8 @@
   });
   
   $('#tableGetBankAccountThird').on('click', 'tbody tr', function() {
-    $("#bank_accounts_third").attr("readonly", "");
-    $("#bank_accounts_third_detail").attr("readonly", "");
+    // $("#bank_accounts_third").attr("readonly", "");
+    // $("#bank_accounts_third_detail").attr("readonly", "");
   });
 
   // $('#myGetBankSecond').on('hidden.bs.modal', function () {
