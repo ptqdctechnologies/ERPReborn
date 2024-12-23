@@ -54,7 +54,7 @@
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Advance Number</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">BRF Number</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Sub Budget</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total</th>
@@ -72,7 +72,7 @@
                                                         <td><?= $dataDetail['DocumentNumber']; ?></td>
                                                         <td><?= $dataDetail['CombinedBudgetSectionName']; ?></td>
                                                         <td><?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?></td>
-                                                        <td><?= $dataDetail['TotalAdvance']; ?></td>
+                                                        <td><?= number_format($dataDetail['TotalAdvance'], 2, '.', ','); ?></td>
                                                         <td><?= $dataDetail['CurrencyName']; ?></td>
                                                         <td><?= $dataDetail['RequesterWorkerName']; ?></td>
                                                         <td><?= $dataDetail['BeneficiaryWorkerName']; ?></td>

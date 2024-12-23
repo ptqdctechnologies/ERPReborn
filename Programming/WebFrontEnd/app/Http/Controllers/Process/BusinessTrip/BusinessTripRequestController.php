@@ -301,45 +301,127 @@ class BusinessTripRequestController extends Controller
             $varAPIWebToken             = Session::get('SessionLogin');
             $getReportAdvanceSummary    = null;
 
-            if (!Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary")) {
-                $getReportAdvanceSummary = Helper_APICall::setCallAPIGateway(
-                    Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'report.form.documentForm.finance.getReportAdvanceSummary',
-                    'latest',
-                    [
-                        'parameter' => [
-                            'dataFilter' => [
-                                'budgetID' => 1,
-                                'subBudgetID' => 1,
-                                'workID' => 1,
-                                'productID' => 1,
-                                'beneficiaryID' => 1,
-                            ]
-                        ]
-                    ],
-                    false
-                );
-            } else {
-                $getReportAdvanceSummary = Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary");
-            }
+            // if (!Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary")) {
+            //     $getReportAdvanceSummary = Helper_APICall::setCallAPIGateway(
+            //         Helper_Environment::getUserSessionID_System(),
+            //         $varAPIWebToken,
+            //         'report.form.documentForm.finance.getReportAdvanceSummary',
+            //         'latest',
+            //         [
+            //             'parameter' => [
+            //                 'dataFilter' => [
+            //                     'budgetID' => 1,
+            //                     'subBudgetID' => 1,
+            //                     'workID' => 1,
+            //                     'productID' => 1,
+            //                     'beneficiaryID' => 1,
+            //                 ]
+            //             ]
+            //         ],
+            //         false
+            //     );
+            // } else {
+            //     $getReportAdvanceSummary = Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary");
+            // }
+
+            // DUMMY DATA
+            $getReportAdvanceSummary = [
+                [
+                    "DocumentNumber"                      => "BRF-24000203",
+                    "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
+                    "TotalAdvance"                        => "110000.00",
+                    "Sys_ID"                              => 76000000000054,
+                    "CombinedBudgetCode"                  => "Q000062",
+                    "CombinedBudgetName"                  => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode"           => "235",
+                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                    "RequesterWorkerName"                 => $requester_name,
+                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                    "BeneficiaryWorkerName"               => $beneficiary_name,
+                    "CurrencyName"                        => "IDR",
+                    "Product_ID"                          => 88000000000527,
+                    "CombinedBudget_RefID"                => 46000000000033,
+                    "CombinedBudgetSection_RefID"         => 143000000000305,
+                    "remark"                              => "Travel cancel?"
+                ],
+                [
+                    "DocumentNumber"                      => "BRF-24000202",
+                    "DocumentDateTimeTZ"                  => "2024-12-04 00:00:00+07",
+                    "TotalAdvance"                        => "406982.00",
+                    "Sys_ID"                              => 76000000000054,
+                    "CombinedBudgetCode"                  => "Q000062",
+                    "CombinedBudgetName"                  => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode"           => "235",
+                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                    "RequesterWorkerName"                 => $requester_name,
+                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                    "BeneficiaryWorkerName"               => $beneficiary_name,
+                    "CurrencyName"                        => "IDR",
+                    "Product_ID"                          => 88000000000527,
+                    "CombinedBudget_RefID"                => 46000000000033,
+                    "CombinedBudgetSection_RefID"         => 143000000000305,
+                    "remark"                              => "Site Visit GI Pangkalan Bun dengan Bank BRI (Pak Khamdan)"
+                ],
+                [
+                    "DocumentNumber"                      => "BRF-24000201",
+                    "DocumentDateTimeTZ"                  => "2024-12-03 00:00:00+07",
+                    "TotalAdvance"                        => "1200000.00",
+                    "Sys_ID"                              => 76000000000054,
+                    "CombinedBudgetCode"                  => "Q000062",
+                    "CombinedBudgetName"                  => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode"           => "235",
+                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                    "RequesterWorkerName"                 => $requester_name,
+                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                    "BeneficiaryWorkerName"               => $beneficiary_name,
+                    "CurrencyName"                        => "IDR",
+                    "Product_ID"                          => 88000000000527,
+                    "CombinedBudget_RefID"                => 46000000000033,
+                    "CombinedBudgetSection_RefID"         => 143000000000305,
+                    "remark"                              => "Survey Lokasi ke Pertamina Balongan"
+                ],
+                [
+                    "DocumentNumber"                      => "BRF-24000200",
+                    "DocumentDateTimeTZ"                  => "2024-12-02 00:00:00+07",
+                    "TotalAdvance"                        => "6000000.00",
+                    "Sys_ID"                              => 76000000000054,
+                    "CombinedBudgetCode"                  => "Q000062",
+                    "CombinedBudgetName"                  => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode"           => "235",
+                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                    "RequesterWorkerName"                 => $requester_name,
+                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                    "BeneficiaryWorkerName"               => $beneficiary_name,
+                    "CurrencyName"                        => "IDR",
+                    "Product_ID"                          => 88000000000527,
+                    "CombinedBudget_RefID"                => 46000000000033,
+                    "CombinedBudgetSection_RefID"         => 143000000000305,
+                    "remark"                              => "-"
+                ],
+            ];
 
             $reportData = is_string($getReportAdvanceSummary) ? json_decode($getReportAdvanceSummary, true) : $getReportAdvanceSummary;
 
-            $filteredData = array_filter($reportData, function ($item) use ($project_id, $site_id, $requester_id, $beneficiary_id) {
-                return 
-                    (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
-                    (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
-                    (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
-                    (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
-            });
+            // $filteredData = array_filter($reportData, function ($item) use ($project_id, $site_id, $requester_id, $beneficiary_id) {
+            //     return 
+            //         (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
+            //         (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
+            //         (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
+            //         (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
+            // });
 
-            $totalAdvance = array_reduce($filteredData, function ($carry, $item) {
+            // $totalAdvance = array_reduce($filteredData, function ($carry, $item) {
+            $totalAdvance = array_reduce($reportData, function ($carry, $item) {
                 return $carry + ($item['TotalAdvance'] ?? 0);
             }, 0);
 
             $compact = [
-                'dataDetail'        => $filteredData,
+                // 'dataDetail'        => $filteredData,
+                'dataDetail'        => $reportData,
                 'budgetCode'        => $project_code,
                 'budgetName'        => $project_name,
                 'siteCode'          => $site_code,
