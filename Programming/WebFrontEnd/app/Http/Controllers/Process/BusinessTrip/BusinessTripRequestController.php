@@ -336,14 +336,14 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSectionCode"           => "235",
                     "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
                     "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
-                    "RequesterWorkerName"                 => $requester_name,
+                    "RequesterWorkerName"                 => "Adhe Kurniawan",
                     "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
                     "BeneficiaryWorkerName"               => $beneficiary_name,
                     "CurrencyName"                        => "IDR",
                     "Product_ID"                          => 88000000000527,
                     "CombinedBudget_RefID"                => 46000000000033,
                     "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => "Travel cancel?"
+                    "remark"                              => ""
                 ],
                 [
                     "DocumentNumber"                      => "BRF-24000202",
@@ -355,14 +355,14 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSectionCode"           => "235",
                     "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
                     "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
-                    "RequesterWorkerName"                 => $requester_name,
+                    "RequesterWorkerName"                 => "Sholehah",
                     "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
                     "BeneficiaryWorkerName"               => $beneficiary_name,
                     "CurrencyName"                        => "IDR",
                     "Product_ID"                          => 88000000000527,
                     "CombinedBudget_RefID"                => 46000000000033,
                     "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => "Site Visit GI Pangkalan Bun dengan Bank BRI (Pak Khamdan)"
+                    "remark"                              => "BT Pak Sagala presentasi HTLS Batam"
                 ],
                 [
                     "DocumentNumber"                      => "BRF-24000201",
@@ -374,14 +374,14 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSectionCode"           => "235",
                     "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
                     "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
-                    "RequesterWorkerName"                 => $requester_name,
+                    "RequesterWorkerName"                 => "Grace Kurniawan",
                     "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
                     "BeneficiaryWorkerName"               => $beneficiary_name,
                     "CurrencyName"                        => "IDR",
                     "Product_ID"                          => 88000000000527,
                     "CombinedBudget_RefID"                => 46000000000033,
                     "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => "Survey Lokasi ke Pertamina Balongan"
+                    "remark"                              => ""
                 ],
                 [
                     "DocumentNumber"                      => "BRF-24000200",
@@ -400,7 +400,7 @@ class BusinessTripRequestController extends Controller
                     "Product_ID"                          => 88000000000527,
                     "CombinedBudget_RefID"                => 46000000000033,
                     "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => "-"
+                    "remark"                              => "BT Pak Sagala presentasi HTLS Batam"
                 ],
             ];
 
@@ -503,7 +503,7 @@ class BusinessTripRequestController extends Controller
 
             if ($dataReport) {
                 if ($print_type === "PDF") {
-                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestSummary_pdf', ['dataReport' => $dataReport]);
+                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestSummary_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 

@@ -13,7 +13,7 @@
 </head>
 
 <body>
-  <div class="card-body table-responsive p-0">
+  <div>
     <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
     <div style="text-align: center; font-size: 20px; font-weight: bold;">Business Trip Request Summary</div>
     <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
@@ -22,11 +22,11 @@
     <table style="margin: 30px 0px 15px 1px;">
       <tr>
         <!-- BUDGET -->
-        <td style=" width: 350px;">
+        <td style="width: 350px;">
           <table>
             <tr>
-              <td style="width: 110px; height: 20px;">
-                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+              <td style="width: 45px; height: 20px;">
+                <div style="font-size: 14px; font-weight: bold; line-height: 14px;">
                   Budget
                 </div>
               </td>
@@ -34,7 +34,7 @@
                 :
               </td>
               <td style="height: 20px;">
-                <div style="line-height: 14px;">
+                <div style="line-height: 14px; font-size: 14px;">
                   <?= $dataReport['budgetCode']; ?>
                 </div>
               </td>
@@ -52,14 +52,24 @@
             No
           </div>
         </td>
-        <td style="width: 130px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+        <td style="width: 90px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Advance Number
+            BRF Number
           </div>
         </td>
         <td style="width: 150px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
             Sub Budget
+          </div>
+        </td>
+        <td style="width: 90px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Departing From
+          </div>
+        </td>
+        <td style="width: 80px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Departing To
           </div>
         </td>
         <td style="width: 70px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
@@ -98,49 +108,59 @@
       <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
         <tr>
             <td>
-                <div style="margin-top: 4px; font-size: 12px;">
-                    <?= $counter++; ?>
-                </div>
+              <div style="margin-top: 4px; font-size: 12px;">
+                <?= $counter++; ?>
+              </div>
             </td>
             <td>
-                <div style="margin-top: 4px; font-size: 12px;">
-                    <?= $dataDetail['DocumentNumber']; ?>
-                </div>
+              <div style="margin-top: 4px; font-size: 12px;">
+                <?= $dataDetail['DocumentNumber']; ?>
+              </div>
             </td>
             <td>
-                <div style="margin-top: 4px; font-size: 12px;">
-                    <?= $dataDetail['CombinedBudgetSectionName']; ?>
-                </div>
+              <div style="margin-top: 4px; font-size: 12px;">
+                <?= $dataDetail['CombinedBudgetSectionName']; ?>
+              </div>
             </td>
             <td>
-                <div style="margin-top: 4px; font-size: 12px;">
-                    <?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?>
-                </div>
+              <div style="margin-top: 4px; font-size: 12px;">
+                Jakarta
+              </div>
             </td>
             <td>
-                <div style="margin-top: 4px; font-size: 12px;">
-                    <?= $dataDetail['TotalAdvance']; ?>
-                </div>
+              <div style="margin-top: 4px; font-size: 12px;">
+                Batam
+              </div>
             </td>
             <td>
-                <div style="margin-top: 4px; font-size: 12px;">
-                    <?= $dataDetail['CurrencyName']; ?>
-                </div>
+              <div style="margin-top: 4px; font-size: 12px;">
+                <?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?>
+              </div>
             </td>
             <td>
-                <div style="margin-top: 4px; font-size: 12px;">
-                    <?= $dataDetail['RequesterWorkerName']; ?>
-                </div>
+              <div style="margin-top: 4px; font-size: 12px;">
+                <?= number_format($dataDetail['TotalAdvance'], 2, '.', ','); ?>
+              </div>
             </td>
             <td>
-                <div style="margin-top: 4px; font-size: 12px;">
-                    <?= $dataDetail['BeneficiaryWorkerName']; ?>
-                </div>
+              <div style="margin-top: 4px; font-size: 12px;">
+                <?= $dataDetail['CurrencyName']; ?>
+              </div>
             </td>
             <td>
-                <div style="margin-top: 4px; font-size: 12px;">
-                    <?= $dataDetail['remark']; ?>
-                </div>
+              <div style="margin-top: 4px; font-size: 12px;">
+                <?= $dataDetail['RequesterWorkerName']; ?>
+              </div>
+            </td>
+            <td>
+              <div style="margin-top: 4px; font-size: 12px;">
+                <?= $dataDetail['BeneficiaryWorkerName']; ?>
+              </div>
+            </td>
+            <td>
+              <div style="margin-top: 4px; font-size: 12px;">
+                <?= $dataDetail['remark']; ?>
+              </div>
             </td>
         </tr>
       <?php } ?>
@@ -148,7 +168,7 @@
       <div style="height: 16px;"></div>
 
       <tr style="border-top: 1px solid black;">
-        <td style="height: 20px; text-align: left;" colspan="4">
+        <td style="height: 20px; text-align: left;" colspan="6">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL</div>
         </td>
         <td style="height: 20px;">
