@@ -532,7 +532,7 @@ class BusinessTripRequestController extends Controller
             $varAPIWebToken = Session::get('SessionLogin');
             $isSubmitButton = $request->session()->get('isButtonReportBusinessTripRequestDetailSubmit');
 
-            $dataReport = $isSubmitButton ? $request->session()->get('dataReportBusinessTripRequestDetail', []) : [];
+            $dataReport = $isSubmitButton ? $request->session()->get('dataReportBusinessTripRequestDetail', []) : $request->session()->get('dataReportBusinessTripRequestDetail', []);
 
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
