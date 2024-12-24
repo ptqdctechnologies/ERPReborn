@@ -27,10 +27,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
         public function throughAPIAuthentication()
             {
             //---Parameter Set---
-            $varUserName = 'sysadmin';
-            $varUserPassword = 'sysadmin1234';
-            $varUserName = 'aldi.mulyadi';
-            $varUserPassword = 'aldi1234';
+            $varUserName = 'wisnu.trenggono';
+            $varUserPassword = 'wisnu1234';
+
+//            $varUserName = 'sysadmin';
+//            $varUserPassword = 'sysadmin1234';
+                
+//            $varUserName = 'aldi.mulyadi';
+//            $varUserPassword = 'aldi1234';
+
 //            $varUserName = 'budianto';
 //            $varUserPassword = 'budianto1234';
 //            $varUserName = 'eka.bagus';
@@ -58,11 +63,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
 //            $varUserName = 'zainudin.anwar';
 //            $varUserPassword = 'zainudin.anwar1234';
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varUserName, 
-                $varUserPassword
-                );
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varUserName, 
+                    $varUserPassword
+                    );
             var_dump($varData);
             }
 

@@ -3,7 +3,9 @@
 namespace Illuminate\Support\Traits;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Str;
 use stdClass;
 
 trait InteractsWithData
@@ -239,7 +241,7 @@ trait InteractsWithData
      */
     public function string($key, $default = null)
     {
-        return str($this->data($key, $default));
+        return Str::of($this->data($key, $default));
     }
 
     /**
@@ -360,7 +362,7 @@ trait InteractsWithData
      */
     public function collect($key = null)
     {
-        return collect(is_array($key) ? $this->only($key) : $this->data($key));
+        return new Collection(is_array($key) ? $this->only($key) : $this->data($key));
     }
 
     /**

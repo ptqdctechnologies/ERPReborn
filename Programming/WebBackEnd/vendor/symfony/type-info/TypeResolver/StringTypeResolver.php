@@ -215,7 +215,7 @@ final class StringTypeResolver implements TypeResolverInterface
                 };
             }
 
-            if ($type instanceof BuiltinType && $type->getTypeIdentifier() !== TypeIdentifier::ARRAY && $type->getTypeIdentifier() !== TypeIdentifier::ITERABLE) {
+            if ($type instanceof BuiltinType && TypeIdentifier::ARRAY !== $type->getTypeIdentifier() && TypeIdentifier::ITERABLE !== $type->getTypeIdentifier()) {
                 return $type;
             }
 

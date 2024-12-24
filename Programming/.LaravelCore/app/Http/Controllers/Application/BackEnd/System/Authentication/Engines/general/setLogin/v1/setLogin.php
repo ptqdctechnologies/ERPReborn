@@ -81,19 +81,31 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     $varUserName = $varData['userName'];
                     $varUserPassword = $varData['userPassword'];
 
-
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    $varHost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_HOST');
-                    $varPort = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_PORT');
-                    $varBaseDN = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_BASEDN');
+                    $varHost = 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment(
+                            $varUserSession,
+                            'LDAP_HOST'
+                            );
+
+                    $varPort =
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment(
+                            $varUserSession,
+                            'LDAP_PORT'
+                            );
+
+                    $varBaseDN =
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment(
+                            $varUserSession,
+                            'LDAP_BASEDN'
+                            );
+
                     //---> Jika Otentikasi berhasil
                     if (\App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName($varUserSession, $varHost, $varPort, $varBaseDN, $varUserName, $varUserPassword) == true) {
                         //--->
                         $varSessionIntervalInSeconds = (5 * 60);
                         $varSessionIntervalInSeconds = (10 * 60 * 60);
                         $varSessionIntervalInSeconds = (24 * 60 * 60);
-
-
 
                         //---> Penyusunan Option List
                         /*
@@ -123,9 +135,16 @@ $varDataSend = [
                         //---> Generate APIWebToken
                         $i = 0;
                         do {
-                            $varAPIWebToken = \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession), 'HS256', (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession));
-                        } while ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
-
+                            $varAPIWebToken =
+                                \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(
+                                    $varUserSession,
+                                    $varUserName,
+                                    \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession),
+                                    'HS256',
+                                    (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession)
+                                    );
+                            } 
+                        while ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
 
                         //---> Insert Data to PostgreSQL
                         $varBufferDB =
@@ -144,7 +163,7 @@ $varDataSend = [
                                 null,
                                 'NOW()',
                                 '(NOW() + \'' . $varSessionIntervalInSeconds . ' seconds\'::interval)'
-                            );
+                                );
                         //var_dump($varUserName);
                         //var_dump(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession));
 
@@ -154,7 +173,7 @@ $varDataSend = [
                             (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord(
                                 $varUserSession,
                                 $varSysID
-                            );
+                                );
 
                         if (count($varBufferDB) > 0) {
                             //---> Data Initailizing Base On Database Record
@@ -163,7 +182,7 @@ $varDataSend = [
                                 \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserIdentity(
                                     $varUserSession,
                                     $varBufferDB[0]['LDAPUserID']
-                                );
+                                    );
 
                             //---> Insert Data to Redis
                             $varRedisID =

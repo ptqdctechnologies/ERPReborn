@@ -911,20 +911,14 @@ namespace App\Models\Database\SchSysConfig
                         '.$varUserRoleID.'::bigint
                         )
                 ';
-            dd($varSQL);
-                    
+
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
-                    '
-                    SELECT 
-                        "SchSysConfig"."Func_General_GetUserPrivilege_MenuAccess"(
-                            '.$varUserID.'::bigint,
-                            '.$varBranchID.'::bigint,
-                            '.$varUserRoleID.'::bigint
-                            )                    '
+                    $varSQL
                     );
-dd($varReturn);
+            //dd($varReturn);
+
             return
                 \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                     $varUserSession,

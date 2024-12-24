@@ -32,14 +32,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\env
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'environment.general.session.getUserPrivilegesMenu', 
-                'latest', 
-                [
-                ]
-                );
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'environment.general.session.getUserPrivilegesMenu', 
+                    'latest', 
+                    [
+                    ]
+                    );
             var_dump($varData);
             }
 
@@ -62,14 +63,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\env
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'environment.general.session.getUserPrivilegesMenu', 
-                'latest', 
-                '{'.
-                '}'
-                );            
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                    $varAPIWebToken, 
+                    'environment.general.session.getUserPrivilegesMenu', 
+                    'latest', 
+                    '{'.
+                    '}'
+                    );            
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }

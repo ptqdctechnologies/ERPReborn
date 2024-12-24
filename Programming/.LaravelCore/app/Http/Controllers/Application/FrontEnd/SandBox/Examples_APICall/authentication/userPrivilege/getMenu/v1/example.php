@@ -15,7 +15,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
     class example extends \App\Http\Controllers\Controller
         {
         /*
-        +--------------------------------------------http://172.28.0.4/authentication.userPrivilege.getMenu.v1_throughAPIGateway------------------------------------------------------------------------------+
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/authentication.userPrivilege.getMenu.v1_throughAPIGateway                           |
         |                     ► http://172.28.0.4/authentication.userPrivilege.getMenu.v1_throughAPIGateway                        |
         +--------------------------------------------------------------------------------------------------------------------------+

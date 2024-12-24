@@ -178,11 +178,8 @@ namespace App\Helpers\ZhtHelper\System
                                     //'connect_timeout' => 2
                                     ]
                                 );
-
-//dd($varResponse);
-
-//echo  "@@@";
-//dd($varData);
+                        //dd($varResponse);
+                        //dd($varData);
 
 
 

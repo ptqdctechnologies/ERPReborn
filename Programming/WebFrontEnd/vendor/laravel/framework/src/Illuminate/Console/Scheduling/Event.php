@@ -7,6 +7,7 @@ use Cron\CronExpression;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
 use GuzzleHttp\Exception\TransferException;
+use Illuminate\Console\Application;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Mail\Mailer;
@@ -532,6 +533,18 @@ class Event
     }
 
     /**
+     * Register a callback to ping a given URL if the operation succeeds and if the given condition is true.
+     *
+     * @param  bool  $value
+     * @param  string  $url
+     * @return $this
+     */
+    public function pingOnSuccessIf($value, $url)
+    {
+        return $value ? $this->onSuccess($this->pingCallback($url)) : $this;
+    }
+
+    /**
      * Register a callback to ping a given URL if the operation fails.
      *
      * @param  string  $url
@@ -540,6 +553,18 @@ class Event
     public function pingOnFailure($url)
     {
         return $this->onFailure($this->pingCallback($url));
+    }
+
+    /**
+     * Register a callback to ping a given URL if the operation fails and if the given condition is true.
+     *
+     * @param  bool  $value
+     * @param  string  $url
+     * @return $this
+     */
+    public function pingOnFailureIf($value, $url)
+    {
+        return $value ? $this->onFailure($this->pingCallback($url)) : $this;
     }
 
     /**
@@ -787,7 +812,8 @@ class Event
             return $mutexNameResolver($this);
         }
 
-        return 'framework'.DIRECTORY_SEPARATOR.'schedule-'.sha1($this->expression.$this->command);
+        return 'framework'.DIRECTORY_SEPARATOR.'schedule-'.
+            sha1($this->expression.$this->normalizeCommand($this->command ?? ''));
     }
 
     /**
@@ -813,5 +839,22 @@ class Event
         if ($this->withoutOverlapping) {
             $this->mutex->forget($this);
         }
+    }
+
+    /**
+     * Format the given command string with a normalized PHP binary path.
+     *
+     * @param  string  $command
+     * @return string
+     */
+    public static function normalizeCommand($command)
+    {
+        return str_replace([
+            Application::phpBinary(),
+            Application::artisanBinary(),
+        ], [
+            'php',
+            preg_replace("#['\"]#", '', Application::artisanBinary()),
+        ], $command);
     }
 }

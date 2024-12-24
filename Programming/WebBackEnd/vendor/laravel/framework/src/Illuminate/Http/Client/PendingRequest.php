@@ -236,7 +236,7 @@ class PendingRequest
             'timeout' => 30,
         ];
 
-        $this->beforeSendingCallbacks = collect([function (Request $request, array $options, PendingRequest $pendingRequest) {
+        $this->beforeSendingCallbacks = new Collection([function (Request $request, array $options, PendingRequest $pendingRequest) {
             $pendingRequest->request = $request;
             $pendingRequest->cookies = $options['cookies'];
 
@@ -575,10 +575,10 @@ class PendingRequest
     /**
      * Specify the timeout (in seconds) for the request.
      *
-     * @param  int  $seconds
+     * @param  int|float  $seconds
      * @return $this
      */
-    public function timeout(int $seconds)
+    public function timeout(int|float $seconds)
     {
         return tap($this, function () use ($seconds) {
             $this->options['timeout'] = $seconds;
@@ -588,10 +588,10 @@ class PendingRequest
     /**
      * Specify the connect timeout (in seconds) for the request.
      *
-     * @param  int  $seconds
+     * @param  int|float  $seconds
      * @return $this
      */
-    public function connectTimeout(int $seconds)
+    public function connectTimeout(int|float $seconds)
     {
         return tap($this, function () use ($seconds) {
             $this->options['connect_timeout'] = $seconds;
@@ -991,7 +991,7 @@ class PendingRequest
             $options[$this->bodyFormat] = $this->pendingBody;
         }
 
-        return collect($options)->map(function ($value, $key) {
+        return (new Collection($options))->map(function ($value, $key) {
             if ($key === 'json' && $value instanceof JsonSerializable) {
                 return $value;
             }
@@ -1008,9 +1008,10 @@ class PendingRequest
      */
     protected function parseMultipartBodyFormat(array $data)
     {
-        return collect($data)->map(function ($value, $key) {
-            return is_array($value) ? $value : ['name' => $key, 'contents' => $value];
-        })->values()->all();
+        return (new Collection($data))
+            ->map(fn ($value, $key) => is_array($value) ? $value : ['name' => $key, 'contents' => $value])
+            ->values()
+            ->all();
     }
 
     /**
@@ -1152,7 +1153,7 @@ class PendingRequest
 
         $laravelData = $options[$this->bodyFormat] ?? $options['query'] ?? [];
 
-        $urlString = Str::of($url);
+        $urlString = (new Stringable($url));
 
         if (empty($laravelData) && $method === 'GET' && $urlString->contains('?')) {
             $laravelData = (string) $urlString->after('?');
@@ -1324,7 +1325,7 @@ class PendingRequest
     {
         return function ($handler) {
             return function ($request, $options) use ($handler) {
-                $response = ($this->stubCallbacks ?? collect())
+                $response = ($this->stubCallbacks ?? new Collection)
                      ->map
                      ->__invoke((new Request($request))->withData($options['laravel_data']), $options)
                      ->filter()
@@ -1430,7 +1431,7 @@ class PendingRequest
      */
     public function stub($callback)
     {
-        $this->stubCallbacks = collect($callback);
+        $this->stubCallbacks = new Collection($callback);
 
         return $this;
     }

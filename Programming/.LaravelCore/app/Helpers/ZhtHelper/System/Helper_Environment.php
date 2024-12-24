@@ -505,8 +505,14 @@ namespace App\Helpers\ZhtHelper\System
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Back End Configuration Environment');
                 try {
-                    $varReturn=self::getConfigEnvironment($varUserSession, $varKey, '/config/Application/FrontEnd/environment.txt');
-                    if(is_numeric($varReturn)==true)
+                    $varReturn = 
+                        self::getConfigEnvironment(
+                            $varUserSession,
+                            $varKey,
+                            '/config/Application/FrontEnd/environment.txt'
+                            );
+                    
+                    if (is_numeric($varReturn) == true)
                         {
                         $varReturn = $varReturn*1;
                         }
