@@ -29,24 +29,26 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
 
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'authentication.userPrivilege.getCombinedBudget', 
-                'latest', 
-                [
-                'parameter' => [
-                    'user_RefID' => 4000000000399,
-                    'branch_RefID' => 11000000000004,
-                    'userRole_RefID' => 95000000000034,
-                    'dateTimeTZ' => null
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'authentication.userPrivilege.getCombinedBudget', 
+                    'latest', 
+                    [
+                    'parameter' => [
+                        'user_RefID' => 4000000000399,
+                        'branch_RefID' => 11000000000004,
+                        'userRole_RefID' => 95000000000034,
+                        'dateTimeTZ' => null
+                        ]
                     ]
-                ]
-                );
+                    );
             var_dump($varData);
             }
 
@@ -65,7 +67,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
 
             $varUser_RefID = 4000000000399;
