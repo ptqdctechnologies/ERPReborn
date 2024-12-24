@@ -423,6 +423,18 @@
 </script>
 
 <script>
+  function allowNumbersWithoutCharacter(inputElement) {
+    inputElement.addEventListener('input', function(e) {
+      let value = this.value.replace(/[^0-9]/g, '');
+      
+      this.value = value;
+  });
+  }
+
+  document.querySelectorAll('.number-without-characters').forEach(function(input) {
+    allowNumbersWithoutCharacter(input);
+  });
+
   function allowNumbersOnly(inputElement) {
     inputElement.addEventListener('input', function(e) {
       let value = this.value
@@ -530,5 +542,78 @@
     });
     
     return isDuplicate;
+  }
+</script>
+
+<!-- FUNGSI UNTUK MENENTUKAN WIDTH/LEBAR KOMPONEN INPUT -->
+<script>
+  function defineDefaultValue(length, type) {
+    if (type == "string") {
+      if (length <= 2) {
+        return 0.8;
+      } else if (length <= 4) {
+        return 1;
+      } else if (length <= 6) {
+        return 1.2;
+      } else if (length <= 8) {
+        return 1.4;
+      } else if (length <= 10) {
+        return 1.6;
+      } else if (length <= 13) {
+        return 1.8;
+      } else if (length <= 15) {
+        return 2;
+      } else if (length <= 17) {
+        return 2.2;
+      } else if (length <= 19) {
+        return 2.4;
+      } else if (length <= 21) {
+        return 2.6;
+      } else if (length <= 23) {
+        return 2.8;
+      } else if (length <= 25) {
+        return 3;
+      } else if (length <= 27) {
+        return 3.2;
+      } else if (length <= 29) {
+        return 3.4;
+      } else if (length <= 31) {
+        return 3.6;
+      } else if (length <= 33) {
+        return 3.8;
+      }
+    } else {
+      if (length <= 2) {
+        return 0.7;
+      } else if (length <= 4) {
+        return 0.9;
+      } else if (length <= 6) {
+        return 1.1;
+      } else if (length <= 8) {
+        return 1.3;
+      } else if (length <= 10) {
+        return 1.5;
+      } else if (length <= 13) {
+        return 1.7;
+      } else if (length <= 15) {
+        return 1.9;
+      } else if (length <= 17) {
+        return 2.1;
+      } else if (length <= 19) {
+        return 2.3;
+      }
+    }
+
+    // NOTE
+    // Jika validasi length ditambah 2, maka return ditambah 0.2. Misal, jika length <= 21 maka return 2.5 dan jika length <= 23 maka return 2.7, dan seterusnya.
+  }
+
+  function adjustInputSize(componentInput, valueType) {
+    var componentLenghtInput = componentInput.value.length;
+    
+    var defaultValue = defineDefaultValue(componentLenghtInput, valueType);
+    defaultValue = defaultValue < 1 ? 1 : defaultValue;
+
+    componentInput.size = componentLenghtInput * defaultValue;
   }
 </script>

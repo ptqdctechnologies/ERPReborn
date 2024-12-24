@@ -144,9 +144,9 @@
                                 {
                                     quantityAbsorptionRatio: 1.8,
                                     quantity: 50,
-                                    productName: "Unspecified Product",
+                                    productName: "Compacted Back Fill",
                                     quantityRemaining: 0,
-                                    product_RefID: null,
+                                    product_RefID: 88000000005292,
                                     priceBaseCurrencyValue: 29.99,
                                     priceBaseCurrencyISOCode: code,
                                     balancedBudget: 499.50
@@ -154,9 +154,9 @@
                                 {
                                     quantityAbsorptionRatio: 2.2,
                                     quantity: 20,
-                                    productName: "Unspecified Product",
+                                    productName: "Acces Roof Top Tangga",
                                     quantityRemaining: 0,
-                                    product_RefID: null,
+                                    product_RefID: 88000000001725,
                                     priceBaseCurrencyValue: 120.50,
                                     priceBaseCurrencyISOCode: code,
                                     balancedBudget: 410.00
@@ -164,9 +164,9 @@
                                 {
                                     quantityAbsorptionRatio: 1.5,
                                     quantity: 100,
-                                    productName: "Unspecified Product",
+                                    productName: "Yoke Plate Triangular 30 KIP Galvanize",
                                     quantityRemaining: 10,
-                                    product_RefID: null,
+                                    product_RefID: 88000000011558,
                                     priceBaseCurrencyValue: 50.00,
                                     priceBaseCurrencyISOCode: code,
                                     balancedBudget: 1000.00
@@ -263,62 +263,64 @@
                             });
                         } else {
                             $.each(data, function(key, val2) {
-                                var used = val2.quantityAbsorptionRatio * 100;
-                                var product_name_id = 'product_name' + key;
+                                if (val2.product_RefID && val2.productName != "Unspecified Product") {
+                                    var used = val2.quantityAbsorptionRatio * 100;
+                                    var product_name_id = 'product_name' + key;
 
-                                if (used == "0.00" && val2.quantity == "0.00") {
-                                    var applied = 0;
-                                } else {
-                                    var applied = Math.round(used);
-                                }
+                                    if (used == "0.00" && val2.quantity == "0.00") {
+                                        var applied = 0;
+                                    } else {
+                                        var applied = Math.round(used);
+                                    }
 
-                                if (applied >= 100) {
-                                    var status = "disabled";
-                                }
+                                    if (applied >= 100) {
+                                        var status = "disabled";
+                                    }
 
-                                if (val2.productName == "Unspecified Product") {
-                                    statusDisplay[key] = "flex";
-                                    statusJustifyContentCenter[key] = "center";
-                                    statusDisplay2[key] = "none";
-                                    statusForm[key] = "disabled";
-                                    balance_qty = "-";
-                                } else {
-                                    statusDisplay[key] = "none";
-                                    statusJustifyContentCenter2[key] = "center";
-                                    statusDisplay2[key] = "";
-                                    statusForm[key] = "";
-                                    balance_qty = numberFormatPHPCustom(val2.quantityRemaining, 2);
-                                }
+                                    if (val2.productName == "Unspecified Product") {
+                                        statusDisplay[key] = "flex";
+                                        statusJustifyContentCenter[key] = "center";
+                                        statusDisplay2[key] = "none";
+                                        statusForm[key] = "disabled";
+                                        balance_qty = "-";
+                                    } else {
+                                        statusDisplay[key] = "none";
+                                        statusJustifyContentCenter2[key] = "center";
+                                        statusDisplay2[key] = "";
+                                        statusForm[key] = "";
+                                        balance_qty = numberFormatPHPCustom(val2.quantityRemaining, 2);
+                                    }
 
-                                var html = 
-                                    '<tr>' +
-                                        '<td class="container-tbody-tr-budget" style="justify-content: center; display:' + statusDisplay[key] + '";">' + 
-                                            '<div class="input-group" style="max-width: 140px !important;">' + 
-                                                '<input id="product_id' + key + '" style="border-radius:0;" class="form-control" name="product_id_show" readonly>' +
-                                                '<div>' +
-                                                    '<span style="border-radius:0;" class="input-group-text form-control">' +
-                                                        '<a href="#" id="product_popup" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
-                                                    '</span>' +
+                                    var html = 
+                                        '<tr>' +
+                                            '<td class="container-tbody-tr-budget" style="justify-content: center; display:' + statusDisplay[key] + '";">' + 
+                                                '<div class="input-group" style="max-width: 140px !important;">' + 
+                                                    '<input id="product_id' + key + '" style="border-radius:0;" class="form-control" name="product_id_show" readonly>' +
+                                                    '<div>' +
+                                                        '<span style="border-radius:0;" class="input-group-text form-control">' +
+                                                            '<a href="#" id="product_popup" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(' + key + ')"><img src="{{ asset("AdminLTE-master/dist/img/box.png") }}" width="13" alt=""></a>' +
+                                                        '</span>' +
+                                                    '</div>' +
                                                 '</div>' +
-                                            '</div>' +
-                                        '</td>' +
+                                            '</td>' +
 
-                                        '<td class="container-tbody-tr-budget" style="text-align: center !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
-                                        '<td class="container-tbody-tr-budget" style="text-align: left !important; width: 50px;">' + 
-                                            '<span id="' + product_name_id + '">' + val2.productName + '</span>' +
-                                        '</td>' +
-                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
-                                        '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
-                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
-                                        '<td class="container-tbody-tr-budget">' + val2.priceBaseCurrencyISOCode + '</td>' +
-                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(50000, 2) + '</td>' +
-                                        '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) + '</td>' +
-                                        '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center" data-toggle="tooltip" data-placement="top" title="Pesan"> <input style="border-radius:0; width: 55px !important;" class="form-control number-only" autocomplete="off" id="modify_budget_details" name="modify_budget_details"> </div>' + '</td>' +
-                                        '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-without-negative" autocomplete="off" id="price_budget_details" name="price_budget_details"> </div>' + '</td>' +
-                                        '<td class="container-tbody-tr-budget" style="padding-right: 0px !important;">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-only" autocomplete="off" id="total_budget_details" name="total_budget_details" disabled> </div>' + '</td>' +
-                                    '</tr>';
+                                            '<td class="container-tbody-tr-budget" style="text-align: center !important; display:' + statusDisplay2[key] + '";">' + val2.product_RefID + '</td>' +
+                                            '<td class="container-tbody-tr-budget" style="text-align: left !important; width: 50px;">' + 
+                                                '<span id="' + product_name_id + '">' + val2.productName + '</span>' +
+                                            '</td>' +
+                                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity, 2) + '</td>' +
+                                            '<td class="container-tbody-tr-budget">' + balance_qty + '</td>' +
+                                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) + '</td>' +
+                                            '<td class="container-tbody-tr-budget">' + val2.priceBaseCurrencyISOCode + '</td>' +
+                                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(50000, 2) + '</td>' +
+                                            '<td class="container-tbody-tr-budget">' + numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) + '</td>' +
+                                            '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center" data-toggle="tooltip" data-placement="top" title="Pesan"> <input style="border-radius:0; width: 55px !important;" class="form-control number-only" autocomplete="off" id="modify_budget_details" name="modify_budget_details"> </div>' + '</td>' +
+                                            '<td class="container-tbody-tr-budget">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-without-negative" autocomplete="off" id="price_budget_details" name="price_budget_details"> </div>' + '</td>' +
+                                            '<td class="container-tbody-tr-budget" style="padding-right: 0px !important;">' + '<div class="d-flex justify-content-center"> <input style="border-radius:0; width: 100px !important;" class="form-control number-only" autocomplete="off" id="total_budget_details" name="total_budget_details" disabled> </div>' + '</td>' +
+                                        '</tr>';
 
-                                $('table#budgetTable tbody').append(html);
+                                    $('table#budgetTable tbody').append(html);
+                                }
                             });
                         }
                     }

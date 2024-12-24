@@ -8,7 +8,7 @@
 @include('Process.Advance.AdvanceSettlement.Functions.PopUp.SearchAdvance')
 @include('Process.Advance.AdvanceSettlement.Functions.PopUp.PopUpAdvanceSettlementRevision')
 <!-- @include('getFunction.getBank')
-@include('getFunction.getBankAccount') -->
+@include('getFunction.getEntityBankAccount') -->
 
 <div class="content-wrapper">
   <section class="content">
@@ -89,7 +89,7 @@
                                   <input id="bank_account" style="border-radius:0;" name="bank_account" class="form-control" readonly>
                                   <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#" id="bank_account_popup" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                      <a href="#" id="bank_account_popup" data-toggle="modal" data-target="#myEntityBankAccount" class="myEntityBankAccount"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                     </span>
                                   </div>
                                 </div>
