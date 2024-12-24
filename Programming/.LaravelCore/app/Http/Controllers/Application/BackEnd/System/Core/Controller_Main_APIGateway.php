@@ -22,8 +22,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core
             try {
                 //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                 //$varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-                $varUserSession = (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System()))['userLoginSessionID'];
-                if(!($varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))
+                $varUserSession = (
+                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System()
+                        )
+                    )['userLoginSessionID'];
+
+                if (!($varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))
                     {
                     abort(403, 'API Web Token does not exist');
                     }

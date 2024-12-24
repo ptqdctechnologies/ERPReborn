@@ -530,7 +530,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         }
                     $varData = htmlspecialchars_decode($varData);
                     
-                    if(!$varTimeOut) {
+                    if (!$varTimeOut) {
                         $varTimeOut = 5000;
                         }
                     
@@ -550,6 +550,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                 )
                                 )
                             );
+                    //dd($varURL);
                         
                     $varReturn = 
                         'function() '.
@@ -559,7 +560,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             'try '.
                                 '{ '.                            
                                 'varJSONData = JSON.parse(JSON.stringify('.$varData.')); '.
-                                    //'alert(JSON.parse(JSON.stringify('.$varData.'))); '.
+                                //'alert(JSON.parse(JSON.stringify('.$varData.'))); '.
 
                                 'varReturn = '.
                                     'new zht_JSAPIRequest_Gateway('.
@@ -573,9 +574,10 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                         //'true'.
                                         //''.(($varSignDisplayErrorPage == TRUE) ? 'true' : 'false').''.
                                         '); '.
-    //                                'alert(varJSONData); '.
-//                                'alert("done"); '.
+                                //'alert(JSON.stringify(varJSONData)); '.
                                 'varReturnValue = varReturn.value; '.
+                                //'alert(varReturnValue); '.
+                                //'alert("done"); '.
                                 '} '.
                             'catch(varError) '.
                                 '{'.
