@@ -50,7 +50,7 @@ class BudgetController extends Controller
     public function ModifyBudget(Request $request) {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        // dd('Testing');
+        // dd($varAPIWebToken);
 
         $compact = [
             'varAPIWebToken' => $varAPIWebToken
