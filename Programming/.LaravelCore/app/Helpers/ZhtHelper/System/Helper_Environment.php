@@ -790,21 +790,27 @@ namespace App\Helpers\ZhtHelper\System
         public static function getAPIWebToken_System()
             {
             $varUserSession = self::getUserSessionID_System();
+            //dd($varUserSession);
             try {
                 try {
-                    $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchSysAsset.Func_GetData_APIWebToken_SysEngine',
-                            [
-                            ]
-                            )
-                        );
-                    return $varReturn['data'][0]['Func_GetData_APIWebToken_SysEngine'];
+                    $varReturn =
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                            $varUserSession, 
+                            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                                $varUserSession,
+                                'SchSysAsset.Func_GetData_APIWebToken_SysEngine',
+                                [
+                                ]
+                                )
+                            );
+
+                    return
+                        $varReturn['data'][0]['Func_GetData_APIWebToken_SysEngine'];
                     }
+
                 catch (\Exception $ex) {
-                    return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiU3lzRW5naW5lIiwiaWF0IjoxNTk4NDM0MDcxfQ.fkz2xMA1tUNmA5VaWC75a-A9WdYAmqToLbze3Sxojf4';
+                    return
+                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiU3lzRW5naW5lIiwiaWF0IjoxNTk4NDM0MDcxfQ.fkz2xMA1tUNmA5VaWC75a-A9WdYAmqToLbze3Sxojf4';
                     }
                 }
             catch (\Exception $ex) {

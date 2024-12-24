@@ -28,25 +28,39 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                     }
 
                 //--->---> Check Authorization Mode on HTTP Header  
-                if(strcmp(strtolower(substr($varHTTPHeader['authorization'], 0, 6)), 'bearer')!=0)
+                if (strcmp(strtolower(substr($varHTTPHeader['authorization'], 0, 6)), 'bearer')!=0)
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'HTTP Authorization Requests must be in Bearer Mode']));
                     }
 
                 //--->---> Check API Web Token Existence
-                if((new \App\Models\Cache\General\APIWebToken())->isDataExist($varUserSession, (explode(' ', $varHTTPHeader['authorization']))[1]) == false)
+                if ((new \App\Models\Cache\General\APIWebToken())->isDataExist(
+                    $varUserSession, 
+                    (explode(' ', $varHTTPHeader['authorization']))[1]
+                    ) == false)
                     {
-                    throw new \Exception(implode($varDataSeparatorTag, 
-                        [403, 'API Web Token does not exist']));
+                    throw new \Exception(
+                        implode(
+                            $varDataSeparatorTag, 
+                            [403, 'API Web Token does not exist']
+                            )
+                        );
                     }
                 //--->---> Check API Web Token Expiry
                 else
                     {
-                    if((new \App\Models\Cache\General\APIWebToken())->isDataExpired($varUserSession, (explode(' ', $varHTTPHeader['authorization']))[1]) == true)
+                    if ((new \App\Models\Cache\General\APIWebToken())->isDataExpired(
+                        $varUserSession,
+                        (explode(' ', $varHTTPHeader['authorization']))[1]
+                        ) == true)
                         {
-                        throw new \Exception(implode($varDataSeparatorTag, 
-                            [403, 'API Web Token has been expired']));
+                        throw new \Exception(
+                            implode(
+                                $varDataSeparatorTag, 
+                                [403, 'API Web Token has been expired']
+                                )
+                            );
                         }
                     }
 

@@ -366,8 +366,8 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
     |      ▪ varReturn ► Return Value (JSON)                                                                                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject, varTimeOut)
-        {
+    main (varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject, varTimeOut)
+        {        
         //alert(varAPIWebToken);
         //alert(varURL);
         
@@ -417,6 +417,8 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
 
 
                 //alert(varDataJSONUnicodeEscaped);
+                //alert(varURL);
+                //alert(varAPIWebToken);
 
                 //---> Request Parse
                 $.ajax(

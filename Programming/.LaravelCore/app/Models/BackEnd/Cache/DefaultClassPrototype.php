@@ -175,8 +175,22 @@ namespace App\Models\Cache
         */
         public function isDataExist($varUserSession, string $varKey)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Cache\Helper_Redis::isExist($varUserSession, $this->varKeyHeader.'::'.$varKey);
-            return $varReturn;
+            $varReturn = FALSE;
+            if (strcmp($varKey, \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System())==0)
+                {
+                $varReturn = TRUE;
+                }
+            else
+                {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::isExist(
+                        $varUserSession,
+                        $this->varKeyHeader.'::'.$varKey
+                        );                
+                }
+
+            return
+                $varReturn;
             }
 
 
@@ -198,8 +212,22 @@ namespace App\Models\Cache
         */
         public function isDataExpired($varUserSession, string $varKey)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Cache\Helper_Redis::isExpired($varUserSession, $this->varKeyHeader.'::'.$varKey);
-            return $varReturn;
+            $varReturn = TRUE;
+            if (strcmp($varKey, \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System())==0)
+                {
+                $varReturn = FALSE;
+                }
+            else
+                {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::isExpired(
+                        $varUserSession,
+                        $this->varKeyHeader.'::'.$varKey
+                        );
+                }
+
+            return
+                $varReturn;
             }
 
 
