@@ -29,20 +29,24 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'dataPickList.budgeting.getCombinedBudgetSectionDetail', 
-                'latest',
-                [
-                'parameter' => [
-                    'combinedBudgetSection_RefID' => 104000000000003
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'dataPickList.budgeting.getCombinedBudgetSectionDetail', 
+                    'latest',
+                    [
+                    'parameter' => [
+                        'combinedBudgetSection_RefID' => 104000000000003
+                        ]
                     ]
-                ]
-                );
+                    );
+
             var_dump($varData);
             }
 
@@ -59,25 +63,28 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
             {
-            //---Parameter Set---
+           //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<br>Project RefID ► '.
                 '<input type="text" id="dataInput_CombinedBudgetSection_RefID" value=104000000000003>';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'dataPickList.budgeting.getCombinedBudgetSectionDetail', 
-                'latest', 
-                '{'.
-                    '"parameter" : {'.
-                        '"combinedBudgetSection_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSection_RefID").value) '.
-                        '}'.
-                '}'
-                );            
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                    $varAPIWebToken, 
+                    'dataPickList.budgeting.getCombinedBudgetSectionDetail', 
+                    'latest', 
+                    '{'.
+                        '"parameter" : {'.
+                            '"combinedBudgetSection_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSection_RefID").value) '.
+                            '}'.
+                    '}'
+                    );            
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }

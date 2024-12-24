@@ -28,25 +28,28 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'authentication.userPrivilege.getMenu', 
-                'latest', 
-                [
-                'parameter' => [
-                    'user_RefID' => 4000000000399,
-                    'branch_RefID' => 11000000000004,
-                    'userRole_RefID' => 95000000000034,
-                    'combinedBudget_RefID' => 103000000000002,
-                    'dateTimeTZ' => null
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'authentication.userPrivilege.getMenu', 
+                    'latest', 
+                    [
+                    'parameter' => [
+                        'user_RefID' => 4000000000399,
+                        'branch_RefID' => 11000000000004,
+                        'userRole_RefID' => 95000000000034,
+                        'combinedBudget_RefID' => 103000000000002,
+                        'dateTimeTZ' => null
+                        ]
                     ]
-                ]
-                );
+                    );
+
             var_dump($varData);
             }
 
@@ -65,7 +68,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
             $varUser_RefID = 4000000000399;
@@ -87,21 +91,22 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             echo '</table>';
 
             //---Core---          
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'authentication.userPrivilege.getMenu', 
-                'latest', 
-                '{'.
-                    '"parameter" : {'.
-                        '"user_RefID" : parseInt(document.getElementById("dataInput_User_RefID").value), '.
-                        '"branch_RefID" : parseInt(document.getElementById("dataInput_Branch_RefID").value), '.
-                        '"userRole_RefID" : parseInt(document.getElementById("dataInput_UserRole_RefID").value), '.
-                        '"combinedBudget_RefID" : parseInt(document.getElementById("dataInput_CombinedBudget_RefID").value), '.
-                        '"dateTimeTZ" : document.getElementById("dataInput_DateTimeTZ").value'.
-                        '}'.
-                '}'
-                ); 
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                    $varAPIWebToken, 
+                    'authentication.userPrivilege.getMenu', 
+                    'latest', 
+                    '{'.
+                        '"parameter" : {'.
+                            '"user_RefID" : parseInt(document.getElementById("dataInput_User_RefID").value), '.
+                            '"branch_RefID" : parseInt(document.getElementById("dataInput_Branch_RefID").value), '.
+                            '"userRole_RefID" : parseInt(document.getElementById("dataInput_UserRole_RefID").value), '.
+                            '"combinedBudget_RefID" : parseInt(document.getElementById("dataInput_CombinedBudget_RefID").value), '.
+                            '"dateTimeTZ" : document.getElementById("dataInput_DateTimeTZ").value'.
+                            '}'.
+                    '}'
+                    ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }

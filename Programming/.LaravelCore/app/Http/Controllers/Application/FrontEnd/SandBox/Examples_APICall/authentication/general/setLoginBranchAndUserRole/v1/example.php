@@ -29,9 +29,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = 
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             $varBranchID = 11000000000004;
             //$varUserRoleID = 95000000000007;
             
@@ -44,7 +45,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken, 
-                    'authentication.general.setLoginBranchAndUserRole', 
+                    'authentication.general.setLoginBranchAndUserRole',
                     'latest', 
                     [
                     'branchID' => $varBranchID,
@@ -70,8 +71,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_BranchID" value="11000000000004">';
@@ -80,7 +83,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                     $varAPIWebToken, 
-                    'authentication.general.setLoginBranchAndUserRole', 
+                    'authentication.general.setLoginBranchAndUserRole',
                     'latest', 
                     '{'.
                         '"branchID" : parseInt(document.getElementById("dataInput_BranchID").value), '.

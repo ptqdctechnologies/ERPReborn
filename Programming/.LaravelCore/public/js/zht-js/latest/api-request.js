@@ -445,12 +445,11 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                     contentType : "application/json",
                     success : 
                         function (varDataResponse, varTextStatus, varObjXHR) {
-                        //alert(varDataJSON);
-                        //alert(varObjXHR.status);
+                            //alert(varDataJSON);
+                            //alert(varObjXHR.status);
 
-                        //alert(JSON.stringify(varDataResponse));
-                        //alert(JSON.stringify(varDataResponse.metadata.successStatus));
-
+                            //alert(JSON.stringify(varDataResponse));
+                            //alert(JSON.stringify(varDataResponse.metadata.successStatus));
 
                             //'$("body").append(JSON.stringify(varObjXHR)); '.
                             //'$("body").append(JSON.stringify(varTextStatus)); '.
