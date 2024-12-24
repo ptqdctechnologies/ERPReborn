@@ -29,8 +29,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
             $varData = 
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -55,6 +57,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         ]
                     ]
                     );
+
             var_dump($varData);
             }
 
@@ -73,7 +76,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
@@ -167,28 +171,29 @@ echo '<div style="position: relative; z-index: 3">Hello world</div>';
             echo '<br>Card Serial Number ► '.
                 '<input type="text" id="dataInput_CardSerialNumber" value="K 3100 6431728">';
                         
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.create.master.setCitizenFamilyCard', 
-                'latest', 
-                '{'.
-                    '"entities" : {'.
-                        '"log_FileUpload_Pointer_RefID" : document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value, '.
-                        '"cardNumber" : document.getElementById("dataInput_CardNumber").value, '.
-                        '"issuedDate" : document.getElementById("dataInput_IssuedDate").value, '.
-                        '"addressCountryAdministrativeAreaLevel1_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel1_RefID").value), '.
-                        '"addressCountryAdministrativeAreaLevel2_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel2_RefID").value), '.
-                        '"addressCountryAdministrativeAreaLevel3_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel3_RefID").value), '.
-                        '"addressCountryAdministrativeAreaLevel4_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel4_RefID").value), '.
-                        '"address" : document.getElementById("dataInput_Address").value, '.
-                        '"addressNeighbourhoodNumber" : parseInt(document.getElementById("dataInput_AddressNeighbourhoodNumber").value), '.
-                        '"addressHamletNumber" : parseInt(document.getElementById("dataInput_AddressHamletNumber").value), '.
-                        '"postalCode" : document.getElementById("dataInput_PostalCode").value, '.
-                        '"cardSerialNumber" : document.getElementById("dataInput_CardSerialNumber").value'.
-                        '}'.
-                '}'
-                ); 
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'transaction.create.master.setCitizenFamilyCard', 
+                    'latest', 
+                    '{'.
+                        '"entities" : {'.
+                            '"log_FileUpload_Pointer_RefID" : document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value, '.
+                            '"cardNumber" : document.getElementById("dataInput_CardNumber").value, '.
+                            '"issuedDate" : document.getElementById("dataInput_IssuedDate").value, '.
+                            '"addressCountryAdministrativeAreaLevel1_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel1_RefID").value), '.
+                            '"addressCountryAdministrativeAreaLevel2_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel2_RefID").value), '.
+                            '"addressCountryAdministrativeAreaLevel3_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel3_RefID").value), '.
+                            '"addressCountryAdministrativeAreaLevel4_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel4_RefID").value), '.
+                            '"address" : document.getElementById("dataInput_Address").value, '.
+                            '"addressNeighbourhoodNumber" : parseInt(document.getElementById("dataInput_AddressNeighbourhoodNumber").value), '.
+                            '"addressHamletNumber" : parseInt(document.getElementById("dataInput_AddressHamletNumber").value), '.
+                            '"postalCode" : document.getElementById("dataInput_PostalCode").value, '.
+                            '"cardSerialNumber" : document.getElementById("dataInput_CardSerialNumber").value'.
+                            '}'.
+                    '}'
+                    ); 
             echo "<br><button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             //dd($varJQueryFunction);
             }

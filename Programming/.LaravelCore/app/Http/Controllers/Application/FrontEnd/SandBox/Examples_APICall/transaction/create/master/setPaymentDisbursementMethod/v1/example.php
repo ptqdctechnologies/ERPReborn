@@ -28,20 +28,24 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.create.master.setPaymentDisbursementMethod', 
-                'latest', 
-                [
-                'entities' => [
-                    "name" => 'Name'
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'transaction.create.master.setPaymentDisbursementMethod', 
+                    'latest', 
+                    [
+                    'entities' => [
+                        "name" => 'Name'
+                        ]
                     ]
-                ]
-                );
+                    );
+
             var_dump($varData);
             }
 
@@ -61,22 +65,25 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_Name" value="Name">';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.create.supplyChain.setPaymentDisbursementMethod', 
-                'latest', 
-                '{'.
-                    '"entities" : {'.
-                        '"name" : document.getElementById("dataInput_Name").value'.
-                        '}'.
-                '}'
-                ); 
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                    $varAPIWebToken, 
+                    'transaction.create.master.setPaymentDisbursementMethod', 
+                    'latest', 
+                    '{'.
+                        '"entities" : {'.
+                            '"name" : document.getElementById("dataInput_Name").value'.
+                            '}'.
+                    '}'
+                    ); 
             echo "<br><button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             //dd($varJQueryFunction);
             }

@@ -30,7 +30,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             //---Parameter Set---
             if (!$varAPIWebToken) {
                 $varAPIWebToken =
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
             //---Core---
@@ -38,7 +38,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
-                    'authentication.userPrivilege.getInstitutionBranch', 
+                    'authentication.userPrivilege.getInstitutionBranch',
                     'latest', 
                     [
                     'parameter' => [
@@ -47,6 +47,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
                         ]
                     ]
                     );
+
             var_dump($varData);
             }
 
@@ -65,7 +66,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
             $varUser_RefID = 4000000000399;
@@ -85,7 +87,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                     $varAPIWebToken, 
-                    'authentication.userPrivilege.getInstitutionBranch', 
+                    'authentication.userPrivilege.getInstitutionBranch',
                     'latest', 
                     '{'.
                         '"parameter" : {'.

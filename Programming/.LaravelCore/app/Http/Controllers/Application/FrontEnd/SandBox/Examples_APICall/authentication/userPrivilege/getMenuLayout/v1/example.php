@@ -29,22 +29,25 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'authentication.userPrivilege.getMenuLayout', 
-                'latest', 
-                [
-                'parameter' => [
-                    'branch_RefID' => 11000000000004,
-                    'user_RefID' => 4000000000359
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'authentication.userPrivilege.getMenuLayout', 
+                    'latest', 
+                    [
+                    'parameter' => [
+                        'branch_RefID' => 11000000000004,
+                        'user_RefID' => 4000000000359
+                        ]
                     ]
-                ]
-                );
+                    );
+
             var_dump($varData);
             }
 
@@ -63,7 +66,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
             $varBranch_RefID = 11000000000004;
@@ -79,18 +83,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             echo '</table>';
 
             //---Core---          
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'authentication.userPrivilege.getMenuLayout', 
-                'latest', 
-                '{'.
-                    '"parameter" : {'.
-                        '"branch_RefID" : parseInt(document.getElementById("dataInput_Branch_RefID").value), '.
-                        '"user_RefID" : parseInt(document.getElementById("dataInput_User_RefID").value)'.
-                        '}'.
-                '}'
-                ); 
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                    $varAPIWebToken, 
+                    'authentication.userPrivilege.getMenuLayout', 
+                    'latest', 
+                    '{'.
+                        '"parameter" : {'.
+                            '"branch_RefID" : parseInt(document.getElementById("dataInput_Branch_RefID").value), '.
+                            '"user_RefID" : parseInt(document.getElementById("dataInput_User_RefID").value)'.
+                            '}'.
+                    '}'
+                    ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }

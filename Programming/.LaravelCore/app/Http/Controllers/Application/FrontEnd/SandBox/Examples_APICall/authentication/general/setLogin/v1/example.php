@@ -62,6 +62,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
 //            $varUserPassword = 'wardah1234';
 //            $varUserName = 'zainudin.anwar';
 //            $varUserPassword = 'zainudin.anwar1234';
+
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
@@ -69,6 +70,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
                     $varUserName, 
                     $varUserPassword
                     );
+
             var_dump($varData);
             }
 
@@ -88,18 +90,20 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             //---Parameter Set---
             $varUserName = 'sysadmin';
             $varUserPassword = 'sysadmin1234';
+
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_UserName" value="'.$varUserName.'">';
             echo '<input type="text" id="dataInput_UserPassword" value="'.$varUserPassword.'">';
             //---Core---          
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthenticationJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                '{'.
-                    '"userName" : document.getElementById("dataInput_UserName").value, '.
-                    '"userPassword" : document.getElementById("dataInput_UserPassword").value '.
-                '}'
-                ); 
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthenticationJQuery(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                    '{'.
+                        '"userName" : document.getElementById("dataInput_UserName").value, '.
+                        '"userPassword" : document.getElementById("dataInput_UserPassword").value '.
+                    '}'
+                    );
             
             echo "<button type='button' onclick='javascript: var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);

@@ -29,7 +29,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             //---Parameter Set---
             if (!$varAPIWebToken) {
                 $varAPIWebToken =
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
             //---Core---
@@ -47,6 +47,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
                         ]
                     ]
                     );
+
             var_dump($varData);
             }
 
@@ -66,7 +67,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
             //---Parameter Set---
             if (!$varAPIWebToken) {
                 $varAPIWebToken =
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
             $varUser_RefID = 4000000000399;
