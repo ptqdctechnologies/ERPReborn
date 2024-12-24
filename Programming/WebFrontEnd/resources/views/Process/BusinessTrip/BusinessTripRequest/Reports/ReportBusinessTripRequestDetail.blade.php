@@ -42,7 +42,7 @@
                                                     <table>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">BRF Number</label>
+                                                                <label style="margin-right: 1rem; white-space: nowrap;">BRF Number</label>
                                                             </th>
                                                             <td>
                                                                 : BRF-24000203
@@ -69,7 +69,7 @@
                                                                 <label style="margin-right: 1rem;">Product</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionCodeList'][0] . " - " . $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionNameList'][0]; ?>
+                                                                : <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['product_RefID']; ?>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -82,33 +82,41 @@
                                                     <table>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Currency</label>
+                                                                <label style="margin-right: 1rem; white-space: nowrap;">Date Commance Travel</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'] ?? '-'; ?>
+                                                                : 2024-12-18
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Requester</label>
+                                                                <label style="margin-right: 1rem;">Date End Travel</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerFullName'] ?? '-'; ?>
+                                                                : 2024-12-20
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Beneficiary</label>
+                                                                <label style="margin-right: 1rem;">Date BRF</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'] ?? '-'; ?>
+                                                                : 2024-12-12
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Bank Account</label>
+                                                                <label style="margin-right: 1rem;">Contact Phone</label>
                                                             </th>
                                                             <td>
+                                                                : 0896734873
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th style="padding-top: 7px;">
+                                                                <label style="margin-right: 1rem; ">Bank Account</label>
+                                                            </th>
+                                                            <td style="line-height: 16px;">
                                                                 : (<?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAcronym']; ?>) <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountNumber']; ?> - <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountName']; ?>
                                                             </td>
                                                         </tr>
@@ -122,14 +130,6 @@
                                                     <table>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Currency</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'] ?? '-'; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
                                                                 <label style="margin-right: 1rem;">Requester</label>
                                                             </th>
                                                             <td>
@@ -146,10 +146,18 @@
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Bank Account</label>
+                                                                <label style="margin-right: 1rem;">Departing From</label>
                                                             </th>
                                                             <td>
-                                                                : (<?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAcronym']; ?>) <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountNumber']; ?> - <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountName']; ?>
+                                                                : Jakarta
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th style="padding-top: 7px;">
+                                                                <label style="margin-right: 1rem;">Destination To</label>
+                                                            </th>
+                                                            <td>
+                                                                : Batam
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -167,77 +175,56 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <!-- LEFT -->
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <table>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Advance Number</label>
+                                                                <label style="margin-right: 1rem;">Total Transport</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataHeader']['number'] ?? '-'; ?>
+                                                                : 3,450,000.00
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Date</label>
+                                                                <label style="margin-right: 1rem;">Total Payment</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataHeader']['date'] ?? '-'; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Budget</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataDetails']['general']['budget']['combinedBudgetCodeList'][0] . " - " . $dataReport['dataDetails']['general']['budget']['combinedBudgetNameList'][0]; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Sub Budget</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionCodeList'][0] . " - " . $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionNameList'][0]; ?>
+                                                                : 3,890,000.00
                                                             </td>
                                                         </tr>
                                                     </table>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+
+                                            <!-- MIDDLE -->
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <table>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Currency</label>
+                                                                <label style="margin-right: 1rem;">Total Accommodation</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'] ?? '-'; ?>
+                                                                : 0.00
                                                             </td>
                                                         </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <!-- RIGHT -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <table>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Requester</label>
+                                                                <label style="margin-right: 1rem;">Total Business Trip</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerFullName'] ?? '-'; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Beneficiary</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'] ?? '-'; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Bank Account</label>
-                                                            </th>
-                                                            <td>
-                                                                : (<?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAcronym']; ?>) <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountNumber']; ?> - <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountName']; ?>
+                                                                : 3,890,000.00
                                                             </td>
                                                         </tr>
                                                     </table>
