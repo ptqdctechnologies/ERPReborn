@@ -564,20 +564,43 @@ class BusinessTripRequestController extends Controller
 
             $splitResponse = $getReportAdvanceDetail['data'][0]['document'];
 
+
             $totalAdvance = array_reduce($splitResponse['content']['details']['itemList'], function ($carry, $item) {
                 return $carry + ($item['entities']['priceBaseCurrencyValue'] ?? 0);
             }, 0);
 
             $compact = [
-                'dataHeader'    => $splitResponse['header'],
-                'dataDetails'   => $splitResponse['content'],
-                'budgetCode'    => $project_code, 
-                'siteCode'      => $site_code,
-                'budgetName'    => $project_name, 
-                'siteName'      => $site_name,
-                'advanceNumber' => $advance_document,
-                'total'         => $totalAdvance
+                'dataHeaderOne'     => [
+                    'brfNumber'         => 'BRF-24000203',
+                    'budgetCode'        => $project_code,
+                    'budgetName'        => $project_name,
+                    'siteCode'          => $site_code,
+                    'siteName'          => $site_name,
+                    'productID'         => '820005-0000',
+                    'productName'       => 'Travel & Fares/Business Trip',
+                    'dateCommence'      => '2024-12-18',
+                    'dateEnd'           => '2024-12-20',
+                    'dateBRF'           => '2024-12-12',
+                    'contactPerson'     => '0896734873',
+                    'bankType'          => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAcronym'],
+                    'bankAccountNumber' => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAccountNumber'],
+                    'bankAccountName'   => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAccountName'],
+                    'requester'         => $splitResponse['content']['general']['involvedPersons'][0]['requesterWorkerFullName'],
+                    'beneficiary'       => $splitResponse['content']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'],
+                    'departingFrom'     => 'Jakarta',
+                    'destinationTo'     => 'Batam',
+                ],
+                'dataHeaderTwo'     => [
+                    'totalTransport'        => '3450000.00',
+                    'totalAccommodation'    => '0.00',
+                    'totalBusinessTrip'     => '3890000.00',
+                ],
+                'dataHeaderThree'   => [
+                    'reason'    => 'Silahturahmi PLN JBT dan cari info tender jatiluhur beserta info lain'
+                ]
             ];
+
+            // dd($compact);
 
             Session::put("isButtonReportBusinessTripRequestDetailSubmit", true);
             Session::put("dataReportBusinessTripRequestDetail", $compact);

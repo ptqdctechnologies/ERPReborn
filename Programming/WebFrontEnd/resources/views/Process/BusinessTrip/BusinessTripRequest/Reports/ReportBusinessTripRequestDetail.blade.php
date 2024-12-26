@@ -45,7 +45,7 @@
                                                                 <label style="margin-right: 1rem; white-space: nowrap;">BRF Number</label>
                                                             </th>
                                                             <td>
-                                                                : BRF-24000203
+                                                                : <?= $dataReport['dataHeaderOne']['brfNumber']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -53,7 +53,7 @@
                                                                 <label style="margin-right: 1rem;">Budget</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['budgetCode'] . " - " . $dataReport['budgetName']; ?>
+                                                                : <?= $dataReport['dataHeaderOne']['budgetCode'] . " - " . $dataReport['dataHeaderOne']['budgetName']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -61,7 +61,7 @@
                                                                 <label style="margin-right: 1rem;">Sub Budget</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['siteCode'] . " - " . $dataReport['siteName']; ?>
+                                                                : <?= $dataReport['dataHeaderOne']['siteCode'] . " - " . $dataReport['dataHeaderOne']['siteName']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -69,7 +69,7 @@
                                                                 <label style="margin-right: 1rem;">Product</label>
                                                             </th>
                                                             <td>
-                                                                : 820005-0000 (Travel & Fares/Business Trip)
+                                                                : <?= $dataReport['dataHeaderOne']['productID']; ?> (<?= $dataReport['dataHeaderOne']['productName']; ?>)
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -85,7 +85,7 @@
                                                                 <label style="margin-right: 1rem; white-space: nowrap;">Tanggal Mulai Perjalanan</label>
                                                             </th>
                                                             <td>
-                                                                : 2024-12-18
+                                                                : <?= $dataReport['dataHeaderOne']['dateCommence']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -93,7 +93,7 @@
                                                                 <label style="margin-right: 1rem;">Tanggal Akhir Perjalanan</label>
                                                             </th>
                                                             <td>
-                                                                : 2024-12-20
+                                                                : <?= $dataReport['dataHeaderOne']['dateEnd']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -101,7 +101,7 @@
                                                                 <label style="margin-right: 1rem;">Tanggal Pembuatan BRF</label>
                                                             </th>
                                                             <td>
-                                                                : 2024-12-12
+                                                                : <?= $dataReport['dataHeaderOne']['dateBRF']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -109,7 +109,7 @@
                                                                 <label style="margin-right: 1rem;">Contact Phone</label>
                                                             </th>
                                                             <td>
-                                                                : 0896734873
+                                                                : <?= $dataReport['dataHeaderOne']['dateBRF']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -117,7 +117,7 @@
                                                                 <label style="margin-right: 1rem; ">Bank Account</label>
                                                             </th>
                                                             <td style="line-height: 16px;">
-                                                                : (<?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAcronym']; ?>) <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountNumber']; ?> - <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountName']; ?>
+                                                                : (<?= $dataReport['dataHeaderOne']['bankType']; ?>) <?= $dataReport['dataHeaderOne']['bankAccountNumber']; ?> - <?= $dataReport['dataHeaderOne']['bankAccountName']; ?>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -133,7 +133,7 @@
                                                                 <label style="margin-right: 1rem;">Requester</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerFullName'] ?? '-'; ?>
+                                                                : <?= $dataReport['dataHeaderOne']['requester']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -141,7 +141,7 @@
                                                                 <label style="margin-right: 1rem;">Beneficiary</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'] ?? '-'; ?>
+                                                                : <?= $dataReport['dataHeaderOne']['beneficiary']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -149,7 +149,7 @@
                                                                 <label style="margin-right: 1rem;">Departing From</label>
                                                             </th>
                                                             <td>
-                                                                : Jakarta
+                                                                : <?= $dataReport['dataHeaderOne']['departingFrom']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -157,7 +157,7 @@
                                                                 <label style="margin-right: 1rem;">Destination To</label>
                                                             </th>
                                                             <td>
-                                                                : Batam
+                                                                : <?= $dataReport['dataHeaderOne']['destinationTo']; ?>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -184,7 +184,7 @@
                                                                 <label style="margin-right: 1rem;">Total Transport</label>
                                                             </th>
                                                             <td>
-                                                                : 3,450,000.00
+                                                                : <?= number_format($dataReport['dataHeaderTwo']['totalTransport'], 2, '.', ','); ?>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -200,7 +200,7 @@
                                                                 <label style="margin-right: 1rem;">Total Accommodation</label>
                                                             </th>
                                                             <td>
-                                                                : 0.00
+                                                                : <?= number_format($dataReport['dataHeaderTwo']['totalAccommodation'], 2, '.', ','); ?>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -216,7 +216,7 @@
                                                                 <label style="margin-right: 1rem;">Total Business Trip</label>
                                                             </th>
                                                             <td>
-                                                                : 3,890,000.00
+                                                                : <?= number_format($dataReport['dataHeaderTwo']['totalBusinessTrip'], 2, '.', ','); ?>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -236,7 +236,7 @@
                                         <div class="form-group py-1">
                                             <label class="text-bold" style="margin-right: 1rem;">Reason to Travel</label>
                                             <div class="mt-1" style="line-height: 16px;">
-                                                Silahturahmi PLN JBT dan cari info tender jatiluhur beserta info lain
+                                                <?= $dataReport['dataHeaderThree']['reason']; ?>
                                             </div>
                                         </div>
                                     </div>
