@@ -234,7 +234,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="form-group py-1">
-                                            <label class="text-bold" style="margin-right: 1rem;">Reason To Travel</label>
+                                            <label class="text-bold" style="margin-right: 1rem;">Reason to Travel</label>
                                             <div class="mt-1" style="line-height: 16px;">
                                                 Silahturahmi PLN JBT dan cari info tender jatiluhur beserta info lain
                                             </div>
