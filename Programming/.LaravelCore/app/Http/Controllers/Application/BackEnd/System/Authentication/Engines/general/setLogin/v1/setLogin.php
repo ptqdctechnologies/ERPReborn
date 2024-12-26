@@ -101,7 +101,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             );
 
                     //---> Jika Otentikasi berhasil
-                    if (\App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName($varUserSession, $varHost, $varPort, $varBaseDN, $varUserName, $varUserPassword) == true) {
+                    if (
+                        \App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName(
+                            $varUserSession,
+                            $varHost,
+                            $varPort,
+                            $varBaseDN,
+                            $varUserName,
+                            $varUserPassword
+                            ) == true
+                        ) {
                         //--->
                         $varSessionIntervalInSeconds = (5 * 60);
                         $varSessionIntervalInSeconds = (10 * 60 * 60);
@@ -122,7 +131,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         echo "<br><br><br>";
                         */
                         $varOptionList = [];
-
 
                         /*
 $varAPIWebToken = \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession), 'HS256', (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession));
@@ -156,7 +164,10 @@ $varDataSend = [
 
                                 $varUserName,
                                 $varAPIWebToken,
-                                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varOptionList),
+                                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                    $varUserSession,
+                                    $varOptionList
+                                    ),
                                 null,
                                 null,
                                 'NOW()',
@@ -289,13 +300,14 @@ $varDataSend = [
                             // 3
                             //DATA MENU
 
-                            $varDataRole = json_decode(
-                                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                    "Role" . $user_RefID
-                                ),
-                                true
-                            );
+                            $varDataRole = 
+                                json_decode(
+                                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                        "Role".$user_RefID
+                                        ),
+                                    true
+                                    );
 
                             if (count($varDataBranch) == 1) {
                                 foreach ($varDataRole as $varDataRoles) {
@@ -316,16 +328,16 @@ $varDataSend = [
                                                 $varUserSession,
                                                 $varDataBranch[0]['Sys_ID'],
                                                 $user_RefID
-                                            );
+                                                );
 
                                         \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
                                             $varUserSession,
                                             "RedisGetMenu" . $user_RefID,
                                             json_encode($varMenu),
                                             $varTTL
-                                        );
+                                            );
+                                        }
                                     }
-                                }
 
 
                                 $varDataRedis = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Cache\General\APIWebToken())->getDataRecord($varUserSession, $varBufferDB[0]['APIWebToken']));
@@ -347,13 +359,19 @@ $varDataSend = [
                     }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                } catch (\Exception $ex) {
+                    }
+
+                catch (\Exception $ex) {
                     $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
-                }
+                    }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-            } catch (\Exception $ex) {
-            }
+                }
+
+            catch (\Exception $ex) {
+                }
+
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
         }
 

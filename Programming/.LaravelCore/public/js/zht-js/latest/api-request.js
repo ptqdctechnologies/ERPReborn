@@ -447,6 +447,7 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                         function (varDataResponse, varTextStatus, varObjXHR) {
                             //alert(varDataJSON);
                             //alert(varObjXHR.status);
+                            //alert(JSON.stringify(varDataResponse));
 
                             //alert(JSON.stringify(varDataResponse));
                             //alert(JSON.stringify(varDataResponse.metadata.successStatus));

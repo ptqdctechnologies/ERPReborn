@@ -180,16 +180,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                     }
 
                                  //---> Cached Data Menu
-                                 for ($k = 0, $kMax = count($varDataOptionList[$i]['userRole'][$j]['menu']); $k != $kMax; $k++) {
+                                for ($k = 0, $kMax = count($varDataOptionList[$i]['userRole'][$j]['menu']); $k != $kMax; $k++) {
                                     $varCachedData[$varDataBranchList[$i]][($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['menu']['keyList'][] = $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['key'];
                                     $varCachedData[$varDataBranchList[$i]][($varDataOptionList[$i]['userRole'][$j]['userRole_RefID'])]['menu']['dataTable'][] =
                                         [
                                         'sys_ID' => $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['key'],
                                         'sys_TEXT' => $varDataOptionList[$i]['userRole'][$j]['menu'][$k]['entities']['caption']
                                         ];
+                                    }
                                 }
                             }
-                         }
                 //         //dd($varCachedData);
                 //         //dd($varCachedData[$varUserRoleID]['menu']['index']);
                 //         //dd($varCachedData_CombinedBudget);
@@ -200,15 +200,40 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
 
                          //var_dump($varUserRoleID);
                          //var_dump($varDataUserRoleList);
-                         if (\App\Helpers\ZhtHelper\General\Helper_Array::isElementExist($varUserSession, $varBranchID, $varDataBranchList) == false) {
-                             $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'Branch ID was not found in the register list');
-                         } elseif (\App\Helpers\ZhtHelper\General\Helper_Array::isElementExist($varUserSession, $varUserRoleID, $varDataUserRoleList[$varBranchID]) == false) {
-                             $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'User Role ID was not found in the register list');
-                         } elseif (self::isSet($varUserSession, $varAPIWebToken) == true) {
-                             $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'Branch ID and User Role ID already choosen');
-                             //dd(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession));
-                             //dd(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userIdentity']['workerCareerInternal_RefID']);
-                         }
+                        if (\App\Helpers\ZhtHelper\General\Helper_Array::isElementExist(
+                            $varUserSession,
+                            $varBranchID,
+                            $varDataBranchList
+                            ) == false) {
+                            $varReturn =
+                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                    $varUserSession,
+                                    403,
+                                    'Branch ID was not found in the register list'
+                                    );
+                            }
+                        elseif (\App\Helpers\ZhtHelper\General\Helper_Array::isElementExist(
+                            $varUserSession,
+                            $varUserRoleID,
+                            $varDataUserRoleList[$varBranchID]) == false
+                            ) {
+                            $varReturn =
+                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                    $varUserSession,
+                                    403,
+                                    'User Role ID was not found in the register list'
+                                    );
+                            }
+                        elseif (self::isSet($varUserSession, $varAPIWebToken) == true) {
+                            $varReturn =
+                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                    $varUserSession,
+                                    403,
+                                    'Branch ID and User Role ID already choosen'
+                                    );
+                            //dd(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession));
+                            //dd(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['userIdentity']['workerCareerInternal_RefID']);
+                            }
 
                          if (!$varReturn) {
                             //---> Mendapatkan User Privileges Menu
@@ -221,12 +246,28 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                              //             //            \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserRolePrivilegesMenu($varUserSession, 95000000000003, 11000000000004)
                              //         )
                              //     );
-                             //---> Update Database
-                             (new \App\Models\Database\SchSysConfig\General())->setUserSessionBranchAndUserRole($varUserSession, $varUserSession, $varBranchID, $varUserRoleID);
-                             //---> Update Redis
-                             $varDataRedis = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Cache\General\APIWebToken())->getDataRecord($varUserSession, $varAPIWebToken));
-                             // $varUserIdentity = $varDataRedis['userIdentity'];
-                             $varDataRedis['branch_RefID'] = $varBranchID;
+
+                            //---> Update Database
+                            (new \App\Models\Database\SchSysConfig\General())->setUserSessionBranchAndUserRole(
+                                $varUserSession,
+                                $varUserSession,
+                                $varBranchID,
+                                $varUserRoleID
+                                );
+
+                            //---> Update Redis
+                            $varDataRedis =
+                                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                                    $varUserSession,
+                                    (new \App\Models\Cache\General\APIWebToken())->getDataRecord(
+                                        $varUserSession,
+                                        $varAPIWebToken
+                                        )
+                                    );
+                            
+                            // $varUserIdentity = $varDataRedis['userIdentity'];
+                            $varDataRedis['branch_RefID'] = $varBranchID;
+
                              //                        $varDataRedis['userRole_RefID'] = $varUserRoleID;
                              // $varDataRedis['userIdentity'] =
                              //     \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserIdentity(
@@ -243,9 +284,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                              //     'dataTable' => $varCachedData[$varBranchID][$varUserRoleID]['combinedBudget']['dataTable']
                              // ];
                              //$varDataRedis['userIdentity'] = $varUserIdentity;
-                             (new \App\Models\Cache\General\APIWebToken())->setDataUpdate($varUserSession, $varAPIWebToken, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDataRedis));
-                             //--->
-                             $varDataSend = ['message' => 'Chosen Branch ID and User Role ID have been saved'];
+
+                            (new \App\Models\Cache\General\APIWebToken())->setDataUpdate(
+                                $varUserSession,
+                                $varAPIWebToken,
+                                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                    $varUserSession,
+                                    $varDataRedis
+                                    )
+                                );
+                            
+                            //--->
+                            $varDataSend = ['message' => 'Chosen Branch ID and User Role ID have been saved'];
 
                 //             //REDIS KEY MENU LIST
 
