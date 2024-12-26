@@ -6,7 +6,7 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-start justify-content-md-end">
             <div>
-                <input id="project_code_second" style="border-radius:0;" name="project_code_second" class="form-control" size="34" value="<?= $dataReport['budgetCode'] ?? ''; ?>" readonly>
+                <input id="project_code_second" style="border-radius:0;" name="project_code_second" class="form-control" size="34" value="<?= $dataReport['dataHeaderOne']['budgetCode'] ?? ''; ?>" readonly>
                 <input id="project_id_second" style="border-radius:0;" name="project_id_second" class="form-control" hidden>
             </div>
             <div>
@@ -27,7 +27,7 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-start justify-content-md-end">
             <div>
-                <input id="site_code_second" style="border-radius:0;" name="site_code_second" class="form-control" size="34" value="<?= $dataReport['siteCode'] ?? ''; ?>" readonly>
+                <input id="site_code_second" style="border-radius:0;" name="site_code_second" class="form-control" size="34" value="<?= $dataReport['dataHeaderOne']['siteCode'] ?? ''; ?>" readonly>
                 <input id="site_id_second" style="border-radius:0;" name="site_id_second" class="form-control" hidden>
             </div>
             <div>
@@ -49,7 +49,7 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">BRF Number</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-start justify-content-md-end">
             <div>
-                <input id="modal_advance_document_number" style="border-radius:0;" name="modal_advance_document_number" class="form-control" size="34" value="<?= $dataReport['advanceNumber'] ?? ''; ?>" readonly>
+                <input id="modal_advance_document_number" style="border-radius:0;" name="modal_advance_document_number" class="form-control" size="34" value="<?= $dataReport['dataHeaderOne']['brfNumber'] ?? ''; ?>" readonly>
                 <input id="modal_advance_id" style="border-radius:0;" name="modal_advance_id" class="form-control" hidden>
             </div>
             <div>
@@ -78,6 +78,7 @@
     <!-- EXPORT -->
     <form method="POST" action="{{ route('BusinessTripRequest.PrintExportReportBusinessTripRequestDetail') }}">
     @csrf
+        <input id="project_code_second_trigger" style="border-radius:0;" name="project_code_second_trigger" class="form-control" size="34" value="<?= $dataReport['dataHeaderOne']['budgetCode'] ?? ''; ?>" readonly hidden>
         <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row align-items-center p-0" style="margin-bottom: 1rem; gap: 0.5rem;">
             <select name="print_type" id="print_type" class="form-control" style="width: max-content;">
                 <option value="PDF">Export PDF</option>

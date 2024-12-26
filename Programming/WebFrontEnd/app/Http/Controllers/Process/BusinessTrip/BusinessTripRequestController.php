@@ -664,8 +664,16 @@ class BusinessTripRequestController extends Controller
     public function PrintExportReportBusinessTripRequestDetail(Request $request) 
     {
         try {
+            $project_code_second_trigger = $request->project_code_second_trigger;
             $dataReport = Session::get("dataReportBusinessTripRequestDetail");
             $print_type = $request->print_type;
+
+            if (!$project_code_second_trigger) {
+                Session::forget("isButtonReportBusinessTripRequestDetailSubmit");
+                Session::forget("dataReportBusinessTripRequestDetail");
+        
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'Budget, Sub Budget, & BRF Number Cannot Be Empty');
+            }
 
             if ($dataReport) {
                 if ($print_type === "PDF") {
