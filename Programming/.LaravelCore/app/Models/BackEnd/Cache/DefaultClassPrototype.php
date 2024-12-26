@@ -343,7 +343,12 @@ namespace App\Models\Cache
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set Data Update');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValueRenewal($varUserSession, $this->varKeyHeader.'::'.$varKey, $varValue);
+                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValueRenewal(
+                        $varUserSession,
+                        $this->varKeyHeader.'::'.$varKey,
+                        $varValue
+                        );
+
                     $varReturn = true;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
