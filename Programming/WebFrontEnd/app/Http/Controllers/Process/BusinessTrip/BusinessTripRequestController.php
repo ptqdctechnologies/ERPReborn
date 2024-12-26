@@ -564,7 +564,6 @@ class BusinessTripRequestController extends Controller
 
             $splitResponse = $getReportAdvanceDetail['data'][0]['document'];
 
-
             $totalAdvance = array_reduce($splitResponse['content']['details']['itemList'], function ($carry, $item) {
                 return $carry + ($item['entities']['priceBaseCurrencyValue'] ?? 0);
             }, 0);
@@ -596,11 +595,9 @@ class BusinessTripRequestController extends Controller
                     'totalBusinessTrip'     => '3890000.00',
                 ],
                 'dataHeaderThree'   => [
-                    'reason'    => 'Silahturahmi PLN JBT dan cari info tender jatiluhur beserta info lain'
-                ]
+                    'reason'    => 'Silahturahmi PLN JBT dan cari info tender batam beserta info lain'
+                ],
             ];
-
-            // dd($compact);
 
             Session::put("isButtonReportBusinessTripRequestDetailSubmit", true);
             Session::put("dataReportBusinessTripRequestDetail", $compact);
