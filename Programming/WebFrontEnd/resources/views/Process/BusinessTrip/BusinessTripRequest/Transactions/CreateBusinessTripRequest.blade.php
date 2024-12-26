@@ -145,7 +145,7 @@
 
                           <!-- DATE COMMANCE TRAVEL -->
                           <div class="row" style="margin-bottom: 1rem;">
-                            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Date Commance Travel</label>
+                            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Date Commence Travel</label>
                             <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                               <div class="input-group" style="width: 95px;">
                                 <input id="dateCommance" name="dateCommance" style="border-radius:0;" type="date" class="form-control">

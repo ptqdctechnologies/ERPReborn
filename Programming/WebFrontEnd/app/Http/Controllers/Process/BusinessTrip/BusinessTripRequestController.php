@@ -546,7 +546,7 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function ReportBusinessTripRequestDetailData($advance_id, $project_code, $site_code, $advance_document)
+    public function ReportBusinessTripRequestDetailData($advance_id, $project_code, $site_code, $advance_document, $project_name, $site_name)
     {
         try {
             $varAPIWebToken         = Session::get('SessionLogin');
@@ -573,6 +573,8 @@ class BusinessTripRequestController extends Controller
                 'dataDetails'   => $splitResponse['content'],
                 'budgetCode'    => $project_code, 
                 'siteCode'      => $site_code,
+                'budgetName'    => $project_name, 
+                'siteName'      => $site_name,
                 'advanceNumber' => $advance_document,
                 'total'         => $totalAdvance
             ];
@@ -592,12 +594,16 @@ class BusinessTripRequestController extends Controller
         try {
             $project_code       = $request->project_code_second;
             $project_id         = $request->project_id_second;
+            $project_name       = $request->project_name_second;
 
             $site_code          = $request->site_code_second;
             $site_id            = $request->site_id_second;
+            $site_name          = $request->site_name_second;
             
             $advance_document   = $request->modal_advance_document_number;
             $advance_id         = $request->modal_advance_id;
+
+            // dd($project_code, $project_id, $site_code, $site_id, $advance_document, $advance_id);
 
             $errors = [];
 
@@ -622,7 +628,7 @@ class BusinessTripRequestController extends Controller
                 return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', $message);
             }
 
-            $compact = $this->ReportBusinessTripRequestDetailData($advance_id, $project_code, $site_code, $advance_document);
+            $compact = $this->ReportBusinessTripRequestDetailData($advance_id, $project_code, $site_code, $advance_document, $project_name, $site_name);
 
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');

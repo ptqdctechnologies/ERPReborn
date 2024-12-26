@@ -53,7 +53,7 @@
                                                                 <label style="margin-right: 1rem;">Budget</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['general']['budget']['combinedBudgetCodeList'][0] . " - " . $dataReport['dataDetails']['general']['budget']['combinedBudgetNameList'][0]; ?>
+                                                                : <?= $dataReport['budgetCode'] . " - " . $dataReport['budgetName']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -61,7 +61,7 @@
                                                                 <label style="margin-right: 1rem;">Sub Budget</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionCodeList'][0] . " - " . $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionNameList'][0]; ?>
+                                                                : <?= $dataReport['siteCode'] . " - " . $dataReport['siteName']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -69,7 +69,7 @@
                                                                 <label style="margin-right: 1rem;">Product</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['product_RefID']; ?>
+                                                                : 820005-0000 (Travel & Fares/Business Trip)
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -82,7 +82,7 @@
                                                     <table>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem; white-space: nowrap;">Date Commance Travel</label>
+                                                                <label style="margin-right: 1rem; white-space: nowrap;">Tanggal Mulai Perjalanan</label>
                                                             </th>
                                                             <td>
                                                                 : 2024-12-18
@@ -90,7 +90,7 @@
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Date End Travel</label>
+                                                                <label style="margin-right: 1rem;">Tanggal Akhir Perjalanan</label>
                                                             </th>
                                                             <td>
                                                                 : 2024-12-20
@@ -98,7 +98,7 @@
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Date BRF</label>
+                                                                <label style="margin-right: 1rem;">Tanggal Pembuatan BRF</label>
                                                             </th>
                                                             <td>
                                                                 : 2024-12-12
@@ -187,14 +187,6 @@
                                                                 : 3,450,000.00
                                                             </td>
                                                         </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Total Payment</label>
-                                                            </th>
-                                                            <td>
-                                                                : 3,890,000.00
-                                                            </td>
-                                                        </tr>
                                                     </table>
                                                 </div>
                                             </div>
@@ -244,7 +236,7 @@
                                         <div class="form-group py-1">
                                             <label class="text-bold" style="margin-right: 1rem;">Reason To Travel</label>
                                             <div class="mt-1" style="line-height: 16px;">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                Silahturahmi PLN JBT dan cari info tender jatiluhur beserta info lain
                                             </div>
                                         </div>
                                     </div>
