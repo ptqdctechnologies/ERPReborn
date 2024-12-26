@@ -106,13 +106,14 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
    :--- | :--- | :--- | :---
    postgresql | http://localhost:15432 | postgresql | http://172.28.0.2:5432
    mysql | http://localhost:13306 | postgresql | http://172.28.0.2:3306
-   apache | http://localhost:10080<br />http://localhost:20080 | php-apache-backend<br />php-apache-frontend | http://172.28.0.3:80<br >http://172.28.0.4:80 
+   apache (HTTPS) | https://localhost:10443<br />https://localhost:20443 | php-apache-backend<br />php-apache-frontend | https://172.28.0.3<br >https://172.28.0.4
+   apache (HTTP) | http://localhost:10080<br />http://localhost:20080 | php-apache-backend<br />php-apache-frontend | http://172.28.0.3<br >http://172.28.0.4 
    redis | http://localhost:16379 | redis | http://172.28.0.5:6379
    samba | http://localhost:10137<br />http://localhost:10138<br />http://localhost:10139<br />http://localhost:10445 | samba | http://172.28.0.7:137<br />http://172.28.0.7:138<br />http://172.28.0.7:139<br />http://172.28.0.7:445
    minio | http://localhost:19000<br />http://localhost:29000<br />http://localhost:39000<br />http://localhost:49000 | minio-node1<br />minio-node2<br />minio-node3<br />minio-node4 | http://172.28.0.9:9000<br />http://172.28.0.10:9000<br />http://172.28.0.11:9000<br />http://172.28.0.12:9000
    grafana | http://localhost:13000 | grafana | http://172.28.0.8:3000
    pgadmin4 | http://localhost:15050 | pgadmin4 | http://172.28.0.100:5050
-   openproject | http://localhost:30080 | openproject | http://172.28.0.102:80
+   openproject | http://localhost:30080 | openproject | http://172.28.0.102
 
 6. Untuk mematikan docker-composer tekan **[Ctrl+C]**
 
