@@ -35,7 +35,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataHeader']['number'] ?? '-'; ?>
+                  <?= $dataReport['dataHeaderOne']['brfNumber']; ?>
                 </div>
               </td>
             </tr>
@@ -48,7 +48,7 @@
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Currency
+                  Tanggal Mulai Perjalanan
                 </div>
               </td>
               <td style="width: 5px;">
@@ -56,7 +56,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'] ?? '-'; ?>
+                  <?= $dataReport['dataHeaderOne']['dateCommence']; ?>
                 </div>
               </td>
             </tr>
@@ -77,7 +77,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'] ?? '-'; ?>
+                  <?= $dataReport['dataHeaderOne']['requester']; ?>
                 </div>
               </td>
             </tr>
@@ -100,7 +100,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['budget']['combinedBudgetCodeList'][0] . " - " . $dataReport['dataDetails']['general']['budget']['combinedBudgetNameList'][0]; ?>
+                  <?= $dataReport['dataHeaderOne']['budgetCode'] . " - " . $dataReport['dataHeaderOne']['budgetName']; ?>
                 </div>
               </td>
             </tr>
@@ -121,7 +121,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerFullName'] ?? '-'; ?>
+                  <?= $dataReport['dataHeaderOne']['dateEnd']; ?>
                 </div>
               </td>
             </tr>
@@ -142,7 +142,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'] ?? '-'; ?>
+                  <?= $dataReport['dataHeaderOne']['beneficiary']; ?>
                 </div>
               </td>
             </tr>
@@ -165,7 +165,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionCodeList'][0] . " - " . $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionNameList'][0]; ?>
+                  <?= $dataReport['dataHeaderOne']['siteCode'] . " - " . $dataReport['dataHeaderOne']['siteName']; ?>
                 </div>
               </td>
             </tr>
@@ -178,7 +178,7 @@
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Tanggal Akhir Perjalanan
+                  Tanggal Pembuatan BRF
                 </div>
               </td>
               <td style="width: 5px;">
@@ -186,7 +186,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerFullName'] ?? '-'; ?>
+                  <?= $dataReport['dataHeaderOne']['dateBRF']; ?>
                 </div>
               </td>
             </tr>
@@ -207,7 +207,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'] ?? '-'; ?>
+                  <?= $dataReport['dataHeaderOne']['departingFrom']; ?>
                 </div>
               </td>
             </tr>
@@ -230,7 +230,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataHeader']['date'] ?? '-'; ?>
+                  <?= $dataReport['dataHeaderOne']['productID']; ?> (<?= $dataReport['dataHeaderOne']['productName']; ?>)
                 </div>
               </td>
             </tr>
@@ -251,7 +251,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  (<?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAcronym']; ?>) <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountNumber']; ?> - <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountName']; ?>
+                  <?= $dataReport['dataHeaderOne']['dateBRF']; ?>
                 </div>
               </td>
             </tr>
@@ -272,7 +272,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'] ?? '-'; ?>
+                  <?= $dataReport['dataHeaderOne']['destinationTo']; ?>
                 </div>
               </td>
             </tr>
@@ -310,7 +310,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  (<?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAcronym']; ?>) <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountNumber']; ?> - <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountName']; ?>
+                  (<?= $dataReport['dataHeaderOne']['bankType']; ?>) <?= $dataReport['dataHeaderOne']['bankAccountNumber']; ?> - <?= $dataReport['dataHeaderOne']['bankAccountName']; ?>
                 </div>
               </td>
             </tr>
@@ -332,8 +332,6 @@
       </tr>
     </table>
 
-    <hr />
-
     <!-- HEADER TWO -->
     <table style="margin: 30px 0px 15px 1px; margin-top: 1rem;">
       <tr>
@@ -351,7 +349,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataHeader']['number'] ?? '-'; ?>
+                  <?= number_format($dataReport['dataHeaderTwo']['totalTransport'], 2, '.', ','); ?>
                 </div>
               </td>
             </tr>
@@ -372,7 +370,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'] ?? '-'; ?>
+                  <?= number_format($dataReport['dataHeaderTwo']['totalAccommodation'], 2, '.', ','); ?>
                 </div>
               </td>
             </tr>
@@ -393,7 +391,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'] ?? '-'; ?>
+                  <?= number_format($dataReport['dataHeaderTwo']['totalBusinessTrip'], 2, '.', ','); ?>
                 </div>
               </td>
             </tr>
@@ -423,7 +421,7 @@
             <tr>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  <?= $dataReport['dataHeaderThree']['reason']; ?>
                 </div>
               </td>
             </tr>
