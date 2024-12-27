@@ -749,7 +749,7 @@ class BusinessTripSettlementController extends Controller
             $splitResponse = $getReportAdvanceDetail['data'][0]['document'];
 
             $totalAdvance = array_reduce($splitResponse['content']['details']['itemList'], function ($carry, $item) {
-                return $carry + ($item['entities']['priceBaseCurrencyValue'] ?? 0);
+                return $carry + ($item['entities']['priceBaseCurrencyValue'] * $item['entities']['quantity'] ?? 0);
             }, 0);
 
             $compact = [

@@ -46,7 +46,7 @@
 <div class="col-sm-12 col-md-12 col-lg-4">
     <!-- ADVANCE NUMBER -->
     <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Advance Number</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">BRF Number</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-start justify-content-md-end">
             <div>
                 <input id="modal_advance_document_number" style="border-radius:0;" name="modal_advance_document_number" class="form-control" size="34" value="<?= $dataReport['advanceNumber'] ?? ''; ?>" readonly>

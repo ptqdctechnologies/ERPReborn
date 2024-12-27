@@ -21,13 +21,13 @@
     <!-- HEADER -->
     <table style="margin: 30px 0px 15px 1px;">
       <tr>
-        <!-- ADVANCE NUMBER -->
+        <!-- BRF NUMBER -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Advance Number
+                  BRF Number
                 </div>
               </td>
               <td style="width: 5px;">
@@ -35,7 +35,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataHeader']['number'] ?? '-'; ?>
+                  <?= 'BRF-24000201' ?? $dataReport['dataHeader']['number']; ?>
                 </div>
               </td>
             </tr>

@@ -41,10 +41,10 @@
                                                     <table>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Advance Number</label>
+                                                                <label style="margin-right: 1rem;">BRF Number</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataHeader']['number'] ?? '-'; ?>
+                                                                : <?= 'BRF-24000201' ?? $dataReport['dataHeader']['number']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
