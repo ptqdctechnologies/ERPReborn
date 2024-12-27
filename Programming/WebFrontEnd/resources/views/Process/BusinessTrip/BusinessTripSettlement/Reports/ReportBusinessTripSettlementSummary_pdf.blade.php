@@ -35,7 +35,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="line-height: 14px; font-size: 12px;">
-                  <?= $dataReport['budgetCode']; ?>
+                  <?= $dataReport['budgetCode'] . ' - ' . $dataReport['budgetName']; ?>
                 </div>
               </td>
             </tr>

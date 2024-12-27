@@ -75,8 +75,8 @@
                                                         <td><?= $counter++; ?></td>
                                                         <td><?= $dataDetail['DocumentNumber']; ?></td>
                                                         <td><?= $dataDetail['CombinedBudgetSectionName']; ?></td>
-                                                        <td>Jakarta</td>
-                                                        <td>Batam</td>
+                                                        <td><?= $dataDetail['DepartingFrom']; ?></td>
+                                                        <td><?= $dataDetail['DestinationTo']; ?></td>
                                                         <td><?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?></td>
                                                         <td><?= number_format(50000, 2, '.', ','); ?></td>
                                                         <td><?= number_format(200000, 2, '.', ','); ?></td>
