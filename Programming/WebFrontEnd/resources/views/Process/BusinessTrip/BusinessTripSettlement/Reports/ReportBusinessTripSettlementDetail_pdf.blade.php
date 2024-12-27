@@ -65,13 +65,13 @@
       </tr>
 
       <tr>
-        <!-- BUDGET -->
+        <!-- DATE -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Budget
+                  Date
                 </div>
               </td>
               <td style="width: 5px;">
@@ -79,7 +79,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['budgetCode'] . " - " . $dataReport['budgetName']; ?>
+                  <?= $dataReport['dataHeader']['date'] ?? '-'; ?>
                 </div>
               </td>
             </tr>
@@ -109,13 +109,13 @@
       </tr>
 
       <tr>
-        <!-- SUB BUDGET -->
+        <!-- BUDGET -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Sub Budget
+                  Budget
                 </div>
               </td>
               <td style="width: 5px;">
@@ -123,7 +123,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['siteCode'] . " - " . $dataReport['siteName']; ?>
+                  <?= $dataReport['budgetCode'] . " - " . $dataReport['budgetName']; ?>
                 </div>
               </td>
             </tr>
@@ -153,13 +153,13 @@
       </tr>
 
       <tr>
-        <!-- DATE -->
+        <!-- SUB BUDGET -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Date
+                  Sub Budget
                 </div>
               </td>
               <td style="width: 5px;">
@@ -167,7 +167,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataHeader']['date'] ?? '-'; ?>
+                  <?= $dataReport['siteCode'] . " - " . $dataReport['siteName']; ?>
                 </div>
               </td>
             </tr>
