@@ -60,7 +60,7 @@
                                                                 <label style="margin-right: 1rem;">Budget</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['general']['budget']['combinedBudgetCodeList'][0] . " - " . $dataReport['dataDetails']['general']['budget']['combinedBudgetNameList'][0]; ?>
+                                                                : <?= $dataReport['budgetCode'] . " - " . $dataReport['budgetName']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -68,7 +68,7 @@
                                                                 <label style="margin-right: 1rem;">Sub Budget</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionCodeList'][0] . " - " . $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionNameList'][0]; ?>
+                                                                : <?= $dataReport['siteCode'] . " - " . $dataReport['siteName']; ?>
                                                             </td>
                                                         </tr>
                                                     </table>

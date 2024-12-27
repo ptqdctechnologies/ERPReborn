@@ -43,8 +43,8 @@ class ExportReportBusinessTripSettlementDetail implements FromCollection, WithHe
             [date('h:i A')],
             ["BRF Number", ": " . 'BRF-24000201' ?? $data['budgetCode'], "Currency", ": " . $data['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'], "", "", "", "", "", "", ""],
             ["Date", ": " . $data['dataHeader']['date'], "Requester", ": " . $data['dataDetails']['general']['involvedPersons'][0]['requesterWorkerFullName'], "", "", "", "", "", "", ""],
-            ["Budget", ": " . $data['dataDetails']['general']['budget']['combinedBudgetCodeList'][0] . " - " . $data['dataDetails']['general']['budget']['combinedBudgetNameList'][0], "Beneficiary", ": " . $data['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'], "", "", "", "", "", "", ""],
-            ["Sub Budget", ": " . $data['dataDetails']['general']['budget']['combinedBudgetSectionCodeList'][0] . " - " . $data['dataDetails']['general']['budget']['combinedBudgetSectionNameList'][0], "Bank Account", ": " . "(" . $data['dataDetails']['general']['bankAccount']['beneficiary']['bankAcronym'] . ") " . $data['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountNumber'] . " - " . $data['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountName'], "", "", "", "", "", "", ""],
+            ["Budget", ": " . $data['budgetCode'] . " - " . $data['budgetName'], "Beneficiary", ": " . $data['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'], "", "", "", "", "", "", ""],
+            ["Sub Budget", ": " . $data['siteCode'] . " - " . $data['siteName'], "Bank Account", ": " . "(" . $data['dataDetails']['general']['bankAccount']['beneficiary']['bankAcronym'] . ") " . $data['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountNumber'] . " - " . $data['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountName'], "", "", "", "", "", "", ""],
             ["", "", "", "", "", ""],
             ["No", "Product ID", "Description & Spesifications", "Qty", "Unit Price", "Total Advance"]
         ];

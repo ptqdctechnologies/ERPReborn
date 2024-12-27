@@ -79,7 +79,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['budget']['combinedBudgetCodeList'][0] . " - " . $dataReport['dataDetails']['general']['budget']['combinedBudgetNameList'][0]; ?>
+                  <?= $dataReport['budgetCode'] . " - " . $dataReport['budgetName']; ?>
                 </div>
               </td>
             </tr>
@@ -123,7 +123,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionCodeList'][0] . " - " . $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionNameList'][0]; ?>
+                  <?= $dataReport['siteCode'] . " - " . $dataReport['siteName']; ?>
                 </div>
               </td>
             </tr>

@@ -730,7 +730,7 @@ class BusinessTripSettlementController extends Controller
         }
     }
 
-    public function ReportBusinessTripSettlementDetailData($advance_id, $project_code, $site_code, $advance_document)
+    public function ReportBusinessTripSettlementDetailData($advance_id, $project_code, $site_code, $advance_document, $project_name_second, $site_name_second)
     {
         try {
             $varAPIWebToken         = Session::get('SessionLogin');
@@ -756,7 +756,9 @@ class BusinessTripSettlementController extends Controller
                 'dataHeader'    => $splitResponse['header'],
                 'dataDetails'   => $splitResponse['content'],
                 'budgetCode'    => $project_code, 
+                'budgetName'    => $project_name_second,
                 'siteCode'      => $site_code,
+                'siteName'      => $site_name_second,
                 'advanceNumber' => $advance_document,
                 'total'         => $totalAdvance
             ];
@@ -774,11 +776,13 @@ class BusinessTripSettlementController extends Controller
     public function ReportBusinessTripSettlementDetailStore(Request $request) 
     {
         try {
-            $project_code       = $request->project_code_second;
-            $project_id         = $request->project_id_second;
+            $project_code           = $request->project_code_second;
+            $project_id             = $request->project_id_second;
+            $project_name_second    = $request->project_name_second;
 
-            $site_code          = $request->site_code_second;
-            $site_id            = $request->site_id_second;
+            $site_code              = $request->site_code_second;
+            $site_id                = $request->site_id_second;
+            $site_name_second       = $request->site_name_second;
             
             $advance_document   = $request->modal_advance_document_number;
             $advance_id         = $request->modal_advance_id;
@@ -806,7 +810,7 @@ class BusinessTripSettlementController extends Controller
                 return redirect()->route('BusinessTripSettlement.ReportBusinessTripSettlementDetail')->with('NotFound', $message);
             }
 
-            $compact = $this->ReportBusinessTripSettlementDetailData($advance_id, $project_code, $site_code, $advance_document);
+            $compact = $this->ReportBusinessTripSettlementDetailData($advance_id, $project_code, $site_code, $advance_document, $project_name_second, $site_name_second);
 
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
