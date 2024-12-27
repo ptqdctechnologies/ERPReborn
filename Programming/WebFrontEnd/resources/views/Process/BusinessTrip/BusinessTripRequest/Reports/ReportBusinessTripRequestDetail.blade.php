@@ -109,7 +109,7 @@
                                                                 <label style="margin-right: 1rem;">Contact Phone</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataHeaderOne']['dateBRF']; ?>
+                                                                : <?= $dataReport['dataHeaderOne']['contactPhone']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>

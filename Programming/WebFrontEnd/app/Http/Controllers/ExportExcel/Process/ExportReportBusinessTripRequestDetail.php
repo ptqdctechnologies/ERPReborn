@@ -133,7 +133,7 @@ class ExportReportBusinessTripRequestDetail implements FromCollection, WithHeadi
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('D7', ': ' . $data['dataHeaderOne']['dateBRF']);
+                $sheet->setCellValue('D7', ': ' . $data['dataHeaderOne']['contactPhone']);
 
                 $sheet->setCellValue('C8', 'Bank Account')->getStyle('C8')->applyFromArray([
                     'font'  => [

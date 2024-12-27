@@ -251,7 +251,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataHeaderOne']['dateBRF']; ?>
+                  <?= $dataReport['dataHeaderOne']['contactPhone']; ?>
                 </div>
               </td>
             </tr>

@@ -590,7 +590,7 @@ class BusinessTripRequestController extends Controller
                     'dateCommence'      => '2024-12-18',
                     'dateEnd'           => '2024-12-20',
                     'dateBRF'           => '2024-12-12',
-                    'contactPerson'     => '0896734873',
+                    'contactPhone'      => '0896734873',
                     'bankType'          => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAcronym'],
                     'bankAccountNumber' => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAccountNumber'],
                     'bankAccountName'   => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAccountName'],
