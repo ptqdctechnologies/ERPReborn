@@ -27,8 +27,8 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
                 'Departing From'                    => $item['DepartingFrom'] ?? null,
                 'Destination To'                    => $item['DestinationTo'] ?? null,
                 'Date'                              => date('d-m-Y', strtotime($item['DocumentDateTimeTZ'])) ?? null,
-                'Total Expense Claim Cart'          => 50000,
-                'Total Amount Due to Company Cart'  => 200000,
+                'Total Expense Claim Cart'          => $item['TotalExpenseClaimCart'] ?? null,
+                'Total Amount Due to Company Cart'  => $item['TotalAmountDueToCompanyCart'] ?? null,
                 'Total BSF'                         => $item['TotalAdvance'] ?? null,
                 'Currency'                          => $item['CurrencyName'] ?? null,
                 'Requester'                         => $item['RequesterWorkerName'] ?? null,
@@ -157,12 +157,14 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
         $lastCell = 'A7:M' . $totalCell + 6;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
-        $total = $datas['total'];
+        $totalExpense   = $datas['totalExpense'];
+        $totalAmount    = $datas['totalAmount'];
+        $total          = $datas['total'];
 
         $sheet->insertNewRowBefore($totalCell + 7, 1);
         $sheet->setCellValue('A' . $totalCell + 7, "GRAND TOTAL");
-        $sheet->setCellValue('G' . $totalCell + 7, 50000);
-        $sheet->setCellValue('H' . $totalCell + 7, 200000);
+        $sheet->setCellValue('G' . $totalCell + 7, $totalExpense);
+        $sheet->setCellValue('H' . $totalCell + 7, $totalAmount);
         $sheet->setCellValue('I' . $totalCell + 7, $total);
         $sheet->mergeCells('A' . $totalCell + 7 . ':' . 'D' . $totalCell + 7);
 

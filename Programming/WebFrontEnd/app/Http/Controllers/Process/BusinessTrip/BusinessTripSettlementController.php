@@ -506,6 +506,8 @@ class BusinessTripSettlementController extends Controller
                     "DocumentNumber"                      => "BRF-24000203",
                     "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
                     "TotalAdvance"                        => "110000.00",
+                    "TotalExpenseClaimCart"               => "213932.00",
+                    "TotalAmountDueToCompanyCart"         => "723832.00",
                     "Sys_ID"                              => 76000000000054,
                     "CombinedBudgetCode"                  => "Q000062",
                     "CombinedBudgetName"                  => "XL Microcell 2007",
@@ -527,6 +529,8 @@ class BusinessTripSettlementController extends Controller
                     "DocumentNumber"                      => "BRF-24000202",
                     "DocumentDateTimeTZ"                  => "2024-12-04 00:00:00+07",
                     "TotalAdvance"                        => "406982.00",
+                    "TotalExpenseClaimCart"               => "456123.00",
+                    "TotalAmountDueToCompanyCart"         => "981273.00",
                     "Sys_ID"                              => 76000000000054,
                     "CombinedBudgetCode"                  => "Q000062",
                     "CombinedBudgetName"                  => "XL Microcell 2007",
@@ -548,6 +552,8 @@ class BusinessTripSettlementController extends Controller
                     "DocumentNumber"                      => "BRF-24000201",
                     "DocumentDateTimeTZ"                  => "2024-12-03 00:00:00+07",
                     "TotalAdvance"                        => "1200000.00",
+                    "TotalExpenseClaimCart"               => "6712398.00",
+                    "TotalAmountDueToCompanyCart"         => "1652833.00",
                     "Sys_ID"                              => 76000000000054,
                     "CombinedBudgetCode"                  => "Q000062",
                     "CombinedBudgetName"                  => "XL Microcell 2007",
@@ -569,6 +575,8 @@ class BusinessTripSettlementController extends Controller
                     "DocumentNumber"                      => "BRF-24000200",
                     "DocumentDateTimeTZ"                  => "2024-12-02 00:00:00+07",
                     "TotalAdvance"                        => "6000000.00",
+                    "TotalExpenseClaimCart"               => "6571282.00",
+                    "TotalAmountDueToCompanyCart"         => "7912392.00",
                     "Sys_ID"                              => 76000000000054,
                     "CombinedBudgetCode"                  => "Q000062",
                     "CombinedBudgetName"                  => "XL Microcell 2007",
@@ -603,6 +611,14 @@ class BusinessTripSettlementController extends Controller
                 return $carry + ($item['TotalAdvance'] ?? 0);
             }, 0);
 
+            $totalExpense = array_reduce($reportData, function ($carry, $item) {
+                return $carry + ($item['TotalExpenseClaimCart'] ?? 0);
+            }, 0);
+
+            $totalAmount = array_reduce($reportData, function ($carry, $item) {
+                return $carry + ($item['TotalAmountDueToCompanyCart'] ?? 0);
+            }, 0);
+
             $compact = [
                 // 'dataDetail'        => $filteredData,
                 'dataDetail'        => $reportData,
@@ -612,6 +628,8 @@ class BusinessTripSettlementController extends Controller
                 'requesterName'     => $requester_name,
                 'beneficiaryName'   => $beneficiary_name,
                 'total'             => $totalAdvance,
+                'totalExpense'      => $totalExpense,
+                'totalAmount'       => $totalAmount,
             ];
 
             Session::put("isButtonReportReportBusinessTripSettlementSummarySubmit", true);

@@ -78,8 +78,8 @@
                                                         <td><?= $dataDetail['DepartingFrom']; ?></td>
                                                         <td><?= $dataDetail['DestinationTo']; ?></td>
                                                         <td><?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?></td>
-                                                        <td><?= number_format(50000, 2, '.', ','); ?></td>
-                                                        <td><?= number_format(200000, 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalExpenseClaimCart'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalAmountDueToCompanyCart'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['TotalAdvance'], 2, '.', ','); ?></td>
                                                         <td><?= $dataDetail['CurrencyName']; ?></td>
                                                         <td><?= $dataDetail['RequesterWorkerName']; ?></td>
@@ -91,8 +91,8 @@
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="6" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(50000, 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(200000, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalExpense'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalAmount'], 2, '.', ','); ?></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['total'], 2, '.', ','); ?></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;background-color:#4B586A;"></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;background-color:#4B586A;"></th>

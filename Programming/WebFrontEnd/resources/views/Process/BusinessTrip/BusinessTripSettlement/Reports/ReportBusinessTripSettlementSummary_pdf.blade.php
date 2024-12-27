@@ -134,12 +134,12 @@
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              Jakarta
+              <?= $dataDetail['DepartingFrom']; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              Batam
+              <?= $dataDetail['DestinationTo']; ?>
             </div>
           </td>
           <td>
@@ -149,12 +149,12 @@
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format(50000, 2, '.', ','); ?>
+              <?= number_format($dataDetail['TotalExpenseClaimCart'], 2, '.', ','); ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format(200000, 2, '.', ','); ?>
+              <?= number_format($dataDetail['TotalAmountDueToCompanyCart'], 2, '.', ','); ?>
             </div>
           </td>
           <td>
@@ -192,10 +192,10 @@
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL</div>
         </td>
         <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format(50000, 2, '.', ','); ?></div>
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalExpense'], 2, '.', ','); ?></div>
         </td>
         <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format(200000, 2, '.', ','); ?></div>
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalAmount'], 2, '.', ','); ?></div>
         </td>
         <td style="height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['total'], 2, '.', ','); ?></div>
