@@ -124,12 +124,12 @@
             </td>
             <td>
               <div style="margin-top: 4px; font-size: 12px;">
-                Jakarta
+                <?= $dataDetail['DepartingFrom']; ?>
               </div>
             </td>
             <td>
               <div style="margin-top: 4px; font-size: 12px;">
-                Batam
+                <?= $dataDetail['DestinationTo']; ?>
               </div>
             </td>
             <td>

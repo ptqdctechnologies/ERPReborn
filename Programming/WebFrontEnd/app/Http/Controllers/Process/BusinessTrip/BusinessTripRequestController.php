@@ -343,7 +343,9 @@ class BusinessTripRequestController extends Controller
                     "Product_ID"                          => 88000000000527,
                     "CombinedBudget_RefID"                => 46000000000033,
                     "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => ""
+                    "remark"                              => "",
+                    "DepartingFrom"                       => "Jakarta",
+                    "DestinationTo"                       => "Batam"
                 ],
                 [
                     "DocumentNumber"                      => "BRF-24000202",
@@ -362,7 +364,9 @@ class BusinessTripRequestController extends Controller
                     "Product_ID"                          => 88000000000527,
                     "CombinedBudget_RefID"                => 46000000000033,
                     "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => "BT Pak Sagala presentasi HTLS Batam"
+                    "remark"                              => "BT Pak Sagala presentasi HTLS Batam",
+                    "DepartingFrom"                       => "Jakarta",
+                    "DestinationTo"                       => "Batam"
                 ],
                 [
                     "DocumentNumber"                      => "BRF-24000201",
@@ -381,7 +385,9 @@ class BusinessTripRequestController extends Controller
                     "Product_ID"                          => 88000000000527,
                     "CombinedBudget_RefID"                => 46000000000033,
                     "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => ""
+                    "remark"                              => "",
+                    "DepartingFrom"                       => "Jakarta",
+                    "DestinationTo"                       => "Batam"
                 ],
                 [
                     "DocumentNumber"                      => "BRF-24000200",
@@ -400,7 +406,9 @@ class BusinessTripRequestController extends Controller
                     "Product_ID"                          => 88000000000527,
                     "CombinedBudget_RefID"                => 46000000000033,
                     "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => "BT Pak Sagala presentasi HTLS Batam"
+                    "remark"                              => "BT Pak Sagala presentasi HTLS Batam",
+                    "DepartingFrom"                       => "Jakarta",
+                    "DestinationTo"                       => "Batam"
                 ],
             ];
 

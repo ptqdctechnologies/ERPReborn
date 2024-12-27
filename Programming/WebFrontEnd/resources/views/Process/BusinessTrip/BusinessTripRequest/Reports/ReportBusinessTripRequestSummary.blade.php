@@ -73,8 +73,8 @@
                                                         <td><?= $counter++; ?></td>
                                                         <td><?= $dataDetail['DocumentNumber']; ?></td>
                                                         <td><?= $dataDetail['CombinedBudgetSectionName']; ?></td>
-                                                        <td>Jakarta</td>
-                                                        <td>Batam</td>
+                                                        <td><?= $dataDetail['DepartingFrom']; ?></td>
+                                                        <td><?= $dataDetail['DestinationTo']; ?></td>
                                                         <td><?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?></td>
                                                         <td><?= number_format($dataDetail['TotalAdvance'], 2, '.', ','); ?></td>
                                                         <td><?= $dataDetail['CurrencyName']; ?></td>
