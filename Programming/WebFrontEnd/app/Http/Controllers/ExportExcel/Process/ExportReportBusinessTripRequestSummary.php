@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Events\BeforeSheet;
 
 class ExportReportBusinessTripRequestSummary implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
@@ -40,15 +41,34 @@ class ExportReportBusinessTripRequestSummary implements FromCollection, WithHead
 
     public function headings(): array
     {
+        $data = Session::get("dataReportBusinessTripRequestSummary");
+
         return [
-            ["BUSINESS TRIP REQUEST SUMMARY", " ", " ", " ", " ", " ", " "],
-            ["", "", "", "", "", "", ""],
-            ["No", "BRF Number", "Sub Budget", "Departing From", "Destination To", "Date", "Total", "Currency", "Requester", "Beneficiary", "Remark"]
+            [date('F j, Y')],
+            ["BUSINESS TRIP REQUEST SUMMARY"],
+            [date('h:i A')],
+            ["Budget", ": " . $data['budgetCode'] . ' - ' . $data['budgetName'], "", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", ""],
+            ["No", "BRF Number", "Sub Budget", "Departing From", "Destination To", "Date", "Total", "Currency", "Requester", "Beneficiary", "Remark"],
         ];
     }
 
     public function styles(Worksheet $sheet)
     {
+        $styleArrayHeader0 = [
+            'font' => [
+                'bold' => true,
+                'color' => [
+                    'rgb' => '000000',
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_RIGHT,
+            ]
+        ];
+        $sheet->getStyle('A1:K1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:K1');
+
         $styleArrayHeader1 = [
             'font' => [
                 'bold' => true,
@@ -61,9 +81,35 @@ class ExportReportBusinessTripRequestSummary implements FromCollection, WithHead
             ]
         ];
 
-        $sheet->getStyle('A1:K1')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A1:K1');
+        $sheet->getStyle('A2:K2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:K2');
 
+        $styleArrayHeader = [
+            'font' => [
+                'bold' => true,
+                'color' => [
+                    'rgb' => '000000',
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_RIGHT,
+            ]
+        ];
+        $sheet->getStyle('A3:K3')->applyFromArray($styleArrayHeader);
+        $sheet->mergeCells('A3:K3');
+
+        $styleArrayHeader4 = [
+            'font' => [
+                'bold' => true,
+                'color' => [
+                    'rgb' => '000000',
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_LEFT,
+            ]
+        ];
+        $sheet->getStyle('A4:K4')->applyFromArray($styleArrayHeader4);
 
         $styleArrayHeader2 = [
             'font' => [
@@ -89,7 +135,7 @@ class ExportReportBusinessTripRequestSummary implements FromCollection, WithHead
             ],
         ];
 
-        $sheet->getStyle('A3:K3')->applyFromArray($styleArrayHeader2);
+        $sheet->getStyle('A6:K6')->applyFromArray($styleArrayHeader2);
 
         $styleArrayContent = [
             'borders' => [
@@ -104,15 +150,15 @@ class ExportReportBusinessTripRequestSummary implements FromCollection, WithHead
 
         $datas = Session::get("dataReportBusinessTripRequestSummary");
         $totalCell = count($datas['dataDetail']);
-        $lastCell = 'A4:K' . $totalCell + 3;
+        $lastCell = 'A7:K' . $totalCell + 6;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
         $total = $datas['total'];
 
-        $sheet->insertNewRowBefore($totalCell + 4, 1);
-        $sheet->setCellValue('A' . $totalCell + 4, "GRAND TOTAL");
-        $sheet->setCellValue('G' . $totalCell + 4, $total);
-        $sheet->mergeCells('A' . $totalCell + 4 . ':' . 'D' . $totalCell + 4);
+        $sheet->insertNewRowBefore($totalCell + 7, 1);
+        $sheet->setCellValue('A' . $totalCell + 7, "GRAND TOTAL");
+        $sheet->setCellValue('G' . $totalCell + 7, $total);
+        $sheet->mergeCells('A' . $totalCell + 7 . ':' . 'D' . $totalCell + 7);
 
         $styleArrayFooter = [
             'font' => [
@@ -133,7 +179,7 @@ class ExportReportBusinessTripRequestSummary implements FromCollection, WithHead
             ],
         ];
 
-        $sheet->getStyle('A' . $totalCell + 4 . ':' . 'K' . $totalCell + 4)->applyFromArray($styleArrayFooter);
+        $sheet->getStyle('A' . $totalCell + 7 . ':' . 'K' . $totalCell + 7)->applyFromArray($styleArrayFooter);
 
     }
 }
