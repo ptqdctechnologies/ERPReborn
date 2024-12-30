@@ -382,8 +382,8 @@
       success: function(data) {
         const datas = [
           {
-            product_RefID: 88000000003486,
-            productName: "Business Trip",
+            product_RefID: "710006-0000",
+            productName: "Transportation & Operational",
             quantity: 2,
             priceBaseCurrencyValue: 3000000,
             quantityRemaining: 1,
@@ -391,8 +391,8 @@
             currentBudget: 6000000,
           },
           {
-            product_RefID: 88000000003487,
-            productName: "Travel and Fares",
+            product_RefID: "820005-0000",
+            productName: "Travel & Fares/Business Trip",
             quantity: 1,
             priceBaseCurrencyValue: 2500000,
             quantityRemaining: 0,

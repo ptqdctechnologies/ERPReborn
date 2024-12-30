@@ -185,7 +185,7 @@ class FunctionController extends Controller
             'latest',
             [
                 'parameter' => [
-                    'combinedBudgetSection_RefID' => (int)$site_code,
+                    'combinedBudgetSection_RefID' => (int) $site_code,
                 ],
                 'SQLStatement' => [
                     'pick' => null,
