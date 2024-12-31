@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
 use PDO;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class BudgetExpenseGroupController extends Controller
 {
@@ -18,8 +20,8 @@ class BudgetExpenseGroupController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.read.dataList.budgeting.getBudgetExpenseGroup', 
         'latest', 
@@ -55,8 +57,8 @@ class BudgetExpenseGroupController extends Controller
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.create.budgeting.setBudgetExpenseGroup', 
         'latest', 
@@ -94,8 +96,8 @@ class BudgetExpenseGroupController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.read.dataRecord.budgeting.getBudgetExpenseGroup', 
         'latest', 
@@ -117,8 +119,8 @@ class BudgetExpenseGroupController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.update.budgeting.setBudgetExpenseGroup', 
         'latest', 
@@ -145,8 +147,8 @@ class BudgetExpenseGroupController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.delete.budgeting.setBudgetExpenseGroup', 
         'latest', 
