@@ -8,6 +8,8 @@ use Alert;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class ApprovalDocumentController extends Controller
 {
@@ -19,8 +21,8 @@ class ApprovalDocumentController extends Controller
 
 
         $varAPIWebToken = Session::get('SessionLogin');
-        $varDataApprovalAcceptation = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataApprovalAcceptation = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'userAction.documentWorkFlow.approvalStage.setUserApprovalAcceptation',
             'latest',
@@ -34,8 +36,8 @@ class ApprovalDocumentController extends Controller
         );
         
 
-        $varDataNextApprover = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataNextApprover = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'userAction.documentWorkFlow.approvalStage.getCurrentAndNextStage',
             'latest',
@@ -76,8 +78,8 @@ class ApprovalDocumentController extends Controller
         $submitter_ID = $request->input('submitter_ID');
         $varAPIWebToken = Session::get('SessionLogin');
 
-        $varDataApprovalRejected = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataApprovalRejected = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'userAction.documentWorkFlow.approvalStage.setUserApprovalRejection',
             'latest',

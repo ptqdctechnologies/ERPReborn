@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 
 class CheckDocumentController extends Controller
 {
@@ -38,8 +41,8 @@ class CheckDocumentController extends Controller
 
         $varAPIWebToken = Session::get('SessionLogin');
         $fileAttachment =
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataResume.master.getBusinessDocumentFormAndLinkageFileUpload',
                 'latest',
@@ -71,8 +74,8 @@ class CheckDocumentController extends Controller
             $varAPIWebToken = Session::get('SessionLogin');
 
             // if (Redis::get("DataListAdvanceDetailComplex") == null) {
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.finance.getAdvanceDetailComplex',
                 'latest',
@@ -92,8 +95,8 @@ class CheckDocumentController extends Controller
             // }
 
             $DataAdvanceDetailComplex = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
                     "DataListAdvanceDetailComplex"
                 ),
                 true
@@ -129,8 +132,8 @@ class CheckDocumentController extends Controller
 
                 // if (Redis::get("ApprovementHistoryList". $businessDocument_ID) == null) {
                 // dd("d");
-                $DataWorkflowHistory = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $DataWorkflowHistory = Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'userAction.documentWorkFlow.approvalStage.getApprovementHistoryList',
                     'latest',
@@ -145,8 +148,8 @@ class CheckDocumentController extends Controller
 
 
                 // $DataWorkflowHistory = json_decode(
-                //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                //     Helper_Redis::getValue(
+                //         Helper_Environment::getUserSessionID_System(),
                 //         "ApprovementHistoryList" . $businessDocument_ID
                 //     ),
                 //     true
@@ -283,8 +286,8 @@ class CheckDocumentController extends Controller
 
         // if (Redis::get("CheckDocumentTypeID" . $DocumentType) == null) {
         $varAPIWebToken = Session::get('SessionLogin');
-        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'report.form.resume.master.getBusinessDocumentFilterByDocumentTypeID',
             'latest',
@@ -298,8 +301,8 @@ class CheckDocumentController extends Controller
         // }
 
         $varData = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "CheckDocumentTypeID" . $DocumentTypeID
             ),
             true
@@ -324,8 +327,8 @@ class CheckDocumentController extends Controller
 
         $varAPIWebToken = Session::get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataWarehouse.read.dataList.log.getTransactionHistory',
             'latest',
