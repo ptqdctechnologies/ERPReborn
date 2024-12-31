@@ -5,6 +5,8 @@ namespace App\Http\Controllers\HumanResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class PieceMealController extends Controller
 {
@@ -23,7 +25,6 @@ class PieceMealController extends Controller
 
         return view('HumanResources.PieceMeal.Transactions.CreatePieceMeal', $compact);
     }
-
 
     public function StoreValidatePieceMeal(Request $request)
     {
@@ -85,8 +86,8 @@ class PieceMealController extends Controller
         //     ];
         // }
 
-        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        // $varData = Helper_APICall::setCallAPIGateway(
+        //     Helper_Environment::getUserSessionID_System(),
         //     $varAPIWebToken, 
         //     'transaction.create.finance.setAdvance', 
         //     'latest', 
@@ -114,11 +115,12 @@ class PieceMealController extends Controller
 
         return response()->json($compact);
     }
+
     public function PieceMealListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataPurchaseRequisition = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataPurchaseRequisition = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.supplyChain.getPurchaseRequisition',
             'latest',
@@ -141,8 +143,8 @@ class PieceMealController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPieceMeal");
 
-        $varDataProcReqRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataProcReqRevision = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'report.form.documentForm.supplyChain.getPurchaseRequisition',
             'latest',
@@ -167,8 +169,8 @@ class PieceMealController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $var_recordID = $request->input('var_recordID');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
             'latest',
@@ -214,8 +216,8 @@ class PieceMealController extends Controller
         //         ];
         //     }
         // }
-        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        // $varData = Helper_APICall::setCallAPIGateway(
+        //     Helper_Environment::getUserSessionID_System(),
         //     $varAPIWebToken, 
         //     'transaction.update.finance.setAdvance', 
         //     'latest', 
