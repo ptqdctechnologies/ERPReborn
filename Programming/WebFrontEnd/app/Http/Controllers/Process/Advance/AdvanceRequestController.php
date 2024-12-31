@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 
 class AdvanceRequestController extends Controller
 {
@@ -30,8 +33,8 @@ class AdvanceRequestController extends Controller
             if (Redis::get("DocumentType") == null) {
 
                 $varAPIWebToken = Session::get('SessionLogin');
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'transaction.read.dataList.master.getBusinessDocumentType',
                     'latest',
@@ -49,8 +52,8 @@ class AdvanceRequestController extends Controller
             }
 
             $DocumentType = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
                     "DocumentType"
                 ),
                 true
@@ -109,8 +112,8 @@ class AdvanceRequestController extends Controller
                     ]
                 ];
             }
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.create.finance.setAdvance',
                 'latest',
@@ -155,8 +158,8 @@ class AdvanceRequestController extends Controller
             $varAPIWebToken = Session::get('SessionLogin');
 
             // DATA REVISION ADVANCE
-            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $filteredArray = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.finance.getAdvanceReport',
                 'latest',
@@ -221,8 +224,8 @@ class AdvanceRequestController extends Controller
                 }
             }
 
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.update.finance.setAdvance',
                 'latest',
@@ -272,8 +275,8 @@ class AdvanceRequestController extends Controller
 
             // if (Redis::get("DataListAdvance") == null) {
                 $varAPIWebToken = Session::get('SessionLogin');
-                $DataListAdvance = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $DataListAdvance = Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'transaction.read.dataList.finance.getAdvance',
                     'latest',
@@ -291,8 +294,8 @@ class AdvanceRequestController extends Controller
             // }
 
             // $DataListAdvance = json_decode(
-            //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-            //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            //     Helper_Redis::getValue(
+            //         Helper_Environment::getUserSessionID_System(),
             //         "DataListAdvance"
             //     ),
             //     true
@@ -347,8 +350,8 @@ class AdvanceRequestController extends Controller
         try {
             $varAPIWebToken = Session::get('SessionLogin');
             // if (Redis::get("ReportAdvanceSummary") == null) {
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'report.form.documentForm.finance.getReportAdvanceSummary',
                     'latest',
@@ -368,8 +371,8 @@ class AdvanceRequestController extends Controller
             // }
 
             $DataReportAdvanceSummary = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
                     "ReportAdvanceSummary"
                 ),
                 true
@@ -515,8 +518,8 @@ class AdvanceRequestController extends Controller
             
             $varAPIWebToken = Session::get('SessionLogin');
 
-            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $filteredArray = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
                 'report.form.documentForm.finance.getAdvance', 
                 'latest',

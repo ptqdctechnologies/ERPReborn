@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 
 class AdvanceSettlementController extends Controller
 {
@@ -124,8 +127,8 @@ class AdvanceSettlementController extends Controller
                 ]
             ];
         }
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.create.finance.setAdvanceSettlement',
             'latest',
@@ -236,8 +239,8 @@ class AdvanceSettlementController extends Controller
         //         ]
         //     ];
         // }
-        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        // $varData = Helper_APICall::setCallAPIGateway(
+        //     Helper_Environment::getUserSessionID_System(),
         //     $varAPIWebToken,
         //     'transaction.create.finance.setAdvanceSettlement',
         //     'latest',
@@ -318,8 +321,8 @@ class AdvanceSettlementController extends Controller
     {
         $varAPIWebToken = Session::get('SessionLogin');
         // if (Redis::get("DataListAdvanceDetailComplex") == null) {
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.finance.getAdvanceDetailComplex',
                 'latest',
@@ -339,8 +342,8 @@ class AdvanceSettlementController extends Controller
         // }
 
         $DataAdvanceDetailComplex = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "DataListAdvanceDetailComplex"
             ),
             true
@@ -365,8 +368,8 @@ class AdvanceSettlementController extends Controller
         Session::forget("SessionAdvanceSetllementBeneficiaryID");
         if (Redis::get("DataListAdvance") == null) {
             $varAPIWebToken = Session::get('SessionLogin');
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.finance.getAdvance',
                 'latest',
@@ -384,8 +387,8 @@ class AdvanceSettlementController extends Controller
         }
 
         $DataListAdvance = json_decode(
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
                 "DataListAdvance"
             ),
             true
@@ -435,8 +438,8 @@ class AdvanceSettlementController extends Controller
 
             if (Redis::get("DataListAdvance") == null) {
                 $varAPIWebToken = Session::get('SessionLogin');
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'transaction.read.dataList.finance.getAdvance',
                     'latest',
@@ -454,8 +457,8 @@ class AdvanceSettlementController extends Controller
             }
 
             $DataListAdvance = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
                     "DataListAdvance"
                 ),
                 true
@@ -487,8 +490,8 @@ class AdvanceSettlementController extends Controller
     {
         $advance_RefID = $request->input('var_recordID');
         $varAPIWebToken = Session::get('SessionLogin');
-        $varDataAdvanceList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataAdvanceList = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.finance.getAdvanceDetail',
             'latest',
@@ -511,8 +514,8 @@ class AdvanceSettlementController extends Controller
     {
         $var_recordID = $request->input('var_recordID');
         $varAPIWebToken = Session::get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.finance.getAdvanceDetail',
             'latest',
@@ -543,8 +546,8 @@ class AdvanceSettlementController extends Controller
             $varAPIWebToken = Session::get('SessionLogin');
 
             // DATA REVISION ADVANCE
-            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $filteredArray = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.finance.getAdvanceReport',
                 'latest',
@@ -580,8 +583,8 @@ class AdvanceSettlementController extends Controller
         // Session::forget("SessionAdvanceSetllementBeneficiary");
         // Session::forget("SessionAdvanceSetllementBeneficiaryID");
 
-        // $varDataAdvanceSettlementRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        // $varDataAdvanceSettlementRevision = Helper_APICall::setCallAPIGateway(
+        //     Helper_Environment::getUserSessionID_System(),
         //     $varAPIWebToken,
         //     'report.form.documentForm.finance.getAdvance',
         //     'latest',
