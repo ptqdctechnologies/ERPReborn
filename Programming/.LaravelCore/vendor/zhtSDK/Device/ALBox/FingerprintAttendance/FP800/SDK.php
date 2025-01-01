@@ -37,7 +37,13 @@ namespace zhtSDK\Device\ALBox\FingerprintAttendance\FP800
         */
         public function __construct($varUserSession, string $varHostIP, int $varHostPort, string $varDeviceSerialNumber, int $varTimeOutInSeconds = null)
             {
-            $this->init($varUserSession, $varHostIP, $varHostPort, $varDeviceSerialNumber, $varTimeOutInSeconds);
+            $this->init(
+                $varUserSession,
+                $varHostIP,
+                $varHostPort,
+                $varDeviceSerialNumber,
+                $varTimeOutInSeconds
+                );
             }
 
 
@@ -59,9 +65,9 @@ namespace zhtSDK\Device\ALBox\FingerprintAttendance\FP800
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function init($varUserSession, string $varHostIP, int $varHostPort, string $varDeviceSerialNumber, int $varTimeOutInSeconds)
+        private function init($varUserSession, string $varHostIP, int $varHostPort, string $varDeviceSerialNumber, int $varTimeOutInSeconds = null)
             {
-            if(!$varTimeOutInSeconds) {
+            if (!$varTimeOutInSeconds) {
                 $varTimeOutInSeconds=3;
                 }
             $this->varUserSession = $varUserSession;

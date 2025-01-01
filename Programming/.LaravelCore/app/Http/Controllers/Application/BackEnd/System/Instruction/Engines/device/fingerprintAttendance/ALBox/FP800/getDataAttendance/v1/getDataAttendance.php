@@ -63,27 +63,38 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\de
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
+                        //dd($varData);
+                        
                         $varDataSend =
                             (new \zhtSDK\Device\ALBox\FingerprintAttendance\FP800\zhtSDK(
                                 $varUserSession,
                                 $varData['entities']['IPAddress'],
                                 $varData['entities']['port'],
                                 $varData['entities']['serialNumber'],
-                                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varData, 'entities::connectionTimeout') ? $varData['entities']['connectionTimeout'] : 30)
+                                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray(
+                                    $varUserSession,
+                                    $varData,
+                                    'entities::connectionTimeout'
+                                    ) ? $varData['entities']['connectionTimeout'] : 30)
                                 ))->getDataAttendance(
                                     $varData['entities']['timeZoneOffset'], 
                                     $varData['entities']['startDateTime']
                                     );
+                        if (!$varDataSend) {
+                            throw new \Exception('Machine was not respond');
+                            }
 
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
-                        } 
+                        }
+
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Data Retrieval Failed'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());

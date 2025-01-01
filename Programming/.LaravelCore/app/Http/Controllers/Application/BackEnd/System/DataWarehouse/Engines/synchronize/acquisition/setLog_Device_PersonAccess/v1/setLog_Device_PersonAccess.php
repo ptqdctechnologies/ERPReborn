@@ -237,7 +237,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
             {
             try {
                 //--->
-                if(!($varLastRecordDateTimeTZ = (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, $varGoodsIdentity_RefID, '+07')))
+                if (!($varLastRecordDateTimeTZ = (new \App\Models\Database\SchData_Warehouse_Acquisition\General())->getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, $varGoodsIdentity_RefID, '+07')))
                     {
                     $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
                     }

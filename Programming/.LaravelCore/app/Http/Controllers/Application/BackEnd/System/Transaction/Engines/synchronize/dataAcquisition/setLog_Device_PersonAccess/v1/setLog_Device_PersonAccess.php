@@ -63,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!$this->setAttendanceDeviceLog($varUserSession))
+                        if (!$this->setAttendanceDeviceLog($varUserSession))
                             {
                             throw new \Exception();
                             }
@@ -119,7 +119,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                 
                 $varList = [
                         //---> Finger Print : HO Ruang Server
-                        [
+                        /*[
                         'GoodsIdentity_RefID' => 17000000000003,
                         'Device' => 'ALBox_FP800',
                         'HostIP' => '192.168.1.204',
@@ -153,7 +153,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         'HostPort' => 4370,
                         'SerialNumber' => 'AEYU202860056',
                         'TimeZoneOffset' => '+07'
-                        ],
+                        ],*/
                         //---> Finger Print : Gudang Tiga Raksa
                         [
                         'GoodsIdentity_RefID' => 17000000000009,
@@ -162,7 +162,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         'HostPort' => 4370,
                         'SerialNumber' => 'AEYU221060096',
                         'TimeZoneOffset' => '+07'
-                        ],
+                        ]//,*/
 /*
                         //---> Swing Barrier Gate : HO Lantai 1
                         [
@@ -175,7 +175,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         ]*/
                     ];
 
-                for($i=0; $i!=count($varList); $i++)
+                for ($i=0; $i!=count($varList); $i++)
                     {
                     switch($varList[$i]['Device'])
                         {
@@ -234,7 +234,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
             {
             try {
                 //--->
-                if(!($varLastRecordDateTimeTZ = (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, $varGoodsIdentity_RefID, '+07')))
+                if(!($varLastRecordDateTimeTZ = (new \App\Models\Database\SchData_Warehouse_Acquisition\General())->getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, $varGoodsIdentity_RefID, '+07')))
                     {
                     $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
                     }
@@ -254,7 +254,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                     )['data'];
 
                 //--->
-                $varLog_Device_PersonAccessFetch_RefID = (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_Device_PersonAccessFetch())->setDataInsert(
+                $varLog_Device_PersonAccessFetch_RefID = (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_Device_PersonAccessFetch())->setDataInsert(
                     $varUserSession, 
                     null, 
                     (new \App\Models\Database\SchSysConfig\General())->getCurrentYear($varUserSession), 
@@ -270,7 +270,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         {
                         //echo "\nxxx ".$varData[$i]['dateTimeTZ'];
                         //echo "\n ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)." ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ']);
-                        (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_Device_PersonAccess())->setDataInsert(
+                        (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_Device_PersonAccess())->setDataInsert(
                             $varUserSession, 
                             null, 
                             substr($varData[$i]['dateTimeTZ'], 0, 4), 
@@ -292,35 +292,39 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
             {
             try {
                 //--->
-//                if(!($varLastRecordDateTimeTZ = (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, $varGoodsIdentity_RefID, '+07')))
+//                if(!($varLastRecordDateTimeTZ = (new \App\Models\Database\SchData_Warehouse_Acquisition\General())->getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, $varGoodsIdentity_RefID, '+07')))
 //                    {
 //                    $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
 //                    }
 
                 //---> Get Device Data
-                $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'instruction.device.fingerprintAttendance.Solution.x601.getDataAttendance', 
-                    'latest', 
-                    [
-                    'entities' => [
-                        'IPAddress' => $varHostIP,
-                        'port' => $varHostPort, 
-                        'serialNumber' => $varSerialNumber,
-                        'timeZoneOffset' => $varTimeZoneOffset,
-                        'startDateTime' => '2000-01-01'
+                $varData = 
+                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'instruction.device.fingerprintAttendance.Solution.x601.getDataAttendance', 
+                        'latest', 
+                        [
+                        'entities' => [
+                            'IPAddress' => $varHostIP,
+                            'port' => $varHostPort, 
+                            'serialNumber' => $varSerialNumber,
+                            'timeZoneOffset' => $varTimeZoneOffset,
+                            'startDateTime' => '2000-01-01'
+                            ]
                         ]
-                    ]
-                    )['data'];
-                
-                //---> Get Data Synchronization
-                (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_Device_PersonAccess())->setDataSynchronize(
-                    $varUserSession, 
-                    $varGoodsIdentity_RefID, 
-                    json_encode($varData)
-                    );
-                } 
+                        );
+
+                if ($varData['metadata']['HTTPStatusCode'] == 200) {
+                    //---> Get Data Synchronization
+                    (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_Device_PersonAccess())->setDataSynchronize(
+                        $varUserSession, 
+                        $varGoodsIdentity_RefID, 
+                        json_encode($varData)
+                        );
+                    }
+                }
+
             catch (\Exception $ex) {
                 }
             }
@@ -329,35 +333,40 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
         private function getAttendanceDeviceLog_ALBox_FP800(int $varUserSession, string $varAPIWebToken, int $varGoodsIdentity_RefID, string $varHostIP, int $varHostPort, string $varSerialNumber, string $varTimeZoneOffset)
             {
             try {
-//                if(!($varLastRecordDateTimeTZ = (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, $varGoodsIdentity_RefID, '+07')))
+//                if(!($varLastRecordDateTimeTZ = (new \App\Models\Database\SchData_Warehouse_Acquisition\General())->getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, $varGoodsIdentity_RefID, '+07')))
 //                    {
 //                    $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
 //                    }
 
                 //---> Get Device Data
-                $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'instruction.device.fingerprintAttendance.ALBox.FP800.getDataAttendance', 
-                    'latest', 
-                    [
-                    'entities' => [
-                        'IPAddress' => $varHostIP,
-                        'port' => $varHostPort, 
-                        'serialNumber' => $varSerialNumber,
-                        'timeZoneOffset' => '+07',
-                        'startDateTime' => '2000-01-01'
-                        ]
-                    ]
-                    )['data'];
-
-                //---> Get Data Synchronization
-                (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_Device_PersonAccess())->setDataSynchronize(
-                    $varUserSession, 
-                    $varGoodsIdentity_RefID, 
-                    json_encode($varData)
-                    );
-                } 
+                $varData =
+                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'instruction.device.fingerprintAttendance.ALBox.FP800.getDataAttendance', 
+                        'latest', 
+                        [
+                        'entities' => [
+                            'IPAddress' => $varHostIP,
+                            'port' => $varHostPort, 
+                            'serialNumber' => $varSerialNumber,
+                            'timeZoneOffset' => '+07',
+                            'startDateTime' => '2000-01-01'
+                            ]
+                        ],
+                        FALSE
+                        );
+                
+                if ($varData['metadata']['HTTPStatusCode'] == 200) {
+                    //---> Get Data Synchronization
+                    (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_Device_PersonAccess())->setDataSynchronize(
+                        $varUserSession, 
+                        $varGoodsIdentity_RefID, 
+                        json_encode($varData['data'])
+                        );                    
+                    }
+                }
+            
             catch (\Exception $ex) {
                 }
             }
