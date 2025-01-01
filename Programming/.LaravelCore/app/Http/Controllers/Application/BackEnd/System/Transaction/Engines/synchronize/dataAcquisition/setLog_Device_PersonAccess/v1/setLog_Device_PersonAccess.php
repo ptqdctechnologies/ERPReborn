@@ -119,7 +119,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                 
                 $varList = [
                         //---> Finger Print : HO Ruang Server
-                        /*[
+                        [
                         'GoodsIdentity_RefID' => 17000000000003,
                         'Device' => 'ALBox_FP800',
                         'HostIP' => '192.168.1.204',
@@ -153,7 +153,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         'HostPort' => 4370,
                         'SerialNumber' => 'AEYU202860056',
                         'TimeZoneOffset' => '+07'
-                        ],*/
+                        ],
                         //---> Finger Print : Gudang Tiga Raksa
                         [
                         'GoodsIdentity_RefID' => 17000000000009,
@@ -162,7 +162,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         'HostPort' => 4370,
                         'SerialNumber' => 'AEYU221060096',
                         'TimeZoneOffset' => '+07'
-                        ]//,*/
+                        ]//,
 /*
                         //---> Swing Barrier Gate : HO Lantai 1
                         [
@@ -297,6 +297,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
 //                    $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
 //                    }
 
+                //---> Reinitializing $varTimeZoneOffset
+                if (!$varTimeZoneOffset) {
+                    $varTimeZoneOffset = '+07';
+                    }
+
                 //---> Get Device Data
                 $varData = 
                     \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
@@ -312,7 +317,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                             'timeZoneOffset' => $varTimeZoneOffset,
                             'startDateTime' => '2000-01-01'
                             ]
-                        ]
+                        ],
+                        FALSE
                         );
 
                 if ($varData['metadata']['HTTPStatusCode'] == 200) {
@@ -337,7 +343,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
 //                    {
 //                    $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
 //                    }
-
+                
+                //---> Reinitializing $varTimeZoneOffset
+                if (!$varTimeZoneOffset) {
+                    $varTimeZoneOffset = '+07';
+                    }
+                
                 //---> Get Device Data
                 $varData =
                     \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
@@ -350,7 +361,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                             'IPAddress' => $varHostIP,
                             'port' => $varHostPort, 
                             'serialNumber' => $varSerialNumber,
-                            'timeZoneOffset' => '+07',
+                            'timeZoneOffset' => $varTimeZoneOffset,
                             'startDateTime' => '2000-01-01'
                             ]
                         ],
