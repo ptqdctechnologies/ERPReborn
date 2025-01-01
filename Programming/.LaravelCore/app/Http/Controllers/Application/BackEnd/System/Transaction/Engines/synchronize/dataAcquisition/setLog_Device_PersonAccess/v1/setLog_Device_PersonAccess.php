@@ -326,7 +326,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                     (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_Device_PersonAccess())->setDataSynchronize(
                         $varUserSession, 
                         $varGoodsIdentity_RefID, 
-                        json_encode($varData)
+                        json_encode($varData['data'])
                         );
                     }
                 }
