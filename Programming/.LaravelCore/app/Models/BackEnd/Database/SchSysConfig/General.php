@@ -113,7 +113,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
-        |      ▪ (int)    varUser_RefID ► User Reference ID                                                                    |
+        |      ▪ (int)    varUser_RefID ► User Reference ID                                                                        |
         |      ▪ (string) varDateTimeTZ ► DateTimeTZ                                                                               |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
