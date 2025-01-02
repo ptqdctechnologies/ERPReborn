@@ -1,5 +1,5 @@
 <div class="col-sm-12 col-md-12 col-lg-4">
-    <form method="POST" action="{{ route('BusinessTripSettlement.ReportBusinessTripSettlementDetailStore') }}">
+    <form method="POST" action="{{ route('AdvanceSettlement.ReportAdvanceSettlementDetailStore') }}">
     @csrf
     <!-- BUDGET -->
     <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
@@ -76,7 +76,7 @@
     </form>
 
     <!-- EXPORT -->
-    <form method="POST" action="{{ route('BusinessTripSettlement.PrintExportReportBusinessTripSettlementDetail') }}">
+    <form method="POST" action="{{ route('AdvanceSettlement.PrintExportReportAdvanceSettlementDetail') }}">
     @csrf
         <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row align-items-center p-0" style="margin-bottom: 1rem; gap: 0.5rem;">
             <select name="print_type" id="print_type" class="form-control" style="width: max-content;">
