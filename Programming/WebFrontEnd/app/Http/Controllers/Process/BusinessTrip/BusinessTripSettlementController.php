@@ -256,7 +256,6 @@ class BusinessTripSettlementController extends Controller
         }
     }
 
-
     public function SearchBusinessTripRequest(Request $request)
     {
         Session::forget("SessionBusinessTripSettllementRequester");
@@ -814,7 +813,7 @@ class BusinessTripSettlementController extends Controller
                 $errors[] = 'Sub Budget';
             }
             if (!$advance_id) {
-                $errors[] = 'Advance Number';
+                $errors[] = 'BSF Number';
             }
 
             if (!empty($errors)) {

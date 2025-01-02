@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">Business Trip Settlement Report Detail</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">Advance Settlement Report Detail</label>
                 </div>
             </div>
             <div class="card">
@@ -22,7 +22,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row p-1" style="row-gap: 1rem;">
-                                        @include('Process.BusinessTrip.BusinessTripSettlement.Functions.Header.HeaderReportBusinessTripSettlementDetail')
+                                        @include('Process.Advance.AdvanceSettlement.Functions.Header.HeaderReportAdvanceSettlementDetail')
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                                                     <table>
                                                         <tr>
                                                             <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">BSF Number</label>
+                                                                <label style="margin-right: 1rem;">ASF Number</label>
                                                             </th>
                                                             <td>
                                                                 : <?= 'BRF-24000201' ?? $dataReport['dataHeader']['number']; ?>
@@ -158,7 +158,7 @@
                                 </div>
                             </div>
                         </div>
-                    <?php }; Session::forget("isButtonReportBusinessTripSettlementDetailSubmit"); ?>
+                    <?php }; Session::forget("isButtonReportAdvanceSettlementDetailSubmit"); ?>
                 </div>
             </div>
         </div>
@@ -166,5 +166,5 @@
 </div>
 
 @include('Partials.footer')
-@include('Process.BusinessTrip.BusinessTripSettlement.Functions.Footer.FooterReportBusinessTripSettlementDetail')
+@include('Process.Advance.AdvanceSettlement.Functions.Footer.FooterReportAdvanceSettlementDetail')
 @endsection

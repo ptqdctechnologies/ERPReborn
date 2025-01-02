@@ -896,4 +896,148 @@ class AdvanceSettlementController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
+    public function ReportAdvanceSettlementDetail(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $isSubmitButton = $request->session()->get('isButtonReportAdvanceSettlementDetailSubmit');
+
+            $dataReport = $isSubmitButton ? $request->session()->get('dataReportAdvanceSettlementDetail', []) : [];
+
+            $compact = [
+                'varAPIWebToken'    => $varAPIWebToken,
+                'dataReport'        => $dataReport
+            ];
+
+            return view('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementDetail', $compact);
+        } catch (\Throwable $th) {
+            Log::error("ReportAdvanceSettlementDetail Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportAdvanceSettlementDetailData($advance_id, $project_code, $site_code, $advance_document, $project_name_second, $site_name_second)
+    {
+        try {
+            $varAPIWebToken         = Session::get('SessionLogin');
+            $getReportAdvanceDetail = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.form.documentForm.finance.getAdvance', 
+                'latest',
+                [
+                    'parameter' => [
+                        'recordID' => (int) $advance_id
+                    ]
+                ]
+            );
+
+            $splitResponse = $getReportAdvanceDetail['data'][0]['document'];
+
+            $totalAdvance = array_reduce($splitResponse['content']['details']['itemList'], function ($carry, $item) {
+                return $carry + ($item['entities']['priceBaseCurrencyValue'] * $item['entities']['quantity'] ?? 0);
+            }, 0);
+
+            $compact = [
+                'dataHeader'    => $splitResponse['header'],
+                'dataDetails'   => $splitResponse['content'],
+                'budgetCode'    => $project_code, 
+                'budgetName'    => $project_name_second,
+                'siteCode'      => $site_code,
+                'siteName'      => $site_name_second,
+                'advanceNumber' => $advance_document,
+                'total'         => $totalAdvance
+            ];
+
+            Session::put("isButtonReportAdvanceSettlementDetailSubmit", true);
+            Session::put("dataReportAdvanceSettlementDetail", $compact);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            Log::error("ReportAdvanceSettlementDetailData Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportAdvanceSettlementDetailStore(Request $request) 
+    {
+        try {
+            $project_code           = $request->project_code_second;
+            $project_id             = $request->project_id_second;
+            $project_name_second    = $request->project_name_second;
+
+            $site_code              = $request->site_code_second;
+            $site_id                = $request->site_id_second;
+            $site_name_second       = $request->site_name_second;
+            
+            $advance_document   = $request->modal_advance_document_number;
+            $advance_id         = $request->modal_advance_id;
+
+            $errors = [];
+
+            if (!$project_id) {
+                $errors[] = 'Budget';
+            }
+            if (!$site_id) {
+                $errors[] = 'Sub Budget';
+            }
+            if (!$advance_id) {
+                $errors[] = 'ASF Number';
+            }
+
+            if (!empty($errors)) {
+                $message = implode(', ', $errors) . ' Cannot Be Empty';
+            }
+
+            if (isset($message)) {
+                Session::forget("isButtonReportAdvanceSettlementDetailSubmit");
+                Session::forget("dataReportAdvanceSettlementDetail");
+        
+                return redirect()->route('AdvanceSettlement.ReportAdvanceSettlementDetail')->with('NotFound', $message);
+            }
+
+            $compact = $this->ReportAdvanceSettlementDetailData($advance_id, $project_code, $site_code, $advance_document, $project_name_second, $site_name_second);
+
+            if ($compact === null || empty($compact)) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            return redirect()->route('AdvanceSettlement.ReportAdvanceSettlementDetail');
+        } catch (\Throwable $th) {
+            Log::error("ReportAdvanceSettlementDetailStore Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportAdvanceSettlementDetail(Request $request) 
+    {
+        try {
+            $dataReport = Session::get("dataReportAdvanceSettlementDetail");
+            $print_type = $request->print_type;
+
+            if ($dataReport) {
+                if ($print_type === "PDF") {
+                    $pdf = PDF::loadView('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementDetail_pdf', ['dataReport' => $dataReport]);
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Advance Settlement Detail.pdf');
+                } else {
+                    return Excel::download(new ExportReportAdvanceSettlementDetail, 'Export Report Advance Settlement Detail.xlsx');
+                }
+            } else {
+                return redirect()->route('AdvanceSettlement.ReportAdvanceSettlementDetail')->with('NotFound', 'Budget, Sub Budget, & ASF Number Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("PrintExportReportAdvanceSettlementDetail Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
 }
