@@ -44,7 +44,7 @@
                                                                 <label style="margin-right: 1rem;">ASF Number</label>
                                                             </th>
                                                             <td>
-                                                                : <?= 'BRF-24000201' ?? $dataReport['dataHeader']['number']; ?>
+                                                                : <?= 'ASF01-24000082' ?? $dataReport['dataHeader']['number']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -90,7 +90,7 @@
                                                                 <label style="margin-right: 1rem;">Requester</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerFullName'] ?? '-'; ?>
+                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerName'] ?? '-'; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -98,7 +98,7 @@
                                                                 <label style="margin-right: 1rem;">Beneficiary</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'] ?? '-'; ?>
+                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerName'] ?? '-'; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -139,8 +139,8 @@
                                                 <?php foreach ($dataReport['dataDetails']['details']['itemList'] as $dataDetail) { ?>
                                                     <tr>
                                                         <td><?= $counter++; ?></td>
-                                                        <td><?= $dataDetail['entities']['product_RefID']; ?></td>
-                                                        <td><?= $dataDetail['entities']['productName']; ?></td>
+                                                        <td><?= "111448-0000" ?? $dataDetail['entities']['product_RefID']; ?></td>
+                                                        <td><?= "Terpal" ?? $dataDetail['entities']['productName']; ?></td>
                                                         <td><?= $dataDetail['entities']['quantity']; ?></td>
                                                         <td><?= number_format($dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['entities']['quantity'] * $dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?></td>

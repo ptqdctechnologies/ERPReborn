@@ -15,19 +15,19 @@
 <body>
   <div class="card-body table-responsive p-0">
     <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
-    <div style="text-align: center; font-size: 20px; font-weight: bold;">Advance Settlement Detail Report</div>
+    <div style="text-align: center; font-size: 20px; font-weight: bold;">Advance Settlement Detail</div>
     <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
 
     <!-- HEADER -->
     <table style="margin: 30px 0px 15px 1px;">
       <tr>
-        <!-- BRF NUMBER -->
+        <!-- ASF NUMBER -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  BRF Number
+                  ASF Number
                 </div>
               </td>
               <td style="width: 5px;">
@@ -35,7 +35,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= 'BRF-24000201' ?? $dataReport['dataHeader']['number']; ?>
+                  <?= 'ASF01-24000082' ?? $dataReport['dataHeader']['number']; ?>
                 </div>
               </td>
             </tr>
@@ -195,7 +195,6 @@
           </table>
         </td>
       </tr>
-
     </table>
 
     <!-- DETAIL -->
@@ -243,12 +242,12 @@
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['entities']['product_RefID']; ?>
+              <?= "111448-0000" ?? $dataDetail['entities']['product_RefID']; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['entities']['productName']; ?>
+              <?= "Terpal" ?? $dataDetail['entities']['productName']; ?>
             </div>
           </td>
           <td>
