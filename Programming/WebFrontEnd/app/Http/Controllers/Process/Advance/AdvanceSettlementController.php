@@ -636,7 +636,7 @@ class AdvanceSettlementController extends Controller
         }
     }
 
-    public function ReportAdvanceSettlementSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name) 
+    public function ReportAdvanceSettlementSummaryData($project_id, $site_id, $project_name, $project_code, $site_code) 
     {
         try {
             $varAPIWebToken             = Session::get('SessionLogin');
@@ -681,7 +681,7 @@ class AdvanceSettlementController extends Controller
                     "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
                     "RequesterWorkerName"                 => "Adhe Kurniawan",
                     "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName"               => $beneficiary_name,
+                    "BeneficiaryWorkerName"               => "",
                     "CurrencyName"                        => "IDR",
                     "Product_ID"                          => 88000000000527,
                     "CombinedBudget_RefID"                => 46000000000033,
@@ -705,7 +705,7 @@ class AdvanceSettlementController extends Controller
                     "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
                     "RequesterWorkerName"                 => "Sholehah",
                     "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName"               => $beneficiary_name,
+                    "BeneficiaryWorkerName"               => "",
                     "CurrencyName"                        => "IDR",
                     "Product_ID"                          => 88000000000527,
                     "CombinedBudget_RefID"                => 46000000000033,
@@ -729,7 +729,7 @@ class AdvanceSettlementController extends Controller
                     "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
                     "RequesterWorkerName"                 => "Grace Kurniawan",
                     "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName"               => $beneficiary_name,
+                    "BeneficiaryWorkerName"               => "",
                     "CurrencyName"                        => "IDR",
                     "Product_ID"                          => 88000000000527,
                     "CombinedBudget_RefID"                => 46000000000033,
@@ -751,9 +751,9 @@ class AdvanceSettlementController extends Controller
                     "CombinedBudgetSectionCode"           => "235",
                     "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
                     "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
-                    "RequesterWorkerName"                 => $requester_name,
+                    "RequesterWorkerName"                 => "Yogi",
                     "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName"               => $beneficiary_name,
+                    "BeneficiaryWorkerName"               => "",
                     "CurrencyName"                        => "IDR",
                     "Product_ID"                          => 88000000000527,
                     "CombinedBudget_RefID"                => 46000000000033,
@@ -794,8 +794,8 @@ class AdvanceSettlementController extends Controller
                 'budgetCode'        => $project_code,
                 'budgetName'        => $project_name,
                 'siteCode'          => $site_code,
-                'requesterName'     => $requester_name,
-                'beneficiaryName'   => $beneficiary_name,
+                'requesterName'     => "",
+                'beneficiaryName'   => "",
                 'total'             => $totalAdvance,
                 'totalExpense'      => $totalExpense,
                 'totalAmount'       => $totalAmount,
@@ -821,11 +821,11 @@ class AdvanceSettlementController extends Controller
             $site_id            = $request->site_id_second;
             $site_code          = $request->site_code_second;
 
-            $requester_id       = $request->worker_id_second;
-            $requester_name     = $request->worker_name_second;
+            // $requester_id       = $request->worker_id_second;
+            // $requester_name     = $request->worker_name_second;
 
-            $beneficiary_id     = $request->beneficiary_second_id;
-            $beneficiary_name   = $request->beneficiary_second_person_name;
+            // $beneficiary_id     = $request->beneficiary_second_id;
+            // $beneficiary_name   = $request->beneficiary_second_person_name;
 
             $errors = [];
 
@@ -835,12 +835,12 @@ class AdvanceSettlementController extends Controller
             if (!$site_id) {
                 $errors[] = 'Sub Budget';
             }
-            if (!$requester_id) {
-                $errors[] = 'Requester';
-            }
-            if (!$beneficiary_id) {
-                $errors[] = 'Beneficiary';
-            }
+            // if (!$requester_id) {
+            //     $errors[] = 'Requester';
+            // }
+            // if (!$beneficiary_id) {
+            //     $errors[] = 'Beneficiary';
+            // }
 
             if (!empty($errors)) {
                 $message = implode(', ', $errors) . ' Cannot Be Empty';
@@ -853,7 +853,7 @@ class AdvanceSettlementController extends Controller
                 return redirect()->route('AdvanceSettlement.ReportAdvanceSettlementSummary')->with('NotFound', $message);
             }
 
-            $compact = $this->ReportAdvanceSettlementSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name);
+            $compact = $this->ReportAdvanceSettlementSummaryData($project_id, $site_id, $project_name, $project_code, $site_code);
 
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');

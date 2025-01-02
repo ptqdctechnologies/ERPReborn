@@ -23,6 +23,28 @@
     </div>
 
     <!-- SUB BUDGET -->
+    <!-- <div class="row p-0 align-items-center">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-start justify-content-md-end">
+            <div>
+                <input id="site_code_second" style="border-radius:0;" name="site_code_second" class="form-control" size="34" value="<?= $dataReport['siteCode'] ?? ''; ?>" readonly>
+                <input id="site_id_second" style="border-radius:0;" name="site_id_second" class="form-control" hidden>
+            </div>
+            <div>
+                <span style="border-radius:0;" class="input-group-text form-control">
+                    <a href="javascript:;" id="mySiteCodeSecondTrigger" data-toggle="modal" data-target="#mySiteCodeSecond">
+                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="mySiteCodeSecondTrigger">
+                    </a>
+                </span>
+            </div>
+            <div class="d-sm-none d-md-none d-lg-block">
+                <input id="site_name_second" style="border-radius:0;" name="site_name_second" class="form-control invisible" readonly>
+            </div>
+        </div>
+    </div> -->
+</div>
+<div class="col-sm-12 col-md-12 col-lg-4">
+    <!-- SUB BUDGET -->
     <div class="row p-0 align-items-center">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-start justify-content-md-end">
@@ -42,10 +64,9 @@
             </div>
         </div>
     </div>
-</div>
-<div class="col-sm-12 col-md-12 col-lg-4">
+
     <!-- REQUESTER -->
-    <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
+    <!-- <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Requester</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-start justify-content-md-end">
             <div>
@@ -63,10 +84,10 @@
                 <input id="worker_position_second" style="border-radius:0;" name="worker_position_second" class="form-control invisible">
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- BENEFICIARY -->
-    <div class="row p-0 align-items-center">
+    <!-- <div class="row p-0 align-items-center">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Beneficiary</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-start justify-content-md-end">
             <div>
@@ -84,7 +105,7 @@
                 <input id="beneficiary_second_person_position" style="border-radius:0;" name="beneficiary_second_person_position" class="form-control invisible">
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 <div class="col-sm-12 col-md-12 col-lg-4 d-flex flex-column flex-column-reverse">
     <!-- SUBMIT -->

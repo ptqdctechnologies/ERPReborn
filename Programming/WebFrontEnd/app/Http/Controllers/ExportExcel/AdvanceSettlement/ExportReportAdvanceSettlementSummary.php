@@ -31,9 +31,9 @@ class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadin
                 'Total Expense Claim Cart'          => $item['TotalExpenseClaimCart'] ?? null,
                 'Total Amount Due to Company Cart'  => $item['TotalAmountDueToCompanyCart'] ?? null,
                 'Total BSF'                         => $item['TotalAdvance'] ?? null,
-                'Currency'                          => $item['CurrencyName'] ?? null,
+                // 'Currency'                          => $item['CurrencyName'] ?? null,
                 'Requester'                         => $item['RequesterWorkerName'] ?? null,
-                'Beneficiary'                       => $item['BeneficiaryWorkerName'] ?? null,
+                // 'Beneficiary'                       => $item['BeneficiaryWorkerName'] ?? null,
                 'Remark'                            => $item['remark'] ?? null,
             ];
         }
@@ -51,7 +51,7 @@ class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadin
             [date('h:i A')],
             ["Budget", ": " . $data['budgetCode'] . ' - ' . $data['budgetName'], "", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", "", "", ""],
-            ["No", "ASF Number", "Description", "Date", "Total Expense Claim Cart", "Total Amount Due to Company Cart", "Total Advance", "Currency", "Requester", "Beneficiary", "Remark"]
+            ["No", "ASF Number", "Description", "Date", "Total Expense Claim Cart", "Total Amount Due to Company Cart", "Total Advance", "Requester", "Remark"]
             // ["No", "BSF Number", "Sub Budget", "Departing From", "Destination To", "Date", "Total Expense Claim Cart", "Total Amount Due to Company Cart", "Total BSF", "Currency", "Requester", "Beneficiary", "Remark"]
         ];
     }
@@ -70,8 +70,8 @@ class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadin
             ]
         ];
 
-        $sheet->getStyle('A1:K1')->applyFromArray($styleArrayHeader0);
-        $sheet->mergeCells('A1:K1');
+        $sheet->getStyle('A1:I1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:I1');
 
         $styleArrayHeader1 = [
             'font' => [
@@ -85,8 +85,8 @@ class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadin
             ]
         ];
 
-        $sheet->getStyle('A2:K2')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A2:K2');
+        $sheet->getStyle('A2:I2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:I2');
 
         $styleArrayHeader = [
             'font' => [
@@ -100,8 +100,8 @@ class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadin
             ]
         ];
 
-        $sheet->getStyle('A3:K3')->applyFromArray($styleArrayHeader);
-        $sheet->mergeCells('A3:K3');
+        $sheet->getStyle('A3:I3')->applyFromArray($styleArrayHeader);
+        $sheet->mergeCells('A3:I3');
 
         $styleArrayHeader2 = [
             'font' => [
@@ -115,7 +115,7 @@ class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadin
             ],
         ];
 
-        $sheet->getStyle('A4:K4')->applyFromArray($styleArrayHeader2);
+        $sheet->getStyle('A4:I4')->applyFromArray($styleArrayHeader2);
 
         $styleArrayHeader4 = [
             'font' => [
@@ -141,7 +141,7 @@ class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadin
             ],
         ];
 
-        $sheet->getStyle('A6:K6')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A6:I6')->applyFromArray($styleArrayHeader4);
 
         $styleArrayContent = [
             'borders' => [
@@ -156,7 +156,7 @@ class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadin
 
         $datas = Session::get("dataReportAdvanceSettlementSummary");
         $totalCell = count($datas['dataDetail']);
-        $lastCell = 'A7:K' . $totalCell + 6;
+        $lastCell = 'A7:I' . $totalCell + 6;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
         $totalExpense   = $datas['totalExpense'];
@@ -168,7 +168,7 @@ class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadin
         $sheet->setCellValue('E' . $totalCell + 7, $totalExpense);
         $sheet->setCellValue('F' . $totalCell + 7, $totalAmount);
         $sheet->setCellValue('G' . $totalCell + 7, $total);
-        $sheet->mergeCells('A' . $totalCell + 7 . ':' . 'C' . $totalCell + 7);
+        $sheet->mergeCells('A' . $totalCell + 7 . ':' . 'D' . $totalCell + 7);
 
         $styleArrayFooter = [
             'font' => [
@@ -189,7 +189,7 @@ class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadin
             ],
         ];
 
-        $sheet->getStyle('A' . $totalCell + 7 . ':' . 'K' . $totalCell + 7)->applyFromArray($styleArrayFooter);
+        $sheet->getStyle('A' . $totalCell + 7 . ':' . 'I' . $totalCell + 7)->applyFromArray($styleArrayFooter);
 
     }
 }
