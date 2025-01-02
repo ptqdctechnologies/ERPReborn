@@ -1,4 +1,4 @@
-@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail'))
+@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail') || request()->is('ReportAdvanceSettlementSummary'))
     <div id="mySiteCodeSecond" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">

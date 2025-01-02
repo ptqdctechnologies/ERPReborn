@@ -19,7 +19,7 @@ use App\Http\Controllers\UserController;
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzM1NTQ2OTc0fQ.MTIyNWM1NjlhYzIzZjBmMDk3M2U0MTdjMzE3NjUzNWJjNmViNzg2YTg1ZWQwNjFmYjAxMjAxYTJjMGJlNzBiOA';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzM1NjM1OTc4fQ.YmUyZmE3OTY1ZmQ5YmIzZTE3ZmYwMDNhZWM5NTk0YzA1ODRmODljZDBkMzliZTE5NGFlYjFlMWRjNmI5ZDBkMg';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -193,7 +193,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
 
     // ARF 
-
     Route::get('AdvanceListData', 'Process\Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
     Route::get('ReportAdvanceSummary', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummary')->name('AdvanceRequest.ReportAdvanceSummary');
     Route::post('ReportAdvanceSummaryStore', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummaryStore')->name('AdvanceRequest.ReportAdvanceSummaryStore');
@@ -213,6 +212,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('AdvanceSettlementListDataById', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementListDataById')->name('AdvanceSettlement.AdvanceSettlementListDataById');
     Route::post('SearchAdvanceRequest', 'Process\Advance\AdvanceSettlementController@SearchAdvanceRequest')->name('AdvanceSettlement.SearchAdvanceRequest');
     Route::get('AdvanceSettlementListCartRevision', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementListCartRevision')->name('AdvanceSettlement.AdvanceSettlementListCartRevision');
+    Route::get('ReportAdvanceSettlementSummary', 'Process\Advance\AdvanceSettlementController@ReportAdvanceSettlementSummary')->name('AdvanceSettlement.ReportAdvanceSettlementSummary');
+    Route::post('ReportAdvanceSettlementSummaryStore', 'Process\Advance\AdvanceSettlementController@ReportAdvanceSettlementSummaryStore')->name('AdvanceSettlement.ReportAdvanceSettlementSummaryStore');
+    Route::post('PrintExportReportAdvanceSettlementSummary', 'Process\Advance\AdvanceSettlementController@PrintExportReportAdvanceSettlementSummary')->name('AdvanceSettlement.PrintExportReportAdvanceSettlementSummary');
     Route::resource('AdvanceSettlement', 'Process\Advance\AdvanceSettlementController');
 
     // BSF

@@ -1,4 +1,4 @@
-@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail'))
+@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail') || request()->is('ReportAdvanceSettlementSummary'))
     <div id="myProjectSecond" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -71,6 +71,8 @@
                 type: 'GET',
                 url: '{!! route("getNewProject") !!}',
                 success: function(data) {
+                    console.log('data', data);
+                    
                     $(".loadingGetProjectSecond").hide();
 
                     var no = 1;

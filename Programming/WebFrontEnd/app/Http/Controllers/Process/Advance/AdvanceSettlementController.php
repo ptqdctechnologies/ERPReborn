@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Process\Advance;
 
+use App\Http\Controllers\ExportExcel\AdvanceSettlement\ExportReportAdvanceSettlementSummary;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdvanceSettlementController extends Controller
 {
@@ -534,7 +537,6 @@ class AdvanceSettlementController extends Controller
         return response()->json($varData['data']);
     }
 
-
     public function RevisionAdvanceSettlementIndex(Request $request)
     {
 
@@ -603,6 +605,7 @@ class AdvanceSettlementController extends Controller
         //     'statusRevisi' => 1,
         // ];
     }
+
     public function update(Request $request, $id)
     {
         $input = $request->all();
@@ -611,5 +614,286 @@ class AdvanceSettlementController extends Controller
         ];
 
         return response()->json($compact);
+    }
+
+    public function ReportAdvanceSettlementSummary(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $isSubmitButton = $request->session()->get('isButtonReportAdvanceSettlementSummarySubmit');
+
+            $dataReport = $isSubmitButton ? $request->session()->get('dataReportAdvanceSettlementSummary', []) : [];
+
+            $compact = [
+                'varAPIWebToken' => $varAPIWebToken,
+                'dataReport' => $dataReport
+            ];
+    
+            return view('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementSummary', $compact);
+        } catch (\Throwable $th) {
+            Log::error("ReportAdvanceSettlementSummary Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportAdvanceSettlementSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name) 
+    {
+        try {
+            $varAPIWebToken             = Session::get('SessionLogin');
+            $getReportAdvanceSummary    = null;
+
+            // if (!Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary")) {
+            //     $getReportAdvanceSummary = Helper_APICall::setCallAPIGateway(
+            //         Helper_Environment::getUserSessionID_System(),
+            //         $varAPIWebToken,
+            //         'report.form.documentForm.finance.getReportAdvanceSummary',
+            //         'latest',
+            //         [
+            //             'parameter' => [
+            //                 'dataFilter' => [
+            //                     'budgetID' => 1,
+            //                     'subBudgetID' => 1,
+            //                     'workID' => 1,
+            //                     'productID' => 1,
+            //                     'beneficiaryID' => 1,
+            //                 ]
+            //             ]
+            //         ],
+            //         false
+            //     );
+            // } else {
+            //     $getReportAdvanceSummary = Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary");
+            // }
+
+            // DUMMY DATA
+            $getReportAdvanceSummary = [
+                [
+                    "DocumentNumber"                      => "ASF01-24000082",
+                    "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
+                    "TotalAdvance"                        => "110000.00",
+                    "TotalExpenseClaimCart"               => "213932.00",
+                    "TotalAmountDueToCompanyCart"         => "723832.00",
+                    "Sys_ID"                              => 76000000000054,
+                    "CombinedBudgetCode"                  => "Q000062",
+                    "CombinedBudgetName"                  => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode"           => "235",
+                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                    "RequesterWorkerName"                 => "Adhe Kurniawan",
+                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                    "BeneficiaryWorkerName"               => $beneficiary_name,
+                    "CurrencyName"                        => "IDR",
+                    "Product_ID"                          => 88000000000527,
+                    "CombinedBudget_RefID"                => 46000000000033,
+                    "CombinedBudgetSection_RefID"         => 143000000000305,
+                    "remark"                              => "",
+                    "DepartingFrom"                       => "Jakarta",
+                    "DestinationTo"                       => "Batam",
+                    "Description"                         => "Settlement pettycash project siak parsial 1"
+                ],
+                [
+                    "DocumentNumber"                      => "ASF01-24000083",
+                    "DocumentDateTimeTZ"                  => "2024-12-04 00:00:00+07",
+                    "TotalAdvance"                        => "406982.00",
+                    "TotalExpenseClaimCart"               => "456123.00",
+                    "TotalAmountDueToCompanyCart"         => "981273.00",
+                    "Sys_ID"                              => 76000000000054,
+                    "CombinedBudgetCode"                  => "Q000062",
+                    "CombinedBudgetName"                  => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode"           => "235",
+                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                    "RequesterWorkerName"                 => "Sholehah",
+                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                    "BeneficiaryWorkerName"               => $beneficiary_name,
+                    "CurrencyName"                        => "IDR",
+                    "Product_ID"                          => 88000000000527,
+                    "CombinedBudget_RefID"                => 46000000000033,
+                    "CombinedBudgetSection_RefID"         => 143000000000305,
+                    "remark"                              => "BT Pak Sagala presentasi HTLS Batam",
+                    "DepartingFrom"                       => "Jakarta",
+                    "DestinationTo"                       => "Batam",
+                    "Description"                         => "Settlement Sewa Motor Parsial 1"
+                ],
+                [
+                    "DocumentNumber"                      => "ASF01-24000084",
+                    "DocumentDateTimeTZ"                  => "2024-12-03 00:00:00+07",
+                    "TotalAdvance"                        => "1200000.00",
+                    "TotalExpenseClaimCart"               => "6712398.00",
+                    "TotalAmountDueToCompanyCart"         => "1652833.00",
+                    "Sys_ID"                              => 76000000000054,
+                    "CombinedBudgetCode"                  => "Q000062",
+                    "CombinedBudgetName"                  => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode"           => "235",
+                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                    "RequesterWorkerName"                 => "Grace Kurniawan",
+                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                    "BeneficiaryWorkerName"               => $beneficiary_name,
+                    "CurrencyName"                        => "IDR",
+                    "Product_ID"                          => 88000000000527,
+                    "CombinedBudget_RefID"                => 46000000000033,
+                    "CombinedBudgetSection_RefID"         => 143000000000305,
+                    "remark"                              => "",
+                    "DepartingFrom"                       => "Jakarta",
+                    "DestinationTo"                       => "Batam",
+                    "Description"                         => "Settlement Parsial 1 Sewa Kontrakan Siak"
+                ],
+                [
+                    "DocumentNumber"                      => "ASF01-24000085",
+                    "DocumentDateTimeTZ"                  => "2024-12-02 00:00:00+07",
+                    "TotalAdvance"                        => "6000000.00",
+                    "TotalExpenseClaimCart"               => "6571282.00",
+                    "TotalAmountDueToCompanyCart"         => "7912392.00",
+                    "Sys_ID"                              => 76000000000054,
+                    "CombinedBudgetCode"                  => "Q000062",
+                    "CombinedBudgetName"                  => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode"           => "235",
+                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                    "RequesterWorkerName"                 => $requester_name,
+                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                    "BeneficiaryWorkerName"               => $beneficiary_name,
+                    "CurrencyName"                        => "IDR",
+                    "Product_ID"                          => 88000000000527,
+                    "CombinedBudget_RefID"                => 46000000000033,
+                    "CombinedBudgetSection_RefID"         => 143000000000305,
+                    "remark"                              => "BT Pak Sagala presentasi HTLS Batam",
+                    "DepartingFrom"                       => "Jakarta",
+                    "DestinationTo"                       => "Batam",
+                    "Description"                         => "Settlement Parsial 1 Sewa Kontrakan"
+                ],
+            ];
+
+            $reportData = is_string($getReportAdvanceSummary) ? json_decode($getReportAdvanceSummary, true) : $getReportAdvanceSummary;
+
+            // $filteredData = array_filter($reportData, function ($item) use ($project_id, $site_id, $requester_id, $beneficiary_id) {
+            //     return 
+            //         (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
+            //         (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
+            //         (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
+            //         (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
+            // });
+
+            // $totalAdvance = array_reduce($filteredData, function ($carry, $item) {
+            $totalAdvance = array_reduce($reportData, function ($carry, $item) {
+                return $carry + ($item['TotalAdvance'] ?? 0);
+            }, 0);
+
+            $totalExpense = array_reduce($reportData, function ($carry, $item) {
+                return $carry + ($item['TotalExpenseClaimCart'] ?? 0);
+            }, 0);
+
+            $totalAmount = array_reduce($reportData, function ($carry, $item) {
+                return $carry + ($item['TotalAmountDueToCompanyCart'] ?? 0);
+            }, 0);
+
+            $compact = [
+                // 'dataDetail'        => $filteredData,
+                'dataDetail'        => $reportData,
+                'budgetCode'        => $project_code,
+                'budgetName'        => $project_name,
+                'siteCode'          => $site_code,
+                'requesterName'     => $requester_name,
+                'beneficiaryName'   => $beneficiary_name,
+                'total'             => $totalAdvance,
+                'totalExpense'      => $totalExpense,
+                'totalAmount'       => $totalAmount,
+            ];
+
+            Session::put("isButtonReportAdvanceSettlementSummarySubmit", true);
+            Session::put("dataReportAdvanceSettlementSummary", $compact);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            Log::error("ReportAdvanceSettlementSummaryData Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportAdvanceSettlementSummaryStore(Request $request) 
+    {
+        try {
+            $project_code       = $request->project_code_second;
+            $project_name       = $request->project_name_second;
+            $project_id         = $request->project_id_second;
+
+            $site_id            = $request->site_id_second;
+            $site_code          = $request->site_code_second;
+
+            $requester_id       = $request->worker_id_second;
+            $requester_name     = $request->worker_name_second;
+
+            $beneficiary_id     = $request->beneficiary_second_id;
+            $beneficiary_name   = $request->beneficiary_second_person_name;
+
+            $errors = [];
+
+            if (!$project_id) {
+                $errors[] = 'Budget';
+            }
+            if (!$site_id) {
+                $errors[] = 'Sub Budget';
+            }
+            if (!$requester_id) {
+                $errors[] = 'Requester';
+            }
+            if (!$beneficiary_id) {
+                $errors[] = 'Beneficiary';
+            }
+
+            if (!empty($errors)) {
+                $message = implode(', ', $errors) . ' Cannot Be Empty';
+            }
+
+            if (isset($message)) {
+                Session::forget("isButtonReportAdvanceSettlementSummarySubmit");
+                Session::forget("dataReportAdvanceSettlementSummary");
+        
+                return redirect()->route('AdvanceSettlement.ReportAdvanceSettlementSummary')->with('NotFound', $message);
+            }
+
+            $compact = $this->ReportAdvanceSettlementSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name);
+
+            if ($compact === null || empty($compact)) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+            
+            return redirect()->route('AdvanceSettlement.ReportAdvanceSettlementSummary');
+        } catch (\Throwable $th) {
+            Log::error("ReportAdvanceSettlementSummaryStore Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportAdvanceSettlementSummary(Request $request) 
+    {
+        try {
+            $dataReport = Session::get("dataReportAdvanceSettlementSummary");
+            $print_type = $request->print_type;
+
+            if ($dataReport) {
+                if ($print_type === "PDF") {
+                    $pdf = PDF::loadView('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementSummary_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Advance Settlement Summary.pdf');
+                } else {
+                    return Excel::download(new ExportReportAdvanceSettlementSummary, 'Export Report Advance Settlement Summary.xlsx');
+                }
+            } else {
+                return redirect()->route('AdvanceSettlement.ReportAdvanceSettlementSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("PrintExportReportAdvanceSettlementSummary Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 }
