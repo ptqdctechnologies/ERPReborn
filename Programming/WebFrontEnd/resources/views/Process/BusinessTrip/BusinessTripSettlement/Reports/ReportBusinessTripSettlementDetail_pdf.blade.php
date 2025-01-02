@@ -15,19 +15,19 @@
 <body>
   <div class="card-body table-responsive p-0">
     <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
-    <div style="text-align: center; font-size: 20px; font-weight: bold;">Business Trip Settlement Detail Report</div>
+    <div style="text-align: center; font-size: 20px; font-weight: bold;">Business Trip Settlement Detail</div>
     <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
 
     <!-- HEADER -->
     <table style="margin: 30px 0px 15px 1px;">
       <tr>
-        <!-- BRF NUMBER -->
+        <!-- BSF NUMBER -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  BRF Number
+                  BSF Number
                 </div>
               </td>
               <td style="width: 5px;">
@@ -35,7 +35,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= 'BRF-24000201' ?? $dataReport['dataHeader']['number']; ?>
+                  <?= 'BSF-24000201' ?? $dataReport['dataHeader']['number']; ?>
                 </div>
               </td>
             </tr>
@@ -228,7 +228,7 @@
         </td>
         <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total Advance
+            Total
           </div>
         </td>
       </tr>
@@ -243,12 +243,12 @@
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['entities']['product_RefID']; ?>
+              <?= "820015-0000" ?? $dataDetail['entities']['product_RefID']; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['entities']['productName']; ?>
+              <?= "Travelling" ?? $dataDetail['entities']['productName']; ?>
             </div>
           </td>
           <td>

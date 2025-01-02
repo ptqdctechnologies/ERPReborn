@@ -44,7 +44,7 @@
                                                                 <label style="margin-right: 1rem;">BSF Number</label>
                                                             </th>
                                                             <td>
-                                                                : <?= 'BRF-24000201' ?? $dataReport['dataHeader']['number']; ?>
+                                                                : <?= 'BSF-24000201' ?? $dataReport['dataHeader']['number']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -98,7 +98,7 @@
                                                                 <label style="margin-right: 1rem;">Beneficiary</label>
                                                             </th>
                                                             <td>
-                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'] ?? '-'; ?>
+                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerName'] ?? '-'; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -131,7 +131,7 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Description & Spesifications</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Unit Price</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Advance</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -139,8 +139,10 @@
                                                 <?php foreach ($dataReport['dataDetails']['details']['itemList'] as $dataDetail) { ?>
                                                     <tr>
                                                         <td><?= $counter++; ?></td>
-                                                        <td><?= $dataDetail['entities']['product_RefID']; ?></td>
-                                                        <td><?= $dataDetail['entities']['productName']; ?></td>
+                                                        <!-- <td><?php $dataDetail['entities']['product_RefID']; ?></td> -->
+                                                        <td>820015-0000</td>
+                                                        <!-- <td><?php $dataDetail['entities']['productName']; ?></td> -->
+                                                        <td>Travelling</td>
                                                         <td><?= $dataDetail['entities']['quantity']; ?></td>
                                                         <td><?= number_format($dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['entities']['quantity'] * $dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?></td>

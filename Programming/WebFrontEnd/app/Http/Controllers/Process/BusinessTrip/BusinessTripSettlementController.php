@@ -502,7 +502,7 @@ class BusinessTripSettlementController extends Controller
             // DUMMY DATA
             $getReportAdvanceSummary = [
                 [
-                    "DocumentNumber"                      => "BRF-24000203",
+                    "DocumentNumber"                      => "BSF-24000203",
                     "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
                     "TotalAdvance"                        => "110000.00",
                     "TotalExpenseClaimCart"               => "213932.00",
@@ -525,7 +525,7 @@ class BusinessTripSettlementController extends Controller
                     "DestinationTo"                       => "Batam"
                 ],
                 [
-                    "DocumentNumber"                      => "BRF-24000202",
+                    "DocumentNumber"                      => "BSF-24000202",
                     "DocumentDateTimeTZ"                  => "2024-12-04 00:00:00+07",
                     "TotalAdvance"                        => "406982.00",
                     "TotalExpenseClaimCart"               => "456123.00",
@@ -548,7 +548,7 @@ class BusinessTripSettlementController extends Controller
                     "DestinationTo"                       => "Batam"
                 ],
                 [
-                    "DocumentNumber"                      => "BRF-24000201",
+                    "DocumentNumber"                      => "BSF-24000201",
                     "DocumentDateTimeTZ"                  => "2024-12-03 00:00:00+07",
                     "TotalAdvance"                        => "1200000.00",
                     "TotalExpenseClaimCart"               => "6712398.00",
@@ -571,7 +571,7 @@ class BusinessTripSettlementController extends Controller
                     "DestinationTo"                       => "Batam"
                 ],
                 [
-                    "DocumentNumber"                      => "BRF-24000200",
+                    "DocumentNumber"                      => "BSF-24000200",
                     "DocumentDateTimeTZ"                  => "2024-12-02 00:00:00+07",
                     "TotalAdvance"                        => "6000000.00",
                     "TotalExpenseClaimCart"               => "6571282.00",
