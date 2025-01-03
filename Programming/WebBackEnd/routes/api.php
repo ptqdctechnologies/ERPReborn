@@ -19,8 +19,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 //---[ Default ERP Reborn (Front End & Back End) ]---(START)------
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('auth', ['get', 'post'], '\App\Http\Controllers\Application\BackEnd\System\Authentication\Controller_Main@setLogin');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('gateway', ['get', 'post'], '\App\Http\Controllers\Application\BackEnd\System\Core\Controller_Main_APIGateway@main');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute(
+    'auth',
+    ['get', 'post'],
+    '\App\Http\Controllers\Application\BackEnd\System\Authentication\Controller_Main@setLogin'
+    );
+
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute(
+    'gateway',
+    ['get', 'post'],
+    '\App\Http\Controllers\Application\BackEnd\System\Core\Controller_Main_APIGateway@main'
+    );
+
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('getUniqueID', ['get', 'post'], '\App\Http\Controllers\Application\BackEnd\System\Core\Controller_Main_APISystem@getUniqueID');
 
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('gatewayOfGetMethod/{APIWebToken}/{Signature}/{EncryptedData}', 'get', '\App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatewayOfGetMethod\v1\gatewayOfGetMethod@main');

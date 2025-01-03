@@ -448,7 +448,6 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             $varURL,
                             $varDataArray
                             );
-                    //dd($varResponseData);
 
                     if ($varResponseData['metadata']['HTTPStatusCode'] == 200)
                         {
@@ -456,6 +455,8 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         }
                     else
                         {
+                        $varResponseData['metadata']['successStatus'] = FALSE;
+
                         $varRequesterSegment = (request()->segments())[0];
 
                         //---> Jika Requester berasal dari Gateway JQuery
@@ -470,8 +471,19 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                 {
                                 echo $varResponseData['data']['message'];
                                 }
-                            $varResponseData['data']['message'] = explode('</i></b></font></td></tr></table></div></body></html>', (explode('►<b><i> ', $varResponseData['data']['message']))[1])[0];
+
+                            $varResponseData['data']['message'] = 
+                                explode(
+                                    '</i></b></font></td></tr></table></div></body></html>', 
+                                    (explode(
+                                        '►<b><i> ',
+                                        $varResponseData['data']['message']
+                                        ))[1]
+                                    )[0];
+
                             $varReturn = $varResponseData;
+                            
+                            //dd($varReturn);
                             //die();
                             }                        
                         }
@@ -579,11 +591,12 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                 //'alert(varReturnValue); '.
                                 //'alert("done"); '.
                                 '} '.
+
                             'catch(varError) '.
                                 '{'.
                                 'alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")"); '.
                                 '} '.
-//                            'return varReturn.value; '.
+
                             'return varReturnValue; '.
                             '}()';
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----

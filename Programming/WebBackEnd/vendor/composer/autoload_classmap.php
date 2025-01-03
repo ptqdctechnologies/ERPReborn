@@ -2429,6 +2429,7 @@ return array(
     'App\\Models\\Database\\SchData_OLTP_Master\\TblPerson' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblPerson.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblPersonAccountEMail' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblPersonAccountEMail.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblPersonAccountSocialMedia' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblPersonAccountSocialMedia.php',
+    'App\\Models\\Database\\SchData_OLTP_Master\\TblPersonDegree' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblPersonDegree.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblPersonGender' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblPersonGender.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblProduct' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblProduct.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblProductType' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblProductType.php',
