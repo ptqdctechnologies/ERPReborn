@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblPersonDegreeType                                                                                          |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblPersonDegreeType                                        |
+    | ▪ Class Name  : TblEducationalInstitution                                                                                    |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblEducationalInstitution                                  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblPersonDegreeType extends \App\Models\Database\DefaultClassPrototype
+    class TblEducationalInstitution extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -90,6 +90,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (int)    varEducationalInstitutionType_RefID ► Educational Institution Type Reference ID                          |
+        |      ▪ (string) varAddress ► Address                                                                                     |
+        |      ▪ (int)    varCountryAdministrativeArea_RefID ► Country Administrative Area Reference ID                            |
+        |      ▪ (string) varPostalCode ► Name                                                                                     |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -98,7 +102,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varName = null)
+            string $varName = null, int $varEducationalInstitutionType_RefID = null, string $varAddress = null, int $varCountryAdministrativeArea_RefID = null, string $varPostalCode = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -117,7 +121,11 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varName, 'varchar']
+                            [$varName, 'varchar'],
+                            [$varEducationalInstitutionType_RefID, 'bigint'],
+                            [$varAddress, 'varchar'],
+                            [$varCountryAdministrativeArea_RefID, 'bigint'],
+                            [$varPostalCode, 'varchar']
                         ]
                         )
                     );
@@ -147,6 +155,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (int)    varEducationalInstitutionType_RefID ► Educational Institution Type Reference ID                          |
+        |      ▪ (string) varAddress ► Address                                                                                     |
+        |      ▪ (int)    varCountryAdministrativeArea_RefID ► Country Administrative Area Reference ID                            |
+        |      ▪ (string) varPostalCode ► Name                                                                                     |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -156,7 +168,7 @@ namespace App\Models\Database\SchData_OLTP_Master
             $varUserSession, 
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varName = null)
+            string $varName = null, int $varEducationalInstitutionType_RefID = null, string $varAddress = null, int $varCountryAdministrativeArea_RefID = null, string $varPostalCode = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -175,7 +187,11 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varName, 'varchar']
+                            [$varName, 'varchar'],
+                            [$varEducationalInstitutionType_RefID, 'bigint'],
+                            [$varAddress, 'varchar'],
+                            [$varCountryAdministrativeArea_RefID, 'bigint'],
+                            [$varPostalCode, 'varchar']
                         ]
                         )
                     );

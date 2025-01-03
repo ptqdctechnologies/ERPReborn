@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblPersonDegreeType                                                                                          |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblPersonDegreeType                                        |
+    | ▪ Class Name  : TblEducationalLevel                                                                                          |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblEducationalLevel                                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblPersonDegreeType extends \App\Models\Database\DefaultClassPrototype
+    class TblEducationalLevel extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -90,6 +90,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varDegree ► Degree                                                                                       |
+        |      ▪ (string) varRank ► Rank                                                                                           |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -98,7 +100,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varName = null)
+            string $varName = null, string $varDegree = null, int $varRank = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -117,7 +119,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varName, 'varchar']
+                            [$varName, 'varchar'],
+                            [$varDegree, 'varchar'],
+                            [$varRank, 'smallint']
                         ]
                         )
                     );
@@ -147,6 +151,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varDegree ► Degree                                                                                       |
+        |      ▪ (string) varRank ► Rank                                                                                           |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -156,7 +162,7 @@ namespace App\Models\Database\SchData_OLTP_Master
             $varUserSession, 
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varName = null)
+            string $varName = null, string $varDegree = null, int $varRank = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -175,7 +181,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varName, 'varchar']
+                            [$varName, 'varchar'],
+                            [$varDegree, 'varchar'],
+                            [$varRank, 'smallint']
                         ]
                         )
                     );

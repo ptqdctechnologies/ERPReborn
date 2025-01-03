@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblPersonDegreeType                                                                                          |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblPersonDegreeType                                        |
+    | ▪ Class Name  : TblEducationalInstitutionType                                                                                |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblEducationalInstitutionType                              |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblPersonDegreeType extends \App\Models\Database\DefaultClassPrototype
+    class TblEducationalInstitutionType extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

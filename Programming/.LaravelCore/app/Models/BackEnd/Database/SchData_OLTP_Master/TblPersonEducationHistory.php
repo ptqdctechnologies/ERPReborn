@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblPersonDegreeType                                                                                          |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblPersonDegreeType                                        |
+    | ▪ Class Name  : TblPersonEducationHistory                                                                                    |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblPersonEducationHistory                                  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblPersonDegreeType extends \App\Models\Database\DefaultClassPrototype
+    class TblPersonEducationHistory extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -89,7 +89,15 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
+        |      ▪ (int)    varEducationalInstitution_RefID ► Educational Institution Reference ID                                   |
+        |      ▪ (int)    varEducationalLevel_RefID ► Educational Level Reference ID                                               |
+        |      ▪ (int)    varPersonDegree_RefID ► Person Degree Reference ID                                                       |
+        |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
+        |      ▪ (int)    varStartYear ► Start Year                                                                                |
+        |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
+        |      ▪ (int)    varFinishYear ► Finish Year                                                                              |
+        |      ▪ (string) varAnnotation ► Annotation                                                                               |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -98,7 +106,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varName = null)
+            int $varPerson_RefID =  null, int $varEducationalInstitution_RefID =  null, int $varEducationalLevel_RefID =  null, int $varPersonDegree_RefID =  null, string $varStartDateTimeTZ = null, int $varStartYear =  null, string $varFinishDateTimeTZ = null, int $varFinishYear =  null, string $varAnnotation = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -117,7 +125,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varName, 'varchar']
+                            [$varPerson_RefID, 'bigint'],
+                            [$varEducationalInstitution_RefID, 'bigint'],
+                            [$varEducationalLevel_RefID, 'bigint'],
+                            [$varPersonDegree_RefID, 'bigint'],
+                            [$varStartDateTimeTZ, 'timestamptz'],
+                            [$varStartYear, 'smallint'],
+                            [$varFinishDateTimeTZ, 'timestamptz'],
+                            [$varFinishYear, 'smallint'],
+                            [$varAnnotation, 'varchar']
                         ]
                         )
                     );
@@ -156,7 +172,7 @@ namespace App\Models\Database\SchData_OLTP_Master
             $varUserSession, 
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varName = null)
+            int $varPerson_RefID =  null, int $varEducationalInstitution_RefID =  null, int $varEducationalLevel_RefID =  null, int $varPersonDegree_RefID =  null, string $varStartDateTimeTZ = null, int $varStartYear =  null, string $varFinishDateTimeTZ = null, int $varFinishYear =  null, string $varAnnotation = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -175,7 +191,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varName, 'varchar']
+                            [$varPerson_RefID, 'bigint'],
+                            [$varEducationalInstitution_RefID, 'bigint'],
+                            [$varEducationalLevel_RefID, 'bigint'],
+                            [$varPersonDegree_RefID, 'bigint'],
+                            [$varStartDateTimeTZ, 'timestamptz'],
+                            [$varStartYear, 'smallint'],
+                            [$varFinishDateTimeTZ, 'timestamptz'],
+                            [$varFinishYear, 'smallint'],
+                            [$varAnnotation, 'varchar']
                         ]
                         )
                     );

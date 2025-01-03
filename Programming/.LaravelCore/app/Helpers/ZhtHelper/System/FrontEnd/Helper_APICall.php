@@ -448,11 +448,6 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             $varURL,
                             $varDataArray
                             );
-                    
-                    
-                    //dd(
-                    //        explode('<b><i> ', explode('</i></b>', (explode('ERPReborn Error Message ►', $varResponseData['data']['message']))[1])[0])[1]
-                    //    );
 
                     if ($varResponseData['metadata']['HTTPStatusCode'] == 200)
                         {
