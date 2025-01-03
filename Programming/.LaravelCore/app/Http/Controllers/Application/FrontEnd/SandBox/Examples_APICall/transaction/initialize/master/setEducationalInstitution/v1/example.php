@@ -4,21 +4,21 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\initialize\master                |
-|                 \setPersonDegreeType\v1                                                                                          |
-| ▪ API Key     : transaction.initialize.master.setPersonDegreeType                                                                |
+|                 \setEducationalInstitution\v1                                                                                    |
+| ▪ API Key     : transaction.initialize.master.setEducationalInstitution                                                          |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\initialize\master\setPersonDegreeType\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\initialize\master\setEducationalInstitution\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.initialize.master.setPersonDegreeType.v1_throughAPIGateway              |
-        |                     ► http://172.28.0.4/transaction.initialize.master.setPersonDegreeType.v1_throughAPIGateway           |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.initialize.master.setEducationalInstitution.v1_throughAPIGateway        |
+        |                     ► http://172.28.0.4/transaction.initialize.master.setEducationalInstitution.v1_throughAPIGateway     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-01-03                                                                                           |
@@ -38,7 +38,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken, 
-                    'transaction.initialize.master.setPersonDegreeType', 
+                    'transaction.initialize.master.setEducationalInstitution', 
                     'latest', 
                     [
                     ]
@@ -50,8 +50,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.initialize.master.setPersonDegreeType.v1_throughAPIGatewayJQuery        |
-        |                     ► http://172.28.0.4/transaction.initialize.master.setPersonDegreeType.v1_throughAPIGatewayJQuery     |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.initialize.master.setEducationalInstitution.v1_throughAPIGatewayJQuery  |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.initialize.master.setEducationalInstitution.v1_throughAPIGatewayJQuery                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-01-03                                                                                           |
@@ -66,13 +67,18 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
+            //---Java Script Library Load---
+            echo
+                \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System()
+                    );
+
             //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                     $varAPIWebToken, 
-                    'transaction.initialize.master.setPersonDegreeType', 
+                    'transaction.initialize.master.setEducationalInstitution', 
                     'latest', 
                     '{'.
                     '}'
