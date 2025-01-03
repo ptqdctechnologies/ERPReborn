@@ -3094,6 +3094,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Models\\Database\\SchData_OLTP_Master\\TblPerson' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblPerson.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblPersonAccountEMail' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblPersonAccountEMail.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblPersonAccountSocialMedia' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblPersonAccountSocialMedia.php',
+        'App\\Models\\Database\\SchData_OLTP_Master\\TblPersonDegree' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblPersonDegree.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblPersonGender' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblPersonGender.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblProduct' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblProduct.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblProductType' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblProductType.php',
