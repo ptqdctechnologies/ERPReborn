@@ -8,9 +8,29 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core
         {
         public function __construct()
             {
-            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Gateway\RequestHandler::class, ['only' => ['main'], 'except' => []]);
-            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Gateway\ResponseHandler::class, ['only' => ['main'], 'except' => []]);
-            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Gateway\TerminateHandler::class, ['only' => ['main'], 'except' => []]);
+            $this->middleware(
+                \App\Http\Middleware\Application\BackEnd\API\Gateway\RequestHandler::class,
+                [
+                'only' => ['main'],
+                'except' => []
+                ]
+                );
+
+            $this->middleware(
+                \App\Http\Middleware\Application\BackEnd\API\Gateway\ResponseHandler::class,
+                [
+                'only' => ['main'],
+                'except' => []
+                ]
+                );
+
+            $this->middleware(
+                \App\Http\Middleware\Application\BackEnd\API\Gateway\TerminateHandler::class,
+                [
+                'only' => ['main'],
+                'except' => []
+                ]
+                );
             }
         
         public function init()

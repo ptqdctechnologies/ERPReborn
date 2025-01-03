@@ -18,7 +18,7 @@ use App\Http\Controllers\UserController;
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzM1NzAzNjQ2fQ.ODk2NWQyYzM0MTFjODY4ZWUxYWYxYThkMzRiNjY2ZmRjNjlmMzZmYmU2ZDYyMDg2NDdlYTFlZGVkOWUyZDEyNw';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzM1ODcwOTE2fQ.YWFiZjk0ODYwOGQ2OGE4MmU4MzgyNTQxMGM0MGRhMDQ1YTM3MmE2Y2NmNzNhMDc3NzA5ZmZhM2E1Yzg2MTI0Mg';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(

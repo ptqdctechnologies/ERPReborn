@@ -44,11 +44,12 @@ namespace App\Http\Controllers\Application\FrontEnd\System\API
                         FALSE
                         );
                 }
+
             catch (\Exception $ex) {
                 }
 
             //$varReturn = response()->json($varData);
-            
+
             $varReturn = 
                 \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),

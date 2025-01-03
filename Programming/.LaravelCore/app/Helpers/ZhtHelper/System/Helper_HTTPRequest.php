@@ -52,7 +52,7 @@ namespace App\Helpers\ZhtHelper\System
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     //---> Guzzle Mode
-                    if(!$varObjRequest)
+                    if (!$varObjRequest)
                         {
                         $varDataReceive = request()->json()->all();
                         }
@@ -66,13 +66,16 @@ namespace App\Helpers\ZhtHelper\System
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
+
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
             }
 
@@ -100,7 +103,7 @@ namespace App\Helpers\ZhtHelper\System
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Header of HTTP Request');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(!$varKey)
+                    if (!$varKey)
                         {
                         //---> Non Guzzle Mode
                         $varReturn = $varObjRequest->header();
@@ -109,11 +112,11 @@ namespace App\Helpers\ZhtHelper\System
                         {
                         //---> Non Guzzle Mode
                         $varReturn = $varObjRequest->header($varKey);
-                        if(is_string($varReturn)==TRUE)
+                        if (is_string($varReturn)==TRUE)
                             {
                             $varReturn = $varReturn[0];
                             }
-                        elseif(count($varReturn)==1)
+                        elseif (count($varReturn)==1)
                             {
                             $varReturn = $varReturn[0];
                             }

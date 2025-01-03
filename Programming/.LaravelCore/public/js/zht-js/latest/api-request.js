@@ -472,6 +472,7 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                                         '}'
                                         )
                                     );
+                            //alert(JSON.stringify(varDataResponse.data));
                             //alert(varReturn);
                             },
 //                    error : function(varDataResponse, varTextStatus, errorThrown)
@@ -519,6 +520,7 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                 //$("body").append(JSON.stringify(varReturn));
                 return varReturn;
                 }
+
             catch (varError) {
                 alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")");
                 }
@@ -526,6 +528,7 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
         else {
             alert("jQuery is not yet loaded\nPlease initialize jQuery first by using Helper Object :\n\n\\App\\Helpers\\ZhtHelper\\General\\Helper_JavaScript::setLibrary($varUserSession)");
             }
+
         return varReturn;
         }
     }
