@@ -906,6 +906,8 @@ class AdvanceSettlementController extends Controller
 
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportAdvanceSettlementDetail', []) : [];
 
+            // dump($request->session()->get('dataReportAdvanceSettlementDetail', []));
+
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'dataReport'        => $dataReport

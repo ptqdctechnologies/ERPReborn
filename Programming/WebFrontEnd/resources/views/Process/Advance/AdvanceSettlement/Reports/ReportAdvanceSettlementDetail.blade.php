@@ -129,8 +129,10 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Product ID</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Description & Spesifications</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Unit Price</th>
+                                                    <!-- <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Unit Price</th> -->
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Expense Claim Cart</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Amount Due to Company Cart</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Advance</th>
                                                 </tr>
                                             </thead>
@@ -141,16 +143,20 @@
                                                         <td><?= $counter++; ?></td>
                                                         <td><?= "111448-0000" ?? $dataDetail['entities']['product_RefID']; ?></td>
                                                         <td><?= "Terpal" ?? $dataDetail['entities']['productName']; ?></td>
-                                                        <td><?= $dataDetail['entities']['quantity']; ?></td>
-                                                        <td><?= number_format($dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['entities']['quantity'] * $dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?></td>
+                                                        <!-- <td><?php $dataDetail['entities']['quantity']; ?></td> -->
+                                                        <!-- <td><?php number_format($dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?></td> -->
+                                                        <td>213,932.00</td>
+                                                        <td>456,123.00</td>
+                                                        <td><?= number_format(670055, 2, '.', ','); ?></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th colspan="5" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['total'], 2, '.', ','); ?></th>
+                                                    <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">213,932.00</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">456,123.00</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(670055, 2, '.', ','); ?></th>
                                                 </tr>
                                             </tfoot>
                                         </table>
