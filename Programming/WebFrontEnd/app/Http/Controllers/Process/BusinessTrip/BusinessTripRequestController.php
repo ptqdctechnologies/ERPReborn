@@ -544,6 +544,8 @@ class BusinessTripRequestController extends Controller
 
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportBusinessTripRequestDetail', []) : [];
 
+            // dump($request->session()->get('dataReportBusinessTripRequestDetail', []));
+
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'dataReport'        => $dataReport
@@ -594,8 +596,8 @@ class BusinessTripRequestController extends Controller
                     'bankType'          => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAcronym'],
                     'bankAccountNumber' => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAccountNumber'],
                     'bankAccountName'   => $splitResponse['content']['general']['bankAccount']['beneficiary']['bankAccountName'],
-                    'requester'         => $splitResponse['content']['general']['involvedPersons'][0]['requesterWorkerFullName'],
-                    'beneficiary'       => $splitResponse['content']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'],
+                    'requester'         => $splitResponse['content']['general']['involvedPersons'][0]['requesterWorkerName'],
+                    'beneficiary'       => $splitResponse['content']['general']['involvedPersons'][0]['beneficiaryWorkerName'],
                     'departingFrom'     => 'Jakarta',
                     'destinationTo'     => 'Batam',
                 ],
@@ -644,7 +646,7 @@ class BusinessTripRequestController extends Controller
                 $errors[] = 'Sub Budget';
             }
             if (!$advance_id) {
-                $errors[] = 'Advance Number';
+                $errors[] = 'BRF Number';
             }
 
             if (!empty($errors)) {

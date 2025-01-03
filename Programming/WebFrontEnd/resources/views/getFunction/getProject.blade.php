@@ -71,8 +71,6 @@
                 type: 'GET',
                 url: '{!! route("getNewProject") !!}',
                 success: function(data) {
-                    console.log('data', data);
-                    
                     $(".loadingGetProjectSecond").hide();
 
                     var no = 1;

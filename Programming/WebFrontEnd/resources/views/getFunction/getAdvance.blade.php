@@ -79,17 +79,32 @@
                 var table = $('#tableGetModalAdvance').DataTable();
                 table.clear();
 
-                $.each(data, function(key, val) {
-                    keys += 1;
-                    table.row.add([
-                        '<input id="sys_id_modal_advance' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_advance" type="hidden">' + no++,
-                        val.documentNumber || '-',
-                        val.combinedBudgetCode || '-',
-                        val.combinedBudgetName || '-',
-                        val.combinedBudgetSectionCode || '-',
-                        val.combinedBudgetSectionName || '-',
-                    ]).draw();
-                });
+                if (Array.isArray(data) && data.length > 0) {
+                    $.each(data, function(key, val) {
+                        keys += 1;
+                        table.row.add([
+                            '<input id="sys_id_modal_advance' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_advance" type="hidden">' + no++,
+                            val.documentNumber || '-',
+                            val.combinedBudgetCode || '-',
+                            val.combinedBudgetName || '-',
+                            val.combinedBudgetSectionCode || '-',
+                            val.combinedBudgetSectionName || '-',
+                        ]).draw();
+                    });
+
+                    $("#tableGetModalAdvance_length").show();
+                    $("#tableGetModalAdvance_filter").show();
+                    $("#tableGetModalAdvance_info").show();
+                    $("#tableGetModalAdvance_paginate").show();
+                } else {
+                    $(".errorModalAdvanceMessageContainerSecond").show();
+                    $("#errorModalAdvanceMessageSecond").text(`Data not found.`);
+
+                    $("#tableGetModalAdvance_length").hide();
+                    $("#tableGetModalAdvance_filter").hide();
+                    $("#tableGetModalAdvance_info").hide();
+                    $("#tableGetModalAdvance_paginate").hide();
+                }
             },
             error: function (textStatus, errorThrown) {
                 $('#tableGetModalAdvance tbody').empty();
