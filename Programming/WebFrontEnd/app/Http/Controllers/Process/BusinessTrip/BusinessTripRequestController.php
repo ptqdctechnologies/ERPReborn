@@ -544,8 +544,6 @@ class BusinessTripRequestController extends Controller
 
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportBusinessTripRequestDetail', []) : [];
 
-            // dump($request->session()->get('dataReportBusinessTripRequestDetail', []));
-
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'dataReport'        => $dataReport

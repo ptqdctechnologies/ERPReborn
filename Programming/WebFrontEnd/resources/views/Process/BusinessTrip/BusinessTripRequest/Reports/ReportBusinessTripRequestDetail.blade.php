@@ -35,132 +35,115 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="row">
-                                            <!-- LEFT -->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <table>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem; white-space: nowrap;">BRF Number</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataHeaderOne']['brfNumber']; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Budget</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataHeaderOne']['budgetCode'] . " - " . $dataReport['dataHeaderOne']['budgetName']; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Sub Budget</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataHeaderOne']['siteCode'] . " - " . $dataReport['dataHeaderOne']['siteName']; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Product</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataHeaderOne']['productID']; ?> (<?= $dataReport['dataHeaderOne']['productName']; ?>)
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                        <div class="row p-1" style="line-height: 14px; row-gap: 1rem;">
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-4 col-md-3 p-0 text-bold">
+                                                        BRF Number
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-9 p-0">
+                                                        : <?= $dataReport['dataHeaderOne']['brfNumber']; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-4 col-md-3 p-0 text-bold">
+                                                        Budget
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-9 p-0">
+                                                        : <?= $dataReport['dataHeaderOne']['budgetCode'] . " - " . $dataReport['dataHeaderOne']['budgetName']; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-4 col-md-3 p-0 text-bold">
+                                                        Sub Budget
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-9 p-0">
+                                                        : <?= $dataReport['dataHeaderOne']['siteCode'] . " - " . $dataReport['dataHeaderOne']['siteName']; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-4 col-md-3 p-0 text-bold">
+                                                        Product
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-9 p-0">
+                                                        : <?= $dataReport['dataHeaderOne']['productID']; ?> (<?= $dataReport['dataHeaderOne']['productName']; ?>)
+                                                    </div>
                                                 </div>
                                             </div>
-
-                                            <!-- MIDDLE -->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <table>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem; white-space: nowrap;">Tanggal Mulai Perjalanan</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataHeaderOne']['dateCommence']; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Tanggal Akhir Perjalanan</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataHeaderOne']['dateEnd']; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Tanggal Pembuatan BRF</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataHeaderOne']['dateBRF']; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Contact Phone</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataHeaderOne']['contactPhone']; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem; ">Bank Account</label>
-                                                            </th>
-                                                            <td style="line-height: 16px;">
-                                                                : (<?= $dataReport['dataHeaderOne']['bankType']; ?>) <?= $dataReport['dataHeaderOne']['bankAccountNumber']; ?> - <?= $dataReport['dataHeaderOne']['bankAccountName']; ?>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-4 col-md-6 p-0 text-bold">
+                                                        Tanggal Mulai Perjalanan
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-6 p-0">
+                                                        : <?= $dataReport['dataHeaderOne']['dateCommence']; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-4 col-md-6 p-0 text-bold">
+                                                        Tanggal Akhir Perjalanan
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-6 p-0">
+                                                        : <?= $dataReport['dataHeaderOne']['dateEnd']; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-4 col-md-6 p-0 text-bold">
+                                                        Tanggal Pembuatan BRF
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-6 p-0">
+                                                        : <?= $dataReport['dataHeaderOne']['dateBRF']; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-4 col-md-6 p-0 text-bold">
+                                                        Contact Phone
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-6 p-0">
+                                                        : <?= $dataReport['dataHeaderOne']['contactPhone']; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-4 col-md-6 p-0 text-bold">
+                                                        Bank Account
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-6 p-0">
+                                                        : (<?= $dataReport['dataHeaderOne']['bankType']; ?>) <?= $dataReport['dataHeaderOne']['bankAccountNumber']; ?> - <?= $dataReport['dataHeaderOne']['bankAccountName']; ?>
+                                                    </div>
                                                 </div>
                                             </div>
-
-                                            <!-- RIGHT -->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <table>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Requester</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataHeaderOne']['requester']; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Beneficiary</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataHeaderOne']['beneficiary']; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Departing From</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataHeaderOne']['departingFrom']; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Destination To</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataHeaderOne']['destinationTo']; ?>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-4 col-md-6 p-0 text-bold">
+                                                        Requester
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-6 p-0">
+                                                        : <?= $dataReport['dataHeaderOne']['requester']; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-4 col-md-6 p-0 text-bold">
+                                                        Beneficiary
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-6 p-0">
+                                                        : <?= $dataReport['dataHeaderOne']['beneficiary']; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-4 col-md-6 p-0 text-bold">
+                                                        Departing From
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-6 p-0">
+                                                        : <?= $dataReport['dataHeaderOne']['departingFrom']; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-4 col-md-6 p-0 text-bold">
+                                                        Destination To
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-6 p-0">
+                                                        : <?= $dataReport['dataHeaderOne']['destinationTo']; ?>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -174,52 +157,35 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="row">
-                                            <!-- LEFT -->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <table>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Total Transport</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= number_format($dataReport['dataHeaderTwo']['totalTransport'], 2, '.', ','); ?>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                        <div class="row p-1" style="line-height: 14px; row-gap: 1rem;">
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="row">
+                                                    <div class="col-sm-4 col-md-4 p-0 text-bold">
+                                                        Total Transport
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-8 p-0">
+                                                        : <?= number_format($dataReport['dataHeaderTwo']['totalTransport'], 2, '.', ','); ?>
+                                                    </div>
                                                 </div>
                                             </div>
-
-                                            <!-- MIDDLE -->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <table>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Total Accommodation</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= number_format($dataReport['dataHeaderTwo']['totalAccommodation'], 2, '.', ','); ?>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="row">
+                                                    <div class="col-sm-4 col-md-6 p-0 text-bold">
+                                                        Total Accommodation
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-6 p-0">
+                                                        : <?= number_format($dataReport['dataHeaderTwo']['totalAccommodation'], 2, '.', ','); ?>
+                                                    </div>
                                                 </div>
                                             </div>
-
-                                            <!-- RIGHT -->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <table>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Total Business Trip</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= number_format($dataReport['dataHeaderTwo']['totalBusinessTrip'], 2, '.', ','); ?>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="row">
+                                                    <div class="col-sm-4 col-md-6 p-0 text-bold">
+                                                        Total Business Trip
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-6 p-0">
+                                                        : <?= number_format($dataReport['dataHeaderTwo']['totalBusinessTrip'], 2, '.', ','); ?>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
