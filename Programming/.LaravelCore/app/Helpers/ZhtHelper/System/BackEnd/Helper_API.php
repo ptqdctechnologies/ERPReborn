@@ -869,11 +869,10 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                                 '', 
                                 $varDataHeader['authorization'][0]
                                 );
-//$varReturn['userLoginSessionID'] = $varAPIWebToken;
                         }
                     catch (\Exception $ex) {
-//                        $varReturn['userLoginSessionID'] = $varUserSession;
-//                        $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
+                        //$varReturn['userLoginSessionID'] = $varUserSession;
+                        //$varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                         }
                     }
 
@@ -895,97 +894,6 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                 }
             catch (Exception $ex) {
                 }
-
-           
-            
-/*
-            if (!$varAPIWebToken)
-                {
-                try {
-                    $varDataHeader =
-                        \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getHeader($varUserSession);
-
-                    $varAPIWebToken =
-                        str_replace(
-                            'Bearer ', 
-                            '', 
-                            $varDataHeader['authorization'][0]
-                            );
-                    }
-
-                catch (\Exception $ex) {
-                    //die();
-                    }
-                }
-
-            $varReturn = [
-                'APIWebToken' => $varAPIWebToken,
-                'userLoginSessionID' => null,
-                'userID' => null,
-                'userRoleID' => null,
-                'branchID' => null,
-                'sessionStartDateTimeTZ' => null,
-                'sessionAutoStartDateTimeTZ' => null,
-                'sessionAutoFinishDateTimeTZ' => null,
-                'userIdentity' => null,
-                //'userPrivilegesMenu' => null
-                'environment' => null
-                ];
-
-
-            if ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
-                {
-                //---> Jika $varAPIWebToken merupakan Web Token System (SysEngine)
-                if (strcmp($varAPIWebToken, \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System()) == 0) 
-                    {
-                    $varReturn['branchID'] = 11000000000001;
-                    }
-                else
-                    {
-                    $varData = 
-                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                            $varUserSession,
-                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                                $varUserSession,
-                                'ERPReborn::APIWebToken::'.$varAPIWebToken
-                                )
-                            );
-                    //dd($varData['userIdentity']['LDAPUserID']);
-
-                    $varReturn['userLoginSessionID'] = $varData['userLoginSession_RefID'];
-                    $varReturn['userID'] = $varData['user_RefID'];
-                    $varReturn['userRoleID'] = $varData['userRole_RefID'];
-                    $varReturn['branchID'] = $varData['branch_RefID'];
-                    $varReturn['sessionStartDateTimeTZ'] = $varData['sessionStartDateTimeTZ'];
-                    $varReturn['sessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
-                    $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
-                    //---> Bila $varReturn['userIdentity'] diambil Redis, data tidak terupdate apabila ada perubahan pada database 
-
-                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userIdentity', $varData))
-                        {
-                        $varReturn['userIdentity'] = 
-                            //null;
-                            self::getUserIdentity(
-                                $varUserSession,
-                                $varData['userIdentity']['LDAPUserID']
-                                ); //---> Data Diambil dari DB (Lebih update bila ada perubahan data)
-                            //$varData['userIdentity']; //---> Data Diambil dari Redis (Lebih responsif tapi tidak adaptif)                    
-                        }
-
-                    //if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userPrivilegesMenu', $varData))
-                    //    {
-                    //    $varReturn['userPrivilegesMenu'] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData['userPrivilegesMenu']);
-                    //    }
-                    //$varReturn['environment'] = $varData['environment'];
-                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'environment', $varData))
-                        {
-                        $varReturn['environment'] = $varData['environment'];
-                        }
-                    }                
-                }
-
-            //dd($varReturn);
-*/
 
           if ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
                 {
@@ -1016,8 +924,7 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                     $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
                     //---> Bila $varReturn['userIdentity'] diambil Redis, data tidak terupdate apabila ada perubahan pada database 
 
-                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userIdentity', $varData))
-                        {
+                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userIdentity', $varData)) {
                         $varReturn['userIdentity'] = 
                             //null;
                             self::getUserIdentity(
@@ -1032,8 +939,7 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                     //    $varReturn['userPrivilegesMenu'] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData['userPrivilegesMenu']);
                     //    }
                     //$varReturn['environment'] = $varData['environment'];
-                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'environment', $varData))
-                        {
+                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'environment', $varData)) {
                         $varReturn['environment'] = $varData['environment'];
                         }
                     }                

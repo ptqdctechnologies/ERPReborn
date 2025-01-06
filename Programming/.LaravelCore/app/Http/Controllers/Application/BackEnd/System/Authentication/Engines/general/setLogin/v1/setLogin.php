@@ -77,6 +77,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set Login (version 1)');
                 try {
+                    $varSignLoginSuccess = FALSE;
+
                     //---> Variable Initializing
                     $varUserName = $varData['userName'];
                     $varUserPassword = $varData['userPassword'];
@@ -100,7 +102,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             'LDAP_BASEDN'
                             );
 
-                    //---> Jika Otentikasi berhasil
                     if (
                         \App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName(
                             $varUserSession,
@@ -110,6 +111,46 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             $varUserName,
                             $varUserPassword
                             ) == true
+                        ) {
+                        $varSignLoginSuccess = true;
+                        }
+                    else
+                        {
+                        $varHost = 
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment(
+                                $varUserSession,
+                                'LDAP2_HOST'
+                                );
+
+                        $varPort =
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment(
+                                $varUserSession,
+                                'LDAP2_PORT'
+                                );
+
+                        $varBaseDN =
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment(
+                                $varUserSession,
+                                'LDAP2_BASEDN'
+                                );
+
+                        if (
+                            \App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName(
+                                $varUserSession,
+                                $varHost,
+                                $varPort,
+                                $varBaseDN,
+                                $varUserName,
+                                $varUserPassword
+                                ) == true
+                            ) {
+                            $varSignLoginSuccess = true;
+                            }
+                        }
+
+                    //---> Jika Otentikasi berhasil
+                    if (
+                        $varSignLoginSuccess == true
                         ) {
                         //--->
                         $varSessionIntervalInSeconds = (5 * 60);
