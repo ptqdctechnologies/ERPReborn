@@ -872,6 +872,14 @@ class AdvanceSettlementController extends Controller
         try {
             $dataReport = Session::get("dataReportAdvanceSettlementSummary");
             $print_type = $request->print_type;
+            $project_code_second_trigger = $request->project_code_second_trigger;
+
+            if ($project_code_second_trigger == null) {
+                Session::forget("isButtonReportAdvanceSettlementSummarySubmit");
+                Session::forget("dataReportAdvanceSettlementSummary");
+
+                return redirect()->route('AdvanceSettlement.ReportAdvanceSettlementSummary')->with('NotFound', 'Budget, & Sub Budget Cannot Empty');
+            }
 
             if ($dataReport) {
                 if ($print_type === "PDF") {
@@ -890,7 +898,7 @@ class AdvanceSettlementController extends Controller
                     return Excel::download(new ExportReportAdvanceSettlementSummary, 'Export Report Advance Settlement Summary.xlsx');
                 }
             } else {
-                return redirect()->route('AdvanceSettlement.ReportAdvanceSettlementSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Empty');
+                return redirect()->route('AdvanceSettlement.ReportAdvanceSettlementSummary')->with('NotFound', 'Budget, & Sub Budget Cannot Empty');
             }
         } catch (\Throwable $th) {
             Log::error("PrintExportReportAdvanceSettlementSummary Error at " . $th->getMessage());
