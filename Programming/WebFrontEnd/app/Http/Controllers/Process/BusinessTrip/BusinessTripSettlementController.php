@@ -701,6 +701,14 @@ class BusinessTripSettlementController extends Controller
         try {
             $dataReport = Session::get("dataReportReportBusinessTripSettlementSummary");
             $print_type = $request->print_type;
+            $project_code_second_trigger = $request->project_code_second_trigger;
+
+            if ($project_code_second_trigger == null) {
+                Session::forget("isButtonReportReportBusinessTripSettlementSummarySubmit");
+                Session::forget("dataReportReportBusinessTripSettlementSummary");
+        
+                return redirect()->route('BusinessTripSettlement.ReportBusinessTripSettlementSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Empty');
+            }
 
             if ($dataReport) {
                 if ($print_type === "PDF") {
@@ -845,6 +853,14 @@ class BusinessTripSettlementController extends Controller
         try {
             $dataReport = Session::get("dataReportBusinessTripSettlementDetail");
             $print_type = $request->print_type;
+            $project_code_second_trigger = $request->project_code_second_trigger;
+
+            if ($project_code_second_trigger == null) {
+                Session::forget("isButtonReportBusinessTripSettlementDetailSubmit");
+                Session::forget("dataReportBusinessTripSettlementDetail");
+        
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'Budget, Sub Budget, & BRF Number Cannot Empty');
+            }
 
             if ($dataReport) {
                 if ($print_type === "PDF") {
@@ -863,7 +879,7 @@ class BusinessTripSettlementController extends Controller
                     return Excel::download(new ExportReportBusinessTripSettlementDetail, 'Export Report Business Trip Settlement Detail.xlsx');
                 }
             } else {
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'Budget, Sub Budget, & Advance Number Cannot Empty');
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'Budget, Sub Budget, & BRF Number Cannot Empty');
             }
         } catch (\Throwable $th) {
             Log::error("PrintExportReportBusinessTripSettlementDetail Function Error at " . $th->getMessage());
