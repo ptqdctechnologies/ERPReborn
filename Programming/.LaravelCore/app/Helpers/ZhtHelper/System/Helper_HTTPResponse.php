@@ -28,8 +28,9 @@ namespace App\Helpers\ZhtHelper\System
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getResponse                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000003                                                                                       |
-        | ▪ Last Update     : 2020-08-03                                                                                           |
+        | ▪ Version         : 1.0000.0000004                                                                                       |
+        | ▪ Last Update     : 2025-01-06                                                                                           |
+        | ▪ Creation Date   : 2020-08-03                                                                                           |
         | ▪ Description     : Mendapatkan Response HTTP dari API (digunakan oleh client/frontend untuk dikirim ke backend)         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -53,7 +54,7 @@ namespace App\Helpers\ZhtHelper\System
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     //---> Reinisialisasi varPort
                     if (!$varPort) {
-                        $varPort = 80;
+                        $varPort = ((\App\Helpers\ZhtHelper\General\Helper_Network::isHTTPS($varUserSession)) == TRUE ? 443 : 80);
                         }
 
                     //---> Cek apakah port tujuan terbuka
@@ -125,7 +126,6 @@ namespace App\Helpers\ZhtHelper\System
                         //---> API selainnya (Via Gateway)
                         else
                             {
-                            //echo "xxxxxxxxxx";
 //dd($varData['metadata']['API']['APIWebToken']);                            
 //var_dump($varData['header']);
 
@@ -167,7 +167,6 @@ namespace App\Helpers\ZhtHelper\System
                                 {                                
                                 }
 */
-
                             $varData =
                                 \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey(
                                     \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession), 

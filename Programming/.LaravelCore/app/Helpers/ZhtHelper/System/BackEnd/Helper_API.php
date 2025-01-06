@@ -194,7 +194,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataDeleteByRPK($varUserSession, array $varDataSend)
             {
-            if(((bool)$varDataSend['data'][0]['FuncSys_General_SetRecordDeleteByRPK']) == TRUE)
+            if (((bool) $varDataSend['data'][0]['FuncSys_General_SetRecordDeleteByRPK']) == TRUE)
                 {
                 $varReturn = [
                     'message' => 'Data Deletion Successful'
@@ -636,50 +636,81 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             $varErrorMessage = null;
 
             $varAPIKeyData = explode('.', $varAPIKey);
-            $varAPIService = \App\Helpers\ZhtHelper\General\Helper_String::getUpperCaseFirstCharacter($varUserSession, array_shift($varAPIKeyData));
+            $varAPIService =
+                \App\Helpers\ZhtHelper\General\Helper_String::getUpperCaseFirstCharacter(
+                    $varUserSession,
+                    array_shift($varAPIKeyData)
+                    );
             $varAPIStructure = implode('.', $varAPIKeyData);
 
             //---> Cek Nama Fungsi yang akan dieksekusi
-            if(!$varFunctionName)
+            if (!$varFunctionName)
                 {
                 //---> Bila Null, maka disamakan dengan nama fungsi parent yang menginisiasi objek ini
-                $varFunctionName = debug_backtrace()[1]['function'];
+                $varFunctionName =
+                    debug_backtrace()[1]['function'];
                 }
 
             //---> Latest Version Translation
-            if(strcmp($varAPIVersion, 'latest') == 0)
+            if (strcmp($varAPIVersion, 'latest') == 0)
                 {
-                $varAPIVersion=self::getAPILatestVersion($varUserSession, $varAPIKey);
+                $varAPIVersion =
+                    self::getAPILatestVersion($varUserSession, $varAPIKey);
                 }
 
             //---> Main Process
-            $varClass = 'App\\Http\\Controllers\\Application\\BackEnd\\System\\'.$varAPIService.'\\Engines\\'.str_replace('.', '\\', $varAPIStructure).'\\v'.$varAPIVersion.'\\'.$varAPIKeyData[count($varAPIKeyData)-1];
-            
+            $varClass = (
+                'App\\Http\\Controllers\\Application\\BackEnd\\System\\'.
+                $varAPIService.
+                '\\Engines\\'.
+                str_replace('.', '\\', $varAPIStructure).
+                '\\v'.
+                $varAPIVersion.
+                '\\'.
+                $varAPIKeyData[count($varAPIKeyData)-1]
+                );
+
             $varMainPath = explode('\\', $varClass);
             array_pop($varMainPath);
-            $varMainPath = '/./../'.str_replace('App/', 'app/', str_replace('\\', '/', implode('\\', $varMainPath)));            
+            $varMainPath =
+                '/./../'.str_replace('App/', 'app/', str_replace('\\', '/', implode('\\', $varMainPath)));            
             
             $varFilePath = \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath($varUserSession, getcwd(), '/./../'.str_replace('App/', 'app/', str_replace('\\', '/', $varClass)).'.php');
-            if(!$varFilePath)
+            if (!$varFilePath)
                 {
                 //throw new \Exception('API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found');
-                $varErrorMessage = 'API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found';
+                $varErrorMessage =
+                    'API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found';
+
                 $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $varErrorMessage);
                 }
             else
                 {    
-                if($varRealDataRequest)
+                if ($varRealDataRequest)
                     {
-                    $varFilePathJSONValidation = \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath($varUserSession, getcwd(), $varMainPath.'/JSONRequestSchema.json');
-                    if(!$varFilePathJSONValidation)
+                    $varFilePathJSONValidation = 
+                        \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath(
+                            $varUserSession,
+                            getcwd(),
+                            $varMainPath.'/JSONRequestSchema.json'
+                            );
+
+                    if (!$varFilePathJSONValidation)
                         {
-                        $varErrorMessage = 'JSON Request Contract for API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found';
+                        $varErrorMessage = 
+                            'JSON Request Contract for API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found';
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $varErrorMessage);
                         }
-                    $varJSONSchemaValidationStatus = \App\Helpers\ZhtHelper\General\Helper_JSON::getSchemaValidationFromFile($varUserSession, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varRealDataRequest), $varFilePathJSONValidation);
-                    if($varJSONSchemaValidationStatus == false)
+
+                    $varJSONSchemaValidationStatus =
+                        \App\Helpers\ZhtHelper\General\Helper_JSON::getSchemaValidationFromFile($varUserSession, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varRealDataRequest), $varFilePathJSONValidation);
+
+                    if ($varJSONSchemaValidationStatus == false)
                         {
-                        $varErrorMessage = 'JSON Request incompatible with API\'s Contract ('.$varAPIKey.' version '.$varAPIVersion.')';
+                        $varErrorMessage =
+                            'JSON Request incompatible with API\'s Contract ('.$varAPIKey.' version '.$varAPIVersion.')';
+
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 400, $varErrorMessage);
                         }                
                     }
@@ -702,9 +733,8 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
     $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $varErrorMessage);
     }
 */
-                
 
-                if(!$varErrorMessage)
+                if (!$varErrorMessage)
                     {
                     require_once($varFilePath);
                     $varReturn = (new $varClass())->{$varFunctionName}($varUserSession, $varData);
@@ -813,17 +843,79 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
         */
         public static function getUserLoginSessionEntityByAPIWebToken($varUserSession, string $varAPIWebToken = null)
             {
+            $varReturn = [
+                'APIWebToken' => '',
+                'userLoginSessionID' => '',
+                'userID' => null,
+                'userRoleID' => null,
+                'branchID' => null,
+                'sessionStartDateTimeTZ' => null,
+                'sessionAutoStartDateTimeTZ' => null,
+                'sessionAutoFinishDateTimeTZ' => null,
+                'userIdentity' => null,
+                'environment' => null
+                ];
+
+            try {
+                //---> Reinitializing : $varAPIWebToken
+                if (!$varAPIWebToken) {
+                    try {
+                        $varDataHeader =
+                            \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getHeader($varUserSession);
+
+                        $varAPIWebToken =
+                            str_replace(
+                                'Bearer ', 
+                                '', 
+                                $varDataHeader['authorization'][0]
+                                );
+//$varReturn['userLoginSessionID'] = $varAPIWebToken;
+                        }
+                    catch (\Exception $ex) {
+//                        $varReturn['userLoginSessionID'] = $varUserSession;
+//                        $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
+                        }
+                    }
+
+                //---> Reinitializing : $varReturn
+                $varReturn = [
+                    'APIWebToken' => $varAPIWebToken,
+                    'userLoginSessionID' => $varReturn['userLoginSessionID'],
+                    'userID' => null,
+                    'userRoleID' => null,
+                    'branchID' => null,
+                    'sessionStartDateTimeTZ' => null,
+                    'sessionAutoStartDateTimeTZ' => null,
+                    'sessionAutoFinishDateTimeTZ' => null,
+                    'userIdentity' => null,
+                    //'userPrivilegesMenu' => null
+                    'environment' => null
+                    ];
+
+                }
+            catch (Exception $ex) {
+                }
+
+           
+            
+/*
             if (!$varAPIWebToken)
                 {
-                $varDataHeader =
-                    \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getHeader($varUserSession);
+                try {
+                    $varDataHeader =
+                        \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getHeader($varUserSession);
 
-                $varAPIWebToken =
-                    str_replace(
-                        'Bearer ', 
-                        '', 
-                        $varDataHeader['authorization'][0]
-                        );                
+                    $varAPIWebToken =
+                        str_replace(
+                            'Bearer ', 
+                            '', 
+                            $varDataHeader['authorization'][0]
+                            );
+                    }
+
+                catch (\Exception $ex) {
+                    //die();
+                    }
                 }
 
             $varReturn = [
@@ -839,7 +931,8 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                 //'userPrivilegesMenu' => null
                 'environment' => null
                 ];
-            
+
+
             if ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
                 {
                 //---> Jika $varAPIWebToken merupakan Web Token System (SysEngine)
@@ -892,6 +985,60 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                 }
 
             //dd($varReturn);
+*/
+
+          if ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
+                {
+                //---> Jika $varAPIWebToken merupakan Web Token System (SysEngine)
+                if (strcmp($varAPIWebToken, \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System()) == 0) 
+                    {
+                    $varReturn['userLoginSessionID'] = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                    $varReturn['branchID'] = 11000000000001;
+                    }
+                else
+                    {
+                    $varData = 
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                            $varUserSession,
+                            \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                                $varUserSession,
+                                'ERPReborn::APIWebToken::'.$varAPIWebToken
+                                )
+                            );
+                    //dd($varData['userIdentity']['LDAPUserID']);
+
+                    $varReturn['userLoginSessionID'] = $varData['userLoginSession_RefID'];
+                    $varReturn['userID'] = $varData['user_RefID'];
+                    $varReturn['userRoleID'] = $varData['userRole_RefID'];
+                    $varReturn['branchID'] = $varData['branch_RefID'];
+                    $varReturn['sessionStartDateTimeTZ'] = $varData['sessionStartDateTimeTZ'];
+                    $varReturn['sessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
+                    $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
+                    //---> Bila $varReturn['userIdentity'] diambil Redis, data tidak terupdate apabila ada perubahan pada database 
+
+                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userIdentity', $varData))
+                        {
+                        $varReturn['userIdentity'] = 
+                            //null;
+                            self::getUserIdentity(
+                                $varUserSession,
+                                $varData['userIdentity']['LDAPUserID']
+                                ); //---> Data Diambil dari DB (Lebih update bila ada perubahan data)
+                            //$varData['userIdentity']; //---> Data Diambil dari Redis (Lebih responsif tapi tidak adaptif)                    
+                        }
+
+                    //if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userPrivilegesMenu', $varData))
+                    //    {
+                    //    $varReturn['userPrivilegesMenu'] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData['userPrivilegesMenu']);
+                    //    }
+                    //$varReturn['environment'] = $varData['environment'];
+                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'environment', $varData))
+                        {
+                        $varReturn['environment'] = $varData['environment'];
+                        }
+                    }                
+                }
+
             return
                 $varReturn;
             }

@@ -23,8 +23,15 @@ namespace App\Helpers\ZhtHelper\System
         {
         public static function getHeader($varUserSession)
             {
-            $varHeader = request()->header();
-            //var_dump($varHeader);
+            $varHeader = null;
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varHeader = request()->header();
+                    //var_dump($varHeader);                
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    } 
+                catch (\Exception $ex) {
+                    }
             return $varHeader;
             }
 
@@ -44,25 +51,26 @@ namespace App\Helpers\ZhtHelper\System
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getRequest($varUserSession, &$varObjRequest=null)
+        public static function getRequest($varUserSession, &$varObjRequest = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get HTTP Request');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    //---> Guzzle Mode
-                    if (!$varObjRequest)
-                        {
-                        $varDataReceive = request()->json()->all();
-                        }
-                    //---> Non Guzzle Mode
-                    else
-                        {
-                        //$varDataReceive = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varObjRequest->getContent());
-                        $varDataReceive = $varObjRequest->getContent();
-                        }
-                    $varReturn = $varDataReceive;
+                        //---> Guzzle Mode
+                        if (!$varObjRequest)
+                            {
+                            $varDataReceive = request()->json()->all();
+                            }
+                        //---> Non Guzzle Mode
+                        else
+                            {
+                            //$varDataReceive = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varObjRequest->getContent());
+                            $varDataReceive = $varObjRequest->getContent();
+                            }
+
+                        $varReturn = $varDataReceive;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
@@ -79,6 +87,14 @@ namespace App\Helpers\ZhtHelper\System
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
             }
 
+/*
+public static function getRequest_HeaderAPIWebToken($varUserSession)
+    {
+    $x = self::getHeader($varUserSession);
+    $y = $x->bearerToken();
+    return '123456';
+    }
+*/
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -96,7 +112,7 @@ namespace App\Helpers\ZhtHelper\System
         |      ▪ (mixed)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getRequest_Header($varUserSession, $varObjRequest, $varKey=null)
+        public static function getRequest_Header($varUserSession, $varObjRequest, $varKey = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {

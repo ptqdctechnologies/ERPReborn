@@ -6,7 +6,7 @@
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\synchronize\acquisition                    |
 |                \setLog_Device_PersonAccess\v1                                                                                    |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\synchronize\acquisition\setLog_Device_PersonAccess\v1
@@ -75,22 +75,26 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                             }
 
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
-                        } 
+                        }
+
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Synchronization Process Failed'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
+
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
@@ -178,9 +182,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                         ]*/
                     ];
 
-                for($i=0; $i!=count($varList); $i++)
+                for ($i=0; $i!=count($varList); $i++)
                     {
-                    switch($varList[$i]['Device'])
+                    switch ($varList[$i]['Device'])
                         {
                         case 'ALBox_FP800':
                             {
@@ -306,8 +310,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
 //                    $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
 //                    }
 
+                //---> Reinitializing $varTimeZoneOffset
+                if (!$varTimeZoneOffset) {
+                    $varTimeZoneOffset = '+07';
+                    }
+
                 //---> Get Device Data
-                $varData =
+                $varData = 
                     \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken, 
@@ -321,15 +330,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                             'timeZoneOffset' => $varTimeZoneOffset,
                             'startDateTime' => '2000-01-01'
                             ]
-                        ]
-                        )['data'];
+                        ],
+                        FALSE
+                        );
                 
-                //---> Get Data Synchronization
-                (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_Device_PersonAccess())->setDataSynchronize(
-                    $varUserSession, 
-                    $varGoodsIdentity_RefID, 
-                    json_encode($varData)
-                    );
+                if ($varData['metadata']['HTTPStatusCode'] == 200) {
+                    //---> Set Data Synchronization
+                    (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_Device_PersonAccess())->setDataSynchronize(
+                        $varUserSession, 
+                        $varGoodsIdentity_RefID, 
+                        json_encode($varData['data'])
+                        );
+                    }
                 } 
             catch (\Exception $ex) {
                 }
@@ -344,29 +356,39 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
 //                    $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
 //                    }
 
-                //---> Get Device Data
-                $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'instruction.device.fingerprintAttendance.ALBox.FP800.getDataAttendance', 
-                    'latest', 
-                    [
-                    'entities' => [
-                        'IPAddress' => $varHostIP,
-                        'port' => $varHostPort, 
-                        'serialNumber' => $varSerialNumber,
-                        'timeZoneOffset' => '+07',
-                        'startDateTime' => '2000-01-01'
-                        ]
-                    ]
-                    )['data'];
+                //---> Reinitializing $varTimeZoneOffset
+                if (!$varTimeZoneOffset) {
+                    $varTimeZoneOffset = '+07';
+                    }
 
-                //---> Get Data Synchronization
-                (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_Device_PersonAccess())->setDataSynchronize(
-                    $varUserSession, 
-                    $varGoodsIdentity_RefID, 
-                    json_encode($varData)
-                    );
+                //---> Get Device Data
+                $varData =
+                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'instruction.device.fingerprintAttendance.ALBox.FP800.getDataAttendance', 
+                        'latest', 
+                        [
+                        'entities' => [
+                            'IPAddress' => $varHostIP,
+                            'port' => $varHostPort, 
+                            'serialNumber' => $varSerialNumber,
+                            'timeZoneOffset' => $varTimeZoneOffset,
+                            'startDateTime' => '2000-01-01'
+                            ]
+                        ],
+                        FALSE
+                        );
+
+                //---> Set Data Synchronization
+                if ($varData['metadata']['HTTPStatusCode'] == 200) {
+                    //---> Get Data Synchronization
+                    (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_Device_PersonAccess())->setDataSynchronize(
+                        $varUserSession, 
+                        $varGoodsIdentity_RefID, 
+                        json_encode($varData['data'])
+                        );                    
+                    }
                 } 
             catch (\Exception $ex) {
                 }
