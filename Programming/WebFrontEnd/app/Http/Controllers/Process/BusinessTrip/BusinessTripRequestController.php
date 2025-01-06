@@ -512,7 +512,7 @@ class BusinessTripRequestController extends Controller
             $print_type = $request->print_type;
             $project_code_second_trigger = $request->project_code_second_trigger;
 
-            if (!$project_code_second_trigger) {
+            if ($project_code_second_trigger == null) {
                 Session::forget("isButtonReportBusinessTripRequestSummarySubmit");
                 Session::forget("dataReportBusinessTripRequestSummary");
         
@@ -686,7 +686,7 @@ class BusinessTripRequestController extends Controller
             $dataReport = Session::get("dataReportBusinessTripRequestDetail");
             $print_type = $request->print_type;
 
-            if (!$project_code_second_trigger) {
+            if ($project_code_second_trigger == null) {
                 Session::forget("isButtonReportBusinessTripRequestDetailSubmit");
                 Session::forget("dataReportBusinessTripRequestDetail");
         
