@@ -906,8 +906,6 @@ class AdvanceSettlementController extends Controller
 
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportAdvanceSettlementDetail', []) : [];
 
-            // dump($request->session()->get('dataReportAdvanceSettlementDetail', []));
-
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'dataReport'        => $dataReport
@@ -1018,6 +1016,14 @@ class AdvanceSettlementController extends Controller
         try {
             $dataReport = Session::get("dataReportAdvanceSettlementDetail");
             $print_type = $request->print_type;
+            $project_code_second_trigger = $request->project_code_second_trigger;
+
+            if ($project_code_second_trigger == null) {
+                Session::forget("isButtonReportAdvanceSettlementDetailSubmit");
+                Session::forget("dataReportAdvanceSettlementDetail");
+
+                return redirect()->route('AdvanceSettlement.ReportAdvanceSettlementDetail')->with('NotFound', 'Budget, & Sub Budget Cannot Be Empty');
+            }
 
             if ($dataReport) {
                 if ($print_type === "PDF") {

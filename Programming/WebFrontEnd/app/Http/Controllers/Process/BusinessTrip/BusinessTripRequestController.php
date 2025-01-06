@@ -510,6 +510,14 @@ class BusinessTripRequestController extends Controller
         try {
             $dataReport = Session::get("dataReportBusinessTripRequestSummary");
             $print_type = $request->print_type;
+            $project_code_second_trigger = $request->project_code_second_trigger;
+
+            if (!$project_code_second_trigger) {
+                Session::forget("isButtonReportBusinessTripRequestSummarySubmit");
+                Session::forget("dataReportBusinessTripRequestSummary");
+        
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
+            }
 
             if ($dataReport) {
                 if ($print_type === "PDF") {
