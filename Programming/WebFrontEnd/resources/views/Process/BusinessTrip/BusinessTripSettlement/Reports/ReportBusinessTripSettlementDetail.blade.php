@@ -38,68 +38,68 @@
                                         <div class="row p-1" style="line-height: 14px; row-gap: 1rem;">
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="row" style="margin-bottom: 1rem;">
-                                                    <div class="col-sm-2 col-md-2 p-0 text-bold">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         BSF Number
                                                     </div>
-                                                    <div class="col-sm-10 col-md-10 p-0">
+                                                    <div class="col-sm-9 col-md-9 p-0">
                                                         : <?= 'BSF-24000201' ?? $dataReport['dataHeader']['number']; ?>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-bottom: 1rem;">
-                                                    <div class="col-sm-2 col-md-2 p-0 text-bold">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         Date
                                                     </div>
-                                                    <div class="col-sm-10 col-md-10 p-0">
+                                                    <div class="col-sm-9 col-md-9 p-0">
                                                         : <?= $dataReport['dataHeader']['date'] ?? '-'; ?>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-bottom: 1rem;">
-                                                    <div class="col-sm-2 col-md-2 p-0 text-bold">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         Budget
                                                     </div>
-                                                    <div class="col-sm-10 col-md-10 p-0">
+                                                    <div class="col-sm-9 col-md-9 p-0">
                                                         : <?= $dataReport['budgetCode'] . " - " . $dataReport['budgetName']; ?>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-2 col-md-2 p-0 text-bold">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         Sub Budget
                                                     </div>
-                                                    <div class="col-sm-10 col-md-10 p-0">
+                                                    <div class="col-sm-9 col-md-9 p-0">
                                                         : <?= $dataReport['siteCode'] . " - " . $dataReport['siteName']; ?>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="row" style="margin-bottom: 1rem;">
-                                                    <div class="col-sm-2 col-md-2 p-0 text-bold">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         Currency
                                                     </div>
-                                                    <div class="col-sm-10 col-md-10 p-0">
+                                                    <div class="col-sm-9 col-md-9 p-0">
                                                         : <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'] ?? '-'; ?>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-bottom: 1rem;">
-                                                    <div class="col-sm-2 col-md-2 p-0 text-bold">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         Requester
                                                     </div>
-                                                    <div class="col-sm-10 col-md-10 p-0">
+                                                    <div class="col-sm-9 col-md-9 p-0">
                                                         : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerFullName'] ?? '-'; ?>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-bottom: 1rem;">
-                                                    <div class="col-sm-2 col-md-2 p-0 text-bold">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         Beneficiary
                                                     </div>
-                                                    <div class="col-sm-10 col-md-10 p-0">
+                                                    <div class="col-sm-9 col-md-9 p-0">
                                                         : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerName'] ?? '-'; ?>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-2 col-md-2 p-0 text-bold">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         Bank Account
                                                     </div>
-                                                    <div class="col-sm-10 col-md-10 p-0">
+                                                    <div class="col-sm-9 col-md-9 p-0">
                                                         : (<?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAcronym']; ?>) <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountNumber']; ?> - <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountName']; ?>
                                                     </div>
                                                 </div>
