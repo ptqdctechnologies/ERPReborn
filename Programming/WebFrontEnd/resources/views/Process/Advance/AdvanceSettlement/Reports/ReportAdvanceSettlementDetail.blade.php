@@ -35,81 +35,73 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <table>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">ASF Number</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= 'ASF01-24000082' ?? $dataReport['dataHeader']['number']; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Date</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataHeader']['date'] ?? '-'; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Budget</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['budgetCode'] . " - " . $dataReport['budgetName']; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Sub Budget</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['siteCode'] . " - " . $dataReport['siteName']; ?>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                        <div class="row p-1" style="line-height: 14px; row-gap: 1rem;">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
+                                                        ASF Number
+                                                    </div>
+                                                    <div class="col-sm-9 col-md-9 p-0">
+                                                        : <?= 'ASF01-24000082' ?? $dataReport['dataHeader']['number']; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
+                                                        Date
+                                                    </div>
+                                                    <div class="col-sm-9 col-md-9 p-0">
+                                                        : <?= $dataReport['dataHeader']['date'] ?? '-'; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
+                                                        Budget
+                                                    </div>
+                                                    <div class="col-sm-9 col-md-9 p-0">
+                                                        : <?= $dataReport['budgetCode'] . " - " . $dataReport['budgetName']; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
+                                                        Sub Budget
+                                                    </div>
+                                                    <div class="col-sm-9 col-md-9 p-0">
+                                                        : <?= $dataReport['siteCode'] . " - " . $dataReport['siteName']; ?>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <table>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Currency</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'] ?? '-'; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Requester</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerName'] ?? '-'; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Beneficiary</label>
-                                                            </th>
-                                                            <td>
-                                                                : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerName'] ?? '-'; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;">
-                                                                <label style="margin-right: 1rem;">Bank Account</label>
-                                                            </th>
-                                                            <td>
-                                                                : (<?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAcronym']; ?>) <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountNumber']; ?> - <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountName']; ?>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
+                                                        Currency
+                                                    </div>
+                                                    <div class="col-sm-9 col-md-9 p-0">
+                                                        : <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'] ?? '-'; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
+                                                        Requester
+                                                    </div>
+                                                    <div class="col-sm-9 col-md-9 p-0">
+                                                        : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerName'] ?? '-'; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
+                                                        Beneficiary
+                                                    </div>
+                                                    <div class="col-sm-9 col-md-9 p-0">
+                                                        : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerName'] ?? '-'; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
+                                                        Bank Account
+                                                    </div>
+                                                    <div class="col-sm-9 col-md-9 p-0">
+                                                        : (<?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAcronym']; ?>) <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountNumber']; ?> - <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountName']; ?>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
