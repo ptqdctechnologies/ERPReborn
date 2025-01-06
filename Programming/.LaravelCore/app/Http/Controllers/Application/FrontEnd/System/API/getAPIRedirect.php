@@ -15,9 +15,10 @@ namespace App\Http\Controllers\Application\FrontEnd\System\API
             {
             //$varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
             //$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzM1MDEwMTI0fQ.YTE1NzU3NDE3MzVjNzFjNjc4Y2Q0MWJlNzlkNWY2Njg1NDdjYjhkYWM3OWUxMWFlOTFmYThmMTRhZWM2ZDk0Yg';
+
             $varAPIWebToken =
                 $varRequest->bearerToken();
-            
+ 
             $varData = null;
 
             try {

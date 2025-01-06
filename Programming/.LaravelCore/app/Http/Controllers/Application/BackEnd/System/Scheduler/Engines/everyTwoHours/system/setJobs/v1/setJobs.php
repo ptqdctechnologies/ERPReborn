@@ -44,10 +44,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         */
         function __construct()
             {
-            $this->varAPIIdentity = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), __CLASS__);
-            $this->varSheduleIdentity = ((explode('.', ($this->varAPIIdentity)['Key']))[1]);
+            $this->varAPIIdentity = 
+                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    __CLASS__
+                    );
 
+            $this->varSheduleIdentity = ((explode('.', ($this->varAPIIdentity)['Key']))[1]);
+            
             $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/core.log';
+
             shell_exec("touch ".$varFilePath);
             }
 
@@ -76,23 +82,28 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        } 
+                        }
+
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Data Retrieval Failed'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 
@@ -116,13 +127,23 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
             $varReturn = true;
             
             $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
+            /*
+            $varAPIWebToken =
+                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                    $varUserSession
+                    )['APIWebToken'];
+             
+             */
+            /*
+
+             */
 
             /*
             ..... Call all functions will be loaded .....
             */
 
             //---> Execute only ROLE_SYNCHRONIZE_AGENT is TRUE (config\Application\BackEnd\environment.txt)
-            if(strcmp(strtoupper(\App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'ROLE_SYNCHRONIZE_AGENT')), 'TRUE') == 0)
+//            if (strcmp(strtoupper(\App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'ROLE_SYNCHRONIZE_AGENT')), 'TRUE') == 0)
                 {
                 /*
                 //---> API Call : Central Bank Exchange Rate
@@ -153,6 +174,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                 //---> API Call : Person Access Device Log
                 $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/dataWarehouse.synchronize.acquisition.setLog_Device_PersonAccess';
                 shell_exec("touch ".$varFilePath);
+
                 $varData = 
                     \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -160,7 +182,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                         'dataWarehouse.synchronize.acquisition.setLog_Device_PersonAccess', 
                         'latest', 
                         [
-                        ]
+                        ]/*,
+                        FALSE*/
                         );                
                 }
 
