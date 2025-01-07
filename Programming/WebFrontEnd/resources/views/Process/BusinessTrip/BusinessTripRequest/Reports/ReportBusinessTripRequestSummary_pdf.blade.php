@@ -19,9 +19,8 @@
     <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
 
     <!-- HEADER -->
-    <table style="margin: 30px 0px 15px 1px;">
+    <!-- <table style="margin: 30px 0px 15px 1px;">
       <tr>
-        <!-- BUDGET -->
         <td style="width: 350px;">
           <table>
             <tr>
@@ -35,17 +34,17 @@
               </td>
               <td style="height: 20px;">
                 <div style="line-height: 14px; font-size: 14px;">
-                  <?= $dataReport['budgetCode'] . ' - ' . $dataReport['budgetName']; ?>
+                  <?php $dataReport['budgetCode'] . ' - ' . $dataReport['budgetName']; ?>
                 </div>
               </td>
             </tr>
           </table>
         </td>
       </tr>
-    </table>
+    </table> -->
 
     <!-- DETAIL -->
-    <table class="TableReportAdvanceSummary" style="margin-left: 1px; width: 100%;" id="TableReportAdvanceSummary">
+    <table class="TableReportAdvanceSummary" style="margin-left: 1px; width: 100%; margin-top: 30px;" id="TableReportAdvanceSummary">
       <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
         <td style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
