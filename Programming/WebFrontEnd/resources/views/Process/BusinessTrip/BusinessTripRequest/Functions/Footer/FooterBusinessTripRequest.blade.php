@@ -720,7 +720,7 @@
       $("#bank_accounts_third_popup").prop("disabled", false);
     }
   });
-  
+
   $('#tableGetBankAccountThird').on('click', 'tbody tr', function() {
     var sysID       = $(this).find('input[type="hidden"]').val();
     var bankAccount = $(this).find('td:nth-child(3)').text();
