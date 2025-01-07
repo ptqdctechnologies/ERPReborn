@@ -296,7 +296,7 @@
   $("#beneficiary_second_popup").prop("disabled", true);
   $("#bank_list_popup_second").prop("disabled", true);
   $("#bank_accounts_third_popup").prop("disabled", true);
-  
+
   // BUDGET CODE
   $('#tableGetProject tbody').on('click', 'tr', function() {
     $("#sitecode").val("");
