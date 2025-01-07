@@ -37,6 +37,7 @@
                                     <div class="card-body">
                                         <div class="row p-1" style="line-height: 14px; row-gap: 1rem;">
                                             <div class="col-sm-12 col-md-6">
+                                                <!-- BSF NUMBER -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         BSF Number
@@ -45,6 +46,7 @@
                                                         : <?= 'BSF-24000201' ?? $dataReport['dataHeader']['number']; ?>
                                                     </div>
                                                 </div>
+                                                <!-- DATE -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         Date
@@ -53,6 +55,7 @@
                                                         : <?= $dataReport['dataHeader']['date'] ?? '-'; ?>
                                                     </div>
                                                 </div>
+                                                <!-- BUDGET -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         Budget
@@ -61,6 +64,7 @@
                                                         : <?= $dataReport['budgetCode'] . " - " . $dataReport['budgetName']; ?>
                                                     </div>
                                                 </div>
+                                                <!-- SUB BUDGET -->
                                                 <div class="row">
                                                     <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         Sub Budget
@@ -71,6 +75,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
+                                                <!-- CURRENCY -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         Currency
@@ -79,6 +84,7 @@
                                                         : <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'] ?? '-'; ?>
                                                     </div>
                                                 </div>
+                                                <!-- REQUESTER -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         Requester
@@ -87,6 +93,7 @@
                                                         : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerFullName'] ?? '-'; ?>
                                                     </div>
                                                 </div>
+                                                <!-- BENEFICIARY -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         Beneficiary
@@ -95,6 +102,7 @@
                                                         : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerName'] ?? '-'; ?>
                                                     </div>
                                                 </div>
+                                                <!-- BANK ACCOUNT -->
                                                 <div class="row">
                                                     <div class="col-sm-3 col-md-3 p-0 text-bold">
                                                         Bank Account

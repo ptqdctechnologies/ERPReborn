@@ -37,6 +37,7 @@
                                     <div class="card-body">
                                         <div class="row p-1" style="line-height: 14px; row-gap: 1rem;">
                                             <div class="col-sm-12 col-md-4">
+                                                <!-- BRF NUMBER -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-3 p-0 text-bold">
                                                         BRF Number
@@ -45,6 +46,7 @@
                                                         : <?= $dataReport['dataHeaderOne']['brfNumber']; ?>
                                                     </div>
                                                 </div>
+                                                <!-- BUDGET -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-3 p-0 text-bold">
                                                         Budget
@@ -53,6 +55,7 @@
                                                         : <?= $dataReport['dataHeaderOne']['budgetCode'] . " - " . $dataReport['dataHeaderOne']['budgetName']; ?>
                                                     </div>
                                                 </div>
+                                                <!-- SUB BUDGET -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-3 p-0 text-bold">
                                                         Sub Budget
@@ -61,6 +64,7 @@
                                                         : <?= $dataReport['dataHeaderOne']['siteCode'] . " - " . $dataReport['dataHeaderOne']['siteName']; ?>
                                                     </div>
                                                 </div>
+                                                <!-- PRODUCT -->
                                                 <div class="row">
                                                     <div class="col-sm-4 col-md-3 p-0 text-bold">
                                                         Product
@@ -71,6 +75,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
+                                                <!-- TANGGAL MULAI PERJALANAN -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
                                                         Tanggal Mulai Perjalanan
@@ -79,6 +84,7 @@
                                                         : <?= $dataReport['dataHeaderOne']['dateCommence']; ?>
                                                     </div>
                                                 </div>
+                                                <!-- TANGGAL AKHIR PERJALANAN -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
                                                         Tanggal Akhir Perjalanan
@@ -87,6 +93,7 @@
                                                         : <?= $dataReport['dataHeaderOne']['dateEnd']; ?>
                                                     </div>
                                                 </div>
+                                                <!-- TANGGAL PEMBUATAN BRF -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
                                                         Tanggal Pembuatan BRF
@@ -95,6 +102,7 @@
                                                         : <?= $dataReport['dataHeaderOne']['dateBRF']; ?>
                                                     </div>
                                                 </div>
+                                                <!-- CONTACT PHONE -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
                                                         Contact Phone
@@ -103,6 +111,7 @@
                                                         : <?= $dataReport['dataHeaderOne']['contactPhone']; ?>
                                                     </div>
                                                 </div>
+                                                <!-- BANK ACCOUNT -->
                                                 <div class="row">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
                                                         Bank Account
@@ -113,6 +122,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
+                                                <!-- REQUESTER -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
                                                         Requester
@@ -121,6 +131,7 @@
                                                         : <?= $dataReport['dataHeaderOne']['requester']; ?>
                                                     </div>
                                                 </div>
+                                                <!-- BENEFICIARY -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
                                                         Beneficiary
@@ -129,6 +140,7 @@
                                                         : <?= $dataReport['dataHeaderOne']['beneficiary']; ?>
                                                     </div>
                                                 </div>
+                                                <!-- DEPARTING FROM -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
                                                         Departing From
@@ -137,6 +149,7 @@
                                                         : <?= $dataReport['dataHeaderOne']['departingFrom']; ?>
                                                     </div>
                                                 </div>
+                                                <!-- DESTINATION TO -->
                                                 <div class="row">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
                                                         Destination To
@@ -158,6 +171,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row p-1" style="line-height: 14px; row-gap: 1rem;">
+                                            <!-- TOTAL TRANSPORT -->
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="row">
                                                     <div class="col-sm-4 col-md-4 p-0 text-bold">
@@ -168,6 +182,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- TOTAL ACCOMMODATION -->
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="row">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
@@ -178,6 +193,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- TOTAL BUSINESS TRIP -->
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="row">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
@@ -199,6 +215,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
+                                        <!-- REASON TO TRAVEL -->
                                         <div class="form-group py-1">
                                             <label class="text-bold" style="margin-right: 1rem;">Reason to Travel</label>
                                             <div class="mt-1" style="line-height: 16px;">
