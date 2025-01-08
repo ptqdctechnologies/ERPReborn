@@ -19,12 +19,13 @@
     <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
 
     <!-- HEADER -->
-    <!-- <table style="margin: 30px 0px 15px 1px;">
+    <table style="margin: 30px 0px 15px 1px;">
       <tr>
+        <!-- BUDGET -->
         <td style="width: 350px;">
           <table>
             <tr>
-              <td style="width: 45px; height: 20px;">
+              <td style="width: 75px; height: 20px;">
                 <div style="font-size: 14px; font-weight: bold; line-height: 14px;">
                   Budget
                 </div>
@@ -34,14 +35,79 @@
               </td>
               <td style="height: 20px;">
                 <div style="line-height: 14px; font-size: 14px;">
-                  <?php $dataReport['budgetCode'] . ' - ' . $dataReport['budgetName']; ?>
+                  <?= $dataReport['budgetCode'] . ' - ' . $dataReport['budgetName']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+        
+        <!-- REQUESTER -->
+        <td style="width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 75px; height: 20px;">
+                <div style="font-size: 14px; font-weight: bold; line-height: 14px;">
+                  Requester
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px; font-size: 14px;">
+                  <?= $dataReport['requesterName'] ?? '-'; ?>
                 </div>
               </td>
             </tr>
           </table>
         </td>
       </tr>
-    </table> -->
+
+      <tr>
+        <!-- SUB BUDGET -->
+        <td style="width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 75px; height: 20px;">
+                <div style="font-size: 14px; font-weight: bold; line-height: 14px;">
+                  Sub Budget
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px; font-size: 14px;">
+                  <?= $dataReport['siteCode'] . ' - ' . $dataReport['siteName']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- BENEFICIARY -->
+        <td style="width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 75px; height: 20px;">
+                <div style="font-size: 14px; font-weight: bold; line-height: 14px;">
+                  Beneficiary
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px; font-size: 14px;">
+                  <?= $dataReport['beneficiaryName'] ?? '-'; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
 
     <!-- DETAIL -->
     <table class="TableReportAdvanceSummary" style="margin-left: 1px; width: 100%; margin-top: 30px;" id="TableReportAdvanceSummary">

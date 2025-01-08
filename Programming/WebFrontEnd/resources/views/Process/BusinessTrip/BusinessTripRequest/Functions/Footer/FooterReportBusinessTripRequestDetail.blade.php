@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $("#mySiteCodeSecondTrigger").prop("disabled", true);
-    $("#myGetModalAdvanceTrigger").prop("disabled", true);
+    // $("#myGetModalAdvanceTrigger").prop("disabled", true);
 
     $('#tableGetProjectSecond').on('click', 'tbody tr', function() {
         var sysId = $(this).find('input[data-trigger="sys_id_project_second"]').val();

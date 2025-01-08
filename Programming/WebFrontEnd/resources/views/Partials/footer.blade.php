@@ -420,6 +420,13 @@
       "autoWidth": false,
     });
   });
+  
+  $(function () {
+    $(".DefaultFeatures").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+  });
 </script>
 
 <script>

@@ -195,7 +195,6 @@
           </table>
         </td>
       </tr>
-
     </table>
 
     <!-- DETAIL -->

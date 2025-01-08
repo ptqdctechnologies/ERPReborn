@@ -1,49 +1,6 @@
 <div class="col-sm-12 col-md-12 col-lg-4">
     <form method="POST" action="{{ route('BusinessTripRequest.ReportBusinessTripRequestDetailStore') }}">
     @csrf
-    <!-- BUDGET -->
-    <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
-            <div>
-                <input id="project_code_second" style="border-radius:0;" name="project_code_second" class="form-control" size="34" value="<?= $dataReport['dataHeaderOne']['budgetCode'] ?? ''; ?>" readonly>
-                <input id="project_id_second" style="border-radius:0;" name="project_id_second" class="form-control" hidden>
-            </div>
-            <div>
-                <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond">
-                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
-                    </a>
-                </span>
-            </div>
-            <div class="d-sm-none d-md-none d-lg-block">
-                <input id="project_name_second" style="border-radius:0;" name="project_name_second" class="form-control invisible" readonly>
-            </div>
-        </div>
-    </div>
-
-    <!-- SUB BUDGET -->
-    <div class="row p-0 align-items-center">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
-            <div>
-                <input id="site_code_second" style="border-radius:0;" name="site_code_second" class="form-control" size="34" value="<?= $dataReport['dataHeaderOne']['siteCode'] ?? ''; ?>" readonly>
-                <input id="site_id_second" style="border-radius:0;" name="site_id_second" class="form-control" hidden>
-            </div>
-            <div>
-                <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="javascript:;" id="mySiteCodeSecondTrigger" data-toggle="modal" data-target="#mySiteCodeSecond">
-                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="mySiteCodeSecondTrigger">
-                    </a>
-                </span>
-            </div>
-            <div class="d-sm-none d-md-none d-lg-block">
-                <input id="site_name_second" style="border-radius:0;" name="site_name_second" class="form-control invisible" readonly>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="col-sm-12 col-md-12 col-lg-4">
     <!-- BRF NUMBER -->
     <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">BRF Number</label>
@@ -64,6 +21,48 @@
             </div>
         </div>
     </div>
+    
+    <!-- BUDGET -->
+    <!-- <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+            <div>
+                <input id="project_code_second" style="border-radius:0;" name="project_code_second" class="form-control" size="34" value="<?= $dataReport['dataHeaderOne']['budgetCode'] ?? ''; ?>" readonly>
+                <input id="project_id_second" style="border-radius:0;" name="project_id_second" class="form-control" hidden>
+            </div>
+            <div>
+                <span style="border-radius:0;" class="input-group-text form-control">
+                    <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond">
+                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
+                    </a>
+                </span>
+            </div>
+            <div class="d-sm-none d-md-none d-lg-block">
+                <input id="project_name_second" style="border-radius:0;" name="project_name_second" class="form-control invisible" readonly>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- SUB BUDGET -->
+    <!-- <div class="row p-0 align-items-center">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+            <div>
+                <input id="site_code_second" style="border-radius:0;" name="site_code_second" class="form-control" size="34" value="<?= $dataReport['dataHeaderOne']['siteCode'] ?? ''; ?>" readonly>
+                <input id="site_id_second" style="border-radius:0;" name="site_id_second" class="form-control" hidden>
+            </div>
+            <div>
+                <span style="border-radius:0;" class="input-group-text form-control">
+                    <a href="javascript:;" id="mySiteCodeSecondTrigger" data-toggle="modal" data-target="#mySiteCodeSecond">
+                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="mySiteCodeSecondTrigger">
+                    </a>
+                </span>
+            </div>
+            <div class="d-sm-none d-md-none d-lg-block">
+                <input id="site_name_second" style="border-radius:0;" name="site_name_second" class="form-control invisible" readonly>
+            </div>
+        </div>
+    </div> -->
 </div>
 <div class="col-sm-12 col-md-12 col-lg-4 d-flex flex-column flex-column-reverse">
     <!-- SUBMIT -->

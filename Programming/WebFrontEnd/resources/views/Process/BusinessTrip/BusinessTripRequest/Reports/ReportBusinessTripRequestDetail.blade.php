@@ -4,7 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
-@include('getFunction.getAdvance')
+@include('getFunction.getBusinessTripRequest')
 
 <div class="content-wrapper">
     <section class="content">
