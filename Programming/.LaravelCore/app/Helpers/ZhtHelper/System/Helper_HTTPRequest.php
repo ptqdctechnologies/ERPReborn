@@ -40,8 +40,9 @@ namespace App\Helpers\ZhtHelper\System
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getRequest                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-27                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-01-08                                                                                           |
+        | ▪ Creation date   : 2020-07-27                                                                                           |
         | ▪ Description     : Mendapatkan Request HTTP dari Requester (digunakan oleh backend untuk diolah sebelum dikirim kembali |
         |                     ke client/frontend)                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -61,7 +62,8 @@ namespace App\Helpers\ZhtHelper\System
                         //---> Guzzle Mode
                         if (!$varObjRequest)
                             {
-                            $varDataReceive = request()->json()->all();
+                            //$varDataReceive = request()->json()->all();
+                            $varDataReceive = json_decode((request()->getContent()), TRUE);
                             }
                         //---> Non Guzzle Mode
                         else
@@ -78,6 +80,7 @@ namespace App\Helpers\ZhtHelper\System
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
 
@@ -172,6 +175,7 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
             $varUserSession, 
             $varURL, $varMethod, $varData = null, $varPort = null, $varHeaders = null)
             {
+
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Send HTTP Request');
@@ -199,7 +203,6 @@ public static function getRequest_HeaderAPIWebToken($varUserSession)
                                 );
                         //dd($varResponse);
                         //dd($varData);
-
 
 
 /*

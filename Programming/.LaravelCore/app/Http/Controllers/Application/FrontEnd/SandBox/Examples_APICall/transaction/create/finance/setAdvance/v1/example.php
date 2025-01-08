@@ -28,56 +28,60 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.create.finance.setAdvance', 
-                'latest', 
-                [
-                'entities' => [
-                    "documentDateTimeTZ" => '2022-03-07',
-                    "log_FileUpload_Pointer_RefID" => 91000000000001,
-                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                    "beneficiaryWorkerJobsPosition_RefID" => 164000000000439,
-                    "beneficiaryBankAccount_RefID" => 167000000000001,
-                    "internalNotes" => 'My Internal Notes',
-                    "remarks" => 'My Remarks',
-                    "additionalData" => [
-                        "itemList" => [
-                            "items" => [
-                                    [
-                                    "entities" => [
-                                        "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                                        "product_RefID" => 88000000000002,
-                                        "quantity" => 10,
-                                        "quantityUnit_RefID" => 73000000000001,
-                                        "productUnitPriceCurrency_RefID" => 62000000000001,
-                                        "productUnitPriceCurrencyValue" => 30000,
-                                        "productUnitPriceCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan Pertama'                                    
-                                        ]                                   
-                                    ],
-                                    [
-                                    "entities" => [
-                                        "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                                        "product_RefID" => 88000000000003,
-                                        "quantity" => 5,
-                                        "quantityUnit_RefID" => 73000000000001,
-                                        "productUnitPriceCurrency_RefID" => 62000000000001,
-                                        "productUnitPriceCurrencyValue" => 40000,
-                                        "productUnitPriceCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan Kedua'
-                                        ]
-                                    ],
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'transaction.create.finance.setAdvance', 
+                    'latest', 
+                    [
+                    'entities' => [
+                        "documentDateTimeTZ" => '2022-03-07',
+                        "log_FileUpload_Pointer_RefID" => 91000000000001,
+                        "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                        "beneficiaryWorkerJobsPosition_RefID" => 164000000000439,
+                        "beneficiaryBankAccount_RefID" => 167000000000001,
+                        "internalNotes" => 'My Internal Notes',
+                        "remarks" => 'My Remarks',
+                        "additionalData" => [
+                            "itemList" => [
+                                "items" => [
+                                        [
+                                        "entities" => [
+                                            "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                            "product_RefID" => 88000000000002,
+                                            "quantity" => 10,
+                                            "quantityUnit_RefID" => 73000000000001,
+                                            "productUnitPriceCurrency_RefID" => 62000000000001,
+                                            "productUnitPriceCurrencyValue" => 30000,
+                                            "productUnitPriceCurrencyExchangeRate" => 1,
+                                            "remarks" => 'Catatan Pertama'                                    
+                                            ]                                   
+                                        ],
+                                        [
+                                        "entities" => [
+                                            "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                            "product_RefID" => 88000000000003,
+                                            "quantity" => 5,
+                                            "quantityUnit_RefID" => 73000000000001,
+                                            "productUnitPriceCurrency_RefID" => 62000000000001,
+                                            "productUnitPriceCurrencyValue" => 40000,
+                                            "productUnitPriceCurrencyExchangeRate" => 1,
+                                            "remarks" => 'Catatan Kedua'
+                                            ]
+                                        ],
+                                    ]
                                 ]
                             ]
                         ]
-                    ]
-                ]                    
-                );
+                    ]                    
+                    );
+
             var_dump($varData);
             }
 
@@ -96,8 +100,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<table border="1" style="border-collapse: collapse;">';
@@ -128,56 +134,60 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>ProductUnitPriceCurrencyExchangeRate_2</td><td><input type="text" id="dataInput_ProductUnitPriceCurrencyExchangeRate_2" value=1></td></tr>';
             echo        '<tr><td>Remarks_2</td><td><input type="text" id="dataInput_Remarks_2" value="Catatan Kedua"></td></tr>';
             echo '</table><br>';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.create.finance.setAdvance', 
-                'latest', 
-                '{'.
-                    '"entities" : {'.
-                        '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
-                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
-                        '"beneficiaryWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_BeneficiaryWorkerJobsPosition_RefID").value), '.
-                        '"beneficiaryBankAccount_RefID" : parseInt(document.getElementById("dataInput_BeneficiaryBankAccount_RefID").value), '.
-                        '"internalNotes" : document.getElementById("dataInput_InternalNotes").value, '.
-                        '"remarks" : document.getElementById("dataInput_Remarks").value, '.
-                        '"additionalData" : {'.
-                            '"itemList" : {'.
-                                '"items" : ['.
-                                        '{'.
-                                        '"entities" : '.
+
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                    $varAPIWebToken, 
+                    'transaction.create.finance.setAdvance', 
+                    'latest', 
+                    '{'.
+                        '"entities" : {'.
+                            '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
+                            '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
+                            '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
+                            '"beneficiaryWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_BeneficiaryWorkerJobsPosition_RefID").value), '.
+                            '"beneficiaryBankAccount_RefID" : parseInt(document.getElementById("dataInput_BeneficiaryBankAccount_RefID").value), '.
+                            '"internalNotes" : document.getElementById("dataInput_InternalNotes").value, '.
+                            '"remarks" : document.getElementById("dataInput_Remarks").value, '.
+                            '"additionalData" : {'.
+                                '"itemList" : {'.
+                                    '"items" : ['.
                                             '{'.
-                                            '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_1").value), '.
-                                            '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
-                                            '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
-                                            '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value),'.
-                                            '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_1").value),'.
-                                            '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_1").value),'.
-                                            '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_1").value),'.
-                                            '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
-                                            '}'.
-                                        '}, '.
-                                        '{'.
-                                        '"entities" : '.
+                                            '"entities" : '.
+                                                '{'.
+                                                '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_1").value), '.
+                                                '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
+                                                '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
+                                                '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value),'.
+                                                '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_1").value),'.
+                                                '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_1").value),'.
+                                                '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_1").value),'.
+                                                '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
+                                                '}'.
+                                            '}, '.
                                             '{'.
-                                            '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_2").value), '.
-                                            '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_2").value), '.
-                                            '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_2").value), '.
-                                            '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_2").value),'.
-                                            '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_2").value),'.
-                                            '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_2").value),'.
-                                            '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_2").value),'.
-                                            '"remarks" : document.getElementById("dataInput_Remarks_2").value'.
+                                            '"entities" : '.
+                                                '{'.
+                                                '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_2").value), '.
+                                                '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_2").value), '.
+                                                '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_2").value), '.
+                                                '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_2").value),'.
+                                                '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_2").value),'.
+                                                '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_2").value),'.
+                                                '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_2").value),'.
+                                                '"remarks" : document.getElementById("dataInput_Remarks_2").value'.
+                                                '}'.
                                             '}'.
-                                        '}'.
-                                    ']'.
+                                        ']'.
+                                    '}'.
                                 '}'.
                             '}'.
-                        '}'.
-                '}'
-                ); 
+                    '}'
+                    );
+
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+
             dd($varJQueryFunction);
             }
         }

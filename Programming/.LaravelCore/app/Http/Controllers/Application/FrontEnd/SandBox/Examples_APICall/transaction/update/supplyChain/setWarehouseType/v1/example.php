@@ -29,22 +29,26 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.supplyChain.setWarehouseType', 
-                'latest', 
-                [
-                'recordID' => 172000000000001,
-                'entities' => [
-                    'name' => 'Warehouse Type',
-                    'annotation' => 'Warehouse For ...'
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'transaction.update.supplyChain.setWarehouseType', 
+                    'latest', 
+                    [
+                    'recordID' => 172000000000001,
+                    'entities' => [
+                        'name' => 'Warehouse Type',
+                        'annotation' => 'Warehouse For ...'
+                        ]
                     ]
-                ]
-                );
+                    );
+
             var_dump($varData);
             }
 
@@ -63,27 +67,36 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_RecordID" value=172000000000001>';
-            echo '<input type="text" id="dataInput_Name" value="Warehouse Type">';
-            echo '<input type="text" id="dataInput_Annotation" value="Warehouse For ...">';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.update.supplyChain.setWarehouseType', 
-                'latest', 
-                '{'.
-                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                    '"entities" : {'.
-                        '"name" : document.getElementById("dataInput_Name").value, '.
-                        '"annotation" : document.getElementById("dataInput_Annotation").value'.
-                        '}'.
-                '}'
-                ); 
+
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Main Data</p></td></tr>';
+            echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=172000000000001></td></tr>';
+            echo        '<tr><td>Name</td><td><input type="text" id="dataInput_Name" value="Warehouse Type"></td></tr>';
+            echo        '<tr><td>Annotation</td><td><input type="text" id="dataInput_Annotation" value="Warehouse For ..."></td></tr>';
+            echo '</table><br>';
+
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                    $varAPIWebToken, 
+                    'transaction.update.supplyChain.setWarehouseType', 
+                    'latest', 
+                    '{'.
+                        '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                        '"entities" : {'.
+                            '"name" : document.getElementById("dataInput_Name").value, '.
+                            '"annotation" : document.getElementById("dataInput_Annotation").value'.
+                            '}'.
+                    '}'
+                    ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+
             dd($varJQueryFunction);
             }
         }

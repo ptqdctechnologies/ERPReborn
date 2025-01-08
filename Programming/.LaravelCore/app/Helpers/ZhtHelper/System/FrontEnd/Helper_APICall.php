@@ -377,32 +377,30 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                 try {
                     //dd($varData['SQLStatement']['filter']);
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if (!$varAPIVersion)
-                        {
+                    //---> Reinitializing : $varURL
+                    if (!$varAPIVersion) {
                         $varAPIVersion = 'latest';
                         }
-                    else
-                        {
+                    else {
                         $varAPIVersion = strtolower($varAPIVersion);
                         }
 
-                    if ($varSignDisplayErrorPage === NULL)
-                        {
+                    //---> Reinitializing : $varSignDisplayErrorPage
+                    if ($varSignDisplayErrorPage === NULL) {
                         $varSignDisplayErrorPage = TRUE;
                         }
 
-                    if ($varSignUseHTTPSProxy === NULL)
-                        {
+                    //---> Reinitializing : $varSignUseHTTPSProxy
+                    if ($varSignUseHTTPSProxy === NULL) {
                         $varSignUseHTTPSProxy = FALSE;
                         }
 
-                        
-                    if (!$varData)
-                        {
+                    //---> Reinitializing : $varData
+                    if (!$varData) {
                         $varData = [];
                         }
 
-                    //---> Inisialisasi varURL
+                    //---> Reinitializing : $varURL
                     $varURL = 
                         str_replace(
                             'http:',
@@ -410,7 +408,6 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY')
                             );
 
-                    
                     $varURL = 
                         str_replace(
                             'http:',
@@ -425,7 +422,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                 )
                             );
 
-                    //--->
+                    //---> Initializing : $varDataArray
                     $varDataArray = [
                         'header' => [
                             'authorization' => 'Bearer'.' '.$varAPIWebToken,
@@ -449,24 +446,20 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             $varDataArray
                             );
 
-                    if ($varResponseData['metadata']['HTTPStatusCode'] == 200)
-                        {
+                    if ($varResponseData['metadata']['HTTPStatusCode'] == 200) {
                         $varReturn = $varResponseData;
                         }
-                    else
-                        {
+                    else {
                         $varResponseData['metadata']['successStatus'] = FALSE;
 
                         $varRequesterSegment = (request()->segments())[0];
 
                         //---> Jika Requester berasal dari Gateway JQuery
-                        if (strcmp($varRequesterSegment, "APIGatewayJQuery_setRequest") == 0)
-                            {
+                        if (strcmp($varRequesterSegment, "APIGatewayJQuery_setRequest") == 0) {
                             $varReturn = $varResponseData;
                             }
                         //---> Jika Requester berasal dari Gateway PHP
-                        else
-                            {
+                        else {
                             if ($varSignDisplayErrorPage === TRUE)
                                 {
                                 echo $varResponseData['data']['message'];
@@ -489,15 +482,20 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
             
@@ -530,6 +528,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Gateway API');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    //---> Reinitializing : $varAPIVersion
                     if (!$varAPIVersion) {
                         $varAPIVersion = 'latest';
                         }
@@ -537,18 +536,25 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         $varAPIVersion = strtolower($varAPIVersion);
                         }
 
+                    //---> Reinitializing : $varData
                     if (!$varData) {
                         $varData = '{}';
                         }
+                    if (strcmp($varData, '{}') == 0) {
+                        $varData = '[]';
+                        }                    
                     $varData = htmlspecialchars_decode($varData);
-                    
+
+                    //---> Reinitializing : $varTimeOut
                     if (!$varTimeOut) {
                         $varTimeOut = 5000;
                         }
-                    
-//                   dd($varData);
+
+
+//                    dd($varData);
 //                    dd(\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY'));
 
+                    //---> Reinitializing : $varURL
                     $varURL = 
                         str_replace(
                             'http:',
@@ -572,7 +578,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             'try '.
                                 '{ '.                            
                                 'varJSONData = JSON.parse(JSON.stringify('.$varData.')); '.
-                                //'alert(JSON.parse(JSON.stringify('.$varData.'))); '.
+                                //'alert(JSON.stringify('.$varData.')); '.
 
                                 'varReturn = '.
                                     'new zht_JSAPIRequest_Gateway('.
@@ -601,16 +607,21 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             '}()';
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
+
             // dd($varReturn);
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 

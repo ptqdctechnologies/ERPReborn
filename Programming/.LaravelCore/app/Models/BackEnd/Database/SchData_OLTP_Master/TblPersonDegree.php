@@ -101,7 +101,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
-            $varUserSession, 
+            $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
             string $varName = null, string $varPrefix = null, string $varSuffix = null, int $varPersonDegreeType_RefID = null, int $varEducationalLevel_RefID = null, string $varAnnotation = null)
             {
