@@ -85,7 +85,7 @@ class ExportReportBusinessTripRequestDetail implements FromCollection, WithHeadi
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B5', ': ' . $data['dataHeaderOne']['budgetCode'] . " - " . $data['dataHeaderOne']['budgetName']);
+                $sheet->setCellValue('B5', ': ' . $data['dataHeaderOne']['budgetCode']);
 
                 $sheet->setCellValue('A6', 'Sub Budget')->getStyle('A6')->applyFromArray([
                     'font'  => [
@@ -93,7 +93,7 @@ class ExportReportBusinessTripRequestDetail implements FromCollection, WithHeadi
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B6', ': ' . $data['dataHeaderOne']['siteCode'] . " - " . $data['dataHeaderOne']['siteName']);
+                $sheet->setCellValue('B6', ': ' . $data['dataHeaderOne']['siteCode']);
 
                 $sheet->setCellValue('A7', 'Product')->getStyle('A7')->applyFromArray([
                     'font'  => [
@@ -101,7 +101,7 @@ class ExportReportBusinessTripRequestDetail implements FromCollection, WithHeadi
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B7', ': ' . $data['dataHeaderOne']['productID'] . '(' . $data['dataHeaderOne']['productName'] . ')');
+                $sheet->setCellValue('B7', ': ' . $data['dataHeaderOne']['productID'] . ' (' . $data['dataHeaderOne']['productName'] . ')');
 
                 $sheet->setCellValue('C4', 'Tanggal Mulai Perjalanan')->getStyle('C4')->applyFromArray([
                     'font'  => [
@@ -215,23 +215,23 @@ class ExportReportBusinessTripRequestDetail implements FromCollection, WithHeadi
                 ]);
                 $sheet->setCellValue('D11', ': ' . number_format($data['dataHeaderTwo']['totalAccommodation'], 2, '.', ','));
 
-                $sheet->setCellValue('E11', 'Total Business Trip')->getStyle('E11')->applyFromArray([
+                $sheet->setCellValue('E12', 'Total Business Trip')->getStyle('E12')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('F11', ': ' . number_format($data['dataHeaderTwo']['totalBusinessTrip'], 2, '.', ','));
+                $sheet->setCellValue('F12', ': ' . number_format($data['dataHeaderTwo']['totalBusinessTrip'], 2, '.', ','));
 
-                $sheet->setCellValue('A13', 'Reason to Travel')->getStyle('A13')->applyFromArray([
+                $sheet->setCellValue('A14', 'Reason to Travel')->getStyle('A14')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->mergeCells('A14:F14');
-                $sheet->setCellValue('A14', $data['dataHeaderThree']['reason']);
-                $sheet->getStyle('A14:F14')->getAlignment()->setWrapText(true);
+                $sheet->mergeCells('A15:F15');
+                $sheet->setCellValue('A15', $data['dataHeaderThree']['reason']);
+                $sheet->getStyle('A15:F15')->getAlignment()->setWrapText(true);
             },
         ];
     }

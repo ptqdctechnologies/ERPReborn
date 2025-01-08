@@ -235,7 +235,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row p-1" style="line-height: 14px; row-gap: 1rem;">
+                                        <div class="d-sm-none d-md-block" style="margin-top: 1rem;">
+                                            <hr class="m-0" />
+                                        </div>
+                                        <div class="d-sm-none d-md-flex row p-1" style="line-height: 14px; row-gap: 1rem; margin-top: 1rem;">
                                             <div class="d-sm-none d-md-block col-sm-12 col-md-4"></div>
                                             <div class="d-sm-none d-md-block col-sm-12 col-md-4"></div>
                                             <!-- TOTAL BUSINESS TRIP -->

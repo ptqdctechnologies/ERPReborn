@@ -333,7 +333,7 @@
     </table>
 
     <!-- HEADER TWO -->
-    <table style="margin: 30px 0px 15px 1px; margin-top: 1rem;">
+    <table style="margin: 30px 0px 15px 1px; margin-top: 1rem; border: 2px solid rgba(0,0,0,.1); border-radius: 4px;">
       <tr>
         <!-- TOTAL ALLOWANCE -->
         <td style=" width: 350px;">
@@ -378,7 +378,7 @@
         </td>
 
         <!-- TOTAL OTHER -->
-        <td style=" width: 350px;">
+        <td style=" width: 310px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
@@ -441,9 +441,14 @@
           </table>
         </td>
 
-        <td style=" width: 350px;">
+        <td style=" width: 310px;">
           <table>
           </table>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <hr style="color: rgba(0,0,0,.1);" />
         </td>
       </tr>
       <tr>
@@ -458,7 +463,7 @@
         </td>
 
         <!-- TOTAL BUSINESS TRIP -->
-        <td style=" width: 350px;">
+        <td style=" width: 310px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
