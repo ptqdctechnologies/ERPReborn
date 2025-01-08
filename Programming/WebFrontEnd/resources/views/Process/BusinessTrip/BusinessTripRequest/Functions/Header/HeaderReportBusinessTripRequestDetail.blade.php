@@ -6,63 +6,22 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">BRF Number</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <input id="modal_advance_document_number" style="border-radius:0;" name="modal_advance_document_number" class="form-control" size="34" value="<?= $dataReport['dataHeaderOne']['brfNumber'] ?? ''; ?>" readonly>
-                <input id="modal_advance_id" style="border-radius:0;" name="modal_advance_id" class="form-control" hidden>
+                <input id="brf_number_trano" style="border-radius:0;" name="brf_number_trano" class="form-control" size="34" value="<?= $dataReport['dataHeaderOne']['brfNumber'] ?? ''; ?>" readonly>
+                <input id="brf_number_id" style="border-radius:0;" name="brf_number_id" class="form-control" hidden>
             </div>
             <div>
                 <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="javascript:;" id="myGetModalAdvanceTrigger" data-toggle="modal" data-target="#myGetModalAdvance">
-                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myGetModalAdvanceTrigger">
+                    <a href="javascript:;" id="myGetModalBRFNumberTrigger" data-toggle="modal" data-target="#myGetModalBRFNumber">
+                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myGetModalBRFNumberTrigger">
                     </a>
                 </span>
             </div>
             <div class="d-sm-none d-md-none d-lg-block">
-                <input id="modal_advance_budget_code" style="border-radius:0;" name="modal_advance_budget_code" class="form-control invisible">
+                <input id="brf_number_budget" style="border-radius:0;" name="brf_number_budget" class="form-control invisible">
+                <input id="brf_number_sub_budget" style="border-radius:0;" name="brf_number_sub_budget" class="form-control d-none">
             </div>
         </div>
     </div>
-    
-    <!-- BUDGET -->
-    <!-- <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
-            <div>
-                <input id="project_code_second" style="border-radius:0;" name="project_code_second" class="form-control" size="34" value="<?= $dataReport['dataHeaderOne']['budgetCode'] ?? ''; ?>" readonly>
-                <input id="project_id_second" style="border-radius:0;" name="project_id_second" class="form-control" hidden>
-            </div>
-            <div>
-                <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond">
-                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
-                    </a>
-                </span>
-            </div>
-            <div class="d-sm-none d-md-none d-lg-block">
-                <input id="project_name_second" style="border-radius:0;" name="project_name_second" class="form-control invisible" readonly>
-            </div>
-        </div>
-    </div> -->
-
-    <!-- SUB BUDGET -->
-    <!-- <div class="row p-0 align-items-center">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
-            <div>
-                <input id="site_code_second" style="border-radius:0;" name="site_code_second" class="form-control" size="34" value="<?= $dataReport['dataHeaderOne']['siteCode'] ?? ''; ?>" readonly>
-                <input id="site_id_second" style="border-radius:0;" name="site_id_second" class="form-control" hidden>
-            </div>
-            <div>
-                <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="javascript:;" id="mySiteCodeSecondTrigger" data-toggle="modal" data-target="#mySiteCodeSecond">
-                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="mySiteCodeSecondTrigger">
-                    </a>
-                </span>
-            </div>
-            <div class="d-sm-none d-md-none d-lg-block">
-                <input id="site_name_second" style="border-radius:0;" name="site_name_second" class="form-control invisible" readonly>
-            </div>
-        </div>
-    </div> -->
 </div>
 <div class="col-sm-12 col-md-12 col-lg-4 d-flex flex-column flex-column-reverse">
     <!-- SUBMIT -->

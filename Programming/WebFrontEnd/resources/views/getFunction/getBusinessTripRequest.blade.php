@@ -1,5 +1,5 @@
-<!-- GET ADVANCE -->
-<div id="myGetModalAdvance" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<!-- GET BRF NUMBER -->
+<div id="myGetModalBRFNumber" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -24,7 +24,7 @@
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
-                                        <tr class="loadingGetModalAdvance">
+                                        <tr class="loadingGetModalBRFNumber">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
@@ -36,10 +36,10 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr class="errorModalAdvanceMessageContainerSecond">
+                                        <tr class="errorModalBRFNumberMessageContainerSecond">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorModalAdvanceMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                    <div id="errorModalBRFNumberMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -55,12 +55,12 @@
 </div>
 
 <script>
-    $(".errorModalAdvanceMessageContainerSecond").hide();
+    $(".errorModalBRFNumberMessageContainerSecond").hide();
 
-    function getModalAdvance(project_id, site_id) {
-        $('#tableGetModalAdvance tbody').empty();
-        $(".loadingGetModalAdvance").show();
-        $(".errorModalAdvanceMessageContainerSecond").hide();
+    function getModalBRFNumber(project_id, site_id) {
+        $('#BRFNumber tbody').empty();
+        $(".loadingGetModalBRFNumber").show();
+        $(".errorModalBRFNumberMessageContainerSecond").hide();
 
         $.ajaxSetup({
             headers: {
@@ -496,75 +496,70 @@
                     }
                 ];
                 
-                $(".loadingGetModalAdvance").hide();
+                $(".loadingGetModalBRFNumber").hide();
 
                 var no = 1;
-                var table = $('#tableGetModalAdvance').DataTable();
+                var table = $('#BRFNumber').DataTable();
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
                     $.each(data, function(key, val) {
                         keys += 1;
                         table.row.add([
-                            '<input id="sys_id_modal_advance' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_advance" type="hidden">' + no++,
+                            '<input id="sys_id_modal_brf_number' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_brf_number" type="hidden">' + no++,
                             val.documentNumber || '-',
                             val.combinedBudgetCode || '-',
-                            // val.combinedBudgetName || '-',
                             val.combinedBudgetSectionCode || '-',
-                            // val.combinedBudgetSectionName || '-',
                         ]).draw();
                     });
 
-                    $("#tableGetModalAdvance_length").show();
-                    $("#tableGetModalAdvance_filter").show();
-                    $("#tableGetModalAdvance_info").show();
-                    $("#tableGetModalAdvance_paginate").show();
+                    $("#BRFNumber_length").show();
+                    $("#BRFNumber_filter").show();
+                    $("#BRFNumber_info").show();
+                    $("#BRFNumber_paginate").show();
                 } else {
-                    $(".errorModalAdvanceMessageContainerSecond").show();
-                    $("#errorModalAdvanceMessageSecond").text(`Data not found.`);
+                    $(".errorModalBRFNumberMessageContainerSecond").show();
+                    $("#errorModalBRFNumberMessageSecond").text(`Data not found.`);
 
-                    $("#tableGetModalAdvance_length").hide();
-                    $("#tableGetModalAdvance_filter").hide();
-                    $("#tableGetModalAdvance_info").hide();
-                    $("#tableGetModalAdvance_paginate").hide();
+                    $("#BRFNumber_length").hide();
+                    $("#BRFNumber_filter").hide();
+                    $("#BRFNumber_info").hide();
+                    $("#BRFNumber_paginate").hide();
                 }
             },
             error: function (textStatus, errorThrown) {
-                $('#tableGetModalAdvance tbody').empty();
-                $(".loadingGetModalAdvance").hide();
-                $(".errorModalAdvanceMessageContainerSecond").show();
-                $("#errorModalAdvanceMessageSecond").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                $('#BRFNumber tbody').empty();
+                $(".loadingGetModalBRFNumber").hide();
+                $(".errorModalBRFNumberMessageContainerSecond").show();
+                $("#errorModalBRFNumberMessageSecond").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
             }
         });
     }
 
     $('#BRFNumber').on('draw.dt', function () {
-        const filterLabel = document.querySelector('#BRFNumber_filter label');
-        console.log('filterLabel', filterLabel);
-
-        if (filterLabel) {
-            filterLabel.childNodes[0].nodeValue = 'Search by trano, budget, sub budget:';
+        const searchInput = document.querySelector("#BRFNumber_filter label input[aria-controls='BRFNumber']");
+        if (searchInput) {
+            searchInput.setAttribute("placeholder", "Search by Trano, Budget Code, & Sub Budget Code");
         }
     });
 
     $(window).one('load', function(e) {
-        getModalAdvance();
+        getModalBRFNumber();
     });
 
-    $('#tableGetModalAdvance').on('click', 'tbody tr', function() {
-        var sysId           = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
+    $('#BRFNumber').on('click', 'tbody tr', function() {
+        var sysId           = $(this).find('input[data-trigger="sys_id_modal_brf_number"]').val();
         var trano           = $(this).find('td:nth-child(2)').text();
         var budgetCode      = $(this).find('td:nth-child(3)').text();
-        var budgetName      = $(this).find('td:nth-child(4)').text();
-        var subBudgetCode   = $(this).find('td:nth-child(5)').text();
-        var subBudgetName   = $(this).find('td:nth-child(6)').text();
+        var subBudgetCode   = $(this).find('td:nth-child(4)').text();
 
-        $("#modal_advance_id").val(sysId);
-        $("#modal_advance_document_number").val(trano);
-        $("#modal_advance_budget_code").val(trano);
+        $("#brf_number_id").val(sysId);
+        $("#brf_number_trano").val(trano);
+        $("#brf_number_budget").val(budgetCode);
+        $("#brf_number_sub_budget").val(subBudgetCode);
 
-        adjustInputSize(document.getElementById("modal_advance_document_number"), "string");
+        adjustInputSize(document.getElementById("brf_number_trano"), "string");
 
-        $('#myGetModalAdvance').modal('hide');
+        $('#myGetModalBRFNumber').modal('hide');
     });
 </script>

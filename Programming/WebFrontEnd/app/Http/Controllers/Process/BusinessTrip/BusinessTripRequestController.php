@@ -1747,7 +1747,7 @@ class BusinessTripRequestController extends Controller
 
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
-                'dataReport'        => $dataReport
+                'dataReport'        => $request->session()->get('dataReportBusinessTripRequestDetail', [])
             ];
 
             return view('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestDetail', $compact);
@@ -1757,35 +1757,139 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function ReportBusinessTripRequestDetailData($advance_id, $project_code, $site_code, $advance_document, $project_name, $site_name)
+    public function ReportBusinessTripRequestDetailData($brf_trano, $brf_id, $brf_budget, $brf_sub_budget)
     {
         try {
             $varAPIWebToken         = Session::get('SessionLogin');
-            $getReportAdvanceDetail = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getAdvance', 
-                'latest',
-                [
-                    'parameter' => [
-                        'recordID' => (int) $advance_id
+            // $getReportAdvanceDetail = Helper_APICall::setCallAPIGateway(
+            //     Helper_Environment::getUserSessionID_System(),
+            //     $varAPIWebToken, 
+            //     'report.form.documentForm.finance.getAdvance', 
+            //     'latest',
+            //     [
+            //         'parameter' => [
+            //             'recordID' => (int) $advance_id
+            //         ]
+            //     ]
+            // );
+
+            $getReportAdvanceDetail = [
+                'data' => [
+                    "0" => [
+                        "document" => [
+                            "header" => [
+                                "recordID"                      => "76000000000002",
+                                "title"                         => "Advance Form",
+                                "number"                        => "Adv/QDC/2022/000239",
+                                "version"                       => "0",
+                                "date"                          => "2022-12-13",
+                                "businessDocumentType_RefID"    => "77000000000057"
+                            ],
+                            "content" => [
+                                "general" => [
+                                    "budget" => [
+                                        "multipleSource" => false,
+                                        "combinedBudget_RefIDList" => [
+                                            "0" => "46000000000033"
+                                        ],
+                                        "combinedBudgetCodeList" => [
+                                            "0" => "Q000062"
+                                        ],
+                                        "combinedBudgetNameList" => [
+                                            "0" => "XL Microcell 2007"
+                                        ],
+                                        "combinedBudgetSection_RefIDList" => [
+                                            "0" => "143000000000307"
+                                        ],
+                                        "combinedBudgetSectionCodeList" => [
+                                            "0" => "240"
+                                        ],
+                                        "combinedBudgetSectionNameList" => [
+                                            "0" => "Cendana Andalas"
+                                        ],
+                                    ],
+                                    "businessDocument" => [
+                                        "businessDocumentList" => [
+                                            "recordID"  => "74000000020307",
+                                            "formBusinessDocumentNumber_RefID" => "76000000000002",
+                                            "type_RefID" => "77000000000057",
+                                            "typeName" => "Advance Form",
+                                            "number" => "Adv/QDC/2022/000239",
+                                            "version" => "0",
+                                            "dateTimeTZ" => "2022-12-13T00:00:00+07:00"
+                                        ],
+                                    ],
+                                    "workFlow" => [
+                                        "historyList" => [
+                                            "0" => null
+                                        ]
+                                    ],
+                                    "bankAccount" => [
+                                        "beneficiary" => [
+                                            "bankAccount_RefID" => "167000000000001",
+                                            "bankName" => "Bank Central Asia",
+                                            "bankAccountNumber" => "0063032911",
+                                            "bankAcronym" => "BCA",
+                                            "bankAccountName" => "PT QDC Technologies"
+                                        ]
+                                    ],
+                                    "involvedPersons" => [
+                                        "0" => [
+                                            "sequence" => "1",
+                                            "requesterWorkerJobsPosition_RefID" => "164000000000001",
+                                            "requesterWorkerFullName" => "Abdollah Syani Siregar",
+                                            "requesterWorkerName" => "Abdollah Syani Siregar",
+                                            "requesterWorkerFullJobsPositionTitle" => "",
+                                            "requesterWorkerJobsPositionName" => null,
+                                            "requesterWorkerDepartmentName" => null,
+                                            "beneficiaryWorkerJobsPosition_RefID" => "25000000000439",
+                                            "beneficiaryWorkerFullName" => null,
+                                            "beneficiaryWorkerName" => "Abdul Rachman",
+                                            "beneficiaryWorkerFullJobsPositionTitle" => null,
+                                            "beneficiaryWorkerJobsPositionName" => null,
+                                            "beneficiaryWorkerDepartmentName" => null,
+                                        ]
+                                    ],
+                                    "internalNotes" => "My Internal Notes",
+                                    "remarks" => "test jumat"
+                                ],
+                                "details" => [
+                                    "itemList" => [
+                                        "0" => [
+                                            "index" => 1,
+                                            "dataSource" => "SchData-OLTP-Finance.TblAdvanceDetail",
+                                            "recordID" => "82000000000003",
+                                            "entities" => [
+                                                "product_RefID" => "88000000000927",
+                                                "productName" => "PLN - Biaya Penyambungan",
+                                                "quantity" => "0.5",
+                                                "quantityUnit_RefID" => "73000000000024",
+                                                "quantityUnitName" => "kva",
+                                                "productUnitPriceBaseCurrencyValue" => "12000000",
+                                                "priceCurrency_RefID" => "62000000000001",
+                                                "priceCurrencyISOCode" => "IDR",
+                                                "priceBaseCurrencyValue" => "6000000",
+                                                "combinedBudgetSectionDetail_RefID" => "169000000000030",
+                                                "combinedBudget_RefID" => "46000000000033"
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
                     ]
                 ]
-            );
+            ];
 
             $splitResponse = $getReportAdvanceDetail['data'][0]['document'];
 
-            $totalAdvance = array_reduce($splitResponse['content']['details']['itemList'], function ($carry, $item) {
-                return $carry + ($item['entities']['priceBaseCurrencyValue'] ?? 0);
-            }, 0);
-
             $compact = [
                 'dataHeaderOne'     => [
-                    'brfNumber'         => 'BRF-24000203',
-                    'budgetCode'        => $project_code,
-                    'budgetName'        => $project_name,
-                    'siteCode'          => $site_code,
-                    'siteName'          => $site_name,
+                    'brfNumber'         => $brf_trano,
+                    'budgetCode'        => $brf_budget,
+                    'budgetName'        => '',
+                    'siteCode'          => $brf_sub_budget,
+                    'siteName'          => '',
                     'productID'         => '820005-0000',
                     'productName'       => 'Travel & Fares/Business Trip',
                     'dateCommence'      => '2024-12-18',
@@ -1801,6 +1905,9 @@ class BusinessTripRequestController extends Controller
                     'destinationTo'     => 'Batam',
                 ],
                 'dataHeaderTwo'     => [
+                    'totalAllowance'        => '240000.00',
+                    'totalEntertainment'    => '100000.00',
+                    'totalOther'            => '100000.00',
                     'totalTransport'        => '3450000.00',
                     'totalAccommodation'    => '0.00',
                     'totalBusinessTrip'     => '3890000.00',
@@ -1823,48 +1930,19 @@ class BusinessTripRequestController extends Controller
     public function ReportBusinessTripRequestDetailStore(Request $request)
     {
         try {
-            $project_code       = $request->project_code_second;
-            $project_id         = $request->project_id_second;
-            $project_name       = $request->project_name_second;
+            $brf_trano      = $request->brf_number_trano;
+            $brf_id         = $request->brf_number_id;
+            $brf_budget     = $request->brf_number_budget;
+            $brf_sub_budget = $request->brf_number_sub_budget;
 
-            $site_code          = $request->site_code_second;
-            $site_id            = $request->site_id_second;
-            $site_name          = $request->site_name_second;
-            
-            $advance_document   = $request->modal_advance_document_number;
-            $advance_id         = $request->modal_advance_id;
-
-            $errors = [];
-
-            if (!$advance_id) {
+            if (!$brf_id) {
                 Session::forget("isButtonReportBusinessTripRequestDetailSubmit");
                 Session::forget("dataReportBusinessTripRequestDetail");
 
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'Budget, Sub Budget, & BRF Number Cannot Be Empty');
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'BRF Number Cannot Be Empty');
             }
 
-            // if (!$project_id) {
-            //     $errors[] = 'Budget';
-            // }
-            // if (!$site_id) {
-            //     $errors[] = 'Sub Budget';
-            // }
-            // if (!$advance_id) {
-            //     $errors[] = 'BRF Number';
-            // }
-
-            // if (!empty($errors)) {
-            //     $message = implode(', ', $errors) . ' Cannot Be Empty';
-            // }
-
-            // if (isset($message)) {
-            //     Session::forget("isButtonReportBusinessTripRequestDetailSubmit");
-            //     Session::forget("dataReportBusinessTripRequestDetail");
-        
-            //     return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', $message);
-            // }
-
-            $compact = $this->ReportBusinessTripRequestDetailData($advance_id, $project_code, $site_code, $advance_document, $project_name, $site_name);
+            $compact = $this->ReportBusinessTripRequestDetailData($brf_trano, $brf_id, $brf_budget, $brf_sub_budget);
 
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');

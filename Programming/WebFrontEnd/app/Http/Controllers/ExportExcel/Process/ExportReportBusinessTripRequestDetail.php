@@ -175,39 +175,63 @@ class ExportReportBusinessTripRequestDetail implements FromCollection, WithHeadi
                 ]);
                 $sheet->setCellValue('F7', ': ' . $data['dataHeaderOne']['destinationTo']);
 
-                $sheet->setCellValue('A10', 'Total Transport')->getStyle('A10')->applyFromArray([
+                $sheet->setCellValue('A10', 'Total Allowance')->getStyle('A10')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B10', ': ' . number_format($data['dataHeaderTwo']['totalTransport'], 2, '.', ','));
+                $sheet->setCellValue('B10', ': ' . number_format($data['dataHeaderTwo']['totalAllowance'], 2, '.', ','));
 
-                $sheet->setCellValue('C10', 'Total Accommodation')->getStyle('C10')->applyFromArray([
+                $sheet->setCellValue('C10', 'Total Entertainment')->getStyle('C10')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('D10', ': ' . number_format($data['dataHeaderTwo']['totalAccommodation'], 2, '.', ','));
+                $sheet->setCellValue('D10', ': ' . number_format($data['dataHeaderTwo']['totalEntertainment'], 2, '.', ','));
 
-                $sheet->setCellValue('E10', 'Total Business Trip')->getStyle('E10')->applyFromArray([
+                $sheet->setCellValue('E10', 'Total Other')->getStyle('E10')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('F10', ': ' . number_format($data['dataHeaderTwo']['totalBusinessTrip'], 2, '.', ','));
+                $sheet->setCellValue('F10', ': ' . number_format($data['dataHeaderTwo']['totalOther'], 2, '.', ','));
 
-                $sheet->setCellValue('A12', 'Reason to Travel')->getStyle('A12')->applyFromArray([
+                $sheet->setCellValue('A11', 'Total Transport')->getStyle('A11')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->mergeCells('A13:F13');
-                $sheet->setCellValue('A13', $data['dataHeaderThree']['reason']);
-                $sheet->getStyle('A13:F13')->getAlignment()->setWrapText(true);
+                $sheet->setCellValue('B11', ': ' . number_format($data['dataHeaderTwo']['totalTransport'], 2, '.', ','));
+
+                $sheet->setCellValue('C11', 'Total Accommodation')->getStyle('C11')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('D11', ': ' . number_format($data['dataHeaderTwo']['totalAccommodation'], 2, '.', ','));
+
+                $sheet->setCellValue('E11', 'Total Business Trip')->getStyle('E11')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('F11', ': ' . number_format($data['dataHeaderTwo']['totalBusinessTrip'], 2, '.', ','));
+
+                $sheet->setCellValue('A13', 'Reason to Travel')->getStyle('A13')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->mergeCells('A14:F14');
+                $sheet->setCellValue('A14', $data['dataHeaderThree']['reason']);
+                $sheet->getStyle('A14:F14')->getAlignment()->setWrapText(true);
             },
         ];
     }

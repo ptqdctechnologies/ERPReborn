@@ -52,7 +52,7 @@
                                                         Budget
                                                     </div>
                                                     <div class="col-sm-8 col-md-9 p-0">
-                                                        : <?= $dataReport['dataHeaderOne']['budgetCode'] . " - " . $dataReport['dataHeaderOne']['budgetName']; ?>
+                                                        : <?= $dataReport['dataHeaderOne']['budgetCode']; ?>
                                                     </div>
                                                 </div>
                                                 <!-- SUB BUDGET -->
@@ -61,7 +61,7 @@
                                                         Sub Budget
                                                     </div>
                                                     <div class="col-sm-8 col-md-9 p-0">
-                                                        : <?= $dataReport['dataHeaderOne']['siteCode'] . " - " . $dataReport['dataHeaderOne']['siteName']; ?>
+                                                        : <?= $dataReport['dataHeaderOne']['siteCode']; ?>
                                                     </div>
                                                 </div>
                                                 <!-- PRODUCT -->
@@ -171,8 +171,18 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row p-1" style="line-height: 14px; row-gap: 1rem;">
-                                            <!-- TOTAL TRANSPORT -->
                                             <div class="col-sm-12 col-md-4">
+                                                <!-- TOTAL ALLOWANCE -->
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-4 col-md-4 p-0 text-bold">
+                                                        Total Allowance
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-8 p-0">
+                                                        : <?= number_format($dataReport['dataHeaderTwo']['totalAllowance'], 2, '.', ','); ?>
+                                                    </div>
+                                                </div>
+
+                                                <!-- TOTAL TRANSPORT -->
                                                 <div class="row">
                                                     <div class="col-sm-4 col-md-4 p-0 text-bold">
                                                         Total Transport
@@ -182,8 +192,18 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- TOTAL ACCOMMODATION -->
                                             <div class="col-sm-12 col-md-4">
+                                                <!-- TOTAL ENTERTAINMENT -->
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-4 col-md-6 p-0 text-bold">
+                                                        Total Entertainment
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-6 p-0">
+                                                        : <?= number_format($dataReport['dataHeaderTwo']['totalEntertainment'], 2, '.', ','); ?>
+                                                    </div>
+                                                </div>
+
+                                                <!-- TOTAL ACCOMMODATION -->
                                                 <div class="row">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
                                                         Total Accommodation
@@ -193,8 +213,33 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- TOTAL BUSINESS TRIP -->
                                             <div class="col-sm-12 col-md-4">
+                                                <!-- TOTAL OTHER -->
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-4 col-md-6 p-0 text-bold">
+                                                        Total Other
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-6 p-0">
+                                                        : <?= number_format($dataReport['dataHeaderTwo']['totalOther'], 2, '.', ','); ?>
+                                                    </div>
+                                                </div>
+
+                                                <!-- TOTAL BUSINESS TRIP -->
+                                                <div class="d-sm-flex d-md-none row">
+                                                    <div class="col-sm-4 col-md-6 p-0 text-bold">
+                                                        Total Business Trip
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-6 p-0">
+                                                        : <?= number_format($dataReport['dataHeaderTwo']['totalBusinessTrip'], 2, '.', ','); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row p-1" style="line-height: 14px; row-gap: 1rem;">
+                                            <div class="d-sm-none d-md-block col-sm-12 col-md-4"></div>
+                                            <div class="d-sm-none d-md-block col-sm-12 col-md-4"></div>
+                                            <!-- TOTAL BUSINESS TRIP -->
+                                            <div class="d-sm-none d-md-block col-sm-12 col-md-4">
                                                 <div class="row">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
                                                         Total Business Trip
