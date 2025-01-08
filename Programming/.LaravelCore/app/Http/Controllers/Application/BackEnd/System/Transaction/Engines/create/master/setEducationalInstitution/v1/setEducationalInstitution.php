@@ -65,52 +65,67 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
                                 $varUserSession,
-                                    (new \App\Models\Database\SchData_OLTP_Master\TblEducationalInstitution())->setDataInsert(
-                                        $varUserSession, 
-                                        null,
+                                (new \App\Models\Database\SchData_OLTP_Master\TblEducationalInstitution())->setDataInsert(
+                                    $varUserSession, 
+                                    null,
 
-                                        null,
-                                        null,
-                                        null,
+                                    null,
+                                    null,
+                                    null,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                        $varUserSession
+                                        )
+                                    )['branchID'],
+                                    (\App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID(
+                                        $varUserSession,
                                         (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
                                             $varUserSession
                                             )
                                         )['branchID'],
-                                        (\App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID(
-                                            $varUserSession,
-                                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
-                                                $varUserSession
-                                                )
-                                            )['branchID'],
-                                            'Env.System.BaseCurrency.ID'
-                                            )
-                                        ),
-                                        
-                                        $varData['entities']['name'],
-                                        $varData['entities']['educationalInstitutionType_RefID'],
-                                        $varData['entities']['address'],
-                                        $varData['entities']['countryAdministrativeArea_RefID'],
-                                        $varData['entities']['postalCode']
+                                        'Env.System.BaseCurrency.ID'
                                         )
+                                    ),
+
+                                    $varData['entities']['name'],
+                                    $varData['entities']['educationalInstitutionType_RefID'],
+                                    $varData['entities']['address'],
+                                    $varData['entities']['countryAdministrativeArea_RefID'],
+                                    $varData['entities']['postalCode']
+                                    )
                                 )
                             ))
                             {
                             throw new \Exception();
                             }
 
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
+                        $varReturn =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
+                                $varUserSession,
+                                $varDataSend
+                                );
                         }
 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+                        $varReturn =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                $varUserSession,
+                                500,
+                                'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
+                                );
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
 
                 catch (\Exception $ex) {
-                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
+                    $varReturn =
+                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                            $varUserSession,
+                            401,
+                            $ex->getMessage()
+                            );
+
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
@@ -119,7 +134,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             catch (\Exception $ex) {
                 }
 
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
         }
     }
