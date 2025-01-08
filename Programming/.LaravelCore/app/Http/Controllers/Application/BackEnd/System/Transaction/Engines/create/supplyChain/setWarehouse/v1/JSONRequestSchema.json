@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -30,6 +35,11 @@
             "entities" : {
                 "type": "object",
                 "properties": {
+                    "institutionBranch_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
                     "name": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
@@ -39,13 +49,54 @@
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
+                        },
+                    "address": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 256
+                        },
+                    "countryAdministrativeArea_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "postalCode": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 5
+                        },
+                    "GPSPoint": {
+                        "type": [ "string", "null" ],
+                        "format": "string",
+                        "pattern": "^(([ ]{0,})([(]{0,1})([ ]{0,})(([+]{0,1}|[-]{0,1}){0,1})((([0-8]{0,1})([0-9]{0,1})([.])([0-9]{0,7}))|((90)((([.])([0]{0,7})){0,1})))([ ]{0,})([,])([ ]{0,})(([+]{0,1}|[-]{0,1}){0,1})((((([0-9])|([1-9][0-9])|(1([0-7][0-9]))){0,1})((([.])([0-9]{0,7})){0,1}))|((180)((([.])([0]{0,7})){0,1})))([ ]{0,})([)]{0,1})([ ]{0,}))$",
+                        "minLength": 1,
+                        "maxLength": 27
+                        },
+                    "code": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 10
                         }
                     },
-                "required": [ "name", "warehouseType_RefID" ]
+                "required": [
+                    "institutionBranch_RefID",
+                    "name",
+                    "warehouseType_RefID",
+                    "address",
+                    "countryAdministrativeArea_RefID",
+                    "postalCode",
+                    "GPSPoint",
+                    "code"
+                    ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

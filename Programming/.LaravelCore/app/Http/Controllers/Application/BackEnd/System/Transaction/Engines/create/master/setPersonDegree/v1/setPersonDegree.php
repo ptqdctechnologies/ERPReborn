@@ -67,9 +67,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
                                 $varUserSession,
                                 (new \App\Models\Database\SchData_OLTP_Master\TblPersonDegreeType())->setDataInsert(
-                                    $varUserSession, 
-                                    null,
+                                    $varUserSession,
 
+                                    null,
                                     null,
                                     null,
                                     null,

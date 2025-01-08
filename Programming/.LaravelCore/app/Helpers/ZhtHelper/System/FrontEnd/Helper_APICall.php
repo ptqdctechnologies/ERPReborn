@@ -455,13 +455,11 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         $varRequesterSegment = (request()->segments())[0];
 
                         //---> Jika Requester berasal dari Gateway JQuery
-                        if (strcmp($varRequesterSegment, "APIGatewayJQuery_setRequest") == 0)
-                            {
+                        if (strcmp($varRequesterSegment, "APIGatewayJQuery_setRequest") == 0) {
                             $varReturn = $varResponseData;
                             }
                         //---> Jika Requester berasal dari Gateway PHP
-                        else
-                            {
+                        else {
                             if ($varSignDisplayErrorPage === TRUE)
                                 {
                                 echo $varResponseData['data']['message'];

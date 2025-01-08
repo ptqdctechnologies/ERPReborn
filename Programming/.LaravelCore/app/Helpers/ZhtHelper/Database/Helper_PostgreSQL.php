@@ -355,27 +355,27 @@ namespace App\Helpers\ZhtHelper\Database
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     //---> Parameter Reinitialization
-                    if(!$varReturnField)
+                    if (!$varReturnField)
                         {
                         $varReturnField = ['*'];
                         }
                     
                     //---> Check data integrity
-                    if((!$varStoredProcedureName) OR (count($varReturnField) == 0))
+                    if ((!$varStoredProcedureName) OR (count($varReturnField) == 0))
                         {
                         throw new \Exception('Invalid data entry');
                         }
                     //---> Build SELECT
-                    if((count($varReturnField) == 1) && (strcmp($varReturnField[0], '*') == 0))
+                    if ((count($varReturnField) == 1) && (strcmp($varReturnField[0], '*') == 0))
                         {
                         $varSQL = "SELECT * FROM ";
                         }
                     else
                         {
                         $varSQL = "SELECT ";
-                        for($i=0; $i!=count($varReturnField); $i++)
+                        for ($i=0; $i!=count($varReturnField); $i++)
                             {
-                            if($i != 0)
+                            if ($i != 0)
                                 {
                                 $varSQL .= ", ";
                                 }
@@ -389,30 +389,44 @@ namespace App\Helpers\ZhtHelper\Database
                     //--->
                     $varSQL .= "(";
                     //--->
-                    $varSpecialKeyword=['NOW()'];
-                    for($i=0; $i!=count($varData); $i++)
+                    $varSpecialKeyword = ['NOW()'];
+                    for ($i=0; $i!=count($varData); $i++)
                         {
-                        if($i != 0)
+                        if ($i != 0)
                             {
                             $varSQL .= ", ";
                             }
-                        if((is_array($varData[$i][0])==FALSE) && (strcmp(substr($varData[$i][0], 0, 1), '(')==0) && (strcmp(substr($varData[$i][0], strlen($varData[$i][0])-1, 1), ')')==0))
+                        if (strcmp($varData[$i][1], 'point') == 0)
+                            {
+                            $varSQL .= (
+                                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
+                                    $varUserSession,
+                                    $varData[$i][0]
+                                    )
+                                )."::point";                            
+                            }                                    
+                        elseif ((is_array($varData[$i][0]) == FALSE) && (strcmp(substr($varData[$i][0], 0, 1), '(')==0) && (strcmp(substr($varData[$i][0], strlen($varData[$i][0])-1, 1), ')')==0))
                             {
                             $varSQL .= $varData[$i][0]."::".$varData[$i][1];
                             }
-                        elseif((is_array($varData[$i][0])==FALSE) && (in_array(strtoupper($varData[$i][0]), $varSpecialKeyword))) 
+                        elseif ((is_array($varData[$i][0]) == FALSE) && (in_array(strtoupper($varData[$i][0]), $varSpecialKeyword))) 
                             { 
                             $varSQL .= $varData[$i][0]."::".$varData[$i][1];
                             }
                         else
                             {
-                            switch($varData[$i][1])
+                            switch ($varData[$i][1])
                                 {
                                 case 'bigint':
                                     {
                                     if((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE) OR (is_int((int) $varData[$i][0]) == TRUE))
                                         {
-                                        $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, $varData[$i][0]))."::bigint";
+                                        $varSQL .= (
+                                            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger(
+                                                $varUserSession,
+                                                $varData[$i][0]
+                                                )
+                                            )."::bigint";
                                         }
                                     else
                                         {
@@ -424,14 +438,19 @@ namespace App\Helpers\ZhtHelper\Database
                                     {
                                     if(is_array($varData[$i][0])==FALSE)
                                         {
-                                        $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::bigint[]";                                
+                                        $varSQL .= (
+                                            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
+                                                $varUserSession,
+                                                $varData[$i][0]
+                                                )
+                                            )."::bigint[]";                                
                                         }
                                     else
                                         {
                                         $varSQL .= "'{";
-                                        for($j=0, $jMax=count($varData[$i][0]); $j!=$jMax; $j++)
+                                        for ($j=0, $jMax=count($varData[$i][0]); $j!=$jMax; $j++)
                                             {
-                                            if($j>0) {
+                                            if ($j>0) {
                                                 $varSQL .= ", ";                                        
                                                 }
                                             $varSQL .= $varData[$i][0][$j];
@@ -442,61 +461,113 @@ namespace App\Helpers\ZhtHelper\Database
                                     }
                                 case 'boolean':
                                     {
-                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, ($varData[$i][0]==null ? null : ($varData[$i][0]==true ? 'TRUE' : 'FALSE'))))."::boolean";
+                                    $varSQL .= (
+                                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
+                                            $varUserSession,
+                                            ($varData[$i][0] == null ? null : ($varData[$i][0] == true ? 'TRUE' : 'FALSE'))
+                                            )
+                                        )."::boolean";
                                     break;
                                     }
                                 case 'bytea':
                                     {
-                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBytea($varUserSession, $varData[$i][0]))."::bytea";
+                                    $varSQL .= (
+                                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBytea(
+                                            $varUserSession,
+                                            $varData[$i][0]
+                                            )
+                                        )."::bytea";
                                     break;
                                     }
                                 case 'cidr':
                                     {
-                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::cidr";
+                                    $varSQL .= (
+                                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
+                                            $varUserSession,
+                                            $varData[$i][0]
+                                            )
+                                        )."::cidr";
                                     break;
                                     }
                                 case 'character varying':
                                 case 'varchar':
                                     {
-                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::varchar";
+                                    $varSQL .= (
+                                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
+                                            $varUserSession,
+                                            $varData[$i][0]
+                                            )
+                                        )."::varchar";
                                     break;
                                     }
                                 case 'character varying[]':
                                 case 'varchar[]':
                                     {
-                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::varchar[]";
+                                    $varSQL .= (
+                                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
+                                            $varUserSession,
+                                            $varData[$i][0]
+                                            )
+                                        )."::varchar[]";
                                     break;
                                     }
                                 case 'date':
                                     {
-                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::date";
+                                    $varSQL .= (
+                                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
+                                            $varUserSession,
+                                            $varData[$i][0]
+                                            )
+                                        )."::date";
                                     break;
                                     }
                                 case 'interval':
                                     {
-                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::interval";
+                                    $varSQL .= (
+                                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
+                                            $varUserSession,
+                                            $varData[$i][0]
+                                            )
+                                        )."::interval";
                                     break;
                                     }
                                 case 'numeric':
                                     {
-                                    if((!$varData[$i][0]) OR (is_numeric($varData[$i][0]) == TRUE))
+                                    if ((!$varData[$i][0]) OR (is_numeric($varData[$i][0]) == TRUE))
                                         {
-                                        $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::numeric";
+                                        $varSQL .= (
+                                            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
+                                                $varUserSession,
+                                                $varData[$i][0]
+                                                )
+                                            )."::numeric";
                                         }
                                     else
-                                        {throw new \Exception('Error');}
+                                        {
+                                        throw new \Exception('Error');
+                                        }
                                     break;
                                     }
                                 case 'json':
                                     {
-                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::json";
+                                    $varSQL .= (
+                                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
+                                            $varUserSession,
+                                            $varData[$i][0]
+                                            )
+                                        )."::json";
                                     break;
                                     }
                                 case 'smallint':
                                     {
-                                    if((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE) OR (is_int((int) $varData[$i][0]) == TRUE))
+                                    if ((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE) OR (is_int((int) $varData[$i][0]) == TRUE))
                                         {
-                                        $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForSmallInteger($varUserSession, $varData[$i][0]))."::smallint";
+                                        $varSQL .= (
+                                            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForSmallInteger(
+                                                $varUserSession,
+                                                $varData[$i][0]
+                                                )
+                                            )."::smallint";
                                         }
                                     else
                                         {
@@ -538,7 +609,6 @@ namespace App\Helpers\ZhtHelper\Database
                     $varSQL .= ");";
 
 
-//dd($varSQL);
 
                     
                     $varReturn = $varSQL;
@@ -1391,13 +1461,15 @@ namespace App\Helpers\ZhtHelper\Database
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get String Literal Convertion for VarChar');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if((!$varData) || (strcmp($varData, '')==0) || (strcmp(strtolower($varData), 'null')==0)) 
+                    if ((!$varData) || (strcmp($varData, '')==0) || (strcmp(strtolower($varData), 'null')==0)) 
                         {
-                        $varReturn = 'NULL';
+                        $varReturn =
+                            'NULL';
                         }
                     else
                         {
-                        $varReturn = '\''.self::getStringLiteralEscapedCharacter_SingleQuote($varUserSession,$varData).'\'';
+                        $varReturn =
+                            '\''.self::getStringLiteralEscapedCharacter_SingleQuote($varUserSession,$varData).'\'';
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -1405,11 +1477,14 @@ namespace App\Helpers\ZhtHelper\Database
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 } 
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 
