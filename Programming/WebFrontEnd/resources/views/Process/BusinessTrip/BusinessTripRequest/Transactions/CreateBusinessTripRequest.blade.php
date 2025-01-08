@@ -436,7 +436,7 @@
                           </div>
 
                           <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-xl-block" style="margin-bottom: 1rem;">
+                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
                               <div class="input-group">
                                 <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
@@ -445,7 +445,7 @@
                           </div>
 
                           <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-xl-block" style="margin-bottom: 1rem;">
+                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
                               <div class="input-group">
                                 <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
@@ -454,7 +454,7 @@
                           </div>
 
                           <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-xl-block" style="margin-bottom: 1rem;">
+                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
                               <div class="input-group">
                                 <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
@@ -463,7 +463,7 @@
                           </div>
 
                           <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-xl-block" style="margin-bottom: 1rem;">
+                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
                               <div class="input-group">
                                 <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
@@ -472,7 +472,7 @@
                           </div>
 
                           <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-xl-block" style="margin-bottom: 1rem;">
+                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
                               <div class="input-group">
                                 <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
@@ -521,7 +521,7 @@
                           </div>
 
                           <!-- OTHER -->
-                          <div class="row" style="margin-bottom: 1rem;">
+                          <div class="row">
                             <label for="other" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">3. Other</label>
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0">
                               <div class="input-group">
@@ -531,7 +531,7 @@
                           </div>
 
                           <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-xl-block" style="margin-bottom: 1rem;">
+                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
                               <div class="input-group">
                                 <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
@@ -540,7 +540,7 @@
                           </div>
 
                           <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-xl-block" style="margin-bottom: 1rem;">
+                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
                               <div class="input-group">
                                 <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
@@ -549,7 +549,7 @@
                           </div>
 
                           <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-xl-block" style="margin-bottom: 1rem;">
+                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
                               <div class="input-group">
                                 <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
@@ -558,7 +558,7 @@
                           </div>
 
                           <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-xl-block" style="margin-bottom: 1rem;">
+                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
                               <div class="input-group">
                                 <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
@@ -567,7 +567,7 @@
                           </div>
 
                           <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-xl-block" style="margin-bottom: 1rem;">
+                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
                               <div class="input-group">
                                 <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
@@ -576,16 +576,25 @@
                           </div>
 
                           <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-xl-block" style="margin-bottom: 1rem;">
+                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
                               <div class="input-group">
                                 <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                               </div>
                             </div>
                           </div>
+                        </div>
 
+                        <div class="col-md-12 col-lg-12 d-flex align-items-center px-0" style="gap: 0.2rem;">
+                          <hr class="m-0" style="width: 100%;" />
+                          <img src="{{ asset('AdminLTE-master/dist/img/plus-circle.svg') }}" width="13" alt="" />
+                        </div>
+
+                        <div class="d-sm-none d-md-none d-lg-block col-md-12 col-lg-3"></div>
+                        <div class="d-sm-none d-md-none d-lg-block col-md-12 col-lg-3"></div>
+                        <div class="col-md-12 col-lg-3">
                           <!-- TOTAL BUSINESS TRIP -->
-                          <div class="row">
+                          <div class="row" style="margin-bottom: 1rem;">
                             <label for="total_business_trip" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0 text-bold">Total Business Trip</label>
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0">
                               <div class="input-group">
