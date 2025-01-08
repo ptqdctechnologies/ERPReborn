@@ -41,13 +41,15 @@ class ExportReportBusinessTripRequestSummary implements FromCollection, WithHead
     public function headings(): array
     {
         $data = Session::get("dataReportBusinessTripRequestSummary");
+        $requester = $data['requesterName'] ?? "-";
+        $beneficiary = $data['beneficiaryName'] ?? "-";
 
         return [
             [date('F j, Y')],
             ["BUSINESS TRIP REQUEST SUMMARY"],
             [date('h:i A')],
-            ["Budget", ": " . $data['budgetCode'] . ' - ' . $data['budgetName'], "Requester", ": " . $data['requesterName'], "", "", "", "", "", "", ""],
-            ["Sub Budget", ": " . $data['siteCode'] . ' - ' . $data['siteName'], "Beneficiary", ": " . $data['beneficiaryName'], "", "", "", "", "", "", ""],
+            ["Budget", ": " . $data['budgetCode'] . ' - ' . $data['budgetName'], "Requester", ": " . $requester, "", "", "", "", "", "", ""],
+            ["Sub Budget", ": " . $data['siteCode'] . ' - ' . $data['siteName'], "Beneficiary", ": " . $beneficiary, "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", "", "", ""],
             ["No", "BRF Number", "Sub Budget", "Departing From", "Destination To", "Date", "Total", "Currency", "Requester", "Beneficiary", "Remark"],
         ];
