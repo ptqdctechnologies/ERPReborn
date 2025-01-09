@@ -41,6 +41,70 @@
             </tr>
           </table>
         </td>
+
+        <!-- REQUESTER -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Requester
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px; font-size: 12px;">
+                  <?= $dataReport['requesterName'] ?? '-'; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <!-- SUB BUDGET -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Sub Budget
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px; font-size: 12px;">
+                  <?= $dataReport['siteCode'] . ' - ' .$dataReport['siteName']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- BENEFICIARY -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Beneficiary
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px; font-size: 12px;">
+                  <?= $dataReport['beneficiaryName'] ?? '-'; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
       </tr>
     </table>
 
@@ -79,12 +143,12 @@
         </td>
         <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total Expense Claim Cart
+            Total Expense Claim
           </div>
         </td>
         <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total Amount Due to Company Cart
+            Total Amount Due to Company
           </div>
         </td>
         <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">

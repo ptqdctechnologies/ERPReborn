@@ -1230,6 +1230,7 @@ class BusinessTripSettlementController extends Controller
                 'budgetCode'        => $project_code,
                 'budgetName'        => $project_name,
                 'siteCode'          => $site_code,
+                'siteName'          => $site_name,
                 'requesterName'     => $requester_name,
                 'beneficiaryName'   => $beneficiary_name,
                 'total'             => $totalAdvance,
@@ -1263,6 +1264,11 @@ class BusinessTripSettlementController extends Controller
 
             $beneficiary_id     = $request->beneficiary_second_id;
             $beneficiary_name   = $request->beneficiary_second_person_name;
+
+            // dd($project_code, $project_name, $project_id);
+            // dd($site_id, $site_code, $site_name);
+            // dd($requester_id, $requester_name);
+            // dd($beneficiary_id, $beneficiary_name);
 
             if (!$project_id && !$site_id && !$requester_id && !$beneficiary_id) {
                 Session::forget("isButtonReportReportBusinessTripSettlementSummarySubmit");
