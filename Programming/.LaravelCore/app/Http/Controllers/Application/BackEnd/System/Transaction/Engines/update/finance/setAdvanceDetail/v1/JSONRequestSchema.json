@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -78,11 +83,27 @@
                         "maxLength": 512
                         }
                     },
-                "required": [ "advance_RefID", "combinedBudgetSectionDetail_RefID", "product_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyValue", "productUnitPriceCurrencyExchangeRate", "remarks" ]
+                "required": [
+                    "advance_RefID",
+                    "combinedBudgetSectionDetail_RefID",
+                    "product_RefID",
+                    "quantity",
+                    "quantityUnit_RefID",
+                    "productUnitPriceCurrency_RefID",
+                    "productUnitPriceCurrencyValue",
+                    "productUnitPriceCurrencyExchangeRate",
+                    "remarks"
+                    ]
                 }
             },
-        "required": [ "recordID", "entities" ]
+        "required": [
+            "recordID",
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
