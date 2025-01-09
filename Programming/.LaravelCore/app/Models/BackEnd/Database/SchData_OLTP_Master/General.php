@@ -3659,12 +3659,16 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                         );
 
-                $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentDispositionHistory']);
+                $varReturn =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentDispositionHistory']);
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -3715,8 +3719,10 @@ namespace App\Models\Database\SchData_OLTP_Master
                         $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentIssuanceDisposition'])
                     ];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -3762,8 +3768,10 @@ namespace App\Models\Database\SchData_OLTP_Master
                         $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentIssuanceDispositionCount'])
                     ];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
