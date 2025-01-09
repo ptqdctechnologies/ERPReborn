@@ -31,22 +31,26 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.resume.master.getBusinessDocumentDispositionHistory', 
-                'latest',
-                [
-                'parameter' => [
-                    'recordID' => 74000000020323 // 74000000000003 // Business Document ID
-                    //'recordID' => 75000001493195 // Business Document Version ID
-                    //'recordID' => 75000001493374
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'report.form.resume.master.getBusinessDocumentDispositionHistory', 
+                    'latest',
+                    [
+                    'parameter' => [
+                        'recordID' => 74000000020323 // 74000000000003 // Business Document ID
+                        //'recordID' => 75000001493195 // Business Document Version ID
+                        //'recordID' => 75000001493374
+                        ]
                     ]
-                ]
-                );
+                    );
+
             var_dump($varData);
             }
         }
