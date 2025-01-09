@@ -65,14 +65,14 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            
+
             var keys = 0;
             $.ajax({
                 type: 'GET',
                 url: '{!! route("getNewProject") !!}',
                 success: function(data) {
                     $(".loadingGetProjectSecond").hide();
-
+                    
                     var no = 1;
                     var table = $('#tableGetProjectSecond').DataTable();
                     table.clear();

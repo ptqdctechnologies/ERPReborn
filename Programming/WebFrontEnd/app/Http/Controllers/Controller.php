@@ -287,7 +287,7 @@ class Controller extends BaseController
         }
     }
 
-    protected function SyncDataWithRedis($userSessionID, $redisKey, $apiData)
+    protected function SyncDataWithRedis($userSessionID, $redisKey, $apiData, $redisTTL = null)
     {
         $existingRedisData = json_decode(Helper_Redis::getValue($userSessionID, $redisKey), true) ?? [];
         
@@ -310,7 +310,8 @@ class Controller extends BaseController
             Helper_Redis::setValue(
                 $userSessionID, 
                 $redisKey, 
-                json_encode($apiData)
+                json_encode($apiData),
+                $redisTTL
             );
             return $apiData;
         } 

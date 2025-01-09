@@ -54,23 +54,42 @@ class FunctionController extends Controller
     public function getNewProject(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
-        
-        $varDataProject = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => null
-            ],
-            false
-        );
+        $varGetRedisNewProject = [];
+        $testingTrigger = $request->trigger;
 
-        $varGetRedisNewProject = $this->syncDataWithRedis(
-            $varAPIWebToken, 
-            "getNewProject", 
-            $varDataProject['data']['data']
-        );
+        if (!Redis::get("getNewProject") || $testingTrigger) {
+            $varDataProject = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'dataPickList.project.getProject',
+                'latest',
+                [
+                    'parameter' => null
+                ],
+                false
+            );
+
+            if (isset($varDataProject['data']['data']) && is_array($varDataProject['data']['data'])) {
+                $dataAPIProject = $varDataProject['data']['data'];
+
+                $varGetRedisNewProject = $this->syncDataWithRedis(
+                    $varAPIWebToken, 
+                    "getNewProject", 
+                    $dataAPIProject,
+                    86400
+                );
+            } else {
+                return response()->json(['error' => 'Invalid API response'], 500);
+            }
+        } else {
+            $varGetRedisNewProject = json_decode(
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
+                    "getNewProject"
+                ),
+                true
+            );
+        }
 
         return response()->json($varGetRedisNewProject);
     }
@@ -145,11 +164,18 @@ class FunctionController extends Controller
                 false
             );
 
-            $DataSubBudget = $this->syncDataWithRedis(
-                $varAPIWebToken, 
-                "getNewSite", 
-                $varData['data']['data']
-            );
+            if (isset($varData['data']['data']) && is_array($varData['data']['data'])) {
+                $dataAPISubBudget = $varData['data']['data'];
+
+                $DataSubBudget = $this->syncDataWithRedis(
+                    $varAPIWebToken, 
+                    "getNewSite", 
+                    $dataAPISubBudget,
+                    15
+                );
+            } else {
+                return response()->json(['error' => 'Invalid API response'], 500);
+            }
         } else {
             $DataSubBudget = json_decode(
                 Helper_Redis::getValue(
