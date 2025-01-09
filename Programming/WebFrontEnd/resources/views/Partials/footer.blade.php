@@ -624,3 +624,11 @@
     componentInput.size = componentLenghtInput * defaultValue;
   }
 </script>
+
+<!-- FUNGSI UNTUK MENGAKTIFKAN/ENABLE KOMPONEN BOOTSTRAP -->
+<script>
+  $(function () {
+    // POPOVER
+    $('[data-toggle="popover"]').popover()
+  });
+</script>
