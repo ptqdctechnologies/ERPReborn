@@ -1650,38 +1650,12 @@ class BusinessTripRequestController extends Controller
             $beneficiary_id     = $request->beneficiary_second_id;
             $beneficiary_name   = $request->beneficiary_second_person_name;
 
-            $errors = [];
-
             if (!$project_id && !$site_id && !$requester_id && !$beneficiary_id) {
                 Session::forget("isButtonReportBusinessTripRequestSummarySubmit");
                 Session::forget("dataReportBusinessTripRequestSummary");
 
                 return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
             }
-
-            // if (!$project_id) {
-            //     $errors[] = 'Budget';
-            // }
-            // if (!$site_id) {
-            //     $errors[] = 'Sub Budget';
-            // }
-            // if (!$requester_id) {
-            //     $errors[] = 'Requester';
-            // }
-            // if (!$beneficiary_id) {
-            //     $errors[] = 'Beneficiary';
-            // }
-
-            // if (!empty($errors)) {
-            //     $message = implode(', ', $errors) . ' Cannot Be Empty';
-            // }
-
-            // if (isset($message)) {
-            //     Session::forget("isButtonReportBusinessTripRequestSummarySubmit");
-            //     Session::forget("dataReportBusinessTripRequestSummary");
-        
-            //     return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestSummary')->with('NotFound', $message);
-            // }
 
             $compact = $this->ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name);
 
@@ -1745,7 +1719,7 @@ class BusinessTripRequestController extends Controller
 
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
-                'dataReport'        => $request->session()->get('dataReportBusinessTripRequestDetail', [])
+                'dataReport'        => $dataReport
             ];
 
             return view('Process.BusinessTrip.BusinessTripRequest.Reports.ReportBusinessTripRequestDetail', $compact);
