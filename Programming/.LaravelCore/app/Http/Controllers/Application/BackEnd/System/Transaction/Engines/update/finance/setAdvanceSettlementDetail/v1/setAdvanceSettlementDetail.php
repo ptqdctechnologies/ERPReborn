@@ -62,47 +62,89 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblAdvanceSettlementDetail())->setDataUpdate(
-                            $varUserSession,
-                            $varData['recordID'],
-                            null,
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_Finance\TblAdvanceSettlementDetail())->setDataUpdate(
+                                    $varUserSession,
+                                    $varData['recordID'],
 
-                            $varData['entities']['advanceSettlement_RefID'],
-                            $varData['entities']['advanceDetail_RefID'],
-                            $varData['entities']['product_RefID'],
-                            $varData['entities']['quantity'],
-                            $varData['entities']['quantityUnit_RefID'],
-                            $varData['entities']['expenseClaimProductUnitPriceCurrency_RefID'],
-                            $varData['entities']['expenseClaimProductUnitPriceCurrencyValue'],
-                            $varData['entities']['expenseClaimProductUnitPriceCurrencyExchangeRate'],
-                            $varData['entities']['returnProductUnitPriceCurrency_RefID'],
-                            $varData['entities']['returnProductUnitPriceCurrencyValue'],
-                            $varData['entities']['returnProductUnitPriceCurrencyExchangeRate'],
-                            $varData['entities']['remarks']
-                            ))))
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    (
+                                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                        $varUserSession
+                                        )
+                                    )['branchID'],
+                                    (\App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID(
+                                        $varUserSession,
+                                        (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                            $varUserSession
+                                            )
+                                        )['branchID'],
+                                        'Env.System.BaseCurrency.ID'
+                                        )
+                                    ),
+
+                                    $varData['entities']['advanceSettlement_RefID'],
+                                    $varData['entities']['advanceDetail_RefID'],
+                                    $varData['entities']['product_RefID'],
+                                    $varData['entities']['quantity'],
+                                    $varData['entities']['quantityUnit_RefID'],
+                                    $varData['entities']['expenseClaimProductUnitPriceCurrency_RefID'],
+                                    $varData['entities']['expenseClaimProductUnitPriceCurrencyValue'],
+                                    $varData['entities']['expenseClaimProductUnitPriceCurrencyExchangeRate'],
+                                    $varData['entities']['returnProductUnitPriceCurrency_RefID'],
+                                    $varData['entities']['returnProductUnitPriceCurrencyValue'],
+                                    $varData['entities']['returnProductUnitPriceCurrencyExchangeRate'],
+                                    $varData['entities']['remarks']
+                                    )
+                                )
+                            ))
                             {
                             throw new \Exception();
                             }
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
-                        } 
-                    catch (\Exception $ex) {
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdateException($varUserSession, $ex);
+
+                        $varReturn =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
+                                $varUserSession,
+                                $varDataSend
+                                );
                         }
+
+                    catch (\Exception $ex) {
+                        $varReturn =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdateException(
+                                $varUserSession,
+                                $ex
+                                );
+                        }
+
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
+
                 catch (\Exception $ex) {
-                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
+                    $varReturn =
+                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                            $varUserSession,
+                            401,
+                            $ex->getMessage()
+                            );
+
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
+
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
         }
     }

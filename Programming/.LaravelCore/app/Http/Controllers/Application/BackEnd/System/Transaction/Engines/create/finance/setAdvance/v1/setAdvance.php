@@ -66,9 +66,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
                                 $varUserSession, 
                                 (new \App\Models\Database\SchData_OLTP_Finance\TblAdvance())->setDataInsert(
-                                    $varUserSession, 
-                                    null,
+                                    $varUserSession,
 
+                                    null,
                                     null,
                                     null,
                                     null,
@@ -98,18 +98,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                         $varUserSession,
                                         'additionalData',
                                         $varData['entities']
-                                        ) ?
-                                            (
+                                        ) 
+                                        ?   (
                                                 (
                                                 !is_null($varData['entities']['additionalData'])
-                                                ) ? 
-                                                    $varData['entities']['additionalData']
-                                                    :
-                                                    []
+                                                ) 
+                                                ? $varData['entities']['additionalData']
+                                                : []
                                             )
-                                            :
-                                            []
-                                        )
+                                        : []
+                                    )
                                     )
                                 )
                             ))
