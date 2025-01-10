@@ -15,21 +15,16 @@ use App\Http\Controllers\UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
+$varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-$varUserSession = 
-    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-$varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzM2NDc0NDI4fQ.YWQ5N2U1OGM3ZTBmNGMxOTgxM2EwN2NlZDRjMDI1MWI5NDE4NTg3ZmQ1OTY4N2VhODZjMjkxMDhjMjY2OTc0MA';
-
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzM2MzEyMDkzfQ.Y2Y0ODIzYTY4ZDY4MmE1MDdhNWU3Y2U1Y2Q4ZDZjYzA2MDJhM2ZmMTFjN2MzNTE0ZDYxODNlNzgyMGQ1MDM0Mw';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
     $varAPIWebToken
-    );
-
+);
 //---[ Example Code - Dynamic Route ]----------------------------------------------------[ END ]---
 
 //---[ Static Route ]--------------------------------------------------------------------[START]---
