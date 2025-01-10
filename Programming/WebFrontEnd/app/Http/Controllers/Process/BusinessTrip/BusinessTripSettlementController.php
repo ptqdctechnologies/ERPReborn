@@ -1725,7 +1725,18 @@ class BusinessTripSettlementController extends Controller
                 ]
             ];
 
-            $indexing = ($bsf_number == "BSF-24000208" ? 0 : $bsf_number == "BSF-24000209") ? 1 : 2;
+            $indexing = -1;
+            switch ($bsf_number) {
+                case "BSF-24000208":
+                    $indexing = 0;
+                    break;
+                case "BSF-24000209":
+                    $indexing = 1;
+                    break;
+                default:
+                    $indexing = 2;
+                    break;
+            }
 
             $splitResponse = $getReportAdvanceDetail['data'][$indexing]['document'];
 

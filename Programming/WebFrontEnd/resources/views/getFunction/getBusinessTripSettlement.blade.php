@@ -25,7 +25,7 @@
                                     <tbody></tbody>
                                     <tfoot>
                                         <tr class="loadingGetModalBSFNumber">
-                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                            <td colspan="6" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
@@ -37,7 +37,7 @@
                                             </td>
                                         </tr>
                                         <tr class="errorModalBSFNumberMessageContainerSecond">
-                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                            <td colspan="6" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div id="errorModalBSFNumberMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
