@@ -5,7 +5,7 @@
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setAdvanceDetail\v1           |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setAdvanceDetail\v1
@@ -66,9 +66,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
                                 $varUserSession,
                                 (new \App\Models\Database\SchData_OLTP_Finance\TblAdvanceDetail())->setDataInsert(
-                                    $varUserSession, 
-                                    null,
+                                    $varUserSession,
 
+                                    null,
                                     null,
                                     null,
                                     null,

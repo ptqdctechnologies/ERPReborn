@@ -100,11 +100,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                         $varUserSession,
                                         'additionalData',
                                         $varData['entities']
-                                        ) ? 
-                                            $varData['entities']['additionalData']
-                                            :
-                                            []
-                                        )
+                                        ) 
+                                        ?   (
+                                                (
+                                                !is_null($varData['entities']['additionalData'])
+                                                ) 
+                                                ? $varData['entities']['additionalData']
+                                                : []
+                                            )
+                                        : []
+                                    )
                                     )
                                 )
                             ))
