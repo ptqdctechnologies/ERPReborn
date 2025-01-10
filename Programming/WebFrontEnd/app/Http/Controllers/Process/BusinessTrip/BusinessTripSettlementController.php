@@ -1349,23 +1349,382 @@ class BusinessTripSettlementController extends Controller
         }
     }
 
-    public function ReportBusinessTripSettlementDetailData($advance_id, $project_code, $site_code, $advance_document, $project_name_second, $site_name_second)
+    public function ReportBusinessTripSettlementDetailData($project_code, $project_name_second, $site_code, $site_name_second, $bsf_number, $bsf_id)
     {
         try {
             $varAPIWebToken         = Session::get('SessionLogin');
-            $getReportAdvanceDetail = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getAdvance', 
-                'latest',
-                [
-                    'parameter' => [
-                        'recordID' => (int) $advance_id
-                    ]
-                ]
-            );
+            // $getReportAdvanceDetail = Helper_APICall::setCallAPIGateway(
+            //     Helper_Environment::getUserSessionID_System(),
+            //     $varAPIWebToken, 
+            //     'report.form.documentForm.finance.getAdvance', 
+            //     'latest',
+            //     [
+            //         'parameter' => [
+            //             'recordID' => (int) $advance_id
+            //         ]
+            //     ]
+            // );
 
-            $splitResponse = $getReportAdvanceDetail['data'][0]['document'];
+            // 820011-0000 | Equipment Rent
+            // 820015-0000 | Travelling
+            // 820005-0000 | Travel & Fares/Business Trip
+            // 820003-0000 | Communication/Telephone
+            // 820001-0000 | Salaries
+            // XX          | Others
+
+            $getReportAdvanceDetail = [
+                'data' => [
+                    "0" => [
+                        "document" => [
+                            "header" => [
+                                "recordID"                      => "76000000000002",
+                                "title"                         => "Advance Form",
+                                "number"                        => "Adv/QDC/2022/000239",
+                                "version"                       => "0",
+                                "date"                          => "2024-12-16",
+                                "businessDocumentType_RefID"    => "77000000000057"
+                            ],
+                            "content" => [
+                                "general" => [
+                                    "budget" => [
+                                        "multipleSource" => false,
+                                        "combinedBudget_RefIDList" => [
+                                            "0" => "46000000000033"
+                                        ],
+                                        "combinedBudgetCodeList" => [
+                                            "0" => "Q000062"
+                                        ],
+                                        "combinedBudgetNameList" => [
+                                            "0" => "XL Microcell 2007"
+                                        ],
+                                        "combinedBudgetSection_RefIDList" => [
+                                            "0" => "143000000000307"
+                                        ],
+                                        "combinedBudgetSectionCodeList" => [
+                                            "0" => "240"
+                                        ],
+                                        "combinedBudgetSectionNameList" => [
+                                            "0" => "Cendana Andalas"
+                                        ],
+                                    ],
+                                    "businessDocument" => [
+                                        "businessDocumentList" => [
+                                            "recordID"  => "74000000020307",
+                                            "formBusinessDocumentNumber_RefID" => "76000000000002",
+                                            "type_RefID" => "77000000000057",
+                                            "typeName" => "Advance Form",
+                                            "number" => "Adv/QDC/2022/000239",
+                                            "version" => "0",
+                                            "dateTimeTZ" => "2022-12-13T00:00:00+07:00"
+                                        ],
+                                    ],
+                                    "workFlow" => [
+                                        "historyList" => [
+                                            "0" => null
+                                        ]
+                                    ],
+                                    "bankAccount" => [
+                                        "beneficiary" => [
+                                            "bankAccount_RefID" => "167000000000001",
+                                            "bankName" => "Bank Central Asia",
+                                            "bankAccountNumber" => "0063032911",
+                                            "bankAcronym" => "BCA",
+                                            "bankAccountName" => "PT QDC Technologies"
+                                        ]
+                                    ],
+                                    "involvedPersons" => [
+                                        "0" => [
+                                            "sequence" => "1",
+                                            "requesterWorkerJobsPosition_RefID" => "164000000000001",
+                                            "requesterWorkerFullName" => "Abdollah Syani Siregar",
+                                            "requesterWorkerName" => "Abdollah Syani Siregar",
+                                            "requesterWorkerFullJobsPositionTitle" => "",
+                                            "requesterWorkerJobsPositionName" => null,
+                                            "requesterWorkerDepartmentName" => null,
+                                            "beneficiaryWorkerJobsPosition_RefID" => "25000000000439",
+                                            "beneficiaryWorkerFullName" => null,
+                                            "beneficiaryWorkerName" => "Abdul Rachman",
+                                            "beneficiaryWorkerFullJobsPositionTitle" => null,
+                                            "beneficiaryWorkerJobsPositionName" => null,
+                                            "beneficiaryWorkerDepartmentName" => null,
+                                        ]
+                                    ],
+                                    "internalNotes" => "My Internal Notes",
+                                    "remarks" => "test jumat"
+                                ],
+                                "details" => [
+                                    "itemList" => [
+                                        "0" => [
+                                            "index" => 1,
+                                            "dataSource" => "SchData-OLTP-Finance.TblAdvanceDetail",
+                                            "recordID" => "82000000000003",
+                                            "entities" => [
+                                                "product_RefID" => "820015-0000",
+                                                "productName" => "Travel & Fares/Business Trip",
+                                                "quantity" => "2",
+                                                "quantityUnit_RefID" => "73000000000024",
+                                                "quantityUnitName" => "kva",
+                                                "productUnitPriceBaseCurrencyValue" => "12000000",
+                                                "priceCurrency_RefID" => "62000000000001",
+                                                "priceCurrencyISOCode" => "IDR",
+                                                "priceBaseCurrencyValue" => "6000000",
+                                                "combinedBudgetSectionDetail_RefID" => "169000000000030",
+                                                "combinedBudget_RefID" => "46000000000033"
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ],
+                    "1" => [
+                        "document" => [
+                            "header" => [
+                                "recordID"                      => "76000000000002",
+                                "title"                         => "Advance Form",
+                                "number"                        => "Adv/QDC/2022/000239",
+                                "version"                       => "0",
+                                "date"                          => "2024-12-20",
+                                "businessDocumentType_RefID"    => "77000000000057"
+                            ],
+                            "content" => [
+                                "general" => [
+                                    "budget" => [
+                                        "multipleSource" => false,
+                                        "combinedBudget_RefIDList" => [
+                                            "0" => "46000000000033"
+                                        ],
+                                        "combinedBudgetCodeList" => [
+                                            "0" => "Q000062"
+                                        ],
+                                        "combinedBudgetNameList" => [
+                                            "0" => "XL Microcell 2007"
+                                        ],
+                                        "combinedBudgetSection_RefIDList" => [
+                                            "0" => "143000000000307"
+                                        ],
+                                        "combinedBudgetSectionCodeList" => [
+                                            "0" => "240"
+                                        ],
+                                        "combinedBudgetSectionNameList" => [
+                                            "0" => "Cendana Andalas"
+                                        ],
+                                    ],
+                                    "businessDocument" => [
+                                        "businessDocumentList" => [
+                                            "recordID"  => "74000000020307",
+                                            "formBusinessDocumentNumber_RefID" => "76000000000002",
+                                            "type_RefID" => "77000000000057",
+                                            "typeName" => "Advance Form",
+                                            "number" => "Adv/QDC/2022/000239",
+                                            "version" => "0",
+                                            "dateTimeTZ" => "2022-12-13T00:00:00+07:00"
+                                        ],
+                                    ],
+                                    "workFlow" => [
+                                        "historyList" => [
+                                            "0" => null
+                                        ]
+                                    ],
+                                    "bankAccount" => [
+                                        "beneficiary" => [
+                                            "bankAccount_RefID" => "167000000000001",
+                                            "bankName" => "Bank Rakyat Indonesia",
+                                            "bankAccountNumber" => "005301004453305",
+                                            "bankAcronym" => "BRI",
+                                            "bankAccountName" => "PT QDC Technologies"
+                                        ]
+                                    ],
+                                    "involvedPersons" => [
+                                        "0" => [
+                                            "sequence" => "1",
+                                            "requesterWorkerJobsPosition_RefID" => "164000000000001",
+                                            "requesterWorkerFullName" => "Agnes Sutedja",
+                                            "requesterWorkerName" => "Agnes Sutedja",
+                                            "requesterWorkerFullJobsPositionTitle" => "",
+                                            "requesterWorkerJobsPositionName" => null,
+                                            "requesterWorkerDepartmentName" => null,
+                                            "beneficiaryWorkerJobsPosition_RefID" => "25000000000439",
+                                            "beneficiaryWorkerFullName" => null,
+                                            "beneficiaryWorkerName" => "Ahmad Choerul",
+                                            "beneficiaryWorkerFullJobsPositionTitle" => null,
+                                            "beneficiaryWorkerJobsPositionName" => null,
+                                            "beneficiaryWorkerDepartmentName" => null,
+                                        ]
+                                    ],
+                                    "internalNotes" => "My Internal Notes",
+                                    "remarks" => "Settlement BT Pak Choerul"
+                                ],
+                                "details" => [
+                                    "itemList" => [
+                                        "0" => [
+                                            "index" => 1,
+                                            "dataSource" => "SchData-OLTP-Finance.TblAdvanceDetail",
+                                            "recordID" => "82000000000003",
+                                            "entities" => [
+                                                "product_RefID" => "820011-0000",
+                                                "productName" => "Equipment Rent",
+                                                "quantity" => "2",
+                                                "quantityUnit_RefID" => "73000000000024",
+                                                "quantityUnitName" => "kva",
+                                                "productUnitPriceBaseCurrencyValue" => "12000000",
+                                                "priceCurrency_RefID" => "62000000000001",
+                                                "priceCurrencyISOCode" => "IDR",
+                                                "priceBaseCurrencyValue" => "2150000",
+                                                "combinedBudgetSectionDetail_RefID" => "169000000000030",
+                                                "combinedBudget_RefID" => "46000000000033"
+                                            ]
+                                        ],
+                                        "1" => [
+                                            "index" => 2,
+                                            "dataSource" => "SchData-OLTP-Finance.TblAdvanceDetail",
+                                            "recordID" => "82000000000003",
+                                            "entities" => [
+                                                "product_RefID" => "820003-0000",
+                                                "productName" => "Communication/Telephone",
+                                                "quantity" => "1",
+                                                "quantityUnit_RefID" => "73000000000024",
+                                                "quantityUnitName" => "kva",
+                                                "productUnitPriceBaseCurrencyValue" => "12000000",
+                                                "priceCurrency_RefID" => "62000000000001",
+                                                "priceCurrencyISOCode" => "IDR",
+                                                "priceBaseCurrencyValue" => "300000",
+                                                "combinedBudgetSectionDetail_RefID" => "169000000000030",
+                                                "combinedBudget_RefID" => "46000000000033"
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ],
+                    "2" => [
+                        "document" => [
+                            "header" => [
+                                "recordID"                      => "76000000000002",
+                                "title"                         => "Advance Form",
+                                "number"                        => "Adv/QDC/2022/000239",
+                                "version"                       => "0",
+                                "date"                          => "2024-12-25",
+                                "businessDocumentType_RefID"    => "77000000000057"
+                            ],
+                            "content" => [
+                                "general" => [
+                                    "budget" => [
+                                        "multipleSource" => false,
+                                        "combinedBudget_RefIDList" => [
+                                            "0" => "46000000000033"
+                                        ],
+                                        "combinedBudgetCodeList" => [
+                                            "0" => "Q000062"
+                                        ],
+                                        "combinedBudgetNameList" => [
+                                            "0" => "XL Microcell 2007"
+                                        ],
+                                        "combinedBudgetSection_RefIDList" => [
+                                            "0" => "143000000000307"
+                                        ],
+                                        "combinedBudgetSectionCodeList" => [
+                                            "0" => "240"
+                                        ],
+                                        "combinedBudgetSectionNameList" => [
+                                            "0" => "Cendana Andalas"
+                                        ],
+                                    ],
+                                    "businessDocument" => [
+                                        "businessDocumentList" => [
+                                            "recordID"  => "74000000020307",
+                                            "formBusinessDocumentNumber_RefID" => "76000000000002",
+                                            "type_RefID" => "77000000000057",
+                                            "typeName" => "Advance Form",
+                                            "number" => "Adv/QDC/2022/000239",
+                                            "version" => "0",
+                                            "dateTimeTZ" => "2022-12-13T00:00:00+07:00"
+                                        ],
+                                    ],
+                                    "workFlow" => [
+                                        "historyList" => [
+                                            "0" => null
+                                        ]
+                                    ],
+                                    "bankAccount" => [
+                                        "beneficiary" => [
+                                            "bankAccount_RefID" => "167000000000001",
+                                            "bankName" => "Bank Negara Indonesia",
+                                            "bankAccountNumber" => "779207704",
+                                            "bankAcronym" => "BNI",
+                                            "bankAccountName" => "PT QDC Technologies"
+                                        ]
+                                    ],
+                                    "involvedPersons" => [
+                                        "0" => [
+                                            "sequence" => "1",
+                                            "requesterWorkerJobsPosition_RefID" => "164000000000001",
+                                            "requesterWorkerFullName" => "Eka Bagus Dwi Putra",
+                                            "requesterWorkerName" => "Eka Bagus",
+                                            "requesterWorkerFullJobsPositionTitle" => "",
+                                            "requesterWorkerJobsPositionName" => null,
+                                            "requesterWorkerDepartmentName" => null,
+                                            "beneficiaryWorkerJobsPosition_RefID" => "25000000000439",
+                                            "beneficiaryWorkerFullName" => null,
+                                            "beneficiaryWorkerName" => "Belina Lindarwani",
+                                            "beneficiaryWorkerFullJobsPositionTitle" => null,
+                                            "beneficiaryWorkerJobsPositionName" => null,
+                                            "beneficiaryWorkerDepartmentName" => null,
+                                        ]
+                                    ],
+                                    "internalNotes" => "My Internal Notes",
+                                    "remarks" => "Settlement BT Pak Eka Bagus"
+                                ],
+                                "details" => [
+                                    "itemList" => [
+                                        "0" => [
+                                            "index" => 1,
+                                            "dataSource" => "SchData-OLTP-Finance.TblAdvanceDetail",
+                                            "recordID" => "82000000000003",
+                                            "entities" => [
+                                                "product_RefID" => "820001-0000",
+                                                "productName" => "Salaries",
+                                                "quantity" => "1",
+                                                "quantityUnit_RefID" => "73000000000024",
+                                                "quantityUnitName" => "kva",
+                                                "productUnitPriceBaseCurrencyValue" => "12000000",
+                                                "priceCurrency_RefID" => "62000000000001",
+                                                "priceCurrencyISOCode" => "IDR",
+                                                "priceBaseCurrencyValue" => "15000000",
+                                                "combinedBudgetSectionDetail_RefID" => "169000000000030",
+                                                "combinedBudget_RefID" => "46000000000033"
+                                            ]
+                                        ],
+                                        "1" => [
+                                            "index" => 2,
+                                            "dataSource" => "SchData-OLTP-Finance.TblAdvanceDetail",
+                                            "recordID" => "82000000000003",
+                                            "entities" => [
+                                                "product_RefID" => "XX",
+                                                "productName" => "Others",
+                                                "quantity" => "3",
+                                                "quantityUnit_RefID" => "73000000000024",
+                                                "quantityUnitName" => "kva",
+                                                "productUnitPriceBaseCurrencyValue" => "12000000",
+                                                "priceCurrency_RefID" => "62000000000001",
+                                                "priceCurrencyISOCode" => "IDR",
+                                                "priceBaseCurrencyValue" => "500000",
+                                                "combinedBudgetSectionDetail_RefID" => "169000000000030",
+                                                "combinedBudget_RefID" => "46000000000033"
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ],
+                ]
+            ];
+
+            $indexing = ($bsf_number == "BSF-24000208" ? 0 : $bsf_number == "BSF-24000209") ? 1 : 2;
+
+            $splitResponse = $getReportAdvanceDetail['data'][$indexing]['document'];
 
             $totalAdvance = array_reduce($splitResponse['content']['details']['itemList'], function ($carry, $item) {
                 return $carry + ($item['entities']['priceBaseCurrencyValue'] * $item['entities']['quantity'] ?? 0);
@@ -1378,7 +1737,8 @@ class BusinessTripSettlementController extends Controller
                 'budgetName'    => $project_name_second,
                 'siteCode'      => $site_code,
                 'siteName'      => $site_name_second,
-                'advanceNumber' => $advance_document,
+                'bsfNumber'     => $bsf_number,
+                'bsfId'         => $bsf_id,
                 'total'         => $totalAdvance
             ];
 
@@ -1395,41 +1755,23 @@ class BusinessTripSettlementController extends Controller
     public function ReportBusinessTripSettlementDetailStore(Request $request) 
     {
         try {
-            $project_code           = $request->project_code_second;
-            $project_id             = $request->project_id_second;
-            $project_name_second    = $request->project_name_second;
+            $project_code           = $request->bsf_number_budget;
+            $project_name_second    = $request->bsf_number_budget_name;
 
-            $site_code              = $request->site_code_second;
-            $site_id                = $request->site_id_second;
-            $site_name_second       = $request->site_name_second;
-            
-            $advance_document   = $request->modal_advance_document_number;
-            $advance_id         = $request->modal_advance_id;
+            $site_code              = $request->bsf_number_sub_budget;
+            $site_name_second       = $request->bsf_number_sub_budget_name;
 
-            $errors = [];
+            $bsf_number             = $request->bsf_number_trano;
+            $bsf_id                 = $request->bsf_number_id;
 
-            if (!$project_id) {
-                $errors[] = 'Budget';
-            }
-            if (!$site_id) {
-                $errors[] = 'Sub Budget';
-            }
-            if (!$advance_id) {
-                $errors[] = 'BSF Number';
-            }
-
-            if (!empty($errors)) {
-                $message = implode(', ', $errors) . ' Cannot Be Empty';
-            }
-
-            if (isset($message)) {
+            if (!$bsf_id) {
                 Session::forget("isButtonReportBusinessTripSettlementDetailSubmit");
                 Session::forget("dataReportBusinessTripSettlementDetail");
-        
-                return redirect()->route('BusinessTripSettlement.ReportBusinessTripSettlementDetail')->with('NotFound', $message);
+
+                return redirect()->route('BusinessTripSettlement.ReportBusinessTripSettlementDetail')->with('NotFound', 'BSF Number Cannot Be Empty');
             }
 
-            $compact = $this->ReportBusinessTripSettlementDetailData($advance_id, $project_code, $site_code, $advance_document, $project_name_second, $site_name_second);
+            $compact = $this->ReportBusinessTripSettlementDetailData($project_code, $project_name_second, $site_code, $site_name_second, $bsf_number, $bsf_id);
 
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
@@ -1453,7 +1795,7 @@ class BusinessTripSettlementController extends Controller
                 Session::forget("isButtonReportBusinessTripSettlementDetailSubmit");
                 Session::forget("dataReportBusinessTripSettlementDetail");
         
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'Budget, Sub Budget, & BRF Number Cannot Empty');
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripSettlementDetail')->with('NotFound', 'BSF Number Cannot Empty');
             }
 
             if ($dataReport) {
@@ -1473,7 +1815,7 @@ class BusinessTripSettlementController extends Controller
                     return Excel::download(new ExportReportBusinessTripSettlementDetail, 'Export Report Business Trip Settlement Detail.xlsx');
                 }
             } else {
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'Budget, Sub Budget, & BRF Number Cannot Empty');
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripSettlementDetail')->with('NotFound', 'BSF Number Cannot Empty');
             }
         } catch (\Throwable $th) {
             Log::error("PrintExportReportBusinessTripSettlementDetail Function Error at " . $th->getMessage());

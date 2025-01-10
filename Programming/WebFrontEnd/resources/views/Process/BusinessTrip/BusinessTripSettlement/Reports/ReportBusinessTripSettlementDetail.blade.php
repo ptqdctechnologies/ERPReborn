@@ -5,6 +5,7 @@
 @include('getFunction.getProject')
 @include('getFunction.getSite')
 @include('getFunction.getAdvance')
+@include('getFunction.getBusinessTripSettlement')
 
 <div class="content-wrapper">
     <section class="content">
@@ -37,15 +38,6 @@
                                     <div class="card-body">
                                         <div class="row p-1" style="line-height: 14px; row-gap: 1rem;">
                                             <div class="col-sm-12 col-md-6">
-                                                <!-- BSF NUMBER -->
-                                                <div class="row" style="margin-bottom: 1rem;">
-                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
-                                                        BSF Number
-                                                    </div>
-                                                    <div class="col-sm-9 col-md-9 p-0">
-                                                        : <?= 'BSF-24000201' ?? $dataReport['dataHeader']['number']; ?>
-                                                    </div>
-                                                </div>
                                                 <!-- DATE -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-3 col-md-3 p-0 text-bold">
@@ -99,7 +91,7 @@
                                                         Beneficiary
                                                     </div>
                                                     <div class="col-sm-9 col-md-9 p-0">
-                                                        : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerName'] ?? '-'; ?>
+                                                        : <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerName'] ?? '-'; ?>
                                                     </div>
                                                 </div>
                                                 <!-- BANK ACCOUNT -->
@@ -139,11 +131,9 @@
                                                 <?php foreach ($dataReport['dataDetails']['details']['itemList'] as $dataDetail) { ?>
                                                     <tr>
                                                         <td><?= $counter++; ?></td>
-                                                        <!-- <td><?php $dataDetail['entities']['product_RefID']; ?></td> -->
-                                                        <td>820015-0000</td>
-                                                        <!-- <td><?php $dataDetail['entities']['productName']; ?></td> -->
-                                                        <td>Travelling</td>
-                                                        <td><?= $dataDetail['entities']['quantity']; ?></td>
+                                                        <td><?= $dataDetail['entities']['product_RefID']; ?></td>
+                                                        <td><?= $dataDetail['entities']['productName']; ?></td>
+                                                        <td><?= number_format($dataDetail['entities']['quantity'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['entities']['quantity'] * $dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?></td>
                                                     </tr>

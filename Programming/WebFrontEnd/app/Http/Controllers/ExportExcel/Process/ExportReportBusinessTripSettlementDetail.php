@@ -22,11 +22,11 @@ class ExportReportBusinessTripSettlementDetail implements FromCollection, WithHe
         foreach ($data['dataDetails']['details']['itemList'] as $item) {
             $filteredData[] = [
                 'No'                            => $counter++,
-                'Product ID'                    => "820015-0000" ?? $item['entities']['product_RefID'],
-                'Description & Spesifications'  => "Travelling" ?? $item['entities']['productName'],
+                'Product ID'                    => $item['entities']['product_RefID'],
+                'Description & Spesifications'  => $item['entities']['productName'],
                 'Qty'                           => $item['entities']['quantity'] ?? null,
-                'Unit Price'                    => number_format($item['entities']['priceBaseCurrencyValue'], 2, '.', ',') ?? null,
-                'Total Advance'                 => number_format($item['entities']['quantity'] * $item['entities']['priceBaseCurrencyValue'], 2, '.', ',') ?? null,
+                'Unit Price'                    => $item['entities']['priceBaseCurrencyValue'] ?? null,
+                'Total Advance'                 => $item['entities']['quantity'] * $item['entities']['priceBaseCurrencyValue'] ?? null,
             ];
         }
 
@@ -41,9 +41,9 @@ class ExportReportBusinessTripSettlementDetail implements FromCollection, WithHe
             [date('F j, Y')],
             ["BUSINESS TRIP SETTLEMENT DETAIL"],
             [date('h:i A')],
-            ["BSF Number", ": " . 'BSF-24000201' ?? $data['budgetCode'], "Currency", ": " . $data['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'], "", "", "", "", "", "", ""],
+            ["BSF Number", ": " . $data['bsfNumber'], "Currency", ": " . $data['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'], "", "", "", "", "", "", ""],
             ["Date", ": " . $data['dataHeader']['date'], "Requester", ": " . $data['dataDetails']['general']['involvedPersons'][0]['requesterWorkerFullName'], "", "", "", "", "", "", ""],
-            ["Budget", ": " . $data['budgetCode'] . " - " . $data['budgetName'], "Beneficiary", ": " . $data['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'], "", "", "", "", "", "", ""],
+            ["Budget", ": " . $data['budgetCode'] . " - " . $data['budgetName'], "Beneficiary", ": " . $data['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerName'], "", "", "", "", "", "", ""],
             ["Sub Budget", ": " . $data['siteCode'] . " - " . $data['siteName'], "Bank Account", ": " . "(" . $data['dataDetails']['general']['bankAccount']['beneficiary']['bankAcronym'] . ") " . $data['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountNumber'] . " - " . $data['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountName'], "", "", "", "", "", "", ""],
             ["", "", "", "", "", ""],
             ["No", "Product ID", "Description & Spesifications", "Qty", "Unit Price", "Total"]

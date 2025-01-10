@@ -35,7 +35,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= 'BSF-24000201' ?? $dataReport['dataHeader']['number']; ?>
+                  <?= $dataReport['bsfNumber']; ?>
                 </div>
               </td>
             </tr>
@@ -144,7 +144,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'] ?? '-'; ?>
+                  <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerName'] ?? '-'; ?>
                 </div>
               </td>
             </tr>
@@ -242,17 +242,17 @@
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= "820015-0000" ?? $dataDetail['entities']['product_RefID']; ?>
+              <?= $dataDetail['entities']['product_RefID']; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= "Travelling" ?? $dataDetail['entities']['productName']; ?>
+              <?= $dataDetail['entities']['productName']; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['entities']['quantity']; ?>
+              <?= number_format($dataDetail['entities']['quantity'], 2, '.', ','); ?>
             </div>
           </td>
           <td>
