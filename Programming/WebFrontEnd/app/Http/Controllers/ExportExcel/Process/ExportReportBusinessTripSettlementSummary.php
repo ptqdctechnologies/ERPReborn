@@ -43,8 +43,8 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
     public function headings(): array
     {
         $data           = Session::get("dataReportReportBusinessTripSettlementSummary");
-        $requester      = $data['requesterName'];
-        $beneficiary    = $data['beneficiaryName'];
+        $requester      = $data['requesterName'] ?? '-';
+        $beneficiary    = $data['beneficiaryName'] ?? '-';
 
         return [
             [date('F j, Y')],
