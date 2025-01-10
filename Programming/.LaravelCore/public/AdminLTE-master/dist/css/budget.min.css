@@ -103,9 +103,9 @@
   /* ASF */
 
   .first-col-asf-balance {
-    width: 125px;
-    min-width: 125px;
-    max-width: 125px;
+    width: 115px;
+    min-width: 115px;
+    max-width: 115px;
     right: 0px;
   }
 
@@ -113,14 +113,14 @@
     width: 260px;
     min-width: 260px;
     max-width: 260px;
-    right: 125px;
+    right: 115px;
   }
 
   .third-col-asf-expense {
     width: 260px;
     min-width: 260px;
     max-width: 260px;
-    right: 385px;
+    right: 515px;
   }
 
   .first-col-asf-balance-total {
@@ -132,52 +132,84 @@
   }
 
 
-  .second-col-asf-amount-qty {
-    width: 54px;
-    min-width: 54px;
-    max-width: 54px;
-    right: 325px;
+  .second-col-asf-amount-transport {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    right: 435px;
     z-index: 10;
   }
 
-  .second-col-asf-amount-price {
-    width: 90px;
-    min-width: 90px;
-    max-width: 90px;
-    right: 225px;
+  .second-col-asf-amount-accommodation {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    right: 355px;
     z-index: 10;
   }
 
-  .second-col-asf-amount-total {
-    width: 90px;
-    min-width: 90px;
-    max-width: 90px;
-    right: 125px;
+  .second-col-asf-amount-allowance {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    right: 275px;
+    z-index: 10;
+  }
+
+  .second-col-asf-amount-entertainment {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    right: 195px;
+    z-index: 10;
+  }
+
+  .second-col-asf-amount-other {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    right: 115px;
     z-index: 10;
   }
 
 
-  .third-col-asf-expense-qty {
-    width: 54px;
-    min-width: 54px;
-    max-width: 54px;
-    right: 585px;
+  .third-col-asf-expense-transport {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    right: 835px;
     z-index: 10;
   }
 
-  .third-col-asf-expense-price {
-    width: 90px;
-    min-width: 90px;
-    max-width: 90px;
-    right: 485px;
+  .third-col-asf-expense-accommodation {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    right: 755px;
     z-index: 10;
   }
 
-  .third-col-asf-expense-total {
-    width: 90px;
-    min-width: 90px;
-    max-width: 90px;
-    right: 385px;
+  .third-col-asf-expense-allowance {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    right: 675px;
+    z-index: 10;
+  }
+
+  .third-col-asf-expense-entertainment {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    right: 595px;
+    z-index: 10;
+  }
+
+  .third-col-asf-expense-other {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    right: 515px;
     z-index: 10;
   }
 

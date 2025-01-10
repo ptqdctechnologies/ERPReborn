@@ -16,6 +16,9 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 
 class BudgetController extends Controller
 {
@@ -28,8 +31,8 @@ class BudgetController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.read.dataList.budgeting.getBudget', 
         'latest', 
@@ -50,7 +53,7 @@ class BudgetController extends Controller
     public function ModifyBudget(Request $request) {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        // dd('Testing');
+        // dd($varAPIWebToken);
 
         $compact = [
             'varAPIWebToken' => $varAPIWebToken
@@ -374,8 +377,8 @@ class BudgetController extends Controller
         try {
             $varAPIWebToken = Session::get('SessionLogin');
 
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'report.form.documentForm.finance.getReportAdvanceSummary',
                 'latest',
@@ -394,8 +397,8 @@ class BudgetController extends Controller
             );
 
             $DataReportModifyBudgetSummary = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
                     "ReportAdvanceSummary"
                 ),
                 true
@@ -539,8 +542,8 @@ class BudgetController extends Controller
         try {
             $varAPIWebToken = Session::get('SessionLogin');
 
-            $filteredArray = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $filteredArray = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
                 'report.form.documentForm.finance.getAdvance', 
                 'latest',
@@ -681,8 +684,8 @@ class BudgetController extends Controller
         $end = date('Y-m-d h:m:s+07', strtotime($request->end));
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.create.budgeting.setBudget', 
         'latest', 
@@ -718,8 +721,8 @@ class BudgetController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.read.dataRecord.budgeting.getBudget', 
         'latest', 
@@ -754,8 +757,8 @@ class BudgetController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         //---Core---
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.delete.budgeting.setBudget', 
         'latest', 

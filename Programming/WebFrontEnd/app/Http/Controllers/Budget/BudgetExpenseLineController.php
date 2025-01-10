@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
 use PDO;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class BudgetExpenseLineController extends Controller
 {
@@ -18,8 +20,8 @@ class BudgetExpenseLineController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.read.dataList.budgeting.getBudgetExpenseLine', 
         'latest', 
@@ -52,8 +54,8 @@ class BudgetExpenseLineController extends Controller
     {
         $BudgetId = $request->input('BudgetId2');
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.read.dataList.budgeting.getBudgetExpense', 
         'latest', 
@@ -92,8 +94,8 @@ class BudgetExpenseLineController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.create.budgeting.setBudgetExpenseLine', 
         'latest', 
@@ -129,8 +131,8 @@ class BudgetExpenseLineController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.read.dataRecord.budgeting.getBudget', 
         'latest', 
@@ -164,8 +166,8 @@ class BudgetExpenseLineController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.delete.budgeting.setBudgetExpenseLine', 
         'latest', 

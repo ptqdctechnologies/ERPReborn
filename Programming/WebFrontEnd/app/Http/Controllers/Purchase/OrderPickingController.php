@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class OrderPickingController extends Controller
 {
@@ -72,8 +74,8 @@ class OrderPickingController extends Controller
         $var_RefID = $request->input('var_RefID');
 
 
-        $varDataPurchaseRequisitionList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataPurchaseRequisitionList = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
             'latest',
@@ -99,8 +101,8 @@ class OrderPickingController extends Controller
                 }
             }
             if ($tamp == 0) {
-                $varDataPurchaseRequisitionList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varDataPurchaseRequisitionList = Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
                     'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
                     'latest',
@@ -121,8 +123,8 @@ class OrderPickingController extends Controller
                 $status = 501;
             }
         } else {
-            $varDataPurchaseRequisitionList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varDataPurchaseRequisitionList = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
                 'latest',
@@ -198,8 +200,8 @@ class OrderPickingController extends Controller
     public function OrderPickingListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataPurchaseRequisition = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataPurchaseRequisition = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.supplyChain.getPurchaseRequisition',
             'latest',
@@ -223,8 +225,8 @@ class OrderPickingController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $var_recordID = $request->input('var_recordID');
-        $varDataPurchaseRequisitionList = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataPurchaseRequisitionList = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
             'latest',
@@ -251,8 +253,8 @@ class OrderPickingController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseRequisition");
 
-        $varDataOrderPickingRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataOrderPickingRevision = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'report.form.documentForm.supplyChain.getPurchaseRequisition',
             'latest',
@@ -341,8 +343,8 @@ class OrderPickingController extends Controller
     {   
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataPickList.project.getProject',
             'latest',

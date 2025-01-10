@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Register\OTHER;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class ReligionController extends Controller
 {
@@ -16,8 +18,8 @@ class ReligionController extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.master.getReligion',
             'latest',
@@ -42,8 +44,8 @@ class ReligionController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         //---Core---
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.create.master.setReligion',
             'latest',
@@ -65,8 +67,8 @@ class ReligionController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataRecord.master.getReligion',
             'latest',
@@ -84,8 +86,8 @@ class ReligionController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         //---Core---
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.update.master.setReligion',
             'latest',
@@ -104,8 +106,8 @@ class ReligionController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         //---Core---
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.delete.master.setReligion',
             'latest',

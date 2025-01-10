@@ -54,23 +54,42 @@ class FunctionController extends Controller
     public function getNewProject(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
-        
-        $varDataProject = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => null
-            ],
-            false
-        );
+        $varGetRedisNewProject = [];
+        $testingTrigger = $request->trigger;
 
-        $varGetRedisNewProject = $this->syncDataWithRedis(
-            $varAPIWebToken, 
-            "getNewProject", 
-            $varDataProject['data']['data']
-        );
+        if (!Redis::get("getNewProject") || $testingTrigger) {
+            $varDataProject = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'dataPickList.project.getProject',
+                'latest',
+                [
+                    'parameter' => null
+                ],
+                false
+            );
+
+            if (isset($varDataProject['data']['data']) && is_array($varDataProject['data']['data'])) {
+                $dataAPIProject = $varDataProject['data']['data'];
+
+                $varGetRedisNewProject = $this->syncDataWithRedis(
+                    $varAPIWebToken, 
+                    "getNewProject", 
+                    $dataAPIProject,
+                    86400
+                );
+            } else {
+                return response()->json(['error' => 'Invalid API response'], 500);
+            }
+        } else {
+            $varGetRedisNewProject = json_decode(
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
+                    "getNewProject"
+                ),
+                true
+            );
+        }
 
         return response()->json($varGetRedisNewProject);
     }
@@ -145,11 +164,18 @@ class FunctionController extends Controller
                 false
             );
 
-            $DataSubBudget = $this->syncDataWithRedis(
-                $varAPIWebToken, 
-                "getNewSite", 
-                $varData['data']['data']
-            );
+            if (isset($varData['data']['data']) && is_array($varData['data']['data'])) {
+                $dataAPISubBudget = $varData['data']['data'];
+
+                $DataSubBudget = $this->syncDataWithRedis(
+                    $varAPIWebToken, 
+                    "getNewSite", 
+                    $dataAPISubBudget,
+                    15
+                );
+            } else {
+                return response()->json(['error' => 'Invalid API response'], 500);
+            }
         } else {
             $DataSubBudget = json_decode(
                 Helper_Redis::getValue(
@@ -185,7 +211,7 @@ class FunctionController extends Controller
             'latest',
             [
                 'parameter' => [
-                    'combinedBudgetSection_RefID' => (int)$site_code,
+                    'combinedBudgetSection_RefID' => (int) $site_code,
                 ],
                 'SQLStatement' => [
                     'pick' => null,
@@ -943,8 +969,8 @@ class FunctionController extends Controller
 
     public function getAdvance(Request $request) 
     {
-        $project_id     = (int) $request->input('project_id') ?? null;
-        $site_id        = (int) $request->input('site_id') ?? null;
+        $projectId     = (int) $request->input('project_id', 0);
+        $siteId        = (int) $request->input('site_id', 0);
         $varAPIWebToken = Session::get('SessionLogin');
         $DataAdvance    = [];
 
@@ -966,35 +992,36 @@ class FunctionController extends Controller
                 false
             );
 
-            $DataAdvance = $this->syncDataWithRedis(
-                $varAPIWebToken, 
-                "DataListAdvance", 
-                $varData['data']['data']
-            );
+            if (isset($varData['data']['data'])) {
+                $DataAdvance = $this->syncDataWithRedis(
+                    $varAPIWebToken, 
+                    "DataListAdvance", 
+                    $varData['data']['data']
+                );
+            }
         } else {
-            $DataAdvance = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "DataListAdvance"
-                ),
-                true
+            $redisData = Helper_Redis::getValue(
+                Helper_Environment::getUserSessionID_System(),
+                "DataListAdvance"
             );
+
+            $DataAdvance = $redisData ? json_decode($redisData, true) : [];
         }
 
-        if ($project_id && $site_id && isset($DataAdvance)) {
-            $filteredData = array_filter($DataAdvance, function($item) use ($project_id, $site_id) {
+        $filteredData = $DataAdvance;
+
+        if ($projectId > 0 && $siteId > 0) {
+            $filteredData = array_filter($DataAdvance, function ($item) use ($projectId, $siteId) {
                 return 
                     isset($item['combinedBudget_RefID'], $item['combinedBudgetSection_RefID']) &&
-                    is_array($item['combinedBudget_RefID']) && 
+                    is_array($item['combinedBudget_RefID']) &&
                     is_array($item['combinedBudgetSection_RefID']) &&
-                    in_array($project_id, $item['combinedBudget_RefID']) && 
-                    in_array($site_id, $item['combinedBudgetSection_RefID']);
+                    in_array($projectId, $item['combinedBudget_RefID']) &&
+                    in_array($siteId, $item['combinedBudgetSection_RefID']);
             });
-        } else {
-            $filteredData = $DataAdvance ?? [];
         }
 
-        return response()->json($filteredData);
+        return response()->json(array_values($filteredData));
     }
 
     // NITIP

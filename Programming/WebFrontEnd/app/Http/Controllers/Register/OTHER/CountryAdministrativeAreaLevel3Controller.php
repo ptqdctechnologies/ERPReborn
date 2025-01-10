@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Register\OTHER;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class CountryAdministrativeAreaLevel3Controller extends Controller
 {
@@ -17,8 +19,8 @@ class CountryAdministrativeAreaLevel3Controller extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         //---Core---
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.master.getCountryAdministrativeAreaLevel3',
             'latest',
@@ -44,8 +46,8 @@ class CountryAdministrativeAreaLevel3Controller extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         //---Core---
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.create.master.setCountryAdministrativeAreaLevel3',
             'latest',
@@ -69,8 +71,8 @@ class CountryAdministrativeAreaLevel3Controller extends Controller
     {
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataRecord.master.getCountryAdministrativeAreaLevel3',
             'latest',
@@ -86,8 +88,8 @@ class CountryAdministrativeAreaLevel3Controller extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         //---Core---
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.update.master.setCountryAdministrativeAreaLevel3',
             'latest',
@@ -107,8 +109,8 @@ class CountryAdministrativeAreaLevel3Controller extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         //---Core---
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.delete.master.setCountryAdministrativeAreaLevel3',
             'latest',

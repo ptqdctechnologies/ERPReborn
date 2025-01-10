@@ -15,19 +15,19 @@
 <body>
   <div class="card-body table-responsive p-0">
     <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
-    <div style="text-align: center; font-size: 20px; font-weight: bold;">Business Trip Settlement Detail Report</div>
+    <div style="text-align: center; font-size: 20px; font-weight: bold;">Business Trip Settlement Detail</div>
     <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
 
     <!-- HEADER -->
     <table style="margin: 30px 0px 15px 1px;">
       <tr>
-        <!-- ADVANCE NUMBER -->
+        <!-- BSF NUMBER -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Advance Number
+                  BSF Number
                 </div>
               </td>
               <td style="width: 5px;">
@@ -35,7 +35,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataHeader']['number'] ?? '-'; ?>
+                  <?= $dataReport['bsfNumber']; ?>
                 </div>
               </td>
             </tr>
@@ -65,13 +65,13 @@
       </tr>
 
       <tr>
-        <!-- BUDGET -->
+        <!-- DATE -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Budget
+                  Date
                 </div>
               </td>
               <td style="width: 5px;">
@@ -79,7 +79,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['budget']['combinedBudgetCodeList'][0] . " - " . $dataReport['dataDetails']['general']['budget']['combinedBudgetNameList'][0]; ?>
+                  <?= $dataReport['dataHeader']['date'] ?? '-'; ?>
                 </div>
               </td>
             </tr>
@@ -109,13 +109,13 @@
       </tr>
 
       <tr>
-        <!-- SUB BUDGET -->
+        <!-- BUDGET -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Sub Budget
+                  Budget
                 </div>
               </td>
               <td style="width: 5px;">
@@ -123,7 +123,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionCodeList'][0] . " - " . $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionNameList'][0]; ?>
+                  <?= $dataReport['budgetCode'] . " - " . $dataReport['budgetName']; ?>
                 </div>
               </td>
             </tr>
@@ -144,7 +144,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'] ?? '-'; ?>
+                  <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerName'] ?? '-'; ?>
                 </div>
               </td>
             </tr>
@@ -153,13 +153,13 @@
       </tr>
 
       <tr>
-        <!-- DATE -->
+        <!-- SUB BUDGET -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Date
+                  Sub Budget
                 </div>
               </td>
               <td style="width: 5px;">
@@ -167,7 +167,7 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataHeader']['date'] ?? '-'; ?>
+                  <?= $dataReport['siteCode'] . " - " . $dataReport['siteName']; ?>
                 </div>
               </td>
             </tr>
@@ -195,7 +195,6 @@
           </table>
         </td>
       </tr>
-
     </table>
 
     <!-- DETAIL -->
@@ -228,7 +227,7 @@
         </td>
         <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total Advance
+            Total
           </div>
         </td>
       </tr>
@@ -253,7 +252,7 @@
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['entities']['quantity']; ?>
+              <?= number_format($dataDetail['entities']['quantity'], 2, '.', ','); ?>
             </div>
           </td>
           <td>

@@ -32,18 +32,18 @@
 
                     <?php if ($dataReport) { ?>
                         <!-- HEADER -->
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row py-2 px-1" style="gap: 1rem;">
                                             <label class="p-0 text-bold mb-0">Budget</label>
-                                            <div>: <?= $dataReport['budgetCode']; ?> - <?= $dataReport['budgetName']; ?></div>
+                                            <div>: <?php $dataReport['budgetCode']; ?> - <?php $dataReport['budgetName']; ?></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- TABLE -->
                         <div class="row">
@@ -73,8 +73,8 @@
                                                         <td><?= $counter++; ?></td>
                                                         <td><?= $dataDetail['DocumentNumber']; ?></td>
                                                         <td><?= $dataDetail['CombinedBudgetSectionName']; ?></td>
-                                                        <td>Jakarta</td>
-                                                        <td>Batam</td>
+                                                        <td><?= $dataDetail['DepartingFrom']; ?></td>
+                                                        <td><?= $dataDetail['DestinationTo']; ?></td>
                                                         <td><?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?></td>
                                                         <td><?= number_format($dataDetail['TotalAdvance'], 2, '.', ','); ?></td>
                                                         <td><?= $dataDetail['CurrencyName']; ?></td>

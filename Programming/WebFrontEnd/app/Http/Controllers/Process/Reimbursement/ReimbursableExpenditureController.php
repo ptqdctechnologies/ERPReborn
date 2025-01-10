@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Process\Reimbursement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class ReimbursableExpenditureController extends Controller
 {
@@ -14,8 +16,8 @@ class ReimbursableExpenditureController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionRem");
 
-        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataProject = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataPickList.project.getProject',
             'latest',
@@ -24,8 +26,8 @@ class ReimbursableExpenditureController extends Controller
             ]
         );
 
-        $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataWorker = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
             'transaction.read.dataList.humanResource.getWorker', 
             'latest', 
@@ -40,8 +42,8 @@ class ReimbursableExpenditureController extends Controller
             ]
             );
 
-        $varData3 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData3 = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.read.dataList.customerRelation.getCustomer', 
         'latest', 
@@ -56,8 +58,8 @@ class ReimbursableExpenditureController extends Controller
         ]
         );
 
-        $varData4 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData4 = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
             'transaction.read.dataList.master.getCurrency', 
             'latest', 
@@ -166,8 +168,8 @@ class ReimbursableExpenditureController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataPickList.project.getProject',
             'latest',
@@ -177,8 +179,8 @@ class ReimbursableExpenditureController extends Controller
         );
         // dd($varData);
 
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData2 = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
             'transaction.read.dataList.humanResource.getWorker', 
             'latest', 

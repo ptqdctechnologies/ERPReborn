@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class PrivilageMenuController extends Controller
 {
@@ -29,8 +31,8 @@ class PrivilageMenuController extends Controller
         $menuAction_RefIDArray = $request->checkedValue;
         // dd($menuAction_RefIDArray);
         $varAPIWebToken = Session::get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.create.sysConfig.setAppObject_UserRolePrivileges_BulkData',
             'latest',
@@ -64,8 +66,8 @@ class PrivilageMenuController extends Controller
         $sys_id_role = $request->input('sys_id_role');
         
         $varAPIWebToken = Session::get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.sysConfig.getAppObject_UserRolePrivileges',
             'latest',

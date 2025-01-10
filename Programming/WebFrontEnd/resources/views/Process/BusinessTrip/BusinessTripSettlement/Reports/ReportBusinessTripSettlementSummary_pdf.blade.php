@@ -35,7 +35,71 @@
               </td>
               <td style="height: 20px;">
                 <div style="line-height: 14px; font-size: 12px;">
-                  <?= $dataReport['budgetCode']; ?>
+                  <?= $dataReport['budgetCode'] . ' - ' . $dataReport['budgetName']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- REQUESTER -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Requester
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px; font-size: 12px;">
+                  <?= $dataReport['requesterName'] ?? '-'; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <!-- SUB BUDGET -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Sub Budget
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px; font-size: 12px;">
+                  <?= $dataReport['siteCode'] . ' - ' .$dataReport['siteName']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- BENEFICIARY -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Beneficiary
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="line-height: 14px; font-size: 12px;">
+                  <?= $dataReport['beneficiaryName'] ?? '-'; ?>
                 </div>
               </td>
             </tr>
@@ -54,7 +118,7 @@
         </td>
         <td style="width: 130px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            BRF Number
+            BSF Number
           </div>
         </td>
         <td style="width: 150px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
@@ -79,12 +143,12 @@
         </td>
         <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total Expense Claim Cart
+            Total Expense Claim
           </div>
         </td>
         <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total Amount Due to Company Cart
+            Total Amount Due to Company
           </div>
         </td>
         <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
@@ -134,12 +198,12 @@
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              Jakarta
+              <?= $dataDetail['DepartingFrom']; ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              Batam
+              <?= $dataDetail['DestinationTo']; ?>
             </div>
           </td>
           <td>
@@ -149,12 +213,12 @@
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format(50000, 2, '.', ','); ?>
+              <?= number_format($dataDetail['TotalExpenseClaimCart'], 2, '.', ','); ?>
             </div>
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format(200000, 2, '.', ','); ?>
+              <?= number_format($dataDetail['TotalAmountDueToCompanyCart'], 2, '.', ','); ?>
             </div>
           </td>
           <td>
@@ -192,10 +256,10 @@
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL</div>
         </td>
         <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format(50000, 2, '.', ','); ?></div>
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalExpense'], 2, '.', ','); ?></div>
         </td>
         <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format(200000, 2, '.', ','); ?></div>
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalAmount'], 2, '.', ','); ?></div>
         </td>
         <td style="height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['total'], 2, '.', ','); ?></div>

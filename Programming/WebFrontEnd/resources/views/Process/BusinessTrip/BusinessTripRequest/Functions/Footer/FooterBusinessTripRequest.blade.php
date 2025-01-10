@@ -296,7 +296,7 @@
   $("#beneficiary_second_popup").prop("disabled", true);
   $("#bank_list_popup_second").prop("disabled", true);
   $("#bank_accounts_third_popup").prop("disabled", true);
-  
+
   // BUDGET CODE
   $('#tableGetProject tbody').on('click', 'tr', function() {
     $("#sitecode").val("");
@@ -382,8 +382,8 @@
       success: function(data) {
         const datas = [
           {
-            product_RefID: 88000000003486,
-            productName: "Business Trip",
+            product_RefID: "710006-0000",
+            productName: "Transportation & Operational",
             quantity: 2,
             priceBaseCurrencyValue: 3000000,
             quantityRemaining: 1,
@@ -391,8 +391,8 @@
             currentBudget: 6000000,
           },
           {
-            product_RefID: 88000000003487,
-            productName: "Travel and Fares",
+            product_RefID: "820005-0000",
+            productName: "Travel & Fares/Business Trip",
             quantity: 1,
             priceBaseCurrencyValue: 2500000,
             quantityRemaining: 0,
@@ -588,8 +588,10 @@
     var bankAccount                 = document.getElementById('bank_accounts');
     var bankAccountDuplicate        = document.getElementById('bank_accounts_duplicate');
     var bankAccountDuplicateId      = document.getElementById('bank_accounts_duplicate_id');
+    var bankAccountDetail           = document.getElementById('bank_accounts_detail');
+    var bankAccountDuplicateDetail  = document.getElementById('bank_accounts_duplicate_detail');
 
-    if (bankAccount.value !== bankAccountDuplicate.value) {
+    if (bankAccount.value !== bankAccountDuplicate.value || bankAccountDetail.value !== bankAccountDuplicateDetail.value) {
       $("#bank_accounts_id").val("");
     } else {
       $("#bank_accounts_id").val(bankAccountDuplicateId.value);
@@ -600,8 +602,10 @@
     var bankAccountDetail           = document.getElementById('bank_accounts_detail');
     var bankAccountDuplicateDetail  = document.getElementById('bank_accounts_duplicate_detail');
     var bankAccountDuplicateId      = document.getElementById('bank_accounts_duplicate_id');
+    var bankAccount                 = document.getElementById('bank_accounts');
+    var bankAccountDuplicate        = document.getElementById('bank_accounts_duplicate');
 
-    if (bankAccountDetail.value !== bankAccountDuplicateDetail.value) {
+    if (bankAccountDetail.value !== bankAccountDuplicateDetail.value || bankAccount.value !== bankAccountDuplicate.value) {
       $("#bank_accounts_id").val("");
     } else {
       $("#bank_accounts_id").val(bankAccountDuplicateId.value);
@@ -645,11 +649,13 @@
   });
 
   $('#bank_accounts_second').on('input', function() {
-    var bankAccountSecond             = document.getElementById('bank_accounts_second');
-    var bankAccountSecondDuplicate    = document.getElementById('bank_accounts_duplicate_second');
-    var bankAccountSecondDuplicateId  = document.getElementById('bank_accounts_duplicate_id_second');
+    var bankAccountSecond                 = document.getElementById('bank_accounts_second');
+    var bankAccountSecondDuplicate        = document.getElementById('bank_accounts_duplicate_second');
+    var bankAccountSecondDuplicateId      = document.getElementById('bank_accounts_duplicate_id_second');
+    var bankAccountDetailSecond           = document.getElementById('bank_accounts_detail_second');
+    var bankAccountDuplicateDetailSecond  = document.getElementById('bank_accounts_detail_duplicate_second');
 
-    if (bankAccountSecond.value !== bankAccountSecondDuplicate.value) {
+    if (bankAccountSecond.value !== bankAccountSecondDuplicate.value || bankAccountDetailSecond.value !== bankAccountDuplicateDetailSecond.value) {
       $("#bank_accounts_id_second").val("");
     } else {
       $("#bank_accounts_id_second").val(bankAccountSecondDuplicateId.value);
@@ -660,8 +666,10 @@
     var bankAccountDetailSecond           = document.getElementById('bank_accounts_detail_second');
     var bankAccountDuplicateDetailSecond  = document.getElementById('bank_accounts_detail_duplicate_second');
     var bankAccountDuplicateIdSecond      = document.getElementById('bank_accounts_duplicate_id_second');
+    var bankAccountSecond                 = document.getElementById('bank_accounts_second');
+    var bankAccountSecondDuplicate        = document.getElementById('bank_accounts_duplicate_second');
 
-    if (bankAccountDetailSecond.value !== bankAccountDuplicateDetailSecond.value) {
+    if (bankAccountDetailSecond.value !== bankAccountDuplicateDetailSecond.value || bankAccountSecond.value !== bankAccountSecondDuplicate.value) {
       $("#bank_accounts_id_second").val("");
     } else {
       $("#bank_accounts_id_second").val(bankAccountDuplicateIdSecond.value);
@@ -712,7 +720,7 @@
       $("#bank_accounts_third_popup").prop("disabled", false);
     }
   });
-  
+
   $('#tableGetBankAccountThird').on('click', 'tbody tr', function() {
     var sysID       = $(this).find('input[type="hidden"]').val();
     var bankAccount = $(this).find('td:nth-child(3)').text();
@@ -724,11 +732,13 @@
   });
 
   $('#bank_accounts_third').on('input', function() {
-    var bankAccountThird             = document.getElementById('bank_accounts_third');
-    var bankAccountThirdDuplicate    = document.getElementById('bank_accounts_duplicate_third');
-    var bankAccountThirdDuplicateId  = document.getElementById('bank_accounts_duplicate_third_id');
+    var bankAccountThird                  = document.getElementById('bank_accounts_third');
+    var bankAccountThirdDuplicate         = document.getElementById('bank_accounts_duplicate_third');
+    var bankAccountThirdDuplicateId       = document.getElementById('bank_accounts_duplicate_third_id');
+    var bankAccountDetailThird            = document.getElementById('bank_accounts_third_detail');
+    var bankAccountDuplicateDetailThird   = document.getElementById('bank_accounts_duplicate_third_detail');
 
-    if (bankAccountThird.value !== bankAccountThirdDuplicate.value) {
+    if (bankAccountThird.value !== bankAccountThirdDuplicate.value || bankAccountDetailThird.value !== bankAccountDuplicateDetailThird.value) {
       $("#bank_accounts_third_id").val("");
     } else {
       $("#bank_accounts_third_id").val(bankAccountThirdDuplicateId.value);
@@ -739,8 +749,10 @@
     var bankAccountDetailThird           = document.getElementById('bank_accounts_third_detail');
     var bankAccountDuplicateDetailThird  = document.getElementById('bank_accounts_duplicate_third_detail');
     var bankAccountDuplicateIdThird      = document.getElementById('bank_accounts_duplicate_third_id');
+    var bankAccountThird                 = document.getElementById('bank_accounts_third');
+    var bankAccountThirdDuplicate        = document.getElementById('bank_accounts_duplicate_third');
 
-    if (bankAccountDetailThird.value !== bankAccountDuplicateDetailThird.value) {
+    if (bankAccountDetailThird.value !== bankAccountDuplicateDetailThird.value || bankAccountThird.value !== bankAccountThirdDuplicate.value) {
       $("#bank_accounts_third_id").val("");
     } else {
       $("#bank_accounts_third_id").val(bankAccountDuplicateIdThird.value);

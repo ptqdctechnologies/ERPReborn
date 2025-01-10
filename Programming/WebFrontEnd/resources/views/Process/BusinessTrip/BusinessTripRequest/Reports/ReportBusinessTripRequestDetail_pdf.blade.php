@@ -18,16 +18,16 @@
     <div style="text-align: center; font-size: 20px; font-weight: bold;">Business Trip Request Detail Report</div>
     <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
 
-    <!-- HEADER -->
+    <!-- HEADER ONE -->
     <table style="margin: 30px 0px 15px 1px;">
       <tr>
-        <!-- ADVANCE NUMBER -->
+        <!-- BRF NUMBER -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Advance Number
+                  BRF Number
                 </div>
               </td>
               <td style="width: 5px;">
@@ -35,20 +35,20 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataHeader']['number'] ?? '-'; ?>
+                  <?= $dataReport['dataHeaderOne']['brfNumber']; ?>
                 </div>
               </td>
             </tr>
           </table>
         </td>
 
-        <!-- CURRENCY -->
+        <!-- DATE COMMENCE TRAVEL -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Currency
+                  Tanggal Mulai Perjalanan
                 </div>
               </td>
               <td style="width: 5px;">
@@ -56,7 +56,28 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['details']['itemList'][0]['entities']['priceCurrencyISOCode'] ?? '-'; ?>
+                  <?= $dataReport['dataHeaderOne']['dateCommence']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- REQUESTER -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Requester
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= $dataReport['dataHeaderOne']['requester']; ?>
                 </div>
               </td>
             </tr>
@@ -79,20 +100,20 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['budget']['combinedBudgetCodeList'][0] . " - " . $dataReport['dataDetails']['general']['budget']['combinedBudgetNameList'][0]; ?>
+                  <?= $dataReport['dataHeaderOne']['budgetCode']; ?>
                 </div>
               </td>
             </tr>
           </table>
         </td>
 
-        <!-- REQUESTER -->
+        <!-- DATE END TRAVEL -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Requester
+                  Tanggal Akhir Perjalanan
                 </div>
               </td>
               <td style="width: 5px;">
@@ -100,7 +121,28 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['requesterWorkerFullName'] ?? '-'; ?>
+                  <?= $dataReport['dataHeaderOne']['dateEnd']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- BENEFICIARY -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Beneficiary
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= $dataReport['dataHeaderOne']['beneficiary']; ?>
                 </div>
               </td>
             </tr>
@@ -123,20 +165,20 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionCodeList'][0] . " - " . $dataReport['dataDetails']['general']['budget']['combinedBudgetSectionNameList'][0]; ?>
+                  <?= $dataReport['dataHeaderOne']['siteCode']; ?>
                 </div>
               </td>
             </tr>
           </table>
         </td>
 
-        <!-- BENEFICIARY -->
+        <!-- DATE BRF -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Beneficiary
+                  Tanggal Pembuatan BRF
                 </div>
               </td>
               <td style="width: 5px;">
@@ -144,7 +186,28 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataDetails']['general']['involvedPersons'][0]['beneficiaryWorkerFullName'] ?? '-'; ?>
+                  <?= $dataReport['dataHeaderOne']['dateBRF']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- DEPARTING FROM -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Departing From
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= $dataReport['dataHeaderOne']['departingFrom']; ?>
                 </div>
               </td>
             </tr>
@@ -153,13 +216,13 @@
       </tr>
 
       <tr>
-        <!-- DATE -->
+        <!-- PRODUCT -->
         <td style=" width: 350px;">
           <table>
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Date
+                  Product
                 </div>
               </td>
               <td style="width: 5px;">
@@ -167,8 +230,67 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  <?= $dataReport['dataHeader']['date'] ?? '-'; ?>
+                  <?= $dataReport['dataHeaderOne']['productID']; ?> (<?= $dataReport['dataHeaderOne']['productName']; ?>)
                 </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- CONTACT PHONE -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Contact Phone
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= $dataReport['dataHeaderOne']['contactPhone']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- DESTINATION TO -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Destination To
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= $dataReport['dataHeaderOne']['destinationTo']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr>
+        <!-- UNKNOWN -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;"></div>
+              </td>
+              <td style="width: 5px;"></td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;"></div>
               </td>
             </tr>
           </table>
@@ -188,95 +310,207 @@
               </td>
               <td style="height: 20px;">
                 <div style="font-size: 12px; line-height: 14px;">
-                  (<?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAcronym']; ?>) <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountNumber']; ?> - <?= $dataReport['dataDetails']['general']['bankAccount']['beneficiary']['bankAccountName']; ?>
+                  (<?= $dataReport['dataHeaderOne']['bankType']; ?>) <?= $dataReport['dataHeaderOne']['bankAccountNumber']; ?> - <?= $dataReport['dataHeaderOne']['bankAccountName']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- UNKNOWN -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;"></div>
+              </td>
+              <td style="width: 5px;"></td>
+              <td style="height: 20px;"></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <!-- HEADER TWO -->
+    <table style="margin: 30px 0px 15px 1px; margin-top: 1rem; border: 2px solid rgba(0,0,0,.1); border-radius: 4px;">
+      <tr>
+        <!-- TOTAL ALLOWANCE -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Total Allowance
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= number_format($dataReport['dataHeaderTwo']['totalAllowance'], 2, '.', ','); ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- TOTAL ENTERTAINMENT -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Total Entertainment
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= number_format($dataReport['dataHeaderTwo']['totalEntertainment'], 2, '.', ','); ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- TOTAL OTHER -->
+        <td style=" width: 310px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Total Other
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= number_format($dataReport['dataHeaderTwo']['totalOther'], 2, '.', ','); ?>
                 </div>
               </td>
             </tr>
           </table>
         </td>
       </tr>
+      <tr>
+        <!-- TOTAL TRANSPORT -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Total Transport
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= number_format($dataReport['dataHeaderTwo']['totalTransport'], 2, '.', ','); ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
 
-    </table>
+        <!-- TOTAL ACCOMMODATION -->
+        <td style=" width: 350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Total Accommodation
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= number_format($dataReport['dataHeaderTwo']['totalAccommodation'], 2, '.', ','); ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
 
-    <!-- DETAIL -->
-    <table class="TableReportAdvanceSummary" style="margin-left: 1px; width: 100%;" id="TableReportAdvanceSummary">
-      <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            No
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Product ID
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Description & Spesification
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Quantity
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Unit Price
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total Advance
-          </div>
+        <td style=" width: 310px;">
+          <table>
+          </table>
         </td>
       </tr>
-
-      <?php $counter = 1; ?>
-      <?php foreach ($dataReport['dataDetails']['details']['itemList'] as $dataDetail) { ?>
-        <tr>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= $counter++; ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['entities']['product_RefID']; ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['entities']['productName']; ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['entities']['quantity']; ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['entities']['quantity'] * $dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?>
-            </div>
-          </td>
-        </tr>
-      <?php } ?>
-
-      <div style="height: 16px;"></div>
-
-      <tr style="border-top: 1px solid black;">
-        <td style="height: 20px; text-align: left;" colspan="5">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL</div>
+      <tr>
+        <td colspan="3">
+          <hr style="color: rgba(0,0,0,.1);" />
         </td>
-        <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['total'], 2, '.', ','); ?></div>
+      </tr>
+      <tr>
+        <td style=" width: 350px;">
+          <table>
+          </table>
+        </td>
+
+        <td style=" width: 350px;">
+          <table>
+          </table>
+        </td>
+
+        <!-- TOTAL BUSINESS TRIP -->
+        <td style=" width: 310px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Total Business Trip
+                </div>
+              </td>
+              <td style="width: 5px;">
+                :
+              </td>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= number_format($dataReport['dataHeaderTwo']['totalBusinessTrip'], 2, '.', ','); ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <!-- HEADER THREE -->
+    <table style="margin: 30px 0px 15px 1px; margin-top: 1rem; width: 100%;">
+      <tr>
+        <td style="width:350px;">
+          <table>
+            <tr>
+              <td style="width: 110px; height: 20px;">
+                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                  Reason to Travel
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td style="height: 20px;">
+                <div style="font-size: 12px; line-height: 14px;">
+                  <?= $dataReport['dataHeaderThree']['reason']; ?>
+                </div>
+              </td>
+            </tr>
+          </table>
         </td>
       </tr>
     </table>

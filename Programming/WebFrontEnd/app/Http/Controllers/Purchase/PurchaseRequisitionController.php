@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class PurchaseRequisitionController extends Controller
 {
@@ -86,8 +88,8 @@ class PurchaseRequisitionController extends Controller
         $input = $request->all();
         // dd($input);
 
-        $GetBusinessDoc = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $GetBusinessDoc = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
             'generalPurposes.businessDocument.getBusinessDocumentTypeIDByName', 
             'latest',
@@ -98,8 +100,8 @@ class PurchaseRequisitionController extends Controller
             ]
             );
         
-        $VarSelectWorkFlow = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $VarSelectWorkFlow = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
             'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID', 
             'latest',
@@ -139,8 +141,8 @@ class PurchaseRequisitionController extends Controller
                 ];
             }
 
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'transaction.create.supplyChain.setPurchaseRequisition',
                 'latest',
@@ -167,8 +169,8 @@ class PurchaseRequisitionController extends Controller
     public function PurchaseRequisitionListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varDataPurchaseRequisition = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataPurchaseRequisition = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.supplyChain.getPurchaseRequisition',
             'latest',
@@ -194,8 +196,8 @@ class PurchaseRequisitionController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseRequisition");
 
-        $varDataProcReqRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varDataProcReqRevision = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'report.form.documentForm.supplyChain.getPurchaseRequisition',
             'latest',
@@ -244,8 +246,8 @@ class PurchaseRequisitionController extends Controller
             }
         }
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.update.supplyChain.setPurchaseRequisition',
             'latest',
@@ -279,8 +281,8 @@ class PurchaseRequisitionController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $ProcReqRefID = $request->input('ProcReqRefID');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
             'latest',

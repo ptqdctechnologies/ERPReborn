@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Register\OTHER;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class BusinessDocumentVersionController extends Controller
 {
@@ -17,8 +19,8 @@ class BusinessDocumentVersionController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         //---Core---
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.master.getBusinessDocumentVersion',
             'latest',
@@ -44,8 +46,8 @@ class BusinessDocumentVersionController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         //---Core---
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
             'transaction.create.master.setBusinessDocumentVersion', 
             'latest', 
@@ -71,8 +73,8 @@ class BusinessDocumentVersionController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataRecord.master.getBusinessDocumentVersion',
             'latest',
@@ -89,8 +91,8 @@ class BusinessDocumentVersionController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         //---Core---
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.update.master.setBusinessDocumentVersion',
             'latest',
@@ -113,8 +115,8 @@ class BusinessDocumentVersionController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         //---Core---
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.delete.master.setBusinessDocumentVersion',
             'latest',

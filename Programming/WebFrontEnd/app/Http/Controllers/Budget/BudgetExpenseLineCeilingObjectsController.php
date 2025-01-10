@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
 use PDO;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class BudgetExpenseLineCeilingObjectsController extends Controller
 {
@@ -18,8 +20,8 @@ class BudgetExpenseLineCeilingObjectsController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.read.dataList.budgeting.getBudgetExpenseLineCeilingObjects', 
         'latest', 
@@ -52,8 +54,8 @@ class BudgetExpenseLineCeilingObjectsController extends Controller
     {
         $BudgetExpenseLineId = $request->input('BudgetExpenseLineId2');
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'transaction.read.dataList.budgeting.getBudgetExpenseLineCeiling',
             'latest',
@@ -90,8 +92,8 @@ class BudgetExpenseLineCeilingObjectsController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.create.budgeting.setBudgetExpenseLineCeilingObjects', 
         'latest', 
@@ -132,8 +134,8 @@ class BudgetExpenseLineCeilingObjectsController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.read.dataRecord.budgeting.getBudget', 
         'latest', 
@@ -166,8 +168,8 @@ class BudgetExpenseLineCeilingObjectsController extends Controller
     public function destroy(Request $request, $id)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varData = Helper_APICall::setCallAPIGateway(
+        Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
         'transaction.delete.budgeting.setBudgetExpenseLineCeilingObjects', 
         'latest', 

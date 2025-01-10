@@ -966,6 +966,8 @@ return array(
     'App\\Http\\Controllers\\Document\\MyDocumentController' => $baseDir . '/app/Http/Controllers/Document/MyDocumentController.php',
     'App\\Http\\Controllers\\ExportExcel\\AdvanceRequest\\ExportReportAdvanceSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/AdvanceRequest/ExportReportAdvanceSummary.php',
     'App\\Http\\Controllers\\ExportExcel\\AdvanceRequest\\ExportReportAdvanceSummaryDetail' => $baseDir . '/app/Http/Controllers/ExportExcel/AdvanceRequest/ExportReportAdvanceSummaryDetail.php',
+    'App\\Http\\Controllers\\ExportExcel\\AdvanceSettlement\\ExportReportAdvanceSettlementDetail' => $baseDir . '/app/Http/Controllers/ExportExcel/AdvanceSettlement/ExportReportAdvanceSettlementDetail.php',
+    'App\\Http\\Controllers\\ExportExcel\\AdvanceSettlement\\ExportReportAdvanceSettlementSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/AdvanceSettlement/ExportReportAdvanceSettlementSummary.php',
     'App\\Http\\Controllers\\ExportExcel\\Budget\\ExportReportModifyBudgetDetail' => $baseDir . '/app/Http/Controllers/ExportExcel/Budget/ExportReportModifyBudgetDetail.php',
     'App\\Http\\Controllers\\ExportExcel\\Budget\\ExportReportModifyBudgetSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/Budget/ExportReportModifyBudgetSummary.php',
     'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportDODetail' => $baseDir . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportDODetail.php',

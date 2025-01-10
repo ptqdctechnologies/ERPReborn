@@ -420,6 +420,13 @@
       "autoWidth": false,
     });
   });
+  
+  $(function () {
+    $(".DefaultFeatures").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+  });
 </script>
 
 <script>
@@ -616,4 +623,12 @@
 
     componentInput.size = componentLenghtInput * defaultValue;
   }
+</script>
+
+<!-- FUNGSI UNTUK MENGAKTIFKAN/ENABLE KOMPONEN BOOTSTRAP -->
+<script>
+  $(function () {
+    // POPOVER
+    $('[data-toggle="popover"]').popover()
+  });
 </script>
