@@ -7,7 +7,7 @@
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
                 <input id="project_code_second" style="border-radius:0;" name="project_code_second" class="form-control" size="34" value="<?= $dataReport['budgetCode'] ?? ''; ?>" readonly>
-                <input id="project_id_second" style="border-radius:0;" name="project_id_second" class="form-control" hidden>
+                <input id="project_id_second" style="border-radius:0;" name="project_id_second" class="form-control" value="<?= $dataReport['budgetId'] ?? ''; ?>" hidden>
             </div>
             <div>
                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -17,7 +17,7 @@
                 </span>
             </div>
             <div class="d-sm-none d-md-none d-lg-block">
-                <input id="project_name_second" style="border-radius:0;" name="project_name_second" class="form-control invisible" readonly>
+                <input id="project_name_second" style="border-radius:0;" name="project_name_second" class="form-control invisible" value="<?= $dataReport['budgetName'] ?? ''; ?>" readonly>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
                 <input id="site_code_second" style="border-radius:0;" name="site_code_second" class="form-control" size="34" value="<?= $dataReport['siteCode'] ?? ''; ?>" readonly>
-                <input id="site_id_second" style="border-radius:0;" name="site_id_second" class="form-control" hidden>
+                <input id="site_id_second" style="border-radius:0;" name="site_id_second" class="form-control" value="<?= $dataReport['siteId'] ?? ''; ?>" hidden>
             </div>
             <div>
                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -38,7 +38,7 @@
                 </span>
             </div>
             <div class="d-sm-none d-md-none d-lg-block">
-                <input id="site_name_second" style="border-radius:0;" name="site_name_second" class="form-control invisible" readonly>
+                <input id="site_name_second" style="border-radius:0;" name="site_name_second" class="form-control invisible" value="<?= $dataReport['siteName'] ?? ''; ?>" readonly>
             </div>
         </div>
     </div>
@@ -50,7 +50,7 @@
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
                 <input id="worker_name_second" style="border-radius:0;" name="worker_name_second" class="form-control" size="34" value="<?= $dataReport['requesterName'] ?? ''; ?>" readonly>
-                <input id="worker_id_second" style="border-radius:0;" name="worker_id_second" class="form-control" hidden>
+                <input id="worker_id_second" style="border-radius:0;" name="worker_id_second" class="form-control" value="<?= $dataReport['requesterId'] ?? ''; ?>" hidden>
             </div>
             <div>
                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -60,7 +60,7 @@
                 </span>
             </div>
             <div class="d-sm-none d-md-none d-lg-block">
-                <input id="worker_position_second" style="border-radius:0;" name="worker_position_second" class="form-control invisible">
+                <input id="worker_position_second" style="border-radius:0;" name="worker_position_second" class="form-control invisible" value="<?= $dataReport['requesterPosition'] ?? ''; ?>">
             </div>
         </div>
     </div>
@@ -71,7 +71,7 @@
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
                 <input id="beneficiary_second_person_name" style="border-radius:0;" name="beneficiary_second_person_name" class="form-control" size="34" value="<?= $dataReport['beneficiaryName'] ?? ''; ?>" readonly>
-                <input id="beneficiary_second_id" style="border-radius:0;" name="beneficiary_second_id" class="form-control" hidden>
+                <input id="beneficiary_second_id" style="border-radius:0;" name="beneficiary_second_id" class="form-control" value="<?= $dataReport['beneficiaryId'] ?? ''; ?>" hidden>
             </div>
             <div>
                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -81,7 +81,7 @@
                 </span>
             </div>
             <div class="d-sm-none d-md-none d-lg-block">
-                <input id="beneficiary_second_person_position" style="border-radius:0;" name="beneficiary_second_person_position" class="form-control invisible">
+                <input id="beneficiary_second_person_position" style="border-radius:0;" name="beneficiary_second_person_position" class="form-control invisible" value="<?= $dataReport['beneficiaryPosition'] ?? ''; ?>">
             </div>
         </div>
     </div>

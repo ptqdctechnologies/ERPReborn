@@ -459,8 +459,8 @@ class BusinessTripSettlementController extends Controller
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportReportBusinessTripSettlementSummary', []) : [];
 
             $compact = [
-                'varAPIWebToken' => $varAPIWebToken,
-                'dataReport' => $dataReport
+                'varAPIWebToken'    => $varAPIWebToken,
+                'dataReport'        => $dataReport
             ];
     
             return view('Process.BusinessTrip.BusinessTripSettlement.Reports.ReportBusinessTripSettlementSummary', $compact);
@@ -470,7 +470,7 @@ class BusinessTripSettlementController extends Controller
         }
     }
 
-    public function ReportBusinessTripSettlementSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name) 
+    public function ReportBusinessTripSettlementSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position) 
     {
         try {
             $varAPIWebToken             = Session::get('SessionLogin');
@@ -1226,16 +1226,22 @@ class BusinessTripSettlementController extends Controller
             }, 0);
 
             $compact = [
-                'dataDetail'        => $filteredData,
-                'budgetCode'        => $project_code,
-                'budgetName'        => $project_name,
-                'siteCode'          => $site_code,
-                'siteName'          => $site_name,
-                'requesterName'     => $requester_name,
-                'beneficiaryName'   => $beneficiary_name,
-                'total'             => $totalAdvance,
-                'totalExpense'      => $totalExpense,
-                'totalAmount'       => $totalAmount,
+                'dataDetail'            => $filteredData,
+                'budgetCode'            => $project_code,
+                'budgetName'            => $project_name,
+                'budgetId'              => $project_id,
+                'siteCode'              => $site_code,
+                'siteName'              => $site_name,
+                'siteId'                => $site_id,
+                'requesterName'         => $requester_name,
+                'requesterId'           => $requester_id,
+                'requesterPosition'     => $requester_position,
+                'beneficiaryName'       => $beneficiary_name,
+                'beneficiaryId'         => $beneficiary_id,
+                'beneficiaryPosition'   => $beneficiary_position,
+                'total'                 => $totalAdvance,
+                'totalExpense'          => $totalExpense,
+                'totalAmount'           => $totalAmount,
             ];
 
             Session::put("isButtonReportReportBusinessTripSettlementSummarySubmit", true);
@@ -1251,24 +1257,21 @@ class BusinessTripSettlementController extends Controller
     public function ReportBusinessTripSettlementSummaryStore(Request $request) 
     {
         try {
-            $project_code       = $request->project_code_second;
-            $project_name       = $request->project_name_second;
-            $project_id         = $request->project_id_second;
+            $project_code           = $request->project_code_second;
+            $project_name           = $request->project_name_second;
+            $project_id             = $request->project_id_second;
 
-            $site_id            = $request->site_id_second;
-            $site_code          = $request->site_code_second;
-            $site_name          = $request->site_name_second;
+            $site_id                = $request->site_id_second;
+            $site_code              = $request->site_code_second;
+            $site_name              = $request->site_name_second;
             
-            $requester_id       = $request->worker_id_second;
-            $requester_name     = $request->worker_name_second;
+            $requester_id           = $request->worker_id_second;
+            $requester_name         = $request->worker_name_second;
+            $requester_position     = $request->worker_position_second;
 
-            $beneficiary_id     = $request->beneficiary_second_id;
-            $beneficiary_name   = $request->beneficiary_second_person_name;
-
-            // dd($project_code, $project_name, $project_id);
-            // dd($site_id, $site_code, $site_name);
-            // dd($requester_id, $requester_name);
-            // dd($beneficiary_id, $beneficiary_name);
+            $beneficiary_id         = $request->beneficiary_second_id;
+            $beneficiary_name       = $request->beneficiary_second_person_name;
+            $beneficiary_position   = $request->beneficiary_second_person_position;
 
             if (!$project_id && !$site_id && !$requester_id && !$beneficiary_id) {
                 Session::forget("isButtonReportReportBusinessTripSettlementSummarySubmit");
@@ -1277,7 +1280,7 @@ class BusinessTripSettlementController extends Controller
                 return redirect()->route('BusinessTripSettlement.ReportBusinessTripSettlementSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
             }
 
-            $compact = $this->ReportBusinessTripSettlementSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name);
+            $compact = $this->ReportBusinessTripSettlementSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position);
 
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
@@ -1794,8 +1797,8 @@ class BusinessTripSettlementController extends Controller
             if ($project_code_second_trigger == null) {
                 Session::forget("isButtonReportBusinessTripSettlementDetailSubmit");
                 Session::forget("dataReportBusinessTripSettlementDetail");
-        
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripSettlementDetail')->with('NotFound', 'BSF Number Cannot Empty');
+
+                return redirect()->route('BusinessTripSettlement.ReportBusinessTripSettlementDetail')->with('NotFound', 'BSF Number Cannot Empty');
             }
 
             if ($dataReport) {
@@ -1815,7 +1818,7 @@ class BusinessTripSettlementController extends Controller
                     return Excel::download(new ExportReportBusinessTripSettlementDetail, 'Export Report Business Trip Settlement Detail.xlsx');
                 }
             } else {
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripSettlementDetail')->with('NotFound', 'BSF Number Cannot Empty');
+                return redirect()->route('BusinessTripSettlement.ReportBusinessTripSettlementDetail')->with('NotFound', 'BSF Number Cannot Empty');
             }
         } catch (\Throwable $th) {
             Log::error("PrintExportReportBusinessTripSettlementDetail Function Error at " . $th->getMessage());
