@@ -1729,7 +1729,7 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function ReportBusinessTripRequestDetailData($brf_trano, $brf_id, $brf_budget, $brf_sub_budget)
+    public function ReportBusinessTripRequestDetailData($brf_trano, $brf_id, $brf_budget, $brf_budget_name, $brf_sub_budget, $brf_sub_budget_name)
     {
         try {
             $varAPIWebToken         = Session::get('SessionLogin');
@@ -1857,11 +1857,12 @@ class BusinessTripRequestController extends Controller
 
             $compact = [
                 'dataHeaderOne'     => [
+                    'brfId'             => $brf_id,
                     'brfNumber'         => $brf_trano,
                     'budgetCode'        => $brf_budget,
-                    'budgetName'        => '',
+                    'budgetName'        => $brf_budget_name,
                     'siteCode'          => $brf_sub_budget,
-                    'siteName'          => '',
+                    'siteName'          => $brf_sub_budget_name,
                     'productID'         => '820005-0000',
                     'productName'       => 'Travel & Fares/Business Trip',
                     'dateCommence'      => '2024-12-18',
@@ -1902,10 +1903,12 @@ class BusinessTripRequestController extends Controller
     public function ReportBusinessTripRequestDetailStore(Request $request)
     {
         try {
-            $brf_trano      = $request->brf_number_trano;
-            $brf_id         = $request->brf_number_id;
-            $brf_budget     = $request->brf_number_budget;
-            $brf_sub_budget = $request->brf_number_sub_budget;
+            $brf_trano              = $request->brf_number_trano;
+            $brf_id                 = $request->brf_number_id;
+            $brf_budget             = $request->brf_number_budget;
+            $brf_budget_name        = $request->brf_number_budget_name;
+            $brf_sub_budget         = $request->brf_number_sub_budget;
+            $brf_sub_budget_name    = $request->brf_number_sub_budget_name;
 
             if (!$brf_id) {
                 Session::forget("isButtonReportBusinessTripRequestDetailSubmit");
@@ -1914,7 +1917,7 @@ class BusinessTripRequestController extends Controller
                 return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'BRF Number Cannot Be Empty');
             }
 
-            $compact = $this->ReportBusinessTripRequestDetailData($brf_trano, $brf_id, $brf_budget, $brf_sub_budget);
+            $compact = $this->ReportBusinessTripRequestDetailData($brf_trano, $brf_id, $brf_budget, $brf_budget_name, $brf_sub_budget, $brf_sub_budget_name);
 
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');

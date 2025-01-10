@@ -2,9 +2,6 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getProject')
-@include('getFunction.getSite')
-@include('getFunction.getAdvance')
 @include('getFunction.getBusinessTripSettlement')
 
 <div class="content-wrapper">

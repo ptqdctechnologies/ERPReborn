@@ -2,8 +2,6 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getProject')
-@include('getFunction.getSite')
 @include('getFunction.getBusinessTripRequest')
 
 <div class="content-wrapper">
@@ -37,15 +35,6 @@
                                     <div class="card-body">
                                         <div class="row p-1" style="line-height: 14px; row-gap: 1rem;">
                                             <div class="col-sm-12 col-md-4">
-                                                <!-- BRF NUMBER -->
-                                                <div class="row" style="margin-bottom: 1rem;">
-                                                    <div class="col-sm-4 col-md-3 p-0 text-bold">
-                                                        BRF Number
-                                                    </div>
-                                                    <div class="col-sm-8 col-md-9 p-0">
-                                                        : <?= $dataReport['dataHeaderOne']['brfNumber']; ?>
-                                                    </div>
-                                                </div>
                                                 <!-- BUDGET -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-3 p-0 text-bold">

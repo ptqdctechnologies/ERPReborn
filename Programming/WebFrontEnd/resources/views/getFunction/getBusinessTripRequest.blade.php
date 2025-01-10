@@ -17,9 +17,9 @@
                                             <th>No</th>
                                             <th>Trano</th>
                                             <th>Budget Code</th>
-                                            <!-- <th>Budget Name</th> -->
+                                            <th>Budget Name</th>
                                             <th>Sub Budget Code</th>
-                                            <!-- <th>Sub Budget Name</th> -->
+                                            <th>Sub Budget Name</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -509,7 +509,9 @@
                             '<input id="sys_id_modal_brf_number' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_brf_number" type="hidden">' + no++,
                             val.documentNumber || '-',
                             val.combinedBudgetCode || '-',
+                            val.combinedBudgetName || '-',
                             val.combinedBudgetSectionCode || '-',
+                            val.combinedBudgetSectionName || '-',
                         ]).draw();
                     });
 
@@ -551,12 +553,16 @@
         var sysId           = $(this).find('input[data-trigger="sys_id_modal_brf_number"]').val();
         var trano           = $(this).find('td:nth-child(2)').text();
         var budgetCode      = $(this).find('td:nth-child(3)').text();
-        var subBudgetCode   = $(this).find('td:nth-child(4)').text();
+        var budgetName      = $(this).find('td:nth-child(4)').text();
+        var subBudgetCode   = $(this).find('td:nth-child(5)').text();
+        var subBudgetName   = $(this).find('td:nth-child(6)').text();
 
         $("#brf_number_id").val(sysId);
         $("#brf_number_trano").val(trano);
         $("#brf_number_budget").val(budgetCode);
+        $("#brf_number_budget_name").val(budgetName);
         $("#brf_number_sub_budget").val(subBudgetCode);
+        $("#brf_number_sub_budget_name").val(subBudgetName);
 
         adjustInputSize(document.getElementById("brf_number_trano"), "string");
 
