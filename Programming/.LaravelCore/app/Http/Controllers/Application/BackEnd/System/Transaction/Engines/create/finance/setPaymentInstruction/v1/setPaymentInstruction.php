@@ -3,29 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\supplyChain                           |
-|                \setMaterialServiceRequisitionDetail\v1                                                                           |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setPaymentInstruction\v1      |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2024 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\supplyChain\setMaterialServiceRequisitionDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setPaymentInstruction\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setMaterialServiceRequisitionDetail                                                                          |
-    | ▪ Description : Menangani API transaction.update.supplyChain.setMaterialServiceRequisitionDetail Version 1                   |
+    | ▪ Class Name  : setPaymentInstruction                                                                                        |
+    | ▪ Description : Menangani API transaction.create.finance.setPaymentInstruction Version 1                                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setMaterialServiceRequisitionDetail extends \App\Http\Controllers\Controller
+    class setPaymentInstruction extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-08-08                                                                                           |
-        | ▪ Creation Date   : 2024-08-08                                                                                           |
+        | ▪ Last Update     : 2025-01-11                                                                                           |
+        | ▪ Creation Date   : 2025-01-11                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,9 +42,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-10                                                                                           |
-        | ▪ Creation Date   : 2024-08-08                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-01-11                                                                                           |
+        | ▪ Creation Date   : 2025-01-11                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,23 +58,21 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Purchase Requisition Detail Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create PaymentInstruction Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
                         if (!($varDataSend = 
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblMaterialServiceRequisitionDetail())->setDataUpdate(
+                                (new \App\Models\Database\SchData_OLTP_Finance\TblPaymentInstruction())->setDataInsert(
                                     $varUserSession,
-                                    $varData['recordID'],
 
                                     null,
                                     null,
                                     null,
                                     null,
-                                    (
-                                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
                                         $varUserSession
                                         )
                                     )['branchID'],
@@ -89,22 +86,41 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                         )
                                     ),
 
-                                    $varData['entities']['materialServiceRequisition_RefID'],
-                                    $varData['entities']['combinedBudgetSectionDetail_RefID'],
-                                    $varData['entities']['product_RefID'],
-                                    $varData['entities']['quantity'],
-                                    $varData['entities']['quantityUnit_RefID'],
-                                    $varData['entities']['productUnitPriceCurrency_RefID'],
-                                    $varData['entities']['productUnitPriceCurrencyValue'],
-                                    $varData['entities']['productUnitPriceCurrencyExchangeRate'],
-                                    $varData['entities']['fulfillmentDeadlineDateTimeTZ'],
-                                    $varData['entities']['remarks']
+                                    $varData['entities']['documentDateTimeTZ'],
+                                    $varData['entities']['log_FileUpload_Pointer_RefID'],
+                                    $varData['entities']['requesterWorkerJobsPosition_RefID'],
+                                    $varData['entities']['beneficiaryWorkerJobsPosition_RefID'],
+                                    $varData['entities']['beneficiaryBankAccount_RefID'],
+                                    $varData['entities']['internalNotes'],
+                                    $varData['entities']['remarks'],
+
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                        $varUserSession,
+                                        'additionalData',
+                                        $varData['entities']
+                                        ) 
+                                        ?   (
+                                                (
+                                                !is_null($varData['entities']['additionalData'])
+                                                ) 
+                                                ? $varData['entities']['additionalData']
+                                                : []
+                                            )
+                                        : []
+                                    )
                                     )
                                 )
                             ))
                             {
                             throw new \Exception();
                             }
+
+                        //---> Set Business Document Data Into varDataSend
+                        $varDataSend['businessDocument'] = 
+                            (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
+                                $varUserSession, 
+                                $varDataSend['recordID']
+                                );
 
                         $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
@@ -114,10 +130,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                         }
 
                     catch (\Exception $ex) {
+                        $varErrorMessage = $ex->getMessage();
                         $varReturn =
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdateException(
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
                                 $varUserSession,
-                                $ex
+                                500,
+                                'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
                                 );
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
@@ -134,7 +152,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
 
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
-
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
 
