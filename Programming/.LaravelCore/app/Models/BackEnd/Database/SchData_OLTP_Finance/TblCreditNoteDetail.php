@@ -23,8 +23,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Create Date     : 2024-05-13                                                                                           |
         | ▪ Last Update     : 2024-05-13                                                                                           |
+        | ▪ Creation Date   : 2024-05-13                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,11 +51,14 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysDataValidityStartDateTimeTZ ► System Data Validity Start DateTimeTZ                                |
+        |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varCreditNote_RefID ► Debit Note Reference ID                                                             |
+        |      ▪ (int)    varCreditNote_RefID ► Debit Note Reference ID                                                            |
+        |      ▪ (int)    varCustomerBankAccount_RefID ► Customer Bank Account Reference ID                                        |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -65,7 +68,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varCreditNote_RefID = null, string $varRemarks = null
+            int $varCreditNote_RefID = null, $varCustomerBankAccount_RefID = null, string $varRemarks = null
             )
             {
             $varReturn =
@@ -86,6 +89,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varCreditNote_RefID, 'bigint'],
+                            [$varCustomerBankAccount_RefID, 'bigint'],
                             [$varRemarks, 'varchar']
                         ]
                         )
@@ -109,11 +113,14 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysDataValidityStartDateTimeTZ ► System Data Validity Start DateTimeTZ                                |
+        |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varCreditNote_RefID ► Debit Note Reference ID                                                             |
+        |      ▪ (int)    varCreditNote_RefID ► Debit Note Reference ID                                                            |
+        |      ▪ (int)    varCustomerBankAccount_RefID ► Customer Bank Account Reference ID                                        |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -124,7 +131,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varCreditNote_RefID = null, string $varRemarks = null
+            int $varCreditNote_RefID = null, $varCustomerBankAccount_RefID = null, string $varRemarks = null
             )
             {
             $varReturn =
@@ -145,6 +152,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varCreditNote_RefID, 'bigint'],
+                            [$varCustomerBankAccount_RefID, 'bigint'],
                             [$varRemarks, 'varchar']
                         ]
                         )
