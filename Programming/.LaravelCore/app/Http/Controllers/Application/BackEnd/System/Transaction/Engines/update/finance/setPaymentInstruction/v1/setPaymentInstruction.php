@@ -3,17 +3,17 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setPaymentInstruction\v1      |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setPaymentInstruction\v1      |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setPaymentInstruction\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setPaymentInstruction\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : setPaymentInstruction                                                                                        |
-    | ▪ Description : Menangani API transaction.create.finance.setPaymentInstruction Version 1                                     |
+    | ▪ Description : Menangani API transaction.update.finance.setPaymentInstruction Version 1                                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class setPaymentInstruction extends \App\Http\Controllers\Controller
@@ -58,21 +58,23 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create PaymentInstruction Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update PaymentInstruction Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if (!($varDataSend = 
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
-                                $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_Finance\TblPaymentInstruction())->setDataInsert(
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_Finance\TblPaymentInstruction())->setDataUpdate(
                                     $varUserSession,
+                                    $varData['recordID'],
 
                                     null,
                                     null,
                                     null,
                                     null,
-                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                    (
+                                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
                                         $varUserSession
                                         )
                                     )['branchID'],
@@ -127,12 +129,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                         }
 
                     catch (\Exception $ex) {
-                        $varErrorMessage = $ex->getMessage();
                         $varReturn =
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdateException(
                                 $varUserSession,
-                                500,
-                                'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
+                                $ex
                                 );
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
