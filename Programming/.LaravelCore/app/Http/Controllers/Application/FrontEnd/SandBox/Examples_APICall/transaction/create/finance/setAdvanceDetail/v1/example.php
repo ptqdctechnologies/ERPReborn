@@ -34,25 +34,26 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 }
 
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.create.finance.setAdvanceDetail', 
-                'latest', 
-                [
-                'entities' => [
-                    "advance_RefID" => 76000000000001,
-                    "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                    "product_RefID" => 88000000000002,
-                    "quantity" => 10,
-                    "quantityUnit_RefID" => 73000000000001,
-                    "productUnitPriceCurrency_RefID" => 62000000000001,
-                    "productUnitPriceCurrencyValue" => 30000,
-                    "productUnitPriceCurrencyExchangeRate" => 1,
-                    "remarks" => 'Catatan'
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'transaction.create.finance.setAdvanceDetail', 
+                    'latest', 
+                    [
+                    'entities' => [
+                        "advance_RefID" => 76000000000001,
+                        "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                        "product_RefID" => 88000000000002,
+                        "quantity" => 10,
+                        "quantityUnit_RefID" => 73000000000001,
+                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                        "productUnitPriceCurrencyValue" => 30000,
+                        "productUnitPriceCurrencyExchangeRate" => 1,
+                        "remarks" => 'Catatan'
+                        ]
                     ]
-                ]
-                );
+                    );
 
             var_dump($varData);
             }
