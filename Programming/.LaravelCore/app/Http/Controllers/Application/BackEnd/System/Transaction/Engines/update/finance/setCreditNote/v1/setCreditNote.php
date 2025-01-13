@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setDebitNote\v1               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setCreditNote\v1              |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setDebitNote\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setCreditNote\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setDebitNote                                                                                                 |
-    | ▪ Description : Menangani API transaction.update.finance.setDebitNote Version 1                                              |
+    | ▪ Class Name  : setCreditNote                                                                                                |
+    | ▪ Description : Menangani API transaction.update.finance.setCreditNote Version 1                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setDebitNote extends \App\Http\Controllers\Controller
+    class setCreditNote extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-11-01                                                                                           |
-        | ▪ Creation Date   : 2023-11-01                                                                                           |
+        | ▪ Last Update     : 2025-01-13                                                                                           |
+        | ▪ Creation Date   : 2025-01-13                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +42,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-01-13                                                                                           |
-        | ▪ Creation Date   : 2023-11-01                                                                                           |
+        | ▪ Creation Date   : 2025-01-13                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -65,7 +65,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Finance\TblDebitNote())->setDataUpdate(
+                                (new \App\Models\Database\SchData_OLTP_Finance\TblCreditNote())->setDataUpdate(
                                     $varUserSession,
                                     $varData['recordID'],
 
