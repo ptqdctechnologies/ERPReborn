@@ -84,11 +84,6 @@
                                                         "entities": {
                                                             "type": "object",
                                                             "properties": {
-                                                                "paymentInstruction_RefID": {
-                                                                    "type": [ "integer", "null" ],
-                                                                    "minimum": 1,
-                                                                    "maximum": 9223372036854775807
-                                                                    },
                                                                 "underlying_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
@@ -113,8 +108,7 @@
                                                                     "maxLength": 256
                                                                     }
                                                                 },
-                                                            "required": [ 
-                                                                "paymentInstruction_RefID",
+                                                            "required": [
                                                                 "underlying_RefID",
                                                                 "amountCurrency_RefID",
                                                                 "amountCurrencyValue",
@@ -142,13 +136,10 @@
                             ]
                         }
                     },
-                "required": [ 
+                "required": [
                     "documentDateTimeTZ",
                     "log_FileUpload_Pointer_RefID",
                     "requesterWorkerJobsPosition_RefID",
-                    "beneficiaryWorkerJobsPosition_RefID",
-                    "beneficiaryBankAccount_RefID",
-                    "internalNotes",
                     "remarks"
                     ]
                 }
