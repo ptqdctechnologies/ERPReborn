@@ -1472,7 +1472,12 @@ class BusinessTripSettlementController extends Controller
                                                 "priceCurrencyISOCode" => "IDR",
                                                 "priceBaseCurrencyValue" => "6000000",
                                                 "combinedBudgetSectionDetail_RefID" => "169000000000030",
-                                                "combinedBudget_RefID" => "46000000000033"
+                                                "combinedBudget_RefID" => "46000000000033",
+                                                "transport" => "3450000",
+                                                "accommodation" => "5000000",
+                                                "allowance" => "3000000",
+                                                "entertainment" => "300000",
+                                                "other" => "0",
                                             ]
                                         ]
                                     ]
@@ -1575,7 +1580,12 @@ class BusinessTripSettlementController extends Controller
                                                 "priceCurrencyISOCode" => "IDR",
                                                 "priceBaseCurrencyValue" => "2150000",
                                                 "combinedBudgetSectionDetail_RefID" => "169000000000030",
-                                                "combinedBudget_RefID" => "46000000000033"
+                                                "combinedBudget_RefID" => "46000000000033",
+                                                "transport" => "2450000",
+                                                "accommodation" => "3000000",
+                                                "allowance" => "2000000",
+                                                "entertainment" => "200000",
+                                                "other" => "400000",
                                             ]
                                         ],
                                         "1" => [
@@ -1593,7 +1603,12 @@ class BusinessTripSettlementController extends Controller
                                                 "priceCurrencyISOCode" => "IDR",
                                                 "priceBaseCurrencyValue" => "300000",
                                                 "combinedBudgetSectionDetail_RefID" => "169000000000030",
-                                                "combinedBudget_RefID" => "46000000000033"
+                                                "combinedBudget_RefID" => "46000000000033",
+                                                "transport" => "3450000",
+                                                "accommodation" => "6000000",
+                                                "allowance" => "4000000",
+                                                "entertainment" => "500000",
+                                                "other" => "0",
                                             ]
                                         ]
                                     ]
@@ -1696,7 +1711,12 @@ class BusinessTripSettlementController extends Controller
                                                 "priceCurrencyISOCode" => "IDR",
                                                 "priceBaseCurrencyValue" => "15000000",
                                                 "combinedBudgetSectionDetail_RefID" => "169000000000030",
-                                                "combinedBudget_RefID" => "46000000000033"
+                                                "combinedBudget_RefID" => "46000000000033",
+                                                "transport" => "2850000",
+                                                "accommodation" => "4500000",
+                                                "allowance" => "2000000",
+                                                "entertainment" => "0",
+                                                "other" => "1000000",
                                             ]
                                         ],
                                         "1" => [
@@ -1714,7 +1734,12 @@ class BusinessTripSettlementController extends Controller
                                                 "priceCurrencyISOCode" => "IDR",
                                                 "priceBaseCurrencyValue" => "500000",
                                                 "combinedBudgetSectionDetail_RefID" => "169000000000030",
-                                                "combinedBudget_RefID" => "46000000000033"
+                                                "combinedBudget_RefID" => "46000000000033",
+                                                "transport" => "2450000",
+                                                "accommodation" => "3000000",
+                                                "allowance" => "2000000",
+                                                "entertainment" => "200000",
+                                                "other" => "400000",
                                             ]
                                         ]
                                     ]
@@ -1744,6 +1769,10 @@ class BusinessTripSettlementController extends Controller
                 return $carry + ($item['entities']['priceBaseCurrencyValue'] * $item['entities']['quantity'] ?? 0);
             }, 0);
 
+            $totalBSF = array_reduce($splitResponse['content']['details']['itemList'], function ($carry, $item) {
+                return $carry + ($item['entities']['transport'] + $item['entities']['accommodation'] + $item['entities']['allowance'] + $item['entities']['entertainment'] + $item['entities']['other'] ?? 0);
+            }, 0);
+
             $compact = [
                 'dataHeader'    => $splitResponse['header'],
                 'dataDetails'   => $splitResponse['content'],
@@ -1753,7 +1782,8 @@ class BusinessTripSettlementController extends Controller
                 'siteName'      => $site_name_second,
                 'bsfNumber'     => $bsf_number,
                 'bsfId'         => $bsf_id,
-                'total'         => $totalAdvance
+                'total'         => $totalAdvance,
+                'totalBSF'      => $totalBSF
             ];
 
             Session::put("isButtonReportBusinessTripSettlementDetailSubmit", true);
@@ -1814,7 +1844,7 @@ class BusinessTripSettlementController extends Controller
 
             if ($dataReport) {
                 if ($print_type === "PDF") {
-                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripSettlement.Reports.ReportBusinessTripSettlementDetail_pdf', ['dataReport' => $dataReport]);
+                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripSettlement.Reports.ReportBusinessTripSettlementDetail_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 

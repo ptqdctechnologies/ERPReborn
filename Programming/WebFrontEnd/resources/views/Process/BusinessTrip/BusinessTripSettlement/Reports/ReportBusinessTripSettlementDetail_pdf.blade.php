@@ -230,6 +230,31 @@
             Total
           </div>
         </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Transport
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Accommodation
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Allowance
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Entertainment
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Other
+          </div>
+        </td>
       </tr>
 
       <?php $counter = 1; ?>
@@ -265,6 +290,31 @@
               <?= number_format($dataDetail['entities']['quantity'] * $dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?>
             </div>
           </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= number_format($dataDetail['entities']['transport'], 2, '.', ','); ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= number_format($dataDetail['entities']['accommodation'], 2, '.', ','); ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= number_format($dataDetail['entities']['allowance'], 2, '.', ','); ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= number_format($dataDetail['entities']['entertainment'], 2, '.', ','); ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= number_format($dataDetail['entities']['other'], 2, '.', ','); ?>
+            </div>
+          </td>
         </tr>
       <?php } ?>
 
@@ -276,6 +326,12 @@
         </td>
         <td style="height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['total'], 2, '.', ','); ?></div>
+        </td>
+        <td style="height: 20px; text-align: left;" colspan="4">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL BSF</div>
+        </td>
+        <td style="height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalBSF'], 2, '.', ','); ?></div>
         </td>
       </tr>
     </table>

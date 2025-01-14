@@ -121,6 +121,11 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Unit Price</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transport</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Accommodation</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Allowance</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Entertainment</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Other</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -133,6 +138,11 @@
                                                         <td><?= number_format($dataDetail['entities']['quantity'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['entities']['quantity'] * $dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['entities']['transport'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['entities']['accommodation'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['entities']['allowance'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['entities']['entertainment'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['entities']['other'], 2, '.', ','); ?></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
@@ -140,6 +150,8 @@
                                                 <tr>
                                                     <th colspan="5" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['total'], 2, '.', ','); ?></th>
+                                                    <th colspan="4" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL BSF</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalBSF'], 2, '.', ','); ?></th>
                                                 </tr>
                                             </tfoot>
                                         </table>
