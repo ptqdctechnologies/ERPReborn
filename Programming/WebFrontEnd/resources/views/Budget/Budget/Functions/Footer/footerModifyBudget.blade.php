@@ -430,7 +430,7 @@
         const resultQtyInput = qtyAvail + modifyValue;
 
         if (resultQtyInput < 0) {
-            Swal.fire("Error", `Qty must be greater than 0`, "error");
+            Swal.fire("Error", `Qty must not exceed Qty Avail`, "error");
             modifyInput.value = qtyAvail;
         }
 
@@ -438,7 +438,7 @@
         const resultTotalInput = balancedBudget + totalValue;
 
         if (resultTotalInput < 0) {
-            Swal.fire("Error", `Total must be greater than 0`, "error");
+            Swal.fire("Error", `Total must not exceed Total Budget`, "error");
         }
 
         totalInput.value = numberFormatPHPCustom(totalValue, 2);
