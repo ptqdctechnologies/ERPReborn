@@ -377,7 +377,7 @@
 
                           <!-- TOTAL TRANSPORT -->
                           <div class="row">
-                            <label for="total_transport" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0 text-bold">Total</label>
+                            <label for="total_transport" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0 text-bold">Sub Total</label>
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0">
                               <div class="input-group">
                                 <input disabled id="total_transport" name="total_transport" style="border-radius:0;" type="text" class="form-control">
@@ -482,7 +482,7 @@
 
                           <!-- TOTAL ACCOMODATION -->
                           <div class="row">
-                            <label for="total_accomodation" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0 text-bold">Total</label>
+                            <label for="total_accomodation" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0 text-bold">Sub Total</label>
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0">
                               <div class="input-group">
                                 <input disabled id="total_accomodation" name="total_accomodation" style="border-radius:0;" type="text" class="form-control">
