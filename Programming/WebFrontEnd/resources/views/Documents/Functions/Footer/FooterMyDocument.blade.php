@@ -47,24 +47,33 @@
         var t = $('.TableMyDocument').DataTable();
         t.clear().draw();
         $.each(data, function(key, val) {
+            const showData = {
+                date: val.businessDocumentDateTimeTZ || val.entities.businessDocumentDateTimeTZ,
+                remark: val.workFlowPathSubmitterRemarks || val.entities.workFlowPathSubmitterRemarks,
+                businessDocument_RefID: val.formDocumentNumber_RefID || val.entities.formDocumentNumber_RefID,
+                BusinessDocumentTypeName: val.BusinessDocumentTypeName || val.entities.BusinessDocumentTypeName,
+                businessDocumentNumber: val.businessDocumentNumber || val.entities.businessDocumentNumber,
+                combinedBudgetCode: val.combinedBudgetCode || val.entities.combinedBudgetCode,
+                previousWorkFlowPathApproverName: val.previousWorkFlowPathApproverName || val.entities.previousWorkFlowPathApproverName,
+                previousWorkFlowPathActionName: val.previousWorkFlowPathActionName || val.entities.previousWorkFlowPathActionName
+            };
 
-            const date = dateFns.format(
-                dateFns.parse(val.businessDocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"),
+            const date = dateFns.format(dateFns.parse(showData.date, "yyyy-MM-dd hh:mm:ss"),
                 'DD-MM-YYYY HH:mm');
 
-            var remark = val.workFlowPathSubmitterRemarks;
-            if (val.workFlowPathSubmitterRemarks == null) {
+            var remark = showData.remark;
+            if (showData.remark == null) {
                 remark = "-";
             }
 
             keys += 1;
             t.row.add([
-                '<tbody><tr><input class="businessDocument_RefID' + keys + '" value="' + val.formDocumentNumber_RefID + '" type="hidden"><input class="businessDocumentTypeName' + keys + '" value="' + val.BusinessDocumentTypeName + '" type="hidden"><td><span style="position:relative;left:10px;">' + no++ + '</span></td>',
-                '<td><span style="position:relative;left:10px;">' + val.businessDocumentNumber + '</span></td>',
-                '<td><span style="position:relative;left:10px;">' + val.combinedBudgetCode + '</span></td>',
-                '<td><span style="position:relative;left:10px;">' + val.previousWorkFlowPathApproverName + '</span></td>',
+                '<tbody><tr><input class="businessDocument_RefID' + keys + '" value="' + showData.formDocumentNumber_RefID + '" type="hidden"><input class="businessDocumentTypeName' + keys + '" value="' + showData.BusinessDocumentTypeName + '" type="hidden"><td><span style="position:relative;left:10px;">' + no++ + '</span></td>',
+                '<td><span style="position:relative;left:10px;">' + showData.businessDocumentNumber + '</span></td>',
+                '<td><span style="position:relative;left:10px;">' + showData.combinedBudgetCode + '</span></td>',
+                '<td><span style="position:relative;left:10px;">' + showData.previousWorkFlowPathApproverName + '</span></td>',
                 '<td><span style="position:relative;left:10px;">' + date + '</span></td>',
-                '<td><span style="position:relative;left:10px;">' + val.previousWorkFlowPathActionName + '</span></td>',
+                '<td><span style="position:relative;left:10px;">' + showData.previousWorkFlowPathActionName + '</span></td>',
                 '<td><span style="position:relative;left:10px;white-space: pre-line">' + remark + '</span></td></tr></tbody>',
             ]).draw();
         });
@@ -75,7 +84,6 @@
 
 <!-- SHOW DATA FOR FIRST LOADING  -->
 <script type="text/javascript">
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

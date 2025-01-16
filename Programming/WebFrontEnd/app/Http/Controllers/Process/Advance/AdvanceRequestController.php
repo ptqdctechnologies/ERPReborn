@@ -88,23 +88,22 @@ class AdvanceRequestController extends Controller
     public function store(Request $request)
     {
         try {
-
             // dd($request->all());
             $varAPIWebToken = Session::get('SessionLogin');
 
             $documentTypeID = $request->documentTypeID;
             $input = Session::get('dataInputStore' . $documentTypeID);
-            $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->fileAttachment;
+            $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->dataInput_Log_FileUpload_1;
 
             $count_product = count($input['var_product_id']);
             $advanceDetail = [];
             for ($n = 0; $n < $count_product; $n++) {
                 $advanceDetail[$n] = [
                     'entities' => [
-                        "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudgetSectionDetail_RefID'][$n],
+                        "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudgetSectionDetail_RefID'][$n], // DISINI
                         "product_RefID" => (int) $input['var_product_id'][$n],
                         "quantity" => (float) $input['var_quantity'][$n],
-                        "quantityUnit_RefID" => (int) $input['var_qty_id'][$n],
+                        "quantityUnit_RefID" => (int) $input['var_qty_id'][$n], // DISINI
                         "productUnitPriceCurrency_RefID" => (int) $input['var_currency_id'][$n],
                         "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
                         "productUnitPriceCurrencyExchangeRate" => 1,
@@ -120,11 +119,11 @@ class AdvanceRequestController extends Controller
                 [
                     'entities' => [
                         "documentDateTimeTZ" => $input['var_date'],
-                        "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
-                        "requesterWorkerJobsPosition_RefID" => (int)$input['requester_id'],
+                        "log_FileUpload_Pointer_RefID" => (int) $input['dataInput_Log_FileUpload_Pointer_RefID'],
+                        "requesterWorkerJobsPosition_RefID" => (int) $input['requester_id'],
                         "beneficiaryWorkerJobsPosition_RefID" => (int)$input['beneficiary_id'],
                         "beneficiaryBankAccount_RefID" => (int)$input['bank_account_id'],
-                        "internalNotes" => 'My Internal Notes',
+                        "internalNotes" => 'Testing Advance',
                         "remarks" => $input['var_remark'],
                         "additionalData" => [
                             "itemList" => [
@@ -135,6 +134,10 @@ class AdvanceRequestController extends Controller
                 ]
             );
 
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Error Status Code: ' . $varData['metadata']['HTTPStatusCode']);
+            }
+
             $businessDocument_RefID = $varData['data']['businessDocument']['businessDocument_RefID'];
             $workFlowPath_RefID = $request->workFlowPath_RefID;
             $comment = $request->comment;
@@ -144,7 +147,7 @@ class AdvanceRequestController extends Controller
 
             return $this->SubmitWorkflow($businessDocument_RefID, $workFlowPath_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
+            Log::error("Store Advance Request Function Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }

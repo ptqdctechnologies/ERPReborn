@@ -81,27 +81,14 @@
                     <div class="card-body file-attachment">
                       <div class="row">
                         <div class="col-md-12">
-                          <!-- 91000000000247 -->
-                          <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
-                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                          <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
+                          <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                             $varAPIWebToken,
                             'dataInput_Log_FileUpload_1',
                             null,
                             'dataInput_Return'
                             ).
-                            ''; ?>
-                        </div>
-                        <br><br>
-                        <div class="col-md-12">
-                          <div class="card-body table-responsive p-0" style="height:125px;">
-                            <table class="table table-head-fixed table-sm text-nowrap">
-                              <div class="form-group input_fields_wrap">
-                                <div class="input-group control-group">
-                                  <div id="dataShow_ActionPanel"></div>
-                                </div>
-                              </div>
-                            </table>
-                          </div>
+                          ''; ?>
                         </div>
                       </div>
                     </div>
