@@ -73,6 +73,8 @@
                 success: function(data) {
                     $(".loadingGetSiteSecond").hide();
 
+                    console.log('data', data);
+
                     var no = 1;
                     var table = $('#tableGetSiteSecond').DataTable();
                     table.clear();

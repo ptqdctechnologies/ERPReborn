@@ -194,7 +194,7 @@ class FunctionController extends Controller
             $filteredData = $DataSubBudget ?? [];
         }
 
-        return response()->json($filteredData);
+        return response()->json(array_values($filteredData));
     }
 
     // FUNCTION BUDGET 

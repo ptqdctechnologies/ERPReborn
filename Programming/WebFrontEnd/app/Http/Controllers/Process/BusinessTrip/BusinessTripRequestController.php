@@ -295,7 +295,7 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name) 
+    public function ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position) 
     {
         try {
             $varAPIWebToken             = Session::get('SessionLogin');
@@ -1612,15 +1612,21 @@ class BusinessTripRequestController extends Controller
             }, 0);
 
             $compact = [
-                // 'dataDetail'        => $filteredData,
-                'dataDetail'        => $filteredData,
-                'budgetCode'        => $project_code,
-                'budgetName'        => $project_name,
-                'siteCode'          => $site_code,
-                'siteName'          => $site_name,
-                'requesterName'     => $requester_name,
-                'beneficiaryName'   => $beneficiary_name,
-                'total'             => $totalAdvance,
+                // 'dataDetail'         => $filteredData,
+                'dataDetail'            => $filteredData,
+                'budgetCode'            => $project_code,
+                'budgetName'            => $project_name,
+                'budgetId'              => $project_id,
+                'siteCode'              => $site_code,
+                'siteName'              => $site_name,
+                'siteId'                => $site_id,
+                'requesterName'         => $requester_name,
+                'requesterId'           => $requester_id,
+                'requesterPosition'     => $requester_position,
+                'beneficiaryName'       => $beneficiary_name,
+                'beneficiaryId'         => $beneficiary_id,
+                'beneficiaryPosition'   => $beneficiary_position,
+                'total'                 => $totalAdvance,
             ];
 
             Session::put("isButtonReportBusinessTripRequestSummarySubmit", true);
@@ -1636,19 +1642,21 @@ class BusinessTripRequestController extends Controller
     public function ReportBusinessTripRequestSummaryStore(Request $request) 
     {
         try {
-            $project_code       = $request->project_code_second;
-            $project_name       = $request->project_name_second;
-            $project_id         = $request->project_id_second;
+            $project_code           = $request->project_code_second;
+            $project_name           = $request->project_name_second;
+            $project_id             = $request->project_id_second;
 
-            $site_id            = $request->site_id_second;
-            $site_code          = $request->site_code_second;
-            $site_name          = $request->site_name_second;
+            $site_id                = $request->site_id_second;
+            $site_code              = $request->site_code_second;
+            $site_name              = $request->site_name_second;
 
-            $requester_id       = $request->worker_id_second;
-            $requester_name     = $request->worker_name_second;
+            $requester_id           = $request->worker_id_second;
+            $requester_name         = $request->worker_name_second;
+            $requester_position     = $request->worker_position_second;
 
-            $beneficiary_id     = $request->beneficiary_second_id;
-            $beneficiary_name   = $request->beneficiary_second_person_name;
+            $beneficiary_id         = $request->beneficiary_second_id;
+            $beneficiary_name       = $request->beneficiary_second_person_name;
+            $beneficiary_position   = $request->beneficiary_second_person_position;
 
             if (!$project_id && !$site_id && !$requester_id && !$beneficiary_id) {
                 Session::forget("isButtonReportBusinessTripRequestSummarySubmit");
@@ -1657,7 +1665,7 @@ class BusinessTripRequestController extends Controller
                 return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
             }
 
-            $compact = $this->ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name);
+            $compact = $this->ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position);
 
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
@@ -1941,7 +1949,7 @@ class BusinessTripRequestController extends Controller
                 Session::forget("isButtonReportBusinessTripRequestDetailSubmit");
                 Session::forget("dataReportBusinessTripRequestDetail");
         
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'Budget, Sub Budget, & BRF Number Cannot Be Empty');
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'BRF Number Cannot Empty');
             }
 
             if ($dataReport) {
@@ -1961,7 +1969,7 @@ class BusinessTripRequestController extends Controller
                     return Excel::download(new ExportReportBusinessTripRequestDetail, 'Export Report Business Trip Request Detail.xlsx');
                 }
             } else {
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'Budget, Sub Budget, & Advance Number Cannot Empty');
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'BRF Number Cannot Empty');
             }
         } catch (\Throwable $th) {
             Log::error("PrintExportReportBusinessTripRequestDetail Function Error at " . $th->getMessage());
