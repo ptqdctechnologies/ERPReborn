@@ -38,6 +38,7 @@
         }
     });
 </script>
+
 <!-- LOADING DATA MY DOCUMENT -->
 <script>
     function SuccessDataMyDocument(data) {
@@ -51,7 +52,7 @@
                 date: val.businessDocumentDateTimeTZ || val.entities.businessDocumentDateTimeTZ,
                 remark: val.workFlowPathSubmitterRemarks || val.entities.workFlowPathSubmitterRemarks,
                 businessDocument_RefID: val.formDocumentNumber_RefID || val.entities.formDocumentNumber_RefID,
-                BusinessDocumentTypeName: val.BusinessDocumentTypeName || val.entities.BusinessDocumentTypeName,
+                businessDocumentTypeName: val.businessDocumentTypeName || val.entities.businessDocumentTypeName,
                 businessDocumentNumber: val.businessDocumentNumber || val.entities.businessDocumentNumber,
                 combinedBudgetCode: val.combinedBudgetCode || val.entities.combinedBudgetCode,
                 previousWorkFlowPathApproverName: val.previousWorkFlowPathApproverName || val.entities.previousWorkFlowPathApproverName,
@@ -68,8 +69,8 @@
 
             keys += 1;
             t.row.add([
-                '<tbody><tr><input class="businessDocument_RefID' + keys + '" value="' + showData.formDocumentNumber_RefID + '" type="hidden"><input class="businessDocumentTypeName' + keys + '" value="' + showData.BusinessDocumentTypeName + '" type="hidden"><td><span style="position:relative;left:10px;">' + no++ + '</span></td>',
-                '<td><span style="position:relative;left:10px;">' + showData.businessDocumentNumber + '</span></td>',
+                '<tbody><tr><input class="businessDocument_RefID' + keys + '" value="' + showData.businessDocument_RefID + '" type="hidden"><input class="businessDocumentTypeName' + keys + '" value="' + showData.businessDocumentTypeName + '" type="hidden"><td><span style="position:relative;left:10px;">' + no++ + '</span></td>',
+                '<td><span style="position:relative;left:10px; color: blue; text-decoration: underline; cursor: pointer;">' + showData.businessDocumentNumber + '</span></td>',
                 '<td><span style="position:relative;left:10px;">' + showData.combinedBudgetCode + '</span></td>',
                 '<td><span style="position:relative;left:10px;">' + showData.previousWorkFlowPathApproverName + '</span></td>',
                 '<td><span style="position:relative;left:10px;">' + date + '</span></td>',
