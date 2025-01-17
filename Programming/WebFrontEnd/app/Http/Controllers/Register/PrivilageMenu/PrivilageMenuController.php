@@ -11,25 +11,24 @@ use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class PrivilageMenuController extends Controller
-{
+    {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+        {   
         // dd(Session::get("PrivilageMenu"));
-
         return view('Register.PrivilageMenu.Transactions.index');
-    }
+        }
 
 
     public function store(Request $request)
-    {
+        {
         $userRole_RefID = $request->user_role_id;
         $menuAction_RefIDArray = $request->checkedValue;
-        // dd($menuAction_RefIDArray);
+        //dd($menuAction_RefIDArray);
         $varAPIWebToken = Session::get('SessionLogin');
         $varData = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -47,9 +46,9 @@ class PrivilageMenuController extends Controller
 
         // dd($varData);
 
-        if($varData['metadata']['HTTPStatusCode'] == "200"){
+        if ($varData['metadata']['HTTPStatusCode'] == "200") {
             Redis::del("RedisSetMenu" . $userRole_RefID);
-        }
+            }
 
         $compact = [
             "status" => $varData['metadata']['HTTPStatusCode'],
@@ -61,10 +60,10 @@ class PrivilageMenuController extends Controller
     }
 
     public function DataListPrivilageMenu(Request $request)
-    {
-
+        {
         $sys_id_role = $request->input('sys_id_role');
-        
+        //dd($request);
+
         $varAPIWebToken = Session::get('SessionLogin');
         $varData = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
