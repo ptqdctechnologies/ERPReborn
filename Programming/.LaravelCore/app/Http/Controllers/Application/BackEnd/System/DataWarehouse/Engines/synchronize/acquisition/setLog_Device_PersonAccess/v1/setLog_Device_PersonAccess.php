@@ -74,19 +74,34 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                                 ];
                             }
 
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
+                        $varReturn =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
+                                $varUserSession,
+                                $varDataSend
+                                );
                         }
 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Synchronization Process Failed'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+                        $varReturn = 
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                $varUserSession,
+                                500,
+                                'Synchronization Process Failed'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
+                                );
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
 
                 catch (\Exception $ex) {
-                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
+                    $varReturn =
+                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                            $varUserSession,
+                            401,
+                            $ex->getMessage()
+                            );
+
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
@@ -95,7 +110,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
             catch (\Exception $ex) {
                 }
 
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            return
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 
@@ -122,7 +138,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
             try {
                 $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
                 
-                $varList = [
+                $varList =
+                    [
                         //---> Finger Print : HO Ruang Server
                         [
                         'GoodsIdentity_RefID' => 17000000000003,
@@ -228,12 +245,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                             }
                         }
                     }
-                } 
+                }
+
             catch (\Exception $ex) {
                 $varReturn = false;                
                 }
 
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 

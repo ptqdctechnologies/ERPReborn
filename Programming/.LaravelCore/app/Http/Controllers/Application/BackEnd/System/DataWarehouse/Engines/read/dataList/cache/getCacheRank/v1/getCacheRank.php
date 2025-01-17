@@ -3,29 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\system\internal\database\system       |
-|                \tableReindex\v1                                                                                                  |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\read\dataList\cache\getCacheRank\v1        |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\internal\database\system\tableReindex\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\read\dataList\cache\getCacheRank\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : tableReindex                                                                                                 |
-    | ▪ Description : Menangani API instruction.server.internal.database.system.tableReindex Version 1                             |
+    | ▪ Class Name  : getCacheRank                                                                                                 |
+    | ▪ Description : Menangani API dataWarehouse.read.dataList.cache.getCacheRank Version 1                                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class tableReindex extends \App\Http\Controllers\Controller
+    class getCacheRank extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-02-15                                                                                           |
-        | ▪ Creation Date   : 2023-02-15                                                                                           |
+        | ▪ Last Update     : 2025-01-17                                                                                           |
+        | ▪ Creation Date   : 2025-01-17                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-02-15                                                                                           |
-        | ▪ Creation Date   : 2023-02-15                                                                                           |
+        | ▪ Last Update     : 2025-01-17                                                                                           |
+        | ▪ Creation Date   : 2025-01-17                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,11 +58,36 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Reset All Transaction (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Transaction History Data Log (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        $varDataSend = ['Message' => $this->dataProcessing($varUserSession) ];
+                        if (($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE))
+                            {
+                            throw new \Exception('SQL Injection Threat Prevention');
+                            }
+
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_Warehouse_Cache\General())->getDataListJSON_CacheRank(
+                                    $varUserSession,
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                                    $varData['SQLStatement']['pick'], 
+                                    $varData['SQLStatement']['sort'], 
+                                    $varData['SQLStatement']['filter'], 
+                                    $varData['SQLStatement']['paging']
+                                    ),
+                                FALSE
+                                )
+                            ))
+                            {
+                            if (is_array($varDataSend) === FALSE) {
+                                throw new \Exception();                            
+                                }
+                            }
+
                         $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
                                 $varUserSession,
@@ -71,7 +95,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                                 );
                         }
 
-                    catch (\Exception $ex) {
+                    catch (\Exception $ex) {                        
                         $varErrorMessage = $ex->getMessage();
                         $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
@@ -102,50 +126,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
 
             return
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : dataProcessing                                                                                       |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-02-15                                                                                           |
-        | ▪ Creation Date   : 2023-02-15                                                                                           |
-        | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        private function dataProcessing($varUserSession)
-            {
-            $varReturn =
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig-Initialize.Func_SchSysConfig_TblDBObject_Index',
-                        [
-                        ]
-                        )
-                    );
-
-            $varReturn =
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.FuncSys_General_SetReindex',
-                        [
-                        ]
-                        )
-                    );
-
-            return
-                'Process Completed';
             }
         }
     }

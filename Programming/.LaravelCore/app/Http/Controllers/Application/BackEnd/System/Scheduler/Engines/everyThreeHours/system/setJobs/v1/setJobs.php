@@ -3,29 +3,37 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\system\internal\database\system       |
-|                \tableReindex\v1                                                                                                  |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\everyThreeHours\system\setJobs\v1              |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\internal\database\system\tableReindex\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\everyThreeHours\system\setJobs\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : tableReindex                                                                                                 |
-    | ▪ Description : Menangani API instruction.server.internal.database.system.tableReindex Version 1                             |
+    | ▪ Class Name  : setJobs                                                                                                      |
+    | ▪ Description : Menangani API scheduler.everyThreeHours.system.setJobs Version 1                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class tableReindex extends \App\Http\Controllers\Controller
+    class setJobs extends \App\Http\Controllers\Controller
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | Class Properties                                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private $varAPIIdentity;
+        private $varShedule;
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-02-15                                                                                           |
-        | ▪ Creation Date   : 2023-02-15                                                                                           |
+        | ▪ Last Update     : 2025-01-17                                                                                           |
+        | ▪ Creation Date   : 2025-01-17                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -36,6 +44,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
         */
         function __construct()
             {
+            $this->varAPIIdentity = 
+                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    __CLASS__
+                    );
+
+            $this->varSheduleIdentity = ((explode('.', ($this->varAPIIdentity)['Key']))[1]);
+            
+            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/core.log';
+
+            shell_exec("touch ".$varFilePath);
             }
 
 
@@ -44,8 +63,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-02-15                                                                                           |
-        | ▪ Creation Date   : 2023-02-15                                                                                           |
+        | ▪ Last Update     : 2025-01-17                                                                                           |
+        | ▪ Creation Date   : 2025-01-17                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,11 +78,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Reset All Transaction (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Every Two Hours Scheduler (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        $varDataSend = ['Message' => $this->dataProcessing($varUserSession) ];
+                        if (!$this->loadAllJobs($varUserSession)) {
+                            throw new \Exception();
+                            }
+                        else {
+                            $varDataSend = [
+                                "message" => "Task Scheduling was Successful" 
+                                ];
+                            }
+
                         $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
                                 $varUserSession,
@@ -73,14 +100,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
-                        $varReturn =
+                        $varReturn = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
                                 $varUserSession,
                                 500,
-                                'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
+                                'Data Retrieval Failed'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
                                 );
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
+
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
 
@@ -94,6 +122,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
 
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
 
@@ -107,47 +136,54 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : dataProcessing                                                                                       |
+        | ▪ Method Name     : loadAllJobs                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-02-15                                                                                           |
-        | ▪ Creation Date   : 2023-02-15                                                                                           |
-        | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
+        | ▪ Last Update     : 2021-01-26                                                                                           |
+        | ▪ Creation Date   : 2021-01-26                                                                                           |
+        | ▪ Description     : loadAllJobs                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        |      ▪ (void)                                                                                                            |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
+        |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function dataProcessing($varUserSession)
+        public function loadAllJobs(int $varUserSession)
             {
-            $varReturn =
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig-Initialize.Func_SchSysConfig_TblDBObject_Index',
-                        [
-                        ]
-                        )
-                    );
+            $varReturn = true;
+            
+            $varAPIWebToken =
+                (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
 
-            $varReturn =
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.FuncSys_General_SetReindex',
+            /*
+            ..... Call all functions will be loaded .....
+            */
+
+            //---> Execute only ROLE_SYNCHRONIZE_AGENT is TRUE (config\Application\BackEnd\environment.txt)
+            if (strcmp(strtoupper(\App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'ROLE_SYNCHRONIZE_AGENT')), 'TRUE') == 0)
+                {
+                //---> API Call : Cache Reinitialization
+                $varFilePath =
+                    '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/instruction.server.internal.database.system.cacheReinitialization';
+                shell_exec("touch ".$varFilePath);
+
+                $varData = 
+                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'instruction.server.internal.database.system.cacheReinitialization', 
+                        'latest', 
                         [
+                        'parameter' => [
+                            'listSize' => 10
+                            ]
                         ]
-                        )
-                    );
+                        );
+                }
 
             return
-                'Process Completed';
+                $varReturn;
             }
         }
     }
-
-?>

@@ -4,28 +4,28 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\system\internal\database\system       |
-|                \tableReindex\v1                                                                                                  |
+|                \cacheReinitialization\v1                                                                                         |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\internal\database\system\tableReindex\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\internal\database\system\cacheReinitialization\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : tableReindex                                                                                                 |
-    | ▪ Description : Menangani API instruction.server.internal.database.system.tableReindex Version 1                             |
+    | ▪ Class Name  : cacheReinitialization                                                                                        |
+    | ▪ Description : Menangani API instruction.server.internal.database.system.cacheReinitialization Version 1                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class tableReindex extends \App\Http\Controllers\Controller
+    class cacheReinitialization extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-02-15                                                                                           |
-        | ▪ Creation Date   : 2023-02-15                                                                                           |
+        | ▪ Last Update     : 2025-01-17                                                                                           |
+        | ▪ Creation Date   : 2025-01-17                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-02-15                                                                                           |
-        | ▪ Creation Date   : 2023-02-15                                                                                           |
+        | ▪ Last Update     : 2025-01-17                                                                                           |
+        | ▪ Creation Date   : 2025-01-17                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -63,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        $varDataSend = ['Message' => $this->dataProcessing($varUserSession) ];
+                        $varDataSend = ['Message' => $this->dataProcessing($varUserSession, $varData) ];
                         $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
                                 $varUserSession,
@@ -110,36 +110,27 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
         | ▪ Method Name     : dataProcessing                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-02-15                                                                                           |
-        | ▪ Creation Date   : 2023-02-15                                                                                           |
+        | ▪ Last Update     : 2025-01-17                                                                                           |
+        | ▪ Creation Date   : 2025-01-17                                                                                           |
         | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        |      ▪ (array)  varData ► Data (Mandatory)                                                                               |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function dataProcessing($varUserSession)
+        private function dataProcessing($varUserSession, $varData)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchSysConfig-Initialize.Func_SchSysConfig_TblDBObject_Index',
+                        'SchData-Warehouse-Cache.Func_General_CacheReinitialization',
                         [
-                        ]
-                        )
-                    );
-
-            $varReturn =
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.FuncSys_General_SetReindex',
-                        [
+                            [$varData['parameter']['listSize'], 'bigint']
                         ]
                         )
                     );
