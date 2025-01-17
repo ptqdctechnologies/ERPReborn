@@ -274,9 +274,9 @@
                     </div>
 
                     <div class="card-body">
-                      <!-- TRANSPORT, ACCOMMODATION, ALLOWANCE, ENTERTAINMENT, & OTHER -->
+                      <!-- TRAVEL & FARES, ACCOMMODATION, ALLOWANCE, ENTERTAINMENT, & OTHER -->
                       <div class="row pt-3 justify-content-between" style="gap: 1rem;">
-                        <!-- TRANSPORT COLUMN -->
+                        <!-- TRAVEL & FARES COLUMN -->
                         <div class="col-md-12 col-lg-3">
                           <!-- TITLE -->
                           <div class="row" style="margin-bottom: 1rem;">
@@ -375,6 +375,36 @@
                             </div>
                           </div>
 
+                          <!-- HOTEL -->
+                          <div class="row" style="margin-bottom: 1rem;">
+                            <label for="hotel" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">10. Hotel</label>
+                            <div class="col-sm-9 col-md-8 col-lg-4 p-0">
+                              <div class="input-group">
+                                <input id="hotel" name="hotel" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- MESS -->
+                          <div class="row" style="margin-bottom: 1rem;">
+                            <label for="mess" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">11. Mess</label>
+                            <div class="col-sm-9 col-md-8 col-lg-4 p-0">
+                              <div class="input-group">
+                                <input id="mess" name="mess" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- GUEST HOUSE -->
+                          <div class="row" style="margin-bottom: 1rem;">
+                            <label for="guest_house" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">12. Guest House</label>
+                            <div class="col-sm-9 col-md-8 col-lg-4 p-0">
+                              <div class="input-group">
+                                <input id="guest_house" name="guest_house" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                              </div>
+                            </div>
+                          </div>
+
                           <!-- TOTAL TRANSPORT -->
                           <div class="row">
                             <label for="total_transport" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0 text-bold">Sub Total</label>
@@ -387,201 +417,32 @@
                         </div>
 
                         <!-- ACCOMMODATION COLUMN -->
-                        <div class="col-md-12 col-lg-3">
-                          <!-- TITLE -->
-                          <div class="row" style="margin-bottom: 1rem;">
-                            <div style="font-size: 0.9rem; font-weight: bold;">
-                              Accommodation
-                            </div>
+                        <div class="col-md-12 col-lg-2">
+                          <div style="font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">
+                            Accommodation
                           </div>
-
-                          <!-- HOTEL -->
-                          <div class="row" style="margin-bottom: 1rem;">
-                            <label for="hotel" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">1. Hotel</label>
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                              <div class="input-group">
-                                <input id="hotel" name="hotel" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- MESS -->
-                          <div class="row" style="margin-bottom: 1rem;">
-                            <label for="mess" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">2. Mess</label>
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                              <div class="input-group">
-                                <input id="mess" name="mess" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- GUEST HOUSE -->
-                          <div class="row" style="margin-bottom: 1rem;">
-                            <label for="guest_house" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">3. Guest House</label>
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                              <div class="input-group">
-                                <input id="guest_house" name="guest_house" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- OTHER -->
-                          <div class="row" style="margin-bottom: 1rem;">
-                            <label for="other_accomodation" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">4. Other</label>
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                              <div class="input-group">
-                                <input id="other_accomodation" name="other_accomodation" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
-                              <div class="input-group">
-                                <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
-                              <div class="input-group">
-                                <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
-                              <div class="input-group">
-                                <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
-                              <div class="input-group">
-                                <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
-                              <div class="input-group">
-                                <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- TOTAL ACCOMODATION -->
-                          <div class="row">
-                            <label for="total_accomodation" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0 text-bold">Sub Total</label>
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                              <div class="input-group">
-                                <input disabled id="total_accomodation" name="total_accomodation" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </div>
+                          <div class="col-sm-9 col-md-8 col-lg-9 p-0">
+                            <input id="allowance" name="allowance" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                           </div>
                         </div>
 
-                        <!-- ALLOWANCE, ENTERTAINMENT, & OTHER COLUMN -->
-                        <div class="col-md-12 col-lg-3">
-                          <!-- TITLE -->
-                          <div class="row" style="margin-bottom: 1rem;">
-                            <div style="font-size: 0.9rem; font-weight: bold;">
-                              Allowance, Entertainment, & Other
-                            </div>
+                        <!-- ENTERTAINMENT COLUMN -->
+                        <div class="col-md-12 col-lg-2">
+                          <div style="font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">
+                            Entertainment
                           </div>
-
-                          <!-- ALLOWANCE -->
-                          <div class="row" style="margin-bottom: 1rem;">
-                            <label for="allowance" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">1. Allowance</label>
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                              <div class="input-group">
-                                <input id="allowance" name="allowance" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
+                          <div class="col-sm-9 col-md-8 col-lg-9 p-0">
+                            <input id="entertainment" name="entertainment" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                           </div>
+                        </div>
 
-                          <!-- ENTERTAINMENT -->
-                          <div class="row" style="margin-bottom: 1rem;">
-                            <label for="entertainment" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">2. Entertainment</label>
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                              <div class="input-group">
-                                <input id="entertainment" name="entertainment" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
+                        <!-- OTHER COLUMN -->
+                        <div class="col-md-12 col-lg-2">
+                          <div style="font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">
+                            Other
                           </div>
-
-                          <!-- OTHER -->
-                          <div class="row">
-                            <label for="other" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0">3. Other</label>
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                              <div class="input-group">
-                                <input id="other" name="other" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
-                              <div class="input-group">
-                                <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
-                              <div class="input-group">
-                                <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
-                              <div class="input-group">
-                                <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
-                              <div class="input-group">
-                                <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
-                              <div class="input-group">
-                                <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- COMPLEMENT -->
-                          <div class="row d-none d-sm-none d-md-none d-lg-block d-xl-block" style="margin-bottom: 1rem;">
-                            <div class="col-sm-9 col-md-8 col-lg-4 p-0 invisible">
-                              <div class="input-group">
-                                <input style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                              </div>
-                            </div>
+                          <div class="col-sm-9 col-md-8 col-lg-9 p-0">
+                            <input id="other" name="other" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                           </div>
                         </div>
 
