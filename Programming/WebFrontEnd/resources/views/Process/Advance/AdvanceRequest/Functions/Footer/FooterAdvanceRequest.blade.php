@@ -158,8 +158,8 @@
                         statusDisplay[key] = "none";
                         statusDisplay2[key] = "";
                         statusForm[key] = "";
-                        balance_qty = currencyTotal(val2.quantity);
-                        // balance_qty = currencyTotal(val2.quantityRemaining);
+                        // balance_qty = currencyTotal(val2.quantity);
+                        balance_qty = currencyTotal(val2.quantityRemaining);
                     }
 
                     var html = '<tr>' +

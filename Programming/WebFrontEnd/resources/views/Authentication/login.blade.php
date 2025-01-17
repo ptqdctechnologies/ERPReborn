@@ -58,7 +58,6 @@
     </div>
 
     <div class="login-box">
-
         @if ($message = Session::get('success'))
         <div class="alert alert-success alert-block">
             <button type="button" class="close" data-dismiss="alert">×</button>
@@ -74,11 +73,12 @@
         @endif
 
         <div class="login-logo">
-            <img src="/AdminLTE-master/dist/img/qdc.png" width="160" alt=""><br>
+            <img src="/AdminLTE-master/dist/img/erp_qdc.png" height="200" alt=""><br>
+            <!-- <img src="/AdminLTE-master/dist/img/qdc.png" width="160" alt=""><br> -->
         </div>
         <!-- /.login-logo -->
         <div id="cek1">
-            <div class="card-body login-card-body" id="dis1">
+            <div class="card-body login-card-body position-relative" id="dis1">
                 <form action="{{ route('loginStore') }}" method="post" name="FormLogin" id="FormLogin">
                     @csrf
 
@@ -87,7 +87,6 @@
                     <input type="hidden" class="personName" name="personName">
                     <input type="hidden" class="workerCareerInternal_RefID" name="workerCareerInternal_RefID">
                     <input type="hidden" class="organizationalDepartmentName" name="organizationalDepartmentName">
-
 
                     <div class=" input-group mb-4">
                         <input type="text" class="form-control username" placeholder="Username" name="username" id="dis2" required="" autocomplete="off" autofocus>
@@ -113,7 +112,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="input-group mb-4" id="branch">
                         <select class="form-control branch_id" name="branch_id" id="branch_id">
                             <option selected="selected" value=""> Select Company Name </option>
@@ -129,12 +127,14 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-
                             <button class="btn btn-primary btn-block btn-sm submit_button" type="submit" style="color: white;">Login</button>
-
                         </div>
                     </div>
                 </form>
+
+                <div class="position-absolute mt-1" style="right: 2.5rem;">
+                    <img src="/AdminLTE-master/dist/img/qdc.png" height="25" alt="">
+                </div>
             </div>
         </div>
     </div>
@@ -150,7 +150,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
     <!-- Select2 -->
     <script src="{{ asset('AdminLTE-master/plugins/select2/js/select2.full.min.js') }}"></script>
-
 
     <!-- FUNCTION SELECT 2 IN COMBO BOX-->
     <script>
@@ -174,7 +173,6 @@
     </script>
 
     <!-- FUNCTION SHOW HIDE -->
-
     <script>
         function ShowLoading() {
             $("#loading").show();
@@ -186,7 +184,6 @@
             $(".loader").hide();
         }
     </script>
-
     <!-- END FUNCTION SHOW HIDE -->
 
     <script>
