@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.337.0",
+            "version": "3.337.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7e40cecb3ce66749bbd5eaa9f370de48c16acd6c"
+                "reference": "fa70febad922e9868c83bfe03c6d078fc2633e17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7e40cecb3ce66749bbd5eaa9f370de48c16acd6c",
-                "reference": "7e40cecb3ce66749bbd5eaa9f370de48c16acd6c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/fa70febad922e9868c83bfe03c6d078fc2633e17",
+                "reference": "fa70febad922e9868c83bfe03c6d078fc2633e17",
                 "shasum": ""
             },
             "require": {
@@ -154,9 +154,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.337.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.337.1"
             },
-            "time": "2025-01-15T19:58:52+00:00"
+            "time": "2025-01-16T19:12:46+00:00"
         },
         {
             "name": "brick/math",
@@ -790,16 +790,16 @@
         },
         {
             "name": "elibyy/tcpdf-laravel",
-            "version": "11.2.0",
+            "version": "11.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elibyy/tcpdf-laravel.git",
-                "reference": "a731330d61ebdc4c05f7737ed0869978d7a6ea47"
+                "reference": "f41bef4830f46519edb6115b19fb305d836086f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elibyy/tcpdf-laravel/zipball/a731330d61ebdc4c05f7737ed0869978d7a6ea47",
-                "reference": "a731330d61ebdc4c05f7737ed0869978d7a6ea47",
+                "url": "https://api.github.com/repos/elibyy/tcpdf-laravel/zipball/f41bef4830f46519edb6115b19fb305d836086f6",
+                "reference": "f41bef4830f46519edb6115b19fb305d836086f6",
                 "shasum": ""
             },
             "require": {
@@ -840,9 +840,9 @@
             ],
             "support": {
                 "issues": "https://github.com/elibyy/tcpdf-laravel/issues",
-                "source": "https://github.com/elibyy/tcpdf-laravel/tree/11.2.0"
+                "source": "https://github.com/elibyy/tcpdf-laravel/tree/11.2.1"
             },
-            "time": "2024-12-26T10:21:45+00:00"
+            "time": "2025-01-16T06:06:28+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",

@@ -62,7 +62,7 @@ class PrivilageMenuController extends Controller
     public function DataListPrivilageMenu(Request $request)
         {
         $sys_id_role = $request->input('sys_id_role');
-        //dd($sys_id_role);
+        //dd($request);
 
         $varAPIWebToken = Session::get('SessionLogin');
         $varData = Helper_APICall::setCallAPIGateway(
@@ -72,7 +72,7 @@ class PrivilageMenuController extends Controller
             'latest',
             [
                 'parameter' => [
-                    'userGroupRole_RefID' => (int) $sys_id_role
+                    'userRole_RefID' => (int) $sys_id_role
                 ],
                 'SQLStatement' => [
                     'pick' => null,

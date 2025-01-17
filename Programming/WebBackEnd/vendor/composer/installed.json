@@ -59,17 +59,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.337.0",
-            "version_normalized": "3.337.0.0",
+            "version": "3.337.1",
+            "version_normalized": "3.337.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7e40cecb3ce66749bbd5eaa9f370de48c16acd6c"
+                "reference": "fa70febad922e9868c83bfe03c6d078fc2633e17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7e40cecb3ce66749bbd5eaa9f370de48c16acd6c",
-                "reference": "7e40cecb3ce66749bbd5eaa9f370de48c16acd6c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/fa70febad922e9868c83bfe03c6d078fc2633e17",
+                "reference": "fa70febad922e9868c83bfe03c6d078fc2633e17",
                 "shasum": ""
             },
             "require": {
@@ -110,7 +110,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2025-01-15T19:58:52+00:00",
+            "time": "2025-01-16T19:12:46+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -154,7 +154,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.337.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.337.1"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -817,24 +817,24 @@
         },
         {
             "name": "elibyy/tcpdf-laravel",
-            "version": "11.2.0",
-            "version_normalized": "11.2.0.0",
+            "version": "11.2.1",
+            "version_normalized": "11.2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elibyy/tcpdf-laravel.git",
-                "reference": "a731330d61ebdc4c05f7737ed0869978d7a6ea47"
+                "reference": "f41bef4830f46519edb6115b19fb305d836086f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elibyy/tcpdf-laravel/zipball/a731330d61ebdc4c05f7737ed0869978d7a6ea47",
-                "reference": "a731330d61ebdc4c05f7737ed0869978d7a6ea47",
+                "url": "https://api.github.com/repos/elibyy/tcpdf-laravel/zipball/f41bef4830f46519edb6115b19fb305d836086f6",
+                "reference": "f41bef4830f46519edb6115b19fb305d836086f6",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
                 "tecnickcom/tcpdf": "6.2.*|6.3.*|6.4.*|6.5.*|6.6.*|6.7.*|6.8.*|dev-main"
             },
-            "time": "2024-12-26T10:21:45+00:00",
+            "time": "2025-01-16T06:06:28+00:00",
             "type": "library",
             "extra": {
                 "laravel": {
@@ -870,7 +870,7 @@
             ],
             "support": {
                 "issues": "https://github.com/elibyy/tcpdf-laravel/issues",
-                "source": "https://github.com/elibyy/tcpdf-laravel/tree/11.2.0"
+                "source": "https://github.com/elibyy/tcpdf-laravel/tree/11.2.1"
             },
             "install-path": "../elibyy/tcpdf-laravel"
         },

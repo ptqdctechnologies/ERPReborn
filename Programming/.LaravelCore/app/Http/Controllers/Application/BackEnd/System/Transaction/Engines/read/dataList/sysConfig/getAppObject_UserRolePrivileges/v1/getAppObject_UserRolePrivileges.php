@@ -63,7 +63,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-
                         if (($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE))
                             {
                             throw new \Exception('SQL Injection Threat Prevention');
