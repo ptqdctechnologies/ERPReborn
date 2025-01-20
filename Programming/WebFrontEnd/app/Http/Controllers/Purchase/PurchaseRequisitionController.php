@@ -27,7 +27,7 @@ class PurchaseRequisitionController extends Controller
         ];
         return view('Purchase.PurchaseRequisition.Transactions.CreatePurchaseRequisition', $compact);
     }
-    public function Reports(Request $request)
+    public function ReportPurchaseRequisitionSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseOrderPrNumber");
@@ -63,7 +63,7 @@ class PurchaseRequisitionController extends Controller
 
         return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionToPurchaseOrder', $compact);
     }
-    public function ReportsDetail(Request $request)
+    public function ReportPurchaseRequisitionDetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionPurchaseOrderPrNumber");
@@ -76,6 +76,9 @@ class PurchaseRequisitionController extends Controller
             'varAPIWebToken' => $varAPIWebToken,
             'var' => $var,
             'statusRevisi' => 1,
+            'statusHeader' => "Yes",
+            'statusDetail' => 1,
+            'dataHeader' => []
         ];
 
         return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionDetail', $compact);
