@@ -176,7 +176,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                         'latest', 
                         [
                         'parameter' => [
-                            'listSize' => 10
+                            'listSize' => 100
                             ]
                         ]
                         );
