@@ -44,11 +44,11 @@
                                                         </thead>
                                                         <tbody>
                                                             @php $no = 1; @endphp
-                                                            @foreach($dataProduct as $dataProducts)
+                                                            @foreach($dataProduct['data']['data'] as $dataProducts)
                                                             <tr>
                                                                 <td>{{ $no++ }}</td>
-                                                                <td>{{ $dataProducts['Sys_ID'] }}</td>
-                                                                <td>{{ $dataProducts['Name'] }}</td>
+                                                                <td>{{ $dataProducts['sys_ID'] }}</td>
+                                                                <td>{{ $dataProducts['name'] }}</td>
                                                             </tr>
                                                             @endforeach
                                                         </tbody>
