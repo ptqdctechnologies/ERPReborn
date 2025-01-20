@@ -1385,7 +1385,10 @@ class BusinessTripSettlementController extends Controller
                                 "number"                        => "Adv/QDC/2022/000239",
                                 "version"                       => "0",
                                 "date"                          => "2024-12-16",
-                                "businessDocumentType_RefID"    => "77000000000057"
+                                "businessDocumentType_RefID"    => "77000000000057",
+                                "brfNumber"                     => "BRF-24000212",
+                                "brfDate"                       => "2024-11-16",
+                                "brfTotal"                      => '3890000'
                             ],
                             "content" => [
                                 "general" => [
@@ -1493,7 +1496,10 @@ class BusinessTripSettlementController extends Controller
                                 "number"                        => "Adv/QDC/2022/000239",
                                 "version"                       => "0",
                                 "date"                          => "2024-12-20",
-                                "businessDocumentType_RefID"    => "77000000000057"
+                                "businessDocumentType_RefID"    => "77000000000057",
+                                "brfNumber"                     => "BRF-24000215",
+                                "brfDate"                       => "2024-12-01",
+                                "brfTotal"                      => '2745000'
                             ],
                             "content" => [
                                 "general" => [
@@ -1624,7 +1630,10 @@ class BusinessTripSettlementController extends Controller
                                 "number"                        => "Adv/QDC/2022/000239",
                                 "version"                       => "0",
                                 "date"                          => "2024-12-25",
-                                "businessDocumentType_RefID"    => "77000000000057"
+                                "businessDocumentType_RefID"    => "77000000000057",
+                                "brfNumber"                     => "BRF-24000225",
+                                "brfDate"                       => "2024-12-07",
+                                "brfTotal"                      => '4240000'
                             ],
                             "content" => [
                                 "general" => [
