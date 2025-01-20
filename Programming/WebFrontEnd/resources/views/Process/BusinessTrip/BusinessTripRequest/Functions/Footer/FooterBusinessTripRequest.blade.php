@@ -11,13 +11,10 @@
     'tol_road',
     'park',
     'access_bagage',
-    'fuel'
-  ];
-  const accomodationInputs = [
+    'fuel',
     'hotel',
     'mess',
     'guest_house',
-    'other_accomodation',
   ];
   const businessTripInputs = [
     'allowance',
@@ -120,6 +117,9 @@
     const park = parseFloat(document.getElementById('park').value.replace(/,/g, '')) || 0;
     const accessBagage = parseFloat(document.getElementById('access_bagage').value.replace(/,/g, '')) || 0;
     const fuel = parseFloat(document.getElementById('fuel').value.replace(/,/g, '')) || 0;
+    const hotel = parseFloat(document.getElementById('hotel').value.replace(/,/g, '')) || 0;
+    const mess = parseFloat(document.getElementById('mess').value.replace(/,/g, '')) || 0;
+    const guest_house = parseFloat(document.getElementById('guest_house').value.replace(/,/g, '')) || 0;
 
     let newFormatBudget = 0;
     let budgetDetailsDataJSON = null;
@@ -136,7 +136,7 @@
       return;
     }
 
-    const total = taxi + airplane + train + bus + ship + tolRoad + park + accessBagage + fuel;
+    const total = taxi + airplane + train + bus + ship + tolRoad + park + accessBagage + fuel + hotel + mess + guest_house;
     totalBusinessTrip[0] = total;
 
     const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
@@ -153,48 +153,6 @@
     const inputElement = document.getElementById(id);
     if (inputElement) {
       inputElement.addEventListener('input', calculateTotalTransport);
-    }
-  });
-
-  // FUNGSI TOTAL ACCOMMODATION
-  function calculateTotalAccomodation() {
-    const hotel = parseFloat(document.getElementById('hotel').value.replace(/,/g, '')) || 0;
-    const mess = parseFloat(document.getElementById('mess').value.replace(/,/g, '')) || 0;
-    const guest_house = parseFloat(document.getElementById('guest_house').value.replace(/,/g, '')) || 0;
-    const other_accomodation = parseFloat(document.getElementById('other_accomodation').value.replace(/,/g, '')) || 0;
-
-    let newFormatBudget = 0;
-    let budgetDetailsDataJSON = null;
-    try {
-      budgetDetailsDataJSON = document.getElementById('budgetDetailsData').value;
-      if (budgetDetailsDataJSON) {
-        const parsedData = JSON.parse(budgetDetailsDataJSON);
-        newFormatBudget = parseFloat(parsedData.balanceBudget.replace(/,/g, '')) || 0;
-      } else {
-        // console.warn('Budget details data is empty');
-      }
-    } catch (error) {
-      console.error('Error parsing budget details JSON:', error);
-      return;
-    }
-
-    const total = hotel + mess + guest_house + other_accomodation;
-    totalBusinessTrip[1] = total;
-
-    const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue,initialValue);
-    
-    document.getElementById('total_accomodation').value = numberFormatPHPCustom(total, 2);
-    document.getElementById('total_business_trip').value = numberFormatPHPCustom(sumTotalBusinessTrip, 2);
-
-    if (budgetDetailsDataJSON && sumTotalBusinessTrip > newFormatBudget) {
-      Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
-    }
-  }
-
-  accomodationInputs.forEach(id => {
-    const inputElement = document.getElementById(id);
-    if (inputElement) {
-      inputElement.addEventListener('input', calculateTotalAccomodation);
     }
   });
 
