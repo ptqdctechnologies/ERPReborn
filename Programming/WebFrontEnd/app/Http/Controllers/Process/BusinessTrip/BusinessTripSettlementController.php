@@ -1476,11 +1476,14 @@ class BusinessTripSettlementController extends Controller
                                                 "priceBaseCurrencyValue" => "6000000",
                                                 "combinedBudgetSectionDetail_RefID" => "169000000000030",
                                                 "combinedBudget_RefID" => "46000000000033",
-                                                "transport" => "3450000",
-                                                "accommodation" => "5000000",
-                                                "allowance" => "3000000",
-                                                "entertainment" => "300000",
-                                                "other" => "0",
+                                                "transport" => "2450000",
+                                                "allowance" => "2000000",
+                                                "entertainment" => "200000",
+                                                "other" => "3000000",
+                                                "transport_company" => "3450000",
+                                                "allowance_company" => "3000000",
+                                                "entertainment_company" => "300000",
+                                                "other_company" => "5000000",
                                             ]
                                         ]
                                     ]
@@ -1587,11 +1590,14 @@ class BusinessTripSettlementController extends Controller
                                                 "priceBaseCurrencyValue" => "2150000",
                                                 "combinedBudgetSectionDetail_RefID" => "169000000000030",
                                                 "combinedBudget_RefID" => "46000000000033",
-                                                "transport" => "2450000",
-                                                "accommodation" => "3000000",
-                                                "allowance" => "2000000",
-                                                "entertainment" => "200000",
-                                                "other" => "400000",
+                                                "transport" => "2600000",
+                                                "allowance" => "2200000",
+                                                "entertainment" => "250000",
+                                                "other" => "3100000",
+                                                "transport_company" => "3500000",
+                                                "allowance_company" => "3100000",
+                                                "entertainment_company" => "350000",
+                                                "other_company" => "5100000",
                                             ]
                                         ],
                                         "1" => [
@@ -1610,11 +1616,14 @@ class BusinessTripSettlementController extends Controller
                                                 "priceBaseCurrencyValue" => "300000",
                                                 "combinedBudgetSectionDetail_RefID" => "169000000000030",
                                                 "combinedBudget_RefID" => "46000000000033",
-                                                "transport" => "3450000",
-                                                "accommodation" => "6000000",
-                                                "allowance" => "4000000",
-                                                "entertainment" => "500000",
-                                                "other" => "0",
+                                                "transport" => "2700000",
+                                                "allowance" => "2300000",
+                                                "entertainment" => "300000",
+                                                "other" => "3200000",
+                                                "transport_company" => "3600000",
+                                                "allowance_company" => "3200000",
+                                                "entertainment_company" => "400000",
+                                                "other_company" => "5200000",
                                             ]
                                         ]
                                     ]
@@ -1721,11 +1730,14 @@ class BusinessTripSettlementController extends Controller
                                                 "priceBaseCurrencyValue" => "15000000",
                                                 "combinedBudgetSectionDetail_RefID" => "169000000000030",
                                                 "combinedBudget_RefID" => "46000000000033",
-                                                "transport" => "2850000",
-                                                "accommodation" => "4500000",
-                                                "allowance" => "2000000",
-                                                "entertainment" => "0",
-                                                "other" => "1000000",
+                                                "transport" => "2800000",
+                                                "allowance" => "2400000",
+                                                "entertainment" => "350000",
+                                                "other" => "3300000",
+                                                "transport_company" => "3700000",
+                                                "allowance_company" => "3300000",
+                                                "entertainment_company" => "450000",
+                                                "other_company" => "5300000",
                                             ]
                                         ],
                                         "1" => [
@@ -1744,11 +1756,14 @@ class BusinessTripSettlementController extends Controller
                                                 "priceBaseCurrencyValue" => "500000",
                                                 "combinedBudgetSectionDetail_RefID" => "169000000000030",
                                                 "combinedBudget_RefID" => "46000000000033",
-                                                "transport" => "2450000",
-                                                "accommodation" => "3000000",
-                                                "allowance" => "2000000",
-                                                "entertainment" => "200000",
-                                                "other" => "400000",
+                                                "transport" => "2900000",
+                                                "allowance" => "2500000",
+                                                "entertainment" => "400000",
+                                                "other" => "3400000",
+                                                "transport_company" => "3800000",
+                                                "allowance_company" => "3400000",
+                                                "entertainment_company" => "500000",
+                                                "other_company" => "5400000",
                                             ]
                                         ]
                                     ]
@@ -1774,12 +1789,8 @@ class BusinessTripSettlementController extends Controller
 
             $splitResponse = $getReportAdvanceDetail['data'][$indexing]['document'];
 
-            $totalAdvance = array_reduce($splitResponse['content']['details']['itemList'], function ($carry, $item) {
-                return $carry + ($item['entities']['priceBaseCurrencyValue'] * $item['entities']['quantity'] ?? 0);
-            }, 0);
-
             $totalBSF = array_reduce($splitResponse['content']['details']['itemList'], function ($carry, $item) {
-                return $carry + ($item['entities']['transport'] + $item['entities']['accommodation'] + $item['entities']['allowance'] + $item['entities']['entertainment'] + $item['entities']['other'] ?? 0);
+                return $carry + ($item['entities']['transport'] + $item['entities']['allowance'] + $item['entities']['entertainment'] + $item['entities']['other'] + $item['entities']['transport_company'] + $item['entities']['allowance_company'] + $item['entities']['entertainment_company'] + $item['entities']['other_company'] ?? 0);
             }, 0);
 
             $compact = [
@@ -1791,7 +1802,6 @@ class BusinessTripSettlementController extends Controller
                 'siteName'      => $site_name_second,
                 'bsfNumber'     => $bsf_number,
                 'bsfId'         => $bsf_id,
-                'total'         => $totalAdvance,
                 'totalBSF'      => $totalBSF
             ];
 

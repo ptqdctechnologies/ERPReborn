@@ -86,7 +86,7 @@
                                                         BRF Total
                                                     </div>
                                                     <div class="col-sm-9 col-md-9 p-0">
-                                                        : <?= number_format($dataReport['dataHeader']['brfTotal'], 2, '.', ','); ?>
+                                                        : <?= number_format($dataReport['totalBSF'], 2, '.', ','); ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -142,14 +142,19 @@
                                         <table class="table table-head-fixed text-nowrap" id="DefaultFeatures">
                                             <thead>
                                                 <tr>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Product ID</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Description & Spesifications</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Unit Price</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total</th>
+                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">No</th>
+                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">Product ID</th>
+                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">Description & Spesifications</th>
+                                                    <th colspan="4" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">Expense Claim</th>
+                                                    <th colspan="4" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">Amount Due to Company</th>
+                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">Total</th>
+                                                </tr>
+                                                <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transport</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Accommodation</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Allowance</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Entertainment</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Other</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transport</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Allowance</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Entertainment</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Other</th>
@@ -158,26 +163,26 @@
                                             <tbody>
                                                 <?php $counter = 1; ?>
                                                 <?php foreach ($dataReport['dataDetails']['details']['itemList'] as $dataDetail) { ?>
+                                                    <?php $totalRowValue = $dataDetail['entities']['transport'] + $dataDetail['entities']['allowance'] + $dataDetail['entities']['entertainment'] + $dataDetail['entities']['other'] + $dataDetail['entities']['transport_company'] + $dataDetail['entities']['allowance_company'] + $dataDetail['entities']['entertainment_company'] + $dataDetail['entities']['other_company']; ?>
                                                     <tr>
                                                         <td><?= $counter++; ?></td>
                                                         <td><?= $dataDetail['entities']['product_RefID']; ?></td>
                                                         <td><?= $dataDetail['entities']['productName']; ?></td>
-                                                        <td><?= number_format($dataDetail['entities']['quantity'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['entities']['quantity'] * $dataDetail['entities']['priceBaseCurrencyValue'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['entities']['transport'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['entities']['accommodation'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['entities']['allowance'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['entities']['entertainment'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['entities']['other'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['entities']['transport_company'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['entities']['allowance_company'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['entities']['entertainment_company'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['entities']['other_company'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($totalRowValue, 2, '.', ','); ?></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th colspan="5" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['total'], 2, '.', ','); ?></th>
-                                                    <th colspan="4" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL BSF</th>
+                                                    <th colspan="11" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL BSF</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalBSF'], 2, '.', ','); ?></th>
                                                 </tr>
                                             </tfoot>
