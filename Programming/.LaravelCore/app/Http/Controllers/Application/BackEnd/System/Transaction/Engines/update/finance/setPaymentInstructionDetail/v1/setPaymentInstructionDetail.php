@@ -74,8 +74,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     null,
                                     null,
                                     null,
-                                    (
-                                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
                                         $varUserSession
                                         )
                                     )['branchID'],
