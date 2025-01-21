@@ -36,42 +36,47 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.create.finance.setPaymentInstruction', 
-                    'latest', 
-                    [
-                    'entities' => [
-                        "documentDateTimeTZ" => '2022-03-07',
-                        "log_FileUpload_Pointer_RefID" => NULL,
-                        "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                        "remarks" => 'My Remarks',
-                        "additionalData" => [
-                            "itemList" => [
-                                "items" => [
-                                        [
-                                        'entities' => [
-                                            'underlying_RefID' => 209000000000001,
-                                            'amountCurrency_RefID' => 62000000000001,
-                                            'amountCurrencyValue' => 30000,
-                                            'amountCurrencyExchangeRate' => 1,
-                                            'remarks' => 'Catatan 1'
-                                            ]                                 
-                                        ],
-                                        [
-                                        'entities' => [
-                                            'underlying_RefID' => 209000000000002,
-                                            'amountCurrency_RefID' => 62000000000001,
-                                            'amountCurrencyValue' => 30000,
-                                            'amountCurrencyExchangeRate' => 1,
-                                            'remarks' => 'Catatan 2'
-                                            ]
-                                        ],
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.create.finance.setPaymentInstruction', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        'entities' => [
+                            "documentDateTimeTZ" => '2022-03-07',
+                            "log_FileUpload_Pointer_RefID" => NULL,
+                            "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                            "remarks" => 'My Remarks',
+                            "additionalData" => [
+                                "itemList" => [
+                                    "items" => [
+                                            [
+                                            'entities' => [
+                                                'underlying_RefID' => 209000000000001,
+                                                'amountCurrency_RefID' => 62000000000001,
+                                                'amountCurrencyValue' => 30000,
+                                                'amountCurrencyExchangeRate' => 1,
+                                                'remarks' => 'Catatan 1'
+                                                ]                                 
+                                            ],
+                                            [
+                                            'entities' => [
+                                                'underlying_RefID' => 209000000000002,
+                                                'amountCurrency_RefID' => 62000000000001,
+                                                'amountCurrencyValue' => 30000,
+                                                'amountCurrencyExchangeRate' => 1,
+                                                'remarks' => 'Catatan 2'
+                                                ]
+                                            ],
+                                        ]
                                     ]
                                 ]
                             ]
                         ]
-                    ]                    
+                    //-----[ BODY ]-----( END )-----
                     );
 
             var_dump($varData);
@@ -121,11 +126,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                    $varAPIWebToken, 
-                    'transaction.create.finance.setPaymentInstruction', 
-                    'latest', 
-                    '{'.
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.create.finance.setPaymentInstruction', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        '{'.
                         '"entities" : {'.
                             '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
                             '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
@@ -158,7 +167,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     '}'.
                                 '}'.
                             '}'.
-                    '}'
+                        '}'
+                    //-----[ BODY ]-----( END )-----
                     );
 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";

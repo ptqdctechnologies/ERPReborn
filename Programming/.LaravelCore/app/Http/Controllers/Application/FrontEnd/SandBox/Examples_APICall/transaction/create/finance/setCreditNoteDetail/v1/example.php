@@ -36,17 +36,22 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.create.finance.setCreditNoteDetail', 
-                    'latest', 
-                    [
-                    'entities' => [
-                        "creditNote_RefID" => 242000000000001,
-                        "customerBankAccount_RefID" => 167000000000005,
-                        "remarks" => 'Catatan 1'
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.create.finance.setCreditNoteDetail', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        'entities' => [
+                            "creditNote_RefID" => 242000000000001,
+                            "customerBankAccount_RefID" => 167000000000005,
+                            "remarks" => 'Catatan 1'
+                            ]
                         ]
-                    ]
+                    //-----[ BODY ]-----( END )-----
                     );
 
             var_dump($varData);
@@ -55,8 +60,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setCreditNoteDetail.v1_throughAPIGatewayJQuery            |
-        |                     ► http://172.28.0.4/transaction.create.finance.setCreditNoteDetail.v1_throughAPIGatewayJQuery         |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setCreditNoteDetail.v1_throughAPIGatewayJQuery           |
+        |                     ► http://172.28.0.4/transaction.create.finance.setCreditNoteDetail.v1_throughAPIGatewayJQuery        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-01-13                                                                                           |
@@ -83,18 +88,24 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                    $varAPIWebToken, 
-                    'transaction.create.finance.setCreditNoteDetail', 
-                    'latest',
-                    '{'.
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.create.finance.setCreditNoteDetail', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        '{'.
                         '"entities" : {'.
                             '"creditNote_RefID" : parseInt(document.getElementById("dataInput_CreditNote_RefID").value), '.
                             '"customerBankAccount_RefID" : parseInt(document.getElementById("dataInput_CustomerBankAccount_RefID").value), '.
                             '"remarks" : document.getElementById("dataInput_Remarks").value'.
                             '}'.
-                    '}'
-                    ); 
+                        '}'
+                    //-----[ BODY ]-----( END )-----
+                    );
+
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
 
             dd($varJQueryFunction);

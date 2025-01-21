@@ -36,23 +36,28 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.create.finance.setDebitNoteDetail', 
-                    'latest', 
-                    [
-                    'entities' => [
-                        "debitNote_RefID" => 240000000000001,
-                        "paymentInstruction_RefID" => 211000000000001,
-                        "product_RefID" => 88000000000083,
-                        "quantity" => 0.05,
-                        "quantityUnit_RefID" => 73000000000009,
-                        "productUnitPriceCurrency_RefID" => 62000000000001,
-                        "productUnitPriceCurrencyValue" => 235000,
-                        "productUnitPriceCurrencyExchangeRate" => 1,
-                        "remarks" => 'Catatan'
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.create.finance.setDebitNoteDetail', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        'entities' => [
+                            "debitNote_RefID" => 240000000000001,
+                            "paymentInstruction_RefID" => 211000000000001,
+                            "product_RefID" => 88000000000083,
+                            "quantity" => 0.05,
+                            "quantityUnit_RefID" => 73000000000009,
+                            "productUnitPriceCurrency_RefID" => 62000000000001,
+                            "productUnitPriceCurrencyValue" => 235000,
+                            "productUnitPriceCurrencyExchangeRate" => 1,
+                            "remarks" => 'Catatan'
+                            ]
                         ]
-                    ]
+                    //-----[ BODY ]-----( END )-----
                     );
 
             var_dump($varData);
@@ -95,11 +100,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                    $varAPIWebToken, 
-                    'transaction.create.finance.setDebitNoteDetail', 
-                    'latest',
-                    '{'.
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.create.finance.setDebitNoteDetail', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        '{'.
                         '"entities" : {'.
                             '"debitNote_RefID" : parseInt(document.getElementById("dataInput_DebitNote_RefID").value), '.
                             '"paymentInstruction_RefID" : parseInt(document.getElementById("dataInput_PaymentInstruction_RefID").value), '.
@@ -111,7 +120,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate").value), '.
                             '"remarks" : document.getElementById("dataInput_Remarks").value'.
                             '}'.
-                    '}'
+                        '}'
+                    //-----[ BODY ]-----( END )-----
                     ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
 

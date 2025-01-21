@@ -36,21 +36,26 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.update.finance.setPaymentInstructionDetail', 
-                    'latest', 
-                    [
-                    'recordID' => 212000000000001,
-                    'entities' => [
-                        "paymentInstruction_RefID" => 211000000000001,
-                        "underlying_RefID" => 209000000000001,
-                        "amountCurrency_RefID" => 62000000000001,
-                        "amountCurrencyValue" => 30000,
-                        "amountCurrencyExchangeRate" => 1,
-                        "remarks" => 'Catatan 1'
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.update.finance.setPaymentInstructionDetail', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        'recordID' => 212000000000001,
+                        'entities' => [
+                            "paymentInstruction_RefID" => 211000000000001,
+                            "underlying_RefID" => 209000000000001,
+                            "amountCurrency_RefID" => 62000000000001,
+                            "amountCurrencyValue" => 30000,
+                            "amountCurrencyExchangeRate" => 1,
+                            "remarks" => 'Catatan 1'
+                            ]
                         ]
-                    ]
+                    //-----[ BODY ]-----( END )-----
                     );
 
             var_dump($varData);
@@ -92,21 +97,26 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                    $varAPIWebToken, 
-                    'transaction.update.finance.setPaymentInstructionDetail', 
-                    'latest', 
-                    '{'.
-                        '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                        '"entities" : {'.
-                            '"paymentInstruction_RefID" : parseInt(document.getElementById("dataInput_PaymentInstruction_RefID").value), '.
-                            '"underlying_RefID" : parseInt(document.getElementById("dataInput_Underlying_RefID").value), '.
-                            '"amountCurrency_RefID" : parseInt(document.getElementById("dataInput_AmountCurrency_RefID").value), '.
-                            '"amountCurrencyValue" : parseFloat(document.getElementById("dataInput_AmountCurrencyValue").value), '.
-                            '"amountCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_AmountCurrencyExchangeRate").value), '.
-                            '"remarks" : document.getElementById("dataInput_Remarks").value'.
-                            '}'.
-                    '}'
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.update.finance.setPaymentInstructionDetail', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        '{'.
+                            '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                            '"entities" : {'.
+                                '"paymentInstruction_RefID" : parseInt(document.getElementById("dataInput_PaymentInstruction_RefID").value), '.
+                                '"underlying_RefID" : parseInt(document.getElementById("dataInput_Underlying_RefID").value), '.
+                                '"amountCurrency_RefID" : parseInt(document.getElementById("dataInput_AmountCurrency_RefID").value), '.
+                                '"amountCurrencyValue" : parseFloat(document.getElementById("dataInput_AmountCurrencyValue").value), '.
+                                '"amountCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_AmountCurrencyExchangeRate").value), '.
+                                '"remarks" : document.getElementById("dataInput_Remarks").value'.
+                                '}'.
+                        '}'
+                    //-----[ BODY ]-----( END )-----
                     );
 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";

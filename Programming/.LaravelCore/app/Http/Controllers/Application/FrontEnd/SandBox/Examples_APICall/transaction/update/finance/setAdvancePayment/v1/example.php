@@ -29,50 +29,59 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.finance.setAdvancePayment', 
-                'latest', 
-                [
-                'recordID' => 194000000000001,
-                'entities' => [
-                    "documentDateTimeTZ" => '2023-10-25',
-                    "log_FileUpload_Pointer_RefID" => null,
-                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                    "remarks" => 'My Remarks',
-                    "additionalData" => [
-                        "itemList" => [
-                            "items" => [
-                                    [
-                                    'recordID' => 195000000000002,
-                                    "entities" => [
-                                        "advanceDetail_RefID" => 88000000000083,
-                                        "amountCurrency_RefID" => 62000000000001,
-                                        "amountCurrencyValue" => 235000.00,
-                                        "amountCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan Pertama'                                    
-                                        ]                                   
-                                    ],
-                                    [
-                                    'recordID' => 195000000000003,
-                                    "entities" => [
-                                        "advanceDetail_RefID" => 88000000000084,
-                                        "amountCurrency_RefID" => 62000000000001,
-                                        "amountCurrencyValue" => 235000.00,
-                                        "amountCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan Kedua'
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.update.finance.setAdvancePayment', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        'recordID' => 194000000000001,
+                        'entities' => [
+                            "documentDateTimeTZ" => '2023-10-25',
+                            "log_FileUpload_Pointer_RefID" => null,
+                            "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                            "remarks" => 'My Remarks',
+                            "additionalData" => [
+                                "itemList" => [
+                                    "items" => [
+                                            [
+                                            'recordID' => 195000000000002,
+                                            "entities" => [
+                                                "advanceDetail_RefID" => 88000000000083,
+                                                "amountCurrency_RefID" => 62000000000001,
+                                                "amountCurrencyValue" => 235000.00,
+                                                "amountCurrencyExchangeRate" => 1,
+                                                "remarks" => 'Catatan Pertama'                                    
+                                                ]                                   
+                                            ],
+                                            [
+                                            'recordID' => 195000000000003,
+                                            "entities" => [
+                                                "advanceDetail_RefID" => 88000000000084,
+                                                "amountCurrency_RefID" => 62000000000001,
+                                                "amountCurrencyValue" => 235000.00,
+                                                "amountCurrencyExchangeRate" => 1,
+                                                "remarks" => 'Catatan Kedua'
+                                                ]
+                                            ],
                                         ]
-                                    ],
+                                    ]
                                 ]
                             ]
                         ]
-                    ]
-                ]                    
-                );
+                    //-----[ BODY ]-----( END )-----
+                    );
+
             var_dump($varData);
             }
 
@@ -91,10 +100,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+
             echo '<table border="1" style="border-collapse: collapse;">';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Payment Main Data</p></td></tr>';
             echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=194000000000001></td></tr>';
@@ -117,50 +129,59 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>ProductUnitPriceCurrencyExchangeRate_2</td><td><input type="text" id="dataInput_AmountCurrencyExchangeRate_2" value=1></td></tr>';
             echo        '<tr><td>Remarks_2</td><td><input type="text" id="dataInput_Remarks_2" value="Catatan Kedua"></td></tr>';
             echo '</table><br>';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.update.finance.setAdvancePayment', 
-                'latest', 
-                '{'.
-                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                    '"entities" : {'.
-                        '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
-                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
-                        '"remarks" : document.getElementById("dataInput_Remarks").value, '.
-                        '"additionalData" : {'.
-                            '"itemList" : {'.
-                                '"items" : ['.
-                                        '{'.
-                                        '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_1").value), '.
-                                        '"entities" : '.
+
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.update.finance.setAdvancePayment', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        '{'.
+                        '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                        '"entities" : {'.
+                            '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
+                            '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
+                            '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
+                            '"remarks" : document.getElementById("dataInput_Remarks").value, '.
+                            '"additionalData" : {'.
+                                '"itemList" : {'.
+                                    '"items" : ['.
                                             '{'.
-                                            '"advanceDetail_RefID" : parseInt(document.getElementById("dataInput_AdvanceDetail_RefID_1").value), '.
-                                            '"amountCurrency_RefID" : parseInt(document.getElementById("dataInput_AmountCurrency_RefID_1").value),'.
-                                            '"amountCurrencyValue" : parseFloat(document.getElementById("dataInput_AmountCurrencyValue_1").value),'.
-                                            '"amountCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_AmountCurrencyExchangeRate_1").value),'.
-                                            '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
-                                            '}'.
-                                        '}, '.
-                                        '{'.
-                                        '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_2").value), '.
-                                        '"entities" : '.
+                                            '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_1").value), '.
+                                            '"entities" : '.
+                                                '{'.
+                                                '"advanceDetail_RefID" : parseInt(document.getElementById("dataInput_AdvanceDetail_RefID_1").value), '.
+                                                '"amountCurrency_RefID" : parseInt(document.getElementById("dataInput_AmountCurrency_RefID_1").value),'.
+                                                '"amountCurrencyValue" : parseFloat(document.getElementById("dataInput_AmountCurrencyValue_1").value),'.
+                                                '"amountCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_AmountCurrencyExchangeRate_1").value),'.
+                                                '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
+                                                '}'.
+                                            '}, '.
                                             '{'.
-                                            '"advanceDetail_RefID" : parseInt(document.getElementById("dataInput_AdvanceDetail_RefID_2").value), '.
-                                            '"amountCurrency_RefID" : parseInt(document.getElementById("dataInput_AmountCurrency_RefID_2").value),'.
-                                            '"amountCurrencyValue" : parseFloat(document.getElementById("dataInput_AmountCurrencyValue_2").value),'.
-                                            '"amountCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_AmountCurrencyExchangeRate_2").value),'.
-                                            '"remarks" : document.getElementById("dataInput_Remarks_2").value'.
+                                            '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_2").value), '.
+                                            '"entities" : '.
+                                                '{'.
+                                                '"advanceDetail_RefID" : parseInt(document.getElementById("dataInput_AdvanceDetail_RefID_2").value), '.
+                                                '"amountCurrency_RefID" : parseInt(document.getElementById("dataInput_AmountCurrency_RefID_2").value),'.
+                                                '"amountCurrencyValue" : parseFloat(document.getElementById("dataInput_AmountCurrencyValue_2").value),'.
+                                                '"amountCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_AmountCurrencyExchangeRate_2").value),'.
+                                                '"remarks" : document.getElementById("dataInput_Remarks_2").value'.
+                                                '}'.
                                             '}'.
-                                        '}'.
-                                    ']'.
+                                        ']'.
+                                    '}'.
                                 '}'.
                             '}'.
-                        '}'.
-                '}'
-                ); 
+                        '}'
+                    //-----[ BODY ]-----( END )-----
+                    );
+
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+
             dd($varJQueryFunction);
             }
         }

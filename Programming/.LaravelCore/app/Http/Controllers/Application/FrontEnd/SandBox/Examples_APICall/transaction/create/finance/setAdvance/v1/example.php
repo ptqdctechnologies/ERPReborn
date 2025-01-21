@@ -35,51 +35,56 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.create.finance.setAdvance', 
-                    'latest', 
-                    [
-                    'entities' => [
-                        "documentDateTimeTZ" => '2022-03-07',
-                        "log_FileUpload_Pointer_RefID" => 91000000000001,
-                        "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                        "beneficiaryWorkerJobsPosition_RefID" => 164000000000439,
-                        "beneficiaryBankAccount_RefID" => 167000000000001,
-                        "internalNotes" => 'My Internal Notes',
-                        "remarks" => 'My Remarks',
-                        "additionalData" => [
-                            "itemList" => [
-                                "items" => [
-                                        [
-                                        "entities" => [
-                                            "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                                            "product_RefID" => 88000000000002,
-                                            "quantity" => 10,
-                                            "quantityUnit_RefID" => 73000000000001,
-                                            "productUnitPriceCurrency_RefID" => 62000000000001,
-                                            "productUnitPriceCurrencyValue" => 30000,
-                                            "productUnitPriceCurrencyExchangeRate" => 1,
-                                            "remarks" => 'Catatan Pertama'                                    
-                                            ]                                   
-                                        ],
-                                        [
-                                        "entities" => [
-                                            "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                                            "product_RefID" => 88000000000003,
-                                            "quantity" => 5,
-                                            "quantityUnit_RefID" => 73000000000001,
-                                            "productUnitPriceCurrency_RefID" => 62000000000001,
-                                            "productUnitPriceCurrencyValue" => 40000,
-                                            "productUnitPriceCurrencyExchangeRate" => 1,
-                                            "remarks" => 'Catatan Kedua'
-                                            ]
-                                        ],
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.create.finance.setAdvance', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        'entities' => [
+                            "documentDateTimeTZ" => '2022-03-07',
+                            "log_FileUpload_Pointer_RefID" => 91000000000001,
+                            "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                            "beneficiaryWorkerJobsPosition_RefID" => 164000000000439,
+                            "beneficiaryBankAccount_RefID" => 167000000000001,
+                            "internalNotes" => 'My Internal Notes',
+                            "remarks" => 'My Remarks',
+                            "additionalData" => [
+                                "itemList" => [
+                                    "items" => [
+                                            [
+                                            "entities" => [
+                                                "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                                "product_RefID" => 88000000000002,
+                                                "quantity" => 10,
+                                                "quantityUnit_RefID" => 73000000000001,
+                                                "productUnitPriceCurrency_RefID" => 62000000000001,
+                                                "productUnitPriceCurrencyValue" => 30000,
+                                                "productUnitPriceCurrencyExchangeRate" => 1,
+                                                "remarks" => 'Catatan Pertama'                                    
+                                                ]                                   
+                                            ],
+                                            [
+                                            "entities" => [
+                                                "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                                "product_RefID" => 88000000000003,
+                                                "quantity" => 5,
+                                                "quantityUnit_RefID" => 73000000000001,
+                                                "productUnitPriceCurrency_RefID" => 62000000000001,
+                                                "productUnitPriceCurrencyValue" => 40000,
+                                                "productUnitPriceCurrencyExchangeRate" => 1,
+                                                "remarks" => 'Catatan Kedua'
+                                                ]
+                                            ],
+                                        ]
                                     ]
                                 ]
                             ]
                         ]
-                    ]                    
+                    //-----[ BODY ]-----( END )-----
                     );
 
             var_dump($varData);
@@ -138,11 +143,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                    $varAPIWebToken, 
-                    'transaction.create.finance.setAdvance', 
-                    'latest', 
-                    '{'.
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.create.finance.setAdvance', 
+                        'latest', 
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        '{'.
                         '"entities" : {'.
                             '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
                             '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
@@ -184,7 +193,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     '}'.
                                 '}'.
                             '}'.
-                    '}'
+                        '}'
+                    //-----[ BODY ]-----( END )-----
                     );
 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
