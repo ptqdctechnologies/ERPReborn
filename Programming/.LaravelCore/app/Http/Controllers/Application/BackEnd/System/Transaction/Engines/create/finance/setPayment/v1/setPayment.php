@@ -91,7 +91,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     $varData['entities']['requesterWorkerJobsPosition_RefID'],
                                     $varData['entities']['remarks'],
 
-                                    /*
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,
                                         'additionalData',
@@ -106,7 +105,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                             )
                                         : []
                                     )
-                                    */
                                     )
                                 )
                             ))
