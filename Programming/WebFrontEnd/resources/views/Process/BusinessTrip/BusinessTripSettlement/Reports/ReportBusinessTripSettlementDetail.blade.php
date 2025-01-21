@@ -142,22 +142,22 @@
                                         <table class="table table-head-fixed text-nowrap" id="DefaultFeatures">
                                             <thead>
                                                 <tr>
-                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">No</th>
-                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">Product ID</th>
-                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">Description & Spesifications</th>
-                                                    <th colspan="4" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">Expense Claim</th>
-                                                    <th colspan="4" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">Amount Due to Company</th>
-                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">Total</th>
+                                                    <th rowspan="2" style="padding: 10px 26px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">No</th>
+                                                    <th rowspan="2" style="padding: 10px 26px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">Product ID</th>
+                                                    <th rowspan="2" style="padding: 10px 26px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">Description & Spesifications</th>
+                                                    <th colspan="4" style="padding: 10px 26px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">Expense Claim</th>
+                                                    <th colspan="4" style="padding: 10px 26px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">Amount Due to Company</th>
+                                                    <th rowspan="2" style="padding: 10px 26px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;">Total</th>
                                                 </tr>
                                                 <tr>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transport</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Allowance</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Entertainment</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Other</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transport</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Allowance</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Entertainment</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Other</th>
+                                                    <th style="padding: 10px 26px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Travel & Fares</th>
+                                                    <th style="padding: 10px 26px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Allowance</th>
+                                                    <th style="padding: 10px 26px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Entertainment</th>
+                                                    <th style="padding: 10px 26px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Other</th>
+                                                    <th style="padding: 10px 26px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Travel & Fares</th>
+                                                    <th style="padding: 10px 26px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Allowance</th>
+                                                    <th style="padding: 10px 26px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Entertainment</th>
+                                                    <th style="padding: 10px 26px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Other</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
