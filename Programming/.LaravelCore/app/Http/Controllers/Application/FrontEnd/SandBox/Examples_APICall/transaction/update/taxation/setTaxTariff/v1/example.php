@@ -33,24 +33,31 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 }
 
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.taxation.setTaxTariff', 
-                'latest', 
-                [
-                'recordID' => 183000000000001,
-                'entities' => [
-                    "taxType_RefID" => 182000000000001,
-                    "validStartDateTimeTZ" => '1970-01-01 00:00:00+07',
-                    "validFinishDateTimeTZ" => '9999-12-31 23:59:59+07',
-                    "tariffMinimumRate" => 0.10,
-                    "tariffMaximumRate" => 0.10 ,
-                    "roundUnit" => 1000,
-                    "signRoundUp" => TRUE
-                    ]
-                ]
-                );
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.update.taxation.setTaxTariff', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        'recordID' => 183000000000001,
+                        'entities' => [
+                            "taxType_RefID" => 182000000000001,
+                            "validStartDateTimeTZ" => '1970-01-01 00:00:00+07',
+                            "validFinishDateTimeTZ" => '9999-12-31 23:59:59+07',
+                            "tariffMinimumRate" => 0.10,
+                            "tariffMaximumRate" => 0.10 ,
+                            "roundUnit" => 1000,
+                            "signRoundUp" => TRUE
+                            ]
+                        ]
+                    //-----[ BODY ]-----( END )-----
+                    );
+
             var_dump($varData);
             }
 
@@ -77,23 +84,28 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
 
             echo '<table border="1" style="border-collapse: collapse;">';
-            echo '<input type="text" id="dataInput_RecordID" value=183000000000001>';
-            echo '<input type="text" id="dataInput_TaxType_RefID" value=182000000000001>';
-            echo '<input type="text" id="dataInput_ValidStartDateTimeTZ" value="1970-01-01 00:00:00+07">';
-            echo '<input type="text" id="dataInput_ValidFinishDateTimeTZ" value="9999-12-31 23:59:59+07">';
-            echo '<input type="text" id="dataInput_TariffMinimumRate" value=0.10>';
-            echo '<input type="text" id="dataInput_TariffMaximumRate" value=0.10>';
-            echo '<input type="text" id="dataInput_RoundUnit" value=1000>';
-            echo '<input type="text" id="dataInput_SignRoundUp" value="true">';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Tax Tariff Main Data</p></td></tr>';
+            echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=183000000000001></td></tr>';
+            echo        '<tr><td>TaxType_RefID</td><td><input type="text" id="dataInput_TaxType_RefID" value=182000000000001></td></tr>';
+            echo        '<tr><td>ValidStartDateTimeTZ</td><td><input type="text" id="dataInput_ValidStartDateTimeTZ" value="1970-01-01 00:00:00+07"></td></tr>';
+            echo        '<tr><td>ValidFinishDateTimeTZ</td><td><input type="text" id="dataInput_ValidFinishDateTimeTZ" value="9999-12-31 23:59:59+07"></td></tr>';
+            echo        '<tr><td>TariffMinimumRate</td><td><input type="text" id="dataInput_TariffMinimumRate" value=0.10></td></tr>';
+            echo        '<tr><td>TariffMaximumRate</td><td><input type="text" id="dataInput_TariffMaximumRate" value=0.10></td></tr>';
+            echo        '<tr><td>RoundUnit1</td><td><input type="text" id="dataInput_RoundUnit" value=1000></td></tr>';
+            echo        '<tr><td>SignRoundUp</td><td><input type="text" id="dataInput_SignRoundUp" value="true"></td></tr>';
             echo '</table><br>';
 
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                    $varAPIWebToken, 
-                    'transaction.update.taxation.setTaxTariff', 
-                    'latest', 
-                    '{'.
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.update.taxation.setTaxTariff', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        '{'.
                         '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                         '"entities" : {'.
                             '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID").value), '.
@@ -104,7 +116,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             '"roundUnit" : parseFloat(document.getElementById("dataInput_RoundUnit").value), '.
                             '"signRoundUp" : (document.getElementById("dataInput_SignRoundUp").value.toLowerCase() === "true")'.
                             '}'.
-                    '}'
+                        '}'
+                    //-----[ BODY ]-----( END )-----
                     ); 
 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
