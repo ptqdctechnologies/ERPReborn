@@ -40,7 +40,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         $varAPIWebToken, 
                         'transaction.update.finance.setAdvance', 
                         'latest',
-                    //-----[ HEADER ]-----( START )-----
+                    //-----[ HEADER ]-----( END )-----
 
                     //-----[ BODY ]-----( START )-----
                         [
@@ -99,7 +99,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setAdvance.v1_throughAPIGatewayJQuery                    |
         |                     ► http://172.28.0.4/transaction.update.finance.setAdvance.v1_throughAPIGatewayJQuery                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-         | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2025-01-09                                                                                           |
         | ▪ Creation Date   : 2022-09-19                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -158,50 +158,50 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
                     //-----[ BODY ]-----( START )-----
                         '{'.
-                            '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                            '"entities" : {'.
-                                '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                                '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
-                                '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
-                                '"beneficiaryWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_BeneficiaryWorkerJobsPosition_RefID").value), '.
-                                '"beneficiaryBankAccount_RefID" : parseInt(document.getElementById("dataInput_BeneficiaryBankAccount_RefID").value), '.
-                                '"internalNotes" : document.getElementById("dataInput_InternalNotes").value, '.
-                                '"remarks" : document.getElementById("dataInput_Remarks").value, '.
-                                '"additionalData" : {'.
-                                    '"itemList" : {'.
-                                        '"items" : ['.
+                        '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                        '"entities" : {'.
+                            '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
+                            '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
+                            '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
+                            '"beneficiaryWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_BeneficiaryWorkerJobsPosition_RefID").value), '.
+                            '"beneficiaryBankAccount_RefID" : parseInt(document.getElementById("dataInput_BeneficiaryBankAccount_RefID").value), '.
+                            '"internalNotes" : document.getElementById("dataInput_InternalNotes").value, '.
+                            '"remarks" : document.getElementById("dataInput_Remarks").value, '.
+                            '"additionalData" : {'.
+                                '"itemList" : {'.
+                                    '"items" : ['.
+                                            '{'.
+                                            '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_1").value), '.
+                                            '"entities" : '.
                                                 '{'.
-                                                '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_1").value), '.
-                                                '"entities" : '.
-                                                    '{'.
-                                                    '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_1").value), '.
-                                                    '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
-                                                    '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
-                                                    '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value),'.
-                                                    '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_1").value),'.
-                                                    '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_1").value),'.
-                                                    '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_1").value),'.
-                                                    '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
-                                                    '}'.
-                                                '}, '.
-                                                '{'.
-                                                '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_2").value), '.
-                                                '"entities" : '.
-                                                    '{'.
-                                                    '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_2").value), '.
-                                                    '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_2").value), '.
-                                                    '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_2").value), '.
-                                                    '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_2").value),'.
-                                                    '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_2").value),'.
-                                                    '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_2").value),'.
-                                                    '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_2").value),'.
-                                                    '"remarks" : document.getElementById("dataInput_Remarks_2").value'.
-                                                    '}'.
+                                                '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_1").value), '.
+                                                '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
+                                                '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
+                                                '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value),'.
+                                                '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_1").value),'.
+                                                '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_1").value),'.
+                                                '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_1").value),'.
+                                                '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
                                                 '}'.
-                                            ']'.
-                                        '}'.
+                                            '}, '.
+                                            '{'.
+                                            '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_2").value), '.
+                                            '"entities" : '.
+                                                '{'.
+                                                '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_2").value), '.
+                                                '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_2").value), '.
+                                                '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_2").value), '.
+                                                '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_2").value),'.
+                                                '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_2").value),'.
+                                                '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_2").value),'.
+                                                '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_2").value),'.
+                                                '"remarks" : document.getElementById("dataInput_Remarks_2").value'.
+                                                '}'.
+                                            '}'.
+                                        ']'.
                                     '}'.
                                 '}'.
+                            '}'.
                         '}'
                     //-----[ BODY ]-----( END )-----
                     );

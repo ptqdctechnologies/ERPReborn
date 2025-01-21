@@ -8,7 +8,7 @@
 | ▪ API Key     : transaction.create.finance.setAdvanceDetail                                                                      |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance\setAdvanceDetail\v1
@@ -20,8 +20,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setAdvanceDetail.v1_throughAPIGateway                    |
         |                     ► http://172.28.0.4/transaction.create.finance.setAdvanceDetail.v1_throughAPIGateway                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-19                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2025-01-21                                                                                           |
         | ▪ Creation Date   : 2022-09-19                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -36,23 +36,28 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.create.finance.setAdvanceDetail', 
-                    'latest', 
-                    [
-                    'entities' => [
-                        "advance_RefID" => 76000000000001,
-                        "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                        "product_RefID" => 88000000000002,
-                        "quantity" => 10,
-                        "quantityUnit_RefID" => 73000000000001,
-                        "productUnitPriceCurrency_RefID" => 62000000000001,
-                        "productUnitPriceCurrencyValue" => 30000,
-                        "productUnitPriceCurrencyExchangeRate" => 1,
-                        "remarks" => 'Catatan'
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.create.finance.setAdvanceDetail', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        'entities' => [
+                            "advance_RefID" => 76000000000001,
+                            "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                            "product_RefID" => 88000000000002,
+                            "quantity" => 10,
+                            "quantityUnit_RefID" => 73000000000001,
+                            "productUnitPriceCurrency_RefID" => 62000000000001,
+                            "productUnitPriceCurrencyValue" => 30000,
+                            "productUnitPriceCurrencyExchangeRate" => 1,
+                            "remarks" => 'Catatan'
+                            ]
                         ]
-                    ]
+                    //-----[ BODY ]-----( END )-----
                     );
 
             var_dump($varData);
@@ -64,8 +69,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setAdvanceDetail.v1_throughAPIGatewayJQuery              |
         |                     ► http://172.28.0.4/transaction.create.finance.setAdvanceDetail.v1_throughAPIGatewayJQuery           |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-19                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2025-01-21                                                                                           |
         | ▪ Creation Date   : 2022-09-19                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -95,11 +100,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                    $varAPIWebToken, 
-                    'transaction.create.finance.setAdvanceDetail', 
-                    'latest', 
-                    '{'.
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.create.finance.setAdvanceDetail', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        '{'.
                         '"entities" : {'.
                             '"advance_RefID" : parseInt(document.getElementById("dataInput_Advance_RefID").value), '.
                             '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID").value), '.
@@ -111,7 +120,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate").value), '.
                             '"remarks" : document.getElementById("dataInput_Remarks").value'.
                             '}'.
-                    '}'
+                       '}'
+                    //-----[ BODY ]-----( END )-----
                     );
 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";

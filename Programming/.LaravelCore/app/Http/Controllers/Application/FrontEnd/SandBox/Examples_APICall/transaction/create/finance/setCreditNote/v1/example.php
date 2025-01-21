@@ -35,30 +35,35 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.create.finance.setCreditNote', 
-                    'latest', 
-                    [
-                    'entities' => [
-                        "documentDateTimeTZ" => '2023-10-25',
-                        "log_FileUpload_Pointer_RefID" => null,
-                        "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                        "remarks" => 'My Remarks',
-                        "additionalData" => [
-                            "itemList" => [
-                                "items" => [
-                                        [
-                                        "entities" => [
-                                            "customerBankAccount_RefID" => 167000000000005,
-                                            "remarks" => 'Catatan 1'
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.create.finance.setCreditNote', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        'entities' => [
+                            "documentDateTimeTZ" => '2023-10-25',
+                            "log_FileUpload_Pointer_RefID" => null,
+                            "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                            "remarks" => 'My Remarks',
+                            "additionalData" => [
+                                "itemList" => [
+                                    "items" => [
+                                            [
+                                            "entities" => [
+                                                "customerBankAccount_RefID" => 167000000000005,
+                                                "remarks" => 'Catatan 1'
+                                                ]
                                             ]
                                         ]
                                     ]
                                 ]
                             ]
                         ]
-                    ]                    
+                    //-----[ BODY ]-----( END )-----
                     );
 
             var_dump($varData);
@@ -99,11 +104,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                    $varAPIWebToken, 
-                    'transaction.create.finance.setCreditNote',
-                    'latest',
-                    '{'.
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.create.finance.setCreditNote',
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        '{'.
                         '"entities" : {'.
                             '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
                             '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
@@ -123,8 +132,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     '}'.
                                 '}'.
                             '}'.
-                    '}'
-                    ); 
+                        '}'
+                    //-----[ BODY ]-----( END )-----
+                    );
+
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
 
             dd($varJQueryFunction);
