@@ -28,22 +28,31 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.taxation.setTaxType', 
-                'latest', 
-                [
-                'recordID' => 182000000000001,
-                'entities' => [
-                    "name" => 'Tax Name',
-                    "annotation" => 'My Annotation',
-                    ]
-                ]
-                );
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.update.taxation.setTaxType', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        'recordID' => 182000000000001,
+                        'entities' => [
+                            "name" => 'Tax Name',
+                            "annotation" => 'My Annotation',
+                            ]
+                        ]
+                    //-----[ BODY ]-----( END )-----
+                    );
+
             var_dump($varData);
             }
 
@@ -62,27 +71,39 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+
             echo '<input type="text" id="dataInput_RecordID" value=182000000000001>';
             echo '<input type="text" id="dataInput_Name" value="Tax Name">';
             echo '<input type="text" id="dataInput_Annotation" value="My Annotation">';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.update.taxation.setTaxType', 
-                'latest', 
-                '{'.
-                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                    '"entities" : {'.
-                        '"name" : document.getElementById("dataInput_Name").value, '.
-                        '"annotation" : document.getElementById("dataInput_Annotation").value'.
-                        '}'.
-                '}'
-                ); 
+
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.update.taxation.setTaxType', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        '{'.
+                            '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                            '"entities" : {'.
+                                '"name" : document.getElementById("dataInput_Name").value, '.
+                                '"annotation" : document.getElementById("dataInput_Annotation").value'.
+                                '}'.
+                        '}'
+                    //-----[ BODY ]-----( END )-----
+                    );
+
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+
             dd($varJQueryFunction);
             }
         }

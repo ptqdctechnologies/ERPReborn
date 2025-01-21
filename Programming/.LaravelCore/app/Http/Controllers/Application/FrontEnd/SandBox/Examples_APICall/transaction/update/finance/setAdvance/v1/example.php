@@ -35,54 +35,59 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.update.finance.setAdvance', 
-                    'latest', 
-                    [
-                    'recordID' => 76000000000001,
-                    'entities' => [
-                        'documentDateTimeTZ' => '2022-03-07',
-                        'log_FileUpload_Pointer_RefID' => 91000000000001,
-                        'requesterWorkerJobsPosition_RefID' => 164000000000497,
-                        'beneficiaryWorkerJobsPosition_RefID' => 164000000000439,
-                        'beneficiaryBankAccount_RefID' => 167000000000001,
-                        'internalNotes' => 'My Internal Notes',
-                        'remarks' => 'My Remarks',
-                        'additionalData' => [
-                            'itemList' => [
-                                'items' => [
-                                        [
-                                        'recordID' => 82000000000001,
-                                        'entities' => [
-                                            'combinedBudgetSectionDetail_RefID' => 169000000000001,
-                                            'product_RefID' => 88000000000002,
-                                            'quantity' => 10,
-                                            'quantityUnit_RefID' => 73000000000001,
-                                            'productUnitPriceCurrency_RefID' => 62000000000001,
-                                            'productUnitPriceCurrencyExchangeRate' => 1,
-                                            'productUnitPriceCurrencyValue' => 30000,
-                                            'remarks' => 'Catatan Pertama Revisi'                                    
-                                            ]                                   
-                                        ],
-                                        [
-                                        'recordID' => 82000000000002,
-                                        'entities' => [
-                                            'combinedBudgetSectionDetail_RefID' => 169000000000001,
-                                            'product_RefID' => 88000000000003,
-                                            'quantity' => 5,
-                                            'quantityUnit_RefID' => 73000000000001,
-                                            'productUnitPriceCurrency_RefID' => 62000000000001,
-                                            'productUnitPriceCurrencyExchangeRate' => 1,
-                                            'productUnitPriceCurrencyValue' => 40000,
-                                            'remarks' => 'Catatan Kedua Revisi'
-                                            ]
-                                        ],
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.update.finance.setAdvance', 
+                        'latest',
+                    //-----[ HEADER ]-----( START )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        'recordID' => 76000000000001,
+                        'entities' => [
+                            'documentDateTimeTZ' => '2022-03-07',
+                            'log_FileUpload_Pointer_RefID' => 91000000000001,
+                            'requesterWorkerJobsPosition_RefID' => 164000000000497,
+                            'beneficiaryWorkerJobsPosition_RefID' => 164000000000439,
+                            'beneficiaryBankAccount_RefID' => 167000000000001,
+                            'internalNotes' => 'My Internal Notes',
+                            'remarks' => 'My Remarks',
+                            'additionalData' => [
+                                'itemList' => [
+                                    'items' => [
+                                            [
+                                            'recordID' => 82000000000001,
+                                            'entities' => [
+                                                'combinedBudgetSectionDetail_RefID' => 169000000000001,
+                                                'product_RefID' => 88000000000002,
+                                                'quantity' => 10,
+                                                'quantityUnit_RefID' => 73000000000001,
+                                                'productUnitPriceCurrency_RefID' => 62000000000001,
+                                                'productUnitPriceCurrencyExchangeRate' => 1,
+                                                'productUnitPriceCurrencyValue' => 30000,
+                                                'remarks' => 'Catatan Pertama Revisi'                                    
+                                                ]                                   
+                                            ],
+                                            [
+                                            'recordID' => 82000000000002,
+                                            'entities' => [
+                                                'combinedBudgetSectionDetail_RefID' => 169000000000001,
+                                                'product_RefID' => 88000000000003,
+                                                'quantity' => 5,
+                                                'quantityUnit_RefID' => 73000000000001,
+                                                'productUnitPriceCurrency_RefID' => 62000000000001,
+                                                'productUnitPriceCurrencyExchangeRate' => 1,
+                                                'productUnitPriceCurrencyValue' => 40000,
+                                                'remarks' => 'Catatan Kedua Revisi'
+                                                ]
+                                            ],
+                                        ]
                                     ]
                                 ]
                             ]
                         ]
-                    ]
+                    //-----[ BODY ]-----( END )-----
                     );
 
             var_dump($varData);
@@ -144,56 +149,61 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                    $varAPIWebToken, 
-                    'transaction.update.finance.setAdvance', 
-                    'latest', 
-                    '{'.
-                        '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                        '"entities" : {'.
-                            '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                            '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
-                            '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
-                            '"beneficiaryWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_BeneficiaryWorkerJobsPosition_RefID").value), '.
-                            '"beneficiaryBankAccount_RefID" : parseInt(document.getElementById("dataInput_BeneficiaryBankAccount_RefID").value), '.
-                            '"internalNotes" : document.getElementById("dataInput_InternalNotes").value, '.
-                            '"remarks" : document.getElementById("dataInput_Remarks").value, '.
-                            '"additionalData" : {'.
-                                '"itemList" : {'.
-                                    '"items" : ['.
-                                            '{'.
-                                            '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_1").value), '.
-                                            '"entities" : '.
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.update.finance.setAdvance', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        '{'.
+                            '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                            '"entities" : {'.
+                                '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
+                                '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
+                                '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
+                                '"beneficiaryWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_BeneficiaryWorkerJobsPosition_RefID").value), '.
+                                '"beneficiaryBankAccount_RefID" : parseInt(document.getElementById("dataInput_BeneficiaryBankAccount_RefID").value), '.
+                                '"internalNotes" : document.getElementById("dataInput_InternalNotes").value, '.
+                                '"remarks" : document.getElementById("dataInput_Remarks").value, '.
+                                '"additionalData" : {'.
+                                    '"itemList" : {'.
+                                        '"items" : ['.
                                                 '{'.
-                                                '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_1").value), '.
-                                                '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
-                                                '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
-                                                '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value),'.
-                                                '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_1").value),'.
-                                                '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_1").value),'.
-                                                '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_1").value),'.
-                                                '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
-                                                '}'.
-                                            '}, '.
-                                            '{'.
-                                            '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_2").value), '.
-                                            '"entities" : '.
+                                                '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_1").value), '.
+                                                '"entities" : '.
+                                                    '{'.
+                                                    '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_1").value), '.
+                                                    '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
+                                                    '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
+                                                    '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value),'.
+                                                    '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_1").value),'.
+                                                    '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_1").value),'.
+                                                    '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_1").value),'.
+                                                    '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
+                                                    '}'.
+                                                '}, '.
                                                 '{'.
-                                                '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_2").value), '.
-                                                '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_2").value), '.
-                                                '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_2").value), '.
-                                                '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_2").value),'.
-                                                '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_2").value),'.
-                                                '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_2").value),'.
-                                                '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_2").value),'.
-                                                '"remarks" : document.getElementById("dataInput_Remarks_2").value'.
+                                                '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_2").value), '.
+                                                '"entities" : '.
+                                                    '{'.
+                                                    '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_2").value), '.
+                                                    '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_2").value), '.
+                                                    '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_2").value), '.
+                                                    '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_2").value),'.
+                                                    '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_2").value),'.
+                                                    '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_2").value),'.
+                                                    '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_2").value),'.
+                                                    '"remarks" : document.getElementById("dataInput_Remarks_2").value'.
+                                                    '}'.
                                                 '}'.
-                                            '}'.
-                                        ']'.
+                                            ']'.
+                                        '}'.
                                     '}'.
                                 '}'.
-                            '}'.
-                    '}'
+                        '}'
+                    //-----[ BODY ]-----( END )-----
                     );
 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";

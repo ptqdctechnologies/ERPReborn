@@ -3,22 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\taxation                  |
-|                 \setTransactionTax\v1                                                                                            |
-| ▪ API Key     : transaction.create.taxation.setTransactionTax                                                                    |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\taxation\setTaxTariff\v1  |
+| ▪ API Key     : transaction.create.taxation.setTaxTariff                                                                         |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\taxation\setTransactionTax\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\taxation\setTaxTariff\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.taxation.setTransactionTax.v1_throughAPIGateway                  |
-        |                     ► http://172.28.0.4/transaction.create.taxation.setTransactionTax.v1_throughAPIGateway               |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.create.taxation.setTaxTariff.v1_throughAPIGateway                       |
+        |                     ► http://172.28.0.4/transaction.create.taxation.setTaxTariff.v1_throughAPIGateway                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2025-01-21                                                                                           |
@@ -39,41 +38,20 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     //-----[ HEADER ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken, 
-                        'transaction.create.taxation.setTransactionTax', 
+                        'transaction.create.taxation.setTaxTariff', 
                         'latest',
                     //-----[ HEADER ]-----( END )-----
 
                     //-----[ BODY ]-----( START )-----
                         [
                         'entities' => [
-                            "taxBaseCurrency_RefID" => 62000000000001,
-                            "taxBaseCurrencyValue" => 30000,
-                            "taxBaseCurrencyExchangeRate" => 1,
-                            "remarks" => 'Catatan 1',
-                            "additionalData" => [
-                                "itemList" => [
-                                    "items" => [
-                                            [
-                                            "entities" => [
-                                                "taxType_RefID" => 182000000000001,                    
-                                                "tariffCurrency_RefID" => 62000000000001,
-                                                "tariffCurrencyValue" => 30000,
-                                                "tariffCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan 1'                                  
-                                                ]                                   
-                                            ],
-                                            [
-                                            "entities" => [
-                                                "taxType_RefID" => 182000000000002,                    
-                                                "tariffCurrency_RefID" => 62000000000001,
-                                                "tariffCurrencyValue" => 30000,
-                                                "tariffCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan 2'
-                                                ]
-                                            ],
-                                        ]
-                                    ]
-                                ]
+                            "taxType_RefID" => 182000000000001,
+                            "validStartDateTimeTZ" => '1970-01-01 00:00:00+07',
+                            "validFinishDateTimeTZ" => '9999-12-31 23:59:59+07',
+                            "tariffMinimumRate" => 0.10,
+                            "tariffMaximumRate" => 0.10 ,
+                            "roundUnit" => 1000,
+                            "signRoundUp" => TRUE
                             ]
                         ]                    
                     //-----[ BODY ]-----( END )-----
@@ -85,8 +63,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.taxation.setTransactionTax.v1_throughAPIGatewayJQuery            |
-        |                     ► http://172.28.0.4/transaction.create.taxation.setTransactionTax.v1_throughAPIGatewayJQuery         |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.create.taxation.setTaxTariff.v1_throughAPIGatewayJQuery            |
+        |                     ► http://172.28.0.4/transaction.create.taxation.setTaxTariff.v1_throughAPIGatewayJQuery         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2025-01-21                                                                                           |
@@ -125,7 +103,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     //-----[ HEADER ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                         $varAPIWebToken, 
-                        'transaction.create.taxation.setTransactionTax', 
+                        'transaction.create.taxation.setTaxTariff', 
                         'latest',
                     //-----[ HEADER ]-----( END )-----
 

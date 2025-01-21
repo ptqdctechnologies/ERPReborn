@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -66,11 +71,24 @@
                         "type": [ "boolean", "null" ]
                         }
                     },
-                "required": [ "taxType_RefID", "validStartDateTimeTZ", "validFinishDateTimeTZ", "tariffMinimumRate", "tariffMaximumRate", "roundUnit", "signRoundUp" ]
+                "required": [
+                    "taxType_RefID",
+                    "validStartDateTimeTZ",
+                    "validFinishDateTimeTZ",
+                    "tariffMinimumRate",
+                    "tariffMaximumRate",
+                    "roundUnit",
+                    "signRoundUp"
+                    ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
