@@ -33,7 +33,36 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="row p-1" style="line-height: 14px; row-gap: 1rem;">
+                                        <div class="row p-1" style="line-height: 14px;">
+                                            <div class="col-sm-12 col-md-4">
+                                                <!-- BRF NUMBER -->
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
+                                                        BRF Number
+                                                    </div>
+                                                    <div class="col-sm-9 col-md-9 p-0">
+                                                        : <?= $dataReport['dataHeader']['brfNumber']; ?>
+                                                    </div>
+                                                </div>
+                                                <!-- BRF DATE -->
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
+                                                        BRF Date
+                                                    </div>
+                                                    <div class="col-sm-9 col-md-9 p-0">
+                                                        : <?= $dataReport['dataHeader']['brfDate']; ?>
+                                                    </div>
+                                                </div>
+                                                <!-- BRF TOTAL -->
+                                                <div class="row" style="margin-bottom: 1rem;">
+                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
+                                                        BRF Total
+                                                    </div>
+                                                    <div class="col-sm-9 col-md-9 p-0">
+                                                        : <?= number_format($dataReport['totalBSF'], 2, '.', ','); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <!-- DATE -->
                                                 <div class="row" style="margin-bottom: 1rem;">
@@ -60,33 +89,6 @@
                                                     </div>
                                                     <div class="col-sm-9 col-md-9 p-0">
                                                         : <?= $dataReport['siteCode'] . " - " . $dataReport['siteName']; ?>
-                                                    </div>
-                                                </div>
-                                                <!-- BRF NUMBER -->
-                                                <div class="row" style="margin-bottom: 1rem;">
-                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
-                                                        BRF Number
-                                                    </div>
-                                                    <div class="col-sm-9 col-md-9 p-0">
-                                                        : <?= $dataReport['dataHeader']['brfNumber']; ?>
-                                                    </div>
-                                                </div>
-                                                <!-- BRF DATE -->
-                                                <div class="row" style="margin-bottom: 1rem;">
-                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
-                                                        BRF Date
-                                                    </div>
-                                                    <div class="col-sm-9 col-md-9 p-0">
-                                                        : <?= $dataReport['dataHeader']['brfDate']; ?>
-                                                    </div>
-                                                </div>
-                                                <!-- BRF TOTAL -->
-                                                <div class="row" style="margin-bottom: 1rem;">
-                                                    <div class="col-sm-3 col-md-3 p-0 text-bold">
-                                                        BRF Total
-                                                    </div>
-                                                    <div class="col-sm-9 col-md-9 p-0">
-                                                        : <?= number_format($dataReport['totalBSF'], 2, '.', ','); ?>
                                                     </div>
                                                 </div>
                                             </div>
