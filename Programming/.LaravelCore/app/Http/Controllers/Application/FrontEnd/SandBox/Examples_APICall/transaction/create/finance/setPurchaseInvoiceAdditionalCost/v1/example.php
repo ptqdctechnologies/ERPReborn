@@ -8,7 +8,7 @@
 | ▪ API Key     : transaction.create.finance.setPurchaseInvoiceAdditionalCost                                                      |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance\setPurchaseInvoiceAdditionalCost\v1
@@ -29,25 +29,34 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.create.finance.setPurchaseInvoiceAdditionalCost', 
-                'latest', 
-                [
-                'entities' => [
-                    "purchaseInvoice_RefID" => 208000000000001,
-                    "transactionAdditionalCostType_RefID" => 190000000000001,
-                    "priceCurrency_RefID" => 62000000000001,
-                    "priceCurrencyValue" => 250,
-                    "priceCurrencyExchangeRate" => 15000,
-                    "remarks" => 'My Remarks'
-                    ]
-                ]
-                );
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.create.finance.setPurchaseInvoiceAdditionalCost', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        'entities' => [
+                            "purchaseInvoice_RefID" => 208000000000001,
+                            "transactionAdditionalCostType_RefID" => 190000000000001,
+                            "priceCurrency_RefID" => 62000000000001,
+                            "priceCurrencyValue" => 250,
+                            "priceCurrencyExchangeRate" => 15000,
+                            "remarks" => 'My Remarks'
+                            ]
+                        ]
+                    //-----[ BODY ]-----( END )-----
+                    );
+
             var_dump($varData);
             }
 
@@ -68,10 +77,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
 /*            //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+
             echo '<table border="1" style="border-collapse: collapse;">';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Main Data</p></td></tr>';
             echo        '<tr><td>Log_FileUpload_Pointer_RefID</td><td><input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value=""></td></tr>';
@@ -103,59 +115,68 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>PriceCurrencyExchangeRate_2</td><td><input type="text" id="dataInput_PriceCurrencyExchangeRate_2" value=1.00></td></tr>';
             echo        '<tr><td>Remarks_2</td><td><input type="text" id="dataInput_Remarks_2" value="Catatan Kedua"></td></tr>';
             echo '</table><br>';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.create.finance.setPurchaseInvoiceAdditionalCost', 
-                'latest', 
-                '{'.
-                    '"entities" : {'.
-                        '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
-                        '"supplier_RefID" : parseInt(document.getElementById("dataInput_Supplier_RefID").value), '.
-                        '"documentNumber" : document.getElementById("dataInput_DocumentNumber").value, '.
-                        '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"salesOrderNumber" : document.getElementById("dataInput_SalesOrderNumber").value, '.
-                        '"paymentDueDateTimeTZ" : document.getElementById("dataInput_PaymentDueDateTimeTZ").value, '.
-                        '"preferredPaymentMethod_RefID" : parseInt(document.getElementById("dataInput_PreferredPaymentMethod_RefID").value), '.
-                        '"preferredBankAccount_RefID" : parseInt(document.getElementById("dataInput_PreferredBankAccount_RefID").value), '.
-                        '"receivedDateTimeTZ" : document.getElementById("dataInput_ReceivedDateTimeTZ").value, '.
-                        '"remarks" : document.getElementById("dataInput_Remarks").value, '.
-                        '"additionalData" : {'.
-                            '"itemList" : {'.
-                                '"items" : ['.
-                                        '{'.
-                                        '"entities" : '.
+
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.create.finance.setPurchaseInvoiceAdditionalCost', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        '{'.
+                        '"entities" : {'.
+                            '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
+                            '"supplier_RefID" : parseInt(document.getElementById("dataInput_Supplier_RefID").value), '.
+                            '"documentNumber" : document.getElementById("dataInput_DocumentNumber").value, '.
+                            '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
+                            '"salesOrderNumber" : document.getElementById("dataInput_SalesOrderNumber").value, '.
+                            '"paymentDueDateTimeTZ" : document.getElementById("dataInput_PaymentDueDateTimeTZ").value, '.
+                            '"preferredPaymentMethod_RefID" : parseInt(document.getElementById("dataInput_PreferredPaymentMethod_RefID").value), '.
+                            '"preferredBankAccount_RefID" : parseInt(document.getElementById("dataInput_PreferredBankAccount_RefID").value), '.
+                            '"receivedDateTimeTZ" : document.getElementById("dataInput_ReceivedDateTimeTZ").value, '.
+                            '"remarks" : document.getElementById("dataInput_Remarks").value, '.
+                            '"additionalData" : {'.
+                                '"itemList" : {'.
+                                    '"items" : ['.
                                             '{'.
-                                            '"purchaseOrderDetail_RefID" : parseInt(document.getElementById("dataInput_PurchaseOrderDetail_RefID_1").value), '.
-                                            '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
-                                            '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
-                                            '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value), '.
-                                            '"priceCurrency_RefID" : parseInt(document.getElementById("dataInput_PriceCurrency_RefID_1").value), '.
-                                            '"priceCurrencyValue" : parseFloat(document.getElementById("dataInput_PriceCurrencyValue_1").value), '.
-                                            '"priceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_PriceCurrencyExchangeRate_1").value), '.
-                                            '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
-                                            '}'.
-                                        '}, '.
-                                        '{'.
-                                        '"entities" : '.
+                                            '"entities" : '.
+                                                '{'.
+                                                '"purchaseOrderDetail_RefID" : parseInt(document.getElementById("dataInput_PurchaseOrderDetail_RefID_1").value), '.
+                                                '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
+                                                '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
+                                                '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value), '.
+                                                '"priceCurrency_RefID" : parseInt(document.getElementById("dataInput_PriceCurrency_RefID_1").value), '.
+                                                '"priceCurrencyValue" : parseFloat(document.getElementById("dataInput_PriceCurrencyValue_1").value), '.
+                                                '"priceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_PriceCurrencyExchangeRate_1").value), '.
+                                                '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
+                                                '}'.
+                                            '}, '.
                                             '{'.
-                                            '"purchaseOrderDetail_RefID" : parseInt(document.getElementById("dataInput_PurchaseOrderDetail_RefID_2").value), '.
-                                            '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_2").value), '.
-                                            '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_2").value), '.
-                                            '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_2").value), '.
-                                            '"priceCurrency_RefID" : parseInt(document.getElementById("dataInput_PriceCurrency_RefID_2").value), '.
-                                            '"priceCurrencyValue" : parseFloat(document.getElementById("dataInput_PriceCurrencyValue_2").value), '.
-                                            '"priceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_PriceCurrencyExchangeRate_2").value), '.
-                                            '"remarks" : document.getElementById("dataInput_Remarks_2").value'.
+                                            '"entities" : '.
+                                                '{'.
+                                                '"purchaseOrderDetail_RefID" : parseInt(document.getElementById("dataInput_PurchaseOrderDetail_RefID_2").value), '.
+                                                '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_2").value), '.
+                                                '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_2").value), '.
+                                                '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_2").value), '.
+                                                '"priceCurrency_RefID" : parseInt(document.getElementById("dataInput_PriceCurrency_RefID_2").value), '.
+                                                '"priceCurrencyValue" : parseFloat(document.getElementById("dataInput_PriceCurrencyValue_2").value), '.
+                                                '"priceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_PriceCurrencyExchangeRate_2").value), '.
+                                                '"remarks" : document.getElementById("dataInput_Remarks_2").value'.
+                                                '}'.
                                             '}'.
-                                        '}'.
-                                    ']'.
+                                        ']'.
+                                    '}'.
                                 '}'.
                             '}'.
-                        '}'.
-                '}'
-                ); 
+                        '}'
+                    //-----[ BODY ]-----( END )-----
+                    );
+
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+
             dd($varJQueryFunction);*/
             }
         }

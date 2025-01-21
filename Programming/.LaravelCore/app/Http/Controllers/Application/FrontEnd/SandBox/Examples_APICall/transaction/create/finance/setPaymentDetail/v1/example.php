@@ -8,7 +8,7 @@
 | ▪ API Key     : transaction.create.finance.setPaymentDetail                                                                      |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2023 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\finance\setPaymentDetail\v1
@@ -20,8 +20,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setPaymentDetail.v1_throughAPIGateway                    |
         |                     ► http://172.28.0.4/transaction.create.finance.setPaymentDetail.v1_throughAPIGateway                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-10-31                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2025-01-21                                                                                           |
         | ▪ Creation Date   : 2023-10-31                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -66,8 +66,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setPaymentDetail.v1_throughAPIGatewayJQuery              |
         |                     ► http://172.28.0.4/transaction.create.finance.setPaymentDetail.v1_throughAPIGatewayJQuery           |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-10-31                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2025-01-21                                                                                           |
         | ▪ Creation Date   : 2023-10-31                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -103,14 +103,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
                     //-----[ BODY ]-----( START )-----
                     '{'.
-                        '"entities" : {'.
-                            '"payment_RefID" : parseInt(document.getElementById("dataInput_Payment_RefID").value), '.
-                            '"underlying_RefID" : parseInt(document.getElementById("dataInput_Underlying_RefID").value), '.
-                            '"amountCurrency_RefID" : parseInt(document.getElementById("dataInput_AmountCurrency_RefID").value), '.
-                            '"amountCurrencyValue" : parseFloat(document.getElementById("dataInput_AmountCurrencyValue").value), '.
-                            '"amountCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_AmountCurrencyExchangeRate").value), '.
-                            '"remarks" : document.getElementById("dataInput_Remarks").value'.
-                            '}'.
+                    '"entities" : {'.
+                        '"payment_RefID" : parseInt(document.getElementById("dataInput_Payment_RefID").value), '.
+                        '"underlying_RefID" : parseInt(document.getElementById("dataInput_Underlying_RefID").value), '.
+                        '"amountCurrency_RefID" : parseInt(document.getElementById("dataInput_AmountCurrency_RefID").value), '.
+                        '"amountCurrencyValue" : parseFloat(document.getElementById("dataInput_AmountCurrencyValue").value), '.
+                        '"amountCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_AmountCurrencyExchangeRate").value), '.
+                        '"remarks" : document.getElementById("dataInput_Remarks").value'.
+                        '}'.
                     '}'
                     //-----[ BODY ]-----( END )-----
                     ); 
