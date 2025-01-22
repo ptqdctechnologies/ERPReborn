@@ -99,23 +99,17 @@ class BusinessTripSettlementController extends Controller
     {
         $varAPIWebToken = Session::get('SessionLogin');
         $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceReport',
-                'latest',
-                [
-                    'parameter' => [
-                        'advance_RefID' => (int) $bussinesTripRefID,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.finance.getAdvance',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int) $bussinesTripRefID,
                 ],
-                false
-            );
+            ],
+            false
+        );
 
         // dd($filteredArray['data'][0]['document']['content']['details']['itemList']);
         return $filteredArray['data'][0]['document']['content']['details']['itemList'];
@@ -298,22 +292,22 @@ class BusinessTripSettlementController extends Controller
 
         if ($budget_code != "") {
             $collection = $collection->filter(function ($item) use ($budget_code) {
-                return strpos($item['CombinedBudgetCode'], $budget_code) !== false;
+                return strpos($item['combinedBudgetCode'], $budget_code) !== false;
             });
         }
         if ($sub_budget_code != "") {
             $collection = $collection->filter(function ($item) use ($sub_budget_code) {
-                return strpos($item['CombinedBudgetSectionCode'], $sub_budget_code) !== false;
+                return strpos($item['combinedBudgetSectionCode'], $sub_budget_code) !== false;
             });
         }
         if ($requester != "") {
             $collection = $collection->filter(function ($item) use ($requester) {
-                return strpos($item['RequesterWorkerName'], $requester) !== false;
+                return strpos($item['requesterWorkerName'], $requester) !== false;
             });
         }
         if ($trano != "") {
             $collection = $collection->filter(function ($item) use ($trano) {
-                return strpos($item['DocumentNumber'], $trano) !== false;
+                return strpos($item['documentNumber'], $trano) !== false;
             });
         }
 

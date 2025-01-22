@@ -19,7 +19,7 @@
       <!-- TITTLE -->
       <div class="row title-pages">
         <div class="col-sm-6 title">
-          Business Request Trip Form
+          Business Trip Request Form
         </div>
       </div>
 
@@ -281,7 +281,7 @@
                           <!-- TITLE -->
                           <div class="row" style="margin-bottom: 1rem;">
                             <div style="font-size: 0.9rem; font-weight: bold;">
-                              Transport
+                              Travel & Fares
                             </div>
                           </div>
 
@@ -417,44 +417,56 @@
                         </div>
 
                         <!-- ACCOMMODATION COLUMN -->
-                        <div class="col-md-12 col-lg-2">
+                        <div class="col-md-12 col-lg-2 p-0">
                           <div style="font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">
                             Accommodation
                           </div>
-                          <div class="col-sm-9 col-md-8 col-lg-9 p-0">
+                          <div class="col-sm-12 col-md-12 col-lg-9 p-0">
                             <input id="allowance" name="allowance" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                           </div>
                         </div>
 
                         <!-- ENTERTAINMENT COLUMN -->
-                        <div class="col-md-12 col-lg-2">
+                        <div class="col-md-12 col-lg-2 p-0">
                           <div style="font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">
                             Entertainment
                           </div>
-                          <div class="col-sm-9 col-md-8 col-lg-9 p-0">
+                          <div class="col-sm-12 col-md-12 col-lg-9 p-0">
                             <input id="entertainment" name="entertainment" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                           </div>
                         </div>
 
                         <!-- OTHER COLUMN -->
-                        <div class="col-md-12 col-lg-2">
+                        <div class="col-md-12 col-lg-2 p-0">
                           <div style="font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">
                             Other
                           </div>
-                          <div class="col-sm-9 col-md-8 col-lg-9 p-0">
+                          <div class="col-sm-12 col-md-12 col-lg-9 p-0">
                             <input id="other" name="other" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                           </div>
                         </div>
 
+                        <!-- GARIS & ICON -->
                         <div class="col-md-12 col-lg-12 d-flex align-items-center px-0" style="gap: 0.2rem;">
                           <hr class="m-0" style="width: 100%;" />
                           <img src="{{ asset('AdminLTE-master/dist/img/plus-circle.svg') }}" width="13" alt="" />
                         </div>
 
-                        <div class="d-sm-none d-md-none d-lg-block col-md-12 col-lg-3"></div>
+                        <div class="d-none d-sm-none d-md-none d-lg-block col-lg-2"></div>
+                        <div class="d-none d-sm-none d-md-none d-lg-block col-lg-2"></div>
+                        <div class="col-md-12 col-lg-3 text-sm-left text-md-left text-lg-right p-0">
+                          <label for="total_business_trip" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0 text-bold">Total Business Trip</label>
+                        </div>
+                        <div class="col-md-12 col-lg-2 p-0">
+                          <div class="col-sm-12 col-md-12 col-lg-9 p-0">
+                            <input disabled id="total_business_trip" name="total_business_trip" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                          </div>
+                        </div>
+
+                        <!-- <div class="d-sm-none d-md-none d-lg-block col-md-12 col-lg-3"></div>
                         <div class="d-sm-none d-md-none d-lg-block col-md-12 col-lg-3"></div>
                         <div class="col-md-12 col-lg-3">
-                          <!-- TOTAL BUSINESS TRIP -->
+                          TOTAL BUSINESS TRIP
                           <div class="row" style="margin-bottom: 1rem;">
                             <label for="total_business_trip" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0 text-bold">Total Business Trip</label>
                             <div class="col-sm-9 col-md-8 col-lg-4 p-0">
@@ -463,7 +475,7 @@
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </div> -->
                       </div>
 
                       <!-- PAYMENT -->
