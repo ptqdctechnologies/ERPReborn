@@ -517,6 +517,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "937764.00",
                     "TotalExpenseClaimCart" => "213932.00",
                     "TotalAmountDueToCompanyCart" => "723832.00",
+                    "DirectToVendor" => "Sukses Berkat Mandiri",
+                    "ByCorpCard" => "Bersaudara Express Cargo",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000228",
@@ -540,6 +542,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "1437396.00",
                     "TotalExpenseClaimCart" => "456123.00",
                     "TotalAmountDueToCompanyCart" => "981273.00",
+                    "DirectToVendor" => "Indomitra Global",
+                    "ByCorpCard" => "Aerotrans Metropolitan Express",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000227",
@@ -563,6 +567,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "8365231.00",
                     "TotalExpenseClaimCart" => "6712398.00",
                     "TotalAmountDueToCompanyCart" => "1652833.00",
+                    "DirectToVendor" => "Agung Jaya",
+                    "ByCorpCard" => "Aji Perkasa",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000226",
@@ -586,6 +592,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "14483674.00",
                     "TotalExpenseClaimCart" => "6571282.00",
                     "TotalAmountDueToCompanyCart" => "7912392.00",
+                    "DirectToVendor" => "Aledro Duta Jaya",
+                    "ByCorpCard" => "Bustami",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000225",
@@ -609,6 +617,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "1010000.00",
                     "TotalExpenseClaimCart" => "120000.00",
                     "TotalAmountDueToCompanyCart" => "890000.00",
+                    "DirectToVendor" => "Syamsul Hadi",
+                    "ByCorpCard" => "Bhirawa Mental Mandiri",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000224",
@@ -632,6 +642,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "960000.00",
                     "TotalExpenseClaimCart" => "320000.00",
                     "TotalAmountDueToCompanyCart" => "640000.00",
+                    "DirectToVendor" => "Pas Jaya Mandiri",
+                    "ByCorpCard" => "Bintang Pratama Mix",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000223",
@@ -655,6 +667,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "1000000.00",
                     "TotalExpenseClaimCart" => "190000.00",
                     "TotalAmountDueToCompanyCart" => "810000.00",
+                    "DirectToVendor" => "Power Elektrika Nusantara",
+                    "ByCorpCard" => "Twink Indonesia",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000222",
@@ -678,6 +692,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "980000.00",
                     "TotalExpenseClaimCart" => "260000.00",
                     "TotalAmountDueToCompanyCart" => "720000.00",
+                    "DirectToVendor" => "Exeed Indo Jaya",
+                    "ByCorpCard" => "Yayasan LSP K3 OSHE Nusantara",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000221",
@@ -701,6 +717,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "820000.00",
                     "TotalExpenseClaimCart" => "150000.00",
                     "TotalAmountDueToCompanyCart" => "670000.00",
+                    "DirectToVendor" => "Tokopedia - Gudang Laptop ID",
+                    "ByCorpCard" => "HIQ Digital Printing",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000220",
@@ -724,6 +742,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "890000.00",
                     "TotalExpenseClaimCart" => "180000.00",
                     "TotalAmountDueToCompanyCart" => "710000.00",
+                    "DirectToVendor" => "Klopmart Berkat Bersama",
+                    "ByCorpCard" => "Magma Grounding Indonesia",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000219",
@@ -747,6 +767,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "950000.00",
                     "TotalExpenseClaimCart" => "210000.00",
                     "TotalAmountDueToCompanyCart" => "740000.00",
+                    "DirectToVendor" => "Surianto",
+                    "ByCorpCard" => "Hasannuddin",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000218",
@@ -770,6 +792,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "870000.00",
                     "TotalExpenseClaimCart" => "270000.00",
                     "TotalAmountDueToCompanyCart" => "600000.00",
+                    "DirectToVendor" => "Jejen",
+                    "ByCorpCard" => "Rahmat",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000217",
@@ -793,6 +817,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "950000.00",
                     "TotalExpenseClaimCart" => "130000.00",
                     "TotalAmountDueToCompanyCart" => "820000.00",
+                    "DirectToVendor" => "Hendy Hidayat",
+                    "ByCorpCard" => "Wawan Gunawan",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000216",
@@ -816,6 +842,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "930000.00",
                     "TotalExpenseClaimCart" => "340000.00",
                     "TotalAmountDueToCompanyCart" => "590000.00",
+                    "DirectToVendor" => "PT Sima Artha Nauli",
+                    "ByCorpCard" => "Leonardus Wahyudi",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000215",
@@ -839,6 +867,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "860000.00",
                     "TotalExpenseClaimCart" => "110000.00",
                     "TotalAmountDueToCompanyCart" => "750000.00",
+                    "DirectToVendor" => "Eri Nurwana",
+                    "ByCorpCard" => "Komarudin",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000214",
@@ -862,6 +892,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "930000.00",
                     "TotalExpenseClaimCart" => "290000.00",
                     "TotalAmountDueToCompanyCart" => "640000.00",
+                    "DirectToVendor" => "Sadi Rustiawan",
+                    "ByCorpCard" => "Subur Deltamas",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000213",
@@ -885,6 +917,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "930000.00",
                     "TotalExpenseClaimCart" => "210000.00",
                     "TotalAmountDueToCompanyCart" => "720000.00",
+                    "DirectToVendor" => "Didi Kusumawanto",
+                    "ByCorpCard" => "Giswanto Sam",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000212",
@@ -908,6 +942,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "1030000.00",
                     "TotalExpenseClaimCart" => "140000.00",
                     "TotalAmountDueToCompanyCart" => "890000.00",
+                    "DirectToVendor" => "Tri Karya Mandiri",
+                    "ByCorpCard" => "Ferry Gunadi",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000211",
@@ -931,6 +967,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "880000.00",
                     "TotalExpenseClaimCart" => "180000.00",
                     "TotalAmountDueToCompanyCart" => "700000.00",
+                    "DirectToVendor" => "Yudi Paryono",
+                    "ByCorpCard" => "Eko Wibowo",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000210",
@@ -954,6 +992,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "990000.00",
                     "TotalExpenseClaimCart" => "300000.00",
                     "TotalAmountDueToCompanyCart" => "690000.00",
+                    "DirectToVendor" => "Arhadianto",
+                    "ByCorpCard" => "Kahar",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000209",
@@ -977,6 +1017,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "860000.00",
                     "TotalExpenseClaimCart" => "150000.00",
                     "TotalAmountDueToCompanyCart" => "710000.00",
+                    "DirectToVendor" => "Maryadi",
+                    "ByCorpCard" => "Rochandi",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000208",
@@ -1000,6 +1042,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "850000.00",
                     "TotalExpenseClaimCart" => "270000.00",
                     "TotalAmountDueToCompanyCart" => "580000.00",
+                    "DirectToVendor" => "Sugeng Siswanto",
+                    "ByCorpCard" => "PT. Global Perkasa Investindo",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000207",
@@ -1023,6 +1067,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "1080000.00",
                     "TotalExpenseClaimCart" => "320000.00",
                     "TotalAmountDueToCompanyCart" => "760000.00",
+                    "DirectToVendor" => "Roy Yuliandri",
+                    "ByCorpCard" => "Usman Afandi",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000206",
@@ -1046,6 +1092,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "920000.00",
                     "TotalExpenseClaimCart" => "200000.00",
                     "TotalAmountDueToCompanyCart" => "720000.00",
+                    "DirectToVendor" => "Karya Tunas Mandiri",
+                    "ByCorpCard" => "Chandra Irawan",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000205",
@@ -1069,6 +1117,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "940000.00",
                     "TotalExpenseClaimCart" => "130000.00",
                     "TotalAmountDueToCompanyCart" => "810000.00",
+                    "DirectToVendor" => "Escom",
+                    "ByCorpCard" => "Prima Lestari",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000204",
@@ -1092,6 +1142,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "1030000.00",
                     "TotalExpenseClaimCart" => "140000.00",
                     "TotalAmountDueToCompanyCart" => "890000.00",
+                    "DirectToVendor" => "PT Aswindo Fikri Mandiri",
+                    "ByCorpCard" => "Zubaedi",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000203",
@@ -1115,6 +1167,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "1010000.00",
                     "TotalExpenseClaimCart" => "240000.00",
                     "TotalAmountDueToCompanyCart" => "770000.00",
+                    "DirectToVendor" => "Stefanus Hotan",
+                    "ByCorpCard" => "Widyatmoko",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000202",
@@ -1138,6 +1192,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "970000.00",
                     "TotalExpenseClaimCart" => "300000.00",
                     "TotalAmountDueToCompanyCart" => "670000.00",
+                    "DirectToVendor" => "PT Vitta Manggala",
+                    "ByCorpCard" => "Amin Madeali",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000201",
@@ -1161,6 +1217,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "870000.00",
                     "TotalExpenseClaimCart" => "150000.00",
                     "TotalAmountDueToCompanyCart" => "720000.00",
+                    "DirectToVendor" => "Bambang Purnomo",
+                    "ByCorpCard" => "Yanmarindo Perkasa",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000200",
@@ -1184,6 +1242,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "8365231.00",
                     "TotalExpenseClaimCart" => "6712398.00",
                     "TotalAmountDueToCompanyCart" => "1652833.00",
+                    "DirectToVendor" => "Aldina Krida Tama",
+                    "ByCorpCard" => "Ponarah",
                 ],
             ];
 
