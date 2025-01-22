@@ -33,6 +33,8 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
                 'Currency'                          => $item['CurrencyName'] ?? null,
                 'Requester'                         => $item['RequesterWorkerName'] ?? null,
                 'Beneficiary'                       => $item['BeneficiaryWorkerName'] ?? null,
+                'Direct to Vendor'                  => $item['DirectToVendor'] ?? null,
+                'By Corp Card'                      => $item['ByCorpCard'] ?? null,
                 'Remark'                            => $item['remark'] ?? null,
             ];
         }
@@ -53,7 +55,7 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
             ["Budget", ": " . $data['budgetCode'] . ' - ' . $data['budgetName'], "Requester", ": " . $requester, "", "", "", "", "", "", ""],
             ["Sub Budget", ": " . $data['siteCode'] . ' - ' . $data['siteName'], "Beneficiary", ": " . $beneficiary, "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", "", "", ""],
-            ["No", "BSF Number", "Sub Budget", "Departing From", "Destination To", "Date", "Total Expense Claim", "Total Amount Due to Company", "Total BSF", "Currency", "Requester", "Beneficiary", "Remark"]
+            ["No", "BSF Number", "Sub Budget", "Departing From", "Destination To", "Date", "Total Expense Claim", "Total Amount Due to Company", "Total BSF", "Currency", "Requester", "Beneficiary", "Direct to Vendor", "By Corp Card", "Remark"]
         ];
     }
 
@@ -71,8 +73,8 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
             ]
         ];
 
-        $sheet->getStyle('A1:M1')->applyFromArray($styleArrayHeader0);
-        $sheet->mergeCells('A1:M1');
+        $sheet->getStyle('A1:O1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:O1');
 
         $styleArrayHeader1 = [
             'font' => [
@@ -86,8 +88,8 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
             ]
         ];
 
-        $sheet->getStyle('A2:M2')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A2:M2');
+        $sheet->getStyle('A2:O2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:O2');
 
         $styleArrayHeader = [
             'font' => [
@@ -101,8 +103,8 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
             ]
         ];
 
-        $sheet->getStyle('A3:M3')->applyFromArray($styleArrayHeader);
-        $sheet->mergeCells('A3:M3');
+        $sheet->getStyle('A3:O3')->applyFromArray($styleArrayHeader);
+        $sheet->mergeCells('A3:O3');
 
         $styleArrayHeader2 = [
             'font' => [
@@ -116,21 +118,10 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
             ],
         ];
 
-        $sheet->getStyle('A4:M4')->applyFromArray($styleArrayHeader2);
-
-        $styleArrayHeader5 = [
-            'font' => [
-                'bold' => true,
-                'color' => [
-                    'rgb' => '000000',
-                ],
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_LEFT,
-            ],
-        ];
-
-        $sheet->getStyle('A5:M5')->applyFromArray($styleArrayHeader5);
+        $sheet->getStyle('A4:A4')->applyFromArray($styleArrayHeader2);
+        $sheet->getStyle('A5:A5')->applyFromArray($styleArrayHeader2);
+        $sheet->getStyle('C4:C4')->applyFromArray($styleArrayHeader2);
+        $sheet->getStyle('C5:C5')->applyFromArray($styleArrayHeader2);
 
         $styleArrayHeader4 = [
             'font' => [
@@ -156,7 +147,7 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
             ],
         ];
 
-        $sheet->getStyle('A7:M7')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A7:O7')->applyFromArray($styleArrayHeader4);
 
         $styleArrayContent = [
             'borders' => [
@@ -171,7 +162,7 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
 
         $datas = Session::get("dataReportReportBusinessTripSettlementSummary");
         $totalCell = count($datas['dataDetail']);
-        $lastCell = 'A8:M' . $totalCell + 7;
+        $lastCell = 'A8:O' . $totalCell + 7;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
         $totalExpense   = $datas['totalExpense'];
@@ -183,7 +174,7 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
         $sheet->setCellValue('G' . $totalCell + 8, $totalExpense);
         $sheet->setCellValue('H' . $totalCell + 8, $totalAmount);
         $sheet->setCellValue('I' . $totalCell + 8, $total);
-        $sheet->mergeCells('A' . $totalCell + 8 . ':' . 'D' . $totalCell + 8);
+        $sheet->mergeCells('A' . $totalCell + 8 . ':' . 'F' . $totalCell + 8);
 
         $styleArrayFooter = [
             'font' => [
@@ -193,7 +184,7 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
                 ],
             ],
             'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'horizontal' => Alignment::HORIZONTAL_LEFT,
             ],
             'fill' => [
                 'fillType' => 'solid',
@@ -204,7 +195,7 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
             ],
         ];
 
-        $sheet->getStyle('A' . $totalCell + 8 . ':' . 'M' . $totalCell + 8)->applyFromArray($styleArrayFooter);
+        $sheet->getStyle('A' . $totalCell + 8 . ':' . 'O' . $totalCell + 8)->applyFromArray($styleArrayFooter);
 
     }
 }
