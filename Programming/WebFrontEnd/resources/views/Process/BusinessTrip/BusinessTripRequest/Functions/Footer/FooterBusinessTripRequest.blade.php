@@ -52,13 +52,14 @@
               otherCheckbox.checked = false;
             }
           });
-          getSelectedRowData();
         } else {
           checkboxes.forEach(otherCheckbox => {
             otherCheckbox.disabled = false;
           });
           document.getElementById('budgetDetailsData').value = '';
         }
+
+        getSelectedRowData();
       });
     });
   }
@@ -74,7 +75,7 @@
     const budgetDetailsInput = document.getElementById('budgetDetailsData');
     const totalBusinessTripInput = document.getElementById('total_business_trip');
     const totalPaymentBusinessTripInput = document.getElementById('total_payment');
-    
+
     if (selectedCheckbox) {
       const row = selectedCheckbox.closest('tr');
       const datas = {
@@ -87,6 +88,9 @@
         currency: row.cells[7].textContent.trim(),
         balanceBudget: row.cells[8].textContent.trim(),
       };
+
+      $("#total_business_trip_request").val(datas.totalBudget);
+      $("#total_balanced").val(datas.balanceBudget);
       
       budgetDetailsInput.value = JSON.stringify(datas);
 
@@ -103,6 +107,9 @@
       }
     } else {
       budgetDetailsInput.value = '';
+
+      $("#total_business_trip_request").val("");
+      $("#total_balanced").val("");
     }
   }
 
@@ -346,7 +353,7 @@
             priceBaseCurrencyValue: 3000000,
             quantityRemaining: 1,
             priceBaseCurrencyISOCode: "IDR",
-            currentBudget: 6000000,
+            currentBudget: 3500000,
           },
           {
             product_RefID: "820005-0000",
@@ -355,7 +362,7 @@
             priceBaseCurrencyValue: 2500000,
             quantityRemaining: 0,
             priceBaseCurrencyISOCode: "IDR",
-            currentBudget: 2500000,
+            currentBudget: 1000000,
           },
           // {
           //   product_RefID: 88000000003488,
