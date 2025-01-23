@@ -4,7 +4,7 @@
 
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="/AdminLTE-master/dist/img/favicon.ico" class="img-circle elevation-2" alt="User Image" style="padding:3px;background-color:white;margin-top:5px;">
+                <img src="/AdminLTE-master/dist/img/logo_no_name.svg" class="img-circle elevation-2" alt="User Image" style="padding:3px;background-color:white;margin-top:5px;height:33.59px !important;">
             </div>
             <div class="info">
                 <h3><a href="#" class="d-block" style="position: relative;top:7px;">ERP QDC</a></h3>
