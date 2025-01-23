@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.create.finance.setSalesInvoiceRequesitionDetail (version 1)",
+"description": "JSON Request Schema of transaction.create.finance.setSalesInvoiceRequisitionDetail (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.create.finance.setSalesInvoiceRequesitionDetail" ]
+                        "enum": [ "transaction.create.finance.setSalesInvoiceRequisitionDetail" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -35,7 +35,7 @@
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "salesInvoiceRequesition_RefID": {
+                    "salesInvoiceRequisition_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
@@ -92,7 +92,7 @@
                         }
                     },
                 "required": [ 
-                    "salesInvoiceRequesition_RefID",
+                    "salesInvoiceRequisition_RefID",
                     "salesOrderDetail_RefID",
                     "product_RefID",
                     "quantity",
