@@ -456,22 +456,22 @@
 
                         <!-- TOTAL BRF -->
                         <div class="col-md-12 col-lg-2 p-0">
-                          <div style="font-size: 0.75rem; margin-bottom: 1rem; font-weight: bold;">
+                          <!-- <div style="font-size: 0.75rem; margin-bottom: 1rem; font-weight: bold;">
                             Total BRF
                           </div>
                           <div class="col-sm-12 col-md-12 col-lg-9 p-0">
                             <input disabled id="total_business_trip_request" name="total_business_trip_request" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                          </div>
+                          </div> -->
                         </div>
 
                         <!-- BALANCED BUDGET -->
                         <div class="col-md-12 col-lg-2 p-0">
-                          <div style="font-size: 0.75rem; margin-bottom: 1rem; font-weight: bold;">
+                          <!-- <div style="font-size: 0.75rem; margin-bottom: 1rem; font-weight: bold;">
                             Balanced Budget
                           </div>
                           <div class="col-sm-12 col-md-12 col-lg-9 p-0">
                             <input disabled id="total_balanced" name="total_balanced" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                          </div>
+                          </div> -->
                         </div>
                         
                         <!-- TOTAL BSF -->
