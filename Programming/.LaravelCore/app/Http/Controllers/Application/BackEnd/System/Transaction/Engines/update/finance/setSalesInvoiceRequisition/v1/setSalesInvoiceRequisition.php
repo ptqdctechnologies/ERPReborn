@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setSalesInvoice\v1            |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setSalesInvoiceRequisition\v1 |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setSalesInvoice\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setSalesInvoiceRequisition\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setSalesInvoice                                                                                              |
-    | ▪ Description : Menangani API transaction.update.finance.setSalesInvoice Version 1                                           |
+    | ▪ Class Name  : setSalesInvoiceRequisition                                                                                   |
+    | ▪ Description : Menangani API transaction.update.finance.setSalesInvoiceRequisition Version 1                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setSalesInvoice extends \App\Http\Controllers\Controller
+    class setSalesInvoiceRequisition extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-11-22                                                                                           |
-        | ▪ Creation Date   : 2023-11-22                                                                                           |
+        | ▪ Last Update     : 2023-11-13                                                                                           |
+        | ▪ Creation Date   : 2023-11-13                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,7 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2025-01-23                                                                                           |
-        | ▪ Creation Date   : 2023-11-22                                                                                           |
+        | ▪ Creation Date   : 2023-11-13                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,14 +58,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Sales Invoice Request Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Sales Invoice Requisition Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Finance\TblSalesInvoice())->setDataUpdate(
+                                (new \App\Models\Database\SchData_OLTP_Finance\TblSalesInvoiceRequisition())->setDataUpdate(
                                     $varUserSession,
                                     $varData['recordID'],
 
@@ -90,8 +90,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     $varData['entities']['documentDateTimeTZ'],
                                     $varData['entities']['log_FileUpload_Pointer_RefID'],
                                     $varData['entities']['requesterWorkerJobsPosition_RefID'],
-                                    $varData['entities']['amountRoundOff'],
-                                    $varData['entities']['termAndConditions'],
                                     $varData['entities']['remarks'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(

@@ -41,7 +41,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 "recordID" => 139000000000001,
                 "entities" => [
                     "salesInvoice_RefID" => 138000000000001,
-                    "salesInvoiceRequesitionDetail_RefID" => 245000000000001,
+                    "salesInvoiceRequisitionDetail_RefID" => 245000000000001,
                     "product_RefID" => 88000000000002,
                     "quantity" => 10,
                     "quantityUnit_RefID" => 73000000000001,
@@ -108,7 +108,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Sales Invoice Detail Main Data</p></td></tr>';
             echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=139000000000001></td></tr>';
             echo        '<tr><td>SalesInvoice_RefID</td><td><input type="text" id="dataInput_SalesInvoice_RefID" value=138000000000001></td></tr>';
-            echo        '<tr><td>SalesInvoiceRequesitionDetail_RefID</td><td><input type="text" id="dataInput_SalesInvoiceRequesitionDetail_RefID" value=245000000000001></td></tr>';
+            echo        '<tr><td>SalesInvoiceRequisitionDetail_RefID</td><td><input type="text" id="dataInput_SalesInvoiceRequisitionDetail_RefID" value=245000000000001></td></tr>';
             echo        '<tr><td>Product_RefID</td><td><input type="text" id="dataInput_Product_RefID" value=88000000000002></td></tr>';
             echo        '<tr><td>Quantity</td><td><input type="text" id="dataInput_Quantity" value=10></td></tr>';
             echo        '<tr><td>QuantityUnit_RefID</td><td><input type="text" id="dataInput_QuantityUnit_RefID" value=73000000000001></td></tr>';
@@ -144,7 +144,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
                         '"salesInvoice_RefID" : parseInt(document.getElementById("dataInput_SalesInvoice_RefID").value), '.
-                        '"salesInvoiceRequesitionDetail_RefID" : parseInt(document.getElementById("dataInput_SalesInvoiceRequesitionDetail_RefID").value), '.
+                        '"salesInvoiceRequisitionDetail_RefID" : parseInt(document.getElementById("dataInput_SalesInvoiceRequisitionDetail_RefID").value), '.
                         '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID").value), '.
                         '"quantity" : parseFloat(document.getElementById("dataInput_Quantity").value), '.
                         '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID").value), '.

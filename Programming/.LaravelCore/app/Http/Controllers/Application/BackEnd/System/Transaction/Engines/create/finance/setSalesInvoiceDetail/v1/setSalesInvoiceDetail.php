@@ -87,7 +87,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     ),
 
                                     $varData['entities']['salesInvoice_RefID'],
-                                    $varData['entities']['salesInvoiceRequesitionDetail_RefID'],
+                                    $varData['entities']['salesInvoiceRequisitionDetail_RefID'],
                                     $varData['entities']['product_RefID'],
                                     $varData['entities']['quantity'],
                                     $varData['entities']['quantityUnit_RefID'],
