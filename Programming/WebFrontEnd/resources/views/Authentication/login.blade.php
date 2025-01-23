@@ -72,12 +72,13 @@
         </div>
         @endif
 
-        <div class="login-logo">
-            <img src="/AdminLTE-master/dist/img/erp_qdc.png" height="200" alt=""><br>
+        <div class="login-logo" style="margin-top: -6rem;">
+            <img src="/AdminLTE-master/dist/img/erp_qdc.png" height="260" alt=""><br>
             <!-- <img src="/AdminLTE-master/dist/img/qdc.png" width="160" alt=""><br> -->
         </div>
         <!-- /.login-logo -->
-        <div id="cek1">
+
+        <div id="cek1" style="margin-top: -4rem;">
             <div class="card-body login-card-body position-relative" id="dis1">
                 <form action="{{ route('loginStore') }}" method="post" name="FormLogin" id="FormLogin">
                     @csrf
@@ -133,7 +134,7 @@
                 </form>
 
                 <div class="position-absolute mt-1" style="right: 2.5rem;">
-                    <img src="/AdminLTE-master/dist/img/qdc.png" height="25" alt="">
+                    <img src="/AdminLTE-master/dist/img/qdc.png" height="17" alt="logo-qdc">
                 </div>
             </div>
         </div>
