@@ -244,7 +244,7 @@
 
   $("#myWorker").prop("disabled", true);
   $("#requester_popup").prop("disabled", true);
-  $("#sitecode2").prop("disabled", true);
+  $("#mySiteCodeSecondTrigger").prop("disabled", true);
   $("#dateEnd").prop("disabled", true);
   $("#dateEnd").css("background-color", "white");
   $(".loading").hide();
@@ -263,52 +263,21 @@
   $("#bank_accounts_third_popup").prop("disabled", true);
 
   // BUDGET CODE
-  $('#tableGetProject tbody').on('click', 'tr', function() {
-    $("#sitecode").val("");
-    $("#sitename").val("");
-    $("#sitecode2").prop("disabled", false);
+  $('#tableGetProjectSecond').on('click', 'tbody tr', function() {
+    var sysId = $(this).find('input[data-trigger="sys_id_project_second"]').val();
+    getSiteSecond(sysId);
 
-    $("#myProject").modal('toggle');
+    $("#site_code_second").val("");
+    $("#site_id_second").val("");
+    $("#site_name_second").val("");
 
-    var row = $(this).closest("tr");
-    var id = row.find("td:nth-child(1)").text();
-    var sys_id = $('#sys_id_budget' + id).val();
-    var code = row.find("td:nth-child(2)").text();
-    var name = row.find("td:nth-child(3)").text();
-
-    $("#projectcode").val(code);
-    $("#projectname").val(name);
-
-    adjustInputSize(document.getElementById("projectcode"), "string");
-    
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-
-    var keys = 0;
-    $.ajax({
-      type: 'GET',
-      url: '{!! route("getSite") !!}?project_code=' + sys_id,
-      success: function(data) {
-        var no = 1;
-        var t = $('#tableGetSite').DataTable();
-        t.clear();
-        $.each(data, function(key, val) {
-          keys += 1;
-          t.row.add([
-            '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-            '<td>' + val.Code + '</td>',
-            '<td>' + val.Name + '</td></tr></tbody>'
-          ]).draw();
-        });
-      }
-    });
+    $("#mySiteCodeSecondTrigger").prop("disabled", false);
   });
 
   // SUB BUDGET CODE
-  $('#tableGetSite tbody').on('click', 'tr', function() {
+  $('#tableGetSiteSecond').on('click', 'tbody tr', function() {
+    var sysId = $(this).find('input[data-trigger="sys_id_site_second"]').val();
+
     $("#budgetDetailsData").val("");
     $("#myWorker").prop("disabled", false);
     $("#requester_popup").prop("disabled", false);
@@ -319,21 +288,10 @@
     $("#bank_list_popup_corp_card").prop("disabled", false);
     $('table#budgetTable tbody').empty();
     $(".loading").show();
-    
-    $("#mySiteCode").modal('toggle');
-    
-    const searchBudgetBtn = document.getElementById('budget_detail_search');
-    
-    var row = $(this).closest("tr");
-    var id = row.find("td:nth-child(1)").text();
-    var sys_ID = $('#sys_id_site' + id).val();
-    var code = row.find("td:nth-child(2)").text();
-    var name = row.find("td:nth-child(3)").text();
-    
-    $("#sitecode").val(code);
-    $("#sitename").val(name);
 
-    adjustInputSize(document.getElementById("sitecode"));
+    $('#mySiteCodeSecond').modal('hide');
+
+    const searchBudgetBtn = document.getElementById('budget_detail_search');
 
     $.ajaxSetup({
       headers: {
@@ -343,7 +301,7 @@
 
     $.ajax({
       type: 'GET',
-      url: '{!! route("getBudget") !!}?site_code=' + sys_ID,
+      url: '{!! route("getBudget") !!}?site_code=' + sysId,
       success: function(data) {
         const datas = [
           {
@@ -576,7 +534,6 @@
       $("#bank_accounts_id").val(bankAccountDuplicateId.value);
     }
   });
-  
   // ========== VENDOR ==========
 
   // ========== CORP CARD ==========

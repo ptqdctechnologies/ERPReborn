@@ -1,4 +1,4 @@
-@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail') || request()->is('ReportAdvanceSettlementSummary') || request()->is('ReportAdvanceSettlementDetail'))
+@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail') || request()->is('ReportAdvanceSettlementSummary') || request()->is('ReportAdvanceSettlementDetail') || request()->is('BusinessTripRequest'))
     <div id="mySiteCodeSecond" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -72,8 +72,6 @@
                 url: '{!! route("getNewSite") !!}?project_code=' + Project_RefID,
                 success: function(data) {
                     $(".loadingGetSiteSecond").hide();
-
-                    console.log('data', data);
 
                     var no = 1;
                     var table = $('#tableGetSiteSecond').DataTable();
