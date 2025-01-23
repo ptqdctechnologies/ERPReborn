@@ -97,7 +97,7 @@
 
                   <div class="card-body">
                     <!-- TRAVEL & FARES, ACCOMMODATION, ALLOWANCE, ENTERTAINMENT, & OTHER -->
-                    <div class="row pt-3 justify-content-between" style="gap: 1rem;">
+                    <div class="row py-3 justify-content-between" style="gap: 1rem;">
                       <!-- TRAVEL & FARES COLUMN -->
                       <div class="col-md-12 col-lg-3">
                         <!-- TITLE -->
@@ -274,14 +274,33 @@
                         <img src="{{ asset('AdminLTE-master/dist/img/plus-circle.svg') }}" width="13" alt="" />
                       </div>
 
-                      <div class="d-none d-sm-none d-md-none d-lg-block col-lg-2"></div>
-                      <div class="d-none d-sm-none d-md-none d-lg-block col-lg-2"></div>
+                      <div class="d-sm-none d-md-none d-lg-block col-md-12 col-lg-3"></div>
 
-                      <!-- TOTAL BUSINESS TRIP -->
-                      <div class="col-md-12 col-lg-3 text-sm-left text-md-left text-lg-right p-0">
-                        <label for="total_business_trip" class="col-sm-3 col-md-4 col-lg-6 col-form-label p-0 text-bold">Total Business Trip</label>
-                      </div>
+                      <!-- TOTAL BRF -->
                       <div class="col-md-12 col-lg-2 p-0">
+                        <div style="font-size: 0.75rem; margin-bottom: 1rem; font-weight: bold;">
+                          Total BRF
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-9 p-0">
+                          <input disabled id="total_business_trip_request" name="total_business_trip_request" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                        </div>
+                      </div>
+
+                      <!-- BALANCED BUDGET -->
+                      <div class="col-md-12 col-lg-2 p-0">
+                        <div style="font-size: 0.75rem; margin-bottom: 1rem; font-weight: bold;">
+                          Balanced Budget
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-9 p-0">
+                          <input disabled id="total_balanced" name="total_balanced" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                        </div>
+                      </div>
+                      
+                      <!-- TOTAL BSF -->
+                      <div class="col-md-12 col-lg-2 p-0">
+                        <div style="font-size: 0.75rem; margin-bottom: 1rem; font-weight: bold;">
+                          Total BSF
+                        </div>
                         <div class="col-sm-12 col-md-12 col-lg-9 p-0">
                           <input disabled id="total_business_trip" name="total_business_trip" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                         </div>
