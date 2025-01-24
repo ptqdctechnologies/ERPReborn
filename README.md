@@ -146,11 +146,14 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
 ![Team-FrontEndDeveloper](https://i.ibb.co/RyRHf8f/Team-Suyanto.jpg)
 **Suyanto** | <em>FrontEnd Developer (26 December 2019 - Now)</em>
 
-![Team-BackEndDeveloper](https://i.ibb.co.com/C8NGZL3/Team-Wisnu-Trenggono-Wirayuda.jpg)
+![Team-FrontEndDeveloper](https://i.ibb.co.com/C8NGZL3/Team-Wisnu-Trenggono-Wirayuda.jpg)
 **Wisnu Trenggono Wirayuda** | <em>FrontEnd Developer (15 June 2024 - Now)</em>
 
-![Team-BackEndDeveloper](https://i.ibb.co/ZJ6J72b/Team-Aldi-Mulyadi.jpg)
+![Team-FrontEndDeveloper](https://i.ibb.co/ZJ6J72b/Team-Aldi-Mulyadi.jpg)
 **Aldi Mulyadi** | <em>FrontEnd Developer (14 October 2020 - 14 June 2024)</em>
+
+![Team-BackEndDeveloper](https://i.ibb.co.com/KXTWQyF/Team-Muhammad-Rizal.jpg)
+**Muhammad Rizal** | <em>BackEnd Developer (23 Januari 2025 - Now)</em>
 
 ![Team-DatabaseEngineer](https://i.ibb.co/LdBfhDH/Teguh-Pratama-Januzir-S.jpg)
 **Teguh Pratama Januzir S** | <em>Database Engineer And BackEnd Developer</em>
