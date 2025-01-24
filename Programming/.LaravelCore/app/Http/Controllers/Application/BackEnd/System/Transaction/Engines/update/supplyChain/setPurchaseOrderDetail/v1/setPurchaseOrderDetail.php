@@ -125,7 +125,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                     } 
 
                 catch (\Exception $ex) {
-                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
+                    $varReturn =
+                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                            $varUserSession,
+                            401,
+                            $ex->getMessage()
+                            );
 
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
