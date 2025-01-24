@@ -8,7 +8,7 @@
 | ▪ API Key     : transaction.update.finance.setSalesInvoice                                                                       |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\finance\setSalesInvoice\v1
@@ -20,8 +20,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setSalesInvoice.v1_throughAPIGateway                     |
         |                     ► http://172.28.0.4/transaction.update.finance.setSalesInvoice.v1_throughAPIGateway                  |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2023-12-12                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2025-01-23                                                                                           |
         | ▪ Creation Date   : 2023-11-22                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -29,88 +29,97 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.finance.setSalesInvoice', 
-                'latest', 
-                [
-                "recordID" => 138000000000001,
-                "entities" => [
-                    "documentDateTimeTZ" => '2022-03-07',
-                    "log_FileUpload_Pointer_RefID" => NULL,
-                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                    "amountRoundOff" => 0.00,
-                    "termAndConditions" => 'My Term & Condition',
-                    "remarks" => 'My Remarks',
-                    "additionalData" => [
-                        "itemList" => [
-                            "items" => [
-                                    [
-                                    "recordID" => 139000000000001,
-                                    "entities" => [
-                                        "salesInvoiceRequestDetail_RefID" => 245000000000001,
-                                        "product_RefID" => 88000000000002,
-                                        "quantity" => 10,
-                                        "quantityUnit_RefID" => 73000000000001,
-                                        "productUnitPriceCurrency_RefID" => 62000000000001,
-                                        "productUnitPriceCurrencyValue" => 30000,
-                                        "productUnitPriceCurrencyExchangeRate" => 1,
-                                        "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
-                                        "productUnitPriceDiscountCurrencyValue" => 5000,
-                                        "productUnitPriceDiscountCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan',
-                                        "additionalData" => [
-                                            "transactionTaxItemList" => [
-                                                "items" => [
-                                                        [
-                                                        "recordID" => 185000000000002,
-                                                        "entities" => [
-                                                            "taxType_RefID" => 182000000000001,
-                                                            "tariffCurrency_RefID" => 62000000000001,
-                                                            "tariffCurrencyValue" => 3000,
-                                                            "tariffCurrencyExchangeRate" => 1,
-                                                            "remarks" => null
-                                                            ]
-                                                        ],
-                                                        [
-                                                        "recordID" => 185000000000003,
-                                                        "entities" => [
-                                                            "taxType_RefID" => 182000000000005,
-                                                            "tariffCurrency_RefID" => 62000000000001,
-                                                            "tariffCurrencyValue" => 4000,
-                                                            "tariffCurrencyExchangeRate" => 1,
-                                                            "remarks" => null
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.update.finance.setSalesInvoice', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        "recordID" => 138000000000001,
+                        "entities" => [
+                            "documentDateTimeTZ" => '2022-03-07',
+                            "log_FileUpload_Pointer_RefID" => NULL,
+                            "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                            "amountRoundOff" => 0.00,
+                            "termAndConditions" => 'My Term & Condition',
+                            "remarks" => 'My Remarks',
+                            "additionalData" => [
+                                "itemList" => [
+                                    "items" => [
+                                            [
+                                            "recordID" => 139000000000001,
+                                            "entities" => [
+                                                "salesInvoiceRequestDetail_RefID" => 245000000000001,
+                                                "product_RefID" => 88000000000002,
+                                                "quantity" => 10,
+                                                "quantityUnit_RefID" => 73000000000001,
+                                                "productUnitPriceCurrency_RefID" => 62000000000001,
+                                                "productUnitPriceCurrencyValue" => 30000,
+                                                "productUnitPriceCurrencyExchangeRate" => 1,
+                                                "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
+                                                "productUnitPriceDiscountCurrencyValue" => 5000,
+                                                "productUnitPriceDiscountCurrencyExchangeRate" => 1,
+                                                "remarks" => 'Catatan',
+                                                "additionalData" => [
+                                                    "transactionTaxItemList" => [
+                                                        "items" => [
+                                                                [
+                                                                "recordID" => 185000000000002,
+                                                                "entities" => [
+                                                                    "taxType_RefID" => 182000000000001,
+                                                                    "tariffCurrency_RefID" => 62000000000001,
+                                                                    "tariffCurrencyValue" => 3000,
+                                                                    "tariffCurrencyExchangeRate" => 1,
+                                                                    "remarks" => null
+                                                                    ]
+                                                                ],
+                                                                [
+                                                                "recordID" => 185000000000003,
+                                                                "entities" => [
+                                                                    "taxType_RefID" => 182000000000005,
+                                                                    "tariffCurrency_RefID" => 62000000000001,
+                                                                    "tariffCurrencyValue" => 4000,
+                                                                    "tariffCurrencyExchangeRate" => 1,
+                                                                    "remarks" => null
+                                                                    ]
+                                                                ]
                                                             ]
                                                         ]
                                                     ]
                                                 ]
                                             ]
                                         ]
-                                    ]
-                                ]
-                            ],
-                        "transactionTaxItemList" => [
-                            "items" => [
-                                    [
-                                    "recordID" => 185000000000001,
-                                    "entities" => [
-                                        "taxType_RefID" => 182000000000005,
-                                        "tariffCurrency_RefID" => 62000000000001,
-                                        "tariffCurrencyValue" => 4000,
-                                        "tariffCurrencyExchangeRate" => 1,
-                                        "remarks" => null
+                                    ],
+                                "transactionTaxItemList" => [
+                                    "items" => [
+                                            [
+                                            "recordID" => 185000000000001,
+                                            "entities" => [
+                                                "taxType_RefID" => 182000000000005,
+                                                "tariffCurrency_RefID" => 62000000000001,
+                                                "tariffCurrencyValue" => 4000,
+                                                "tariffCurrencyExchangeRate" => 1,
+                                                "remarks" => null
+                                                ]
+                                            ]
                                         ]
                                     ]
                                 ]
                             ]
                         ]
-                    ]
-                ]
-                );
+                    //-----[ BODY ]-----( END )-----
+                    );
+
             var_dump($varData);
             }
 
@@ -120,8 +129,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setSalesInvoice.v1_throughAPIGatewayJQuery               |
         |                     ► http://172.28.0.4/transaction.update.finance.setSalesInvoice.v1_throughAPIGatewayJQuery            |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2023-12-12                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2025-01-23                                                                                           |
         | ▪ Creation Date   : 2023-11-22                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -129,11 +138,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
 /*
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+
             echo '<table border="1" style="border-collapse: collapse;">';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Sales Invoice Main Data</p></td></tr>';
             echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=138000000000001></td></tr>';
@@ -178,86 +190,95 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>TariffCurrencyExchangeRate_12</td><td><input type="text" id="dataInput_TariffCurrencyExchangeRate_12" value=1></td></tr>';
             echo        '<tr><td>Remarks_12</td><td><input type="text" id="dataInput_Remarks_12" value="Catatan Kedua"></td></tr>';
             echo '</table><br>';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.update.finance.setSalesInvoice', 
-                'latest', 
-                '{'.
-                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                    '"entities" : {'.
-                        '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
-                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
-                        '"amountRoundOff" : parseFloat(document.getElementById("dataInput_AmountRoundOff").value), '.
-                        '"termAndConditions" : document.getElementById("dataInput_TermAndConditions").value, '.
-                        '"remarks" : document.getElementById("dataInput_Remarks").value, '.
-                        '"additionalData" : {'.
-                            '"itemList" : {'.
-                                '"items" : ['.
-                                        '{'.
-                                        '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_1").value), '.
-                                        '"entities" : {'.
-                                            '"salesInvoiceRequestDetail_RefID" : parseInt(document.getElementById("dataInput_SalesInvoiceRequestDetail_RefID_1").value), '.
-                                            '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
-                                            '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
-                                            '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value), '.
-                                            '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_1").value), '.
-                                            '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_1").value), '.
-                                            '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_1").value), '.
-                                            '"productUnitPriceDiscountCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceDiscountCurrency_RefID_1").value), '.
-                                            '"productUnitPriceDiscountCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceDiscountCurrencyValue_1").value), '.
-                                            '"productUnitPriceDiscountCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceDiscountCurrencyExchangeRate_1").value), '.
-                                            '"remarks" : document.getElementById("dataInput_Remarks_1").value, '.
-                                            '"additionalData" : {'.
-                                                '"transactionTaxItemList" : {'.
-                                                    '"items" : ['.
-                                                            '{'.
-                                                            '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_11").value), '.
-                                                            '"entities" : {'.
-                                                                '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID_11").value), '.
-                                                                '"tariffCurrency_RefID" : parseInt(document.getElementById("dataInput_TariffCurrency_RefID_11").value), '.
-                                                                '"tariffCurrencyValue" : parseFloat(document.getElementById("dataInput_TariffCurrencyValue_11").value), '.
-                                                                '"tariffCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_TariffCurrencyExchangeRate_11").value), '.
-                                                                '"remarks" : document.getElementById("dataInput_Remarks_11").value'.
+
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.update.finance.setSalesInvoice', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        '{'.
+                        '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                        '"entities" : {'.
+                            '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
+                            '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
+                            '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
+                            '"amountRoundOff" : parseFloat(document.getElementById("dataInput_AmountRoundOff").value), '.
+                            '"termAndConditions" : document.getElementById("dataInput_TermAndConditions").value, '.
+                            '"remarks" : document.getElementById("dataInput_Remarks").value, '.
+                            '"additionalData" : {'.
+                                '"itemList" : {'.
+                                    '"items" : ['.
+                                            '{'.
+                                            '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_1").value), '.
+                                            '"entities" : {'.
+                                                '"salesInvoiceRequestDetail_RefID" : parseInt(document.getElementById("dataInput_SalesInvoiceRequestDetail_RefID_1").value), '.
+                                                '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
+                                                '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
+                                                '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value), '.
+                                                '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_1").value), '.
+                                                '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_1").value), '.
+                                                '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_1").value), '.
+                                                '"productUnitPriceDiscountCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceDiscountCurrency_RefID_1").value), '.
+                                                '"productUnitPriceDiscountCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceDiscountCurrencyValue_1").value), '.
+                                                '"productUnitPriceDiscountCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceDiscountCurrencyExchangeRate_1").value), '.
+                                                '"remarks" : document.getElementById("dataInput_Remarks_1").value, '.
+                                                '"additionalData" : {'.
+                                                    '"transactionTaxItemList" : {'.
+                                                        '"items" : ['.
+                                                                '{'.
+                                                                '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_11").value), '.
+                                                                '"entities" : {'.
+                                                                    '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID_11").value), '.
+                                                                    '"tariffCurrency_RefID" : parseInt(document.getElementById("dataInput_TariffCurrency_RefID_11").value), '.
+                                                                    '"tariffCurrencyValue" : parseFloat(document.getElementById("dataInput_TariffCurrencyValue_11").value), '.
+                                                                    '"tariffCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_TariffCurrencyExchangeRate_11").value), '.
+                                                                    '"remarks" : document.getElementById("dataInput_Remarks_11").value'.
+                                                                    '}'.
+                                                                '},'.
+                                                                '{'.
+                                                                '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_12").value), '.
+                                                                '"entities" : {'.
+                                                                    '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID_12").value), '.
+                                                                    '"tariffCurrency_RefID" : parseInt(document.getElementById("dataInput_TariffCurrency_RefID_12").value), '.
+                                                                    '"tariffCurrencyValue" : parseFloat(document.getElementById("dataInput_TariffCurrencyValue_12").value), '.
+                                                                    '"tariffCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_TariffCurrencyExchangeRate_12").value), '.
+                                                                    '"remarks" : document.getElementById("dataInput_Remarks_12").value'.
+                                                                    '}'.
                                                                 '}'.
-                                                            '},'.
-                                                            '{'.
-                                                            '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_12").value), '.
-                                                            '"entities" : {'.
-                                                                '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID_12").value), '.
-                                                                '"tariffCurrency_RefID" : parseInt(document.getElementById("dataInput_TariffCurrency_RefID_12").value), '.
-                                                                '"tariffCurrencyValue" : parseFloat(document.getElementById("dataInput_TariffCurrencyValue_12").value), '.
-                                                                '"tariffCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_TariffCurrencyExchangeRate_12").value), '.
-                                                                '"remarks" : document.getElementById("dataInput_Remarks_12").value'.
-                                                                '}'.
-                                                            '}'.
-                                                        ']'.
+                                                            ']'.
+                                                        '}'.
                                                     '}'.
                                                 '}'.
                                             '}'.
-                                        '}'.
-                                    ']'.
-                                '}, '.
-                            '"transactionTaxItemList" : {'.
-                                '"items" : ['.
-                                        '{'.
-                                        '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_01").value), '.
-                                        '"entities" : {'.
-                                            '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID_01").value), '.
-                                            '"tariffCurrency_RefID" : parseInt(document.getElementById("dataInput_TariffCurrency_RefID_01").value), '.
-                                            '"tariffCurrencyValue" : parseFloat(document.getElementById("dataInput_TariffCurrencyValue_01").value), '.
-                                            '"tariffCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_TariffCurrencyExchangeRate_01").value), '.
-                                            '"remarks" : document.getElementById("dataInput_Remarks_01").value'.
+                                        ']'.
+                                    '}, '.
+                                '"transactionTaxItemList" : {'.
+                                    '"items" : ['.
+                                            '{'.
+                                            '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_01").value), '.
+                                            '"entities" : {'.
+                                                '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID_01").value), '.
+                                                '"tariffCurrency_RefID" : parseInt(document.getElementById("dataInput_TariffCurrency_RefID_01").value), '.
+                                                '"tariffCurrencyValue" : parseFloat(document.getElementById("dataInput_TariffCurrencyValue_01").value), '.
+                                                '"tariffCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_TariffCurrencyExchangeRate_01").value), '.
+                                                '"remarks" : document.getElementById("dataInput_Remarks_01").value'.
+                                                '}'.
                                             '}'.
-                                        '}'.
-                                    ']'.
+                                        ']'.
+                                    '}'.
                                 '}'.
                             '}'.
-                        '}'.
-                '}'
-                ); 
+                        '}'
+                    //-----[ BODY ]-----( END )-----
+                    );
+
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+ 
             dd($varJQueryFunction);
 */
             }

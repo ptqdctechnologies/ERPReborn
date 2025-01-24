@@ -623,6 +623,25 @@ class Builder implements BuilderContract
     }
 
     /**
+     * Create a record matching the attributes, or increment the existing record.
+     *
+     * @param  array  $attributes
+     * @param  string  $column
+     * @param  int|float  $default
+     * @param  int|float  $step
+     * @param  array  $extra
+     * @return TModel
+     */
+    public function incrementOrCreate(array $attributes, string $column = 'count', $default = 1, $step = 1, array $extra = [])
+    {
+        return tap($this->firstOrCreate($attributes, [$column => $default]), function ($instance) use ($column, $step, $extra) {
+            if (! $instance->wasRecentlyCreated) {
+                $instance->increment($column, $step, $extra);
+            }
+        });
+    }
+
+    /**
      * Execute the query and get the first result or throw an exception.
      *
      * @param  array|string  $columns
@@ -950,7 +969,7 @@ class Builder implements BuilderContract
         if (! $this->model->hasAnyGetMutator($column) &&
             ! $this->model->hasCast($column) &&
             ! in_array($column, $this->model->getDates())) {
-            return $results;
+            return $this->applyAfterQueryCallbacks($results);
         }
 
         return $this->applyAfterQueryCallbacks(

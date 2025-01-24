@@ -8,7 +8,7 @@
 | ▪ API Key     : transaction.update.supplyChain.setMaterialServiceRequisition                                                     |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\supplyChain\setMaterialServiceRequisition\v1
@@ -21,8 +21,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/                                                                                 |
         |                       transaction.update.supplyChain.setMaterialServiceRequisition.v1_throughAPIGateway                  |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-08-08                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2025-01-24                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -30,57 +30,66 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.supplyChain.setMaterialServiceRequisition', 
-                'latest', 
-                [
-                'recordID' => 262000000000001,
-                'entities' => [
-                    "documentDateTimeTZ" => '2022-03-07',
-                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                    "remarks" => 'My Remarks',
-                    "additionalData" => [
-                        "itemList" => [
-                            "items" => [
-                                    [
-                                    "recordID" => 263000000000001,
-                                    "entities" => [
-                                        "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                                        "product_RefID" => 88000000000002,
-                                        "quantity" => 10,
-                                        "quantityUnit_RefID" => 73000000000001,
-                                        "productUnitPriceCurrency_RefID" => 62000000000001,
-                                        "productUnitPriceCurrencyExchangeRate" => 1,
-                                        "productUnitPriceCurrencyValue" => 30000,
-                                        "fulfillmentDeadlineDateTimeTZ" => '2023-05-10',
-                                        "remarks" => 'Catatan Pertama Revisi'
-                                        ]                                   
-                                    ],
-                                    [
-                                    "recordID" => 263000000000002,
-                                    "entities" => [
-                                        "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                                        "product_RefID" => 88000000000003,
-                                        "quantity" => 10,
-                                        "quantityUnit_RefID" => 73000000000001,
-                                        "productUnitPriceCurrency_RefID" => 62000000000001,
-                                        "productUnitPriceCurrencyExchangeRate" => 1,
-                                        "productUnitPriceCurrencyValue" => 30000,
-                                        "fulfillmentDeadlineDateTimeTZ" => '2023-03-01',
-                                        "remarks" => 'Catatan Kedua Revisi'
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.update.supplyChain.setMaterialServiceRequisition', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        'recordID' => 262000000000001,
+                        'entities' => [
+                            "documentDateTimeTZ" => '2022-03-07',
+                            "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                            "remarks" => 'My Remarks',
+                            "additionalData" => [
+                                "itemList" => [
+                                    "items" => [
+                                            [
+                                            "recordID" => 263000000000001,
+                                            "entities" => [
+                                                "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                                "product_RefID" => 88000000000002,
+                                                "quantity" => 10,
+                                                "quantityUnit_RefID" => 73000000000001,
+                                                "productUnitPriceCurrency_RefID" => 62000000000001,
+                                                "productUnitPriceCurrencyValue" => 30000,
+                                                "productUnitPriceCurrencyExchangeRate" => 1,
+                                                "fulfillmentDeadlineDateTimeTZ" => '2023-05-10',
+                                                "remarks" => 'Catatan Pertama Revisi'
+                                                ]                                   
+                                            ],
+                                            [
+                                            "recordID" => 263000000000002,
+                                            "entities" => [
+                                                "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                                "product_RefID" => 88000000000003,
+                                                "quantity" => 10,
+                                                "quantityUnit_RefID" => 73000000000001,
+                                                "productUnitPriceCurrency_RefID" => 62000000000001,
+                                                "productUnitPriceCurrencyValue" => 30000,
+                                                "productUnitPriceCurrencyExchangeRate" => 1,
+                                                "fulfillmentDeadlineDateTimeTZ" => '2023-03-01',
+                                                "remarks" => 'Catatan Kedua Revisi'
+                                                ]
+                                            ],
                                         ]
-                                    ],
+                                    ]
                                 ]
                             ]
                         ]
-                    ]
-                ]
-                );
+                    //-----[ BODY ]-----( END )-----
+                    );
+
             var_dump($varData);
             }
 
@@ -88,12 +97,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     transaction.update.supplyChain.setMaterialServiceRequisition.v1_throughAPIGatewayJQuery                     |
+        |                     transaction.update.supplyChain.setMaterialServiceRequisition.v1_throughAPIGatewayJQuery              |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       transaction.update.supplyChain.setMaterialServiceRequisition.v1_throughAPIGatewayJQuery                   |
+        |                       transaction.update.supplyChain.setMaterialServiceRequisition.v1_throughAPIGatewayJQuery            |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-27                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2025-01-24                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -101,10 +110,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+
             echo '<table border="1" style="border-collapse: collapse;">';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Material Service Requisition Main Data</p></td></tr>';
             echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=262000000000001></td></tr>';
@@ -134,57 +146,66 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>FulfillmentDeadlineDateTimeTZ_2</td><td><input type="text" id="dataInput_FulfillmentDeadlineDateTimeTZ_2" value="2023-03-01"></td></tr>';
             echo        '<tr><td>Remarks_2</td><td><input type="text" id="dataInput_Remarks_2" value="Catatan Kedua Revisi"></td></tr>';
             echo '</table><br>';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.update.supplyChain.setMaterialServiceRequisition', 
-                'latest', 
-                '{'.
-                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                    '"entities" : {'.
-                        '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
-                        '"remarks" : document.getElementById("dataInput_Remarks").value, '.
-                        '"additionalData" : {'.
-                            '"itemList" : {'.
-                                '"items" : ['.
-                                        '{'.
-                                        '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_1").value), '.
-                                        '"entities" : '.
+
+            $varJQueryFunction =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.update.supplyChain.setMaterialServiceRequisition', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        '{'.
+                        '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                        '"entities" : {'.
+                            '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
+                            '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
+                            '"remarks" : document.getElementById("dataInput_Remarks").value, '.
+                            '"additionalData" : {'.
+                                '"itemList" : {'.
+                                    '"items" : ['.
                                             '{'.
-                                            '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_1").value), '.
-                                            '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
-                                            '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
-                                            '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value),'.
-                                            '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_1").value),'.
-                                            '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_1").value),'.
-                                            '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_1").value),'.
-                                            '"fulfillmentDeadlineDateTimeTZ" : document.getElementById("dataInput_FulfillmentDeadlineDateTimeTZ_1").value, '.
-                                            '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
-                                            '}'.
-                                        '}, '.
-                                        '{'.
-                                        '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_2").value), '.
-                                        '"entities" : '.
+                                            '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_1").value), '.
+                                            '"entities" : '.
+                                                '{'.
+                                                '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_1").value), '.
+                                                '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
+                                                '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
+                                                '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value),'.
+                                                '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_1").value),'.
+                                                '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_1").value),'.
+                                                '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_1").value),'.
+                                                '"fulfillmentDeadlineDateTimeTZ" : document.getElementById("dataInput_FulfillmentDeadlineDateTimeTZ_1").value, '.
+                                                '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
+                                                '}'.
+                                            '}, '.
                                             '{'.
-                                            '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_2").value), '.
-                                            '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_2").value), '.
-                                            '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_2").value), '.
-                                            '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_2").value),'.
-                                            '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_2").value),'.
-                                            '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_2").value),'.
-                                            '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_2").value),'.
-                                            '"fulfillmentDeadlineDateTimeTZ" : document.getElementById("dataInput_FulfillmentDeadlineDateTimeTZ_2").value, '.
-                                            '"remarks" : document.getElementById("dataInput_Remarks_2").value'.
+                                            '"recordID" : parseInt(document.getElementById("dataInput_RecordIDDetail_RefID_2").value), '.
+                                            '"entities" : '.
+                                                '{'.
+                                                '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID_2").value), '.
+                                                '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_2").value), '.
+                                                '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_2").value), '.
+                                                '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_2").value),'.
+                                                '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID_2").value),'.
+                                                '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue_2").value),'.
+                                                '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate_2").value),'.
+                                                '"fulfillmentDeadlineDateTimeTZ" : document.getElementById("dataInput_FulfillmentDeadlineDateTimeTZ_2").value, '.
+                                                '"remarks" : document.getElementById("dataInput_Remarks_2").value'.
+                                                '}'.
                                             '}'.
-                                        '}'.
-                                    ']'.
+                                        ']'.
+                                    '}'.
                                 '}'.
                             '}'.
-                        '}'.
-                '}'
-                );
+                        '}'
+                    //-----[ BODY ]-----( END )-----
+                    );
+
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+
             dd($varJQueryFunction);
             }
         }

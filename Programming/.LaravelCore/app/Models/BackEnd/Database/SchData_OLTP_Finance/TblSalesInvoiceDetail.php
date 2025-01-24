@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Finance                                                                         |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2023 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Finance
@@ -43,14 +43,16 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2023-12-12                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2025-01-22                                                                                           |
         | ▪ Creation Date   : 2023-11-21                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysDataValidityStartDateTimeTZ ► System Data Validity Start DateTimeTZ                                |
+        |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
@@ -74,10 +76,9 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
-            $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varSalesInvoice_RefID = null, int $varSalesInvoiceRequesitionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varProductUnitPriceDiscountCurrency_RefID = null, float $varProductUnitPriceDiscountCurrencyValue = null, float $varProductUnitPriceDiscountCurrencyExchangeRate = null, string $varRemarks = null,
-            array $varAdditionalData = [])
+            $varUserSession,
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
+            int $varSalesInvoice_RefID = null, int $varSalesInvoiceRequesitionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varProductUnitPriceDiscountCurrency_RefID = null, float $varProductUnitPriceDiscountCurrencyValue = null, float $varProductUnitPriceDiscountCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -88,7 +89,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
@@ -104,14 +108,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varProductUnitPriceDiscountCurrency_RefID, 'bigint'],
                             [$varProductUnitPriceDiscountCurrencyValue, 'numeric'],
                             [$varProductUnitPriceDiscountCurrencyExchangeRate, 'numeric'],
-                            [$varRemarks, 'varchar'],
-
-                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                            [$varRemarks, 'varchar']
                         ]
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn['data'][0];
             }
 
 
@@ -119,8 +122,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2023-12-12                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2025-01-22                                                                                           |
         | ▪ Creation Date   : 2023-11-21                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -128,12 +131,14 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysDataValidityStartDateTimeTZ ► System Data Validity Start DateTimeTZ                                |
+        |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varSalesInvoice_RefID ► Sales Invoice Reference ID                                                       |
-        |      ▪ (int)    varSalesInvoiceRequesitionDetail_RefID ► Sales Invoice Requesition Detail Reference ID                           |
+        |      ▪ (int)    varSalesInvoiceRequesitionDetail_RefID ► Sales Invoice Requesition Detail Reference ID                   |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
@@ -151,10 +156,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
-            $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varSalesInvoice_RefID = null, int $varSalesInvoiceRequesitionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varProductUnitPriceDiscountCurrency_RefID = null, float $varProductUnitPriceDiscountCurrencyValue = null, float $varProductUnitPriceDiscountCurrencyExchangeRate = null, string $varRemarks = null,
-            array $varAdditionalData = [])
+            $varUserSession,
+            int $varSysID,
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
+            int $varSalesInvoice_RefID = null, int $varSalesInvoiceRequesitionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, int $varProductUnitPriceDiscountCurrency_RefID = null, float $varProductUnitPriceDiscountCurrencyValue = null, float $varProductUnitPriceDiscountCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -165,7 +170,10 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [
                             [$varUserSession, 'bigint'],
                             [$varSysID, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
@@ -181,14 +189,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varProductUnitPriceDiscountCurrency_RefID, 'bigint'],
                             [$varProductUnitPriceDiscountCurrencyValue, 'numeric'],
                             [$varProductUnitPriceDiscountCurrencyExchangeRate, 'numeric'],
-                            [$varRemarks, 'varchar'],
-
-                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                            [$varRemarks, 'varchar']
                         ]
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn['data'][0];
             }
         }
     }

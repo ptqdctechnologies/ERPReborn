@@ -57,7 +57,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varPurchaseInvoice_RefID ► Invoice Supplier Reference ID                                                 |
+        |      ▪ (int)    varPurchaseInvoice_RefID ► Purchase Invoice Reference ID                                                 |
         |      ▪ (int)    varTransactionAdditionalCostType_RefID ► Transaction Additional Cost Type Reference ID                   |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
         |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
@@ -125,7 +125,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varPurchaseInvoice_RefID ► Invoice Supplier Reference ID                                                 |
+        |      ▪ (int)    varPurchaseInvoice_RefID ► Purchase Invoice Reference ID                                                 |
         |      ▪ (int)    varTransactionAdditionalCostType_RefID ► Transaction Additional Cost Type Reference ID                   |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
         |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |

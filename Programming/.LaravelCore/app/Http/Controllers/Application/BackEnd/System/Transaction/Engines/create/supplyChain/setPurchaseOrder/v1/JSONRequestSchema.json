@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -36,6 +41,11 @@
                         "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
                         "minLength": 10,
                         "maxLength": 30
+                        },
+                    "log_FileUpload_Pointer_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 0,
+                        "maximum": 9223372036854775807 
                         },
                     "requesterWorkerJobsPosition_RefID": {
                         "type": [ "integer", "null" ],
@@ -105,11 +115,11 @@
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "productUnitPriceCurrencyExchangeRate": {
+                                                                "productUnitPriceCurrencyValue": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "productUnitPriceCurrencyeValue": {
+                                                                "productUnitPriceCurrencyExchangeRate": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
@@ -118,11 +128,11 @@
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "productUnitPriceDiscountCurrencyExchangeRate": {
+                                                                "productUnitPriceDiscountCurrencyValue": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "productUnitPriceDiscountCurrencyeValue": {
+                                                                "productUnitPriceDiscountCurrencyExchangeRate": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
@@ -132,14 +142,29 @@
                                                                     "maxLength": 256
                                                                     }
                                                                 },
-                                                            "required": [ "purchaseRequisitionDetail_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyExchangeRate", "productUnitPriceCurrencyeValue", "productUnitPriceDiscountCurrency_RefID", "productUnitPriceDiscountCurrencyExchangeRate", "productUnitPriceDiscountCurrencyeValue", "remarks" ]
+                                                            "required": [
+                                                                "purchaseRequisitionDetail_RefID",
+                                                                "quantity",
+                                                                "quantityUnit_RefID",
+                                                                "productUnitPriceCurrency_RefID",
+                                                                "productUnitPriceCurrencyValue",
+                                                                "productUnitPriceCurrencyExchangeRate",
+                                                                "productUnitPriceDiscountCurrency_RefID",
+                                                                "productUnitPriceDiscountCurrencyValue",
+                                                                "productUnitPriceDiscountCurrencyExchangeRate",
+                                                                "remarks"
+                                                                ]
                                                             }
                                                         },
-                                                    "required": [ "entities" ]
+                                                    "required": [
+                                                        "entities"
+                                                        ]
                                                     }
                                                 }
                                             },
-                                        "required": [ "items" ]
+                                        "required": [
+                                            "items"
+                                            ]
                                         },
                                     "taxes": {
                                         "type": "object",
@@ -162,11 +187,11 @@
                                                                      "minimum": 1,
                                                                      "maximum": 9223372036854775807
                                                                      },
-                                                                 "tariffCurrencyExchangeRate": {
+                                                                 "tariffCurrencyValue": {
                                                                      "type": [ "number", "null" ],
                                                                      "minimum": 0
                                                                      },
-                                                                 "tariffCurrencyValue": {
+                                                                 "tariffCurrencyExchangeRate": {
                                                                      "type": [ "number", "null" ],
                                                                      "minimum": 0
                                                                      },
@@ -176,14 +201,24 @@
                                                                      "maxLength": 256
                                                                      }
                                                                 },
-                                                            "required": [ "taxType_RefID", "tariffCurrency_RefID", "tariffCurrencyExchangeRate", "tariffCurrencyValue", "remarks" ]
+                                                            "required": [
+                                                                "taxType_RefID",
+                                                                "tariffCurrency_RefID",
+                                                                "tariffCurrencyValue",
+                                                                "tariffCurrencyExchangeRate",
+                                                                "remarks"
+                                                                ]
                                                             }
                                                         },
-                                                    "required": [ "entities" ]
+                                                    "required": [
+                                                        "entities"
+                                                        ]
                                                     }
                                                 }   
                                             },
-                                        "required": [ "items" ]
+                                        "required": [
+                                            "items"
+                                            ]
                                         },
                                     "paymentTerm": {
                                         "type": "object",
@@ -234,26 +269,57 @@
                                                                     "maxLength": 256
                                                                      }
                                                                 },
-                                                            "required": [ "paymentTerm_RefID", "dueDays", "priceCurrency_RefID", "priceCurrencyValue", "priceCurrencyExchangeRate", "discountDueDays", "discountPercentageRate", "remarks" ]
+                                                            "required": [
+                                                                "paymentTerm_RefID",
+                                                                "dueDays",
+                                                                "priceCurrency_RefID",
+                                                                "priceCurrencyValue",
+                                                                "priceCurrencyExchangeRate",
+                                                                "discountDueDays",
+                                                                "discountPercentageRate",
+                                                                "remarks"
+                                                                ]
                                                             }
                                                         },
-                                                    "required": [ "entities" ]
+                                                    "required": [
+                                                        "entities"
+                                                        ]
                                                     }
                                                 }   
                                             },
-                                        "required": [ "items" ]
+                                        "required": [
+                                            "items"
+                                            ]
                                         }
                                     },
-                                "required": [ "itemList", "taxes", "paymentTerm" ]
+                                "required": [
+                                    "itemList",
+                                    "taxes",
+                                    "paymentTerm"
+                                    ]
                                 }
                             ]
                         }
                     },
-                "required": [ "documentDateTimeTZ", "requesterWorkerJobsPosition_RefID", "supplier_RefID", "deliveryDateTimeTZ", "deliveryDestination_RefID", "supplierInvoiceBillingPurpose_RefID", "remarks" ]
+                "required": [
+                    "documentDateTimeTZ",
+                    "log_FileUpload_Pointer_RefID",
+                    "requesterWorkerJobsPosition_RefID",
+                    "supplier_RefID",
+                    "deliveryDateTimeTZ",
+                    "deliveryDestination_RefID",
+                    "supplierInvoiceBillingPurpose_RefID",
+                    "remarks"
+                    ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
