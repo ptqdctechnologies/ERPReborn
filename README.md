@@ -7,7 +7,7 @@
 It's not just an ordinary ERP
 ```
 
-**ERP Reborn** merupakan proyek sistem Enterprise Resource Planning yang digunakan oleh PT QDC Technologies (diinisiasi sejak tahun 2020)
+**ERP Reborn** merupakan proyek sistem Enterprise Resource Planning yang digunakan oleh PT QDC Technologies (diinisiasi sejak akhir tahun 2020)
 
 ```diff
 Main Features :
@@ -141,7 +141,7 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
 **Bherly Novrandy** | <em>Project Consultant</em>
 
 ![Team-FrontEndAndBackEndDeveloperCoordinator](https://i.ibb.co/WtK1wky/Team-Icha-Mailinda.jpg)
-**Icha Mailinda** | <em>FrontEnd And BackEnd Developer Coordinator</em>
+**Icha Mailinda** | <em>FrontEnd And Developer Coordinator</em>
 
 ![Team-FrontEndDeveloper](https://i.ibb.co/RyRHf8f/Team-Suyanto.jpg)
 **Suyanto** | <em>FrontEnd Developer (26 December 2019 - Now)</em>
@@ -150,13 +150,13 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
 **Wisnu Trenggono Wirayuda** | <em>FrontEnd Developer (15 June 2024 - Now)</em>
 
 ![Team-FrontEndDeveloper](https://i.ibb.co/ZJ6J72b/Team-Aldi-Mulyadi.jpg)
-**Aldi Mulyadi** | <em>FrontEnd Developer (14 October 2020 - 14 June 2024)</em>
+**Aldi Mulyadi** | <em>FullStack Developer (14 October 2020 - 14 June 2024)</em>
 
 ![Team-BackEndDeveloper](https://i.ibb.co.com/KXTWQyF/Team-Muhammad-Rizal.jpg)
-**Muhammad Rizal** | <em>BackEnd Developer (23 Januari 2025 - Now)</em>
+**Muhammad Rizal** | <em>BackEnd Developer (23 January 2025 - Now)</em>
 
 ![Team-DatabaseEngineer](https://i.ibb.co/LdBfhDH/Teguh-Pratama-Januzir-S.jpg)
-**Teguh Pratama Januzir S** | <em>Database Engineer And BackEnd Developer</em>
+**Teguh Pratama Januzir S** | <em>BackEnd Developer Coordinator And Database Engineer</em>
 
 ![Team-SystemAdministrator](https://i.ibb.co/zn7vX0K/Team-Zainudin-Anwar.jpg)
 **Zainudin Anwar** | <em>System Administrator (9 August 2019 - Now)</em>
