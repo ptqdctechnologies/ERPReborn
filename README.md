@@ -141,7 +141,7 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
 **Bherly Novrandy** | <em>Project Consultant</em>
 
 ![Team-FrontEndAndBackEndDeveloperCoordinator](https://i.ibb.co/WtK1wky/Team-Icha-Mailinda.jpg)
-**Icha Mailinda** | <em>FrontEnd And Developer Coordinator</em>
+**Icha Mailinda** | <em>FrontEnd Developer Coordinator</em>
 
 ![Team-FrontEndDeveloper](https://i.ibb.co/RyRHf8f/Team-Suyanto.jpg)
 **Suyanto** | <em>FrontEnd Developer (26 December 2019 - Now)</em>
