@@ -105,11 +105,11 @@
                                                             "minimum": 1,
                                                             "maximum": 9223372036854775807
                                                             },
-                                                        "productUnitPriceCurrencyExchangeRate": {
+                                                        "productUnitPriceCurrencyValue": {
                                                             "type": [ "number", "null" ],
                                                             "minimum": 0
                                                             },
-                                                        "productUnitPriceCurrencyValue": {
+                                                        "productUnitPriceCurrencyExchangeRate": {
                                                             "type": [ "number", "null" ],
                                                             "minimum": 0
                                                             },
@@ -132,8 +132,8 @@
                                                         "quantity",
                                                         "quantityUnit_RefID",
                                                         "productUnitPriceCurrency_RefID",
-                                                        "productUnitPriceCurrencyExchangeRate",
                                                         "productUnitPriceCurrencyValue",
+                                                        "productUnitPriceCurrencyExchangeRate",
                                                         "fulfillmentDeadlineDateTimeTZ",
                                                         "remarks"
                                                         ]
