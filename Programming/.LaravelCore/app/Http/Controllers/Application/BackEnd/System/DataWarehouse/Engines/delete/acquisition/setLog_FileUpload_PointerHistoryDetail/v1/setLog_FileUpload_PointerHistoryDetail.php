@@ -3,28 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\delete\log\setLog_TransactionHistory\v1    |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\delete\acquisition                         |
+|                \setLog_FileUpload_PointerHistoryDetail\v1                                                                        |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2024 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\delete\log\setLog_TransactionHistory\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\delete\acquisition\setLog_FileUpload_PointerHistoryDetail\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setLog_TransactionHistory                                                                                    |
-    | ▪ Description : Menangani API dataWarehouse.delete.log.setLog_TransactionHistory Version 1                                   |
+    | ▪ Class Name  : setLog_FileUpload_PointerHistoryDetail                                                                       |
+    | ▪ Description : Menangani API dataWarehouse.delete.acquisition.setLog_FileUpload_PointerHistoryDetail Version 1              |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setLog_TransactionHistory extends \App\Http\Controllers\Controller
+    class setLog_FileUpload_PointerHistoryDetail extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-06-27                                                                                           |
-        | ▪ Creation Date   : 2024-06-27                                                                                           |
+        | ▪ Last Update     : 2025-01-27                                                                                           |
+        | ▪ Creation Date   : 2025-01-27                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +43,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-01-28                                                                                           |
-        | ▪ Creation Date   : 2024-06-27                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-01-27                                                                                           |
+        | ▪ Creation Date   : 2025-01-27                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -60,7 +61,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Delete Log Transaction History Data (version 1)');
+                        'Delete Log File Upload Pointer History Detail Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
