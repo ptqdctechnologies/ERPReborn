@@ -60,7 +60,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Blood Aglutinogen Type Data (version 1)');
                 try {
-                    //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
+                    //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
                         $varPathFile = $varData['entities']['pathFile'];    //    '/zhtConf/tmp/download/Kurs-BI-20130102-20200203/Kurs-BI-USD.html';
                         if(is_file($varPathFile)==false)
@@ -123,7 +123,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                         $varErrorMessage = $ex->getMessage();
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Data Retrieval Failed'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
                         }
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
+                    //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {

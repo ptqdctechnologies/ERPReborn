@@ -83,7 +83,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     $varUserName = $varData['userName'];
                     $varUserPassword = $varData['userPassword'];
 
-                    //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
+                    //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     $varHost = 
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment(
                             $varUserSession,
@@ -398,7 +398,7 @@ $varDataSend = [
                     else {
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'Invalid LDAP Authentication');
                     }
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
+                    //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
 

@@ -61,7 +61,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Synchronize Log_Device_PersonAccess Data (version 1)');
                 try {
-                    //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
+                    //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
                         if (!$this->setAttendanceDeviceLog($varUserSession))
                             {
@@ -90,7 +90,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                                 'Synchronization Process Failed'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
                                 );
                         }
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
+                    //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
 

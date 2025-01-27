@@ -79,7 +79,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                 try {
                     $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Gateway (version 1)');
                     try {
-                        //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
+                        //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                         //var_dump($varAPIWebToken);
                         //var_dump($varSignature);                       
                         $varArrayData = 
@@ -101,7 +101,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                                 $varArrayData['data'], 
                                 FALSE
                                 );
-                        //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
+                        //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                         \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                         } 
                     catch (\Exception $ex) {

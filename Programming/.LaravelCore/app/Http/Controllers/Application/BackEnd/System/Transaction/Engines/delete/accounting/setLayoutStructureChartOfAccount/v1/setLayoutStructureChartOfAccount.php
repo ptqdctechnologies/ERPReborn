@@ -64,7 +64,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
                         'Delete Layout Structure Chart Of Account Data (version 1)');
 
                 try {
-                    //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
+                    //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
@@ -95,7 +95,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
                                 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
                                 );
                         }
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
+                    //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
 
