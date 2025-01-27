@@ -3,21 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setPersonDegreeType            |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setPersonDegree\v1             |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setPersonDegreeType\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setPersonDegree\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setPersonDegreeType                                                                                          |
-    | ▪ Description : Menangani API transaction.create.master.setPersonDegreeType Version 1                                        |
+    | ▪ Class Name  : setPersonDegree                                                                                              |
+    | ▪ Description : Menangani API transaction.create.master.setPersonDegree Version 1                                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setPersonDegreeType extends \App\Http\Controllers\Controller
+    class setPersonDegree extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
