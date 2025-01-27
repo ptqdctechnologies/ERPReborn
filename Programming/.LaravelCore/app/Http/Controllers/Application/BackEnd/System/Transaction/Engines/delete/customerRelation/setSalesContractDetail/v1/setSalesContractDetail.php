@@ -3,28 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\customerRelation\setSalesContract\v1  |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\customerRelation                      |
+|                \setSalesContractDetail\v1                                                                                        |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\customerRelation\setSalesContract\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\customerRelation\setSalesContractDetail\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setSalesContract                                                                                             |
-    | ▪ Description : Menangani API transaction.delete.customerRelation.setSalesContract Version 1                                 |
+    | ▪ Class Name  : setSalesContractDetail                                                                                       |
+    | ▪ Description : Menangani API transaction.delete.customerRelation.setSalesContractDetail Version 1                           |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setSalesContract extends \App\Http\Controllers\Controller
+    class setSalesContractDetail extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-13                                                                                           |
-        | ▪ Creation Date   : 2020-11-13                                                                                           |
+        | ▪ Last Update     : 2025-01-27                                                                                           |
+        | ▪ Creation Date   : 2025-01-27                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +43,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-01-27                                                                                           |
-        | ▪ Creation Date   : 2020-11-13                                                                                           |
+        | ▪ Creation Date   : 2025-01-27                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -60,7 +61,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Delete Sales Contract Data (version 1)');
+                        'Delete Sales Contract Detail Data (version 1)');
 
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
