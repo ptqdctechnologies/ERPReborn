@@ -3,21 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setPersonDegreeType            |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setPersonDegree\v1             |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setPersonDegreeType\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setPersonDegree\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setPersonDegreeType                                                                                          |
-    | ▪ Description : Menangani API transaction.create.master.setPersonDegreeType Version 1                                        |
+    | ▪ Class Name  : setPersonDegree                                                                                              |
+    | ▪ Description : Menangani API transaction.create.master.setPersonDegree Version 1                                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setPersonDegreeType extends \App\Http\Controllers\Controller
+    class setPersonDegree extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -61,7 +60,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Product Type Data (version 1)');
                 try {
-                    //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
+                    //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
@@ -116,7 +115,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
                                 );
                         }
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
+                    //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
 

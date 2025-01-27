@@ -80,7 +80,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Every Week Scheduler (version 1)');
                 try {
-                    //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
+                    //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
                         if (!$this->loadAllJobs($varUserSession)) {
                             throw new \Exception();
@@ -107,7 +107,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                                 'Data Retrieval Failed'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
                                 );
                         }
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
+                    //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
 

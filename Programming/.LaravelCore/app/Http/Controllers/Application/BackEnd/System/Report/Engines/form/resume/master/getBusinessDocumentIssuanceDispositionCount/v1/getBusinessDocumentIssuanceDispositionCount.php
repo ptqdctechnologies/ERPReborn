@@ -95,7 +95,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Report Form - Resume - Business Document Issuance Disposition Count Form (version 1)');
                 try {
-                    //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
+                    //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
@@ -129,7 +129,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
                             );
                         }
 
-                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
+                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
 
