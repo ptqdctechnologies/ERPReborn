@@ -159,6 +159,29 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
+                                        <div class="row p-1 text-bold px-0" style="line-height: 14px;">
+                                            File Attachment
+                                        </div>
+                                        <div class="row p-1 pt-2">
+                                            <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
+                                            <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                $varAPIWebToken,
+                                                'dataInput_Log_FileUpload_1',
+                                                null,
+                                                'dataInput_Return'
+                                                ).
+                                            ''; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- HEADER THREE -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
                                         <div class="row p-1" style="line-height: 14px; row-gap: 1rem;">
                                             <div class="col-sm-12 col-md-4">
                                                 <!-- TOTAL ALLOWANCE -->
@@ -247,7 +270,7 @@
                             </div>
                         </div>
 
-                        <!-- HEADER THREE -->
+                        <!-- HEADER FOUR -->
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
