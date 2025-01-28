@@ -51,8 +51,6 @@
                                                     <th class="header_table">Currency</th>
                                                     <th class="header_table">Requester</th>
                                                     <th class="header_table">Beneficiary</th>
-                                                    <th class="header_table">Direct to Vendor</th>
-                                                    <th class="header_table">By Corp Card</th>
                                                     <th class="header_table">Remark</th>
                                                 </tr>
                                             </thead>
@@ -72,8 +70,6 @@
                                                         <td><?= $dataDetail['CurrencyName']; ?></td>
                                                         <td><?= $dataDetail['RequesterWorkerName']; ?></td>
                                                         <td><?= $dataDetail['BeneficiaryWorkerName']; ?></td>
-                                                        <td><?= $dataDetail['DirectToVendor']; ?></td>
-                                                        <td><?= $dataDetail['ByCorpCard']; ?></td>
                                                         <td><?= $dataDetail['remark']; ?></td>
                                                     </tr>
                                                 <?php } ?>
@@ -84,8 +80,6 @@
                                                     <th class="footer_table"><?= number_format($dataReport['totalExpense'], 2, '.', ','); ?></th>
                                                     <th class="footer_table"><?= number_format($dataReport['totalAmount'], 2, '.', ','); ?></th>
                                                     <th class="footer_table"><?= number_format($dataReport['total'], 2, '.', ','); ?></th>
-                                                    <th class="footer_table"></th>
-                                                    <th class="footer_table"></th>
                                                     <th class="footer_table"></th>
                                                     <th class="footer_table"></th>
                                                     <th class="footer_table"></th>

@@ -212,16 +212,6 @@
         </td>
         <td class="detail_td">
           <div class="value_text_td">
-            Direct to Vendor
-          </div>
-        </td>
-        <td class="detail_td">
-          <div class="value_text_td">
-            By Corp Card
-          </div>
-        </td>
-        <td class="detail_td">
-          <div class="value_text_td">
             Remark
           </div>
         </td>
@@ -292,16 +282,6 @@
           </td>
           <td>
             <div class="value_table">
-              <?= $dataDetail['DirectToVendor']; ?>
-            </div>
-          </td>
-          <td>
-            <div class="value_table">
-              <?= $dataDetail['ByCorpCard']; ?>
-            </div>
-          </td>
-          <td>
-            <div class="value_table">
               <?= $dataDetail['remark']; ?>
             </div>
           </td>
@@ -323,7 +303,7 @@
         <td style="height: 20px;">
           <div class="value_text_td"><?= number_format($dataReport['total'], 2, '.', ','); ?></div>
         </td>
-        <td style="height: 20px; text-align: left;" colspan="6"></td>
+        <td style="height: 20px; text-align: left;" colspan="4"></td>
       </tr>
     </table>
   </div>

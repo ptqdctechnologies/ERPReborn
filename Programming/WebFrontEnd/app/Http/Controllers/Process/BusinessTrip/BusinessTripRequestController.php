@@ -345,7 +345,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Presentasi project Tanjung Pinang",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Tanjung Pinang"
+                    "DestinationTo" => "Tanjung Pinang",
+                    "DirectToVendor" => "Sukses Berkat Mandiri",
+                    "ByCorpCard" => "Bersaudara Express Cargo",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000228",
@@ -366,7 +368,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Training teknisi Merauke",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Merauke"
+                    "DestinationTo" => "Merauke",
+                    "DirectToVendor" => "Indomitra Global",
+                    "ByCorpCard" => "Aerotrans Metropolitan Express",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000227",
@@ -387,7 +391,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Maintenance BTS Pangkal Pinang",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Pangkal Pinang"
+                    "DestinationTo" => "Pangkal Pinang",
+                    "DirectToVendor" => "Agung Jaya",
+                    "ByCorpCard" => "Aji Perkasa",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000226",
@@ -408,7 +414,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Survey lokasi Gorontalo",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Gorontalo"
+                    "DestinationTo" => "Gorontalo",
+                    "DirectToVendor" => "Aledro Duta Jaya",
+                    "ByCorpCard" => "Bustami",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000225",
@@ -429,7 +437,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Meeting vendor Bengkulu",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Bengkulu"
+                    "DestinationTo" => "Bengkulu",
+                    "DirectToVendor" => "Syamsul Hadi",
+                    "ByCorpCard" => "Bhirawa Mental Mandiri",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000224",
@@ -450,7 +460,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Audit site Kendari",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Kendari"
+                    "DestinationTo" => "Kendari",
+                    "DirectToVendor" => "Pas Jaya Mandiri",
+                    "ByCorpCard" => "Bintang Pratama Mix",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000223",
@@ -471,7 +483,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Training team Jambi",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Jambi"
+                    "DestinationTo" => "Jambi",
+                    "DirectToVendor" => "Power Elektrika Nusantara",
+                    "ByCorpCard" => "Twink Indonesia",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000222",
@@ -492,7 +506,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Instalasi perangkat Ternate",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Ternate"
+                    "DestinationTo" => "Ternate",
+                    "DirectToVendor" => "Exeed Indo Jaya",
+                    "ByCorpCard" => "Yayasan LSP K3 OSHE Nusantara",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000221",
@@ -513,7 +529,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Meeting koordinasi Mataram",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Mataram"
+                    "DestinationTo" => "Mataram",
+                    "DirectToVendor" => "Tokopedia - Gudang Laptop ID",
+                    "ByCorpCard" => "HIQ Digital Printing",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000220",
@@ -534,7 +552,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Survey lokasi Balikpapan",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Balikpapan"
+                    "DestinationTo" => "Balikpapan",
+                    "DirectToVendor" => "Klopmart Berkat Bersama",
+                    "ByCorpCard" => "Magma Grounding Indonesia",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000219",
@@ -555,7 +575,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Maintenance BTS Kupang",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Kupang"
+                    "DestinationTo" => "Kupang",
+                    "DirectToVendor" => "Surianto",
+                    "ByCorpCard" => "Hasannuddin",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000218",
@@ -576,7 +598,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Presentasi project Samarinda",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Samarinda"
+                    "DestinationTo" => "Samarinda",
+                    "DirectToVendor" => "Jejen",
+                    "ByCorpCard" => "Rahmat",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000217",
@@ -597,7 +621,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Meeting vendor Malang",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Malang"
+                    "DestinationTo" => "Malang",
+                    "DirectToVendor" => "Hendy Hidayat",
+                    "ByCorpCard" => "Wawan Gunawan",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000216",
@@ -618,7 +644,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Audit site Sorong",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Sorong"
+                    "DestinationTo" => "Sorong",
+                    "DirectToVendor" => "PT Sima Artha Nauli",
+                    "ByCorpCard" => "Leonardus Wahyudi",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000215",
@@ -639,7 +667,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Training teknisi Padang",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Padang"
+                    "DestinationTo" => "Padang",
+                    "DirectToVendor" => "Eri Nurwana",
+                    "ByCorpCard" => "Komarudin",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000214",
@@ -660,7 +690,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Instalasi perangkat Banjarmasin",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Banjarmasin"
+                    "DestinationTo" => "Banjarmasin",
+                    "DirectToVendor" => "Sadi Rustiawan",
+                    "ByCorpCard" => "Subur Deltamas",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000213",
@@ -681,7 +713,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Survey lokasi Pontianak",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Pontianak"
+                    "DestinationTo" => "Pontianak",
+                    "DirectToVendor" => "Didi Kusumawanto",
+                    "ByCorpCard" => "Giswanto Sam",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000212",
@@ -702,7 +736,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Meeting koordinasi Pekanbaru",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Pekanbaru"
+                    "DestinationTo" => "Pekanbaru",
+                    "DirectToVendor" => "Tri Karya Mandiri",
+                    "ByCorpCard" => "Ferry Gunadi",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000211",
@@ -723,7 +759,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Maintenance BTS Ambon",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Ambon"
+                    "DestinationTo" => "Ambon",
+                    "DirectToVendor" => "Yudi Paryono",
+                    "ByCorpCard" => "Eko Wibowo",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000210",
@@ -745,6 +783,8 @@ class BusinessTripRequestController extends Controller
                     "remark" => "Training team Yogyakarta",
                     "DepartingFrom" => "Jakarta",
                     "DestinationTo" => "Yogyakarta",
+                    "DirectToVendor" => "Arhadianto",
+                    "ByCorpCard" => "Kahar",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000209",
@@ -765,7 +805,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Presentasi project Denpasar",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Denpasar"
+                    "DestinationTo" => "Denpasar",
+                    "DirectToVendor" => "Maryadi",
+                    "ByCorpCard" => "Rochandi",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000208",
@@ -786,7 +828,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Survey lokasi Palembang",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Palembang"
+                    "DestinationTo" => "Palembang",
+                    "DirectToVendor" => "Sugeng Siswanto",
+                    "ByCorpCard" => "PT. Global Perkasa Investindo",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000207",
@@ -807,7 +851,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Audit site Jayapura",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Jayapura"
+                    "DestinationTo" => "Jayapura",
+                    "DirectToVendor" => "Roy Yuliandri",
+                    "ByCorpCard" => "Usman Afandi",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000206",
@@ -828,7 +874,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Meeting koordinasi Semarang",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Semarang"
+                    "DestinationTo" => "Semarang",
+                    "DirectToVendor" => "Karya Tunas Mandiri",
+                    "ByCorpCard" => "Chandra Irawan",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000205",
@@ -849,7 +897,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Maintenance BTS Manado",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Manado"
+                    "DestinationTo" => "Manado",
+                    "DirectToVendor" => "Escom",
+                    "ByCorpCard" => "Prima Lestari",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000204",
@@ -870,7 +920,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Training teknisi Bandung",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Bandung"
+                    "DestinationTo" => "Bandung",
+                    "DirectToVendor" => "PT Aswindo Fikri Mandiri",
+                    "ByCorpCard" => "Zubaedi",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000203",
@@ -891,7 +943,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Instalasi perangkat Makassar",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Makassar"
+                    "DestinationTo" => "Makassar",
+                    "DirectToVendor" => "Stefanus Hotan",
+                    "ByCorpCard" => "Widyatmoko",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000202",
@@ -912,7 +966,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Meeting vendor Surabaya",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Surabaya"
+                    "DestinationTo" => "Surabaya",
+                    "DirectToVendor" => "PT Vitta Manggala",
+                    "ByCorpCard" => "Amin Madeali",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000201",
@@ -933,7 +989,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Survey lokasi BTS Medan",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Medan"
+                    "DestinationTo" => "Medan",
+                    "DirectToVendor" => "Bambang Purnomo",
+                    "ByCorpCard" => "Yanmarindo Perkasa",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000200",
@@ -954,7 +1012,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "BT Pak Sagala presentasi HTLS Batam",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Batam"
+                    "DestinationTo" => "Batam",
+                    "DirectToVendor" => "Aldina Krida Tama",
+                    "ByCorpCard" => "Ponarah",
                 ],
             ];
 
