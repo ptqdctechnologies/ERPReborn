@@ -103,7 +103,7 @@ class ExportReportBusinessTripRequestDetail implements FromCollection, WithHeadi
                 ]);
                 $sheet->setCellValue('B7', ': ' . $data['dataHeaderOne']['productID'] . ' (' . $data['dataHeaderOne']['productName'] . ')');
 
-                $sheet->setCellValue('C4', 'Tanggal Mulai Perjalanan')->getStyle('C4')->applyFromArray([
+                $sheet->setCellValue('C4', 'Date Commence Travel')->getStyle('C4')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']
@@ -111,7 +111,7 @@ class ExportReportBusinessTripRequestDetail implements FromCollection, WithHeadi
                 ]);
                 $sheet->setCellValue('D4', ': ' . $data['dataHeaderOne']['dateCommence']);
 
-                $sheet->setCellValue('C5', 'Tanggal Akhir Perjalanan')->getStyle('C5')->applyFromArray([
+                $sheet->setCellValue('C5', 'Date End Travel')->getStyle('C5')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']
@@ -119,7 +119,7 @@ class ExportReportBusinessTripRequestDetail implements FromCollection, WithHeadi
                 ]);
                 $sheet->setCellValue('D5', ': ' . $data['dataHeaderOne']['dateEnd']);
 
-                $sheet->setCellValue('C6', 'Tanggal Pembuatan BRF')->getStyle('C6')->applyFromArray([
+                $sheet->setCellValue('C6', 'BRF Date')->getStyle('C6')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']

@@ -64,28 +64,28 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
-                                                <!-- TANGGAL MULAI PERJALANAN -->
+                                                <!-- DATE COMMENCE TRAVEL -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
-                                                        Tanggal Mulai Perjalanan
+                                                        Date Commence Travel
                                                     </div>
                                                     <div class="col-sm-8 col-md-6 p-0">
                                                         : <?= $dataReport['dataHeaderOne']['dateCommence']; ?>
                                                     </div>
                                                 </div>
-                                                <!-- TANGGAL AKHIR PERJALANAN -->
+                                                <!-- DATE END TRAVEL -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
-                                                        Tanggal Akhir Perjalanan
+                                                        Date End Travel
                                                     </div>
                                                     <div class="col-sm-8 col-md-6 p-0">
                                                         : <?= $dataReport['dataHeaderOne']['dateEnd']; ?>
                                                     </div>
                                                 </div>
-                                                <!-- TANGGAL PEMBUATAN BRF -->
+                                                <!-- BRF DATE -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
-                                                        Tanggal Pembuatan BRF
+                                                        BRF Date
                                                     </div>
                                                     <div class="col-sm-8 col-md-6 p-0">
                                                         : <?= $dataReport['dataHeaderOne']['dateBRF']; ?>

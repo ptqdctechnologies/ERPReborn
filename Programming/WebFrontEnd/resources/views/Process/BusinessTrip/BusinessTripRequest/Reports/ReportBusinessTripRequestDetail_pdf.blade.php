@@ -48,7 +48,7 @@
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Tanggal Mulai Perjalanan
+                  Date Commence Travel
                 </div>
               </td>
               <td style="width: 5px;">
@@ -113,7 +113,7 @@
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Tanggal Akhir Perjalanan
+                  Date End Travel
                 </div>
               </td>
               <td style="width: 5px;">
@@ -178,7 +178,7 @@
             <tr>
               <td style="width: 110px; height: 20px;">
                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                  Tanggal Pembuatan BRF
+                  BRF Date
                 </div>
               </td>
               <td style="width: 5px;">
