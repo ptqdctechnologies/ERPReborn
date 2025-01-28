@@ -248,23 +248,58 @@
                         </div>
                       </div>
 
-                      <!-- ENTERTAINMENT COLUMN -->
-                      <div class="col-md-12 col-lg-2 p-0">
-                        <div style="font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">
-                          Entertainment
+                      <div class="col-md-12 col-lg-5">
+                        <div class="row justify-content-between" style="gap: 1rem; margin-bottom: 1rem;">
+                          <div class="col-md-12 col-lg-5 p-0">
+                            <div style="font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">
+                              Entertainment
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-9 p-0">
+                              <input id="entertainment" name="entertainment" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                            </div>
+                          </div>
+                          <div class="col-md-12 col-lg-5 p-0">
+                            <div style="font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">
+                              Other
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-9 p-0">
+                              <input id="other" name="other" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                            </div>
+                          </div>
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-9 p-0">
-                          <input id="entertainment" name="entertainment" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                        </div>
-                      </div>
 
-                      <!-- OTHER COLUMN -->
-                      <div class="col-md-12 col-lg-2 p-0">
-                        <div style="font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">
-                          Other
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-9 p-0">
-                          <input id="other" name="other" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                        <div class="row py-3 px-2" style="border: 1px solid rgba(0,0,0,.1); border-radius: 2px;">
+                          <div class="col">
+                            <div class="row text-bold" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                              Transaction Information
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <!-- TOTAL BRF -->
+                                <div class="row" style="margin-bottom: 1rem;">
+                                  <label for="taxi" class="col-sm-3 col-md-4 col-lg-7 col-form-label p-0">Total BRF</label>
+                                  <div class="col-sm-9 col-md-8 col-lg-3 p-0">
+                                    <div class="input-group">
+                                      <input disabled id="total_business_trip_request" name="total_business_trip_request" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <!-- UNSETTLED BUDGET -->
+                                <div class="row">
+                                  <label for="taxi" class="col-sm-3 col-md-4 col-lg-7 col-form-label p-0">Unsettled BRF</label>
+                                  <div class="col-sm-9 col-md-8 col-lg-3 p-0">
+                                    <div class="input-group">
+                                      <input disabled id="total_balanced" name="total_balanced" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
 
@@ -275,26 +310,6 @@
                       </div>
 
                       <div class="d-sm-none d-md-none d-lg-block col-md-12 col-lg-3"></div>
-
-                      <!-- TOTAL BRF -->
-                      <div class="col-md-12 col-lg-2 p-0">
-                        <div style="font-size: 0.75rem; margin-bottom: 1rem; font-weight: bold;">
-                          Total BRF
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-9 p-0">
-                          <input disabled id="total_business_trip_request" name="total_business_trip_request" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                        </div>
-                      </div>
-
-                      <!-- BALANCED BUDGET -->
-                      <div class="col-md-12 col-lg-2 p-0">
-                        <div style="font-size: 0.75rem; margin-bottom: 1rem; font-weight: bold;">
-                          Balanced Budget
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-9 p-0">
-                          <input disabled id="total_balanced" name="total_balanced" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                        </div>
-                      </div>
                       
                       <!-- TOTAL BSF -->
                       <div class="col-md-12 col-lg-2 p-0">
