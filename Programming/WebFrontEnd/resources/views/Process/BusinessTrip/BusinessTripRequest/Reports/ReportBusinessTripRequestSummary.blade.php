@@ -82,8 +82,8 @@
                                                         <td><?= $dataDetail['CurrencyName']; ?></td>
                                                         <td><?= $dataDetail['RequesterWorkerName']; ?></td>
                                                         <td><?= $dataDetail['BeneficiaryWorkerName']; ?></td>
-                                                        <td><?= $dataDetail['DirectToVendor']; ?></td>
-                                                        <td><?= $dataDetail['ByCorpCard']; ?></td>
+                                                        <td><?= number_format($dataDetail['DirectToVendor'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['ByCorpCard'], 2, '.', ','); ?></td>
                                                         <td><?= $dataDetail['remark']; ?></td>
                                                     </tr>
                                                 <?php } ?>

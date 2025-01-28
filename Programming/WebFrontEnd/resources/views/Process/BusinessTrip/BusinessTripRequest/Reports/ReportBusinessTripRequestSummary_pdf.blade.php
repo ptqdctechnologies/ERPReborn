@@ -234,12 +234,12 @@
             </td>
             <td>
               <div style="margin-top: 4px; font-size: 12px;">
-                <?= $dataDetail['DirectToVendor']; ?>
+                <?= number_format($dataDetail['DirectToVendor'], 2, '.', ','); ?>
               </div>
             </td>
             <td>
               <div style="margin-top: 4px; font-size: 12px;">
-                <?= $dataDetail['ByCorpCard']; ?>
+                <?= number_format($dataDetail['ByCorpCard'], 2, '.', ','); ?>
               </div>
             </td>
             <td>
