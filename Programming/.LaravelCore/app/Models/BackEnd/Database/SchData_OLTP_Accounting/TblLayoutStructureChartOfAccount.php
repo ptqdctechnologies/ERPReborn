@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Accounting
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblLayoutStructureCodeOfAccounting                                                                           |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Accounting ► TblLayoutStructureCodeOfAccounting                     |
+    | ▪ Class Name  : TblLayoutStructureChartOfAccount                                                                             |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Accounting ► TblLayoutStructureChartOfAccount                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblLayoutStructureCodeOfAccounting extends \App\Models\Database\DefaultClassPrototype
+    class TblLayoutStructureChartOfAccount extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -87,7 +87,8 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn['data'][0];
             }
 
 
@@ -140,7 +141,8 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn['data'][0];
             }
         }
     }
