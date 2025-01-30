@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.undelete.customerRelation.setSalesContract (version 1)",
+"description": "JSON Request Schema of transaction.undelete.customerRelation.setProspectiveCustomer (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.undelete.customerRelation.setSalesContract" ]
+                        "enum": [ "transaction.undelete.customerRelation.setProspectiveCustomer" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
