@@ -5,7 +5,7 @@
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\log\setLog_TransactionHistory\v1  |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\log\setLog_TransactionHistory\v1
@@ -42,8 +42,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-06-27                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-01-30                                                                                           |
         | ▪ Creation Date   : 2024-06-27                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -57,6 +57,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
         function main($varUserSession, $varData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
@@ -68,7 +69,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_Device_PersonAccess())->unsetDataDelete(
+                                (new \App\Models\Database\SchData_Warehouse_Log\TblLog_TransactionHistory())->unsetDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )
