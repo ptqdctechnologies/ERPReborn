@@ -3,21 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\cache                             |
-|                \setLog_FunctionSnapshotSignature\v1                                                                              |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\cache\setCache_FunctionResult\v1  |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\cache\setLog_FunctionSnapshotSignature\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\cache\setCache_FunctionResult\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setLog_FunctionSnapshotSignature                                                                             |
-    | ▪ Description : Menangani API dataWarehouse.undelete.cache.setLog_FunctionSnapshotSignature Version 1                        |
+    | ▪ Class Name  : setCache_FunctionResult                                                                                      |
+    | ▪ Description : Menangani API dataWarehouse.undelete.cache.setCache_FunctionResult Version 1                                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setLog_FunctionSnapshotSignature extends \App\Http\Controllers\Controller
+    class setCache_FunctionResult extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
