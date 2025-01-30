@@ -3,28 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\log\setLog_TransactionHistory\v1  |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\cache                             |
+|                \setLog_FunctionSnapshotSignature\v1                                                                              |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2024 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\log\setLog_TransactionHistory\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\cache\setLog_FunctionSnapshotSignature\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setLog_TransactionHistory                                                                                    |
-    | ▪ Description : Menangani API dataWarehouse.undelete.log.setLog_TransactionHistory Version 1                                 |
+    | ▪ Class Name  : setLog_FunctionSnapshotSignature                                                                             |
+    | ▪ Description : Menangani API dataWarehouse.undelete.cache.setLog_FunctionSnapshotSignature Version 1                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setLog_TransactionHistory extends \App\Http\Controllers\Controller
+    class setLog_FunctionSnapshotSignature extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-06-27                                                                                           |
-        | ▪ Creation Date   : 2024-06-27                                                                                           |
+        | ▪ Last Update     : 2025-01-30                                                                                           |
+        | ▪ Creation Date   : 2025-01-30                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +43,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-01-30                                                                                           |
-        | ▪ Creation Date   : 2024-06-27                                                                                           |
+        | ▪ Creation Date   : 2025-01-30                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -60,7 +61,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Undelete Log Transaction History Data (version 1)');
+                        'Undelete Cache Function Result Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
@@ -68,7 +69,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_Warehouse_Log\TblLog_TransactionHistory())->unsetDataDelete(
+                                (new \App\Models\Database\SchData_Warehouse_Cache\TblCache_FunctionResult())->unsetDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )
