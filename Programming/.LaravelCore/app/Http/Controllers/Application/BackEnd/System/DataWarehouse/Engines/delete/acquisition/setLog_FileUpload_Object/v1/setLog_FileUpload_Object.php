@@ -69,7 +69,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_Accounting\TblChartOfAccount())->setDataDelete(
+                                (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_FileUpload_Object())->setDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )

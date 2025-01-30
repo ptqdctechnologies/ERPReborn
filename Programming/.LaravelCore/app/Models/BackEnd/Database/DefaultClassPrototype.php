@@ -426,7 +426,8 @@ namespace App\Models\Database
                     $varRecordID
                     );
 
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 
@@ -577,7 +578,8 @@ namespace App\Models\Database
                     $varRecordID
                     );
 
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 

@@ -3,29 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\delete\acquisition                         |
-|                \setLog_Device_PersonAccessFetch\v1                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\acquisition                       |
+|                \setLog_FileUpload_Object\v1                                                                                      |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\delete\acquisition\setLog_Device_PersonAccessFetch\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\undelete\acquisition\setLog_FileUpload_Object\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setLog_Device_PersonAccessFetch                                                                              |
-    | ▪ Description : Menangani API dataWarehouse.delete.acquisition.setLog_Device_PersonAccessFetch Version 1                     |
+    | ▪ Class Name  : setLog_FileUpload_Object                                                                                     |
+    | ▪ Description : Menangani API dataWarehouse.undelete.acquisition.setLog_FileUpload_Object Version 1                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setLog_Device_PersonAccessFetch extends \App\Http\Controllers\Controller
+    class setLog_FileUpload_Object extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-27                                                                                           |
-        | ▪ Creation Date   : 2025-01-27                                                                                           |
+        | ▪ Last Update     : 2025-01-30                                                                                           |
+        | ▪ Creation Date   : 2025-01-30                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-27                                                                                           |
-        | ▪ Creation Date   : 2025-01-27                                                                                           |
+        | ▪ Last Update     : 2025-01-30                                                                                           |
+        | ▪ Creation Date   : 2025-01-30                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -61,15 +61,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Delete Log Device Person Access Fetch Data (version 1)');
+                        'Undelete Log File Upload Object Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
-                        if (!($varDataSend = 
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
-                                $varUserSession, 
-                                (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_Device_PersonAccessFetch())->setDataDelete(
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_Warehouse_Acquisition\TblLog_FileUpload_Object())->unsetDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )
@@ -79,7 +79,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                             throw new \Exception();
                             }
 
-                        $varReturn = 
+                        $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
                                 $varUserSession,
                                 $varDataSend
@@ -97,7 +97,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataWarehouse\Engines\
                         }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
 
                 catch (\Exception $ex) {
                     $varReturn =
