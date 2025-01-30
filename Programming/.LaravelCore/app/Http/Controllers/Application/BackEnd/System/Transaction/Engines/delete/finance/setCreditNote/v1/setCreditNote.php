@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\finance\setAdvancePaymentDetail\v1    |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\finance\setCreditNote\v1              |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\finance\setAdvancePaymentDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\finance\setCreditNote\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setAdvancePaymentDetail                                                                                      |
-    | ▪ Description : Menangani API transaction.delete.finance.setAdvancePaymentDetail Version 1                                   |
+    | ▪ Class Name  : setCreditNote                                                                                                |
+    | ▪ Description : Menangani API transaction.delete.finance.setCreditNote Version 1                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setAdvancePaymentDetail extends \App\Http\Controllers\Controller
+    class setCreditNote extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-14                                                                                           |
-        | ▪ Creation Date   : 2022-07-14                                                                                           |
+        | ▪ Last Update     : 2025-01-30                                                                                           |
+        | ▪ Creation Date   : 2025-01-30                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +42,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-01-30                                                                                           |
-        | ▪ Creation Date   : 2022-07-14                                                                                           |
+        | ▪ Creation Date   : 2025-01-30                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -61,7 +61,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Delete Advance Payment Detail Data (version 1)');
+                        'Delete Credit Note Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
@@ -69,7 +69,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_Finance\TblAdvancePaymentDetail())->setDataDelete(
+                                (new \App\Models\Database\SchData_OLTP_Finance\TblCreditNote())->setDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )
