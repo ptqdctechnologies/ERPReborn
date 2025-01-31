@@ -3,29 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\humanResource                       |
-|                \setWorkerCareerInternal\v1                                                                                       |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\humanResource\setWorkTimeSchedule   |
+|                \v1                                                                                                               |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2020 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\humanResource\setWorkerCareerInternal\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\humanResource\setWorkTimeSchedule\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setWorkerCareerInternal                                                                                      |
-    | ▪ Description : Menangani API transaction.undelete.humanResource.setWorkerCareerInternal Version 1                           |
+    | ▪ Class Name  : setWorkTimeSchedule                                                                                          |
+    | ▪ Description : Menangani API transaction.undelete.humanResource.setWorkTimeSchedule Version 1                               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setWorkerCareerInternal extends \App\Http\Controllers\Controller
+    class setWorkTimeSchedule extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-05-23                                                                                           |
-        | ▪ Creation Date   : 2022-05-23                                                                                           |
+        | ▪ Last Update     : 2020-11-23                                                                                           |
+        | ▪ Creation Date   : 2020-11-23                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -45,7 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2025-01-31                                                                                           |
-        | ▪ Creation Date   : 2022-05-23                                                                                           |
+        | ▪ Creation Date   : 2020-11-23                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -62,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Undelete Worker Career Internal Data (version 1)');
+                        'Undelete Work Time Schedule Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
@@ -70,7 +70,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_HumanResource\TblWorkerCareerInternal())->unsetDataDelete(
+                                (new \App\Models\Database\SchData_OLTP_HumanResource\TblWorkTimeSchedule())->unsetDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )
