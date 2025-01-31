@@ -4,20 +4,20 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\humanResource                         |
-|                \setBusinessTripTransportationCostType\v1                                                                         |
+|                \setBusinessTripTransportationCostTypeComponent\v1                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\humanResource\setBusinessTripTransportationCostType\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\humanResource\setBusinessTripTransportationCostTypeComponent\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setBusinessTripTransportationCostType                                                                        |
-    | ▪ Description : Menangani API transaction.delete.humanResource.setBusinessTripTransportationCostType Version 1               |
+    | ▪ Class Name  : setBusinessTripTransportationCostTypeComponent                                                               |
+    | ▪ Description : Menangani API transaction.delete.humanResource.setBusinessTripTransportationCostTypeComponent Version 1      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setBusinessTripTransportationCostType extends \App\Http\Controllers\Controller
+    class setBusinessTripTransportationCostTypeComponent extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -62,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Delete Business Trip Transportation Cost Type Data (version 1)');
+                        'Delete Business Trip Transportation Cost Type Component Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
@@ -70,7 +70,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_HumanResource\TblBusinessTripTransportationCostType())->setDataDelete(
+                                (new \App\Models\Database\SchData_OLTP_HumanResource\TblBusinessTripTransportationCostTypeComponent())->setDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )
