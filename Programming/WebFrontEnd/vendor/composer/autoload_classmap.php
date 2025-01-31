@@ -3080,6 +3080,7 @@ return array(
     'Illuminate\\Foundation\\Bus\\PendingClosureDispatch' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Bus/PendingClosureDispatch.php',
     'Illuminate\\Foundation\\Bus\\PendingDispatch' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Bus/PendingDispatch.php',
     'Illuminate\\Foundation\\CacheBasedMaintenanceMode' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/CacheBasedMaintenanceMode.php',
+    'Illuminate\\Foundation\\Cloud' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Cloud.php',
     'Illuminate\\Foundation\\ComposerScripts' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/ComposerScripts.php',
     'Illuminate\\Foundation\\Concerns\\ResolvesDumpSource' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Concerns/ResolvesDumpSource.php',
     'Illuminate\\Foundation\\Configuration\\ApplicationBuilder' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Configuration/ApplicationBuilder.php',
