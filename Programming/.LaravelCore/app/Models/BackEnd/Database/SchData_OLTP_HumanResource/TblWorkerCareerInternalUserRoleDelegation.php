@@ -5,26 +5,26 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_HumanResource                                                                   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_HumanResource
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblWorkerCareerInternalRoleDelegation                                                                        |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-HumanResource ► TblWorkerCareerInternalRoleDelegation               |
+    | ▪ Class Name  : TblWorkerType                                                                                                |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-HumanResource ► TblWorkerCareerInternalUserRoleDelegation           |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblWorkerCareerInternalRoleDelegation extends \App\Models\Database\DefaultClassPrototype
+    class TblWorkerCareerInternalUserRoleDelegation extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-13                                                                                           |
-        | ▪ Creation Date   : 2024-05-13                                                                                           |
+        | ▪ Last Update     : 2025-01-31                                                                                           |
+        | ▪ Creation Date   : 2025-01-31                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
