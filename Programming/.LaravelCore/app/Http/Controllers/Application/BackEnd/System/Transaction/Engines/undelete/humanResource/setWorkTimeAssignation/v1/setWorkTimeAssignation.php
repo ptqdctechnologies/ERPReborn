@@ -3,18 +3,18 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\humanResource                         |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\humanResource                       |
 |                \setWorkTimeAssignation\v1                                                                                        |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\humanResource\setWorkTimeAssignation\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\humanResource\setWorkTimeAssignation\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : setWorkTimeAssignation                                                                                       |
-    | ▪ Description : Menangani API transaction.delete.humanResource.setWorkTimeAssignation Version 1                              |
+    | ▪ Description : Menangani API transaction.undelete.humanResource.setWorkTimeAssignation Version 1                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class setWorkTimeAssignation extends \App\Http\Controllers\Controller
@@ -62,15 +62,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Delete Work Time Assignation Data (version 1)');
+                        'Undelete Work Time Assignation Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
-                        if (!($varDataSend = 
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
-                                $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_HumanResource\TblWorkTimeAssignation())->setDataDelete(
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_HumanResource\TblWorkTimeAssignation())->unsetDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )
@@ -80,12 +80,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
                             throw new \Exception();
                             }
 
-                        $varReturn = 
+                        $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
                                 $varUserSession,
                                 $varDataSend
                                 );
-                        }
+                        } 
 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
@@ -98,7 +98,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
                         }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
 
                 catch (\Exception $ex) {
                     $varReturn =
