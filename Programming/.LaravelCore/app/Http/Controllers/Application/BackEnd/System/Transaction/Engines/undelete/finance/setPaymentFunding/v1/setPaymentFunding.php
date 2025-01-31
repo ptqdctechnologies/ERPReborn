@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\finance\setPayment\v1               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\finance\setPaymentFunding\v1        |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\finance\setPayment\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\finance\setPaymentFunding\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setPayment                                                                                                   |
-    | ▪ Description : Menangani API transaction.undelete.finance.setPayment Version 1                                              |
+    | ▪ Class Name  : setPaymentFunding                                                                                            |
+    | ▪ Description : Menangani API transaction.undelete.finance.setPaymentFunding Version 1                                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setPayment extends \App\Http\Controllers\Controller
+    class setPaymentFunding extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-15                                                                                           |
-        | ▪ Creation Date   : 2022-07-15                                                                                           |
+        | ▪ Last Update     : 2025-01-31                                                                                           |
+        | ▪ Creation Date   : 2025-01-31                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +42,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-01-31                                                                                           |
-        | ▪ Creation Date   : 2022-07-15                                                                                           |
+        | ▪ Creation Date   : 2025-01-31                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -61,7 +61,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Undelete Payment Data (version 1)');
+                        'Undelete Payment Funding Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
@@ -69,7 +69,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Finance\TblPayment())->unsetDataDelete(
+                                (new \App\Models\Database\SchData_OLTP_Finance\TblPaymentFunding())->unsetDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )
