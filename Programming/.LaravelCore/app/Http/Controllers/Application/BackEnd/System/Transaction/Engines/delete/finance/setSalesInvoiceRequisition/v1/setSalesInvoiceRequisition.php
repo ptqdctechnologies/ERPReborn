@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\finance\setSalesInvoice\v1            |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\finance\setSalesInvoiceRequisition\v1 |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\finance\setSalesInvoice\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\finance\setSalesInvoiceRequisition\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setSalesInvoice                                                                                              |
-    | ▪ Description : Menangani API transaction.delete.finance.setSalesInvoice Version 1                                           |
+    | ▪ Class Name  : setSalesInvoiceRequisition                                                                                   |
+    | ▪ Description : Menangani API transaction.delete.finance.setSalesInvoiceRequisition Version 1                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setSalesInvoice extends \App\Http\Controllers\Controller
+    class setSalesInvoiceRequisition extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -61,7 +61,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Delete Sales Invoice Data (version 1)');
+                        'Delete Sales Invoice Requisition Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
@@ -69,7 +69,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_Finance\TblSalesInvoice())->setDataDelete(
+                                (new \App\Models\Database\SchData_OLTP_Finance\TblSalesInvoiceRequisition())->setDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )
