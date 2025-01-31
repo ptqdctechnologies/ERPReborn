@@ -11,13 +11,10 @@
     'tol_road',
     'park',
     'access_bagage',
-    'fuel'
-  ];
-  const accomodationInputs = [
+    'fuel',
     'hotel',
     'mess',
     'guest_house',
-    'other_accomodation',
   ];
   const businessTripInputs = [
     'allowance',
@@ -55,13 +52,14 @@
               otherCheckbox.checked = false;
             }
           });
-          getSelectedRowData();
         } else {
           checkboxes.forEach(otherCheckbox => {
             otherCheckbox.disabled = false;
           });
           document.getElementById('budgetDetailsData').value = '';
         }
+
+        getSelectedRowData();
       });
     });
   }
@@ -77,7 +75,7 @@
     const budgetDetailsInput = document.getElementById('budgetDetailsData');
     const totalBusinessTripInput = document.getElementById('total_business_trip');
     const totalPaymentBusinessTripInput = document.getElementById('total_payment');
-    
+
     if (selectedCheckbox) {
       const row = selectedCheckbox.closest('tr');
       const datas = {
@@ -90,6 +88,9 @@
         currency: row.cells[7].textContent.trim(),
         balanceBudget: row.cells[8].textContent.trim(),
       };
+
+      $("#total_business_trip_request").val(datas.totalBudget);
+      $("#total_balanced").val(datas.balanceBudget);
       
       budgetDetailsInput.value = JSON.stringify(datas);
 
@@ -106,6 +107,9 @@
       }
     } else {
       budgetDetailsInput.value = '';
+
+      $("#total_business_trip_request").val("");
+      $("#total_balanced").val("");
     }
   }
 
@@ -120,6 +124,9 @@
     const park = parseFloat(document.getElementById('park').value.replace(/,/g, '')) || 0;
     const accessBagage = parseFloat(document.getElementById('access_bagage').value.replace(/,/g, '')) || 0;
     const fuel = parseFloat(document.getElementById('fuel').value.replace(/,/g, '')) || 0;
+    const hotel = parseFloat(document.getElementById('hotel').value.replace(/,/g, '')) || 0;
+    const mess = parseFloat(document.getElementById('mess').value.replace(/,/g, '')) || 0;
+    const guest_house = parseFloat(document.getElementById('guest_house').value.replace(/,/g, '')) || 0;
 
     let newFormatBudget = 0;
     let budgetDetailsDataJSON = null;
@@ -136,7 +143,7 @@
       return;
     }
 
-    const total = taxi + airplane + train + bus + ship + tolRoad + park + accessBagage + fuel;
+    const total = taxi + airplane + train + bus + ship + tolRoad + park + accessBagage + fuel + hotel + mess + guest_house;
     totalBusinessTrip[0] = total;
 
     const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
@@ -153,48 +160,6 @@
     const inputElement = document.getElementById(id);
     if (inputElement) {
       inputElement.addEventListener('input', calculateTotalTransport);
-    }
-  });
-
-  // FUNGSI TOTAL ACCOMMODATION
-  function calculateTotalAccomodation() {
-    const hotel = parseFloat(document.getElementById('hotel').value.replace(/,/g, '')) || 0;
-    const mess = parseFloat(document.getElementById('mess').value.replace(/,/g, '')) || 0;
-    const guest_house = parseFloat(document.getElementById('guest_house').value.replace(/,/g, '')) || 0;
-    const other_accomodation = parseFloat(document.getElementById('other_accomodation').value.replace(/,/g, '')) || 0;
-
-    let newFormatBudget = 0;
-    let budgetDetailsDataJSON = null;
-    try {
-      budgetDetailsDataJSON = document.getElementById('budgetDetailsData').value;
-      if (budgetDetailsDataJSON) {
-        const parsedData = JSON.parse(budgetDetailsDataJSON);
-        newFormatBudget = parseFloat(parsedData.balanceBudget.replace(/,/g, '')) || 0;
-      } else {
-        // console.warn('Budget details data is empty');
-      }
-    } catch (error) {
-      console.error('Error parsing budget details JSON:', error);
-      return;
-    }
-
-    const total = hotel + mess + guest_house + other_accomodation;
-    totalBusinessTrip[1] = total;
-
-    const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue,initialValue);
-    
-    document.getElementById('total_accomodation').value = numberFormatPHPCustom(total, 2);
-    document.getElementById('total_business_trip').value = numberFormatPHPCustom(sumTotalBusinessTrip, 2);
-
-    if (budgetDetailsDataJSON && sumTotalBusinessTrip > newFormatBudget) {
-      Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
-    }
-  }
-
-  accomodationInputs.forEach(id => {
-    const inputElement = document.getElementById(id);
-    if (inputElement) {
-      inputElement.addEventListener('input', calculateTotalAccomodation);
     }
   });
 
@@ -279,7 +244,7 @@
 
   $("#myWorker").prop("disabled", true);
   $("#requester_popup").prop("disabled", true);
-  $("#sitecode2").prop("disabled", true);
+  $("#mySiteCodeSecondTrigger").prop("disabled", true);
   $("#dateEnd").prop("disabled", true);
   $("#dateEnd").css("background-color", "white");
   $(".loading").hide();
@@ -298,52 +263,21 @@
   $("#bank_accounts_third_popup").prop("disabled", true);
 
   // BUDGET CODE
-  $('#tableGetProject tbody').on('click', 'tr', function() {
-    $("#sitecode").val("");
-    $("#sitename").val("");
-    $("#sitecode2").prop("disabled", false);
+  $('#tableGetProjectSecond').on('click', 'tbody tr', function() {
+    var sysId = $(this).find('input[data-trigger="sys_id_project_second"]').val();
+    getSiteSecond(sysId);
 
-    $("#myProject").modal('toggle');
+    $("#site_code_second").val("");
+    $("#site_id_second").val("");
+    $("#site_name_second").val("");
 
-    var row = $(this).closest("tr");
-    var id = row.find("td:nth-child(1)").text();
-    var sys_id = $('#sys_id_budget' + id).val();
-    var code = row.find("td:nth-child(2)").text();
-    var name = row.find("td:nth-child(3)").text();
-
-    $("#projectcode").val(code);
-    $("#projectname").val(name);
-
-    adjustInputSize(document.getElementById("projectcode"), "string");
-    
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-
-    var keys = 0;
-    $.ajax({
-      type: 'GET',
-      url: '{!! route("getSite") !!}?project_code=' + sys_id,
-      success: function(data) {
-        var no = 1;
-        var t = $('#tableGetSite').DataTable();
-        t.clear();
-        $.each(data, function(key, val) {
-          keys += 1;
-          t.row.add([
-            '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-            '<td>' + val.Code + '</td>',
-            '<td>' + val.Name + '</td></tr></tbody>'
-          ]).draw();
-        });
-      }
-    });
+    $("#mySiteCodeSecondTrigger").prop("disabled", false);
   });
 
   // SUB BUDGET CODE
-  $('#tableGetSite tbody').on('click', 'tr', function() {
+  $('#tableGetSiteSecond').on('click', 'tbody tr', function() {
+    var sysId = $(this).find('input[data-trigger="sys_id_site_second"]').val();
+
     $("#budgetDetailsData").val("");
     $("#myWorker").prop("disabled", false);
     $("#requester_popup").prop("disabled", false);
@@ -354,21 +288,10 @@
     $("#bank_list_popup_corp_card").prop("disabled", false);
     $('table#budgetTable tbody').empty();
     $(".loading").show();
-    
-    $("#mySiteCode").modal('toggle');
-    
-    const searchBudgetBtn = document.getElementById('budget_detail_search');
-    
-    var row = $(this).closest("tr");
-    var id = row.find("td:nth-child(1)").text();
-    var sys_ID = $('#sys_id_site' + id).val();
-    var code = row.find("td:nth-child(2)").text();
-    var name = row.find("td:nth-child(3)").text();
-    
-    $("#sitecode").val(code);
-    $("#sitename").val(name);
 
-    adjustInputSize(document.getElementById("sitecode"));
+    $('#mySiteCodeSecond').modal('hide');
+
+    const searchBudgetBtn = document.getElementById('budget_detail_search');
 
     $.ajaxSetup({
       headers: {
@@ -378,7 +301,7 @@
 
     $.ajax({
       type: 'GET',
-      url: '{!! route("getBudget") !!}?site_code=' + sys_ID,
+      url: '{!! route("getBudget") !!}?site_code=' + sysId,
       success: function(data) {
         const datas = [
           {
@@ -388,7 +311,7 @@
             priceBaseCurrencyValue: 3000000,
             quantityRemaining: 1,
             priceBaseCurrencyISOCode: "IDR",
-            currentBudget: 6000000,
+            currentBudget: 3500000,
           },
           {
             product_RefID: "820005-0000",
@@ -397,7 +320,7 @@
             priceBaseCurrencyValue: 2500000,
             quantityRemaining: 0,
             priceBaseCurrencyISOCode: "IDR",
-            currentBudget: 2500000,
+            currentBudget: 1000000,
           },
           // {
           //   product_RefID: 88000000003488,
@@ -611,7 +534,6 @@
       $("#bank_accounts_id").val(bankAccountDuplicateId.value);
     }
   });
-  
   // ========== VENDOR ==========
 
   // ========== CORP CARD ==========

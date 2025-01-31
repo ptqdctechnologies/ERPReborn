@@ -295,7 +295,7 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name) 
+    public function ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position) 
     {
         try {
             $varAPIWebToken             = Session::get('SessionLogin');
@@ -345,7 +345,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Presentasi project Tanjung Pinang",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Tanjung Pinang"
+                    "DestinationTo" => "Tanjung Pinang",
+                    "DirectToVendor" => "11632633.83",
+                    "ByCorpCard" => "5095132.82",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000228",
@@ -366,7 +368,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Training teknisi Merauke",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Merauke"
+                    "DestinationTo" => "Merauke",
+                    "DirectToVendor" => "12993994.42",
+                    "ByCorpCard" => "4296891.03",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000227",
@@ -387,7 +391,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Maintenance BTS Pangkal Pinang",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Pangkal Pinang"
+                    "DestinationTo" => "Pangkal Pinang",
+                    "DirectToVendor" => "2389051.36",
+                    "ByCorpCard" => "8143150.32",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000226",
@@ -408,7 +414,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Survey lokasi Gorontalo",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Gorontalo"
+                    "DestinationTo" => "Gorontalo",
+                    "DirectToVendor" => "6054697.34",
+                    "ByCorpCard" => "12253790.16",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000225",
@@ -429,7 +437,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Meeting vendor Bengkulu",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Bengkulu"
+                    "DestinationTo" => "Bengkulu",
+                    "DirectToVendor" => "9761372.59",
+                    "ByCorpCard" => "10151969.28",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000224",
@@ -450,7 +460,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Audit site Kendari",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Kendari"
+                    "DestinationTo" => "Kendari",
+                    "DirectToVendor" => "4566099.89",
+                    "ByCorpCard" => "5316023.26",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000223",
@@ -471,7 +483,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Training team Jambi",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Jambi"
+                    "DestinationTo" => "Jambi",
+                    "DirectToVendor" => "5247421.23",
+                    "ByCorpCard" => "1215213.85",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000222",
@@ -492,7 +506,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Instalasi perangkat Ternate",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Ternate"
+                    "DestinationTo" => "Ternate",
+                    "DirectToVendor" => "555701.37",
+                    "ByCorpCard" => "1085223.38",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000221",
@@ -513,7 +529,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Meeting koordinasi Mataram",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Mataram"
+                    "DestinationTo" => "Mataram",
+                    "DirectToVendor" => "9846572.38",
+                    "ByCorpCard" => "7405033.38",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000220",
@@ -534,7 +552,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Survey lokasi Balikpapan",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Balikpapan"
+                    "DestinationTo" => "Balikpapan",
+                    "DirectToVendor" => "412834.03",
+                    "ByCorpCard" => "7023584.36",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000219",
@@ -555,7 +575,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Maintenance BTS Kupang",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Kupang"
+                    "DestinationTo" => "Kupang",
+                    "DirectToVendor" => "8144604.62",
+                    "ByCorpCard" => "1742125.93",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000218",
@@ -576,7 +598,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Presentasi project Samarinda",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Samarinda"
+                    "DestinationTo" => "Samarinda",
+                    "DirectToVendor" => "1678891.67",
+                    "ByCorpCard" => "11445578.27",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000217",
@@ -597,7 +621,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Meeting vendor Malang",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Malang"
+                    "DestinationTo" => "Malang",
+                    "DirectToVendor" => "13076269.64",
+                    "ByCorpCard" => "3469770.83",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000216",
@@ -618,7 +644,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Audit site Sorong",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Sorong"
+                    "DestinationTo" => "Sorong",
+                    "DirectToVendor" => "3636630.76",
+                    "ByCorpCard" => "1019176.27",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000215",
@@ -639,7 +667,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Training teknisi Padang",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Padang"
+                    "DestinationTo" => "Padang",
+                    "DirectToVendor" => "5584803.97",
+                    "ByCorpCard" => "1074832.13",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000214",
@@ -660,7 +690,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Instalasi perangkat Banjarmasin",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Banjarmasin"
+                    "DestinationTo" => "Banjarmasin",
+                    "DirectToVendor" => "11699956.83",
+                    "ByCorpCard" => "981594.58",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000213",
@@ -681,7 +713,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Survey lokasi Pontianak",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Pontianak"
+                    "DestinationTo" => "Pontianak",
+                    "DirectToVendor" => "6191598.49",
+                    "ByCorpCard" => "2423840.88",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000212",
@@ -702,7 +736,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Meeting koordinasi Pekanbaru",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Pekanbaru"
+                    "DestinationTo" => "Pekanbaru",
+                    "DirectToVendor" => "3990965.70",
+                    "ByCorpCard" => "895938.52",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000211",
@@ -723,7 +759,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Maintenance BTS Ambon",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Ambon"
+                    "DestinationTo" => "Ambon",
+                    "DirectToVendor" => "4290339.17",
+                    "ByCorpCard" => "2207263.87",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000210",
@@ -745,6 +783,8 @@ class BusinessTripRequestController extends Controller
                     "remark" => "Training team Yogyakarta",
                     "DepartingFrom" => "Jakarta",
                     "DestinationTo" => "Yogyakarta",
+                    "DirectToVendor" => "6506060.02",
+                    "ByCorpCard" => "6407582.00",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000209",
@@ -765,7 +805,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Presentasi project Denpasar",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Denpasar"
+                    "DestinationTo" => "Denpasar",
+                    "DirectToVendor" => "4580540.68",
+                    "ByCorpCard" => "7677468.37",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000208",
@@ -786,7 +828,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Survey lokasi Palembang",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Palembang"
+                    "DestinationTo" => "Palembang",
+                    "DirectToVendor" => "9812027.67",
+                    "ByCorpCard" => "4722046.68",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000207",
@@ -807,7 +851,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Audit site Jayapura",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Jayapura"
+                    "DestinationTo" => "Jayapura",
+                    "DirectToVendor" => "9217656.66",
+                    "ByCorpCard" => "1818964.19",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000206",
@@ -828,7 +874,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Meeting koordinasi Semarang",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Semarang"
+                    "DestinationTo" => "Semarang",
+                    "DirectToVendor" => "8767743.46",
+                    "ByCorpCard" => "2790922.28",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000205",
@@ -849,7 +897,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Maintenance BTS Manado",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Manado"
+                    "DestinationTo" => "Manado",
+                    "DirectToVendor" => "9445254.91",
+                    "ByCorpCard" => "11937158.49",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000204",
@@ -870,7 +920,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Training teknisi Bandung",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Bandung"
+                    "DestinationTo" => "Bandung",
+                    "DirectToVendor" => "7185994.58",
+                    "ByCorpCard" => "513655.62",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000203",
@@ -891,7 +943,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Instalasi perangkat Makassar",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Makassar"
+                    "DestinationTo" => "Makassar",
+                    "DirectToVendor" => "5075630.00",
+                    "ByCorpCard" => "1780691.21",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000202",
@@ -912,7 +966,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Meeting vendor Surabaya",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Surabaya"
+                    "DestinationTo" => "Surabaya",
+                    "DirectToVendor" => "668860.66",
+                    "ByCorpCard" => "9816691.90",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000201",
@@ -933,7 +989,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "Survey lokasi BTS Medan",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Medan"
+                    "DestinationTo" => "Medan",
+                    "DirectToVendor" => "163579.34",
+                    "ByCorpCard" => "3944147.35",
                 ],
                 [
                     "DocumentNumber" => "BRF-24000200",
@@ -954,7 +1012,9 @@ class BusinessTripRequestController extends Controller
                     "CombinedBudgetSection_RefID" => 143000000000305,
                     "remark" => "BT Pak Sagala presentasi HTLS Batam",
                     "DepartingFrom" => "Jakarta",
-                    "DestinationTo" => "Batam"
+                    "DestinationTo" => "Batam",
+                    "DirectToVendor" => "1906782.56",
+                    "ByCorpCard" => "789801.69",
                 ],
             ];
 
@@ -1612,15 +1672,21 @@ class BusinessTripRequestController extends Controller
             }, 0);
 
             $compact = [
-                // 'dataDetail'        => $filteredData,
-                'dataDetail'        => $filteredData,
-                'budgetCode'        => $project_code,
-                'budgetName'        => $project_name,
-                'siteCode'          => $site_code,
-                'siteName'          => $site_name,
-                'requesterName'     => $requester_name,
-                'beneficiaryName'   => $beneficiary_name,
-                'total'             => $totalAdvance,
+                // 'dataDetail'         => $filteredData,
+                'dataDetail'            => $filteredData,
+                'budgetCode'            => $project_code,
+                'budgetName'            => $project_name,
+                'budgetId'              => $project_id,
+                'siteCode'              => $site_code,
+                'siteName'              => $site_name,
+                'siteId'                => $site_id,
+                'requesterName'         => $requester_name,
+                'requesterId'           => $requester_id,
+                'requesterPosition'     => $requester_position,
+                'beneficiaryName'       => $beneficiary_name,
+                'beneficiaryId'         => $beneficiary_id,
+                'beneficiaryPosition'   => $beneficiary_position,
+                'total'                 => $totalAdvance,
             ];
 
             Session::put("isButtonReportBusinessTripRequestSummarySubmit", true);
@@ -1636,19 +1702,21 @@ class BusinessTripRequestController extends Controller
     public function ReportBusinessTripRequestSummaryStore(Request $request) 
     {
         try {
-            $project_code       = $request->project_code_second;
-            $project_name       = $request->project_name_second;
-            $project_id         = $request->project_id_second;
+            $project_code           = $request->project_code_second;
+            $project_name           = $request->project_name_second;
+            $project_id             = $request->project_id_second;
 
-            $site_id            = $request->site_id_second;
-            $site_code          = $request->site_code_second;
-            $site_name          = $request->site_name_second;
+            $site_id                = $request->site_id_second;
+            $site_code              = $request->site_code_second;
+            $site_name              = $request->site_name_second;
 
-            $requester_id       = $request->worker_id_second;
-            $requester_name     = $request->worker_name_second;
+            $requester_id           = $request->worker_id_second;
+            $requester_name         = $request->worker_name_second;
+            $requester_position     = $request->worker_position_second;
 
-            $beneficiary_id     = $request->beneficiary_second_id;
-            $beneficiary_name   = $request->beneficiary_second_person_name;
+            $beneficiary_id         = $request->beneficiary_second_id;
+            $beneficiary_name       = $request->beneficiary_second_person_name;
+            $beneficiary_position   = $request->beneficiary_second_person_position;
 
             if (!$project_id && !$site_id && !$requester_id && !$beneficiary_id) {
                 Session::forget("isButtonReportBusinessTripRequestSummarySubmit");
@@ -1657,7 +1725,7 @@ class BusinessTripRequestController extends Controller
                 return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
             }
 
-            $compact = $this->ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name);
+            $compact = $this->ReportBusinessTripRequestSummaryData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position);
 
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
@@ -1941,7 +2009,7 @@ class BusinessTripRequestController extends Controller
                 Session::forget("isButtonReportBusinessTripRequestDetailSubmit");
                 Session::forget("dataReportBusinessTripRequestDetail");
         
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'Budget, Sub Budget, & BRF Number Cannot Be Empty');
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'BRF Number Cannot Empty');
             }
 
             if ($dataReport) {
@@ -1961,7 +2029,7 @@ class BusinessTripRequestController extends Controller
                     return Excel::download(new ExportReportBusinessTripRequestDetail, 'Export Report Business Trip Request Detail.xlsx');
                 }
             } else {
-                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'Budget, Sub Budget, & Advance Number Cannot Empty');
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripRequestDetail')->with('NotFound', 'BRF Number Cannot Empty');
             }
         } catch (\Throwable $th) {
             Log::error("PrintExportReportBusinessTripRequestDetail Function Error at " . $th->getMessage());

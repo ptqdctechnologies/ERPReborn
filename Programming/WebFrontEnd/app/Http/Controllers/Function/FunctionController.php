@@ -55,9 +55,8 @@ class FunctionController extends Controller
     {
         $varAPIWebToken = Session::get('SessionLogin');
         $varGetRedisNewProject = [];
-        $testingTrigger = $request->trigger;
 
-        if (!Redis::get("getNewProject") || $testingTrigger) {
+        if (!Redis::get("getNewProject")) {
             $varDataProject = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
@@ -194,7 +193,7 @@ class FunctionController extends Controller
             $filteredData = $DataSubBudget ?? [];
         }
 
-        return response()->json($filteredData);
+        return response()->json(array_values($filteredData));
     }
 
     // FUNCTION BUDGET 

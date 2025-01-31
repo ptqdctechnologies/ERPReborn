@@ -164,6 +164,16 @@
         </td>
         <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Direct to Vendor
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            By Corp Card
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
             Remark
           </div>
         </td>
@@ -224,6 +234,16 @@
             </td>
             <td>
               <div style="margin-top: 4px; font-size: 12px;">
+                <?= number_format($dataDetail['DirectToVendor'], 2, '.', ','); ?>
+              </div>
+            </td>
+            <td>
+              <div style="margin-top: 4px; font-size: 12px;">
+                <?= number_format($dataDetail['ByCorpCard'], 2, '.', ','); ?>
+              </div>
+            </td>
+            <td>
+              <div style="margin-top: 4px; font-size: 12px;">
                 <?= $dataDetail['remark']; ?>
               </div>
             </td>
@@ -239,7 +259,7 @@
         <td style="height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['total'], 2, '.', ','); ?></div>
         </td>
-        <td style="height: 20px; text-align: left;" colspan="4"></td>
+        <td style="height: 20px; text-align: left;" colspan="6"></td>
       </tr>
     </table>
   </div>

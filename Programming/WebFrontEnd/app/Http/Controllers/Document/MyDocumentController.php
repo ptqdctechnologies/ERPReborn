@@ -41,12 +41,12 @@ class MyDocumentController extends Controller
                 $filteredArray[$i]['businessDocumentDateTimeTZ'] = $ShowMyDocumentListData[$i]['entities']['businessDocumentDateTimeTZ'];
                 $filteredArray[$i]['formDocumentNumber_RefID'] = $ShowMyDocumentListData[$i]['entities']['formDocumentNumber_RefID'];
                 $filteredArray[$i]['businessDocument_RefID'] = $ShowMyDocumentListData[$i]['entities']['businessDocument_RefID'];
-                $filteredArray[$i]['BusinessDocumentType_RefID'] = $ShowMyDocumentListData[$i]['entities']['BusinessDocumentType_RefID'];
-                $filteredArray[$i]['BusinessDocumentTypeName'] = $ShowMyDocumentListData[$i]['entities']['BusinessDocumentTypeName'];
-                if ($ShowMyDocumentListData[$i]['entities']['CombinedBudgetID'] != []) {
-                    $filteredArray[$i]['CombinedBudgetID'] = $ShowMyDocumentListData[$i]['entities']['CombinedBudgetID'][0];
+                $filteredArray[$i]['BusinessDocumentType_RefID'] = $ShowMyDocumentListData[$i]['entities']['businessDocumentType_RefID'];
+                $filteredArray[$i]['BusinessDocumentTypeName'] = $ShowMyDocumentListData[$i]['entities']['businessDocumentTypeName'];
+                if ($ShowMyDocumentListData[$i]['entities']['combinedBudgetID'] != []) {
+                    $filteredArray[$i]['CombinedBudgetID'] = $ShowMyDocumentListData[$i]['entities']['combinedBudgetID'][0];
                 } else {
-                    $filteredArray[$i]['CombinedBudgetID'] = $ShowMyDocumentListData[$i]['entities']['CombinedBudgetID'];
+                    $filteredArray[$i]['CombinedBudgetID'] = $ShowMyDocumentListData[$i]['entities']['combinedBudgetID'];
                 }
                 if ($ShowMyDocumentListData[$i]['entities']['combinedBudgetCode'] != []) {
                     $filteredArray[$i]['combinedBudgetCode'] = $ShowMyDocumentListData[$i]['entities']['combinedBudgetCode'][0];
@@ -90,18 +90,18 @@ class MyDocumentController extends Controller
 
     public function ShowMyDocumentListData(Request $request)
     {
+        $varAPIWebToken = Session::get('SessionLogin');
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-        $varAPIWebToken = Session::get('SessionLogin'); 
 
-        if (Redis::get("ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID) == null) {
-            Helper_APICall::setCallAPIGateway(
+        if (!Helper_Redis::getValue($varAPIWebToken, "ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID)) {
+            $apiResponse = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
                 'latest',
                 [
                     'parameter' => [
-                        'recordID' => (int)$SessionWorkerCareerInternal_RefID,
+                        'recordID' => (int) $SessionWorkerCareerInternal_RefID,
                         'dataFilter' => [
                             'businessDocumentNumber' => null,
                             'businessDocumentType_RefID' => null,
@@ -111,10 +111,55 @@ class MyDocumentController extends Controller
                 ],
                 false
             );
+
+            if (isset($apiResponse['metadata']) && $apiResponse['metadata']['HTTPStatusCode'] == 200) {
+                $dataAPIReport = $apiResponse['data'][0]['document']['content']['itemList']['ungrouped'];
+
+                Helper_Redis::setValue(
+                    $varAPIWebToken, 
+                    "ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID, 
+                    json_encode($dataAPIReport),
+                    10
+                );
+
+                return $dataAPIReport;
+            } else {
+                return response()->json(['error' => 'Invalid API response'], 500);
+            }
         }
 
         $filteredArray = $this->CustomeFormatData();
 
         return response()->json($filteredArray);
     }
+
+    // public function ShowMyDocumentListData(Request $request)
+    // {
+    //     $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+    //     $varAPIWebToken = Session::get('SessionLogin'); 
+
+    //     if (Redis::get("ShowMyDocumentListData" . $SessionWorkerCareerInternal_RefID) == null) {
+    //         Helper_APICall::setCallAPIGateway(
+    //             Helper_Environment::getUserSessionID_System(),
+    //             $varAPIWebToken,
+    //             'report.form.resume.master.getBusinessDocumentIssuanceDisposition',
+    //             'latest',
+    //             [
+    //                 'parameter' => [
+    //                     'recordID' => (int)$SessionWorkerCareerInternal_RefID,
+    //                     'dataFilter' => [
+    //                         'businessDocumentNumber' => null,
+    //                         'businessDocumentType_RefID' => null,
+    //                         'combinedBudget_RefID' => null
+    //                     ]
+    //                 ]
+    //             ],
+    //             false
+    //         );
+    //     }
+
+    //     $filteredArray = $this->CustomeFormatData();
+
+    //     return response()->json($filteredArray);
+    // }
 }

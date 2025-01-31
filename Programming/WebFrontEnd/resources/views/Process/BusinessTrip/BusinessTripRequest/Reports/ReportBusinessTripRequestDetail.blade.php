@@ -64,28 +64,28 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
-                                                <!-- TANGGAL MULAI PERJALANAN -->
+                                                <!-- DATE COMMENCE TRAVEL -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
-                                                        Tanggal Mulai Perjalanan
+                                                        Date Commence Travel
                                                     </div>
                                                     <div class="col-sm-8 col-md-6 p-0">
                                                         : <?= $dataReport['dataHeaderOne']['dateCommence']; ?>
                                                     </div>
                                                 </div>
-                                                <!-- TANGGAL AKHIR PERJALANAN -->
+                                                <!-- DATE END TRAVEL -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
-                                                        Tanggal Akhir Perjalanan
+                                                        Date End Travel
                                                     </div>
                                                     <div class="col-sm-8 col-md-6 p-0">
                                                         : <?= $dataReport['dataHeaderOne']['dateEnd']; ?>
                                                     </div>
                                                 </div>
-                                                <!-- TANGGAL PEMBUATAN BRF -->
+                                                <!-- BRF DATE -->
                                                 <div class="row" style="margin-bottom: 1rem;">
                                                     <div class="col-sm-4 col-md-6 p-0 text-bold">
-                                                        Tanggal Pembuatan BRF
+                                                        BRF Date
                                                     </div>
                                                     <div class="col-sm-8 col-md-6 p-0">
                                                         : <?= $dataReport['dataHeaderOne']['dateBRF']; ?>
@@ -155,6 +155,29 @@
                         </div>
 
                         <!-- HEADER TWO -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row p-1 text-bold px-0" style="line-height: 14px;">
+                                            File Attachment
+                                        </div>
+                                        <div class="row p-1 pt-2">
+                                            <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
+                                            <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                $varAPIWebToken,
+                                                'dataInput_Log_FileUpload_1',
+                                                null,
+                                                'dataInput_Return'
+                                                ).
+                                            ''; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- HEADER THREE -->
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
@@ -247,7 +270,7 @@
                             </div>
                         </div>
 
-                        <!-- HEADER THREE -->
+                        <!-- HEADER FOUR -->
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">

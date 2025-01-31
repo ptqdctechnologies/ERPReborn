@@ -7,6 +7,16 @@
 
         $("#site_code_second").val("");
         $("#site_id_second").val("");
+        $("#site_name_second").val("");
+
+        $("#worker_name_second").val("");
+        $("#worker_id_second").val("");
+        $("#worker_position_second").val("");
+
+        $("#beneficiary_second_person_name").val("");
+        $("#beneficiary_second_id").val("");
+        $("#beneficiary_second_person_position").val("");
+
         $("#mySiteCodeSecondTrigger").prop("disabled", false);
     });
 

@@ -1,12 +1,125 @@
 <script type="text/javascript">
+    const initialValue = 0;
+    const totalBusinessTrip = [];
+    const transportInputs = [
+        'taxi',
+        'airplane',
+        'train',
+        'bus',
+        'ship',
+        'tol_road',
+        'park',
+        'access_bagage',
+        'fuel',
+        'hotel',
+        'mess',
+        'guest_house',
+    ];
+    const businessTripInputs = [
+        'allowance',
+        'entertainment',
+        'other',
+    ];
+    
+    // FUNGSI TOTAL TRANSPORT
+    function calculateTotalTransport() {
+        const taxi = parseFloat(document.getElementById('taxi').value.replace(/,/g, '')) || 0;
+        const airplane = parseFloat(document.getElementById('airplane').value.replace(/,/g, '')) || 0;
+        const train = parseFloat(document.getElementById('train').value.replace(/,/g, '')) || 0;
+        const bus = parseFloat(document.getElementById('bus').value.replace(/,/g, '')) || 0;
+        const ship = parseFloat(document.getElementById('ship').value.replace(/,/g, '')) || 0;
+        const tolRoad = parseFloat(document.getElementById('tol_road').value.replace(/,/g, '')) || 0;
+        const park = parseFloat(document.getElementById('park').value.replace(/,/g, '')) || 0;
+        const accessBagage = parseFloat(document.getElementById('access_bagage').value.replace(/,/g, '')) || 0;
+        const fuel = parseFloat(document.getElementById('fuel').value.replace(/,/g, '')) || 0;
+        const hotel = parseFloat(document.getElementById('hotel').value.replace(/,/g, '')) || 0;
+        const mess = parseFloat(document.getElementById('mess').value.replace(/,/g, '')) || 0;
+        const guest_house = parseFloat(document.getElementById('guest_house').value.replace(/,/g, '')) || 0;
+
+        let newFormatBudget = 0;
+        let budgetDetailsDataJSON = null;
+        try {
+            budgetDetailsDataJSON = document.getElementById('budgetDetailsData').value;
+            if (budgetDetailsDataJSON) {
+                const parsedData = JSON.parse(budgetDetailsDataJSON);
+                newFormatBudget = parseFloat(parsedData.balanceBudget.replace(/,/g, '')) || 0;
+            } else {
+                // console.warn('Budget details data is empty');
+            }
+        } catch (error) {
+            console.error('Error parsing budget details JSON:', error);
+            return;
+        }
+
+        const total = taxi + airplane + train + bus + ship + tolRoad + park + accessBagage + fuel + hotel + mess + guest_house;
+        totalBusinessTrip[0] = total;
+
+        const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
+
+        document.getElementById('total_transport').value = numberFormatPHPCustom(total, 2);
+        document.getElementById('total_business_trip').value = numberFormatPHPCustom(sumTotalBusinessTrip, 2);
+
+        if (budgetDetailsDataJSON && sumTotalBusinessTrip > newFormatBudget) {
+            Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
+        }
+    }
+    
+    transportInputs.forEach(id => {
+        const inputElement = document.getElementById(id);
+        if (inputElement) {
+            inputElement.addEventListener('input', calculateTotalTransport);
+        }
+    });
+
+    // FUNGSI TOTAL BUSINESS TRIP (TOTAL TRANSPORT + TOTAL ACCOMMODATION + ALLOWANCE + ENTERTAINMENT + OTHER)
+    function calculateTotalBusinessTrip() {
+        const allowance = parseFloat(document.getElementById('allowance').value.replace(/,/g, '')) || 0;
+        const entertainment = parseFloat(document.getElementById('entertainment').value.replace(/,/g, '')) || 0;
+        const other = parseFloat(document.getElementById('other').value.replace(/,/g, '')) || 0;
+
+        let newFormatBudget = 0;
+        let budgetDetailsDataJSON = null;
+        try {
+            budgetDetailsDataJSON = document.getElementById('budgetDetailsData').value;
+            if (budgetDetailsDataJSON) {
+                const parsedData = JSON.parse(budgetDetailsDataJSON);
+                newFormatBudget = parseFloat(parsedData.balanceBudget.replace(/,/g, '')) || 0;
+            } else {
+                // console.warn('Budget details data is empty');
+            }
+        } catch (error) {
+            console.error('Error parsing budget details JSON:', error);
+            return;
+        }
+
+        const total = allowance + entertainment + other;
+        totalBusinessTrip[2] = total;
+
+        const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue,initialValue);
+
+        document.getElementById('total_business_trip').value = numberFormatPHPCustom(sumTotalBusinessTrip, 2);
+
+        if (budgetDetailsDataJSON && sumTotalBusinessTrip > newFormatBudget) {
+            Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
+        }
+    }
+
+    businessTripInputs.forEach(id => {
+        const inputElement = document.getElementById(id);
+        
+        if (inputElement) {
+            inputElement.addEventListener('input', calculateTotalBusinessTrip);
+        }
+    });
+</script>
+
+<script type="text/javascript">
     $("#buttonDetailBsf").prop("disabled", true);
     $("#SubmitBsfList").prop("disabled", true);
     $("#ManagerNameId").prop("disabled", true);
     $("#CurrencyId").prop("disabled", true);
     $("#FinanceId").prop("disabled", true);
 </script>
-
-
 
 <script>
     function TableSearchBrfInBsf(data) {
@@ -20,13 +133,12 @@
         $.each(data, function(key, val) {
             keys += 1;
             t.row.add([
-                '<tbody><tr><input id="bussinesTripRefID' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="requester_id' + keys + '" value="' + val.RequesterWorkerJobsPosition_RefID + '" type="hidden"><td>' + no++ + '</td>',
-                '<td>' + val.DocumentNumber + '</td>',
-                '<td>' + val.CombinedBudgetCode + '</td>',
-                '<td>' + val.CombinedBudgetSectionCode + '</td>',
-                '<td>' + val.RequesterWorkerName + '</td></tr></tbody>'
+                '<tbody><tr><input id="bussinesTripRefID' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="requester_id' + keys + '" value="' + val.requesterWorkerJobsPosition_RefID + '" type="hidden"><td>' + no++ + '</td>',
+                '<td>' + val.documentNumber + '</td>',
+                '<td>' + val.combinedBudgetCode + '</td>',
+                '<td>' + val.combinedBudgetSectionCode + '</td>',
+                '<td>' + val.requesterWorkerName + '</td></tr></tbody>'
             ]).draw();
-
         });
     }
 </script>
@@ -38,6 +150,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
         var keys = 0;
 
         $.ajax({
@@ -49,7 +162,6 @@
         });
     });
 </script>
-
 
 <script>
     $(function() {
@@ -70,14 +182,12 @@
                 data: form_data,
                 type: method,
                 success: function(data) {
-
                     TableSearchBrfInBsf(data);
                 }
             })
         });
     });
 </script>
-
 
 <script>
     var keys = 0;
@@ -97,10 +207,8 @@
     // $('#GrandTotalAmount').html(0);
     // $("#SubmitBsfList").prop("disabled", true);
     //END RESET FORM
-
     
     $('#TableSearchBrfInBsf tbody').on('click', 'tr', function() {
-
         $("#mySearchBrf").modal('toggle');
 
         var row = $(this).closest("tr");
@@ -115,19 +223,25 @@
 
         $(".tableShowHideBrfDetail").show();
 
+        adjustInputSize(document.getElementById("bussines_trip_number"), "string", 0.9);
+        widthResizer();
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
         $.ajax({
             type: "POST",
             url: '{!! route("BusinessTripSettlement.StoreValidateBusinessTripSettlementRequester") !!}?requester_id=' + requester_id + '&requester_name=' + requester_name + '&bussinesTripRefID=' + bussinesTripRefID,
             success: function(data) {
                 if (data.status == "200") {
-
                     $("#requester_id").val(data.requester_id);
                     $("#requester_name").val(data.requester_name);
+
+                    adjustInputSize(document.getElementById("requester_name"), "string", 0.8);
+                    widthResizer();
 
                     var no = 1;
                     applied = 0;
@@ -137,8 +251,6 @@
                     statusDisplay2 = [];
                     statusForm = [];
                     $.each(data.data, function(key, value) {
-
-                        console.log(value.entities);
                         keys += 1;
 
                         // if(value.entities.quantityAbsorption == "0.00" && value.entities.quantity == "0.00"){
@@ -212,22 +324,22 @@
                             '</tr>';
 
                         $('table.TableBrfDetail tbody').append(html);
-
                     });
-
                 } else if (data.status == "501") {
                     Swal.fire("Cancelled", "You have chosen this number !", "error");
                 } else {
                     Swal.fire("Cancelled", "Please use same requester !", "error");
                 }
             },
+            error: function(response) {
+                console.log('response', response.responseJSON.message);
+            }
         });
     });
 
     //VALIDASI QTY EXPENSE
 
     function qty_expense(key, value) {
-
         var qty_val = (value.value).replace(/,/g, '');
         var budget_qty_val = $("#budget_qty" + key).val();
         var price_expense = $("#price_expense" + key).val().replace(/,/g, '');
@@ -251,7 +363,6 @@
             $('#qty_expense' + key).css("border", "1px solid red");
             $('#qty_expense' + key).focus();
         } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
-
             swal({
                 onOpen: function() {
                     swal.disableConfirmButton();
@@ -273,12 +384,10 @@
         TotalBudgetSettlementSelected();
         //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
         TotalBalanceQtySettlementSelected(key);
-
     }
 
     //VALIDASI QTY AMOUNT
     function qty_amount(key, value) {
-
         var qty_val = (value.value).replace(/,/g, '');
         var budget_qty_val = $("#budget_qty" + key).val();
         var price_amount = $("#price_amount" + key).val().replace(/,/g, '');
@@ -318,6 +427,7 @@
             $("input[name='qty_amount[]']").css("border", "1px solid #ced4da");
             $('#total_amount' + key).val(currencyTotal(total));
         }
+
         //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
         TotalBudgetSettlementSelected();
         //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
@@ -327,7 +437,6 @@
     //VALIDASI PRICE EXPENSE
 
     function price_expense(key, value) {
-
         var price_val = (value.value).replace(/,/g, '');
         var budget_price_val = $("#budget_price" + key).val().replace(/,/g, '');
         var qty_expense = $("#qty_expense" + key).val();
@@ -336,7 +445,6 @@
             $('#total_expense' + key).val("");
             $("input[name='price_expense[]']").css("border", "1px solid #ced4da");
         } else if (parseFloat(price_val) > parseFloat(budget_price_val)) {
-
             swal({
                 onOpen: function() {
                     swal.disableConfirmButton();
@@ -353,6 +461,7 @@
             $("input[name='price_expense[]']").css("border", "1px solid #ced4da");
             $('#total_expense' + key).val(currencyTotal(total));
         }
+
         //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
         TotalBudgetSettlementSelected();
         //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
@@ -361,7 +470,6 @@
 
     //VALIDASI PRICE AMOUNT
     function price_amount(key, value) {
-
         var price_val = (value.value).replace(/,/g, '');
         var budget_price_val = $("#budget_price" + key).val().replace(/,/g, '');
         var qty_amount = $("#qty_amount" + key).val();
@@ -370,7 +478,6 @@
             $('#total_amount' + key).val("");
             $("input[name='price_amount[]']").css("border", "1px solid #ced4da");
         } else if (parseFloat(price_val) > parseFloat(budget_price_val)) {
-
             swal({
                 onOpen: function() {
                     swal.disableConfirmButton();
@@ -387,6 +494,7 @@
             $("input[name='price_amount[]']").css("border", "1px solid #ced4da");
             $('#total_amount' + key).val(currencyTotal(total));
         }
+
         //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED SETTLEMENT
         TotalBudgetSettlementSelected();
         //MEMANGGIL FUNCTION TOTAL BALANCE VALUE SELECTED
@@ -396,7 +504,6 @@
 
 <script>
     function addFromDetailtoCartJs() {
-
         $("#SubmitBsfList").prop("disabled", false);
 
         $('#TableExpenseClaim').find('tbody').empty();
@@ -461,7 +568,6 @@
 
         $.each(total_expense, function(index, data) {
             if (total_expense[index] != "" && total_expense[index] > "0.00" && total_expense[index] != "NaN.00") {
-
                 var putProductId = getProductId[index];
                 var putProductName = getProductName[index];
 
@@ -469,12 +575,12 @@
                     var putProductId = $("#putProductId" + index).val();
                     var putProductName = $("#putProductName" + index).html();
                 }
+
                 TotalBudgetSelected += +total_expense[index].replace(/,/g, '');
                 GrandTotalExpense += +total_expense[index].replace(/,/g, '');
                 TotalQtyExpense += +qty_expense[index].replace(/,/g, '');
 
                 var html = '<tr>' +
-
                     '<input type="hidden" name="var_product_id_expense[]" value="' + putProductId + '">' +
                     '<input type="hidden" name="var_product_name_expense[]" id="var_product_name" value="' + putProductName + '">' +
                     '<input type="hidden" name="var_quantity_expense[]" class="qty_expense2' + index + '" data-id="' + index + '" value="' + currencyTotal(qty_expense[index]).replace(/,/g, '') + '">' +
@@ -509,7 +615,6 @@
 
         $.each(total_amount, function(index, data) {
             if (total_amount[index] != "" && total_amount[index] > "0.00" && total_amount[index] != "NaN.00") {
-
                 var putProductId = getProductId[index];
                 var putProductName = getProductName[index];
 
@@ -517,12 +622,12 @@
                     var putProductId = $("#putProductId" + index).val();
                     var putProductName = $("#putProductName" + index).html();
                 }
+
                 TotalBudgetSelected += +total_amount[index].replace(/,/g, '');
                 GrandTotalAmount += +total_amount[index].replace(/,/g, '');
                 TotalQtyAmount += +qty_amount[index].replace(/,/g, '');
 
                 var html = '<tr>' +
-
                     '<input type="hidden" name="var_product_id_amount[]" value="' + putProductId + '">' +
                     '<input type="hidden" name="var_product_name_amount[]" id="var_product_name" value="' + putProductName + '">' +
                     '<input type="hidden" name="var_quantity_amount[]" class="qty_amount2' + index + '" data-id="' + index + '" value="' + currencyTotal(qty_amount[index]).replace(/,/g, '') + '">' +
@@ -554,10 +659,8 @@
                 $("#SaveAsfList").prop("disabled", false);
             }
         });
-
     }
 </script>
-
 
 <script>
     $(function() {
@@ -578,10 +681,9 @@
                     confirmButtonClass: 'btn btn-success btn-sm',
                     cancelButtonClass: 'btn btn-danger btn-sm',
                     buttonsStyling: true,
-                })
+                });
 
                 swalWithBootstrapButtons.fire({
-
                     title: 'Are you sure?',
                     text: "Save this data?",
                     type: 'question',
@@ -593,9 +695,7 @@
                     cancelButtonColor: '#e9ecef',
                     reverseButtons: true
                 }).then((result) => {
-
                     if (result.value) {
-
                         var action = $(this).attr("action"); //get submit action from form
                         var method = $(this).attr("method"); // get submit method
                         var form_data = new FormData($(this)[0]); // convert form into formdata 
@@ -618,7 +718,6 @@
                                     // CALL FUNCTION DO NOT HAVE ACCESS NOTIF
                                     CancelNotif("You don't have access", '/BusinessTripSettlement?var=1');
                                 } else if (response.message == "MoreThanOne") {
-
                                     HideLoading();
 
                                     $('#getWorkFlow').modal('toggle');
@@ -633,14 +732,12 @@
                                     });
 
                                 } else {
-
                                     HideLoading();
 
                                     SelectWorkFlow(response.workFlowPath_RefID, response.nextApprover_RefID, response.approverEntity_RefID, response.documentTypeID);
 
                                 }
                             },
-
                             error: function(response) {
                                 HideLoading();
                                 $("#SubmitBsfList").prop("disabled", false);
@@ -648,18 +745,13 @@
                                 CancelNotif("You don't have access", '/BusinessTripSettlement?var=1');
 
                             },
-
-                        })
-
-
-                    } else if (
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {
+                        });
+                    } else {
                         HideLoading();
                         // FUNCTION ERROR NOTIFICATION 
                         CancelNotif("Data Cancel Inputed", '/BusinessTripSettlement?var=1');
                     }
-                })
+                });
             }
         });
     });
@@ -672,7 +764,7 @@
             confirmButtonClass: 'btn btn-success btn-sm',
             cancelButtonClass: 'btn btn-danger btn-sm',
             buttonsStyling: true,
-        })
+        });
 
         swalWithBootstrapButtons.fire({
 
@@ -807,4 +899,23 @@
         
         location.reload();
     }
+</script>
+
+<script>
+    function widthResizer(){
+        var widths = $(window).width();
+        var tripNumber = document.getElementById("bussines_trip_number");
+        var requesterName = document.getElementById("requester_name");
+
+        if (widths <= 895 && tripNumber.value.length > 0 && requesterName.value.length > 0) {
+            adjustInputSize(tripNumber, "string", 100);
+            adjustInputSize(requesterName, "string", 100);
+        } 
+        if (widths > 895 && tripNumber.value.length > 0 && requesterName.value.length > 0) {
+            adjustInputSize(tripNumber, "string", 0.9);
+            adjustInputSize(requesterName, "string", 0.8);
+        }
+    }
+
+    window.addEventListener('resize', widthResizer);
 </script>

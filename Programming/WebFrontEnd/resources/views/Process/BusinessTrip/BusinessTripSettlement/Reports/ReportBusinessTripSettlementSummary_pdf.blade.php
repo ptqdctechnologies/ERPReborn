@@ -10,13 +10,52 @@
 
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
+
+  <style>
+    .dates {
+      text-align: right; 
+      font-size: 14px;
+    }
+    .titles {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .header_width_td {
+      width: 110px;
+      height: 20px;
+    }
+    .header_text_td {
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 14px;
+    }
+    .header_value_td {
+      line-height: 14px;
+      font-size: 12px;
+    }
+    .detail_td {
+      border-top: 1px solid black;
+      border-bottom: 1px dotted black;
+      height: 20px;
+    }
+    .value_text_td {
+      font-size: 12px;
+      font-weight: bold;
+      margin: 4px 0px 16px 0px;
+    }
+    .value_table {
+      margin-top: 4px;
+      font-size: 12px;
+    }
+  </style>
 </head>
 
 <body>
   <div class="card-body table-responsive p-0">
-    <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
-    <div style="text-align: center; font-size: 20px; font-weight: bold;">Business Trip Settlement Summary</div>
-    <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
+    <div class="dates"><?= date('F j, Y'); ?></div>
+    <div class="titles">Business Trip Settlement Summary</div>
+    <div class="dates"><?= date('h:i A'); ?></div>
 
     <!-- HEADER -->
     <table style="margin: 30px 0px 15px 1px;">
@@ -25,8 +64,8 @@
         <td style=" width: 350px;">
           <table>
             <tr>
-              <td style="width: 110px; height: 20px;">
-                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+              <td class="header_width_td">
+                <div class="header_text_td">
                   Budget
                 </div>
               </td>
@@ -34,7 +73,7 @@
                 :
               </td>
               <td style="height: 20px;">
-                <div style="line-height: 14px; font-size: 12px;">
+                <div class="header_value_td">
                   <?= $dataReport['budgetCode'] . ' - ' . $dataReport['budgetName']; ?>
                 </div>
               </td>
@@ -46,8 +85,8 @@
         <td style=" width: 350px;">
           <table>
             <tr>
-              <td style="width: 110px; height: 20px;">
-                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+              <td class="header_width_td">
+                <div class="header_text_td">
                   Requester
                 </div>
               </td>
@@ -55,7 +94,7 @@
                 :
               </td>
               <td style="height: 20px;">
-                <div style="line-height: 14px; font-size: 12px;">
+                <div class="header_value_td">
                   <?= $dataReport['requesterName'] ?? '-'; ?>
                 </div>
               </td>
@@ -68,8 +107,8 @@
         <td style=" width: 350px;">
           <table>
             <tr>
-              <td style="width: 110px; height: 20px;">
-                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+              <td class="header_width_td">
+                <div class="header_text_td">
                   Sub Budget
                 </div>
               </td>
@@ -77,7 +116,7 @@
                 :
               </td>
               <td style="height: 20px;">
-                <div style="line-height: 14px; font-size: 12px;">
+                <div class="header_value_td">
                   <?= $dataReport['siteCode'] . ' - ' .$dataReport['siteName']; ?>
                 </div>
               </td>
@@ -89,8 +128,8 @@
         <td style=" width: 350px;">
           <table>
             <tr>
-              <td style="width: 110px; height: 20px;">
-                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+              <td class="header_width_td">
+                <div class="header_text_td">
                   Beneficiary
                 </div>
               </td>
@@ -98,7 +137,7 @@
                 :
               </td>
               <td style="height: 20px;">
-                <div style="line-height: 14px; font-size: 12px;">
+                <div class="header_value_td">
                   <?= $dataReport['beneficiaryName'] ?? '-'; ?>
                 </div>
               </td>
@@ -110,69 +149,69 @@
 
     <!-- DETAIL -->
     <table class="TableReportAdvanceSummary" style="margin-left: 1px; width: 100%;" id="TableReportAdvanceSummary">
-      <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
-        <td style="width: 20px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+      <tr>
+        <td class="detail_td">
+          <div class="value_text_td">
             No
           </div>
         </td>
-        <td style="width: 130px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+        <td class="detail_td">
+          <div class="value_text_td">
             BSF Number
           </div>
         </td>
-        <td style="width: 150px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+        <td class="detail_td">
+          <div class="value_text_td">
             Sub Budget
           </div>
         </td>
-        <td style="width: 70px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+        <td class="detail_td">
+          <div class="value_text_td">
             Departing From
           </div>
         </td>
-        <td style="width: 70px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+        <td class="detail_td">
+          <div class="value_text_td">
             Destination To
           </div>
         </td>
-        <td style="width: 70px; border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+        <td class="detail_td">
+          <div class="value_text_td">
             Date
           </div>
         </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+        <td class="detail_td">
+          <div class="value_text_td">
             Total Expense Claim
           </div>
         </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+        <td class="detail_td">
+          <div class="value_text_td">
             Total Amount Due to Company
           </div>
         </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+        <td class="detail_td">
+          <div class="value_text_td">
             Total BSF
           </div>
         </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+        <td class="detail_td">
+          <div class="value_text_td">
             Currency
           </div>
         </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+        <td class="detail_td">
+          <div class="value_text_td">
             Requester
           </div>
         </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+        <td class="detail_td">
+          <div class="value_text_td">
             Beneficiary
           </div>
         </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+        <td class="detail_td">
+          <div class="value_text_td">
             Remark
           </div>
         </td>
@@ -182,67 +221,67 @@
       <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
         <tr>
           <td>
-            <div style="margin-top: 4px; font-size: 12px;">
+            <div class="value_table">
               <?= $counter++; ?>
             </div>
           </td>
           <td>
-            <div style="margin-top: 4px; font-size: 12px;">
+            <div class="value_table">
               <?= $dataDetail['DocumentNumber']; ?>
             </div>
           </td>
           <td>
-            <div style="margin-top: 4px; font-size: 12px;">
+            <div class="value_table">
               <?= $dataDetail['CombinedBudgetSectionName']; ?>
             </div>
           </td>
           <td>
-            <div style="margin-top: 4px; font-size: 12px;">
+            <div class="value_table">
               <?= $dataDetail['DepartingFrom']; ?>
             </div>
           </td>
           <td>
-            <div style="margin-top: 4px; font-size: 12px;">
+            <div class="value_table">
               <?= $dataDetail['DestinationTo']; ?>
             </div>
           </td>
           <td>
-            <div style="margin-top: 4px; font-size: 12px;">
+            <div class="value_table">
               <?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?>
             </div>
           </td>
           <td>
-            <div style="margin-top: 4px; font-size: 12px;">
+            <div class="value_table">
               <?= number_format($dataDetail['TotalExpenseClaimCart'], 2, '.', ','); ?>
             </div>
           </td>
           <td>
-            <div style="margin-top: 4px; font-size: 12px;">
+            <div class="value_table">
               <?= number_format($dataDetail['TotalAmountDueToCompanyCart'], 2, '.', ','); ?>
             </div>
           </td>
           <td>
-            <div style="margin-top: 4px; font-size: 12px;">
+            <div class="value_table">
               <?= number_format($dataDetail['TotalAdvance'], 2, '.', ','); ?>
             </div>
           </td>
           <td>
-            <div style="margin-top: 4px; font-size: 12px;">
+            <div class="value_table">
               <?= $dataDetail['CurrencyName']; ?>
             </div>
           </td>
           <td>
-            <div style="margin-top: 4px; font-size: 12px;">
+            <div class="value_table">
               <?= $dataDetail['RequesterWorkerName']; ?>
             </div>
           </td>
           <td>
-            <div style="margin-top: 4px; font-size: 12px;">
+            <div class="value_table">
               <?= $dataDetail['BeneficiaryWorkerName']; ?>
             </div>
           </td>
           <td>
-            <div style="margin-top: 4px; font-size: 12px;">
+            <div class="value_table">
               <?= $dataDetail['remark']; ?>
             </div>
           </td>
@@ -253,16 +292,16 @@
 
       <tr style="border-top: 1px solid black;">
         <td style="height: 20px; text-align: left;" colspan="6">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL</div>
+          <div class="value_text_td">GRAND TOTAL</div>
         </td>
         <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalExpense'], 2, '.', ','); ?></div>
+          <div class="value_text_td"><?= number_format($dataReport['totalExpense'], 2, '.', ','); ?></div>
         </td>
         <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalAmount'], 2, '.', ','); ?></div>
+          <div class="value_text_td"><?= number_format($dataReport['totalAmount'], 2, '.', ','); ?></div>
         </td>
         <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['total'], 2, '.', ','); ?></div>
+          <div class="value_text_td"><?= number_format($dataReport['total'], 2, '.', ','); ?></div>
         </td>
         <td style="height: 20px; text-align: left;" colspan="4"></td>
       </tr>

@@ -158,6 +158,7 @@
                         statusDisplay[key] = "none";
                         statusDisplay2[key] = "";
                         statusForm[key] = "";
+                        // balance_qty = currencyTotal(val2.quantity);
                         balance_qty = currencyTotal(val2.quantityRemaining);
                     }
 
@@ -208,7 +209,6 @@
                     $('table.tableBudgetDetail tbody').append(html);
 
                     if (val2.productName == "Unspecified Product") {
-
                         //VALIDASI QTY
                         $('#qty_req' + key).keyup(function() {
                             $(this).val(currency($(this).val()));
@@ -222,7 +222,6 @@
                                 $('#total_req' + key).val("");
                                 $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                             } else if (parseFloat(total) > parseFloat(total_budget)) {
-
                                 // CALL FUNCTION ERROR NOTIFICATION 
                                 ErrorNotif("Total request is over budget than Budget!");
 
@@ -254,7 +253,6 @@
                                 $('#total_req' + key).val("");
                                 $("input[name='price_req[]']").css("border", "1px solid #ced4da");
                             } else if (parseFloat(price_val) > parseFloat(budget_price_val)) {
-
                                 // CALL FUNCTION ERROR NOTIFICATION
                                 ErrorNotif("Price is over budget !");
 
@@ -263,7 +261,6 @@
                                 $('#price_req' + key).css("border", "1px solid red");
                                 $('#price_req' + key).focus();
                             } else if (parseFloat(total) > parseFloat(total_budget)) {
-
                                 // CALL FUNCTION ERROR NOTIFICATION
                                 ErrorNotif("Total request is over budget than Budget !");
 
@@ -274,7 +271,6 @@
                             } else {
                                 $("input[name='price_req[]']").css("border", "1px solid #ced4da");
                                 $('#total_req' + key).val(currencyTotal(total));
-
                             }
 
                             //MEMANGGIL FUNCTION TOTAL BUDGET SELECTED
@@ -282,9 +278,7 @@
                             //MEMANGGIL FUNCTION TOTAL BALANCE QTY MISSCELNOUS SELECTED
                             TotalBalanceQtyMisscelnousSelected(key);
                         });
-
                     } else {
-
                         //VALIDASI QTY
                         $('#qty_req' + key).keyup(function() {
                             $(this).val(currency($(this).val()));
@@ -297,7 +291,6 @@
                                 $('#total_req' + key).val("");
                                 $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                             } else if (parseFloat(qty_val) > parseFloat(budget_qty_val)) {
-
                                 // CALL FUNCTION ERROR NOTIFICATION
                                 ErrorNotif("Qty is over budget !");
 
@@ -306,7 +299,6 @@
                                 $('#qty_req' + key).css("border", "1px solid red");
                                 $('#qty_req' + key).focus();
                             } else {
-
                                 $("input[name='qty_req[]']").css("border", "1px solid #ced4da");
                                 $('#total_req' + key).val(currencyTotal(total));
                             }
@@ -329,7 +321,6 @@
                                 $('#total_req' + key).val("");
                                 $("input[name='price_req[]']").css("border", "1px solid #ced4da");
                             } else if (parseFloat(price_val) > parseFloat(budget_price_val)) {
-
                                 // CALL FUNCTION ERROR NOTIFICATION
                                 ErrorNotif("Price is over budget !");
 
@@ -338,7 +329,6 @@
                                 $('#price_req' + key).css("border", "1px solid red");
                                 $('#price_req' + key).focus();
                             } else {
-
                                 $("input[name='price_req[]']").css("border", "1px solid #ced4da");
                                 $('#total_req' + key).val(currencyTotal(total));
                             }
@@ -483,14 +473,12 @@
                     confirmButtonClass: 'btn btn-success btn-sm',
                     cancelButtonClass: 'btn btn-danger btn-sm',
                     buttonsStyling: true,
-                })
+                });
 
                 swalWithBootstrapButtons.fire({
-
                     title: 'Are you sure?',
                     text: "Save this data?",
                     type: 'question',
-
                     showCancelButton: true,
                     confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
                     cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
@@ -498,9 +486,7 @@
                     cancelButtonColor: '#e9ecef',
                     reverseButtons: true
                 }).then((result) => {
-
                     if (result.value) {
-
                         var action = $(this).attr("action"); //get submit action from form
                         var method = $(this).attr("method"); // get submit method
                         var form_data = new FormData($(this)[0]); // convert form into formdata 
@@ -523,7 +509,6 @@
                                     // CALL FUNCTION DO NOT HAVE ACCESS NOTIF
                                     CancelNotif("You don't have access", '/AdvanceRequest?var=1');
                                 } else if (response.message == "MoreThanOne") {
-
                                     HideLoading();
 
                                     $('#getWorkFlow').modal('toggle');
@@ -536,30 +521,19 @@
                                             '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
                                         ]).draw();
                                     });
-
                                 } else {
-
                                     HideLoading();
-
                                     SelectWorkFlow(response.workFlowPath_RefID, response.nextApprover_RefID, response.approverEntity_RefID, response.documentTypeID);
-
                                 }
                             },
-
                             error: function(response) {
                                 HideLoading();
                                 $("#submitArf").prop("disabled", false);
                                 // CALL FUNCTION DO NOT HAVE ACCESS NOTIF
                                 CancelNotif("You don't have access", '/AdvanceRequest?var=1');
-
                             },
-
-                        })
-
-
-                    } else if (
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {
+                        });
+                    } else {
                         HideLoading();
                         // FUNCTION ERROR NOTIFICATION 
                         CancelNotif("Data Cancel Inputed", '/AdvanceRequest?var=1');
@@ -639,7 +613,6 @@
             fileAttachment: fileAttachment,
             documentTypeID: documentTypeID,
             comment: comment
-
         };
 
         $.ajax({

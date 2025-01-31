@@ -39,19 +39,19 @@
                                         <table class="table table-head-fixed text-nowrap" id="DefaultFeatures">
                                             <thead>
                                                 <tr>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">BSF Number</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Sub Budget</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Departing From</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Destination To</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Expense Claim</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Amount Due to Company</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total BSF</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Currency</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Requester</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Beneficiary</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Remark</th>
+                                                    <th class="header_table">No</th>
+                                                    <th class="header_table">BSF Number</th>
+                                                    <th class="header_table">Sub Budget</th>
+                                                    <th class="header_table">Departing From</th>
+                                                    <th class="header_table">Destination To</th>
+                                                    <th class="header_table">Date</th>
+                                                    <th class="header_table">Total Expense Claim</th>
+                                                    <th class="header_table">Total Amount Due to Company</th>
+                                                    <th class="header_table">Total BSF</th>
+                                                    <th class="header_table">Currency</th>
+                                                    <th class="header_table">Requester</th>
+                                                    <th class="header_table">Beneficiary</th>
+                                                    <th class="header_table">Remark</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -76,14 +76,14 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th colspan="6" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalExpense'], 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalAmount'], 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['total'], 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;background-color:#4B586A;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;background-color:#4B586A;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;background-color:#4B586A;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;background-color:#4B586A;"></th>
+                                                    <th colspan="6" class="footer_table">GRAND TOTAL</th>
+                                                    <th class="footer_table"><?= number_format($dataReport['totalExpense'], 2, '.', ','); ?></th>
+                                                    <th class="footer_table"><?= number_format($dataReport['totalAmount'], 2, '.', ','); ?></th>
+                                                    <th class="footer_table"><?= number_format($dataReport['total'], 2, '.', ','); ?></th>
+                                                    <th class="footer_table"></th>
+                                                    <th class="footer_table"></th>
+                                                    <th class="footer_table"></th>
+                                                    <th class="footer_table"></th>
                                                 </tr>
                                             </tfoot>
                                         </table>

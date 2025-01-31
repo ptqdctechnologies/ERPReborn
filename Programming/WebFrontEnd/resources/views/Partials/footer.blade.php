@@ -615,13 +615,15 @@
     // Jika validasi length ditambah 2, maka return ditambah 0.2. Misal, jika length <= 21 maka return 2.5 dan jika length <= 23 maka return 2.7, dan seterusnya.
   }
 
-  function adjustInputSize(componentInput, valueType) {
+  function adjustInputSize(componentInput, valueType, customValueLength) {
     var componentLenghtInput = componentInput.value.length;
     
     var defaultValue = defineDefaultValue(componentLenghtInput, valueType);
     defaultValue = defaultValue < 1 ? 1 : defaultValue;
 
-    componentInput.size = componentLenghtInput * defaultValue;
+    var fixDefaultValue = customValueLength ? customValueLength : defaultValue;
+
+    componentInput.size = componentLenghtInput * fixDefaultValue;
   }
 </script>
 

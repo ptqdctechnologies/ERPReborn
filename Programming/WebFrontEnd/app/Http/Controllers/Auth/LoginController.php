@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use App\Helpers\ZhtHelper\Cache\Helper_Redis;
+use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 
 class LoginController extends Controller
 {
@@ -35,8 +38,8 @@ class LoginController extends Controller
     {
         try {
             $varDataRole = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
                     "Role" . $user_RefID
                 ),
                 true
@@ -58,8 +61,8 @@ class LoginController extends Controller
         try {
 
             $varDataBranch = json_decode(
-                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                Helper_Redis::getValue(
+                    Helper_Environment::getUserSessionID_System(),
                     "Branch" . $user_RefID
                 ),
                 true
@@ -78,8 +81,8 @@ class LoginController extends Controller
     {
         try {
 
-            $checking = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $checking = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
                 'authentication.general.setLoginBranchAndUserRole',
                 'latest',
@@ -137,11 +140,11 @@ class LoginController extends Controller
                 }
             else {
                 $dataAwal = 
-                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    Helper_APICall::setCallAPIAuthentication(
+                        Helper_Environment::getUserSessionID_System(),
                         $username,
                         $password
-                        );        
+                        );
                 //dd($dataAwal);
 
                 if ($dataAwal['metadata']['HTTPStatusCode'] != 200) {
@@ -167,8 +170,8 @@ class LoginController extends Controller
                             }
 
                         // $privilageMenu = json_decode(
-                        //     \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        //     Helper_Redis::getValue(
+                        //         Helper_Environment::getUserSessionID_System(),
                         //         "RedisGetMenu" . $dataAwal['data']['userIdentity']['user_RefID']
                         //     ),
                         //     true

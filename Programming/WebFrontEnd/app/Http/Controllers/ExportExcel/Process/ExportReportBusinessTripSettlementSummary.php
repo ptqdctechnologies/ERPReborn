@@ -116,21 +116,10 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
             ],
         ];
 
-        $sheet->getStyle('A4:M4')->applyFromArray($styleArrayHeader2);
-
-        $styleArrayHeader5 = [
-            'font' => [
-                'bold' => true,
-                'color' => [
-                    'rgb' => '000000',
-                ],
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_LEFT,
-            ],
-        ];
-
-        $sheet->getStyle('A5:M5')->applyFromArray($styleArrayHeader5);
+        $sheet->getStyle('A4:A4')->applyFromArray($styleArrayHeader2);
+        $sheet->getStyle('A5:A5')->applyFromArray($styleArrayHeader2);
+        $sheet->getStyle('C4:C4')->applyFromArray($styleArrayHeader2);
+        $sheet->getStyle('C5:C5')->applyFromArray($styleArrayHeader2);
 
         $styleArrayHeader4 = [
             'font' => [
@@ -183,7 +172,7 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
         $sheet->setCellValue('G' . $totalCell + 8, $totalExpense);
         $sheet->setCellValue('H' . $totalCell + 8, $totalAmount);
         $sheet->setCellValue('I' . $totalCell + 8, $total);
-        $sheet->mergeCells('A' . $totalCell + 8 . ':' . 'D' . $totalCell + 8);
+        $sheet->mergeCells('A' . $totalCell + 8 . ':' . 'F' . $totalCell + 8);
 
         $styleArrayFooter = [
             'font' => [
@@ -193,7 +182,7 @@ class ExportReportBusinessTripSettlementSummary implements FromCollection, WithH
                 ],
             ],
             'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'horizontal' => Alignment::HORIZONTAL_LEFT,
             ],
             'fill' => [
                 'fillType' => 'solid',

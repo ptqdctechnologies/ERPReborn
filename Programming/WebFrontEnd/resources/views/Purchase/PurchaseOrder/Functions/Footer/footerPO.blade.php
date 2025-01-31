@@ -1,4 +1,4 @@
-<!--  SHOW HIDE AVAILABEL -->
+<!--  SHOW HIDE AVAILABLE -->
 <script type="text/javascript">
     $(document).ready(function() {
         $("#detailTransAvail").hide();

@@ -48,19 +48,20 @@
                 type: 'GET',
                 url: '{!! route("getSupplier") !!}',
                 success: function(data) {
-                    console.log(data);
                     var no = 1;
                     t = $('#tableGetSupplier').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
                         keys +=1;
+                        var code = val.Code ? val.Code : '-';
+                        var name = val.Name ? val.Name : '-';
+                        var address = val.Address ? val.Address : '-';
+
                         t.row.add([
-
                             '<tbody><tr><input id="sys_id_supplier' + key + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                            '<td>' + val.Code + '</td>',
-                            '<td>' + val.Name + '</td>',
-                            '<td>' + val.Address + '</td></tr></tbody>',
-
+                            '<td>' + code + '</td>',
+                            '<td>' + name + '</td>',
+                            '<td>' + address + '</td></tr></tbody>',
                         ]).draw();
 
                     });

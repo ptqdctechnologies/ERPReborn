@@ -99,23 +99,17 @@ class BusinessTripSettlementController extends Controller
     {
         $varAPIWebToken = Session::get('SessionLogin');
         $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceReport',
-                'latest',
-                [
-                    'parameter' => [
-                        'advance_RefID' => (int) $bussinesTripRefID,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.finance.getAdvance',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int) $bussinesTripRefID,
                 ],
-                false
-            );
+            ],
+            false
+        );
 
         // dd($filteredArray['data'][0]['document']['content']['details']['itemList']);
         return $filteredArray['data'][0]['document']['content']['details']['itemList'];
@@ -298,22 +292,22 @@ class BusinessTripSettlementController extends Controller
 
         if ($budget_code != "") {
             $collection = $collection->filter(function ($item) use ($budget_code) {
-                return strpos($item['CombinedBudgetCode'], $budget_code) !== false;
+                return strpos($item['combinedBudgetCode'], $budget_code) !== false;
             });
         }
         if ($sub_budget_code != "") {
             $collection = $collection->filter(function ($item) use ($sub_budget_code) {
-                return strpos($item['CombinedBudgetSectionCode'], $sub_budget_code) !== false;
+                return strpos($item['combinedBudgetSectionCode'], $sub_budget_code) !== false;
             });
         }
         if ($requester != "") {
             $collection = $collection->filter(function ($item) use ($requester) {
-                return strpos($item['RequesterWorkerName'], $requester) !== false;
+                return strpos($item['requesterWorkerName'], $requester) !== false;
             });
         }
         if ($trano != "") {
             $collection = $collection->filter(function ($item) use ($trano) {
-                return strpos($item['DocumentNumber'], $trano) !== false;
+                return strpos($item['documentNumber'], $trano) !== false;
             });
         }
 
@@ -523,6 +517,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "937764.00",
                     "TotalExpenseClaimCart" => "213932.00",
                     "TotalAmountDueToCompanyCart" => "723832.00",
+                    "DirectToVendor" => "Sukses Berkat Mandiri",
+                    "ByCorpCard" => "Bersaudara Express Cargo",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000228",
@@ -546,6 +542,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "1437396.00",
                     "TotalExpenseClaimCart" => "456123.00",
                     "TotalAmountDueToCompanyCart" => "981273.00",
+                    "DirectToVendor" => "Indomitra Global",
+                    "ByCorpCard" => "Aerotrans Metropolitan Express",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000227",
@@ -569,6 +567,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "8365231.00",
                     "TotalExpenseClaimCart" => "6712398.00",
                     "TotalAmountDueToCompanyCart" => "1652833.00",
+                    "DirectToVendor" => "Agung Jaya",
+                    "ByCorpCard" => "Aji Perkasa",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000226",
@@ -592,6 +592,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "14483674.00",
                     "TotalExpenseClaimCart" => "6571282.00",
                     "TotalAmountDueToCompanyCart" => "7912392.00",
+                    "DirectToVendor" => "Aledro Duta Jaya",
+                    "ByCorpCard" => "Bustami",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000225",
@@ -615,6 +617,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "1010000.00",
                     "TotalExpenseClaimCart" => "120000.00",
                     "TotalAmountDueToCompanyCart" => "890000.00",
+                    "DirectToVendor" => "Syamsul Hadi",
+                    "ByCorpCard" => "Bhirawa Mental Mandiri",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000224",
@@ -638,6 +642,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "960000.00",
                     "TotalExpenseClaimCart" => "320000.00",
                     "TotalAmountDueToCompanyCart" => "640000.00",
+                    "DirectToVendor" => "Pas Jaya Mandiri",
+                    "ByCorpCard" => "Bintang Pratama Mix",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000223",
@@ -661,6 +667,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "1000000.00",
                     "TotalExpenseClaimCart" => "190000.00",
                     "TotalAmountDueToCompanyCart" => "810000.00",
+                    "DirectToVendor" => "Power Elektrika Nusantara",
+                    "ByCorpCard" => "Twink Indonesia",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000222",
@@ -684,6 +692,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "980000.00",
                     "TotalExpenseClaimCart" => "260000.00",
                     "TotalAmountDueToCompanyCart" => "720000.00",
+                    "DirectToVendor" => "Exeed Indo Jaya",
+                    "ByCorpCard" => "Yayasan LSP K3 OSHE Nusantara",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000221",
@@ -707,6 +717,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "820000.00",
                     "TotalExpenseClaimCart" => "150000.00",
                     "TotalAmountDueToCompanyCart" => "670000.00",
+                    "DirectToVendor" => "Tokopedia - Gudang Laptop ID",
+                    "ByCorpCard" => "HIQ Digital Printing",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000220",
@@ -730,6 +742,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "890000.00",
                     "TotalExpenseClaimCart" => "180000.00",
                     "TotalAmountDueToCompanyCart" => "710000.00",
+                    "DirectToVendor" => "Klopmart Berkat Bersama",
+                    "ByCorpCard" => "Magma Grounding Indonesia",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000219",
@@ -753,6 +767,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "950000.00",
                     "TotalExpenseClaimCart" => "210000.00",
                     "TotalAmountDueToCompanyCart" => "740000.00",
+                    "DirectToVendor" => "Surianto",
+                    "ByCorpCard" => "Hasannuddin",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000218",
@@ -776,6 +792,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "870000.00",
                     "TotalExpenseClaimCart" => "270000.00",
                     "TotalAmountDueToCompanyCart" => "600000.00",
+                    "DirectToVendor" => "Jejen",
+                    "ByCorpCard" => "Rahmat",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000217",
@@ -799,6 +817,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "950000.00",
                     "TotalExpenseClaimCart" => "130000.00",
                     "TotalAmountDueToCompanyCart" => "820000.00",
+                    "DirectToVendor" => "Hendy Hidayat",
+                    "ByCorpCard" => "Wawan Gunawan",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000216",
@@ -822,6 +842,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "930000.00",
                     "TotalExpenseClaimCart" => "340000.00",
                     "TotalAmountDueToCompanyCart" => "590000.00",
+                    "DirectToVendor" => "PT Sima Artha Nauli",
+                    "ByCorpCard" => "Leonardus Wahyudi",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000215",
@@ -845,6 +867,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "860000.00",
                     "TotalExpenseClaimCart" => "110000.00",
                     "TotalAmountDueToCompanyCart" => "750000.00",
+                    "DirectToVendor" => "Eri Nurwana",
+                    "ByCorpCard" => "Komarudin",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000214",
@@ -868,6 +892,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "930000.00",
                     "TotalExpenseClaimCart" => "290000.00",
                     "TotalAmountDueToCompanyCart" => "640000.00",
+                    "DirectToVendor" => "Sadi Rustiawan",
+                    "ByCorpCard" => "Subur Deltamas",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000213",
@@ -891,6 +917,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "930000.00",
                     "TotalExpenseClaimCart" => "210000.00",
                     "TotalAmountDueToCompanyCart" => "720000.00",
+                    "DirectToVendor" => "Didi Kusumawanto",
+                    "ByCorpCard" => "Giswanto Sam",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000212",
@@ -914,6 +942,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "1030000.00",
                     "TotalExpenseClaimCart" => "140000.00",
                     "TotalAmountDueToCompanyCart" => "890000.00",
+                    "DirectToVendor" => "Tri Karya Mandiri",
+                    "ByCorpCard" => "Ferry Gunadi",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000211",
@@ -937,6 +967,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "880000.00",
                     "TotalExpenseClaimCart" => "180000.00",
                     "TotalAmountDueToCompanyCart" => "700000.00",
+                    "DirectToVendor" => "Yudi Paryono",
+                    "ByCorpCard" => "Eko Wibowo",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000210",
@@ -960,6 +992,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "990000.00",
                     "TotalExpenseClaimCart" => "300000.00",
                     "TotalAmountDueToCompanyCart" => "690000.00",
+                    "DirectToVendor" => "Arhadianto",
+                    "ByCorpCard" => "Kahar",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000209",
@@ -983,6 +1017,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "860000.00",
                     "TotalExpenseClaimCart" => "150000.00",
                     "TotalAmountDueToCompanyCart" => "710000.00",
+                    "DirectToVendor" => "Maryadi",
+                    "ByCorpCard" => "Rochandi",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000208",
@@ -1006,6 +1042,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "850000.00",
                     "TotalExpenseClaimCart" => "270000.00",
                     "TotalAmountDueToCompanyCart" => "580000.00",
+                    "DirectToVendor" => "Sugeng Siswanto",
+                    "ByCorpCard" => "PT. Global Perkasa Investindo",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000207",
@@ -1029,6 +1067,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "1080000.00",
                     "TotalExpenseClaimCart" => "320000.00",
                     "TotalAmountDueToCompanyCart" => "760000.00",
+                    "DirectToVendor" => "Roy Yuliandri",
+                    "ByCorpCard" => "Usman Afandi",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000206",
@@ -1052,6 +1092,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "920000.00",
                     "TotalExpenseClaimCart" => "200000.00",
                     "TotalAmountDueToCompanyCart" => "720000.00",
+                    "DirectToVendor" => "Karya Tunas Mandiri",
+                    "ByCorpCard" => "Chandra Irawan",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000205",
@@ -1075,6 +1117,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "940000.00",
                     "TotalExpenseClaimCart" => "130000.00",
                     "TotalAmountDueToCompanyCart" => "810000.00",
+                    "DirectToVendor" => "Escom",
+                    "ByCorpCard" => "Prima Lestari",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000204",
@@ -1098,6 +1142,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "1030000.00",
                     "TotalExpenseClaimCart" => "140000.00",
                     "TotalAmountDueToCompanyCart" => "890000.00",
+                    "DirectToVendor" => "PT Aswindo Fikri Mandiri",
+                    "ByCorpCard" => "Zubaedi",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000203",
@@ -1121,6 +1167,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "1010000.00",
                     "TotalExpenseClaimCart" => "240000.00",
                     "TotalAmountDueToCompanyCart" => "770000.00",
+                    "DirectToVendor" => "Stefanus Hotan",
+                    "ByCorpCard" => "Widyatmoko",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000202",
@@ -1144,6 +1192,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "970000.00",
                     "TotalExpenseClaimCart" => "300000.00",
                     "TotalAmountDueToCompanyCart" => "670000.00",
+                    "DirectToVendor" => "PT Vitta Manggala",
+                    "ByCorpCard" => "Amin Madeali",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000201",
@@ -1167,6 +1217,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "870000.00",
                     "TotalExpenseClaimCart" => "150000.00",
                     "TotalAmountDueToCompanyCart" => "720000.00",
+                    "DirectToVendor" => "Bambang Purnomo",
+                    "ByCorpCard" => "Yanmarindo Perkasa",
                 ],
                 [
                     "DocumentNumber" => "BSF-24000200",
@@ -1190,6 +1242,8 @@ class BusinessTripSettlementController extends Controller
                     "TotalAdvance" => "8365231.00",
                     "TotalExpenseClaimCart" => "6712398.00",
                     "TotalAmountDueToCompanyCart" => "1652833.00",
+                    "DirectToVendor" => "Aldina Krida Tama",
+                    "ByCorpCard" => "Ponarah",
                 ],
             ];
 
@@ -1385,7 +1439,10 @@ class BusinessTripSettlementController extends Controller
                                 "number"                        => "Adv/QDC/2022/000239",
                                 "version"                       => "0",
                                 "date"                          => "2024-12-16",
-                                "businessDocumentType_RefID"    => "77000000000057"
+                                "businessDocumentType_RefID"    => "77000000000057",
+                                "brfNumber"                     => "BRF-24000212",
+                                "brfDate"                       => "2024-11-16",
+                                "brfTotal"                      => '3890000'
                             ],
                             "content" => [
                                 "general" => [
@@ -1472,7 +1529,15 @@ class BusinessTripSettlementController extends Controller
                                                 "priceCurrencyISOCode" => "IDR",
                                                 "priceBaseCurrencyValue" => "6000000",
                                                 "combinedBudgetSectionDetail_RefID" => "169000000000030",
-                                                "combinedBudget_RefID" => "46000000000033"
+                                                "combinedBudget_RefID" => "46000000000033",
+                                                "transport" => "2450000",
+                                                "allowance" => "2000000",
+                                                "entertainment" => "200000",
+                                                "other" => "3000000",
+                                                "transport_company" => "3450000",
+                                                "allowance_company" => "3000000",
+                                                "entertainment_company" => "300000",
+                                                "other_company" => "5000000",
                                             ]
                                         ]
                                     ]
@@ -1488,7 +1553,10 @@ class BusinessTripSettlementController extends Controller
                                 "number"                        => "Adv/QDC/2022/000239",
                                 "version"                       => "0",
                                 "date"                          => "2024-12-20",
-                                "businessDocumentType_RefID"    => "77000000000057"
+                                "businessDocumentType_RefID"    => "77000000000057",
+                                "brfNumber"                     => "BRF-24000215",
+                                "brfDate"                       => "2024-12-01",
+                                "brfTotal"                      => '2745000'
                             ],
                             "content" => [
                                 "general" => [
@@ -1575,7 +1643,15 @@ class BusinessTripSettlementController extends Controller
                                                 "priceCurrencyISOCode" => "IDR",
                                                 "priceBaseCurrencyValue" => "2150000",
                                                 "combinedBudgetSectionDetail_RefID" => "169000000000030",
-                                                "combinedBudget_RefID" => "46000000000033"
+                                                "combinedBudget_RefID" => "46000000000033",
+                                                "transport" => "2600000",
+                                                "allowance" => "2200000",
+                                                "entertainment" => "250000",
+                                                "other" => "3100000",
+                                                "transport_company" => "3500000",
+                                                "allowance_company" => "3100000",
+                                                "entertainment_company" => "350000",
+                                                "other_company" => "5100000",
                                             ]
                                         ],
                                         "1" => [
@@ -1593,7 +1669,15 @@ class BusinessTripSettlementController extends Controller
                                                 "priceCurrencyISOCode" => "IDR",
                                                 "priceBaseCurrencyValue" => "300000",
                                                 "combinedBudgetSectionDetail_RefID" => "169000000000030",
-                                                "combinedBudget_RefID" => "46000000000033"
+                                                "combinedBudget_RefID" => "46000000000033",
+                                                "transport" => "2700000",
+                                                "allowance" => "2300000",
+                                                "entertainment" => "300000",
+                                                "other" => "3200000",
+                                                "transport_company" => "3600000",
+                                                "allowance_company" => "3200000",
+                                                "entertainment_company" => "400000",
+                                                "other_company" => "5200000",
                                             ]
                                         ]
                                     ]
@@ -1609,7 +1693,10 @@ class BusinessTripSettlementController extends Controller
                                 "number"                        => "Adv/QDC/2022/000239",
                                 "version"                       => "0",
                                 "date"                          => "2024-12-25",
-                                "businessDocumentType_RefID"    => "77000000000057"
+                                "businessDocumentType_RefID"    => "77000000000057",
+                                "brfNumber"                     => "BRF-24000225",
+                                "brfDate"                       => "2024-12-07",
+                                "brfTotal"                      => '4240000'
                             ],
                             "content" => [
                                 "general" => [
@@ -1696,7 +1783,15 @@ class BusinessTripSettlementController extends Controller
                                                 "priceCurrencyISOCode" => "IDR",
                                                 "priceBaseCurrencyValue" => "15000000",
                                                 "combinedBudgetSectionDetail_RefID" => "169000000000030",
-                                                "combinedBudget_RefID" => "46000000000033"
+                                                "combinedBudget_RefID" => "46000000000033",
+                                                "transport" => "2800000",
+                                                "allowance" => "2400000",
+                                                "entertainment" => "350000",
+                                                "other" => "3300000",
+                                                "transport_company" => "3700000",
+                                                "allowance_company" => "3300000",
+                                                "entertainment_company" => "450000",
+                                                "other_company" => "5300000",
                                             ]
                                         ],
                                         "1" => [
@@ -1714,7 +1809,15 @@ class BusinessTripSettlementController extends Controller
                                                 "priceCurrencyISOCode" => "IDR",
                                                 "priceBaseCurrencyValue" => "500000",
                                                 "combinedBudgetSectionDetail_RefID" => "169000000000030",
-                                                "combinedBudget_RefID" => "46000000000033"
+                                                "combinedBudget_RefID" => "46000000000033",
+                                                "transport" => "2900000",
+                                                "allowance" => "2500000",
+                                                "entertainment" => "400000",
+                                                "other" => "3400000",
+                                                "transport_company" => "3800000",
+                                                "allowance_company" => "3400000",
+                                                "entertainment_company" => "500000",
+                                                "other_company" => "5400000",
                                             ]
                                         ]
                                     ]
@@ -1740,8 +1843,8 @@ class BusinessTripSettlementController extends Controller
 
             $splitResponse = $getReportAdvanceDetail['data'][$indexing]['document'];
 
-            $totalAdvance = array_reduce($splitResponse['content']['details']['itemList'], function ($carry, $item) {
-                return $carry + ($item['entities']['priceBaseCurrencyValue'] * $item['entities']['quantity'] ?? 0);
+            $totalBSF = array_reduce($splitResponse['content']['details']['itemList'], function ($carry, $item) {
+                return $carry + ($item['entities']['transport'] + $item['entities']['allowance'] + $item['entities']['entertainment'] + $item['entities']['other'] + $item['entities']['transport_company'] + $item['entities']['allowance_company'] + $item['entities']['entertainment_company'] + $item['entities']['other_company'] ?? 0);
             }, 0);
 
             $compact = [
@@ -1753,7 +1856,7 @@ class BusinessTripSettlementController extends Controller
                 'siteName'      => $site_name_second,
                 'bsfNumber'     => $bsf_number,
                 'bsfId'         => $bsf_id,
-                'total'         => $totalAdvance
+                'totalBSF'      => $totalBSF
             ];
 
             Session::put("isButtonReportBusinessTripSettlementDetailSubmit", true);
@@ -1814,7 +1917,7 @@ class BusinessTripSettlementController extends Controller
 
             if ($dataReport) {
                 if ($print_type === "PDF") {
-                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripSettlement.Reports.ReportBusinessTripSettlementDetail_pdf', ['dataReport' => $dataReport]);
+                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripSettlement.Reports.ReportBusinessTripSettlementDetail_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
