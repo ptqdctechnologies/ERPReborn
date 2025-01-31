@@ -64,7 +64,7 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "productUnitPriceCurrencyeValue": {
+                    "productUnitPriceCurrencyValue": {
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
@@ -77,7 +77,7 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "productUnitPriceDiscountCurrencyeValue": {
+                    "productUnitPriceDiscountCurrencyValue": {
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
@@ -97,10 +97,10 @@
                     "quantity",
                     "quantityUnit_RefID",
                     "productUnitPriceCurrency_RefID",
-                    "productUnitPriceCurrencyeValue",
+                    "productUnitPriceCurrencyValue",
                     "productUnitPriceCurrencyExchangeRate",
                     "productUnitPriceDiscountCurrency_RefID",
-                    "productUnitPriceDiscountCurrencyeValue",
+                    "productUnitPriceDiscountCurrencyValue",
                     "productUnitPriceDiscountCurrencyExchangeRate",
                     "remarks"
                     ]

@@ -42,6 +42,11 @@
                         "minLength": 10,
                         "maxLength": 30
                         },
+                    "log_FileUpload_Pointer_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 0,
+                        "maximum": 9223372036854775807 
+                        },
                     "requesterWorkerJobsPosition_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
@@ -93,11 +98,11 @@
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "productUnitPriceCurrencyExchangeRate": {
+                                                                "productUnitPriceCurrencyValue": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "productUnitPriceCurrencyValue": {
+                                                                "productUnitPriceCurrencyExchangeRate": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
@@ -120,8 +125,8 @@
                                                                 "quantity",
                                                                 "quantityUnit_RefID",
                                                                 "productUnitPriceCurrency_RefID",
-                                                                "productUnitPriceCurrencyExchangeRate",
                                                                 "productUnitPriceCurrencyValue",
+                                                                "productUnitPriceCurrencyExchangeRate",
                                                                 "fulfillmentDeadlineDateTimeTZ",
                                                                 "remarks"
                                                                 ]
@@ -147,6 +152,7 @@
                     },
                 "required": [
                     "documentDateTimeTZ",
+                    "log_FileUpload_Pointer_RefID",
                     "requesterWorkerJobsPosition_RefID",
                     "remarks"
                     ]    

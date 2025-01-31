@@ -61,7 +61,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandlingOLD\Engine
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Destroy Staging Files data By ID (version 1)');
                 try {
-                    //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
+                    //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
                         if ((new \App\Models\LocalStorage\System\General())->deleteDirectory(
                             $varUserSession,
@@ -82,7 +82,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandlingOLD\Engine
                         $varErrorMessage = 'Target folder (Application/Upload/StagingArea/'.$varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK'].') is not exist';
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, ''.($varErrorMessage ? $varErrorMessage : ''));
                         }
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
+                    //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {

@@ -35,54 +35,59 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.update.finance.setAdvance', 
-                    'latest', 
-                    [
-                    'recordID' => 76000000000001,
-                    'entities' => [
-                        'documentDateTimeTZ' => '2022-03-07',
-                        'log_FileUpload_Pointer_RefID' => 91000000000001,
-                        'requesterWorkerJobsPosition_RefID' => 164000000000497,
-                        'beneficiaryWorkerJobsPosition_RefID' => 164000000000439,
-                        'beneficiaryBankAccount_RefID' => 167000000000001,
-                        'internalNotes' => 'My Internal Notes',
-                        'remarks' => 'My Remarks',
-                        'additionalData' => [
-                            'itemList' => [
-                                'items' => [
-                                        [
-                                        'recordID' => 82000000000001,
-                                        'entities' => [
-                                            'combinedBudgetSectionDetail_RefID' => 169000000000001,
-                                            'product_RefID' => 88000000000002,
-                                            'quantity' => 10,
-                                            'quantityUnit_RefID' => 73000000000001,
-                                            'productUnitPriceCurrency_RefID' => 62000000000001,
-                                            'productUnitPriceCurrencyExchangeRate' => 1,
-                                            'productUnitPriceCurrencyValue' => 30000,
-                                            'remarks' => 'Catatan Pertama Revisi'                                    
-                                            ]                                   
-                                        ],
-                                        [
-                                        'recordID' => 82000000000002,
-                                        'entities' => [
-                                            'combinedBudgetSectionDetail_RefID' => 169000000000001,
-                                            'product_RefID' => 88000000000003,
-                                            'quantity' => 5,
-                                            'quantityUnit_RefID' => 73000000000001,
-                                            'productUnitPriceCurrency_RefID' => 62000000000001,
-                                            'productUnitPriceCurrencyExchangeRate' => 1,
-                                            'productUnitPriceCurrencyValue' => 40000,
-                                            'remarks' => 'Catatan Kedua Revisi'
-                                            ]
-                                        ],
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.update.finance.setAdvance', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        'recordID' => 76000000000001,
+                        'entities' => [
+                            'documentDateTimeTZ' => '2022-03-07',
+                            'log_FileUpload_Pointer_RefID' => 91000000000001,
+                            'requesterWorkerJobsPosition_RefID' => 164000000000497,
+                            'beneficiaryWorkerJobsPosition_RefID' => 164000000000439,
+                            'beneficiaryBankAccount_RefID' => 167000000000001,
+                            'internalNotes' => 'My Internal Notes',
+                            'remarks' => 'My Remarks',
+                            'additionalData' => [
+                                'itemList' => [
+                                    'items' => [
+                                            [
+                                            'recordID' => 82000000000001,
+                                            'entities' => [
+                                                'combinedBudgetSectionDetail_RefID' => 169000000000001,
+                                                'product_RefID' => 88000000000002,
+                                                'quantity' => 10,
+                                                'quantityUnit_RefID' => 73000000000001,
+                                                'productUnitPriceCurrency_RefID' => 62000000000001,
+                                                'productUnitPriceCurrencyExchangeRate' => 1,
+                                                'productUnitPriceCurrencyValue' => 30000,
+                                                'remarks' => 'Catatan Pertama Revisi'                                    
+                                                ]                                   
+                                            ],
+                                            [
+                                            'recordID' => 82000000000002,
+                                            'entities' => [
+                                                'combinedBudgetSectionDetail_RefID' => 169000000000001,
+                                                'product_RefID' => 88000000000003,
+                                                'quantity' => 5,
+                                                'quantityUnit_RefID' => 73000000000001,
+                                                'productUnitPriceCurrency_RefID' => 62000000000001,
+                                                'productUnitPriceCurrencyExchangeRate' => 1,
+                                                'productUnitPriceCurrencyValue' => 40000,
+                                                'remarks' => 'Catatan Kedua Revisi'
+                                                ]
+                                            ],
+                                        ]
                                     ]
                                 ]
                             ]
                         ]
-                    ]
+                    //-----[ BODY ]-----( END )-----
                     );
 
             var_dump($varData);
@@ -94,7 +99,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setAdvance.v1_throughAPIGatewayJQuery                    |
         |                     ► http://172.28.0.4/transaction.update.finance.setAdvance.v1_throughAPIGatewayJQuery                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-         | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2025-01-09                                                                                           |
         | ▪ Creation Date   : 2022-09-19                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -144,11 +149,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                    $varAPIWebToken, 
-                    'transaction.update.finance.setAdvance', 
-                    'latest', 
-                    '{'.
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                        $varAPIWebToken, 
+                        'transaction.update.finance.setAdvance', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        '{'.
                         '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                         '"entities" : {'.
                             '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
@@ -193,7 +202,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     '}'.
                                 '}'.
                             '}'.
-                    '}'
+                        '}'
+                    //-----[ BODY ]-----( END )-----
                     );
 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";

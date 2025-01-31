@@ -47,7 +47,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'][0]['FuncSys_General_GetAPIWebToken_SysEngine'];
+            return
+                $varReturn['data'][0]['FuncSys_General_GetAPIWebToken_SysEngine'];
             }
             
 
@@ -92,10 +93,13 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -137,10 +141,13 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -1374,7 +1381,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'];
+            return
+                $varReturn['data'];
             }
 
 
@@ -1420,7 +1428,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'];
+            return
+                $varReturn['data'];
             }
 
 
@@ -1470,7 +1479,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'];
+            return
+                $varReturn['data'];
             }
 
 
@@ -1520,7 +1530,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'];
+            return
+                $varReturn['data'];
             }
 
 
@@ -1566,7 +1577,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'];
+            return
+                $varReturn['data'];
             }
 
 
@@ -1616,7 +1628,7 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            for($i=0, $iMax=count($varReturn['data']); $i!=$iMax; $i++)
+            for ($i=0, $iMax=count($varReturn['data']); $i!=$iMax; $i++)
                 {
                 $varReturn['data'][$i]['AlternativeItemList'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
@@ -1631,7 +1643,8 @@ namespace App\Models\Database\SchSysConfig
                         );
                 }
 
-            return $varReturn['data'];
+            return
+                $varReturn['data'];
             }
 
 
@@ -1681,7 +1694,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'];
+            return
+                $varReturn['data'];
             }
 
 
@@ -1731,7 +1745,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'];
+            return
+                $varReturn['data'];
             }
 
 
@@ -1783,20 +1798,23 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            for($i=0, $iMax=count($varReturn['data']); $i!=$iMax; $i++)
+            for ($i=0, $iMax=count($varReturn['data']); $i!=$iMax; $i++)
                 {
                 $varReturn['data'][$i]['AlternativeItemList'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
                         $varReturn['data'][$i]['AlternativeItemList']
                         );
+
                 $varReturn['data'][$i]['NextApproverPath'] = 
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
                         $varReturn['data'][$i]['NextApproverPath']
                         );
                 }
-            return $varReturn['data'];
+
+            return
+                $varReturn['data'];
             }
 
 
@@ -1842,7 +1860,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'];
+            return
+                $varReturn['data'];
             }
 
 
@@ -1874,7 +1893,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'];
+            return
+                $varReturn['data'];
             }
 
 
@@ -1925,7 +1945,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'];
+            return
+                $varReturn['data'];
             }
 
 
@@ -1968,7 +1989,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'];
+            return
+                $varReturn['data'];
             }
 
 
@@ -2015,7 +2037,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'];
+            return
+                $varReturn['data'];
             }
 
 
@@ -2050,7 +2073,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'];
+            return
+                $varReturn['data'];
             }
 
 
@@ -2141,7 +2165,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'][0]['FuncSys_General_GetUserIDByName'];
+            return
+                $varReturn['data'][0]['FuncSys_General_GetUserIDByName'];
             }
 
 
@@ -2176,7 +2201,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'];
+            return
+                $varReturn['data'];
             }
 
 
@@ -2211,7 +2237,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'];            
+            return
+                $varReturn['data'];            
             }
 
 
@@ -2238,7 +2265,8 @@ namespace App\Models\Database\SchSysConfig
                     $varSQL
                     );
 
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 
@@ -2272,7 +2300,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 
@@ -2311,7 +2340,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 
@@ -2344,7 +2374,9 @@ namespace App\Models\Database\SchSysConfig
                         ]
                         )
                     );
-            return $varReturn;
+
+            return
+                $varReturn;
             }
 
 
@@ -2378,7 +2410,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn['data'][0]['FuncSys_General_SetUserSessionLogout'];
+            return
+                $varReturn['data'][0]['FuncSys_General_SetUserSessionLogout'];
             }
 
 
@@ -2412,7 +2445,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 
@@ -2451,7 +2485,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn;
+            return
+                $varReturn;
             }
             
             
@@ -2485,7 +2520,8 @@ namespace App\Models\Database\SchSysConfig
                         )
                     );
 
-            return $varReturn;
+            return
+                $varReturn;
             }
         }
     }

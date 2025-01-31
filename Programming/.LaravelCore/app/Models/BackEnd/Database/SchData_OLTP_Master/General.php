@@ -2127,8 +2127,10 @@ namespace App\Models\Database\SchData_OLTP_Master
                 return
                     $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -4088,7 +4090,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                     ];
 
                 return $varReturn;
-                } 
+                }
+
             catch (\Exception $ex) {
                 return [];
                 }
