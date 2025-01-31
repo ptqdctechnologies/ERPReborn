@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.delete.humanResource.setPersonBusinessTripSequence (version 1)",
+"description": "JSON Request Schema of transaction.undelete.humanResource.setPersonBusinessTrip (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.delete.humanResource.setPersonBusinessTripSequence" ]
+                        "enum": [ "transaction.undelete.humanResource.setPersonBusinessTrip" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
