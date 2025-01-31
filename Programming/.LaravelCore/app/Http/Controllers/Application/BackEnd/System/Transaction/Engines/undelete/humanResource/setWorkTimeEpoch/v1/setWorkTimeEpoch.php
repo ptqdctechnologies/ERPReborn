@@ -3,18 +3,17 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\humanResource                         |
-|                \setWorkTimeEpoch\v1                                                                                              |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\humanResource\setWorkTimeEpoch\v1   |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\humanResource\setWorkTimeEpoch\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\humanResource\setWorkTimeEpoch\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : setWorkTimeEpoch                                                                                             |
-    | ▪ Description : Menangani API transaction.delete.humanResource.setWorkTimeEpoch Version 1                                    |
+    | ▪ Description : Menangani API transaction.undelete.humanResource.setWorkTimeEpoch Version 1                                  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class setWorkTimeEpoch extends \App\Http\Controllers\Controller
@@ -62,15 +61,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Delete Work Time Epoch Data (version 1)');
+                        'Undelete Work Time Epoch Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
-                        if (!($varDataSend = 
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
-                                $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_HumanResource\TblWorkTimeEpoch())->setDataDelete(
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_HumanResource\TblWorkTimeEpoch())->unsetDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )
@@ -80,12 +79,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
                             throw new \Exception();
                             }
 
-                        $varReturn = 
+                        $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
                                 $varUserSession,
                                 $varDataSend
                                 );
-                        }
+                        } 
 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
@@ -98,7 +97,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
                         }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
 
                 catch (\Exception $ex) {
                     $varReturn =
