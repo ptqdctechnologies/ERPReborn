@@ -19,7 +19,10 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
         "required": [ "API" ]
@@ -33,8 +36,13 @@
                 "maximum": 9223372036854775807
                 }
             },
-        "required": [ "recordID" ]
+        "required": [
+            "recordID"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
