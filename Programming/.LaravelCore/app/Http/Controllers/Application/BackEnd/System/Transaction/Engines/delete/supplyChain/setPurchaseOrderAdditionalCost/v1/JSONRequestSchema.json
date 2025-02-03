@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.delete.supplyChain.setPurchaseOrderDetail (version 1)",
+"description": "JSON Request Schema of transaction.delete.supplyChain.setPurchaseOrderAdditionalCost (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.delete.supplyChain.setPurchaseOrderDetail" ]
+                        "enum": [ "transaction.delete.supplyChain.setPurchaseOrderAdditionalCost" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],

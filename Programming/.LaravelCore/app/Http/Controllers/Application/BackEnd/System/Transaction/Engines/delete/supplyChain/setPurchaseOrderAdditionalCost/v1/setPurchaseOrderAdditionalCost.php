@@ -3,29 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\supplyChain\setPurchaseOrderDetail  |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\supplyChain                           |
+|                \setPurchaseOrderAdditionalCost\v1                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\supplyChain\setPurchaseOrderDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\supplyChain\setPurchaseOrderAdditionalCost\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setPurchaseOrderDetail                                                                                       |
-    | ▪ Description : Menangani API transaction.undelete.supplyChain.setPurchaseOrderDetail Version 1                              |
+    | ▪ Class Name  : setPurchaseOrderAdditionalCost                                                                               |
+    | ▪ Description : Menangani API transaction.delete.supplyChain.setPurchaseOrderAdditionalCost Version 1                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setPurchaseOrderDetail extends \App\Http\Controllers\Controller
+    class setPurchaseOrderAdditionalCost extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-11-25                                                                                           |
-        | ▪ Creation Date   : 2021-11-25                                                                                           |
+        | ▪ Last Update     : 2025-02-03                                                                                           |
+        | ▪ Creation Date   : 2025-02-03                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,9 +43,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-02-03                                                                                           |
-        | ▪ Creation Date   : 2021-11-25                                                                                           |
+        | ▪ Creation Date   : 2025-02-03                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -62,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Delete Purchase Order Detail Data (version 1)');
+                        'Delete Purchase Order Additional Cost Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
@@ -70,7 +70,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseOrderDetail())->unsetDataDelete(
+                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseOrderAdditionalCost())->setDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )
