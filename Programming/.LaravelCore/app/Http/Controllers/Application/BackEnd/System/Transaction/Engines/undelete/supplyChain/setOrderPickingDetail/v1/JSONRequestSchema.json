@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.delete.supplyChain.setDeliveryOrderDetail (version 1)",
+"description": "JSON Request Schema of transaction.undelete.supplyChain.setOrderPickingDetail (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.delete.supplyChain.setDeliveryOrderDetail" ]
+                        "enum": [ "transaction.undelete.supplyChain.setOrderPickingDetail" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
