@@ -23,8 +23,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-02-03                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-03-08                                                                                           |
         | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -43,8 +43,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-02-03                                                                                           |
+        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -61,15 +62,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Delete Warehouse Inbound Order Detail Data (version 1)');
+                        'Undelete Warehouse Inbound Order Detail Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
                         if (!($varDataSend = 
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblWarehouseInboundOrderDetail())->setDataDelete(
+                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblWarehouseInboundOrderDetail())->unsetDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )
@@ -79,12 +80,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
                             throw new \Exception();
                             }
 
-                        $varReturn = 
+                        $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
                                 $varUserSession,
                                 $varDataSend
                                 );
-                        }
+                        } 
 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
@@ -97,7 +98,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
                         }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
 
                 catch (\Exception $ex) {
                     $varReturn =

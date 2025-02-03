@@ -62,15 +62,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Delete Warehouse Inbound Order Data (version 1)');
+                        'Undelete Warehouse Inbound Order Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
                         if (!($varDataSend = 
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblWarehouseInboundOrder())->setDataDelete(
+                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblWarehouseInboundOrder())->unsetDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )
@@ -80,12 +80,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
                             throw new \Exception();
                             }
 
-                        $varReturn = 
+                        $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
                                 $varUserSession,
                                 $varDataSend
                                 );
-                        }
+                        } 
 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
@@ -98,7 +98,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
                         }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
 
                 catch (\Exception $ex) {
                     $varReturn =
