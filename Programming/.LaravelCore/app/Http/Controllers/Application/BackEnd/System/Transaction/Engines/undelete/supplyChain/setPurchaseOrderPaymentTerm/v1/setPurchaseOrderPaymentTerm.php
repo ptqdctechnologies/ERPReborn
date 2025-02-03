@@ -3,29 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\supplyChain\setPurchaseRequisition  |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\supplyChain                         |
+|                \setPurchaseOrderPaymentTerm\v1                                                                                   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\supplyChain\setPurchaseRequisition\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\supplyChain\setPurchaseOrderPaymentTerm\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setPurchaseRequisition                                                                                       |
-    | ▪ Description : Menangani API transaction.undelete.supplyChain.setPurchaseRequisition Version 1                              |
+    | ▪ Class Name  : setPurchaseOrderPaymentTerm                                                                                  |
+    | ▪ Description : Menangani API transaction.undelete.supplyChain.setPurchaseOrderPaymentTerm Version 1                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setPurchaseRequisition extends \App\Http\Controllers\Controller
+    class setPurchaseOrderPaymentTerm extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-05                                                                                           |
-        | ▪ Creation Date   : 2021-07-05                                                                                           |
+        | ▪ Last Update     : 2025-02-03                                                                                           |
+        | ▪ Creation Date   : 2025-02-03                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,9 +43,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-02-03                                                                                           |
-        | ▪ Creation Date   : 2021-07-05                                                                                           |
+        | ▪ Creation Date   : 2025-02-03                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -62,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Delete Purchase Requisition Data (version 1)');
+                        'Delete Purchase Order Payment Term Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
@@ -70,7 +70,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete(
                                 $varUserSession, 
-                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseRequisition())->unsetDataDelete(
+                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseOrderPaymentTerm())->unsetDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
                                     )
