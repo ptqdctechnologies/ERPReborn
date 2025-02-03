@@ -5,7 +5,7 @@
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\master\setBank\v1                   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\master\setBank\v1
@@ -42,8 +42,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-11-26                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-02-03                                                                                           |
         | ▪ Creation Date   : 2021-11-26                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -57,14 +57,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
         function main($varUserSession, $varData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Undelete Bank Data (version 1)');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Undelete Bank Data (version 1)');
+
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
-                    try{
-                        if (!($varDataSend =
+                    try {
+                        if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete(
-                                $varUserSession,
+                                $varUserSession, 
                                 (new \App\Models\Database\SchData_OLTP_Master\TblBank())->unsetDataDelete(
                                     $varUserSession,
                                     $varData['recordID']
@@ -80,7 +84,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
                                 $varUserSession,
                                 $varDataSend
                                 );
-                        }
+                        } 
 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
@@ -116,5 +120,3 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
             }
         }
     }
-
-?>
