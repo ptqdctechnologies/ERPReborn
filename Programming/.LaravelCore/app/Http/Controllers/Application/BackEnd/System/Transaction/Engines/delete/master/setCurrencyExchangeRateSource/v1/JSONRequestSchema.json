@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.delete.master.setCurrencyExchangeRateCentralBank (version 1)",
+"description": "JSON Request Schema of transaction.delete.master.setCurrencyExchangeRateSource (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.delete.master.setCurrencyExchangeRateCentralBank" ]
+                        "enum": [ "transaction.delete.master.setCurrencyExchangeRateSource" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -33,8 +38,13 @@
                 "maximum": 9223372036854775807
                 }
             },
-        "required": [ "recordID" ]
+        "required": [
+            "recordID"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
