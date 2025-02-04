@@ -6,7 +6,7 @@
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\external\www_bi_go_id                 |
 |                \getTransactionExchangeRateOnSpecificDate\v1                                                                      |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2023 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\external\www_bi_go_id\getTransactionExchangeRateOnSpecificDate\v1
@@ -43,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2023-11-09                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2025-02-04                                                                                           |
         | ▪ Creation Date   : 2023-11-09                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -58,8 +58,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
         function main($varUserSession, $varData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Transaction Exchange Rate On Specific Date Data (version 1)');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Instruction Get Transaction Exchange Rate On Specific Date Data (version 1)');
+
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     
@@ -146,7 +150,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                     );
             array_shift($varXMLDataArray);
 
-            for($i=0, $iMax=count($varXMLDataArray); $i != $iMax; $i++)
+            for ($i=0, $iMax=count($varXMLDataArray); $i != $iMax; $i++)
                 {
                 if (str_contains($varXMLDataArray[$i], '<Table diffgr:id=')) 
                     {
@@ -169,7 +173,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                         )
                     );
             
-            for($i=0, $iMax=count($varData['Table']); $i != $iMax; $i++)
+            for ($i=0, $iMax=count($varData['Table']); $i != $iMax; $i++)
                 {
                 $varData['Table'][$i]['id_subkurslokal'] = $varData['Table'][$i]['id_subkurslokal'] * 1;
                 $varData['Table'][$i]['lnk_subkurslokal'] = $varData['Table'][$i]['lnk_subkurslokal'] * 1;
