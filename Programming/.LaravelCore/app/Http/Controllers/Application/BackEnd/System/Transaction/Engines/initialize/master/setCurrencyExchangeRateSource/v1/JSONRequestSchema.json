@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.undelete.master.setCurrency (version 1)",
+"description": "JSON Request Schema of transaction.initialize.master.setCurrencyExchangeRateSource (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.undelete.master.setCurrency" ]
+                        "enum": [ "transaction.initialize.master.setCurrencyExchangeRateSource" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -30,17 +30,7 @@
             ]
         },
     "data": {
-        "type": "object",
-        "properties": {
-            "recordID" : {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 9223372036854775807
-                }
-            },
-        "required": [
-            "recordID"
-            ]
+        "additionalProperties": false
         }
     },
 "required": [
