@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -51,11 +56,21 @@
                         "maxLength": 32
                         }
                     },
-                "required": [ "businessDocumentVersion_RefID", "projectSection_RefID", "name", "code" ]
+                "required": [
+                    "businessDocumentVersion_RefID",
+                    "projectSection_RefID",
+                    "name",
+                    "code"
+                    ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
