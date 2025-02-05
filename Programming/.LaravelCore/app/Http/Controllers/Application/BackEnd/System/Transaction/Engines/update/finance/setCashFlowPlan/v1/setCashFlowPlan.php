@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setPettyCash\v1               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setCashFlowPlan\v1            |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\finance\setPettyCash\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setCashFlowPlan\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setPettyCash                                                                                                 |
-    | ▪ Description : Menangani API transaction.create.finance.setPettyCash Version 1                                              |
+    | ▪ Class Name  : setCashFlowPlan                                                                                              |
+    | ▪ Description : Menangani API transaction.update.finance.setCashFlowPlan Version 1                                           |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setPettyCash extends \App\Http\Controllers\Controller
+    class setCashFlowPlan extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-19                                                                                           |
-        | ▪ Creation Date   : 2022-07-19                                                                                           |
+        | ▪ Last Update     : 2025-02-05                                                                                           |
+        | ▪ Creation Date   : 2025-02-05                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,7 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-02-05                                                                                           |
-        | ▪ Creation Date   : 2022-07-19                                                                                           |
+        | ▪ Creation Date   : 2025-02-05                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -61,16 +61,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Create Petty Cash Data (version 1)');
+                        'Update Cash Flow Plan Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
                         if (!($varDataSend =
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Finance\TblPettyCash())->setDataInsert(
+                                (new \App\Models\Database\SchData_OLTP_Finance\TblCashFlowPlan())->setDataUpdate(
                                     $varUserSession,
+                                    $varData['recordID'],
 
                                     null,
                                     null,
@@ -90,7 +91,22 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                         )
                                     ),
 
-                                    $varData['entities']['name']
+                                    $varData['entities']['name'],
+
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                        $varUserSession,
+                                        'additionalData',
+                                        $varData['entities']
+                                        ) 
+                                        ?   (
+                                                (
+                                                !is_null($varData['entities']['additionalData'])
+                                                ) 
+                                                ? $varData['entities']['additionalData']
+                                                : []
+                                            )
+                                        : []
+                                    )
                                     )
                                 )
                             ))
@@ -106,12 +122,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                         }
 
                     catch (\Exception $ex) {
-                        $varErrorMessage = $ex->getMessage();
                         $varReturn =
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdateException(
                                 $varUserSession,
-                                500,
-                                'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
+                                $ex
                                 );
                         }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
@@ -130,7 +144,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                     }
 
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
 
             catch (\Exception $ex) {
                 }
