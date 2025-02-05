@@ -90,7 +90,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     ),
 
                                     $varData['entities']['project_RefID'],
-                                    $varData['entities']['name']
+                                    $varData['entities']['projectSectionType_RefID'],
+                                    $varData['entities']['name'],
+                                    $varData['entities']['code']
                                     )
                                 )
                             ))
