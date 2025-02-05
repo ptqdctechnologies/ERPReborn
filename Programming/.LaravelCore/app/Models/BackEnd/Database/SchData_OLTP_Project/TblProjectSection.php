@@ -82,8 +82,8 @@ namespace App\Models\Database\SchData_OLTP_Project
                             [null, 'bigint'],
 
                             [$varSysDataAnnotation, 'varchar'],
-                            //[$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
-                            //[$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
@@ -179,8 +179,8 @@ namespace App\Models\Database\SchData_OLTP_Project
                             [$varSysID, 'bigint'],
 
                             [$varSysDataAnnotation, 'varchar'],
-                            //[$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
-                            //[$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
