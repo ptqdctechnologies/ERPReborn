@@ -33,20 +33,29 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\ins
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'instruction.server.external.www_bi_go_id.getTransactionExchangeRateOnSpecificDate', 
-                'latest', 
-                [
-                'parameter' => [
-                    "transactionDateTimeTZ" => '2023-11-09 00:00:00'
-                    ]
-                ]                    
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ HEADER ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'instruction.server.external.www_bi_go_id.getTransactionExchangeRateOnSpecificDate', 
+                        'latest',
+                    //-----[ HEADER ]-----( END )-----
+
+                    //-----[ BODY ]-----( START )-----
+                        [
+                        'parameter' => [
+                            "transactionDateTimeTZ" => '2025-02-04 00:00:00'
+                            ]
+                        ]
+                    //-----[ BODY ]-----( END )-----
                 );
+
             var_dump($varData);
             }
 
@@ -65,10 +74,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\ins
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+
             echo '<table border="1" style="border-collapse: collapse;">';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Main Data</p></td></tr>';
             echo        '<tr><td>DocumentDateTimeTZ</td><td><input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-07"></td></tr>';
@@ -97,6 +109,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\ins
             echo        '<tr><td>ProductUnitPriceCurrencyExchangeRate_2</td><td><input type="text" id="dataInput_ProductUnitPriceCurrencyExchangeRate_2" value=1></td></tr>';
             echo        '<tr><td>Remarks_2</td><td><input type="text" id="dataInput_Remarks_2" value="Catatan Kedua"></td></tr>';
             echo '</table><br>';
+
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -146,7 +159,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\ins
                         '}'.
                 '}'
                 ); 
+
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+
             dd($varJQueryFunction);
             }
         }

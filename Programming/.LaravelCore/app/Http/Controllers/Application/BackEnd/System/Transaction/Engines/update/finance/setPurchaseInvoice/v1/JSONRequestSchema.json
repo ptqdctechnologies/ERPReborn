@@ -191,8 +191,7 @@
                                         "required": [
                                             "items"
                                             ]
-                                        },
-                                    
+                                        },                                    
                                     "transactionTaxItemList": {
                                         "type": "object",
                                         "properties": {
@@ -253,7 +252,6 @@
                                             "items"
                                             ]
                                         },
-                                    
                                     "additionalCostItemList": {
                                         "type": "object",
                                         "properties": {

@@ -1,0 +1,153 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.create.finance.setCashFlowPlan (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.create.finance.setCashFlowPlan" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [
+                    "key",
+                    "version"
+                    ]
+                }
+            },
+        "required": [
+            "API"
+            ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "entities" : {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 256
+                        },
+                    "additionalData": {
+                        "anyOf": [
+                                {"type": "null"},
+                                {
+                                "type": "object",
+                                "properties": {
+                                    "itemList": {                                    
+                                        "type": "object",
+                                        "properties": {
+                                            "items": {
+                                                "type": [ "array", "null" ],
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "entities": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "cashFlowPlanItem_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "cashFlowActivityType_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "cashStreamType_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "amountCurrency_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "amountCurrencyValue": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "amountCurrencyExchangeRate": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "scheduledDateTimeTZ": {
+                                                                    "type": [ "string", "null" ],
+                                                                    "format": "string",
+                                                                    "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
+                                                                    "minLength": 10,
+                                                                    "maxLength": 30
+                                                                    },
+                                                                "realizationDateTimeTZ": {
+                                                                    "type": [ "string", "null" ],
+                                                                    "format": "string",
+                                                                    "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
+                                                                    "minLength": 10,
+                                                                    "maxLength": 30
+                                                                    },
+                                                                "remarks": {
+                                                                    "type": [ "string", "null" ],
+                                                                    "minLength": 1,
+                                                                    "maxLength": 256
+                                                                    }
+                                                                },
+                                                            "required": [
+                                                                "cashFlowPlanItem_RefID",
+                                                                "cashFlowActivityType_RefID",
+                                                                "cashStreamType_RefID",
+                                                                "amountCurrency_RefID",
+                                                                "amountCurrencyValue",
+                                                                "amountCurrencyExchangeRate",
+                                                                "scheduledDateTimeTZ",
+                                                                "realizationDateTimeTZ",
+                                                                "remarks"
+                                                                ]
+                                                             }
+                                                        },
+                                                    "required": [
+                                                        "entities"
+                                                        ]
+                                                    }
+                                                }
+                                            },
+                                        "required": [
+                                            "items"
+                                            ]
+                                        }
+                                    },
+                                "required": [
+                                    "itemList"
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                "required": [ 
+                    "name"
+                    ]    
+                }
+            },
+        "required": [
+            "entities"
+            ]
+        }
+    },
+"required": [
+    "metadata",
+    "data"
+    ]
+}

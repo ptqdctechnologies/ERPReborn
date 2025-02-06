@@ -132,7 +132,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                         }
 
                     catch (\Exception $ex) {
-                        $varReturn =\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdateException($varUserSession, $ex);
+                        $varReturn =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdateException(
+                                $varUserSession,
+                                $ex
+                                );
                         }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

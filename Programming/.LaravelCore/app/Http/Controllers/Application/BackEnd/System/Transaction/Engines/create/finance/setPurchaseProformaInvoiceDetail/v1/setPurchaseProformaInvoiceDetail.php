@@ -91,7 +91,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                         )
                                     ),
 
-                                    $varData['entities']['proformaInvoiceSupplier_RefID'],
+                                    $varData['entities']['purchaseProformaInvoice_RefID'],
                                     $varData['entities']['purchaseOrderDetail_RefID'],
                                     $varData['entities']['product_RefID'],
                                     $varData['entities']['quantity'],

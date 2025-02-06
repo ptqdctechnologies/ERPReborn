@@ -40,12 +40,12 @@
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "businessDocumentVersion_RefID": {
+                    "project_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "project_RefID": {
+                    "projectSectionType_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
@@ -54,12 +54,18 @@
                         "type": [ "string", "null" ],
                         "minLength": 1,
                         "maxLength": 256
+                        },
+                     "code": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 32
                         }
                     },
                 "required": [
-                    "businessDocumentVersion_RefID",
                     "project_RefID",
-                    "name"
+                    "projectSectionType_RefID",
+                    "name",
+                    "code"
                     ]
                 }
             },

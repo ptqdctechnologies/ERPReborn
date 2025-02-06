@@ -125,13 +125,65 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             {
             if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'SignRecordID', $varDataSend) == TRUE)
                 {
-                if($varDataSend['SignRecordID'])
+                if ($varDataSend['SignRecordID'])
                     {
+                    $varBusinessDocument = 
+                        (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                            $varUserSession,
+                            'AdditionalData',
+                            $varDataSend
+                            ) 
+                            ?   (
+                                    (
+                                    !is_null($varDataSend['AdditionalData'])
+                                    ) 
+                                    ?
+                                        (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                            $varUserSession,
+                                            'general',
+                                            (\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                                                $varUserSession,
+                                                $varDataSend['AdditionalData']
+                                                )
+                                            )
+                                            ) 
+                                            ?   (
+                                                    (
+                                                    !is_null($varDataSend['AdditionalData'])
+                                                    ) 
+                                                    ?
+                                                        (\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                                                            $varUserSession,
+                                                            $varDataSend['AdditionalData']
+                                                            )
+                                                        )['general']
+                                                    : null
+                                                )
+                                            : null
+                                        )
+                                    : null
+                                )
+                            : null
+                        );
+
+                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                        $varUserSession,
+                        'documentDateTimeTZ',
+                        $varBusinessDocument
+                        ) === TRUE) { 
+                        $varBusinessDocument['documentDateTimeTZ'] =
+                            str_replace('T', ' ', $varBusinessDocument['documentDateTimeTZ']);
+                        };
+
                     $varReturn = [
-                        'message' => 'Data Insertion Was Successful (New Record ID : '.$varDataSend['SignRecordID'].')',
-                        'recordID' => $varDataSend['SignRecordID']
+                        'message' => 'Data Update Was Successful (Record ID : '.$varDataSend['SignRecordID'].')',
+                        'recordID' => $varDataSend['SignRecordID'],
+                        'businessDocument' => $varBusinessDocument
                         ];
-                    return $varReturn;
+
+                    return
+                        $varReturn;
+
                     }
                 else
                     {
@@ -518,24 +570,100 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataUpdate($varUserSession, array $varDataSend)
             {
-            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'SignRecordID', $varDataSend) == TRUE)
+            if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'SignRecordID', $varDataSend) == TRUE)
                 {
-                if($varDataSend['SignRecordID'])
+                if ($varDataSend['SignRecordID'])
                     {
+                    /*
+                    $varBusinessDocument = 
+                        (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                            $varUserSession,
+                            'AdditionalData',
+                            $varDataSend
+                            ) 
+                            ?   (
+                                    (
+                                    !is_null($varDataSend['AdditionalData'])
+                                    ) 
+                                    ?
+                                        (\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                                            $varUserSession,
+                                            $varDataSend['AdditionalData']
+                                            )
+                                        )['general']
+                                    : null
+                                )
+                            : null
+                        );
+                    */
+
+                    $varBusinessDocument = 
+                        (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                            $varUserSession,
+                            'AdditionalData',
+                            $varDataSend
+                            ) 
+                            ?   (
+                                    (
+                                    !is_null($varDataSend['AdditionalData'])
+                                    ) 
+                                    ?
+                                        (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                            $varUserSession,
+                                            'general',
+                                            (\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                                                $varUserSession,
+                                                $varDataSend['AdditionalData']
+                                                )
+                                            )
+                                            ) 
+                                            ?   (
+                                                    (
+                                                    !is_null($varDataSend['AdditionalData'])
+                                                    ) 
+                                                    ?
+                                                        (\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                                                            $varUserSession,
+                                                            $varDataSend['AdditionalData']
+                                                            )
+                                                        )['general']
+                                                    : null
+                                                )
+                                            : null
+                                        )
+                                    : null
+                                )
+                            : null
+                        );
+
+                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                        $varUserSession,
+                        'documentDateTimeTZ',
+                        $varBusinessDocument
+                        ) === TRUE) { 
+                        $varBusinessDocument['documentDateTimeTZ'] =
+                            str_replace('T', ' ', $varBusinessDocument['documentDateTimeTZ']);
+                        };
+                    
                     $varReturn = [
                         'message' => 'Data Update Was Successful (Record ID : '.$varDataSend['SignRecordID'].')',
-                        'recordID' => $varDataSend['SignRecordID']
+                        'recordID' => $varDataSend['SignRecordID'],
+                        'businessDocument' => $varBusinessDocument
                         ];
-                    return $varReturn;
+
+                    return
+                        $varReturn;
                     }
                 else
                     {
-                    throw new \Exception('Data Update Failed');
+                    throw
+                        new \Exception('Data Update Failed');
                     }
                 }
             else
                 {
-                throw new \Exception('Data Update Failed');
+                throw
+                    new \Exception('Data Update Failed');
                 }
             }
 

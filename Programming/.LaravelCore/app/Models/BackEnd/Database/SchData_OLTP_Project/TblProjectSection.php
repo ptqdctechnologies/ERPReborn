@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Project                                                                         |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 - 2024 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2020 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Project
@@ -43,14 +43,16 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-10                                                                                           |
+        | ▪ Version         : 1.0001.0000001                                                                                       |
+        | ▪ Last Update     : 2025-02-04                                                                                           |
         | ▪ Creation Date   : 2021-07-07                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysDataValidityStartDateTimeTZ ► System Data Validity Start DateTimeTZ                                |
+        |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
@@ -65,8 +67,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
-            $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            $varUserSession,
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
             int $varProject_RefID = null, int $varProjectSectionType_RefID = null, string $varName = null, string $varCode = null)
             {
             $varReturn =
@@ -78,7 +80,10 @@ namespace App\Models\Database\SchData_OLTP_Project
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
@@ -91,7 +96,8 @@ namespace App\Models\Database\SchData_OLTP_Project
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn['data'][0];
             }
 
 
@@ -121,9 +127,10 @@ namespace App\Models\Database\SchData_OLTP_Project
                         []
                         )
                     );
-            $varReturn = [];
 
-            return $varReturn;
+            $varReturn = [];
+            return
+                $varReturn;
             }
 
 
@@ -131,8 +138,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-10                                                                                           |
+        | ▪ Version         : 1.0001.0000001                                                                                       |
+        | ▪ Last Update     : 2025-02-04                                                                                           |
         | ▪ Creation Date   : 2021-07-07                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -140,6 +147,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysDataValidityStartDateTimeTZ ► System Data Validity Start DateTimeTZ                                |
+        |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
@@ -154,8 +163,9 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
-            $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            $varUserSession,
+            int $varSysID,
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
             int $varProject_RefID = null, int $varProjectSectionType_RefID = null, string $varName = null, string $varCode = null)
             {
             $varReturn =
@@ -167,7 +177,10 @@ namespace App\Models\Database\SchData_OLTP_Project
                         [
                             [$varUserSession, 'bigint'],
                             [$varSysID, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
@@ -180,7 +193,8 @@ namespace App\Models\Database\SchData_OLTP_Project
                         )
                     );
 
-            return $varReturn['data'][0];            
+            return
+                $varReturn['data'][0];            
             }
         }
     }

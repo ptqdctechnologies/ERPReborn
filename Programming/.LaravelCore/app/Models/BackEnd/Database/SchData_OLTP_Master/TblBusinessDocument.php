@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 - 2022 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2020 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Master
@@ -43,16 +43,19 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2022-03-16                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2025-02-04                                                                                           |
         | ▪ Creation Date   : 2021-06-30                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysDataValidityStartDateTimeTZ ► System Data Validity Start DateTimeTZ                                |
+        |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
         |      ▪ (string) varDocumentNumber ► Document Number                                                                      |
@@ -63,8 +66,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
-            $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
+            $varUserSession,
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
             int $varBusinessDocumentType_RefID = null, string $varDocumentNumber = null, int $varCancelationBusinessDocument_RefID = null)
             {
             $varReturn =
@@ -76,9 +79,13 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varBusinessDocumentType_RefID, 'bigint'],
                             [$varDocumentNumber, 'varchar'],
@@ -87,7 +94,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn['data'][0];
             }
 
 
@@ -121,7 +129,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                     );
 
             $varReturn = [];
-            return $varReturn;
+            return
+                $varReturn;
             }
 
 
@@ -129,8 +138,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2022-03-16                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2025-02-04                                                                                           |
         | ▪ Creation Date   : 2021-06-30                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -138,8 +147,11 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysDataValidityStartDateTimeTZ ► System Data Validity Start DateTimeTZ                                |
+        |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
         |      ▪ (string) varDocumentNumber ► Document Number                                                                      |
@@ -150,8 +162,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
-            $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
+            $varUserSession,
+            int $varSysID,
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
             int $varBusinessDocumentType_RefID = null, string $varDocumentNumber = null, int $varCancelationBusinessDocument_RefID = null)
             {
             $varReturn =
@@ -163,9 +176,13 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [
                             [$varUserSession, 'bigint'],
                             [$varSysID, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varBusinessDocumentType_RefID, 'bigint'],
                             [$varDocumentNumber, 'varchar'],
@@ -174,7 +191,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn['data'][0];
             }
         }
     }
