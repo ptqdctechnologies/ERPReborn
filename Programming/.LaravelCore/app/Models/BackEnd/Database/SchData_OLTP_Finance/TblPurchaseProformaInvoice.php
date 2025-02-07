@@ -78,7 +78,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
             int $varLog_FileUpload_Pointer_RefID = null, int $varSupplier_RefID = null, string $varDocumentNumber = null, string $varDocumentDateTimeTZ = null, string $varSalesOrderNumber = null, string $varPaymentDueDateTimeTZ = null, int $varPreferredPaymentMethod_RefID = null, int $varPreferredBankAccount_RefID = null, string $varReceivedDateTimeTZ = null, float $varAmountRoundOff = null, string $varRemarks = null,
-            array $varAdditionalData = [])
+            array $varAdditionalData = []
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -169,7 +170,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
             int $varLog_FileUpload_Pointer_RefID = null, int $varSupplier_RefID = null, string $varDocumentNumber = null, string $varDocumentDateTimeTZ = null, string $varSalesOrderNumber = null, string $varPaymentDueDateTimeTZ = null, int $varPreferredPaymentMethod_RefID = null, int $varPreferredBankAccount_RefID = null, string $varReceivedDateTimeTZ = null, float $varAmountRoundOff = null, string $varRemarks = null,
-            array $varAdditionalData = [])
+            array $varAdditionalData = []
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(

@@ -102,7 +102,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varInstitutionBranch_RefID = null, string $varPhone = null, string $varFaximile = null, string $varEMail = null, string $varAttentionName = null)
+            int $varInstitutionBranch_RefID = null, string $varPhone = null, string $varFaximile = null, string $varEMail = null, string $varAttentionName = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -168,7 +169,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varInstitutionBranch_RefID = null, string $varPhone = null, string $varFaximile = null, string $varEMail = null, string $varAttentionName = null)
+            int $varInstitutionBranch_RefID = null, string $varPhone = null, string $varFaximile = null, string $varEMail = null, string $varAttentionName = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(

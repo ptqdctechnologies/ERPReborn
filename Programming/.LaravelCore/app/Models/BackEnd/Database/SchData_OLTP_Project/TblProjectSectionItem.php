@@ -59,6 +59,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varProjectSection_RefID ► Project Section Reference ID                                                   |
         |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (int)    varMaterialProductAssembly_RefID ► Material Product Assembly Reference ID                                |
         |      ▪ (string) varCode ► Code                                                                                           |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -68,7 +69,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varProjectSection_RefID = null, string $varName = null, string $varCode = null)
+            int $varProjectSection_RefID = null, string $varName = null, int $varMaterialProductAssembly_RefID = null, string $varCode = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -81,14 +83,15 @@ namespace App\Models\Database\SchData_OLTP_Project
                             [null, 'bigint'],
 
                             [$varSysDataAnnotation, 'varchar'],
-                            //[$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
-                            //[$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varProjectSection_RefID, 'bigint'],
-                            [$varName, 'varchar'], 
+                            [$varName, 'varchar'],
+                            [$varMaterialProductAssembly_RefID, 'bigint'],
                             [$varCode, 'varchar']
                         ]
                         )
@@ -153,6 +156,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varProjectSection_RefID ► Project Section Reference ID                                                   |
         |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (int)    varMaterialProductAssembly_RefID ► Material Product Assembly Reference ID                                |
         |      ▪ (string) varCode ► Code                                                                                           |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -163,7 +167,8 @@ namespace App\Models\Database\SchData_OLTP_Project
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varProjectSection_RefID = null, string $varName = null, string $varCode = null)
+            int $varProjectSection_RefID = null, string $varName = null, int $varMaterialProductAssembly_RefID = null, string $varCode = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -176,14 +181,15 @@ namespace App\Models\Database\SchData_OLTP_Project
                             [$varSysID, 'bigint'],
 
                             [$varSysDataAnnotation, 'varchar'],
-                            //[$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
-                            //[$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varProjectSection_RefID, 'bigint'],
-                            [$varName, 'varchar'], 
+                            [$varName, 'varchar'],
+                            [$varMaterialProductAssembly_RefID, 'bigint'],
                             [$varCode, 'varchar']
                         ]
                         )

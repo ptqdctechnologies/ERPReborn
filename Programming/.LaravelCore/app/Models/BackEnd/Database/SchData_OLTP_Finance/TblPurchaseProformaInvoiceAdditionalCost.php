@@ -72,7 +72,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varPurchaseProformaInvoice_RefID = null, int $varTransactionAdditionalCostType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varPurchaseProformaInvoice_RefID = null, int $varTransactionAdditionalCostType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varRemarks = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -141,7 +142,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varPurchaseProformaInvoice_RefID = null, int $varTransactionAdditionalCostType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varPurchaseProformaInvoice_RefID = null, int $varTransactionAdditionalCostType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varRemarks = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
