@@ -5345,6 +5345,7 @@ return array(
     'PHPUnit\\Metadata\\IgnoreDeprecations' => $vendorDir . '/phpunit/phpunit/src/Metadata/IgnoreDeprecations.php',
     'PHPUnit\\Metadata\\IgnoreFunctionForCodeCoverage' => $vendorDir . '/phpunit/phpunit/src/Metadata/IgnoreFunctionForCodeCoverage.php',
     'PHPUnit\\Metadata\\IgnoreMethodForCodeCoverage' => $vendorDir . '/phpunit/phpunit/src/Metadata/IgnoreMethodForCodeCoverage.php',
+    'PHPUnit\\Metadata\\InvalidAttributeException' => $vendorDir . '/phpunit/phpunit/src/Metadata/Exception/InvalidAttributeException.php',
     'PHPUnit\\Metadata\\InvalidVersionRequirementException' => $vendorDir . '/phpunit/phpunit/src/Metadata/Exception/InvalidVersionRequirementException.php',
     'PHPUnit\\Metadata\\Metadata' => $vendorDir . '/phpunit/phpunit/src/Metadata/Metadata.php',
     'PHPUnit\\Metadata\\MetadataCollection' => $vendorDir . '/phpunit/phpunit/src/Metadata/MetadataCollection.php',
