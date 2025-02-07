@@ -103,13 +103,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             throw new \Exception();
                             }
 
-                        //---> Set Business Document Data Into varDataSend
-                        $varDataSend['businessDocument'] = 
-                            (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
-                                $varUserSession, 
-                                $varDataSend['recordID']
-                                );
-
                         $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
                                 $varUserSession,

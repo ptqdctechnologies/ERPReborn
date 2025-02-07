@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\project\setProjectSection\v1          |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\project\setProjectSectionType\v1      |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\project\setProjectSection\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\project\setProjectSectionType\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setProjectSection                                                                                            |
-    | ▪ Description : Menangani API transaction.update.project.setProjectSection Version 1                                         |
+    | ▪ Class Name  : setProjectSectionType                                                                                        |
+    | ▪ Description : Menangani API transaction.create.project.setProjectSectionType Version 1                                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setProjectSection extends \App\Http\Controllers\Controller
+    class setProjectSectionType extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-07                                                                                           |
-        | ▪ Creation Date   : 2021-07-07                                                                                           |
+        | ▪ Last Update     : 2025-02-07                                                                                           |
+        | ▪ Creation Date   : 2025-02-07                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +42,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-09-27                                                                                           |
-        | ▪ Creation Date   : 2021-07-07                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-02-07                                                                                           |
+        | ▪ Creation Date   : 2025-02-07                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -61,17 +61,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Update Project Section Data (version 1)');
+                        'Create Project Section Type Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
-                        if (!($varDataSend = 
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
-                                $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Project\TblProjectSection())->setDataUpdate(
+                        if (!($varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
+                                $varUserSession, 
+                                (new \App\Models\Database\SchData_OLTP_Project\TblProjectSectionType())->setDataInsert(
                                     $varUserSession,
-                                    $varData['recordID'],
 
                                     null,
                                     null,
@@ -91,10 +90,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                         )
                                     ),
 
-                                    $varData['entities']['project_RefID'],
-                                    $varData['entities']['projectSectionType_RefID'],
-                                    $varData['entities']['name'],
-                                    $varData['entities']['code']
+                                    $varData['entities']['name']
                                     )
                                 )
                             ))
@@ -110,10 +106,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                         }
 
                     catch (\Exception $ex) {
+                        $varErrorMessage = $ex->getMessage();
                         $varReturn =
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdateException(
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
                                 $varUserSession,
-                                $ex
+                                500,
+                                'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
                                 );
                         }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
@@ -121,7 +119,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                     }
 
                 catch (\Exception $ex) {
-                    $varReturn =
+                    $varReturn = 
                         \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
                             $varUserSession,
                             401,

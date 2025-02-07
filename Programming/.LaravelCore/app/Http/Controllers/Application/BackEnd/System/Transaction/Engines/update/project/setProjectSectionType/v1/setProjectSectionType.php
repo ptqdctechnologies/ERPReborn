@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\project\setProjectSection\v1          |
-|                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\project\setProjectSectionType\v1      |
+|                                                                                                                                  |                                                                                                                                  |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\project\setProjectSection\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\project\setProjectSectionType\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setProjectSection                                                                                            |
-    | ▪ Description : Menangani API transaction.update.project.setProjectSection Version 1                                         |
+    | ▪ Class Name  : setProjectSectionType                                                                                        |
+    | ▪ Description : Menangani API transaction.update.project.setProjectSectionType Version 1                                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setProjectSection extends \App\Http\Controllers\Controller
+    class setProjectSectionType extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -42,8 +42,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-09-27                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2025-02-04                                                                                           |
         | ▪ Creation Date   : 2021-07-07                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -61,7 +61,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Update Project Section Data (version 1)');
+                        'Update Project Section Type Data (version 1)');
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
@@ -69,7 +69,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Project\TblProjectSection())->setDataUpdate(
+                                (new \App\Models\Database\SchData_OLTP_Project\TblProjectSectionType())->setDataUpdate(
                                     $varUserSession,
                                     $varData['recordID'],
 
@@ -91,10 +91,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                         )
                                     ),
 
-                                    $varData['entities']['project_RefID'],
-                                    $varData['entities']['projectSectionType_RefID'],
-                                    $varData['entities']['name'],
-                                    $varData['entities']['code']
+                                    $varData['entities']['name']
                                     )
                                 )
                             ))
