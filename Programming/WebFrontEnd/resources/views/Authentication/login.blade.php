@@ -228,6 +228,8 @@
                     data: form_data,
                     type: method,
                     success: function(response) {
+                        console.log('response FormLogin', response);
+                    
                         var len = 0;
                         if (response.status_code == 0) {
 
@@ -275,6 +277,7 @@
                         }
                     },
                     error: function(response) { // handle the error
+                        console.log('response error FormLogin', response);
 
                         HideLoading();
 
@@ -306,6 +309,7 @@
                         type: 'GET',
                         url: '{!! route("getRoleLogin") !!}?user_RefID=' + $('.user_RefID').val() + '&varAPIWebToken=' + $('.varAPIWebToken').val() + '&branch_id=' + $('.branch_id').val() + '&organizationalDepartmentName=' + $('.organizationalDepartmentName').val(),
                         success: function(data) {
+                            console.log('data branch_id', data);
 
                             var len = 0;
                             if (data.status == '401') {
@@ -335,6 +339,8 @@
                             }
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
+                            console.log('data error branch_id', jqXHR, textStatus, errorThrown);
+
                             Swal.fire("Cancelled", "Make sure the username and password are correct", "error");
 
                             HideLoading();
