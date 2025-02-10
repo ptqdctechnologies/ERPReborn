@@ -1,5 +1,5 @@
 <script>
-    $(".errorMessageMyDocumentContainer").hide();
+    $(".errorMessageMyDocumentContainer").hide();    
 
     // SELECT FOR FILTER BY BUDGET
     $('#tableGetProject tbody').on('click', 'tr', function() {
@@ -65,6 +65,8 @@
                 '<div style="text-wrap: wrap;">' + val.entities.workFlowPathSubmitterRemarks + '</div>',
             ]).draw();
         });
+
+        $("#TableMyDocument_filter").hide();
     }
 
     // GET DATA MY DOCUMENT
@@ -96,13 +98,6 @@
             },
         });
     }
-
-    // HIDE SEARCHING PLUGIN FROM DATATABLE
-    $(document).ready(function() {
-        $('.TableMyDocument').DataTable({
-            "searching": false,
-        });
-    });
 
     // ON LOAD PAGE
     $(window).one('load', function(e) {
