@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -55,11 +60,22 @@
                         "maxLength": 512
                         }
                     },
-                "required": [ "deliveryOrder_RefID", "referenceDocument_RefID", "quantity", "quantityUnit_RefID", "remarks" ]
+                "required": [
+                    "deliveryOrder_RefID",
+                    "referenceDocument_RefID",
+                    "quantity",
+                    "quantityUnit_RefID",
+                    "remarks"
+                    ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
