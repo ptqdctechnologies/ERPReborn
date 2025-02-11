@@ -62,13 +62,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
         |      ▪ (int)    varProductUnitPriceValue_Currency_RefID ► Product Unit Price Value Currency Reference ID                 |
-        |      ▪ (float)  varProductUnitPriceValue_CurrencyExchangeRate ► Product Unit Price Value Currency Exchange Rate          |
         |      ▪ (float)  varProductUnitPriceValue_CurrencyeValue ► Product Unit Price Value Currencye Value                       |
+        |      ▪ (float)  varProductUnitPriceValue_CurrencyExchangeRate ► Product Unit Price Value Currency Exchange Rate          |
         |      ▪ (int)    varProductUnitPriceValueDiscount_Currency_RefID                                                          |
         |                      ► Product Unit Price Value Discount Currency Reference ID                                           |
+        |      ▪ (float)  varProductUnitPriceValueDiscount_CurrencyeValue ► Product Unit Price Value Discount Currencye Value      |
         |      ▪ (float)  varProductUnitPriceValueDiscount_CurrencyExchangeRate                                                    |
         |                      ► Product Unit Price Value Discount Currency Exchange Rate                                          |
-        |      ▪ (float)  varProductUnitPriceValueDiscount_CurrencyeValue ► Product Unit Price Value Discount Currencye Value      |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -102,11 +102,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varQuantity, 'numeric'],
                             [$varQuantityUnit_RefID, 'bigint'],
                             [$varProductUnitPriceValue_Currency_RefID, 'bigint'],
-                            [$varProductUnitPriceValue_CurrencyExchangeRate, 'numeric'],
                             [$varProductUnitPriceValue_CurrencyeValue, 'numeric'],
+                            [$varProductUnitPriceValue_CurrencyExchangeRate, 'numeric'],
                             [$varProductUnitPriceValueDiscount_Currency_RefID, 'bigint'],
-                            [$varProductUnitPriceValueDiscount_CurrencyExchangeRate, 'numeric'],
                             [$varProductUnitPriceValueDiscount_CurrencyeValue, 'numeric'],
+                            [$varProductUnitPriceValueDiscount_CurrencyExchangeRate, 'numeric'],
                             [$varRemarks, 'varchar']
                         ]
                         )
@@ -141,13 +141,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
         |      ▪ (int)    varProductUnitPriceValue_Currency_RefID ► Product Unit Price Value Currency Reference ID                 |
-        |      ▪ (float)  varProductUnitPriceValue_CurrencyExchangeRate ► Product Unit Price Value Currency Exchange Rate          |
         |      ▪ (float)  varProductUnitPriceValue_CurrencyeValue ► Product Unit Price Value Currencye Value                       |
+        |      ▪ (float)  varProductUnitPriceValue_CurrencyExchangeRate ► Product Unit Price Value Currency Exchange Rate          |
         |      ▪ (int)    varProductUnitPriceValueDiscount_Currency_RefID                                                          |
         |                      ► Product Unit Price Value Discount Currency Reference ID                                           |
+        |      ▪ (float)  varProductUnitPriceValueDiscount_CurrencyeValue ► Product Unit Price Value Discount Currencye Value      |
         |      ▪ (float)  varProductUnitPriceValueDiscount_CurrencyExchangeRate                                                    |
         |                      ► Product Unit Price Value Discount Currency Exchange Rate                                          |
-        |      ▪ (float)  varProductUnitPriceValueDiscount_CurrencyeValue ► Product Unit Price Value Discount Currencye Value      |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -182,11 +182,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varQuantity, 'numeric'],
                             [$varQuantityUnit_RefID, 'bigint'],
                             [$varProductUnitPriceValue_Currency_RefID, 'bigint'],
-                            [$varProductUnitPriceValue_CurrencyExchangeRate, 'numeric'],
                             [$varProductUnitPriceValue_CurrencyeValue, 'numeric'],
+                            [$varProductUnitPriceValue_CurrencyExchangeRate, 'numeric'],
                             [$varProductUnitPriceValueDiscount_Currency_RefID, 'bigint'],
-                            [$varProductUnitPriceValueDiscount_CurrencyExchangeRate, 'numeric'],
                             [$varProductUnitPriceValueDiscount_CurrencyeValue, 'numeric'],
+                            [$varProductUnitPriceValueDiscount_CurrencyExchangeRate, 'numeric'],
                             [$varRemarks, 'varchar']
                         ]
                         )
