@@ -111,6 +111,7 @@ class AdvanceRequestController extends Controller
                     ]
                 ];
             }
+            
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,

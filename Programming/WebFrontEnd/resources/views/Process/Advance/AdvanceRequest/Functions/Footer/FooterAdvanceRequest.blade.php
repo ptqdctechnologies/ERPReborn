@@ -20,8 +20,8 @@
 
         //RESET FORM
         document.getElementById("FormSubmitAdvance").reset();
-        $("#dataInput_Log_FileUpload_Pointer_RefID").val("");
-        $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val("");
+        $("#dataInput_Log_FileUpload_1").val("");
+        // $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val("");
         $('.tableBudgetDetail').find('tbody').empty();
         $('.TableAdvance').find('tbody').empty();
         $('#zhtSysObjDOMTable_Upload_ActionPanel').find('tbody').empty();
@@ -158,8 +158,8 @@
                         statusDisplay[key] = "none";
                         statusDisplay2[key] = "";
                         statusForm[key] = "";
-                        // balance_qty = currencyTotal(val2.quantity);
-                        balance_qty = currencyTotal(val2.quantityRemaining);
+                        balance_qty = currencyTotal(val2.quantity);
+                        // balance_qty = currencyTotal(val2.quantityRemaining);
                     }
 
                     var html = '<tr>' +
@@ -571,23 +571,24 @@
 
                 ShowLoading();
                 var fileAttachment = null;
-                var file = $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val();
+                // var file = $("#dataInput_Log_FileUpload_Pointer_RefID_Action").val();
+                var file = $("#dataInput_Log_FileUpload_1").val();
                 if (file) {
 
-                    setTimeout(function() {
+                    // setTimeout(function() {
 
-                        varFileUpload_UniqueID = "Upload";
-                        window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
-                        fileAttachment = $("#dataInput_Log_FileUpload_Pointer_RefID").val();
-                        if (fileAttachment != null) {
+                        // varFileUpload_UniqueID = "Upload";
+                        // window['JSFunc_GetActionPanel_CommitFromOutside_' + varFileUpload_UniqueID]();
+                        // fileAttachment = $("#dataInput_Log_FileUpload_1").val();
+                        // if (fileAttachment != null) {
 
-                            AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, result.value);
+                        AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, file, documentTypeID, result.value);
 
-                        }
-                    }, 20);
+                        // }
+                    // }, 20);
                 } else {
 
-                    AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, fileAttachment, documentTypeID, result.value);
+                    AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, file, documentTypeID, result.value);
 
                 }
 
