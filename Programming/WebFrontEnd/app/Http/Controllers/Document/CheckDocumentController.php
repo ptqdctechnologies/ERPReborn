@@ -27,7 +27,6 @@ class CheckDocumentController extends Controller
             'submitter_ID' => 0,
             'statusDocument' => 0,
             'statusHeader' => "Yes",
-
         ];
 
         return view('Documents.Transactions.IndexCheckDocument', $compact);
@@ -252,7 +251,7 @@ class CheckDocumentController extends Controller
     public function ShowDocumentByID(Request $request)
     {
         try {
-            $businessDocument_RefID = (int) $request->input('businessDocument_RefID');
+            $businessDocument_RefID = (int) $request->input('businessDocument_RefID'); // => formDocumentNumber_RefID
             $businessDocumentTypeName = $request->input('businessDocumentTypeName');
 
             $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -307,6 +306,7 @@ class CheckDocumentController extends Controller
             ),
             true
         );
+
         $compact = [
             "data" => $varData,
             "DocumentTypeName" => $DocumentTypeName
@@ -315,12 +315,9 @@ class CheckDocumentController extends Controller
         return response()->json($compact);
     }
 
-
     //LOG TRANSACTION
-
     public function LogTransaction(Request $request)
     {
-
         $id = $request->input('id');
         $docNum = $request->input('docNum');
         $docName = $request->input('docName');
@@ -344,7 +341,6 @@ class CheckDocumentController extends Controller
                 ]
             ]
         );
-
 
         $collection = collect($varData['data']);
         $collection = $collection->sort();
