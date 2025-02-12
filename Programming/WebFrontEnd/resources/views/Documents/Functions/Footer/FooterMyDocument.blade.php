@@ -53,6 +53,7 @@
         $.each(data, function(key, val) {
             const dateMyDocument = dateFns.format(dateFns.parse(val.entities.businessDocumentDateTimeTZ, "yyyy-MM-dd hh:mm:ss"), 'DD-MM-YYYY HH:mm');
             const statusMyDocument = val.entities.previousWorkFlowPathActionName == "Rejection To Resubmit" ? "Reject" : val.entities.previousWorkFlowPathActionName;
+            const workFlowPathSubmitterRemarks = val.entities.workFlowPathSubmitterRemarks == "undefined" || !val.entities.workFlowPathSubmitterRemarks ? '-' : val.entities.workFlowPathSubmitterRemarks;
 
             keys += 1;
             tableMyDocument.row.add([
@@ -62,7 +63,7 @@
                 val.entities.previousWorkFlowPathApproverName || '-',
                 dateMyDocument,
                 statusMyDocument,
-                '<div style="text-wrap: wrap;">' + val.entities.workFlowPathSubmitterRemarks + '</div>',
+                '<div style="text-wrap: wrap;">' + workFlowPathSubmitterRemarks || '-' + '</div>',
             ]).draw();
         });
 
