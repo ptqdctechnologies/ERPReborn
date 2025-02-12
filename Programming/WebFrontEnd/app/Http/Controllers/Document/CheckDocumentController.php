@@ -335,6 +335,7 @@ class CheckDocumentController extends Controller
             } 
 
             return [
+                'varAPIWebToken'            => $varAPIWebToken,
                 'statusApprover'            => $statusApprover,
                 'submitter_ID'              => $submitter_ID,
                 'businessDocument_RefID'    => $DataAdvanceDetailComplex[0]['BusinessDocument_RefID'],
@@ -361,8 +362,7 @@ class CheckDocumentController extends Controller
 
             $varDataWorkflow = $this->GetAllDocumentTypeByID($varAPIWebToken, $formDocumentNumber_RefID);
 
-            $sessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-            // dump($sessionWorkerCareerInternal_RefID); 
+            // dump($varDataWorkflow); 
 
             if (!is_array($varDataWorkflow)) {
                 return $varDataWorkflow; 

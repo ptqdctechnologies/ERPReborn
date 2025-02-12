@@ -93,7 +93,7 @@ class AdvanceRequestController extends Controller
 
             $documentTypeID = $request->documentTypeID;
             $input = Session::get('dataInputStore' . $documentTypeID);
-            $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->dataInput_Log_FileUpload_1;
+            $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->fileAttachment;
 
             $count_product = count($input['var_product_id']);
             $advanceDetail = [];
