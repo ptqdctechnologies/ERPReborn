@@ -92,14 +92,18 @@
                             <div>
                               :
                             </div>
-                            <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
-                            <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
-                              \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                              $varAPIWebToken,
-                              'dataInput_Log_FileUpload',
-                              $dataHeader[0]['Log_FileUpload_Pointer_RefID']
-                              ).
-                            ''; ?>
+                            <?php if ($dataHeader[0]['Log_FileUpload_Pointer_RefID']) { ?>
+                              <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
+                              <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
+                                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                $varAPIWebToken,
+                                'dataInput_Log_FileUpload',
+                                $dataHeader[0]['Log_FileUpload_Pointer_RefID']
+                                ).
+                              ''; ?>
+                            <?php } else { ?>
+                              <div>-</div>
+                            <?php } ?>
                           </div>
                         </div>
                       </div>
