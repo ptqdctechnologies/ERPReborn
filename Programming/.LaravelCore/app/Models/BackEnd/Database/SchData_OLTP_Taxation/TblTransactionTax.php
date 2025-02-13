@@ -71,7 +71,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
             int $varTaxBaseCurrency_RefID = null, float $varTaxBaseCurrencyValue = null, float $varTaxBaseCurrencyExchangeRate = null, string $varRemarks = null, 
-            array $varAdditionalData = null)
+            array $varAdditionalData = null
+            )
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(

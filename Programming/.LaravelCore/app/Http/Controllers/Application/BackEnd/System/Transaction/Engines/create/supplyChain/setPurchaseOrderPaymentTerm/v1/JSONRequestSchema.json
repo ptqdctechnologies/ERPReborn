@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -77,11 +82,27 @@
                         "maxLength": 256
                         }
                     },
-                "required": [ "purchaseOrder_RefID", "paymentTerm_RefID", "dueDays", "priceCurrency_RefID", "priceCurrencyValue", "priceCurrencyExchangeRate", "priceBaseCurrencyValue", "discountDueDays", "discountPercentageRate", "remarks" ]
+                "required": [
+                    "purchaseOrder_RefID",
+                    "paymentTerm_RefID",
+                    "dueDays",
+                    "priceCurrency_RefID",
+                    "priceCurrencyValue",
+                    "priceCurrencyExchangeRate",
+                    "priceBaseCurrencyValue",
+                    "discountDueDays",
+                    "discountPercentageRate",
+                    "remarks"
+                    ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

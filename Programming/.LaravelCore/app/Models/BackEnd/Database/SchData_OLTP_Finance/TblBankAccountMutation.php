@@ -90,7 +90,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
-
                             [$varBankAccount_RefID, 'bigint'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                             [$varRemarks, 'varchar'],

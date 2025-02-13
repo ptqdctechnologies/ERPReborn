@@ -176,7 +176,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                         };
 
                     $varReturn = [
-                        'message' => 'Data Update Was Successful (Record ID : '.$varDataSend['SignRecordID'].')',
+                        'message' => 'Data Insertion Was Successful (New Record ID : '.$varDataSend['SignRecordID'].')',
                         'recordID' => $varDataSend['SignRecordID'],
                         'businessDocument' => $varBusinessDocument
                         ];
@@ -597,6 +597,9 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                         );
                     */
 
+                    //$varDataSend['AdditionalData'] = null;
+                    //$varDataSend['AdditionalData'] = '{"general" : {"businessDocumentType_RefID":77000000000057, "documentDateTimeTZ":"2022-12-13T00:00:00+07:00"}}';
+                    
                     $varBusinessDocument = 
                         (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                             $varUserSession,
@@ -646,9 +649,12 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                         };
                     
                     $varReturn = [
-                        'message' => 'Data Update Was Successful (Record ID : '.$varDataSend['SignRecordID'].')',
-                        'recordID' => $varDataSend['SignRecordID'],
-                        'businessDocument' => $varBusinessDocument
+                        0 => [
+                            'message' => 'Data Update Was Successful (Record ID : '.$varDataSend['SignRecordID'].')',
+                            'recordID' => $varDataSend['SignRecordID'],
+                            'businessDocument' => $varBusinessDocument
+                            ]
+
                         ];
 
                     return

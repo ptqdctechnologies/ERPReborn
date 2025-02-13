@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+# 2025-02-07 - 1.29.10
+
+### Changed
+
+- Allow version 1 and 2 of `composer/pcre`.
+
+### Fixed
+
+- Xls writer Parser Mishandling True/False Argument. Backport of [PR #4333](https://github.com/PHPOffice/PhpSpreadsheet/pull/4333)
+- Xls writer Parser Parse By Character Not Byte. Backport of [PR #4344](https://github.com/PHPOffice/PhpSpreadsheet/pull/4344)
+
 # 2025-01-26 - 1.29.9
 
 ### Fixed
