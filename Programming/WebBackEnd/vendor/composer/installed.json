@@ -59,17 +59,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.339.12",
-            "version_normalized": "3.339.12.0",
+            "version": "3.339.13",
+            "version_normalized": "3.339.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a63e79c15a972c54bf015a16cce3f3572e0c8221"
+                "reference": "16b291be8ed930b87267552faeb9974aa3a2e6da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a63e79c15a972c54bf015a16cce3f3572e0c8221",
-                "reference": "a63e79c15a972c54bf015a16cce3f3572e0c8221",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/16b291be8ed930b87267552faeb9974aa3a2e6da",
+                "reference": "16b291be8ed930b87267552faeb9974aa3a2e6da",
                 "shasum": ""
             },
             "require": {
@@ -109,7 +109,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2025-02-12T19:08:43+00:00",
+            "time": "2025-02-13T19:07:55+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -153,7 +153,7 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.339.12"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.339.13"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -4664,17 +4664,17 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "2.0.0",
-            "version_normalized": "2.0.0.0",
+            "version": "2.0.1",
+            "version_normalized": "2.0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "c00d78fb6b29658347f9d37ebe104bffadf36299"
+                "reference": "72e51f7c32c5aef7c8b462195b8c599b11199893"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/c00d78fb6b29658347f9d37ebe104bffadf36299",
-                "reference": "c00d78fb6b29658347f9d37ebe104bffadf36299",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/72e51f7c32c5aef7c8b462195b8c599b11199893",
+                "reference": "72e51f7c32c5aef7c8b462195b8c599b11199893",
                 "shasum": ""
             },
             "require": {
@@ -4691,7 +4691,7 @@
                 "phpunit/phpunit": "^9.6",
                 "symfony/process": "^5.2"
             },
-            "time": "2024-10-13T11:29:49+00:00",
+            "time": "2025-02-13T12:25:43+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -4708,7 +4708,7 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.0.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.0.1"
             },
             "install-path": "../phpstan/phpdoc-parser"
         },
