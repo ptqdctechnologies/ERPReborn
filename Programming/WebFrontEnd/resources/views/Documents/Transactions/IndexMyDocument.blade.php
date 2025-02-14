@@ -29,83 +29,67 @@
                   </label>
                 </div>
 
-                <br>
-                
                 <!-- BODY -->
                 <form method="post" enctype="multipart/form-data" action="{{ route('MyDocument.MyDocumentListDataFilter') }}" id="FormSubmitMyDocument">
                   @csrf
                   <div class="card-body">
-                    <div class="row">
+                    <div class="row py-2 py-sm-2 py-md-3" style="row-gap: 1rem;">
                       <!-- TRANSACTION NUMBER -->
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <table>
-                            <tr>
-                              <th><label>Transaction&nbsp;Number</label></th>
-                              <td>
-                                <div class="input-group" style="padding-bottom: 7px;">
-                                  <input id="trano" style="border-radius:0;" class="form-control" name="trano" type="text">
-                                </div>
-                              </td>
-                            </tr>
-                          </table>
+                      <div class="col-12 col-sm-12 col-md-6 col-lg-3">
+                        <div class="row">
+                          <label class="col-6 col-sm-6 col-md-6 col-lg-6 text-bold" style="margin-top: 4px;">Transaction Number</label>
+                          <div class="col-6 col-sm-6">
+                            <input id="trano" style="border-radius:0;" class="form-control" name="trano" type="text">
+                          </div>
                         </div>
                       </div>
 
                       <!-- DOCUMENT TYPE -->
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <table>
-                            <tr>
-                              <th style="padding-top: 7px;"><label>Document Type</label></th>
-                              <td>
-                                <div class="input-group" style="padding-bottom: 3px;">
-                                  <select id="DocumentType" class="form-control DocumentType select2" name="DocumentType">
-                                    <option selected="selected" value=""> Select Document Type </option>
-                                  </select>
-                                </div>
-                              </td>
-                            </tr>
-                          </table>
+                      <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                        <div class="row">
+                          <label class="col-6 col-sm-6 col-md-6 col-lg-5 text-bold" style="margin-top: 4px;">Document Type</label>
+                          <div class="col-6 col-sm-6 col-md-6 col-lg-7">
+                            <select id="DocumentType" class="form-control DocumentType select2" name="DocumentType" style="width: 100% !important;">
+                              <option selected="selected" value=""> Select Document Type </option>
+                            </select>
+                          </div>
                         </div>
                       </div>
 
                       <!-- BUDGET -->
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <table>
-                            <tr>
-                              <th style="padding-top: 7px;"><label>Budget</label></th>
-                              <td>
-                                <div class="input-group" style="padding-bottom: 3px;">
-                                  <input id="projectid" style="border-radius:0;" class="form-control" name="projectid" type="hidden">
-                                  <input id="projectcode" style="border-radius:0;background-color:white;" class="form-control myProject" name="projectcode" readonly data-toggle="modal" data-target="#myProject">
-                                  <div class="input-group-append">
-                                    <span style="border-radius:0;" class="input-group-text form-control">
-                                      <a href="#" id="projectcode2" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                                    </span>
-                                  </div>
-                                </div>
-                              </td>
-                            </tr>
-                          </table>
+                      <div class="col-12 col-sm-12 col-md-6 col-lg-3">
+                        <div class="row">
+                          <label class="col-6 col-sm-6 col-md-6 col-lg-5 text-bold" style="margin-top: 4px;">Budget</label>
+                          <div class="col d-flex">
+                            <div style="flex: 100%;">
+                              <input id="projectid" style="border-radius:0;" class="form-control" name="projectid" type="hidden">
+                              <input id="projectcode" style="border-radius:0;background-color:white;" class="form-control myProject" name="projectcode" readonly data-toggle="modal" data-target="#myProject">
+                            </div>
+                            <div>
+                              <span style="border-radius:0;" class="input-group-text form-control">
+                                <a href="#" id="projectcode2" data-toggle="modal" data-target="#myProject" class="myProject">
+                                  <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                </a>
+                              </span>
+                            </div>
+                            <!-- <div style="flex: 100%;">
+                              <div class="input-group">
+                                <input id="project_name" hidden style="border-radius:0;" class="form-control" name="project_name" readonly>
+                              </div>
+                            </div> -->
+                          </div>
                         </div>
                       </div>
 
                       <!-- SEARCH & RESET -->
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <table>
-                            <tr>
-                              <button class="btn btn-default btn-sm" style="position: relative;bottom:1px;" type="submit">
-                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="12" alt="" title="Search"> &nbsp; Search
-                              </button>
-                              &nbsp;&nbsp;
-                              <a class="btn btn-default btn-sm" style="position: relative;bottom:1px;" onclick="ResetFilter()">
-                                <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="12" alt="" title="Reset"> &nbsp; Reset
-                              </a>
-                            </tr>
-                          </table>
+                      <div class="col-12 col-sm-12 col-md-6 col-lg-2">
+                        <div class="row px-2" style="justify-content: right; gap: .5rem;">
+                          <button class="btn btn-default btn-sm" style="position: relative;bottom:1px;" disabled type="submit">
+                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="12" alt="" title="Search"> &nbsp; Search
+                          </button>
+                          <a class="disabled btn btn-default btn-sm" style="position: relative;bottom:1px; cursor: not-allowed;" onclick="ResetFilter()">
+                            <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="12" alt="" title="Reset"> &nbsp; Reset
+                          </a>
                         </div>
                       </div>
                     </div>
