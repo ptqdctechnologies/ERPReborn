@@ -1,9 +1,9 @@
-@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail') || request()->is('ReportAdvanceSettlementSummary') || request()->is('ReportAdvanceSettlementDetail') || request()->is('BusinessTripRequest'))
+@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail') || request()->is('ReportAdvanceSettlementSummary') || request()->is('ReportAdvanceSettlementDetail') || request()->is('BusinessTripRequest') || request()->is('AdvanceRequest'))
     <div id="mySiteCodeSecond" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Choose Sub Budget Code</h4>
+                    <h4 class="modal-title text-bold">Choose Sub Budget Code</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -93,7 +93,7 @@
                         $("#tableGetSiteSecond_paginate").show();
                     } else {
                         $(".errorSiteMessageContainerSecond").show();
-                        $("#errorSiteMessageSecond").text(`Data not found.`);
+                        $("#errorSiteMessageSecond").text(`No Data Available in Table.`);
 
                         $("#tableGetSiteSecond_length").hide();
                         $("#tableGetSiteSecond_filter").hide();

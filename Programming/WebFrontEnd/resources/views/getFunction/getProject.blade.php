@@ -1,9 +1,9 @@
-@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail') || request()->is('ReportAdvanceSettlementSummary') || request()->is('ReportAdvanceSettlementDetail') || request()->is('BusinessTripRequest'))
+@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail') || request()->is('ReportAdvanceSettlementSummary') || request()->is('ReportAdvanceSettlementDetail') || request()->is('BusinessTripRequest') || request()->is('AdvanceRequest'))
     <div id="myProjectSecond" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Choose Budget</h4>
+                    <h4 class="modal-title text-bold">Choose Budget</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -127,6 +127,41 @@
 
             $('#myProjectSecond').modal('hide');
         });
+
+        function checkingWorkflow(combinedBudget_RefID, documentTypeID) {
+            return new Promise((resolve, reject) => {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: 'GET',
+                    url: '{!! route("CheckingWorkflow") !!}?combinedBudget_RefID=' + combinedBudget_RefID + '&documentTypeID=' + documentTypeID,
+                    success: function(data) {
+                        if (data > 0) {
+                            resolve(true);
+                        } else {
+                            $("#project_code_second").val("");
+                            $("#project_id_second").val("");
+                            $("#project_name_second").val("");
+
+                            Swal.fire("Error", "User Has Not Workflow For This Project", "error");
+                            resolve(false);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        $("#project_code_second").val("");
+                        $("#project_id_second").val("");
+                        $("#project_name_second").val("");
+
+                        Swal.fire("Error", "Data Error", "error");
+                        resolve(false);
+                    }
+                });
+            });
+        }
     </script>
 @else 
     <div id="myProject" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">

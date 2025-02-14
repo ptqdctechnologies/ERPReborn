@@ -1,4 +1,4 @@
-@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportAdvanceSettlementSummary'))
+@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportAdvanceSettlementSummary') || request()->is('AdvanceRequest'))
     <div id="myWorkerSecond" class="modal fade" role="dialog" aria-labelledby="ModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -73,6 +73,8 @@
                 success: function(data) {
                     $(".loadingGetWorkerSecond").hide();
 
+                    console.log('data', data);
+                    
                     var no = 1;
                     var table = $('#tableGetWorkerSecond').DataTable();
                     table.clear();
