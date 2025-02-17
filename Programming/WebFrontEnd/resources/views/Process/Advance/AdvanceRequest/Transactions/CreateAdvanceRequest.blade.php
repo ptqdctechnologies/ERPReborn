@@ -5,8 +5,8 @@
 @include('getFunction.getProject')
 @include('getFunction.getSite')
 @include('getFunction.getWorker')
-<!-- @include('getFunction.getBeneficiary')
-@include('getFunction.getBankList')
+@include('getFunction.getBeneficiary')
+<!-- @include('getFunction.getBankList')
 @include('getFunction.getBankAccount') -->
 
 <div class="content-wrapper">
@@ -77,7 +77,7 @@
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Requester</label>
                           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                             <div>
-                              <input id="worker_name_second" style="border-radius:0;" name="worker_name_second" class="form-control" size="17" readonly>
+                              <input id="worker_position_second" style="border-radius:0;" name="worker_position_second" class="form-control" size="17" readonly>
                               <input id="worker_id_second" style="border-radius:0;" name="worker_id_second" class="form-control" hidden>
                             </div>
                             <div>
@@ -88,7 +88,7 @@
                               </span>
                             </div>
                             <div style="flex: 100%;">
-                              <input id="worker_position_second" style="border-radius:0;" name="worker_position_second" class="form-control" readonly>
+                              <input id="worker_name_second" style="border-radius:0;" name="worker_name_second" class="form-control" readonly>
                             </div>
                           </div>
                         </div>
@@ -98,19 +98,18 @@
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
                           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                             <div>
-                              <input id="beneficiary_second_person_position" style="border-radius:0;" size="17" class="form-control" name="beneficiary_second_person_position" readonly>
-                              <input id="beneficiary_second_id" style="border-radius:0;" class="form-control" name="beneficiary_second_id" hidden>
-                              <input id="beneficiary_second_person_ref_id" style="border-radius:0;" class="form-control" name="beneficiary_second_person_ref_id" hidden>
+                              <input id="beneficiary_second_person_position" style="border-radius:0;" name="beneficiary_second_person_position" class="form-control" size="17" readonly>
+                              <input id="beneficiary_second_id" style="border-radius:0;" name="beneficiary_second_id" class="form-control" hidden>
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="javascript:;" id="beneficiary_second_popup" data-toggle="modal" data-target="#myBeneficiarySecond">
-                                  <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                <a href="javascript:;" id="myBeneficiarySecondTrigger" data-toggle="modal" data-target="#myBeneficiarySecond">
+                                  <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myBeneficiarySecondTrigger">
                                 </a>
                               </span>
                             </div>
                             <div style="flex: 100%;">
-                              <input id="beneficiary_second_person_name" name="beneficiary_second_person_name" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="beneficiary_second_person_name" style="border-radius:0;" name="beneficiary_second_person_name" class="form-control" readonly>  
                             </div>
                           </div>
                         </div>

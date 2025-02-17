@@ -15,7 +15,7 @@
 
         $("#project_id_second").val("");
         $("#project_code_second").val("");
-        $("#project_name_second").val("Checking Workflow...");
+        $("#project_name_second").val("");
 
         $("#loadingBudget").css({"display":"block"});
         $("#myProjectSecondTrigger").css({"display":"none"});
