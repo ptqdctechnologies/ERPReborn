@@ -1,4 +1,4 @@
-@if (request()->is('BusinessTripRequest'))
+@if (request()->is('BusinessTripRequest') || request()->is('AdvanceRequest'))
     <!-- GET BANK SECOND -->
     <div id="myGetBankSecond" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">

@@ -52,6 +52,8 @@
                 url: '{!! route("getProduct") !!}',
                 success: function(data) {
                     var result = data.data.data;
+
+                    console.log('result', result);
                     
                     for (var i = 0; i < result.length; i++) {
                         var no = i + 1;

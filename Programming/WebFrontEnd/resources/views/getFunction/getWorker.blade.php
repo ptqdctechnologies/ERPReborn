@@ -73,8 +73,6 @@
                 success: function(data) {
                     $(".loadingGetWorkerSecond").hide();
 
-                    console.log('data', data);
-                    
                     var no = 1;
                     var table = $('#tableGetWorkerSecond').DataTable();
                     table.clear();

@@ -6,8 +6,9 @@
 @include('getFunction.getSite')
 @include('getFunction.getWorker')
 @include('getFunction.getBeneficiary')
-<!-- @include('getFunction.getBankList')
-@include('getFunction.getBankAccount') -->
+@include('getFunction.getBank')
+@include('getFunction.getBankAccount')
+@include('getFunction.getProduct')
 
 <div class="content-wrapper">
   <section class="content">
@@ -121,18 +122,18 @@
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                             <div>
-                              <input id="bank_list_name" style="border-radius:0;" name="bank_list_name" class="form-control" size="17" readonly>
-                              <input id="bank_list_code" style="border-radius:0;" class="form-control" name="bank_list_code" hidden>
+                              <input id="bank_name_second_name" style="border-radius:0;" name="bank_name_second_name" class="form-control" size="17" readonly>
+                              <input id="bank_name_second_id" style="border-radius:0;" class="form-control" name="bank_name_second_id" hidden>
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="javascript:;" id="bank_list_popup_vendor" data-toggle="modal" data-target="#myGetBankList" class="myGetBankList">
+                                <a href="javascript:;" id="bank_list_popup_vendor" data-toggle="modal" data-target="#myGetBankSecond" class="myGetBankSecond">
                                   <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                 </a>
                               </span>
                             </div>
                             <div style="flex: 100%;">
-                              <input id="bank_list_detail" style="border-radius:0;" class="form-control" name="bank_list_detail" readonly>
+                              <input id="bank_name_second_detail" style="border-radius:0;" class="form-control" name="bank_name_second_detail" readonly>
                             </div>
                           </div>
                         </div>
@@ -143,9 +144,7 @@
                           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                             <div>
                               <input id="bank_accounts" style="border-radius:0;" name="bank_accounts" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
-                              <input id="bank_accounts_duplicate" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate" hidden>
                               <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_accounts_id" hidden>
-                              <input id="bank_accounts_duplicate_id" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_id" hidden>
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
@@ -156,7 +155,6 @@
                             </div>
                             <div style="flex: 100%;">
                               <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" name="bank_accounts_detail" autocomplete="off" readonly>
-                              <input id="bank_accounts_duplicate_detail" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_detail" hidden>
                             </div>
                           </div>
                         </div>
@@ -228,7 +226,7 @@
 
                   <!-- BODY -->
                   <div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;">
-                    <table class="table table-head-fixed text-nowrap table-sm">
+                    <table class="table table-head-fixed text-nowrap table-sm" id="tableGetBudgetDetails">
                       <thead>
                         <tr>
                           @if($statusRevisi == 1)
@@ -256,7 +254,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                        <!-- <tr>
                           <td>1</td>
                           <td>1</td>
                           <td>1</td>
@@ -268,8 +266,29 @@
                           <td>1</td>
                           <td>1</td>
                           <td>1</td>
-                        </tr>
+                        </tr> -->
                       </tbody>
+                      <tfoot>
+                        <tr class="loadingBudgetDetails">
+                          <td colspan="11" class="p-0" style="border: 0px; height: 150px;">
+                            <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                              <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                Loading...
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="errorMessageContainerBudgetDetails">
+                          <td colspan="11" class="p-0" style="border: 0px;">
+                            <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                              <div id="errorMessageBudgetDetails" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
 
@@ -372,7 +391,7 @@
                   <!-- CONTENT -->
                   <div class="card-body">
                     <div class="row py-3">
-                      <textarea name="var_remark" id="remark" class="form-control"></textarea>
+                      <textarea name="var_remark" id="remark" class="form-control number-without-negative"></textarea>
                     </div>
                   </div>
                 </div>
