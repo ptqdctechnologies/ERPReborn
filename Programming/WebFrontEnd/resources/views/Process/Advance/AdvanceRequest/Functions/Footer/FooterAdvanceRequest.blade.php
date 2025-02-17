@@ -28,8 +28,13 @@
                 tbody.empty();
 
                 $.each(data, function(key, val2) {
-                    let productColumn = '';
                     let isUnspecified = '';
+                    let balanced = currencyTotal(val2.quantityRemaining);
+                    let productColumn = `
+                        <td style="text-align: center;">${val2.product_RefID}</td>
+                        <td style="text-align: center;">${val2.productName}</td>
+                    `;
+
                     if (val2.productName === "Unspecified Product") {
                         productColumn = `
                             <td style="padding: 8px;">
@@ -47,11 +52,7 @@
                             <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name">${val2.productName}</td>
                         `;
                         isUnspecified = 'disabled';
-                    } else {
-                        productColumn = `
-                            <td style="text-align: center;">${val2.product_RefID}</td>
-                            <td style="text-align: center;">${val2.productName}</td>
-                        `;
+                        balanced = '-';
                     }
 
                     let row = `
@@ -74,16 +75,16 @@
                             <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
                             <td style="text-align: center;">${currencyTotal(val2.quantity * val2.priceBaseCurrencyValue)}</td>
                             <td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" ${isUnspecified} />
+                                <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" ${isUnspecified} />
                             </td>
                             <td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" ${isUnspecified} />
+                                <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" ${isUnspecified} />
                             </td>
                             <td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" autocomplete="off" />
+                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled />
                             </td>
                             <td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" autocomplete="off" />
+                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;background-color:white;" value="${balanced}" disabled />
                             </td>
                         </tr>
                     `;
@@ -95,6 +96,37 @@
                             $(`#qty_req${key}, #price_req${key}`).prop('disabled', false);
                         } else {
                             $(`#qty_req${key}, #price_req${key}`).prop('disabled', true);
+                        }
+                    });
+
+                    $(`#qty_req${key}`).on('keyup', function() {
+                        var qty_req = $(this).val().replace(/,/g, '');
+                        var price_req = $(`#price_req${key}`).val();
+                        var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
+                        var total = parseFloat(qty_req || 0) + parseFloat(balanced);
+
+                        if (qty_req > val2.quantityRemaining) {
+                            $(`#qty_req${key}`).val('');
+                            $(`#total_req${key}`).val('');
+                            ErrorNotif("Qty Req is over budget !");
+                        } else {
+                            $(`#total_req${key}`).val(currencyTotal(total_req));
+                            $(`#balanced_qty${key}`).val(currencyTotal(total));
+                        }
+                    });
+
+                    $(`#price_req${key}`).on('keyup', function() {
+                        var price_req = $(this).val().replace(/,/g, '');
+                        var qty_req = $(`#qty_req${key}`).val();
+                        var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
+                        var total = parseFloat(price_req || 0) + parseFloat(val2.priceBaseCurrencyValue);
+
+                        if (price_req > val2.priceBaseCurrencyValue) {
+                            $(`#price_req${key}`).val('');
+                            $(`#total_req${key}`).val('');
+                            ErrorNotif("Price Req is over budget !");
+                        } else {
+                            $(`#total_req${key}`).val(currencyTotal(total_req));
                         }
                     });
                 });
