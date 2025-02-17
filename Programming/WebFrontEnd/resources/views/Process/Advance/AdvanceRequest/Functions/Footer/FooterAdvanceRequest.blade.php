@@ -70,7 +70,7 @@
                             
                             ${productColumn}
                             <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
-                            <td style="text-align: center;">${currencyTotal(val2.quantityRemaining)}</td>
+                            <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantityRemaining)}</td>
                             <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
                             <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
                             <td style="text-align: center;">${currencyTotal(val2.quantity * val2.priceBaseCurrencyValue)}</td>
@@ -91,29 +91,31 @@
 
                     tbody.append(row);
 
-                    $(`#product_id${key}`).on('input', function() {
-                        if ($(this).val().trim() !== '') {
-                            $(`#qty_req${key}, #price_req${key}`).prop('disabled', false);
-                        } else {
-                            $(`#qty_req${key}, #price_req${key}`).prop('disabled', true);
-                        }
-                    });
+                    if (val2.productName === "Unspecified Product") {
+                        $(`#product_id${key}`).on('input', function() {
+                            if ($(this).val().trim() !== '') {
+                                $(`#qty_req${key}, #price_req${key}`).prop('disabled', false);
+                            } else {
+                                $(`#qty_req${key}, #price_req${key}`).prop('disabled', true);
+                            }
+                        });
+                    } else {
+                        $(`#qty_req${key}`).on('keyup', function() {
+                            var qty_req = $(this).val().replace(/,/g, '');
+                            var price_req = $(`#price_req${key}`).val();
+                            var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
+                            var total = parseFloat(qty_req || 0) + parseFloat(balanced);
 
-                    $(`#qty_req${key}`).on('keyup', function() {
-                        var qty_req = $(this).val().replace(/,/g, '');
-                        var price_req = $(`#price_req${key}`).val();
-                        var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
-                        var total = parseFloat(qty_req || 0) + parseFloat(balanced);
-
-                        if (qty_req > val2.quantityRemaining) {
-                            $(`#qty_req${key}`).val('');
-                            $(`#total_req${key}`).val('');
-                            ErrorNotif("Qty Req is over budget !");
-                        } else {
-                            $(`#total_req${key}`).val(currencyTotal(total_req));
-                            $(`#balanced_qty${key}`).val(currencyTotal(total));
-                        }
-                    });
+                            if (qty_req > val2.quantityRemaining) {
+                                $(`#qty_req${key}`).val('');
+                                $(`#total_req${key}`).val('');
+                                ErrorNotif("Qty Req is over budget !");
+                            } else {
+                                $(`#total_req${key}`).val(currencyTotal(total_req));
+                                $(`#balanced_qty${key}`).val(currencyTotal(total));
+                            }
+                        });
+                    }
 
                     $(`#price_req${key}`).on('keyup', function() {
                         var price_req = $(this).val().replace(/,/g, '');
