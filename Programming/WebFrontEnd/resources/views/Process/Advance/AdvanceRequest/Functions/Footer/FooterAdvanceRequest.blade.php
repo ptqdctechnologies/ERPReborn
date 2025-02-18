@@ -6,9 +6,9 @@
     $(".errorMessageContainerBudgetDetails").hide();
     $("#mySiteCodeSecondTrigger").prop("disabled", true);
     $("#myWorkerSecondTrigger").prop("disabled", true);
-    $("#beneficiary_second_popup").prop("disabled", true);
-    $("#bank_list_popup_vendor").prop("disabled", true);
-    $("#bank_accounts_popup_vendor").prop("disabled", true);
+    $("#myBeneficiarySecondTrigger").prop("disabled", true);
+    $("#myGetBankSecondTrigger").prop("disabled", true);
+    $("#myBankAccountTrigger").prop("disabled", true);
     $("#submitArf").prop("disabled", true);
 
     function getBudgetDetails(site_code) {
@@ -193,9 +193,7 @@
         var sysId = $(this).find('input[data-trigger="sys_id_site_second"]').val();
 
         $("#myWorkerSecondTrigger").prop("disabled", false);
-        $("#beneficiary_second_popup").prop("disabled", false);
-        $("#bank_list_popup_vendor").prop("disabled", false);
-        $("#bank_accounts_popup_vendor").prop("disabled", false);
+        $("#myBeneficiarySecondTrigger").prop("disabled", false);
         $("#submitArf").prop("disabled", false);
 
         getBudgetDetails(sysId);
@@ -205,8 +203,7 @@
     $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function() {
         var personRefId = $(this).find('input[data-trigger="person_ref_id_beneficiary_second"]').val();
 
-        testing = personRefId;
-        getBankSecond(personRefId);
+        $("#myGetBankSecondTrigger").prop("disabled", false);
 
         $("#bank_name_second_name").val("");
         $("#bank_name_second_id").val("");
@@ -215,12 +212,21 @@
         $("#bank_accounts").val("");
         $("#bank_accounts_id").val("");
         $("#bank_accounts_detail").val("");
+
+        getBankSecond(personRefId);
     });
 
     $('#tableGetBankSecond').on('click', 'tbody tr', function() {
-        var sysId = $(this).find('input[data-trigger="sys_id_bank_second"]').val();
+        var sysId                   = $(this).find('input[data-trigger="sys_id_bank_second"]').val();
+        var beneficiaryPersonRefID  = document.getElementById("beneficiary_second_person_ref_id");
 
-        getBankAccountData(sysId, testing);
+        $("#myBankAccountTrigger").prop("disabled", false);
+        
+        $("#bank_accounts").val("");
+        $("#bank_accounts_id").val("");
+        $("#bank_accounts_detail").val("");
+
+        getBankAccountData(sysId, beneficiaryPersonRefID.value);
     });
 
     const calculateTotal = () => {
@@ -248,4 +254,18 @@
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);
     });
+
+    const bankNameInput = document.getElementById("bank_name_second_name");
+    const observer = new MutationObserver(() => {
+        const bankNameID                = document.getElementById("bank_name_second_id");
+        const beneficiaryPersonRefID    = document.getElementById("beneficiary_second_person_ref_id");
+        
+        if (bankNameInput.value.trim() !== "") {
+            $("#myBankAccountTrigger").prop("disabled", false);
+
+            getBankAccountData(bankNameID.value, beneficiaryPersonRefID.value);
+        }
+    });
+    
+    observer.observe(bankNameInput, { attributes: true, childList: true, subtree: true, characterData: true });
 </script>

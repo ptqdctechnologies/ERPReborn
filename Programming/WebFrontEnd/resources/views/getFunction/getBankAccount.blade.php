@@ -85,6 +85,12 @@
 
                     if (Array.isArray(data) && data.length > 0) {
                         $.each(data, function(key, val) {
+                            if (data.length === 1) {
+                                $("#bank_accounts").val(val.accountNumber);
+                                $("#bank_accounts_id").val(val.sys_ID);
+                                $("#bank_accounts_detail").val(val.accountName);
+                            }
+                            
                             keys += 1;
                             tableBankAccount.row.add([
                                 no++,

@@ -101,11 +101,12 @@
                             <div>
                               <input id="beneficiary_second_person_position" style="border-radius:0;" name="beneficiary_second_person_position" class="form-control" size="17" readonly>
                               <input id="beneficiary_second_id" style="border-radius:0;" name="beneficiary_second_id" class="form-control" hidden>
+                              <input id="beneficiary_second_person_ref_id" style="border-radius:0;" name="beneficiary_second_person_ref_id" class="form-control" hidden>
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
                                 <a href="javascript:;" id="myBeneficiarySecondTrigger" data-toggle="modal" data-target="#myBeneficiarySecond">
-                                  <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myBeneficiarySecondTrigger">
+                                  <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                 </a>
                               </span>
                             </div>
@@ -127,7 +128,7 @@
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="javascript:;" id="bank_list_popup_vendor" data-toggle="modal" data-target="#myGetBankSecond" class="myGetBankSecond">
+                                <a href="javascript:;" id="myGetBankSecondTrigger" data-toggle="modal" data-target="#myGetBankSecond" class="myGetBankSecond">
                                   <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                 </a>
                               </span>
@@ -148,7 +149,7 @@
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="javascript:;" id="bank_accounts_popup_vendor" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount">
+                                <a href="javascript:;" id="myBankAccountTrigger" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount">
                                   <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                 </a>
                               </span>
