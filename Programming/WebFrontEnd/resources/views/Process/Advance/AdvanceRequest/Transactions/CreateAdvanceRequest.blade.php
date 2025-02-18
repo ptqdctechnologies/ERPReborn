@@ -294,7 +294,7 @@
                             <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
                           </a>
                           @else
-                          <a class="btn btn-default btn-sm float-right" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                          <a class="btn btn-default btn-sm float-right budget-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                             <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
                           </a>
                           <a class="btn btn-default btn-sm float-right" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
@@ -329,7 +329,7 @@
                   
                   <!-- TABLE -->
                   <div class="card-body table-responsive p-0" style="height:135px;">
-                    <table class="table table-head-fixed text-nowrap table-sm">
+                    <table class="table table-head-fixed text-nowrap table-sm" id="tableAdvanceList">
                       <thead>
                         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Id</th>
                         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
@@ -349,7 +349,7 @@
                     <table style="float:right;">
                       <tr>
                         <th> Total Item :
-                          <span id="GrandTotal"></span>
+                          <span id="GrandTotal">0.00</span>
                         </th>
                       </tr>
                     </table>
@@ -379,7 +379,7 @@
                   <!-- CONTENT -->
                   <div class="card-body">
                     <div class="row py-3">
-                      <textarea name="var_remark" id="remark" class="form-control number-without-negative"></textarea>
+                      <textarea name="var_remark" id="remark" class="form-control"></textarea>
                     </div>
                   </div>
                 </div>

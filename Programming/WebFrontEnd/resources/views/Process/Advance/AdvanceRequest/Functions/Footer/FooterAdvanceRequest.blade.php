@@ -57,16 +57,17 @@
 
                     let row = `
                         <tr>
-                            <input name="productId" value="${val2.product_RefID}" type="hidden" />
-                            <input name="productName" value="${val2.productName}" type="hidden" />
-                            <input name="qtyId" value="${val2.quantityUnit_RefID}" type="hidden" />
-                            <input name="qty" value="${val2.quantity}" type="hidden" />
-                            <input name="price" value="${val2.priceBaseCurrencyValue}" type="hidden" />
-                            <input name="uom" value="${val2.quantityUnitName}" type="hidden" />
-                            <input name="currency" value="${val2.priceBaseCurrencyISOCode}" type="hidden" />
-                            <input name="currencyId" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
-                            <input name="combinedBudgetSectionDetail_RefID" value="${val2.sys_ID}" type="hidden" />
-                            <input name="combinedBudget_RefID" value="${val2.combinedBudget_RefID}" type="hidden" />
+                            <input id="productId${key}" name="productId${key}" data-product-id="productId" value="${val2.product_RefID}" type="hidden" />
+                            <input id="productName${key}" name="productName${key}" value="${val2.productName}" type="hidden" />
+                            <input id="qtyId${key}" name="qtyId${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
+                            <input id="qty${key}" name="qty${key}" value="${val2.quantity}" type="hidden" />
+                            <input id="price${key}" name="price${key}" value="${val2.priceBaseCurrencyValue}" type="hidden" />
+                            <input id="uom${key}" name="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
+                            <input id="currency${key}" name="currency${key}" value="${val2.priceBaseCurrencyISOCode}" type="hidden" />
+                            <input id="currencyId${key}" name="currencyId${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
+                            <input id="combinedBudgetSectionDetail_RefID${key}" name="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
+                            <input id="combinedBudget_RefID${key}" name="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID}" type="hidden" />
+                            <input id="quantityUnit_RefID${key}" name="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
                             
                             ${productColumn}
                             <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
@@ -253,6 +254,65 @@
 
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);
+    });
+
+    $(".budget-details-add").on('click', function() {
+        var totals = 0;
+        $("#tableGetBudgetDetails tbody tr").each(function(index) {
+            var productId = $(this).find(`input[name="productId${index}"]`).val();
+            var productName = $(this).find(`input[name="productName${index}"]`).val();
+            var qty = $(this).find('td:eq(2)').text(); 
+            var uom = $(this).find('td:eq(3)').text();
+            var currency = $(this).find('td:eq(4)').text();
+            var price = $(this).find('td:eq(5)').text();
+            var total = $(this).find('td:eq(6)').text();
+            var qtyReq = $(this).find(`input[id^="qty_req${index}"]`).val();
+            var priceReq = $(this).find(`input[id^="price_req${index}"]`).val();
+            var totalReq = $(this).find(`input[id^="total_req${index}"]`).val();
+
+            totalReq = totalReq.replace(/,/g, ""); 
+            totalReq = parseFloat(totalReq) || 0;
+
+            // Validasi: jika ada salah satu field yang kosong
+            if ((productId && (!qtyReq || !priceReq || !totalReq)) || 
+                (qtyReq && (!productId || !priceReq || !totalReq)) || 
+                (priceReq && (!productId || !qtyReq || !totalReq)) || 
+                (totalReq && (!productId || !qtyReq || !priceReq))) {
+                // Swal.fire("Error", `Harap pastikan semua kolom pada baris ini terisi dengan benar ${productName}`, "error");
+                return;  // Berhenti dan lanjutkan ke baris berikutnya
+            }
+
+            totals += totalReq;
+
+            // Cek apakah productId sudah ada di tabel Advance List
+            var isDuplicate = false;
+            $("#tableAdvanceList tbody tr").each(function() {
+                var existingProductId = $(this).find("td:eq(0)").text();  // Ambil ProductId dari tabel
+                if (existingProductId == productId) {
+                    isDuplicate = true;  // Jika ada duplikasi, set isDuplicate ke true
+                    return false;  // Keluar dari loop
+                }
+            });
+
+            if (isDuplicate) {
+                return;  // Berhenti dan lanjutkan ke baris berikutnya
+            }
+
+            // Jika tidak ada duplikasi, tambahkan baris baru
+            var newRow = `<tr>
+                <td style="text-align: center;">${productId}</td>
+                <td style="text-align: center;">${productName}</td>
+                <td style="text-align: center;">${uom}</td>
+                <td style="text-align: center;">${currency}</td>
+                <td style="text-align: center;">${price}</td>
+                <td style="text-align: center;">${qty}</td>
+                <td style="text-align: center;">${total}</td>
+            </tr>`;
+
+            $("#tableAdvanceList").find("tbody").append(newRow);
+        });
+
+        document.getElementById('GrandTotal').textContent = totals.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     });
 
     const bankNameInput = document.getElementById("bank_name_second_name");
