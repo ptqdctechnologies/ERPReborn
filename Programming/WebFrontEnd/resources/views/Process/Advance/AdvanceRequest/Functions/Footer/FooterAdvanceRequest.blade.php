@@ -84,7 +84,7 @@
                                 <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled />
                             </td>
                             <td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;background-color:white;" value="${balanced}" disabled />
+                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" value="${balanced}" disabled />
                             </td>
                         </tr>
                     `;
@@ -99,14 +99,28 @@
                                 $(`#qty_req${key}, #price_req${key}`).prop('disabled', true);
                             }
                         });
+
+                        $(`#qty_req${key}`).on('keyup', function() {
+                            var qty_req = $(this).val().replace(/,/g, '');
+                            var price_req = $(`#price_req${key}`).val().replace(/,/g, '');
+                            var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
+                            var total = parseFloat(qty_req || 0) + parseFloat(balanced);
+
+                            if (!qty_req) {
+                                $(`#qty_req${key}`).val('');
+                                $(`#total_req${key}`).val('');
+                            } else {
+                                $(`#total_req${key}`).val(currencyTotal(total_req));
+                            }
+                        });
                     } else {
                         $(`#qty_req${key}`).on('keyup', function() {
                             var qty_req = $(this).val().replace(/,/g, '');
-                            var price_req = $(`#price_req${key}`).val();
-                            var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
+                            var price_req = $(`#price_req${key}`).val().replace(/,/g, '');
+                            var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
                             var total = parseFloat(qty_req || 0) + parseFloat(balanced);
 
-                            if (qty_req > val2.quantityRemaining) {
+                            if (parseFloat(qty_req) > val2.quantityRemaining) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
                                 ErrorNotif("Qty Req is over budget !");
@@ -119,11 +133,11 @@
 
                     $(`#price_req${key}`).on('keyup', function() {
                         var price_req = $(this).val().replace(/,/g, '');
-                        var qty_req = $(`#qty_req${key}`).val();
+                        var qty_req = $(`#qty_req${key}`).val().replace(/,/g, '');
                         var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
                         var total = parseFloat(price_req || 0) + parseFloat(val2.priceBaseCurrencyValue);
 
-                        if (price_req > val2.priceBaseCurrencyValue) {
+                        if (parseFloat(price_req) > val2.priceBaseCurrencyValue) {
                             $(`#price_req${key}`).val('');
                             $(`#total_req${key}`).val('');
                             ErrorNotif("Price Req is over budget !");
@@ -207,6 +221,28 @@
         var sysId = $(this).find('input[data-trigger="sys_id_bank_second"]').val();
 
         getBankAccountData(sysId, testing);
+    });
+
+    const calculateTotal = () => {
+        const totalReqInputs = document.querySelectorAll('[id^="total_req"]');
+        let total = 0;
+
+        totalReqInputs.forEach(input => {
+            let value = input.value.trim().replace(/,/g, '');
+            let number = parseFloat(value);
+
+            if (!isNaN(number)) {
+                total += number;
+            }
+        });
+
+        document.getElementById('TotalBudgetSelected').textContent = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    document.addEventListener('keyup', (event) => {
+        if (event.target.id?.startsWith('qty_req') || event.target.id?.startsWith('price_req')) {
+            calculateTotal();
+        }
     });
 
     $(document).on('input', '.number-without-negative', function() {

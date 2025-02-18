@@ -254,19 +254,6 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <!-- <tr>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
-                        </tr> -->
                       </tbody>
                       <tfoot>
                         <tr class="loadingBudgetDetails">
@@ -296,7 +283,7 @@
                   <div class="card-body tableShowHideBudget">
                     <table style="float:right;">
                       <tr>
-                        <th style="position: relative;right:20px;"> Total : <span id="TotalBudgetSelected"></span></th>
+                        <th style="position: relative;right:20px;"> Total : <span id="TotalBudgetSelected">0.00</span></th>
                       </tr>
                       <tr>
                         <td>
