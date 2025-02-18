@@ -300,13 +300,13 @@
 
             // Jika tidak ada duplikasi, tambahkan baris baru
             var newRow = `<tr>
-                <td style="text-align: center;">${productId}</td>
-                <td style="text-align: center;">${productName}</td>
-                <td style="text-align: center;">${uom}</td>
-                <td style="text-align: center;">${currency}</td>
-                <td style="text-align: center;">${price}</td>
-                <td style="text-align: center;">${qty}</td>
-                <td style="text-align: center;">${total}</td>
+                <td style="text-align: center; padding: 0.8rem 0px;">${productId}</td>
+                <td style="text-align: center; padding: 0.8rem 0px;">${productName}</td>
+                <td style="text-align: center; padding: 0.8rem 0px;">${uom}</td>
+                <td style="text-align: center; padding: 0.8rem 0px;">${currency}</td>
+                <td style="text-align: center; padding: 0.8rem 0px;">${price}</td>
+                <td style="text-align: center; padding: 0.8rem 0px;">${qty}</td>
+                <td style="text-align: center; padding: 0.8rem 0px;">${total}</td>
             </tr>`;
 
             $("#tableAdvanceList").find("tbody").append(newRow);
