@@ -9,6 +9,7 @@
 @include('getFunction.getBank')
 @include('getFunction.getBankAccount')
 @include('getFunction.getProduct')
+@include('getFunction.getWorkFlow')
 
 <div class="content-wrapper">
   <section class="content">

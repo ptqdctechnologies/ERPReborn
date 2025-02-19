@@ -94,23 +94,30 @@ class AdvanceRequestController extends Controller
             $input = Session::get('dataInputStore' . $documentTypeID);
             $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->fileAttachment;
 
-            $count_product = count($input['var_product_id']);
+            $product_id_convert = json_decode($input['var_product_id'], true);
+            $quantity_convert = json_decode($input['var_quantity'], true);
+            $qty_id_convert = json_decode($input['var_qty_id'], true);
+            $currency_id_convert = json_decode($input['var_currency_id'], true);
+            $price_convert = json_decode($input['var_price'], true);
+            $combinedBudgetSectionDetail_RefID_convert = json_decode($input['var_combinedBudgetSectionDetail_RefID'], true);
+
+            $count_product = count($product_id_convert);
             $advanceDetail = [];
             for ($n = 0; $n < $count_product; $n++) {
                 $advanceDetail[$n] = [
                     'entities' => [
-                        "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudgetSectionDetail_RefID'][$n], // DISINI
-                        "product_RefID" => (int) $input['var_product_id'][$n],
-                        "quantity" => (float) $input['var_quantity'][$n],
-                        "quantityUnit_RefID" => (int) $input['var_qty_id'][$n], // DISINI
-                        "productUnitPriceCurrency_RefID" => (int) $input['var_currency_id'][$n],
-                        "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
+                        "combinedBudgetSectionDetail_RefID" => (int) $combinedBudgetSectionDetail_RefID_convert[$n], // DISINI
+                        "product_RefID" => (int) $product_id_convert[$n],
+                        "quantity" => (float) $quantity_convert[$n],
+                        "quantityUnit_RefID" => (int) $qty_id_convert[$n], // DISINI
+                        "productUnitPriceCurrency_RefID" => (int) $currency_id_convert[$n],
+                        "productUnitPriceCurrencyValue" => (float) $price_convert[$n],
                         "productUnitPriceCurrencyExchangeRate" => 1,
                         "remarks" => 'Catatan Detail'
                     ]
                 ];
             }
-            
+
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,

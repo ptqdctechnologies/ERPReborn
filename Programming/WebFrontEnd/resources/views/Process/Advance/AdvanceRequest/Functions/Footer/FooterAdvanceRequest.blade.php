@@ -157,6 +157,88 @@
         });
     }
 
+    function SelectWorkFlow(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            confirmButtonColor: '#4B586A',
+            confirmButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            // ShowLoading();
+            AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID, result.value);
+        })
+    }
+
+    function AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID, comment) {
+        var fileAttachments = $("#dataInput_Log_FileUpload").val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var data = {
+            workFlowPath_RefID: workFlowPath_RefID,
+            nextApprover_RefID: nextApprover_RefID,
+            approverEntity_RefID: approverEntity_RefID,
+            fileAttachment: fileAttachments,
+            documentTypeID: documentTypeID,
+            comment: comment
+        };
+
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url: '{!! route("AdvanceRequest.store") !!}',
+            success: function(res) {
+                HideLoading();
+
+                if (res.status == 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        ShowLoading();
+                        window.location.href = '/AdvanceRequest?var=1';
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                ErrorNotif("Data Cancel Inputed");
+            }
+        });
+    }
+
     $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
         var sysId       = $(this).find('input[data-trigger="sys_id_project_second"]').val();
         var projectCode = $(this).find('td:nth-child(2)').text();
@@ -356,8 +438,88 @@
         });
 
         document.getElementById('GrandTotal').textContent = totals.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        document.getElementById('var_product_id').value = JSON.stringify(var_product_id);
+        document.getElementById('var_product_name').value = JSON.stringify(var_product_name);
+        document.getElementById('var_quantity').value = JSON.stringify(var_quantity);
+        document.getElementById('var_uom').value = JSON.stringify(var_uom);
+        document.getElementById('var_qty_id').value = JSON.stringify(var_qty_id);
+        document.getElementById('var_currency_id').value = JSON.stringify(var_currency_id);
+        document.getElementById('var_price').value = JSON.stringify(var_price);
+        document.getElementById('var_total').value = JSON.stringify(var_total);
+        document.getElementById('var_currency').value = JSON.stringify(var_currency);
+        document.getElementById('var_combinedBudgetSectionDetail_RefID').value = JSON.stringify(var_combinedBudgetSectionDetail_RefID);
     });
     
+    $("#FormSubmitAdvance").on("submit", function(e) { //id of form 
+        e.preventDefault();
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "Save this data?",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+            confirmButtonColor: '#e9ecef',
+            cancelButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var action = $(this).attr("action"); //get submit action from form
+                var method = $(this).attr("method"); // get submit method
+                var form_data = new FormData($(this)[0]); // convert form into formdata 
+                var form = $(this);
+
+                $.ajax({
+                    url: action,
+                    dataType: 'json', // what to expect back from the server
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    type: method,
+                    success: function(response) {
+                        if (response.message == "WorkflowError") {
+                            HideLoading();
+                            $("#submitArf").prop("disabled", false);
+                            // CALL FUNCTION DO NOT HAVE ACCESS NOTIF
+                            CancelNotif("You don't have access", '/AdvanceRequest?var=1');
+                        } else if (response.message == "MoreThanOne") {
+                            HideLoading();
+
+                            $('#getWorkFlow').modal('toggle');
+
+                            var t = $('#tableGetWorkFlow').DataTable();
+                            t.clear();
+                            $.each(response.data, function(key, val) {
+                                t.row.add([
+                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                                ]).draw();
+                            });
+                        } else {
+                            HideLoading();
+                            SelectWorkFlow(response.workFlowPath_RefID, response.nextApprover_RefID, response.approverEntity_RefID, response.documentTypeID);
+                        }
+                    },
+                    error: function(response) {
+                        HideLoading();
+                        $("#submitArf").prop("disabled", false);
+                        CancelNotif("You don't have access", '/AdvanceRequest?var=1');
+                    }
+                });
+            } else {
+                HideLoading();
+                CancelNotif("Data Cancel Inputed", '/AdvanceRequest?var=1');
+            }
+        });
+    });
 
     const bankNameInput = document.getElementById("bank_name_second_name");
     const observer = new MutationObserver(() => {
