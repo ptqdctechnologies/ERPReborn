@@ -28,6 +28,16 @@
           @csrf
           <input type="hidden" name="DocumentTypeID" value="{{ $DocumentTypeID }}" id="DocumentTypeID">
           <input type="hidden" name="var_date" id="var_date">
+          <input type="hidden" name="var_product_id" id="var_product_id">
+          <input type="hidden" name="var_product_name" id="var_product_name">
+          <input type="hidden" name="var_quantity" id="var_quantity">
+          <input type="hidden" name="var_uom" id="var_uom">
+          <input type="hidden" name="var_qty_id" id="var_qty_id">
+          <input type="hidden" name="var_currency_id" id="var_currency_id">
+          <input type="hidden" name="var_price" id="var_price">
+          <input type="hidden" name="var_total" id="var_total">
+          <input type="hidden" name="var_currency" id="var_currency">
+          <input type="hidden" name="var_combinedBudgetSectionDetail_RefID" id="var_combinedBudgetSectionDetail_RefID">
 
           <!-- ADD NEW ADVANCE REQUEST -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">

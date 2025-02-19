@@ -259,6 +259,17 @@
 
     $(".budget-details-add").on('click', function() {
         var totals = 0;
+        var var_product_id = [];
+        var var_product_name = [];
+        var var_quantity = [];
+        var var_uom = [];
+        var var_qty_id = [];
+        var var_currency_id = [];
+        var var_price = [];
+        var var_total = [];
+        var var_currency = [];
+        var var_combinedBudgetSectionDetail_RefID = [];
+
         $("#tableGetBudgetDetails tbody tr").each(function(index) {
             var productId = $(this).find(`input[name="productId${index}"]`).val();
             var productName = $(this).find(`input[name="productName${index}"]`).val();
@@ -296,6 +307,17 @@
             });
 
             if (rowToUpdate) {
+                // var_product_id.push(productId);
+                // var_product_name.push(productName);
+                // var_quantity.push();
+                // var_uom.push(uom);
+                // var_qty_id.push();
+                // var_currency_id.push();
+                // var_price.push();
+                // var_total.push();
+                // var_currency.push();
+                // var_combinedBudgetSectionDetail_RefID.push();
+
                 // Update baris yang sudah ada
                 rowToUpdate.find("td:eq(0)").text(productId);
                 rowToUpdate.find("td:eq(1)").text(productName);
@@ -305,6 +327,8 @@
                 rowToUpdate.find("td:eq(5)").text(qtyReq);
                 rowToUpdate.find("td:eq(6)").text(totalReq);
             } else {
+                // var_product_id.push(productId);
+
                 // Jika tidak ada duplikasi, tambahkan baris baru
                 var newRow = `<tr>
                     <td style="text-align: center; padding: 0.8rem 0px;">${productId}</td>
@@ -321,6 +345,8 @@
         });
 
         document.getElementById('GrandTotal').textContent = totals.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        console.log('var_product_id', var_product_id);
     });
 
     const bankNameInput = document.getElementById("bank_name_second_name");
