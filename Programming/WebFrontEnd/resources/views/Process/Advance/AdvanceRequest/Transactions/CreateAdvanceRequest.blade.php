@@ -10,6 +10,8 @@
 @include('getFunction.getBankAccount')
 @include('getFunction.getProduct')
 @include('getFunction.getWorkFlow')
+@include('Process.Advance.AdvanceRequest.Functions.PopUp.PopUpAdvanceRevision')
+@include('Process.Advance.AdvanceRequest.Functions.Table.TableAdvanceRevision')
 
 <div class="content-wrapper">
   <section class="content">
