@@ -240,6 +240,21 @@ services:
       - './.ProjectCore/PermanentStorage/Grafana/var/lib/grafana/:/var/lib/grafana'
       - './.ProjectCore/PermanentStorage/Grafana/var/log/grafana/:/var/log/grafana'
 
+  #---> Services : NodeJS
+  #nodejs:
+  #  container_name: 'nodejs'
+  #  image: 'erp-reborn-nodejs'
+  #  #depends_on:
+  #  restart: 'unless-stopped'
+  #  ports:
+  #    - '23000:3000'
+  #  networks:
+  #    app-network:
+  #      ipv4_address: '172.28.0.103'
+    #volumes:
+      #- './.ProjectCore/PermanentStorage/Grafana/etc/grafana/provisioning:/etc/grafana/provisioning'
+      #- './.ProjectCore/PermanentStorage/Grafana/var/lib/grafana/:/var/lib/grafana'
+      #- './.ProjectCore/PermanentStorage/Grafana/var/log/grafana/:/var/log/grafana'
 
   #---> Services : Minio
   minio-node01:
