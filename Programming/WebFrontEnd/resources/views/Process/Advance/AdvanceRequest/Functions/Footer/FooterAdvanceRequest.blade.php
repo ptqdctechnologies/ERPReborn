@@ -262,11 +262,8 @@
         $("#tableGetBudgetDetails tbody tr").each(function(index) {
             var productId = $(this).find(`input[name="productId${index}"]`).val();
             var productName = $(this).find(`input[name="productName${index}"]`).val();
-            var qty = $(this).find('td:eq(2)').text(); 
             var uom = $(this).find(`input[name="uom${index}"]`).val();
-            var currency = $(this).find('td:eq(5)').text();
-            var price = $(this).find('td:eq(5)').text();
-            var total = $(this).find('td:eq(6)').text();
+            var currency = $(this).find(`input[name="currency${index}"]`).val();
             var qtyReq = $(this).find(`input[id^="qty_req${index}"]`).val();
             var priceReq = $(this).find(`input[id^="price_req${index}"]`).val();
             var totalReq = $(this).find(`input[id^="total_req${index}"]`).val();
@@ -275,42 +272,52 @@
             totalReq = parseFloat(totalReq) || 0;
 
             // Validasi: jika ada salah satu field yang kosong
-            if ((productId && (!qtyReq || !priceReq || !totalReq)) || 
-                (qtyReq && (!productId || !priceReq || !totalReq)) || 
-                (priceReq && (!productId || !qtyReq || !totalReq)) || 
-                (totalReq && (!productId || !qtyReq || !priceReq))) {
-                // Swal.fire("Error", `Harap pastikan semua kolom pada baris ini terisi dengan benar ${productName}`, "error");
-                return;  // Berhenti dan lanjutkan ke baris berikutnya
+            if (!productId || !qtyReq || !priceReq || !totalReq) {
+                return;  // Skip ke baris berikutnya jika ada field yang kosong
             }
 
             totals += totalReq;
 
-            // Cek apakah productId sudah ada di tabel Advance List
-            var isDuplicate = false;
+            var rowToUpdate = null;
+
             $("#tableAdvanceList tbody tr").each(function() {
-                var existingProductId = $(this).find("td:eq(0)").text();  // Ambil ProductId dari tabel
-                if (existingProductId == productId) {
-                    isDuplicate = true;  // Jika ada duplikasi, set isDuplicate ke true
-                    return false;  // Keluar dari loop
+                var existingProductId = $(this).find("td:eq(0)").text();
+                var existingQty = $(this).find("td:eq(5)").text();
+                var existingPrice = $(this).find("td:eq(4)").text();
+
+                if (existingProductId === productId) {
+                    if (existingQty === qtyReq && existingPrice === priceReq) {
+                        rowToUpdate = $(this); // Jika qty dan price sama, hanya update jika productId berubah
+                    } else {
+                        rowToUpdate = $(this); // Jika ada perbedaan, baris akan diperbarui
+                    }
+                    return false; // Stop looping
                 }
             });
 
-            if (isDuplicate) {
-                return;  // Berhenti dan lanjutkan ke baris berikutnya
+            if (rowToUpdate) {
+                // Update baris yang sudah ada
+                rowToUpdate.find("td:eq(0)").text(productId);
+                rowToUpdate.find("td:eq(1)").text(productName);
+                rowToUpdate.find("td:eq(2)").text(uom);
+                rowToUpdate.find("td:eq(3)").text(currency);
+                rowToUpdate.find("td:eq(4)").text(priceReq);
+                rowToUpdate.find("td:eq(5)").text(qtyReq);
+                rowToUpdate.find("td:eq(6)").text(totalReq);
+            } else {
+                // Jika tidak ada duplikasi, tambahkan baris baru
+                var newRow = `<tr>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${productId}</td>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${productName}</td>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${uom}</td>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${currency}</td>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${currencyTotal(priceReq)}</td>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${currencyTotal(qtyReq)}</td>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${currencyTotal(totalReq)}</td>
+                </tr>`;
+
+                $("#tableAdvanceList").find("tbody").append(newRow);
             }
-
-            // Jika tidak ada duplikasi, tambahkan baris baru
-            var newRow = `<tr>
-                <td style="text-align: center; padding: 0.8rem 0px;">${productId}</td>
-                <td style="text-align: center; padding: 0.8rem 0px;">${productName}</td>
-                <td style="text-align: center; padding: 0.8rem 0px;">${uom}</td>
-                <td style="text-align: center; padding: 0.8rem 0px;">${currency}</td>
-                <td style="text-align: center; padding: 0.8rem 0px;">${price}</td>
-                <td style="text-align: center; padding: 0.8rem 0px;">${qty}</td>
-                <td style="text-align: center; padding: 0.8rem 0px;">${total}</td>
-            </tr>`;
-
-            $("#tableAdvanceList").find("tbody").append(newRow);
         });
 
         document.getElementById('GrandTotal').textContent = totals.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
