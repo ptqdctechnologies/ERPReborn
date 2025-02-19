@@ -68,7 +68,6 @@
                             <input id="currencyId${key}" name="currencyId${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
                             <input id="combinedBudgetSectionDetail_RefID${key}" name="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
                             <input id="combinedBudget_RefID${key}" name="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID}" type="hidden" />
-                            <input id="quantityUnit_RefID${key}" name="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
                             
                             ${productColumn}
                             <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
@@ -273,11 +272,14 @@
         $("#tableGetBudgetDetails tbody tr").each(function(index) {
             var productId = $(this).find(`input[name="productId${index}"]`).val();
             var productName = $(this).find(`input[name="productName${index}"]`).val();
+            var qtyId = $(this).find(`input[name="qtyId${index}"]`).val();
             var uom = $(this).find(`input[name="uom${index}"]`).val();
             var currency = $(this).find(`input[name="currency${index}"]`).val();
+            var currencyId = $(this).find(`input[name="currencyId${index}"]`).val();
             var qtyReq = $(this).find(`input[id^="qty_req${index}"]`).val();
             var priceReq = $(this).find(`input[id^="price_req${index}"]`).val();
             var totalReq = $(this).find(`input[id^="total_req${index}"]`).val();
+            var combinedBudgetSectionDetail_RefID = $(this).find(`input[id^="combinedBudgetSectionDetail_RefID${index}"]`).val();
 
             totalReq = totalReq.replace(/,/g, ""); 
             totalReq = parseFloat(totalReq) || 0;
@@ -307,16 +309,16 @@
             });
 
             if (rowToUpdate) {
-                // var_product_id.push(productId);
-                // var_product_name.push(productName);
-                // var_quantity.push();
-                // var_uom.push(uom);
-                // var_qty_id.push();
-                // var_currency_id.push();
-                // var_price.push();
-                // var_total.push();
-                // var_currency.push();
-                // var_combinedBudgetSectionDetail_RefID.push();
+                var_product_id.push(productId);
+                var_product_name.push(productName);
+                var_quantity.push(currencyTotal(qtyReq));
+                var_uom.push(uom);
+                var_qty_id.push(qtyId);
+                var_currency_id.push(currencyId);
+                var_price.push(currencyTotal(priceReq));
+                var_total.push(currencyTotal(totalReq));
+                var_currency.push(currency);
+                var_combinedBudgetSectionDetail_RefID.push(combinedBudgetSectionDetail_RefID);
 
                 // Update baris yang sudah ada
                 rowToUpdate.find("td:eq(0)").text(productId);
@@ -327,7 +329,16 @@
                 rowToUpdate.find("td:eq(5)").text(qtyReq);
                 rowToUpdate.find("td:eq(6)").text(totalReq);
             } else {
-                // var_product_id.push(productId);
+                var_product_id.push(productId);
+                var_product_name.push(productName);
+                var_quantity.push(currencyTotal(qtyReq));
+                var_uom.push(uom);
+                var_qty_id.push(qtyId);
+                var_currency_id.push(currencyId);
+                var_price.push(currencyTotal(priceReq));
+                var_total.push(currencyTotal(totalReq));
+                var_currency.push(currency);
+                var_combinedBudgetSectionDetail_RefID.push(combinedBudgetSectionDetail_RefID);
 
                 // Jika tidak ada duplikasi, tambahkan baris baru
                 var newRow = `<tr>
@@ -345,9 +356,8 @@
         });
 
         document.getElementById('GrandTotal').textContent = totals.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-        console.log('var_product_id', var_product_id);
     });
+    
 
     const bankNameInput = document.getElementById("bank_name_second_name");
     const observer = new MutationObserver(() => {

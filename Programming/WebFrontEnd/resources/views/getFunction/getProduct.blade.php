@@ -111,6 +111,6 @@
         $("#productId" + key).val(sys_id);
         $("#productName" + key).val(name);
         $("#uom" + key).val(uom);
-        $("#quantityUnit_RefID" + key).val(budget_qty_id);
+        $("#qtyId" + key).val(budget_qty_id);
     });
 </script>
