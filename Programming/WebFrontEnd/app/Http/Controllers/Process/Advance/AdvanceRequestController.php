@@ -74,7 +74,6 @@ class AdvanceRequestController extends Controller
                 'varAPIWebToken' => $varAPIWebToken,
                 'DocumentTypeID' => $DocumentTypeID,
                 'statusRevisi' => 0,
-
             ];
 
             return view('Process.Advance.AdvanceRequest.Transactions.CreateAdvanceRequest', $compact);

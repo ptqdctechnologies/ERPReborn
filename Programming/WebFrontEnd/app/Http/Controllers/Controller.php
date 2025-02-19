@@ -38,10 +38,14 @@ class Controller extends BaseController
     {
 
         try {
+            Log::error("Sini SelectWorkflow");
+
             $varAPIWebToken = Session::get('SessionLogin');
             $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
             $dataInput = $request->all();
+            Log::info("dataInput", [$dataInput]);
+            
             if (isset($dataInput['dataInput_Log_FileUpload_Pointer_RefID_Action'])) {
                 unset($dataInput['dataInput_Log_FileUpload_Pointer_RefID_Action']);
             }

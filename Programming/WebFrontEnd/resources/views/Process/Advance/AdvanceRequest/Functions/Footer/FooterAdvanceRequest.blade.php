@@ -1,6 +1,6 @@
 <script>
     var documentTypeID = $("#DocumentTypeID").val();
-    var testing = '';
+    var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
 
     $(".loadingBudgetDetails").hide();
     $(".errorMessageContainerBudgetDetails").hide();
@@ -9,7 +9,8 @@
     $("#myBeneficiarySecondTrigger").prop("disabled", true);
     $("#myGetBankSecondTrigger").prop("disabled", true);
     $("#myBankAccountTrigger").prop("disabled", true);
-    $("#submitArf").prop("disabled", true);
+    $("#var_date").val(date);
+    // $("#submitArf").prop("disabled", true);
 
     function getBudgetDetails(site_code) {
         $.ajaxSetup({
@@ -262,8 +263,8 @@
             var productId = $(this).find(`input[name="productId${index}"]`).val();
             var productName = $(this).find(`input[name="productName${index}"]`).val();
             var qty = $(this).find('td:eq(2)').text(); 
-            var uom = $(this).find('td:eq(3)').text();
-            var currency = $(this).find('td:eq(4)').text();
+            var uom = $(this).find(`input[name="uom${index}"]`).val();
+            var currency = $(this).find('td:eq(5)').text();
             var price = $(this).find('td:eq(5)').text();
             var total = $(this).find('td:eq(6)').text();
             var qtyReq = $(this).find(`input[id^="qty_req${index}"]`).val();

@@ -27,6 +27,7 @@
         <form method="post" enctype="multipart/form-data" action="{{ route('SelectWorkFlow') }}" id="FormSubmitAdvance">
           @csrf
           <input type="hidden" name="DocumentTypeID" value="{{ $DocumentTypeID }}" id="DocumentTypeID">
+          <input type="hidden" name="var_date" id="var_date">
 
           <!-- ADD NEW ADVANCE REQUEST -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -78,8 +79,8 @@
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Requester</label>
                           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                             <div>
-                              <input id="worker_position_second" style="border-radius:0;" name="worker_position_second" class="form-control" size="17" readonly>
-                              <input id="worker_id_second" style="border-radius:0;" name="worker_id_second" class="form-control" hidden>
+                              <input id="worker_position_second" style="border-radius:0;" name="requester_detail" class="form-control" size="17" readonly>
+                              <input id="worker_id_second" style="border-radius:0;" name="requester_id" class="form-control" hidden>
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
@@ -89,7 +90,7 @@
                               </span>
                             </div>
                             <div style="flex: 100%;">
-                              <input id="worker_name_second" style="border-radius:0;" name="worker_name_second" class="form-control" readonly>
+                              <input id="worker_name_second" style="border-radius:0;" name="requester" class="form-control" readonly>
                             </div>
                           </div>
                         </div>
@@ -99,9 +100,9 @@
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
                           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                             <div>
-                              <input id="beneficiary_second_person_position" style="border-radius:0;" name="beneficiary_second_person_position" class="form-control" size="17" readonly>
-                              <input id="beneficiary_second_id" style="border-radius:0;" name="beneficiary_second_id" class="form-control" hidden>
-                              <input id="beneficiary_second_person_ref_id" style="border-radius:0;" name="beneficiary_second_person_ref_id" class="form-control" hidden>
+                              <input id="beneficiary_second_person_position" style="border-radius:0;" name="beneficiary_detail" class="form-control" size="17" readonly>
+                              <input id="beneficiary_second_id" style="border-radius:0;" name="beneficiary_id" class="form-control" hidden>
+                              <input id="beneficiary_second_person_ref_id" style="border-radius:0;" name="person_refID" class="form-control" hidden>
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
@@ -111,7 +112,7 @@
                               </span>
                             </div>
                             <div style="flex: 100%;">
-                              <input id="beneficiary_second_person_name" style="border-radius:0;" name="beneficiary_second_person_name" class="form-control" readonly>  
+                              <input id="beneficiary_second_person_name" style="border-radius:0;" name="beneficiary" class="form-control" readonly>  
                             </div>
                           </div>
                         </div>
@@ -123,8 +124,8 @@
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                             <div>
-                              <input id="bank_name_second_name" style="border-radius:0;" name="bank_name_second_name" class="form-control" size="17" readonly>
-                              <input id="bank_name_second_id" style="border-radius:0;" class="form-control" name="bank_name_second_id" hidden>
+                              <input id="bank_name_second_name" style="border-radius:0;" name="bank_name" class="form-control" size="17" readonly>
+                              <input id="bank_name_second_id" style="border-radius:0;" class="form-control" name="bank_code" hidden>
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
@@ -134,7 +135,7 @@
                               </span>
                             </div>
                             <div style="flex: 100%;">
-                              <input id="bank_name_second_detail" style="border-radius:0;" class="form-control" name="bank_name_second_detail" readonly>
+                              <input id="bank_name_second_detail" style="border-radius:0;" class="form-control" name="bank_name_detail" readonly>
                             </div>
                           </div>
                         </div>
@@ -144,8 +145,8 @@
                           <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                           <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                             <div>
-                              <input id="bank_accounts" style="border-radius:0;" name="bank_accounts" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
-                              <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_accounts_id" hidden>
+                              <input id="bank_accounts" style="border-radius:0;" name="bank_account" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
+                              <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_account_id" hidden>
                             </div>
                             <div>
                               <span style="border-radius:0;" class="input-group-text form-control">
@@ -155,7 +156,7 @@
                               </span>
                             </div>
                             <div style="flex: 100%;">
-                              <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" name="bank_accounts_detail" autocomplete="off" readonly>
+                              <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" name="bank_account_detail" autocomplete="off" readonly>
                             </div>
                           </div>
                         </div>
@@ -190,10 +191,10 @@
                       <div class="col-lg-5">
                         <div class="row">
                           <div class="col p-0">
-                            <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
+                            <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none">
                             <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                               $varAPIWebToken,
-                              'dataInput_Log_FileUpload_1',
+                              'dataInput_Log_FileUpload',
                               null,
                               'dataInput_Return'
                               ).

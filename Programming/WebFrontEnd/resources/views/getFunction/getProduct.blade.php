@@ -53,6 +53,8 @@
                 success: function(data) {
                     var result = data.data.data;
 
+                    console.log('data', data);
+
                     for (var i = 0; i < result.length; i++) {
                         var no = i + 1;
                         dataShow.push([
