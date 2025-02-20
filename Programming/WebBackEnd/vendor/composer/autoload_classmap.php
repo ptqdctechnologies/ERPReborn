@@ -7493,6 +7493,7 @@ return array(
     'PDF417' => $vendorDir . '/tecnickcom/tcpdf/include/barcodes/pdf417.php',
     'PHPStan\\PhpDocParser\\Ast\\AbstractNodeVisitor' => $vendorDir . '/phpstan/phpdoc-parser/src/Ast/AbstractNodeVisitor.php',
     'PHPStan\\PhpDocParser\\Ast\\Attribute' => $vendorDir . '/phpstan/phpdoc-parser/src/Ast/Attribute.php',
+    'PHPStan\\PhpDocParser\\Ast\\Comment' => $vendorDir . '/phpstan/phpdoc-parser/src/Ast/Comment.php',
     'PHPStan\\PhpDocParser\\Ast\\ConstExpr\\ConstExprArrayItemNode' => $vendorDir . '/phpstan/phpdoc-parser/src/Ast/ConstExpr/ConstExprArrayItemNode.php',
     'PHPStan\\PhpDocParser\\Ast\\ConstExpr\\ConstExprArrayNode' => $vendorDir . '/phpstan/phpdoc-parser/src/Ast/ConstExpr/ConstExprArrayNode.php',
     'PHPStan\\PhpDocParser\\Ast\\ConstExpr\\ConstExprFalseNode' => $vendorDir . '/phpstan/phpdoc-parser/src/Ast/ConstExpr/ConstExprFalseNode.php',
