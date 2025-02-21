@@ -1,0 +1,33 @@
+#FROM library/node:latest
+FROM node:alpine
+
+WORKDIR /usr/src/app
+
+#WORKDIR /app
+
+
+#COPY ./src ./src
+#COPY ./public ./public
+
+
+#RUN npm install \
+#    && npm install -g serve \
+#    && npm run build \
+#    && rm -fr node_modules
+
+
+#COPY package.json package.json
+#COPY package-lock.json package-lock.json
+
+RUN npm install -g npm
+#RUN npm install --cache /tmp/empty-cache
+COPY package*.json ./
+
+RUN npm cache verify
+
+COPY . .
+
+#---> Release Port
+EXPOSE 3000
+
+CMD [ "node", "src/app.js"]

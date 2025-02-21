@@ -104,7 +104,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varTaxType_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, float $varTariffMinimumRate = null, float $varTariffMaximumRate = null, int $varRoundUnit = null, bool $varSignRoundUp = null)
+            int $varTaxType_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, float $varTariffMinimumRate = null, float $varTariffMaximumRate = null, int $varRoundUnit = null, bool $varSignRoundUp = null
+            )
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -174,7 +175,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varTaxType_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, float $varTariffMinimumRate = null, float $varTariffMaximumRate = null, int $varRoundUnit = null, bool $varSignRoundUp = null)
+            int $varTaxType_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, float $varTariffMinimumRate = null, float $varTariffMaximumRate = null, int $varRoundUnit = null, bool $varSignRoundUp = null
+            )
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(

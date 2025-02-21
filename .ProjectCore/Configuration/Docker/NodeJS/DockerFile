@@ -1,0 +1,38 @@
+#FROM node:23
+
+#WORKDIR /usr/src/app
+#WORKDIR /app
+
+#RUN npm install -g npm
+
+#RUN npm install express
+
+
+#COPY package*.json ./
+
+#RUN npm install -d
+
+#COPY . .
+
+#CMD ["node", "app.js"]
+#
+#
+
+#FROM node:lts
+FROM node
+# exactly the last half of your existing Dockerfile
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+RUN npm install -g npm --verbose
+
+COPY . .
+#RUN npm init
+#RUN npm run completeBuild
+
+EXPOSE 3000
+#CMD ["npm","start"]
+#CMD ["node"]
+
+
+

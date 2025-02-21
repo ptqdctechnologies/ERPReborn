@@ -57,8 +57,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         function main($varUserSession, $varData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Purchase Requisition Data (version 1)');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Create Purchase Requisition Data (version 1)');
+
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
@@ -112,13 +116,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             throw new \Exception();
                             }
 
-                        //---> Set Business Document Data Into varDataSend
-                        $varDataSend['businessDocument'] = 
-                            (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
-                                $varUserSession, 
-                                $varDataSend['recordID']
-                                );
-
                         $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
                                 $varUserSession,
@@ -137,7 +134,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                         }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
 
                 catch (\Exception $ex) {
                     $varReturn =

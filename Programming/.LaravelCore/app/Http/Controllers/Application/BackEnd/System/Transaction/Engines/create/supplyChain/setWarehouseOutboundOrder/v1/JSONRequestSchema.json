@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -37,6 +42,11 @@
                         "minLength": 10,
                         "maxLength": 30
                         },
+                    "log_FileUpload_Pointer_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 0,
+                        "maximum": 9223372036854775807 
+                        },
                     "requesterWorkerJobsPosition_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
@@ -48,11 +58,21 @@
                         "maxLength": 512
                         }
                     },
-                "required": [ "documentDateTimeTZ", "requesterWorkerJobsPosition_RefID", "remarks" ]
+                "required": [
+                    "documentDateTimeTZ",
+                    "log_FileUpload_Pointer_RefID",
+                    "requesterWorkerJobsPosition_RefID",
+                    "remarks"
+                    ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }
