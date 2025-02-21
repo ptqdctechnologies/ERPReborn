@@ -83,40 +83,35 @@ class AdvanceRequestController extends Controller
         }
     }
 
-    // STORE FUNCTION FOR INSERT DATA 
+    // STORE FUNCTION FOR INSERT DATA (NEW FUNCTION)
     public function store(Request $request)
     {
         try {
-            // dd($request->all());
             $varAPIWebToken = Session::get('SessionLogin');
-
             $documentTypeID = $request->documentTypeID;
             $input = Session::get('dataInputStore' . $documentTypeID);
             $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->fileAttachment;
 
-            $product_id_convert = json_decode($input['var_product_id'], true);
-            $quantity_convert = json_decode($input['var_quantity'], true);
-            $qty_id_convert = json_decode($input['var_qty_id'], true);
-            $currency_id_convert = json_decode($input['var_currency_id'], true);
-            $price_convert = json_decode($input['var_price'], true);
-            $combinedBudgetSectionDetail_RefID_convert = json_decode($input['var_combinedBudgetSectionDetail_RefID'], true);
+            $product_id = json_decode($input['var_product_id'], true);
+            $quantity = json_decode($input['var_quantity'], true);
+            $qty_id = json_decode($input['var_qty_id'], true);
+            $currency_id = json_decode($input['var_currency_id'], true);
+            $price = json_decode($input['var_price'], true);
 
-            $count_product = count($product_id_convert);
-            $advanceDetail = [];
-            for ($n = 0; $n < $count_product; $n++) {
-                $advanceDetail[$n] = [
+            $advanceDetail = array_map(function ($index) use ($product_id, $quantity, $qty_id, $currency_id, $price) {
+                return [
                     'entities' => [
-                        "combinedBudgetSectionDetail_RefID" => (int) 169000000000001, // DISINI
-                        "product_RefID" => (int) $product_id_convert[$n],
-                        "quantity" => (float) $quantity_convert[$n],
-                        "quantityUnit_RefID" => (int) $qty_id_convert[$n], // DISINI
-                        "productUnitPriceCurrency_RefID" => (int) $currency_id_convert[$n],
-                        "productUnitPriceCurrencyValue" => (float) $price_convert[$n],
-                        "productUnitPriceCurrencyExchangeRate" => 1,
-                        "remarks" => 'Catatan Detail'
+                        "combinedBudgetSectionDetail_RefID"     => 169000000000001, // DISINI $combinedBudgetSectionDetail_RefID_convert[$n]
+                        "product_RefID"                         => (int) $product_id[$index],
+                        "quantity"                              => (float) $quantity[$index],
+                        "quantityUnit_RefID"                    => (int) $qty_id[$index], 
+                        "productUnitPriceCurrency_RefID"        => (int) $currency_id[$index],
+                        "productUnitPriceCurrencyValue"         => (float) $price[$index],
+                        "productUnitPriceCurrencyExchangeRate"  => 1,
+                        "remarks"                               => 'Catatan Detail'
                     ]
                 ];
-            }
+            }, array_keys($product_id));
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
@@ -125,16 +120,16 @@ class AdvanceRequestController extends Controller
                 'latest',
                 [
                     'entities' => [
-                        "documentDateTimeTZ" => $input['var_date'],
-                        "log_FileUpload_Pointer_RefID" => (int) $input['dataInput_Log_FileUpload_Pointer_RefID'],
-                        "requesterWorkerJobsPosition_RefID" => (int) $input['requester_id'],
-                        "beneficiaryWorkerJobsPosition_RefID" => (int)$input['beneficiary_id'],
-                        "beneficiaryBankAccount_RefID" => (int)$input['bank_account_id'],
-                        "internalNotes" => 'Testing Advance',
-                        "remarks" => $input['var_remark'],
-                        "additionalData" => [
-                            "itemList" => [
-                                "items" => $advanceDetail
+                        "documentDateTimeTZ"                    => $input['var_date'],
+                        "log_FileUpload_Pointer_RefID"          => (int) $input['dataInput_Log_FileUpload_Pointer_RefID'],
+                        "requesterWorkerJobsPosition_RefID"     => (int) $input['requester_id'],
+                        "beneficiaryWorkerJobsPosition_RefID"   => (int) $input['beneficiary_id'],
+                        "beneficiaryBankAccount_RefID"          => (int) $input['bank_account_id'],
+                        "internalNotes"                         => 'Testing Advance',
+                        "remarks"                               => $input['var_remark'],
+                        "additionalData"    => [
+                            "itemList"      => [
+                                "items"     => $advanceDetail
                             ]
                         ]
                     ]
@@ -145,19 +140,95 @@ class AdvanceRequestController extends Controller
                 return redirect()->back()->with('NotFound', 'Error Status Code: ' . $varData['metadata']['HTTPStatusCode']);
             }
 
-            $businessDocument_RefID = $varData['data']['businessDocument']['businessDocument_RefID'];
-            $workFlowPath_RefID = $request->workFlowPath_RefID;
-            $comment = $request->comment;
-            $approverEntity_RefID = $request->approverEntity_RefID;
-            $nextApprover_RefID = $request->nextApprover_RefID;
-            $documentNumber = $varData['data']['businessDocument']['documentNumber'];
-
-            return $this->SubmitWorkflow($businessDocument_RefID, $workFlowPath_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber);
+            return $this->SubmitWorkflow(
+                $varData['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity_RefID,
+                $request->nextApprover_RefID,
+                $varData['data']['businessDocument']['documentNumber']
+            );
         } catch (\Throwable $th) {
-            Log::error("Store Advance Request Function Error at " . $th->getMessage());
+            Log::error("Store Advance Request Function Error: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
+    // STORE FUNCTION FOR INSERT DATA (OLD FUNCTION)
+    // public function store(Request $request)
+    // {
+    //     try {
+    //         // dd($request->all());
+    //         $varAPIWebToken = Session::get('SessionLogin');
+
+    //         $documentTypeID = $request->documentTypeID;
+    //         $input = Session::get('dataInputStore' . $documentTypeID);
+    //         $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->fileAttachment;
+
+    //         $product_id_convert = json_decode($input['var_product_id'], true);
+    //         $quantity_convert = json_decode($input['var_quantity'], true);
+    //         $qty_id_convert = json_decode($input['var_qty_id'], true);
+    //         $currency_id_convert = json_decode($input['var_currency_id'], true);
+    //         $price_convert = json_decode($input['var_price'], true);
+    //         $combinedBudgetSectionDetail_RefID_convert = json_decode($input['var_combinedBudgetSectionDetail_RefID'], true);
+
+    //         $count_product = count($product_id_convert);
+    //         $advanceDetail = [];
+    //         for ($n = 0; $n < $count_product; $n++) {
+    //             $advanceDetail[$n] = [
+    //                 'entities' => [
+    //                     "combinedBudgetSectionDetail_RefID" => (int) 169000000000001, // DISINI $combinedBudgetSectionDetail_RefID_convert[$n]
+    //                     "product_RefID" => (int) $product_id_convert[$n],
+    //                     "quantity" => (float) $quantity_convert[$n],
+    //                     "quantityUnit_RefID" => (int) $qty_id_convert[$n], // DISINI
+    //                     "productUnitPriceCurrency_RefID" => (int) $currency_id_convert[$n],
+    //                     "productUnitPriceCurrencyValue" => (float) $price_convert[$n],
+    //                     "productUnitPriceCurrencyExchangeRate" => 1,
+    //                     "remarks" => 'Catatan Detail'
+    //                 ]
+    //             ];
+    //         }
+
+    //         $varData = Helper_APICall::setCallAPIGateway(
+    //             Helper_Environment::getUserSessionID_System(),
+    //             $varAPIWebToken,
+    //             'transaction.create.finance.setAdvance',
+    //             'latest',
+    //             [
+    //                 'entities' => [
+    //                     "documentDateTimeTZ" => $input['var_date'],
+    //                     "log_FileUpload_Pointer_RefID" => (int) $input['dataInput_Log_FileUpload_Pointer_RefID'],
+    //                     "requesterWorkerJobsPosition_RefID" => (int) $input['requester_id'],
+    //                     "beneficiaryWorkerJobsPosition_RefID" => (int)$input['beneficiary_id'],
+    //                     "beneficiaryBankAccount_RefID" => (int)$input['bank_account_id'],
+    //                     "internalNotes" => 'Testing Advance',
+    //                     "remarks" => $input['var_remark'],
+    //                     "additionalData" => [
+    //                         "itemList" => [
+    //                             "items" => $advanceDetail
+    //                         ]
+    //                     ]
+    //                 ]
+    //             ]
+    //         );
+
+    //         if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+    //             return redirect()->back()->with('NotFound', 'Error Status Code: ' . $varData['metadata']['HTTPStatusCode']);
+    //         }
+
+    //         $businessDocument_RefID = $varData['data']['businessDocument']['businessDocument_RefID'];
+    //         $workFlowPath_RefID = $request->workFlowPath_RefID;
+    //         $comment = $request->comment;
+    //         $approverEntity_RefID = $request->approverEntity_RefID;
+    //         $nextApprover_RefID = $request->nextApprover_RefID;
+    //         $documentNumber = $varData['data']['businessDocument']['documentNumber'];
+
+    //         return $this->SubmitWorkflow($businessDocument_RefID, $workFlowPath_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber);
+    //     } catch (\Throwable $th) {
+    //         Log::error("Store Advance Request Function Error at " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
 
     // REVISION FUNCTION FOR SHOW LIST DATA FILTER BY ID 
     public function RevisionAdvanceIndex(Request $request)
