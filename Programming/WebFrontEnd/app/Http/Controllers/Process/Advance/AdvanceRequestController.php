@@ -106,7 +106,7 @@ class AdvanceRequestController extends Controller
             for ($n = 0; $n < $count_product; $n++) {
                 $advanceDetail[$n] = [
                     'entities' => [
-                        "combinedBudgetSectionDetail_RefID" => (int) $combinedBudgetSectionDetail_RefID_convert[$n], // DISINI
+                        "combinedBudgetSectionDetail_RefID" => (int) 169000000000001, // DISINI
                         "product_RefID" => (int) $product_id_convert[$n],
                         "quantity" => (float) $quantity_convert[$n],
                         "quantityUnit_RefID" => (int) $qty_id_convert[$n], // DISINI

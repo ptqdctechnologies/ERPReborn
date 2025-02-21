@@ -177,7 +177,7 @@
             confirmButtonColor: '#e9ecef',
             reverseButtons: true
         }).then((result) => {
-            // ShowLoading();
+            ShowLoading();
             AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID, result.value);
         })
     }
@@ -234,6 +234,7 @@
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
+                HideLoading();
                 ErrorNotif("Data Cancel Inputed");
             }
         });
@@ -475,6 +476,8 @@
                 var method = $(this).attr("method"); // get submit method
                 var form_data = new FormData($(this)[0]); // convert form into formdata 
                 var form = $(this);
+
+                ShowLoading();
 
                 $.ajax({
                     url: action,
