@@ -52,15 +52,17 @@
                 url: '{!! route("getProduct") !!}',
                 success: function(data) {
                     var result = data.data.data;
-                    
+
+                    console.log('data', data);
+
                     for (var i = 0; i < result.length; i++) {
                         var no = i + 1;
                         dataShow.push([
-                            '<tbody><tr><td>' + no + '</td>',
+                            '<tbody><tr><input id="quantityUnit_RefID" value="' + result[i]['quantityUnit_RefID'] + '" data-trigger="quantityUnit_RefID" type="hidden" /><td>' + no + '</td>',
                             '<td>' + result[i]['sys_ID'] + '</td>',
                             '<td>' + result[i]['name'] + '</td>',
                             '<td>' + result[i]['quantityUnitName'] + '</td>',
-                            '<span style="display:none;"><td">' + result[i]['quantityUnit_RefID'] + '</td></span></tr></tbody>'
+                            '<span style="display:none;"><td>' + result[i]['quantityUnit_RefID'] + '</td></span></tr></tbody>'
                         ]);
                     }
 
@@ -86,7 +88,8 @@
         var sys_id = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
         var uom = row.find("td:nth-child(4)").text();
-        var budget_qty_id = row.find("td:nth-child(5)").text();
+        // var budget_qty_id = row.find("td:nth-child(5)").text();
+        var budget_qty_id = $(this).find('input[data-trigger="quantityUnit_RefID"]').val();
         var key = $("#key").val();
 
         $("#product_id" + key).val(sys_id);
@@ -104,5 +107,10 @@
         $("#accomodation_req" + key).prop("disabled", false);
         $("#other_req" + key).prop("disabled", false);
         $("#note_req" + key).prop("disabled", false);
+
+        $("#productId" + key).val(sys_id);
+        $("#productName" + key).val(name);
+        $("#uom" + key).val(uom);
+        $("#qtyId" + key).val(budget_qty_id);
     });
 </script>

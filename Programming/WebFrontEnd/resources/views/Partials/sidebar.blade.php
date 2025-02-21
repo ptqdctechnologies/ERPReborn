@@ -1431,7 +1431,7 @@
         <div class="card-body sidebar">
             <hr>
             <a href="#" class="d-block" style="font-size:15px;">
-                <h1><b>{{ $CountDocumentWorkflowComposer }}</b></h1>
+                <h1><b>{{ $CountDocumentWorkflowComposer ?? '-' }}</b></h1>
             </a>
             <a href="#" class="d-block" style="font-size:15px;">
                 <h5>Document to Process</h5>

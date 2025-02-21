@@ -12,7 +12,7 @@
             @elseif($statusApprover == "Resubmit")
             <br>
 
-            <form method="post" action="{{ route('AdvanceRequest.RevisionAdvance') }}">
+            <form method="post" action="{{ route('AdvanceRequest.RevisionAdvanceIndex') }}">
                 @csrf
                 <input type="hidden" name="advance_RefID" value="{{ $businessDocument_RefID }}">
                 <button type="submit" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">

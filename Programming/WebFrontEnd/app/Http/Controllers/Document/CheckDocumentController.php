@@ -27,7 +27,6 @@ class CheckDocumentController extends Controller
             'submitter_ID' => 0,
             'statusDocument' => 0,
             'statusHeader' => "Yes",
-
         ];
 
         return view('Documents.Transactions.IndexCheckDocument', $compact);
@@ -248,28 +247,130 @@ class CheckDocumentController extends Controller
         }
     }
 
+    // FUNCTION FOR SHOW DOCUMENT BY ID FROM MY DOCUMENT PAGES
+    public function GetAllDocumentTypeByID($varAPIWebToken, $formDocumentNumber_RefID)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $sessionID = Helper_Environment::getUserSessionID_System();
+            $sessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+            $statusApprover = "NO";
+            
+            $cacheKey = "DataListAdvanceDetailComplex_{$formDocumentNumber_RefID}";
+            $DataAdvanceDetailComplex = json_decode(Helper_Redis::getValue($sessionID, $cacheKey), true);
+            
+            if (!$DataAdvanceDetailComplex) {
+                Helper_APICall::setCallAPIGateway(
+                    $sessionID,
+                    $varAPIWebToken,
+                    'transaction.read.dataList.finance.getAdvanceDetailComplex',
+                    'latest',
+                    [
+                        'parameter' => [
+                            'advance_RefID' => $formDocumentNumber_RefID,
+                        ],
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                        ]
+                    ],
+                    false
+                );
+                
+                $DataAdvanceDetailComplex = json_decode(Helper_Redis::getValue($sessionID, "DataListAdvanceDetailComplex"), true);
+                
+                if ($DataAdvanceDetailComplex) {
+                    Helper_Redis::setValue($sessionID, $cacheKey, json_encode($DataAdvanceDetailComplex), 300); // Cache 5 menit
+                }
+            }
+
+            if (!$DataAdvanceDetailComplex || empty($DataAdvanceDetailComplex[0]['BusinessDocument_RefID'])) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            $businessDocumentRefID = (int) $DataAdvanceDetailComplex[0]['BusinessDocument_RefID'];
+
+            $cacheKeyWorkflow = "WorkflowHistory_{$businessDocumentRefID}";
+            $DataWorkflowHistory = json_decode(Helper_Redis::getValue($sessionID, $cacheKeyWorkflow), true);
+
+            if (!$DataWorkflowHistory) {
+                $DataWorkflowHistory = Helper_APICall::setCallAPIGateway(
+                    $sessionID,
+                    $varAPIWebToken,
+                    'userAction.documentWorkFlow.approvalStage.getApprovementHistoryList',
+                    'latest',
+                    [
+                        'parameter' => [
+                            'businessDocument_RefID' => $businessDocumentRefID
+                        ]
+                    ],
+                    false
+                );
+
+                if (!empty($DataWorkflowHistory['data'])) {
+                    Helper_Redis::setValue($sessionID, $cacheKeyWorkflow, json_encode($DataWorkflowHistory['data']), 300);
+                    $DataWorkflowHistory = $DataWorkflowHistory['data'];
+                } else {
+                    $DataWorkflowHistory = [];
+                }
+            }
+
+            if (!isset($DataWorkflowHistory[0])) {
+                return [
+                    'statusApprover'    => $statusApprover,
+                    'dataHeader'        => $DataAdvanceDetailComplex,
+                    'dataWorkFlows'     => []
+                ];
+            }
+
+            $submitter_ID = $DataWorkflowHistory[0]['approverEntity_RefID'] ?? null;
+            $nextApprover = end($DataWorkflowHistory);
+
+            if ($sessionWorkerCareerInternal_RefID == ($nextApprover['nextApproverEntity_RefID'] ?? null) && $sessionWorkerCareerInternal_RefID != $submitter_ID) {
+                $statusApprover = "YES";
+            } else if ($sessionWorkerCareerInternal_RefID == $submitter_ID && ($nextApprover['nextApproverEntity_RefID'] ?? null) == 0) {
+                $statusApprover = "RESUBMIT";
+            } 
+
+            return [
+                'varAPIWebToken'            => $varAPIWebToken,
+                'statusApprover'            => $statusApprover,
+                'submitter_ID'              => $submitter_ID,
+                'businessDocument_RefID'    => $DataAdvanceDetailComplex[0]['BusinessDocument_RefID'],
+                'dataHeader'                => $DataAdvanceDetailComplex,
+                'dataWorkFlows'             => $DataWorkflowHistory
+            ];
+        } catch (\Throwable $th) {
+            Log::error("Error at GetAllDocumentTypeByID: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     // FUNCTION FOR SHOW DOCUMENT BY CLICK DATA IN MY DOCUMENT 
     public function ShowDocumentByID(Request $request)
     {
         try {
-            $businessDocument_RefID = (int) $request->input('businessDocument_RefID');
-            $businessDocumentTypeName = $request->input('businessDocumentTypeName');
+            $varAPIWebToken             = $request->session()->get('SessionLogin');
+            $formDocumentNumber_RefID   = (int) $request->input('businessDocument_RefID'); // => formDocumentNumber_RefID
+            $businessDocumentTypeName   = $request->input('businessDocumentTypeName');
 
-            $varAPIWebToken = $request->session()->get('SessionLogin');
-
-            $filterType = "ID";
-            $sourceData = 1;
-            $statusHeader = "No";
-            // CALL FUNCTION SHOW DATA BY ID
-            $varDataWorkflow = $this->GetAllDocumentType($varAPIWebToken, $businessDocument_RefID, $filterType, $sourceData, $statusHeader, $businessDocumentTypeName);
-
-            if ($varDataWorkflow['status'] == "success") {
-                return view('Documents.Transactions.IndexCheckDocument', $varDataWorkflow);
-            } else {
-                return redirect()->route('MyDocument.index')->with('NotFound', 'Data Not Found');
+            if (!$formDocumentNumber_RefID) {
+                return redirect()->back()->with('error', 'Invalid Document ID');
             }
+
+            $varDataWorkflow = $this->GetAllDocumentTypeByID($varAPIWebToken, $formDocumentNumber_RefID);
+
+            // dump($varDataWorkflow); 
+
+            if (!is_array($varDataWorkflow)) {
+                return $varDataWorkflow; 
+            }
+
+            return view('Documents.Transactions.IndexCheckDetailDocument', $varDataWorkflow);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
+            Log::error("Error at ShowDocumentByID: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -307,6 +408,7 @@ class CheckDocumentController extends Controller
             ),
             true
         );
+
         $compact = [
             "data" => $varData,
             "DocumentTypeName" => $DocumentTypeName
@@ -315,12 +417,9 @@ class CheckDocumentController extends Controller
         return response()->json($compact);
     }
 
-
     //LOG TRANSACTION
-
     public function LogTransaction(Request $request)
     {
-
         $id = $request->input('id');
         $docNum = $request->input('docNum');
         $docName = $request->input('docName');
@@ -344,7 +443,6 @@ class CheckDocumentController extends Controller
                 ]
             ]
         );
-
 
         $collection = collect($varData['data']);
         $collection = $collection->sort();

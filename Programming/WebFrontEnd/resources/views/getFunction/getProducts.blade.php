@@ -44,6 +44,8 @@
                 type: 'GET',
                 url: '{!! route("getProduct") !!}',
                 success: function(data) {
+                    console.log('datasss', data);
+                    
                     var result = data.data ? data.data.data : [];
 
                     if (!result || result.length === 0) {

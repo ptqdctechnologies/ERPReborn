@@ -94,6 +94,10 @@ if (strpos($current_url, 'ReportDORequestDetail') !== false) {
                         ]).draw();
 
                     });
+                },
+                error: function (textStatus, errorThrown) {
+                    console.log('errorThrown', errorThrown);
+                    console.log('textStatus', textStatus);
                 }
             });
         });

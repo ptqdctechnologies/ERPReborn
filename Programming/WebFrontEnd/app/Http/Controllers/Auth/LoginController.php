@@ -19,16 +19,16 @@ class LoginController extends Controller
     public function index(Request $request)
     {
         try {
-            // dd(Redis::keys('*'));
             $varAPIWebToken = Session::get('SessionLogin');
+
             if ($varAPIWebToken) {
                 return view('Dashboard.index');
             } else {
                 return view('Authentication.login');
             }
         } catch (\Throwable $th) {
+            Log::error("Error at Index LoginController: " . $th->getMessage());
 
-            Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -45,12 +45,10 @@ class LoginController extends Controller
                 true
             );
 
-            // dd($varDataRole);
-
             return $varDataRole;
         } catch (\Throwable $th) {
+            Log::error("Error at GetRoleFunction: " . $th->getMessage());
 
-            Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -59,7 +57,6 @@ class LoginController extends Controller
     public function GetInstitutionBranchFunction($user_RefID)
     {
         try {
-
             $varDataBranch = json_decode(
                 Helper_Redis::getValue(
                     Helper_Environment::getUserSessionID_System(),
@@ -70,8 +67,8 @@ class LoginController extends Controller
 
             return $varDataBranch;
         } catch (\Throwable $th) {
+            Log::error("Error at GetInstitutionBranchFunction: " . $th->getMessage());
 
-            Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -80,7 +77,6 @@ class LoginController extends Controller
     public function SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID, $user_RefID, $organizationalDepartmentName)
     {
         try {
-
             $checking = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
@@ -93,7 +89,6 @@ class LoginController extends Controller
             );
 
             if ($checking['metadata']['HTTPStatusCode'] == 200) {
-
                 Session::put('SessionLogin', $varAPIWebToken);
                 Session::put('SessionOrganizationalDepartmentName', $organizationalDepartmentName);
                 Session::put('SessionLoginName', $personName);
@@ -112,16 +107,19 @@ class LoginController extends Controller
 
             return response()->json($compact);
         } catch (\Throwable $th) {
+            Log::error("Error at SetLoginBranchAndUserRoleFunction: " . $th->getMessage());
 
             $compact = [
                 'status_code' => 0,
             ];
+            
             return response()->json($compact);
         }
     }
 
     // FUNCTION STORE WHEN CLICK SUBMIT BUTTON IN PAGE 
-    public function loginStore(Request $request) {
+    public function loginStore(Request $request) 
+    {
         try {
             $username = $request->input('username');
             $password = $request->input('password');
@@ -135,39 +133,41 @@ class LoginController extends Controller
                 $workerCareerInternal_RefID = $request->input('workerCareerInternal_RefID');
                 $organizationalDepartmentName = $request->input('organizationalDepartmentName');
 
-                return
-                    $this->SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID, $user_RefID, $organizationalDepartmentName);
-                }
-            else {
-                $dataAwal = 
-                    Helper_APICall::setCallAPIAuthentication(
-                        Helper_Environment::getUserSessionID_System(),
-                        $username,
-                        $password
-                        );
-                //dd($dataAwal);
+                return $this->SetLoginBranchAndUserRoleFunction($varAPIWebToken, $varBranchID, $varUserRoleID, $personName, $workerCareerInternal_RefID, $user_RefID, $organizationalDepartmentName);
+            } else {
+                $dataAwal = Helper_APICall::setCallAPIAuthentication(
+                    Helper_Environment::getUserSessionID_System(),
+                    $username,
+                    $password
+                );
 
                 if ($dataAwal['metadata']['HTTPStatusCode'] != 200) {
                     $compact = [
                         'status_code' => 0,
-                        ];
+                    ];
 
-                    return
-                        response()->json($compact);
-                    }
-                else {
-                    $varAPIWebToken = 
-                        $dataAwal['data']['APIWebToken'];
-
-                    $varDataBranch = 
-                        $this->GetInstitutionBranchFunction($dataAwal['data']['userIdentity']['user_RefID']);
+                    return response()->json($compact);
+                } else {
+                    $varAPIWebToken = $dataAwal['data']['APIWebToken'];
+                    $varDataBranch = $this->GetInstitutionBranchFunction($dataAwal['data']['userIdentity']['user_RefID']);
 
                     if (count($varDataBranch) == 1) {
                         $varDataRole = $this->GetRoleFunction($varDataBranch[0]['Sys_ID'], $dataAwal['data']['userIdentity']['user_RefID']);
 
                         for ($i = 0; $i < count($varDataRole); $i++) {
                             Session::push('SessionRoleLogin', $varDataRole[$i]['Sys_ID']);
-                            }
+                        }
+
+                        Helper_APICall::setCallAPIGateway(
+                            Helper_Environment::getUserSessionID_System(),
+                            $varAPIWebToken,
+                            'authentication.general.setLoginBranchAndUserRole',
+                            'latest',
+                            [
+                                'branchID' => $varDataBranch[0]['Sys_ID'],
+                                'userRoleID' => $varDataRole[0]['Sys_ID']
+                            ]
+                        );
 
                         // $privilageMenu = json_decode(
                         //     Helper_Redis::getValue(
@@ -201,50 +201,45 @@ class LoginController extends Controller
                         //     'status_code' => 3,
                         // ];
                         // return response()->json($compact);    
-                        } 
-                    else {
+                    } else {
                         // CALL GET INSTRUCTION BRANCH FUNCTION 
                         if ($varUserRoleID == 0) {
                             $compact = [
-                                'status_code' => 2,
-                                'data' => $varDataBranch,
-                                'user_RefID' => $dataAwal['data']['userIdentity']['user_RefID'],
-                                'varAPIWebToken' => $varAPIWebToken,
-                                'personName' => $dataAwal['data']['userIdentity']['personName'],
-                                'workerCareerInternal_RefID' => $dataAwal['data']['userIdentity']['workerCareerInternal_RefID'],
-                                'organizationalDepartmentName' => $dataAwal['data']['userIdentity']['organizationalDepartmentName']
-                                ];
+                                'status_code'                   => 2,
+                                'data'                          => $varDataBranch,
+                                'user_RefID'                    => $dataAwal['data']['userIdentity']['user_RefID'],
+                                'varAPIWebToken'                => $varAPIWebToken,
+                                'personName'                    => $dataAwal['data']['userIdentity']['personName'],
+                                'workerCareerInternal_RefID'    => $dataAwal['data']['userIdentity']['workerCareerInternal_RefID'],
+                                'organizationalDepartmentName'  => $dataAwal['data']['userIdentity']['organizationalDepartmentName']
+                            ];
 
-                            return
-                                response()->json($compact);
-                            }
+                            return response()->json($compact);
                         }
                     }
                 }
             }
-        catch (\Throwable $th) {
+        } catch (\Throwable $th) {
+            Log::error("Error at LoginStore: " . $th->getMessage());
+            
             $compact = [
                 'status_code' => 0,
-                ];
+            ];
 
-            return
-                response()->json($compact);
-            }
+            return response()->json($compact);
+        }
     }
 
     // FUNCTION GET ROLE WHEN SELECT ROLE IN LOGIN PAGE 
     public function getRoleLogin(Request $request)
     {
         try {
-
             $varBranchID = (int)$request->input('branch_id');
             $user_RefID = (int)$request->input('user_RefID');
 
-            // CALL GET ROLE FUNCTION         
             $varData = $this->GetRoleFunction($varBranchID, $user_RefID);
 
             if (count($varData) > 0) {
-
                 $compact = [
                     'length' => count($varData),
                     'data' => $varData,
@@ -253,7 +248,6 @@ class LoginController extends Controller
 
                 return response()->json($compact);
             } else {
-
                 $compact = [
                     'status' => 401
                 ];
@@ -261,8 +255,8 @@ class LoginController extends Controller
                 return response()->json($compact);
             }
         } catch (\Throwable $th) {
+            Log::error("Error at getRoleLogin: " . $th->getMessage());
 
-            Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -271,8 +265,6 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         try {
-
-            // DELETE API WEB TOKEN FROM REDIS
             $varAPIWebToken = Session::get('SessionLogin');
             Redis::del("ERPReborn::APIWebToken::" . $varAPIWebToken);
 
@@ -289,8 +281,8 @@ class LoginController extends Controller
 
             return redirect('/')->with([$status => $message]);
         } catch (\Throwable $th) {
+            Log::error("Error at logout: " . $th->getMessage());
 
-            Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -299,7 +291,6 @@ class LoginController extends Controller
     public function SessionCheckingLogout()
     {
         try {
-
             $varAPIWebToken = Session::has("SessionLogin");
 
             $compact = [
@@ -308,18 +299,19 @@ class LoginController extends Controller
 
             return response()->json($compact);
         } catch (\Throwable $th) {
+            Log::error("Error at SessionCheckingLogout: " . $th->getMessage());
 
-            Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
 
+    // FUNCTION REMOVE CACHE, SESSION, REDIS
     public function FlushCache()
     {
-
         Cache::flush();
         Session::flush();
         Redis::flushDB();
+
         return redirect()->back();
     }
 }

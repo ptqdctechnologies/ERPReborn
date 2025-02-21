@@ -10,96 +10,108 @@ use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
+use Illuminate\Support\Facades\Log;
 
 class ApprovalDocumentController extends Controller
 {
     public function ApprovalAccepted(Request $request)
     {
-        $businessDocument_ID = (int)$request->input('businessDocument_ID');
-        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-        $remarks = $request->input('comment');
+        try {
+            $remarks                            = $request->input('comment');
+            $varAPIWebToken                     = Session::get('SessionLogin');
+            $varUserSessionID                   = Helper_Environment::getUserSessionID_System();
+            $businessDocument_ID                = (int)$request->input('businessDocument_ID');
+            $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
 
-
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varDataApprovalAcceptation = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'userAction.documentWorkFlow.approvalStage.setUserApprovalAcceptation',
-            'latest',
-            [
-                'entities' => [
-                    "businessDocument_RefID" => (int) $businessDocument_ID,
-                    "remarks" => $remarks,
-                    "approverEntity_RefID" => (int) $SessionWorkerCareerInternal_RefID
+            $varDataApprovalAcceptation = Helper_APICall::setCallAPIGateway(
+                $varUserSessionID,
+                $varAPIWebToken,
+                'userAction.documentWorkFlow.approvalStage.setUserApprovalAcceptation',
+                'latest',
+                [
+                    'entities' => [
+                        "businessDocument_RefID"    => (int) $businessDocument_ID,
+                        "remarks"                   => $remarks,
+                        "approverEntity_RefID"      => (int) $SessionWorkerCareerInternal_RefID
+                    ]
                 ]
-            ]
-        );
-        
+            );
 
-        $varDataNextApprover = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'userAction.documentWorkFlow.approvalStage.getCurrentAndNextStage',
-            'latest',
-            [
-                'parameter' => [
-                    'businessDocument_RefID' => (int) $businessDocument_ID
-                ]
-            ],
-            false
-        );
+            $varDataNextApprover = Helper_APICall::setCallAPIGateway(
+                $varUserSessionID,
+                $varAPIWebToken,
+                'userAction.documentWorkFlow.approvalStage.getCurrentAndNextStage',
+                'latest',
+                [
+                    'parameter' => [
+                        'businessDocument_RefID' => (int) $businessDocument_ID
+                    ]
+                ],
+                false
+            );
 
-        $nextApprover = 0;
-        $status = $varDataApprovalAcceptation['metadata']['HTTPStatusCode'];
+            $nextApprover = 0;
+            $status = $varDataApprovalAcceptation['metadata']['HTTPStatusCode'];
 
-        if($varDataNextApprover['metadata']['HTTPStatusCode'] == 200){
-            $nextApprover = $varDataNextApprover['data'][0]['nextApproverEntity_RefID'];
-            if ($nextApprover == 0) {
-                $status = "Final";
+            if($varDataNextApprover['metadata']['HTTPStatusCode'] == 200){
+                $nextApprover = $varDataNextApprover['data'][0]['nextApproverEntity_RefID'];
+                if ($nextApprover == 0) {
+                    $status = "Final";
+                }
             }
+            
+            $compact = [
+                "status" => $status
+            ];
+
+            //RESET REDIS SHOW DOCUMENT APPROVAL
+            $this->FunctionResetRedisDocumentApproval($SessionWorkerCareerInternal_RefID, $businessDocument_ID);
+            $this->FunctionResetRedisDocumentApproval($nextApprover, $businessDocument_ID);
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Error at ApprovalAccepted: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
         }
-        
-        $compact = [
-            "status" => $status
-        ];
-
-        //RESET REDIS SHOW DOCUMENT APPROVAL
-        $this->FunctionResetRedisDocumentApproval($SessionWorkerCareerInternal_RefID, $businessDocument_ID);
-        $this->FunctionResetRedisDocumentApproval($nextApprover, $businessDocument_ID);
-
-        return response()->json($compact);
     }
 
     public function ApprovalRejected(Request $request)
     {
-        $businessDocument_ID = (int)$request->input('businessDocument_ID');
-        $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-        $remarks = $request->input('comment');
-        $submitter_ID = $request->input('submitter_ID');
-        $varAPIWebToken = Session::get('SessionLogin');
+        try {
+            $varAPIWebToken                     = Session::get('SessionLogin');
+            $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $varDataApprovalRejected = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'userAction.documentWorkFlow.approvalStage.setUserApprovalRejection',
-            'latest',
-            [
-                'entities' => [
-                    "businessDocument_RefID" => (int) $businessDocument_ID,
-                    "remarks" => $remarks,
-                    "approverEntity_RefID" => (int) $SessionWorkerCareerInternal_RefID
+            $remarks                            = $request->input('comment');
+            $submitter_ID                       = $request->input('submitter_ID');
+            $businessDocument_ID                = (int) $request->input('businessDocument_ID');
+
+            $varDataApprovalRejected = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'userAction.documentWorkFlow.approvalStage.setUserApprovalRejection',
+                'latest',
+                [
+                    'entities' => [
+                        "businessDocument_RefID"    => (int) $businessDocument_ID,
+                        "remarks"                   => $remarks,
+                        "approverEntity_RefID"      => (int) $SessionWorkerCareerInternal_RefID
+                    ]
                 ]
-            ]
-        );
+            );
 
-        $compact = [
-            "status" => $varDataApprovalRejected['metadata']['HTTPStatusCode'],
-        ];
+            $compact = [
+                "status" => $varDataApprovalRejected['metadata']['HTTPStatusCode'],
+            ];
 
-        //RESET REDIS SHOW DOCUMENT APPROVAL
-        $this->FunctionResetRedisDocumentApproval($SessionWorkerCareerInternal_RefID, $businessDocument_ID);
-        $this->FunctionResetRedisDocumentApproval($submitter_ID, $businessDocument_ID);
+            //RESET REDIS SHOW DOCUMENT APPROVAL
+            $this->FunctionResetRedisDocumentApproval($SessionWorkerCareerInternal_RefID, $businessDocument_ID);
+            $this->FunctionResetRedisDocumentApproval($submitter_ID, $businessDocument_ID);
 
-        return response()->json($compact);
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Error at ApprovalRejected: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+        
     }
 }
