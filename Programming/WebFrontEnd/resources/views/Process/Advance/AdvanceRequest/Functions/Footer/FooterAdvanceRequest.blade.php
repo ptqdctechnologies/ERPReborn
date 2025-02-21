@@ -10,7 +10,7 @@
     $("#myGetBankSecondTrigger").prop("disabled", true);
     $("#myBankAccountTrigger").prop("disabled", true);
     $("#var_date").val(date);
-    // $("#submitArf").prop("disabled", true);
+    $("#submitArf").prop("disabled", true);
 
     function getBudgetDetails(site_code) {
         $.ajaxSetup({
@@ -23,8 +23,6 @@
             type: 'GET',
             url: '{!! route("getBudget") !!}?site_code=' + site_code,
             success: function(data) {
-                console.log('data getBudget', data);
-                
                 $(".loadingBudgetDetails").hide();
 
                 let tbody = $('#tableGetBudgetDetails tbody');
@@ -33,6 +31,7 @@
                 $.each(data, function(key, val2) {
                     let isUnspecified = '';
                     let balanced = currencyTotal(val2.quantity);
+                    let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
                     let productColumn = `
                         <td style="text-align: center;">${val2.product_RefID}</td>
                         <td style="text-align: center;">${val2.productName}</td>
@@ -77,7 +76,7 @@
                             <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
                             <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
                             <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
-                            <td style="text-align: center;">${currencyTotal(val2.quantity * val2.priceBaseCurrencyValue)}</td>
+                            <td style="text-align: center;">${currencyTotal(totalBudget)}</td>
                             <td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" ${isUnspecified} />
                             </td>
@@ -121,6 +120,10 @@
                             if (!qty_req) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
+                            } else if (parseFloat(qty_req * price_req) > totalBudget) {
+                                $(`#qty_req${key}`).val('');
+                                $(`#total_req${key}`).val('');
+                                ErrorNotif("Total Req is over budget !");
                             } else {
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
                             }
@@ -136,6 +139,10 @@
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
                                 ErrorNotif("Qty Req is over budget !");
+                            } else if (parseFloat(qty_req * price_req) > totalBudget) {
+                                $(`#qty_req${key}`).val('');
+                                $(`#total_req${key}`).val('');
+                                ErrorNotif("Total Req is over budget !");
                             } else {
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
                                 $(`#balanced_qty${key}`).val(currencyTotal(total));
@@ -153,6 +160,10 @@
                             $(`#price_req${key}`).val('');
                             $(`#total_req${key}`).val('');
                             ErrorNotif("Price Req is over budget !");
+                        } else if (parseFloat(qty_req * price_req) > totalBudget) {
+                            $(`#price_req${key}`).val('');
+                            $(`#total_req${key}`).val('');
+                            ErrorNotif("Total Req is over budget !");
                         } else {
                             $(`#total_req${key}`).val(currencyTotal(total_req));
                         }
