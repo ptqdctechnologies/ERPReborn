@@ -23,6 +23,8 @@
             type: 'GET',
             url: '{!! route("getBudget") !!}?site_code=' + site_code,
             success: function(data) {
+                console.log('data getBudget', data);
+                
                 $(".loadingBudgetDetails").hide();
 
                 let tbody = $('#tableGetBudgetDetails tbody');
@@ -30,7 +32,7 @@
 
                 $.each(data, function(key, val2) {
                     let isUnspecified = '';
-                    let balanced = currencyTotal(val2.quantityRemaining);
+                    let balanced = currencyTotal(val2.quantity);
                     let productColumn = `
                         <td style="text-align: center;">${val2.product_RefID}</td>
                         <td style="text-align: center;">${val2.productName}</td>
@@ -42,7 +44,7 @@
                                 <div class="input-group">
                                     <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly />
                                     <div class="input-group-append">
-                                        <span style="border-radius:0;" class="input-group-text form-control" data-id="10">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" data-id="10">
                                             <a id="product_id2${key}" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(${key})">
                                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                             </a>
@@ -73,6 +75,7 @@
                             <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
                             <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantityRemaining)}</td>
                             <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
+                            <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
                             <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
                             <td style="text-align: center;">${currencyTotal(val2.quantity * val2.priceBaseCurrencyValue)}</td>
                             <td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">
@@ -91,6 +94,14 @@
                     `;
 
                     tbody.append(row);
+
+                    // Simpan nilai default untuk reset nanti
+                    $(`#product_id${key}`).data('default', $(`#product_id${key}`).val());
+                    $(`#product_name${key}`).data('default', $(`#product_name${key}`).val());
+                    $(`#qty_req${key}`).data('default', $(`#qty_req${key}`).val());
+                    $(`#price_req${key}`).data('default', $(`#price_req${key}`).val());
+                    $(`#total_req${key}`).data('default', $(`#total_req${key}`).val());
+                    $(`#balanced_qty${key}`).data('default', $(`#balanced_qty${key}`).val());
 
                     if (val2.productName === "Unspecified Product") {
                         $(`#product_id${key}`).on('input', function() {
@@ -121,7 +132,7 @@
                             var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
                             var total = parseFloat(qty_req || 0) + parseFloat(balanced);
 
-                            if (parseFloat(qty_req) > val2.quantityRemaining) {
+                            if (parseFloat(qty_req) > val2.quantity) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
                                 ErrorNotif("Qty Req is over budget !");
@@ -339,7 +350,7 @@
         allowNumbersWithoutNegative(this);
     });
 
-    $(".budget-details-add").on('click', function() {
+    $("#budget-details-add").on('click', function() {
         var totals = 0;
         var var_product_id = [];
         var var_product_name = [];
@@ -449,6 +460,42 @@
         document.getElementById('var_total').value = JSON.stringify(var_total);
         document.getElementById('var_currency').value = JSON.stringify(var_currency);
         document.getElementById('var_combinedBudgetSectionDetail_RefID').value = JSON.stringify(var_combinedBudgetSectionDetail_RefID);
+    });
+
+    $('#budget-details-reset').on('click', function() {
+        // Reset semua input ke nilai default
+        $('input[id^="product_id"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="product_name"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="qty_req"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="price_req"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="total_req"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="balanced_qty"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $(`#var_product_id`).val("");
+        $(`#var_product_name`).val("");
+        $(`#var_quantity`).val("");
+        $(`#var_uom`).val("");
+        $(`#var_qty_id`).val("");
+        $(`#var_currency_id`).val("");
+        $(`#var_price`).val("");
+        $(`#var_total`).val("");
+        $(`#var_currency`).val("");
+        $(`#var_combinedBudgetSectionDetail_RefID`).val("");
+        $('#tableAdvanceList tbody').empty();
+
+        document.getElementById('GrandTotal').textContent = "0.00";
+        document.getElementById('TotalBudgetSelected').textContent = "0.00";
     });
     
     $("#FormSubmitAdvance").on("submit", function(e) { //id of form 
