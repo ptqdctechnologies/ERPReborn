@@ -262,6 +262,7 @@ class AdvanceRequestController extends Controller
             $compact = [
                 'varAPIWebToken'                => $varAPIWebToken,
                 'statusRevisi'                  => 0,
+                'DocumentTypeID'                => $DataAdvanceDetailComplex[0]['BusinessDocumentType_RefID'],
                 'headerAdvanceRevision'         => [
                     'budgetCode'                => $DataAdvanceDetailComplex[0]['CombinedBudgetCode'],
                     'budgetCodeId'              => $DataAdvanceDetailComplex[0]['CombinedBudget_RefID'],
@@ -290,7 +291,7 @@ class AdvanceRequestController extends Controller
                 'remark'                        => $DataAdvanceDetailComplex[0]['Remarks']
             ];
 
-            // dump($DataAdvanceDetailComplex);
+            // dump($compact);
 
             return view('Process.Advance.AdvanceRequest.Transactions.RevisionAdvanceRequest', $compact);
         } catch (\Throwable $th) {

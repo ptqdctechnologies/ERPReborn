@@ -20,6 +20,20 @@
       <!-- CONTENT -->
       <div class="card">
         <form method="post" enctype="multipart/form-data" action="{{ route('SelectWorkFlow') }}" id="FormUpdateAdvance">
+          @csrf
+          <input type="hidden" name="DocumentTypeID" value="{{ $DocumentTypeID }}" id="DocumentTypeID" />
+          <input type="hidden" name="var_date" id="var_date" />
+          <input name="var_product_id" id="var_product_id" />
+          <input name="var_product_name" id="var_product_name" />
+          <input name="var_quantity" id="var_quantity" />
+          <input name="var_uom" id="var_uom" />
+          <input name="var_qty_id" id="var_qty_id" />
+          <input name="var_currency_id" id="var_currency_id" />
+          <input name="var_price" id="var_price" />
+          <input name="var_total" id="var_total" />
+          <input name="var_currency" id="var_currency" />
+          <input name="var_combinedBudgetSectionDetail_RefID" id="var_combinedBudgetSectionDetail_RefID" />
+
           <!-- ADVANCE REQUEST -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
             <div class="row">
