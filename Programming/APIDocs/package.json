@@ -36,7 +36,7 @@
     "nodemon": "^2.0.20",
     "pdf-creator-node": "^2.3.5",
     "postman-to-openapi": "^3.0.1",
-    "puppeteer": "^20.8.2",
+    "puppeteer": "^24.3.0",
     "razorpay": "^2.9.0",
     "sequelize": "^6.28.0",
     "sharp": "^0.33.1",
