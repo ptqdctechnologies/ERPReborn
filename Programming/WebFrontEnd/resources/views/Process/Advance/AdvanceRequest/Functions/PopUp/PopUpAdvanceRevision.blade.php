@@ -15,7 +15,7 @@
                                                 <div class="input-group">
                                                     <input id="advance_RefID" style="border-radius:0;" name="advance_RefID" type="hidden" class="form-control">
                                                     <input required="" id="advance_number" style="border-radius:0;" name="advance_number" type="text" class="form-control" required readonly>
-                                                    <div class="input-group-append">
+                                                    <div class="input-group-append" style="cursor: pointer;">
                                                         <span style="border-radius:0;" class="input-group-text form-control" id="advance_number_icon">
                                                             <a data-toggle="modal" data-target="#PopUpTableAdvanceRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                         </span>

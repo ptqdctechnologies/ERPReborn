@@ -87,16 +87,16 @@ class AdvanceRequestController extends Controller
     public function store(Request $request)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $documentTypeID = $request->documentTypeID;
-            $input = Session::get('dataInputStore' . $documentTypeID);
-            $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->fileAttachment;
+            $varAPIWebToken                                     = Session::get('SessionLogin');
+            $documentTypeID                                     = $request->documentTypeID;
+            $input                                              = Session::get('dataInputStore' . $documentTypeID);
+            $input['dataInput_Log_FileUpload_Pointer_RefID']    = $request->fileAttachment;
 
-            $product_id = json_decode($input['var_product_id'], true);
-            $quantity = json_decode($input['var_quantity'], true);
-            $qty_id = json_decode($input['var_qty_id'], true);
-            $currency_id = json_decode($input['var_currency_id'], true);
-            $price = json_decode($input['var_price'], true);
+            $product_id     = json_decode($input['var_product_id'], true);
+            $quantity       = json_decode($input['var_quantity'], true);
+            $qty_id         = json_decode($input['var_qty_id'], true);
+            $currency_id    = json_decode($input['var_currency_id'], true);
+            $price          = json_decode($input['var_price'], true);
 
             $advanceDetail = array_map(function ($index) use ($product_id, $quantity, $qty_id, $currency_id, $price) {
                 return [
@@ -127,9 +127,9 @@ class AdvanceRequestController extends Controller
                         "beneficiaryBankAccount_RefID"          => (int) $input['bank_account_id'],
                         "internalNotes"                         => 'Testing Advance',
                         "remarks"                               => $input['var_remark'],
-                        "additionalData"    => [
-                            "itemList"      => [
-                                "items"     => $advanceDetail
+                        "additionalData"                        => [
+                            "itemList"                          => [
+                                "items"                         => $advanceDetail
                             ]
                         ]
                     ]
@@ -234,15 +234,14 @@ class AdvanceRequestController extends Controller
     public function RevisionAdvanceIndex(Request $request)
     {
         try {
-
-            $advance_RefID = $request->input('advance_RefID');
+            $sessionID      = Helper_Environment::getUserSessionID_System();
             $varAPIWebToken = Session::get('SessionLogin');
+            $advance_RefID  = $request->input('advance_RefID');
 
-            // DATA REVISION ADVANCE
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
+            Helper_APICall::setCallAPIGateway(
+                $sessionID,
                 $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceReport',
+                'transaction.read.dataList.finance.getAdvanceDetailComplex',
                 'latest',
                 [
                     'parameter' => [
@@ -257,18 +256,45 @@ class AdvanceRequestController extends Controller
                 ],
                 false
             );
-            
+
+            $DataAdvanceDetailComplex = json_decode(Helper_Redis::getValue($sessionID, "DataListAdvanceDetailComplex"), true);
+
             $compact = [
-                'dataHeader' => $filteredArray['data'][0]['document']['header'],
-                'dataContent' => $filteredArray['data'][0]['document']['content']['general'],
-                'dataDetail' => $filteredArray['data'][0]['document']['content']['details']['itemList'],
-                'varAPIWebToken' => $varAPIWebToken,
-                'statusRevisi' => 1,
-                'statusFinalApprove' => "No",
+                'varAPIWebToken'                => $varAPIWebToken,
+                'statusRevisi'                  => 0,
+                'headerAdvanceRevision'         => [
+                    'budgetCode'                => $DataAdvanceDetailComplex[0]['CombinedBudgetCode'],
+                    'budgetCodeId'              => $DataAdvanceDetailComplex[0]['CombinedBudget_RefID'],
+                    'budgetCodeName'            => $DataAdvanceDetailComplex[0]['CombinedBudgetName'],
+                    'subBudgetCode'             => $DataAdvanceDetailComplex[0]['CombinedBudgetSectionCode'],
+                    'subBudgetCodeId'           => '', // REQUEST
+                    'subBudgetCodeName'         => $DataAdvanceDetailComplex[0]['CombinedBudgetSectionName'],
+                ],
+                'headerAdvanceRequestDetail'    => [
+                    'requesterPosition'         => $DataAdvanceDetailComplex[0]['RequesterWorkerJobsPositionName'],
+                    'requesterId'               => $DataAdvanceDetailComplex[0]['RequesterWorkerJobsPosition_RefID'],
+                    'requesterName'             => $DataAdvanceDetailComplex[0]['RequesterWorkerName'],
+                    'beneficiaryPosition'       => $DataAdvanceDetailComplex[0]['BeneficiaryWorkerJobsPositionName'],
+                    'beneficiaryId'             => $DataAdvanceDetailComplex[0]['BeneficiaryWorkerJobsPosition_RefID'],
+                    'beneficiaryName'           => $DataAdvanceDetailComplex[0]['BeneficiaryWorkerName'],
+                    'person_RefId'              => '', // REQUEST
+                    'bankAcronym'               => $DataAdvanceDetailComplex[0]['BankAcronym'],
+                    'bankId'                    => $DataAdvanceDetailComplex[0]['Bank_RefID'],
+                    'bankName'                  => $DataAdvanceDetailComplex[0]['BankName'],
+                    'bankAccountNumber'         => $DataAdvanceDetailComplex[0]['BankAccountNumber'],
+                    'bankAccountId'             => $DataAdvanceDetailComplex[0]['BankAccount_RefID'],
+                    'bankAccountName'           => $DataAdvanceDetailComplex[0]['BankAccountName'],
+                ],
+                'dataAdvanceList'               => $DataAdvanceDetailComplex,
+                'fileAttachment'                => $DataAdvanceDetailComplex[0]['Log_FileUpload_Pointer_RefID'],
+                'remark'                        => $DataAdvanceDetailComplex[0]['Remarks']
             ];
+
+            // dump($DataAdvanceDetailComplex);
+
             return view('Process.Advance.AdvanceRequest.Transactions.RevisionAdvanceRequest', $compact);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
+            Log::error("RevisionAdvanceIndex Function Error: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -338,7 +364,7 @@ class AdvanceRequestController extends Controller
 
             return $this->ResubmitWorkflow($businessDocument_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
+            Log::error("Updates Function Error: " . $th->getMessage());
 
             $compact = [
                 "status" => 500
