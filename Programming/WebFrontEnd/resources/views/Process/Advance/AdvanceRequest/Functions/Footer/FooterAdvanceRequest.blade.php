@@ -1,5 +1,7 @@
 <script>
+    var currentURL = window.location.href;
     var documentTypeID = $("#DocumentTypeID").val();
+    var bankNameInput = document.getElementById("bank_name_second_name");
     var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
 
     $(".loadingBudgetDetails").hide();
@@ -592,7 +594,6 @@
         });
     });
 
-    const bankNameInput = document.getElementById("bank_name_second_name");
     const observer = new MutationObserver(() => {
         const bankNameID                = document.getElementById("bank_name_second_id");
         const beneficiaryPersonRefID    = document.getElementById("beneficiary_second_person_ref_id");
@@ -603,6 +604,8 @@
             getBankAccountData(bankNameID.value, beneficiaryPersonRefID.value);
         }
     });
-    
-    observer.observe(bankNameInput, { attributes: true, childList: true, subtree: true, characterData: true });
+
+    if (currentURL.search('var=1') == '-1') {
+        observer.observe(bankNameInput, { attributes: true, childList: true, subtree: true, characterData: true });
+    }
 </script>
