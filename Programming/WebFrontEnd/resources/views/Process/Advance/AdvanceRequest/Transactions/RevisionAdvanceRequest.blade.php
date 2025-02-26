@@ -4,6 +4,7 @@
 @include('Partials.sidebar')
 @include('Process.Advance.AdvanceRequest.Functions.PopUp.PopUpAdvanceRevision')
 @include('Process.Advance.AdvanceRequest.Functions.Table.TableAdvanceRevision')
+@include('getFunction.getProduct')
 
 <div class="content-wrapper">
   <section class="content">
@@ -21,18 +22,19 @@
       <div class="card">
         <form method="post" enctype="multipart/form-data" action="{{ route('SelectWorkFlow') }}" id="FormUpdateAdvance">
           @csrf
+          <input type="hidden" name="Sys_ID_Advance" value="{{ $Sys_ID_Advance }}" id="Sys_ID_Advance">
           <input type="hidden" name="DocumentTypeID" value="{{ $DocumentTypeID }}" id="DocumentTypeID" />
           <input type="hidden" name="var_date" id="var_date" />
-          <input name="var_product_id" id="var_product_id" />
-          <input name="var_product_name" id="var_product_name" />
-          <input name="var_quantity" id="var_quantity" />
-          <input name="var_uom" id="var_uom" />
-          <input name="var_qty_id" id="var_qty_id" />
-          <input name="var_currency_id" id="var_currency_id" />
-          <input name="var_price" id="var_price" />
-          <input name="var_total" id="var_total" />
-          <input name="var_currency" id="var_currency" />
-          <input name="var_combinedBudgetSectionDetail_RefID" id="var_combinedBudgetSectionDetail_RefID" />
+          <input type="hidden" name="var_product_id" id="var_product_id" />
+          <input type="hidden" name="var_product_name" id="var_product_name" />
+          <input type="hidden" name="var_quantity" id="var_quantity" />
+          <input type="hidden" name="var_uom" id="var_uom" />
+          <input type="hidden" name="var_qty_id" id="var_qty_id" />
+          <input type="hidden" name="var_currency_id" id="var_currency_id" />
+          <input type="hidden" name="var_price" id="var_price" />
+          <input type="hidden" name="var_total" id="var_total" />
+          <input type="hidden" name="var_currency" id="var_currency" />
+          <input type="hidden" name="var_combinedBudgetSectionDetail_RefID" id="var_combinedBudgetSectionDetail_RefID" />
 
           <!-- ADVANCE REQUEST -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -169,6 +171,27 @@
                         </tr>
                       </thead>
                       <tbody></tbody>
+                      <tfoot>
+                        <tr class="loadingBudgetDetails">
+                          <td colspan="11" class="p-0" style="border: 0px; height: 150px;">
+                            <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                              <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                Loading...
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="errorMessageContainerBudgetDetails">
+                          <td colspan="11" class="p-0" style="border: 0px;">
+                            <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                              <div id="errorMessageBudgetDetails" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
 
@@ -181,18 +204,12 @@
                       <tr>
                         <td>
                           <br>
-                          @if($statusRevisi == 1)
-                          <a class="btn btn-default btn-sm float-right" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                            <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                          </a>
-                          @else
                           <a class="btn btn-default btn-sm float-right" id="budget-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                             <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
                           </a>
                           <a class="btn btn-default btn-sm float-right" id="budget-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                             <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
                           </a>
-                          @endif
                         </td>
                       </tr>
                     </table>

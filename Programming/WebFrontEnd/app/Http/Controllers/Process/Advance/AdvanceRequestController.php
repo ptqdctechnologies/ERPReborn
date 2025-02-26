@@ -263,12 +263,13 @@ class AdvanceRequestController extends Controller
                 'varAPIWebToken'                => $varAPIWebToken,
                 'statusRevisi'                  => 0,
                 'DocumentTypeID'                => $DataAdvanceDetailComplex[0]['BusinessDocumentType_RefID'],
+                'Sys_ID_Advance'                => $DataAdvanceDetailComplex[0]['Sys_ID_Advance'],
                 'headerAdvanceRevision'         => [
                     'budgetCode'                => $DataAdvanceDetailComplex[0]['CombinedBudgetCode'],
                     'budgetCodeId'              => $DataAdvanceDetailComplex[0]['CombinedBudget_RefID'],
                     'budgetCodeName'            => $DataAdvanceDetailComplex[0]['CombinedBudgetName'],
                     'subBudgetCode'             => $DataAdvanceDetailComplex[0]['CombinedBudgetSectionCode'],
-                    'subBudgetCodeId'           => '', // REQUEST
+                    'subBudgetCodeId'           => '143000000000305', // REQUEST
                     'subBudgetCodeName'         => $DataAdvanceDetailComplex[0]['CombinedBudgetSectionName'],
                 ],
                 'headerAdvanceRequestDetail'    => [
