@@ -5,6 +5,7 @@
 @include('Process.Advance.AdvanceRequest.Functions.PopUp.PopUpAdvanceRevision')
 @include('Process.Advance.AdvanceRequest.Functions.Table.TableAdvanceRevision')
 @include('getFunction.getProduct')
+@include('getFunction.getWorkFlow')
 
 <div class="content-wrapper">
   <section class="content">
@@ -25,6 +26,7 @@
           <input type="hidden" name="Sys_ID_Advance" value="{{ $Sys_ID_Advance }}" id="Sys_ID_Advance">
           <input type="hidden" name="DocumentTypeID" value="{{ $DocumentTypeID }}" id="DocumentTypeID" />
           <input type="hidden" name="var_date" id="var_date" />
+          <input type="hidden" name="var_recordIDDetail" id="var_recordIDDetail" />
           <input type="hidden" name="var_product_id" id="var_product_id" />
           <input type="hidden" name="var_product_name" id="var_product_name" />
           <input type="hidden" name="var_quantity" id="var_quantity" />
@@ -105,14 +107,25 @@
                       <div class="col-lg-5">
                         <div class="row">
                           <div class="col p-0">
-                            <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none" value="{{ $fileAttachment; }}">
-                            <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                              $varAPIWebToken,
-                              'dataInput_Log_FileUpload',
-                              $fileAttachment,
-                              'dataInput_Return'
-                              ).
-                            ''; ?>
+                            <?php if ($fileAttachment) { ?>
+                              <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none" value="{{ $fileAttachment; }}">
+                              <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                $varAPIWebToken,
+                                'dataInput_Log_FileUpload',
+                                $fileAttachment,
+                                'dataInput_Return'
+                                ).
+                              ''; ?>
+                            <?php } else { ?>
+                              <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none">
+                              <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                $varAPIWebToken,
+                                'dataInput_Log_FileUpload',
+                                null,
+                                'dataInput_Return'
+                                ).
+                              ''; ?>
+                            <?php } ?>
                           </div>
                         </div>
                       </div>
@@ -145,25 +158,25 @@
                     <table class="table table-head-fixed text-nowrap table-sm" id="tableGetBudgetDetails">
                       <thead>
                         <tr>
-                          @if($statusRevisi == 1)
+                          <!-- @if($statusRevisi == 1)
                             <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Trano</th>
-                          @endif
+                          @endif -->
                             <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Id</th>
                             <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
-                          @if($statusRevisi == 1)
+                          <!-- @if($statusRevisi == 1)
                             <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Advance</th>
                             <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Budget Avail</th>
-                          @else
+                          @else -->
                             <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Budget</th>
                             <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Avail</th>
-                          @endif
+                          <!-- @endif -->
                             <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
-                            <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UoM</th>
+                            <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
                             <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
                             <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total Budget</th>
-                          @if($statusRevisi == 1)
+                          <!-- @if($statusRevisi == 1)
                             <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total Payment</th>
-                          @endif
+                          @endif -->
                             <th class="sticky-col forth-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Qty Req</th>
                             <th class="sticky-col third-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price Req</th>
                             <th class="sticky-col second-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>

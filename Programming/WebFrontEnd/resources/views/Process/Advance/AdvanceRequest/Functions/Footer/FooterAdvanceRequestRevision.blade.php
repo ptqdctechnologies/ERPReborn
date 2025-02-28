@@ -2,6 +2,7 @@
     var date                                    = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
     var dataAdvance                             = $.parseJSON('<?= json_encode($dataAdvanceList) ?>');
     var totalDataAdvance                        = 0;
+    var var_recordIDDetail                      = [];
     var var_product_id                          = [];
     var var_product_name                        = [];
     var var_quantity                            = [];
@@ -49,67 +50,98 @@
                     let isUnspecified = '';
                     let balanced = currencyTotal(val2.quantity);
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
-                    let productColumn = `
-                        <td style="text-align: center;">${val2.product_RefID}</td>
-                        <td style="text-align: center;">${val2.productName}</td>
-                    `;
+                    let matchedAdvance = dataAdvance.find(advance => advance.productId == val2.product_RefID);
+                    let row = '';
 
-                    if (val2.productName === "Unspecified Product") {
-                        productColumn = `
-                            <td style="padding: 8px;">
-                                <div class="input-group">
-                                    <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly />
-                                    <div class="input-group-append">
-                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" data-id="10">
-                                            <a id="product_id2${key}" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(${key})">
-                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-                                            </a>
-                                        </span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name">${val2.productName}</td>
-                        `;
+                    if (matchedAdvance) {
                         isUnspecified = 'disabled';
                         balanced = '-';
 
-                        isUnspecifiedProductRendered = true;
+                        row = `
+                            <tr>
+                                <input id="productId${key}" name="productId${key}" data-product-id="productId" value="${matchedAdvance.Product_RefID}" type="hidden" />
+                                <input id="recordIDDetail${key}" name="recordIDDetail${key}" value="${matchedAdvance.Sys_ID_AdvanceDetail}" type="hidden" />
+                                <input id="productName${key}" name="productName${key}" value="${matchedAdvance.ProductName}" type="hidden" />
+                                <input id="qtyId${key}" name="qtyId${key}" value="${matchedAdvance.QuantityUnit_RefID}" type="hidden" />
+                                <input id="qty${key}" name="qty${key}" value="${val2.quantity}" type="hidden" />
+                                <input id="price${key}" name="price${key}" value="${val2.priceBaseCurrencyValue}" type="hidden" />
+                                <input id="uom${key}" name="uom${key}" value="${matchedAdvance.QuantityUnitName}" type="hidden" />
+                                <input id="currency${key}" name="currency${key}" value="${val2.priceBaseCurrencyISOCode}" type="hidden" />
+                                <input id="currencyId${key}" name="currencyId${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
+                                <input id="combinedBudgetSectionDetail_RefID${key}" name="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
+                                <input id="combinedBudget_RefID${key}" name="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID}" type="hidden" />
+                                
+                                <td style="padding: 8px;">
+                                    <div class="input-group">
+                                        <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly value="${matchedAdvance.Product_RefID}" />
+                                        <div class="input-group-append">
+                                            <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" data-id="10">
+                                                <a id="product_id2${key}" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(${key})">
+                                                    <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name">${matchedAdvance.ProductName}</td>
+                                <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
+                                <td style="text-align: center;">${'-'}</td>
+                                <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
+                                <td style="text-align: center;">${matchedAdvance.QuantityUnitName}</td>
+                                <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
+                                <td style="text-align: center;">${currencyTotal(totalBudget)}</td>
+                                <td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">
+                                    <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" value="${matchedAdvance.Quantity}" />
+                                </td>
+                                <td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">
+                                    <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" value="${matchedAdvance.ProductUnitPriceBaseCurrencyValue}" />
+                                </td>
+                                <td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">
+                                    <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled value="${matchedAdvance.PriceBaseCurrencyValue}" />
+                                </td>
+                                <td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">
+                                    <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" value="${currencyTotal(val2.quantity)}" disabled />
+                                </td>
+                            </tr>
+                        `;
+                    } else {
+                        row = `
+                            <tr>
+                                <input id="productId${key}" name="productId${key}" data-product-id="productId" value="${val2.product_RefID}" type="hidden" />
+                                <input id="recordIDDetail${key}" name="recordIDDetail${key}" value="null" type="hidden" />
+                                <input id="productName${key}" name="productName${key}" value="${val2.productName}" type="hidden" />
+                                <input id="qtyId${key}" name="qtyId${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
+                                <input id="qty${key}" name="qty${key}" value="${val2.quantity}" type="hidden" />
+                                <input id="price${key}" name="price${key}" value="${val2.priceBaseCurrencyValue}" type="hidden" />
+                                <input id="uom${key}" name="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
+                                <input id="currency${key}" name="currency${key}" value="${val2.priceBaseCurrencyISOCode}" type="hidden" />
+                                <input id="currencyId${key}" name="currencyId${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
+                                <input id="combinedBudgetSectionDetail_RefID${key}" name="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
+                                <input id="combinedBudget_RefID${key}" name="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID}" type="hidden" />
+                                
+                                <td style="text-align: center;">${val2.product_RefID}</td>
+                                <td style="text-align: center;">${val2.productName}</td>
+                                <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
+                                <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantityRemaining)}</td>
+                                <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
+                                <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
+                                <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
+                                <td style="text-align: center;">${currencyTotal(totalBudget)}</td>
+                                <td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">
+                                    <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" ${isUnspecified} />
+                                </td>
+                                <td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">
+                                    <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" ${isUnspecified} />
+                                </td>
+                                <td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">
+                                    <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled />
+                                </td>
+                                <td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">
+                                    <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" value="${balanced}" disabled />
+                                </td>
+                            </tr>
+                        `;
                     }
-
-                    let row = `
-                        <tr>
-                            <input id="productId${key}" name="productId${key}" data-product-id="productId" value="${val2.product_RefID}" type="hidden" />
-                            <input id="productName${key}" name="productName${key}" value="${val2.productName}" type="hidden" />
-                            <input id="qtyId${key}" name="qtyId${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
-                            <input id="qty${key}" name="qty${key}" value="${val2.quantity}" type="hidden" />
-                            <input id="price${key}" name="price${key}" value="${val2.priceBaseCurrencyValue}" type="hidden" />
-                            <input id="uom${key}" name="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
-                            <input id="currency${key}" name="currency${key}" value="${val2.priceBaseCurrencyISOCode}" type="hidden" />
-                            <input id="currencyId${key}" name="currencyId${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
-                            <input id="combinedBudgetSectionDetail_RefID${key}" name="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
-                            <input id="combinedBudget_RefID${key}" name="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID}" type="hidden" />
-                            
-                            ${productColumn}
-                            <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
-                            <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantityRemaining)}</td>
-                            <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
-                            <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
-                            <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
-                            <td style="text-align: center;">${currencyTotal(totalBudget)}</td>
-                            <td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" ${isUnspecified} />
-                            </td>
-                            <td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" ${isUnspecified} />
-                            </td>
-                            <td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled />
-                            </td>
-                            <td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" value="${balanced}" disabled />
-                            </td>
-                        </tr>
-                    `;
 
                     tbody.append(row);
 
@@ -120,7 +152,7 @@
                     $(`#total_req${key}`).data('default', $(`#total_req${key}`).val());
                     $(`#balanced_qty${key}`).data('default', $(`#balanced_qty${key}`).val());
 
-                    if (val2.productName === "Unspecified Product") {
+                    if (matchedAdvance) {
                         $(`#product_id${key}`).on('input', function() {
                             if ($(this).val().trim() !== '') {
                                 $(`#qty_req${key}, #price_req${key}`).prop('disabled', false);
@@ -153,7 +185,7 @@
                             var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
                             var total = parseFloat(qty_req || 0) + parseFloat(balanced);
 
-                            if (parseFloat(qty_req) > val2.quantity) {
+                            if (parseFloat(qty_req) > val2.quantity) { // quantityRemaining
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
                                 ErrorNotif("Qty Req is over budget !");
@@ -204,6 +236,7 @@
         dataAdvance.forEach((datas, key) => {
             totalDataAdvance += +(datas.PriceBaseCurrencyValue);
 
+            var_recordIDDetail.push(datas.Sys_ID_AdvanceDetail);
             var_product_id.push(datas.Product_RefID);
             var_product_name.push(datas.ProductName);
             var_quantity.push(datas.Quantity);
@@ -249,6 +282,87 @@
         window.location.href = '/AdvanceRequest?var=1';
     }
 
+    function AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID, comment, Sys_ID_Advance) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var data = {
+            workFlowPath_RefID      : workFlowPath_RefID,
+            nextApprover_RefID      : nextApprover_RefID,
+            approverEntity_RefID    : approverEntity_RefID,
+            documentTypeID          : documentTypeID,
+            Sys_ID_Advance          : Sys_ID_Advance,
+            comment                 : comment
+        };
+
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url: '{!! route("AdvanceRequest.updates") !!}',
+            success: function(data) {
+                HideLoading();
+
+                console.log('data', data);
+
+                if(data.status == 200){
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been updated',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        ShowLoading();
+                        window.location.href = '/AdvanceRequest?var=1';
+                    });
+                } else{
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+            }
+        });
+    }
+
+    function SelectWorkFlow(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID, Sys_ID_Advance) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            confirmButtonColor: '#4B586A',
+            confirmButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            ShowLoading();
+            AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID, result.value, Sys_ID_Advance);
+        });
+    }
+
     const calculateTotal = () => {
         const totalReqInputs = document.querySelectorAll('[id^="total_req"]');
         let total = 0;
@@ -278,6 +392,7 @@
 
     $("#budget-details-add").on('click', function() {
         var totals = 0;
+        var var_recordIDDetail = [];
         var var_product_id = [];
         var var_product_name = [];
         var var_quantity = [];
@@ -290,25 +405,26 @@
         var var_combinedBudgetSectionDetail_RefID = [];
 
         $("#tableGetBudgetDetails tbody tr").each(function(index) {
-            var productId = $(this).find(`input[name="productId${index}"]`).val();
-            var productName = $(this).find(`input[name="productName${index}"]`).val();
-            var qtyId = $(this).find(`input[name="qtyId${index}"]`).val();
-            var uom = $(this).find(`input[name="uom${index}"]`).val();
-            var currency = $(this).find(`input[name="currency${index}"]`).val();
-            var currencyId = $(this).find(`input[name="currencyId${index}"]`).val();
-            var qtyReq = $(this).find(`input[id^="qty_req${index}"]`).val();
-            var priceReq = $(this).find(`input[id^="price_req${index}"]`).val();
-            var totalReq = $(this).find(`input[id^="total_req${index}"]`).val();
-            var combinedBudgetSectionDetail_RefID = $(this).find(`input[id^="combinedBudgetSectionDetail_RefID${index}"]`).val();
+            var recordIDDetail                      = $(this).find(`input[name="recordIDDetail${index}"]`).val();
+            var productId                           = $(this).find(`input[name="productId${index}"]`).val();
+            var productName                         = $(this).find(`input[name="productName${index}"]`).val();
+            var qtyId                               = $(this).find(`input[name="qtyId${index}"]`).val();
+            var uom                                 = $(this).find(`input[name="uom${index}"]`).val();
+            var currency                            = $(this).find(`input[name="currency${index}"]`).val();
+            var currencyId                          = $(this).find(`input[name="currencyId${index}"]`).val();
+            var qtyReq                              = $(this).find(`input[id^="qty_req${index}"]`).val();
+            var priceReq                            = $(this).find(`input[id^="price_req${index}"]`).val();
+            var totalReq                            = $(this).find(`input[id^="total_req${index}"]`).val();
+            var combinedBudgetSectionDetail_RefID   = $(this).find(`input[id^="combinedBudgetSectionDetail_RefID${index}"]`).val();
 
             totalReq = totalReq.replace(/,/g, ""); 
-            totalReq = parseFloat(totalReq) || 0;
+            totalReq = totalReq || 0;
 
             if (!productId || !qtyReq || !priceReq || !totalReq) {
                 return;
             }
 
-            totals += totalReq;
+            totals += parseFloat(totalReq);
 
             var rowToUpdate = null;
 
@@ -328,6 +444,7 @@
             });
 
             if (rowToUpdate) {
+                var_recordIDDetail.push(recordIDDetail);
                 var_product_id.push(productId);
                 var_product_name.push(productName);
                 var_quantity.push(currencyTotal(qtyReq));
@@ -347,6 +464,7 @@
                 rowToUpdate.find("td:eq(5)").text(qtyReq);
                 rowToUpdate.find("td:eq(6)").text(totalReq);
             } else {
+                var_recordIDDetail.push(recordIDDetail);
                 var_product_id.push(productId);
                 var_product_name.push(productName);
                 var_quantity.push(currencyTotal(qtyReq));
@@ -373,6 +491,7 @@
         });
 
         document.getElementById('GrandTotal').textContent = totals.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        document.getElementById('var_recordIDDetail').value = JSON.stringify(var_recordIDDetail);
         document.getElementById('var_product_id').value = JSON.stringify(var_product_id);
         document.getElementById('var_product_name').value = JSON.stringify(var_product_name);
         document.getElementById('var_quantity').value = JSON.stringify(var_quantity);
@@ -418,6 +537,79 @@
 
         document.getElementById('GrandTotal').textContent = "0.00";
         document.getElementById('TotalBudgetSelected').textContent = "0.00";
+    });
+
+    $("#FormUpdateAdvance").on("submit", function(e) {
+        e.preventDefault();
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "Save this data?",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+            confirmButtonColor: '#e9ecef',
+            cancelButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            ShowLoading();
+
+            if (result.value) {
+                var action = $(this).attr("action");
+                var method = $(this).attr("method");
+                var form_data = new FormData($(this)[0]); 
+                var form = $(this);
+
+                $.ajax({
+                    url: action,
+                    dataType: 'json',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    type: method,
+                    success: function(response) {
+                        HideLoading();
+
+                        if (response.message == "WorkflowError") {
+                            $("#submitArf").prop("disabled", false);
+
+                            CancelNotif("You don't have access", '/AdvanceRequest?var=1');
+                        } else if (response.message == "MoreThanOne") {
+                            $('#getWorkFlow').modal('toggle');
+
+                            var t = $('#tableGetWorkFlow').DataTable();
+                            t.clear();
+                            $.each(response.data, function(key, val) {
+                                t.row.add([
+                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\', \'' + response.Sys_ID_Advance + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                                ]).draw();
+                            });
+                        } else {
+                            SelectWorkFlow(response.workFlowPath_RefID, response.nextApprover_RefID, response.approverEntity_RefID, response.documentTypeID, response.Sys_ID_Advance);
+                        }
+                    },
+                    error: function(response) {
+                        HideLoading();
+                        $("#submitArf").prop("disabled", false);
+
+                        CancelNotif("You don't have access", '/AdvanceRequest?var=1');
+                    }
+                });
+            } else {
+                HideLoading();
+
+                CancelNotif("Data Cancel Inputed", '/AdvanceRequest?var=1');
+            }
+        });
     });
 
     $(window).one('load', function(e) {

@@ -292,7 +292,7 @@ class AdvanceRequestController extends Controller
                 'remark'                        => $DataAdvanceDetailComplex[0]['Remarks']
             ];
 
-            // dump($compact);
+            // dump($DataAdvanceDetailComplex);
 
             return view('Process.Advance.AdvanceRequest.Transactions.RevisionAdvanceRequest', $compact);
         } catch (\Throwable $th) {
@@ -308,26 +308,35 @@ class AdvanceRequestController extends Controller
             $varAPIWebToken = Session::get('SessionLogin');
             $documentTypeID = $request->documentTypeID;
             $Sys_ID_Advance = $request->Sys_ID_Advance;
-            $input = Session::get('dataInputUpdate' . $documentTypeID . $Sys_ID_Advance);
-            if (isset($request->fileAttachment)) {
-                $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->fileAttachment;
-            }
-            $count_product = count($input['var_product_id']);
+            $input          = Session::get('dataInputUpdate' . $documentTypeID . $Sys_ID_Advance);
 
+            if (isset($request->dataInput_Log_FileUpload_1)) {
+                $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->dataInput_Log_FileUpload_1;
+            }
+
+            $record_id_convert                          = json_decode($input['var_recordIDDetail'], true);
+            $product_id_convert                         = json_decode($input['var_product_id'], true);
+            $quantity_convert                           = json_decode($input['var_quantity'], true);
+            $qty_id_convert                             = json_decode($input['var_qty_id'], true);
+            $currency_id_convert                        = json_decode($input['var_currency_id'], true);
+            $price_convert                              = json_decode($input['var_price'], true);
+            $combinedBudgetSectionDetail_RefID_convert  = json_decode($input['var_combinedBudgetSectionDetail_RefID'], true);
+
+            $count_product = count($product_id_convert);
             $advanceDetail = [];
             if ($count_product > 0 && isset($count_product)) {
                 for ($n = 0; $n < $count_product; $n++) {
                     $advanceDetail[$n] = [
-                        'recordID' => ((!$input['var_recordIDDetail'][$n]) ? null : (int) $input['var_recordIDDetail'][$n]),
+                        'recordID' => ((!$record_id_convert[$n]) ? null : (int) $record_id_convert[$n]),
                         'entities' => [
-                            "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudgetSectionDetail_RefID'][$n],
-                            "product_RefID" => (int) $input['var_product_id'][$n],
-                            "quantity" => (float) $input['var_quantity'][$n],
-                            "quantityUnit_RefID" => (int) $input['var_qty_id'][$n],
-                            "productUnitPriceCurrency_RefID" => (int) $input['var_currency_id'][$n],
-                            "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
-                            "productUnitPriceCurrencyExchangeRate" => 1,
-                            "remarks" => 'Catatan Detail'
+                            "combinedBudgetSectionDetail_RefID"     => (int) 169000000000001,
+                            "product_RefID"                         => (int) $product_id_convert[$n],
+                            "quantity"                              => $quantity_convert[$n],
+                            "quantityUnit_RefID"                    => (int) $qty_id_convert[$n],
+                            "productUnitPriceCurrency_RefID"        => (int) $currency_id_convert[$n],
+                            "productUnitPriceCurrencyValue"         => $price_convert[$n],
+                            "productUnitPriceCurrencyExchangeRate"  => 1,
+                            "remarks"                               => 'Catatan Detail'
                         ]
                     ];
                 }
@@ -339,30 +348,34 @@ class AdvanceRequestController extends Controller
                 'transaction.update.finance.setAdvance',
                 'latest',
                 [
-                    'recordID' => (int)$input['var_recordID'],
+                    'recordID' => (int) $input['Sys_ID_Advance'],
                     'entities' => [
-                        "documentDateTimeTZ" => date('Y-m-d'),
-                        "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
-                        "requesterWorkerJobsPosition_RefID" => (int)$input['requester_id'],
-                        "beneficiaryWorkerJobsPosition_RefID" => (int)$input['beneficiary_id'],
-                        "beneficiaryBankAccount_RefID" => (int)$input['bank_account_id'],
-                        "internalNotes" => 'My Internal Notes',
-                        "remarks" => $input['var_remark'],
-                        "additionalData" => [
-                            "itemList" => [
-                                "items" => $advanceDetail
+                        "documentDateTimeTZ"                    => $input['var_date'],
+                        "log_FileUpload_Pointer_RefID"          => (int) $request->dataInput_Log_FileUpload_1,
+                        "requesterWorkerJobsPosition_RefID"     => (int) $input['requester_id'],
+                        "beneficiaryWorkerJobsPosition_RefID"   => (int) $input['beneficiary_id'],
+                        "beneficiaryBankAccount_RefID"          => (int) $input['bank_account_id'],
+                        "internalNotes"                         => 'My Internal Notes',
+                        "remarks"                               => $input['var_remark'],
+                        "additionalData"                        => [
+                            "itemList"                          => [
+                                "items"                         => $advanceDetail
                             ]
                         ]
                     ]
                 ]
             );
 
-            $businessDocument_RefID = $varData['data']['businessDocument']['businessDocument_RefID'];
-            $workFlowPath_RefID = $request->workFlowPath_RefID;
-            $comment = $request->comment;
-            $approverEntity_RefID = $request->approverEntity_RefID;
-            $nextApprover_RefID = $request->nextApprover_RefID;
-            $documentNumber = $varData['data']['businessDocument']['documentNumber'];
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Error Status Code: ' . $varData['metadata']['HTTPStatusCode']);
+            }
+
+            $businessDocument_RefID = $varData['data'][0]['businessDocument']['businessDocument_RefID'];
+            $workFlowPath_RefID     = $request->workFlowPath_RefID;
+            $comment                = $request->comment;
+            $approverEntity_RefID   = $request->approverEntity_RefID;
+            $nextApprover_RefID     = $request->nextApprover_RefID;
+            $documentNumber         = $varData['data'][0]['businessDocument']['documentNumber'];
 
             return $this->ResubmitWorkflow($businessDocument_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber);
         } catch (\Throwable $th) {
