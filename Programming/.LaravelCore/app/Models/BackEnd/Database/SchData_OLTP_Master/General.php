@@ -33,15 +33,15 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFormNumberKeyword ► Form Number Keyword                                                               |
         |      ▪ (int)    varApproverEntity_RefID ► Approver Entity Reference ID                                                   |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getBusinessDocumentLastVersionByBusDocType(
             $varUserSession, int $BusinessDocumentTypeID)
             {
-            $varReturn = 
+            $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         'SchData-OLTP-Master.Func_General_GetBusinessDocumentLastVersionByBusDocType',
@@ -54,7 +54,7 @@ namespace App\Models\Database\SchData_OLTP_Master
             return $varReturn['data'];
             }
 
-            
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getBusinessDocumentLastVersionByFormNumberKeyword                                                    |
@@ -70,16 +70,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFormNumberKeyword ► Form Number Keyword                                                               |
         |      ▪ (int)    varApproverEntity_RefID ► Approver Entity Reference ID                                                   |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getBusinessDocumentLastVersionByFormNumberKeyword(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varFormNumberKeyword, int $varApproverEntity_RefID = null)
             {
-            $varReturn = 
+            $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         'SchData-OLTP-Master.Func_General_GetBusinessDocumentLastVersionByFormNumber',
@@ -108,16 +108,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varBusinessDocumentVersionID ► Business Document Version ID                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varBusinessDocumentVersionID = null)
             {
-            $varReturn = 
+            $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         'SchData-OLTP-Master.Func_GetIDTranslation_BusinessDocVersionToBusinessDocForm',
@@ -145,19 +145,19 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataEntities_CountryAdministrativeArea(
-            $varUserSession, 
+            $varUserSession,
             string $varIDSet)
             {
             try {
                 $varFunctionName = 'SchData-OLTP-Master.Func_GetDataEntities_CountryAdministrativeArea';
 
-                $varTemp = 
+                $varTemp =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             $varFunctionName,
@@ -166,13 +166,13 @@ namespace App\Models\Database\SchData_OLTP_Master
                                     [$varIDSet, 'bigint[]']
                                 ]
                             )
-                        ); 
+                        );
 
                 for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
-                    $varReturn[$i] = 
+                    $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                            $varUserSession, 
+                            $varUserSession,
                             $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
                             );
                     }
@@ -199,19 +199,19 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataEntities_Entity(
-            $varUserSession, 
+            $varUserSession,
             string $varIDSet)
             {
             try {
                 $varFunctionName = 'SchData-OLTP-Master.Func_GetDataEntities_Entity';
 
-                $varTemp = 
+                $varTemp =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             $varFunctionName,
@@ -224,9 +224,9 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                 for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
-                    $varReturn[$i] = 
+                    $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                            $varUserSession, 
+                            $varUserSession,
                             $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
                             );
                     }
@@ -252,19 +252,19 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataEntities_EntityContactNumber(
-            $varUserSession, 
+            $varUserSession,
             string $varIDSet)
             {
             try {
                 $varFunctionName = 'SchData-OLTP-Master.Func_GetDataEntities_EntityContactNumber';
 
-                $varTemp = 
+                $varTemp =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             $varFunctionName,
@@ -277,9 +277,9 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                 for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
-                    $varReturn[$i] = 
+                    $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                            $varUserSession, 
+                            $varUserSession,
                             $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
                             );
                     }
@@ -308,11 +308,11 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varCurrencyISOCode ► Currency ISO Code                                                                   |
         |      ▪ (string) varBaseCurrencyISOCode ► Base Currency ISO Code (Optional)                                               |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (float)  varReturn                                                                                                | 
+        |      ▪ (float)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getData_CentralBankCurrencyExchangtMiddleRateByCurrencyISOCode(
-            $varUserSession, 
+            $varUserSession,
             string $varDateTimeTZ, string $varCurrencyISOCode, string $varBaseCurrencyISOCode = null)
             {
             try {
@@ -321,9 +321,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                     $varBaseCurrencyISOCode = 'IDR';
                     }
 
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_General_GetCurrencyExchangeRateCentralBankByISOCode',
@@ -362,17 +362,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_AccountingEntryRecordType(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_AccountingEntryRecordType',
@@ -414,17 +414,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Bank(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_Bank',
@@ -467,18 +467,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BankAccount(
-            $varUserSession, int $varBranch_RefID, 
-            int $varBank_RefID = null, 
+            $varUserSession, int $varBranch_RefID,
+            int $varBank_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_BankAccount',
@@ -523,18 +523,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BankBranch(
-            $varUserSession, int $varBranch_RefID, 
-            int $varBank_RefID = null, 
+            $varUserSession, int $varBranch_RefID,
+            int $varBank_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_BankBranch',
@@ -549,7 +549,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -578,17 +578,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BloodAglutinogenType(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_BloodAglutinogenType',
@@ -630,7 +630,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BudgetOrigin(
@@ -638,9 +638,9 @@ namespace App\Models\Database\SchData_OLTP_Master
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_BudgetOrigin',
@@ -683,18 +683,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessDocument(
-            $varUserSession, int $varBranch_RefID, 
-            int $varBusinessDocumentType_RefID, 
+            $varUserSession, int $varBranch_RefID,
+            int $varBusinessDocumentType_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_BusinessDocument',
@@ -738,17 +738,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessDocumentType(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_BusinessDocumentType',
@@ -761,7 +761,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -791,18 +791,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessDocumentVersion(
-            $varUserSession, int $varBranch_RefID, 
-            int $varBusinessDocument_RefID, 
+            $varUserSession, int $varBranch_RefID,
+            int $varBusinessDocument_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_BusinessDocumentVersion',
@@ -817,7 +817,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -846,17 +846,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CitizenGender(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_CitizenGender',
@@ -869,7 +869,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -898,17 +898,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CitizenIdentity(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_CitizenIdentity',
@@ -921,7 +921,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -950,17 +950,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_ContactNumberType(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_ContactNumberType',
@@ -973,7 +973,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -1001,17 +1001,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Country(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_Country',
@@ -1024,7 +1024,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -1054,18 +1054,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CountryAdministrativeAreaLevel1(
-            $varUserSession, int $varBranch_RefID, 
-            int $varCountry_RefID, 
+            $varUserSession, int $varBranch_RefID,
+            int $varCountry_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_CountryAdministrativeAreaLevel1',
@@ -1080,7 +1080,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -1110,18 +1110,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CountryAdministrativeAreaLevel2(
-            $varUserSession, int $varBranch_RefID, 
-            int $varCountryAdministrativeAreaLevel1_RefID, 
+            $varUserSession, int $varBranch_RefID,
+            int $varCountryAdministrativeAreaLevel1_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_CountryAdministrativeAreaLevel2',
@@ -1166,18 +1166,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CountryAdministrativeAreaLevel3(
-            $varUserSession, int $varBranch_RefID, 
-            int $varCountryAdministrativeAreaLevel2_RefID, 
+            $varUserSession, int $varBranch_RefID,
+            int $varCountryAdministrativeAreaLevel2_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_CountryAdministrativeAreaLevel3',
@@ -1222,18 +1222,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CountryAdministrativeAreaLevel4(
-            $varUserSession, int $varBranch_RefID, 
-            int $varCountryAdministrativeAreaLevel3_RefID, 
+            $varUserSession, int $varBranch_RefID,
+            int $varCountryAdministrativeAreaLevel3_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_CountryAdministrativeAreaLevel4',
@@ -1276,17 +1276,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Currency(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_Currency',
@@ -1329,18 +1329,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_EntityBankAccount(
-            $varUserSession, int $varBranch_RefID, 
-            int $varEntity_RefID = null, 
+            $varUserSession, int $varBranch_RefID,
+            int $varEntity_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_EntityBankAccount',
@@ -1385,18 +1385,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_EntityContactNumber(
-            $varUserSession, int $varBranch_RefID, 
-            int $varEntity_RefID, 
+            $varUserSession, int $varBranch_RefID,
+            int $varEntity_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_EntityContactNumber',
@@ -1441,18 +1441,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_GoodsModel(
-            $varUserSession, int $varBranch_RefID, 
-            int $varTradeMark_RefID, 
+            $varUserSession, int $varBranch_RefID,
+            int $varTradeMark_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_GoodsModel',
@@ -1496,17 +1496,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Institution(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_Institution',
@@ -1548,17 +1548,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_InstitutionType(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_InstitutionType',
@@ -1571,7 +1571,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
                 return $varReturn['data'];
                 }
             catch (\Exception $ex) {
@@ -1599,17 +1599,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PaymentDisbursementMethod(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_PaymentDisbursementMethod',
@@ -1651,17 +1651,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PaymentMethod(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_PaymentMethod',
@@ -1703,17 +1703,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PaymentTerm(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_PaymentTerm',
@@ -1736,6 +1736,58 @@ namespace App\Models\Database\SchData_OLTP_Master
             }
 
 
+            /*
+            +--------------------------------------------------------------------------------------------------------------------------+
+            | ▪ Method Name     : getDataList_TermOfPayment                                                                              |
+            +--------------------------------------------------------------------------------------------------------------------------+
+            | ▪ Version         : 1.0000.0000000                                                                                       |
+            | ▪ Last Update     : 2025-02-28                                                                                           |
+            | ▪ Creation Date   : 2025-02-28                                                                                           |
+            | ▪ Description     : Mendapatkan Daftar Payment Term                                                                      |
+            +--------------------------------------------------------------------------------------------------------------------------+
+            | ▪ Input Variable  :                                                                                                      |
+            |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+            |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+            |      ------------------------------                                                                                      |
+            |      ------------------------------                                                                                      |
+            |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+            |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+            |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+            |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+            | ▪ Output Variable :                                                                                                      |
+            |      ▪ (array)  varReturn                                                                                                |
+            +--------------------------------------------------------------------------------------------------------------------------+
+            */
+            public function getDataList_TermOfPayment(
+                $varUserSession, int $varBranch_RefID,
+                string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+                {
+                try {
+                    $varReturn =
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                            $varUserSession,
+                            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                                $varUserSession,
+                                'SchData-OLTP-Master.Func_GetDataList_PaymentTerm',
+                                [
+                                    [$varBranch_RefID, 'bigint'],
+
+                                    [$varPickStatement, 'varchar'],
+                                    [$varSortStatement, 'varchar'],
+                                    [$varFilterStatement, 'varchar'],
+                                    [$varPagingStatement, 'varchar']
+                                ]
+                                )
+                            );
+
+                    return $varReturn['data'];
+                    }
+                catch (\Exception $ex) {
+                    return [];
+                    }
+                }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_Period                                                                                   |
@@ -1755,17 +1807,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Period(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_Period',
@@ -1778,7 +1830,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -1807,17 +1859,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Person(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_Person',
@@ -1830,7 +1882,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -1860,18 +1912,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonAccountEMail(
-            $varUserSession, int $varBranch_RefID, 
-            int $varPerson_RefID, 
+            $varUserSession, int $varBranch_RefID,
+            int $varPerson_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_PersonAccountEMail',
@@ -1886,7 +1938,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );     
+                        );
 
                 return $varReturn['data'];
                 }
@@ -1915,17 +1967,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonGender(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_PersonGender',
@@ -1938,7 +1990,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -1968,25 +2020,25 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_BusinessDocument(
-            $varUserSession, int $varBranch_RefID, 
-            int $varBusinessDocumentType_RefID, 
+            $varUserSession, int $varBranch_RefID,
+            int $varBusinessDocumentType_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataListJSON_BusinessDocument',
                             [
                                 [$varBranch_RefID, 'bigint'],
 
-                                [$varBusinessDocumentType_RefID, 'bigint'],                                
+                                [$varBusinessDocumentType_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -1994,9 +2046,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_BusinessDocument']
@@ -2008,7 +2060,7 @@ namespace App\Models\Database\SchData_OLTP_Master
             catch (\Exception $ex) {
                 return [];
                 }
-            }                
+            }
 
 
         /*
@@ -2030,17 +2082,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_PersonGender(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataListJSON_PersonGender',
@@ -2053,9 +2105,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PersonGender']
@@ -2090,18 +2142,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_Product(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varDateTime = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataListJSON_Product',
@@ -2116,9 +2168,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_Product']
@@ -2155,18 +2207,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Product(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varDateTime = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_Product',
@@ -2181,7 +2233,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );  
+                        );
 
                 return $varReturn['data'];
                 }
@@ -2210,17 +2262,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_ProductType(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_ProductType',
@@ -2233,7 +2285,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -2262,17 +2314,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_QuantityUnit(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_QuantityUnit',
@@ -2285,7 +2337,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -2314,17 +2366,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Religion(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_Religion',
@@ -2337,7 +2389,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -2366,17 +2418,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_TradeMark(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_TradeMark',
@@ -2389,7 +2441,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -2418,17 +2470,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_TransactionAdditionalCostType(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_TransactionAdditionalCostType',
@@ -2441,7 +2493,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -2470,17 +2522,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_VehicleType(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_VehicleType',
@@ -2493,7 +2545,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -2516,16 +2568,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_AccountingEntryRecordType(
             $varUserSession, int $varBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_AccountingEntryRecordType',
@@ -2556,16 +2608,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Bank(
             $varUserSession, int $varBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_Bank',
@@ -2598,17 +2650,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBank_RefID ► Bank Reference ID                                                                        |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BankAccount(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             int $varBank_RefID = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_BankAccount',
@@ -2643,17 +2695,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBank_RefID ► Bank Reference ID                                                                        |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BankBranch(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             int $varBank_RefID = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_BankBranch',
@@ -2686,16 +2738,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_ContactNumberType(
             $varUserSession, int $varBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_ContactNumberType',
@@ -2726,16 +2778,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Country(
             $varUserSession, int $varBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_Country',
@@ -2768,17 +2820,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varCountry_RefID ► Country Reference ID                                                                  |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_CountryAdministrativeAreaLevel1(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             int $varCountry_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_CountryAdministrativeAreaLevel1',
@@ -2813,17 +2865,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varCountryAdministrativeAreaLevel1_RefID ► Country Administrative Area Level 1 Reference ID              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_CountryAdministrativeAreaLevel2(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             int $varCountryAdministrativeAreaLevel1_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_CountryAdministrativeAreaLevel2',
@@ -2858,17 +2910,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varCountryAdministrativeAreaLevel2_RefID ► Country Administrative Area Level 2 Reference ID              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_CountryAdministrativeAreaLevel3(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             int $varCountryAdministrativeAreaLevel2_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_CountryAdministrativeAreaLevel3',
@@ -2903,17 +2955,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varCountryAdministrativeAreaLevel3_RefID ► Country Administrative Area Level 3 Reference ID              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_CountryAdministrativeAreaLevel4(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             int $varCountryAdministrativeAreaLevel3_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_CountryAdministrativeAreaLevel4',
@@ -2946,16 +2998,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BudgetOrigin(
             $varUserSession, int $varBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_BudgetOrigin',
@@ -2988,17 +3040,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varEntity_RefID ► Entity Reference ID                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_EntityBankAccount(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             int $varEntity_RefID = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_EntityBankAccount',
@@ -3033,17 +3085,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varEntity_RefID ► Entity Reference ID                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_EntityContactNumber(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             int $varEntity_RefID = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_EntityContactNumber',
@@ -3076,16 +3128,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Institution(
             $varUserSession, int $varBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_Institution',
@@ -3116,16 +3168,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_InstitutionType(
             $varUserSession, int $varBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_InstitutionType',
@@ -3156,16 +3208,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PaymentDisbursementMethod(
             $varUserSession, int $varBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_PaymentDisbursementMethod',
@@ -3196,16 +3248,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PaymentMethod(
             $varUserSession, int $varBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_PaymentMethod',
@@ -3236,16 +3288,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PaymentTerm(
             $varUserSession, int $varBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_PaymentTerm',
@@ -3276,7 +3328,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Person(
@@ -3284,9 +3336,9 @@ namespace App\Models\Database\SchData_OLTP_Master
             )
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_Person',
@@ -3319,7 +3371,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (string) varvarDateTime ► Date Time                                                                               |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Product(
@@ -3328,9 +3380,9 @@ namespace App\Models\Database\SchData_OLTP_Master
             )
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_Product',
@@ -3363,16 +3415,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_TransactionAdditionalCostType(
             $varUserSession, int $varBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_TransactionAdditionalCostType',
@@ -3403,16 +3455,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_VehicleType(
             $varUserSession, int $varBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataPickList_VehicleType',
@@ -3445,17 +3497,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBusinessDocumentForm_RefID ► Business Document Form Reference ID                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataResume_BusinessDocumentFormAndLinkageFileUpload(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             int $varBusinessDocumentForm_RefID = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataResume_BusinessDocumentFileUpload',
@@ -3469,9 +3521,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                     );
 
-                return 
+                return
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetDataResume_BusinessDocumentFileUpload']
                         );
                 }
@@ -3496,17 +3548,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBusinessDocumentForm_RefID ► Business Document Form Reference ID                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataResume_BusinessDocumentFormSelfFileUpload(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             int $varBusinessDocumentForm_RefID = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataResume_BusinessDocumentFileUpload',
@@ -3518,9 +3570,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                     );
 
-                return 
+                return
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetDataResume_BusinessDocumentFileUpload']
                         );
                 }
@@ -3545,17 +3597,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varEntity_RefID ► Entity Reference ID                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataResume_EntityContactNumber(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             int $varEntity_RefID = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataResume_EntityContactNumber',
@@ -3567,9 +3619,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
                     );
 
-                return 
+                return
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetDataResume_EntityContactNumber']
                         );
                 }
@@ -3594,16 +3646,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varFormNumber ► Form Number                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getBusinessDocumentLastVersionByFormNumber(
-            $varUserSession, int $varBranch_RefID, 
-            string $varFormNumber = null, int $varApproverEntity_RefID = null)                    
+            $varUserSession, int $varBranch_RefID,
+            string $varFormNumber = null, int $varApproverEntity_RefID = null)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         'SchData-OLTP-Master.Func_General_GetBusinessDocumentLastVersionByFormNumber',
@@ -3623,7 +3675,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                 }
             }
 
-            
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReport_Form_Resume_BusinessDocumentDispositionHistory                                             |
@@ -3639,17 +3691,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBusinessDocument_RefID ► Business Document ID                                                         |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_Resume_BusinessDocumentDispositionHistory(
-            $varUserSession, int $varBranch_RefID, 
+            $varUserSession, int $varBranch_RefID,
             int $varBusinessDocument_RefID = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetReport_Resume_BusinessDocumentDispositionHistory',
@@ -3689,18 +3741,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_Resume_BusinessDocumentIssuanceDisposition(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varSysID,
             string $varBusinessDocumentNumber = null, int $varBusinessDocumentType_RefID = null, int $varCombinedBudget_RefID = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetReport_Resume_BusinessDocumentIssuanceDisposition',
@@ -3717,7 +3769,7 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentIssuanceDisposition'])
                     ];
                 }
@@ -3743,17 +3795,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_Resume_BusinessDocumentIssuanceDispositionCount(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varSysID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetReport_Resume_BusinessDocumentIssuanceDispositionCount',
@@ -3766,7 +3818,7 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentIssuanceDispositionCount'])
                     ];
                 }
@@ -3792,16 +3844,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_Resume_BusinessDocumentFilterByDocumentTypeID(
             $varUserSession, int $varSysBranch_RefID, int $varSysID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetReport_Resume_BusinessDocumentFilterByDocumentTypeID',
@@ -3834,17 +3886,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_AllDocumentType(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varSysID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetReport_DocForm_AllType',
@@ -3857,7 +3909,7 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DocForm_AllType'])
                     ];
                 }
@@ -3881,17 +3933,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_CitizenIdentity(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varSysID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetReport_DocForm_CitizenIdentity',
@@ -3904,7 +3956,7 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DocForm_CitizenIdentity'])
                     ];
                 }
@@ -3928,17 +3980,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_Person(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varSysID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetReport_DocForm_Person',
@@ -3951,7 +4003,7 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DocForm_Person'])
                     ];
                 }
@@ -3973,16 +4025,16 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                | 
+        |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getFileExtensionOfMIME(
             $varUserSession,
             string $varMIME)
             {
-            $varReturn = 
+            $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         'SchData-OLTP-Master.Func_General_GetFileExtensionOfMIME',
@@ -4010,17 +4062,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varMIME ► MIME Type                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (int)    varReturn                                                                                                | 
+        |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getIDOfMIME(
-            $varUserSession, 
+            $varUserSession,
             string $varMIME)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_General_GetIDOfMIME',
@@ -4031,7 +4083,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         );
 
                 return $varReturn['data'][0]['Func_General_GetIDOfMIME'];
-                } 
+                }
             catch (\Exception $ex) {
                 return [];
                 }
@@ -4052,17 +4104,17 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varRecordID ► Record ID                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (int)    varReturn                                                                                                | 
+        |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getBusinessDocumentByRecordID(
-            $varUserSession, 
+            $varUserSession,
             int $varRecordID)
             {
             try {
-                $varData = 
+                $varData =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_General_GetBusinessDocumentEntityByRecordID',
@@ -4073,7 +4125,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         );
 
                 $varReturn = [
-                    'fullDocumentNumber' => 
+                    'fullDocumentNumber' =>
                         $varData['data'][0]['DocumentTypeName'].
                         ' No : '.
                         $varData['data'][0]['DocumentNumber'].
@@ -4113,7 +4165,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBusinessDocument_RefID ► Business Document Reference ID                                               |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function isBusinessDocumentFinalApproved(
@@ -4121,9 +4173,9 @@ namespace App\Models\Database\SchData_OLTP_Master
             int $varBusinessDocument_RefID = null)
             {
             try {
-                $varData = 
+                $varData =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_General_IsBusinessDocumentFinalApproved',
@@ -4138,7 +4190,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                     ];
 
                 return $varReturn;
-                } 
+                }
             catch (\Exception $ex) {
                 return [];
                 }
