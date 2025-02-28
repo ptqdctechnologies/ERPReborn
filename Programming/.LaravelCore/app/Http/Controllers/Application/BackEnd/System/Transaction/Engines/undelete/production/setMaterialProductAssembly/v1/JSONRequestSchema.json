@@ -1,0 +1,50 @@
+{
+    "title": "JSON Request Schema",
+    "description": "JSON Request Schema of transaction.undelete.production.setMaterialProductAssembly (version 1)",
+    "type": "object",
+    "properties": {
+        "metadata": {
+            "type": "object",
+            "properties": {
+                "API": {
+                    "type": "object",
+                    "properties": {
+                        "key": {
+                            "type": "string",
+                            "enum": [ "transaction.undelete.production.setMaterialProductAssembly" ]
+                            },
+                        "version": {
+                            "type": [ "integer", "string" ],
+                            "minimum": 1,
+                            "minLength": 1
+                            }
+                        },
+                    "required": [
+                        "key",
+                        "version"
+                        ]
+                    }
+                },
+            "required": [
+                "API"
+                ]
+            },
+        "data": {
+            "type": "object",
+            "properties": {
+                "recordID" : {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9223372036854775807
+                    }
+                },
+            "required": [
+                "recordID"
+                ]
+            }
+        },
+    "required": [
+        "metadata",
+        "data"
+        ]
+    }
