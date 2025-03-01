@@ -1,0 +1,56 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.read.dataList.taxation.getVat (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.read.dataList.taxation.getVat" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "parameter": {
+                "additionalProperties": false
+                },
+            "SQLStatement": {
+                "type": "object",
+                "properties": {
+                    "pick": {
+                        "type": [ "string", "null" ]
+                        },
+                    "sort": {
+                        "type": [ "string", "null" ]
+                        },
+                    "filter": {
+                        "type": [ "string", "null" ]
+                        },
+                    "paging": {
+                        "type": [ "string", "null" ]
+                        }
+                    },
+                "required": [ "pick", "sort", "filter", "paging" ]
+                }
+            },
+        "required": [ "parameter", "SQLStatement" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}
