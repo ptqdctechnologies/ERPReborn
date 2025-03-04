@@ -619,7 +619,7 @@ class AdvanceRequestController extends Controller
         $dataReport = $isSubmitButton ? $request->session()->get('AdvanceSummaryReportDetailDataPDF', []) : [];
 
         $compact = [
-            'varAPIWebToken'    => [],
+            'varAPIWebToken'    => $varAPIWebToken,
             'dataReport'        => $isSubmitButton ? true : false,
             "dataHeader"        => $dataReport["dataHeader"] ?? null,
             "dataContent"       => $dataReport["dataContent"] ?? null,
@@ -668,17 +668,41 @@ class AdvanceRequestController extends Controller
 
                 $i++;
             }
+
+            $document = $filteredArray['data'][0]['document'];
+            $content = $document['content'];
+            $general = $content['general'];
+            $budget = $general['budget'];
+            $bankAccount = $general['bankAccount']['beneficiary'];
+            $involvedPersons = $general['involvedPersons'][0];
+            $itemList = $content['details']['itemList'][0];
             
             $compact = [
-                'dataHeader'        => $filteredArray['data'][0]['document']['header'],
-                'dataContent'       => $filteredArray['data'][0]['document']['content']['general'],
-                'dataDetail'        => $filteredArray['data'][0]['document']['content']['details']['itemList'],
-                'dataExcel'         => $varDataExcel,
-                'statusDetail'      => 1,
-                'advance_RefID'     => $filteredArray['data'][0]['document']['header']['recordID'],
-                'advance_number'    => $filteredArray['data'][0]['document']['header']['number'],
-                'statusHeader'      => $statusHeader
+                'dataHeader'    => [[
+                    'DocumentNumber'                    => $document['header']['number'],
+                    'Date'                              => $document['header']['date'],
+                    'ProductUnitPriceCurrencyISOCode'   => $itemList['entities']['priceCurrencyISOCode'],
+                    'CombinedBudgetCode'                => $budget['combinedBudgetCodeList'][0],
+                    'CombinedBudgetName'                => $budget['combinedBudgetNameList'][0],
+                    'CombinedBudgetSectionCode'         => $budget['combinedBudgetSectionCodeList'][0],
+                    'CombinedBudgetSectionName'         => $budget['combinedBudgetSectionNameList'][0],
+                    'Log_FileUpload_Pointer_RefID'      => $general['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
+                    'RequesterWorkerName'               => $involvedPersons['requesterWorkerName'],
+                    'BeneficiaryWorkerName'             => $involvedPersons['beneficiaryWorkerName'],
+                    'BankAcronym'                       => $bankAccount['bankAcronym'],
+                    'BankAccountName'                   => $bankAccount['bankAccountName'],
+                    'BankAccountNumber'                 => $bankAccount['bankAccountNumber'],
+                ]],
+                'dataContent'   => $general,
+                'dataDetail'    => $content['details']['itemList'],
+                'dataExcel'     => $varDataExcel,
+                'statusDetail'  => 1,
+                'advance_RefID' => $document['header']['recordID'],
+                'advance_number'=> $document['header']['number'],
+                'statusHeader'  => $statusHeader,
             ];
+
+            // dd($filteredArray, $compact);
 
             Session::put("AdvanceSummaryReportDetailIsSubmit", "Yes");
             Session::put("AdvanceSummaryReportDetailDataPDF", $compact);

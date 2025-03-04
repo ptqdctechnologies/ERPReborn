@@ -251,13 +251,14 @@ class CheckDocumentController extends Controller
     public function GetAllDocumentTypeByID($varAPIWebToken, $formDocumentNumber_RefID)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $sessionID = Helper_Environment::getUserSessionID_System();
-            $sessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-            $statusApprover = "NO";
+            $varAPIWebToken                     = Session::get('SessionLogin');
+            $sessionID                          = Helper_Environment::getUserSessionID_System();
+            $sessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
+            $statusApprover                     = "NO";
+            $title                              = '-';
             
-            $cacheKey = "DataListAdvanceDetailComplex_{$formDocumentNumber_RefID}";
-            $DataAdvanceDetailComplex = json_decode(Helper_Redis::getValue($sessionID, $cacheKey), true);
+            $cacheKey                           = "DataListAdvanceDetailComplex_{$formDocumentNumber_RefID}";
+            $DataAdvanceDetailComplex           = json_decode(Helper_Redis::getValue($sessionID, $cacheKey), true);
             
             if (!$DataAdvanceDetailComplex) {
                 Helper_APICall::setCallAPIGateway(
@@ -290,10 +291,9 @@ class CheckDocumentController extends Controller
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
 
-            $businessDocumentRefID = (int) $DataAdvanceDetailComplex[0]['BusinessDocument_RefID'];
-
-            $cacheKeyWorkflow = "WorkflowHistory_{$businessDocumentRefID}";
-            $DataWorkflowHistory = json_decode(Helper_Redis::getValue($sessionID, $cacheKeyWorkflow), true);
+            $businessDocumentRefID  = (int) $DataAdvanceDetailComplex[0]['BusinessDocument_RefID'];
+            $cacheKeyWorkflow       = "WorkflowHistory_{$businessDocumentRefID}";
+            $DataWorkflowHistory    = json_decode(Helper_Redis::getValue($sessionID, $cacheKeyWorkflow), true);
 
             if (!$DataWorkflowHistory) {
                 $DataWorkflowHistory = Helper_APICall::setCallAPIGateway(
@@ -334,10 +334,15 @@ class CheckDocumentController extends Controller
                 $statusApprover = "RESUBMIT";
             } 
 
+            if ($DataAdvanceDetailComplex[0]['BusinessDocumentType_Name'] === "Advance Form") {
+                $title = "ADVANCE FORM";
+            }
+
             return [
                 'varAPIWebToken'            => $varAPIWebToken,
                 'statusApprover'            => $statusApprover,
                 'submitter_ID'              => $submitter_ID,
+                'title'                     => $title,
                 'businessDocument_RefID'    => $DataAdvanceDetailComplex[0]['BusinessDocument_RefID'],
                 'dataHeader'                => $DataAdvanceDetailComplex,
                 'dataWorkFlows'             => $DataWorkflowHistory

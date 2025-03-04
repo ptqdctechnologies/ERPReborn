@@ -23,68 +23,17 @@
             <div class="card">
               <div class="tab-content p-3" id="nav-tabContent">
                 <div class="row">
-                  <div class="col-12 ShowDocumentList" style="font-weight: bold;">
+                  <div class="col-12 ShowDocumentList">
                     <div class="card">
                       <div class="card-header">
                         <center>
-                          <h3><span style="text-transform:uppercase;font-weight:bold;">Advance Request</span></h3>
+                          <h3><span style="text-transform:uppercase;font-weight:bold;">Advance Form</span></h3>
                         </center>
                       </div>
 
                       <div class="card-body">
-                        <div class="row">
-                          <div class="col-md-8">
-                            <div class="form-group">
-                              <table>
-                                <tr>
-                                  <td style="padding-top: 5px;"><label>Advance Number</label></td>
-                                  <td>:</td>
-                                  <td>{{ $dataHeader['number'] }}</td>
-                                </tr>
-                                <tr>
-                                  <td style="padding-top: 5px;"><label>Date</label></td>
-                                  <td>:</td>
-                                  <td>{{ date("d-m-Y", strtotime($dataHeader['date'])) }}</td>
-                                </tr>
-                                <tr>
-                                  <td style="padding-top: 5px;"><label>Budget</label></td>
-                                  <td>:</td>
-                                  <td>{{ $dataContent['budget']['combinedBudgetCodeList'][0] }} - {{ $dataContent['budget']['combinedBudgetNameList'][0] }}</td>
-                                </tr>
-                                <tr>
-                                  <td style="padding-top: 5px;"><label>Sub Budget</label></td>
-                                  <td>:</td>
-                                  <td>{{ $dataContent['budget']['combinedBudgetSectionCodeList'][0] }} - {{ $dataContent['budget']['combinedBudgetSectionNameList'][0] }}</td>
-                                </tr>
-                              </table>
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="form-group">
-                              <table>
-                                <tr>
-                                  <td style="padding-top: 5px;"><label>Currency</label></td>
-                                  <td>:</td>
-                                  <td>{{ $dataDetail[0]['entities']['priceCurrencyISOCode'] }}</td>
-                                </tr>
-                                <tr>
-                                  <td style="padding-top: 5px;"><label>Requester</label></td>
-                                  <td>:</td>
-                                  <td>{{ $dataContent['involvedPersons'][0]['requesterWorkerName'] }}</td>
-                                </tr>
-                                <tr>
-                                  <td style="padding-top: 5px;"><label>Beneficiary</label></td>
-                                  <td>:</td>
-                                  <td>{{ $dataContent['involvedPersons'][0]['beneficiaryWorkerName'] }}</td>
-                                </tr>
-                                <tr>
-                                  <td style="padding-top: 5px;"><label>Bank Account</label></td>
-                                  <td>:</td>
-                                  <td>{{ $dataContent['bankAccount']['beneficiary']['bankAcronym'] }} - {{ $dataContent['bankAccount']['beneficiary']['bankAccountName'] }} - {{ $dataContent['bankAccount']['beneficiary']['bankAccountNumber'] }}</td>
-                                </tr>
-                              </table>
-                            </div>
-                          </div>
+                        <div class="row" style="margin: .6rem 0rem; gap: 1rem;">
+                          @include('Components.AdvanceDetailDocument')
                         </div>
                       </div>
                     </div>
