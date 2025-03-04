@@ -31,11 +31,11 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataEntities_BusinessTripCostComponentEntity(
-            $varUserSession, 
+            $varUserSession,
             string $varIDSet)
             {
             try {
@@ -43,7 +43,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
                 $varTemp =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             $varFunctionName,
@@ -52,7 +52,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                                     [$varIDSet, 'bigint[]']
                                 ]
                             )
-                        ); 
+                        );
 
                 for ($i=0; $i!=count($varTemp['data']); $i++)
                     {
@@ -89,17 +89,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessTripAccommodationArrangementsType(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_BusinessTripAccommodationArrangementsType',
@@ -112,7 +112,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -141,7 +141,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessTripCostComponent(
@@ -151,7 +151,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_BusinessTripCostComponent',
@@ -164,7 +164,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -172,6 +172,100 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                 return [];
                 }
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_BusinessTripList                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-03-03                                                                                           |
+        | ▪ Creation Date   : 2025-03-03                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Perjalanan Bisnis Perorangan                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+       public function getDataList_BusinessTripList(
+        $varUserSession, int $varBranchID,
+        string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+        {
+        try {
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-HumanResource.Func_GetDataList_PersonBusinessTrip',
+                        [
+                            [$varBranchID, 'bigint' ]
+                        ]
+                        )
+                    );
+
+            return $varReturn['data'];
+            }
+        catch (\Exception $ex) {
+            return [];
+            }
+        }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_BSFList                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-03-04                                                                                           |
+        | ▪ Creation Date   : 2025-03-04                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Settlement Perjalanan Bisnis Perorangan                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+       public function getDataList_BSFList(
+        $varUserSession, int $varBranchID,
+        string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+        {
+        try {
+            $varReturn =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-HumanResource.Func_GetDataList_PersonBusinessTrip',
+                        [
+                            [$varBranchID, 'bigint' ]
+                        ]
+                        )
+                    );
+
+            return $varReturn['data'];
+            }
+        catch (\Exception $ex) {
+            return [];
+            }
+        }
 
 
         /*
@@ -194,18 +288,18 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessTripCostComponentEntity(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             array $varBusinessTripTransportationType_RefIDArray = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_BusinessTripCostComponentEntity',
@@ -220,7 +314,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -250,18 +344,18 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessTripTransportationCostType(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             int $varBusinessTripTransportationType_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_BusinessTripTransportationCostType',
@@ -305,17 +399,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessTripTransportationCostTypeComponent(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_BusinessTripCostComponent',
@@ -328,7 +422,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -357,17 +451,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessTripTransportationType(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_BusinessTripTransportationType',
@@ -380,7 +474,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -409,17 +503,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_OrganizationalDepartment(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_OrganizationalDepartment',
@@ -433,7 +527,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -462,17 +556,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonBusinessTrip(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_PersonBusinessTrip',
@@ -515,18 +609,18 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonBusinessTripSequence(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             int $varPersonBusinessTrip_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_PersonBusinessTripSequence',
@@ -570,17 +664,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonWorkTimeSheet(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_PersonWorkTimeSheet',
@@ -593,7 +687,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -623,18 +717,18 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonWorkTimeSheetActivity(
-            $varUserSession, int $varBranchID, 
-            int $varPersonWorkTimeSheet_RefID = null, 
+            $varUserSession, int $varBranchID,
+            int $varPersonWorkTimeSheet_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_PersonWorkTimeSheetActivity',
@@ -649,7 +743,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -678,17 +772,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Worker(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_Worker',
@@ -701,7 +795,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -732,17 +826,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_WorkerCareerInternal($varUserSession, int $varBranchID, 
+        public function getDataList_WorkerCareerInternal($varUserSession, int $varBranchID,
             int $varWorker_RefID = null, string $varDateTimeTZ = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_WorkerCareerInternal',
@@ -788,18 +882,18 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WorkerJobsPosition(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             int $varWorker_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_WorkerJobsPosition',
@@ -844,18 +938,18 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WorkerJobsPositionCurrent(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             int $varWorker_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_WorkerJobsPositionCurrent',
@@ -899,17 +993,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WorkerType(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_WorkerType',
@@ -922,7 +1016,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
+                        );
 
                 return $varReturn['data'];
                 }
@@ -945,7 +1039,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BusinessTripAccommodationArrangementsType(
@@ -954,7 +1048,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_BusinessTripAccommodationArrangementsType',
@@ -985,7 +1079,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BusinessTripCostComponent(
@@ -994,7 +1088,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_BusinessTripCostComponent',
@@ -1027,7 +1121,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varIDSet ► ID Set                                                                                        |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BusinessTripCostComponentEntity(
@@ -1037,7 +1131,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_BusinessTripCostComponentEntity',
@@ -1069,7 +1163,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BusinessTripTransportationCostType(
@@ -1079,7 +1173,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_BusinessTripTransportationCostType',
@@ -1112,7 +1206,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BusinessTripTransportationCostTypeComponent(
@@ -1121,7 +1215,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_BusinessTripTransportationCostTypeComp',
@@ -1152,7 +1246,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BusinessTripTransportationType(
@@ -1161,7 +1255,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_BusinessTripTransportationType',
@@ -1192,7 +1286,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_OrganizationalDepartment(
@@ -1201,7 +1295,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_OrganizationalDepartment',
@@ -1232,7 +1326,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PersonBusinessTrip(
@@ -1241,7 +1335,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_PersonBusinessTrip',
@@ -1272,7 +1366,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PersonBusinessTripSequence(
@@ -1282,7 +1376,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_PersonBusinessTripSequence',
@@ -1315,7 +1409,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PersonWorkTimeSheet(
@@ -1324,7 +1418,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_PersonWorkTimeSheet',
@@ -1355,7 +1449,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Worker(
@@ -1364,7 +1458,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         'SchData-OLTP-HumanResource.Func_GetDataPickList_Worker',
@@ -1395,7 +1489,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WorkerCareerInternal(
@@ -1404,7 +1498,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_WorkerCareerInternal',
@@ -1437,7 +1531,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WorkerJobsPosition(
@@ -1447,7 +1541,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_WorkerJobsPosition',
@@ -1481,7 +1575,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WorkerJobsPositionCurrent(
@@ -1491,7 +1585,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_WorkerJobsPositionCurrent',
@@ -1524,17 +1618,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_Worker(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varSysID)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetReport_DocForm_Worker',
@@ -1547,7 +1641,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DocForm_Worker'])
                     ];
                 }
@@ -1571,17 +1665,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_WorkerCareerInternal(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varSysID)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetReport_DocForm_WorkerCareerInternal',
@@ -1594,7 +1688,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DocForm_WorkerCareerInternal'])
                     ];
                 }
@@ -1619,17 +1713,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varWorkerCareerInternal_RefID ► Worker Career Internal Reference ID                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataResume_WorkerCareerInternalContactNumber(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             int $varWorkerCareerInternal_RefID = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataResume_WorkerCareerInternalContactNumber',
@@ -1641,9 +1735,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );
 
-                return 
+                return
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetDataResume_WorkerCareerInternalContactNumber']
                         );
                 }
@@ -1668,17 +1762,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataResume_WorkerContactNumber(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             int $varWorker_RefID = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataResume_WorkerContactNumber',
@@ -1690,9 +1784,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );
 
-                return 
+                return
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetDataResume_WorkerContactNumber']
                         );
                 }
@@ -1720,18 +1814,18 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varDataFilter_EventDateTimeTZ ► Data Filter : Event DateTimeTZ                                           |
         |      ▪ (string) varDataFilter_Person_RefID ► Data Filter : Person Reference ID                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (json)   varReturn                                                                                                | 
+        |      ▪ (json)   varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataReportFormResume_PersonWorkTimeSheet(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varBranchID,
             int $varPersonWorkTimeSheet_RefID = null,
             string $varDataFilter_DocumentNumber = null, string $varDataFilter_EventDateTimeTZ = null, int $varDataFilter_Person_RefID = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetRptFormRsm_PersonWorkTimeSheet',
@@ -1745,7 +1839,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             ]
                             )
                         );
-                
+
                 if(strcmp((array_values($varReturn['data'][0]))[0], '[]') == 0)
                     {
                     throw new \Exception();
@@ -1756,7 +1850,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         \App\Helpers\ZhtHelper\General\Helper_JSON::setDateTimeTZNormalizationFromArray(
                             $varUserSession,
                             json_decode((array_values($varReturn['data'][0]))[0], true)
-                            );                    
+                            );
                     }
                 }
             catch (\Exception $ex) {
@@ -1779,17 +1873,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PersonBusinessTrip(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varSysID)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetReport_DocForm_PersonBusinessTrip',
@@ -1802,7 +1896,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DocForm_PersonBusinessTrip'])
                     ];
                 }
