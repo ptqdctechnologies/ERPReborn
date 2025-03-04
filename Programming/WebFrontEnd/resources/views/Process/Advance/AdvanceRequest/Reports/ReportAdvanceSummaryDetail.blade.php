@@ -41,37 +41,8 @@
 
                   <div class="col-12 ShowDocumentList">
                     <div class="card">
-                      <div class="card-body table-responsive p-0">
-                        <table class="table table-head-fixed text-nowrap TableListDocumentDetail" id="TableListDocumentDetail">
-                          <thead>
-                            <tr>
-                              <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">NO</th>
-                              <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRODUCT ID</th>
-                              <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DESCRIPTION & SPECIFICATIONS</th>
-                              <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">QTY</th>
-                              <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UNIT PRICE</th>
-                              <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">TOTAL ADVANCE</th>
-                            </tr>
-                          </thead>
-                          @php $no = 1; $total = 0; @endphp
-                          @foreach($dataDetail as $dataDetails)
-                          @php $total += $dataDetails['entities']['priceBaseCurrencyValue'] @endphp
-                          <tbody>
-                            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
-                            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataDetails['entities']['product_RefID'] }}</td>
-                            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataDetails['entities']['productName'] }}</td>
-                            <td style="border:1px solid #4B586A;color:#4B586A;">{{ $dataDetails['entities']['quantity'] }}</td>
-                            <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($dataDetails['entities']['productUnitPriceBaseCurrencyValue'],2) }}</td>
-                            <td style="border:1px solid #4B586A;color:#4B586A;">{{ number_format($dataDetails['entities']['priceBaseCurrencyValue'],2) }}</td>
-                          </tbody>
-                          @endforeach
-                          <tfoot>
-                            <tr>
-                              <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="5">GRAND TOTAL ADVANCE</th>
-                              <td style="border:1px solid #4B586A;color:#4B586A;"><span id="GrandTotal">{{ number_format($total,2) }}</span></td>
-                            </tr>
-                          </tfoot>
-                        </table>
+                      <div class="card-body p-0">
+                        @include('Components.AdvanceDetailDocumentTable')
                       </div>
                     </div>
                   </div>

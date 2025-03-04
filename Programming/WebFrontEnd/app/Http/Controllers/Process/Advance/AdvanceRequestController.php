@@ -652,49 +652,62 @@ class AdvanceRequestController extends Controller
                 ]
             );
 
-            $varDataExcel = [];
-            $i = 0;
-            $totalAdvance = 0;
-            foreach ($filteredArray['data'][0]['document']['content']['details']['itemList'] as $collections) {
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
 
+            $document           = $filteredArray['data'][0]['document'];
+            $content            = $document['content'];
+            $general            = $content['general'];
+            $budget             = $general['budget'];
+            $bankAccount        = $general['bankAccount']['beneficiary'];
+            $involvedPersons    = $general['involvedPersons'][0];
+            $itemList           = $content['details']['itemList'][0];
+
+            $varDataExcel   = [];
+            $dataHeader     = [];
+            $i              = 0;
+            $totalAdvance   = 0;
+
+            foreach ($content['details']['itemList'] as $collections) {
                 $totalAdvance += $collections['entities']['priceBaseCurrencyValue'];
 
-                $varDataExcel[$i]['no'] = $i + 1;
-                $varDataExcel[$i]['product_RefID'] = $collections['entities']['product_RefID'];
-                $varDataExcel[$i]['productName'] = $collections['entities']['productName'];
-                $varDataExcel[$i]['quantity'] = number_format($collections['entities']['quantity'], 2);
-                $varDataExcel[$i]['productUnitPriceBaseCurrencyValue'] = number_format($collections['entities']['productUnitPriceBaseCurrencyValue'], 2);
-                $varDataExcel[$i]['priceBaseCurrencyValue'] = number_format($collections['entities']['priceBaseCurrencyValue'], 2);
+                $varDataExcel[$i]['no']                                 = $i + 1;
+                $varDataExcel[$i]['product_RefID']                      = $collections['entities']['product_RefID'];
+                $varDataExcel[$i]['productName']                        = $collections['entities']['productName'];
+                $varDataExcel[$i]['quantity']                           = number_format($collections['entities']['quantity'], 2);
+                $varDataExcel[$i]['productUnitPriceBaseCurrencyValue']  = number_format($collections['entities']['productUnitPriceBaseCurrencyValue'], 2);
+                $varDataExcel[$i]['priceBaseCurrencyValue']             = number_format($collections['entities']['priceBaseCurrencyValue'], 2);
+
+                $dataHeader[$i]['Product_RefID']                        = $collections['entities']['product_RefID'];
+                $dataHeader[$i]['ProductName']                          = $collections['entities']['productName'];
+                $dataHeader[$i]['Quantity']                             = $collections['entities']['quantity'];
+                $dataHeader[$i]['QuantityUnitName']                     = $collections['entities']['quantityUnitName'];
+                $dataHeader[$i]['ProductUnitPriceBaseCurrencyValue']    = $collections['entities']['productUnitPriceBaseCurrencyValue'];
+                $dataHeader[$i]['PriceBaseCurrencyValue']               = $collections['entities']['priceBaseCurrencyValue'];
+
+                if ($i === 0) {
+                    $dataHeader[$i]['DocumentNumber']                       = $document['header']['number'];
+                    $dataHeader[$i]['Date']                                 = $document['header']['date'];
+                    $dataHeader[$i]['ProductUnitPriceCurrencyISOCode']      = $itemList['entities']['priceCurrencyISOCode'];
+                    $dataHeader[$i]['CombinedBudgetCode']                   = $budget['combinedBudgetCodeList'][0];
+                    $dataHeader[$i]['CombinedBudgetName']                   = $budget['combinedBudgetNameList'][0];
+                    $dataHeader[$i]['CombinedBudgetSectionCode']            = $budget['combinedBudgetSectionCodeList'][0];
+                    $dataHeader[$i]['CombinedBudgetSectionName']            = $budget['combinedBudgetSectionNameList'][0];
+                    $dataHeader[$i]['Log_FileUpload_Pointer_RefID']         = $general['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'];
+                    $dataHeader[$i]['RequesterWorkerName']                  = $involvedPersons['requesterWorkerName'];
+                    $dataHeader[$i]['BeneficiaryWorkerName']                = $involvedPersons['beneficiaryWorkerName'];
+                    $dataHeader[$i]['BankAcronym']                          = $bankAccount['bankAcronym'];
+                    $dataHeader[$i]['BankAccountName']                      = $bankAccount['bankAccountName'];
+                    $dataHeader[$i]['BankAccountNumber']                    = $bankAccount['bankAccountNumber'];
+                }
 
                 $i++;
             }
-
-            $document = $filteredArray['data'][0]['document'];
-            $content = $document['content'];
-            $general = $content['general'];
-            $budget = $general['budget'];
-            $bankAccount = $general['bankAccount']['beneficiary'];
-            $involvedPersons = $general['involvedPersons'][0];
-            $itemList = $content['details']['itemList'][0];
             
             $compact = [
-                'dataHeader'    => [[
-                    'DocumentNumber'                    => $document['header']['number'],
-                    'Date'                              => $document['header']['date'],
-                    'ProductUnitPriceCurrencyISOCode'   => $itemList['entities']['priceCurrencyISOCode'],
-                    'CombinedBudgetCode'                => $budget['combinedBudgetCodeList'][0],
-                    'CombinedBudgetName'                => $budget['combinedBudgetNameList'][0],
-                    'CombinedBudgetSectionCode'         => $budget['combinedBudgetSectionCodeList'][0],
-                    'CombinedBudgetSectionName'         => $budget['combinedBudgetSectionNameList'][0],
-                    'Log_FileUpload_Pointer_RefID'      => $general['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
-                    'RequesterWorkerName'               => $involvedPersons['requesterWorkerName'],
-                    'BeneficiaryWorkerName'             => $involvedPersons['beneficiaryWorkerName'],
-                    'BankAcronym'                       => $bankAccount['bankAcronym'],
-                    'BankAccountName'                   => $bankAccount['bankAccountName'],
-                    'BankAccountNumber'                 => $bankAccount['bankAccountNumber'],
-                ]],
+                'dataHeader'    => $dataHeader,
                 'dataContent'   => $general,
-                'dataDetail'    => $content['details']['itemList'],
                 'dataExcel'     => $varDataExcel,
                 'statusDetail'  => 1,
                 'advance_RefID' => $document['header']['recordID'],
@@ -702,7 +715,7 @@ class AdvanceRequestController extends Controller
                 'statusHeader'  => $statusHeader,
             ];
 
-            // dd($filteredArray, $compact);
+            // dd($filteredArray['metadata']['HTTPStatusCode'], $compact);
 
             Session::put("AdvanceSummaryReportDetailIsSubmit", "Yes");
             Session::put("AdvanceSummaryReportDetailDataPDF", $compact);

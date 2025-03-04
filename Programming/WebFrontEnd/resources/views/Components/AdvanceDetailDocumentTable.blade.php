@@ -20,10 +20,10 @@
                     <td style="border:1px solid #4B586A;color:#4B586A;"><?= $no++; ?></td>
                     <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['Product_RefID']; ?></td>
                     <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['ProductName']; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['Quantity']; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['Quantity'], 2); ?></td>
                     <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['QuantityUnitName']; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['ProductUnitPriceBaseCurrencyValue']; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['PriceBaseCurrencyValue']; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['ProductUnitPriceBaseCurrencyValue'], 2); ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['PriceBaseCurrencyValue'], 2); ?></td>
                 </tr>
             <?php } ?>
         </tbody>
@@ -35,7 +35,7 @@
                 </th>
                 <td style="border:1px solid #4B586A;color:#4B586A;">
                     <span id="GrandTotal">
-                        <?= number_format($grand_total, 2, '.', ''); ?>
+                        <?= number_format($grand_total, 2); ?>
                     </span>
                 </td>
             </tr>
