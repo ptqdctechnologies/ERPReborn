@@ -184,7 +184,8 @@ class CheckDocumentController extends Controller
             }
 
             $compact = [
-                'dataHeader' => $filteredArray[0],
+                'varAPIWebToken' => $varAPIWebToken,
+                'dataHeader' => [$filteredArray[0]],
                 'dataDetail' => $filteredArray,
                 'businessDocument_RefID' => $filteredArray[0]['Sys_ID_Advance'],
                 'businessDocumentNumber' => $filteredArray[0]['DocumentNumber'],
@@ -236,6 +237,8 @@ class CheckDocumentController extends Controller
                 $filterType = "Number";
                 $varDataWorkflow = $this->GetAllDocumentType($varAPIWebToken, $businessDocumentNumber, $filterType, $sourceData, $statusHeader, null);
             }
+
+            // dump($varDataWorkflow);
 
             if ($varDataWorkflow['status'] == "success") {
                 return view('Documents.Transactions.IndexCheckDocument', $varDataWorkflow);
