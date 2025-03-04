@@ -17,6 +17,8 @@
       <div class="card">
         <div class="tab-content p-3" id="nav-tabContent">
           <div class="row">
+            <input type="hidden" id="advanceRefID" name="advanceRefID" value="{{ $dataHeader[0]['Sys_ID_Advance'] }}" class="form-control" style="border-radius:0;">
+
             <!-- HEADER -->
             <div class="col-12">
               <div class="card">
@@ -270,7 +272,7 @@
 
               <?php if ($statusApprover == "RESUBMIT") { ?>
                 <!-- RESUBMIT -->
-                <button class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                <button class="btn btn-default btn-sm btn-resubmit" style="background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Resubmit" /> Resubmit
                 </button>
 
