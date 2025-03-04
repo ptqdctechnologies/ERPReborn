@@ -38,11 +38,12 @@
             <div class="row">
               @include('Documents.Transactions.DocumentWorkflow')
 
+              <!-- DETAIL -->
               <div class="col-12 ShowDocumentList">
                 <div class="card">
                   <!-- TITLE -->
                   <div class="card-header">
-                    <h3 class="text-bold text-center">
+                    <h3 class="text-bold text-center text-uppercase">
                       <?= $dataHeader[0]['BusinessDocumentType_Name']; ?>
                     </h3>
                   </div>
@@ -58,11 +59,40 @@
                 </div>
               </div>
 
+              <!-- TABLE -->
               <div class="col-12 ShowDocumentList">
-                
+                <div class="card">
+                  <div class="card-body p-0">
+                    @include('Components.AdvanceDetailDocumentTable')
+                  </div>
+                </div>
               </div>
 
-              @include('Documents.Transactions.ButtonApproval')
+              <!-- REMARK -->
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  <!-- TITLE -->
+                  <div class="card-header">
+                    <label class="card-title">
+                      Remark
+                    </label>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- CONTENT -->
+                  <div class="card-body">
+                    <div class="row" style="margin: .6rem 0rem;">
+                      <div class="col">
+                        @include('Components.Remark')
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               @include('Documents.Transactions.DocumentApprovalHistory')
             </div>
