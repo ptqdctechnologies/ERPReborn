@@ -389,7 +389,6 @@ class AdvanceRequestController extends Controller
         }
     }
 
-
     // LIST DATA FUNCTION FOR SHOW DATA ADVANCE 
     public function AdvanceListData(Request $request)
     {
@@ -790,6 +789,26 @@ class AdvanceRequestController extends Controller
             }
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportAdvanceToASF(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $isSubmitButton = $request->session()->get('isButtonReportAdvanceToASFSubmit');
+
+            $dataReport = $isSubmitButton ? $request->session()->get('dataReportAdvanceToASF', []) : [];
+
+            $compact = [
+                'varAPIWebToken'    => $varAPIWebToken,
+                'dataReport'        => $dataReport
+            ];
+
+            return view('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF', $compact);
+        } catch (\Throwable $th) {
+            Log::error("ReportAdvanceToASF Function Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }

@@ -198,6 +198,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // ARF 
     Route::get('AdvanceListData', 'Process\Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
+    Route::get('ReportAdvanceToASF', 'Process\Advance\AdvanceRequestController@ReportAdvanceToASF')->name('AdvanceRequest.ReportAdvanceToASF');
     Route::get('ReportAdvanceSummary', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummary')->name('AdvanceRequest.ReportAdvanceSummary');
     Route::post('ReportAdvanceSummaryStore', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummaryStore')->name('AdvanceRequest.ReportAdvanceSummaryStore');
     Route::get('ReportAdvanceSummaryDetailID/{id}', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummaryDetailID')->name('AdvanceRequest.ReportAdvanceSummaryDetailID');
