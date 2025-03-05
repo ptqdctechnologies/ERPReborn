@@ -224,155 +224,155 @@ class CheckDocumentController extends Controller
     }
 
     // [OLD] FUNCTION FOR SHOW DOCUMENT BY ID
-    public function GetAllDocumentType($varAPIWebToken, $Document, $filterType, $sourceData, $statusHeader, $businessDocumentType_Name)
-    {
-        try {
+    // public function GetAllDocumentType($varAPIWebToken, $Document, $filterType, $sourceData, $statusHeader, $businessDocumentType_Name)
+    // {
+    //     try {
 
-            $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-            $varAPIWebToken = Session::get('SessionLogin');
+    //         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+    //         $varAPIWebToken = Session::get('SessionLogin');
 
-            // if (Redis::get("DataListAdvanceDetailComplex") == null) {
-            Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceDetailComplex',
-                'latest',
-                [
-                    'parameter' => [
-                        'advance_RefID' => $Document,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-            // }
+    //         // if (Redis::get("DataListAdvanceDetailComplex") == null) {
+    //         Helper_APICall::setCallAPIGateway(
+    //             Helper_Environment::getUserSessionID_System(),
+    //             $varAPIWebToken,
+    //             'transaction.read.dataList.finance.getAdvanceDetailComplex',
+    //             'latest',
+    //             [
+    //                 'parameter' => [
+    //                     'advance_RefID' => $Document,
+    //                 ],
+    //                 'SQLStatement' => [
+    //                     'pick' => null,
+    //                     'sort' => null,
+    //                     'filter' => null,
+    //                     'paging' => null
+    //                 ]
+    //             ],
+    //             false
+    //         );
+    //         // }
 
-            $DataAdvanceDetailComplex = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "DataListAdvanceDetailComplex"
-                ),
-                true
-            );
-
-
-            $collection = collect($DataAdvanceDetailComplex);
-            if ($filterType == "ID") {
-                $collection = $collection->where('Sys_ID_Advance', $Document);
-            } else if ($filterType == "Number") {
-                $collection = $collection->where('DocumentNumber', $Document);
-            }
-
-            $num = 0;
-            $filteredArray = [];
-
-            foreach ($collection as $collections) {
-                $filteredArray[$num] = $collections;
-                $num++;
-            }
-
-            $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-            $statusApprover = "No";
-            $nextApprover = 0;
-            $submitter_ID = 0;
-            $businessDocument_ID = 0;
-            $statusDocument = 0;
-            $DataWorkflowHistory = [];
-
-            if (count($filteredArray) != 0) {
-                $businessDocument_ID = $filteredArray[0]['BusinessDocument_RefID'];
+    //         $DataAdvanceDetailComplex = json_decode(
+    //             Helper_Redis::getValue(
+    //                 Helper_Environment::getUserSessionID_System(),
+    //                 "DataListAdvanceDetailComplex"
+    //             ),
+    //             true
+    //         );
 
 
-                // if (Redis::get("ApprovementHistoryList". $businessDocument_ID) == null) {
-                // dd("d");
-                $DataWorkflowHistory = Helper_APICall::setCallAPIGateway(
-                    Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'userAction.documentWorkFlow.approvalStage.getApprovementHistoryList',
-                    'latest',
-                    [
-                        'parameter' => [
-                            'businessDocument_RefID' => (int) $businessDocument_ID
-                        ]
-                    ],
-                    false
-                );
-                // }
+    //         $collection = collect($DataAdvanceDetailComplex);
+    //         if ($filterType == "ID") {
+    //             $collection = $collection->where('Sys_ID_Advance', $Document);
+    //         } else if ($filterType == "Number") {
+    //             $collection = $collection->where('DocumentNumber', $Document);
+    //         }
+
+    //         $num = 0;
+    //         $filteredArray = [];
+
+    //         foreach ($collection as $collections) {
+    //             $filteredArray[$num] = $collections;
+    //             $num++;
+    //         }
+
+    //         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+    //         $statusApprover = "No";
+    //         $nextApprover = 0;
+    //         $submitter_ID = 0;
+    //         $businessDocument_ID = 0;
+    //         $statusDocument = 0;
+    //         $DataWorkflowHistory = [];
+
+    //         if (count($filteredArray) != 0) {
+    //             $businessDocument_ID = $filteredArray[0]['BusinessDocument_RefID'];
 
 
-                // $DataWorkflowHistory = json_decode(
-                //     Helper_Redis::getValue(
-                //         Helper_Environment::getUserSessionID_System(),
-                //         "ApprovementHistoryList" . $businessDocument_ID
-                //     ),
-                //     true
-                // );
+    //             // if (Redis::get("ApprovementHistoryList". $businessDocument_ID) == null) {
+    //             // dd("d");
+    //             $DataWorkflowHistory = Helper_APICall::setCallAPIGateway(
+    //                 Helper_Environment::getUserSessionID_System(),
+    //                 $varAPIWebToken,
+    //                 'userAction.documentWorkFlow.approvalStage.getApprovementHistoryList',
+    //                 'latest',
+    //                 [
+    //                     'parameter' => [
+    //                         'businessDocument_RefID' => (int) $businessDocument_ID
+    //                     ]
+    //                 ],
+    //                 false
+    //             );
+    //             // }
 
-                $DataWorkflowHistory = $DataWorkflowHistory['data'];
 
-                if (count($DataWorkflowHistory) > 0) {
-                    $submitter_ID = $DataWorkflowHistory[0]['approverEntity_RefID'];
-                    $nextApprover = $DataWorkflowHistory[count($DataWorkflowHistory) - 1]['nextApproverEntity_RefID'];
-                    $cek = 0;
-                } else {
-                    $cek = 1;
-                }
+    //             // $DataWorkflowHistory = json_decode(
+    //             //     Helper_Redis::getValue(
+    //             //         Helper_Environment::getUserSessionID_System(),
+    //             //         "ApprovementHistoryList" . $businessDocument_ID
+    //             //     ),
+    //             //     true
+    //             // );
 
-                if ($sourceData == 0) {
-                    $statusApprover = "No";
-                } else if ($SessionWorkerCareerInternal_RefID == $nextApprover && $SessionWorkerCareerInternal_RefID != $submitter_ID) {
-                    $statusApprover = "Yes";
-                } else if ($SessionWorkerCareerInternal_RefID == $submitter_ID && $nextApprover == 0) {
-                    $statusApprover = "Resubmit";
-                }
+    //             $DataWorkflowHistory = $DataWorkflowHistory['data'];
 
-                if ($nextApprover == 0 && $cek == 0) {
-                    $statusDocument = 1;
-                } else if ($nextApprover == 0 && $cek == 1) {
-                    $statusDocument = 2;
-                }
+    //             if (count($DataWorkflowHistory) > 0) {
+    //                 $submitter_ID = $DataWorkflowHistory[0]['approverEntity_RefID'];
+    //                 $nextApprover = $DataWorkflowHistory[count($DataWorkflowHistory) - 1]['nextApproverEntity_RefID'];
+    //                 $cek = 0;
+    //             } else {
+    //                 $cek = 1;
+    //             }
 
-                if (is_null($businessDocumentType_Name)) {
-                    $businessDocumentType_Name = $filteredArray[0]['BusinessDocumentType_Name'];
-                }
-            }
+    //             if ($sourceData == 0) {
+    //                 $statusApprover = "No";
+    //             } else if ($SessionWorkerCareerInternal_RefID == $nextApprover && $SessionWorkerCareerInternal_RefID != $submitter_ID) {
+    //                 $statusApprover = "Yes";
+    //             } else if ($SessionWorkerCareerInternal_RefID == $submitter_ID && $nextApprover == 0) {
+    //                 $statusApprover = "Resubmit";
+    //             }
 
-            $compact = [
-                'varAPIWebToken' => $varAPIWebToken,
-                'dataHeader' => [$filteredArray[0]],
-                'dataDetail' => $filteredArray,
-                'businessDocument_RefID' => $filteredArray[0]['Sys_ID_Advance'],
-                'businessDocumentNumber' => $filteredArray[0]['DocumentNumber'],
-                'businessDocumentType_Name' => $businessDocumentType_Name,
-                'dataWorkFlows' => $DataWorkflowHistory,
-                'statusApprover' => $statusApprover,
-                'businessDocument_ID' => $businessDocument_ID,
-                'submitter_ID' => $submitter_ID,
-                'Log_FileUpload_Pointer_RefID' => $filteredArray[0]['Log_FileUpload_Pointer_RefID'],
-                'sourceData' => $sourceData,
-                'statusHeader' => $statusHeader,
-                'status' => "success",
-                'var' => 1,
-                'statusDocument' => $statusDocument
-            ];
+    //             if ($nextApprover == 0 && $cek == 0) {
+    //                 $statusDocument = 1;
+    //             } else if ($nextApprover == 0 && $cek == 1) {
+    //                 $statusDocument = 2;
+    //             }
 
-            return $compact;
-        } catch (\Throwable $th) {
-            // Log::error("Error at " . $th->getMessage());
-            // return redirect()->route('CheckDocument.index')->with('NotFound', 'Process Error');
+    //             if (is_null($businessDocumentType_Name)) {
+    //                 $businessDocumentType_Name = $filteredArray[0]['BusinessDocumentType_Name'];
+    //             }
+    //         }
 
-            $compact = [
-                'status' => "error"
-            ];
+    //         $compact = [
+    //             'varAPIWebToken' => $varAPIWebToken,
+    //             'dataHeader' => [$filteredArray[0]],
+    //             'dataDetail' => $filteredArray,
+    //             'businessDocument_RefID' => $filteredArray[0]['Sys_ID_Advance'],
+    //             'businessDocumentNumber' => $filteredArray[0]['DocumentNumber'],
+    //             'businessDocumentType_Name' => $businessDocumentType_Name,
+    //             'dataWorkFlows' => $DataWorkflowHistory,
+    //             'statusApprover' => $statusApprover,
+    //             'businessDocument_ID' => $businessDocument_ID,
+    //             'submitter_ID' => $submitter_ID,
+    //             'Log_FileUpload_Pointer_RefID' => $filteredArray[0]['Log_FileUpload_Pointer_RefID'],
+    //             'sourceData' => $sourceData,
+    //             'statusHeader' => $statusHeader,
+    //             'status' => "success",
+    //             'var' => 1,
+    //             'statusDocument' => $statusDocument
+    //         ];
 
-            return $compact;
-        }
-    }
+    //         return $compact;
+    //     } catch (\Throwable $th) {
+    //         // Log::error("Error at " . $th->getMessage());
+    //         // return redirect()->route('CheckDocument.index')->with('NotFound', 'Process Error');
+
+    //         $compact = [
+    //             'status' => "error"
+    //         ];
+
+    //         return $compact;
+    //     }
+    // }
 
     // FUNCTION FOR SHOW DOCUMENT FORM SUBMIT IN CHECK DOCUMENT 
     public function ShowDocument(Request $request)
