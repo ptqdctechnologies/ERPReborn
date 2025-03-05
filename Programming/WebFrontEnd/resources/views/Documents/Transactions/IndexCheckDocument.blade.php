@@ -94,9 +94,30 @@
                 </div>
               </div>
 
-              @include('Documents.Transactions.DocumentApprovalHistory')
+              <!-- APPROVAL HISTORY -->
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  <!-- TITLE -->
+                  <div class="card-header">
+                    <label class="card-title">
+                      Approval History
+                    </label>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <!-- CONTENT -->
+                  <div class="card-body">
+                    <div class="row" style="margin-top: .7rem; gap: 1rem;">
+                      @include('Components.ApprovalHistory')
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
           </div>
         </div>
       <?php } ?>

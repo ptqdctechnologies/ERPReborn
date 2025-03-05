@@ -120,24 +120,7 @@
                 <!-- CONTENT -->
                 <div class="card-body">
                   <div class="row" style="margin-top: .7rem; gap: 1rem;">
-                    <div class="col">
-                      <?php foreach ($dataWorkFlows as $dataWorkFlow) { ?>
-                        <?php $comment = $dataWorkFlow['remarks'] == "undefined" || !$dataWorkFlow['remarks'] ? '-' : $dataWorkFlow['remarks']; ?>
-                        <ul style="padding: 0 1rem;">
-                          <li>
-                            <div style="margin-bottom: .5rem;">
-                              <span style="text-transform:uppercase;font-weight:bold;">
-                                <?= $dataWorkFlow['workFlowPathActionName'] == "Rejection To Resubmit" ? "Reject" : $dataWorkFlow['workFlowPathActionName']; ?>
-                              </span>
-                              <?= date('D, m/d/Y H:m:s', strtotime($dataWorkFlow['approvalDateTimeTZ'])) ?> : <?= $dataWorkFlow['approverEntityName']; ?> (<?= $dataWorkFlow['approverEntityFullJobPositionTitle']; ?>)
-                            </div>
-                            <div>
-                              Comment : <?= nl2br(e($comment)); ?>
-                            </div>
-                          </li>
-                        </ul>
-                      <?php } ?>
-                    </div>
+                    @include('Components.ApprovalHistory')
                   </div>
                 </div>
               </div>

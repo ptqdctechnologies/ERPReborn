@@ -184,22 +184,22 @@ class CheckDocumentController extends Controller
             }
 
             $compact = [
-                'varAPIWebToken' => $varAPIWebToken,
-                'dataHeader' => [$filteredArray[0]],
-                'dataDetail' => $filteredArray,
-                'businessDocument_RefID' => $filteredArray[0]['Sys_ID_Advance'],
-                'businessDocumentNumber' => $filteredArray[0]['DocumentNumber'],
-                'businessDocumentType_Name' => $businessDocumentType_Name,
-                'DataWorkflowHistory' => $DataWorkflowHistory,
-                'statusApprover' => $statusApprover,
-                'businessDocument_ID' => $businessDocument_ID,
-                'submitter_ID' => $submitter_ID,
-                'Log_FileUpload_Pointer_RefID' => $filteredArray[0]['Log_FileUpload_Pointer_RefID'],
-                'sourceData' => $sourceData,
-                'statusHeader' => $statusHeader,
-                'status' => "success",
-                'var' => 1,
-                'statusDocument' => $statusDocument
+                'varAPIWebToken'                => $varAPIWebToken,
+                'dataHeader'                    => [$filteredArray[0]],
+                'dataDetail'                    => $filteredArray,
+                'businessDocument_RefID'        => $filteredArray[0]['Sys_ID_Advance'],
+                'businessDocumentNumber'        => $filteredArray[0]['DocumentNumber'],
+                'businessDocumentType_Name'     => $businessDocumentType_Name,
+                'dataWorkFlows'                 => $DataWorkflowHistory,
+                'statusApprover'                => $statusApprover,
+                'businessDocument_ID'           => $businessDocument_ID,
+                'submitter_ID'                  => $submitter_ID,
+                'Log_FileUpload_Pointer_RefID'  => $filteredArray[0]['Log_FileUpload_Pointer_RefID'],
+                'sourceData'                    => $sourceData,
+                'statusHeader'                  => $statusHeader,
+                'status'                        => "success",
+                'var'                           => 1,
+                'statusDocument'                => $statusDocument
             ];
 
             return $compact;
