@@ -17,7 +17,7 @@
                                                     <input id="businessDocument_RefID" style="border-radius:0;" name="businessDocument_RefID" type="text" class="form-control" hidden value="{{ $businessDocument_RefID }}">
                                                     <input id="businessDocumentNumber" style="border-radius:0;" name="businessDocumentNumber" type="text" class="form-control" value="{{ $businessDocumentNumber }}" autocomplete="off">
                                                     <div class="input-group-append">
-                                                        <span style="border-radius:0;" class="input-group-text form-control">
+                                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
                                                             <a class="nav-link mySearchCheckDocument" data-toggle="modal" data-target="#mySearchCheckDocument" javascript(0);><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                         </span>
                                                     </div>

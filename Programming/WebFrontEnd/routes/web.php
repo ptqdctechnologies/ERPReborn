@@ -21,7 +21,7 @@ $varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzM5OTUxNzc2fQ.YWRkM2ZkN2M5NzJjZjQzNmMyY2YzMDJiYzg0ZmIxYzAyN2UxODg2YWEzMTczNWJlZmRhYzIxNDc0YTRmZTc1Mw';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzQwNjI1ODUzfQ.ZDU2MDU3MzM0Y2UwMDNiMTkzMDMzZDA0OWVjNjE2OTAxYTI1YzFlNzQ2MzY1ZmMzZjg4OWM0MTUwOWRlNDJhZg';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -198,6 +198,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // ARF 
     Route::get('AdvanceListData', 'Process\Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
+    Route::get('ReportAdvanceToASF', 'Process\Advance\AdvanceRequestController@ReportAdvanceToASF')->name('AdvanceRequest.ReportAdvanceToASF');
     Route::get('ReportAdvanceSummary', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummary')->name('AdvanceRequest.ReportAdvanceSummary');
     Route::post('ReportAdvanceSummaryStore', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummaryStore')->name('AdvanceRequest.ReportAdvanceSummaryStore');
     Route::get('ReportAdvanceSummaryDetailID/{id}', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummaryDetailID')->name('AdvanceRequest.ReportAdvanceSummaryDetailID');
@@ -251,6 +252,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('RevisionBusinessTripRequestIndex', 'Process\BusinessTrip\BusinessTripRequestController@RevisionBusinessTripRequestIndex')->name('BusinessTripRequest.RevisionBusinessTripRequest');
     Route::get('BusinessTripRequestListData', 'Process\BusinessTrip\BusinessTripRequestController@BusinessTripRequestListData')->name('BusinessTripRequest.BusinessTripRequestListData');
     Route::post('BusinessTripRequestListCartRevision', 'Process\BusinessTrip\BusinessTripRequestController@BusinessTripRequestListCartRevision')->name('BusinessTripRequest.BusinessTripRequestListCartRevision');
+    Route::get('ReportBusinessTripToBSF', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripToBSF')->name('BusinessTripRequest.ReportBusinessTripToBSF');
     Route::get('ReportBusinessTripRequestSummary', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripRequestSummary')->name('BusinessTripRequest.ReportBusinessTripRequestSummary');
     Route::post('ReportBusinessTripRequestSummaryStore', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripRequestSummaryStore')->name('BusinessTripRequest.ReportBusinessTripRequestSummaryStore');
     Route::post('PrintExportReportBusinessTripRequestSummary', 'Process\BusinessTrip\BusinessTripRequestController@PrintExportReportBusinessTripRequestSummary')->name('BusinessTripRequest.PrintExportReportBusinessTripRequestSummary');

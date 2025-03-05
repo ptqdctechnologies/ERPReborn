@@ -6,7 +6,7 @@
                     <ul class="navbar-nav ml-auto left">
                         <li class="nav-item dropdown user-menu">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="color:#4B586A;font-size:12px; padding: 2px;">
-                                <span style="position:relative;">
+                                <span style="position:relative;cursor:pointer;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding: 2px 4px;border-radius:3px;"> 
                                     SELECT ACTION 
                                 </span>
@@ -18,7 +18,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link myPopUpArfRevision" data-toggle="modal" data-target="#myPopUpArfRevision" style="color:white;padding-bottom:10px;">
+                                    <a class="nav-link myPopUpArfRevision" data-toggle="modal" data-target="#myPopUpArfRevision" style="color:white;padding-bottom:10px;cursor:pointer">
                                         <i class="far fa-file nav-icon-sm"> Revision Advance Request</i>
                                     </a>
                                 </li>
@@ -38,8 +38,9 @@
         }
     });
 
-    $(function() {
-        $('.myPopUpArfRevision').on('click', function(e) {
+    // $(function() {
+        // $('.myPopUpArfRevision').on('click', function(e) {
+        $(window).one('load', function(e) {
             e.preventDefault();
 
             var keys = 0;
@@ -68,5 +69,5 @@
             });
         });
 
-    });
+    // });
 </script>

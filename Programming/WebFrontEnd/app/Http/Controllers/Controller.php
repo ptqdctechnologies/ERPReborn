@@ -129,6 +129,15 @@ class Controller extends BaseController
     public function SubmitWorkflow($businessDocument_RefID, $workFlowPath_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber)
     {
         try {
+            Log::info("Submit Workflow", [
+                'businessDocument_RefID'    => $businessDocument_RefID, 
+                'workFlowPath_RefID'        => $workFlowPath_RefID, 
+                'comment'                   => $comment, 
+                'approverEntity_RefID'      => $approverEntity_RefID, 
+                'nextApprover_RefID'        => $nextApprover_RefID, 
+                'documentNumber'            => $documentNumber
+            ]);
+
             $varAPIWebToken = Session::get('SessionLogin');
 
             $VarSubmitWorkflow = Helper_APICall::setCallAPIGateway(
@@ -138,10 +147,10 @@ class Controller extends BaseController
                 'latest',
                 [
                     'entities' => [
-                        "businessDocument_RefID" => (int)$businessDocument_RefID,
-                        "workFlowPath_RefID" => (int)$workFlowPath_RefID,
-                        "remarks" => $comment,
-                        "approverEntity_RefID" => (int)$approverEntity_RefID
+                        "businessDocument_RefID"    => (int)$businessDocument_RefID,
+                        "workFlowPath_RefID"        => (int)$workFlowPath_RefID,
+                        "remarks"                   => $comment,
+                        "approverEntity_RefID"      => (int)$approverEntity_RefID
                     ]
                 ]
             );
@@ -171,6 +180,14 @@ class Controller extends BaseController
     public function ResubmitWorkflow($businessDocument_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber)
     {
         try {
+            Log::info("Submit Workflow", [
+                'businessDocument_RefID'    => $businessDocument_RefID, 
+                'comment'                   => $comment, 
+                'approverEntity_RefID'      => $approverEntity_RefID, 
+                'nextApprover_RefID'        => $nextApprover_RefID, 
+                'documentNumber'            => $documentNumber
+            ]);
+
             $varAPIWebToken = Session::get('SessionLogin');
 
             $VarResubmitWorkflow = Helper_APICall::setCallAPIGateway(
@@ -180,16 +197,18 @@ class Controller extends BaseController
                 'latest',
                 [
                     'entities' => [
-                        "businessDocument_RefID" => (int) $businessDocument_RefID,
-                        "remarks" => $comment,
-                        "approverEntity_RefID" => (int) $approverEntity_RefID
+                        "businessDocument_RefID"    => (int) $businessDocument_RefID,
+                        "remarks"                   => $comment,
+                        "approverEntity_RefID"      => (int) $approverEntity_RefID
                     ]
                 ]
             );
 
+            Log::error("VarResubmitWorkflow: ", $VarResubmitWorkflow);
+
             $compact = [
-                "documentNumber" => $documentNumber,
-                "status" => $VarResubmitWorkflow['metadata']['HTTPStatusCode'],
+                "documentNumber"    => $documentNumber,
+                "status"            => $VarResubmitWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             if ($compact['status'] == 200) {

@@ -1,5 +1,7 @@
 <script>
+    var currentURL = window.location.href;
     var documentTypeID = $("#DocumentTypeID").val();
+    var bankNameInput = document.getElementById("bank_name_second_name");
     var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
 
     $(".loadingBudgetDetails").hide();
@@ -27,6 +29,20 @@
 
                 let tbody = $('#tableGetBudgetDetails tbody');
                 tbody.empty();
+
+                let unspecifiedProducts = data.filter(item => item.productName === "Unspecified Product");
+
+                if (unspecifiedProducts.length > 1) {
+                    let maxBudgetProduct = unspecifiedProducts.reduce((max, item) => {
+                        let totalBudget = item.quantity * item.priceBaseCurrencyValue;
+                        return totalBudget > (max.quantity * max.priceBaseCurrencyValue) ? item : max;
+                    });
+
+                    data = data.filter(item => 
+                        item.productName !== "Unspecified Product" || 
+                        (item.productName === "Unspecified Product" && item === maxBudgetProduct)
+                    );
+                }
 
                 $.each(data, function(key, val2) {
                     let isUnspecified = '';
@@ -94,9 +110,8 @@
 
                     tbody.append(row);
 
-                    // Simpan nilai default untuk reset nanti
                     $(`#product_id${key}`).data('default', $(`#product_id${key}`).val());
-                    $(`#product_name${key}`).data('default', $(`#product_name${key}`).val());
+                    $(`#product_name${key}`).data('default', $(`#product_name${key}`).text());
                     $(`#qty_req${key}`).data('default', $(`#qty_req${key}`).val());
                     $(`#price_req${key}`).data('default', $(`#price_req${key}`).val());
                     $(`#total_req${key}`).data('default', $(`#total_req${key}`).val());
@@ -351,8 +366,9 @@
         document.getElementById('TotalBudgetSelected').textContent = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    document.addEventListener('keyup', (event) => {
-        if (event.target.id?.startsWith('qty_req') || event.target.id?.startsWith('price_req')) {
+    $("#tableGetBudgetDetails").on('keyup', function(event) {
+        const targetId = event.target.id;
+        if (targetId.startsWith('qty_req') || targetId.startsWith('price_req')) {
             calculateTotal();
         }
     });
@@ -389,9 +405,8 @@
             totalReq = totalReq.replace(/,/g, ""); 
             totalReq = parseFloat(totalReq) || 0;
 
-            // Validasi: jika ada salah satu field yang kosong
             if (!productId || !qtyReq || !priceReq || !totalReq) {
-                return;  // Skip ke baris berikutnya jika ada field yang kosong
+                return;
             }
 
             totals += totalReq;
@@ -405,11 +420,11 @@
 
                 if (existingProductId === productId) {
                     if (existingQty === qtyReq && existingPrice === priceReq) {
-                        rowToUpdate = $(this); // Jika qty dan price sama, hanya update jika productId berubah
+                        rowToUpdate = $(this);
                     } else {
-                        rowToUpdate = $(this); // Jika ada perbedaan, baris akan diperbarui
+                        rowToUpdate = $(this);
                     }
-                    return false; // Stop looping
+                    return false;
                 }
             });
 
@@ -425,7 +440,6 @@
                 var_currency.push(currency);
                 var_combinedBudgetSectionDetail_RefID.push(combinedBudgetSectionDetail_RefID);
 
-                // Update baris yang sudah ada
                 rowToUpdate.find("td:eq(0)").text(productId);
                 rowToUpdate.find("td:eq(1)").text(productName);
                 rowToUpdate.find("td:eq(2)").text(uom);
@@ -445,7 +459,6 @@
                 var_currency.push(currency);
                 var_combinedBudgetSectionDetail_RefID.push(combinedBudgetSectionDetail_RefID);
 
-                // Jika tidak ada duplikasi, tambahkan baris baru
                 var newRow = `<tr>
                     <td style="text-align: center; padding: 0.8rem 0px;">${productId}</td>
                     <td style="text-align: center; padding: 0.8rem 0px;">${productName}</td>
@@ -474,12 +487,11 @@
     });
 
     $('#budget-details-reset').on('click', function() {
-        // Reset semua input ke nilai default
         $('input[id^="product_id"]').each(function() {
             $(this).val($(this).data('default'));
         });
-        $('input[id^="product_name"]').each(function() {
-            $(this).val($(this).data('default'));
+        $('td[id^="product_name"]').each(function() {
+            $(this).text($(this).data('default'));
         });
         $('input[id^="qty_req"]').each(function() {
             $(this).val($(this).data('default'));
@@ -509,7 +521,7 @@
         document.getElementById('TotalBudgetSelected').textContent = "0.00";
     });
     
-    $("#FormSubmitAdvance").on("submit", function(e) { //id of form 
+    $("#FormSubmitAdvance").on("submit", function(e) {
         e.preventDefault();
 
         const swalWithBootstrapButtons = Swal.mixin({
@@ -530,16 +542,16 @@
             reverseButtons: true
         }).then((result) => {
             if (result.value) {
-                var action = $(this).attr("action"); //get submit action from form
-                var method = $(this).attr("method"); // get submit method
-                var form_data = new FormData($(this)[0]); // convert form into formdata 
+                var action = $(this).attr("action");
+                var method = $(this).attr("method");
+                var form_data = new FormData($(this)[0]); 
                 var form = $(this);
 
                 ShowLoading();
 
                 $.ajax({
                     url: action,
-                    dataType: 'json', // what to expect back from the server
+                    dataType: 'json',
                     cache: false,
                     contentType: false,
                     processData: false,
@@ -549,7 +561,7 @@
                         if (response.message == "WorkflowError") {
                             HideLoading();
                             $("#submitArf").prop("disabled", false);
-                            // CALL FUNCTION DO NOT HAVE ACCESS NOTIF
+
                             CancelNotif("You don't have access", '/AdvanceRequest?var=1');
                         } else if (response.message == "MoreThanOne") {
                             HideLoading();
@@ -582,7 +594,6 @@
         });
     });
 
-    const bankNameInput = document.getElementById("bank_name_second_name");
     const observer = new MutationObserver(() => {
         const bankNameID                = document.getElementById("bank_name_second_id");
         const beneficiaryPersonRefID    = document.getElementById("beneficiary_second_person_ref_id");
@@ -593,6 +604,8 @@
             getBankAccountData(bankNameID.value, beneficiaryPersonRefID.value);
         }
     });
-    
-    observer.observe(bankNameInput, { attributes: true, childList: true, subtree: true, characterData: true });
+
+    if (currentURL.search('var=1') == '-1') {
+        observer.observe(bankNameInput, { attributes: true, childList: true, subtree: true, characterData: true });
+    }
 </script>
