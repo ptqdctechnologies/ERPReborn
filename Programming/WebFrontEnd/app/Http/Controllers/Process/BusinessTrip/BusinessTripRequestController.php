@@ -1998,6 +1998,26 @@ class BusinessTripRequestController extends Controller
         }
     }
 
+    public function ReportBusinessTripToBSF(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $isSubmitButton = $request->session()->get('isButtonReportBusinessTripToBSFSubmit');
+
+            $dataReport = $isSubmitButton ? $request->session()->get('dataReportBusinessTripToBSF', []) : [];
+
+            $compact = [
+                'varAPIWebToken'    => $varAPIWebToken,
+                'dataReport'        => $dataReport
+            ];
+
+            return view('Process.BusinessTrip.BusinessTripToBSF.Reports.ReportBusinessTripToBSF', $compact);
+        } catch (\Throwable $th) {
+            Log::error("ReportBusinessTripToBSF Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function PrintExportReportBusinessTripRequestDetail(Request $request) 
     {
         try {
