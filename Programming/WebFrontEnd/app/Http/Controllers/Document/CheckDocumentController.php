@@ -65,10 +65,8 @@ class CheckDocumentController extends Controller
     }
 
     // GET ADVANCE DETAIL
-    private function fetchAdvanceDetails($Document, $filterType)
+    private function FetchAdvanceDetails($varAPIWebToken, $Document, $filterType)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
-
         Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -107,10 +105,8 @@ class CheckDocumentController extends Controller
     }
 
     // GET WORKFLOW HISTORY
-    private function fetchWorkflowHistory($businessDocumentRefID)
+    private function FetchWorkflowHistory($varAPIWebToken, $businessDocumentRefID)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
-
         $workflowHistory = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -126,7 +122,7 @@ class CheckDocumentController extends Controller
     }
 
     // VALIDATE APPROVER STATUS
-    private function determineApproverStatus($workflowHistory, $sourceData)
+    private function DetermineApproverStatus($workflowHistory, $sourceData)
     {
         $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
@@ -149,7 +145,7 @@ class CheckDocumentController extends Controller
     }
 
     // VALIDATE DOCUMENT STATUS
-    private function determineDocumentStatus($workflowHistory)
+    private function DetermineDocumentStatus($workflowHistory)
     {
         if (empty($workflowHistory)) {
             return 2;
@@ -189,18 +185,15 @@ class CheckDocumentController extends Controller
     public function GetAllDocumentType($varAPIWebToken, $Document, $filterType, $sourceData, $statusHeader, $businessDocumentTypeName)
     {
         try {
-            $varAPIWebToken                     = Session::get('SessionLogin');
-            $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
-
-            $collection = $this->fetchAdvanceDetails($Document, $filterType);
+            $collection = $this->FetchAdvanceDetails($varAPIWebToken, $Document, $filterType);
 
             if (empty($collection)) {
                 return ['status' => 'error'];
             }
 
-            $workflowData   = $this->fetchWorkflowHistory($collection[0]['BusinessDocument_RefID']);
-            $approverStatus = $this->determineApproverStatus($workflowData, $sourceData);
-            $documentStatus = $this->determineDocumentStatus($workflowData);
+            $workflowData   = $this->FetchWorkflowHistory($varAPIWebToken, $collection[0]['BusinessDocument_RefID']);
+            $approverStatus = $this->DetermineApproverStatus($workflowData, $sourceData);
+            $documentStatus = $this->DetermineDocumentStatus($workflowData);
 
             return $this->composeResponse(
                 $collection,
