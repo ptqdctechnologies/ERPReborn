@@ -19,7 +19,8 @@
             </div>
         </div>
     </div>
-    
+</div>
+<div class="col-sm-12 col-md-12 col-lg-4">
     <!-- SUB BUDGET -->
     <div class="row p-0 align-items-center">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
