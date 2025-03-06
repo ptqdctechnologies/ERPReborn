@@ -71,4 +71,25 @@ if [ ! -f /zhtConf/tmp/processSign/.initialized ]; then
    samba-tool user delete wisnu.trenggono;
    samba-tool user add wisnu.trenggono wisnu1234;
 
+   samba-tool user delete adhe.kurniawan;
+   samba-tool user add adhe.kurniawan adhe.kurniawan1234;
+   
+   samba-tool user delete eka.kurniawan;
+   samba-tool user add  eka.kurniawan eka.kurniawan1234;
+
+   samba-tool user delete eka.purwanti;
+   samba-tool user add eka.purwanti eka.purwanti1234;
+
+   samba-tool user delete fikri;
+   samba-tool user add fikri fikri1234;
+
+   samba-tool user delete irma.maulidawati;
+   samba-tool user add irma.maulidawati irma.maulidawati1234;
+
+   samba-tool user delete jimmy;
+   samba-tool user add jimmy jimmy1234;
+
+   samba-tool user delete marungkil;
+   samba-tool user add marungkil marungkil1234;
+
 fi
