@@ -18,12 +18,12 @@
                                     </h3>
                                 </div>
                                 <div class="d-flex" style="flex-direction: column; justify-content: center;">
-                                    <a class="btn btn-default btn-sm" style="border:1px solid #ced4da;" href="{{ route('CheckDocument.ShowDocumentByID', [
-                                        'businessDocument_RefID'    => $dataHeader[0]['source_RefPID'],
-                                        'businessDocumentTypeName'  => $documentName,
-                                        ]) }}">
-                                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="">
-                                    </a>
+                                <button class="btn btn-default btn-sm" style="border:1px solid #ced4da;" onclick="window.location.href='{{ route('CheckDocument.ShowDocumentByID', [
+                                    'businessDocument_RefID' => $dataHeader[0]['source_RefPID'],
+                                    'businessDocumentTypeName' => $documentName,
+                                    ]) }}'">
+                                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="">
+                                </button>
                                 </div>
                             </div>
                         </div>

@@ -91,18 +91,18 @@
                         :
                     </div>
                     <div class="input-group">
-                        <a class="btn btn-default btn-sm" href="{{ route('LogTransaction', [
+                        <button class="btn btn-default btn-sm" onclick="window.location.href='{{ route('LogTransaction', [
                             'id'        => $dataHeader[0]['Sys_ID_Advance'],
                             'docNum'    => $dataHeader[0]['DocumentNumber'],
                             'docName'   => $dataHeader[0]['BusinessDocumentType_Name']
-                            ]) }}">
+                            ]) }}'">
                             Show Revision History
-                        </a>
+                        </button>
                     </div>
                 </div>
             <?php } else { ?>
                 <div class="col">
-                    : -
+                    : 0
                 </div>
             <?php } ?>
         </div>
