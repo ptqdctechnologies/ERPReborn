@@ -580,9 +580,9 @@ class CheckDocumentController extends Controller
     //LOG TRANSACTION
     public function LogTransaction(Request $request)
     {
-        $id = $request->input('id');
-        $docNum = $request->input('docNum');
-        $docName = $request->input('docName');
+        $id         = $request->input('id');
+        $docNum     = $request->input('docNum');
+        $docName    = $request->input('docName');
 
         $varAPIWebToken = Session::get('SessionLogin');
 
@@ -627,12 +627,14 @@ class CheckDocumentController extends Controller
         // dd($dataDetail);
 
         $compact = [
-            'data' => $varData['data'],
-            'documentNumber' => $docNum,
-            'documentName' => $docName,
-            'dataHeader' => $dataHeader,
-            'dataDetail' => $dataDetail
+            'data'              => $varData['data'],
+            'documentNumber'    => $docNum,
+            'documentName'      => $docName,
+            'dataHeader'        => $dataHeader,
+            'dataDetail'        => $dataDetail
         ];
+
+        // dump($compact);
 
         if ($docName == "Advance Form") {
             return view('Documents.Transactions.LogTransaction.LogTransactionAdvance', $compact);

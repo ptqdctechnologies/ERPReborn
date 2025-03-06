@@ -1,8 +1,8 @@
 <script>
-    var currentURL = window.location.href;
-    var documentTypeID = $("#DocumentTypeID").val();
-    var bankNameInput = document.getElementById("bank_name_second_name");
-    var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+    var date            = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+    var currentURL      = window.location.href;
+    var documentTypeID  = $("#DocumentTypeID").val();
+    var bankNameInput   = document.getElementById("bank_name_second_name");
 
     $(".loadingBudgetDetails").hide();
     $(".errorMessageContainerBudgetDetails").hide();
@@ -73,6 +73,7 @@
                         balanced = '-';
                     }
 
+                    // <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantityRemaining)}</td>
                     let row = `
                         <tr>
                             <input id="productId${key}" name="productId${key}" data-product-id="productId" value="${val2.product_RefID}" type="hidden" />
@@ -88,7 +89,7 @@
                             
                             ${productColumn}
                             <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
-                            <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantityRemaining)}</td>
+                            <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantity)}</td>
                             <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
                             <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
                             <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>

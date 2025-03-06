@@ -92,21 +92,22 @@ class AdvanceRequestController extends Controller
             $input                                              = Session::get('dataInputStore' . $documentTypeID);
             $input['dataInput_Log_FileUpload_Pointer_RefID']    = $request->fileAttachment;
 
-            $product_id     = json_decode($input['var_product_id'], true);
-            $quantity       = json_decode($input['var_quantity'], true);
-            $qty_id         = json_decode($input['var_qty_id'], true);
-            $currency_id    = json_decode($input['var_currency_id'], true);
-            $price          = json_decode($input['var_price'], true);
+            $product_id                         = json_decode($input['var_product_id'], true);
+            $quantity                           = json_decode($input['var_quantity'], true);
+            $qty_id                             = json_decode($input['var_qty_id'], true);
+            $currency_id                        = json_decode($input['var_currency_id'], true);
+            $price                              = json_decode($input['var_price'], true);
+            $combinedBudgetSectionDetail_RefID  = json_decode($input['var_combinedBudgetSectionDetail_RefID'], true);
 
-            $advanceDetail = array_map(function ($index) use ($product_id, $quantity, $qty_id, $currency_id, $price) {
+            $advanceDetail = array_map(function ($index) use ($product_id, $quantity, $qty_id, $currency_id, $price, $combinedBudgetSectionDetail_RefID) {
                 return [
                     'entities' => [
-                        "combinedBudgetSectionDetail_RefID"     => 169000000000001, // DISINI $combinedBudgetSectionDetail_RefID_convert[$n]
+                        "combinedBudgetSectionDetail_RefID"     => (int) 169000000000001, // Hardcode: 169000000000001, Actually: $combinedBudgetSectionDetail_RefID[$n]
                         "product_RefID"                         => (int) $product_id[$index],
-                        "quantity"                              => (float) $quantity[$index],
+                        "quantity"                              => (float) str_replace(',', '', $quantity[$index]),
                         "quantityUnit_RefID"                    => (int) $qty_id[$index], 
                         "productUnitPriceCurrency_RefID"        => (int) $currency_id[$index],
-                        "productUnitPriceCurrencyValue"         => (float) $price[$index],
+                        "productUnitPriceCurrencyValue"         => (float) str_replace(',', '', $price[$index]),
                         "productUnitPriceCurrencyExchangeRate"  => 1,
                         "remarks"                               => 'Catatan Detail'
                     ]
@@ -329,12 +330,12 @@ class AdvanceRequestController extends Controller
                     $advanceDetail[$n] = [
                         'recordID' => ((!$record_id_convert[$n]) ? null : (int) $record_id_convert[$n]),
                         'entities' => [
-                            "combinedBudgetSectionDetail_RefID"     => (int) 169000000000001,
+                            "combinedBudgetSectionDetail_RefID"     => (int) $combinedBudgetSectionDetail_RefID_convert[$n], // Hardcode: 169000000000001, Actually: $combinedBudgetSectionDetail_RefID_convert[$n]
                             "product_RefID"                         => (int) $product_id_convert[$n],
-                            "quantity"                              => $quantity_convert[$n],
+                            "quantity"                              => (float) str_replace(',', '', $quantity_convert[$n]),
                             "quantityUnit_RefID"                    => (int) $qty_id_convert[$n],
                             "productUnitPriceCurrency_RefID"        => (int) $currency_id_convert[$n],
-                            "productUnitPriceCurrencyValue"         => $price_convert[$n],
+                            "productUnitPriceCurrencyValue"         => (float) str_replace(',', '', $price_convert[$n]),
                             "productUnitPriceCurrencyExchangeRate"  => 1,
                             "remarks"                               => 'Catatan Detail'
                         ]

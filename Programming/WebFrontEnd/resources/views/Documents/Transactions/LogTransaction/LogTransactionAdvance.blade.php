@@ -11,10 +11,20 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                                <center>
-                                    <h3><span style="text-transform:uppercase;font-weight:bold;">Revision History for {{ $documentName }} : {{ $documentNumber }}</span></h3>
-                                </center>
+                            <div class="card-header d-flex">
+                                <div class="text-center" style="width: 100%;">
+                                    <h3 style="text-transform: uppercase; font-weight: bold;">
+                                        Revision History for {{ $documentName }} : {{ $documentNumber }}
+                                    </h3>
+                                </div>
+                                <div class="d-flex" style="flex-direction: column; justify-content: center;">
+                                    <a class="btn btn-default btn-sm" style="border:1px solid #ced4da;" href="{{ route('CheckDocument.ShowDocumentByID', [
+                                        'businessDocument_RefID'    => $dataHeader[0]['source_RefPID'],
+                                        'businessDocumentTypeName'  => $documentName,
+                                        ]) }}">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="">
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -56,14 +66,14 @@
                                                         <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['product_RefID'] }}</td>
                                                         <td style="padding: 8px;">{{ $dataDetail[$i][0]['productName'] }}</td>
                                                         <td style="padding: 8px;">{{ $dataDetail[$i][0]['quantityUnitName'] }}</td>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['quantity'] }}</td>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['productUnitPriceCurrencyValue'] }}</td>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['priceCurrencyValue'] }}</td>
+                                                        <td style="padding: 8px;">{{ number_format($dataDetail[$i][0]['content']['quantity'], 2) }}</td>
+                                                        <td style="padding: 8px;">{{ number_format($dataDetail[$i][0]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
+                                                        <td style="padding: 8px;">{{ number_format($dataDetail[$i][0]['content']['priceCurrencyValue'], 2) }}</td>
                                                     
                                                         @for($n = 1; $n < count($dataDetail[$i]); $n++)
-                                                            <td style="padding: 8px;">{{ $dataDetail[$i][$n]['content']['quantity'] }}</td>
-                                                            <td style="padding: 8px;">{{ $dataDetail[$i][$n]['content']['productUnitPriceCurrencyValue'] }}</td>
-                                                            <td style="padding: 8px;">{{ $dataDetail[$i][$n]['content']['priceCurrencyValue'] }}</td>
+                                                            <td style="padding: 8px;">{{ number_format($dataDetail[$i][$n]['content']['quantity'], 2) }}</td>
+                                                            <td style="padding: 8px;">{{ number_format($dataDetail[$i][$n]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
+                                                            <td style="padding: 8px;">{{ number_format($dataDetail[$i][$n]['content']['priceCurrencyValue'], 2) }}</td>
                                                         @endfor
                                                     </tr>
                                                 @endfor
