@@ -2014,6 +2014,99 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
             }
 
 
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_PurchaseOrderList_LatestVersion                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-03-10                                                                                           |
+        | ▪ Creation Date   : 2025-03-10                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pesanan Pembelian (Purchase Order List) Versi Terakhir                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_PurchaseOrderList_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseOrderListList',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [FALSE, 'boolean'],
+                            ]
+                            )
+                        );
+
+                $count_foreach = 0;
+                $Sys_PID = 0;
+                $idx_array = 0;
+                $PriceFinalBaseCurrencyValue = 0;
+                $varReturn["dataSecondary"] = [];
+
+                foreach ($varReturn["data"] as $x => $y) {
+                    if ($count_foreach == 0) {
+                        $Sys_PID = $varReturn["data"][$x]["Sys_PID"];
+
+                        $varReturn["dataSecondary"][$idx_array]["Sys_PID"] = $y["Sys_PID"];
+                        $varReturn["dataSecondary"][$idx_array]["DocumentNumber"] = $y["DocumentNumber"];
+                        $varReturn["dataSecondary"][$idx_array]["CombinedBudgetCode"] = $y["CombinedBudgetCode"];
+                        $varReturn["dataSecondary"][$idx_array]["CombinedBudgetSectionCode"] = $y["CombinedBudgetSectionCode"];
+                        $PriceFinalBaseCurrencyValue += (int) $y["PriceFinalBaseCurrencyValue"];
+                        $varReturn["dataSecondary"][$idx_array]["PriceFinalBaseCurrencyValue"] = $PriceFinalBaseCurrencyValue;
+                    } else if ($count_foreach > 0) {
+                        if ($Sys_PID != $varReturn["data"][$x]["Sys_PID"]) {
+                            $PriceFinalBaseCurrencyValue = 0;
+                            $idx_array++;
+                            $Sys_PID = $varReturn["data"][$x]["Sys_PID"];
+
+                            $varReturn["dataSecondary"][$idx_array]["Sys_PID"] = $y["Sys_PID"];
+                            $varReturn["dataSecondary"][$idx_array]["DocumentNumber"] = $y["DocumentNumber"];
+                            $varReturn["dataSecondary"][$idx_array]["CombinedBudgetCode"] = $y["CombinedBudgetCode"];
+                            $varReturn["dataSecondary"][$idx_array]["CombinedBudgetSectionCode"] = $y["CombinedBudgetSectionCode"];
+                            $PriceFinalBaseCurrencyValue += (int) $y["PriceFinalBaseCurrencyValue"];
+                            $varReturn["dataSecondary"][$idx_array]["PriceFinalBaseCurrencyValue"] = $PriceFinalBaseCurrencyValue;
+                        } else {
+                            $PriceFinalBaseCurrencyValue += (int) $y["PriceFinalBaseCurrencyValue"];
+                            $varReturn["dataSecondary"][$idx_array]["PriceFinalBaseCurrencyValue"] = $PriceFinalBaseCurrencyValue;
+                        }
+                    }
+                    $count_foreach++;
+                }
+
+                $varReturn["data"] = $varReturn["dataSecondary"];
+                $varReturn["rowCount"] = count($varReturn["data"]);
+                unset($varReturn["dataSecondary"]);
+                return $varReturn;
+            }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                          |
