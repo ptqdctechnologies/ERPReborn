@@ -324,12 +324,14 @@ namespace App\Models\Database\SchSysConfig
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
-                    'SELECT "SchSysConfig"."Func_General_GetWorkFlowPathOfBusinessDocument"('.
-                        $varBusinessDocument_RefID.'::bigint'.
-                        ');'
+                    'SELECT '.
+                        '"SchSysConfig"."Func_General_GetWorkFlowPathOfBusinessDocument"('.
+                            $varBusinessDocument_RefID.'::bigint'.
+                            ');'
                     );
 
-            return (int) $varReturn['data'][0]['Func_General_GetWorkFlowPathOfBusinessDocument'];   
+            return
+                (int) $varReturn['data'][0]['Func_General_GetWorkFlowPathOfBusinessDocument'];   
             }
 
 
@@ -1141,8 +1143,10 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );
 
-                return $varReturn['data'][0];
+                return
+                    $varReturn['data'][0];
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
