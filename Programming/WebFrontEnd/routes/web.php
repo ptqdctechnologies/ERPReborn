@@ -173,6 +173,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getNewSite', 'Function\FunctionController@getNewSite')->name('getNewSite');
     Route::get('getBudget', 'Function\FunctionController@getBudget')->name('getBudget');
     Route::get('getAdvance', 'Function\FunctionController@getAdvance')->name('getAdvance');
+    Route::get('getPerson', 'Function\FunctionController@getPerson')->name('getPerson');
     Route::get('getBank', 'Function\FunctionController@getBank')->name('getBank');
     Route::get('getBankList', 'Function\FunctionController@getBankList')->name('getBankList');
     Route::get('getBankAccount', 'Function\FunctionController@getBankAccount')->name('getBankAccount');

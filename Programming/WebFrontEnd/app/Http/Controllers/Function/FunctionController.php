@@ -1023,6 +1023,23 @@ class FunctionController extends Controller
         return response()->json(array_values($filteredData));
     }
 
+    public function getPerson(Request $request)
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+        
+        $varDataPerson = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.master.getPerson', 
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+
+        return response()->json($varDataPerson['data']);
+    }
+
     // NITIP
     // $userSessionID = Helper_Environment::getUserSessionID_System();
     // $varData = Helper_APICall::setCallAPIGateway(

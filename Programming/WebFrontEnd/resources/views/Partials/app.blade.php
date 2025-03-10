@@ -45,6 +45,18 @@
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" /> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/daterangepicker/daterangepicker.css') }}">
+
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }} ../../plugins/">
+
   <!-- Core  -->
   <script src="{{ asset('js/zht-js/core.js') }}"></script>
   <script>
@@ -71,8 +83,13 @@
   </div>
 
   <!-- jQuery -->
+  <script src="{{ asset('AdminLTE-master/plugins/jquery/jquery.min.js')}}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/moment/moment.min.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/daterangepicker/daterangepicker.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
   <script>
     $(function () {
@@ -87,6 +104,7 @@
   <script src="{{ asset('AdminLTE-master/dist/js/adminlte.js') }}"></script>
   <!-- Select2 -->
   <script src="{{ asset('AdminLTE-master/plugins/select2/js/select2.full.min.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
   <!-- Format Date -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js"></script>
 </body>
