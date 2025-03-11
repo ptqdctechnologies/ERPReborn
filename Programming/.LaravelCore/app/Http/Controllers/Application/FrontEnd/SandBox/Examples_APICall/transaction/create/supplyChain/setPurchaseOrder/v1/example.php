@@ -37,9 +37,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        $varAPIWebToken, 
-                        'transaction.create.supplyChain.setPurchaseOrder', 
-                        'latest', 
+                        $varAPIWebToken,
+                        'transaction.create.supplyChain.setPurchaseOrder',
+                        'latest',
                         [
                         'entities' => [
                             "documentDateTimeTZ" => '2022-03-04',
@@ -59,13 +59,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "quantity" => 10,
                                                 "quantityUnit_RefID" => 73000000000001,
                                                 "productUnitPriceCurrency_RefID" => 62000000000001,
-                                                "productUnitPriceCurrencyeValue" => 30000,
+                                                "productUnitPriceCurrencyValue" => 30000,
                                                 "productUnitPriceCurrencyExchangeRate" => 1,
                                                 "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
-                                                "productUnitPriceDiscountCurrencyeValue" => 0,
+                                                "productUnitPriceDiscountCurrencyValue" => 0,
                                                 "productUnitPriceDiscountCurrencyExchangeRate" => 1,
                                                 "remarks" => 'Catatan Pertama'
-                                                ]                                    
+                                                ]
                                             ],
                                             [
                                             "entities" => [
@@ -73,13 +73,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "quantity" => 10,
                                                 "quantityUnit_RefID" => 73000000000001,
                                                 "productUnitPriceCurrency_RefID" => 62000000000001,
-                                                "productUnitPriceCurrencyeValue" => 30000,
+                                                "productUnitPriceCurrencyValue" => 30000,
                                                 "productUnitPriceCurrencyExchangeRate" => 1,
                                                 "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
-                                                "productUnitPriceDiscountCurrencyeValue" => 0,
+                                                "productUnitPriceDiscountCurrencyValue" => 0,
                                                 "productUnitPriceDiscountCurrencyExchangeRate" => 1,
                                                 "remarks" => 'Catatan Kedua'
-                                                ]                                    
+                                                ]
                                             ],
                                             [
                                             "entities" => [
@@ -87,10 +87,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "quantity" => 10,
                                                 "quantityUnit_RefID" => 73000000000001,
                                                 "productUnitPriceCurrency_RefID" => 62000000000002,
-                                                "productUnitPriceCurrencyeValue" => 30,
+                                                "productUnitPriceCurrencyValue" => 30,
                                                 "productUnitPriceCurrencyExchangeRate" => 1,
                                                 "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
-                                                "productUnitPriceDiscountCurrencyeValue" => 10000,
+                                                "productUnitPriceDiscountCurrencyValue" => 10000,
                                                 "productUnitPriceDiscountCurrencyExchangeRate" => 1,
                                                 "remarks" => 'Catatan Kedua Tambahan'
                                                 ]
@@ -105,7 +105,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "tariffCurrency_RefID" => 62000000000001,
                                                 "tariffCurrencyValue" => 30000,
                                                 "tariffCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan 1'                                
+                                                "remarks" => 'Catatan 1'
                                                 ]
                                             ],
                                             [
@@ -116,7 +116,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "tariffCurrencyExchangeRate" => 1,
                                                 "remarks" => 'Catatan 2'
                                                 ]
-                                            ]                            
+                                            ]
                                         ]
                                     ],
                                 "additionalCost" => [
@@ -147,13 +147,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 ]
                                             ]
                                         ]
-                                    ]                        
+                                    ]
                                 ]
                             ]
                         ]
                     );
 
-            var_dump($varData);
+            return $varData;
             }
 
 
@@ -204,10 +204,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                        $varAPIWebToken, 
-                        'transaction.create.supplyChain.setPurchaseOrder', 
-                        'latest', 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'transaction.create.supplyChain.setPurchaseOrder',
+                        'latest',
                         '{'.
                             '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                             '"entities" : {'.
@@ -219,7 +219,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                 '"remarks" : document.getElementById("dataInput_Remarks").value'.
                                 '}'.
                         '}'
-                    ); 
+                    );
 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
 
