@@ -66,12 +66,15 @@
 <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
+      <!-- TITLE -->
       <div class="modal-header">
         <h3 class="modal-title text-bold" id="eventModalLabel">Add Event</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
+      <!-- BODY -->
       <div class="modal-body">
         <div class="card mb-0">
           <div class="card-body">
@@ -196,7 +199,7 @@
                   <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
                   <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-end" style="gap: .5rem;">
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="saveEvent()">Save</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="eventModalSubmit" onclick="saveEvent()">Save</button>
                   </div>
                 </div>
               </div>

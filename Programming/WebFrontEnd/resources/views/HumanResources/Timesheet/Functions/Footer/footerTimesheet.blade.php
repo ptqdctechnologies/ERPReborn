@@ -1,10 +1,14 @@
 <script>
-    var testing = [
+    var dataProject = [];
+    var triggerUpdateByID = '';
+    var siteUpdateID = '';
+    var dataEvents = [
         // {
         //     id: 1741599036136,
         //     title: "Party",
-        //     start: "2025-03-10T16:00",
-        //     end: "2025-03-14T17:30",
+        //     start: "2025-03-20T14:30:00",
+        //     end: "2025-03-20T17:30:00",
+        //     allDay: false,
         // },
         // {
         //     id: '33',
@@ -48,7 +52,7 @@
         //     url: 'https://google.com/'
         // },
     ];
-
+    
     function getProject() {
         $.ajaxSetup({
             headers: {
@@ -61,6 +65,8 @@
             url: '{!! route("getNewProject") !!}',
             success: function(data) {
                 if (data && Array.isArray(data)) {
+                    dataProject = data;
+
                     $('#projectSelect').empty();
                     $('#projectSelect').append('<option disabled selected>Select a Project Code</option>');
 
@@ -94,7 +100,9 @@
             success: function(data) {
                 $("#siteLoading").hide();
 
-                if (data && Array.isArray(data)) {
+                if (triggerUpdateByID) {
+                    document.getElementById("siteSelect").value = siteUpdateID;
+
                     $('#siteSelect').empty();
                     $('#siteSelect').append('<option disabled selected>Select a Site Code</option>');
 
@@ -102,9 +110,22 @@
                         $('#siteSelect').append('<option value="' + site.Sys_ID + '">' + '(' + site.Code + ') ' + site.Name + '</option>');
                     });
 
+                    $("#siteSelect").prop("disabled", false);
+                    $("#siteSelect").val(siteUpdateID).change();
                     $("#siteSelectContainer").show();
                 } else {
-                    console.log('Data site code not found.');
+                    if (data && Array.isArray(data)) {
+                        $('#siteSelect').empty();
+                        $('#siteSelect').append('<option disabled selected>Select a Site Code</option>');
+
+                        data.forEach(function(site) {
+                            $('#siteSelect').append('<option value="' + site.Sys_ID + '">' + '(' + site.Code + ') ' + site.Name + '</option>');
+                        });
+
+                        $("#siteSelectContainer").show();
+                    } else {
+                        console.log('Data site code not found.');
+                    }
                 }
             },
             error: function (textStatus, errorThrown) {
@@ -150,6 +171,24 @@
         return `${formattedDate}T${fromHours}`;
     }
 
+    function resetForm(params) {
+        document.getElementById("eventStartDate").value         = params.startDate;
+        document.getElementById("eventFinishDate").value        = params.finishDate;
+        document.getElementById("eventFromHours").value         = params.fromHours;
+        document.getElementById("eventToHours").value           = params.toHours;
+        document.getElementById("eventDailyAct").value          = params.dailyAct;
+        document.getElementById("eventModalLabel").innerHTML    = params.title;
+        document.getElementById("eventModalSubmit").innerHTML   = params.submit;
+        document.getElementById("projectSelect").value          = params.projectID;
+        document.getElementById("siteSelect").value             = params.siteID;
+        document.getElementById("onBehalfSelect").value         = params.personID;
+
+        $("#projectSelect").val(params.changeProjectID).change();
+        $("#siteSelect").prop("disabled", params.changeDisabledSiteID);
+        $("#siteSelect").val(params.changeSiteID).change();
+        $("#onBehalfSelect").val(params.changePersonID).change();
+    }
+
     function saveEvent() {
         var uniqid      = Date.now();
         var startDate   = document.getElementById("eventStartDate");
@@ -160,24 +199,60 @@
         var siteID      = document.getElementById("siteSelect");
         var personID    = document.getElementById("onBehalfSelect");
         var dailyAct    = document.getElementById("eventDailyAct");
+        var findProject = dataProject.find((el) => el.sys_ID == projectID.value);
 
         const dataObject = {
-            id: uniqid,
-            title: dailyAct.value,
+            title: `(${findProject.code}) ${dailyAct.value}`,
             start: convertToISODateTime(startDate.value, fromHours.value),
-            end: convertToISODateTime(finishDate.value, toHours.value)
+            end: convertToISODateTime(finishDate.value, toHours.value),
+            originData: {
+                startDate: startDate.value,
+                finishDate: finishDate.value,
+                fromHours: fromHours.value,
+                toHours: toHours.value,
+                projectID: projectID.value,
+                siteID: siteID.value,
+                personID: personID.value,
+                dailyAct: dailyAct.value
+            }
         };
 
-        testing.push(dataObject);
+        if (triggerUpdateByID) {
+            var findIndex   = dataEvents.findIndex((val) => val.id == triggerUpdateByID);
 
-        $('#calendar').fullCalendar('renderEvent', dataObject, true);
+            dataObject.id = triggerUpdateByID;
+            
+            $('#calendar').fullCalendar('removeEvents', triggerUpdateByID);
+
+            dataEvents[findIndex] = dataObject;
+
+            $('#calendar').fullCalendar('renderEvent', dataObject, true);
+        } else {
+            dataObject.id = uniqid;
+
+            dataEvents.push(dataObject);
+            
+            $('#calendar').fullCalendar('renderEvent', dataObject, true);
+        }
+        
         $('#eventModal').modal('hide');
 
-        startDate.value = '';
-        finishDate.value = '';
-        fromHours.value = '';
-        toHours.value = '';
-        dailyAct.value = '';
+        resetForm({
+            startDate: '',
+            finishDate: '',
+            fromHours: '',
+            toHours: '',
+            dailyAct: '',
+            title: 'Add Event',
+            submit: 'Add',
+            projectID: '',
+            siteID: '',
+            personID: '',
+            changeProjectID: 'Select a Project Code',
+            changeDisabledSiteID: true,
+            changeSiteID: 'Select a Site Code',
+            changePersonID: 'Select On Behalf'
+        });
     }
 
     $(document).ready(function () {
@@ -208,35 +283,83 @@
         $('#calendar').fullCalendar({
             initialView: 'dayGridMonth',
             selectable: true,
-            editable: true,
+            editable: false,
             height: 600,
             showNonCurrentDates: false,
+            displayEventEnd: true,
             defaultView: 'month',
             yearColumns: 3,
+            eventLimit: true,
+            eventTextColor: '#F6F8D5',
+            eventBorderColor: '',
+            eventBackgroundColor: '#4F959D',
+            timeFormat: 'HH:mm',
             header: {
                 left: 'prev,next, today',
                 center: 'title',
                 right: 'year,month,agendaWeek,agendaDay'
             },
             events: function(start, end, timezone, callback) {
-                // This ensures the calendar always uses the current testing array
-                callback(testing);
+                // This ensures the calendar always uses the current dataEvents array
+                callback(dataEvents);
             },
-            dayClick: function(date, event, view){
-                console.log('dayClick', event);
-            },
+            // dayClick: function(date, event, view){
+            //     console.log('dayClick', event);
+            // },
             select: function(resource, start, end){
-                console.log('select', resource);
+                // console.log('select', resource);
+                $('#eventModal').modal('show');
             },
             eventClick: function(info) {
-                console.log('eventClick', info);
+                const { originData } = info;
 
-                // info.jsEvent.preventDefault(); // don't let the browser navigate
+                triggerUpdateByID = info.id;
+                siteUpdateID = originData.siteID;
+
+                resetForm({
+                    startDate: originData.startDate,
+                    finishDate: originData.finishDate,
+                    fromHours: originData.fromHours,
+                    toHours: originData.toHours,
+                    dailyAct: originData.dailyAct,
+                    title: 'Edit Event',
+                    submit: 'Edit',
+                    projectID: originData.projectID,
+                    siteID: originData.siteID,
+                    personID: originData.personID,
+                    changeProjectID: originData.projectID,
+                    changeDisabledSiteID: false,
+                    changeSiteID: originData.siteID,
+                    changePersonID: originData.personID
+                });
+
+                $('#eventModal').modal('show');
 
                 // if (info.event.url) {
                 //     window.open(info.event.url);
                 // }
             },
+        });
+
+        $('#eventModal').on('hidden.bs.modal', function (event) {
+            triggerUpdateByID = '';
+            
+            resetForm({
+                startDate: '',
+                finishDate: '',
+                fromHours: '',
+                toHours: '',
+                dailyAct: '',
+                title: 'Add Event',
+                submit: 'Add',
+                projectID: '',
+                siteID: '',
+                personID: '',
+                changeProjectID: 'Select a Project Code',
+                changeDisabledSiteID: true,
+                changeSiteID: 'Select a Site Code',
+                changePersonID: 'Select On Behalf'
+            });
         });
     });
 </script>
