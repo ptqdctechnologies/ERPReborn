@@ -1040,6 +1040,32 @@ class FunctionController extends Controller
         return response()->json($varDataPerson['data']);
     }
 
+    public function getAdvanceDetail(Request $request) 
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+        $advanceRefID   = $request->input('advanceRefID');
+
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.finance.getAdvanceDetail', 
+            'latest', 
+            [
+                'parameter' => [
+                    'advance_RefID' => (int) $advanceRefID
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+
+        return response()->json($varData);
+    }
+
     // NITIP
     // $userSessionID = Helper_Environment::getUserSessionID_System();
     // $varData = Helper_APICall::setCallAPIGateway(

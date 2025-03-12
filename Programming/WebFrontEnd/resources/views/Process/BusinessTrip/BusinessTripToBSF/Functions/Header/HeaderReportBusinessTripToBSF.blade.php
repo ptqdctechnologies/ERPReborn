@@ -19,8 +19,7 @@
             </div>
         </div>
     </div>
-</div>
-<div class="col-sm-12 col-md-12 col-lg-4">
+
     <!-- SUB BUDGET -->
     <div class="row p-0 align-items-center">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
@@ -38,6 +37,28 @@
             </div>
             <div class="d-sm-none d-md-none d-lg-block">
                 <input id="site_name_second" style="border-radius:0;" name="site_name_second" class="form-control invisible" value="<?= $dataReport['siteName'] ?? ''; ?>" readonly>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 col-md-12 col-lg-4">
+    <!-- REQUESTER -->
+    <div class="row p-0 align-items-center">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Requester</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+            <div>
+                <input id="worker_position_second" style="border-radius:0;" name="requester_detail" class="form-control" size="34" readonly>
+                <input id="worker_id_second" style="border-radius:0;" name="requester_id" class="form-control" hidden>
+            </div>
+            <div>
+                <span style="border-radius:0;" class="input-group-text form-control">
+                    <a href="javascript:;" id="myWorkerSecondTrigger" data-toggle="modal" data-target="#myWorkerSecond">
+                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myWorkerSecondTrigger">
+                    </a>
+                </span>
+            </div>
+            <div class="d-sm-none d-md-none d-lg-block">
+                <input id="worker_name_second" style="border-radius:0;" name="requester" class="form-control invisible" readonly>
             </div>
         </div>
     </div>
