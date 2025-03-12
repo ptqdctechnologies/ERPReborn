@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.finance.setAdvanceSettlement.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-21                                                                                           |
+        | ▪ Last Update     : 2025-03-12                                                                                           |
         | ▪ Creation Date   : 2023-10-26                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -38,8 +38,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     //-----[ HEADER ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        $varAPIWebToken, 
-                        'transaction.update.finance.setAdvanceSettlement', 
+                        $varAPIWebToken,
+                        'transaction.update.finance.setAdvanceSettlement',
                         'latest',
                     //-----[ HEADER ]-----( END )-----
 
@@ -50,7 +50,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             'documentDateTimeTZ' => '2023-10-25',
                             'log_FileUpload_Pointer_RefID' => null,
                             'requesterWorkerJobsPosition_RefID' => 164000000000497,
-                            'remarks' => 'My Remarks',
+                            'remarks' => 'important message 2',
                             'additionalData' => [
                                 'itemList' => [
                                     'items' => [
@@ -67,8 +67,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "returnProductUnitPriceCurrency_RefID" => 62000000000001,
                                                 "returnProductUnitPriceCurrencyValue" => 1000.00,
                                                 "returnProductUnitPriceCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan Pertama'                                   
-                                                ]                                   
+                                                "remarks" => 'important sub message 2-a'
+                                                ]
                                             ],
                                             [
                                             'recordID' => 204000000000002,
@@ -83,7 +83,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "returnProductUnitPriceCurrency_RefID" => 62000000000001,
                                                 "returnProductUnitPriceCurrencyValue" => 1000.00,
                                                 "returnProductUnitPriceCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan Kedua'
+                                                "remarks" => 'important sub message 2-b'
                                                 ]
                                             ],
                                         ]
@@ -94,7 +94,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     //-----[ BODY ]-----( END )-----
                     );
 
-            var_dump($varData);
+            return $varData;
             }
 
 
@@ -157,9 +157,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                     //-----[ HEADER ]-----( START )-----
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                        $varAPIWebToken, 
-                        'transaction.update.finance.setAdvanceSettlement', 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'transaction.update.finance.setAdvanceSettlement',
                         'latest',
                     //-----[ HEADER ]-----( END )-----
 
