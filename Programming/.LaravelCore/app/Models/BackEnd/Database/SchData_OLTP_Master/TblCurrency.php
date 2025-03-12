@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Master
@@ -77,8 +77,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInitialize                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-10                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-03-11                                                                                           |
         | ▪ Creation Date   : 2020-11-10                                                                                           |
         | ▪ Description     : Data Initialize                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -95,12 +95,13 @@ namespace App\Models\Database\SchData_OLTP_Master
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
+                        'SchSysConfig-Initialize.Func_DtOLTP_Mstr_TblCurrency',
                         []
                         )
                     );
  
-            return $varReturn['data'][0];
+            return
+                $varReturn['data'][0];
             }
 
 
