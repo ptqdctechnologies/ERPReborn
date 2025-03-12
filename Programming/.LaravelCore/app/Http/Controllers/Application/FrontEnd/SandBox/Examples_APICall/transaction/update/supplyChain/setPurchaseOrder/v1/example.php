@@ -37,9 +37,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        $varAPIWebToken, 
-                        'transaction.update.supplyChain.setPurchaseOrder', 
-                        'latest', 
+                        $varAPIWebToken,
+                        'transaction.update.supplyChain.setPurchaseOrder',
+                        'latest',
                         [
                         'recordID' => 85000000000001,
                         'entities' => [
@@ -47,10 +47,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "log_FileUpload_Pointer_RefID" => null,
                             "requesterWorkerJobsPosition_RefID" => 164000000000497,
                             "supplier_RefID" => 126000000000001,
-                            "deliveryDateTimeTZ" => '2022-03-08',
+                            "deliveryDateTimeTZ" => '2025-03-12',
                             "deliveryDestination_RefID" => 173000000000001,
                             "supplierInvoiceBillingPurpose_RefID" => 189000000000001,
-                            "remarks" => 'My Remarks',
+                            "remarks" => 'important message 1',
                             "additionalData" => [
                                 "itemList" => [
                                     "items" => [
@@ -61,13 +61,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "quantity" => 10,
                                                 "quantityUnit_RefID" => 73000000000001,
                                                 "productUnitPriceCurrency_RefID" => 62000000000001,
-                                                "productUnitPriceCurrencyeValue" => 30000,
+                                                "productUnitPriceCurrencyValue" => 30000,
                                                 "productUnitPriceCurrencyExchangeRate" => 1,
                                                 "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
-                                                "productUnitPriceDiscountCurrencyeValue" => 0,
+                                                "productUnitPriceDiscountCurrencyValue" => 0,
                                                 "productUnitPriceDiscountCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan Pertama Update'
-                                                ]                                    
+                                                "remarks" => 'important sub message 1-a'
+                                                ]
                                             ],
                                             [
                                             "recordID" => null,
@@ -76,13 +76,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "quantity" => 10,
                                                 "quantityUnit_RefID" => 73000000000001,
                                                 "productUnitPriceCurrency_RefID" => 62000000000001,
-                                                "productUnitPriceCurrencyeValue" => 30000,
+                                                "productUnitPriceCurrencyValue" => 30000,
                                                 "productUnitPriceCurrencyExchangeRate" => 1,
                                                 "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
-                                                "productUnitPriceDiscountCurrencyeValue" => 0,
+                                                "productUnitPriceDiscountCurrencyValue" => 0,
                                                 "productUnitPriceDiscountCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan Kedua Update'
-                                                ]                                    
+                                                "remarks" => 'important sub message 1-b'
+                                                ]
                                             ],
                                         ]
                                     ],
@@ -95,7 +95,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "tariffCurrency_RefID" => 62000000000001,
                                                 "tariffCurrencyValue" => 30000,
                                                 "tariffCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan 1 Update'                                
+                                                "remarks" => 'Catatan 1 Update'
                                                 ]
                                             ],
                                             [
@@ -107,7 +107,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "tariffCurrencyExchangeRate" => 1,
                                                 "remarks" => 'Catatan 2 Update'
                                                 ]
-                                            ]                            
+                                            ]
                                         ]
                                     ],
                                 "additionalCost" => [
@@ -138,7 +138,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "discountPercentageRate" => 2.00,
                                                 "remarks" => 'Down Payment'
                                                 ]
-                                            ]                            
+                                            ]
                                         ]
                                     ]
                                 ]
@@ -146,7 +146,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         ]
                     );
 
-            var_dump($varData);
+            return $varData;
             }
 
 
@@ -181,12 +181,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo '<input type="text" id="dataInput_SupplierInvoiceBillingPurpose_RefID" value=189000000000001>';
             echo '<input type="text" id="dataInput_PaymentTerm" value="My Payment Term">';
             echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
-            $varJQueryFunction = 
+            $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                        $varAPIWebToken, 
-                        'transaction.update.supplyChain.setPurchaseOrder', 
-                        'latest', 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'transaction.update.supplyChain.setPurchaseOrder',
+                        'latest',
                         '{'.
                             '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                             '"entities" : {'.
@@ -200,7 +200,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                 '"remarks" : document.getElementById("dataInput_Remarks").value'.
                                 '}'.
                         '}'
-                    ); 
+                    );
 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
 
