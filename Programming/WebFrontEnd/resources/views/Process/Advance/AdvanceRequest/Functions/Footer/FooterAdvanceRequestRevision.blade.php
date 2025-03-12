@@ -50,7 +50,7 @@
                     let isUnspecified = '';
                     let balanced = currencyTotal(val2.quantity);
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
-                    let matchedAdvance = dataAdvance.find(advance => advance.productId == val2.product_RefID);
+                    let matchedAdvance = dataAdvance.find(advance => advance.Product_RefID == val2.product_RefID);
                     let row = '';
 
                     if (matchedAdvance) {
@@ -254,9 +254,9 @@
                 '<td style="text-align: center; padding: 0.8rem 0px;">' + datas.ProductName + '</td>' +
                 '<td style="text-align: center; padding: 0.8rem 0px;">' + datas.QuantityUnitName + '</td>' +
                 '<td style="text-align: center; padding: 0.8rem 0px;">' + datas.ProductUnitPriceCurrencyISOCode + '</td>' +
-                '<td style="text-align: center; padding: 0.8rem 0px;">' + datas.ProductUnitPriceBaseCurrencyValue + '</td>' +
-                '<td style="text-align: center; padding: 0.8rem 0px;">' + datas.Quantity + '</td>' +
-                '<td style="text-align: center; padding: 0.8rem 0px;">' + datas.PriceBaseCurrencyValue + '</td>' +
+                '<td style="text-align: center; padding: 0.8rem 0px;">' + currencyTotal(datas.ProductUnitPriceBaseCurrencyValue) + '</td>' +
+                '<td style="text-align: center; padding: 0.8rem 0px;">' + currencyTotal(datas.Quantity) + '</td>' +
+                '<td style="text-align: center; padding: 0.8rem 0px;">' + currencyTotal(datas.PriceBaseCurrencyValue) + '</td>' +
                 '</tr>';
 
             $('#tableAdvanceList tbody').append(html);
@@ -304,8 +304,6 @@
             url: '{!! route("AdvanceRequest.updates") !!}',
             success: function(data) {
                 HideLoading();
-
-                console.log('data', data);
 
                 if(data.status == 200){
                     const swalWithBootstrapButtons = Swal.mixin({

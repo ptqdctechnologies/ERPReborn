@@ -85,9 +85,26 @@
             <div class="col-4 text-bold">
                 Revision
             </div>
-            <div class="col">
-                : 
-            </div>
+            <?php if ($dataHeader[0]['DateUpdate']) { ?>
+                <div class="col d-flex" style="gap: .1rem;">
+                    <div>
+                        :
+                    </div>
+                    <div class="input-group">
+                        <button class="btn btn-default btn-sm" onclick="window.location.href='{{ route('LogTransaction', [
+                            'id'        => $dataHeader[0]['Sys_ID_Advance'],
+                            'docNum'    => $dataHeader[0]['DocumentNumber'],
+                            'docName'   => $dataHeader[0]['BusinessDocumentType_Name']
+                            ]) }}'">
+                            Show Revision History
+                        </button>
+                    </div>
+                </div>
+            <?php } else { ?>
+                <div class="col">
+                    : 0
+                </div>
+            <?php } ?>
         </div>
 
         <!-- REQUESTER -->

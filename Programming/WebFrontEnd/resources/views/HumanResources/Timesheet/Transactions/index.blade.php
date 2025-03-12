@@ -14,11 +14,16 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Timesheet</li>
+              <li class="breadcrumb-item">
+                <a href="#">Home</a>
+              </li>
+              <li class="breadcrumb-item active">
+                Timesheet
+              </li>
             </ol>
           </div>
         </div>
+      </div>
     </section>
 
     <!-- Main content -->
@@ -28,13 +33,26 @@
           <div class="col-md-12">
             <div class="card card-primary">
               <div class="card-body p-0">
-                <!-- THE CALENDAR -->
                 <div class="ml-3 mt-3">
-                  <button class="btn btn-success btn-sm" id="addEventButton"><i class="fa fa-plus"></i>Add Event</button>
-                  <button class="btn btn-success btn-sm" id="addActivityButton"><i class="fa fa-plus"></i>Add Activity</button>
-                  <button class="btn btn-success btn-sm" id="filterEventButton"><i class="fa fa-filter"></i> Filter</button>
+                  <button class="btn btn-success btn-sm" id="addEventButton" data-toggle="modal" data-target="#eventModal">
+                    <i class="fa fa-plus"></i> Add Event
+                  </button>
+                  <button class="btn btn-success btn-sm" id="addActivityButton" data-toggle="modal" data-target="#activityModal">
+                    <i class="fa fa-plus"></i> Add Activity
+                  </button>
+                  <button class="btn btn-success btn-sm" id="filterButton" data-toggle="modal" data-target="#filterModal">
+                    <i class="fa fa-filter"></i> Filter
+                  </button>
                 </div>
                 <div id="calendar"></div>
+                <div class="py-3 pr-3 d-flex justify-content-end">
+                  <button type="submit" class="btn btn-success btn-sm">
+                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit"> Submit
+                  </button>
+                  <!-- <button class="btn btn-default btn-sm float-right" type="submit" id="submitArf" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
+                  </button> -->
+                </div>
               </div>
             </div>
           </div>
@@ -44,644 +62,330 @@
   </div>
 </div>
 
-<div class="modal fade" id="popUpFilter" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="position: relative;top:120px;right:155px;width:170%;">
+<!-- EVENT MODAL -->
+<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <!-- TITLE -->
       <div class="modal-header">
-          <h3>Filter By</h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
+        <h3 class="modal-title text-bold" id="eventModalLabel">Add Event</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="modal-body" id="popUpFilter">
-        <form action="{{ route('Timesheet.index') }}" method="get">
-          <input type="hidden" name="test" value="1">
-          @csrf
-          <div class="card">
-            <div class="card-body">
-              <div class="row">
-                <table>
-                  <!-- <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Project</td>
-                        <td>
-                          <div class="input-group">
-                            <select class="form-control SelectProject2" id="SelectProject2" name="SelectProject2" style="border-radius:0;">
-                              @foreach($data as $datas1)
-                              <option value="{{ $datas1['sys_ID'] }}">{{$datas1['sys_Text']}}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;Site</td>
-                        <td>
-                          <div class="input-group">
-                            <select class="form-control select2" id="SelectSite2" name="SelectSite2" style="border-radius:0;">
-                              <option value=""> -- Select Site -- </option>
-                            </select>
-                          </div>
-                        </td>
+
+      <!-- BODY -->
+      <div class="modal-body">
+        <div class="card mb-0">
+          <div class="card-body">
+            <div class="row" style="row-gap: 1rem;">
+              <!-- START DATE -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Start Date</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 p-0">
+                    <div class="input-group date" id="startDate" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" name="eventStartDate" id="eventStartDate" data-target="#startDate" style="height: auto;" />
+                      <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                       </div>
                     </div>
-                  </tr> -->
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Date</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="date" name="FilterDate" id="FilterDate" style="border-radius:0;" class="form-control">
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;On Behalf Of</td>
-                          <td>
-                            <div class="input-group">
-                              <select class="form-control select2" id="FilterBehalfOf" name="FilterBehalfOf" style="border-radius:0;">
-                              <option value=""> -- Select Person -- </option>
-                                @foreach($data2 as $datas2)
-                                <option value="{{ $datas2['sys_ID'] }}">{{$datas2['sys_Text']}}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </td>
-                        </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FINISH DATE -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Finish Date</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="input-group date" id="finishDate" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" name="eventFinishDate" id="eventFinishDate" data-target="#finishDate" style="height: auto;" />
+                      <div class="input-group-append" data-target="#finishDate" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                       </div>
                     </div>
-                  </tr>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                      <td>Timesheet</td>
-                        <td>
-                          <div class="input-group" style="width: 100%;">
-                            <select class="form-control select2" style="border-radius:0;" name="timesheet">
-                              <option value=""> -- Select Timesheet -- </option>
-                              @foreach($TimesheetData as $TimesheetDatas)
-                              <option value="{{ $TimesheetDatas['sys_ID'] }}">{{$TimesheetDatas['documentNumber']}}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;Document Number</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="text" name="FilterDocumentNumber" id="FilterDocumentNumber" style="border-radius:0;" class="form-control">
-                          </div>
-                        </td>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- FROM -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">From</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="input-group date" id="fromHours" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" name="eventFromHours" id="eventFromHours" data-target="#fromHours" style="height: auto;" />
+                      <div class="input-group-append" data-target="#fromHours" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="far fa-clock"></i></div>
                       </div>
                     </div>
-                  </tr>
-                </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TO -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">To</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div class="input-group date" id="toHours" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" name="eventToHours" id="eventToHours" data-target="#toHours" style="height: auto;" />
+                      <div class="input-group-append" data-target="#toHours" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="far fa-clock"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PROJECT CODE -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Project Code</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 p-0">
+                    <select class="form-control select2bs4" id="projectSelect" onchange="getSite(this);" style="width: 100%;">
+                      <option disabled selected>Select a Project Code</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SITE CODE -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Site Code</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 p-0">
+                    <div id="siteSelectContainer">
+                      <select class="form-control select2bs4" id="siteSelect" style="width: 100%;">
+                        <option disabled selected>Select a Site Code</option>
+                      </select>
+                    </div>
+
+                    <div class="spinner-border spinner-border-sm" id="siteLoading" role="status">
+                      <span class="sr-only"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ON BEHALF OF -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">On Behalf Of</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 p-0">
+                    <select class="form-control select2bs4" id="onBehalfSelect" style="width: 100%;">
+                      <option disabled selected>Select On Behalf</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- DAILY ACT -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Daily Act</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 p-0">
+                    <textarea class="form-control" name="eventDailyAct" id="eventDailyAct"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-sm-none d-md-none d-lg-block col-sm-12 col-md-12 col-lg-6"></div>
+
+              <!-- BUTTON -->
+              <div class="col-sm-12 col-md-12 col-lg-6 float-right">
+                <div class="row p-0">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-end" style="gap: .5rem;">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="eventModalSubmit" onclick="saveEvent()">Save</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-outline btn-success btn-sm" style="margin-left: 370px;">
-              <i class="fa fa-pencil" aria-hidden="true">Submit</i>
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="popUpCalender" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="position: relative;top:120px;right:155px;width:170%;">
+<!-- ACTIVITY MODAL -->
+<div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="activityModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
       <div class="modal-header">
-          <h3>Add Event</h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
+        <h3 class="modal-title text-bold" id="activityModalLabel">Add Activity</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="modal-body" id="popUpCalender">
-        <form action="{{ route('Timesheet.store') }}" method="post">
-          @csrf
-          <div class="card">
-            <div class="card-body">
-              <div class="row">
-                <table>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Start Date</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="date" name="startDate" id="startDate" style="border-radius:0;" class="form-control">
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;Finish Date</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="date" name="finishDate" id="finishDate" style="border-radius:0;" class="form-control">
-                          </div>
-                        </td>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body">
+            <div class="row" style="row-gap: 1rem;">
+              <!-- START DATE -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Start Date</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+                    <div class="input-group date" id="startDate" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" data-target="#startDate" style="height: auto;" />
+                      <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                       </div>
                     </div>
-                  </tr>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>From</td>
-                        <td>
-                          <div class="input-group">
-                            <select id="from" name="from" class="form-control" style="border-radius:0;">
-                              <option value="08:00">08:00</option>
-                              <option value="09:00">09:00</option>
-                              <option value="10:00">10:00</option>
-                              <option value="11:00">11:00</option>
-                              <option value="12:00">12:00</option>
-                              <option value="13:00">13:00</option>
-                              <option value="14:00">14:00</option>
-                              <option value="15:00">15:00</option>
-                              <option value="16:00">16:00</option>
-                              <option value="17:00">17:00</option>
-                              <option value="18:00">18:00</option>
-                              <option value="19:00">19:00</option>
-                              <option value="20:00">20:00</option>
-                              <option value="21:00">21:00</option>
-                              <option value="22:00">22:00</option>
-                              <option value="23:00">23:00</option>
-                            </select>
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;To</td>
-                        <td>
-                          <div class="input-group">
-                            <select id="to" name="to" class="form-control" style="border-radius:0;">
-                              <option value="08:00">08:00</option>
-                              <option value="09:00">09:00</option>
-                              <option value="10:00">10:00</option>
-                              <option value="11:00">11:00</option>
-                              <option value="12:00">12:00</option>
-                              <option value="13:00">13:00</option>
-                              <option value="14:00">14:00</option>
-                              <option value="15:00">15:00</option>
-                              <option value="16:00">16:00</option>
-                              <option value="17:00">17:00</option>
-                              <option value="18:00">18:00</option>
-                              <option value="19:00">19:00</option>
-                              <option value="20:00">20:00</option>
-                              <option value="21:00">21:00</option>
-                              <option value="22:00">22:00</option>
-                              <option value="23:00">23:00</option>
-                            </select>
-                          </div>
-                        </td>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FINISH DATE -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Finish Date</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+                    <div class="input-group date" id="finishDate" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" data-target="#finishDate" style="height: auto;" />
+                      <div class="input-group-append" data-target="#finishDate" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                       </div>
                     </div>
-                  </tr>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>All Day</td>
-                        <td>
-                          <div class="icheck-primary d-inline">
-                            <input type="radio" id="cek" name="allDay" value="All Day">
-                            Yes
-                          </div>
-                          <div class="icheck-primary d-inline">
-                            <input type="radio" id="cek2" name="allDay" value="All Day">
-                            No
-                          </div>
-                        </td>
-                      </div>
-                    </div>
-                  </tr>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Project</td>
-                        <td>
-                          <div class="input-group">
-                            <select class="form-control SelectProject" name="ProjectEvent" style="border-radius:0;">
-                              @foreach($data as $datas1)
-                              <option value="{{ $datas1['sys_ID'] }}">{{$datas1['sys_Text']}}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;Site</td>
-                        <td>
-                          <div class="input-group">
-                            <select class="form-control SelectSite select2" id="SelectSite" name="SelectSite" style="border-radius:0;">
-                              <option value=""> -- Select Site -- </option>
-                            </select>
-                          </div>
-                        </td>
-                      </div>
-                    </div>
-                  </tr>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Daily Act</td>
-                        <td>
-                          <div class="input-group">
-                            <textarea name="activity" id="activity" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;On Behalf Of</td>
-                        <td>
-                          <div class="input-group">
-                            <select class="form-control select2" id="behalfOf" name="behalfOf" style="border-radius:0;">
-                              @foreach($data2 as $datas2)
-                              <option value="{{ $datas2['sys_ID'] }}">{{$datas2['sys_Text']}}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                        </td>
-                      </div>
-                    </div>
-                  </tr>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Background</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="color" id="backgroundColor" style="border-radius:0;" name="backgroundColor" class="form-control">
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;Text</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="color" id="textColor" style="border-radius:0;" name="textColor" class="form-control">
-                          </div>
-                        </td>
-                      </div>
-                    </div>
-                  </tr>
-                </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- DAILY ACT -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Daily Act</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+                    <textarea class="form-control"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TIMESHEET -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Timesheet</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+                    <select class="form-control select2bs4" style="width: 100%;"></select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-md-12 col-lg-6"></div>
+
+              <!-- BUTTON -->
+              <div class="col-sm-12 col-md-12 col-lg-6 float-right">
+                <div class="row p-0">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-end" style="gap: .5rem;">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="">Save</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-outline btn-success btn-sm" style="margin-left: 370px;">
-              <i class="fa fa-pencil" aria-hidden="true">Submit</i>
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="popUpCalenderEdit" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="position: relative;top:120px;right:155px;width:170%;">
+<!-- FILTER -->
+<div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
       <div class="modal-header">
-          <h3>Edit Event</h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
+        <h3 class="modal-title" id="filterModalLabel">Filter</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="modal-body" id="popUpCalenderEdit">
-        <form action="{{ route('Timesheet.updates') }}" method="post">
-        <input type="hidden" name="timesheetId" id="timesheetId" style="border-radius:0;" class="form-control">
-          @csrf
-          <div class="card">
-            <div class="card-body">
-              <div class="row">
-                <table>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Start Date</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="date" name="startDate2" id="startDate2" style="border-radius:0;" class="form-control">
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;Finish Date</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="date" name="finishDate2" id="finishDate2" style="border-radius:0;" class="form-control">
-                          </div>
-                        </td>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body">
+            <div class="row" style="row-gap: 1rem;">
+              <!-- START DATE -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Start Date</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+                    <div class="input-group date" id="startDate" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" data-target="#startDate" style="height: auto;" />
+                      <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                       </div>
                     </div>
-                  </tr>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>From</td>
-                        <td>
-                          <div class="input-group">
-                            <select id="from2" name="from2" class="form-control" style="border-radius:0;">
-                              <option value="08:00">08:00</option>
-                              <option value="09:00">09:00</option>
-                              <option value="10:00">10:00</option>
-                              <option value="11:00">11:00</option>
-                              <option value="12:00">12:00</option>
-                              <option value="13:00">13:00</option>
-                              <option value="14:00">14:00</option>
-                              <option value="15:00">15:00</option>
-                              <option value="16:00">16:00</option>
-                              <option value="17:00">17:00</option>
-                              <option value="18:00">18:00</option>
-                              <option value="19:00">19:00</option>
-                              <option value="20:00">20:00</option>
-                              <option value="21:00">21:00</option>
-                              <option value="22:00">22:00</option>
-                              <option value="23:00">23:00</option>
-                            </select>
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;To</td>
-                        <td>
-                          <div class="input-group">
-                            <select id="to2" name="to2" class="form-control" style="border-radius:0;">
-                              <option value="08:00">08:00</option>
-                              <option value="09:00">09:00</option>
-                              <option value="10:00">10:00</option>
-                              <option value="11:00">11:00</option>
-                              <option value="12:00">12:00</option>
-                              <option value="13:00">13:00</option>
-                              <option value="14:00">14:00</option>
-                              <option value="15:00">15:00</option>
-                              <option value="16:00">16:00</option>
-                              <option value="17:00">17:00</option>
-                              <option value="18:00">18:00</option>
-                              <option value="19:00">19:00</option>
-                              <option value="20:00">20:00</option>
-                              <option value="21:00">21:00</option>
-                              <option value="22:00">22:00</option>
-                              <option value="23:00">23:00</option>
-                            </select>
-                          </div>
-                        </td>
-                      </div>
-                    </div>
-                  </tr>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>All Day</td>
-                        <td>
-                          <div class="icheck-primary d-inline">
-                            <input type="radio" id="cek" name="allDay" value="All Day">
-                            Yes
-                          </div>
-                          <div class="icheck-primary d-inline">
-                            <input type="radio" id="cek2" name="allDay" value="All Day">
-                            No
-                          </div>
-                        </td>
-                      </div>
-                    </div>
-                  </tr>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Project</td>
-                        <td>
-                          <div class="input-group">
-                            <select class="form-control SelectProject" name="ProjectEvent2" style="border-radius:0;">
-                              @foreach($data as $datas1)
-                              <option value="{{ $datas1['sys_ID'] }}">{{$datas1['sys_Text']}}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;Site</td>
-                        <td>
-                          <div class="input-group">
-                            <select class="form-control SelectSite select2" id="SelectSite" name="SelectSite" style="border-radius:0;">
-                              <option value=""> -- Select Site -- </option>
-                            </select>
-                          </div>
-                        </td>
-                      </div>
-                    </div>
-                  </tr>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Daily Act</td>
-                        <td>
-                          <div class="input-group">
-                            <textarea name="activity2" id="activity2" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;On Behalf Of</td>
-                        <td>
-                          <div class="input-group">
-                            <select class="form-control select2" id="behalfOf2" name="behalfOf2" style="border-radius:0;">
-                              @foreach($data2 as $datas2)
-                              <option value="{{ $datas2['sys_ID'] }}">{{$datas2['sys_Text']}}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                        </td>
-                      </div>
-                    </div>
-                  </tr>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Background</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="color" id="backgroundColor2" style="border-radius:0;" name="backgroundColor2" class="form-control">
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;Text</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="color" id="textColor2" style="border-radius:0;" name="textColor2" class="form-control">
-                          </div>
-                        </td>
-                      </div>
-                    </div>
-                  </tr>
-                </table>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-outline btn-success btn-sm" style="margin-left: 370px;">
-              <i class="fa fa-pencil" aria-hidden="true">Submit</i>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="modal fade" id="popUpActivity" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="position: relative;top:120px;right:155px;width:170%;">
-      <div class="modal-header">
-          <h3>Add Activity</h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-      <div class="modal-body" id="popUpActivity">
-        <form action="{{ route('Timesheet.storeActivity') }}" method="post">
-          @csrf
-          <div class="card">
-            <div class="card-body">
-              <div class="row">
-                <table>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Start Date</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="date" name="startDate3" id="startDate3" style="border-radius:0;" class="form-control">
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;Finish Date</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="date" name="finishDate3" id="finishDate3" style="border-radius:0;" class="form-control">
-                          </div>
-                        </td>
+              <!-- FINISH DATE -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Finish Date</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+                    <div class="input-group date" id="finishDate" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" data-target="#finishDate" style="height: auto;" />
+                      <div class="input-group-append" data-target="#finishDate" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                       </div>
                     </div>
-                  </tr>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Daily Act</td>
-                        <td>
-                          <div class="input-group">
-                            <textarea name="activity3" id="activity3" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;Timesheet</td>
-                        <td>
-                          <div class="input-group" style="width: 150%;">
-                            <select class="form-control select2" style="border-radius:0;" name="timesheet2">
-                              <option value=""> -- Select Timesheet -- </option>
-                              @foreach($TimesheetData as $TimesheetDatas)
-                              <option value="{{ $TimesheetDatas['sys_ID'] }}">{{$TimesheetDatas['documentNumber']}}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                        </td>
-                      </div>
-                    </div>
-                  </tr>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Background</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="color" id="backgroundColor3" style="border-radius:0;" name="backgroundColor3" class="form-control">
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;Text</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="color" id="textColor3" style="border-radius:0;" name="textColor3" class="form-control">
-                          </div>
-                        </td>
-                      </div>
-                    </div>
-                  </tr>
-                </table>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-outline btn-success btn-sm" style="margin-left: 370px;">
-              <i class="fa fa-pencil" aria-hidden="true">Submit</i>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="modal fade" id="popUpEditActivity" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="position: relative;top:120px;right:155px;width:170%;">
-      <div class="modal-header">
-          <h3>Edit Activity</h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-      <div class="modal-body" id="popUpEditActivity">
-        <form action="{{ route('Timesheet.storeActivity') }}" method="post">
-          @csrf
-          <div class="card">
-            <div class="card-body">
-              <div class="row">
-                <table>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Start Date</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="date" name="startDate3" id="startDate3" style="border-radius:0;" class="form-control">
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;Finish Date</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="date" name="finishDate3" id="finishDate3" style="border-radius:0;" class="form-control">
-                          </div>
-                        </td>
-                      </div>
-                    </div>
-                  </tr>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Daily Act</td>
-                        <td>
-                          <div class="input-group">
-                            <textarea name="activity3" id="activity3" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;Timesheet</td>
-                        <td>
-                          <div class="input-group" style="width: 150%;">
-                            <select class="form-control select2" style="border-radius:0;" name="timesheet2">
-                              <option value=""> -- Select Timesheet -- </option>
-                              @foreach($TimesheetData as $TimesheetDatas)
-                              <option value="{{ $TimesheetDatas['sys_ID'] }}">{{$TimesheetDatas['documentNumber']}}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                        </td>
-                      </div>
-                    </div>
-                  </tr>
-                  <tr>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <td>Background</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="color" id="backgroundColor3" style="border-radius:0;" name="backgroundColor3" class="form-control">
-                          </div>
-                        </td>
-                        <td>&nbsp;&nbsp;Text</td>
-                        <td>
-                          <div class="input-group">
-                            <input type="color" id="textColor3" style="border-radius:0;" name="textColor3" class="form-control">
-                          </div>
-                        </td>
-                      </div>
-                    </div>
-                  </tr>
-                </table>
+              <!-- ON BEHALF OF -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">On Behalf Of</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+                    <select class="form-control select2bs4" style="width: 100%;">
+                      <option selected="selected">Alabama</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TIMESHEET -->
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Timesheet</label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+                    <select class="form-control select2bs4" style="width: 100%;"></select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-md-12 col-lg-6"></div>
+
+              <!-- BUTTON -->
+              <div class="col-sm-12 col-md-12 col-lg-6 float-right">
+                <div class="row p-0">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-end" style="gap: .5rem;">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="">Save</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-outline btn-success btn-sm" style="margin-left: 370px;">
-              <i class="fa fa-pencil" aria-hidden="true">Submit</i>
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   </div>
 </div>
-  <!-- /.content-wrapper -->
 
 @include('Partials.footer')
 @include('HumanResources.Timesheet.Functions.Footer.footerTimesheet')
