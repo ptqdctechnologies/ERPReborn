@@ -167,39 +167,23 @@
                     <table class="table table-head-fixed text-nowrap table-sm" id="tableAdvanceDetail">
                       <thead>
                         <tr>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Transaction Number</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product ID</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
-                          <!-- <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Budget</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Avail</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th> -->
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Request</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Settlement</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Balance</th>
+                          <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Transaction Number</th>
+                          <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Product ID</th>
+                          <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Product Name</th>
+                          <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Request</th>
+                          <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Settlement</th>
+                          <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle; padding-right: 0px;">Balance</th>
+                        </tr>
+                        <tr>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;padding-right: 0px;">Price</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <!-- <tr>
-                          <td style="text-align: center;">Adv/QDC/2025/000119</td>
-                          <td style="text-align: center;">88000000000927</td>
-                          <td style="text-align: center;">PLN - Biaya Penyambungan</td>
-                          <td style="text-align: center;">65.00</td>
-                          <td style="text-align: center;">65.00</td>
-                          <td style="text-align: center;">72,475.00</td>
-                          <td style="text-align: center;">kva</td>
-                          <td style="text-align: center;">100,000.00</td>
-                          <td style="border:1px solid #e9ecef;background-color:white;width: 100px;">
-                            <input class="form-control number-without-negative" id="qty_req1" autocomplete="off" style="border-radius:0px;">
-                          </td>
-                          <td style="border:1px solid #e9ecef;background-color:white;width: 100px; padding-right: .3rem;">
-                            <input class="form-control number-without-negative" id="total_req1" autocomplete="off" style="border-radius:0px;" disabled="">
-                          </td>
-                        </tr> -->
-                      </tbody>
+                      <tbody></tbody>
                     </table>
                   </div>
 
+                  <!-- TRANSACTION INFORMATION -->
                   <div class="card-body">
                     <div class="row" style="gap: 1rem;">
                       <div class="col">
@@ -210,11 +194,11 @@
                               Transaction Information
                             </div>
 
-                            <!-- TOTAL BRF -->
+                            <!-- BUDGET -->
                             <div class="row" style="margin-bottom: 1rem;">
                               <div class="col">
                                 <div class="row">
-                                  <label for="taxi" class="col-sm-3 col-md-4 col-lg-7 col-form-label p-0">Total BRF</label>
+                                  <label for="taxi" class="col-sm-3 col-md-4 col-lg-7 col-form-label p-0">Budget</label>
                                   <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                     <div class="input-group">
                                       <input disabled id="total_business_trip_request" name="total_business_trip_request" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
@@ -224,11 +208,11 @@
                               </div>
                             </div>
 
-                            <!-- TOTAL SETTLEMENT -->
+                            <!-- CURRENT SETTLE -->
                             <div class="row" style="margin-bottom: 1rem;">
                               <div class="col">
                                 <div class="row">
-                                  <label for="taxi" class="col-sm-3 col-md-4 col-lg-7 col-form-label p-0">Total Settlement</label>
+                                  <label for="taxi" class="col-sm-3 col-md-4 col-lg-7 col-form-label p-0">Current Settle</label>
                                   <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                     <div class="input-group">
                                       <input disabled id="total_settlement" name="total_settlement" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
@@ -242,7 +226,7 @@
                             <div class="row" style="margin-bottom: 1rem;">
                               <div class="col">
                                 <div class="row">
-                                  <label for="taxi" class="col-sm-3 col-md-4 col-lg-7 col-form-label p-0">Total Unsettlement</label>
+                                  <label for="taxi" class="col-sm-3 col-md-4 col-lg-7 col-form-label p-0">Prev. Accumulation Settlement</label>
                                   <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                     <div class="input-group">
                                       <input disabled id="total_unsettlement" name="total_unsettlement" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
@@ -252,11 +236,11 @@
                               </div>
                             </div>
 
-                            <!-- BALANCE -->
+                            <!-- BALANCE UNSETTLED -->
                             <div class="row">
                               <div class="col">
                                 <div class="row">
-                                  <label for="taxi" class="col-sm-3 col-md-4 col-lg-7 col-form-label p-0">Balance</label>
+                                  <label for="taxi" class="col-sm-3 col-md-4 col-lg-7 col-form-label p-0">Balance Unsettled</label>
                                   <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                     <div class="input-group">
                                       <input disabled id="total_balanced" name="total_balanced" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">

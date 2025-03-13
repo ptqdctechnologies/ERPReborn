@@ -32,6 +32,9 @@
                                     <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
                                 </td>
                                 <td style="text-align: center; padding: 10px !important; width: 120px;">
+                                    <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
+                                </td>
+                                <td style="text-align: center; padding: 10px !important; width: 120px;">
                                     <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" readonly />
                                 </td>
                             </tr>
