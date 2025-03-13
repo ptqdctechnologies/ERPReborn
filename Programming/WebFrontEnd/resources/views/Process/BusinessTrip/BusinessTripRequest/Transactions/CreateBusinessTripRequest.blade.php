@@ -419,7 +419,7 @@
                         <!-- ACCOMMODATION COLUMN -->
                         <div class="col-md-12 col-lg-2 p-0">
                           <div style="font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">
-                            Accommodation
+                            Allowance
                           </div>
                           <div class="col-sm-12 col-md-12 col-lg-9 p-0">
                             <input id="allowance" name="allowance" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">

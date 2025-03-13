@@ -3,7 +3,13 @@
     var advanceNumber       = [];
     var beneficiaryTrigger  = "";
 
+    $(".loadingAdvanceSettlementTable").hide();
+    $(".errorAdvanceSettlementTable").hide();
+
     function getAdvanceDetail(advanceRefID, advanceNumber) {
+        $("#tableAdvanceDetail tbody").hide();
+        $(".loadingAdvanceSettlementTable").show();
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -14,7 +20,11 @@
             type: 'GET',
             url: '{!! route("getAdvanceDetail") !!}?advanceRefID=' + advanceRefID,
             success: function(response) {
+                $(".loadingAdvanceSettlementTable").hide();
+
                 if (response.metadata.HTTPStatusCode === 200) {
+                    $("#tableAdvanceDetail tbody").show();
+
                     var result = response.data;
 
                     let tbody = $('#tableAdvanceDetail tbody');
@@ -27,6 +37,10 @@
                                 ${key === 0 ? modifyColumn : ''}
                                 <td style="text-align: center; padding: 10px !important;">-</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productName}</td>
+                                <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName}</td>
+                                <td style="text-align: center; padding: 10px !important;">${val2.productUnitPriceCurrencyISOCode}</td>
+                                <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity)}</td>
+                                <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.productUnitPriceCurrencyValue)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
                                 <td style="text-align: center; padding: 10px !important; width: 120px;">
                                     <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
@@ -44,6 +58,8 @@
                     });
                 } else {
                     console.log('error');
+                    $(".errorAdvanceSettlementTable").show();
+                    $("#errorAdvanceSettlementMessageTable").text(`Data not found.`);
                 }
             },
             error: function (textStatus, errorThrown) {
@@ -57,10 +73,11 @@
         var bankAccount         = $(this).find('input[data-trigger="beneficiary_bank_account_name"]').val();
         var trano               = $(this).find('td:nth-child(2)').text();
         var beneficiary         = $(this).find('td:nth-child(3)').text();
-        var budgetCode          = $(this).find('td:nth-child(4)').text();
-        var budgetName          = $(this).find('td:nth-child(5)').text();
-        var subBudgetCode       = $(this).find('td:nth-child(6)').text();
-        var subBudgetName       = $(this).find('td:nth-child(7)').text();
+        var requester           = $(this).find('td:nth-child(4)').text();
+        var budgetCode          = $(this).find('td:nth-child(5)').text();
+        var budgetName          = $(this).find('td:nth-child(6)').text();
+        var subBudgetCode       = $(this).find('td:nth-child(7)').text();
+        var subBudgetName       = $(this).find('td:nth-child(8)').text();
         var checkDoubleTrano    = advanceNumber.includes(trano);
 
         if (beneficiaryTrigger && beneficiaryTrigger === beneficiary && checkDoubleTrano === false) {
