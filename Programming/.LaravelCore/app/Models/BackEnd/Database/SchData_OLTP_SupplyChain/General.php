@@ -974,7 +974,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );
+		    );
+
+		        foreach ($varReturn['data'] as $key => $value) {
+                    $varReturn['data'][$key] = [];
+                    $varReturn['data'][$key]['Sys_ID'] = $value['Sys_ID'];
+                    $varReturn['data'][$key]['Code'] = $value['Code'];
+                    $varReturn['data'][$key]['FullName'] = $value['FullName'];
+                    $varReturn['data'][$key]['Name'] = $value['Name'];
+                    $varReturn['data'][$key]['Address'] = $value['Address'];
+		        }
 
                 return
                     $varReturn['data'];
