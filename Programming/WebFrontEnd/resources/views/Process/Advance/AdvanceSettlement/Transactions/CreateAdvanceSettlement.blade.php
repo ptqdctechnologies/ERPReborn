@@ -183,7 +183,7 @@
                       <tbody></tbody>
                       <tfoot>
                         <tr class="loadingAdvanceSettlementTable">
-                          <td colspan="7" class="p-0" style="height: 12.3rem;">
+                          <td colspan="11" class="p-0" style="height: 12.3rem;">
                             <div class="d-flex flex-column justify-content-center align-items-center py-3">
                               <div class="spinner-border" role="status">
                                 <span class="sr-only">Loading...</span>
@@ -195,7 +195,7 @@
                           </td>
                         </tr>
                         <tr class="errorAdvanceSettlementTable">
-                          <td colspan="7" class="p-0" style="height: 12.3rem;;">
+                          <td colspan="11" class="p-0" style="height: 12.3rem;;">
                             <div class="d-flex flex-column justify-content-center align-items-center py-3">
                               <div id="errorAdvanceSettlementMessageTable" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;">Error</div>
                             </div>

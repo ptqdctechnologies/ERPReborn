@@ -300,8 +300,15 @@
                 right: 'year,month,agendaWeek,agendaDay'
             },
             events: function(start, end, timezone, callback) {
+                const visibleEvents = dataEvents.filter(event => {
+                    const eventStart = new Date(event.start);
+                    const eventEnd = new Date(event.end || event.start);
+                    return eventStart <= end && eventEnd >= start;
+                });
+                
+                callback(visibleEvents);
                 // This ensures the calendar always uses the current dataEvents array
-                callback(dataEvents);
+                // callback(dataEvents);
             },
             // dayClick: function(date, event, view){
             //     console.log('dayClick', event);
@@ -339,6 +346,7 @@
                 //     window.open(info.event.url);
                 // }
             },
+            lazyFetching: true,
         });
 
         $('#eventModal').on('hidden.bs.modal', function (event) {
