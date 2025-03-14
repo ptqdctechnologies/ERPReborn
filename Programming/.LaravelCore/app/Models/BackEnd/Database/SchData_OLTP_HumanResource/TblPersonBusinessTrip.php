@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_HumanResource                                                                   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 - 2022 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2020 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_HumanResource
@@ -43,14 +43,16 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000001                                                                                       |
-        | ▪ Last Update     : 2022-11-25                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2025-03-14                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysDataValidityStartDateTimeTZ ► System Data Validity Start DateTimeTZ                                |
+        |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
@@ -65,10 +67,11 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
-            $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            $varUserSession,
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
             string $varDocumentDateTimeTZ = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varPaymentDisbursementMethod_RefID = null,
-            array $varAdditionalData = [])
+            array $varAdditionalData = []
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -79,7 +82,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
@@ -88,12 +94,22 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
                             [$varPaymentDisbursementMethod_RefID, 'bigint'],
 
-                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                            [
+                                ((count($varAdditionalData) === 0) 
+                                    ? null
+                                    : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                        $varUserSession,
+                                        $varAdditionalData
+                                        )
+                                ),
+                                'json'
+                            ]
                         ]
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn['data'][0];
             }
 
 
@@ -101,8 +117,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000001                                                                                       |
-        | ▪ Last Update     : 2022-11-25                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2025-03-14                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -110,6 +126,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysDataValidityStartDateTimeTZ ► System Data Validity Start DateTimeTZ                                |
+        |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
@@ -124,10 +142,12 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
-            $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            $varUserSession,
+            int $varSysID,
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
             string $varDocumentDateTimeTZ = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varPaymentDisbursementMethod_RefID = null,
-            array $varAdditionalData = [])
+            array $varAdditionalData = []
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -138,7 +158,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [
                             [$varUserSession, 'bigint'],
                             [$varSysID, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
@@ -147,12 +170,22 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
                             [$varPaymentDisbursementMethod_RefID, 'bigint'],
 
-                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                            [
+                                ((count($varAdditionalData) === 0) 
+                                    ? null
+                                    : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                        $varUserSession,
+                                        $varAdditionalData
+                                        )
+                                ),
+                                'json'
+                            ]
                         ]
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn['data'][0];
             }
         }
     }
