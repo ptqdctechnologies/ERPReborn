@@ -186,4 +186,16 @@
             }
         });
     }
+
+    // RE-SUBMIT
+    $('.btn-resubmit').on('click', function() {
+        var advance_RefID = $('#advanceRefID').val();
+
+        if (advance_RefID) {
+            ShowLoading();
+            window.location.href = '/RevisionAdvanceIndex?advance_RefID=' + advance_RefID;
+        } else {
+            Swal.fire("Error", "ID Not Found.", "error");
+        }
+    });
 </script>

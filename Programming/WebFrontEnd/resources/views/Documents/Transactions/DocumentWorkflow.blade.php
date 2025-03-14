@@ -27,19 +27,19 @@
                     </tr>
                 </thead>
                 <tbody>
-
-                    @if(count($DataWorkflowHistory) > 0)
-                    @php $no = 1; @endphp
-                    @foreach($DataWorkflowHistory as $DataWorkflowHistorys)
-                    <tr>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $no++ }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ date('D, m/d/Y H:m:s', strtotime($DataWorkflowHistorys['approvalDateTimeTZ'])) }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $DataWorkflowHistorys['approverEntityName'] }} ({{ $DataWorkflowHistorys['approverEntityFullJobPositionTitle'] }})</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{{ $DataWorkflowHistorys['workFlowPathActionName'] }}</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">{!! nl2br(e($DataWorkflowHistorys['remarks'])) !!}</td>
-                    </tr>
-                    @endforeach
-                    @endif
+                    <?php if (count($dataWorkFlows) > 0) { ?>
+                        <?php $no = 1; ?>
+                        <?php foreach ($dataWorkFlows as $dataWorkFlow) { ?>
+                            <?php $statusWorkflow = $dataWorkFlow['workFlowPathActionName'] === "Rejection To Resubmit" ? "Reject" : $dataWorkFlow['workFlowPathActionName']; ?>
+                            <tr>
+                                <td style="border:1px solid #4B586A;color:#4B586A;"><?= $no++; ?></td>
+                                <td style="border:1px solid #4B586A;color:#4B586A;"><?= date('D, m/d/Y H:m:s', strtotime($dataWorkFlow['approvalDateTimeTZ'])); ?></td>
+                                <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataWorkFlow['approverEntityName']; ?> (<?= $dataWorkFlow['approverEntityFullJobPositionTitle']; ?>)</td>
+                                <td style="border:1px solid #4B586A;color:#4B586A;"><?= $statusWorkflow; ?></td>
+                                <td style="border:1px solid #4B586A;color:#4B586A;"><?= nl2br(e($dataWorkFlow['remarks'])); ?></td>
+                            </tr>
+                        <?php } ?>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>

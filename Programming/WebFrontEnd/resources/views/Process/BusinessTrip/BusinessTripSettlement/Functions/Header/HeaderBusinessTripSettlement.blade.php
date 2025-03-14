@@ -1,5 +1,5 @@
 <div class="card-body">
-  <div class="row py-3 justify-content-between" style="row-gap: 1rem;">
+  <div class="row py-3" style="row-gap: 1rem;">
     <div class="col-md-12 col-lg-5">
       <div class="row">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bussines Trip Number</label>

@@ -21,7 +21,7 @@ $varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzQxNzczMzQ2fQ.YTk5ODVkMWIwYmY2NTQ0MDIwODk3NWUzZjhlNWUxNmU4MmVkZDFjNmM0YTkzZjEzM2NmMzk1ZDEyYjhjYWIyYQ';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzQxNzU0ODE5fQ.MTIwNzc1Y2NmYjE3ZmFhZWFhNjY1MTg0ODBiZTA1Y2MzZWZiNzA5YzIxZGZkNjJjZjRkNDM3Y2E1ZDRkZDVjMA';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -173,6 +173,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getNewSite', 'Function\FunctionController@getNewSite')->name('getNewSite');
     Route::get('getBudget', 'Function\FunctionController@getBudget')->name('getBudget');
     Route::get('getAdvance', 'Function\FunctionController@getAdvance')->name('getAdvance');
+    Route::get('getAdvanceDetail', 'Function\FunctionController@getAdvanceDetail')->name('getAdvanceDetail');
+    Route::get('getPerson', 'Function\FunctionController@getPerson')->name('getPerson');
     Route::get('getBank', 'Function\FunctionController@getBank')->name('getBank');
     Route::get('getBankList', 'Function\FunctionController@getBankList')->name('getBankList');
     Route::get('getBankAccount', 'Function\FunctionController@getBankAccount')->name('getBankAccount');
@@ -198,6 +200,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // ARF 
     Route::get('AdvanceListData', 'Process\Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
+    Route::get('ReportAdvanceToASF', 'Process\Advance\AdvanceRequestController@ReportAdvanceToASF')->name('AdvanceRequest.ReportAdvanceToASF');
     Route::get('ReportAdvanceSummary', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummary')->name('AdvanceRequest.ReportAdvanceSummary');
     Route::post('ReportAdvanceSummaryStore', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummaryStore')->name('AdvanceRequest.ReportAdvanceSummaryStore');
     Route::get('ReportAdvanceSummaryDetailID/{id}', 'Process\Advance\AdvanceRequestController@ReportAdvanceSummaryDetailID')->name('AdvanceRequest.ReportAdvanceSummaryDetailID');
@@ -251,6 +254,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('RevisionBusinessTripRequestIndex', 'Process\BusinessTrip\BusinessTripRequestController@RevisionBusinessTripRequestIndex')->name('BusinessTripRequest.RevisionBusinessTripRequest');
     Route::get('BusinessTripRequestListData', 'Process\BusinessTrip\BusinessTripRequestController@BusinessTripRequestListData')->name('BusinessTripRequest.BusinessTripRequestListData');
     Route::post('BusinessTripRequestListCartRevision', 'Process\BusinessTrip\BusinessTripRequestController@BusinessTripRequestListCartRevision')->name('BusinessTripRequest.BusinessTripRequestListCartRevision');
+    Route::get('ReportBusinessTripToBSF', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripToBSF')->name('BusinessTripRequest.ReportBusinessTripToBSF');
     Route::get('ReportBusinessTripRequestSummary', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripRequestSummary')->name('BusinessTripRequest.ReportBusinessTripRequestSummary');
     Route::post('ReportBusinessTripRequestSummaryStore', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripRequestSummaryStore')->name('BusinessTripRequest.ReportBusinessTripRequestSummaryStore');
     Route::post('PrintExportReportBusinessTripRequestSummary', 'Process\BusinessTrip\BusinessTripRequestController@PrintExportReportBusinessTripRequestSummary')->name('BusinessTripRequest.PrintExportReportBusinessTripRequestSummary');

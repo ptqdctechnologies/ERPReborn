@@ -31,18 +31,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataEntities_Delivery(
-            $varUserSession, 
+            $varUserSession,
             string $varIDSet)
             {
             try {
                 $varFunctionName = 'SchData-OLTP-SupplyChain.Func_GetDataEntities_Delivery';
-                $varTemp = 
+                $varTemp =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             $varFunctionName,
@@ -51,12 +51,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                     [$varIDSet, 'bigint[]']
                                 ]
                             )
-                        ); 
+                        );
 
                 for ($i=0; $i!=count($varTemp['data']); $i++) {
-                    $varReturn[$i] = 
+                    $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                            $varUserSession, 
+                            $varUserSession,
                             $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
                             );
                     }
@@ -92,18 +92,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PurchaseRequisitionDetail(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varPurchaseRequisition_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseRequisitionDetail',
@@ -151,25 +151,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_DeliveryDestination(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varDeliveryDestinationType_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryDestination',
                             [
                                 [null, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
- 
+
                                 [$varDeliveryDestinationType_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
@@ -209,17 +209,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_DeliveryDestinationType(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryDestinationType',
@@ -263,17 +263,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_DeliveryOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryOrder',
@@ -319,17 +319,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_DeliveryOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryOrder',
@@ -376,18 +376,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_MaterialServiceRequisition_AllVersion(
             $varUserSession,
-            int $varSysBranch_RefID, 
+            int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_MaterialServiceRequisition',
@@ -434,18 +434,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_MaterialServiceRequisition_LatestVersion(
             $varUserSession,
-            int $varSysBranch_RefID, 
+            int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_MaterialServiceRequisition',
@@ -492,18 +492,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_OrderPicking_AllVersion(
             $varUserSession,
-            int $varSysBranch_RefID, 
+            int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_OrderPicking',
@@ -550,18 +550,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_OrderPicking_LatestVersion(
             $varUserSession,
-            int $varSysBranch_RefID, 
+            int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_OrderPicking',
@@ -608,18 +608,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_OrderPickingRequisition_AllVersion(
             $varUserSession,
-            int $varSysBranch_RefID, 
+            int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_OrderPickingRequisition',
@@ -666,18 +666,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_OrderPickingRequisition_LatestVersion(
             $varUserSession,
-            int $varSysBranch_RefID, 
+            int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_OrderPickingRequisition',
@@ -724,17 +724,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PurchaseOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseOrder',
@@ -781,17 +781,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PurchaseOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseOrder',
@@ -838,17 +838,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PurchaseRequisition_AllVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseRequisition',
@@ -895,17 +895,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PurchaseRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseRequisition',
@@ -951,17 +951,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Supplier(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_Supplier',
@@ -974,7 +974,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );
+		    );
+
+		        foreach ($varReturn['data'] as $key => $value) {
+                    $varReturn['data'][$key] = [];
+                    $varReturn['data'][$key]['Sys_ID'] = $value['Sys_ID'];
+                    $varReturn['data'][$key]['Code'] = $value['Code'];
+                    $varReturn['data'][$key]['FullName'] = $value['FullName'];
+                    $varReturn['data'][$key]['Name'] = $value['Name'];
+                    $varReturn['data'][$key]['Address'] = $value['Address'];
+		        }
 
                 return
                     $varReturn['data'];
@@ -1005,17 +1014,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Warehouse(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_Warehouse',
@@ -1059,17 +1068,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WarehouseInboundOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseInboundOrder',
@@ -1115,17 +1124,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WarehouseInboundOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseInboundOrder',
@@ -1171,17 +1180,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WarehouseOutboundOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseOutboundOrder',
@@ -1227,17 +1236,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WarehouseOutboundOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseOutboundOrder',
@@ -1283,17 +1292,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WarehouseType(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseType',
@@ -1339,25 +1348,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_DeliveryDestination(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varDeliveryDestinationType_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_DeliveryDestination',
                             [
                                 [null, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
- 
+
                                 [$varDeliveryDestinationType_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
@@ -1368,7 +1377,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_DeliveryDestination']
@@ -1404,17 +1413,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_MaterialServiceRequisition_AllVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_MaterialServiceRequisition',
@@ -1431,7 +1440,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisition']
@@ -1467,17 +1476,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_MaterialServiceRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_MaterialServiceRequisition',
@@ -1494,7 +1503,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisition']
@@ -1531,18 +1540,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_MaterialServiceRequisitionDetail(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varMaterialServiceRequisition_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_MaterialServiceRequisitionDetail',
@@ -1559,7 +1568,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisitionDetail']
@@ -1594,17 +1603,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_OrderPicking_AllVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPicking',
@@ -1621,7 +1630,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_OrderPicking']
@@ -1656,17 +1665,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_OrderPicking_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPicking',
@@ -1683,7 +1692,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_OrderPicking']
@@ -1719,17 +1728,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_OrderPickingRequisition_AllVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPickingRequisition',
@@ -1746,7 +1755,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_OrderPickingRequisition']
@@ -1782,17 +1791,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_OrderPickingRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPickingRequisition',
@@ -1809,7 +1818,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_OrderPickingRequisition']
@@ -1846,18 +1855,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_OrderPickingRequisitionDetail(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varOrderPickingRequisition_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPickingRequisitionDetail',
@@ -1874,7 +1883,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_OrderPickingRequisitionDetail']
@@ -1909,17 +1918,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_PurchaseOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_PurchaseOrder',
@@ -1936,7 +1945,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseOrder']
@@ -1970,17 +1979,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_PurchaseOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_PurchaseOrder',
@@ -1997,10 +2006,152 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseOrder']
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_PurchaseOrderList_LatestVersion                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-03-10                                                                                           |
+        | ▪ Creation Date   : 2025-03-10                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pesanan Pembelian (Purchase Order List) Versi Terakhir                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_PurchaseOrderList_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseOrderListList',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [FALSE, 'boolean'],
+                            ]
+                            )
+                        );
+
+                $count_foreach = 0;
+                $Sys_PID = 0;
+                $idx_array = 0;
+                $PriceFinalBaseCurrencyValue = 0;
+                $varReturn["dataSecondary"] = [];
+
+                foreach ($varReturn["data"] as $x => $y) {
+                    if ($count_foreach == 0) {
+                        $Sys_PID = $varReturn["data"][$x]["Sys_PID"];
+
+                        $varReturn["dataSecondary"][$idx_array]["Sys_PID"] = $y["Sys_PID"];
+                        $varReturn["dataSecondary"][$idx_array]["DocumentNumber"] = $y["DocumentNumber"];
+                        $varReturn["dataSecondary"][$idx_array]["CombinedBudgetCode"] = $y["CombinedBudgetCode"];
+                        $varReturn["dataSecondary"][$idx_array]["CombinedBudgetSectionCode"] = $y["CombinedBudgetSectionCode"];
+                        $PriceFinalBaseCurrencyValue += (int) $y["PriceFinalBaseCurrencyValue"];
+                        $varReturn["dataSecondary"][$idx_array]["PriceFinalBaseCurrencyValue"] = $PriceFinalBaseCurrencyValue;
+                    } else if ($count_foreach > 0) {
+                        if ($Sys_PID != $varReturn["data"][$x]["Sys_PID"]) {
+                            $PriceFinalBaseCurrencyValue = 0;
+                            $idx_array++;
+                            $Sys_PID = $varReturn["data"][$x]["Sys_PID"];
+
+                            $varReturn["dataSecondary"][$idx_array]["Sys_PID"] = $y["Sys_PID"];
+                            $varReturn["dataSecondary"][$idx_array]["DocumentNumber"] = $y["DocumentNumber"];
+                            $varReturn["dataSecondary"][$idx_array]["CombinedBudgetCode"] = $y["CombinedBudgetCode"];
+                            $varReturn["dataSecondary"][$idx_array]["CombinedBudgetSectionCode"] = $y["CombinedBudgetSectionCode"];
+                            $PriceFinalBaseCurrencyValue += (int) $y["PriceFinalBaseCurrencyValue"];
+                            $varReturn["dataSecondary"][$idx_array]["PriceFinalBaseCurrencyValue"] = $PriceFinalBaseCurrencyValue;
+                        } else {
+                            $PriceFinalBaseCurrencyValue += (int) $y["PriceFinalBaseCurrencyValue"];
+                            $varReturn["dataSecondary"][$idx_array]["PriceFinalBaseCurrencyValue"] = $PriceFinalBaseCurrencyValue;
+                        }
+                    }
+                    $count_foreach++;
+                }
+
+                $varReturn["data"] = $varReturn["dataSecondary"];
+                $varReturn["rowCount"] = count($varReturn["data"]);
+                unset($varReturn["dataSecondary"]);
+                return $varReturn;
+            }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-03-05                                                                                           |
+        | ▪ Creation Date   : 2025-03-05                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pembelian (Purchase Order Detail) Versi Terakhir                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varPurchaseOrder_RefID ► Purchase Order ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_PurchaseOrderDetail_LatestVersion(
+            $varUserSession, int $varPurchaseOrder_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseOrderDetail',
+                            [
+                                [$varPurchaseOrder_RefID, 'bigint' ],
+                            ]
+                            )
                         );
 
                 return
@@ -2033,17 +2184,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_PurchaseRequisition_AllVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_PurchaseRequisition',
@@ -2060,7 +2211,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseRequisition']
@@ -2096,17 +2247,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_PurchaseRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_PurchaseRequisition',
@@ -2123,7 +2274,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseRequisition']
@@ -2160,18 +2311,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_PurchaseRequisitionDetail(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varPurchaseRequisition_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_PurchaseRequisitionDetail',
@@ -2188,7 +2339,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseRequisitionDetail']
@@ -2218,16 +2369,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_DeliveryDestination(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_DeliveryDestination',
@@ -2261,16 +2412,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_DeliveryDestinationType(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_DeliveryDestinationType',
@@ -2304,16 +2455,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_DeliveryOrder_AllVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_DeliveryOrder',
@@ -2349,16 +2500,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_DeliveryOrder_LatestVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_DeliveryOrder',
@@ -2395,16 +2546,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_MaterialServiceRequisition_AllVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_MaterialServiceRequisition',
@@ -2441,16 +2592,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_MaterialServiceRequisition_LatestVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_MaterialServiceRequisition',
@@ -2486,16 +2637,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_OrderPicking_AllVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_OrderPicking',
@@ -2531,16 +2682,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_OrderPicking_LatestVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_OrderPicking',
@@ -2576,16 +2727,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_OrderPickingRequisition_AllVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_OrderPickingRequisition',
@@ -2622,16 +2773,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_OrderPickingRequisition_LatestVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_OrderPickingRequisition',
@@ -2667,16 +2818,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PurchaseOrder_AllVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_PurchaseOrder',
@@ -2712,16 +2863,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PurchaseOrder_LatestVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_PurchaseOrder',
@@ -2757,16 +2908,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PurchaseOrderAdditionalCostType(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_PurchaseOrderAdditionalCostType',
@@ -2800,16 +2951,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PurchaseRequisition_AllVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_PurchaseRequisition',
@@ -2845,16 +2996,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PurchaseRequisition_LatestVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_PurchaseRequisition',
@@ -2890,16 +3041,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Supplier(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_Supplier',
@@ -2933,16 +3084,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Warehouse(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_Warehouse',
@@ -2976,16 +3127,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WarehouseInboundOrder_AllVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_WarehouseInboundOrder',
@@ -3021,16 +3172,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WarehouseInboundOrder_LatestVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_WarehouseInboundOrder',
@@ -3066,16 +3217,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WarehouseOutboundOrder_AllVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_WarehouseOutboundOrder',
@@ -3111,16 +3262,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WarehouseOutboundOrder_LatestVersion(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_WarehouseOutboundOrder',
@@ -3156,16 +3307,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WarehouseType(
             $varUserSession, int $varSysBranch_RefID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_WarehouseType',
@@ -3250,17 +3401,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseOrder(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varSysID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseOrder',
@@ -3273,7 +3424,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseOrder'])
                     ];
                 }
@@ -3298,17 +3449,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseOrderAdditionalCost(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varSysID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseOrderAdditionalCost',
@@ -3321,7 +3472,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseOrderAdditionalCost'])
                     ];
                 }
@@ -3346,17 +3497,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseOrderPaymentTerm(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varSysID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseOrderPaymentTerm',
@@ -3369,7 +3520,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseOrderPaymentTerm'])
                     ];
                 }
@@ -3393,17 +3544,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseRequisition(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varSysID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseRequisition',
@@ -3416,7 +3567,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseRequisition'])
                     ];
                 }
@@ -3440,17 +3591,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_WarehouseInboundOrder(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varSysID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_WarehouseInboundOrder',
@@ -3463,7 +3614,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DocForm_WarehouseInboundOrder'])
                     ];
                 }
@@ -3488,17 +3639,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_WarehouseOutboundOrder(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varSysID)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_WarehouseOutboundOrder',
@@ -3511,7 +3662,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DocForm_WarehouseOutboundOrder'])
                     ];
                 }
@@ -3535,18 +3686,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_Resume_PurchaseOrderProductPriceHistory(
-            $varUserSession, int $varSysBranch_RefID, 
+            $varUserSession, int $varSysBranch_RefID,
             int $varSysID,
             string $varBusinessDocumentNumber = null, int $varBusinessDocumentType_RefID = null, int $varCombinedBudget_RefID = null)
             {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_Resume_PurchaseOrderProductPriceHistory',
@@ -3563,7 +3714,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
+                        $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_Resume_PurchaseOrderProductPriceHistory'])
                     ];
                 }

@@ -83,99 +83,7 @@
                     </div>
                   </div>
 
-                  <!-- BODY -->
-                  <div class="card-body">
-                    <div class="row py-3" style="gap: 15px;">
-                      <div class="col-md-12 col-lg-5">
-                        <!-- REQUESTER -->
-                        <div class="row" style="margin-bottom: 1rem;">
-                          <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Requester</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                            <div>
-                              <input id="worker_position_second" style="border-radius:0;" name="requester_detail" class="form-control" size="17" readonly>
-                              <input id="worker_id_second" style="border-radius:0;" name="requester_id" class="form-control" hidden>
-                            </div>
-                            <div>
-                              <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="javascript:;" id="myWorkerSecondTrigger" data-toggle="modal" data-target="#myWorkerSecond">
-                                  <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myWorkerSecondTrigger">
-                                </a>
-                              </span>
-                            </div>
-                            <div style="flex: 100%;">
-                              <input id="worker_name_second" style="border-radius:0;" name="requester" class="form-control" readonly>
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- BENEFICIARY -->
-                        <div class="row">
-                          <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                            <div>
-                              <input id="beneficiary_second_person_position" style="border-radius:0;" name="beneficiary_detail" class="form-control" size="17" readonly>
-                              <input id="beneficiary_second_id" style="border-radius:0;" name="beneficiary_id" class="form-control" hidden>
-                              <input id="beneficiary_second_person_ref_id" style="border-radius:0;" name="person_refID" class="form-control" hidden>
-                            </div>
-                            <div>
-                              <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="javascript:;" id="myBeneficiarySecondTrigger" data-toggle="modal" data-target="#myBeneficiarySecond">
-                                  <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-                                </a>
-                              </span>
-                            </div>
-                            <div style="flex: 100%;">
-                              <input id="beneficiary_second_person_name" style="border-radius:0;" name="beneficiary" class="form-control" readonly>  
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-12 col-lg-5">
-                        <!-- BANK NAME -->
-                        <div class="row" style="margin-bottom: 1rem;">
-                          <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                            <div>
-                              <input id="bank_name_second_name" style="border-radius:0;" name="bank_name" class="form-control" size="17" readonly>
-                              <input id="bank_name_second_id" style="border-radius:0;" class="form-control" name="bank_code" hidden>
-                            </div>
-                            <div>
-                              <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="javascript:;" id="myGetBankSecondTrigger" data-toggle="modal" data-target="#myGetBankSecond" class="myGetBankSecond">
-                                  <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-                                </a>
-                              </span>
-                            </div>
-                            <div style="flex: 100%;">
-                              <input id="bank_name_second_detail" style="border-radius:0;" class="form-control" name="bank_name_detail" readonly>
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- BANK ACCOUNT -->
-                        <div class="row">
-                          <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
-                          <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                            <div>
-                              <input id="bank_accounts" style="border-radius:0;" name="bank_account" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
-                              <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_account_id" hidden>
-                            </div>
-                            <div>
-                              <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="javascript:;" id="myBankAccountTrigger" data-toggle="modal" data-target="#myBankAccount" class="myBankAccount">
-                                  <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-                                </a>
-                              </span>
-                            </div>
-                            <div style="flex: 100%;">
-                              <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" name="bank_account_detail" autocomplete="off" readonly>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  @include('Process.Advance.AdvanceRequest.Functions.Header.HeaderAdvanceDetail')
                 </div>
               </div>
             </div>
@@ -244,29 +152,18 @@
                     <table class="table table-head-fixed text-nowrap table-sm" id="tableGetBudgetDetails">
                       <thead>
                         <tr>
-                          @if($statusRevisi == 1)
-                            <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Trano</th>
-                          @endif
-                            <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Id</th>
-                            <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
-                          @if($statusRevisi == 1)
-                            <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Advance</th>
-                            <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Budget Avail</th>
-                          @else
-                            <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Budget</th>
-                            <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Avail</th>
-                          @endif
-                            <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
-                            <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UoM</th>
-                            <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
-                            <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total Budget</th>
-                          @if($statusRevisi == 1)
-                            <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total Payment</th>
-                          @endif
-                            <th class="sticky-col forth-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Qty Req</th>
-                            <th class="sticky-col third-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price Req</th>
-                            <th class="sticky-col second-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>
-                            <th class="sticky-col first-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Balance Qty</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Id</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Budget</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Avail</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total Budget</th>
+                          <th class="sticky-col forth-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Qty Req</th>
+                          <th class="sticky-col third-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price Req</th>
+                          <th class="sticky-col second-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>
+                          <th class="sticky-col first-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Balance Qty</th>
                         </tr>
                       </thead>
                       <tbody>

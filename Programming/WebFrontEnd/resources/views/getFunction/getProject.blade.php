@@ -1,4 +1,4 @@
-@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail') || request()->is('ReportAdvanceSettlementSummary') || request()->is('ReportAdvanceSettlementDetail') || request()->is('BusinessTripRequest') || request()->is('AdvanceRequest'))
+@if (request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail') || request()->is('ReportAdvanceSettlementSummary') || request()->is('ReportAdvanceSettlementDetail') || request()->is('BusinessTripRequest') || request()->is('AdvanceRequest') || request()->is('ReportAdvanceToASF'))
     <div id="myProjectSecond" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">

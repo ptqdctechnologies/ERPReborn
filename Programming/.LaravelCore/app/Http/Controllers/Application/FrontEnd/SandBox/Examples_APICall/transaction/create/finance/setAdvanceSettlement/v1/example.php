@@ -38,7 +38,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     //-----[ HEADER ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        $varAPIWebToken, 
+                        $varAPIWebToken,
                         'transaction.create.finance.setAdvanceSettlement',
                         'latest',
                     //-----[ HEADER ]-----( END )-----
@@ -55,7 +55,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "items" => [
                                             [
                                             "entities" => [
-                                                "advancePaymentDetail_RefID" => 195000000000001,
+                                                "advanceDetail_RefID" => 195000000000001,
                                                 "product_RefID" => 88000000000083,
                                                 "quantity" => 0.20,
                                                 "quantityUnit_RefID" => 73000000000009,
@@ -65,12 +65,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "returnProductUnitPriceCurrency_RefID" => 62000000000001,
                                                 "returnProductUnitPriceCurrencyValue" => 1000.00,
                                                 "returnProductUnitPriceCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan Pertama'                                    
-                                                ]                                   
+                                                "remarks" => 'Catatan Pertama'
+                                                ]
                                             ],
                                             [
                                             "entities" => [
-                                                "advancePaymentDetail_RefID" => 195000000000002,
+                                                "advanceDetail_RefID" => 195000000000002,
                                                 "product_RefID" => 88000000000084,
                                                 "quantity" => 0.12,
                                                 "quantityUnit_RefID" => 73000000000009,
@@ -91,7 +91,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     //-----[ BODY ]-----( END )-----
                     );
 
-            var_dump($varData);
+            return $varData;
             }
 
 
@@ -123,7 +123,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>RequesterWorkerJobsPosition_RefID</td><td><input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497></td></tr>';
             echo        '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value="My Remarks"></td></tr>';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Settlement Detail Data</p></td></tr></tr>';
-            echo        '<tr><td>AdvancePaymentDetail_RefID_1</td><td><input type="text" id="dataInput_AdvancePaymentDetail_RefID_1" value=195000000000001></td></tr>';
+            echo        '<tr><td>advanceDetail_RefID_1</td><td><input type="text" id="dataInput_advanceDetail_RefID_1" value=195000000000001></td></tr>';
             echo        '<tr><td>Product_RefID_1</td><td><input type="text" id="dataInput_Product_RefID_1" value=88000000000083></td></tr>';
             echo        '<tr><td>Quantity_1</td><td><input type="text" id="dataInput_Quantity_1" value=0.20></td></tr>';
             echo        '<tr><td>QuantityUnit_RefID_1</td><td><input type="text" id="dataInput_QuantityUnit_RefID_1" value=73000000000009></td></tr>';
@@ -135,7 +135,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>ReturnProductUnitPriceCurrencyExchangeRate_1</td><td><input type="text" id="dataInput_ReturnProductUnitPriceCurrencyExchangeRate_1" value=1></td></tr>';
             echo        '<tr><td>Remarks_1</td><td><input type="text" id="dataInput_Remarks_1" value="Catatan Pertama"></td></tr>';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff"></p></td></tr></tr>';
-            echo        '<tr><td>AdvancePaymentDetail_RefID_2</td><td><input type="text" id="dataInput_AdvancePaymentDetail_RefID_2" value=195000000000002></td></tr>';
+            echo        '<tr><td>advanceDetail_RefID_2</td><td><input type="text" id="dataInput_advanceDetail_RefID_2" value=195000000000002></td></tr>';
             echo        '<tr><td>Product_RefID_2</td><td><input type="text" id="dataInput_Product_RefID_2" value=88000000000084></td></tr>';
             echo        '<tr><td>Quantity_2</td><td><input type="text" id="dataInput_Quantity_2" value=0.12></td></tr>';
             echo        '<tr><td>QuantityUnit_RefID_2</td><td><input type="text" id="dataInput_QuantityUnit_RefID_2" value=73000000000009></td></tr>';
@@ -151,9 +151,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                     //-----[ HEADER ]-----( START )-----
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                        $varAPIWebToken, 
-                        'transaction.create.finance.setAdvanceSettlement', 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'transaction.create.finance.setAdvanceSettlement',
                         'latest',
                     //-----[ HEADER ]-----( END )-----
 
@@ -170,7 +170,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             '{'.
                                             '"entities" : '.
                                                 '{'.
-                                                '"advancePaymentDetail_RefID" : parseInt(document.getElementById("dataInput_AdvancePaymentDetail_RefID_1").value), '.
+                                                '"advanceDetail_RefID" : parseInt(document.getElementById("dataInput_advanceDetail_RefID_1").value), '.
                                                 '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_1").value), '.
                                                 '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_1").value), '.
                                                 '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_1").value),'.
@@ -186,7 +186,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             '{'.
                                             '"entities" : '.
                                                 '{'.
-                                                '"advancePaymentDetail_RefID" : parseInt(document.getElementById("dataInput_AdvancePaymentDetail_RefID_2").value), '.
+                                                '"advanceDetail_RefID" : parseInt(document.getElementById("dataInput_advanceDetail_RefID_2").value), '.
                                                 '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID_2").value), '.
                                                 '"quantity" : parseFloat(document.getElementById("dataInput_Quantity_2").value), '.
                                                 '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID_2").value),'.
