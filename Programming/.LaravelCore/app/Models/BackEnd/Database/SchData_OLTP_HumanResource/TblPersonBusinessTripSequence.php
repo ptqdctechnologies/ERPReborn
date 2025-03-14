@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_HumanResource                                                                   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_HumanResource
@@ -51,6 +51,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysDataValidityStartDateTimeTZ ► System Data Validity Start DateTimeTZ                                |
+        |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
@@ -62,7 +64,6 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
         |      ▪ (int)    varBusinessTripAccommodationArrangementsType_RefID ► Business Trip Accommodation Arrangements Type       |
         |                                                                      Reference ID                                        |
-        |      ▪ (array)  varBusinessTripTransportationType_RefIDArray ► Business Trip Transportation Type Reference ID Array      |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -71,10 +72,11 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
-            $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, $varBusinessTripAccommodationArrangementsType_RefID = null, array $varBusinessTripTransportationType_RefIDArray = [], string $varRemarks = null,
-            array $varAdditionalData = [])
+            $varUserSession,
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
+            int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, $varBusinessTripAccommodationArrangementsType_RefID = null, string $varRemarks = null,
+            array $varAdditionalData = []
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -85,7 +87,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
@@ -96,15 +101,24 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             [$varStartDateTimeTZ, 'timestamptz'],
                             [$varFinishDateTimeTZ, 'timestamptz'],
                             [$varBusinessTripAccommodationArrangementsType_RefID, 'bigint'],
-                            [$varBusinessTripTransportationType_RefIDArray, 'bigint[]'],
                             [$varRemarks, 'varchar'],
 
-                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                            [
+                                ((count($varAdditionalData) === 0) 
+                                    ? null
+                                    : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                        $varUserSession,
+                                        $varAdditionalData
+                                        )
+                                ),
+                                'json'
+                            ]
                         ]
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn['data'][0];
             }
 
 
@@ -121,6 +135,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysDataValidityStartDateTimeTZ ► System Data Validity Start DateTimeTZ                                |
+        |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
@@ -132,7 +148,6 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
         |      ▪ (int)    varBusinessTripAccommodationArrangementsType_RefID ► Business Trip Accommodation Arrangements Type       |
         |                                                                      Reference ID                                        |
-        |      ▪ (array)  varBusinessTripTransportationType_RefIDArray ► Business Trip Transportation Type Reference ID Array      |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -141,10 +156,12 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
-            $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, $varBusinessTripAccommodationArrangementsType_RefID = null, array $varBusinessTripTransportationType_RefIDArray = [], string $varRemarks = null,
-            array $varAdditionalData = [])
+            $varUserSession,
+            int $varSysID,
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
+            int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, $varBusinessTripAccommodationArrangementsType_RefID = null, string $varRemarks = null,
+            array $varAdditionalData = []
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -155,7 +172,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [
                             [$varUserSession, 'bigint'],
                             [$varSysID, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
@@ -166,15 +186,24 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             [$varStartDateTimeTZ, 'timestamptz'],
                             [$varFinishDateTimeTZ, 'timestamptz'],
                             [$varBusinessTripAccommodationArrangementsType_RefID, 'bigint'],
-                            [$varBusinessTripTransportationType_RefIDArray, 'bigint[]'],
                             [$varRemarks, 'varchar'],
 
-                            [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                            [
+                                ((count($varAdditionalData) === 0) 
+                                    ? null
+                                    : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                        $varUserSession,
+                                        $varAdditionalData
+                                        )
+                                ),
+                                'json'
+                            ]
                         ]
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn['data'][0];
             }
         }
     }
