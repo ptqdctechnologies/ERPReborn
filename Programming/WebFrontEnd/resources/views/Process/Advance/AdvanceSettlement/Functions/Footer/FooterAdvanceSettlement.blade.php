@@ -2,9 +2,26 @@
     var advanceID           = [];
     var advanceNumber       = [];
     var beneficiaryTrigger  = "";
+    var indexAdvanceDetail  = 0;
+    var totalAdvanceDetail  = 0;
 
     $(".loadingAdvanceSettlementTable").hide();
     $(".errorAdvanceSettlementTable").hide();
+
+    function calculateTotal() {
+        let total = 0;
+        
+        document.querySelectorAll('input[id^="total_settlement"]').forEach(function(input) {
+            let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
+            if (!isNaN(value)) {
+                total += value;
+            }
+        });
+
+        total = Math.ceil(total * 100) / 100;
+
+        document.getElementById('TotalAdvanceDetail').textContent = currencyTotal(total);
+    }
 
     function getAdvanceDetail(advanceRefID, advanceNumber) {
         $("#tableAdvanceDetail tbody").hide();
@@ -43,18 +60,69 @@
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.productUnitPriceCurrencyValue)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
                                 <td style="text-align: center; padding: 10px !important; width: 120px;">
-                                    <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
+                                    <input class="form-control number-without-negative" id="qty_settlement${indexAdvanceDetail}" data-index=${indexAdvanceDetail} data-total-request=${val2.priceBaseCurrencyValue} autocomplete="off" style="border-radius:0px;" />
                                 </td>
                                 <td style="text-align: center; padding: 10px !important; width: 120px;">
-                                    <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" />
+                                    <input class="form-control number-without-negative" id="price_settlement${indexAdvanceDetail}" data-index=${indexAdvanceDetail} data-total-request=${val2.priceBaseCurrencyValue} autocomplete="off" style="border-radius:0px;" />
                                 </td>
                                 <td style="text-align: center; padding: 10px !important; width: 120px;">
-                                    <input class="form-control number-without-negative" autocomplete="off" style="border-radius:0px;" readonly />
+                                    <input class="form-control number-without-negative" id="total_settlement${indexAdvanceDetail}" autocomplete="off" style="border-radius:0px;" readonly />
+                                </td>
+                                <td style="text-align: center; padding: 10px !important; width: 120px;">
+                                    <input class="form-control number-without-negative" id="balance${indexAdvanceDetail}" autocomplete="off" style="border-radius:0px;" readonly />
                                 </td>
                             </tr>
                         `;
 
                         tbody.append(row);
+
+                        $(`#qty_settlement${indexAdvanceDetail}`).on('keyup', function() {
+                            var qty_settlement = $(this).val().replace(/,/g, '');
+                            var data_index = $(this).data('index');
+                            var data_total_request = $(this).data('total-request');
+                            var price_settlement = $(`#price_settlement${data_index}`).val();
+                            var total_settlements = parseFloat(qty_settlement || 0) * parseFloat(price_settlement.replace(/,/g, '') || 0);
+                            var countBalance = data_total_request - total_settlements;
+
+                            countBalance = countBalance < 0.00 ? 0.00 : countBalance;
+
+                            if (qty_settlement > val2.quantity) {
+                                $(this).val(0);
+                                $(`#total_settlement${data_index}`).val(0);
+                                $(`#balance${data_index}`).val(0);
+                                ErrorNotif("Qty Settlement is over Qty Request !");
+                            } else {
+                                $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
+                                $(`#balance${data_index}`).val(currencyTotal(countBalance));
+                                $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
+                                calculateTotal();
+                            }
+                        });
+
+                        $(`#price_settlement${indexAdvanceDetail}`).on('keyup', function() {
+                            var price_settlement = $(this).val().replace(/,/g, '');
+                            var data_index = $(this).data('index');
+                            var data_total_request = $(this).data('total-request');
+                            var qty_settlement = $(`#qty_settlement${data_index}`).val();
+                            var total_settlements = parseFloat(qty_settlement.replace(/,/g, '') || 0) * parseFloat(price_settlement || 0);
+                            var countBalance = data_total_request - total_settlements;
+
+                            countBalance = countBalance < 0.00 ? 0.00 : countBalance;
+
+                            if (price_settlement > val2.productUnitPriceCurrencyValue) {
+                                $(this).val(0);
+                                $(`#total_settlement${data_index}`).val(0);
+                                $(`#balance${data_index}`).val(0);
+                                ErrorNotif("Price Settlement is over Price Request !");
+                            } else {
+                                $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
+                                $(`#balance${data_index}`).val(currencyTotal(countBalance));
+                                $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
+                                calculateTotal();
+                            }
+                        });
+
+                        indexAdvanceDetail += 1;
                     });
                 } else {
                     console.log('error');
