@@ -26,7 +26,7 @@
     function getAdvanceDetail(advanceRefID, advanceNumber) {
         $("#tableAdvanceDetail tbody").hide();
         $(".loadingAdvanceSettlementTable").show();
-
+        
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -51,8 +51,14 @@
                     $.each(result, function(key, val2) {
                         let row = `
                             <tr>
+                                <input id="transNumber${indexAdvanceDetail}" name="transNumber${indexAdvanceDetail}" value="${advanceNumber}" type="hidden" />
+                                <input id="productCode${indexAdvanceDetail}" name="productCode${indexAdvanceDetail}" value="${val2.product_RefID}" type="hidden" />
+                                <input id="productName${indexAdvanceDetail}" name="productName${indexAdvanceDetail}" value="${val2.productName}" type="hidden" />
+                                <input id="uom${indexAdvanceDetail}" name="uom${indexAdvanceDetail}" value="${val2.quantityUnitName}" type="hidden" />
+                                <input id="currency${indexAdvanceDetail}" name="currency${indexAdvanceDetail}" value="${val2.productUnitPriceCurrencyISOCode}" type="hidden" />
+
                                 ${key === 0 ? modifyColumn : ''}
-                                <td style="text-align: center; padding: 10px !important;">-</td>
+                                <td style="text-align: center; padding: 10px !important;">${val2.product_RefID}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productUnitPriceCurrencyISOCode}</td>
@@ -60,16 +66,16 @@
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.productUnitPriceCurrencyValue)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
                                 <td style="text-align: center; padding: 10px !important; width: 120px;">
-                                    <input class="form-control number-without-negative" id="qty_settlement${indexAdvanceDetail}" data-index=${indexAdvanceDetail} data-total-request=${val2.priceBaseCurrencyValue} autocomplete="off" style="border-radius:0px;" />
+                                    <input class="form-control number-without-negative" id="qty_settlement${indexAdvanceDetail}" data-index=${indexAdvanceDetail} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px;" />
                                 </td>
                                 <td style="text-align: center; padding: 10px !important; width: 120px;">
-                                    <input class="form-control number-without-negative" id="price_settlement${indexAdvanceDetail}" data-index=${indexAdvanceDetail} data-total-request=${val2.priceBaseCurrencyValue} autocomplete="off" style="border-radius:0px;" />
+                                    <input class="form-control number-without-negative" id="price_settlement${indexAdvanceDetail}" data-index=${indexAdvanceDetail} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px;" />
                                 </td>
                                 <td style="text-align: center; padding: 10px !important; width: 120px;">
-                                    <input class="form-control number-without-negative" id="total_settlement${indexAdvanceDetail}" autocomplete="off" style="border-radius:0px;" readonly />
+                                    <input class="form-control number-without-negative" id="total_settlement${indexAdvanceDetail}" autocomplete="off" style="border-radius:0px;" data-default="" readonly />
                                 </td>
                                 <td style="text-align: center; padding: 10px !important; width: 120px;">
-                                    <input class="form-control number-without-negative" id="balance${indexAdvanceDetail}" autocomplete="off" style="border-radius:0px;" readonly />
+                                    <input class="form-control number-without-negative" id="balance${indexAdvanceDetail}" autocomplete="off" style="border-radius:0px;" data-default="" readonly />
                                 </td>
                             </tr>
                         `;
@@ -135,6 +141,84 @@
             }
         });
     }
+
+    $("#advance-details-add").on('click', function() {
+        var totalAdvanceDetail = document.getElementById('TotalAdvanceDetail').textContent;
+        
+        $("#tableAdvanceDetail tbody tr").each(function(index) {
+            var transNumber = $(this).find(`input[name="transNumber${index}"]`).val();
+            var productCode = $(this).find(`input[name="productCode${index}"]`).val();
+            var productName = $(this).find(`input[name="productName${index}"]`).val();
+            var uom = $(this).find(`input[name="uom${index}"]`).val();
+            var currency = $(this).find(`input[name="currency${index}"]`).val();
+            var qtySettle = $(this).find(`input[id^="qty_settlement${index}"]`).val();
+            var priceSettle = $(this).find(`input[id^="price_settlement${index}"]`).val();
+            var totalSettle = $(this).find(`input[id^="total_settlement${index}"]`).val();
+            var balance = $(this).find(`input[id^="balance${index}"]`).val();
+
+            if (!qtySettle || !priceSettle) {
+                return;
+            }
+
+            var rowToUpdate = null;
+
+            $("#tableAdvanceList tbody tr").each(function() {
+                var existingTransNumber = $(this).find("td:eq(0)").text();
+                var existingProductCode = $(this).find("td:eq(1)").text();
+                var existingProductName = $(this).find("td:eq(2)").text();
+                var existingUOM = $(this).find("td:eq(3)").text();
+                var existingCurrency = $(this).find("td:eq(4)").text();
+
+                if (existingTransNumber === transNumber) {
+                    if (existingProductCode === productCode && existingProductName === productName && existingUOM === uom && existingCurrency === currency) {
+                        rowToUpdate = $(this);
+                    }
+                }
+            });
+
+            if (rowToUpdate) {
+                rowToUpdate.find("td:eq(5)").text(qtySettle);
+                rowToUpdate.find("td:eq(6)").text(priceSettle);
+                rowToUpdate.find("td:eq(7)").text(totalSettle);
+                rowToUpdate.find("td:eq(8)").text(balance);
+            } else {
+                var newRow = `<tr>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${transNumber}</td>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${productCode}</td>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${productName}</td>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${uom}</td>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${currency}</td>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${currencyTotal(qtySettle)}</td>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${currencyTotal(priceSettle)}</td>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${currencyTotal(totalSettle)}</td>
+                    <td style="text-align: center; padding: 0.8rem 0px;">${currencyTotal(balance)}</td>
+                </tr>`;
+
+                $("#tableAdvanceList").find("tbody").append(newRow);
+            }
+        });
+
+        document.getElementById('GrandTotal').textContent = totalAdvanceDetail;
+    });
+
+    $('#advance-details-reset').on('click', function() {
+        $('input[id^="qty_settlement"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="price_settlement"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="total_settlement"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="balance"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('#tableAdvanceList tbody').empty();
+
+        document.getElementById('GrandTotal').textContent = "0.00";
+        document.getElementById('TotalAdvanceDetail').textContent = "0.00";
+    });
 
     $('#tableGetModalAdvance').on('click', 'tbody tr', function() {
         var sysId               = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
