@@ -214,7 +214,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // ASF
     Route::post('StoreValidateAdvanceSettlementBeneficiary', 'Process\Advance\AdvanceSettlementController@StoreValidateAdvanceSettlementBeneficiary')->name('AdvanceSettlement.StoreValidateAdvanceSettlementBeneficiary');
-    Route::get('RevisionAdvanceSettlementIndex', 'Process\Advance\AdvanceSettlementController@RevisionAdvanceSettlementIndex')->name('AdvanceSettlement.RevisionAdvanceSettlementIndex');
+    Route::post('RevisionAdvanceSettlementIndex', 'Process\Advance\AdvanceSettlementController@RevisionAdvanceSettlementIndex')->name('AdvanceSettlement.RevisionAdvanceSettlementIndex');
     Route::get('AdvanceSettlementListData', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementListData')->name('AdvanceSettlement.AdvanceSettlementListData');
     Route::get('AdvanceSettlementListDataById', 'Process\Advance\AdvanceSettlementController@AdvanceSettlementListDataById')->name('AdvanceSettlement.AdvanceSettlementListDataById');
     Route::post('SearchAdvanceRequest', 'Process\Advance\AdvanceSettlementController@SearchAdvanceRequest')->name('AdvanceSettlement.SearchAdvanceRequest');

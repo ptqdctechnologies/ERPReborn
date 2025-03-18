@@ -47,7 +47,6 @@
                 type: 'GET',
                 url: '{!! route("AdvanceSettlement.AdvanceSettlementListData") !!}',
                 success: function(data) {
-                    console.log('data', data);
                     var no = 1; t = $('#TableSearchAsfRevision').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
