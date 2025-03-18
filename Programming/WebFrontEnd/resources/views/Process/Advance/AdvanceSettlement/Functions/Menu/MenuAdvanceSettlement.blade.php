@@ -18,7 +18,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link myPopUpAdvanceSettlementRevision" data-toggle="modal" data-target="#myPopUpAdvanceSettlementRevision" style="color:white;padding-bottom:10px;">
+                                    <a class="nav-link myPopUpAdvanceSettlementRevision" data-toggle="modal" data-target="#myPopUpAdvanceSettlementRevision" style="color:white;padding-bottom:10px;cursor:pointer;">
                                         <i class="far fa-file nav-icon-sm"> Revision Advance Settlement</i>
                                     </a>
                                 </li>

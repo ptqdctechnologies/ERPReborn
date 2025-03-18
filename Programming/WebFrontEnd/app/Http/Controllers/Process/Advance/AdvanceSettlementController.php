@@ -548,33 +548,33 @@ class AdvanceSettlementController extends Controller
             $AdvanceSattlement_RefID = $request->input('AdvanceSattlement_RefID');
             $varAPIWebToken = Session::get('SessionLogin');
 
-            // DATA REVISION ADVANCE
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceReport',
-                'latest',
-                [
-                    'parameter' => [
-                        'advance_RefID' => (int) $AdvanceSattlement_RefID,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
+            // // DATA REVISION ADVANCE
+            // $filteredArray = Helper_APICall::setCallAPIGateway(
+            //     Helper_Environment::getUserSessionID_System(),
+            //     $varAPIWebToken,
+            //     'transaction.read.dataList.finance.getAdvanceReport',
+            //     'latest',
+            //     [
+            //         'parameter' => [
+            //             'advance_RefID' => (int) $AdvanceSattlement_RefID,
+            //         ],
+            //         'SQLStatement' => [
+            //             'pick' => null,
+            //             'sort' => null,
+            //             'filter' => null,
+            //             'paging' => null
+            //         ]
+            //     ],
+            //     false
+            // );
             
             $compact = [
-                'dataHeader' => $filteredArray['data'][0]['document']['header'],
-                'dataContent' => $filteredArray['data'][0]['document']['content']['general'],
-                'dataDetail' => $filteredArray['data'][0]['document']['content']['details']['itemList'],
+            //     'dataHeader' => $filteredArray['data'][0]['document']['header'],
+            //     'dataContent' => $filteredArray['data'][0]['document']['content']['general'],
+            //     'dataDetail' => $filteredArray['data'][0]['document']['content']['details']['itemList'],
                 'varAPIWebToken' => $varAPIWebToken,
-                'statusRevisi' => 1,
-                'statusFinalApprove' => "No",
+            //     'statusRevisi' => 1,
+            //     'statusFinalApprove' => "No",
             ];
             return view('Process.Advance.AdvanceSettlement.Transactions.RevisionAdvanceSettlement', $compact);
         } catch (\Throwable $th) {

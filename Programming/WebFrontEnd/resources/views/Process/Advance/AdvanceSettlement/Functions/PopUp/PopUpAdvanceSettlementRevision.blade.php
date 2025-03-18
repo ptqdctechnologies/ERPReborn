@@ -17,7 +17,7 @@
                                                     <input id="siteCodeRevAsfBefore" style="border-radius:0;" name="siteCodeRevArfBefore" class="form-control" type="hidden">
                                                     <input required="" id="AdvanceSattlement_Number" style="border-radius:0;" name="AdvanceSattlement_Number" type="text" class="form-control" required readonly>
                                                     <div class="input-group-append">
-                                                        <span style="border-radius:0;" class="input-group-text form-control" id="AdvanceSattlement_Number_Icon">
+                                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" id="AdvanceSattlement_Number_Icon">
                                                             <a data-toggle="modal" data-target="#PopUpTableAdvanceSettlementRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                         </span>
                                                     </div>
