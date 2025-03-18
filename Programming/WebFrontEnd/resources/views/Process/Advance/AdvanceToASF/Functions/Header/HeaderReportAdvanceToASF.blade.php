@@ -47,8 +47,8 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Requester</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <input id="worker_position_second" style="border-radius:0;" name="requester_detail" class="form-control" size="34" readonly>
-                <input id="worker_id_second" style="border-radius:0;" name="requester_id" class="form-control" hidden>
+                <input id="worker_name_second" style="border-radius:0;" name="worker_name_second" class="form-control" size="34" readonly>
+                <input id="worker_id_second" style="border-radius:0;" name="worker_id_second" class="form-control" hidden>
             </div>
             <div>
                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -58,7 +58,7 @@
                 </span>
             </div>
             <div class="d-sm-none d-md-none d-lg-block">
-                <input id="worker_name_second" style="border-radius:0;" name="requester" class="form-control invisible" readonly>
+                <input id="worker_position_second" style="border-radius:0;" name="worker_position_second" class="form-control invisible">
             </div>
         </div>
     </div>
