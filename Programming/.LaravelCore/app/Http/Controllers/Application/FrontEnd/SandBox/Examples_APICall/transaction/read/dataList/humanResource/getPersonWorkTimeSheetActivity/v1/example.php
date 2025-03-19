@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.read.dataList.humanResource.getPersonWorkTimeSheetActivity.v1_throughAPIGateway        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-13                                                                                           |
+        | ▪ Last Update     : 2025-03-19                                                                                           |
         | ▪ Creation Date   : 2022-09-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -36,9 +36,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.read.dataList.humanResource.getPersonWorkTimeSheetActivity', 
-                'latest', 
+                $varAPIWebToken,
+                'transaction.read.dataList.humanResource.getPersonWorkTimeSheetActivity',
+                'latest',
                 [
                 'parameter' => [
                     'personWorkTimeSheet_RefID' => 48000000000001
@@ -51,7 +51,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     ]
                 ]
                 );
-            var_dump($varData);
+            return $varData;
             }
 
 
@@ -85,10 +85,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
             echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.read.dataList.humanResource.getPersonWorkTimeSheetActivity', 
-                'latest', 
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.humanResource.getPersonWorkTimeSheetActivity',
+                'latest',
                 '{'.
                     '"parameter" : {'.
                         '"personWorkTimeSheet_RefID" : parseInt(document.getElementById("dataInput_PersonWorkTimeSheet_RefID").value), '.
@@ -100,7 +100,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
                         '}'.
                 '}'
-                ); 
+                );
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }
