@@ -677,7 +677,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-HumanResource.Func_GetDataList_PersonWorkTimeSheet',
+                            'SchData-OLTP-HumanResource.Func_GetDataList_PersonWorkTimeSheetNew',
                             [
                                 [$varBranchID, 'bigint' ],
 
