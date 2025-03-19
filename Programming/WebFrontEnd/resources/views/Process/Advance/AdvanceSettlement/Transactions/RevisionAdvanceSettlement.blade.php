@@ -2,6 +2,8 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getAdvance')
+@include('Process.Advance.AdvanceSettlement.Functions.PopUp.PopUpAdvanceSettlementRevision')
 
 <div class="content-wrapper">
   <section class="content">

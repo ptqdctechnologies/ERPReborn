@@ -17,7 +17,7 @@
                                         </td>
                                         <td>
                                             <div class="input-group">
-                                                <form id="editForm" action="/RevisionAdvanceSettlementIndex" method="POST">
+                                                <form id="editForm" action="{{ route('AdvanceSettlement.RevisionAdvanceSettlementIndex') }}" method="POST">
                                                 @csrf
                                                 <input id="AdvanceSattlement_RefID" style="border-radius:0;" name="AdvanceSattlement_RefID" type="hidden" class="form-control">
                                                 <input id="siteCodeRevAsfBefore" style="border-radius:0;" name="siteCodeRevArfBefore" class="form-control" type="hidden">
