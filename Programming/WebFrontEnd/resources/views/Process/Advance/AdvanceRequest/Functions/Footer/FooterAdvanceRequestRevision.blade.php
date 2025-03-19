@@ -61,7 +61,7 @@
                         let row = `
                             <tr>
                                 <input id="productId${indexing}" name="productId${indexing}" data-product-id="productId" value="${advanceItem.Product_RefID}" type="hidden" />
-                                <input id="recordIDDetail${indexing}" name="recordIDDetail${indexing}" value="null" type="hidden" />
+                                <input id="recordIDDetail${indexing}" name="recordIDDetail${indexing}" value="${advanceItem.Sys_ID_AdvanceDetail}" type="hidden" />
                                 <input id="productName${indexing}" name="productName${indexing}" value="${advanceItem.ProductName}" type="hidden" />
                                 
                                 <td style="padding: 8px;">
@@ -194,7 +194,7 @@
                         row = `
                             <tr>
                                 <input id="productId${key}" name="productId${key}" data-product-id="productId" value="${val2.product_RefID}" type="hidden" />
-                                <input id="recordIDDetail${key}" name="recordIDDetail${key}" value="null" type="hidden" />
+                                <input id="recordIDDetail${key}" name="recordIDDetail${key}" value="${matchedAdvance.Sys_ID_AdvanceDetail}" type="hidden" />
                                 <input id="productName${key}" name="productName${key}" value="${val2.productName}" type="hidden" />
                                 <input id="qtyId${key}" name="qtyId${key}" value="${val2.quantityUnit_RefID || ''}" type="hidden" />
                                 <input id="qty${key}" name="qty${key}" value="${val2.quantity || ''}" type="hidden" />
