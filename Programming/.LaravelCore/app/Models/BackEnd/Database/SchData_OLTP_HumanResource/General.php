@@ -699,6 +699,58 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_PersonWorkTimeSheetDetail                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-03-19                                                                                           |
+        | ▪ Creation Date   : 2025-03-19                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Aktivitas Timesheet Pekerjaan Perorangan                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPersonWorkTimeSheet_RefID ► Person Work Time Sheet Referece ID                                        |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_PersonWorkTimeSheetDetail(
+            $varUserSession, int $varBranchID,
+            int $varPersonWorkTimeSheet_RefID = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-HumanResource.Func_GetDataList_PersonWorkTimeSheetNew',
+                            [
+                                [$varBranchID, 'bigint'],
+                            ]
+                            )
+                        );                
+                $collection = collect($varReturn['data']);
+                $filtered = $collection->where('Sys_ID', $varPersonWorkTimeSheet_RefID);
+                $varReturn['data'] = $filtered->toArray();
+
+                return $varReturn['data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_PersonWorkTimeSheetActivity                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
