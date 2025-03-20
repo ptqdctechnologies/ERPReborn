@@ -45,7 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |
         | ▪ Create date     : 2022-09-27                                                                                           |
-        | ▪ Last Update     : 2022-01-28                                                                                           |
+        | ▪ Last Update     : 2025-03-20                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -68,16 +68,32 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             null, 
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                            $varData['entities']['documentNumber'],
                             $varData['entities']['documentDateTimeTZ'],
                             $varData['entities']['person_RefID'],
                             $varData['entities']['startDateTimeTZ'],
                             $varData['entities']['finishDateTimeTZ'],
                             $varData['entities']['project_RefID'],
                             $varData['entities']['colorText'],
-                            $varData['entities']['colorBackground']
+                            $varData['entities']['colorBackground'],
+
+                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                $varUserSession,
+                                'additionalData',
+                                $varData['entities']
+                                ) 
+                                ?   (
+                                        (
+                                        !is_null($varData['entities']['additionalData'])
+                                        ) 
+                                        ? $varData['entities']['additionalData']
+                                        : []
+                                    )
+                                : []
+                            )
                             ))))
                             {
-                            throw new \Exception();
+                            throw new \Exception();                            
                             }
                         //---> Set Business Document Data Into varDataSend
                         $varDataSend['businessDocument'] = 
