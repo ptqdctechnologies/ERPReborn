@@ -30,6 +30,7 @@
 
         <div class="card">
           <form method="POST" enctype="multipart/form-data" id="FormSubmitBusinessTrip">
+            @csrf
             <!-- ADD NEW BUSINESS REQUEST TRIP FORM -->
             <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
               <div class="row">
@@ -745,15 +746,15 @@
             <div class="px-3 pb-3">
               <div style="display: flex; justify-content: flex-end; gap: 8px;">
                 <div style="display: flex;">
-                  <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button" onclick="CancelBusinessTrip();">
-                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
-                    <div>Cancel</div>
-                  </button>
-                </div>
-                <div style="display: flex;">
                   <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit">
                     <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
                     <div>Submit</div>
+                  </button>
+                </div>
+                <div style="display: flex;">
+                  <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button" onclick="CancelBusinessTrip();">
+                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
+                    <div>Cancel</div>
                   </button>
                 </div>
               </div>

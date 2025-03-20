@@ -186,67 +186,42 @@ class BusinessTripRequestController extends Controller
     public function RevisionBusinessTripRequestIndex(Request $request)
     {
         try {
-
-            $searchBrfNumberRevisionId = $request->input('searchBrfNumberRevisionId');
+            // $searchBrfNumberRevisionId = $request->input('searchBrfNumberRevisionId');
             $varAPIWebToken = Session::get('SessionLogin');
 
-            // DATA REVISION
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceReport',
-                'latest',
-                [
-                    'parameter' => [
-                        'advance_RefID' => (int) $searchBrfNumberRevisionId,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-            // dd($filteredArray);
+            // // DATA REVISION
+            // $filteredArray = Helper_APICall::setCallAPIGateway(
+            //     Helper_Environment::getUserSessionID_System(),
+            //     $varAPIWebToken,
+            //     'transaction.read.dataList.finance.getAdvanceReport',
+            //     'latest',
+            //     [
+            //         'parameter' => [
+            //             'advance_RefID' => (int) $searchBrfNumberRevisionId,
+            //         ],
+            //         'SQLStatement' => [
+            //             'pick' => null,
+            //             'sort' => null,
+            //             'filter' => null,
+            //             'paging' => null
+            //         ]
+            //     ],
+            //     false
+            // );
+            // // dd($filteredArray);
             $compact = [
-                'dataHeader' => $filteredArray['data'][0]['document']['header'],
-                'dataContent' => $filteredArray['data'][0]['document']['content']['general'],
-                'dataDetail' => $filteredArray['data'][0]['document']['content']['details']['itemList'],
+                // 'dataHeader' => $filteredArray['data'][0]['document']['header'],
+                // 'dataContent' => $filteredArray['data'][0]['document']['content']['general'],
+                // 'dataDetail' => $filteredArray['data'][0]['document']['content']['details']['itemList'],
                 'varAPIWebToken' => $varAPIWebToken,
-                'statusRevisi' => 1,
-                'statusFinalApprove' => "No",
+                // 'statusRevisi' => 1,
+                // 'statusFinalApprove' => "No",
             ];
             return view('Process.BusinessTrip.BusinessTripRequest.Transactions.RevisionBusinessTripRequest', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
-
-        // $varAPIWebToken = $request->session()->get('SessionLogin');
-        // $request->session()->forget("SessionBusinessTripRequest");
-
-        // $varDataAdvanceRevision = Helper_APICall::setCallAPIGateway(
-        //     Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken, 
-        //     'report.form.documentForm.finance.getAdvance', 
-        //     'latest',
-        //     [
-        //     'parameter' => [
-        //         'recordID' => (int) $request->input('searchBrfNumberRevisionId'),
-        //         ]
-        //     ]
-        //     );
-        // // dd($varDataAdvanceRevision);
-        // $compact = [
-        //     'dataRevisi' => $varDataAdvanceRevision['data'][0]['document']['content']['general'],
-        //     'var_recordID' => $request->input('searchBrfNumberRevisionId'),
-        //     'varAPIWebToken' => $varAPIWebToken,
-        //     'statusRevisi' => 1,
-        //     'trano' => $varDataAdvanceRevision['data'][0]['document']['header']['number'],
-        // ];
-        // return view('Process.BusinessTrip.BusinessTripRequest.Transactions.RevisionBusinessTripRequest', $compact);
     }
 
     public function BusinessTripRequestListCartRevision(Request $request)
