@@ -17,9 +17,11 @@
   <section class="content">
     <div class="container-fluid">
       <!-- TITTLE -->
-      <div class="row title-pages">
-        <div class="col-sm-6 title">
-          Business Trip Request Form
+      <div class="row mb-1" style="background-color:#4B586A;">
+        <div class="col-sm-6" style="height:30px;">
+          <label style="font-size:15px;position:relative;top:7px;color:white;">
+            Business Trip Request Form
+          </label>
         </div>
       </div>
 

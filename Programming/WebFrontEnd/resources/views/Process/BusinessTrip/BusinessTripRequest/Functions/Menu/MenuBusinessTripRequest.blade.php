@@ -1,13 +1,13 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header p-0">
                 <label class="card-title">
                     <ul class="navbar-nav ml-auto left">
                         <li class="nav-item dropdown user-menu">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="color:#4B586A;font-size:12px;height:12px;">
-                                <span style="position:relative;bottom:5px;">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"> 
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="color:#4B586A;font-size:12px; padding: 2px;">
+                                <span style="position:relative;cursor:pointer;">
+                                    <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="25" alt="" style="border: 1px solid #ced4da;padding: 2px 4px;border-radius:3px;"> 
                                     SELECT ACTION 
                                 </span>
                             </a>
@@ -18,7 +18,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link myPopUpBusinessTripRevision" data-toggle="modal" data-target="#myPopUpBusinessTripRevision" style="color:white;padding-bottom:10px;">
+                                    <a class="nav-link myPopUpBusinessTripRevision" data-toggle="modal" data-target="#myPopUpBusinessTripRevision" style="color:white;padding-bottom:10px;cursor:pointer">
                                         <i class="far fa-file nav-icon-sm"> Revision Business Trip Request</i>
                                     </a>
                                 </li>
