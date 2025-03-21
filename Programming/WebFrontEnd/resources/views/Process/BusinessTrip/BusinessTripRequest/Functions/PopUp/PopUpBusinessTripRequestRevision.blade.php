@@ -25,7 +25,7 @@
                                                 <input required="" id="searchBrfNumberRevisions" style="border-radius:0;" name="searchBrfNumberRevisions" type="text" class="form-control" required readonly>
                                                 </form>
                                                 <div class="input-group-append">
-                                                    <span style="border-radius:0;" class="input-group-text form-control" id="searchBrfNumberRevisionsIcon">
+                                                    <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" id="searchBrfNumberRevisionsIcon">
                                                         <a data-toggle="modal" data-target="#PopUpTableBusinessTripRevision">
                                                             <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                                         </a>
@@ -42,7 +42,7 @@
                     <a class="btn btn-sm btn-edit" style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
                         <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Edit"> Edit
                     </a>
-                    <a class="btn btn-sm btn-cancel" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                    <a class="btn btn-sm btn-cancel" data-dismiss="modal" style="background-color:#e9ecef;border:1px solid #ced4da;">
                         <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel"> Cancel
                     </a>
                 </div>
