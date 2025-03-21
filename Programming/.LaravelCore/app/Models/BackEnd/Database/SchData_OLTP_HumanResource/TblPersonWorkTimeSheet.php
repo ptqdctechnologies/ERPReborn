@@ -69,7 +69,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, int $varProject_RefID = null, string $varColorText = null, string $varColorBackground = null)
+            string $varDocumentNumber = null, string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, int $varProject_RefID = null, string $varColorText = null, string $varColorBackground = null, array $varAdditionalData = [])
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -90,7 +90,18 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             [$varFinishDateTimeTZ, 'timestamptz'],
                             [$varProject_RefID, 'bigint'],
                             [$varColorText, 'varchar'],
-                            [$varColorBackground, 'varchar']
+                            [$varColorBackground, 'varchar'],
+
+                            [
+                                ((count($varAdditionalData) === 0) 
+                                    ? null
+                                    : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                        $varUserSession,
+                                        $varAdditionalData
+                                        )
+                                ),
+                                'json'
+                            ]
                         ]
                         )
                     );
