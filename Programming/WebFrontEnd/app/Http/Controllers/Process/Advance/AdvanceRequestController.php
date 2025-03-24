@@ -810,8 +810,6 @@ class AdvanceRequestController extends Controller
 
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportAdvanceToASF', []) : [];
 
-            dump($dataReport);
-
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'dataReport'        => $dataReport
