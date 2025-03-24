@@ -31,7 +31,7 @@
                         </div>
                     </div>
 
-                    <?php if ($dataReport) { ?>
+                    <?php if (!$dataReport) { ?>
                         <!-- TABLE -->
                         <div class="row">
                             <div class="col-12">

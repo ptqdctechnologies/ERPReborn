@@ -66,43 +66,42 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>ARF01-10002025</td>
-                                                    <td>12-06-2025</td>
-                                                    <td>caesarandi</td>
-                                                    <td>3,110,000</td>
-                                                    <td>3,110,000</td>
-                                                    <td>Final Approval</td>
-                                                    <td>ASF01-10012025</td>
-                                                    <td>24-06-2025</td>
-                                                    <td>3,110,000</td>
-                                                    <td>3,058,506</td>
-                                                    <td>51,494</td>
-                                                    <td>Settlement BT Fikri Konsinyering QA / QC di semara</td>
-                                                    <td>Final Approval</td>
-                                                    <td>3,110,000</td>
-                                                    <td>3,110,000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>ARF01-10012025</td>
-                                                    <td>19-08-2025</td>
-                                                    <td>nandang</td>
-                                                    <td>3,000,000</td>
-                                                    <td>3,000,000</td>
-                                                    <td>Final Approval</td>
-                                                    <td>ASF01-10022025</td>
-                                                    <td>28-11-2025</td>
-                                                    <td>3,000,000</td>
-                                                    <td>2,000,000</td>
-                                                    <td>1,000,000</td>
-                                                    <td>Settlement Motor attharina</td>
-                                                    <td>Final Approval</td>
-                                                    <td>3,000,000</td>
-                                                    <td>3,000,000</td>
-                                                </tr>
+                                                <?php $counter = 1; ?>
+                                                <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
+                                                    <tr>
+                                                        <td><?= $counter++; ?></td>
+                                                        <td><?= $dataDetail['DocumentNumber']; ?></td>
+                                                        <td><?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?></td>
+                                                        <td><?= $dataDetail['RequesterWorkerName']; ?></td>
+                                                        <td><?= number_format($dataDetail['TotalAdvance'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalPayment'], 2, '.', ','); ?></td>
+                                                        <td><?= $dataDetail['Status']; ?></td>
+                                                        <td><?= $dataDetail['DocumentASFNumber']; ?></td>
+                                                        <td><?= date('d-m-Y', strtotime($dataDetail['DocumentASFDateTimeTZ'])); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalSettlement'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalExpenseClaim'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalAmountCompany'], 2, '.', ','); ?></td>
+                                                        <td><?= $dataDetail['Description']; ?></td>
+                                                        <td><?= $dataDetail['StatusASF']; ?></td>
+                                                        <td><?= number_format($dataDetail['TotalAdvancePayment'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalAdvanceSettlement'], 2, '.', ','); ?></td>
+                                                    </tr>
+                                                <?php } ?>
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="4" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalAdvance'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalPayment'], 2, '.', ','); ?></th>
+                                                    <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalSettlement'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalExpenseClaim'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalAmountCompany'], 2, '.', ','); ?></th>
+                                                    <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalAdvancePayment'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalAdvanceSettlement'], 2, '.', ','); ?></th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>

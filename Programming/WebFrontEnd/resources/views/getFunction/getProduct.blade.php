@@ -53,13 +53,11 @@
                 success: function(data) {
                     var result = data.data.data;
 
-                    console.log('data', data);
-
                     for (var i = 0; i < result.length; i++) {
                         var no = i + 1;
                         dataShow.push([
                             '<tbody><tr><input id="quantityUnit_RefID" value="' + result[i]['quantityUnit_RefID'] + '" data-trigger="quantityUnit_RefID" type="hidden" /><td>' + no + '</td>',
-                            '<td>' + result[i]['sys_ID'] + '</td>',
+                            '<td>' + result[i]['code'] + '</td>',
                             '<td>' + result[i]['name'] + '</td>',
                             '<td>' + result[i]['quantityUnitName'] + '</td>',
                             '<span style="display:none;"><td>' + result[i]['quantityUnit_RefID'] + '</td></span></tr></tbody>'
