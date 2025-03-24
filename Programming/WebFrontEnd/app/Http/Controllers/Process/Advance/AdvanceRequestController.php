@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ExportExcel\AdvanceRequest\ExportReportAdvanceSummaryDetail;
 use App\Http\Controllers\ExportExcel\AdvanceRequest\ExportReportAdvanceSummary;
+use App\Http\Controllers\ExportExcel\AdvanceRequest\ExportReportAdvanceToASF;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -1409,6 +1410,35 @@ class AdvanceRequestController extends Controller
             return redirect()->route('AdvanceRequest.ReportAdvanceToASF');
         } catch (\Throwable $th) {
             Log::error("ReportAdvanceToASFStore Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportAdvanceToASF(Request $request)
+    {
+        try {
+            $dataReport = Session::get("dataReportAdvanceToASF");
+            $print_type = $request->print_type;
+            $project_code_second_trigger = $request->project_code_second_trigger;
+
+            if ($project_code_second_trigger == null) {
+                Session::forget("isButtonReportAdvanceToASFSubmit");
+                Session::forget("dataReportAdvanceToASF");
+
+                return redirect()->route('AdvanceRequest.ReportAdvanceToASF')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
+            }
+
+            if ($dataReport) {
+                if ($print_type === "PDF") {
+                } else {
+                    return Excel::download(new ExportReportAdvanceToASF, 'Export Advance To ASF.xlsx');
+                }
+            } else {
+                return redirect()->route('AdvanceRequest.ReportAdvanceToASF')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
+            }
+
+        } catch (\Throwable $th) {
+            Log::error("PrintExportReportAdvanceToASF Function Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
