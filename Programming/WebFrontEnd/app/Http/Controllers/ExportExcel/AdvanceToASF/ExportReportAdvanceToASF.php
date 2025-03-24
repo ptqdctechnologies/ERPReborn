@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ExportExcel\AdvanceRequest;
+namespace App\Http\Controllers\ExportExcel\AdvanceToASF;
 
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\FromCollection;

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ExportExcel\AdvanceRequest\ExportReportAdvanceSummaryDetail;
 use App\Http\Controllers\ExportExcel\AdvanceRequest\ExportReportAdvanceSummary;
-use App\Http\Controllers\ExportExcel\AdvanceRequest\ExportReportAdvanceToASF;
+use App\Http\Controllers\ExportExcel\AdvanceToASF\ExportReportAdvanceToASF;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -810,6 +810,8 @@ class AdvanceRequestController extends Controller
 
             $dataReport = $isSubmitButton ? $request->session()->get('dataReportAdvanceToASF', []) : [];
 
+            dump($dataReport);
+
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'dataReport'        => $dataReport
@@ -1430,6 +1432,17 @@ class AdvanceRequestController extends Controller
 
             if ($dataReport) {
                 if ($print_type === "PDF") {
+                    $pdf = PDF::loadView('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Advance To ASF.pdf');
                 } else {
                     return Excel::download(new ExportReportAdvanceToASF, 'Export Advance To ASF.xlsx');
                 }
