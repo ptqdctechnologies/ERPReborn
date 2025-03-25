@@ -736,10 +736,27 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                                 [$varBranchID, 'bigint'],
                             ]
                             )
-                        );                
+                        );                        
                 $collection = collect($varReturn['data']);
                 $filtered = $collection->where('Sys_ID', $varPersonWorkTimeSheet_RefID);
-                $varReturn['data'] = $filtered->toArray();
+                $resultArray = $filtered->toArray();
+
+                $varReturn['data'] = [];
+                $idxArray = 0;
+                foreach ($resultArray as $key => $value) {
+                    $varReturn['data']['sys_ID'] = $value["Sys_ID"];
+                    $varReturn['data']['documentNumber'] = $value["DocumentNumber"];
+                    $varReturn['data']['documentDateTimeTZ'] = $value["DocumentDateTimeTZ"];
+                    $varReturn['data']['person_RefID'] = $value["Person_RefID"];
+                    $varReturn['data']['personName'] = $value["PersonName"];
+                                        
+                    $varReturn['data']['detail'][$idxArray]['startDateTimeTZ'] = $value["StartDateTimeTZ"];
+                    $varReturn['data']['detail'][$idxArray]['finishDateTimeTZ'] = $value["FinishDateTimeTZ"];
+                    $varReturn['data']['detail'][$idxArray]['project_RefID'] = $value["Project_RefID"];
+                    $varReturn['data']['detail'][$idxArray]['siteCode_RefID'] = $value["SiteCode_RefID"];
+                    $varReturn['data']['detail'][$idxArray]['activity'] = $value["Activity"];
+                    $idxArray++;
+                }
 
                 return $varReturn['data'];
                 }
