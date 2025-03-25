@@ -18,6 +18,12 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class BusinessTripRequestController extends Controller
 {
+    public function calculateTotal($filteredData, $key) {
+        return array_reduce($filteredData, function ($carry, $item) use ($key) {
+            return $carry + ($item[$key] ?? 0);
+        }, 0);
+    }
+
     public function index(Request $request)
     {   
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -304,7 +310,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000229",
                     "DocumentDateTimeTZ" => "2024-12-27 00:00:00+07",
-                    "TotalAdvance" => "6300000.00",
+                    "TotalBusinessTrip" => "6300000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -327,7 +333,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000228",
                     "DocumentDateTimeTZ" => "2024-12-27 00:00:00+07",
-                    "TotalAdvance" => "8400000.00",
+                    "TotalBusinessTrip" => "8400000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -350,7 +356,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000227",
                     "DocumentDateTimeTZ" => "2024-12-27 00:00:00+07",
-                    "TotalAdvance" => "5900000.00",
+                    "TotalBusinessTrip" => "5900000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -373,7 +379,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000226",
                     "DocumentDateTimeTZ" => "2024-12-26 00:00:00+07",
-                    "TotalAdvance" => "7600000.00",
+                    "TotalBusinessTrip" => "7600000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -396,7 +402,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000225",
                     "DocumentDateTimeTZ" => "2024-12-26 00:00:00+07",
-                    "TotalAdvance" => "5200000.00",
+                    "TotalBusinessTrip" => "5200000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -419,7 +425,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000224",
                     "DocumentDateTimeTZ" => "2024-12-25 00:00:00+07",
-                    "TotalAdvance" => "6900000.00",
+                    "TotalBusinessTrip" => "6900000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -442,7 +448,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000223",
                     "DocumentDateTimeTZ" => "2024-12-24 00:00:00+07",
-                    "TotalAdvance" => "4700000.00",
+                    "TotalBusinessTrip" => "4700000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -465,7 +471,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000222",
                     "DocumentDateTimeTZ" => "2024-12-23 00:00:00+07",
-                    "TotalAdvance" => "8100000.00",
+                    "TotalBusinessTrip" => "8100000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -488,7 +494,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000221",
                     "DocumentDateTimeTZ" => "2024-12-20 00:00:00+07",
-                    "TotalAdvance" => "5600000.00",
+                    "TotalBusinessTrip" => "5600000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -511,7 +517,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000220",
                     "DocumentDateTimeTZ" => "2024-12-19 00:00:00+07",
-                    "TotalAdvance" => "7300000.00",
+                    "TotalBusinessTrip" => "7300000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -534,7 +540,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000219",
                     "DocumentDateTimeTZ" => "2024-12-19 00:00:00+07",
-                    "TotalAdvance" => "6400000.00",
+                    "TotalBusinessTrip" => "6400000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -557,7 +563,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000218",
                     "DocumentDateTimeTZ" => "2024-12-19 00:00:00+07",
-                    "TotalAdvance" => "7100000.00",
+                    "TotalBusinessTrip" => "7100000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -580,7 +586,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000217",
                     "DocumentDateTimeTZ" => "2024-12-18 00:00:00+07",
-                    "TotalAdvance" => "4900000.00",
+                    "TotalBusinessTrip" => "4900000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -603,7 +609,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000216",
                     "DocumentDateTimeTZ" => "2024-12-17 00:00:00+07",
-                    "TotalAdvance" => "8800000.00",
+                    "TotalBusinessTrip" => "8800000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -626,7 +632,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000215",
                     "DocumentDateTimeTZ" => "2024-12-13 00:00:00+07",
-                    "TotalAdvance" => "5300000.00",
+                    "TotalBusinessTrip" => "5300000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -649,7 +655,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000214",
                     "DocumentDateTimeTZ" => "2024-12-13 00:00:00+07",
-                    "TotalAdvance" => "6700000.00",
+                    "TotalBusinessTrip" => "6700000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -672,7 +678,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000213",
                     "DocumentDateTimeTZ" => "2024-12-12 00:00:00+07",
-                    "TotalAdvance" => "7800000.00",
+                    "TotalBusinessTrip" => "7800000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -695,7 +701,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000212",
                     "DocumentDateTimeTZ" => "2024-12-11 00:00:00+07",
-                    "TotalAdvance" => "5100000.00",
+                    "TotalBusinessTrip" => "5100000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -718,7 +724,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000211",
                     "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
-                    "TotalAdvance" => "8200000.00",
+                    "TotalBusinessTrip" => "8200000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -741,7 +747,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000210",
                     "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
-                    "TotalAdvance" => "6200000.00",
+                    "TotalBusinessTrip" => "6200000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -764,7 +770,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000209",
                     "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
-                    "TotalAdvance" => "7500000.00",
+                    "TotalBusinessTrip" => "7500000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -787,7 +793,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000208",
                     "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
-                    "TotalAdvance" => "5800000.00",
+                    "TotalBusinessTrip" => "5800000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -810,7 +816,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000207",
                     "DocumentDateTimeTZ" => "2024-12-09 00:00:00+07",
-                    "TotalAdvance" => "9000000.00",
+                    "TotalBusinessTrip" => "9000000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -833,7 +839,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000206",
                     "DocumentDateTimeTZ" => "2024-12-09 00:00:00+07",
-                    "TotalAdvance" => "4200000.00",
+                    "TotalBusinessTrip" => "4200000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -856,7 +862,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000205",
                     "DocumentDateTimeTZ" => "2024-12-09 00:00:00+07",
-                    "TotalAdvance" => "8500000.00",
+                    "TotalBusinessTrip" => "8500000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -879,7 +885,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000204",
                     "DocumentDateTimeTZ" => "2024-12-06 00:00:00+07",
-                    "TotalAdvance" => "3800000.00",
+                    "TotalBusinessTrip" => "3800000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -902,7 +908,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000203",
                     "DocumentDateTimeTZ" => "2024-12-05 00:00:00+07",
-                    "TotalAdvance" => "7200000.00",
+                    "TotalBusinessTrip" => "7200000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -925,7 +931,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000202",
                     "DocumentDateTimeTZ" => "2024-12-04 00:00:00+07",
-                    "TotalAdvance" => "5500000.00",
+                    "TotalBusinessTrip" => "5500000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -948,7 +954,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000201",
                     "DocumentDateTimeTZ" => "2024-12-03 00:00:00+07",
-                    "TotalAdvance" => "4500000.00",
+                    "TotalBusinessTrip" => "4500000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -971,7 +977,7 @@ class BusinessTripRequestController extends Controller
                 [
                     "DocumentNumber" => "BRF-24000200",
                     "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-                    "TotalAdvance" => "6000000.00",
+                    "TotalBusinessTrip" => "6000000.00",
                     "Sys_ID" => 76000000000054,
                     "CombinedBudgetCode" => "Q000062",
                     "CombinedBudgetName" => "XL Microcell 2007",
@@ -998,7 +1004,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000200",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "6000000.00",
+            //         "TotalBusinessTrip" => "6000000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1019,7 +1025,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000201",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "4500000.00",
+            //         "TotalBusinessTrip" => "4500000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1040,7 +1046,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000202",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "5500000.00",
+            //         "TotalBusinessTrip" => "5500000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1061,7 +1067,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000203",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "7200000.00",
+            //         "TotalBusinessTrip" => "7200000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1082,7 +1088,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000204",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "3800000.00",
+            //         "TotalBusinessTrip" => "3800000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1103,7 +1109,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000205",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "8500000.00",
+            //         "TotalBusinessTrip" => "8500000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1124,7 +1130,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000206",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "4200000.00",
+            //         "TotalBusinessTrip" => "4200000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1145,7 +1151,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000207",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "9000000.00",
+            //         "TotalBusinessTrip" => "9000000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1166,7 +1172,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000208",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "5800000.00",
+            //         "TotalBusinessTrip" => "5800000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1187,7 +1193,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000209",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "7500000.00",
+            //         "TotalBusinessTrip" => "7500000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1208,7 +1214,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000210",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "6200000.00",
+            //         "TotalBusinessTrip" => "6200000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1229,7 +1235,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000211",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "8200000.00",
+            //         "TotalBusinessTrip" => "8200000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1250,7 +1256,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000212",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "5100000.00",
+            //         "TotalBusinessTrip" => "5100000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1271,7 +1277,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000213",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "7800000.00",
+            //         "TotalBusinessTrip" => "7800000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1292,7 +1298,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000214",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "6700000.00",
+            //         "TotalBusinessTrip" => "6700000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1313,7 +1319,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000215",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "5300000.00",
+            //         "TotalBusinessTrip" => "5300000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1334,7 +1340,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000216",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "8800000.00",
+            //         "TotalBusinessTrip" => "8800000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1355,7 +1361,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000217",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "4900000.00",
+            //         "TotalBusinessTrip" => "4900000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1376,7 +1382,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000218",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "7100000.00",
+            //         "TotalBusinessTrip" => "7100000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1397,7 +1403,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000219",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "6400000.00",
+            //         "TotalBusinessTrip" => "6400000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1418,7 +1424,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000220",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "7300000.00",
+            //         "TotalBusinessTrip" => "7300000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1439,7 +1445,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000221",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "5600000.00",
+            //         "TotalBusinessTrip" => "5600000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1460,7 +1466,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000222",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "8100000.00",
+            //         "TotalBusinessTrip" => "8100000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1481,7 +1487,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000223",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "4700000.00",
+            //         "TotalBusinessTrip" => "4700000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1502,7 +1508,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000224",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "6900000.00",
+            //         "TotalBusinessTrip" => "6900000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1523,7 +1529,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000225",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "5200000.00",
+            //         "TotalBusinessTrip" => "5200000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1544,7 +1550,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000226",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "7600000.00",
+            //         "TotalBusinessTrip" => "7600000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1565,7 +1571,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000227",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "5900000.00",
+            //         "TotalBusinessTrip" => "5900000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1586,7 +1592,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000228",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "8400000.00",
+            //         "TotalBusinessTrip" => "8400000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1607,7 +1613,7 @@ class BusinessTripRequestController extends Controller
             //     [
             //         "DocumentNumber" => "BRF-24000229",
             //         "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
-            //         "TotalAdvance" => "6300000.00",
+            //         "TotalBusinessTrip" => "6300000.00",
             //         "Sys_ID" => 76000000000054,
             //         "CombinedBudgetCode" => "Q000062",
             //         "CombinedBudgetName" => "XL Microcell 2007",
@@ -1989,6 +1995,486 @@ class BusinessTripRequestController extends Controller
             return view('Process.BusinessTrip.BusinessTripToBSF.Reports.ReportBusinessTripToBSF', $compact);
         } catch (\Throwable $th) {
             Log::error("ReportBusinessTripToBSF Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportBusinessTripToBSFData($project, $site, $requester) 
+    {
+        try {
+            $dataDummy = [
+                [
+                    "Sys_ID" => 76000000000001,
+                    "DocumentNumber" => "BRF-25000063",
+                    "DocumentDateTimeTZ" => "2024-05-10 00:00:00+07",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
+                    "TotalTravel" => "1000000.00",
+                    "TotalAllowance" => "950000.00",
+                    "TotalEntertainment" => "500000.00",
+                    "TotalOther" => "300000.00",
+                    "TotalPayment" => "2450000.00",
+                    "Status" => "Final Approval",
+                    "DateCommenceTravel" => "2024-06-01 00:00:00+07",
+                    "DateEndTravel" => "2024-06-05 00:00:00+07",
+                    "DocumentBSFNumber" => "BSF-25000054",
+                    "DocumentBSFDateTimeTZ" => "2024-06-10 00:00:00+07",
+                    "TotalBSFTravel" => "1000000.00",
+                    "TotalBSFAllowance" => "950000.00",
+                    "TotalBSFEntertainment" => "500000.00",
+                    "TotalBSFOther" => "300000.00",
+                    "TotalExpenseClaimTravel" => "1000000.00",
+                    "TotalExpenseClaimAllowance" => "950000.00",
+                    "TotalExpenseClaimEntertainment" => "500000.00",
+                    "TotalExpenseClaimOther" => "300000.00",
+                    "TotalAmountToCompanyTravel" => "1000000.00",
+                    "TotalAmountToCompanyAllowance" => "950000.00",
+                    "TotalAmountToCompanyEntertainment" => "500000.00",
+                    "TotalAmountToCompanyOther" => "300000.00",
+                    "Description" => "BT Ares Antar Procurement untuk Sourcing mandor ke Purwodadi",
+                    "StatusBSF" => "Final Approval",
+                    "TotalBusinessTripPayment" => "0.00",
+                    "TotalBusinessTripSettlement" => "0.00",
+                ],
+                [
+                    "Sys_ID" => 76000000000002,
+                    "DocumentNumber" => "BRF-25000064",
+                    "DocumentDateTimeTZ" => "2024-05-15 00:00:00+07",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
+                    "TotalTravel" => "2000000.00",
+                    "TotalAllowance" => "1900000.00",
+                    "TotalEntertainment" => "1200000.00",
+                    "TotalOther" => "800000.00",
+                    "TotalPayment" => "5900000.00",
+                    "Status" => "Final Approval",
+                    "DateCommenceTravel" => "2024-06-06 00:00:00+07",
+                    "DateEndTravel" => "2024-06-10 00:00:00+07",
+                    "DocumentBSFNumber" => "BSF-25000055",
+                    "DocumentBSFDateTimeTZ" => "2024-06-15 00:00:00+07",
+                    "TotalBSFTravel" => "2000000.00",
+                    "TotalBSFAllowance" => "1900000.00",
+                    "TotalBSFEntertainment" => "1200000.00",
+                    "TotalBSFOther" => "800000.00",
+                    "TotalExpenseClaimTravel" => "2000000.00",
+                    "TotalExpenseClaimAllowance" => "1900000.00",
+                    "TotalExpenseClaimEntertainment" => "1200000.00",
+                    "TotalExpenseClaimOther" => "800000.00",
+                    "TotalAmountToCompanyTravel" => "2000000.00",
+                    "TotalAmountToCompanyAllowance" => "1900000.00",
+                    "TotalAmountToCompanyEntertainment" => "1200000.00",
+                    "TotalAmountToCompanyOther" => "800000.00",
+                    "Description" => "BT Pak Sagala presentasi HTLS Batam",
+                    "StatusBSF" => "Final Approval",
+                    "TotalBusinessTripPayment" => "0.00",
+                    "TotalBusinessTripSettlement" => "0.00",
+                ],
+                [
+                    "Sys_ID" => 76000000000003,
+                    "DocumentNumber" => "BRF-25000065",
+                    "DocumentDateTimeTZ" => "2024-05-20 00:00:00+07",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
+                    "TotalTravel" => "750000.00",
+                    "TotalAllowance" => "500000.00",
+                    "TotalEntertainment" => "300000.00",
+                    "TotalOther" => "200000.00",
+                    "TotalPayment" => "1750000.00",
+                    "Status" => "Final Approval",
+                    "DateCommenceTravel" => "2024-06-11 00:00:00+07",
+                    "DateEndTravel" => "2024-06-15 00:00:00+07",
+                    "DocumentBSFNumber" => "BSF-25000056",
+                    "DocumentBSFDateTimeTZ" => "2024-06-20 00:00:00+07",
+                    "TotalBSFTravel" => "750000.00",
+                    "TotalBSFAllowance" => "500000.00",
+                    "TotalBSFEntertainment" => "300000.00",
+                    "TotalBSFOther" => "200000.00",
+                    "TotalExpenseClaimTravel" => "750000.00",
+                    "TotalExpenseClaimAllowance" => "500000.00",
+                    "TotalExpenseClaimEntertainment" => "300000.00",
+                    "TotalExpenseClaimOther" => "200000.00",
+                    "TotalAmountToCompanyTravel" => "750000.00",
+                    "TotalAmountToCompanyAllowance" => "500000.00",
+                    "TotalAmountToCompanyEntertainment" => "300000.00",
+                    "TotalAmountToCompanyOther" => "200000.00",
+                    "Description" => "BT Pak Eddy - Kolega Qdc untuk meeting dengan Pertamina RU IV Cilacap",
+                    "StatusBSF" => "Final Approval",
+                    "TotalBusinessTripPayment" => "0.00",
+                    "TotalBusinessTripSettlement" => "0.00",
+                ],
+                [
+                    "Sys_ID" => 76000000000004,
+                    "DocumentNumber" => "BRF-25000066",
+                    "DocumentDateTimeTZ" => "2024-05-25 00:00:00+07",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
+                    "TotalTravel" => "3500000.00",
+                    "TotalAllowance" => "3200000.00",
+                    "TotalEntertainment" => "1500000.00",
+                    "TotalOther" => "1200000.00",
+                    "TotalPayment" => "10400000.00",
+                    "Status" => "Final Approval",
+                    "DateCommenceTravel" => "2024-06-16 00:00:00+07",
+                    "DateEndTravel" => "2024-06-20 00:00:00+07",
+                    "DocumentBSFNumber" => "BSF-25000057",
+                    "DocumentBSFDateTimeTZ" => "2024-06-25 00:00:00+07",
+                    "TotalBSFTravel" => "3500000.00",
+                    "TotalBSFAllowance" => "3200000.00",
+                    "TotalBSFEntertainment" => "1500000.00",
+                    "TotalBSFOther" => "1200000.00",
+                    "TotalExpenseClaimTravel" => "3500000.00",
+                    "TotalExpenseClaimAllowance" => "3200000.00",
+                    "TotalExpenseClaimEntertainment" => "1500000.00",
+                    "TotalExpenseClaimOther" => "1200000.00",
+                    "TotalAmountToCompanyTravel" => "3500000.00",
+                    "TotalAmountToCompanyAllowance" => "3200000.00",
+                    "TotalAmountToCompanyEntertainment" => "1500000.00",
+                    "TotalAmountToCompanyOther" => "1200000.00",
+                    "Description" => "Antar Pak anugerah ke bandung",
+                    "StatusBSF" => "Final Approval",
+                    "TotalBusinessTripPayment" => "0.00",
+                    "TotalBusinessTripSettlement" => "0.00",
+                ],
+                [
+                    "Sys_ID" => 76000000000005,
+                    "DocumentNumber" => "BRF-25000067",
+                    "DocumentDateTimeTZ" => "2024-05-30 00:00:00+07",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
+                    "TotalTravel" => "5000000.00",
+                    "TotalAllowance" => "4500000.00",
+                    "TotalEntertainment" => "2000000.00",
+                    "TotalOther" => "1500000.00",
+                    "TotalPayment" => "13000000.00",
+                    "Status" => "Final Approval",
+                    "DateCommenceTravel" => "2024-06-21 00:00:00+07",
+                    "DateEndTravel" => "2024-06-25 00:00:00+07",
+                    "DocumentBSFNumber" => "BSF-25000058",
+                    "DocumentBSFDateTimeTZ" => "2024-06-30 00:00:00+07",
+                    "TotalBSFTravel" => "5000000.00",
+                    "TotalBSFAllowance" => "4500000.00",
+                    "TotalBSFEntertainment" => "2000000.00",
+                    "TotalBSFOther" => "1500000.00",
+                    "TotalExpenseClaimTravel" => "5000000.00",
+                    "TotalExpenseClaimAllowance" => "4500000.00",
+                    "TotalExpenseClaimEntertainment" => "2000000.00",
+                    "TotalExpenseClaimOther" => "1500000.00",
+                    "TotalAmountToCompanyTravel" => "5000000.00",
+                    "TotalAmountToCompanyAllowance" => "4500000.00",
+                    "TotalAmountToCompanyEntertainment" => "2000000.00",
+                    "TotalAmountToCompanyOther" => "1500000.00",
+                    "Description" => "Silahturahmi PLN JBT dan cari info tender jatiluhur beserta info lain",
+                    "StatusBSF" => "Final Approval",
+                    "TotalBusinessTripPayment" => "0.00",
+                    "TotalBusinessTripSettlement" => "0.00",
+                ],
+                [
+                    "Sys_ID" => 76000000000006,
+                    "DocumentNumber" => "BRF-25000068",
+                    "DocumentDateTimeTZ" => "2024-06-05 00:00:00+07",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
+                    "TotalTravel" => "3000000.00",
+                    "TotalAllowance" => "2700000.00",
+                    "TotalEntertainment" => "1300000.00",
+                    "TotalOther" => "1000000.00",
+                    "TotalPayment" => "8000000.00",
+                    "Status" => "Final Approval",
+                    "DateCommenceTravel" => "2024-06-26 00:00:00+07",
+                    "DateEndTravel" => "2024-06-30 00:00:00+07",
+                    "DocumentBSFNumber" => "BSF-25000059",
+                    "DocumentBSFDateTimeTZ" => "2024-07-05 00:00:00+07",
+                    "TotalBSFTravel" => "3000000.00",
+                    "TotalBSFAllowance" => "2700000.00",
+                    "TotalBSFEntertainment" => "1300000.00",
+                    "TotalBSFOther" => "1000000.00",
+                    "TotalExpenseClaimTravel" => "3000000.00",
+                    "TotalExpenseClaimAllowance" => "2700000.00",
+                    "TotalExpenseClaimEntertainment" => "1300000.00",
+                    "TotalExpenseClaimOther" => "1000000.00",
+                    "TotalAmountToCompanyTravel" => "3000000.00",
+                    "TotalAmountToCompanyAllowance" => "2700000.00",
+                    "TotalAmountToCompanyEntertainment" => "1300000.00",
+                    "TotalAmountToCompanyOther" => "1000000.00",
+                    "Description" => "Site Visit pembangunan GI Sebuku New 30 MVA",
+                    "StatusBSF" => "Final Approval",
+                    "TotalBusinessTripPayment" => "0.00",
+                    "TotalBusinessTripSettlement" => "0.00",
+                ],
+                [
+                    "Sys_ID" => 76000000000007,
+                    "DocumentNumber" => "BRF-25000069",
+                    "DocumentDateTimeTZ" => "2024-06-10 00:00:00+07",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
+                    "TotalTravel" => "800000.00",
+                    "TotalAllowance" => "700000.00",
+                    "TotalEntertainment" => "400000.00",
+                    "TotalOther" => "250000.00",
+                    "TotalPayment" => "2150000.00",
+                    "Status" => "Final Approval",
+                    "DateCommenceTravel" => "2024-07-01 00:00:00+07",
+                    "DateEndTravel" => "2024-07-05 00:00:00+07",
+                    "DocumentBSFNumber" => "BSF-25000060",
+                    "DocumentBSFDateTimeTZ" => "2024-07-10 00:00:00+07",
+                    "TotalBSFTravel" => "800000.00",
+                    "TotalBSFAllowance" => "700000.00",
+                    "TotalBSFEntertainment" => "400000.00",
+                    "TotalBSFOther" => "250000.00",
+                    "TotalExpenseClaimTravel" => "800000.00",
+                    "TotalExpenseClaimAllowance" => "700000.00",
+                    "TotalExpenseClaimEntertainment" => "400000.00",
+                    "TotalExpenseClaimOther" => "250000.00",
+                    "TotalAmountToCompanyTravel" => "800000.00",
+                    "TotalAmountToCompanyAllowance" => "700000.00",
+                    "TotalAmountToCompanyEntertainment" => "400000.00",
+                    "TotalAmountToCompanyOther" => "250000.00",
+                    "Description" => "Meeting dengan Pertamina",
+                    "StatusBSF" => "Final Approval",
+                    "TotalBusinessTripPayment" => "0.00",
+                    "TotalBusinessTripSettlement" => "0.00",
+                ],
+                [
+                    "Sys_ID" => 76000000000008,
+                    "DocumentNumber" => "BRF-25000070",
+                    "DocumentDateTimeTZ" => "2024-06-15 00:00:00+07",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
+                    "TotalTravel" => "2200000.00",
+                    "TotalAllowance" => "2100000.00",
+                    "TotalEntertainment" => "1000000.00",
+                    "TotalOther" => "500000.00",
+                    "TotalPayment" => "5800000.00",
+                    "Status" => "Final Approval",
+                    "DateCommenceTravel" => "2024-07-06 00:00:00+07",
+                    "DateEndTravel" => "2024-07-10 00:00:00+07",
+                    "DocumentBSFNumber" => "BSF-25000061",
+                    "DocumentBSFDateTimeTZ" => "2024-07-15 00:00:00+07",
+                    "TotalBSFTravel" => "2200000.00",
+                    "TotalBSFAllowance" => "2100000.00",
+                    "TotalBSFEntertainment" => "1000000.00",
+                    "TotalBSFOther" => "500000.00",
+                    "TotalExpenseClaimTravel" => "2200000.00",
+                    "TotalExpenseClaimAllowance" => "2100000.00",
+                    "TotalExpenseClaimEntertainment" => "1000000.00",
+                    "TotalExpenseClaimOther" => "500000.00",
+                    "TotalAmountToCompanyTravel" => "2200000.00",
+                    "TotalAmountToCompanyAllowance" => "2100000.00",
+                    "TotalAmountToCompanyEntertainment" => "1000000.00",
+                    "TotalAmountToCompanyOther" => "500000.00",
+                    "Description" => "Submission Tender Pembangunan ext kapasitor bay trafo GI pbun",
+                    "StatusBSF" => "Final Approval",
+                    "TotalBusinessTripPayment" => "0.00",
+                    "TotalBusinessTripSettlement" => "0.00",
+                ],
+                [
+                    "Sys_ID" => 76000000000009,
+                    "DocumentNumber" => "BRF-25000071",
+                    "DocumentDateTimeTZ" => "2024-06-20 00:00:00+07",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
+                    "TotalTravel" => "900000.00",
+                    "TotalAllowance" => "850000.00",
+                    "TotalEntertainment" => "400000.00",
+                    "TotalOther" => "300000.00",
+                    "TotalPayment" => "2450000.00",
+                    "Status" => "Final Approval",
+                    "DateCommenceTravel" => "2024-07-11 00:00:00+07",
+                    "DateEndTravel" => "2024-07-15 00:00:00+07",
+                    "DocumentBSFNumber" => "BSF-25000062",
+                    "DocumentBSFDateTimeTZ" => "2024-07-20 00:00:00+07",
+                    "TotalBSFTravel" => "900000.00",
+                    "TotalBSFAllowance" => "850000.00",
+                    "TotalBSFEntertainment" => "400000.00",
+                    "TotalBSFOther" => "300000.00",
+                    "TotalExpenseClaimTravel" => "900000.00",
+                    "TotalExpenseClaimAllowance" => "850000.00",
+                    "TotalExpenseClaimEntertainment" => "400000.00",
+                    "TotalExpenseClaimOther" => "300000.00",
+                    "TotalAmountToCompanyTravel" => "900000.00",
+                    "TotalAmountToCompanyAllowance" => "850000.00",
+                    "TotalAmountToCompanyEntertainment" => "400000.00",
+                    "TotalAmountToCompanyOther" => "300000.00",
+                    "Description" => "Site Visit GI Pangkalan Bun dengan Bank BRI (Pak Khamdan)",
+                    "StatusBSF" => "Final Approval",
+                    "TotalBusinessTripPayment" => "0.00",
+                    "TotalBusinessTripSettlement" => "0.00",
+                ],
+                [
+                    "Sys_ID" => 76000000000010,
+                    "DocumentNumber" => "BRF-25000072",
+                    "DocumentDateTimeTZ" => "2024-06-25 00:00:00+07",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
+                    "TotalTravel" => "5500000.00",
+                    "TotalAllowance" => "5000000.00",
+                    "TotalEntertainment" => "2500000.00",
+                    "TotalOther" => "1800000.00",
+                    "TotalPayment" => "14800000.00",
+                    "Status" => "Final Approval",
+                    "DateCommenceTravel" => "2024-07-16 00:00:00+07",
+                    "DateEndTravel" => "2024-07-20 00:00:00+07",
+                    "DocumentBSFNumber" => "BSF-25000063",
+                    "DocumentBSFDateTimeTZ" => "2024-07-25 00:00:00+07",
+                    "TotalBSFTravel" => "5500000.00",
+                    "TotalBSFAllowance" => "5000000.00",
+                    "TotalBSFEntertainment" => "2500000.00",
+                    "TotalBSFOther" => "1800000.00",
+                    "TotalExpenseClaimTravel" => "5500000.00",
+                    "TotalExpenseClaimAllowance" => "5000000.00",
+                    "TotalExpenseClaimEntertainment" => "2500000.00",
+                    "TotalExpenseClaimOther" => "1800000.00",
+                    "TotalAmountToCompanyTravel" => "5500000.00",
+                    "TotalAmountToCompanyAllowance" => "5000000.00",
+                    "TotalAmountToCompanyEntertainment" => "2500000.00",
+                    "TotalAmountToCompanyOther" => "1800000.00",
+                    "Description" => "Antar Pak Redi ke BDG, Cilacap dan Indramayu",
+                    "StatusBSF" => "Final Approval",
+                    "TotalBusinessTripPayment" => "0.00",
+                    "TotalBusinessTripSettlement" => "0.00",
+                ],
+            ];
+
+            $filteredData = array_filter($dataDummy, function ($item) use ($project, $site, $requester) {
+                return 
+                    (empty($project['id'])      || $item['CombinedBudget_RefID'] == $project['id']) &&
+                    (empty($site['id'])         || $item['CombinedBudgetSection_RefID'] == $site['id']) &&
+                    (empty($requester['id'])    || $item['RequesterWorkerJobsPosition_RefID'] == $requester['id']);
+            });
+
+            $compact = [
+                'project'                           => $project,
+                'site'                              => $site,
+                'requester'                         => $requester,
+                'dataDetail'                        => $filteredData,
+                'totalTravel'                       => $this->calculateTotal($filteredData, 'TotalTravel'),
+                'totalAllowance'                    => $this->calculateTotal($filteredData, 'TotalAllowance'),
+                'totalEntertainment'                => $this->calculateTotal($filteredData, 'TotalEntertainment'),
+                'totalOther'                        => $this->calculateTotal($filteredData, 'TotalOther'),
+                'totalPayment'                      => $this->calculateTotal($filteredData, 'TotalPayment'),
+                'totalBSFTravel'                    => $this->calculateTotal($filteredData, 'TotalBSFTravel'),
+                'totalBSFAllowance'                 => $this->calculateTotal($filteredData, 'TotalBSFAllowance'),
+                'totalBSFEntertainment'             => $this->calculateTotal($filteredData, 'TotalBSFEntertainment'),
+                'totalBSFOther'                     => $this->calculateTotal($filteredData, 'TotalBSFOther'),
+                'totalExpenseClaimTravel'           => $this->calculateTotal($filteredData, 'TotalExpenseClaimTravel'),
+                'totalExpenseClaimAllowance'        => $this->calculateTotal($filteredData, 'TotalExpenseClaimAllowance'),
+                'totalExpenseClaimEntertainment'    => $this->calculateTotal($filteredData, 'TotalExpenseClaimEntertainment'),
+                'totalExpenseClaimOther'            => $this->calculateTotal($filteredData, 'TotalExpenseClaimOther'),
+                'totalAmountToCompanyTravel'        => $this->calculateTotal($filteredData, 'TotalAmountToCompanyTravel'),
+                'totalAmountToCompanyAllowance'     => $this->calculateTotal($filteredData, 'TotalAmountToCompanyAllowance'),
+                'totalAmountToCompanyEntertainment' => $this->calculateTotal($filteredData, 'TotalAmountToCompanyEntertainment'),
+                'totalAmountToCompanyOther'         => $this->calculateTotal($filteredData, 'TotalAmountToCompanyOther'),
+                'totalBusinessTripPayment'          => $this->calculateTotal($filteredData, 'TotalBusinessTripPayment'),
+                'totalBusinessTripSettlement'       => $this->calculateTotal($filteredData, 'TotalBusinessTripSettlement'),
+            ];
+
+            Session::put("isButtonReportBusinessTripToBSFSubmit", true);
+            Session::put("dataReportBusinessTripToBSF", $compact);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            Log::error("ReportBusinessTripToBSFData Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportBusinessTripToBSFStore(Request $request)
+    {
+        try {
+            $project = [
+                'id'        => $request->project_id_second,
+                'code'      => $request->project_code_second,
+                'name'      => $request->project_name_second,
+            ];
+
+            $site = [
+                'id'        => $request->site_id_second,
+                'code'      => $request->site_code_second,
+                'name'      => $request->site_name_second,
+            ];
+
+            $requester = [
+                'id'        => $request->worker_id_second,
+                'name'      => $request->worker_name_second,
+                'position'  => $request->worker_position_second,
+            ];
+
+            if (!$project['id'] && !$site['id'] && !$requester['id']) {
+                Session::forget("isButtonReportBusinessTripToBSFSubmit");
+                Session::forget("dataReportBusinessTripToBSF");
+
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripToBSF')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
+            }
+
+            $compact = $this->ReportBusinessTripToBSFData($project, $site, $requester);
+
+            if ($compact === null || empty($compact)) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            return redirect()->route('BusinessTripRequest.ReportBusinessTripToBSF');
+        } catch (\Throwable $th) {
+            Log::error("ReportBusinessTripToBSFStore Function Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }

@@ -31,7 +31,7 @@
                         </div>
                     </div>
 
-                    <?php if (!$dataReport) { ?>
+                    <?php if ($dataReport) { ?>
                         <!-- TABLE -->
                         <div class="row">
                             <div class="col-12">
@@ -84,38 +84,67 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>BRF01-10002025</td>
-                                                    <td>12-06-2025</td>
-                                                    <td>5,000,000</td>
-                                                    <td>1,000,000</td>
-                                                    <td>1,000,000</td>
-                                                    <td>3,000,000</td>
-                                                    <td>10,000,000</td>
-                                                    <td>Final Approval</td>
-                                                    <td>24-06-2025</td>
-                                                    <td>27-06-2025</td>
-                                                    <td>BSF01-10092025</td>
-                                                    <td>04-07-2025</td>
-                                                    <td>5,000,000</td>
-                                                    <td>1,000,000</td>
-                                                    <td>1,000,000</td>
-                                                    <td>3,000,000</td>
-                                                    <td>0.00</td>
-                                                    <td>0.00</td>
-                                                    <td>0.00</td>
-                                                    <td>0.00</td>
-                                                    <td>0.00</td>
-                                                    <td>0.00</td>
-                                                    <td>0.00</td>
-                                                    <td>0.00</td>
-                                                    <td style="text-wrap: auto;line-height:normal;">BT Rhino (Transport Cuti & Balik Site + Allowance Setelah Cuti)</td>
-                                                    <td>Final Approval</td>
-                                                    <td>10,000,000</td>
-                                                    <td>10,000,000</td>
-                                                </tr>
+                                                <?php $counter = 1; ?>
+                                                <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
+                                                    <tr>
+                                                        <td><?= $counter++; ?></td>
+                                                        <td><?= $dataDetail['DocumentNumber']; ?></td>
+                                                        <td><?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalTravel'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalAllowance'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalEntertainment'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalOther'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalPayment'], 2, '.', ','); ?></td>
+                                                        <td><?= $dataDetail['Status']; ?></td>
+                                                        <td><?= date('d-m-Y', strtotime($dataDetail['DateCommenceTravel'])); ?></td>
+                                                        <td><?= date('d-m-Y', strtotime($dataDetail['DateEndTravel'])); ?></td>
+                                                        <td><?= $dataDetail['DocumentBSFNumber']; ?></td>
+                                                        <td><?= date('d-m-Y', strtotime($dataDetail['DocumentBSFDateTimeTZ'])); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalBSFTravel'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalBSFAllowance'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalBSFEntertainment'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalBSFOther'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalTravel'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalAllowance'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalEntertainment'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalOther'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalTravel'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalAllowance'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalEntertainment'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalOther'], 2, '.', ','); ?></td>
+                                                        <td style="text-wrap: auto;line-height:normal;"><?= $dataDetail['Description']; ?></td>
+                                                        <td><?= $dataDetail['StatusBSF']; ?></td>
+                                                        <td><?= number_format($dataDetail['TotalBusinessTripPayment'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalBusinessTripSettlement'], 2, '.', ','); ?></td>
+                                                    </tr>
+                                                <?php } ?>
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalTravel'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalAllowance'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalEntertainment'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalOther'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalPayment'], 2, '.', ','); ?></th>
+                                                    <th colspan="5" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalBSFTravel'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalBSFAllowance'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalBSFEntertainment'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalBSFOther'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalExpenseClaimTravel'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalExpenseClaimAllowance'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalExpenseClaimEntertainment'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalExpenseClaimOther'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalAmountToCompanyTravel'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalAmountToCompanyAllowance'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalAmountToCompanyEntertainment'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalAmountToCompanyOther'], 2, '.', ','); ?></th>
+                                                    <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalBusinessTripPayment'], 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalBusinessTripSettlement'], 2, '.', ','); ?></th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
