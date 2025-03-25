@@ -105,7 +105,7 @@
                   <!-- BODY -->
                   @include('Process.Advance.AdvanceSettlement.Functions.Table.TableArfDetail')
 
-                  <!-- TRANSACTION INFORMATION -->
+                  <!-- BUTTON -->
                   <div class="card-body">
                     <div class="row" style="gap: 1rem;">
                       <div class="col">
@@ -184,7 +184,7 @@
           </div>
 
           <!-- TRANSACTION INFORMATION -->
-          <div class="tab-content px-3 pb-2" id="nav-tabContent">
+          {{-- <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -257,7 +257,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> --}}
 
           <!-- REMARK -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
