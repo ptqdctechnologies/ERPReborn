@@ -75,6 +75,8 @@
     </div>
     </form>
 
+    <form method="POST" action="{{ route('BusinessTripRequest.PrintExportReportBusinessTripToBSF') }}">
+    @csrf
     <input id="project_code_second_trigger" style="border-radius:0;" name="project_code_second_trigger" class="form-control" size="34" value="<?= $dataReport['project']['code'] ?? ''; ?>" readonly hidden>
     <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row align-items-center p-0" style="margin-bottom: 1rem; gap: 0.5rem;">
         <select name="print_type" id="print_type" class="form-control" style="width: max-content;">
@@ -87,4 +89,5 @@
             </span>
         </button>
     </div>
+    </form>
 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Process\BusinessTrip;
 
 use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripRequestSummary;
 use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripRequestDetail;
+use App\Http\Controllers\ExportExcel\Process\ExportReportBusinessTripToBSF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
@@ -2475,6 +2476,34 @@ class BusinessTripRequestController extends Controller
             return redirect()->route('BusinessTripRequest.ReportBusinessTripToBSF');
         } catch (\Throwable $th) {
             Log::error("ReportBusinessTripToBSFStore Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportBusinessTripToBSF(Request $request) 
+    {
+        try {
+            $dataReport = Session::get("dataReportBusinessTripToBSF");
+            $print_type = $request->print_type;
+            $project_code_second_trigger = $request->project_code_second_trigger;
+
+            if ($project_code_second_trigger == null) {
+                Session::forget("isButtonReportBusinessTripToBSFSubmit");
+                Session::forget("dataReportBusinessTripToBSF");
+
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripToBSF')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
+            }
+
+            if ($dataReport) {
+                if ($print_type === "PDF") {
+                } else {
+                    return Excel::download(new ExportReportBusinessTripToBSF, 'Export Business Trip To BSF.xlsx');
+                }
+            } else {
+                return redirect()->route('BusinessTripRequest.ReportBusinessTripToBSF')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("PrintExportReportBusinessTripToBSF Function Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }

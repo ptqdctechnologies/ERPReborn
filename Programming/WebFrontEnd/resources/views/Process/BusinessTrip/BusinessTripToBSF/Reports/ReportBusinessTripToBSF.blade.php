@@ -41,13 +41,14 @@
                                             <thead>
                                                 <tr>
                                                     <th rowspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">No</th>
-                                                    <th colspan="10" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Business Trip</th>
+                                                    <th colspan="11" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Business Trip</th>
                                                     <th colspan="16" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Settlement</th>
                                                     <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Balance</th>
                                                 </tr>
                                                 <tr>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">BRF Number</th>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">Date</th>
+                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">Requester</th>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">Total Travel</th>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">Total Allowance</th>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">Total Entertainment</th>
@@ -90,6 +91,7 @@
                                                         <td><?= $counter++; ?></td>
                                                         <td><?= $dataDetail['DocumentNumber']; ?></td>
                                                         <td><?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?></td>
+                                                        <td style="text-wrap: auto;line-height:normal;"><?= $dataDetail['RequesterWorkerName']; ?></td>
                                                         <td><?= number_format($dataDetail['TotalTravel'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['TotalAllowance'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['TotalEntertainment'], 2, '.', ','); ?></td>
@@ -121,7 +123,7 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
+                                                    <th colspan="4" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalTravel'], 2, '.', ','); ?></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalAllowance'], 2, '.', ','); ?></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalEntertainment'], 2, '.', ','); ?></th>
