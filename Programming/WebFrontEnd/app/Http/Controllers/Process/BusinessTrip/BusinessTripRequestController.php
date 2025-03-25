@@ -2496,6 +2496,17 @@ class BusinessTripRequestController extends Controller
 
             if ($dataReport) {
                 if ($print_type === "PDF") {
+                    $pdf = PDF::loadView('Process.BusinessTrip.BusinessTripToBSF.Reports.ReportBusinessTripToBSF_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Business Trip To BSF.pdf');
                 } else {
                     return Excel::download(new ExportReportBusinessTripToBSF, 'Export Business Trip To BSF.xlsx');
                 }

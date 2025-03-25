@@ -106,14 +106,14 @@
                                                         <td><?= number_format($dataDetail['TotalBSFAllowance'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['TotalBSFEntertainment'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['TotalBSFOther'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['TotalTravel'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['TotalAllowance'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['TotalEntertainment'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['TotalOther'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['TotalTravel'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['TotalAllowance'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['TotalEntertainment'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['TotalOther'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalExpenseClaimTravel'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalExpenseClaimAllowance'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalExpenseClaimEntertainment'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalExpenseClaimOther'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalAmountToCompanyTravel'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalAmountToCompanyAllowance'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalAmountToCompanyEntertainment'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['TotalAmountToCompanyOther'], 2, '.', ','); ?></td>
                                                         <td style="text-wrap: auto;line-height:normal;"><?= $dataDetail['Description']; ?></td>
                                                         <td><?= $dataDetail['StatusBSF']; ?></td>
                                                         <td><?= number_format($dataDetail['TotalBusinessTripPayment'], 2, '.', ','); ?></td>
