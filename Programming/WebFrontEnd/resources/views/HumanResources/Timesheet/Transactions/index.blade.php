@@ -35,7 +35,7 @@
               <div class="card-body p-0">
                 <div class="ml-3 mt-3">
                   <button class="btn btn-success btn-sm" id="addEventButton" data-toggle="modal" data-target="#eventModal">
-                    <i class="fa fa-plus"></i> Add Event
+                    <i class="fa fa-plus"></i> Add Activity
                   </button>
                 </div>
                 <div id="calendar"></div>
@@ -59,7 +59,7 @@
     <div class="modal-content">
       <!-- TITLE -->
       <div class="modal-header">
-        <h3 class="modal-title text-bold" id="eventModalLabel">Add Event</h3>
+        <h3 class="modal-title text-bold" id="eventModalLabel">Add Activity</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
