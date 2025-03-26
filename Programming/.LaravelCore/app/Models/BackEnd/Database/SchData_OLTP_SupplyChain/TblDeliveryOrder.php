@@ -23,7 +23,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Last Update     : 2025-03-26                                                                                           |
         | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -70,7 +70,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterPerson_RefID = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null, int $varTransporter_RefID = null,
             array $varAdditionalData = null
             )
             {
@@ -93,8 +93,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                            [$varRequesterPerson_RefID, 'bigint'],
+                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
                             [$varRemarks, 'varchar'],
+                            [$varTransporter_RefID, 'bigint'],
 
                             [
                                 ((count($varAdditionalData) === 0) 
