@@ -1066,6 +1066,51 @@ class FunctionController extends Controller
         return response()->json($varData);
     }
 
+    public function getDeliveryOrderList(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.supplyChain.getDeliveryOrder', 
+                'latest',
+                [
+                    'parameter' => [
+                    ]
+                ]
+            );
+
+            return response()->json($varData['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getDeliveryOrderList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function getPurchaseOrderList() {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.supplyChain.getPurchaseOrder', 
+                'latest',
+                [
+                    'parameter' => [
+                    ]
+                ]
+            );
+
+            return response()->json($varData['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getPurchaseOrderList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     // NITIP
     // $userSessionID = Helper_Environment::getUserSessionID_System();
     // $varData = Helper_APICall::setCallAPIGateway(
