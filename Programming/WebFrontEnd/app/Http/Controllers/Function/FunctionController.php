@@ -1118,7 +1118,6 @@ class FunctionController extends Controller
         try {
             $varAPIWebToken = Session::get('SessionLogin');
             $purchase_order_id = $request->input('purchase_order_id');
-            Log::error("Error at purchase_order_idsssss: ", [$purchase_order_id]);
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
@@ -1139,11 +1138,8 @@ class FunctionController extends Controller
             );
 
             if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                Log::error("Error at getPurchaseOrderDetail: " . $varData);
                 return redirect()->back()->with('NotFound', 'Process Error');
             }
-
-            Log::error("Error at getPurchaseOrderDetail: ", $varData);
 
             return response()->json($varData['data']['data']);
         } catch (\Throwable $th) {
