@@ -24,6 +24,7 @@ class DeliveryOrderController extends Controller
 
         Session::forget("SessionDeliveryOrderSupplier");
         Session::forget("SessionDeliveryOrderSupplierID");
+        $varAPIWebToken = $request->session()->get('SessionLogin');
         $var = 0;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
@@ -31,6 +32,7 @@ class DeliveryOrderController extends Controller
         $compact = [
             'var' => $var,
             'statusRevisi' => 0,
+            'varAPIWebToken' => $varAPIWebToken
         ];
 
         return view('Inventory.DeliveryOrder.Transactions.CreateDeliveryOrder', $compact);

@@ -34,7 +34,11 @@
                                             <th>Trano</th>
                                         </tr>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2" class="p-0" style="height: 22rem;"></td>
+                                        </tr>
+                                    </tbody>
                                     <tfoot>
                                         <tr class="loadingReferenceNumber">
                                             <td colspan="2" class="p-0" style="height: 22rem;">
@@ -49,7 +53,7 @@
                                             </td>
                                         </tr>
                                         <tr class="errorReferenceNumberMessageContainer">
-                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                            <td colspan="2" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div id="errorReferenceNumberMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
