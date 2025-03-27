@@ -124,27 +124,27 @@ if (strpos($current_url, 'ReportDORequestDetail') !== false) {
 </script>
 
 <script>
-    $('.btn-edit').on('click', function() {
+    // $('.btn-edit').on('click', function() {
 
-        var advance_RefID = $('#advance_RefID').val();
+    //     var advance_RefID = $('#advance_RefID').val();
 
-        if (advance_RefID) {
+    //     if (advance_RefID) {
 
-            ShowLoading();
-            window.location.href = '/RevisionAdvanceIndex?advance_RefID=' + advance_RefID;
-        } else {
-            $('#advance_number').focus();
-            $('#advance_number').css("border", "1px solid red");
-            $('#advance_number_icon').css("border", "1px solid red");
-        }
+    //         ShowLoading();
+    //         window.location.href = '/RevisionAdvanceIndex?advance_RefID=' + advance_RefID;
+    //     } else {
+    //         $('#advance_number').focus();
+    //         $('#advance_number').css("border", "1px solid red");
+    //         $('#advance_number_icon').css("border", "1px solid red");
+    //     }
 
-    });
+    // });
 </script>
 
 <script>
-    $('.btn-cancel').on('click', function() {
-        $('#advance_RefID').val("");
-        $('#advance_number').val("");
+    // $('.btn-cancel').on('click', function() {
+    //     $('#advance_RefID').val("");
+    //     $('#advance_number').val("");
 
-    });
+    // });
 </script>

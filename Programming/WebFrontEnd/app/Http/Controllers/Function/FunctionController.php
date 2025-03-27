@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
+use Illuminate\Support\Facades\Log;
 
 class FunctionController extends Controller
 {
@@ -1064,6 +1065,96 @@ class FunctionController extends Controller
         );
 
         return response()->json($varData);
+    }
+
+    public function getDeliveryOrderList(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.supplyChain.getDeliveryOrder', 
+                'latest',
+                [
+                    'parameter' => [
+                    ]
+                ]
+            );
+
+            return response()->json($varData['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getDeliveryOrderList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function getPurchaseOrderList(Request $request) 
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataList.supplyChain.getPurchaseOrder', 
+                'latest', 
+                [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getPurchaseOrderList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function getPurchaseOrderDetail(Request $request) 
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $purchase_order_id = $request->input('purchase_order_id');
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.supplyChain.getPurchaseOrderDetail',
+                'latest',
+                [
+                    'parameter' => [
+                        'purchaseOrder_RefID' => (int) $purchase_order_id
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getPurchaseOrderDetail: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     // NITIP

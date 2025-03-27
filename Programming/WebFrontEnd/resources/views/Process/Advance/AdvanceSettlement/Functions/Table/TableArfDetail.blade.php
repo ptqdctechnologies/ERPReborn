@@ -1,57 +1,58 @@
-<div class="wrapper-budget card-body table-responsive p-0 tableShowHideArfDetail"  style="height: 230px;" id="tableShowHideArfDetail">
-    <table class="table table-head-fixed text-nowrap table-sm TableArfDetail" id="TableArfDetail">
-        <thead>
-            <tr>    
-                <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Transaction Number</th>
-                <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
-                <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
-                <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Qty Available</th>
-                <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Qty ARF</th>
-                <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">UOM</th>
-                <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Unit Price</th>
-                <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Total Budget</th>
-                <th rowspan="2" style="padding-bottom:17px;border:1px solid #e9ecef;text-align: center;">Currency</th>
-                <th colspan="3" class="sticky-col third-col-asf-expense" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Expense Claim Cart</th>
-                <th colspan="3" class="sticky-col second-col-asf-amount" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Amount Due to Company Cart</th>
-                <th rowspan="2" class="sticky-col first-col-asf-balance" style="padding-bottom:17px;border-right:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Balance Qty</th>
-            </tr>
-            <tr>
-                <th class="sticky-col third-col-asf-expense-qty" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;"> Qty</th>
-                <th class="sticky-col third-col-asf-expense-price" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;"> Price</th>
-                <th class="sticky-col third-col-asf-expense-total" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;"> Total</th>
-
-                <th class="sticky-col second-col-asf-amount-qty" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;"> Qty</th>
-                <th class="sticky-col second-col-asf-amount-price" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;"> Price</th>
-                <th class="sticky-col second-col-asf-amount-total" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;"> Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-        </tbody>
-    </table>
-</div>
-
-<div class="card-body tableShowHideArfDetail" >
-    <table style="float:right;">
+<div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;">
+    <table class="table table-head-fixed text-nowrap table-sm" id="tableAdvanceDetail">
+      <thead style="position: sticky;top: 0px;z-index: 10;background: white;">
         <tr>
-            <th style="position: relative;right:20px;"> Total : <span id="TotalBudgetSelected"></span></th>
+          <th rowspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Transaction Number</th>
+          <th rowspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Product Code</th>
+          <th rowspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Product Name</th>
+          <th rowspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">UOM</th>
+          <th rowspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Currency</th>
+          <th colspan="4" rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Request</th>
+          <th colspan="6" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Settlement</th>
+          <th rowspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle; padding-right: 0px;">Balance</th>
         </tr>
         <tr>
-            <td>
-                <br>
-                @if($statusRevisi == 1)
-                    <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                    </a>
-                @else
-                    <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                    </a>
-                    <a class="btn btn-default btn-sm float-right" onclick="ResetBudget()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
-                    </a>
-                @endif
-            </td>
+          <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">
+            Expense Claim
+          </th>
+          <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">
+            Amount To The Company
+          </th>
         </tr>
+        <tr>
+          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Qty</th>
+          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Price</th>
+          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Total</th>
+          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Balance</th>
+          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Qty</th>
+          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Price</th>
+          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Total</th>
+          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Qty</th>
+          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Price</th>
+          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Total</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+      <tfoot>
+        <tr class="loadingAdvanceSettlementTable">
+          <td colspan="15" class="p-0" style="height: 12.3rem;">
+            <div class="d-flex flex-column justify-content-center align-items-center py-3">
+              <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                Loading...
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr class="errorAdvanceSettlementTable">
+          <td colspan="15" class="p-0" style="height: 12.3rem;;">
+            <div class="d-flex flex-column justify-content-center align-items-center py-3">
+              <div id="errorAdvanceSettlementMessageTable" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;">Error</div>
+            </div>
+          </td>
+        </tr>
+      </tfoot>
     </table>
-</div>
+  </div>

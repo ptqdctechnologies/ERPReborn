@@ -19,7 +19,9 @@
       <!-- TITLE -->
       <div class="row mb-1" style="background-color:#4B586A;">
         <div class="col-sm-6" style="height:30px;">
-          <label style="font-size:15px;position:relative;top:7px;color:white;">Advance Request</label>
+          <label style="font-size:15px;position:relative;top:7px;color:white;">
+            Advance Request
+          </label>
         </div>
       </div>
 
@@ -152,7 +154,7 @@
                     <table class="table table-head-fixed text-nowrap table-sm" id="tableGetBudgetDetails">
                       <thead>
                         <tr>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Id</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Budget</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Avail</th>

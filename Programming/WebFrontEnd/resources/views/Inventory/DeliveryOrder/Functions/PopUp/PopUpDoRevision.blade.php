@@ -15,10 +15,12 @@
                                             <td>
                                                 <div class="input-group">
                                                     <input id="do_RefID" style="border-radius:0;" name="do_RefID" type="hidden" class="form-control" hidden>
-                                                    <input id="do_number" style="border-radius:0;" name="do_number" class="form-control">
+                                                    <input id="do_number" style="border-radius:0;" name="do_number" class="form-control" readonly>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a data-toggle="modal" data-target="#PopUpTableDoRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                            <a data-toggle="modal" data-target="#PopUpTableDoRevision">
+                                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                                            </a>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -42,7 +44,6 @@
     </div>
 </div>
 
-
 <div id="PopUpTableDoRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -60,15 +61,30 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Trano</th>
-                                            <th>Budget Code</th>
-                                            <th>Budget Name</th>
-                                            <th>Sub Budget Code</th>
-                                            <th>Sub Budget Name</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-
-                                    </tbody>
+                                    <tbody></tbody>
+                                    <tfoot>
+                                        <tr class="loadingGetDeliveryOrder">
+                                            <td colspan="2" class="p-0" style="height: 22rem;">
+                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div class="spinner-border" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                    <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                                        Loading...
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="errorDeliveryOrderMessageContainer">
+                                            <td colspan="2" class="p-0" style="height: 22rem;">
+                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div id="errorDeliveryOrderMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -79,18 +95,74 @@
     </div>
 </div>
 
-
 <script>
+    $(".errorDeliveryOrderMessageContainer").hide();
+
+    function getDOList() {
+        $('#TableSearchDeliveryOrder tbody').empty();
+        $(".loadingGetDeliveryOrder").show();
+        $(".errorDeliveryOrderMessageContainer").hide();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var keys = 0;
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getDeliveryOrderList") !!}',
+            success: function(data) {
+                $(".loadingGetDeliveryOrder").hide();
+
+                var no = 1;
+                var table = $('#TableSearchDeliveryOrder').DataTable();
+                table.clear();
+
+                if (Array.isArray(data) && data.length > 0) {
+                    $.each(data, function(key, val) {
+                        keys += 1;
+                        table.row.add([
+                            '<input id="sys_id_dor_revision' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_dor_revision" type="hidden">' + no++,
+                            val.sys_Text || '-',
+                        ]).draw();
+                    });
+
+                    $("#TableSearchDeliveryOrder_length").show();
+                    $("#TableSearchDeliveryOrder_filter").show();
+                    $("#TableSearchDeliveryOrder_info").show();
+                    $("#TableSearchDeliveryOrder_paginate").show();
+                } else {
+                    $(".errorDeliveryOrderMessageContainer").show();
+                    $("#errorDeliveryOrderMessage").text(`Data not found.`);
+
+                    $("#TableSearchDeliveryOrder_length").hide();
+                    $("#TableSearchDeliveryOrder_filter").hide();
+                    $("#TableSearchDeliveryOrder_info").hide();
+                    $("#TableSearchDeliveryOrder_paginate").hide();
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                $('#TableSearchDeliveryOrder tbody').empty();
+                $(".loadingGetDeliveryOrder").hide();
+                $(".errorDeliveryOrderMessageContainer").show();
+                $("#errorDeliveryOrderMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            }
+        });
+    }
+    
+    $(window).one('load', function(e) {
+        getDOList();
+    });
+
     $('#TableSearchDeliveryOrder tbody').on('click', 'tr', function() {
+        var sysId       = $(this).find('input[data-trigger="sys_id_dor_revision"]').val();
+        var projectName = $(this).find('td:nth-child(2)').text();
 
-        $("#PopUpTableDoRevision").modal('toggle');
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var do_RefID = $('#sys_id_dor_revision' + id).val();
-        var code = row.find("td:nth-child(2)").text();
+        $("#do_RefID").val(sysId);
+        $("#do_number").val(projectName);
 
-        $("#do_RefID").val(do_RefID);
-        $("#do_number").val(code);
-
+        $('#PopUpTableDoRevision').modal('hide');
     });
 </script>

@@ -17,6 +17,7 @@
                                             <th>No</th>
                                             <th>Trano</th>
                                             <th>Beneficiary</th>
+                                            <th>Requester</th>
                                             <th>Budget Code</th>
                                             <th>Budget Name</th>
                                             <th>Sub Budget Code</th>
@@ -87,6 +88,7 @@
                             '<input id="sys_id_modal_advance' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_advance" type="hidden">' + no++,
                             '<input value="' + val.beneficiaryBankAccountName + '" data-trigger="beneficiary_bank_account_name" type="hidden">' + val.documentNumber || '-',
                             val.beneficiaryWorkerName || '-',
+                            val.requesterWorkerName || '-',
                             val.combinedBudgetCode || '-',
                             val.combinedBudgetName || '-',
                             val.combinedBudgetSectionCode || '-',
@@ -125,10 +127,11 @@
         var sysId           = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
         var trano           = $(this).find('td:nth-child(2)').text();
         var beneficiary     = $(this).find('td:nth-child(3)').text();
-        var budgetCode      = $(this).find('td:nth-child(4)').text();
-        var budgetName      = $(this).find('td:nth-child(5)').text();
-        var subBudgetCode   = $(this).find('td:nth-child(6)').text();
-        var subBudgetName   = $(this).find('td:nth-child(7)').text();
+        var requester       = $(this).find('td:nth-child(4)').text();
+        var budgetCode      = $(this).find('td:nth-child(5)').text();
+        var budgetName      = $(this).find('td:nth-child(6)').text();
+        var subBudgetCode   = $(this).find('td:nth-child(7)').text();
+        var subBudgetName   = $(this).find('td:nth-child(8)').text();
 
         $("#modal_advance_id").val(sysId);
         $("#modal_advance_document_number").val(trano);

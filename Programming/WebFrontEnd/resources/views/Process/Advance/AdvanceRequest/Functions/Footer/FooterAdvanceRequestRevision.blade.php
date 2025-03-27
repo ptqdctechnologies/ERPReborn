@@ -46,61 +46,184 @@
                     );
                 }
 
-                $.each(data, function(key, val2) {
-                    let isUnspecified = '';
-                    let balanced = currencyTotal(val2.quantity);
-                    let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
-                    let matchedAdvance = dataAdvance.find(advance => advance.Product_RefID == val2.product_RefID);
-                    let row = '';
+                let existsInDatas = false;
+                let indexing = 0;
 
-                    if (matchedAdvance) {
-                        isUnspecified = 'disabled';
-                        balanced = '-';
-
-                        row = `
+                dataAdvance.forEach(function(advanceItem, advIndex) {
+                    let existsInData = data.some(dataItem => dataItem.product_RefID == advanceItem.Product_RefID);
+                    let balanced = currencyTotal(advanceItem.Quantity || 0);
+                    let totalBudget = (advanceItem.Quantity || 0) * (advanceItem.PriceBaseCurrencyValue || 0);
+                    
+                    if (!existsInData) {
+                        existsInDatas = true;
+                        let key = data.length + advIndex;
+                        
+                        let row = `
                             <tr>
-                                <input id="productId${key}" name="productId${key}" data-product-id="productId" value="${matchedAdvance.Product_RefID}" type="hidden" />
-                                <input id="recordIDDetail${key}" name="recordIDDetail${key}" value="${matchedAdvance.Sys_ID_AdvanceDetail}" type="hidden" />
-                                <input id="productName${key}" name="productName${key}" value="${matchedAdvance.ProductName}" type="hidden" />
-                                <input id="qtyId${key}" name="qtyId${key}" value="${matchedAdvance.QuantityUnit_RefID}" type="hidden" />
-                                <input id="qty${key}" name="qty${key}" value="${val2.quantity}" type="hidden" />
-                                <input id="price${key}" name="price${key}" value="${val2.priceBaseCurrencyValue}" type="hidden" />
-                                <input id="uom${key}" name="uom${key}" value="${matchedAdvance.QuantityUnitName}" type="hidden" />
-                                <input id="currency${key}" name="currency${key}" value="${val2.priceBaseCurrencyISOCode}" type="hidden" />
-                                <input id="currencyId${key}" name="currencyId${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
-                                <input id="combinedBudgetSectionDetail_RefID${key}" name="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
-                                <input id="combinedBudget_RefID${key}" name="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID}" type="hidden" />
+                                <input id="productId${indexing}" name="productId${indexing}" data-product-id="productId" value="${advanceItem.Product_RefID}" type="hidden" />
+                                <input id="recordIDDetail${indexing}" name="recordIDDetail${indexing}" value="${advanceItem.Sys_ID_AdvanceDetail}" type="hidden" />
+                                <input id="productName${indexing}" name="productName${indexing}" value="${advanceItem.ProductName}" type="hidden" />
                                 
                                 <td style="padding: 8px;">
                                     <div class="input-group">
-                                        <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly value="${matchedAdvance.Product_RefID}" />
+                                        <input id="product_id${indexing}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly value="${advanceItem.Product_RefID}" />
                                         <div class="input-group-append">
                                             <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" data-id="10">
-                                                <a id="product_id2${key}" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(${key})">
+                                                <a id="product_id2${indexing}" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(${indexing})">
                                                     <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                                 </a>
                                             </span>
                                         </div>
                                     </div>
                                 </td>
-                                <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name">${matchedAdvance.ProductName}</td>
-                                <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
-                                <td style="text-align: center;">${'-'}</td>
-                                <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
-                                <td style="text-align: center;">${matchedAdvance.QuantityUnitName}</td>
-                                <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
-                                <td style="text-align: center;">${currencyTotal(totalBudget)}</td>
+                                <td id="product_name${indexing}" style="text-align: center;text-wrap: auto;" name="product_name">${advanceItem.ProductName}</td>
+                                <td style="text-align: center;">${currencyTotal(advanceItem.Quantity || 0)}</td>
+                                <td style="text-align: center;">-</td>
+                                <td style="text-align: center;">${currencyTotal(advanceItem.PriceBaseCurrencyValue || 0)}</td>
+                                <td style="text-align: center;">${advanceItem.QuantityUnitName || '-'}</td>
+                                <td style="text-align: center;">${advanceItem.priceBaseCurrencyISOCode || '-'}</td>
+                                <td style="text-align: center;">${currencyTotal((advanceItem.Quantity || 0) * (advanceItem.PriceBaseCurrencyValue || 0))}</td>
                                 <td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                    <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" value="${matchedAdvance.Quantity}" />
+                                    <input class="form-control number-without-negative" id="qty_req${indexing}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(advanceItem.Quantity || 0)}" />
                                 </td>
                                 <td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                    <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" value="${matchedAdvance.ProductUnitPriceBaseCurrencyValue}" />
+                                    <input class="form-control number-without-negative" id="price_req${indexing}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(advanceItem.ProductUnitPriceBaseCurrencyValue || 0)}" />
                                 </td>
                                 <td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                    <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled value="${matchedAdvance.PriceBaseCurrencyValue}" />
+                                    <input class="form-control number-without-negative" id="total_req${indexing}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled value="${currencyTotal(advanceItem.PriceBaseCurrencyValue || 0)}" />
                                 </td>
                                 <td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                    <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" value="${currencyTotal(val2.quantity)}" disabled />
+                                    <input class="form-control number-without-negative" id="balanced_qty${indexing}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" value="${currencyTotal(advanceItem.Quantity || 0)}" disabled />
+                                </td>
+                            </tr>
+                        `;
+
+                        $(`#product_id${indexing}`).data('default', $(`#product_id${indexing}`).val());
+                        $(`#product_name${indexing}`).data('default', $(`#product_name${indexing}`).text());
+                        $(`#qty_req${indexing}`).data('default', $(`#qty_req${indexing}`).val());
+                        $(`#price_req${indexing}`).data('default', $(`#price_req${indexing}`).val());
+                        $(`#total_req${indexing}`).data('default', $(`#total_req${indexing}`).val());
+                        $(`#balanced_qty${indexing}`).data('default', $(`#balanced_qty${indexing}`).val());
+
+                        tbody.append(row);
+
+                        $(`#product_id${indexing}`).on('input', function() {
+                            if ($(this).val().trim() !== '') {
+                                $(`#qty_req${indexing}, #price_req${indexing}`).prop('disabled', false);
+                            } else {
+                                $(`#qty_req${indexing}, #price_req${indexing}`).prop('disabled', true);
+                            }
+                        });
+
+                        $(`#qty_req${indexing}`).on('keyup', function() {
+                            var qty_req = $(this).val().replace(/,/g, '');
+                            var price_req = $(`#price_req${indexing}`).val().replace(/,/g, '');
+                            var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
+                            var total = parseFloat(qty_req || 0) + parseFloat(balanced);
+
+                            if (parseFloat(qty_req) > advanceItem.Quantity) { // quantityRemaining
+                                $(`#qty_req${indexing}`).val('');
+                                $(`#total_req${indexing}`).val('');
+                                ErrorNotif("Qty Req is over budget !");
+                            } else if (parseFloat(qty_req * price_req) > totalBudget) {
+                                $(`#qty_req${indexing}`).val('');
+                                $(`#total_req${indexing}`).val('');
+                                ErrorNotif("Total Req is over budget !");
+                            } else {
+                                $(`#total_req${indexing}`).val(currencyTotal(total_req));
+                                $(`#balanced_qty${indexing}`).val(currencyTotal(total));
+                            }
+                        });
+
+                        $(`#price_req${indexing}`).on('keyup', function() {
+                            var price_req = $(this).val().replace(/,/g, '');
+                            var qty_req = $(`#qty_req${indexing}`).val().replace(/,/g, '');
+                            var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
+                            var total = parseFloat(price_req || 0) + parseFloat(advanceItem.PriceBaseCurrencyValue);
+
+                            if (parseFloat(price_req) > advanceItem.PriceBaseCurrencyValue) {
+                                $(`#price_req${indexing}`).val('');
+                                $(`#total_req${indexing}`).val('');
+                                ErrorNotif("Price Req is over budget !");
+                            } else if (parseFloat(qty_req * price_req) > totalBudget) {
+                                $(`#price_req${indexing}`).val('');
+                                $(`#total_req${indexing}`).val('');
+                                ErrorNotif("Total Req is over budget !");
+                            } else {
+                                $(`#total_req${indexing}`).val(currencyTotal(total_req));
+                            }
+                        });
+
+                        indexing += 1;
+                    }
+                });
+
+                $.each(data, function(key, val2) {
+                    let isUnspecified = '';
+                    let balanced = currencyTotal(val2.quantity || 0);
+                    let totalBudget = (val2.quantity || 0) * (val2.priceBaseCurrencyValue || 0);
+                    let matchedAdvance = dataAdvance.find(advance => advance.Product_RefID == val2.product_RefID);
+                    let row = '';
+                    let productColumn = `
+                        <td style="text-align: center;">${val2.product_RefID}</td>
+                        <td style="text-align: center;">${val2.productName}</td>
+                    `;
+
+                    if (existsInDatas && !val2.product_RefID) {
+                        return;
+                    } else if (!existsInDatas && !val2.product_RefID) {
+                        balanced = '-';
+                        productColumn = `
+                            <td style="padding: 8px;">
+                                <div class="input-group">
+                                    <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly />
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" data-id="10">
+                                            <a id="product_id2${key}" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(${key})">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name">${val2.productName}</td>
+                        `;
+                    }
+
+                    if (matchedAdvance) {
+                        row = `
+                            <tr>
+                                <input id="productId${key}" name="productId${key}" data-product-id="productId" value="${val2.product_RefID}" type="hidden" />
+                                <input id="recordIDDetail${key}" name="recordIDDetail${key}" value="${matchedAdvance.Sys_ID_AdvanceDetail}" type="hidden" />
+                                <input id="productName${key}" name="productName${key}" value="${val2.productName}" type="hidden" />
+                                <input id="qtyId${key}" name="qtyId${key}" value="${val2.quantityUnit_RefID || ''}" type="hidden" />
+                                <input id="qty${key}" name="qty${key}" value="${val2.quantity || ''}" type="hidden" />
+                                <input id="price${key}" name="price${key}" value="${val2.priceBaseCurrencyValue || ''}" type="hidden" />
+                                <input id="uom${key}" name="uom${key}" value="${val2.quantityUnitName || ''}" type="hidden" />
+                                <input id="currency${key}" name="currency${key}" value="${val2.priceBaseCurrencyISOCode || ''}" type="hidden" />
+                                <input id="currencyId${key}" name="currencyId${key}" value="${val2.sys_BaseCurrency_RefID || ''}" type="hidden" />
+                                <input id="combinedBudgetSectionDetail_RefID${key}" name="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID || ''}" type="hidden" />
+                                <input id="combinedBudget_RefID${key}" name="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID || ''}" type="hidden" />
+                                
+                                <td style="text-align: center;">${val2.product_RefID || '-'}</td>
+                                <td style="text-align: center;">${val2.productName || '-'}</td>
+                                <td style="text-align: center;">${currencyTotal(val2.quantity || 0)}</td>
+                                <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantityRemaining || 0)}</td>
+                                <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue || 0)}</td>
+                                <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
+                                <td style="text-align: center;">${val2.priceBaseCurrencyISOCode || '-'}</td>
+                                <td style="text-align: center;">${currencyTotal(totalBudget)}</td>
+                                <td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">
+                                    <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(matchedAdvance.Quantity || 0)}" />
+                                </td>
+                                <td class="sticky-col third-col-arf" style="border:1px solid #e9ecef;background-color:white;">
+                                    <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(matchedAdvance.ProductUnitPriceBaseCurrencyValue || 0)}" />
+                                </td>
+                                <td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">
+                                    <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled value="${currencyTotal(matchedAdvance.PriceBaseCurrencyValue || 0)}" />
+                                </td>
+                                <td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">
+                                    <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" value="${balanced}" disabled />
                                 </td>
                             </tr>
                         `;
@@ -110,22 +233,21 @@
                                 <input id="productId${key}" name="productId${key}" data-product-id="productId" value="${val2.product_RefID}" type="hidden" />
                                 <input id="recordIDDetail${key}" name="recordIDDetail${key}" value="null" type="hidden" />
                                 <input id="productName${key}" name="productName${key}" value="${val2.productName}" type="hidden" />
-                                <input id="qtyId${key}" name="qtyId${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
-                                <input id="qty${key}" name="qty${key}" value="${val2.quantity}" type="hidden" />
-                                <input id="price${key}" name="price${key}" value="${val2.priceBaseCurrencyValue}" type="hidden" />
-                                <input id="uom${key}" name="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
-                                <input id="currency${key}" name="currency${key}" value="${val2.priceBaseCurrencyISOCode}" type="hidden" />
-                                <input id="currencyId${key}" name="currencyId${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
-                                <input id="combinedBudgetSectionDetail_RefID${key}" name="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
-                                <input id="combinedBudget_RefID${key}" name="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID}" type="hidden" />
+                                <input id="qtyId${key}" name="qtyId${key}" value="${val2.quantityUnit_RefID || ''}" type="hidden" />
+                                <input id="qty${key}" name="qty${key}" value="${val2.quantity || ''}" type="hidden" />
+                                <input id="price${key}" name="price${key}" value="${val2.priceBaseCurrencyValue || ''}" type="hidden" />
+                                <input id="uom${key}" name="uom${key}" value="${val2.quantityUnitName || ''}" type="hidden" />
+                                <input id="currency${key}" name="currency${key}" value="${val2.priceBaseCurrencyISOCode || ''}" type="hidden" />
+                                <input id="currencyId${key}" name="currencyId${key}" value="${val2.sys_BaseCurrency_RefID || ''}" type="hidden" />
+                                <input id="combinedBudgetSectionDetail_RefID${key}" name="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID || ''}" type="hidden" />
+                                <input id="combinedBudget_RefID${key}" name="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID || ''}" type="hidden" />
                                 
-                                <td style="text-align: center;">${val2.product_RefID}</td>
-                                <td style="text-align: center;">${val2.productName}</td>
-                                <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
-                                <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantityRemaining)}</td>
-                                <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
+                                ${productColumn}
+                                <td style="text-align: center;">${currencyTotal(val2.quantity || 0)}</td>
+                                <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantityRemaining || 0)}</td>
+                                <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue || 0)}</td>
                                 <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
-                                <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
+                                <td style="text-align: center;">${val2.priceBaseCurrencyISOCode || '-'}</td>
                                 <td style="text-align: center;">${currencyTotal(totalBudget)}</td>
                                 <td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">
                                     <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" ${isUnspecified} />
@@ -143,8 +265,6 @@
                         `;
                     }
 
-                    tbody.append(row);
-
                     $(`#product_id${key}`).data('default', $(`#product_id${key}`).val());
                     $(`#product_name${key}`).data('default', $(`#product_name${key}`).text());
                     $(`#qty_req${key}`).data('default', $(`#qty_req${key}`).val());
@@ -152,7 +272,9 @@
                     $(`#total_req${key}`).data('default', $(`#total_req${key}`).val());
                     $(`#balanced_qty${key}`).data('default', $(`#balanced_qty${key}`).val());
 
-                    if (matchedAdvance) {
+                    tbody.append(row);
+
+                    if (val2.productName === "Unspecified Product") {
                         $(`#product_id${key}`).on('input', function() {
                             if ($(this).val().trim() !== '') {
                                 $(`#qty_req${key}, #price_req${key}`).prop('disabled', false);
@@ -185,7 +307,7 @@
                             var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
                             var total = parseFloat(qty_req || 0) + parseFloat(balanced);
 
-                            if (parseFloat(qty_req) > val2.quantity) { // quantityRemaining
+                            if (parseFloat(qty_req) > val2.quantity) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
                                 ErrorNotif("Qty Req is over budget !");
@@ -218,6 +340,8 @@
                             $(`#total_req${key}`).val(currencyTotal(total_req));
                         }
                     });
+
+                    indexing += 1;
                 });
 
                 $(".loadingBudgetDetails").hide();
@@ -415,8 +539,11 @@
             var totalReq                            = $(this).find(`input[id^="total_req${index}"]`).val();
             var combinedBudgetSectionDetail_RefID   = $(this).find(`input[id^="combinedBudgetSectionDetail_RefID${index}"]`).val();
 
-            totalReq = totalReq.replace(/,/g, ""); 
-            totalReq = totalReq || 0;
+            if (totalReq) {
+                totalReq = totalReq.replace(/,/g, ""); 
+            } else {
+                totalReq = 0;
+            }
 
             if (!productId || !qtyReq || !priceReq || !totalReq) {
                 return;
@@ -458,9 +585,9 @@
                 rowToUpdate.find("td:eq(1)").text(productName);
                 rowToUpdate.find("td:eq(2)").text(uom);
                 rowToUpdate.find("td:eq(3)").text(currency);
-                rowToUpdate.find("td:eq(4)").text(priceReq);
-                rowToUpdate.find("td:eq(5)").text(qtyReq);
-                rowToUpdate.find("td:eq(6)").text(totalReq);
+                rowToUpdate.find("td:eq(4)").text(currencyTotal(priceReq));
+                rowToUpdate.find("td:eq(5)").text(currencyTotal(qtyReq));
+                rowToUpdate.find("td:eq(6)").text(currencyTotal(totalReq));
             } else {
                 var_recordIDDetail.push(recordIDDetail);
                 var_product_id.push(productId);
