@@ -1098,15 +1098,24 @@ class FunctionController extends Controller
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'dataPickList.supplyChain.getPurchaseOrder', 
-                'latest',
+                'transaction.read.dataList.supplyChain.getPurchaseOrder', 
+                'latest', 
                 [
-                    'parameter' => [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                     ]
                 ]
             );
 
-            return response()->json($varData['data']);
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']['data']);
         } catch (\Throwable $th) {
             Log::error("Error at getPurchaseOrderList: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
