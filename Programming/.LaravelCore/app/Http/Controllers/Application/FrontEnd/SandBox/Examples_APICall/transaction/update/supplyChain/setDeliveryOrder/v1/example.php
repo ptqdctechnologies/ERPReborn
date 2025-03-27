@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.supplyChain.setDeliveryOrder.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-28                                                                                           |
+        | ▪ Last Update     : 2025-03-27                                                                                           |
         | ▪ Creation Date   : 2022-07-28                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -34,19 +34,47 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.supplyChain.setDeliveryOrder', 
-                'latest', 
+                $varAPIWebToken,
+                'transaction.update.supplyChain.setDeliveryOrder',
+                'latest',
                 [
-                'recordID' => 180000000000001,
+                'recordID' => 180000000000011,
                 'entities' => [
-                    "documentDateTimeTZ" => '2022-03-07',
-                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                    "remarks" => 'My Remarks'
+                    "documentDateTimeTZ" => '2025-03-28',
+                    "log_FileUpload_Pointer_RefID" => 164000000000412,
+                    "requesterWorkerJobsPosition_RefID" => 164000000000413,
+                    "remarks" => 'My Remarks 27/03/2025 - 1 A',
+                    "transporter_RefID" => 164000000000414,
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => [
+                                    [
+                                    "recordID" => 181000000000019,
+                                    "entities" => [
+                                        "referenceDocument_RefID" => 73000000000033,
+                                        "quantity" => 25,
+                                        "quantityUnit_RefID" => 73000000000036,
+                                        "remarks" => "Catatan 1 - C",
+                                        "underlyingDetail_RefID" => 73000000000039
+                                        ]                                   
+                                    ],
+                                    [
+                                    "recordID" => 181000000000020,
+                                    "entities" => [
+                                        "referenceDocument_RefID" => 73000000000034,
+                                        "quantity" => 20,
+                                        "quantityUnit_RefID" => 73000000000037,
+                                        "remarks" => "Catatan 1 - D",
+                                        "underlyingDetail_RefID" => 73000000000040
+                                        ]
+                                    ],
+                                ]
+                            ]
+                        ]
                     ]
                 ]
                 );
-            var_dump($varData);
+            return $varData;
             }
 
 
@@ -73,10 +101,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo '<input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497>';
             echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.update.supplyChain.setDeliveryOrder', 
-                'latest', 
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.update.supplyChain.setDeliveryOrder',
+                'latest',
                 '{'.
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
@@ -85,7 +113,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.
                 '}'
-                ); 
+                );
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }

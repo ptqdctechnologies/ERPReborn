@@ -59,8 +59,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
-        |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
+        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Person Reference ID                                     |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |      ▪ (int)    varTransporter_RefID ► Transporter Reference ID                                                          |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
@@ -121,7 +122,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-11                                                                                           |
+        | ▪ Last Update     : 2025-03-27                                                                                           |
         | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -137,8 +138,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
-        |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
+        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Person Reference ID                                     |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |      ▪ (int)    varTransporter_RefID ► Transporter Reference ID                                                          |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
@@ -149,7 +151,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterPerson_RefID = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null, int $varTransporter_RefID = null,
             array $varAdditionalData = null
             )
             {
@@ -172,8 +174,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                            [$varRequesterPerson_RefID, 'bigint'],
+                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
                             [$varRemarks, 'varchar'],
+                            [$varTransporter_RefID, 'bigint'],
 
                             [
                                 ((count($varAdditionalData) === 0) 
