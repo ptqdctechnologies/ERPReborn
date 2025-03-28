@@ -10,7 +10,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="transporter_name" style="border-radius:0;" name="transporter_name" class="form-control" size="20" readonly>
+                        <input id="transporter_name" style="border-radius:0;" class="form-control" size="20" readonly>
                         <input id="transporter_id" style="border-radius:0;" name="transporter_id" class="form-control" hidden>
                     </div>
                     <div class="input-group-append">
@@ -30,7 +30,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="transporter_phone" style="border-radius:0;" name="transporter_phone" class="form-control" size="20" readonly>
+                        <input id="transporter_phone" style="border-radius:0;" class="form-control" size="20" readonly>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="transporter_fax" style="border-radius:0;" name="transporter_fax" class="form-control" size="20" readonly>
+                        <input id="transporter_fax" style="border-radius:0;" class="form-control" size="20" readonly>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="transporter_contact" style="border-radius:0;" name="transporter_contact" class="form-control" size="20" readonly>
+                        <input id="transporter_contact" style="border-radius:0;" class="form-control" size="20" readonly>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="transporter_handphone" style="border-radius:0;" name="transporter_handphone" class="form-control" size="20" readonly>
+                        <input id="transporter_handphone" style="border-radius:0;" class="form-control" size="20" readonly>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <textarea id="transporter_address" rows="3" name="transporter_address" style="border-radius:0;" class="form-control" readonly></textarea>
+                        <textarea id="transporter_address" rows="3" style="border-radius:0;" class="form-control" readonly></textarea>
                     </div>
                 </div>
             </div>

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Redis;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
+use Illuminate\Support\Arr;
 
 class Controller extends BaseController
 {
@@ -102,6 +103,7 @@ class Controller extends BaseController
 
                 return response()->json($compact);
             } else {
+                $dataStore = Arr::except($dataInput, '_token');
 
                 if (count($VarSelectWorkFlow) > 1) {
                     $message =  "MoreThanOne";
@@ -109,13 +111,14 @@ class Controller extends BaseController
                     $message =  "OnlyOne";
                 }
                 $compact = [
-                    "data" => $VarSelectWorkFlow,
-                    "workFlowPath_RefID" => $VarSelectWorkFlow[0]['Sys_ID'],
-                    "nextApprover_RefID" => $VarSelectWorkFlow[0]['NextApprover_RefID'],
-                    "approverEntity_RefID" => $SessionWorkerCareerInternal_RefID,
-                    "documentTypeID" => $DocumentTypeID,
-                    "Sys_ID_Advance" => $Sys_ID_Advance,
-                    "message" => $message
+                    "data"                  => $VarSelectWorkFlow,
+                    "workFlowPath_RefID"    => $VarSelectWorkFlow[0]['Sys_ID'],
+                    "nextApprover_RefID"    => $VarSelectWorkFlow[0]['NextApprover_RefID'],
+                    "approverEntity_RefID"  => $SessionWorkerCareerInternal_RefID,
+                    "documentTypeID"        => $DocumentTypeID,
+                    "Sys_ID_Advance"        => $Sys_ID_Advance,
+                    "message"               => $message,
+                    "storeData"             => $dataStore
                 ];
 
                 return response()->json($compact);

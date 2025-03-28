@@ -8,7 +8,7 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="reference_number" style="border-radius:0;" name="reference_number" class="form-control" size="20" readonly>
+            <input id="reference_number" style="border-radius:0;" class="form-control" size="20" readonly>
             <input id="reference_id" style="border-radius:0;" name="reference_id" class="form-control" hidden>
           </div>
           <div class="input-group-append">

@@ -5,6 +5,7 @@
 @include('Inventory.DeliveryOrder.Functions.PopUp.PopUpDoRevision')
 @include('getFunction.getReferenceNumber')
 @include('getFunction.getTransporter')
+@include('getFunction.getWorkFlow')
 
 <div class="content-wrapper">
     <section class="content">
@@ -21,6 +22,14 @@
             @include('Inventory.DeliveryOrder.Functions.Menu.MenuDeliveryOrder')
             @if($var == 0)
             <div class="card">
+                <form method="post" enctype="multipart/form-data" action="{{ route('SelectWorkFlow') }}" id="FormSubmitDeliveryOrder">
+                @csrf
+                <input type="hidden" name="var_date" id="var_date">
+                <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+                <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
+                <input type="hidden" name="requesterWorkerJobsPosition_RefID" id="requesterWorkerJobsPosition_RefID">
+                <input type="hidden" name="deliveryOrderDetail" id="deliveryOrderDetail">
+                
                 <!-- ADD NEW DELIVERY ORDER -->
                 <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                     <div class="row">
@@ -196,6 +205,8 @@
                         </div>
                     </div>
                 </div>
+
+                </form>
             </div>
             @endif
         </div>

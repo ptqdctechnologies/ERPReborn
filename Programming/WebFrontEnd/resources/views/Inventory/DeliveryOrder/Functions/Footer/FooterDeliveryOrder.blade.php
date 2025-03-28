@@ -1,8 +1,6 @@
 <script>
+    var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
     var indexReferenceNumberDetail  = 0;
-
-    $(".loadingReferenceNumberDetail").hide();
-    $(".errorMessageContainerReferenceNumberDetail").hide();
 
     function calculateTotal() {
         let total = 0;
@@ -49,12 +47,14 @@
                         let randomNumber = Math.floor(Math.random() * 11);
                         let row = `
                             <tr>
+                                <input id="underlyingDetail_RefID${indexReferenceNumberDetail}" value="${val2.Sys_PID}" type="hidden" />
                                 <input id="reference_number${indexReferenceNumberDetail}" value="${reference_number}" type="hidden" />
                                 <input id="product_code${indexReferenceNumberDetail}" value="-" type="hidden" />
                                 <input id="product_name${indexReferenceNumberDetail}" value="-" type="hidden" />
                                 <input id="uom${indexReferenceNumberDetail}" value="-" type="hidden" />
                                 <input id="qty_reference${indexReferenceNumberDetail}" value="${currencyTotal(val2.Quantity)}" type="hidden" />
                                 <input id="qty_avail${indexReferenceNumberDetail}" value="${currencyTotal(randomNumber)}" type="hidden" />
+                                <input id="qty_unit_refID${indexReferenceNumberDetail}" value="${val2.QuantityUnit_RefID}" type="hidden" />
 
                                 ${key === 0 ? modifyColumn : ''}
                                 <td style="text-align: center;">-</td>
@@ -63,7 +63,7 @@
                                 <td style="text-align: center;">${currencyTotal(val2.Quantity)}</td>
                                 <td style="text-align: center;">${currencyTotal(randomNumber)}</td>
                                 <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                                    <input class="form-control number-without-negative" id="qty_req${indexReferenceNumberDetail}" data-index=${indexReferenceNumberDetail} data-quantity=${val2.Quantity} autocomplete="off" style="border-radius:0px;" />
+                                    <input class="form-control number-without-negative" id="qty_req${indexReferenceNumberDetail}" data-index=${indexReferenceNumberDetail} data-quantity=${randomNumber} autocomplete="off" style="border-radius:0px;" />
                                 </td>
                                 <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
                                     <input class="form-control number-without-negative" id="balance${indexReferenceNumberDetail}" autocomplete="off" style="border-radius:0px;" disabled />
@@ -115,22 +115,121 @@
         });
     }
 
+    function getDocumentType() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getDocumentType") !!}',
+            success: function(data) {
+                const result = data.find(({ Name }) => Name === "Delivery Order Form");
+
+                if (Object.keys(result).length > 0) {
+                    $("#DocumentTypeID").val(result.Sys_ID);
+                } else {
+                    console.log('error get document type');
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                console.log('error', textStatus, errorThrown);
+            }
+        });
+    }
+
+    function SelectWorkFlow(formatData) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            confirmButtonColor: '#4B586A',
+            confirmButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            ShowLoading();
+            DeliveryOrderStore({...formatData, comment: result.value});
+        });
+    }
+
+    function DeliveryOrderStore(formatData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("DeliveryOrder.store") }}',
+            success: function(res) {
+                HideLoading();
+
+                if (typeof res == 'object' && Object.keys(res).length > 0 && res.metadata.HTTPStatusCode == 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.data.businessDocument.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        ShowLoading();
+                        window.location.href = '/DeliveryOrder?var=1';
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('error', jqXHR, textStatus, errorThrown);
+            }
+        });
+    }
+
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);
     });
 
     $("#reference-number-details-add").on('click', function() {
+        let dataStore = [];
         var totalReferenceNumber = document.getElementById('TotalReferenceNumber').textContent;
 
         $("#tableReferenceNumberDetail tbody tr").each(function(index) {
-            var referenceNumber = $(this).find(`input[id="reference_number${index}"]`).val();
-            var productCode     = $(this).find(`input[id="product_code${index}"]`).val();
-            var productName     = $(this).find(`input[id="product_name${index}"]`).val();
-            var uom             = $(this).find(`input[id="uom${index}"]`).val();
-            var qtyAvail        = $(this).find(`input[id="qty_avail${index}"]`).val();
-            var qtyReq          = $(this).find(`input[id="qty_req${index}"]`).val();
-            var balance         = $(this).find(`input[id="balance${index}"]`).val();
-            var note            = $(this).find(`textarea[id="note${index}"]`).val();
+            var referenceNumber         = $(this).find(`input[id="reference_number${index}"]`).val();
+            var productCode             = $(this).find(`input[id="product_code${index}"]`).val();
+            var productName             = $(this).find(`input[id="product_name${index}"]`).val();
+            var uom                     = $(this).find(`input[id="uom${index}"]`).val();
+            var qtyAvail                = $(this).find(`input[id="qty_avail${index}"]`).val();
+            var qtyReq                  = $(this).find(`input[id="qty_req${index}"]`).val();
+            var balance                 = $(this).find(`input[id="balance${index}"]`).val();
+            var note                    = $(this).find(`textarea[id="note${index}"]`).val();
+            var underlyingDetailRefID   = $(this).find(`input[id="underlyingDetail_RefID${index}"]`).val();
+            var qtyUnitRefID            = $(this).find(`input[id="qty_unit_refID${index}"]`).val();
 
             if (!qtyReq || !note) {
                 return;
@@ -156,6 +255,13 @@
                 rowToUpdate.find("td:eq(5)").text(qtyReq);
                 rowToUpdate.find("td:eq(6)").text(balance);
                 rowToUpdate.find("td:eq(7)").text(note);
+
+                dataStore[index] = {
+                    quantity: qtyReq,
+                    quantityUnit_RefID: qtyUnitRefID,
+                    remarks: note,
+                    underlyingDetail_RefID: underlyingDetailRefID,
+                };
             } else {
                 var newRow = `<tr>
                     <td style="text-align: center; padding: 0.8rem 0px;">${referenceNumber}</td>
@@ -168,10 +274,20 @@
                     <td style="text-align: center; padding: 0.8rem 0px;">${note}</td>
                 </tr>`;
 
+                dataStore.push({
+                    quantity: qtyReq,
+                    quantityUnit_RefID: qtyUnitRefID,
+                    remarks: note,
+                    underlyingDetail_RefID: underlyingDetailRefID,
+                });
+
                 $("#tableReferenceNumberList").find("tbody").append(newRow);
             }
         });
 
+        dataStore = dataStore.filter(item => item !== undefined);
+
+        $("#deliveryOrderDetail").val(JSON.stringify(dataStore));
         document.getElementById('GrandTotal').textContent = totalReferenceNumber;
     });
 
@@ -192,10 +308,14 @@
     });
 
     $('#referenceNumberModal').on('click', 'tbody tr', function() {
-        var sysId           = $(this).find('input[data-trigger="sys_id_reference_number"]').val();
-        var referenceNumber = $(this).find('td:nth-child(2)').text();
-
+        var sysId                   = $(this).find('input[data-trigger="sys_id_reference_number"]').val();
+        var sysCombineBudgetRefID   = $(this).find('input[data-trigger="sys_combined_budget_RefID"]').val();
+        var sysRequesterRefID       = $(this).find('input[data-trigger="sys_requester_RefID"]').val();
+        var referenceNumber         = $(this).find('td:nth-child(2)').text();
+        
         $("#reference_id").val(sysId);
+        $("#var_combinedBudget_RefID").val(sysCombineBudgetRefID);
+        $("#requesterWorkerJobsPosition_RefID").val(sysRequesterRefID);
         $("#reference_number").val(referenceNumber);
         GetReferenceNumberDetail(sysId, referenceNumber);
 
@@ -213,5 +333,93 @@
         $("#transporter_contact").val('-');
         $("#transporter_handphone").val('-');
         $("#transporter_address").val('-');
+    });
+
+    $("#FormSubmitDeliveryOrder").on("submit", function(e) {
+        e.preventDefault();
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "Save this data?",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+            confirmButtonColor: '#e9ecef',
+            cancelButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var action = $(this).attr("action");
+                var method = $(this).attr("method");
+                var form_data = new FormData($(this)[0]);
+
+                ShowLoading();
+
+                $.ajax({
+                    url: action,
+                    dataType: 'json',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    type: method,
+                    success: function(response) {
+                        if (response.message == "WorkflowError") {
+                            HideLoading();
+                            $("#submitArf").prop("disabled", false);
+
+                            CancelNotif("You don't have access", '/DeliveryOrder?var=1');
+                        } else if (response.message == "MoreThanOne") {
+                            HideLoading();
+
+                            $('#getWorkFlow').modal('toggle');
+
+                            var t = $('#tableGetWorkFlow').DataTable();
+                            t.clear();
+                            $.each(response.data, function(key, val) {
+                                t.row.add([
+                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                                ]).draw();
+                            });
+                        } else {
+                            const formatData = {
+                                workFlowPath_RefID: response.workFlowPath_RefID, 
+                                nextApprover: response.nextApprover_RefID, 
+                                approverEntity: response.approverEntity_RefID, 
+                                documentTypeID: response.documentTypeID,
+                                storeData: response.storeData
+                            };
+
+                            HideLoading();
+                            SelectWorkFlow(formatData);
+                        }
+                    },
+                    error: function(response) {
+                        HideLoading();
+                        $("#submitArf").prop("disabled", false);
+                        CancelNotif("You don't have access", '/DeliveryOrder?var=1');
+                    }
+                });
+            } else {
+                HideLoading();
+                CancelNotif("Data Cancel Inputed", '/DeliveryOrder?var=1');
+            }
+        });
+    });
+
+    $(window).one('load', function(e) {
+        $(".loadingReferenceNumberDetail").hide();
+        $(".errorMessageContainerReferenceNumberDetail").hide();
+        $("#var_date").val(date);
+
+        getDocumentType();
     });
 </script>

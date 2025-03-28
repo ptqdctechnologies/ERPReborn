@@ -38,6 +38,59 @@ class DeliveryOrderController extends Controller
         return view('Inventory.DeliveryOrder.Transactions.CreateDeliveryOrder', $compact);
     }
 
+    public function store(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $deliveryOrderData = $request->all();
+            $deliveryOrderDetail = json_decode($deliveryOrderData['storeData']['deliveryOrderDetail'], true);
+            $fileID = $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
+
+            $transformedDetails = [];
+            foreach ($deliveryOrderDetail as $entity) {
+                $transformedDetails[] = [
+                    "entities" => [
+                        "referenceDocument_RefID"   => null,
+                        "quantity"                  => (float) str_replace(',', '', $entity['quantity']),
+                        "quantityUnit_RefID"        => (int) $entity['quantityUnit_RefID'],
+                        "remarks"                   => $entity['remarks'],
+                        "underlyingDetail_RefID"    => (int) $entity['underlyingDetail_RefID'],
+                    ]
+                ];
+            }
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.create.supplyChain.setDeliveryOrder',
+                'latest',
+                [
+                    'entities' => [
+                        "documentDateTimeTZ"                => $deliveryOrderData['storeData']['var_date'],
+                        "log_FileUpload_Pointer_RefID"      => $fileID,
+                        "requesterWorkerJobsPosition_RefID" => (int) 164000000000196,
+                        "remarks"                           => $deliveryOrderData['storeData']['var_remark'],
+                        "transporter_RefID"                 => (int) $deliveryOrderData['storeData']['transporter_id'],
+                        "additionalData"                    => [
+                            "itemList"                      => [
+                                "items"                     => $transformedDetails
+                            ]
+                        ]
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($varData);
+            }
+
+            return response()->json($varData);
+        } catch (\Throwable $th) {
+            Log::error("Error at store: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function ReportDOSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -329,12 +382,6 @@ class DeliveryOrderController extends Controller
             Log::error("Error at PrintExportReportDODetail: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
-    }
-
-    public function store(Request $request)
-    {
-        $input = $request->all();
-        dd($input);
     }
 
     public function DeliveryOrderListData(Request $request)
