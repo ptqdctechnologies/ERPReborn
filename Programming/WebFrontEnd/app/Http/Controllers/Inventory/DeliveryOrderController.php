@@ -68,7 +68,7 @@ class DeliveryOrderController extends Controller
                     'entities' => [
                         "documentDateTimeTZ"                => $deliveryOrderData['storeData']['var_date'],
                         "log_FileUpload_Pointer_RefID"      => $fileID,
-                        "requesterWorkerJobsPosition_RefID" => (int) 164000000000196,
+                        "requesterWorkerJobsPosition_RefID" => null,
                         "remarks"                           => $deliveryOrderData['storeData']['var_remark'],
                         "transporter_RefID"                 => (int) $deliveryOrderData['storeData']['transporter_id'],
                         "additionalData"                    => [
