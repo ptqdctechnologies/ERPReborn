@@ -124,8 +124,8 @@
                     $.each(data, function(key, val) {
                         keys += 1;
                         table.row.add([
-                            '<input id="sys_id_dor_revision' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_dor_revision" type="hidden">' + no++,
-                            val.sys_Text || '-',
+                            '<input id="sys_id_do_revision' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_do_revision" type="hidden">' + no++,
+                            val.documentNumber || '-',
                         ]).draw();
                     });
 
@@ -157,7 +157,7 @@
     });
 
     $('#TableSearchDeliveryOrder tbody').on('click', 'tr', function() {
-        var sysId       = $(this).find('input[data-trigger="sys_id_dor_revision"]').val();
+        var sysId       = $(this).find('input[data-trigger="sys_id_do_revision"]').val();
         var projectName = $(this).find('td:nth-child(2)').text();
 
         $("#do_RefID").val(sysId);
