@@ -179,7 +179,7 @@
             success: function(res) {
                 HideLoading();
 
-                if (typeof res == 'object' && Object.keys(res).length > 0 && res.metadata.HTTPStatusCode == 200) {
+                if (res.status === 200) {
                     const swalWithBootstrapButtons = Swal.mixin({
                         confirmButtonClass: 'btn btn-success btn-sm',
                         cancelButtonClass: 'btn btn-danger btn-sm',
@@ -189,7 +189,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.data.businessDocument.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
