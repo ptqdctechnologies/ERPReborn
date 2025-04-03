@@ -1,44 +1,53 @@
+<!-- BODY -->
 <div class="card-body">
-  <div class="row">
-
-    <div class="col-md-6">
-      <div class="form-group">
-        <table>
-          <tr>
-            <td style="padding-top:12px;"><label>Delivery Order Request</label></td>
-            <td>
-              <div class="input-group">
-                <input id="delivery_order_request_id" style="border-radius:0;" name="delivery_order_request_id" class="form-control" type="hidden">
-                <input id="delivery_order_request" style="border-radius:0;" name="delivery_order_request" class="form-control" readonly>
-                <div class="input-group-append">
-                  <span style="border-radius:0;" class="input-group-text form-control">
-                    <a id="delivery_order_request2" data-toggle="modal" data-target="#mySearDeliveryOrderRequest" class="mySearDeliveryOrderRequest"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                  </span>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
+  <div class="row py-3" style="gap: 15px;">
+    <!-- LEFT COLUMN -->
+    <div class="col-md-12 col-lg-5">
+      <!-- DO NUMBER -->
+      <div class="row">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+          DO Number
+        </label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div>
+            <input id="do_number" style="border-radius:0;" class="form-control" size="20" readonly>
+            <input id="do_id" style="border-radius:0;" name="reference_id" class="form-control" hidden>
+          </div>
+          <div class="input-group-append invisible">
+            <span style="border-radius:0;" class="input-group-text form-control">
+              <a href="javascript:;" id="referenceNumberTrigger" style="display: block;">
+                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="doNumberTrigger">
+              </a>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="form-group">
-        <table>
-          <tr class="budgetDetail">
-            <td style="padding-top:8px;"><label>Transporter</label></td>
-            <td>
-              <div class="input-group">
-                <input name="transporter_id" id="transporter_id" style="border-radius:0;" type="text" class="form-control" disabled hidden>
-                <input name="transporter" id="transporter" style="border-radius:0;" type="text" class="form-control" disabled>
-                <div class="input-group-append">
-                  <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="#" id="transporter2" data-toggle="modal" data-target="#myTransporter" class="myTransporter"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                  </span>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-md-12 col-lg-5">
+      <!-- DELIVERY FROM -->
+      <div class="row" style="margin-bottom: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+          Delivery From
+        </label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div>
+            <textarea id="delivery_from" rows="3" style="border-radius:0;" class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELIVERY TO -->
+      <div class="row">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+          Delivery To
+        </label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div>
+            <textarea id="delivery_to" rows="3" style="border-radius:0;" class="form-control"></textarea>
+          </div>
+        </div>
       </div>
     </div>
   </div>
