@@ -44,7 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000001                                                                                       |
-        | ▪ Last Update     : 2022-11-22                                                                                           |
+        | ▪ Last Update     : 2025-04-07                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -67,6 +67,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             $varUserSession, 
                             null, 
                             null,
+                            null,
+                            null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
@@ -76,7 +78,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             $varData['entities']['startDateTimeTZ'],
                             $varData['entities']['finishDateTimeTZ'],
                             $varData['entities']['businessTripAccommodationArrangementsType_RefID'],
-                            $varData['entities']['businessTripTransportationType_RefIDArray'],
                             $varData['entities']['remarks'],
                             
                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? ((!is_null($varData['entities']['additionalData'])) ? $varData['entities']['additionalData'] : []) : [])
