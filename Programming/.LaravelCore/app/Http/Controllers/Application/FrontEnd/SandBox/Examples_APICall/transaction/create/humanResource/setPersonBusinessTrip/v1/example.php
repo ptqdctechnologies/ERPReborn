@@ -52,6 +52,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         'startDateTimeTZ' => '2022-10-10',
                                         'finishDateTimeTZ' => '2022-10-14',
                                         'businessTripAccommodationArrangementsType_RefID' => 219000000000002,
+                                        'businessTripTransportationType_RefIDArray' => [
+                                            220000000000011,
+                                            220000000000005
+                                            ],
                                         'remarks' => 'Catatan',
                                         'additionalData' => [
                                            'itemList' => [
