@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.create.humanResource.setPersonBusinessTripSequence.v1_throughAPIGateway                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-11-23                                                                                           |
+        | ▪ Last Update     : 2025-04-07                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -36,9 +36,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.create.humanResource.setPersonBusinessTripSequence', 
-                'latest', 
+                $varAPIWebToken,
+                'transaction.create.humanResource.setPersonBusinessTripSequence',
+                'latest',
                 [
                 'entities' => [
                     "personBusinessTrip_RefID" => 78000000000001,
@@ -47,10 +47,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "startDateTimeTZ" => '2022-10-10',
                     "finishDateTimeTZ" => '2022-10-14',
                     "businessTripAccommodationArrangementsType_RefID" => 219000000000002,
-                    "businessTripTransportationType_RefIDArray" => [
-                        220000000000011, 
-                        220000000000005
-                        ],
                     "remarks" => 'Catatan',
                     "additionalData" => [
                         "itemList" => [
@@ -61,8 +57,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "amountCurrency_RefID" => 62000000000001,
                                         "amountCurrencyValue" => 30000,
                                         "amountCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan Pertama'                                    
-                                        ]                                   
+                                        "remarks" => 'Catatan - Pertama'
+                                        ]
                                     ],
                                     [
                                     "entities" => [
@@ -70,7 +66,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "amountCurrency_RefID" => 62000000000001,
                                         "amountCurrencyValue" => 40000,
                                         "amountCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan Kedua'  
+                                        "remarks" => 'Catatan - Kedua'
                                         ]
                                     ],
                                 ]
@@ -79,7 +75,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     ]
                 ]
                 );
-            var_dump($varData);
+            return $varData;
             }
 
 
@@ -117,10 +113,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo       '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value="Catatan"></td></tr>';
             echo '</table><br>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.create.humanResource.setPersonBusinessTripSequence', 
-                'latest', 
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.create.humanResource.setPersonBusinessTripSequence',
+                'latest',
                 '{'.
                     '"entities" : {'.
                         '"advance_RefID" : parseInt(document.getElementById("dataInput_Advance_RefID").value), '.
@@ -134,9 +130,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.
                 '}'
-                ); 
+                );
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);            
+            dd($varJQueryFunction);
             */
             }
         }
