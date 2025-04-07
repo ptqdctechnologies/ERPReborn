@@ -10,8 +10,8 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="do_number" style="border-radius:0;" class="form-control" size="20" readonly>
-            <input id="do_id" style="border-radius:0;" name="reference_id" class="form-control" hidden>
+            <input id="do_number" style="border-radius:0;" class="form-control" size="20" value="<?= $Data[0]['DocumentNumber'] ?? ''; ?>" readonly>
+            <input id="do_id" style="border-radius:0;" name="reference_id" class="form-control" value="<?= $Data[0]['DeliveryOrder_ID'] ?? ''; ?>" hidden>
           </div>
           <div class="input-group-append invisible">
             <span style="border-radius:0;" class="input-group-text form-control">

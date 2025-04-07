@@ -2,6 +2,8 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('Inventory.DeliveryOrder.Functions.PopUp.PopUpDoRevision')
+@include('getFunction.getTransporter')
 
 <div class="content-wrapper">
     <section class="content">
@@ -17,6 +19,8 @@
 
             @include('Inventory.DeliveryOrder.Functions.Menu.MenuDeliveryOrder')
             <div class="card">
+                <input type="hidden" id="data_table" value='<?= json_encode($Data ?? []) ?>'>
+
                 <!-- DELIVERY ORDER -->
                 <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                     <div class="row">
@@ -170,7 +174,7 @@
                                 <!-- CONTENT -->
                                 <div class="card-body">
                                     <div class="row py-3">
-                                        <textarea name="var_remark" id="remark" class="form-control"></textarea>
+                                        <textarea name="var_remark" id="remark" class="form-control"><?= nl2br(e($Data[0]['RemarksDeliveryOrder'])) ?? ''; ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -198,4 +202,5 @@
 </div>
 
 @include('Partials.footer')
+@include('Inventory.DeliveryOrder.Functions.Footer.FooterDeliveryOrderRevision')
 @endsection

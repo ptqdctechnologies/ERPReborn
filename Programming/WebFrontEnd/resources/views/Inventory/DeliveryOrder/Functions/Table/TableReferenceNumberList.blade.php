@@ -1,6 +1,6 @@
 <!-- BODY -->
 <div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;">
-    <table class="table table-head-fixed text-nowrap table-sm" id="tableReferenceNumberList">
+    <table class="table table-head-fixed text-nowrap table-sm" id="tableDeliverOrderDetailList">
         <thead>
             <tr>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Reference Number</th>

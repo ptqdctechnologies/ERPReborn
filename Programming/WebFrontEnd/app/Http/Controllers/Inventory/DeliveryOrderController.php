@@ -574,7 +574,7 @@ class DeliveryOrderController extends Controller
                 true
             );
 
-            // dump($DocumentType);
+            // dump($varData['data']);
 
             $compact = [
                 // 'DocumentTypeID' => $DocumentTypeID,
@@ -582,7 +582,7 @@ class DeliveryOrderController extends Controller
                 'Data'           => $varData['data']
             ];
 
-            // dump($compact);
+            // dump($compact['Data']);
 
             return view('Inventory.DeliveryOrder.Transactions.RevisionDeliveryOrder', $compact);
         } catch (\Throwable $th) {
