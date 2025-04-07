@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.update.humanResource.setPersonBusinessTripSequence.v1_throughAPIGateway                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-11-24                                                                                           |
+        | ▪ Last Update     : 2025-04-07                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -36,42 +36,40 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.humanResource.setPersonBusinessTripSequence', 
-                'latest', 
+                $varAPIWebToken,
+                'transaction.update.humanResource.setPersonBusinessTripSequence',
+                'latest',
                 [
-                'recordID' => 79000000000001,
+                'recordID' => 79000000000010,
                 'entities' => [
-                    "personBusinessTrip_RefID" => 78000000000001,
+                    "personBusinessTrip_RefID" => 78000000000008,
                     "sequence" => 1,
-                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                    "requesterWorkerJobsPosition_RefID" => 164000000000493,
                     "startDateTimeTZ" => '2022-10-10',
                     "finishDateTimeTZ" => '2022-10-14',
-                    "businessTripAccommodationArrangementsType_RefID" => 219000000000002,
-                    "businessTripTransportationType_RefIDArray" => [
-                        220000000000011, 
-                        220000000000005
-                        ],
-                    "remarks" => 'Catatan',
+                    "businessTripAccommodationArrangementsType_RefID" => 219000000000003,
+                    "remarks" => 'Catatan - 1',
                     "additionalData" => [
                         "itemList" => [
                             "items" => [
                                     [
+                                    "recordID" => 80000000000029,
                                     "entities" => [
-                                        "businessTripCostComponentEntity_RefID" => 81000000000001,
-                                        "amountCurrency_RefID" => 62000000000001,
-                                        "amountCurrencyValue" => 30000,
-                                        "amountCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan Pertama'                                    
-                                        ]                                   
+                                        "businessTripCostComponentEntity_RefID" => 81000000000003,
+                                        "amountCurrency_RefID" => 62000000000003,
+                                        "amountCurrencyValue" => 30003,
+                                        "amountCurrencyExchangeRate" => 3,
+                                        "remarks" => 'Catatan 1 - A'
+                                        ]
                                     ],
                                     [
+                                    "recordID" => 80000000000030,
                                     "entities" => [
-                                        "businessTripCostComponentEntity_RefID" => 221000000000020,
-                                        "amountCurrency_RefID" => 62000000000001,
-                                        "amountCurrencyValue" => 40000,
-                                        "amountCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan Kedua'  
+                                        "businessTripCostComponentEntity_RefID" => 221000000000023,
+                                        "amountCurrency_RefID" => 62000000000003,
+                                        "amountCurrencyValue" => 40003,
+                                        "amountCurrencyExchangeRate" => 3,
+                                        "remarks" => 'Catatan 1 - B'
                                         ]
                                     ],
                                 ]
@@ -80,7 +78,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     ]
                 ]
                 );
-            var_dump($varData);
+            return $varData;
             }
 
 
@@ -117,10 +115,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>ColorBackground</td><td><input type="text" id="dataInput_ColorBackground" value="#ababab"></td></tr>';
             echo '</table><br>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.update.humanResource.setPersonBusinessTripSequence', 
-                'latest', 
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.update.humanResource.setPersonBusinessTripSequence',
+                'latest',
                 '{'.
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
@@ -133,7 +131,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         '"colorBackground" : document.getElementById("dataInput_ColorBackground").value'.
                         '}'.
                 '}'
-                ); 
+                );
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             */
