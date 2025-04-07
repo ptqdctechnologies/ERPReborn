@@ -38,6 +38,66 @@ class DeliveryOrderController extends Controller
         return view('Inventory.DeliveryOrder.Transactions.CreateDeliveryOrder', $compact);
     }
 
+    public function store(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $deliveryOrderData = $request->all();
+            $deliveryOrderDetail = json_decode($deliveryOrderData['storeData']['deliveryOrderDetail'], true);
+            $fileID = $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
+
+            $transformedDetails = [];
+            foreach ($deliveryOrderDetail as $entity) {
+                $transformedDetails[] = [
+                    "entities" => [
+                        "referenceDocument_RefID"   => null,
+                        "quantity"                  => (float) str_replace(',', '', $entity['quantity']),
+                        "quantityUnit_RefID"        => (int) $entity['quantityUnit_RefID'],
+                        "remarks"                   => $entity['remarks'],
+                        "underlyingDetail_RefID"    => (int) $entity['underlyingDetail_RefID'],
+                    ]
+                ];
+            }
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.create.supplyChain.setDeliveryOrder',
+                'latest',
+                [
+                    'entities' => [
+                        "documentDateTimeTZ"                => $deliveryOrderData['storeData']['var_date'],
+                        "log_FileUpload_Pointer_RefID"      => $fileID,
+                        "requesterWorkerJobsPosition_RefID" => null,
+                        "remarks"                           => $deliveryOrderData['storeData']['var_remark'],
+                        "transporter_RefID"                 => (int) $deliveryOrderData['storeData']['transporter_id'],
+                        "additionalData"                    => [
+                            "itemList"                      => [
+                                "items"                     => $transformedDetails
+                            ]
+                        ]
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($varData);
+            }
+
+            return $this->SubmitWorkflow(
+                $varData['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+                $request->nextApprover,
+                $varData['data']['businessDocument']['documentNumber']
+            );
+        } catch (\Throwable $th) {
+            Log::error("Error at store: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function ReportDOSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -331,12 +391,6 @@ class DeliveryOrderController extends Controller
         }
     }
 
-    public function store(Request $request)
-    {
-        $input = $request->all();
-        dd($input);
-    }
-
     public function DeliveryOrderListData(Request $request)
     {
         try {
@@ -491,62 +545,27 @@ class DeliveryOrderController extends Controller
     public function RevisionDeliveryOrderIndex(Request $request)
     {
         try {
-
-            $do_RefID = $request->do_RefID;
             $varAPIWebToken = Session::get('SessionLogin');
+            $do_RefID       = $request->do_RefID;
 
-            // DATA REVISION ADVANCE
-            if (Redis::get("DataListAdvanceDetailComplex") == null) {
-                Helper_APICall::setCallAPIGateway(
-                    Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'transaction.read.dataList.finance.getAdvanceDetailComplex',
-                    'latest',
-                    [
-                        'parameter' => [
-                            'advance_RefID' => (int) $do_RefID,
-                        ],
-                        'SQLStatement' => [
-                            'pick' => null,
-                            'sort' => null,
-                            'filter' => null,
-                            'paging' => null
-                        ]
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
+                'latest',
+                [
+                    'parameter' => [
+                        'deliveryOrder_RefID' => (int) $do_RefID
                     ],
-                    false
-                );
-            }
-
-            $DataAdvanceDetailComplex = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "DataListAdvanceDetailComplex"
-                ),
-                true
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ]
             );
 
-            $collection = collect($DataAdvanceDetailComplex);
-            $collection = $collection->where('Sys_ID_Advance', $do_RefID);
-
-            $num = 0;
-            $filteredArray = [];
-
-            foreach ($collection as $collections) {
-                $filteredArray[$num] = $collections;
-                $num++;
-            }
-
-            if ($filteredArray[0]['Log_FileUpload_Pointer_RefID'] == 0) {
-                $dataDetailFileAttachment = null;
-            } else {
-                $dataDetailFileAttachment = $filteredArray[0]['Log_FileUpload_Pointer_RefID'];
-            }
-
-            for ($i = 0; $i < count($filteredArray); $i++) {
-                unset($filteredArray[$i]['FileAttachment']);
-            }
-
-            //DOCUMENT TYPE ID ADVANCE
             $DocumentType = json_decode(
                 Helper_Redis::getValue(
                     Helper_Environment::getUserSessionID_System(),
@@ -554,30 +573,22 @@ class DeliveryOrderController extends Controller
                 ),
                 true
             );
-            $collection = collect($DocumentType);
-            $collection = $collection->where('Name', "Advance Form");
-            foreach ($collection->all() as $collections) {
-                $DocumentTypeID = $collections['Sys_ID'];
-            }
 
-            $remark = $filteredArray[0]['Remarks'];
-            $filteredArray[0]['Remarks'] = "";
+            // dump($varData['data']);
 
             $compact = [
-                'dataHeader' => $filteredArray[0],
-                'dataDetail' => $filteredArray,
-                'remark' => $remark,
-                'dataFileAttachment' => $dataDetailFileAttachment,
-                'DocumentTypeID' => $DocumentTypeID,
+                // 'DocumentTypeID' => $DocumentTypeID,
                 'varAPIWebToken' => $varAPIWebToken,
-                'statusRevisi' => 1,
+                'Data'           => $varData['data']
             ];
+
+            // dump($compact['Data']);
+
             return view('Inventory.DeliveryOrder.Transactions.RevisionDeliveryOrder', $compact);
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
+            Log::error("RevisionDeliveryOrderIndex Function Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
-
     }
 
     public function update(Request $request, $id)

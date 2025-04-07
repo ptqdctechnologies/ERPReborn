@@ -1,45 +1,58 @@
-<div class="wrapper-budget card-body table-responsive p-0 tableShowHideSupp" style="height: 230px;">
-    <table class="table text-nowrap table-head-fixed table-striped TableMaterialResource" id="TableMaterialResource">
+<!-- BODY -->
+<div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;">
+    <table class="table table-head-fixed text-nowrap table-sm" id="tableMaterialReceiveDetail">
         <thead>
             <tr>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Transaction Number</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty Budget</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty Available</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Uom</th>
-
-                <th class="sticky-col second-col-dor-qty" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Qty Req</th>
-                <th class="sticky-col first-col-dor-note" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Note</th>
-
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Transaction Number</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty DO</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Available</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty Req</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Note</th>
             </tr>
         </thead>
-        <tbody>
-
-        </tbody>
+        <tbody></tbody>
+        <tfoot>
+            <tr class="loadingMaterialReceiveDetail">
+                <td colspan="8" class="p-0" style="border: 0px; height: 150px;">
+                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                            Loading...
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="errorMessageContainerMaterialReceiveDetail">
+                <td colspan="8" class="p-0" style="border: 0px;">
+                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                        <div id="errorMessageMaterialReceiveDetail" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 
-<div class="card-body tableShowHideSupp" >
+<!-- FOOTER -->
+<div class="card-body tableShowHideDetail">
     <table style="float:right;">
         <tr>
-            <th style="position: relative;right:20px;"> Total : <span id="TotalBudgetSelected"></span></th>
+            <th style="position: relative;right:20px;"> Total : <span id="TotalReferenceNumber">0.00</span></th>
         </tr>
         <tr>
             <td>
                 <br>
-                @if($statusRevisi == 1)
-                    <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                    </a>
-                @else
-                    <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                    </a>
-                    <a class="btn btn-default btn-sm float-right" onclick="ResetBudget()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
-                    </a>
-                @endif
+                <a class="btn btn-default btn-sm float-right" id="reference-number-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
+                </a>
+                <a class="btn btn-default btn-sm float-right" id="reference-number-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
+                </a>
             </td>
         </tr>
     </table>

@@ -1075,10 +1075,15 @@ class FunctionController extends Controller
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'dataPickList.supplyChain.getDeliveryOrder', 
+                'transaction.read.dataList.supplyChain.getDeliveryOrder', 
                 'latest',
                 [
-                    'parameter' => [
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
                     ]
                 ]
             );

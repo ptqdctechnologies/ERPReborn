@@ -102,6 +102,8 @@
                 type: 'GET',
                 url: urls,
                 success: function(data) {
+                    console.log('data', data);
+                    
                     $(".loadingReferenceNumber").hide();
 
                     var no = 1;
@@ -113,8 +115,8 @@
                             keys += 1;
                             table.row.add([
                                 '<input id="sys_id_reference_number' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_reference_number" type="hidden">' + no++,
-                                val.documentNumber || '-',
-                                val.combinedBudgetCode || '-',
+                                '<input id="sys_combined_budget_RefID' + keys + '" value="' + val.combinedBudget_RefID[0] + '" data-trigger="sys_combined_budget_RefID" type="hidden">' + val.documentNumber || '-',
+                                '<input id="sys_requester_RefID' + keys + '" value="' + val.requesterWorkerJobsPosition_RefID + '" data-trigger="sys_requester_RefID" type="hidden">' + val.combinedBudgetCode || '-',
                                 val.combinedBudgetName || '-',
                                 val.combinedBudgetSectionCode || '-',
                                 val.combinedBudgetSectionName || '-',
