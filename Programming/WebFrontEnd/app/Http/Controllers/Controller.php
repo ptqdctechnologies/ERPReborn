@@ -132,7 +132,7 @@ class Controller extends BaseController
     public function SubmitWorkflow($businessDocument_RefID, $workFlowPath_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber)
     {
         try {
-            Log::info("Submit Workflow", [
+            Log::info("SubmitWorkflow", [
                 'businessDocument_RefID'    => $businessDocument_RefID, 
                 'workFlowPath_RefID'        => $workFlowPath_RefID, 
                 'comment'                   => $comment, 
@@ -183,7 +183,7 @@ class Controller extends BaseController
     public function ResubmitWorkflow($businessDocument_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber)
     {
         try {
-            Log::info("Submit Workflow", [
+            Log::info("ResubmitWorkflow", [
                 'businessDocument_RefID'    => $businessDocument_RefID, 
                 'comment'                   => $comment, 
                 'approverEntity_RefID'      => $approverEntity_RefID, 
