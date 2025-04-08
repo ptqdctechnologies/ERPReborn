@@ -58,7 +58,7 @@
             keys += 1;
             tableMyDocument.row.add([
                 no++,
-                `<a href="/ShowDocumentByID?businessDocument_RefID=${val.entities.formDocumentNumber_RefID}&businessDocumentTypeName=Advance%20Form" style="color: blue; text-decoration: underline;">${val.entities.businessDocumentNumber}</a>`,
+                `<a href="/ShowDocumentByID?formDocumentNumber_RefID=${val.entities.formDocumentNumber_RefID}&businessDocumentTypeName=${val.entities.businessDocumentTypeName}&businessDocument_RefID=${val.entities.businessDocument_RefID}" style="color: blue; text-decoration: underline;">${val.entities.businessDocumentNumber}</a>`,
                 val.entities.combinedBudgetCode[0],
                 val.entities.previousWorkFlowPathApproverName || '-',
                 dateMyDocument,
