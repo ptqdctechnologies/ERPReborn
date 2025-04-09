@@ -2557,6 +2557,110 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickListJSON_BusinessDocumentFormLatestVersion                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-04-09                                                                                           |
+        | ▪ Creation Date   : 2025-04-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Versi Terakhir Form Dokumen Bisnis                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickListJSON_BusinessDocumentFormLatestVersion(
+            $varUserSession, int $varBranch_RefID,
+            int $varBusinessDocumentType_RefID)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetDataPickListJSON_BusinessDocumentFormLatestVersion',
+                            [
+                                [$varBranch_RefID, 'bigint'],
+
+                                [$varBusinessDocumentType_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataPickListJSON_BusinessDocumentFormLatestVersion']
+                        );
+
+                return $varReturn['data'];
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickListJSON_BusinessDocumentLatestVersion                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-04-09                                                                                           |
+        | ▪ Creation Date   : 2025-04-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Versi Terakhir Dokumen Bisnis                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickListJSON_BusinessDocumentLatestVersion(
+            $varUserSession, int $varBranch_RefID,
+            int $varBusinessDocumentType_RefID)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetDataPickListJSON_BusinessDocumentLatestVersion',
+                            [
+                                [$varBranch_RefID, 'bigint'],
+
+                                [$varBusinessDocumentType_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataPickListJSON_BusinessDocumentLatestVersion']
+                        );
+
+                return $varReturn['data'];
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataPickList_AccountingEntryRecordType                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -2719,6 +2823,98 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                 return $varReturn;
                 }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_BusinessDocumentFormLatestVersion                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-04-09                                                                                           |
+        | ▪ Creation Date   : 2025-04-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Versi Terakhir Form Dokumen Bisnis                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_BusinessDocumentFormLatestVersion(
+            $varUserSession, int $varBranch_RefID,
+            int $varBusinessDocumentType_RefID)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetDataPickList_BusinessDocumentLatestVersion',
+                            [
+                                [$varBranch_RefID, 'bigint'],
+
+                                [$varBusinessDocumentType_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
+                return $varReturn['data'];
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_BusinessDocumentLatestVersion                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-04-09                                                                                           |
+        | ▪ Creation Date   : 2025-04-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Versi Terakhir Dokumen Bisnis                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_BusinessDocumentLatestVersion(
+            $varUserSession, int $varBranch_RefID,
+            int $varBusinessDocumentType_RefID)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetDataPickList_BusinessDocumentLatestVersion',
+                            [
+                                [$varBranch_RefID, 'bigint'],
+
+                                [$varBusinessDocumentType_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
+                return $varReturn['data'];
+                }
+
             catch (\Exception $ex) {
                 return [];
                 }
