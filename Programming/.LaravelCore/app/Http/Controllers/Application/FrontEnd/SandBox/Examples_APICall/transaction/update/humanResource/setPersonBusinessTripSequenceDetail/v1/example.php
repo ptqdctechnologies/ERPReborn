@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.update.humanResource.setPersonBusinessTripSequenceDetail.v1_throughAPIGateway          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-11-15                                                                                           |
+        | ▪ Last Update     : 2025-04-09                                                                                           |
         | ▪ Creation Date   : 2022-09-19                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -36,11 +36,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.humanResource.setPersonBusinessTripSequenceDetail', 
-                'latest', 
+                $varAPIWebToken,
+                'transaction.update.humanResource.setPersonBusinessTripSequenceDetail',
+                'latest',
                 [
-                'recordID' => 80000000000001,
+                'recordID' => 80000000000032,
                 'entities' => [
                     "personBusinessTripSequence_RefID" => 76000000000001,
                     "businessTripCostComponentEntity_RefID" => 81000000000001,
@@ -51,7 +51,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     ]
                 ]
                 );
-            var_dump($varData);
+            return $varData;
             }
 
 
@@ -88,10 +88,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>ColorBackground</td><td><input type="text" id="dataInput_ColorBackground" value="#ababab"></td></tr>';
             echo '</table><br>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.update.humanResource.setPersonBusinessTripSequenceDetail', 
-                'latest', 
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.update.humanResource.setPersonBusinessTripSequenceDetail',
+                'latest',
                 '{'.
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
@@ -104,7 +104,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         '"colorBackground" : document.getElementById("dataInput_ColorBackground").value'.
                         '}'.
                 '}'
-                ); 
+                );
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             */

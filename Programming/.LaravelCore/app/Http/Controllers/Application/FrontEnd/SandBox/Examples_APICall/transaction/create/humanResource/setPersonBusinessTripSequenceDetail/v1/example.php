@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.create.humanResource.setPersonBusinessTripSequenceDetail.v1_throughAPIGateway          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-11-15                                                                                           |
+        | ▪ Last Update     : 2025-04-09                                                                                           |
         | ▪ Creation Date   : 2022-09-19                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -36,9 +36,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.create.humanResource.setPersonBusinessTripSequenceDetail', 
-                'latest', 
+                $varAPIWebToken,
+                'transaction.create.humanResource.setPersonBusinessTripSequenceDetail',
+                'latest',
                 [
                 'entities' => [
                     "personBusinessTripSequence_RefID" => 76000000000001,
@@ -50,7 +50,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     ]
                 ]
                 );
-            var_dump($varData);
+            return $varData;
             }
 
 
@@ -88,10 +88,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo       '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value="Catatan"></td></tr>';
             echo '</table><br>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.create.humanResource.setPersonBusinessTripSequenceDetail', 
-                'latest', 
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.create.humanResource.setPersonBusinessTripSequenceDetail',
+                'latest',
                 '{'.
                     '"entities" : {'.
                         '"advance_RefID" : parseInt(document.getElementById("dataInput_Advance_RefID").value), '.
@@ -105,9 +105,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.
                 '}'
-                ); 
+                );
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);            
+            dd($varJQueryFunction);
             */
             }
         }
