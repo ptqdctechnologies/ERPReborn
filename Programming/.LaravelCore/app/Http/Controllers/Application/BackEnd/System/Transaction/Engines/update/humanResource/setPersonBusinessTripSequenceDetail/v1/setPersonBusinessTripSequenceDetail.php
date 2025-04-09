@@ -44,7 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2022-11-15                                                                                           |
+        | ▪ Last Update     : 2025-04-09                                                                                           |
         | ▪ Creation Date   : 2022-01-14                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -66,6 +66,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\TblPersonBusinessTripSequenceDetail())->setDataUpdate(
                             $varUserSession,
                             $varData['recordID'],
+                            null,
+                            null,
                             null,
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
