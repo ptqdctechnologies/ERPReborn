@@ -7,7 +7,7 @@
                 Advance Form
             </div>
             <div class="col">
-                : <?= $dataHeader[0]['DocumentNumber']; ?>
+                : <?= $dataHeader[0]['DocumentNumber'] ?? '-'; ?>
             </div>
         </div>
 
@@ -17,7 +17,7 @@
                 Date
             </div>
             <div class="col">
-                : <?= date('Y-m-d', strtotime($dataHeader[0]['Date'])); ?>
+                : <?= isset($dataHeader[0]['Date']) ? date('Y-m-d', strtotime($dataHeader[0]['Date'])) : '-'; ?>
             </div>
         </div>
 
@@ -27,7 +27,7 @@
                 Currency
             </div>
             <div class="col">
-                : <?= $dataHeader[0]['ProductUnitPriceCurrencyISOCode']; ?>
+                : <?= $dataHeader[0]['ProductUnitPriceCurrencyISOCode'] ?? $dataHeader[0]['productUnitPriceCurrencyISOCode']; ?>
             </div>
         </div>
 
@@ -37,7 +37,9 @@
                 Budget Code
             </div>
             <div class="col">
-                : <?= $dataHeader[0]['CombinedBudgetCode'] . ' - ' . $dataHeader[0]['CombinedBudgetName']; ?>
+                <?php $CombinedBudgetCode = isset($dataHeader[0]['CombinedBudgetCode']) ? $dataHeader[0]['CombinedBudgetCode'] : $dataHeader[0]['combinedBudgetCode']; ?>
+                <?php $CombinedBudgetName = isset($dataHeader[0]['CombinedBudgetName']) ? $dataHeader[0]['CombinedBudgetName'] : $dataHeader[0]['combinedBudgetName']; ?>
+                : <?= $CombinedBudgetCode . ' - ' . $CombinedBudgetName ?>
             </div>
         </div>
 
@@ -47,7 +49,9 @@
                 Sub Budget Code
             </div>
             <div class="col">
-                : <?= $dataHeader[0]['CombinedBudgetSectionCode'] . ' - ' . $dataHeader[0]['CombinedBudgetSectionName']; ?>
+                <?php $CombinedBudgetSectionCode = isset($dataHeader[0]['CombinedBudgetSectionCode']) ? $dataHeader[0]['CombinedBudgetSectionCode'] : $dataHeader[0]['combinedBudgetSectionCode']; ?>
+                <?php $CombinedBudgetSectionName = isset($dataHeader[0]['CombinedBudgetSectionName']) ? $dataHeader[0]['CombinedBudgetSectionName'] : $dataHeader[0]['combinedBudgetSectionName']; ?>
+                : <?= $CombinedBudgetSectionCode . ' - ' . $CombinedBudgetSectionName; ?>
             </div>
         </div>
 
@@ -60,7 +64,7 @@
                 <div>
                     :
                 </div>
-                <?php if ($dataHeader[0]['Log_FileUpload_Pointer_RefID']) { ?>
+                <?php if (isset($dataHeader[0]['Log_FileUpload_Pointer_RefID']) && $dataHeader[0]['Log_FileUpload_Pointer_RefID']) { ?>
                     <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
                     <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -85,7 +89,7 @@
             <div class="col-4 text-bold">
                 Revision
             </div>
-            <?php if ($dataHeader[0]['DateUpdate']) { ?>
+            <?php if (isset($dataHeader[0]['DateUpdate'])) { ?>
                 <div class="col d-flex" style="gap: .1rem;">
                     <div>
                         :
@@ -113,7 +117,7 @@
                 Requester
             </div>
             <div class="col">
-                : <?= $dataHeader[0]['RequesterWorkerName']; ?>
+                : <?= $dataHeader[0]['RequesterWorkerName'] ?? '-'; ?>
             </div>
         </div>
 
@@ -123,7 +127,7 @@
                 Beneficiary
             </div>
             <div class="col">
-                : <?= $dataHeader[0]['BeneficiaryWorkerName']; ?>
+                : <?= $dataHeader[0]['BeneficiaryWorkerName'] ?? '-'; ?>
             </div>
         </div>
 
@@ -133,7 +137,7 @@
                 Bank Name
             </div>
             <div class="col">
-                : <?= $dataHeader[0]['BankAcronym']; ?>
+                : <?= $dataHeader[0]['BankAcronym'] ?? '-'; ?>
             </div>
         </div>
 
@@ -143,7 +147,7 @@
                 Account Name
             </div>
             <div class="col">
-                : <?= $dataHeader[0]['BankAccountName']; ?>
+                : <?= $dataHeader[0]['BankAccountName'] ?? '-'; ?>
             </div>
         </div>
 
@@ -153,7 +157,7 @@
                 Account Number
             </div>
             <div class="col">
-                : <?= $dataHeader[0]['BankAccountNumber']; ?>
+                : <?= $dataHeader[0]['BankAccountNumber'] ?? '-'; ?>
             </div>
         </div>
     </div>

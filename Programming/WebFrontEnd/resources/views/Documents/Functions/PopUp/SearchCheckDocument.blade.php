@@ -14,8 +14,8 @@
                                 <td style="padding-top: 10px;"><label>Transaction</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <select id="DocumentType" class="form-control DocumentType select2" name="DocumentType">
-                                            <option selected="selected" value=""> Select Document Type </option>
+                                        <select class="form-control select2" id="DocumentType" onchange="getListDocumentType(this);" style="width: 100%;">
+                                            <option disabled selected>Select a Document Type</option>
                                         </select>
                                     </div>
                                 </td>
@@ -35,8 +35,28 @@
                                             <th style="position:relative;left:10px;">Site Code</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    </tbody>
+                                    <tbody></tbody>
+                                    <tfoot>
+                                        <tr class="loadingGetCheckDocument">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div class="spinner-border" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                    <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                                        Loading...
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="errorModalCheckDocumentMessageContainerSecond">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div id="errorModalCheckDocumentMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>

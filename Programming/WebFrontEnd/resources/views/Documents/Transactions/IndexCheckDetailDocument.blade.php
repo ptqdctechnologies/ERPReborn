@@ -17,7 +17,8 @@
       <div class="card">
         <div class="tab-content p-3" id="nav-tabContent">
           <div class="row">
-            <input type="hidden" id="advanceRefID" name="advanceRefID" value="{{ $dataHeader[0]['Sys_ID_Advance'] }}" class="form-control" style="border-radius:0;">
+            {{-- $dataHeader[0]['sys_ID'] --}}
+            <input type="hidden" id="advanceRefID" name="advanceRefID" value="" class="form-control" style="border-radius:0;">
 
             <!-- HEADER -->
             <div class="col-12">
@@ -34,6 +35,8 @@
                   <div class="row" style="margin: .6rem 0rem; gap: 1rem;">
                     <?php if ($title === "ADVANCE FORM") { ?>
                       @include('Components.AdvanceDetailDocument')
+                    <?php } else if ($title ===  "DELIVERY ORDER FORM") { ?>
+                      @include('Components.DeliveryOrderDetailDocument')
                     <?php } ?>
                   </div>
                 </div>
@@ -44,7 +47,11 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body p-0">
-                  @include('Components.AdvanceDetailDocumentTable')
+                  <?php if ($title === "ADVANCE FORM") { ?>
+                    @include('Components.AdvanceDetailDocumentTable')
+                  <?php } else if ($title === "DELIVERY ORDER FORM") { ?>
+                    @include('Components.DeliveryOrderDetailDocumentTable')
+                  <?php } ?>
                 </div>
               </div>
             </div>
