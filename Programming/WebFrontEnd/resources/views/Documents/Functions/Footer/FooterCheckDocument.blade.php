@@ -39,14 +39,47 @@
             type: 'GET',
             url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentTypeID=' + DocumentTypeID + '&DocumentTypeName=' + DocumentTypeName,
             success: function(data) {
+                let result = [];
+
+                if (DocumentTypeName === "Delivery Order Form") {
+                    result = [
+                        {
+                            CombinedBudgetCode: "Q000062",
+                            CombinedBudgetName: "XL Microcell 2007",
+                            CombinedBudgetSectionCode: "Q000062 ► 235",
+                            CombinedBudgetSectionName: "Q000062 ► Ampang Kuranji - Padang",
+                            DocumentNumber: "DO/QDC/2025/000029",
+                            Sys_ID: 180000000000038
+                        },
+                        {
+                            CombinedBudgetCode: "Q000062",
+                            CombinedBudgetName: "XL Microcell 2007",
+                            CombinedBudgetSectionCode: "Q000062 ► 235",
+                            CombinedBudgetSectionName: "Q000062 ► Ampang Kuranji - Padang",
+                            DocumentNumber: "DO/QDC/2025/000028",
+                            Sys_ID: 180000000000037
+                        },
+                        {
+                            CombinedBudgetCode: "Q000062",
+                            CombinedBudgetName: "XL Microcell 2007",
+                            CombinedBudgetSectionCode: "Q000062 ► 235",
+                            CombinedBudgetSectionName: "Q000062 ► Ampang Kuranji - Padang",
+                            DocumentNumber: "DO/QDC/2025/000027",
+                            Sys_ID: 180000000000036
+                        },
+                    ];
+                } else {
+                    result = data.data;
+                }
+                
                 $(".loadingGetCheckDocument").hide();
 
                 var no = 1;
                 var table = $('#TableCheckDocument').DataTable();
                 table.clear();
 
-                if (Array.isArray(data.data) && data.data.length > 0) {
-                    $.each(data.data, function(key, val) {
+                if (Array.isArray(result) && result.length > 0) {
+                    $.each(result, function(key, val) {
                         keys += 1;
                         table.row.add([
                             '<input id="sys_id_check_document' + keys + '" value="' + val.Sys_ID + '" data-trigger="sys_id_check_document" type="hidden">' + no++,

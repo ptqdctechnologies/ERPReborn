@@ -47,7 +47,7 @@
                 <!-- TITLE -->
                 <div class="card-header">
                   <h3 class="text-bold text-center text-uppercase">
-                    <?= $dataHeader[0]['BusinessDocumentType_Name']; ?>
+                    <?= $businessDocumentType_Name; ?>
                   </h3>
                 </div>
 
@@ -56,6 +56,8 @@
                   <div class="row" style="margin: .6rem 0rem; gap: 1rem;">
                     <?php if ($businessDocumentType_Name == "Advance Form") { ?>
                       @include('Components.AdvanceDetailDocument')
+                    <?php } else if ($businessDocumentType_Name == "Delivery Order Form") { ?>
+                      @include('Components.DeliveryOrderDetailDocument')
                     <?php } ?>
                   </div>
                 </div>
@@ -66,7 +68,11 @@
             <div class="col-12 ShowDocumentList">
               <div class="card">
                 <div class="card-body p-0">
-                  @include('Components.AdvanceDetailDocumentTable')
+                  <?php if ($businessDocumentType_Name == "Advance Form") { ?>
+                    @include('Components.AdvanceDetailDocumentTable')
+                  <?php } else if ($businessDocumentType_Name == "Delivery Order Form") { ?>
+                    @include('Components.DeliveryOrderDetailDocumentTable')
+                  <?php } ?>
                 </div>
               </div>
             </div>

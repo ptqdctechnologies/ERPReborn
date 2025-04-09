@@ -104,6 +104,32 @@ class CheckDocumentController extends Controller
         return $collection->values()->toArray();
     }
 
+    // GET DELIVERY ORDER DETAIL
+    private function FetchDeliveryOrderDetails($varAPIWebToken, $Document, $filterType)
+    {
+        $DataDeliveryOrderDetail = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'deliveryOrder_RefID' => (int) $Document
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+
+        // dd($Document, $DataDeliveryOrderDetail);
+
+        return $DataDeliveryOrderDetail['data'];
+    }
+
     // GET WORKFLOW HISTORY
     private function FetchWorkflowHistory($varAPIWebToken, $businessDocumentRefID)
     {
@@ -117,6 +143,8 @@ class CheckDocumentController extends Controller
             ],
             false
         );
+
+        // dd($workflowHistory);
 
         return $workflowHistory['data'] ?? [];
     }
@@ -158,21 +186,34 @@ class CheckDocumentController extends Controller
     // MANIPULATE RESPONSE
     private function composeResponse($advanceDetails, $workflowHistory, $approverStatus, $documentStatus, $businessDocumentTypeName, $sourceData, $statusHeader)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $firstDetail = $advanceDetails[0];
+        $varAPIWebToken     = Session::get('SessionLogin');
+        $firstDetail        = [];
+        $businessDocument   = $workflowHistory[0];
+        $businessDocument_RefID = '';
+        $businessDocumentNumber = '';
+
+        if ($businessDocumentTypeName === "Delivery Order Form") {
+            $firstDetail = $advanceDetails;
+            $businessDocument_RefID = $advanceDetails[0]['DeliveryOrder_ID'];
+            $businessDocumentNumber = $advanceDetails[0]['DocumentNumber'];
+        } else {
+            $firstDetail = [$advanceDetails[0]];
+            $businessDocument_RefID = $advanceDetails[0]['Sys_ID_Advance'];
+            $businessDocumentNumber = $advanceDetails[0]['DocumentNumber'];
+        }
 
         return [
             'varAPIWebToken'                => $varAPIWebToken,
-            'dataHeader'                    => [$firstDetail],
+            'dataHeader'                    => $firstDetail,
             'dataDetail'                    => $advanceDetails,
-            'businessDocument_RefID'        => $firstDetail['Sys_ID_Advance'],
-            'businessDocumentNumber'        => $firstDetail['DocumentNumber'],
-            'businessDocumentType_Name'     => $businessDocumentTypeName ?? $firstDetail['BusinessDocumentType_Name'],
+            'businessDocument_RefID'        => $businessDocument_RefID,
+            'businessDocumentNumber'        => $businessDocumentNumber,
+            'businessDocumentType_Name'     => $businessDocumentTypeName,
             'dataWorkFlows'                 => $workflowHistory,
             'statusApprover'                => $approverStatus,
-            'businessDocument_ID'           => $firstDetail['BusinessDocument_RefID'],
+            'businessDocument_ID'           => $firstDetail['BusinessDocument_RefID'] ?? $businessDocument['businessDocument_RefID'],
             'submitter_ID'                  => $workflowHistory[0]['approverEntity_RefID'] ?? 0,
-            'Log_FileUpload_Pointer_RefID'  => $firstDetail['Log_FileUpload_Pointer_RefID'],
+            'Log_FileUpload_Pointer_RefID'  => $firstDetail['Log_FileUpload_Pointer_RefID'] ?? '',
             'sourceData'                    => $sourceData,
             'statusHeader'                  => $statusHeader,
             'status'                        => 'success',
@@ -185,13 +226,25 @@ class CheckDocumentController extends Controller
     public function GetAllDocumentType($varAPIWebToken, $Document, $filterType, $sourceData, $statusHeader, $businessDocumentTypeName)
     {
         try {
-            $collection = $this->FetchAdvanceDetails($varAPIWebToken, $Document, $filterType);
+            if ($businessDocumentTypeName === "Delivery Order Form") {
+                $collection = $this->FetchDeliveryOrderDetails($varAPIWebToken, $Document, $filterType);
+            } else {
+                $collection = $this->FetchAdvanceDetails($varAPIWebToken, $Document, $filterType);
+            }
 
             if (empty($collection)) {
                 return ['status' => 'error'];
             }
 
-            $workflowData   = $this->FetchWorkflowHistory($varAPIWebToken, $collection[0]['BusinessDocument_RefID']);
+            if ($businessDocumentTypeName === "Delivery Order Form" && $collection[0]['DocumentNumber'] === "DO/QDC/2025/000029") {
+                $BusinessDocument_RefID = 74000000021235;
+            } else if ($businessDocumentTypeName === "Delivery Order Form" && $collection[0]['DocumentNumber'] === "DO/QDC/2025/000028") {
+                $BusinessDocument_RefID = 74000000021234;
+            } else if ($businessDocumentTypeName === "Delivery Order Form" && $collection[0]['DocumentNumber'] === "DO/QDC/2025/000027") {
+                $BusinessDocument_RefID = 74000000021233;
+            }
+
+            $workflowData   = $this->FetchWorkflowHistory($varAPIWebToken, $collection[0]['BusinessDocument_RefID'] ?? $BusinessDocument_RefID);
             $approverStatus = $this->DetermineApproverStatus($workflowData, $sourceData);
             $documentStatus = $this->DetermineDocumentStatus($workflowData);
 
@@ -229,17 +282,14 @@ class CheckDocumentController extends Controller
         $statusHeader = "Yes";
         if (isset($businessDocument_RefID) || isset($businessDocumentNumber)) {
             if (isset($businessDocument_RefID)) {
-
                 // CALL FUNCTION SHOW DATA BY ID
                 $filterType = "ID";
                 $varDataWorkflow = $this->GetAllDocumentType($varAPIWebToken, $businessDocument_RefID, $filterType, $sourceData, $statusHeader, $businessDocumentType_Name);
             } else {
-                // // CALL FUNCTION SHOW DATA BY NUMBER
+                // CALL FUNCTION SHOW DATA BY NUMBER
                 $filterType = "Number";
                 $varDataWorkflow = $this->GetAllDocumentType($varAPIWebToken, $businessDocumentNumber, $filterType, $sourceData, $statusHeader, null);
             }
-
-            // dd($varDataWorkflow);
 
             if ($varDataWorkflow['status'] == "success") {
                 return view('Documents.Transactions.IndexCheckDocument', $varDataWorkflow);
@@ -263,8 +313,6 @@ class CheckDocumentController extends Controller
             $cacheKey                           = "DataListDetail_{$formDocumentNumber_RefID}";
             $DataDetail                         = json_decode(Helper_Redis::getValue($sessionID, $cacheKey), true);
 
-            Log::error("dataAPI: ", [$dataAPI]);
-            
             if (!$DataDetail) {
                 $varData = Helper_APICall::setCallAPIGateway(
                     $sessionID,
@@ -290,8 +338,6 @@ class CheckDocumentController extends Controller
                     return redirect()->back()->with('NotFound', 'Error');
                 }
             }
-
-            Log::error("DataDetail: ", [$DataDetail]);
 
             if (!$DataDetail) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
@@ -381,13 +427,9 @@ class CheckDocumentController extends Controller
 
             $varDataWorkflow = $this->GetAllDocumentTypeByID($varAPIWebToken, $formDocumentNumber_RefID, $businessDocument_RefID, $API);
 
-            // dump($varDataWorkflow); 
-
             if (!is_array($varDataWorkflow)) {
                 return $varDataWorkflow; 
             }
-
-            // return response()->json($varDataWorkflow);
 
             return view('Documents.Transactions.IndexCheckDetailDocument', $varDataWorkflow);
         } catch (\Throwable $th) {
