@@ -289,7 +289,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );
-
+                
                 return
                     $varReturn['data'];
                 }
@@ -306,7 +306,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_DeliveryOrder_LatestVersion                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-10-17                                                                                           |
+        | ▪ Last Update     : 2025-04-09                                                                                           |
         | ▪ Creation Date   : 2022-03-10                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pesanan Pengiriman (DO) Versi Terakhir                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -337,11 +337,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varSysBranch_RefID, 'bigint' ],
 
                                 [FALSE, 'boolean'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
                             ]
                             )
                         );
