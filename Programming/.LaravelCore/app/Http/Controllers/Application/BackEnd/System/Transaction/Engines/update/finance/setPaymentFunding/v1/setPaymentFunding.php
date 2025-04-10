@@ -42,8 +42,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-21                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2025-04-10                                                                                           |
         | ▪ Creation Date   : 2023-10-31                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -61,7 +61,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Update Payment Funding Data (version 1)');
+                        'Update Payment Funding Data (version 1)'
+                        );
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
@@ -97,7 +98,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     $varData['entities']['amountCurrency_RefID'],
                                     $varData['entities']['amountCurrencyValue'],
                                     $varData['entities']['amountCurrencyExchangeRate'],
-                                    $varData['entities']['fundSource_RefID'],
+                                    $varData['entities']['paymentFundingSource_RefID'],
+                                    $varData['entities']['paymentFundingDestination_RefID'],
                                     $varData['entities']['paidDateTimeTZ'],
                                     $varData['entities']['payerWorkerJobsPosition_RefID'],
                                     $varData['entities']['remarks']

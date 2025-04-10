@@ -35,14 +35,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    //-----[ HEADER ]-----( START )-----
+                    //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken, 
                         'transaction.create.finance.setPayment', 
                         'latest',
-                    //-----[ HEADER ]-----( END )-----
+                    //-----[ METADATA ]-----(  END  )-----
 
-                    //-----[ BODY ]-----( START )-----
+                    //-----[ DATA ]-----( START )-----
                         [
                         'entities' => [
                             "documentDateTimeTZ" => '2023-10-25',
@@ -63,7 +63,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             ]
                                         ]
                                     ],
-                                "funding" => [
+                                "fundingList" => [
                                     "items" => [
                                             [
                                             "entities" => [
@@ -72,7 +72,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "amountCurrency_RefID" => 62000000000001,
                                                 "amountCurrencyValue" => 20000,
                                                 "amountCurrencyExchangeRate" => 1,
-                                                "fundSource_RefID" => 167000000000001,
+                                                "paymentFundingSource_RefID" => 167000000000001,
+                                                "paymentFundingDestination_RefID" => null,
                                                 "paidDateTimeTZ" => null,
                                                 "payerWorkerJobsPosition_RefID" => 164000000000497,
                                                 "remarks" => "Catatan 1"
@@ -83,7 +84,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                 ]
                             ]
                         ]
-                    //-----[ BODY ]-----( END )-----
+                    //-----[ DATA ]-----(  END  )-----
                     );
 
             var_dump($varData);
@@ -129,7 +130,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo        '<tr><td>AmountCurrency_RefID_1</td><td><input type="text" id="dataInput_AmountCurrency_RefID_1" value=62000000000001></td></tr>';
             echo        '<tr><td>AmountCurrencyValue_1</td><td><input type="text" id="dataInput_AmountCurrencyValue_1" value=20000></td></tr>';
             echo        '<tr><td>AmountCurrencyExchangeRate_1</td><td><input type="text" id="dataInput_AmountCurrencyExchangeRate_1" value=1></td></tr>';
-            echo        '<tr><td>FundSource_RefID_1</td><td><input type="text" id="dataInput_FundSource_RefID_1" value=167000000000001></td></tr>';
+            echo        '<tr><td>PaymentFundingSource_RefID_1</td><td><input type="text" id="dataInput_PaymentFundingSource_RefID_1" value=167000000000001></td></tr>';
+            echo        '<tr><td>PaymentFundingDestination_RefID_1</td><td><input type="text" id="dataInput_PaymentFundingDestination_RefID_1" value=""></td></tr>';
             echo        '<tr><td>PaidDateTimeTZ_1</td><td><input type="text" id="dataInput_PaidDateTimeTZ_1" value=""></td></tr>';
             echo        '<tr><td>PayerWorkerJobsPosition_RefID_1</td><td><input type="text" id="dataInput_PayerWorkerJobsPosition_RefID_1" value=164000000000497></td></tr>';
             echo        '<tr><td>Remarks_1</td><td><input type="text" id="dataInput_Remarks_1" value="Catatan Funding"></td></tr>';
@@ -137,14 +139,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    //-----[ HEADER ]-----( START )-----
+                    //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                         $varAPIWebToken, 
                         'transaction.create.finance.setPayment', 
                         'latest',
-                    //-----[ HEADER ]-----( END )-----
+                    //-----[ METADATA ]-----(  END  )-----
 
-                    //-----[ BODY ]-----( START )-----
+                    //-----[ DATA ]-----( START )-----
                         '{'.
                         '"entities" : {'.
                             '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
@@ -166,7 +168,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             '} '.
                                         ']'.
                                     '}, '.
-                                '"funding" : {'.
+                                '"fundingList" : {'.
                                     '"items" : ['.
                                             '{'.
                                             '"entities" : '.
@@ -176,7 +178,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 '"amountCurrency_RefID" : parseInt(document.getElementById("dataInput_AmountCurrency_RefID_1").value),'.
                                                 '"amountCurrencyValue" : parseFloat(document.getElementById("dataInput_AmountCurrencyValue_1").value),'.
                                                 '"amountCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_AmountCurrencyExchangeRate_1").value),'.
-                                                '"fundSource_RefID" : parseInt(document.getElementById("dataInput_FundSource_RefID_1").value), '.
+                                                '"paymentFundingSource_RefID" : parseInt(document.getElementById("dataInput_PaymentFundingSource_RefID_1").value), '.
+                                                '"paymentFundingDestination_RefID" : parseInt(document.getElementById("dataInput_PaymentFundingDestination_RefID_1").value), '.
                                                 '"paidDateTimeTZ" : parseFloat(document.getElementById("dataInput_PaidDateTimeTZ_1").value), '.
                                                 '"payerWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_PayerWorkerJobsPosition_RefID_1").value), '.
                                                 '"remarks" : document.getElementById("dataInput_Remarks_1").value'.
@@ -187,7 +190,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                 '}'.
                             '}'.
                         '}'
-                    //-----[ BODY ]-----( END )-----
+                    //-----[ DATA ]-----(  END  )-----
                     ); 
 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";

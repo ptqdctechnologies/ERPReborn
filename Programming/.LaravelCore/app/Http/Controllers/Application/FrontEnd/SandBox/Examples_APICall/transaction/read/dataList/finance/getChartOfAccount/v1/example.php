@@ -36,14 +36,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    //-----[ HEADER ]-----( START )-----
+                    //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken,
                         'transaction.read.dataList.finance.getChartOfAccount',
                         'latest',
-                    //-----[ HEADER ]-----( END )-----
+                    //-----[ METADATA ]-----(  END  )-----
 
-                    //-----[ BODY ]-----( START )-----
+                    //-----[ DATA ]-----( START )-----
                         [
                         'parameter' => [
                             //'effectiveDateTimeTZ' => '2010-01-01 00:00:00+07'
@@ -56,7 +56,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             'paging' => null
                             ]
                         ]
-                    //-----[ BODY ]-----( END )-----
+                    //-----[ DATA ]-----(  END  )-----
                     );
 
             return $varData;
@@ -97,14 +97,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    //-----[ HEADER ]-----( START )-----
+                    //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken,
                         'transaction.read.dataList.finance.getChartOfAccount',
                         'latest',
-                    //-----[ HEADER ]-----( END )-----
+                    //-----[ METADATA ]-----(  END  )-----
 
-                    //-----[ BODY ]-----( START )-----
+                    //-----[ DATA ]-----( START )-----
                         '{'.
                             '"parameter" : {'.
                                 '"effectiveDateTimeTZ" : document.getElementById("dataInput_EffectiveDateTimeTZ").value, '.
@@ -116,7 +116,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                 '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
                                 '}'.
                         '}'
-                    //-----[ BODY ]-----( END )-----
+                    //-----[ DATA ]-----(  END  )-----
                     );
 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";

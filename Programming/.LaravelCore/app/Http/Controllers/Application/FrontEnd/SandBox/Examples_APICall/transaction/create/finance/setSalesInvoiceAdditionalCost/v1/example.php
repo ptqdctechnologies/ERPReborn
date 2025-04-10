@@ -36,14 +36,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    //-----[ HEADER ]-----( START )-----
+                    //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken, 
                         'transaction.create.finance.setSalesInvoiceAdditionalCost', 
                         'latest',
-                    //-----[ HEADER ]-----( END )-----
+                    //-----[ METADATA ]-----(  END  )-----
 
-                    //-----[ BODY ]-----( START )-----
+                    //-----[ DATA ]-----( START )-----
                         [
                         'entities' => [
                             "salesInvoice_RefID" => 138000000000001,
@@ -54,7 +54,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "remarks" => 'My Remarks'
                             ]
                         ]
-                    //-----[ BODY ]-----( END )-----
+                    //-----[ DATA ]-----(  END  )-----
                     );
 
             var_dump($varData);
@@ -118,14 +118,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    //-----[ HEADER ]-----( START )-----
+                    //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                         $varAPIWebToken, 
                         'transaction.create.finance.setSalesInvoiceAdditionalCost', 
                         'latest',
-                    //-----[ HEADER ]-----( END )-----
+                    //-----[ METADATA ]-----(  END  )-----
 
-                    //-----[ BODY ]-----( START )-----
+                    //-----[ DATA ]-----( START )-----
                         '{'.
                         '"entities" : {'.
                             '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value), '.
@@ -172,7 +172,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                 '}'.
                             '}'.
                         '}'
-                    //-----[ BODY ]-----( END )-----
+                    //-----[ DATA ]-----(  END  )-----
                     );
 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";

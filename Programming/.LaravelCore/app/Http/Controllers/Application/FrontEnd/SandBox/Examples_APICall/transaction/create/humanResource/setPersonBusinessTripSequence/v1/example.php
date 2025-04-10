@@ -37,49 +37,54 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'transaction.create.humanResource.setPersonBusinessTripSequence',
-                    'latest',
-                    [
-                    'entities' => [
-                        "personBusinessTrip_RefID" => 78000000000001,
-                        "sequence" => 1,
-                        "log_FileUpload_Pointer_RefID" => null,
-                        "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                        "startDateTimeTZ" => '2022-10-10',
-                        "finishDateTimeTZ" => '2022-10-14',
-                        "departurePoint" => 'Jakarta',
-                        "destinationPoint" => 'Kalimantan',
-                        "reasonToTravel" => 'Monitoring Pekerjaan Proyek',
-                        "businessTripAccommodationArrangementsType_RefID" => 219000000000002,
-                        "remarks" => 'Catatan',
-                        "additionalData" => [
-                            "itemList" => [
-                                "items" => [
-                                        [
-                                        "entities" => [
-                                            "businessTripCostComponentEntity_RefID" => 81000000000001,
-                                            "amountCurrency_RefID" => 62000000000001,
-                                            "amountCurrencyValue" => 30000,
-                                            "amountCurrencyExchangeRate" => 1,
-                                            "remarks" => 'Catatan - Pertama'
-                                            ]
-                                        ],
-                                        [
-                                        "entities" => [
-                                            "businessTripCostComponentEntity_RefID" => 221000000000020,
-                                            "amountCurrency_RefID" => 62000000000001,
-                                            "amountCurrencyValue" => 40000,
-                                            "amountCurrencyExchangeRate" => 1,
-                                            "remarks" => 'Catatan - Kedua'
-                                            ]
-                                        ],
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'transaction.create.humanResource.setPersonBusinessTripSequence',
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]-----( START )-----
+                        [
+                        'entities' => [
+                            "personBusinessTrip_RefID" => 78000000000001,
+                            "sequence" => 1,
+                            "log_FileUpload_Pointer_RefID" => null,
+                            "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                            "startDateTimeTZ" => '2022-10-10',
+                            "finishDateTimeTZ" => '2022-10-14',
+                            "departurePoint" => 'Jakarta',
+                            "destinationPoint" => 'Kalimantan',
+                            "reasonToTravel" => 'Monitoring Pekerjaan Proyek',
+                            "businessTripAccommodationArrangementsType_RefID" => 219000000000002,
+                            "remarks" => 'Catatan',
+                            "additionalData" => [
+                                "itemList" => [
+                                    "items" => [
+                                            [
+                                            "entities" => [
+                                                "businessTripCostComponentEntity_RefID" => 81000000000001,
+                                                "amountCurrency_RefID" => 62000000000001,
+                                                "amountCurrencyValue" => 30000,
+                                                "amountCurrencyExchangeRate" => 1,
+                                                "remarks" => 'Catatan - Pertama'
+                                                ]
+                                            ],
+                                            [
+                                            "entities" => [
+                                                "businessTripCostComponentEntity_RefID" => 221000000000020,
+                                                "amountCurrency_RefID" => 62000000000001,
+                                                "amountCurrencyValue" => 40000,
+                                                "amountCurrencyExchangeRate" => 1,
+                                                "remarks" => 'Catatan - Kedua'
+                                                ]
+                                            ],
+                                        ]
                                     ]
                                 ]
                             ]
                         ]
-                    ]
+                    //-----[ DATA ]-----(  END  )-----
                     );
 
             return

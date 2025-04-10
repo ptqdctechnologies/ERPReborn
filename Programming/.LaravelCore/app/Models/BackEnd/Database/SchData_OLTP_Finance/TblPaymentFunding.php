@@ -43,8 +43,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-20                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2025-04-10                                                                                           |
         | ▪ Creation Date   : 2023-10-31                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -75,7 +75,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varPayment_RefID = null, int $varLog_FileUpload_Pointer_RefID = null, int $varPaymentMethod_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, int $varFundSource_RefID = null, string $varPaidDateTimeTZ = null, int $varPayerWorkerJobsPosition_RefID = null, string $varRemarks = null
+            int $varPayment_RefID = null, int $varLog_FileUpload_Pointer_RefID = null, int $varPaymentMethod_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, int $varPaymentFundingSource_RefID = null, int $varPaymentFundingDestination_RefID = null, string $varPaidDateTimeTZ = null, int $varPayerWorkerJobsPosition_RefID = null, string $varRemarks = null
             )
             {
             $varReturn =
@@ -101,7 +101,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varAmountCurrency_RefID, 'bigint'],
                             [$varAmountCurrencyValue, 'numeric'],
                             [$varAmountCurrencyExchangeRate, 'numeric'],
-                            [$varFundSource_RefID, 'bigint'],
+                            [$varPaymentFundingSource_RefID, 'bigint'],
+                            [$varPaymentFundingDestination_RefID, 'bigint'],
                             [$varPaidDateTimeTZ, 'timestamptz'],
                             [$varPayerWorkerJobsPosition_RefID, 'bigint'],
                             [$varRemarks, 'varchar']
@@ -118,8 +119,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-20                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2025-04-10                                                                                           |
         | ▪ Creation Date   : 2023-10-31                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -139,7 +140,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varAmountCurrency_RefID ► Amount Currency Reference ID                                                   |
         |      ▪ (float)  varAmountCurrencyValue ► Amount Currency Value                                                           |
         |      ▪ (float)  varAmountCurrencyExchangeRate ► Amount Currency Exchange Rate                                            |
-        |      ▪ (int)    varFundSource_RefID ► Fund Source Reference ID                                                           |
+        |      ▪ (int)    varPaymentFundingSource_RefID ► Payment Funding Source Reference ID                                      |
+        |      ▪ (int)    varPaymentFundingDestination_RefID ► Payment Funding Destination Reference ID                            |
         |      ▪ (string) varPaidDateTimeTZ ► Paid DateTimeTZ                                                                      |
         |      ▪ (int)    varPayerWorkerJobsPosition_RefID ► Payer Worker Jobs Position Reference ID                               |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
@@ -152,7 +154,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varPayment_RefID = null, int $varLog_FileUpload_Pointer_RefID = null, int $varPaymentMethod_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, int $varFundSource_RefID = null, string $varPaidDateTimeTZ = null, int $varPayerWorkerJobsPosition_RefID = null, string $varRemarks = null
+            int $varPayment_RefID = null, int $varLog_FileUpload_Pointer_RefID = null, int $varPaymentMethod_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, int $varPaymentFundingSource_RefID = null, int $varPaymentFundingDestination_RefID = null, string $varPaidDateTimeTZ = null, int $varPayerWorkerJobsPosition_RefID = null, string $varRemarks = null
             )
             {
             $varReturn =
@@ -178,7 +180,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varAmountCurrency_RefID, 'bigint'],
                             [$varAmountCurrencyValue, 'numeric'],
                             [$varAmountCurrencyExchangeRate, 'numeric'],
-                            [$varFundSource_RefID, 'bigint'],
+                            [$varPaymentFundingSource_RefID, 'bigint'],
+                            [$varPaymentFundingDestination_RefID, 'bigint'],
                             [$varPaidDateTimeTZ, 'timestamptz'],
                             [$varPayerWorkerJobsPosition_RefID, 'bigint'],
                             [$varRemarks, 'varchar']
