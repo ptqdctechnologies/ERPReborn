@@ -8,7 +8,7 @@
 | ▪ API Key     : transaction.create.humanResource.setPersonBusinessTrip                                                           |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\humanResource\setPersonBusinessTrip\v1
@@ -20,8 +20,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.create.humanResource.setPersonBusinessTrip.v1_throughAPIGateway         |
         |                     ► http://172.28.0.4/transaction.create.humanResource.setPersonBusinessTrip.v1_throughAPIGateway      |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-04-07                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2025-04-10                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -31,65 +31,69 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.create.humanResource.setPersonBusinessTrip',
-                'latest',
-                [
-                'entities' => [
-                    'documentDateTimeTZ' => '2022-10-10',
-                    'combinedBudgetSectionDetail_RefID' => 169000000000001,
-                    'paymentDisbursementMethod_RefID' => 218000000000002,
-                    'additionalData' => [
-                        'itemList' => [
-                            'items' => [
-                                    [
-                                    'entities' => [
-                                        'sequence' => 1,
-                                        'requesterWorkerJobsPosition_RefID' => 164000000000497,
-                                        'startDateTimeTZ' => '2022-10-10',
-                                        'finishDateTimeTZ' => '2022-10-14',
-                                        'businessTripAccommodationArrangementsType_RefID' => 219000000000002,
-                                        'businessTripTransportationType_RefIDArray' => [
-                                            220000000000011,
-                                            220000000000005
-                                            ],
-                                        'remarks' => 'Catatan',
-                                        'additionalData' => [
-                                           'itemList' => [
-                                               'items' => [
-                                                       [
-                                                       'entities' => [
-                                                           'businessTripCostComponentEntity_RefID' => 81000000000001,
-                                                           'amountCurrency_RefID' => 62000000000001,
-                                                           'amountCurrencyValue' => 30000,
-                                                           'amountCurrencyExchangeRate' => 1,
-                                                           'remarks' => 'Catatan Pertama'
-                                                           ]
-                                                       ],
-                                                       [
-                                                       'entities' => [
-                                                           'businessTripCostComponentEntity_RefID' => 221000000000020,
-                                                           'amountCurrency_RefID' => 62000000000001,
-                                                           'amountCurrencyValue' => 40000,
-                                                           'amountCurrencyExchangeRate' => 1,
-                                                           'remarks' => 'Catatan Kedua'
-                                                           ]
-                                                       ],
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'transaction.create.humanResource.setPersonBusinessTrip',
+                    'latest',
+                    [
+                    'entities' => [
+                        'documentDateTimeTZ' => '2022-10-10',
+                        'combinedBudgetSectionDetail_RefID' => 169000000000001,
+                        'paymentDisbursementMethod_RefID' => 218000000000002,
+                        'additionalData' => [
+                            'itemList' => [
+                                'items' => [
+                                        [
+                                        'entities' => [
+                                            'sequence' => 1,
+                                            'log_FileUpload_Pointer_RefID' => null,
+                                            'requesterWorkerJobsPosition_RefID' => 164000000000497,
+                                            'startDateTimeTZ' => '2022-10-10',
+                                            'finishDateTimeTZ' => '2022-10-14',
+                                            'departurePoint' => 'Jakarta',
+                                            'destinationPoint' => 'Kalimantan',
+                                            'reasonToTravel' => 'Monitoring Pekerjaan Proyek',
+                                            'businessTripAccommodationArrangementsType_RefID' => 219000000000002,
+                                            'remarks' => 'Catatan',
+                                            'additionalData' => [
+                                               'itemList' => [
+                                                   'items' => [
+                                                           [
+                                                           'entities' => [
+                                                               'businessTripCostComponentEntity_RefID' => 81000000000001,
+                                                               'amountCurrency_RefID' => 62000000000001,
+                                                               'amountCurrencyValue' => 30000,
+                                                               'amountCurrencyExchangeRate' => 1,
+                                                               'remarks' => 'Catatan Pertama'
+                                                               ]
+                                                           ],
+                                                           [
+                                                           'entities' => [
+                                                               'businessTripCostComponentEntity_RefID' => 221000000000020,
+                                                               'amountCurrency_RefID' => 62000000000001,
+                                                               'amountCurrencyValue' => 40000,
+                                                               'amountCurrencyExchangeRate' => 1,
+                                                               'remarks' => 'Catatan Kedua'
+                                                               ]
+                                                           ],
+                                                       ]
                                                    ]
                                                ]
-                                           ]
+                                            ]
                                         ]
                                     ]
                                 ]
                             ]
                         ]
                     ]
-                ]
-                );
-            return $varData;
+                    );
+
+            return
+                $varData;
             }
 
 
