@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.supplyChain.setDeliveryOrder.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-03-27                                                                                           |
+        | ▪ Last Update     : 2025-04-10                                                                                           |
         | ▪ Creation Date   : 2022-07-28                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -43,8 +43,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "documentDateTimeTZ" => '2025-03-28',
                     "log_FileUpload_Pointer_RefID" => 164000000000412,
                     "requesterWorkerJobsPosition_RefID" => 164000000000413,
-                    "remarks" => 'My Remarks 27/03/2025 - 1 A',
+                    "remarks" => 'My Remarks - 1 A',
                     "transporter_RefID" => 164000000000414,
+                    "deliveryFrom_RefID" => 126000000000001,
+                    "deliveryFromManualAddress" => 'Jl. Nuri No. 1, Jakarta Barat',
+                    "deliveryTo_RefID" => 126000000000005,
+                    "deliveryToManualAddress" => 'Jl. Melati No. 2, Surabaya',
                     "additionalData" => [
                         "itemList" => [
                             "items" => [
@@ -54,9 +58,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "referenceDocument_RefID" => 73000000000033,
                                         "quantity" => 25,
                                         "quantityUnit_RefID" => 73000000000036,
-                                        "remarks" => "Catatan 1 - C",
+                                        "remarks" => "Catatan 1",
                                         "underlyingDetail_RefID" => 73000000000039
-                                        ]                                   
+                                        ]
                                     ],
                                     [
                                     "recordID" => 181000000000020,
@@ -64,7 +68,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "referenceDocument_RefID" => 73000000000034,
                                         "quantity" => 20,
                                         "quantityUnit_RefID" => 73000000000037,
-                                        "remarks" => "Catatan 1 - D",
+                                        "remarks" => "Catatan 2",
                                         "underlyingDetail_RefID" => 73000000000040
                                         ]
                                     ],
