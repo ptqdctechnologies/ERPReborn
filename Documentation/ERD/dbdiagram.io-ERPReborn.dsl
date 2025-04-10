@@ -7820,10 +7820,8 @@ Ref: "SchData-OLTP-Finance"."TblPaymentInstructionDetail"."Sys_BaseCurrency_RefI
 Ref: "SchData-OLTP-Finance"."TblPaymentInstructionDetail"."Sys_BaseCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
 Ref: "SchData-OLTP-Finance"."TblPaymentInstructionDetail"."PaymentInstruction_RefID" > "SchData-OLTP-Finance"."TblPaymentInstruction"."Sys_PID"
 Ref: "SchData-OLTP-Finance"."TblPaymentInstructionDetail"."PaymentInstruction_RefID" > "SchData-OLTP-Finance"."TblPaymentInstruction"."Sys_SID"
-Ref: "SchData-OLTP-Finance"."TblPaymentInstructionDetail"."Underlying_RefID" > "SchData-OLTP-Finance"."TblAdvancePaymentDetail"."Sys_PID"
-Ref: "SchData-OLTP-Finance"."TblPaymentInstructionDetail"."Underlying_RefID" > "SchData-OLTP-Finance"."TblAdvancePaymentDetail"."Sys_SID"
-Ref: "SchData-OLTP-Finance"."TblPaymentInstructionDetail"."Underlying_RefID" > "SchData-OLTP-Finance"."TblPaymentInstructionDetail"."Sys_PID"
-Ref: "SchData-OLTP-Finance"."TblPaymentInstructionDetail"."Underlying_RefID" > "SchData-OLTP-Finance"."TblPaymentInstructionDetail"."Sys_SID"
+Ref: "SchData-OLTP-Finance"."TblPaymentInstructionDetail"."Underlying_RefID" > "SchData-OLTP-Finance"."TblPurchaseInvoice"."Sys_PID"
+Ref: "SchData-OLTP-Finance"."TblPaymentInstructionDetail"."Underlying_RefID" > "SchData-OLTP-Finance"."TblPurchaseInvoice"."Sys_SID"
 Ref: "SchData-OLTP-Finance"."TblPaymentInstructionDetail"."AmountCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_PID"
 Ref: "SchData-OLTP-Finance"."TblPaymentInstructionDetail"."AmountCurrency_RefID" > "SchData-OLTP-Master"."TblCurrency"."Sys_SID"
 
