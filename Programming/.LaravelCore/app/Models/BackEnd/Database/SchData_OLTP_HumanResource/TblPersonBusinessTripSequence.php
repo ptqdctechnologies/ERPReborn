@@ -43,8 +43,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2022-11-22                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2025-04-10                                                                                           |
         | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,9 +59,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
         |      ▪ (int)    varSequence ► Business Trip Sequence                                                                     |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
         |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Person Reference ID                                     |
         |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
         |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
+        |      ▪ (string) varDeparturePoint ► Departure Point                                                                      |
+        |      ▪ (string) varDestinationPoint ► Destination Point                                                                  |
+        |      ▪ (string) varReasonToTravel ► Reason To Travel                                                                     |
         |      ▪ (int)    varBusinessTripAccommodationArrangementsType_RefID ► Business Trip Accommodation Arrangements Type       |
         |                                                                      Reference ID                                        |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
@@ -74,7 +78,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, $varBusinessTripAccommodationArrangementsType_RefID = null, string $varRemarks = null,
+            int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varDeparturePoint = null, string $varDestinationPoint = null, string $varReasonToTravel = null, int $varBusinessTripAccommodationArrangementsType_RefID = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
@@ -97,9 +101,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
                             [$varPersonBusinessTrip_RefID, 'bigint'],
                             [$varSequence, 'smallint'],
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                             [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
                             [$varStartDateTimeTZ, 'timestamptz'],
                             [$varFinishDateTimeTZ, 'timestamptz'],
+                            [$varDeparturePoint, 'varchar'],
+                            [$varDestinationPoint, 'varchar'],
+                            [$varReasonToTravel, 'varchar'],
                             [$varBusinessTripAccommodationArrangementsType_RefID, 'bigint'],
                             [$varRemarks, 'varchar'],
 
@@ -126,8 +134,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2022-11-22                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2025-04-10                                                                                           |
         | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -143,9 +151,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
         |      ▪ (int)    varSequence ► Business Trip Sequence                                                                     |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
         |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Person Reference ID                                     |
         |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
         |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
+        |      ▪ (string) varDeparturePoint ► Departure Point                                                                      |
+        |      ▪ (string) varDestinationPoint ► Destination Point                                                                  |
+        |      ▪ (string) varReasonToTravel ► Reason To Travel                                                                     |
         |      ▪ (int)    varBusinessTripAccommodationArrangementsType_RefID ► Business Trip Accommodation Arrangements Type       |
         |                                                                      Reference ID                                        |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
@@ -159,7 +171,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, $varBusinessTripAccommodationArrangementsType_RefID = null, string $varRemarks = null,
+            int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varDeparturePoint = null, string $varDestinationPoint = null, string $varReasonToTravel = null, int $varBusinessTripAccommodationArrangementsType_RefID = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
@@ -182,9 +194,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
                             [$varPersonBusinessTrip_RefID, 'bigint'],
                             [$varSequence, 'smallint'],
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                             [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
                             [$varStartDateTimeTZ, 'timestamptz'],
                             [$varFinishDateTimeTZ, 'timestamptz'],
+                            [$varDeparturePoint, 'varchar'],
+                            [$varDestinationPoint, 'varchar'],
+                            [$varReasonToTravel, 'varchar'],
                             [$varBusinessTripAccommodationArrangementsType_RefID, 'bigint'],
                             [$varRemarks, 'varchar'],
 
