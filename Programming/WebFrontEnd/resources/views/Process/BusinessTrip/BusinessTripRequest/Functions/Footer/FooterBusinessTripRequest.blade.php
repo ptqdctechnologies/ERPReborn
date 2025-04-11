@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<script>
   // var currentModalSource = '';
   const initialValue = 0;
   const totalBusinessTrip = [];
@@ -71,9 +71,9 @@
 
   // FUNGSI UNTUK MENDAPATKAN DATA BARIS YANG DICENTANG DAN MENYIMPAN KE INPUT
   function getSelectedRowData() {
-    const selectedCheckbox = document.querySelector('#budgetTable tbody input[type="checkbox"]:checked');
-    const budgetDetailsInput = document.getElementById('budgetDetailsData');
-    const totalBusinessTripInput = document.getElementById('total_business_trip');
+    const selectedCheckbox              = document.querySelector('#budgetTable tbody input[type="checkbox"]:checked');
+    const budgetDetailsInput            = document.getElementById('budgetDetailsData');
+    const totalBusinessTripInput        = document.getElementById('total_business_trip');
     const totalPaymentBusinessTripInput = document.getElementById('total_payment');
 
     if (selectedCheckbox) {
@@ -87,8 +87,10 @@
         price: row.cells[6].textContent.trim(),
         currency: row.cells[7].textContent.trim(),
         balanceBudget: row.cells[8].textContent.trim(),
+        sysId: row.querySelector('input[data-budget-id="sys_ID"]').value
       };
-
+      
+      $("#var_combinedBudget_RefID").val(datas.sysId);
       $("#total_business_trip_request").val(datas.totalBudget);
       $("#total_balanced").val(datas.balanceBudget);
       
@@ -108,6 +110,7 @@
     } else {
       budgetDetailsInput.value = '';
 
+      $("#var_combinedBudget_RefID").val("");
       $("#total_business_trip_request").val("");
       $("#total_balanced").val("");
     }
@@ -242,6 +245,79 @@
     }
   });
 
+  function getBusinessTripCostComponentEntityNew() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'GET',
+      url: '{!! route("getBusinessTripCostComponentEntityNew") !!}',
+      success: function(data) {
+        const containerMap = [
+          { range: [0, 12], containerId: 'travel-fares-container', hidden: false },
+          { range: [12, 13], containerId: 'allowance-container', hidden: true },
+          { range: [13, 14], containerId: 'entertainment-container', hidden: true },
+          { range: [14, 15], containerId: 'other-container', hidden: true }
+        ];
+
+        containerMap.forEach(({ range, containerId, hidden }) => {
+          data.slice(...range).forEach(type => {
+            const inputId = type.name.toLowerCase();
+            const labelClass = hidden ? 'p-0 col-5 d-none' : 'p-0 col-5';
+
+            const html = `
+              <div class="col-3">
+                <div class="row">
+                  <label for="${inputId}" class="${labelClass}">${type.name}</label>
+                  <div class="p-0">
+                    <div class="input-group">
+                      <input id="${inputId}" name="${inputId}" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+
+            document.getElementById(containerId).insertAdjacentHTML('beforeend', html);
+          });
+        });
+
+        $(".loading-container").hide();
+      },
+      error: function (textStatus, errorThrown) {
+        console.log('error', textStatus, errorThrown);
+      }
+    });
+  }
+
+  function getDocumentType() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'GET',
+      url: '{!! route("getDocumentType") !!}',
+      success: function(data) {
+        const result = data.find(({ Name }) => Name === "Person Business Trip Form");
+
+        if (Object.keys(result).length > 0) {
+          $("#DocumentTypeID").val(result.Sys_ID);
+        } else {
+          console.log('error get document type');
+        }
+      },
+      error: function (textStatus, errorThrown) {
+        console.log('error', textStatus, errorThrown);
+      }
+    });
+  }
+
   $("#myWorker").prop("disabled", true);
   $("#requester_popup").prop("disabled", true);
   $("#mySiteCodeSecondTrigger").prop("disabled", true);
@@ -312,6 +388,7 @@
             quantityRemaining: 1,
             priceBaseCurrencyISOCode: "IDR",
             currentBudget: 3500000,
+            sys_ID: 169000000000001
           },
           {
             product_RefID: "820005-0000",
@@ -321,6 +398,7 @@
             quantityRemaining: 0,
             priceBaseCurrencyISOCode: "IDR",
             currentBudget: 1000000,
+            sys_ID: 169000000000008
           },
           // {
           //   product_RefID: 88000000003488,
@@ -403,6 +481,7 @@
           var html = 
             '<tr>' +
               '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
+                '<input hidden data-budget-id="sys_ID" value="' + val2.sys_ID + '">' +
                 '<input type="checkbox" aria-label="Checkbox for following text input">' +
               '</td>' +
               '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
@@ -715,14 +794,73 @@
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
-        
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        swalWithBootstrapButtons.fire({
-          title: 'Cancelled',
-          text: "The action has been canceled.",
-          type: 'error',
+        var action = $(this).attr("action");
+        var method = $(this).attr("method");
+        var form_data = new FormData($(this)[0]); 
+        var form = $(this);
+
+        ShowLoading();
+
+        $.ajax({
+          url: action,
+          dataType: 'json',
+          cache: false,
+          contentType: false,
+          processData: false,
+          data: form_data,
+          type: method,
+          success: function(response) {
+            HideLoading();
+
+            console.log('response', response);
+
+            // if (response.message == "WorkflowError") {
+            //   $("#submitArf").prop("disabled", false);
+
+            //   CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
+            // } else if (response.message == "MoreThanOne") {
+            //   $('#getWorkFlow').modal('toggle');
+
+            //   var t = $('#tableGetWorkFlow').DataTable();
+            //   t.clear();
+            //   $.each(response.data, function(key, val) {
+            //     t.row.add([
+            //       '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+            //       '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+            //     ]).draw();
+            //   });
+            // } else {
+            //   const formatData = {
+            //     workFlowPath_RefID: response.workFlowPath_RefID, 
+            //     nextApprover: response.nextApprover_RefID, 
+            //     approverEntity: response.approverEntity_RefID, 
+            //     documentTypeID: response.documentTypeID,
+            //     storeData: response.storeData
+            //   };
+
+            //   SelectWorkFlow(formatData);
+            // }
+          },
+          error: function(response) {
+            HideLoading();
+            // $("#submitArf").prop("disabled", false);
+            CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
+            console.log('error response', response);
+          }
         });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        HideLoading();
+        CancelNotif("Data Cancel Inputed", '/BusinessTripRequest?var=1');
       }
     });
+  });
+
+  $(document).on('input', '.number-without-negative', function() {
+    allowNumbersWithoutNegative(this);
+  });
+
+  $(window).one('load', function(e) {
+    getDocumentType();
+    getBusinessTripCostComponentEntityNew();
   });
 </script>
