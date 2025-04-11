@@ -15,7 +15,7 @@
 <body>
   <div class="card-body table-responsive p-0">
     <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
-    <div style="text-align: center; font-size: 20px; font-weight: bold;">Advance to ASF</div>
+    <div style="text-align: center; font-size: 20px; font-weight: bold;">Advance Request to Advance Settlement</div>
     <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
 
     <!-- HEADER -->
@@ -100,7 +100,7 @@
             Advance
           </div>
         </td>
-        <td colspan="7" style="border-top: 1px solid black; height: 20px;">
+        <td colspan="6" style="border-top: 1px solid black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
             Settlement
           </div>
@@ -154,11 +154,6 @@
         </td>
         <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
             Expense Claim
           </div>
         </td>
@@ -169,9 +164,14 @@
         </td>
         <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Description
+            Total
           </div>
         </td>
+        {{-- <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Description
+          </div>
+        </td> --}}
         <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
             Status
@@ -239,11 +239,6 @@
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['TotalSettlement'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
               <?= number_format($dataDetail['TotalExpenseClaim'], 2, '.', ','); ?>
             </div>
           </td>
@@ -254,9 +249,14 @@
           </td>
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['Description']; ?>
+              <?= number_format($dataDetail['TotalSettlement'], 2, '.', ','); ?>
             </div>
           </td>
+          {{-- <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?php $dataDetail['Description']; ?>
+            </div>
+          </td> --}}
           <td>
             <div style="margin-top: 4px; font-size: 12px;">
               <?= $dataDetail['StatusASF']; ?>
@@ -289,15 +289,15 @@
         </td>
         <td style="height: 20px; text-align: left;" colspan="3"></td>
         <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalSettlement'], 2, '.', ','); ?></div>
-        </td>
-        <td style="height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalExpenseClaim'], 2, '.', ','); ?></div>
         </td>
         <td style="height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalAmountCompany'], 2, '.', ','); ?></div>
         </td>
-        <td style="height: 20px; text-align: left;" colspan="2"></td>
+        <td style="height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalSettlement'], 2, '.', ','); ?></div>
+        </td>
+        <td style="height: 20px; text-align: left;"></td>
         <td style="height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalAdvancePayment'], 2, '.', ','); ?></div>
         </td>

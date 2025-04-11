@@ -29,12 +29,12 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
                 'Payment'               => $item['TotalPayment'] ?? null,
                 'Status'                => $item['Status'] ?? null,
                 'ASF Number'            => $item['DocumentASFNumber'] ?? null,
-                'ASF Date'                  => date('d-m-Y', strtotime($item['DocumentASFDateTimeTZ'])) ?? null,
-                'Total ASF'                 => $item['TotalSettlement'] ?? null,
+                'ASF Date'              => date('d-m-Y', strtotime($item['DocumentASFDateTimeTZ'])) ?? null,
+                'Total ASF'             => $item['TotalSettlement'] ?? null,
                 'Expense Claim'         => $item['TotalExpenseClaim'] ?? null,
                 'Amount to the Company' => $item['TotalAmountCompany'] ?? null,
-                'Description'           => $item['Description'] ?? null,
-                'Status ASF'                => $item['StatusASF'] ?? null,
+                // 'Description'           => $item['Description'] ?? null,
+                'Status ASF'            => $item['StatusASF'] ?? null,
                 'Advance to Payment'    => $item['TotalAdvancePayment'] ?? null,
                 'Advance to Settlement' => $item['TotalAdvanceSettlement'] ?? null,
             ];
@@ -53,8 +53,8 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
             ["Budget", ": " . $data['project']['code'] . ' - ' . $data['project']['name'], "Requester", ": " . $data['requester']['name'], "", "", "", "", "", "", ""],
             ["Sub Budget", ": " . $data['site']['code'] . ' - ' . $data['site']['name']],
             ["", "", "", "", "", "", "", "", "", "", ""],
-            ["No", "Advance", "", "", "", "", "", "Settlement", "", "", "", "", "", "", "Balance", ""],
-            ["", "ARF Number", "Date", "Requester", "Total", "Payment", "Status", "ASF Number", "Date", "Total", "Expense Claim", "Amount to the Company", "Description", "Status", "Advance to Payment", "Advance to Settlement"],
+            ["No", "Advance", "", "", "", "", "", "Settlement", "", "", "", "", "", "Balance", ""],
+            ["", "ARF Number", "Date", "Requester", "Total", "Payment", "Status", "ASF Number", "Date", "Total", "Expense Claim", "Amount to the Company", "Status", "Advance to Payment", "Advance to Settlement"],
         ];
     }
 
@@ -71,8 +71,8 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-        $sheet->getStyle('A1:P1')->applyFromArray($styleArrayHeader0);
-        $sheet->mergeCells('A1:P1');
+        $sheet->getStyle('A1:O1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:O1');
 
         $styleArrayHeader1 = [
             'font' => [
@@ -86,8 +86,8 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
             ]
         ];
 
-        $sheet->getStyle('A2:P2')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A2:P2');
+        $sheet->getStyle('A2:O2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:O2');
 
         $styleArrayHeader = [
             'font' => [
@@ -100,8 +100,8 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
                 'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ]
         ];
-        $sheet->getStyle('A3:P3')->applyFromArray($styleArrayHeader);
-        $sheet->mergeCells('A3:P3');
+        $sheet->getStyle('A3:O3')->applyFromArray($styleArrayHeader);
+        $sheet->mergeCells('A3:O3');
 
         $styleArrayHeader4 = [
             'font' => [
@@ -114,7 +114,7 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
                 'horizontal' => Alignment::HORIZONTAL_LEFT,
             ]
         ];
-        $sheet->getStyle('A4:P4')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A4:O4')->applyFromArray($styleArrayHeader4);
 
         $styleArrayHeader5 = [
             'font' => [
@@ -127,7 +127,7 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
                 'horizontal' => Alignment::HORIZONTAL_LEFT,
             ]
         ];
-        $sheet->getStyle('A5:P5')->applyFromArray($styleArrayHeader5);
+        $sheet->getStyle('A5:O5')->applyFromArray($styleArrayHeader5);
 
         $styleArrayHeader2 = [
             'font' => [
@@ -153,12 +153,12 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
             ],
         ];
 
-        $sheet->getStyle('A7:P7')->applyFromArray($styleArrayHeader2);
+        $sheet->getStyle('A7:O7')->applyFromArray($styleArrayHeader2);
         $sheet->mergeCells('A7:A8');
         $sheet->mergeCells('B7:G7');
-        $sheet->mergeCells('H7:N7');
-        $sheet->mergeCells('O7:P7');
-        $sheet->getStyle('A8:P8')->applyFromArray($styleArrayHeader2);
+        $sheet->mergeCells('H7:M7');
+        $sheet->mergeCells('N7:O7');
+        $sheet->getStyle('A8:O8')->applyFromArray($styleArrayHeader2);
 
         $styleArrayContent = [
             'borders' => [
@@ -173,7 +173,7 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
 
         $datas = Session::get("dataReportAdvanceToASF");
         $totalCell = count($datas['dataDetail']);
-        $lastCell = 'A8:P' . $totalCell + 8;
+        $lastCell = 'A8:O' . $totalCell + 8;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
         $total                  = $datas['totalAdvance'];
@@ -196,7 +196,6 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
         $sheet->mergeCells('A' . $totalCell + 9 . ':' . 'D' . $totalCell + 9);
         $sheet->mergeCells('G' . $totalCell + 9 . ':' . 'I' . $totalCell + 9);
         $sheet->mergeCells('M' . $totalCell + 9 . ':' . 'N' . $totalCell + 9);
-        $sheet->mergeCells('M' . $totalCell + 9 . ':' . 'N' . $totalCell + 9);
 
         $styleArrayFooter = [
             'font' => [
@@ -217,7 +216,7 @@ class ExportReportAdvanceToASF implements FromCollection, WithHeadings, ShouldAu
             ],
         ];
 
-        $sheet->getStyle('A' . $totalCell + 9 . ':' . 'P' . $totalCell + 9)->applyFromArray($styleArrayFooter);
+        $sheet->getStyle('A' . $totalCell + 9 . ':' . 'O' . $totalCell + 9)->applyFromArray($styleArrayFooter);
 
     }
 }
