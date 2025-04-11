@@ -1162,6 +1162,43 @@ class FunctionController extends Controller
         }
     }
 
+    public function getBusinessTripCostComponentEntityNew(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $userSession = Helper_Environment::getUserSessionID_System();
+            $varData = json_decode(Helper_Redis::getValue($userSession, "DataBusinessTripCostComponentEntityNew"), true);
+
+            if (empty($varData)) {
+                $varData = [
+                    ['name' => 'Taxi', 'value' => "221000000000026"],
+                    ['name' => 'Airplane', 'value' => "221000000000046"],
+                    ['name' => 'Train', 'value' => "221000000000043"],
+                    ['name' => 'Bus', 'value' => "221000000000039"],
+                    ['name' => 'Ship', 'value' => "221000000000050"],
+                    ['name' => 'Tol/Road', 'value' => "221000000000004"],
+                    ['name' => 'Park', 'value' => "221000000000005"],
+                    ['name' => 'Excess Baggage', 'value' => "221000000000006"],
+                    ['name' => 'Fuel', 'value' => "221000000000003"],
+                    ['name' => 'Hotel', 'value' => "276000000000002"],
+                    ['name' => 'Mess', 'value' => "276000000000005"],
+                    ['name' => 'Guest House', 'value' => "276000000000004"],
+                    ['name' => 'Accommodation', 'value' => "81000000000001"],
+                    ['name' => 'Entertainment', 'value' => "81000000000004"],
+                    ['name' => 'Other', 'value' => "81000000000005"],
+                ];
+
+                $this->syncDataWithRedis($varAPIWebToken, "DataBusinessTripCostComponentEntityNew", $varData, 300);
+            }
+
+            return response()->json($varData);
+        } catch (\Throwable $th) {
+            Log::error("Error at getBusinessTripCostComponentEntityNew: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+
     // NITIP
     // $userSessionID = Helper_Environment::getUserSessionID_System();
     // $varData = Helper_APICall::setCallAPIGateway(

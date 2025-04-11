@@ -12,6 +12,7 @@
 @include('getFunction.getBankList')
 @include('getFunction.getBankAccount')
 @include('getFunction.getEntityBankAccount')
+@include('getFunction.getWorkFlow')
 
 <div class="content-wrapper">
   <section class="content">
@@ -27,12 +28,15 @@
 
       @include('Process.BusinessTrip.BusinessTripRequest.Functions.Menu.MenuBusinessTripRequest')
       @if($var == 0)
-        <input hidden id="budgetDetailsData" name="budgetDetailsData" />
-        <input hidden disabled id="total_transport" name="total_transport" style="border-radius:0;" type="text" class="form-control">
-
         <div class="card">
-          <form method="POST" enctype="multipart/form-data" id="FormSubmitBusinessTrip">
+          {{-- <form method="post" action="{{ route('BusinessTripRequest.store') }}" id="FormSubmitBusinessTrip"> --}}
+            <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitBusinessTrip">
             @csrf
+            <input hidden id="DocumentTypeID" name="DocumentTypeID">
+            <input hidden id="var_combinedBudget_RefID" name="var_combinedBudget_RefID" />
+            <input hidden id="budgetDetailsData" />
+            <input hidden id="total_transport">
+
             <!-- ADD NEW BUSINESS REQUEST TRIP FORM -->
             <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
               <div class="row">
@@ -120,7 +124,7 @@
                             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Requester</label>
                             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                               <div>
-                                <input id="requester_detail" style="border-radius:0;" class="form-control" size="17" name="requester_detail" readonly>
+                                <input id="requester_detail" style="border-radius:0;" class="form-control" size="17" readonly>
                               </div>
                               <div>
                                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -130,9 +134,8 @@
                                 </span>
                               </div>
                               <div style="flex: 100%;">
-                                <input name="requester" id="requester" style="border-radius:0;" type="text" class="form-control" readonly>
-                                <input name="requester_id" id="requester_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
-                                <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
+                                <input id="requester" style="border-radius:0;" type="text" class="form-control" readonly>
+                                <input id="requester_id" name="requester_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
                               </div>
                             </div>
                           </div>
@@ -142,7 +145,7 @@
                             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Contact Phone</label>
                             <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                               <div class="input-group">
-                                <input id="contactPhone" name="contactPhone" style="border-radius:0;" type="text" class="form-control" disabled>
+                                <input id="contactPhone" style="border-radius:0;" type="text" class="form-control" disabled>
                               </div>
                             </div>
                           </div>
@@ -171,20 +174,20 @@
                         <div class="col-md-12 col-lg-5">
                           <!-- DEPARTING FROM -->
                           <div class="row" style="margin-bottom: 1rem;">
-                            <label for="headStationLocation" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Departing From</label>
+                            <label for="departingFrom" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Departing From</label>
                             <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                               <div class="input-group" style="width: 95px;">
-                                <input id="headStationLocation" name="headStationLocation" style="border-radius:0;" type="text" class="form-control" autocomplete="off">
+                                <input id="departingFrom" name="departingFrom" style="border-radius:0;" type="text" class="form-control" autocomplete="off">
                               </div>
                             </div>
                           </div>
 
                           <!-- DESTINATION TO -->
                           <div class="row" style="margin-bottom: 1rem;">
-                            <label for="bussinesLocation" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Destination To</label>
+                            <label for="destinationTo" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Destination To</label>
                             <div class="col-sm-9 col-md-8 col-lg-3 d-flex p-0">
                               <div class="input-group" style="width: 95px;">
-                                <input id="bussinesLocation" name="bussinesLocation" style="border-radius:0;" type="text" class="form-control" autocomplete="off">
+                                <input id="destinationTo" name="destinationTo" style="border-radius:0;" type="text" class="form-control" autocomplete="off">
                               </div>
                             </div>
                           </div>
@@ -215,7 +218,7 @@
                       </label>
                       <div class="card-tools d-flex" style="margin-left: -50px !important;">
                         <div>
-                          <input id="budget_detail_search" style="border-radius: 4px; display: none;" class="form-control" name="budget_detail_search" autocomplete="off" placeholder="Search Product">
+                          <input id="budget_detail_search" style="border-radius: 4px; display: none;" class="form-control" autocomplete="off" placeholder="Search Product">
                         </div>
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                           <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
@@ -287,137 +290,13 @@
                             </div>
                           </div>
 
-                          <div class="row" style="row-gap: 1rem;">
-                            <!-- TAXI -->
-                            <div class="col-3">
-                              <div class="row">
-                                <label for="taxi" class="p-0 col-5">Taxi</label>
-                                <div class="p-0">
-                                  <div class="input-group">
-                                    <input id="taxi" name="taxi" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                  </div>
-                                </div>
+                          <div class="row" style="row-gap: 1rem;" id="travel-fares-container">
+                            <div class="loading-container py-3" style="justify-items: center; width: 100%;">
+                              <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
                               </div>
-                            </div>
-                            <!-- AIRPLANE -->
-                            <div class="col-3">
-                              <div class="row">
-                                <label for="airplane" class="p-0 col-5">Airplane</label>
-                                <div class="p-0">
-                                  <div class="input-group">
-                                    <input id="airplane" name="airplane" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- TRAIN -->
-                            <div class="col-3">
-                              <div class="row">
-                                <label for="train" class="p-0 col-5">Train</label>
-                                <div class="p-0">
-                                  <div class="input-group">
-                                    <input id="train" name="train" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- BUS -->
-                            <div class="col-3">
-                              <div class="row">
-                                <label for="bus" class="p-0 col-5">Bus</label>
-                                <div class="p-0">
-                                  <div class="input-group">
-                                    <input id="bus" name="bus" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- SHIP -->
-                            <div class="col-3">
-                              <div class="row">
-                                <label for="ship" class="p-0 col-5">Ship</label>
-                                <div class="p-0">
-                                  <div class="input-group">
-                                    <input id="ship" name="ship" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- TOL/ROAD -->
-                            <div class="col-3">
-                              <div class="row">
-                                <label for="tol_road" class="p-0 col-5">Tol/Road</label>
-                                <div class="p-0">
-                                  <div class="input-group">
-                                    <input id="tol_road" name="tol_road" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- PARK -->
-                            <div class="col-3">
-                              <div class="row">
-                                <label for="park" class="p-0 col-5">Park</label>
-                                <div class="p-0">
-                                  <div class="input-group">
-                                    <input id="park" name="park" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- ACCESS BAGAGE -->
-                            <div class="col-3">
-                              <div class="row">
-                                <label for="access_bagage" class="p-0 col-5">Access Bagage</label>
-                                <div class="p-0">
-                                  <div class="input-group">
-                                    <input id="access_bagage" name="access_bagage" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- FUEL -->
-                            <div class="col-3">
-                              <div class="row">
-                                <label for="fuel" class="p-0 col-5">Fuel</label>
-                                <div class="p-0">
-                                  <div class="input-group">
-                                    <input id="fuel" name="fuel" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- HOTEL -->
-                            <div class="col-3">
-                              <div class="row">
-                                <label for="hotel" class="p-0 col-5">Hotel</label>
-                                <div class="p-0">
-                                  <div class="input-group">
-                                    <input id="hotel" name="hotel" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- MESS -->
-                            <div class="col-3">
-                              <div class="row">
-                                <label for="mess" class="p-0 col-5">Mess</label>
-                                <div class="p-0">
-                                  <div class="input-group">
-                                    <input id="mess" name="mess" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- GUEST HOUSE -->
-                            <div class="col-3">
-                              <div class="row">
-                                <label for="guest_house" class="p-0 col-5">Guest House</label>
-                                <div class="p-0">
-                                  <div class="input-group">
-                                    <input id="guest_house" name="guest_house" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                  </div>
-                                </div>
+                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                Loading...
                               </div>
                             </div>
                           </div>
@@ -429,15 +308,13 @@
                               2. Allowance
                             </div>
                           </div>
-                          <div class="row">
-                            <div class="col-3">
-                              <div class="row">
-                                <label class="p-0 col-5 d-none"></label>
-                                <div class="p-0">
-                                  <div class="input-group">
-                                    <input id="allowance" name="allowance" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                  </div>
-                                </div>
+                          <div class="row" id="allowance-container">
+                            <div class="loading-container py-3" style="justify-items: center; width: 100%;">
+                              <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                Loading...
                               </div>
                             </div>
                           </div>
@@ -449,15 +326,13 @@
                               3. Entertainment
                             </div>
                           </div>
-                          <div class="row">
-                            <div class="col-3">
-                              <div class="row">
-                                <label class="p-0 col-5 d-none"></label>
-                                <div class="p-0">
-                                  <div class="input-group">
-                                    <input id="entertainment" name="entertainment" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                  </div>
-                                </div>
+                          <div class="row" id="entertainment-container">
+                            <div class="loading-container py-3" style="justify-items: center; width: 100%;">
+                              <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                Loading...
                               </div>
                             </div>
                           </div>
@@ -469,15 +344,13 @@
                               4. Other
                             </div>
                           </div>
-                          <div class="row">
-                            <div class="col-3">
-                              <div class="row">
-                                <label class="p-0 col-5 d-none"></label>
-                                <div class="p-0">
-                                  <div class="input-group">
-                                    <input id="other" name="other" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-                                  </div>
-                                </div>
+                          <div class="row" id="other-container">
+                            <div class="loading-container py-3" style="justify-items: center; width: 100%;">
+                              <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                              <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                                Loading...
                               </div>
                             </div>
                           </div>
@@ -519,7 +392,7 @@
                                 <label for="direct_to_vendor" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Direct to Vendor</label>
                                 <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                   <div class="input-group">
-                                    <input id="direct_to_vendor" name="direct_to_vendor" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                    <input id="direct_to_vendor" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                                   </div>
                                 </div>
                               </div>
@@ -531,8 +404,8 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_list_name" style="border-radius:0;" name="bank_list_name" class="form-control" size="17" readonly>
-                                    <input id="bank_list_code" style="border-radius:0;" class="form-control" name="bank_list_code" hidden>
+                                    <input id="bank_list_name" style="border-radius:0;" class="form-control" size="17" readonly>
+                                    <input id="bank_list_code" style="border-radius:0;" class="form-control" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -542,7 +415,7 @@
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_list_detail" style="border-radius:0;" class="form-control" name="bank_list_detail" readonly>
+                                    <input id="bank_list_detail" style="border-radius:0;" class="form-control" readonly>
                                   </div>
                                 </div>
                               </div>
@@ -552,10 +425,10 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_accounts" style="border-radius:0;" name="bank_accounts" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
-                                    <input id="bank_accounts_duplicate" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate" hidden>
-                                    <input id="bank_accounts_id" style="border-radius:0;" class="form-control" name="bank_accounts_id" hidden>
-                                    <input id="bank_accounts_duplicate_id" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_id" hidden>
+                                    <input id="bank_accounts" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
+                                    <input id="bank_accounts_duplicate" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="bank_accounts_id" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="bank_accounts_duplicate_id" style="border-radius:0;" class="form-control" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -565,8 +438,8 @@
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" name="bank_accounts_detail" autocomplete="off" readonly>
-                                    <input id="bank_accounts_duplicate_detail" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_detail" hidden>
+                                    <input id="bank_accounts_detail" style="border-radius:0;" class="form-control" autocomplete="off" readonly>
+                                    <input id="bank_accounts_duplicate_detail" style="border-radius:0;" class="form-control" hidden>
                                   </div>
                                 </div>
                               </div>
@@ -582,7 +455,7 @@
                                 <label for="by_corp_card" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">By Corp Card</label>
                                 <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                   <div class="input-group">
-                                    <input id="by_corp_card" name="by_corp_card" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                    <input id="by_corp_card" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                                   </div>
                                 </div>
                               </div>
@@ -594,8 +467,8 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_list_second_name" style="border-radius:0;" name="bank_list_second_name" class="form-control" size="17" readonly>
-                                    <input id="bank_list_second_code" style="border-radius:0;" class="form-control" name="bank_list_second_code" hidden>
+                                    <input id="bank_list_second_name" style="border-radius:0;" class="form-control" size="17" readonly>
+                                    <input id="bank_list_second_code" style="border-radius:0;" class="form-control" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -605,7 +478,7 @@
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_list_second_detail" style="border-radius:0;" class="form-control" name="bank_list_second_detail" readonly>
+                                    <input id="bank_list_second_detail" style="border-radius:0;" class="form-control" readonly>
                                   </div>
                                 </div>
                               </div>
@@ -615,10 +488,10 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_accounts_second" style="border-radius:0;" name="bank_accounts_second" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
-                                    <input id="bank_accounts_duplicate_second" style="border-radius:0;" name="bank_accounts_duplicate_second" class="form-control number-without-characters" size="17" autocomplete="off" hidden>
-                                    <input id="bank_accounts_id_second" style="border-radius:0;" class="form-control" name="bank_accounts_id_second" hidden>
-                                    <input id="bank_accounts_duplicate_id_second" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_id_second" hidden>
+                                    <input id="bank_accounts_second" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" readonly>
+                                    <input id="bank_accounts_duplicate_second" style="border-radius:0;" class="form-control number-without-characters" size="17" autocomplete="off" hidden>
+                                    <input id="bank_accounts_id_second" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="bank_accounts_duplicate_id_second" style="border-radius:0;" class="form-control" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -628,8 +501,8 @@
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_accounts_detail_second" style="border-radius:0;" class="form-control" name="bank_accounts_detail_second" autocomplete="off" readonly>
-                                    <input id="bank_accounts_detail_duplicate_second" style="border-radius:0;" class="form-control" name="bank_accounts_detail_duplicate_second" autocomplete="off" hidden>
+                                    <input id="bank_accounts_detail_second" style="border-radius:0;" class="form-control" autocomplete="off" readonly>
+                                    <input id="bank_accounts_detail_duplicate_second" style="border-radius:0;" class="form-control" autocomplete="off" hidden>
                                   </div>
                                 </div>
                               </div>
@@ -645,7 +518,7 @@
                                 <label for="to_other" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">To Other</label>
                                 <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                   <div class="input-group">
-                                    <input id="to_other" name="to_other" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                                    <input id="to_other" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                                   </div>
                                 </div>
                               </div>
@@ -657,9 +530,9 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="beneficiary_second_person_position" style="border-radius:0;" size="17" class="form-control" name="beneficiary_second_person_position" readonly>
-                                    <input id="beneficiary_second_id" style="border-radius:0;" class="form-control" name="beneficiary_second_id" hidden>
-                                    <input id="beneficiary_second_person_ref_id" style="border-radius:0;" class="form-control" name="beneficiary_second_person_ref_id" hidden>
+                                    <input id="beneficiary_second_person_position" style="border-radius:0;" size="17" class="form-control" readonly>
+                                    <input id="beneficiary_second_id" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="beneficiary_second_person_ref_id" style="border-radius:0;" class="form-control" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -669,7 +542,7 @@
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="beneficiary_second_person_name" name="beneficiary_second_person_name" style="border-radius:0;" type="text" class="form-control" readonly>
+                                    <input id="beneficiary_second_person_name" style="border-radius:0;" type="text" class="form-control" readonly>
                                   </div>
                                 </div>
                               </div>
@@ -679,8 +552,8 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_list_third_name" style="border-radius:0;" name="bank_list_third_name" class="form-control" size="17" readonly>
-                                    <input id="bank_list_third_code" style="border-radius:0;" class="form-control" name="bank_list_third_code" hidden>
+                                    <input id="bank_list_third_name" style="border-radius:0;" class="form-control" size="17" readonly>
+                                    <input id="bank_list_third_code" style="border-radius:0;" class="form-control" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -690,7 +563,7 @@
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_list_third_detail" style="border-radius:0;" class="form-control" name="bank_list_third_detail" readonly>
+                                    <input id="bank_list_third_detail" style="border-radius:0;" class="form-control" readonly>
                                   </div>
                                 </div>
                               </div>
@@ -700,10 +573,10 @@
                                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                   <div>
-                                    <input id="bank_accounts_third" style="border-radius:0;" size="17" name="bank_accounts_third" class="form-control number-without-characters" autocomplete="off" readonly>
-                                    <input id="bank_accounts_duplicate_third" style="border-radius:0;" size="17" name="bank_accounts_duplicate_third" class="form-control number-without-characters" hidden>
-                                    <input id="bank_accounts_third_id" style="border-radius:0;" class="form-control" name="bank_accounts_third_id" hidden>
-                                    <input id="bank_accounts_duplicate_third_id" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_third_id" hidden>
+                                    <input id="bank_accounts_third" style="border-radius:0;" size="17" class="form-control number-without-characters" autocomplete="off" readonly>
+                                    <input id="bank_accounts_duplicate_third" style="border-radius:0;" size="17" class="form-control number-without-characters" hidden>
+                                    <input id="bank_accounts_third_id" style="border-radius:0;" class="form-control" hidden>
+                                    <input id="bank_accounts_duplicate_third_id" style="border-radius:0;" class="form-control" hidden>
                                   </div>
                                   <div>
                                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -713,8 +586,8 @@
                                     </span>
                                   </div>
                                   <div style="flex: 100%;">
-                                    <input id="bank_accounts_third_detail" style="border-radius:0;" class="form-control" name="bank_accounts_third_detail" autocomplete="off" readonly>
-                                    <input id="bank_accounts_duplicate_third_detail" style="border-radius:0;" class="form-control" name="bank_accounts_duplicate_third_detail" hidden>
+                                    <input id="bank_accounts_third_detail" style="border-radius:0;" class="form-control" autocomplete="off" readonly>
+                                    <input id="bank_accounts_duplicate_third_detail" style="border-radius:0;" class="form-control" hidden>
                                   </div>
                                 </div>
                               </div>
@@ -730,7 +603,7 @@
                                 <label for="total_payment" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Total Payment</label>
                                 <div class="col-sm-9 col-md-8 col-lg-3 p-0">
                                   <div class="input-group">
-                                    <input id="total_payment" name="total_payment" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" disabled>
+                                    <input id="total_payment" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative" disabled>
                                   </div>
                                 </div>
                               </div>
