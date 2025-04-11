@@ -40,20 +40,20 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\ins
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    //-----[ HEADER ]-----( START )-----
+                    //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken, 
                         'instruction.server.external.www_bi_go_id.getTransactionExchangeRateOnSpecificDate', 
                         'latest',
-                    //-----[ HEADER ]-----( END )-----
+                    //-----[ METADATA ]-----(  END  )-----
 
-                    //-----[ BODY ]-----( START )-----
+                    //-----[ DATA ]-----( START )-----
                         [
                         'parameter' => [
                             "transactionDateTimeTZ" => '2025-02-04 00:00:00'
                             ]
                         ]
-                    //-----[ BODY ]-----( END )-----
+                    //-----[ DATA ]-----(  END  )-----
                 );
 
             var_dump($varData);

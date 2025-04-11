@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -79,6 +84,11 @@
                                                                     "minimum": 1,
                                                                     "maximum": 32767
                                                                     },
+                                                                "log_FileUpload_Pointer_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
                                                                 "requesterWorkerJobsPosition_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
@@ -98,16 +108,25 @@
                                                                     "minLength": 10,
                                                                     "maxLength": 30
                                                                     },
+                                                                "departurePoint": {
+                                                                    "type": [ "string", "null" ],
+                                                                    "minLength": 1,
+                                                                    "maxLength": 128
+                                                                    },
+                                                                "destinationPoint": {
+                                                                    "type": [ "string", "null" ],
+                                                                    "minLength": 1,
+                                                                    "maxLength": 128
+                                                                    },
+                                                                "reasonToTravel": {
+                                                                    "type": [ "string", "null" ],
+                                                                    "minLength": 1,
+                                                                    "maxLength": 256
+                                                                    },
                                                                 "businessTripAccommodationArrangementsType_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
-                                                                    },
-                                                                "businessTripTransportationType_RefIDArray": {
-                                                                    "type": "array",
-                                                                    "items": {
-                                                                        "type": "number"
-                                                                        }
                                                                     },
                                                                 "remarks": {
                                                                     "type": [ "string", "null" ],
@@ -169,37 +188,54 @@
                                                                                                             ]
                                                                                                          }
                                                                                                     },
-                                                                                                "required": [ "recordID", "entities" ]
+                                                                                                "required": [
+                                                                                                    "recordID",
+                                                                                                    "entities"
+                                                                                                    ]
                                                                                                 }
                                                                                             }
                                                                                         },
-                                                                                    "required": [ "items" ]
+                                                                                    "required": [
+                                                                                        "items"
+                                                                                        ]
                                                                                     }
                                                                                 },
-                                                                            "required": [ "itemList" ]
+                                                                            "required": [
+                                                                                "itemList"
+                                                                                ]
                                                                             }
                                                                         ]
                                                                     }
                                                                 },
                                                             "required": [
-                                                                "sequence", 
-                                                                "requesterWorkerJobsPosition_RefID", 
-                                                                "startDateTimeTZ", 
-                                                                "finishDateTimeTZ", 
-                                                                "businessTripAccommodationArrangementsType_RefID", 
-                                                                "businessTripTransportationType_RefIDArray", 
-                                                                "remarks" 
+                                                                "sequence",
+                                                                "log_FileUpload_Pointer_RefID",
+                                                                "requesterWorkerJobsPosition_RefID",
+                                                                "startDateTimeTZ",
+                                                                "finishDateTimeTZ",
+                                                                "departurePoint",
+                                                                "destinationPoint",
+                                                                "reasonToTravel",
+                                                                "businessTripAccommodationArrangementsType_RefID",
+                                                                "remarks"
                                                                 ]
                                                              }
                                                         },
-                                                    "required": [ "recordID", "entities" ]
+                                                    "required": [
+                                                        "recordID",
+                                                        "entities"
+                                                        ]
                                                     }
                                                 }
                                             },
-                                        "required": [ "items" ]
+                                        "required": [
+                                            "items"
+                                            ]
                                         }
                                     },
-                                "required": [ "itemList" ]
+                                "required": [
+                                    "itemList"
+                                    ]
                                 }
                             ]
                         }
@@ -211,8 +247,14 @@
                     ]
                 }
             },
-        "required": [ "recordID", "entities" ]
+        "required": [
+            "recordID",
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

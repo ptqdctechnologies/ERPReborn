@@ -117,7 +117,7 @@
                                             "items"
                                             ]
                                         },
-                                    "funding": {
+                                    "fundingList": {
                                         "type": "object",
                                         "properties": {
                                             "items": {
@@ -151,7 +151,12 @@
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "fundSource_RefID": {
+                                                                "paymentFundingSource_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "paymentFundingDestination_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
@@ -180,7 +185,8 @@
                                                                 "amountCurrency_RefID",
                                                                 "amountCurrencyValue",
                                                                 "amountCurrencyExchangeRate",
-                                                                "fundSource_RefID",
+                                                                "paymentFundingSource_RefID",
+                                                                "paymentFundingDestination_RefID",
                                                                 "paidDateTimeTZ",
                                                                 "payerWorkerJobsPosition_RefID",
                                                                 "remarks"
@@ -200,7 +206,7 @@
                                     },
                                 "required": [
                                     "itemList",
-                                    "funding"
+                                    "fundingList"
                                     ]
                                 }
                             ]

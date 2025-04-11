@@ -8,7 +8,7 @@
 | ▪ API Key     : transaction.update.humanResource.setPersonBusinessTripSequence                                                   |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\humanResource\setPersonBusinessTripSequence\v1
@@ -22,8 +22,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/                                                                                 |
         |                       transaction.update.humanResource.setPersonBusinessTripSequence.v1_throughAPIGateway                |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-04-07                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2025-04-10                                                                                           |
         | ▪ Creation Date   : 2022-10-10                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -33,52 +33,65 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.update.humanResource.setPersonBusinessTripSequence',
-                'latest',
-                [
-                'recordID' => 79000000000010,
-                'entities' => [
-                    "personBusinessTrip_RefID" => 78000000000008,
-                    "sequence" => 1,
-                    "requesterWorkerJobsPosition_RefID" => 164000000000493,
-                    "startDateTimeTZ" => '2022-10-10',
-                    "finishDateTimeTZ" => '2022-10-14',
-                    "businessTripAccommodationArrangementsType_RefID" => 219000000000003,
-                    "remarks" => 'Catatan - 1',
-                    "additionalData" => [
-                        "itemList" => [
-                            "items" => [
-                                    [
-                                    "recordID" => 80000000000029,
-                                    "entities" => [
-                                        "businessTripCostComponentEntity_RefID" => 81000000000003,
-                                        "amountCurrency_RefID" => 62000000000003,
-                                        "amountCurrencyValue" => 30003,
-                                        "amountCurrencyExchangeRate" => 3,
-                                        "remarks" => 'Catatan 1 - A'
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'transaction.update.humanResource.setPersonBusinessTripSequence',
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]-----( START )-----
+                        [
+                        'recordID' => 79000000000010,
+                        'entities' => [
+                            "personBusinessTrip_RefID" => 78000000000008,
+                            "sequence" => 1,
+                            "log_FileUpload_Pointer_RefID" => null,
+                            "requesterWorkerJobsPosition_RefID" => 164000000000493,
+                            "startDateTimeTZ" => '2022-10-10',
+                            "finishDateTimeTZ" => '2022-10-14',
+                            "departurePoint" => 'Jakarta',
+                            "destinationPoint" => 'Kalimantan',
+                            "reasonToTravel" => 'Monitoring Pekerjaan Proyek',
+                            "businessTripAccommodationArrangementsType_RefID" => 219000000000003,
+                            "remarks" => 'Catatan - 1',
+                            "additionalData" => [
+                                "itemList" => [
+                                    "items" => [
+                                            [
+                                            "recordID" => 80000000000029,
+                                            "entities" => [
+                                                "businessTripCostComponentEntity_RefID" => 81000000000003,
+                                                "amountCurrency_RefID" => 62000000000003,
+                                                "amountCurrencyValue" => 30003,
+                                                "amountCurrencyExchangeRate" => 3,
+                                                "remarks" => 'Catatan 1 - A'
+                                                ]
+                                            ],
+                                            [
+                                            "recordID" => 80000000000030,
+                                            "entities" => [
+                                                "businessTripCostComponentEntity_RefID" => 221000000000023,
+                                                "amountCurrency_RefID" => 62000000000003,
+                                                "amountCurrencyValue" => 40003,
+                                                "amountCurrencyExchangeRate" => 3,
+                                                "remarks" => 'Catatan 1 - B'
+                                                ]
+                                            ],
                                         ]
-                                    ],
-                                    [
-                                    "recordID" => 80000000000030,
-                                    "entities" => [
-                                        "businessTripCostComponentEntity_RefID" => 221000000000023,
-                                        "amountCurrency_RefID" => 62000000000003,
-                                        "amountCurrencyValue" => 40003,
-                                        "amountCurrencyExchangeRate" => 3,
-                                        "remarks" => 'Catatan 1 - B'
-                                        ]
-                                    ],
+                                    ]
                                 ]
                             ]
                         ]
-                    ]
-                ]
-                );
-            return $varData;
+                    //-----[ DATA ]-----(  END  )-----
+                    );
+
+            return
+                $varData;
             }
 
 

@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.supplyChain.setDeliveryOrder.v1_throughAPIGateway              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-03-26                                                                                           |
+        | ▪ Last Update     : 2025-04-10                                                                                           |
         | ▪ Creation Date   : 2024-01-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -43,7 +43,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "log_FileUpload_Pointer_RefID" => null,
                     "requesterWorkerJobsPosition_RefID" => 164000000000497,
                     "remarks" => 'My Remarks',
-                    "transporter_RefID" => null,
+                    "transporter_RefID" => 164000000000559,
+                    "deliveryFrom_RefID" => 126000000000001,
+                    "deliveryFromManualAddress" => 'Jl. Nuri No. 1, Jakarta Barat',
+                    "deliveryTo_RefID" => 126000000000005,
+                    "deliveryToManualAddress" => 'Jl. Melati No. 2, Surabaya',
                     "additionalData" => [
                         "itemList" => [
                             "items" => [

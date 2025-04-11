@@ -20,8 +20,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setPaymentFunding.v1_throughAPIGateway                   |
         |                     ► http://172.28.0.4/transaction.update.finance.setPaymentFunding.v1_throughAPIGateway                |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-21                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2025-04-10                                                                                           |
         | ▪ Creation Date   : 2023-10-31                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -36,14 +36,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    //-----[ HEADER ]-----( START )-----
+                    //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken, 
                         'transaction.update.finance.setPaymentFunding', 
                         'latest',
-                    //-----[ HEADER ]-----( END )-----
+                    //-----[ METADATA ]-----(  END  )-----
 
-                    //-----[ BODY ]-----( START )-----
+                    //-----[ DATA ]-----( START )-----
                         [
                         'recordID' => 213000000000001,
                         'entities' => [
@@ -53,13 +53,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "amountCurrency_RefID" => 62000000000001,
                             "amountCurrencyValue" => 30000,
                             "amountCurrencyExchangeRate" => 1,
-                            "fundSource_RefID" => 167000000000001,
+                            "paymentFundingSource_RefID" => 167000000000001,
+                            "paymentFundingDestination_RefID" => null,
                             "paidDateTimeTZ" => null,
                             "payerWorkerJobsPosition_RefID" => 164000000000497,
                             "remarks" => 'Catatan'
                             ]
                         ]
-                    //-----[ BODY ]-----( END )-----
+                    //-----[ DATA ]-----(  END  )-----
                     );
 
             var_dump($varData);
@@ -71,8 +72,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.update.finance.setPaymentFunding.v1_throughAPIGatewayJQuery             |
         |                     ► http://172.28.0.4/transaction.update.finance.setPaymentFunding.v1_throughAPIGatewayJQuery          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-21                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2025-04-10                                                                                           |
         | ▪ Creation Date   : 2023-10-31                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -96,7 +97,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo       '<tr><td>AmountCurrency_RefID</td><td><input type="text" id="dataInput_AmountCurrency_RefID" value=62000000000001></td></tr>';
             echo       '<tr><td>AmountCurrencyValue</td><td><input type="text" id="dataInput_AmountCurrencyValue" value=30000></td></tr>';
             echo       '<tr><td>AmountCurrencyExchangeRate</td><td><input type="text" id="dataInput_AmountCurrencyExchangeRate" value=1></td></tr>';
-            echo       '<tr><td>FundSource_RefID</td><td><input type="text" id="dataInput_FundSource_RefID" value=167000000000001></td></tr>';
+            echo       '<tr><td>PaymentFundingSource_RefID</td><td><input type="text" id="dataInput_PaymentFundingSource_RefID" value=167000000000001></td></tr>';
+            echo       '<tr><td>PaymentFundingDestination_RefID</td><td><input type="text" id="dataInput_PaymentFundingDestination_RefID" value=""></td></tr>';
             echo       '<tr><td>PaidDateTimeTZ</td><td><input type="text" id="dataInput_PaidDateTimeTZ" value=""></td></tr>';
             echo       '<tr><td>PayerWorkerJobsPosition_RefID</td><td><input type="text" id="dataInput_PayerWorkerJobsPosition_RefID" value=164000000000497></td></tr>';
             echo       '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value="Catatan"></td></tr>';
@@ -104,14 +106,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
             $varJQueryFunction =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                    //-----[ HEADER ]-----( START )-----
+                    //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                         $varAPIWebToken, 
                         'transaction.update.finance.setPaymentFunding', 
                         'latest',
-                    //-----[ HEADER ]-----( END )-----
+                    //-----[ METADATA ]-----(  END  )-----
 
-                    //-----[ BODY ]-----( START )-----
+                    //-----[ DATA ]-----( START )-----
                         '{'.
                         '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                         '"entities" : {'.
@@ -121,13 +123,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             '"amountCurrency_RefID" : parseInt(document.getElementById("dataInput_AmountCurrency_RefID").value), '.
                             '"amountCurrencyValue" : parseFloat(document.getElementById("dataInput_AmountCurrencyValue").value), '.
                             '"amountCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_AmountCurrencyExchangeRate").value), '.
-                            '"fundSource_RefID" : parseInt(document.getElementById("dataInput_FundSource_RefID").value), '.
+                            '"paymentFundingSource_RefID" : parseInt(document.getElementById("dataInput_PaymentFundingSource_RefID").value), '.
+                            '"paymentFundingDestination_RefID" : parseInt(document.getElementById("dataInput_PaymentFundingDestination_RefID").value), '.
                             '"paidDateTimeTZ" : document.getElementById("dataInput_PaidDateTimeTZ").value, '.
                             '"payerWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_PayerWorkerJobsPosition_RefID").value), '.
                             '"remarks" : document.getElementById("dataInput_Remarks").value'.
                             '}'.
                         '}'
-                    //-----[ BODY ]-----( END )-----
+                    //-----[ DATA ]-----(  END  )-----
                     ); 
 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";

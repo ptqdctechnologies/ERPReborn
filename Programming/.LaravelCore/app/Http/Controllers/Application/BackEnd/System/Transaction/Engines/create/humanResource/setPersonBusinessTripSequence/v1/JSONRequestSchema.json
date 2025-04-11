@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -39,6 +44,11 @@
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 32767
+                        },
+                    "log_FileUpload_Pointer_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         },
                     "requesterWorkerJobsPosition_RefID": {
                         "type": [ "integer", "null" ],
@@ -58,7 +68,22 @@
                         "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
                         "minLength": 10,
                         "maxLength": 30
-                        },  
+                        },
+                    "departurePoint": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 128
+                        },
+                    "destinationPoint": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 128
+                        },
+                    "reasonToTravel": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 256
+                        },
                     "businessTripAccommodationArrangementsType_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
@@ -119,31 +144,46 @@
                                                                 ]
                                                              }
                                                         },
-                                                    "required": [ "entities" ]
+                                                    "required": [
+                                                        "entities"
+                                                        ]
                                                     }
                                                 }
                                             },
-                                        "required": [ "items" ]
+                                        "required": [
+                                            "items"
+                                            ]
                                         }
                                     },
-                                "required": [ "itemList" ]
+                                "required": [
+                                    "itemList"
+                                    ]
                                 }
                             ]
                         }
                     },
                 "required": [ 
-                    "personBusinessTrip_RefID", 
-                    "sequence", 
-                    "requesterWorkerJobsPosition_RefID", 
-                    "startDateTimeTZ", 
-                    "finishDateTimeTZ", 
-                    "businessTripAccommodationArrangementsType_RefID", 
+                    "personBusinessTrip_RefID",
+                    "sequence",
+                    "log_FileUpload_Pointer_RefID",
+                    "requesterWorkerJobsPosition_RefID",
+                    "startDateTimeTZ",
+                    "finishDateTimeTZ",
+                    "departurePoint",
+                    "destinationPoint",
+                    "reasonToTravel",
+                    "businessTripAccommodationArrangementsType_RefID",
                     "remarks"
                     ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

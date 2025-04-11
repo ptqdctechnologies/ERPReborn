@@ -33,24 +33,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.create.humanResource.setPersonBusinessTripSequenceDetail',
-                'latest',
-                [
-                'entities' => [
-                    "personBusinessTripSequence_RefID" => 76000000000001,
-                    "businessTripCostComponentEntity_RefID" => 81000000000001,
-                    "amountCurrency_RefID" => 62000000000001,
-                    "amountCurrencyValue" => 30000,
-                    "amountCurrencyExchangeRate" => 1,
-                    "remarks" => 'Catatan'
-                    ]
-                ]
-                );
-            return $varData;
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'transaction.create.humanResource.setPersonBusinessTripSequenceDetail',
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]-----( START )-----
+                        [
+                        'entities' => [
+                            "personBusinessTripSequence_RefID" => 76000000000001,
+                            "businessTripCostComponentEntity_RefID" => 81000000000001,
+                            "amountCurrency_RefID" => 62000000000001,
+                            "amountCurrencyValue" => 30000,
+                            "amountCurrencyExchangeRate" => 1,
+                            "remarks" => 'Catatan'
+                            ]
+                        ]
+                    //-----[ DATA ]-----(  END  )-----
+                    );
+
+            return
+                $varData;
             }
 
 
