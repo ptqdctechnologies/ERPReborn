@@ -3445,6 +3445,57 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickListJSON_Advance_LatestVersion                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-10-16                                                                                           |
+        | ▪ Creation Date   : 2022-05-31                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Advance Versi Terakhir                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickListJSON_Advance_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataPickListJSON_Advance',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [FALSE, 'boolean']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataPickListJSON_Advance']
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReport_Form_DocumentForm_Advance                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
