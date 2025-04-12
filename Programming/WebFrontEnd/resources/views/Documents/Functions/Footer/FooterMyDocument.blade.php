@@ -58,7 +58,13 @@
             keys += 1;
             tableMyDocument.row.add([
                 no++,
-                `<a href="/ShowDocumentByID?formDocumentNumber_RefID=${val.entities.formDocumentNumber_RefID}&businessDocumentTypeName=${val.entities.businessDocumentTypeName}&businessDocument_RefID=${val.entities.businessDocument_RefID}" style="color: blue; text-decoration: underline;">${val.entities.businessDocumentNumber}</a>`,
+                `<form method="POST" action="{{ route('CheckDocument.ShowDocumentByID') }}" style="display:inline;">
+                    @csrf
+                    <input type="hidden" name="formDocumentNumber_RefID" value="${val.entities.formDocumentNumber_RefID}">
+                    <input type="hidden" name="businessDocumentTypeName" value="${val.entities.businessDocumentTypeName}">
+                    <input type="hidden" name="businessDocument_RefID" value="${val.entities.businessDocument_RefID}">
+                    <a href="javascript:;" onclick="this.closest('form').submit()" style="color: blue; text-decoration: underline; cursor: pointer;">${val.entities.businessDocumentNumber}</a>
+                </form>`,
                 val.entities.combinedBudgetCode[0],
                 val.entities.previousWorkFlowPathApproverName || '-',
                 dateMyDocument,
