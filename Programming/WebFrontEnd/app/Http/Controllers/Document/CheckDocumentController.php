@@ -236,15 +236,7 @@ class CheckDocumentController extends Controller
                 return ['status' => 'error'];
             }
 
-            if ($businessDocumentTypeName === "Delivery Order Form" && $collection[0]['DocumentNumber'] === "DO/QDC/2025/000029") {
-                $BusinessDocument_RefID = 74000000021235;
-            } else if ($businessDocumentTypeName === "Delivery Order Form" && $collection[0]['DocumentNumber'] === "DO/QDC/2025/000028") {
-                $BusinessDocument_RefID = 74000000021234;
-            } else if ($businessDocumentTypeName === "Delivery Order Form" && $collection[0]['DocumentNumber'] === "DO/QDC/2025/000027") {
-                $BusinessDocument_RefID = 74000000021233;
-            }
-
-            $workflowData   = $this->FetchWorkflowHistory($varAPIWebToken, $collection[0]['BusinessDocument_RefID'] ?? $BusinessDocument_RefID);
+            $workflowData   = $this->FetchWorkflowHistory($varAPIWebToken, $collection[0]['BusinessDocument_RefID']);
             $approverStatus = $this->DetermineApproverStatus($workflowData, $sourceData);
             $documentStatus = $this->DetermineDocumentStatus($workflowData);
 
@@ -258,9 +250,6 @@ class CheckDocumentController extends Controller
                 $statusHeader
             );
         } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            // return redirect()->route('CheckDocument.index')->with('NotFound', 'Process Error');
-
             $compact = [
                 'status' => "error"
             ];
@@ -450,30 +439,30 @@ class CheckDocumentController extends Controller
 
         // if (Redis::get("CheckDocumentTypeID" . $DocumentType) == null) {
         $varAPIWebToken = Session::get('SessionLogin');
-        Helper_APICall::setCallAPIGateway(
+        $varData = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'report.form.resume.master.getBusinessDocumentFilterByDocumentTypeID',
+            'dataPickList.master.getBusinessDocumentFormLatestVersion',
             'latest',
             [
                 'parameter' => [
-                    'recordID' => (int)$DocumentTypeID
+                    'businessDocumentType_RefID' => (int)$DocumentTypeID
                 ]
             ],
             false
         );
         // }
 
-        $varData = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "CheckDocumentTypeID" . $DocumentTypeID
-            ),
-            true
-        );
+        // $varData = json_decode(
+        //     Helper_Redis::getValue(
+        //         Helper_Environment::getUserSessionID_System(),
+        //         "CheckDocumentTypeID" . $DocumentTypeID
+        //     ),
+        //     true
+        // );
 
         $compact = [
-            "data" => $varData,
+            "data" => $varData['data'],
             "DocumentTypeName" => $DocumentTypeName
         ];
 
