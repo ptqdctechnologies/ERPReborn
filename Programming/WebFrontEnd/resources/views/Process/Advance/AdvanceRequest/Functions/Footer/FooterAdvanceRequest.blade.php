@@ -1,8 +1,13 @@
 <script>
-    var date            = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-    var currentURL      = window.location.href;
-    var documentTypeID  = $("#DocumentTypeID").val();
-    var bankNameInput   = document.getElementById("bank_name_second_name");
+    var date                = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+    var currentURL          = window.location.href;
+    var documentTypeID      = $("#DocumentTypeID").val();
+    var bankNameInput       = document.getElementById("bank_name_second_name");
+    var siteCode            = document.getElementById("site_code_second");
+    var requester           = document.getElementById("worker_name_second");
+    var beneficiary         = document.getElementById("beneficiary_second_person_name");
+    var tableAdvanceList    = document.querySelector("#tableAdvanceList tbody");
+    var submitArf           = document.getElementById("submitArf");
 
     $(".loadingBudgetDetails").hide();
     $(".errorMessageContainerBudgetDetails").hide();
@@ -13,6 +18,26 @@
     $("#myBankAccountTrigger").prop("disabled", true);
     $("#var_date").val(date);
     $("#submitArf").prop("disabled", true);
+
+    function checkTableDataARF() {
+        const isSiteCodeNotEmpty = siteCode.value.trim() !== '';
+        const isRequesterNotEmpty = requester.value.trim() !== '';
+        const isBeneficiaryNotEmpty = beneficiary.value.trim() !== '';
+        const isTableNotEmpty = tableAdvanceList.rows.length > 0;
+
+        if (isSiteCodeNotEmpty && isRequesterNotEmpty && isBeneficiaryNotEmpty && isTableNotEmpty) {
+            submitArf.disabled = false;
+        } else {
+            submitArf.disabled = true;
+        }
+    }
+
+    const observerTableAdvanceList = new MutationObserver(checkTableDataARF);
+    observerTableAdvanceList.observe(tableAdvanceList, { childList: true });
+
+    siteCode.addEventListener('input', checkTableDataARF);
+    requester.addEventListener('input', checkTableDataARF);
+    beneficiary.addEventListener('input', checkTableDataARF);
 
     function getBudgetDetails(site_code) {
         $.ajaxSetup({
@@ -316,7 +341,7 @@
 
         $("#myWorkerSecondTrigger").prop("disabled", false);
         $("#myBeneficiarySecondTrigger").prop("disabled", false);
-        $("#submitArf").prop("disabled", false);
+        // $("#submitArf").prop("disabled", false);
 
         getBudgetDetails(sysId);
         $(".loadingBudgetDetails").show();
@@ -593,6 +618,10 @@
                 CancelNotif("Data Cancel Inputed", '/AdvanceRequest?var=1');
             }
         });
+    });
+
+    $(window).one('load', function(e) {
+        checkTableDataARF();
     });
 
     const observer = new MutationObserver(() => {
