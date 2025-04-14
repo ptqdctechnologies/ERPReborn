@@ -1095,6 +1095,39 @@ class FunctionController extends Controller
         }
     }
 
+    public function getPurchaseRequisitionList(Request $request) 
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $userSession    = Helper_Environment::getUserSessionID_System();
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                $userSession,
+                $varAPIWebToken, 
+                'transaction.read.dataList.supplyChain.getPurchaseRequisition', 
+                'latest', 
+                [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getPurchaseRequisitionList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function getPurchaseOrderList(Request $request) 
     {
         try {

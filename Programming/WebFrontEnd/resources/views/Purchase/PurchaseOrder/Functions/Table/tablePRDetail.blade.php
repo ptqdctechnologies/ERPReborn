@@ -23,9 +23,7 @@
         
             </tr>
         </thead>
-        <tbody>
-            
-        </tbody>
+        <tbody></tbody>
     </table>
 </div>
 
@@ -66,32 +64,24 @@
 </div>
 <div class="card-body tableShowHidePRDetail" >
     <table style="float:right;">
-        <!-- @if($statusRevisi == 1)
-            <tr>
-                <th style="position: relative;right:20px;"> Total Request: <span id="TotalBudgetSelected">0.00</span></th>
-            </tr>
-            <tr>
-                <th style="position: relative;right:20px;"> PPN: <span id="TotalPpn">0.00</span></th>
-            </tr>
-            <tr>
-                <th style="position: relative;right:20px;"> Total Request + PPN: <span id="TotalBudgetSelectedPpn">0.00</span></th>
-            </tr>
-        @endif -->
+        <tr>
+            <th style="position: relative;right:20px;"> Total Request: <span id="TotalBudgetSelected">0.00</span></th>
+        </tr>
+        <tr>
+            <th style="position: relative;right:20px;"> PPN: <span id="TotalPpn">0.00</span></th>
+        </tr>
+        <tr>
+            <th style="position: relative;right:20px;"> Total Request + PPN: <span id="TotalBudgetSelectedPpn">0.00</span></th>
+        </tr>
         <tr>
             <td>
                 <br>
-                @if($statusRevisi == 1)
-                    <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                    </a>
-                @else
-                    <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Purchase List"> Add
-                    </a>
-                    <a class="btn btn-default btn-sm float-right" onclick="ResetBudget()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
-                    </a>
-                @endif
+                <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs()" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Purchase List"> Add
+                </a>
+                <a class="btn btn-default btn-sm float-right" onclick="ResetBudget()" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
+                </a>
             </td>
         </tr>
     </table>

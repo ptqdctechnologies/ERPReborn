@@ -21,7 +21,7 @@ $varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzQ0NDgxNTQxfQ.ZGY3YzMwMzNjMzc0ZWJiOGE3Y2M3NjVlMGViZjA5N2YzMjc5N2EwODBhMzlmYmQ5NjM4MzMzMWMyMTJkY2Q4Ng';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzQ0NTk4MTA5fQ.MGEwY2U3NDJlZDRhOTM5NjM0YzliOTdjM2QxY2EyNTAzZjg4MmU0NzVhNTY5ZmMwNGI5Y2UyMzI3ZDY5ZWQ2NA';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -175,6 +175,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getAdvance', 'Function\FunctionController@getAdvance')->name('getAdvance');
     Route::get('getAdvanceDetail', 'Function\FunctionController@getAdvanceDetail')->name('getAdvanceDetail');
     Route::get('getDeliveryOrderList', 'Function\FunctionController@getDeliveryOrderList')->name('getDeliveryOrderList');
+    Route::get('getPurchaseRequisitionList', 'Function\FunctionController@getPurchaseRequisitionList')->name('getPurchaseRequisitionList');
     Route::get('getPurchaseOrderList', 'Function\FunctionController@getPurchaseOrderList')->name('getPurchaseOrderList');
     Route::get('getPurchaseOrderDetail', 'Function\FunctionController@getPurchaseOrderDetail')->name('getPurchaseOrderDetail');
     Route::get('getBusinessTripCostComponentEntityNew', 'Function\FunctionController@getBusinessTripCostComponentEntityNew')->name('getBusinessTripCostComponentEntityNew');
