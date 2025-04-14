@@ -1129,6 +1129,42 @@ class FunctionController extends Controller
         }
     }
 
+    public function getPurchaseRequisitionDetail(Request $request)
+    {
+        try {
+            $varAPIWebToken             = Session::get('SessionLogin');
+            $userSession                = Helper_Environment::getUserSessionID_System();
+            $purchase_requisition_id    = $request->input('purchase_requisition_id');
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail', 
+                'latest', 
+                [
+                'parameter' => [
+                    'purchaseRequisition_RefID' => (int) $purchase_requisition_id
+                    ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getPurchaseRequisitionDetail: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function getPaymentTerm(Request $request)
     {
         try {

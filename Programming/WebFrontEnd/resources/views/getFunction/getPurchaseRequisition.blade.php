@@ -74,8 +74,6 @@
             success: function(data) {
                 $(".loadingGetModalPurchaseRequisition").hide();
 
-                console.log('data', data);
-
                 var no = 1;
                 var table = $('#tableGetModalPurchaseRequisition').DataTable();
                 table.clear();

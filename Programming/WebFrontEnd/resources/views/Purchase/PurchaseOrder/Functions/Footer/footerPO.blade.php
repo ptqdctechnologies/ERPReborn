@@ -1,4 +1,5 @@
 <script>
+    const msrIDList = [];
     const ppn = document.getElementById('ppn');
     const downPaymentValue = document.getElementById('downPaymentValue');
     
@@ -17,6 +18,8 @@
     });
 
     $('#containerValuePPN').hide();
+    $(".loadingPurchaseOrderTable").hide();
+    $(".errorPurchaseOrderTable").hide();
     
     function getPaymentTerm() {
         $('#containerSelectTOP').hide();
@@ -85,6 +88,41 @@
             }
         });
     }
+
+    function getDetailPurchaseRequisition(purchase_requisition_id) {
+        $("#tablePurchaseOrderDetail tbody").hide();
+        $(".loadingPurchaseOrderTable").show();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getPurchaseRequisitionDetail") !!}?purchase_requisition_id=' + purchase_requisition_id,
+            success: function(data) {
+                $(".loadingPurchaseOrderTable").hide();
+                console.log('data getPurchaseRequisitionDetail', data);
+            },
+            error: function (textStatus, errorThrown) {
+                console.log('error', textStatus, errorThrown);
+            }
+        });
+    }
+
+    $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function() {
+        var sysId = $(this).find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
+        var checkDoubleMsrID    = msrIDList.includes(sysId);
+
+        if (checkDoubleMsrID) {
+            Swal.fire("Error", "MSR number has been selected !", "error");
+        } else {
+            msrIDList.push(sysId);
+            getDetailPurchaseRequisition(sysId);
+        }
+    });
 
     $(window).one('load', function(e) {
         getPaymentTerm();

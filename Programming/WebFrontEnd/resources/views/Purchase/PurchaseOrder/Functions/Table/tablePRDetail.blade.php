@@ -1,5 +1,5 @@
-<div class="wrapper-budget card-body table-responsive p-0 tableShowHidePRDetail"  style="height: 230px;" id="tableShowHidePRDetail">
-    <table class="table table-head-fixed text-nowrap table-striped TablePRDetail">
+<div class="wrapper-budget card-body table-responsive p-0"  style="height: 230px;" id="tablePurchaseOrderDetail">
+    <table class="table table-head-fixed text-nowrap table-striped">
         <thead>
             <tr>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">PR Number</th>
@@ -11,10 +11,6 @@
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Unit Price</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
-                @if($statusRevisi == 1)
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total Payment</th>
-                @endif
-                
                 <th class="sticky-col fifth-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Qty Req</th>
                 <th class="sticky-col forth-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price Req</th>
                 <th class="sticky-col third-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>
@@ -24,6 +20,27 @@
             </tr>
         </thead>
         <tbody></tbody>
+        <tfoot>
+            <tr class="loadingPurchaseOrderTable">
+                <td colspan="15" class="p-0" style="height: 12.3rem;">
+                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                            Loading...
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="errorPurchaseOrderTable">
+                <td colspan="15" class="p-0" style="height: 12.3rem;">
+                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                        <div id="errorPurchaseOrderMessageTable" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;">Error</div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 
