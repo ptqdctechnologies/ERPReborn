@@ -176,6 +176,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getAdvanceDetail', 'Function\FunctionController@getAdvanceDetail')->name('getAdvanceDetail');
     Route::get('getDeliveryOrderList', 'Function\FunctionController@getDeliveryOrderList')->name('getDeliveryOrderList');
     Route::get('getPurchaseRequisitionList', 'Function\FunctionController@getPurchaseRequisitionList')->name('getPurchaseRequisitionList');
+    Route::get('getPaymentTerm', 'Function\FunctionController@getPaymentTerm')->name('getPaymentTerm');
+    Route::get('getVAT', 'Function\FunctionController@getVAT')->name('getVAT');
     Route::get('getPurchaseOrderList', 'Function\FunctionController@getPurchaseOrderList')->name('getPurchaseOrderList');
     Route::get('getPurchaseOrderDetail', 'Function\FunctionController@getPurchaseOrderDetail')->name('getPurchaseOrderDetail');
     Route::get('getBusinessTripCostComponentEntityNew', 'Function\FunctionController@getBusinessTripCostComponentEntityNew')->name('getBusinessTripCostComponentEntityNew');

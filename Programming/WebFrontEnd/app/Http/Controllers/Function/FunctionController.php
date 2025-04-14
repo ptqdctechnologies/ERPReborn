@@ -343,7 +343,7 @@ class FunctionController extends Controller
     {
         $varAPIWebToken = Session::get('SessionLogin');
 
-        if (Redis::get("Supplier") == null) {
+        // if (Redis::get("Supplier") == null) {
 
             $varAPIWebToken = Session::get('SessionLogin');
             $varData = Helper_APICall::setCallAPIGateway(
@@ -362,17 +362,18 @@ class FunctionController extends Controller
                 ],
                 false
             );
-        }
 
-        $DataSupplier = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "Supplier"
-            ),
-            true
-        );
+        // }
 
-        return response()->json($DataSupplier);
+        // $DataSupplier = json_decode(
+        //     Helper_Redis::getValue(
+        //         Helper_Environment::getUserSessionID_System(),
+        //         "Supplier"
+        //     ),
+        //     true
+        // );
+
+        return response()->json($varData['data']);
     }
 
     // FUNCTION DELIVER TO
@@ -1124,6 +1125,72 @@ class FunctionController extends Controller
             return response()->json($varData['data']['data']);
         } catch (\Throwable $th) {
             Log::error("Error at getPurchaseRequisitionList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function getPaymentTerm(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $userSession    = Helper_Environment::getUserSessionID_System();
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataList.master.getPaymentTerm', 
+                'latest', 
+                [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getPaymentTerm: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function getVAT(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $userSession    = Helper_Environment::getUserSessionID_System();
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                $userSession,
+                $varAPIWebToken,
+                'transaction.read.dataList.taxation.getVat',
+                'latest',
+                [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getVAT: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }

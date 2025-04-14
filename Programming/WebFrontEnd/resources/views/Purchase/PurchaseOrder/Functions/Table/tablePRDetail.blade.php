@@ -44,16 +44,21 @@
                 </table>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" id="containerValuePPN">
             <div class="form-group">
                 <table>
                     <tr>
                         <td><label>PPN(%)</label></td>
-                        <td style="border:1px solid #e9ecef;">
-                            <select name="ppn_persen" id="ppn_persen" style="border-radius:0;" type="text" class="form-control">
-                                <option value="">Select</option>
-                                <option value="1">1%</option>
-                                <option value="11">11%</option>
+                        <td id="containerLoadingPPN">
+                            <div class="d-flex flex-column justify-content-center py-3">
+                                <div class="spinner-border spinner-border-sm" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td id="containerSelectPPN" style="border:1px solid #e9ecef;">
+                            <select name="vatValue" id="vatOption" style="border-radius:0;" type="text" class="form-control">
+                                <option disabled selected>Select a PPN</option>
                             </select>
                         </td>
                     </tr>
