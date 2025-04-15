@@ -98,7 +98,7 @@
         });
     }
 
-    function calculateTotal() {    
+    function calculateTotal() {
         var total   = 0;
         document.querySelectorAll('input[id^="total_req"]').forEach(function(input) {
             let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
@@ -147,6 +147,15 @@
                     $.each(data, function(key, val2) {
                         let row = `
                             <tr>
+                                <input id="msr_number${indexPurchaseOrder}" value="${purchase_requisition_number}" type="hidden" />
+                                <input id="product_code${indexPurchaseOrder}" value="${val2.product_RefID}" type="hidden" />
+                                <input id="product_name${indexPurchaseOrder}" value="${val2.productName}" type="hidden" />
+                                <input id="qty_msr${indexPurchaseOrder}" value="${val2.quantity}" type="hidden" />
+                                <input id="qty_available${indexPurchaseOrder}" value="${val2.quantity}" type="hidden" />
+                                <input id="uom${indexPurchaseOrder}" value="${val2.quantityUnitName}" type="hidden" />
+                                <input id="unit_price${indexPurchaseOrder}" value="${val2.productUnitPriceBaseCurrencyValue}" type="hidden" />
+                                <input id="currency${indexPurchaseOrder}" value="${val2.priceCurrencyISOCode}" type="hidden" />
+
                                 ${key === 0 ? modifyColumn : ''}
                                 <td style="text-align: center; padding: 10px !important;">${val2.sys_ID}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productName}</td>
@@ -169,7 +178,7 @@
                                     <input class="form-control number-without-negative" id="balance${indexPurchaseOrder}" data-default="" autocomplete="off" style="border-radius:0px;" disabled />
                                 </td>
                                 <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
-                                    <textarea id="note${indexPurchaseOrder}" class="form-control"></textarea>
+                                    <textarea id="note${indexPurchaseOrder}" data-default="" class="form-control"></textarea>
                                 </td>
                             </tr>
                         `;
@@ -245,6 +254,95 @@
             msrIDList.push(sysId);
             getDetailPurchaseRequisition(trano, sysId);
         }
+    });
+
+    $('#purchase-details-add').on('click', function() {
+        $("#tablePurchaseOrderDetail tbody tr").each(function(index) {
+            var msrNumber       = $(this).find(`input[id="msr_number${index}"]`).val();
+            var productCode     = $(this).find(`input[id="product_code${index}"]`).val();
+            var productName     = $(this).find(`input[id="product_name${index}"]`).val();
+            var qtyMSR          = $(this).find(`input[id="qty_msr${index}"]`).val();
+            var qtyAvailable    = $(this).find(`input[id="qty_available${index}"]`).val();
+            var uom             = $(this).find(`input[id="uom${index}"]`).val();
+            var unitPrice       = $(this).find(`input[id="unit_price${index}"]`).val();
+            var currency        = $(this).find(`input[id="currency${index}"]`).val();
+            var priceReq        = $(this).find(`input[id="price_req${index}"]`).val();
+            var qtyReq          = $(this).find(`input[id="qty_req${index}"]`).val();
+            var totalReq        = $(this).find(`input[id="total_req${index}"]`).val();
+            var remark          = $(this).find(`textarea[id="note${index}"]`).val();
+
+            if (!qtyReq && !priceReq) {
+                return;
+            }
+
+            var rowToUpdate = null;
+
+            $("#tablePurchaseOrderList tbody tr").each(function() {
+                var existingMSRNumber   = $(this).find("td:eq(0)").text();
+                var existingProductCode = $(this).find("td:eq(1)").text();
+                var existingProductName = $(this).find("td:eq(2)").text();
+                var existingUOM         = $(this).find("td:eq(3)").text();
+                var existingCurrency    = $(this).find("td:eq(4)").text();
+
+                if (existingMSRNumber === msrNumber) {
+                    if (existingProductCode === productCode && existingProductName === productName && existingUOM === uom && existingCurrency === currency) {
+                        rowToUpdate = $(this);
+                    }
+                }
+            });
+
+            if (rowToUpdate) {
+                rowToUpdate.find("td:eq(5)").text(priceReq);
+                rowToUpdate.find("td:eq(6)").text(qtyReq);
+                rowToUpdate.find("td:eq(7)").text(totalReq);
+                rowToUpdate.find("td:eq(8)").text(remark);
+            } else {
+                var newRow = `
+                    <tr>
+                        <td style="text-align: center; padding: 0.8rem 0px;">${msrNumber}</td>
+                        <td style="text-align: center; padding: 0.8rem 0px;">${productCode}</td>
+                        <td style="text-align: center; padding: 0.8rem 0px; text-wrap: auto;">${productName}</td>
+                        <td style="text-align: center; padding: 0.8rem 0px;">${uom}</td>
+                        <td style="text-align: center; padding: 0.8rem 0px;">${currency}</td>
+                        <td style="text-align: center; padding: 0.8rem 0px;">${currencyTotal(priceReq)}</td>
+                        <td style="text-align: center; padding: 0.8rem 0px;">${currencyTotal(qtyReq)}</td>
+                        <td style="text-align: center; padding: 0.8rem 0px;">${currencyTotal(totalReq)}</td>
+                        <td style="text-align: center; padding: 0.8rem 0px;">${remark || '-'}</td>
+                    </tr>
+                `;
+
+                $("#tablePurchaseOrderList").find("tbody").append(newRow);
+            }
+        });
+
+        document.getElementById('GrandTotal').textContent = TotalBudgetSelectedPpn.textContent;
+    });
+
+    $('#purchase-details-reset').on('click', function() {
+        $('input[id^="qty_req"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="price_req"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="total_req"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('input[id^="balance"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('textarea[id^="note"]').each(function() {
+            $(this).val($(this).data('default'));
+        });
+        $('#tablePurchaseOrderList tbody').empty();
+        $('#vatOption').val('Select a PPN');
+        $('#ppn').val('No');
+        $('#containerValuePPN').hide();
+
+        document.getElementById('TotalPpn').textContent = "0.00";
+        document.getElementById('TotalBudgetSelected').textContent = "0.00";
+        document.getElementById('TotalBudgetSelectedPpn').textContent = "0.00";
+        document.getElementById('GrandTotal').textContent = "0.00";
     });
 
     $(document).on('input', '.number-without-negative', function() {
