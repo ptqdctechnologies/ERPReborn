@@ -178,11 +178,11 @@
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col">
-                <a onclick="CancelAdvance()" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                <a onclick="CancelPurchaseOrder()" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Purchase Order List Cart"> Cancel
                 </a>
 
-                <button class="btn btn-default btn-sm float-right" type="submit" id="submitPurchaseOrder" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <button class="btn btn-default btn-sm float-right" type="submit" id="submitPurchaseOrder" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;" disabled>
                   <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Purchase Order"> Submit
                 </button>
               </div>

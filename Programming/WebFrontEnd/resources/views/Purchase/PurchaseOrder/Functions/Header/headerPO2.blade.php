@@ -29,7 +29,7 @@
             <td style="padding-top: 12px;"><label>Delivery To</label></td>
             <td style="border:1px solid #e9ecef;">
               <div class="input-group">
-                <textarea name="" id="" cols="30" rows="4" class="form-control"></textarea>
+                <textarea name="delivery_to" id="delivery_to" cols="30" rows="4" class="form-control"></textarea>
               </div>
             </td>
           </tr>

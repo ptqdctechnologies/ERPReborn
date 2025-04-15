@@ -3,11 +3,18 @@
     var totalPurchaseOrder          = 0;
     var vat                         = document.getElementById("vatOption");
     const msrIDList                 = [];
+    const msrNumber                 = document.getElementById("modal_purchase_requisition_document_number");
+    const deliveryTo                = document.getElementById("delivery_to");
+    const supplierCode              = document.getElementById("supplier_code");
+    const dataInput_Log_FileUpload  = document.getElementById("dataInput_Log_FileUpload");
     const ppn                       = document.getElementById('ppn');
     const TotalBudgetSelecteds      = document.getElementById('TotalBudgetSelected');
     const TotalBudgetSelectedPpn    = document.getElementById('TotalBudgetSelectedPpn');
     const TotalPpns                 = document.getElementById('TotalPpn');
     const downPaymentValue          = document.getElementById('downPaymentValue');
+    const termOfPaymentOption       = document.getElementById('termOfPaymentOption');
+    const tablePurchaseOrderLists   = document.querySelector("#tablePurchaseOrderList tbody");
+    const submitPurchaseOrder       = document.getElementById("submitPurchaseOrder");
     
     downPaymentValue.addEventListener('input', function () {
         let value = parseInt(this.value);
@@ -29,6 +36,32 @@
     $('#containerValuePPN').hide();
     $(".loadingPurchaseOrderTable").hide();
     $(".errorPurchaseOrderTable").hide();
+
+    function checkTableDataPO() {
+        const isMSRNumberNotEmpty                   = msrNumber.value.trim() !== '';
+        const isDeliveryToNotEmpty                  = deliveryTo.value.trim() !== '';
+        const isSupplierCodeNotEmpty                = supplierCode.value.trim() !== '';
+        const isDownPaymentValueNotEmpty            = downPaymentValue.value.trim() !== '';
+        const isTermOfPaymentOptionValueNotEmpty    = termOfPaymentOption.value.trim() !== 'Select a TOP';
+        const isFileUploadNotEmpty                  = dataInput_Log_FileUpload.value.trim() !== '';
+        const isTableNotEmpty                       = tablePurchaseOrderLists.rows.length > 0;
+
+        if (isMSRNumberNotEmpty && isDeliveryToNotEmpty && isSupplierCodeNotEmpty && isDownPaymentValueNotEmpty && isTermOfPaymentOptionValueNotEmpty && isFileUploadNotEmpty && isTableNotEmpty) {
+            submitPurchaseOrder.disabled = false;
+        } else {
+            submitPurchaseOrder.disabled = true;
+        }
+    }
+
+    const observertablePurchaseOrderList = new MutationObserver(checkTableDataPO);
+    observertablePurchaseOrderList.observe(tablePurchaseOrderLists, { childList: true });
+
+    msrNumber.addEventListener('input', checkTableDataPO);
+    deliveryTo.addEventListener('input', checkTableDataPO);
+    supplierCode.addEventListener('input', checkTableDataPO);
+    downPaymentValue.addEventListener('input', checkTableDataPO);
+    termOfPaymentOption.addEventListener('change', checkTableDataPO);
+    dataInput_Log_FileUpload.addEventListener('input', checkTableDataPO);
     
     function getPaymentTerm() {
         $('#containerSelectTOP').hide();
@@ -241,6 +274,11 @@
                 console.log('error', textStatus, errorThrown);
             }
         });
+    }
+
+    function CancelPurchaseOrder() {
+        ShowLoading();
+        window.location.href = '/PurchaseOrder?var=1';
     }
 
     $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function() {
