@@ -71,6 +71,10 @@ class DeliveryOrderController extends Controller
                         "requesterWorkerJobsPosition_RefID" => null,
                         "remarks"                           => $deliveryOrderData['storeData']['var_remark'],
                         "transporter_RefID"                 => (int) $deliveryOrderData['storeData']['transporter_id'],
+                        "deliveryFrom_RefID"                => null,
+                        "deliveryFromManualAddress"         => $deliveryOrderData['storeData']['delivery_from'],
+                        "deliveryTo_RefID"                  => null,
+                        "deliveryToManualAddress"           => $deliveryOrderData['storeData']['delivery_to'],
                         "additionalData"                    => [
                             "itemList"                      => [
                                 "items"                     => $transformedDetails

@@ -83,7 +83,7 @@
                         keys += 1;
                         table.row.add([
                             '<input id="sys_id_modal_purchase_requisition' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_purchase_requisition" type="hidden">' + no++,
-                            val.documentNumber || '-',
+                            '<input id="sys_id_combinedBudget_purchase_requisition' + keys + '" value="' + val.combinedBudget_RefID + '" data-trigger="sys_id_combinedBudget_purchase_requisition" type="hidden">' + val.documentNumber || '-',
                             val.combinedBudgetCode || '-',
                             val.combinedBudgetName || '-',
                             val.combinedBudgetSectionCode || '-',

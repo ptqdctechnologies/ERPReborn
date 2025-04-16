@@ -383,6 +383,65 @@
         document.getElementById('GrandTotal').textContent = "0.00";
     });
 
+    $("#FormSubmitPurchaseOrder").on("submit", function(e) {
+        e.preventDefault();
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "Save this data?",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+            confirmButtonColor: '#e9ecef',
+            cancelButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var action = $(this).attr("action");
+                var method = $(this).attr("method");
+                var form_data = new FormData($(this)[0]);
+
+                ShowLoading();
+
+                $.ajax({
+                    url: action,
+                    dataType: 'json',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    type: method,
+                    success: function(response) {
+                        console.log('response', response);
+                    },
+                    error: function(response) {
+                        console.log('response error', response);
+                        
+                        HideLoading();
+                        $("#submitPurchaseOrder").prop("disabled", false);
+                        CancelNotif("You don't have access", '/PurchaseOrder?var=1');
+                    }
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                HideLoading();
+                CancelNotif("Data Cancel Inputed", '/PurchaseOrder?var=1');
+            }
+        });
+    });
+
+    $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function() {
+        var combinedBudget = $(this).find('input[data-trigger="sys_id_combinedBudget_purchase_requisition"]').val();
+
+        $("#var_combinedBudget_RefID").val(combinedBudget);
+    });
+
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);
     });
