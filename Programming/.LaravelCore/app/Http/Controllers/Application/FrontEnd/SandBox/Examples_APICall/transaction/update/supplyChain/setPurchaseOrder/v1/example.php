@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.supplyChain.setPurchaseOrder.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-27                                                                                           |
+        | ▪ Last Update     : 2025-04-16                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -51,6 +51,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "deliveryDestination_RefID" => 173000000000001,
                             "supplierInvoiceBillingPurpose_RefID" => 189000000000001,
                             "remarks" => 'important message 1',
+                            "deliveryDestinationManualAddress" => 'Jl. Jend. Sudirman No. 1 Jakarta',
+                            "paymentNotes" => 'My Payment Notes 1',
+                            "internalNotes" => 'My Internal Notes 1',
+                            "downPayment" => 20,
+                            "termOfPayment_RefID" => 174000000000001,
                             "additionalData" => [
                                 "itemList" => [
                                     "items" => [
@@ -86,7 +91,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             ],
                                         ]
                                     ],
-                                "taxes" => [
+                                "transactionTaxItemList" => [
                                     "items" => [
                                             [
                                             "recordID" => 185000000000001,
@@ -110,7 +115,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             ]
                                         ]
                                     ],
-                                "additionalCost" => [
+                                "additionalCostItemList" => [
                                     "items" => [
                                             [
                                             "recordID" => 191000000000001,
