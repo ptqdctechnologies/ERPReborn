@@ -46,94 +46,14 @@ class BusinessTripRequestController extends Controller
 
     public function store(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        $TransportationTypeID = array_map('intval', explode(',', $input['TransportTypeApplicable']));
-        $detailBrf = [];
-
-        //DETAIL
-        $count_product = count($input['var_product_id']);
-        for($n =0; $n < $count_product; $n++){
-            $detailBrf[$n] = [
-                [
-                'entities' => [
-                    'businessTripCostComponentEntity_RefID' => 81000000000001,
-                    'amountCurrency_RefID' => (int)$input['var_currency_id'][$n],
-                    'amountCurrencyValue' => (int)$input['var_allowance'][$n],
-                    'amountCurrencyExchangeRate' => 1,
-                    'remarks' => ''                                    
-                    ]                                   
-                ],
-                [
-                'entities' => [
-                    'businessTripCostComponentEntity_RefID' => 81000000000003,
-                    'amountCurrency_RefID' => (int)$input['var_currency_id'][$n],
-                    'amountCurrencyValue' => (int)$input['var_accomodation'][$n],
-                    'amountCurrencyExchangeRate' => 1,
-                    'remarks' => ''                                    
-                    ]                                   
-                ],
-                [
-                'entities' => [
-                    'businessTripCostComponentEntity_RefID' => 81000000000004,
-                    'amountCurrency_RefID' => (int)$input['var_currency_id'][$n],
-                    'amountCurrencyValue' => (int)$input['var_other'][$n],
-                    'amountCurrencyExchangeRate' => 1,
-                    'remarks' => ''  
-                    ]
-                ],
-            ];
+            return response()->json($input);
+        } catch (\Throwable $th) {
+            Log::error("Store Business Trip Request Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
         }
-
-        // dd($detailBrf);
-
-        //HEADER
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.create.humanResource.setPersonBusinessTrip', 
-            'latest', 
-            [
-                'entities' => 
-                [
-                    "documentDateTimeTZ" => $input['var_date'],
-                    'combinedBudgetSectionDetail_RefID' => (int) $input['var_combinedBudgetSectionDetail_RefID'],
-                    'paymentDisbursementMethod_RefID' => (int) $input['paymentApplicable'],
-                    "additionalData" => [
-                        "itemList" => [
-                            'items' => [
-                                    [
-                                    'entities' => [
-                                        'sequence' => 1,
-                                        'requesterWorkerJobsPosition_RefID' => (int)$input['request_name_id'],
-                                        'startDateTimeTZ' => $input['dateCommance'],
-                                        'finishDateTimeTZ' => $input['dateEnd'],
-                                        'businessTripAccommodationArrangementsType_RefID' =>  (int)$input['accomodationArrange'],
-                                        'businessTripTransportationType_RefIDArray' => $TransportationTypeID,
-                                        'remarks' => 'Catatan',
-                                        'additionalData' => [
-                                            'itemList' => [
-                                                'items' =>  $detailBrf
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]                    
-        );
-
-        dd($varData);
-
-
-        // $compact = [
-        //     "brfnumber"=> $varData['data']['recordID'],
-        // ];
-
-        // return response()->json($compact); 
     }
     
     public function BusinessTripRequestListData(Request $request)

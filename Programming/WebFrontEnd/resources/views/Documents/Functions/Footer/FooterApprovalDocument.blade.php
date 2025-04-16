@@ -189,11 +189,11 @@
 
     // RE-SUBMIT
     $('.btn-resubmit').on('click', function() {
-        var advance_RefID = $('#advanceRefID').val();
+        var refID = $('#refID').val();
 
-        if (advance_RefID) {
+        if (refID) {
             ShowLoading();
-            window.location.href = '/RevisionAdvanceIndex?advance_RefID=' + advance_RefID;
+            $('#FormSubmitRevision').submit();
         } else {
             Swal.fire("Error", "ID Not Found.", "error");
         }

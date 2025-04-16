@@ -199,13 +199,12 @@
                                 <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                             </a>
 
-                            <button class="btn btn-default btn-sm float-right" type="submit" id="submitArf" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                            <button class="btn btn-default btn-sm float-right" type="submit" id="submitDO" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
                             </button>
                         </div>
                     </div>
                 </div>
-
                 </form>
             </div>
             @endif

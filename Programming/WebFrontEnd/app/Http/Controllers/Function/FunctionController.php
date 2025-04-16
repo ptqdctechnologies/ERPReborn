@@ -343,7 +343,7 @@ class FunctionController extends Controller
     {
         $varAPIWebToken = Session::get('SessionLogin');
 
-        if (Redis::get("Supplier") == null) {
+        // if (Redis::get("Supplier") == null) {
 
             $varAPIWebToken = Session::get('SessionLogin');
             $varData = Helper_APICall::setCallAPIGateway(
@@ -362,17 +362,18 @@ class FunctionController extends Controller
                 ],
                 false
             );
-        }
 
-        $DataSupplier = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "Supplier"
-            ),
-            true
-        );
+        // }
 
-        return response()->json($DataSupplier);
+        // $DataSupplier = json_decode(
+        //     Helper_Redis::getValue(
+        //         Helper_Environment::getUserSessionID_System(),
+        //         "Supplier"
+        //     ),
+        //     true
+        // );
+
+        return response()->json($varData['data']);
     }
 
     // FUNCTION DELIVER TO
@@ -1095,6 +1096,141 @@ class FunctionController extends Controller
         }
     }
 
+    public function getPurchaseRequisitionList(Request $request) 
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $userSession    = Helper_Environment::getUserSessionID_System();
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                $userSession,
+                $varAPIWebToken, 
+                'transaction.read.dataList.supplyChain.getPurchaseRequisition', 
+                'latest', 
+                [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getPurchaseRequisitionList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function getPurchaseRequisitionDetail(Request $request)
+    {
+        try {
+            $varAPIWebToken             = Session::get('SessionLogin');
+            $userSession                = Helper_Environment::getUserSessionID_System();
+            $purchase_requisition_id    = $request->input('purchase_requisition_id');
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail', 
+                'latest', 
+                [
+                'parameter' => [
+                    'purchaseRequisition_RefID' => (int) $purchase_requisition_id
+                    ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getPurchaseRequisitionDetail: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function getPaymentTerm(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $userSession    = Helper_Environment::getUserSessionID_System();
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataList.master.getPaymentTerm', 
+                'latest', 
+                [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getPaymentTerm: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function getVAT(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $userSession    = Helper_Environment::getUserSessionID_System();
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                $userSession,
+                $varAPIWebToken,
+                'transaction.read.dataList.taxation.getVat',
+                'latest',
+                [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getVAT: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function getPurchaseOrderList(Request $request) 
     {
         try {
@@ -1161,6 +1297,43 @@ class FunctionController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
+    public function getBusinessTripCostComponentEntityNew(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $userSession = Helper_Environment::getUserSessionID_System();
+            $varData = json_decode(Helper_Redis::getValue($userSession, "DataBusinessTripCostComponentEntityNew"), true);
+
+            if (empty($varData)) {
+                $varData = [
+                    ['name' => 'Taxi', 'value' => "221000000000026"],
+                    ['name' => 'Airplane', 'value' => "221000000000046"],
+                    ['name' => 'Train', 'value' => "221000000000043"],
+                    ['name' => 'Bus', 'value' => "221000000000039"],
+                    ['name' => 'Ship', 'value' => "221000000000050"],
+                    ['name' => 'Tol/Road', 'value' => "221000000000004"],
+                    ['name' => 'Park', 'value' => "221000000000005"],
+                    ['name' => 'Excess Baggage', 'value' => "221000000000006"],
+                    ['name' => 'Fuel', 'value' => "221000000000003"],
+                    ['name' => 'Hotel', 'value' => "276000000000002"],
+                    ['name' => 'Mess', 'value' => "276000000000005"],
+                    ['name' => 'Guest House', 'value' => "276000000000004"],
+                    ['name' => 'Accommodation', 'value' => "81000000000001"],
+                    ['name' => 'Entertainment', 'value' => "81000000000004"],
+                    ['name' => 'Other', 'value' => "81000000000005"],
+                ];
+
+                $this->syncDataWithRedis($varAPIWebToken, "DataBusinessTripCostComponentEntityNew", $varData, 300);
+            }
+
+            return response()->json($varData);
+        } catch (\Throwable $th) {
+            Log::error("Error at getBusinessTripCostComponentEntityNew: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
 
     // NITIP
     // $userSessionID = Helper_Environment::getUserSessionID_System();

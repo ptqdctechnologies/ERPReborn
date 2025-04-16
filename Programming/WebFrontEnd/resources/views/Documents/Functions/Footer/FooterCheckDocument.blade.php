@@ -1,7 +1,7 @@
-<script type="text/javascript">
-    var sourceData = <?= $sourceData ?>;
+<script>
+    var sourceData = document.getElementById('sourceData');
 
-    if (sourceData == 1) {
+    if (sourceData.value == 1) {
         $(".ShowDocumentList").show();
         $(".InternalNotes").show();
         $(".FileAttachment").show();
@@ -14,10 +14,72 @@
         $(".FileAttachment").hide();
         $(".ApprovalHistory").hide();
     }
-</script>
 
-<script>
-    $('.mySearchCheckDocument').one('click', function() {
+    function getListDocumentType(params) {
+        var keys                = 0;
+        var DocumentTypeID      = params.value;
+        var selectedOption      = $(params).find('option:selected');
+        var DocumentTypeName    = selectedOption.data('name');
+
+        $('#TableCheckDocument tbody').empty();
+        $(".loadingGetCheckDocument").show();
+        $(".errorModalCheckDocumentMessageContainerSecond").hide();
+        $("#TableCheckDocument_length").hide();
+        $("#TableCheckDocument_filter").hide();
+        $("#TableCheckDocument_info").hide();
+        $("#TableCheckDocument_paginate").hide();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentTypeID=' + DocumentTypeID + '&DocumentTypeName=' + DocumentTypeName,
+            success: function(data) {
+                $(".loadingGetCheckDocument").hide();
+
+                var no = 1;
+                var table = $('#TableCheckDocument').DataTable();
+                table.clear();
+
+                if (Array.isArray(data.data) && data.data.length > 0) {
+                    $.each(data.data, function(key, val) {
+                        keys += 1;
+                        table.row.add([
+                            '<input id="sys_id_check_document' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_check_document" type="hidden">' + no++,
+                            '<input id="sys_document_type_name' + keys + '" value="' + DocumentTypeName + '" data-trigger="sys_document_type_name" type="hidden">' + val.sys_Text || '-',
+                            val.combinedBudgetCode || '-',
+                            val.combinedBudgetSectionCode || '-',
+                        ]).draw();
+                    });
+
+                    $("#TableCheckDocument_length").show();
+                    $("#TableCheckDocument_filter").show();
+                    $("#TableCheckDocument_info").show();
+                    $("#TableCheckDocument_paginate").show();
+                } else {
+                    $(".errorModalCheckDocumentMessageContainerSecond").show();
+                    $("#errorModalCheckDocumentMessageSecond").text(`Data not found.`);
+
+                    $("#TableCheckDocument_length").hide();
+                    $("#TableCheckDocument_filter").hide();
+                    $("#TableCheckDocument_info").hide();
+                    $("#TableCheckDocument_paginate").hide();
+                }
+            },
+            error: function(textStatus, errorThrown) {
+                $('#TableCheckDocument tbody').empty();
+                $(".loadingGetCheckDocument").hide();
+                $(".errorModalCheckDocumentMessageContainerSecond").show();
+                $("#errorModalCheckDocumentMessageSecond").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            }
+        });
+    }
+
+    function getDocumentType() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -28,84 +90,36 @@
             type: 'GET',
             url: '{!! route("getDocumentType") !!}',
             success: function(data) {
-                $(".DocumentType").empty();
+                if (data && Array.isArray(data)) {
+                    $('#DocumentType').empty();
+                    $('#DocumentType').append('<option disabled selected>Select a Project Code</option>');
 
-                var option = "<option value='" + '' + "'>" + 'Select Document Type' + "</option>";
-                $(".DocumentType").append(option);
-
-                var len = data.length;
-                for (var i = 0; i < len; i++) {
-                    var ids = data[i].Sys_ID;
-                    var names = data[i].Name;
-                    var option2 = "<option value='" + ids + "'>" + names + "</option>";
-                    $(".DocumentType").append(option2);
+                    data.forEach(function(document) {
+                        $('#DocumentType').append('<option value="' + document.Sys_ID + '" data-name="' + document.Name + '">' + document.Name + '</option>');
+                    });
+                } else {
+                    console.log('Data document type not found.');
                 }
+            },
+            error: function(response) {
+                console.log('error: ', response);
+                
+                ErrorNotif("Error getDocumentType!");
             }
         });
+    }
+
+    $('#TableCheckDocument').on('click', 'tbody tr', function() {
+        var sysId       = $(this).find('input[data-trigger="sys_id_check_document"]').val();
+        var docTypeName = $(this).find('input[data-trigger="sys_document_type_name"]').val();
+        var trano       = $(this).find('td:nth-child(2)').text();
+
+        $("#businessDocument_RefID").val(sysId);
+        $("#businessDocumentType_Name").val(docTypeName);
+        $("#businessDocumentNumber").val(trano);
+
+        $('#mySearchCheckDocument').modal('hide');
     });
-</script>
-
-<script>
-    $('#DocumentType').on("select2:select", function(e) {
-
-        ShowLoading();
-
-        $('#TableCheckDocument').find('tbody').empty();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        var keys = 0;
-
-        // var DocumentTypeID = 77000000000057;
-        var DocumentTypeID = $('#DocumentType').val();
-        var e = document.getElementById("DocumentType");
-        var DocumentTypeName = e.options[e.selectedIndex].text;
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentTypeID=' + DocumentTypeID + '&DocumentTypeName=' + DocumentTypeName,
-            success: function(data) {
-                var no = 1;
-                t = $('#TableCheckDocument').DataTable();
-                t.clear().draw();
-                $.each(data.data, function(key, val) {
-                    keys += 1;
-                    t.row.add([
-                        '<tbody><tr><td><input id="businessDocument_RefID' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="DocumentTypeName" value="' + data.DocumentTypeName + '" type="hidden">' + no++ + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.DocumentNumber + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.CombinedBudgetCode + '-' + val.CombinedBudgetName + '</span></td>',
-                        '<td><span style="position:relative;left:10px;">' + val.CombinedBudgetSectionCode + '-' + val.CombinedBudgetSectionName + '</span></td></tr></tbody>',
-                    ]).draw();
-                });
-
-                HideLoading();
-            }
-        });
-    });
-</script>
-
-<script>
-    $('#TableCheckDocument tbody').on('click', 'tr', function() {
-
-        $("#mySearchCheckDocument").modal('toggle');
-
-        var row = $(this).closest("tr");
-        var documentNumber = row.find("td:nth-child(2)").text();
-        var id = row.find("td:nth-child(1)").text();
-        var businessDocument_RefID = $('#businessDocument_RefID' + id).val();
-        var DocumentTypeName = $('#DocumentTypeName').val();
-
-        $("#businessDocument_RefID").val(businessDocument_RefID);
-        $("#businessDocumentNumber").val(documentNumber);
-        $("#businessDocumentType_Name").val(DocumentTypeName);
-    });
-</script>
-
-<script>
 
     $('.ViewDocument').on('click', function() {
         $(".DocumentWorkflow").hide();
@@ -113,76 +127,13 @@
         $(".InternalNotes").show();
         $(".FileAttachment").show();
         $(".ApprovalHistory").show();
-
         $(".ViewDocument").hide();
     });
 
-</script>
+    $(window).one('load', function(e) {
+        $(".loadingGetCheckDocument").hide();
+        $(".errorModalCheckDocumentMessageContainerSecond").hide();
 
-<!-- VALIDATION IF FORM DOCUMENT NUMBER INPUTED, PURPOSE FOR DELETE DOCUMENT REF ID -->
-<script>
-    var triggered = 0;
-    $('#businessDocumentNumber').on('input', function() {
-        if (triggered == 0) {
-            $('#businessDocument_RefID').val("");
-            triggered++;
-        }
+        getDocumentType();
     });
-    $('#businessDocumentNumber').on('blur', function() {
-        // reset the triggered value to 0
-        triggered = 0;
-    });
-</script>
-
-<script>
-    $('#submit').on('click', function() {
-        ShowLoading();
-    });
-</script>
-
-
-<script>
-    function LogTransaction(id, docNum, docName) {
-        var page = 'http://localhost:20080/LogTransaction?id=' + id + '&docNum=' + docNum + '&docName=' + docName;
-        var myWindow = window.open(page, "_blank", "scrollbars=yes,width=400,height=500,top=300");
-
-    }
-</script>
-
-
-<script>
-    // function ShowFileAttachment(id) {
-
-    //     ShowLoading();
-    var id = $("#Sys_ID_Advance").val();
-
-    $(".ShowFileAttachment").hide();
-
-    $('#TableFileAttachment').find('tbody').empty();
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    var keys = 0;
-
-    $.ajax({
-        type: 'GET',
-        url: '{!! route("CheckDocument.FileAttachmentCheckDocument") !!}?businessDocumentForm_RefID=' + id,
-        success: function(data) {
-            if (data.status == 200) {
-                $.each(data.data, function(key, val) {
-                    var html = '<tr>' +
-                        '<td>' + '<a href="' + val.entities.downloadURL + '">' + val.entities.name + '</td>' +
-                        '</tr>';
-                    $('table.TableFileAttachment tbody').append(html);
-
-                });
-            }
-            HideLoading();
-        }
-    });
-    // }z
 </script>

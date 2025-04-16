@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.read.dataList.supplyChain.getDeliveryOrderDetail.v1_throughAPIGateway      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-03-27                                                                                           |
+        | ▪ Last Update     : 2025-04-10                                                                                           |
         | ▪ Creation Date   : 2025-03-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -40,7 +40,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'latest',
                     [
                     'parameter' => [
-                        'deliveryOrder_RefID' => 180000000000005
+                        'deliveryOrder_RefID' => 180000000000041
                         ],
                     'SQLStatement' => [
                         'pick' => null,

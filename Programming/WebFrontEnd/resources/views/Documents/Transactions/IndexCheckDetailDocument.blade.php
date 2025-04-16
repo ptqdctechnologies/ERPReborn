@@ -17,7 +17,18 @@
       <div class="card">
         <div class="tab-content p-3" id="nav-tabContent">
           <div class="row">
-            <input type="hidden" id="advanceRefID" name="advanceRefID" value="{{ $dataHeader[0]['Sys_ID_Advance'] }}" class="form-control" style="border-radius:0;">
+            <form 
+              method="post" 
+              action="{{ $title == 'ADVANCE FORM' ? route('AdvanceRequest.RevisionAdvanceIndex') : route('DeliveryOrder.RevisionDeliveryOrderIndex') }}" 
+              id="FormSubmitRevision">
+              @csrf
+
+              @if ($title == 'ADVANCE FORM')
+                <input type="hidden" id="refID" name="advance_RefID" value="76000000000539" class="form-control" style="border-radius:0;">
+              @else
+                <input type="hidden" id="refID" name="do_RefID" value="{{ $dataHeader[0]['DeliveryOrder_ID'] }}" class="form-control" style="border-radius:0;">
+              @endif
+            </form>
 
             <!-- HEADER -->
             <div class="col-12">
@@ -34,6 +45,8 @@
                   <div class="row" style="margin: .6rem 0rem; gap: 1rem;">
                     <?php if ($title === "ADVANCE FORM") { ?>
                       @include('Components.AdvanceDetailDocument')
+                    <?php } else if ($title ===  "DELIVERY ORDER FORM") { ?>
+                      @include('Components.DeliveryOrderDetailDocument')
                     <?php } ?>
                   </div>
                 </div>
@@ -44,7 +57,11 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body p-0">
-                  @include('Components.AdvanceDetailDocumentTable')
+                  <?php if ($title === "ADVANCE FORM") { ?>
+                    @include('Components.AdvanceDetailDocumentTable')
+                  <?php } else if ($title === "DELIVERY ORDER FORM") { ?>
+                    @include('Components.DeliveryOrderDetailDocumentTable')
+                  <?php } ?>
                 </div>
               </div>
             </div>
