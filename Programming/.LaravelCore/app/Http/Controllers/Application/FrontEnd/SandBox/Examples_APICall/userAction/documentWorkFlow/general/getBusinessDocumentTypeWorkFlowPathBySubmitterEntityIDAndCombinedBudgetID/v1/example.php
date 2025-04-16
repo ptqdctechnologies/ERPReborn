@@ -35,21 +35,26 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\use
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID', 
-                'latest',
-                [
-                'parameter' => [
-                    'businessDocumentType_RefID' => 77000000000057,
-                    'submitterEntity_RefID' => 164000000000023,
-                    'combinedBudget_RefID' => 103000000000001
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'userAction.documentWorkFlow.general.getBusinessDocumentTypeWorkFlowPathBySubmitterEntityIDAndCombinedBudgetID', 
+                    'latest',
+
+                    [
+                    'parameter' => [
+                        'businessDocumentType_RefID' => 77000000000057,
+                        'submitterEntity_RefID' => 164000000000582,
+                        'combinedBudget_RefID' => 103000000000001
+                        ]
                     ]
-                ]
-                );
-            var_dump($varData);
+                    );
+
+            return
+                $varData;
             }
 
 
