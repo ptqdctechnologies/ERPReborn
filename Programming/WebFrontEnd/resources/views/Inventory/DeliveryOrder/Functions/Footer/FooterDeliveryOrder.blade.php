@@ -1,6 +1,34 @@
 <script>
-    var date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+    var date                        = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
     var indexReferenceNumberDetail  = 0;
+    var referenceNumber             = document.getElementById("reference_number");
+    var deliveryFrom                = document.getElementById("delivery_from");
+    var deliveryTo                  = document.getElementById("delivery_to");
+    var transporterName             = document.getElementById("transporter_name");
+    var tableDeliverOrderDetailList = document.querySelector("#tableDeliverOrderDetailList tbody");
+    var submitDO                    = document.getElementById("submitDO");
+
+    function checkTableDataDO() {
+        const isReferenceNumberNotEmpty = referenceNumber.value.trim() !== '';
+        const isDeliveryFromNotEmpty    = deliveryFrom.value.trim() !== '';
+        const isDeliveryToNotEmpty      = deliveryTo.value.trim() !== '';
+        const isTransporterNameNotEmpty = transporterName.value.trim() !== '';
+        const isTableNotEmpty           = tableDeliverOrderDetailList.rows.length > 0;
+
+        if (isReferenceNumberNotEmpty && isDeliveryFromNotEmpty && isDeliveryToNotEmpty && isTransporterNameNotEmpty && isTableNotEmpty) {
+            submitDO.disabled = false;
+        } else {
+            submitDO.disabled = true;
+        }
+    }
+
+    const observerTableDeliverOrderDetailList = new MutationObserver(checkTableDataDO);
+    observerTableDeliverOrderDetailList.observe(tableDeliverOrderDetailList, { childList: true });
+
+    referenceNumber.addEventListener('input', checkTableDataDO);
+    deliveryFrom.addEventListener('input', checkTableDataDO);
+    deliveryTo.addEventListener('input', checkTableDataDO);
+    transporterName.addEventListener('input', checkTableDataDO);
 
     function calculateTotal() {
         let total = 0;
@@ -381,7 +409,7 @@
                         
                         if (response.message == "WorkflowError") {
                             HideLoading();
-                            $("#submitArf").prop("disabled", false);
+                            $("#submitDO").prop("disabled", false);
 
                             CancelNotif("You don't have access", '/DeliveryOrder?var=1');
                         } else if (response.message == "MoreThanOne") {
@@ -414,7 +442,7 @@
                         console.log('response error', response);
                         
                         HideLoading();
-                        $("#submitArf").prop("disabled", false);
+                        $("#submitDO").prop("disabled", false);
                         CancelNotif("You don't have access", '/DeliveryOrder?var=1');
                     }
                 });
@@ -431,5 +459,6 @@
         $("#var_date").val(date);
 
         getDocumentType();
+        checkTableDataDO();
     });
 </script>

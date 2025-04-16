@@ -17,8 +17,18 @@
       <div class="card">
         <div class="tab-content p-3" id="nav-tabContent">
           <div class="row">
-            {{-- $dataHeader[0]['sys_ID'] --}}
-            <input type="hidden" id="advanceRefID" name="advanceRefID" value="" class="form-control" style="border-radius:0;">
+            <form 
+              method="post" 
+              action="{{ $title == 'ADVANCE FORM' ? route('AdvanceRequest.RevisionAdvanceIndex') : route('DeliveryOrder.RevisionDeliveryOrderIndex') }}" 
+              id="FormSubmitRevision">
+              @csrf
+
+              @if ($title == 'ADVANCE FORM')
+                <input type="hidden" id="refID" name="advance_RefID" value="76000000000539" class="form-control" style="border-radius:0;">
+              @else
+                <input type="hidden" id="refID" name="do_RefID" value="{{ $dataHeader[0]['DeliveryOrder_ID'] }}" class="form-control" style="border-radius:0;">
+              @endif
+            </form>
 
             <!-- HEADER -->
             <div class="col-12">
