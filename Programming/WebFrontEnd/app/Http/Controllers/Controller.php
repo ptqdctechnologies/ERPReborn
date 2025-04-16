@@ -190,13 +190,13 @@ class Controller extends BaseController
     public function ResubmitWorkflow($businessDocument_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber)
     {
         try {
-            Log::info("ResubmitWorkflow", [
-                'businessDocument_RefID'    => $businessDocument_RefID, 
-                'comment'                   => $comment, 
-                'approverEntity_RefID'      => $approverEntity_RefID, 
-                'nextApprover_RefID'        => $nextApprover_RefID, 
-                'documentNumber'            => $documentNumber
-            ]);
+            // Log::info("ResubmitWorkflow", [
+            //     'businessDocument_RefID'    => $businessDocument_RefID, 
+            //     'comment'                   => $comment, 
+            //     'approverEntity_RefID'      => $approverEntity_RefID, 
+            //     'nextApprover_RefID'        => $nextApprover_RefID, 
+            //     'documentNumber'            => $documentNumber
+            // ]);
 
             $varAPIWebToken = Session::get('SessionLogin');
 
