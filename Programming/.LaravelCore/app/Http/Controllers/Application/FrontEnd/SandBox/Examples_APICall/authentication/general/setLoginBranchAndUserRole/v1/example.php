@@ -53,7 +53,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
                     ]
                     );
 
-            var_dump(json_encode($varData));
+            return
+                $varData;
             }
 
 

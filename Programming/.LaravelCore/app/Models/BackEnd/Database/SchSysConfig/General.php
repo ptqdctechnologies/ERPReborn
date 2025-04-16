@@ -409,8 +409,10 @@ namespace App\Models\Database\SchSysConfig
                             )
                         );                
 
-                return $varReturn['data'];
+                return
+                    $varReturn['data'];
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }

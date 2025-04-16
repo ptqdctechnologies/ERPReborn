@@ -1,0 +1,58 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of dataPickList.finance.getPaymentFundingDestination (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "dataPickList.finance.getPaymentFundingDestination" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [
+                    "key",
+                    "version"
+                    ]
+                }
+            },
+        "required": [
+            "API"
+            ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "parameter": {
+                "type": "object",
+                "properties": {
+                    "entity_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        }
+                    },
+                "required": [
+                    "entity_RefID"
+                    ]
+                }    
+            },
+        "required": [
+            "parameter"
+            ]
+        }
+    },
+"required": [
+    "metadata",
+    "data"
+    ]
+}
