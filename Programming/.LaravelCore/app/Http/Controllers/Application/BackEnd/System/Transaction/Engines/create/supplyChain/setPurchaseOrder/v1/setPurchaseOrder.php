@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-27                                                                                           |
+        | ▪ Last Update     : 2025-04-16                                                                                           |
         | ▪ Creation Date   : 2022-03-02                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -94,16 +94,21 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     $varData['entities']['deliveryDestination_RefID'],
                                     $varData['entities']['supplierInvoiceBillingPurpose_RefID'],
                                     $varData['entities']['remarks'],
+                                    $varData['entities']['deliveryDestinationManualAddress'],
+                                    $varData['entities']['paymentNotes'],
+                                    $varData['entities']['internalNotes'],
+                                    $varData['entities']['downPayment'],
+                                    $varData['entities']['termOfPayment_RefID'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,
                                         'additionalData',
                                         $varData['entities']
-                                        ) 
+                                        )
                                         ?   (
                                                 (
                                                 !is_null($varData['entities']['additionalData'])
-                                                ) 
+                                                )
                                                 ? $varData['entities']['additionalData']
                                                 : []
                                             )

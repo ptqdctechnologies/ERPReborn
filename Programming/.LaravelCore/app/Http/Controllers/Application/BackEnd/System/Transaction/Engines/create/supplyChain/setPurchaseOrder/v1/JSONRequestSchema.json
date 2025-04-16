@@ -45,12 +45,12 @@
                     "log_FileUpload_Pointer_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 0,
-                        "maximum": 9223372036854775807 
+                        "maximum": 9223372036854775807
                         },
                     "requesterWorkerJobsPosition_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
-                        "maximum": 9223372036854775807 
+                        "maximum": 9223372036854775807
                         },
                     "supplier_RefID": {
                         "type": [ "integer", "null" ],
@@ -214,7 +214,7 @@
                                                         "entities"
                                                         ]
                                                     }
-                                                }   
+                                                }
                                             },
                                         "required": [
                                             "items"
@@ -285,7 +285,7 @@
                                                         "entities"
                                                         ]
                                                     }
-                                                }   
+                                                }
                                             },
                                         "required": [
                                             "items"
@@ -294,7 +294,6 @@
                                     },
                                 "required": [
                                     "itemList",
-                                    "taxes",
                                     "paymentTerm"
                                     ]
                                 }
