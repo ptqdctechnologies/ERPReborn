@@ -316,16 +316,16 @@
         $("#myProjectSecondTrigger").css({"display":"none"});
 
         try {
-            // var checkWorkFlow = await checkingWorkflow(sysId, documentTypeID);
+            var checkWorkFlow = await checkingWorkflow(sysId, documentTypeID);
 
-            // if (checkWorkFlow) {
+            if (checkWorkFlow) {
                 $("#project_id_second").val(sysId);
                 $("#project_code_second").val(projectCode);
                 $("#project_name_second").val(projectName);
 
                 getSiteSecond(sysId);
                 $("#mySiteCodeSecondTrigger").prop("disabled", false);
-            // }
+            }
 
             $("#loadingBudget").css({"display":"none"});
             $("#myProjectSecondTrigger").css({"display":"block"});

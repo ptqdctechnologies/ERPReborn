@@ -269,8 +269,8 @@ class Controller extends BaseController
 
             $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
-            if (Redis::get("BusinessDocumentTypeWorkFlowPath" . $documentTypeID) == null) {
-                $varAPIWebToken = Session::get('SessionLogin');
+            // if (Redis::get("BusinessDocumentTypeWorkFlowPath" . $documentTypeID) == null) {
+                // $varAPIWebToken = Session::get('SessionLogin');
                 $VarSelectWorkFlow = Helper_APICall::setCallAPIGateway(
                     Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
@@ -285,20 +285,29 @@ class Controller extends BaseController
                     ],
                     false
                 );
+
+            // }
+
+            if ($VarSelectWorkFlow['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
             }
 
-            $BusinessDocumentTypeWorkFlowPath = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "BusinessDocumentTypeWorkFlowPath" . $documentTypeID
-                ),
-                true
-            );
+            $BusinessDocumentTypeWorkFlowPath = $VarSelectWorkFlow['data'];
+
+            // $BusinessDocumentTypeWorkFlowPath = json_decode(
+            //     Helper_Redis::getValue(
+            //         Helper_Environment::getUserSessionID_System(),
+            //         "BusinessDocumentTypeWorkFlowPath" . $documentTypeID
+            //     ),
+            //     true
+            // );
+
+            // Log::error("Error at ", [$BusinessDocumentTypeWorkFlowPath]);
 
             $collection = collect($BusinessDocumentTypeWorkFlowPath);
 
-            $collection = $collection->where('CombinedBudget_RefID', $combinedBudget_RefID);
-            $collection = $collection->where('SubmitterEntity_RefID', $SessionWorkerCareerInternal_RefID);
+            $collection = $collection->where('combinedBudget_RefID', $combinedBudget_RefID);
+            $collection = $collection->where('submitterEntity_RefID', $SessionWorkerCareerInternal_RefID);
 
             $countWorkflow = count($collection);
 
