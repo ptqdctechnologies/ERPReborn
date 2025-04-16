@@ -133,7 +133,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000003                                                                                       |
-        | ▪ Last Update     : 2022-05-25                                                                                           |
+        | ▪ Last Update     : 2025-04-16                                                                                           |
         | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -165,7 +165,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varSupplier_RefID = null, string $varDeliveryDateTimeTZ = null, int $varDeliveryDestination_RefID = null, int $varSupplierInvoiceBillingPurpose_RefID = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varSupplier_RefID = null, string $varDeliveryDateTimeTZ = null, int $varDeliveryDestination_RefID = null, int $varSupplierInvoiceBillingPurpose_RefID = null, string $varRemarks = null, string $varDeliveryDestinationManualAddress = null, string $varPaymentNotes = null, string $varInternalNotes = null, int $varDownPayment = null, int $varTermOfPayment_RefID = null,
             array $varAdditionalData = []
             )
             {
@@ -194,6 +194,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varDeliveryDestination_RefID, 'bigint'],
                             [$varSupplierInvoiceBillingPurpose_RefID, 'bigint'],
                             [$varRemarks, 'varchar'],
+                            [$varDeliveryDestinationManualAddress, 'varchar'],
+                            [$varPaymentNotes, 'varchar'],
+                            [$varInternalNotes, 'varchar'],
+                            [$varDownPayment, 'bigint'],
+                            [$varTermOfPayment_RefID, 'bigint'],
 
                             [
                                 ((count($varAdditionalData) === 0)
