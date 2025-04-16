@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.update.supplyChain.setWarehouseInboundOrder.v1_throughAPIGateway                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-27                                                                                           |
+        | ▪ Last Update     : 2025-04-15                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -36,19 +36,42 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.supplyChain.setWarehouseInboundOrder', 
-                'latest', 
+                $varAPIWebToken,
+                'transaction.update.supplyChain.setWarehouseInboundOrder',
+                'latest',
                 [
-                'recordID' => 176000000000001,
+                'recordID' => 176000000000003,
                 'entities' => [
-                    'documentDateTimeTZ' => '2022-03-08',
+                    'documentDateTimeTZ' => '2025-04-11',
+                    'log_FileUpload_Pointer_RefID' => null,
                     'requesterWorkerJobsPosition_RefID' => 164000000000497,
-                    'remarks' => 'My Remarks'
+                    'remarks' => 'Catatan Test Update',
+                    'additionalData' => [
+                        'itemList' => [
+                            'items' => [
+                                    [
+                                    'recordID' => 177000000000004,
+                                    'entities' => [
+                                        "deliveryOrderDetail_RefID" => 180000000000002,
+                                        "quantity" => 40,
+                                        'remarks' => 'Catatan Update - 1'
+                                        ]
+                                    ],
+                                    [
+                                    'recordID' => 177000000000005,
+                                    'entities' => [
+                                        "deliveryOrderDetail_RefID" => 180000000000003,
+                                        "quantity" => 50,
+                                        'remarks' => 'Catatan Update - 2'
+                                        ]
+                                    ],
+                                ]
+                            ]
+                        ]
                     ]
                 ]
                 );
-            var_dump($varData);
+            return $varData;
             }
 
 
@@ -77,10 +100,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo '<input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497>';
             echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.update.supplyChain.setWarehouseInboundOrder', 
-                'latest', 
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.update.supplyChain.setWarehouseInboundOrder',
+                'latest',
                 '{'.
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
@@ -89,7 +112,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         '"remarks" : document.getElementById("dataInput_Remarks").value '.
                         '}'.
                 '}'
-                ); 
+                );
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }
