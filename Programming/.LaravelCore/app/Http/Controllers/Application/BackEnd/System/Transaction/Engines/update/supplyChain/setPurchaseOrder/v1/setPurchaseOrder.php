@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2022-09-27                                                                                           |
+        | ▪ Last Update     : 2025-04-16                                                                                           |
         | ▪ Creation Date   : 2022-03-04                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -62,9 +62,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
-                        if (!($varDataSend = 
+                        if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
-                                $varUserSession, 
+                                $varUserSession,
                                 (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseOrder())->setDataUpdate(
                                     $varUserSession,
                                     $varData['recordID'],
@@ -96,16 +96,21 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     $varData['entities']['deliveryDestination_RefID'],
                                     $varData['entities']['supplierInvoiceBillingPurpose_RefID'],
                                     $varData['entities']['remarks'],
+                                    $varData['entities']['deliveryDestinationManualAddress'],
+                                    $varData['entities']['paymentNotes'],
+                                    $varData['entities']['internalNotes'],
+                                    $varData['entities']['downPayment'],
+                                    $varData['entities']['termOfPayment_RefID'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,
                                         'additionalData',
                                         $varData['entities']
-                                        ) 
+                                        )
                                         ?   (
                                                 (
                                                 !is_null($varData['entities']['additionalData'])
-                                                ) 
+                                                )
                                                 ? $varData['entities']['additionalData']
                                                 : []
                                             )
