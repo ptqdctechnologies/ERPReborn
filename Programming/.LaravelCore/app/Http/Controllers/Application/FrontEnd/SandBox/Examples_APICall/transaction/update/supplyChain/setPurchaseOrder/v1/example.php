@@ -128,23 +128,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 ]
                                             ]
                                         ]
-                                    ],
-                                "paymentTerm" => [
-                                    "items" => [
-                                            [
-                                            "recordID" => 187000000000001,
-                                            "entities" => [
-                                                "paymentTerm_RefID" => 174000000000001,
-                                                "dueDays" => 30,
-                                                "priceCurrency_RefID" => 62000000000001,
-                                                "priceCurrencyValue" => 30000,
-                                                "priceCurrencyExchangeRate" => 1,
-                                                "discountDueDays" => 15,
-                                                "discountPercentageRate" => 2.00,
-                                                "remarks" => 'Down Payment'
-                                                ]
-                                            ]
-                                        ]
                                     ]
                                 ]
                             ]
