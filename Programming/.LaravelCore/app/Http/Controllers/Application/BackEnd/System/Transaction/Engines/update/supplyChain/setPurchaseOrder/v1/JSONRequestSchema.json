@@ -230,87 +230,10 @@
                                         "required": [
                                             "items"
                                             ]
-                                        },
-                                    "paymentTerm": {
-                                        "type": "object",
-                                        "properties": {
-                                            "items": {
-                                                "type": "array",
-                                                "items": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "recordID" : {
-                                                            "type": "integer",
-                                                            "minimum": 1,
-                                                            "maximum": 9223372036854775807
-                                                            },
-                                                        "entities": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "paymentTerm_RefID": {
-                                                                     "type": [ "integer", "null" ],
-                                                                     "minimum": 1,
-                                                                     "maximum": 9223372036854775807
-                                                                     },
-                                                                "dueDays": {
-                                                                    "type": [ "integer", "null" ],
-                                                                    "minimum": 1,
-                                                                    "maximum": 32767
-                                                                     },
-                                                                "priceCurrency_RefID": {
-                                                                     "type": [ "integer", "null" ],
-                                                                     "minimum": 1,
-                                                                     "maximum": 9223372036854775807
-                                                                     },
-                                                                "priceCurrencyValue": {
-                                                                    "type": [ "number", "null" ],
-                                                                    "minimum": 0
-                                                                     },
-                                                                "priceCurrencyExchangeRate": {
-                                                                    "type": [ "number", "null" ],
-                                                                    "minimum": 0
-                                                                     },
-                                                                "discountDueDays": {
-                                                                    "type": [ "integer", "null" ],
-                                                                    "minimum": 1,
-                                                                    "maximum": 32767
-                                                                    },
-                                                                "discountPercentageRate": {
-                                                                    "type": [ "number", "null" ],
-                                                                    "minimum": 0
-                                                                    },
-                                                                "remarks": {
-                                                                    "type": [ "string", "null" ],
-                                                                    "minLength": 1,
-                                                                    "maxLength": 256
-                                                                     }
-                                                                },
-                                                            "required": [
-                                                                "paymentTerm_RefID",
-                                                                "dueDays",
-                                                                "priceCurrency_RefID",
-                                                                "priceCurrencyValue",
-                                                                "priceCurrencyExchangeRate",
-                                                                "discountDueDays",
-                                                                "discountPercentageRate",
-                                                                "remarks"
-                                                                ]
-                                                            }
-                                                        },
-                                                    "required": [
-                                                        "entities"
-                                                        ]
-                                                    }
-                                                }
-                                            },
-                                        "required": [
-                                            "items"
-                                            ]
                                         }
                                     },
                                 "required": [
-                                    "itemList",
-                                    "paymentTerm"
+                                    "itemList"
                                     ]
                                 }
                             ]
