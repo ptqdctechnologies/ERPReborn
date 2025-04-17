@@ -55,8 +55,8 @@ class Controller extends BaseController
                 Session::put('dataInputStore' . $DocumentTypeID, $dataInput);
             }
 
-            if (Redis::get("BusinessDocumentTypeWorkFlowPath" . $DocumentTypeID) == null) {
-                $varAPIWebToken = Session::get('SessionLogin');
+            // if (Redis::get("BusinessDocumentTypeWorkFlowPath" . $DocumentTypeID) == null) {
+                // $varAPIWebToken = Session::get('SessionLogin');
                 $VarSelectWorkFlow = Helper_APICall::setCallAPIGateway(
                     Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
@@ -71,26 +71,33 @@ class Controller extends BaseController
                     ],
                     false
                 );
+            // }
+
+            if ($VarSelectWorkFlow['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
             }
 
-            $BusinessDocumentTypeWorkFlowPath = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "BusinessDocumentTypeWorkFlowPath" . $DocumentTypeID
-                ),
-                true
-            );
+            $BusinessDocumentTypeWorkFlowPath = $VarSelectWorkFlow['data'];
+
+            // $BusinessDocumentTypeWorkFlowPath = json_decode(
+            //     Helper_Redis::getValue(
+            //         Helper_Environment::getUserSessionID_System(),
+            //         "BusinessDocumentTypeWorkFlowPath" . $DocumentTypeID
+            //     ),
+            //     true
+            // );
 
             $collection = collect($BusinessDocumentTypeWorkFlowPath);
 
-            $collection = $collection->where('CombinedBudget_RefID', $dataInput['var_combinedBudget_RefID']);
-            $collection = $collection->where('SubmitterEntity_RefID', $SessionWorkerCareerInternal_RefID);
+            $collection = $collection->where('combinedBudget_RefID', $dataInput['var_combinedBudget_RefID']);
+            $collection = $collection->where('submitterEntity_RefID', $SessionWorkerCareerInternal_RefID);
 
             $VarSelectWorkFlow = [];
             $i = 0;
             foreach ($collection->all() as $collections) {
                 $VarSelectWorkFlow[$i] = $collections;
-                $tamp = json_decode($collections['NextApproverPath'], true);
+                // $tamp = json_decode($collections['nextApproverPath'], true);
+                $tamp = $collections['nextApproverPath'];
                 $VarSelectWorkFlow[$i]['NextApprover_RefID'] = $tamp[0]['entities']['approverEntity_RefID'];
                 $i++;
             }
@@ -112,8 +119,8 @@ class Controller extends BaseController
                 }
                 $compact = [
                     "data"                  => $VarSelectWorkFlow,
-                    "workFlowPath_RefID"    => $VarSelectWorkFlow[0]['Sys_ID'],
-                    "nextApprover_RefID"    => $VarSelectWorkFlow[0]['NextApprover_RefID'],
+                    "workFlowPath_RefID"    => $VarSelectWorkFlow[0]['sys_ID'],
+                    "nextApprover_RefID"    => $VarSelectWorkFlow[0]['nextApprover_RefID'],
                     "approverEntity_RefID"  => $SessionWorkerCareerInternal_RefID,
                     "documentTypeID"        => $DocumentTypeID,
                     "Sys_ID_Advance"        => $Sys_ID_Advance,
@@ -183,13 +190,13 @@ class Controller extends BaseController
     public function ResubmitWorkflow($businessDocument_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber)
     {
         try {
-            Log::info("ResubmitWorkflow", [
-                'businessDocument_RefID'    => $businessDocument_RefID, 
-                'comment'                   => $comment, 
-                'approverEntity_RefID'      => $approverEntity_RefID, 
-                'nextApprover_RefID'        => $nextApprover_RefID, 
-                'documentNumber'            => $documentNumber
-            ]);
+            // Log::info("ResubmitWorkflow", [
+            //     'businessDocument_RefID'    => $businessDocument_RefID, 
+            //     'comment'                   => $comment, 
+            //     'approverEntity_RefID'      => $approverEntity_RefID, 
+            //     'nextApprover_RefID'        => $nextApprover_RefID, 
+            //     'documentNumber'            => $documentNumber
+            // ]);
 
             $varAPIWebToken = Session::get('SessionLogin');
 
@@ -269,8 +276,8 @@ class Controller extends BaseController
 
             $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
-            if (Redis::get("BusinessDocumentTypeWorkFlowPath" . $documentTypeID) == null) {
-                $varAPIWebToken = Session::get('SessionLogin');
+            // if (Redis::get("BusinessDocumentTypeWorkFlowPath" . $documentTypeID) == null) {
+                // $varAPIWebToken = Session::get('SessionLogin');
                 $VarSelectWorkFlow = Helper_APICall::setCallAPIGateway(
                     Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken,
@@ -285,20 +292,29 @@ class Controller extends BaseController
                     ],
                     false
                 );
+
+            // }
+
+            if ($VarSelectWorkFlow['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
             }
 
-            $BusinessDocumentTypeWorkFlowPath = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "BusinessDocumentTypeWorkFlowPath" . $documentTypeID
-                ),
-                true
-            );
+            $BusinessDocumentTypeWorkFlowPath = $VarSelectWorkFlow['data'];
+
+            // $BusinessDocumentTypeWorkFlowPath = json_decode(
+            //     Helper_Redis::getValue(
+            //         Helper_Environment::getUserSessionID_System(),
+            //         "BusinessDocumentTypeWorkFlowPath" . $documentTypeID
+            //     ),
+            //     true
+            // );
+
+            // Log::error("Error at ", [$BusinessDocumentTypeWorkFlowPath]);
 
             $collection = collect($BusinessDocumentTypeWorkFlowPath);
 
-            $collection = $collection->where('CombinedBudget_RefID', $combinedBudget_RefID);
-            $collection = $collection->where('SubmitterEntity_RefID', $SessionWorkerCareerInternal_RefID);
+            $collection = $collection->where('combinedBudget_RefID', $combinedBudget_RefID);
+            $collection = $collection->where('submitterEntity_RefID', $SessionWorkerCareerInternal_RefID);
 
             $countWorkflow = count($collection);
 

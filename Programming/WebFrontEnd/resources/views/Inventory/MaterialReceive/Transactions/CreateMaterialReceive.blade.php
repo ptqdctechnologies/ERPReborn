@@ -4,6 +4,7 @@
 @include('Partials.sidebar')
 @include('Inventory.MaterialReceive.Functions.PopUp.PopUpMaterialReceiveRevision')
 @include('getFunction.getDeliveryOrder')
+@include('getFunction.getWorkFlow')
 
 <div class="content-wrapper">
     <section class="content">
@@ -21,8 +22,12 @@
             @if($var == 0)
             <!-- CONTENT -->
             <div class="card">
-                <form method="post" enctype="multipart/form-data" action="{{ route('MaterialReceive.store') }}" id="FormSubmitMaterialReceive">
-                    @csrf
+                {{-- <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitMaterialReceive"> --}}
+                <form method="post" action="{{ route('MaterialReceive.store') }}" id="FormSubmitMaterialReceive">
+                @csrf
+                <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+                <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
+                <input type="hidden" name="materialReceiveDetail" id="materialReceiveDetail">
 
                     <!-- ADD NEW MATERIAL RECEIVE -->
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -129,6 +134,34 @@
                                     </div>
 
                                     @include('Inventory.MaterialReceive.Functions.Table.TableDetailMaterialResource')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- REMARK -->
+                    <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <!-- HEADER -->
+                                    <div class="card-header">
+                                        <label class="card-title">
+                                            Remark
+                                        </label>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- CONTENT -->
+                                    <div class="card-body">
+                                        <div class="row py-3">
+                                            <textarea name="var_remark" id="remark" class="form-control"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

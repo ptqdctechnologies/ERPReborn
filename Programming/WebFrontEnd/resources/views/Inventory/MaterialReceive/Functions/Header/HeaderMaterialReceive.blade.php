@@ -33,11 +33,12 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <textarea id="delivery_from" rows="3" style="border-radius:0;" class="form-control"></textarea>
+                        <input id="id_delivery_order_from" style="border-radius:0;" class="form-control" size="20" readonly hidden>
+                        <textarea id="address_delivery_order_from" rows="3" style="border-radius:0;" class="form-control"></textarea>
                     </div>
                 </div>
             </div>
-    
+
             <!-- DELIVERY TO -->
             <div class="row">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
@@ -45,7 +46,8 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <textarea id="delivery_to" rows="3" style="border-radius:0;" class="form-control"></textarea>
+                        <input id="id_delivery_order_to" style="border-radius:0;" class="form-control" size="20" readonly hidden>
+                        <textarea id="address_delivery_order_to" rows="3" style="border-radius:0;" class="form-control"></textarea>
                     </div>
                 </div>
             </div>

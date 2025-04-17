@@ -231,7 +231,7 @@
                         row = `
                             <tr>
                                 <input id="productId${key}" name="productId${key}" data-product-id="productId" value="${val2.product_RefID}" type="hidden" />
-                                <input id="recordIDDetail${key}" name="recordIDDetail${key}" value="null" type="hidden" />
+                                <input id="recordIDDetail${key}" name="recordIDDetail${key}" value="${val2.sys_ID}" type="hidden" />
                                 <input id="productName${key}" name="productName${key}" value="${val2.productName}" type="hidden" />
                                 <input id="qtyId${key}" name="qtyId${key}" value="${val2.quantityUnit_RefID || ''}" type="hidden" />
                                 <input id="qty${key}" name="qty${key}" value="${val2.quantity || ''}" type="hidden" />
