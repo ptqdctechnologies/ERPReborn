@@ -46,7 +46,7 @@
                         let row = `
                             <tr>
                                 <input id="trano${key}" value="${delivery_order_number}" type="hidden" />
-                                <input id="delivery_order_detail_id${key}" value="${val2.DeliveryOrder_ID}" type="hidden" />
+                                <input id="delivery_order_detail_id${key}" value="${val2.DeliveryOrderDetail_ID}" type="hidden" />
                                 <input id="product_code${key}" value="-" type="hidden" />
                                 <input id="product_name${key}" value="-" type="hidden" />
                                 <input id="qty_do${key}" value="-" type="hidden" />
