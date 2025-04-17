@@ -10,7 +10,7 @@
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Available</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty Req</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Note</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;padding-right: 0;">Note</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -42,16 +42,16 @@
 <div class="card-body tableShowHideDetail">
     <table style="float:right;">
         <tr>
-            <th style="position: relative;right:20px;"> Total : <span id="TotalReferenceNumber">0.00</span></th>
+            <th style="position: relative;right:20px;"> Total : <span id="TotalDeliveryOrder">0.00</span></th>
         </tr>
         <tr>
             <td>
                 <br>
-                <a class="btn btn-default btn-sm float-right" id="reference-number-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
+                <a class="btn btn-default btn-sm float-right" id="delivery-order-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Material Receive List"> Add
                 </a>
-                <a class="btn btn-default btn-sm float-right" id="reference-number-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
+                <a class="btn btn-default btn-sm float-right" id="delivery-order-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Reset to Material Receive List"> Reset
                 </a>
             </td>
         </tr>

@@ -103,7 +103,7 @@ class AdvanceRequestController extends Controller
             $advanceDetail = array_map(function ($index) use ($product_id, $quantity, $qty_id, $currency_id, $price, $combinedBudgetSectionDetail_RefID) {
                 return [
                     'entities' => [
-                        "combinedBudgetSectionDetail_RefID"     => (int) 169000000000001, // Hardcode: 169000000000001, Actually: $combinedBudgetSectionDetail_RefID[$n]
+                        "combinedBudgetSectionDetail_RefID"     => (int) $combinedBudgetSectionDetail_RefID[$index], // Hardcode: 169000000000001, Actually: $combinedBudgetSectionDetail_RefID[$index]
                         "product_RefID"                         => (int) $product_id[$index],
                         "quantity"                              => (float) str_replace(',', '', $quantity[$index]),
                         "quantityUnit_RefID"                    => (int) $qty_id[$index], 

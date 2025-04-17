@@ -1096,6 +1096,46 @@ class FunctionController extends Controller
         }
     }
 
+    public function getDeliveryOrderDetail(Request $request)
+    {
+        try {
+            $varAPIWebToken     = Session::get('SessionLogin');
+            $delivery_order_id  = $request->input('delivery_order_id');
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
+                'latest',
+                [
+                'parameter' => [
+                    'deliveryOrder_RefID' => (int) $delivery_order_id
+                    ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                $compact = [
+                    "statusCode"    => $varData['metadata']['HTTPStatusCode'],
+                    "message"       => $varData['data']['message']
+                ];
+
+                return response()->json($compact);
+            }
+
+            return response()->json($varData['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getDeliveryOrderDetail: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function getPurchaseRequisitionList(Request $request) 
     {
         try {
