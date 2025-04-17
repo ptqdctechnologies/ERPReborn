@@ -389,9 +389,71 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );
-
-                return
-                    $varReturn['data'];
+                
+                return [
+                    [
+                        "date" => "2024-01-10 17:08:08.838662+07",
+                        "dateUpdate" => null,
+                        "combinedBudgetCode" => "Q000062",
+                        "combinedBudgetName" => "XL Microcell 2007",
+                        "combinedBudgetSectionCode" => "Q000062 ► 235",
+                        "combinedBudgetSectionName" => "Q000062 ► Ampang Kuranji - Padang",
+                        "transporterName" => "Transporter 1",
+                        "transporterContactPerson" => "Heru",
+                        "transporterPhone" => 622156341055,
+                        "transporterHandphone" => 6281356482475,
+                        "transporterFax" => 622156341055,
+                        "transporterAddress" => "Jl. Kalimalang No.1 Bekasi",
+                        "fileID" => 91000000000198,
+                        "businessDocument_RefID" => 74000000021267,
+                        "businessDocumentType_RefID" => 77000000000005,
+                        "businessDocumentType_Name" => "Sales Quotation Form",
+                        "combinedBudgetSectionDetail_RefID" => "",
+                        "combinedBudget_RefID" => 46000000000033,
+                        "product_RefID" => 88000000000016,
+                        "productName" => "Access Door - Drop Bolt Pintu Masuk",
+                        "quantityUnit_RefID" => 73000000000001,
+                        "quantityUnitName" => "set",
+                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                        "productUnitPriceCurrencyISOCode" => "IDR",
+                        "productUnitPriceBaseCurrencyValue" => 30000.00,
+                        "productUnitPriceCurrencyExchangeRate" => 1.00,
+                        "priceCurrency_RefID" => 62000000000001,
+                        "priceBaseCurrencyValue" => 300000.00,
+                        "orderSequence" => 1,
+                    ],
+                    [
+                        "date" => "2024-01-10 17:08:08.838662+07",
+                        "dateUpdate" => null,
+                        "combinedBudgetCode" => "Q000062",
+                        "combinedBudgetName" => "XL Microcell 2007",
+                        "combinedBudgetSectionCode" => "Q000062 ► 235",
+                        "combinedBudgetSectionName" => "Q000062 ► Ampang Kuranji - Padang",
+                        "transporterName" => "Transporter 1",
+                        "transporterContactPerson" => "Heru",
+                        "transporterPhone" => 622156341055,
+                        "transporterHandphone" => 6281356482475,
+                        "transporterFax" => 622156341055,
+                        "transporterAddress" => "Jl. Kalimalang No.1 Bekasi",
+                        "fileID" => 91000000000198,
+                        "businessDocument_RefID" => 74000000021267,
+                        "businessDocumentType_RefID" => 77000000000005,
+                        "businessDocumentType_Name" => "Sales Quotation Form",
+                        "combinedBudgetSectionDetail_RefID" => "",
+                        "combinedBudget_RefID" => 46000000000033,
+                        "product_RefID" => 88000000000016,
+                        "productName" => "Amplop Coklat ukuran A3",
+                        "quantityUnit_RefID" => 73000000000001,
+                        "quantityUnitName" => "set",
+                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                        "productUnitPriceCurrencyISOCode" => "IDR",
+                        "productUnitPriceBaseCurrencyValue" => 30000.00,
+                        "productUnitPriceCurrencyExchangeRate" => 1.00,
+                        "priceCurrency_RefID" => 62000000000001,
+                        "priceBaseCurrencyValue" => 300000.00,
+                        "orderSequence" => 2,
+                    ],
+                ];
                 }
 
             catch (\Exception $ex) {
