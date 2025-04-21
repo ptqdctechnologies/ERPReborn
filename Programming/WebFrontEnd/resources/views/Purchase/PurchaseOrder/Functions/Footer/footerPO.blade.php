@@ -28,6 +28,7 @@
         } else {
             TotalBudgetSelectedPpn.textContent = TotalBudgetSelecteds.textContent;
             TotalPpns.textContent = "0.00";
+            $('#tariffCurrencyValue').val('0.00');
             $('#vatOption').val('Select a PPN');
             $('#containerValuePPN').hide();
         }
@@ -145,6 +146,7 @@
         if (vat.options[vat.selectedIndex].text !== "Select a PPN" && total > 0) {
             let result = (vat.options[vat.selectedIndex].text / 100) * total;
 
+            $('#tariffCurrencyValue').val(currencyTotal(result));
             document.getElementById('TotalPpn').textContent = currencyTotal(result);
             document.getElementById('TotalBudgetSelected').textContent = currencyTotal(total);
             document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(result + total);
@@ -181,6 +183,14 @@
                         let row = `
                             <tr>
                                 <input id="msr_number${indexPurchaseOrder}" value="${purchase_requisition_number}" type="hidden" />
+                                <input id="purchaseRequisitionDetail_RefID${indexPurchaseOrder}" value="${val2.sys_ID}" type="hidden" />
+                                <input id="quantityUnit_RefID${indexPurchaseOrder}" value="${val2.quantityUnit_RefID}" type="hidden" />
+                                <input id="productUnitPriceCurrency_RefID${indexPurchaseOrder}" value="${val2.productUnitPriceCurrency_RefID}" type="hidden" />
+                                <input id="productUnitPriceCurrencyValue${indexPurchaseOrder}" value="${val2.productUnitPriceCurrencyValue}" type="hidden" />
+                                <input id="productUnitPriceCurrencyExchangeRate${indexPurchaseOrder}" value="${val2.productUnitPriceCurrencyExchangeRate}" type="hidden" />
+                                <input id="productUnitPriceDiscountCurrency_RefID${indexPurchaseOrder}" value="${val2.productUnitPriceCurrency_RefID}" type="hidden" />
+                                <input id="productUnitPriceDiscountCurrencyValue${indexPurchaseOrder}" value="0" type="hidden" />
+                                <input id="productUnitPriceDiscountCurrencyExchangeRate${indexPurchaseOrder}" value="1" type="hidden" />
                                 <input id="product_code${indexPurchaseOrder}" value="${val2.product_RefID}" type="hidden" />
                                 <input id="product_name${indexPurchaseOrder}" value="${val2.productName}" type="hidden" />
                                 <input id="qty_msr${indexPurchaseOrder}" value="${val2.quantity}" type="hidden" />
@@ -265,7 +275,6 @@
                         indexPurchaseOrder += 1;
                     });
                 } else {
-                    console.log('error');
                     $(".errorPurchaseOrderTable").show();
                     $("#errorPurchaseOrderMessageTable").text(`Data not found.`);
                 }
@@ -279,6 +288,102 @@
     function CancelPurchaseOrder() {
         ShowLoading();
         window.location.href = '/PurchaseOrder?var=1';
+    }
+
+    function getDocumentType() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getDocumentType") !!}',
+            success: function(data) {
+                const result = data.find(({ Name }) => Name === "Purchase Order Form");
+
+                if (Object.keys(result).length > 0) {
+                    $("#DocumentTypeID").val(result.Sys_ID);
+                } else {
+                    console.log('error get document type');
+                }
+            },
+            error: function (textStatus, errorThrown) {
+                console.log('error', textStatus, errorThrown);
+            }
+        });
+    }
+
+    function SelectWorkFlow(formatData) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            confirmButtonColor: '#4B586A',
+            confirmButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            ShowLoading();
+            PurchaseOrderStore({...formatData, comment: result.value});
+        });
+    }
+
+    function PurchaseOrderStore(formatData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("PurchaseOrder.store") }}',
+            success: function(res) {
+                HideLoading();
+
+                if (res.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        ShowLoading();
+                        window.location.href = '/PurchaseOrder?var=1';
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('error', jqXHR, textStatus, errorThrown);
+            }
+        });
     }
 
     $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function() {
@@ -295,7 +400,17 @@
     });
 
     $('#purchase-details-add').on('click', function() {
+        let dataStore = [];
+
         $("#tablePurchaseOrderDetail tbody tr").each(function(index) {
+            var purchaseRequisitionDetail_RefID       = $(this).find(`input[id="purchaseRequisitionDetail_RefID${index}"]`).val();
+            var quantityUnit_RefID       = $(this).find(`input[id="quantityUnit_RefID${index}"]`).val();
+            var productUnitPriceCurrency_RefID       = $(this).find(`input[id="productUnitPriceCurrency_RefID${index}"]`).val();
+            var productUnitPriceCurrencyValue       = $(this).find(`input[id="productUnitPriceCurrencyValue${index}"]`).val();
+            var productUnitPriceCurrencyExchangeRate       = $(this).find(`input[id="productUnitPriceCurrencyExchangeRate${index}"]`).val();
+            var productUnitPriceDiscountCurrency_RefID       = $(this).find(`input[id="productUnitPriceDiscountCurrency_RefID${index}"]`).val();
+            var productUnitPriceDiscountCurrencyValue       = $(this).find(`input[id="productUnitPriceDiscountCurrencyValue${index}"]`).val();
+            var productUnitPriceDiscountCurrencyExchangeRate       = $(this).find(`input[id="productUnitPriceDiscountCurrencyExchangeRate${index}"]`).val();
             var msrNumber       = $(this).find(`input[id="msr_number${index}"]`).val();
             var productCode     = $(this).find(`input[id="product_code${index}"]`).val();
             var productName     = $(this).find(`input[id="product_name${index}"]`).val();
@@ -334,6 +449,19 @@
                 rowToUpdate.find("td:eq(6)").text(qtyReq);
                 rowToUpdate.find("td:eq(7)").text(totalReq);
                 rowToUpdate.find("td:eq(8)").text(remark);
+
+                dataStore[index] = {
+                    purchaseRequisitionDetail_RefID: purchaseRequisitionDetail_RefID,
+                    quantity: qtyReq,
+                    quantityUnit_RefID: quantityUnit_RefID,
+                    productUnitPriceCurrency_RefID: productUnitPriceCurrency_RefID,
+                    productUnitPriceCurrencyValue: productUnitPriceCurrencyValue,
+                    productUnitPriceCurrencyExchangeRate: productUnitPriceCurrencyExchangeRate,
+                    productUnitPriceDiscountCurrency_RefID: productUnitPriceDiscountCurrency_RefID,
+                    productUnitPriceDiscountCurrencyValue: productUnitPriceDiscountCurrencyValue,
+                    productUnitPriceDiscountCurrencyExchangeRate: productUnitPriceDiscountCurrencyExchangeRate,
+                    remarks: remark
+                };
             } else {
                 var newRow = `
                     <tr>
@@ -349,10 +477,26 @@
                     </tr>
                 `;
 
+                dataStore.push({
+                    purchaseRequisitionDetail_RefID: purchaseRequisitionDetail_RefID,
+                    quantity: qtyReq,
+                    quantityUnit_RefID: quantityUnit_RefID,
+                    productUnitPriceCurrency_RefID: productUnitPriceCurrency_RefID,
+                    productUnitPriceCurrencyValue: productUnitPriceCurrencyValue,
+                    productUnitPriceCurrencyExchangeRate: productUnitPriceCurrencyExchangeRate,
+                    productUnitPriceDiscountCurrency_RefID: productUnitPriceDiscountCurrency_RefID,
+                    productUnitPriceDiscountCurrencyValue: productUnitPriceDiscountCurrencyValue,
+                    productUnitPriceDiscountCurrencyExchangeRate: productUnitPriceDiscountCurrencyExchangeRate,
+                    remarks: remark
+                });
+
                 $("#tablePurchaseOrderList").find("tbody").append(newRow);
             }
         });
 
+        dataStore = dataStore.filter(item => item !== undefined);
+
+        $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
         document.getElementById('GrandTotal').textContent = TotalBudgetSelectedPpn.textContent;
     });
 
@@ -376,6 +520,7 @@
         $('#vatOption').val('Select a PPN');
         $('#ppn').val('No');
         $('#containerValuePPN').hide();
+        $('#tariffCurrencyValue').val("0.00");
 
         document.getElementById('TotalPpn').textContent = "0.00";
         document.getElementById('TotalBudgetSelected').textContent = "0.00";
@@ -419,7 +564,37 @@
                     data: form_data,
                     type: method,
                     success: function(response) {
-                        console.log('response', response);
+                        if (response.message == "WorkflowError") {
+                            HideLoading();
+                            $("#submitPurchaseOrder").prop("disabled", false);
+
+                            CancelNotif("You don't have access", '/PurchaseOrder?var=1');
+                        } else if (response.message == "MoreThanOne") {
+                            HideLoading();
+
+                            $('#getWorkFlow').modal('toggle');
+
+                            var t = $('#tableGetWorkFlow').DataTable();
+                            t.clear();
+                            $.each(response.data, function(key, val) {
+                                t.row.add([
+                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                                ]).draw();
+                            });
+                        } else {
+                            const formatData = {
+                                workFlowPath_RefID: response.workFlowPath_RefID, 
+                                nextApprover: response.nextApprover_RefID, 
+                                approverEntity: response.approverEntity_RefID, 
+                                documentTypeID: response.documentTypeID,
+                                storeData: response.storeData
+                            };
+
+                            HideLoading();
+
+                            SelectWorkFlow(formatData);
+                        }
                     },
                     error: function(response) {
                         console.log('response error', response);
@@ -449,5 +624,6 @@
     $(window).one('load', function(e) {
         getPaymentTerm();
         getVAT();
+        getDocumentType();
     });
 </script>

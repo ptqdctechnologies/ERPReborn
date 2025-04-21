@@ -37,7 +37,6 @@ class Controller extends BaseController
 
     public function SelectWorkFlow(Request $request)
     {
-
         try {
             $varAPIWebToken = Session::get('SessionLogin');
             $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
@@ -139,14 +138,14 @@ class Controller extends BaseController
     public function SubmitWorkflow($businessDocument_RefID, $workFlowPath_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber)
     {
         try {
-            Log::info("SubmitWorkflow", [
-                'businessDocument_RefID'    => $businessDocument_RefID, 
-                'workFlowPath_RefID'        => $workFlowPath_RefID, 
-                'comment'                   => $comment, 
-                'approverEntity_RefID'      => $approverEntity_RefID, 
-                'nextApprover_RefID'        => $nextApprover_RefID, 
-                'documentNumber'            => $documentNumber
-            ]);
+            // Log::info("SubmitWorkflow", [
+            //     'businessDocument_RefID'    => $businessDocument_RefID, 
+            //     'workFlowPath_RefID'        => $workFlowPath_RefID, 
+            //     'comment'                   => $comment, 
+            //     'approverEntity_RefID'      => $approverEntity_RefID, 
+            //     'nextApprover_RefID'        => $nextApprover_RefID, 
+            //     'documentNumber'            => $documentNumber
+            // ]);
 
             $varAPIWebToken = Session::get('SessionLogin');
 
