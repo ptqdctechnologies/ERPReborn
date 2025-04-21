@@ -897,6 +897,10 @@ class PurchaseOrderController extends Controller
                 ]
             );
 
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($varData);
+            }
+
             return $this->SubmitWorkflow(
                 $varData['data']['businessDocument']['businessDocument_RefID'],
                 $request->workFlowPath_RefID,
