@@ -817,7 +817,102 @@ class PurchaseOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+            $purchaseOrderData = $request->all();
+            $purchaseOrderDetail = json_decode($purchaseOrderData['storeData']['purchaseOrderDetail'], true);
+            $fileID = $purchaseOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $purchaseOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
+
+            $transformedDetails = [];
+            foreach ($purchaseOrderDetail as $entity) {
+                $transformedDetails[] = [
+                    "entities" => [
+                        "purchaseRequisitionDetail_RefID"               => (int) $entity['purchaseRequisitionDetail_RefID'],
+                        "quantity"                                      => (float) str_replace(',', '', $entity['quantity']),
+                        "quantityUnit_RefID"                            => (int) $entity['quantityUnit_RefID'],
+                        "productUnitPriceCurrency_RefID"                => (int) $entity['productUnitPriceCurrency_RefID'],
+                        "productUnitPriceCurrencyValue"                 => (int) $entity['productUnitPriceCurrencyValue'],
+                        "productUnitPriceCurrencyExchangeRate"          => (int) $entity['productUnitPriceCurrencyExchangeRate'],
+                        "productUnitPriceDiscountCurrency_RefID"        => (int) $entity['productUnitPriceDiscountCurrency_RefID'],
+                        "productUnitPriceDiscountCurrencyValue"         => (int) $entity['productUnitPriceDiscountCurrencyValue'],
+                        "productUnitPriceDiscountCurrencyExchangeRate"  => (int) $entity['productUnitPriceDiscountCurrencyExchangeRate'],
+                        "remarks"                                       => $entity['remarks'],
+                    ]
+                ];
+            }
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.create.supplyChain.setPurchaseOrder',
+                'latest',
+                [
+                'entities' => [
+                    "documentDateTimeTZ"                    => date('Y-m-d'),
+                    "log_FileUpload_Pointer_RefID"          => (int) $fileID,
+                    "requesterWorkerJobsPosition_RefID"     => (int) $SessionWorkerCareerInternal_RefID,
+                    "supplier_RefID"                        => (int) $purchaseOrderData['storeData']['supplier_id'],
+                    "deliveryDateTimeTZ"                    => date('Y-m-d'),
+                    "deliveryDestination_RefID"             => null,
+                    "deliveryDestinationManualAddress"      => $purchaseOrderData['storeData']['delivery_to'],
+                    "supplierInvoiceBillingPurpose_RefID"   => null,
+                    "remarks"                               => $purchaseOrderData['storeData']['remarkPO'],
+                    "paymentNotes"                          => $purchaseOrderData['storeData']['paymentNotes'],
+                    "internalNotes"                         => $purchaseOrderData['storeData']['internalNote'],
+                    "downPayment"                           => (float) str_replace(',', '', $purchaseOrderData['storeData']['downPaymentValue']),
+                    "termOfPayment_RefID"                   => (int) $purchaseOrderData['storeData']['termOfPaymentValue'],
+                    "additionalData"                        => [
+                        "itemList"  => [
+                            "items" => $transformedDetails
+                            ],
+                        "transactionTaxItemList" => [
+                            "items" => [
+                                    [
+                                    "entities" => [
+                                        "taxType_RefID"                 => 182000000000001,
+                                        "tariffCurrency_RefID"          => 62000000000001,
+                                        "tariffCurrencyValue"           => (float) str_replace(',', '', $purchaseOrderData['storeData']['tariffCurrencyValue']),
+                                        "tariffCurrencyExchangeRate"    => 1,
+                                        "remarks"                       => 'Catatan 1'
+                                        ]
+                                    ],
+                                ]
+                            ],
+                        "additionalCostItemList" => [
+                            "items" => [
+                                    [
+                                    "entities" => [
+                                        "transactionAdditionalCostType_RefID"   => 190000000000002,
+                                        "priceCurrency_RefID"                   => 62000000000001,
+                                        "priceCurrencyValue"                    => 30000,
+                                        "priceCurrencyExchangeRate"             => 1,
+                                        "remarks"                               => 'Catatan Additional Cost New'
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($varData);
+            }
+
+            return $this->SubmitWorkflow(
+                $varData['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+                $request->nextApprover,
+                $varData['data']['businessDocument']['documentNumber']
+            );
+        } catch (\Throwable $th) {
+            Log::error("Error at store: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     /**

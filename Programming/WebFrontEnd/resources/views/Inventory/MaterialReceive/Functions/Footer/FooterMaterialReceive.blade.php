@@ -106,9 +106,7 @@
             type: 'GET',
             url: '{!! route("getDocumentType") !!}',
             success: function(data) {
-                console.log('data', data);
-                
-                const result = data.find(({ Name }) => Name === "Delivery Order Form");
+                const result = data.find(({ Name }) => Name === "Warehouse Inbound Order Form");
 
                 if (Object.keys(result).length > 0) {
                     $("#DocumentTypeID").val(result.Sys_ID);
@@ -118,6 +116,76 @@
             },
             error: function (textStatus, errorThrown) {
                 console.log('error', textStatus, errorThrown);
+            }
+        });
+    }
+
+    function SelectWorkFlow(formatData) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            confirmButtonColor: '#4B586A',
+            confirmButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            ShowLoading();
+            MaterialReceiveStore({...formatData, comment: result.value});
+        });
+    }
+
+    function MaterialReceiveStore(formatData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("PurchaseOrder.store") }}',
+            success: function(res) {
+                HideLoading();
+
+                if (response.status == 200) {
+                    const swalWithBootstrapButtonsss = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtonsss.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        window.location.href = '/MaterialReceive?var=1';
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('error', jqXHR, textStatus, errorThrown);
             }
         });
     }
@@ -263,52 +331,38 @@
                     type: method,
                     success: function(response) {
                         HideLoading();
+                        
+                        if (response.message == "WorkflowError") {
+                            HideLoading();
+                            $("#submitMaterialReceive").prop("disabled", false);
 
-                        if (response.status == 200) {
-                            const swalWithBootstrapButtonsss = Swal.mixin({
-                                confirmButtonClass: 'btn btn-success btn-sm',
-                                cancelButtonClass: 'btn btn-danger btn-sm',
-                                buttonsStyling: true,
-                            });
+                            CancelNotif("You don't have access", '/MaterialReceive?var=1');
+                        } else if (response.message == "MoreThanOne") {
+                            HideLoading();
 
-                            swalWithBootstrapButtonsss.fire({
-                                title: 'Successful !',
-                                type: 'success',
-                                html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.documentNumber + '</span>',
-                                showCloseButton: false,
-                                showCancelButton: false,
-                                focusConfirm: false,
-                                confirmButtonText: '<span style="color:black;"> OK </span>',
-                                confirmButtonColor: '#4B586A',
-                                confirmButtonColor: '#e9ecef',
-                                reverseButtons: true
-                            }).then((result) => {
-                                window.location.href = '/MaterialReceive?var=1';
+                            $('#getWorkFlow').modal('toggle');
+
+                            var t = $('#tableGetWorkFlow').DataTable();
+                            t.clear();
+                            $.each(response.data, function(key, val) {
+                                t.row.add([
+                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                                ]).draw();
                             });
                         } else {
-                            ErrorNotif("Data Cancel Inputed");
+                            const formatData = {
+                                workFlowPath_RefID: response.workFlowPath_RefID, 
+                                nextApprover: response.nextApprover_RefID, 
+                                approverEntity: response.approverEntity_RefID, 
+                                documentTypeID: response.documentTypeID,
+                                storeData: response.storeData
+                            };
+
+                            HideLoading();
+
+                            SelectWorkFlow(formatData);
                         }
-                        
-                        // if (response.message == "WorkflowError") {
-                        //     HideLoading();
-                        //     $("#submitMaterialReceive").prop("disabled", false);
-
-                        //     CancelNotif("You don't have access", '/MaterialReceive?var=1');
-                        // } else if (response.message == "MoreThanOne") {
-                        //     HideLoading();
-
-                        //     $('#getWorkFlow').modal('toggle');
-
-                        //     var t = $('#tableGetWorkFlow').DataTable();
-                        //     t.clear();
-                        //     $.each(response.data, function(key, val) {
-                        //         t.row.add([
-                        //             '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                        //             '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                        //         ]).draw();
-                        //     });
-                        // } else {
-                        // }
                     },
                     error: function(response) {
                         console.log('response error', response);

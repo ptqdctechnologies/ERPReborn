@@ -86,18 +86,6 @@ class MaterialReceiveController extends Controller
             $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
             $input = $request->all();
             $deliveryOrderDetail = json_decode($input['materialReceiveDetail'], true);
-            // dd($input, $deliveryOrderDetail);
-
-            // $transformedDetails = [];
-            // foreach ($deliveryOrderDetail as $entity) {
-            //     $transformedDetails[] = [
-            //         "entities" => [
-            //             "deliveryOrderDetail_RefID" => null,
-            //             "quantity"                  => (float) str_replace(',', '', $entity['quantity']),
-            //             "remarks"                   => $entity['remarks'],
-            //         ]
-            //     ];
-            // }
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
@@ -119,8 +107,6 @@ class MaterialReceiveController extends Controller
                 ]
             );
 
-            // dd($varData);
-
             if ($varData['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($varData);
             }
@@ -130,7 +116,14 @@ class MaterialReceiveController extends Controller
                 "status"            => $varData['metadata']['HTTPStatusCode'],
             ];
 
-            return response()->json($compact);
+            return $this->SubmitWorkflow(
+                $varData['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+                $request->nextApprover,
+                $varData['data']['businessDocument']['documentNumber']
+            );
         } catch (\Throwable $th) {
             Log::error("Error at store: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
