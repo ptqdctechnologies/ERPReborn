@@ -5,6 +5,8 @@
 @include('getFunction.getPurchaseRequisition')
 @include('getFunction.getSupplier')
 @include('getFunction.getWorkFlow')
+@include('Purchase.PurchaseOrder.Functions.PopUp.PopUpPORevision')
+@include('Purchase.PurchaseOrder.Functions.PopUp.searchPO')
 
 <div class="content-wrapper">
   <section class="content">

@@ -18,7 +18,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link myPopUpPORevision" data-toggle="modal" data-target="#myPopUpPORevision" style="color:white;padding-bottom:10px;">
+                                    <a class="nav-link myPopUpPORevision" data-toggle="modal" data-target="#myPopUpPORevision" style="color:white;padding-bottom:10px;cursor:pointer;">
                                         <i class="far fa-file nav-icon-sm"> Revision Purchase Order</i>
                                     </a>
                                 </li>
