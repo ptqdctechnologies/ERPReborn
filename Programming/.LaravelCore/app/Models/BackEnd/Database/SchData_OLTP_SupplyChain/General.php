@@ -389,71 +389,71 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );
-                
-                return [
-                    [
-                        "date" => "2024-01-10 17:08:08.838662+07",
-                        "dateUpdate" => null,
-                        "combinedBudgetCode" => "Q000062",
-                        "combinedBudgetName" => "XL Microcell 2007",
-                        "combinedBudgetSectionCode" => "Q000062 ► 235",
-                        "combinedBudgetSectionName" => "Q000062 ► Ampang Kuranji - Padang",
-                        "transporterName" => "Transporter 1",
-                        "transporterContactPerson" => "Heru",
-                        "transporterPhone" => 622156341055,
-                        "transporterHandphone" => 6281356482475,
-                        "transporterFax" => 622156341055,
-                        "transporterAddress" => "Jl. Kalimalang No.1 Bekasi",
-                        "fileID" => 91000000000198,
-                        "businessDocument_RefID" => 74000000021267,
-                        "businessDocumentType_RefID" => 77000000000005,
-                        "businessDocumentType_Name" => "Sales Quotation Form",
-                        "combinedBudgetSectionDetail_RefID" => "",
-                        "combinedBudget_RefID" => 46000000000033,
-                        "product_RefID" => 88000000000016,
-                        "productName" => "Access Door - Drop Bolt Pintu Masuk",
-                        "quantityUnit_RefID" => 73000000000001,
-                        "quantityUnitName" => "set",
-                        "productUnitPriceCurrency_RefID" => 62000000000001,
-                        "productUnitPriceCurrencyISOCode" => "IDR",
-                        "productUnitPriceBaseCurrencyValue" => 30000.00,
-                        "productUnitPriceCurrencyExchangeRate" => 1.00,
-                        "priceCurrency_RefID" => 62000000000001,
-                        "priceBaseCurrencyValue" => 300000.00,
-                        "orderSequence" => 1,
-                    ],
-                    [
-                        "date" => "2024-01-10 17:08:08.838662+07",
-                        "dateUpdate" => null,
-                        "combinedBudgetCode" => "Q000062",
-                        "combinedBudgetName" => "XL Microcell 2007",
-                        "combinedBudgetSectionCode" => "Q000062 ► 235",
-                        "combinedBudgetSectionName" => "Q000062 ► Ampang Kuranji - Padang",
-                        "transporterName" => "Transporter 1",
-                        "transporterContactPerson" => "Heru",
-                        "transporterPhone" => 622156341055,
-                        "transporterHandphone" => 6281356482475,
-                        "transporterFax" => 622156341055,
-                        "transporterAddress" => "Jl. Kalimalang No.1 Bekasi",
-                        "fileID" => 91000000000198,
-                        "businessDocument_RefID" => 74000000021267,
-                        "businessDocumentType_RefID" => 77000000000005,
-                        "businessDocumentType_Name" => "Sales Quotation Form",
-                        "combinedBudgetSectionDetail_RefID" => "",
-                        "combinedBudget_RefID" => 46000000000033,
-                        "product_RefID" => 88000000000016,
-                        "productName" => "Amplop Coklat ukuran A3",
-                        "quantityUnit_RefID" => 73000000000001,
-                        "quantityUnitName" => "set",
-                        "productUnitPriceCurrency_RefID" => 62000000000001,
-                        "productUnitPriceCurrencyISOCode" => "IDR",
-                        "productUnitPriceBaseCurrencyValue" => 30000.00,
-                        "productUnitPriceCurrencyExchangeRate" => 1.00,
-                        "priceCurrency_RefID" => 62000000000001,
-                        "priceBaseCurrencyValue" => 300000.00,
-                        "orderSequence" => 2,
-                    ],
-                ];
+
+                        return [
+                            [
+                                "date" => "2024-01-10 17:08:08.838662+07",
+                                "dateUpdate" => null,
+                                "combinedBudgetCode" => "Q000062",
+                                "combinedBudgetName" => "XL Microcell 2007",
+                                "combinedBudgetSectionCode" => "Q000062 ► 235",
+                                "combinedBudgetSectionName" => "Q000062 ► Ampang Kuranji - Padang",
+                                "transporterName" => "Transporter 1",
+                                "transporterContactPerson" => "Heru",
+                                "transporterPhone" => 622156341055,
+                                "transporterHandphone" => 6281356482475,
+                                "transporterFax" => 622156341055,
+                                "transporterAddress" => "Jl. Kalimalang No.1 Bekasi",
+                                "fileID" => 91000000000198,
+                                "businessDocument_RefID" => 74000000021267,
+                                "businessDocumentType_RefID" => 77000000000005,
+                                "businessDocumentType_Name" => "Sales Quotation Form",
+                                "combinedBudgetSectionDetail_RefID" => "",
+                                "combinedBudget_RefID" => 46000000000033,
+                                "product_RefID" => 88000000000016,
+                                "productName" => "Access Door - Drop Bolt Pintu Masuk",
+                                "quantityUnit_RefID" => 73000000000001,
+                                "quantityUnitName" => "set",
+                                "productUnitPriceCurrency_RefID" => 62000000000001,
+                                "productUnitPriceCurrencyISOCode" => "IDR",
+                                "productUnitPriceBaseCurrencyValue" => 30000.00,
+                                "productUnitPriceCurrencyExchangeRate" => 1.00,
+                                "priceCurrency_RefID" => 62000000000001,
+                                "priceBaseCurrencyValue" => 300000.00,
+                                "orderSequence" => 1,
+                            ],
+                            [
+                                "date" => "2024-01-10 17:08:08.838662+07",
+                                "dateUpdate" => null,
+                                "combinedBudgetCode" => "Q000062",
+                                "combinedBudgetName" => "XL Microcell 2007",
+                                "combinedBudgetSectionCode" => "Q000062 ► 235",
+                                "combinedBudgetSectionName" => "Q000062 ► Ampang Kuranji - Padang",
+                                "transporterName" => "Transporter 1",
+                                "transporterContactPerson" => "Heru",
+                                "transporterPhone" => 622156341055,
+                                "transporterHandphone" => 6281356482475,
+                                "transporterFax" => 622156341055,
+                                "transporterAddress" => "Jl. Kalimalang No.1 Bekasi",
+                                "fileID" => 91000000000198,
+                                "businessDocument_RefID" => 74000000021267,
+                                "businessDocumentType_RefID" => 77000000000005,
+                                "businessDocumentType_Name" => "Sales Quotation Form",
+                                "combinedBudgetSectionDetail_RefID" => "",
+                                "combinedBudget_RefID" => 46000000000033,
+                                "product_RefID" => 88000000000016,
+                                "productName" => "Amplop Coklat ukuran A3",
+                                "quantityUnit_RefID" => 73000000000001,
+                                "quantityUnitName" => "set",
+                                "productUnitPriceCurrency_RefID" => 62000000000001,
+                                "productUnitPriceCurrencyISOCode" => "IDR",
+                                "productUnitPriceBaseCurrencyValue" => 30000.00,
+                                "productUnitPriceCurrencyExchangeRate" => 1.00,
+                                "priceCurrency_RefID" => 62000000000001,
+                                "priceBaseCurrencyValue" => 300000.00,
+                                "orderSequence" => 2,
+                            ],
+                        ];
                 }
 
             catch (\Exception $ex) {
@@ -2113,8 +2113,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseOrder']
                         );
 
-                return
-                    $varReturn;
+                        return
+                        $varReturn;
                 }
 
             catch (\Exception $ex) {
@@ -2129,7 +2129,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-03-05                                                                                           |
+        | ▪ Last Update     : 2025-04-23                                                                                           |
         | ▪ Creation Date   : 2025-03-05                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pembelian (Purchase Order Detail) Versi Terakhir                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -2162,8 +2162,28 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                return
-                    $varReturn;
+                return [
+                    [
+                        "poNumber" => 85000000000002,
+                        "paymentTerm" => "Cash Before Delivery (Single Payment)",
+                        "remark" => "Remark Example",
+                        "supplierCode" => "VDR0002",
+                        "supplierName" => "Supplier 1",
+                        "supplierAddres" => "Jakarta",
+                        "deliveryTo" => "Bandung",
+                        "currencyValue" => 1,
+                        "exchangeRate" => 1,
+                        "productCode" => 88000000000302,
+                        "productName" => "Cat dinding Catylac - Putih",
+                        "uom" => "set",
+                        "quantity" => 4.00,
+                        "price" => 38000.00,
+                        "ppn" => 10,
+                        "total" => 167200,
+                        "totalAP" => null,
+                        "balanced" => null,
+                    ]
+                ];
                 }
 
             catch (\Exception $ex) {
