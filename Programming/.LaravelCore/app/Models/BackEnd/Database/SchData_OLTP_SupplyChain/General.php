@@ -392,6 +392,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                         return [
                             [
+                                "documentNumber" => "DO/QDC/2025/000028",
+                                "deliveryOrder_ID" => 180000000000001,
+                                "deliveryOrderDetail_ID" => 181000000000002,
+                                "remarksDeliveryOrder" => "My Remarks",
+					            "deliveryFrom_RefID" => 126000000000001,
+					            "deliveryFromManualAddress" => "Medan",
+					            "deliveryTo_RefID" => 126000000000005,
+					            "deliveryToManualAddress" => "Bali",
                                 "date" => "2024-01-10 17:08:08.838662+07",
                                 "dateUpdate" => null,
                                 "combinedBudgetCode" => "Q000062",
@@ -423,6 +431,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 "orderSequence" => 1,
                             ],
                             [
+                                "documentNumber" => "DO/QDC/2025/000028",
+                                "deliveryOrder_ID" => 180000000000001,
+                                "deliveryOrderDetail_ID" => 181000000000003,
+                                "remarksDeliveryOrder" => "My Remarks",
+					            "deliveryFrom_RefID" => 126000000000001,
+					            "deliveryFromManualAddress" => "Medan",
+					            "deliveryTo_RefID" => 126000000000005,
+					            "deliveryToManualAddress" => "Bali",
                                 "date" => "2024-01-10 17:08:08.838662+07",
                                 "dateUpdate" => null,
                                 "combinedBudgetCode" => "Q000062",
