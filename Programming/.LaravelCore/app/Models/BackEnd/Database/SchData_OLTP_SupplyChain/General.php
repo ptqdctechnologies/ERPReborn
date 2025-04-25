@@ -2142,7 +2142,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-04-23                                                                                           |
+        | ▪ Last Update     : 2025-04-25                                                                                           |
         | ▪ Creation Date   : 2025-03-05                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pembelian (Purchase Order Detail) Versi Terakhir                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -2174,29 +2174,43 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );
+                $resultArray = $varReturn['data'];
+                $varReturn['data'] = [];
+                $idxArray = 0;
+                foreach ($resultArray as $key => $value) {
+                    $total = (float)$value["Price"] * (float)$value["Quantity"];
+                    $totalWithvat = $total + (float)$value["Vat"];
+                    $varReturn['data'][$idxArray]['purchaseOrder_RefID'] = $value["PurchaseOrder_RefID"];
+                    $varReturn['data'][$idxArray]['deliveryDestinationManualAddress'] = $value["DeliveryDestinationManualAddress"];
+                    $varReturn['data'][$idxArray]['purchaseOrderDetail_RefID'] = $value["PurchaseOrderDetail_RefID"];
+                    $varReturn['data'][$idxArray]['remarks'] = $value["Remarks"];
+                    $varReturn['data'][$idxArray]['productUnitPriceCurrencyValue'] = $value["ProductUnitPriceCurrencyValue"];
+                    $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate"];
+                    $varReturn['data'][$idxArray]['quantity'] = $value["Quantity"];
+                    $varReturn['data'][$idxArray]['price'] = $value["Price"];
+                    $varReturn['data'][$idxArray]['paymentTerm'] = $value["PaymentTerm"];
+                    $varReturn['data'][$idxArray]['documentNumber'] = $value["DocumentNumber"];
+                    $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
+                    $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
+                    $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName"];
+                    $varReturn['data'][$idxArray]['supplierCode'] = $value["SupplierCode"];                 
+                    if ((($value["Entity_RefIDTblSupplier"] / 1000000000000) % 10000) === 124) {
+                        $varReturn['data'][$idxArray]['supplierAddress'] = $value["SupplierAddressTblInstitution"];
+                        $varReturn['data'][$idxArray]['supplierName'] = $value["SupplierNameTblInstitution"];
+                    } elseif ((($value["Entity_RefIDTblSupplier"] / 1000000000000) % 10000) === 25) {
+                        $varReturn['data'][$idxArray]['supplierName'] = $value["SupplierNameTblPerson"];
+                        $varReturn['data'][$idxArray]['supplierAddress'] = $value["SupplierAddressTblPerson"];
+                    }
+                    $varReturn['data'][$idxArray]['vat'] = $value["Vat"];
+                    $varReturn['data'][$idxArray]['total'] = $total;
+                    $varReturn['data'][$idxArray]['totalWithvat'] = $totalWithvat;
+                    $varReturn['data'][$idxArray]['totalAP'] = null;
+                    $varReturn['data'][$idxArray]['balanced'] = null;
+                    $idxArray++;
+                }
 
-                return [
-                    [
-                        "poNumber" => 85000000000002,
-                        "paymentTerm" => "Cash Before Delivery (Single Payment)",
-                        "remark" => "Remark Example",
-                        "supplierCode" => "VDR0002",
-                        "supplierName" => "Supplier 1",
-                        "supplierAddres" => "Jakarta",
-                        "deliveryTo" => "Bandung",
-                        "currencyValue" => 1,
-                        "exchangeRate" => 1,
-                        "productCode" => 88000000000302,
-                        "productName" => "Cat dinding Catylac - Putih",
-                        "uom" => "set",
-                        "quantity" => 4.00,
-                        "price" => 38000.00,
-                        "ppn" => 10,
-                        "total" => 167200,
-                        "totalAP" => null,
-                        "balanced" => null,
-                    ]
-                ];
+                return
+                    $varReturn['data'];
                 }
 
             catch (\Exception $ex) {
