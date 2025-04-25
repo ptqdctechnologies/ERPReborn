@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.supplyChain.setDeliveryOrder.v1_throughAPIGateway              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-04-10                                                                                           |
+        | ▪ Last Update     : 2025-04-24                                                                                           |
         | ▪ Creation Date   : 2024-01-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -57,7 +57,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "quantity" => 5,
                                         "quantityUnit_RefID" => 73000000000001,
                                         "remarks" => "Catatan 1",
-                                        "underlyingDetail_RefID" => null
+                                        "underlyingDetail_RefID" => null,
+                                        "product_RefID" => 88000000000017
                                         ]
                                     ],
                                     [
@@ -66,7 +67,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "quantity" => 10,
                                         "quantityUnit_RefID" => 73000000000001,
                                         "remarks" => "Catatan 2",
-                                        "underlyingDetail_RefID" => null
+                                        "underlyingDetail_RefID" => null,
+                                        "product_RefID" => 88000000000018
                                         ]
                                     ],
                                 ]
