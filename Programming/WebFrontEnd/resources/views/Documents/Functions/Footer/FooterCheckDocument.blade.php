@@ -90,6 +90,8 @@
             type: 'GET',
             url: '{!! route("getDocumentType") !!}',
             success: function(data) {
+                console.log('data', data);
+                
                 if (data && Array.isArray(data)) {
                     $('#DocumentType').empty();
                     $('#DocumentType').append('<option disabled selected>Select a Project Code</option>');

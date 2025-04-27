@@ -1374,6 +1374,34 @@ class FunctionController extends Controller
         }
     }
 
+    public function getTimesheetList(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $userSession    = Helper_Environment::getUserSessionID_System();
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.humanResource.getPersonWorkTimeSheet', 
+                'latest',
+                [
+                'parameter' => [
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getTimesheetList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
 
     // NITIP
     // $userSessionID = Helper_Environment::getUserSessionID_System();

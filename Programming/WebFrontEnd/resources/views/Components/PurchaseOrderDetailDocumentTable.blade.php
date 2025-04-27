@@ -6,33 +6,35 @@
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRODUCT CODE</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRODUCT NAME</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UOM</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">QTY AVAIL</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">QTY REQ</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">BALANCE</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">NOTE</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">CURRENCY</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRICE</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">QTY</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">TOTAL</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">REMARK</th>
             </tr>
         </thead>
 
         <tbody>
             <?php $no = 1; $grand_total = 0; ?>
             <?php foreach ($dataHeader as $dataDetail) { ?>
-            <?php $grand_total += 2;  ?>
+            <?php $grand_total += $dataDetail['Quantity'];  ?>
                 <tr>
                     <td style="border:1px solid #4B586A;color:#4B586A;"><?= $no++; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['ProductCode']; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['ProductName']; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['UoM']; ?></td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productName']; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['quantityUnitName']; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format(4, 2); ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format(2, 2); ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format(2, 2); ?></td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['Quantity'], 2); ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['Quantity'], 2); ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['Remarks']; ?></td>
                 </tr>
             <?php } ?>
         </tbody>
 
         <tfoot>
             <tr>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="5">
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="7">
                     GRAND TOTAL
                 </th>
                 <td style="border:1px solid #4B586A;color:#4B586A;">
@@ -40,7 +42,6 @@
                         <?= number_format($grand_total, 2); ?>
                     </span>
                 </td>
-                <td style="border:1px solid #4B586A;color:#4B586A;"></td>
                 <td style="border:1px solid #4B586A;color:#4B586A;"></td>
             </tr>
         </tfoot>

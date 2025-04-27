@@ -26,7 +26,7 @@
               @if ($title == 'ADVANCE FORM')
                 <input type="hidden" id="refID" name="advance_RefID" value="76000000000539" class="form-control" style="border-radius:0;">
               @else
-                <input type="hidden" id="refID" name="do_RefID" value="{{ $dataHeader[0]['DeliveryOrder_ID'] }}" class="form-control" style="border-radius:0;">
+                <input type="hidden" id="refID" name="do_RefID" value="{{ $dataHeader[0]['DeliveryOrder_ID'] ?? '180000000000048' }}" class="form-control" style="border-radius:0;">
               @endif
             </form>
 

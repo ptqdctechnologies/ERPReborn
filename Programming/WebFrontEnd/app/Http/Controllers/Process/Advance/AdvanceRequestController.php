@@ -247,10 +247,10 @@ class AdvanceRequestController extends Controller
             $varAPIWebToken = Session::get('SessionLogin');
             $advance_RefID  = $request->input('advance_RefID');
 
-            Helper_APICall::setCallAPIGateway(
+            $DataAdvanceDetailComplex = Helper_APICall::setCallAPIGateway(
                 $sessionID,
                 $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceDetailComplex',
+                'transaction.read.dataList.finance.getAdvanceDetail',
                 'latest',
                 [
                     'parameter' => [
@@ -266,42 +266,40 @@ class AdvanceRequestController extends Controller
                 false
             );
 
-            $DataAdvanceDetailComplex = json_decode(Helper_Redis::getValue($sessionID, "DataListAdvanceDetailComplex"), true);
+            $DataAdvanceDetailComplex = $DataAdvanceDetailComplex['data'];
 
             $compact = [
                 'varAPIWebToken'                => $varAPIWebToken,
                 'statusRevisi'                  => 0,
-                'DocumentTypeID'                => $DataAdvanceDetailComplex[0]['BusinessDocumentType_RefID'],
-                'Sys_ID_Advance'                => $DataAdvanceDetailComplex[0]['Sys_ID_Advance'],
+                'DocumentTypeID'                => $DataAdvanceDetailComplex[0]['BusinessDocumentType_RefID'] ?? '', // REQUEST
+                'Sys_ID_Advance'                => $DataAdvanceDetailComplex[0]['Sys_ID_Advance'] ?? '', // REQUEST
                 'headerAdvanceRevision'         => [
-                    'budgetCode'                => $DataAdvanceDetailComplex[0]['CombinedBudgetCode'],
-                    'budgetCodeId'              => $DataAdvanceDetailComplex[0]['CombinedBudget_RefID'],
-                    'budgetCodeName'            => $DataAdvanceDetailComplex[0]['CombinedBudgetName'],
-                    'subBudgetCode'             => $DataAdvanceDetailComplex[0]['CombinedBudgetSectionCode'],
+                    'budgetCode'                => $DataAdvanceDetailComplex[0]['combinedBudgetCode'],
+                    'budgetCodeId'              => $DataAdvanceDetailComplex[0]['CombinedBudget_RefID'] ?? '', // REQUEST
+                    'budgetCodeName'            => $DataAdvanceDetailComplex[0]['combinedBudgetName'] ?? '',
+                    'subBudgetCode'             => $DataAdvanceDetailComplex[0]['combinedBudgetSectionCode'],
                     'subBudgetCodeId'           => '143000000000305', // REQUEST
-                    'subBudgetCodeName'         => $DataAdvanceDetailComplex[0]['CombinedBudgetSectionName'],
+                    'subBudgetCodeName'         => $DataAdvanceDetailComplex[0]['combinedBudgetSectionName'],
                 ],
                 'headerAdvanceRequestDetail'    => [
-                    'requesterPosition'         => $DataAdvanceDetailComplex[0]['RequesterWorkerJobsPositionName'],
-                    'requesterId'               => $DataAdvanceDetailComplex[0]['RequesterWorkerJobsPosition_RefID'],
-                    'requesterName'             => $DataAdvanceDetailComplex[0]['RequesterWorkerName'],
-                    'beneficiaryPosition'       => $DataAdvanceDetailComplex[0]['BeneficiaryWorkerJobsPositionName'],
-                    'beneficiaryId'             => $DataAdvanceDetailComplex[0]['BeneficiaryWorkerJobsPosition_RefID'],
-                    'beneficiaryName'           => $DataAdvanceDetailComplex[0]['BeneficiaryWorkerName'],
+                    'requesterPosition'         => $DataAdvanceDetailComplex[0]['RequesterWorkerJobsPositionName'] ?? '', // REQUEST
+                    'requesterId'               => $DataAdvanceDetailComplex[0]['RequesterWorkerJobsPosition_RefID'] ?? '', // REQUEST
+                    'requesterName'             => $DataAdvanceDetailComplex[0]['RequesterWorkerName'] ?? '', // REQUEST
+                    'beneficiaryPosition'       => $DataAdvanceDetailComplex[0]['BeneficiaryWorkerJobsPositionName'] ?? '', // REQUEST
+                    'beneficiaryId'             => $DataAdvanceDetailComplex[0]['BeneficiaryWorkerJobsPosition_RefID'] ?? '', // REQUEST
+                    'beneficiaryName'           => $DataAdvanceDetailComplex[0]['BeneficiaryWorkerName'] ?? '', // REQUEST
                     'person_RefId'              => '', // REQUEST
-                    'bankAcronym'               => $DataAdvanceDetailComplex[0]['BankAcronym'],
-                    'bankId'                    => $DataAdvanceDetailComplex[0]['Bank_RefID'],
-                    'bankName'                  => $DataAdvanceDetailComplex[0]['BankName'],
-                    'bankAccountNumber'         => $DataAdvanceDetailComplex[0]['BankAccountNumber'],
-                    'bankAccountId'             => $DataAdvanceDetailComplex[0]['BankAccount_RefID'],
-                    'bankAccountName'           => $DataAdvanceDetailComplex[0]['BankAccountName'],
+                    'bankAcronym'               => $DataAdvanceDetailComplex[0]['BankAcronym'] ?? '', // REQUEST
+                    'bankId'                    => $DataAdvanceDetailComplex[0]['Bank_RefID'] ?? '', // REQUEST
+                    'bankName'                  => $DataAdvanceDetailComplex[0]['BankName'] ?? '', // REQUEST
+                    'bankAccountNumber'         => $DataAdvanceDetailComplex[0]['BankAccountNumber'] ?? '', // REQUEST
+                    'bankAccountId'             => $DataAdvanceDetailComplex[0]['BankAccount_RefID'] ?? '', // REQUEST
+                    'bankAccountName'           => $DataAdvanceDetailComplex[0]['BankAccountName'] ?? '', // REQUEST
                 ],
                 'dataAdvanceList'               => $DataAdvanceDetailComplex,
-                'fileAttachment'                => $DataAdvanceDetailComplex[0]['Log_FileUpload_Pointer_RefID'],
-                'remark'                        => $DataAdvanceDetailComplex[0]['Remarks']
+                'fileAttachment'                => $DataAdvanceDetailComplex[0]['Log_FileUpload_Pointer_RefID'] ?? null, // REQUEST
+                'remark'                        => $DataAdvanceDetailComplex[0]['Remarks'] ?? '' // REQUEST
             ];
-
-            // dump($DataAdvanceDetailComplex);
 
             return view('Process.Advance.AdvanceRequest.Transactions.RevisionAdvanceRequest', $compact);
         } catch (\Throwable $th) {
@@ -442,6 +440,8 @@ class AdvanceRequestController extends Controller
             if ($site_id != "") {
                 $collection = $collection->where('combinedBudgetSection_RefID', $site_id);
             }
+
+            Log::error("collection", $collection);
 
             $collection = $collection->all();
 

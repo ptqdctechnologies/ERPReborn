@@ -125,9 +125,35 @@ class CheckDocumentController extends Controller
             ]
         );
 
+        // Log::error("Error at DataDeliveryOrderDetail: ", [$DataDeliveryOrderDetail]);
+
         // dd($Document, $DataDeliveryOrderDetail);
 
         return $DataDeliveryOrderDetail['data'];
+    }
+
+    // GET PURCHASE ORDER DETAIL
+    private function FetchPurchaseOrderDetails($varAPIWebToken, $Document, $filterType)
+    {
+        $DataPurchaseOrderDetail = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.supplyChain.getPurchaseOrderDetail',
+            'latest',
+            [
+            'parameter' => [
+                'purchaseOrder_RefID' => (int) $Document
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
+
+        return $DataPurchaseOrderDetail['data']['data'];
     }
 
     // GET WORKFLOW HISTORY
@@ -143,6 +169,8 @@ class CheckDocumentController extends Controller
             ],
             false
         );
+
+        // Log::error("Error at workflowHistory: ", [$workflowHistory]);
 
         // dd($workflowHistory);
 
@@ -194,8 +222,12 @@ class CheckDocumentController extends Controller
 
         if ($businessDocumentTypeName === "Delivery Order Form") {
             $firstDetail = $advanceDetails;
-            $businessDocument_RefID = $advanceDetails[0]['DeliveryOrder_ID'];
-            $businessDocumentNumber = $advanceDetails[0]['DocumentNumber'];
+            $businessDocument_RefID = $advanceDetails[0]['DeliveryOrder_ID'] ?? 180000000000047;
+            $businessDocumentNumber = $advanceDetails[0]['DocumentNumber'] ?? "DO/QDC/2025/000038";
+        } else if ($businessDocumentTypeName === "Purchase Order Form") {
+            $firstDetail = $advanceDetails;
+            $businessDocument_RefID = $advanceDetails[0]['PurchaseOrder_RefID'];
+            $businessDocumentNumber = $advanceDetails[0]['DocumentNumber'] ?? "PO/QDC/2025/000008";
         } else {
             $firstDetail = [$advanceDetails[0]];
             $businessDocument_RefID = $advanceDetails[0]['Sys_ID_Advance'];
@@ -228,6 +260,10 @@ class CheckDocumentController extends Controller
         try {
             if ($businessDocumentTypeName === "Delivery Order Form") {
                 $collection = $this->FetchDeliveryOrderDetails($varAPIWebToken, $Document, $filterType);
+            } else if ($businessDocumentTypeName === "Purchase Order Form") {
+                $collection = $this->FetchPurchaseOrderDetails($varAPIWebToken, $Document, $filterType);
+
+                $collection[0]['BusinessDocument_RefID'] = 74000000021289;
             } else {
                 $collection = $this->FetchAdvanceDetails($varAPIWebToken, $Document, $filterType);
             }
@@ -236,7 +272,7 @@ class CheckDocumentController extends Controller
                 return ['status' => 'error'];
             }
 
-            $workflowData   = $this->FetchWorkflowHistory($varAPIWebToken, $collection[0]['BusinessDocument_RefID']);
+            $workflowData   = $this->FetchWorkflowHistory($varAPIWebToken, $collection[0]['BusinessDocument_RefID'] ?? $collection[0]['businessDocument_RefID']);
             $approverStatus = $this->DetermineApproverStatus($workflowData, $sourceData);
             $documentStatus = $this->DetermineDocumentStatus($workflowData);
 
@@ -267,6 +303,8 @@ class CheckDocumentController extends Controller
         $businessDocument_RefID = $request->input('businessDocument_RefID');
         $businessDocumentType_Name = $request->input('businessDocumentType_Name');
 
+        // dd($request->all());
+
         $sourceData = 0;
         $statusHeader = "Yes";
         if (isset($businessDocument_RefID) || isset($businessDocumentNumber)) {
@@ -279,6 +317,8 @@ class CheckDocumentController extends Controller
                 $filterType = "Number";
                 $varDataWorkflow = $this->GetAllDocumentType($varAPIWebToken, $businessDocumentNumber, $filterType, $sourceData, $statusHeader, null);
             }
+
+            // dd($varDataWorkflow);
 
             if ($varDataWorkflow['status'] == "success") {
                 return view('Documents.Transactions.IndexCheckDocument', $varDataWorkflow);
@@ -420,6 +460,8 @@ class CheckDocumentController extends Controller
                 return $varDataWorkflow; 
             }
 
+            dump($varDataWorkflow);
+
             return view('Documents.Transactions.IndexCheckDetailDocument', $varDataWorkflow);
         } catch (\Throwable $th) {
             Log::error("Error at ShowDocumentByID: " . $th->getMessage());
@@ -433,9 +475,9 @@ class CheckDocumentController extends Controller
         $DocumentTypeID = $request->input('DocumentTypeID');
         $DocumentTypeName = $request->input('DocumentTypeName');
 
-        if ($DocumentTypeID == 77000000000045) {
-            $DocumentTypeID = 77000000000057;
-        }
+        // if ($DocumentTypeID == 77000000000045) {
+        //     $DocumentTypeID = 77000000000057;
+        // }
 
         // if (Redis::get("CheckDocumentTypeID" . $DocumentType) == null) {
         $varAPIWebToken = Session::get('SessionLogin');

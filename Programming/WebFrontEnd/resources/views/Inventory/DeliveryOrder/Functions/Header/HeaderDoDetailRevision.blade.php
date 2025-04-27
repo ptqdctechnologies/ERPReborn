@@ -10,14 +10,14 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="transporter_name" style="border-radius:0;" class="form-control" size="20" readonly>
+                        <input id="transporter_name" style="border-radius:0;" class="form-control" size="20" value="<?= $Data[0]['transporterName'] ?? ''; ?>" readonly>
                         <input id="transporter_id" style="border-radius:0;" name="transporter_id" class="form-control" hidden>
                     </div>
                     <div class="input-group-append">
                         <span style="border-radius:0;" class="input-group-text form-control myTransporter">
-                          <a href="javascript:;" id="myTransporterTrigger" data-toggle="modal" data-target="#myTransporter" style="display: block;">
-                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myTransporterTrigger">
-                          </a>
+                            <a href="javascript:;" id="myTransporterTrigger" data-toggle="modal" data-target="#myTransporter" style="display: block;">
+                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myTransporterTrigger">
+                            </a>
                         </span>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="transporter_phone" style="border-radius:0;" class="form-control" size="20" readonly>
+                        <input id="transporter_phone" style="border-radius:0;" class="form-control" size="20" value="<?= $Data[0]['transporterPhone'] ?? ''; ?>" readonly>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="transporter_fax" style="border-radius:0;" class="form-control" size="20" readonly>
+                        <input id="transporter_fax" style="border-radius:0;" class="form-control" size="20" value="<?= $Data[0]['transporterFax'] ?? ''; ?>" readonly>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="transporter_contact" style="border-radius:0;" class="form-control" size="20" readonly>
+                        <input id="transporter_contact" style="border-radius:0;" class="form-control" size="20" value="<?= $Data[0]['transporterContactPerson'] ?? ''; ?>" readonly>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="transporter_handphone" style="border-radius:0;" class="form-control" size="20" readonly>
+                        <input id="transporter_handphone" style="border-radius:0;" class="form-control" size="20" value="<?= $Data[0]['transporterHandphone'] ?? ''; ?>" readonly>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <textarea id="transporter_address" rows="3" style="border-radius:0;" class="form-control" readonly></textarea>
+                        <textarea id="transporter_address" rows="3" style="border-radius:0;" class="form-control" readonly><?= $Data[0]['transporterAddress'] ?? ''; ?></textarea>
                     </div>
                 </div>
             </div>
