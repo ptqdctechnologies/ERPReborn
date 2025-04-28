@@ -6961,6 +6961,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Illuminate\\Support\\DefaultProviders' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/DefaultProviders.php',
         'Illuminate\\Support\\Defer\\DeferredCallback' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Defer/DeferredCallback.php',
         'Illuminate\\Support\\Defer\\DeferredCallbackCollection' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Defer/DeferredCallbackCollection.php',
+        'Illuminate\\Support\\EncodedHtmlString' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/EncodedHtmlString.php',
         'Illuminate\\Support\\Enumerable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/Enumerable.php',
         'Illuminate\\Support\\Env' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Env.php',
         'Illuminate\\Support\\Exceptions\\MathException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Exceptions/MathException.php',
