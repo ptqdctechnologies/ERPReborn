@@ -42,6 +42,7 @@ class Controller extends BaseController
             $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
             $dataInput = $request->all();
+            Log::error("dataInput at ", [$dataInput, $SessionWorkerCareerInternal_RefID]);
             if (isset($dataInput['dataInput_Log_FileUpload_Pointer_RefID_Action'])) {
                 unset($dataInput['dataInput_Log_FileUpload_Pointer_RefID_Action']);
             }

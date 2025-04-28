@@ -570,13 +570,13 @@ class DeliveryOrderController extends Controller
                 ]
             );
 
-            $DocumentType = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "DocumentType"
-                ),
-                true
-            );
+            // $DocumentType = json_decode(
+            //     Helper_Redis::getValue(
+            //         Helper_Environment::getUserSessionID_System(),
+            //         "DocumentType"
+            //     ),
+            //     true
+            // );
 
             // dump($varData['data']);
 
@@ -626,12 +626,6 @@ class DeliveryOrderController extends Controller
         );
         return response()->json($varData['data']);
     }
-
-
-
-
-    //UPDATE
-
 
     public function StoreValidateDeliveryOrderSupplier(Request $request)
     {
@@ -688,7 +682,6 @@ class DeliveryOrderController extends Controller
         return response()->json($compact);
     }
 
-
     public function DeliveryOrderComplexBySupplierID($advance_RefID)
     {
         $varAPIWebToken = Session::get('SessionLogin');
@@ -734,8 +727,6 @@ class DeliveryOrderController extends Controller
 
         return $filteredArray;
     }
-
-
 
     public function SearchDeliveryOrderRequest(Request $request)
     {

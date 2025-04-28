@@ -84,8 +84,6 @@
                 var table = $('#tableGetDeliveryOrder').DataTable();
                 table.clear();
 
-                console.log('data', data);
-
                 if (Array.isArray(data) && data.length > 0) {
                     $.each(data, function(key, val) {
                         keys += 1;

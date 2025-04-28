@@ -116,14 +116,16 @@ class MaterialReceiveController extends Controller
                 "status"            => $varData['metadata']['HTTPStatusCode'],
             ];
 
-            return $this->SubmitWorkflow(
-                $varData['data']['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
-                $request->comment,
-                $request->approverEntity,
-                $request->nextApprover,
-                $varData['data']['businessDocument']['documentNumber']
-            );
+            return response()->json($compact);
+
+            // return $this->SubmitWorkflow(
+            //     $varData['data']['businessDocument']['businessDocument_RefID'],
+            //     $request->workFlowPath_RefID,
+            //     $request->comment,
+            //     $request->approverEntity,
+            //     $request->nextApprover,
+            //     $varData['data']['businessDocument']['documentNumber']
+            // );
         } catch (\Throwable $th) {
             Log::error("Error at store: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

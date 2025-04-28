@@ -775,29 +775,57 @@ class PurchaseOrderController extends Controller
 
     public function RevisionPurchaseOrderIndex(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionPurchaseRequisition");
+        $varAPIWebToken     = $request->session()->get('SessionLogin');
+        $purchaseOrderID    = $request->purchaseOrder_RefID;
+        // $request->session()->forget("SessionPurchaseRequisition");
 
-        $varDataPurchaseOrderRevision = Helper_APICall::setCallAPIGateway(
+        $varData = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'report.form.documentForm.supplyChain.getPurchaseRequisition',
+            'transaction.read.dataList.supplyChain.getPurchaseOrderDetail',
             'latest',
             [
-                'parameter' => [
-                    'recordID' => (int) $request->searchPONumberRevisionId
+            'parameter' => [
+                'purchaseOrder_RefID' => (int) $purchaseOrderID
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
                 ]
             ]
         );
-        // dd($varDataProcReqRevision);
+        
+        if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json($varData);
+        }
+        
+        $data = $varData['data']['data'];
         
         $compact = [
-            'dataPurchaseOrderRevision' => $varDataPurchaseOrderRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
-            'dataPurchaOrdernumber' => $varDataPurchaseOrderRevision['data'][0]['document']['header']['number'],
-            'var_recordID' => $request->searchPONumberRevisionId,
+            'varAPIWebToken'        => $varAPIWebToken,
+            'header'                => [
+                'poNumberID'        => $data[0]['PurchaseOrder_RefID'],
+                'poNumber'          => $data[0]['DocumentNumber'],
+                'deliveryTo'        => $data[0]['DeliveryDestinationManualAddress'],
+                'deliveryToID'      => '',
+                'supplierID'        => '',
+                'supplierName'      => '',
+                'supplierCode'      => '',
+                'supplierAddress'   => '',
+                'downPayment'       => '',
+                'termOfPaymentID'   => '',
+                'paymentNotes'      => '',
+                'remarkPO'          => '',
+                'internalNote'      => '',
+                'fileID'            => '',
+                'vatValue'          => '',
+            ],
+            'detail'                => $data
         ];
 
-        return view('Purchase.Purchase.Transactions.RevisionPurchaseOrder', $compact);
+        return view('Purchase.PurchaseOrder.Transactions.RevisionPurchaseOrder', $compact);
     }
     /**
      * Show the form for creating a new resource.
