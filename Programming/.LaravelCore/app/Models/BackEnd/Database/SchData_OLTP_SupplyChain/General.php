@@ -389,7 +389,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [TRUE, 'boolean']
                             ]
                             )
-                        );                        
+                        );
                         $resultArray = $varReturn['data'];
                         $varReturn['data'] = [];
                         $idxArray = 0;
@@ -458,6 +458,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 $varReturn['data'][$idxArray]['PriceBaseCurrencyValue'] = $value["PriceFinalBaseCurrencyValue_TblOrderPickingDetail"];                            
                                 $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName_TblQuantityUnit_TblOrderPickingDetail"];
                                 $varReturn['data'][$idxArray]['ProductUnitPriceCurrencyISOCode'] = $value["ISOCode_TblCurrency_TblOrderPickingDetail"];
+                            } else {
+                                $varReturn['data'][$idxArray]['quantity'] = null;
+                                $varReturn['data'][$idxArray]['quantityUnit_RefID'] = null;
+                                $varReturn['data'][$idxArray]['ProductUnitPriceCurrency_RefID'] = null;
+                                $varReturn['data'][$idxArray]['ProductUnitPriceBaseCurrencyValue'] = null;
+                                $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = null;
+                                $varReturn['data'][$idxArray]['ProductUnitPriceCurrencyExchangeRate'] = null;
+                                $varReturn['data'][$idxArray]['PriceCurrency_RefID'] = null;
+                                $varReturn['data'][$idxArray]['PriceBaseCurrencyValue'] = null;
+                                $varReturn['data'][$idxArray]['quantityUnitName'] = null;
+                                $varReturn['data'][$idxArray]['ProductUnitPriceCurrencyISOCode'] = null;
                             }
                             $varReturn['data'][$idxArray]['businessDocumentType_RefID'] = $value["BusinessDocumentType_RefID"];
                             $varReturn['data'][$idxArray]['businessDocumentType_Name'] = $value["BusinessDocumentType_Name"];
