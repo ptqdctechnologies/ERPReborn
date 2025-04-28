@@ -7,6 +7,8 @@
 @include('getFunction.getSite')
 @include('getFunction.getDeliverTo')
 @include('getFunction.getWorkFlow')
+@include('getFunction.getPurchaseRequisition')
+@include('Purchase.PurchaseRequisition.Functions.PopUp.PopUpPrRevision')
 
 <div class="content-wrapper">
   <section class="content">

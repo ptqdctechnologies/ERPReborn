@@ -804,25 +804,25 @@ class PurchaseOrderController extends Controller
         $data = $varData['data']['data'];
         
         $compact = [
-            'varAPIWebToken'    => $varAPIWebToken,
-            'header'            => [
-                'poNumberID'    => $data[0]['PurchaseOrder_RefID'],
-                'poNumber'      => $data[0]['DocumentNumber'],
-                'deliveryTo'    => $data[0]['DeliveryDestinationManualAddress'],
-                'deliveryToID'  => '',
-                'supplierID'    => '',
-                'supplierName'  => '',
-                'supplierCode'  => '',
+            'varAPIWebToken'        => $varAPIWebToken,
+            'header'                => [
+                'poNumberID'        => $data[0]['PurchaseOrder_RefID'],
+                'poNumber'          => $data[0]['DocumentNumber'],
+                'deliveryTo'        => $data[0]['DeliveryDestinationManualAddress'],
+                'deliveryToID'      => '',
+                'supplierID'        => '',
+                'supplierName'      => '',
+                'supplierCode'      => '',
                 'supplierAddress'   => '',
-                'downPayment'   => '',
+                'downPayment'       => '',
                 'termOfPaymentID'   => '',
-                'paymentNotes'  => '',
-                'remarkPO'      => '',
-                'internalNote'  => '',
-                'fileID'        => '',
-                'vatValue'      => '',
+                'paymentNotes'      => '',
+                'remarkPO'          => '',
+                'internalNote'      => '',
+                'fileID'            => '',
+                'vatValue'          => '',
             ],
-            'detail'            => $data
+            'detail'                => $data
         ];
 
         return view('Purchase.PurchaseOrder.Transactions.RevisionPurchaseOrder', $compact);

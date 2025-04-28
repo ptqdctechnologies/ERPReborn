@@ -28,6 +28,7 @@ class PurchaseRequisitionController extends Controller
         ];
         return view('Purchase.PurchaseRequisition.Transactions.CreatePurchaseRequisition', $compact);
     }
+
     public function ReportPurchaseRequisitionSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -47,6 +48,7 @@ class PurchaseRequisitionController extends Controller
 
         return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionSummary', $compact);
     }
+    
     public function ReportsPrtoPo(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -64,6 +66,7 @@ class PurchaseRequisitionController extends Controller
 
         return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionToPurchaseOrder', $compact);
     }
+    
     public function ReportPurchaseRequisitionDetail(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -228,7 +231,6 @@ class PurchaseRequisitionController extends Controller
         // return $this->SelectWorkFlow($varData, $SessionWorkerCareerInternal_RefID, $VarSelectWorkFlow);
     }
 
-
     public function PurchaseRequisitionListData(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -256,30 +258,54 @@ class PurchaseRequisitionController extends Controller
 
     public function RevisionPrIndex(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varAPIWebToken             = $request->session()->get('SessionLogin');
+        $purchaseRequisition_RefID  = $request->modal_purchase_requisition_id;
         $request->session()->forget("SessionPurchaseRequisition");
 
-        $varDataProcReqRevision = Helper_APICall::setCallAPIGateway(
+        $varData = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'report.form.documentForm.supplyChain.getPurchaseRequisition',
-            'latest',
+            $varAPIWebToken, 
+            'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail', 
+            'latest', 
             [
-                'parameter' => [
-                    'recordID' => (int) $request->searchPrNumberRevisionId
+            'parameter' => [
+                'purchaseRequisition_RefID' => (int) $purchaseRequisition_RefID
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
                 ]
             ]
         );
-        // dd($varDataProcReqRevision);
-        
+
+        if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json($varData);
+        }
+
+        $data = $varData['data']['data'];
+
         $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'log_FileUpload_Pointer_RefID' => $varDataProcReqRevision['data'][0]['document']['content']['general']['attachmentFiles']['main']['log_FileUpload_Pointer_RefID'],
-            'budget' => $varDataProcReqRevision['data'][0]['document']['content']['general']['budget'],
-            'trano' => $varDataProcReqRevision['data'][0]['document']['header']['number'],
-            'var_recordID' => $request->searchPrNumberRevisionId,
-            'statusRevisi' => 1,
+            'varAPIWebToken'        => $varAPIWebToken,
+            'header'                => [
+                'budgetID'          => '', // Request (46000000000000)
+                'budgetName'        => $data[0]['combinedBudgetName'],
+                'budgetCode'        => $data[0]['combinedBudgetCode'],
+                'subBudgetID'       => '', // Request (143000000000000)
+                'subBudgetName'     => $data[0]['combinedBudgetSectionName'],
+                'subBudgetCode'     => $data[0]['combinedBudgetSectionCode'],
+                'deliverToID'       => '',
+                'deliverToCode'     => '',
+                'deliverToName'     => '',
+                'dateOfDelivery'    => '',
+                'notes'             => '',
+                'fileId'            => '',
+            ],
+            'detail'                => $data
         ];
+
+        dump($data);
 
         return view('Purchase.PurchaseRequisition.Transactions.RevisionPurchaseRequisition', $compact);
     }
