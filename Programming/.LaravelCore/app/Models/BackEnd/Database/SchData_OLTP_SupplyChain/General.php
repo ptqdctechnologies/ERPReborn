@@ -2206,13 +2206,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
                     $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
                     $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName"];
-                    $varReturn['data'][$idxArray]['supplierCode'] = $value["SupplierCode"];                 
+                    $varReturn['data'][$idxArray]['supplierCode'] = $value["SupplierCode"];
                     if ((($value["Entity_RefIDTblSupplier"] / 1000000000000) % 10000) === 124) {
                         $varReturn['data'][$idxArray]['supplierAddress'] = $value["SupplierAddressTblInstitution"];
                         $varReturn['data'][$idxArray]['supplierName'] = $value["SupplierNameTblInstitution"];
                     } elseif ((($value["Entity_RefIDTblSupplier"] / 1000000000000) % 10000) === 25) {
                         $varReturn['data'][$idxArray]['supplierName'] = $value["SupplierNameTblPerson"];
                         $varReturn['data'][$idxArray]['supplierAddress'] = $value["SupplierAddressTblPerson"];
+                    } else {
+                        $varReturn['data'][$idxArray]['supplierName'] = null;
+                        $varReturn['data'][$idxArray]['supplierAddress'] = null;
                     }
                     $varReturn['data'][$idxArray]['vat'] = $value["Vat"];
                     $varReturn['data'][$idxArray]['total'] = $total;
