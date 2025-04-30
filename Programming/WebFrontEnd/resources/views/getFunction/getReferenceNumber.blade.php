@@ -102,8 +102,6 @@
                 type: 'GET',
                 url: urls,
                 success: function(data) {
-                    console.log('data', data);
-                    
                     $(".loadingReferenceNumber").hide();
 
                     var no = 1;

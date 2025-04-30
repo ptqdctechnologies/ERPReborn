@@ -46,17 +46,17 @@
                         let row = `
                             <tr>
                                 <input id="trano${key}" value="${delivery_order_number}" type="hidden" />
-                                <input id="delivery_order_detail_id${key}" value="${val2.DeliveryOrderDetail_ID}" type="hidden" />
+                                <input id="delivery_order_detail_id${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
                                 <input id="product_code${key}" value="-" type="hidden" />
                                 <input id="product_name${key}" value="-" type="hidden" />
-                                <input id="qty_do${key}" value="-" type="hidden" />
+                                <input id="qty_do${key}" value="${val2.qtyReq}" type="hidden" />
                                 <input id="qty_available${key}" value="-" type="hidden" />
                                 <input id="uom${key}" value="-" type="hidden" />
 
                                 ${key === 0 ? modifyColumn : ''}
                                 <td style="text-align: center;">-</td>
                                 <td style="text-align: center;">-</td>
-                                <td style="text-align: center;">-</td>
+                                <td style="text-align: center;">${val2.qtyReq}</td>
                                 <td style="text-align: center;">-</td>
                                 <td style="text-align: center;">-</td>
                                 <td style="text-align: center; width: 100px;">
@@ -155,11 +155,13 @@
         $.ajax({
             type: 'POST',
             data: formatData,
-            url: '{{ route("PurchaseOrder.store") }}',
+            url: '{{ route("MaterialReceive.store") }}',
             success: function(res) {
                 HideLoading();
 
-                if (response.status == 200) {
+                console.log('res', res);
+
+                if (res.status == 200) {
                     const swalWithBootstrapButtonsss = Swal.mixin({
                         confirmButtonClass: 'btn btn-success btn-sm',
                         cancelButtonClass: 'btn btn-danger btn-sm',
@@ -169,7 +171,7 @@
                     swalWithBootstrapButtonsss.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -332,62 +334,64 @@
                     success: function(response) {
                         HideLoading();
 
-                        if (response.status == 200) {
-                            const swalWithBootstrapButtonsss = Swal.mixin({
-                                confirmButtonClass: 'btn btn-success btn-sm',
-                                cancelButtonClass: 'btn btn-danger btn-sm',
-                                buttonsStyling: true,
-                            });
+                        console.log('response', response);
 
-                            swalWithBootstrapButtonsss.fire({
-                                title: 'Successful !',
-                                type: 'success',
-                                html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.documentNumber + '</span>',
-                                showCloseButton: false,
-                                showCancelButton: false,
-                                focusConfirm: false,
-                                confirmButtonText: '<span style="color:black;"> OK </span>',
-                                confirmButtonColor: '#4B586A',
-                                confirmButtonColor: '#e9ecef',
-                                reverseButtons: true
-                            }).then((result) => {
-                                window.location.href = '/MaterialReceive?var=1';
-                            });
-                        } else {
-                            ErrorNotif("Data Cancel Inputed");
-                        }
-                        
-                        // if (response.message == "WorkflowError") {
-                        //     HideLoading();
-                        //     $("#submitMaterialReceive").prop("disabled", false);
+                        // if (response.status == 200) {
+                        //     const swalWithBootstrapButtonsss = Swal.mixin({
+                        //         confirmButtonClass: 'btn btn-success btn-sm',
+                        //         cancelButtonClass: 'btn btn-danger btn-sm',
+                        //         buttonsStyling: true,
+                        //     });
 
-                        //     CancelNotif("You don't have access", '/MaterialReceive?var=1');
-                        // } else if (response.message == "MoreThanOne") {
-                        //     HideLoading();
-
-                        //     $('#getWorkFlow').modal('toggle');
-
-                        //     var t = $('#tableGetWorkFlow').DataTable();
-                        //     t.clear();
-                        //     $.each(response.data, function(key, val) {
-                        //         t.row.add([
-                        //             '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                        //             '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                        //         ]).draw();
+                        //     swalWithBootstrapButtonsss.fire({
+                        //         title: 'Successful !',
+                        //         type: 'success',
+                        //         html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.documentNumber + '</span>',
+                        //         showCloseButton: false,
+                        //         showCancelButton: false,
+                        //         focusConfirm: false,
+                        //         confirmButtonText: '<span style="color:black;"> OK </span>',
+                        //         confirmButtonColor: '#4B586A',
+                        //         confirmButtonColor: '#e9ecef',
+                        //         reverseButtons: true
+                        //     }).then((result) => {
+                        //         window.location.href = '/MaterialReceive?var=1';
                         //     });
                         // } else {
-                        //     const formatData = {
-                        //         workFlowPath_RefID: response.workFlowPath_RefID, 
-                        //         nextApprover: response.nextApprover_RefID, 
-                        //         approverEntity: response.approverEntity_RefID, 
-                        //         documentTypeID: response.documentTypeID,
-                        //         storeData: response.storeData
-                        //     };
-
-                        //     HideLoading();
-
-                        //     SelectWorkFlow(formatData);
+                        //     ErrorNotif("Data Cancel Inputed");
                         // }
+                        
+                        if (response.message == "WorkflowError") {
+                            HideLoading();
+                            $("#submitMaterialReceive").prop("disabled", false);
+
+                            CancelNotif("You don't have access", '/MaterialReceive?var=1');
+                        } else if (response.message == "MoreThanOne") {
+                            HideLoading();
+
+                            $('#getWorkFlow').modal('toggle');
+
+                            var t = $('#tableGetWorkFlow').DataTable();
+                            t.clear();
+                            $.each(response.data, function(key, val) {
+                                t.row.add([
+                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                                ]).draw();
+                            });
+                        } else {
+                            const formatData = {
+                                workFlowPath_RefID: response.workFlowPath_RefID, 
+                                nextApprover: response.nextApprover_RefID, 
+                                approverEntity: response.approverEntity_RefID, 
+                                documentTypeID: response.documentTypeID,
+                                storeData: response.storeData
+                            };
+
+                            HideLoading();
+
+                            SelectWorkFlow(formatData);
+                        }
                     },
                     error: function(response) {
                         console.log('response error', response.responseText);

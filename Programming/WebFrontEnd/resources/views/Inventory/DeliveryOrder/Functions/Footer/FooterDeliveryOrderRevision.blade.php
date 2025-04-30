@@ -27,24 +27,24 @@
         tbodyList.empty();
 
         $.each(dataDetail, function(key, val2) {
-            totalRefNumberDetail += parseFloat(val2.QtyReq);
+            totalRefNumberDetail += parseFloat(val2.qtyReq);
             
             let row = `
                 <tr>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.DocumentNumber || '-'}</td>
+                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.documentNumber || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">-</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.productName}</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.quantityUnitName}</td>
+                    <td style="text-align: center;border:1px solid #e9ecef;">-</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">-</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">-</td>
                     <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                        <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-quantity=${val2.QtyReq || 0} autocomplete="off" value=${val2.QtyReq || 0} style="border-radius:0px;" />
+                        <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-quantity=${val2.qtyReq || 0} autocomplete="off" value=${val2.qtyReq || 0} style="border-radius:0px;" />
                     </td>
                     <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
                         <input class="form-control number-without-negative" id="balance${key}" autocomplete="off" style="border-radius:0px;" value="0" disabled />
                     </td>
                     <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 150px;">
-                        <textarea id="note${key}" class="form-control">${val2.RemarksDeliveryOrderDetail || ''}</textarea>
+                        <textarea id="note${key}" class="form-control">${val2.remarks || ''}</textarea>
                     </td>
                 </tr>
             `;
@@ -69,22 +69,22 @@
 
             let rowList = `
                 <tr>
-                    <td style="text-align: center;padding: 0.8rem 0px;">-</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.documentNumber || ''}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">-</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName || ''}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName || ''}</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">-</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.qtyReq || ''}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">0</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">0</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">-</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.remarks || ''}</td>
                 </tr>
             `;
 
             tbodyList.append(rowList);
         });
 
-        document.getElementById('TotalReferenceNumber').textContent = currencyTotal(0);
-        document.getElementById('GrandTotal').textContent = currencyTotal(0);
+        document.getElementById('TotalReferenceNumber').textContent = currencyTotal(totalRefNumberDetail);
+        document.getElementById('GrandTotal').textContent = currencyTotal(totalRefNumberDetail);
 
         $("#tableReferenceNumberDetail tbody").show();
     }
@@ -100,8 +100,6 @@
             type: 'GET',
             url: '{!! route("getDocumentType") !!}',
             success: function(data) {
-                console.log('getDocumentType', data);
-                
                 const result = data.find(({ Name }) => Name === "Delivery Order Revision Form");
 
                 if (Object.keys(result).length > 0) {

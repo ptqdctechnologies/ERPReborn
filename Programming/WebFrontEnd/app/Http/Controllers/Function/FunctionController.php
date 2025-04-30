@@ -1077,6 +1077,7 @@ class FunctionController extends Controller
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
                 'transaction.read.dataList.supplyChain.getDeliveryOrder', 
+                // 'dataPickList.supplyChain.getDeliveryOrder',
                 'latest',
                 [
                     'parameter' => null,
@@ -1331,7 +1332,7 @@ class FunctionController extends Controller
                 return redirect()->back()->with('NotFound', 'Process Error');
             }
 
-            return response()->json($varData['data']['data']);
+            return response()->json($varData['data']);
         } catch (\Throwable $th) {
             Log::error("Error at getPurchaseOrderDetail: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

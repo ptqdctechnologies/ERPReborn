@@ -114,8 +114,6 @@
             type: 'GET',
             url: '{!! route("getDeliveryOrderList") !!}',
             success: function(data) {
-                console.log('data', data);
-                
                 $(".loadingGetDeliveryOrder").hide();
 
                 var no = 1;

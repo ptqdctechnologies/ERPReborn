@@ -23,8 +23,8 @@
                 <form method="POST" action="{{ route('SelectWorkFlow') }}" id="FormRevisionDeliveryOrder">
                 @csrf
                 <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
-                <input type="hidden" id="data_table" value='<?= json_encode($Data ?? []) ?>'>
-                <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value='<?= $Data[0]['combinedBudget_RefID']; ?>'>
+                <input type="hidden" id="data_table" value='<?= json_encode($data ?? []) ?>'>
+                <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value='<?= $header['combinedBudget_RefID']; ?>'>
                 
                     <!-- DELIVERY ORDER -->
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -95,12 +95,12 @@
                                             <div class="col-lg-5">
                                                 <div class="row">
                                                     <div class="col p-0">
-                                                        <?php if ($Data[0]['fileID']) { ?>
-                                                            <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none" value="{{ $Data[0]['fileID']; }}">
+                                                        <?php if ($header['fileID']) { ?>
+                                                            <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none" value="<?= $header['fileID']; ?>">
                                                             <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                                                                 $varAPIWebToken,
                                                                 'dataInput_Log_FileUpload',
-                                                                $Data[0]['fileID'],
+                                                                $header['fileID'],
                                                                 'dataInput_Return'
                                                                 ).
                                                             ''; ?>
@@ -190,7 +190,7 @@
                                     <!-- CONTENT -->
                                     <div class="card-body">
                                         <div class="row py-3">
-                                            <textarea name="var_remark" id="remark" class="form-control"></textarea>
+                                            <textarea name="var_remark" id="remark" class="form-control"><?= $header['remarks']; ?></textarea>
                                         </div>
                                     </div>
                                 </div>

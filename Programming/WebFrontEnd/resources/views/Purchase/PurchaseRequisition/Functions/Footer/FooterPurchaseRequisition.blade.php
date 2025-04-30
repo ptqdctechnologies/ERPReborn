@@ -57,6 +57,8 @@
             type: 'GET',
             url: '{!! route("getBudget") !!}?site_code=' + site_code,
             success: function(data) {
+                console.log('data', data);
+                
                 $(".loadingBudgetDetails").hide();
 
                 let tbody = $('#tableGetBudgetDetails tbody');

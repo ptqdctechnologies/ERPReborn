@@ -55,6 +55,7 @@ class DeliveryOrderController extends Controller
                         "quantityUnit_RefID"        => (int) $entity['quantityUnit_RefID'],
                         "remarks"                   => $entity['remarks'],
                         "underlyingDetail_RefID"    => (int) $entity['underlyingDetail_RefID'],
+                        "product_RefID"             => null
                     ]
                 ];
             }
@@ -570,23 +571,38 @@ class DeliveryOrderController extends Controller
                 ]
             );
 
-            // $DocumentType = json_decode(
-            //     Helper_Redis::getValue(
-            //         Helper_Environment::getUserSessionID_System(),
-            //         "DocumentType"
-            //     ),
-            //     true
-            // );
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($varData);
+            }
 
-            // dump($varData['data']);
+            $data = $varData['data'];
 
             $compact = [
-                // 'DocumentTypeID' => $DocumentTypeID,
-                'varAPIWebToken' => $varAPIWebToken,
-                'Data'           => $varData['data']
+                'varAPIWebToken'            => $varAPIWebToken,
+                'header'                    => [
+                    'combinedBudget_RefID'  => $data[0]['combinedBudget_RefID'],
+                    'doNumber'              => $data[0]['documentNumber'] ?? '',
+                    'doID'                  => $data[0]['deliveryOrder_RefID'] ?? '',
+                    'doDetailID'            => $data[0]['deliveryOrderDetail_ID'] ?? '',
+                    'deliveryFrom'          => $data[0]['deliveryFromManualAddress'] ?? '',
+                    'deliveryFromID'        => $data[0]['deliveryFrom_RefID'] ?? '',
+                    'deliveryTo'            => $data[0]['deliveryToManualAddress'] ?? '',
+                    'deliveryToID'          => $data[0]['deliveryTo_RefID'] ?? '',
+                    'transporterID'         => '',
+                    'transporterCode'       => '',
+                    'transporterName'       => '',
+                    'transporterPhone'      => '',
+                    'transporterFax'        => '',
+                    'transporterContact'    => '',
+                    'transporterHandphone'  => '',
+                    'transporterAddress'    => '',
+                    'fileID'                => $data[0]['log_FileUpload_Pointer_RefID'],
+                    'remarks'               => $data[0]['remarks'],
+                ],
+                'data'                      => $data
             ];
 
-            // dump($compact['Data']);
+            // dump($varData);
 
             return view('Inventory.DeliveryOrder.Transactions.RevisionDeliveryOrder', $compact);
         } catch (\Throwable $th) {

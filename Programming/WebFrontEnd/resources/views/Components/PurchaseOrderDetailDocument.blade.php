@@ -7,7 +7,7 @@
                 PO Number
             </div>
             <div class="col">
-                : <?= $dataHeader[0]['DocumentNumber'] ?? $businessDocumentNumber; ?>
+                : <?= isset($dataHeader[0]['documentNumber']) ? $dataHeader[0]['documentNumber'] : ($businessDocumentNumber ?? '-') ?>
             </div>
         </div>
         
@@ -17,7 +17,7 @@
                 Delivery To
             </div>
             <div class="col">
-                : -
+                : <?= isset($dataHeader[0]['deliveryDestinationManualAddress']) ? $dataHeader[0]['deliveryDestinationManualAddress'] : '-'; ?>
             </div>
         </div>
         
@@ -37,7 +37,7 @@
                 TOP
             </div>
             <div class="col">
-                : -
+                : <?= isset($dataHeader[0]['paymentTerm']) ? $dataHeader[0]['paymentTerm'] : '-'; ?>
             </div>
         </div>
         
@@ -50,13 +50,13 @@
                 <div>
                     :
                 </div>
-                <?php if (isset($dataHeader[0]['Log_FileUpload_Pointer_RefID']) && $dataHeader[0]['Log_FileUpload_Pointer_RefID']) { ?>
+                <?php if (isset($dataHeader[0]['log_FileUpload_Pointer_RefID']) && $dataHeader[0]['log_FileUpload_Pointer_RefID']) { ?>
                     <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
                     <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken,
                         'dataInput_Log_FileUpload',
-                        $dataHeader[0]['Log_FileUpload_Pointer_RefID']
+                        $dataHeader[0]['log_FileUpload_Pointer_RefID']
                         ).
                         ''; ?>
                 <?php } else { ?>
@@ -76,7 +76,7 @@
                 Supplier Code
             </div>
             <div class="col">
-                : -
+                : <?= isset($dataHeader[0]['supplierCode']) ? $dataHeader[0]['supplierCode'] : '-'; ?>
             </div>
         </div>
 
@@ -86,7 +86,7 @@
                 Supplier Name
             </div>
             <div class="col">
-                : -
+                : <?= isset($dataHeader[0]['supplierName']) ? $dataHeader[0]['supplierName'] : '-'; ?>
             </div>
         </div>
         
@@ -96,7 +96,7 @@
                 Supplier Address
             </div>
             <div class="col">
-                : -
+                : <?= isset($dataHeader[0]['supplierAddress']) ? $dataHeader[0]['supplierAddress'] : '-'; ?>
             </div>
         </div>
         
