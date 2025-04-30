@@ -801,26 +801,26 @@ class PurchaseOrderController extends Controller
             return response()->json($varData);
         }
         
-        $data = $varData['data']['data'];
-        
+        $data = $varData['data'];
+
         $compact = [
             'varAPIWebToken'        => $varAPIWebToken,
             'header'                => [
-                'poNumberID'        => $data[0]['PurchaseOrder_RefID'],
-                'poNumber'          => $data[0]['DocumentNumber'],
-                'deliveryTo'        => $data[0]['DeliveryDestinationManualAddress'],
+                'poNumberID'        => $data[0]['purchaseOrder_RefID'],
+                'poNumber'          => $data[0]['documentNumber'],
+                'deliveryTo'        => $data[0]['deliveryDestinationManualAddress'],
                 'deliveryToID'      => '',
                 'supplierID'        => '',
-                'supplierName'      => '',
-                'supplierCode'      => '',
-                'supplierAddress'   => '',
+                'supplierName'      => $data[0]['supplierName'],
+                'supplierCode'      => $data[0]['supplierCode'],
+                'supplierAddress'   => $data[0]['supplierAddress'],
                 'downPayment'       => '',
-                'termOfPaymentID'   => '',
+                'termOfPaymentID'   => $data[0]['supplierAddress'],
                 'paymentNotes'      => '',
                 'remarkPO'          => '',
                 'internalNote'      => '',
                 'fileID'            => '',
-                'vatValue'          => '',
+                'vatValue'          => $data[0]['vat'],
             ],
             'detail'                => $data
         ];
