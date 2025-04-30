@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.supplyChain.setPurchaseOrder.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-21                                                                                           |
+        | ▪ Last Update     : 2025-04-16                                                                                           |
         | ▪ Creation Date   : 2022-09-21                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -50,6 +50,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "deliveryDestination_RefID" => 173000000000001,
                             "supplierInvoiceBillingPurpose_RefID" => 189000000000001,
                             "remarks" => 'My Remarks',
+                            "deliveryDestinationManualAddress" => 'Jl. Jend. Sudirman No. 1 Jakarta',
+                            "paymentNotes" => 'My Payment Notes 1',
+                            "internalNotes" => 'My Internal Notes 1',
+                            "downPayment" => 20,
+                            "termOfPayment_RefID" => 174000000000001,
                             "additionalData" => [
                                 "itemList" => [
                                     "items" => [
@@ -97,7 +102,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             ],
                                         ]
                                     ],
-                                "taxes" => [
+                                "transactionTaxItemList" => [
                                     "items" => [
                                             [
                                             "entities" => [
@@ -119,7 +124,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             ]
                                         ]
                                     ],
-                                "additionalCost" => [
+                                "additionalCostItemList" => [
                                     "items" => [
                                             [
                                             "entities" => [
@@ -127,23 +132,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "priceCurrency_RefID" => 62000000000001,
                                                 "priceCurrencyValue" => 30000,
                                                 "priceCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan Additional Cost'
-                                                ]
-                                            ]
-                                        ]
-                                    ],
-                                "paymentTerm" => [
-                                    "items" => [
-                                            [
-                                            "entities" => [
-                                                "paymentTerm_RefID" => 174000000000001,
-                                                "dueDays" => 30,
-                                                "priceCurrency_RefID" => 62000000000001,
-                                                "priceCurrencyValue" => 30000,
-                                                "priceCurrencyExchangeRate" => 1,
-                                                "discountDueDays" => 15,
-                                                "discountPercentageRate" => 2.00,
-                                                "remarks" => 'Down Payment'
+                                                "remarks" => 'Catatan Additional Cost New'
                                                 ]
                                             ]
                                         ]

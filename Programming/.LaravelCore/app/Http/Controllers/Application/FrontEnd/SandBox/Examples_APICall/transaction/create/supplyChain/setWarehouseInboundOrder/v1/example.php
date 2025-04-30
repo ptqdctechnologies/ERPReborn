@@ -51,14 +51,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                 "items" => [
                                         [
                                         'entities' => [
-                                            "deliveryOrderDetail_RefID" => 180000000000001,
+                                            "deliveryOrderDetail_RefID" => 181000000000001,
                                             "quantity" => 25,
                                             'remarks' => 'Catatan - 1',
                                             ]
                                         ],
                                         [
                                         'entities' => [
-                                            "deliveryOrderDetail_RefID" => 180000000000001,
+                                            "deliveryOrderDetail_RefID" => 181000000000002,
                                             "quantity" => 30,
                                             'remarks' => 'Catatan - 2',
                                             ]

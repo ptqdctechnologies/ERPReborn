@@ -81,8 +81,57 @@ class MaterialReceiveController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->all();
-        dd($input);
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
+            $input = $request->all();
+            $deliveryOrderDetail = json_decode($input['materialReceiveDetail'], true);
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.create.supplyChain.setWarehouseInboundOrder',
+                'latest',
+                [
+                'entities' => [
+                    'documentDateTimeTZ'                => date('Y-m-d'),
+                    'log_FileUpload_Pointer_RefID'      => (int) $input['dataInput_Log_FileUpload_1'],
+                    'requesterWorkerJobsPosition_RefID' => (int) $SessionWorkerCareerInternal_RefID,
+                    'remarks'                           => $input['var_remark'],
+                    "additionalData"                    => [
+                        "itemList"                      => [
+                            "items"                     => $deliveryOrderDetail
+                            ]
+                        ]
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($varData);
+            }
+
+            $compact = [
+                "documentNumber"    => $varData['data']['businessDocument']['documentNumber'],
+                "status"            => $varData['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+
+            // return $this->SubmitWorkflow(
+            //     $varData['data']['businessDocument']['businessDocument_RefID'],
+            //     $request->workFlowPath_RefID,
+            //     $request->comment,
+            //     $request->approverEntity,
+            //     $request->nextApprover,
+            //     $varData['data']['businessDocument']['documentNumber']
+            // );
+        } catch (\Throwable $th) {
+            Log::error("Error at store: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+
+        
     }
 
     public function MaterialReceiveListData(Request $request)

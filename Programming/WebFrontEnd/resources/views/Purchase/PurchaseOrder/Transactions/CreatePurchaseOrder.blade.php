@@ -4,6 +4,9 @@
 @include('Partials.sidebar')
 @include('getFunction.getPurchaseRequisition')
 @include('getFunction.getSupplier')
+@include('getFunction.getWorkFlow')
+@include('Purchase.PurchaseOrder.Functions.PopUp.PopUpPORevision')
+@include('Purchase.PurchaseOrder.Functions.PopUp.searchPO')
 
 <div class="content-wrapper">
   <section class="content">
@@ -24,6 +27,8 @@
           @csrf
             <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
             <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
+            <input type="hidden" name="purchaseOrderDetail" id="purchaseOrderDetail">
+            <input type="hidden" name="tariffCurrencyValue" id="tariffCurrencyValue">
             
             <!-- ADD NEW PURCHASE ORDER -->
             <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">

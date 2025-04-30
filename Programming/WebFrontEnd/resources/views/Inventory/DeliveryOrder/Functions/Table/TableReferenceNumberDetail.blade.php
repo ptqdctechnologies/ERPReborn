@@ -18,14 +18,14 @@
         <tfoot>
             <tr class="loadingReferenceNumberDetail">
                 <td colspan="9" class="p-0" style="border: 0px; height: 150px;">
-                  <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                    <div class="spinner-border" role="status">
-                      <span class="sr-only">Loading...</span>
+                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                            Loading...
+                        </div>
                     </div>
-                    <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
-                      Loading...
-                    </div>
-                  </div>
                 </td>
             </tr>
             <tr class="errorMessageContainerReferenceNumberDetail">

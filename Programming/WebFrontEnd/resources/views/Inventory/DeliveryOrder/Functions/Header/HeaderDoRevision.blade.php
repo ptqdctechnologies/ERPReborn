@@ -33,7 +33,7 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <textarea id="delivery_from" rows="3" style="border-radius:0;" class="form-control"></textarea>
+            <textarea id="delivery_from" rows="3" style="border-radius:0;" class="form-control"><?= $Data[0]['DocumentNumber'] ?? ''; ?></textarea>
           </div>
         </div>
       </div>
