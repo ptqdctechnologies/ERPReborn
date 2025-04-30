@@ -3650,7 +3650,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getReport_Form_DocumentForm_PurchaseRequisition                                                      |
+        | ▪ Method Name     : getReport_Form_DocumentForm_PurchaseRequisitionSummary                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-04-30                                                                                           |
@@ -3660,13 +3660,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
+        |      ▪ (string)    varCombinedBudgetSectionCode ► Combined Budget Section Code                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseRequisitionSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $CombinedBudgetCode, string $CombinedBudgetSectionCode
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode, string $varCombinedBudgetSectionCode
             )
             {
             try {
@@ -3677,8 +3678,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseRequisitionSummary',
                             [
-                                [$CombinedBudgetCode, 'varchar' ],
-                                [$CombinedBudgetSectionCode, 'varchar' ],
+                                [$varCombinedBudgetCode, 'varchar' ],
+                                [$varCombinedBudgetSectionCode, 'varchar' ],
                             ]
                             )
                         );
