@@ -28,7 +28,7 @@
 
         $.each(dataDetail, function(key, val2) {
             totalRefNumberDetail += parseFloat(val2.qtyReq);
-            
+
             let row = `
                 <tr>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.documentNumber || '-'}</td>

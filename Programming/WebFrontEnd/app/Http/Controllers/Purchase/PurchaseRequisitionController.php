@@ -226,7 +226,7 @@ class PurchaseRequisitionController extends Controller
             'detail'                => $data
         ];
 
-        // dump($data);
+        // dump($compact);
 
         return view('Purchase.PurchaseRequisition.Transactions.RevisionPurchaseRequisition', $compact);
     }
