@@ -108,7 +108,7 @@ class PurchaseRequisitionController extends Controller
                         "productUnitPriceCurrency_RefID"        => (int) $entity['productUnitPriceCurrency_RefID'],
                         "productUnitPriceCurrencyValue"         => (float) str_replace(',', '', $entity['productUnitPriceCurrencyValue']),
                         "productUnitPriceCurrencyExchangeRate"  => (int) $entity['productUnitPriceCurrencyExchangeRate'],
-                        "fulfillmentDeadlineDateTimeTZ"         => $purchaseRequisitionData['storeData']['dateCommance'], // Tanya
+                        "fulfillmentDeadlineDateTimeTZ"         => date('Y-m-d'), // Tanya
                         "remarks"                               => $entity['remarks'],
                     ]
                 ];

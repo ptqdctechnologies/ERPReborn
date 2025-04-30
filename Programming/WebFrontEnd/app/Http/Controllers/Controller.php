@@ -73,7 +73,7 @@ class Controller extends BaseController
                 );
             // }
 
-            Log::error("VarSelectWorkFlow at ", [$dataInput]);
+            Log::error("VarSelectWorkFlow at ", [$VarSelectWorkFlow]);
 
             if ($VarSelectWorkFlow['metadata']['HTTPStatusCode'] !== 200) {
                 return redirect()->back()->with('NotFound', 'Process Error');
