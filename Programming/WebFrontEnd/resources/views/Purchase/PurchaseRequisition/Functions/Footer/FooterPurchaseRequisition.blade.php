@@ -507,6 +507,16 @@
             if (hidden) remarkCell.appendChild(hidden);
 
             row.classList.remove('editing-row');
+
+            const productCode = row.children[1].innerText.trim();
+            const storeItem = dataStore.find(item => item.product_RefID === productCode);
+            if (storeItem) {
+                storeItem.quantity = newQty;
+                storeItem.productUnitPriceCurrencyValue = newPrice;
+                storeItem.remarks = newRemark;
+
+                $("#purchaseRequisitionDetail").val(JSON.stringify(dataStore));
+            }
         } else {
             const currentPrice = priceCell.innerText.trim();
             const currentQty = qtyCell.innerText.trim();

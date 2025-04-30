@@ -29,7 +29,7 @@
         @csrf
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
-          <input type="hidden" name="purchaseRequisitionDetail" id="purchaseRequisitionDetail">
+          <input name="purchaseRequisitionDetail" id="purchaseRequisitionDetail">
 
           <!-- ADD NEW PURCHASE REQUISITION -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
