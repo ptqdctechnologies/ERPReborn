@@ -259,18 +259,18 @@
         });
     }
 
-    function PurchaseRequisitionStore(res) {
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //     }
-        // });
+    function PurchaseRequisitionStore(formatData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-        // $.ajax({
-        //     type: 'POST',
-        //     data: formatData,
-        //     url: '{{ route("PurchaseRequisition.store") }}',
-        //     success: function(res) {
+        $.ajax({
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("PurchaseRequisition.store") }}',
+            success: function(res) {
                 HideLoading();
 
                 if (res.status === 200) {
@@ -298,11 +298,11 @@
                 } else {
                     ErrorNotif("Data Cancel Inputed");
                 }
-        //     },
-        //     error: function(jqXHR, textStatus, errorThrown) {
-        //         console.log('error', jqXHR, textStatus, errorThrown);
-        //     }
-        // });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('error', jqXHR, textStatus, errorThrown);
+            }
+        });
     }
 
     $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
@@ -502,34 +502,35 @@
                     type: method,
                     success: function(response) {
                         HideLoading();
+                        console.log('response', response);
 
-                        PurchaseRequisitionStore(response);
-                        
-                        // if (response.message == "WorkflowError") {
-                        //     $("#submitPR").prop("disabled", false);
-                        //     CancelNotif("You don't have access", '/PurchaseRequisition?var=1');
-                        // } else if (response.message == "MoreThanOne") {
-                        //     $('#getWorkFlow').modal('toggle');
+                        // PurchaseRequisitionStore(response);
 
-                        //     var t = $('#tableGetWorkFlow').DataTable();
-                        //     t.clear();
-                        //     $.each(response.data, function(key, val) {
-                        //         t.row.add([
-                        //             '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                        //             '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                        //         ]).draw();
-                        //     });
-                        // } else {
-                        //     const formatData = {
-                        //         workFlowPath_RefID: response.workFlowPath_RefID, 
-                        //         nextApprover: response.nextApprover_RefID, 
-                        //         approverEntity: response.approverEntity_RefID, 
-                        //         documentTypeID: response.documentTypeID,
-                        //         storeData: response.storeData
-                        //     };
+                        if (response.message == "WorkflowError") {
+                            $("#submitPR").prop("disabled", false);
+                            CancelNotif("You don't have access", '/PurchaseRequisition?var=1');
+                        } else if (response.message == "MoreThanOne") {
+                            $('#getWorkFlow').modal('toggle');
 
-                        //     SelectWorkFlow(formatData);
-                        // }
+                            var t = $('#tableGetWorkFlow').DataTable();
+                            t.clear();
+                            $.each(response.data, function(key, val) {
+                                t.row.add([
+                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                                ]).draw();
+                            });
+                        } else {
+                            const formatData = {
+                                workFlowPath_RefID: response.workFlowPath_RefID, 
+                                nextApprover: response.nextApprover_RefID, 
+                                approverEntity: response.approverEntity_RefID, 
+                                documentTypeID: response.documentTypeID,
+                                storeData: response.storeData
+                            };
+
+                            SelectWorkFlow(formatData);
+                        }
                     },
                     error: function(response) {
                         console.log('response error', response);

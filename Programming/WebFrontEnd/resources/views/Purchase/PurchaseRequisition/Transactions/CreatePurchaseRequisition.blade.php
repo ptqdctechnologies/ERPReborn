@@ -25,8 +25,8 @@
       @include('Purchase.PurchaseRequisition.Functions.Menu.MenuProcReq')
       @if($var == 0)
       <div class="card">
-        {{-- <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitPurchaseRequisition"> --}}
-        <form method="post" action="{{ route('PurchaseRequisition.store') }}" id="FormSubmitPurchaseRequisition">
+        <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitPurchaseRequisition">
+        {{-- <form method="post" action="{{ route('PurchaseRequisition.store') }}" id="FormSubmitPurchaseRequisition"> --}}
         @csrf
         <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
         <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
