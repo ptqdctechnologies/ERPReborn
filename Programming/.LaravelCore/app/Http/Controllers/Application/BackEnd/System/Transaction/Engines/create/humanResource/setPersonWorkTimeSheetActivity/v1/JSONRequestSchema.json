@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -35,7 +40,7 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "projectSectionItem_RefID": {
+                    "combinedBudgetSection_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
@@ -70,11 +75,24 @@
                         "maxLength": 7
                         }
                     },
-                "required": [ "personWorkTimeSheet_RefID", "projectSectionItem_RefID", "startDateTimeTZ", "finishDateTimeTZ", "activity", "colorText", "colorBackground" ]
+                "required": [
+                    "personWorkTimeSheet_RefID",
+                    "combinedBudgetSection_RefID",
+                    "startDateTimeTZ",
+                    "finishDateTimeTZ",
+                    "activity",
+                    "colorText",
+                    "colorBackground"
+                    ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

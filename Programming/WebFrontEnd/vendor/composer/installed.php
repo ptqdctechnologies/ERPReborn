@@ -1113,9 +1113,9 @@
             'dev_requirement' => true,
         ),
         'spatie/backtrace' => array(
-            'pretty_version' => '1.7.1',
-            'version' => '1.7.1.0',
-            'reference' => '0f2477c520e3729de58e061b8192f161c99f770b',
+            'pretty_version' => '1.7.2',
+            'version' => '1.7.2.0',
+            'reference' => '9807de6b8fecfaa5b3d10650985f0348b02862b2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/backtrace',
             'aliases' => array(),
