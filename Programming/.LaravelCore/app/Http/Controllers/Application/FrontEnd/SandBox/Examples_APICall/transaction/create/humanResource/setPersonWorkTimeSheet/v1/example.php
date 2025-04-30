@@ -8,7 +8,7 @@
 | ▪ API Key     : transaction.create.humanResource.setPersonWorkTimeSheet                                                          |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\humanResource\setPersonWorkTimeSheet\v1
@@ -20,8 +20,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.create.humanResource.setPersonWorkTimeSheet.v1_throughAPIGateway        |
         |                     ► http://172.28.0.4/transaction.create.humanResource.setPersonWorkTimeSheet.v1_throughAPIGateway     |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-03-20                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-04-30                                                                                           |
         | ▪ Creation Date   : 2025-03-20                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -31,54 +31,57 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.create.humanResource.setPersonWorkTimeSheet', 
-                'latest', 
-                [
-                'entities' => [
-                    'documentNumber' => "Timesheet/QDC/2026/000007",
-                    'documentDateTimeTZ' => '2026-01-01 00:00:00 +07',
-                    'person_RefID' => 25000000000439,
-                    'startDateTimeTZ' => '2026-01-01 00:00:00 +07',
-                    'finishDateTimeTZ' => '2026-01-14 00:00:00 +07',
-                    'project_RefID' => 46000000000009,
-                    'colorText' => '#000000',
-                    'colorBackground' => '#ababab',
-                    "additionalData" => [
-                        "itemList" => [
-                            "items" => [
-                                    [
-                                    'entities' => [
-                                        'personWorkTimeSheet_RefID' => 48000000000001,
-                                        'projectSectionItem_RefID' => null,
-                                        'startDateTimeTZ' => '2026-01-01 07:00:00 +07',
-                                        'finishDateTimeTZ' => '2026-01-01 13:00:00 +07',
-                                        'activity' => 'Kegiatan ABCD dan EFGH',
-                                        'colorText' => '#000000',
-                                        'colorBackground' => '#ababab'
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.create.humanResource.setPersonWorkTimeSheet', 
+                        'latest', 
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]-----( START )-----
+                        [
+                        'entities' => [
+                            'documentDateTimeTZ' => '2026-01-01 00:00:00 +07',
+                            'person_RefID' => 25000000000439,
+                            'colorText' => '#000000',
+                            'colorBackground' => '#ababab',
+                            'additionalData' => [
+                                'itemList' => [
+                                    'items' => [
+                                            [
+                                            'entities' => [
+                                                'combinedBudgetSection_RefID' => null,
+                                                'startDateTimeTZ' => '2026-01-01 07:00:00 +07',
+                                                'finishDateTimeTZ' => '2026-01-01 13:00:00 +07',
+                                                'activity' => 'Kegiatan ABCD',
+                                                'colorText' => '#000000',
+                                                'colorBackground' => '#ababab'
+                                                ]
+                                            ],
+                                            [
+                                            'entities' => [
+                                                'combinedBudgetSection_RefID' => null,
+                                                'startDateTimeTZ' => '2026-01-01 07:00:00 +07',
+                                                'finishDateTimeTZ' => '2026-01-01 13:00:00 +07',
+                                                'activity' => 'Kegiatan EFGH',
+                                                'colorText' => '#000000',
+                                                'colorBackground' => '#ababab'
+                                                ]
+                                            ],
                                         ]
-                                    ],
-                                    [
-                                    'entities' => [
-                                        'personWorkTimeSheet_RefID' => 48000000000001,
-                                        'projectSectionItem_RefID' => null,
-                                        'startDateTimeTZ' => '2026-01-01 07:00:00 +07',
-                                        'finishDateTimeTZ' => '2026-01-01 13:00:00 +07',
-                                        'activity' => 'Kegiatan ABCD dan EFGH',
-                                        'colorText' => '#000000',
-                                        'colorBackground' => '#ababab'
-                                        ]
-                                    ],
+                                    ]
                                 ]
                             ]
                         ]
-                    ]
-                ]
-                );
-            return $varData;
+                    //-----[ DATA ]-----(  END  )-----
+                    );
+
+            return
+                $varData;
             }
 
 

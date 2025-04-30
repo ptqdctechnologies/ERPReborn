@@ -8,7 +8,7 @@
 | ▪ API Key     : transaction.update.humanResource.setPersonWorkTimeSheet                                                          |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\update\humanResource\setPersonWorkTimeSheet\v1
@@ -20,8 +20,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.update.humanResource.setPersonWorkTimeSheet.v1_throughAPIGateway        |
         |                     ► http://172.28.0.4/transaction.update.humanResource.setPersonWorkTimeSheet.v1_throughAPIGateway     |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-19                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-04-30                                                                                           |
         | ▪ Creation Date   : 2022-09-19                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -31,26 +31,60 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.humanResource.setPersonWorkTimeSheet', 
-                'latest', 
-                [
-                'recordID' => 48000000000001,
-                'entities' => [
-                    'documentDateTimeTZ' => '2026-01-01 00:00:00 +07',
-                    'person_RefID' => 25000000000439,
-                    'startDateTimeTZ' => '2026-01-01 00:00:00 +07',
-                    'finishDateTimeTZ' => '2026-01-14 00:00:00 +07',
-                    'project_RefID' => 46000000000009,
-                    'colorText' => '#000000',
-                    'colorBackground' => '#ababab'
-                    ]
-                ]
-                );
-            var_dump($varData);
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.update.humanResource.setPersonWorkTimeSheet', 
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]-----( START )-----
+                        [
+                        'recordID' => 48000000000001,
+                        'entities' => [
+                            'documentDateTimeTZ' => '2026-01-01 00:00:00 +07',
+                            'person_RefID' => 25000000000439,
+                            'colorText' => '#000000',
+                            'colorBackground' => '#ababab',
+                            'additionalData' => [
+                                'itemList' => [
+                                    'items' => [
+                                            [
+                                            'recordID' => 10050000000000001,
+                                            'entities' => [
+                                                'combinedBudgetSection_RefID' => null,
+                                                'startDateTimeTZ' => '2026-01-01 07:00:00 +07',
+                                                'finishDateTimeTZ' => '2026-01-01 13:00:00 +07',
+                                                'activity' => 'Kegiatan ABCD',
+                                                'colorText' => '#000000',
+                                                'colorBackground' => '#ababab'
+                                                ]
+                                            ],
+                                            [
+                                            'recordID' => 10050000000000002,
+                                            'entities' => [
+                                                'combinedBudgetSection_RefID' => null,
+                                                'startDateTimeTZ' => '2026-01-01 07:00:00 +07',
+                                                'finishDateTimeTZ' => '2026-01-01 13:00:00 +07',
+                                                'activity' => 'Kegiatan EFGH',
+                                                'colorText' => '#000000',
+                                                'colorBackground' => '#ababab'
+                                                ]
+                                            ],
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    //-----[ DATA ]-----(  END  )-----
+                    );
+
+            return
+                $varData;
             }
 
 

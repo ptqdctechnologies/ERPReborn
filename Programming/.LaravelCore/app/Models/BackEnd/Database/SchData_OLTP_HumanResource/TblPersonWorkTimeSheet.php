@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_HumanResource                                                                   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 - 2022 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2021 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_HumanResource
@@ -23,8 +23,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Create Date     : 2021-11-01                                                                                           |
         | ▪ Last Update     : 2021-11-01                                                                                           |
+        | ▪ Create Date     : 2021-11-01                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,16 +43,19 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000003                                                                                       |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2025-04-30                                                                                           |
         | ▪ Create Date     : 2021-11-01                                                                                           |
-        | ▪ Last Update     : 2022-01-28                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysDataValidityStartDateTimeTZ ► System Data Validity Start DateTimeTZ                                |
+        |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document Date Time TZ                                                            |
         |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
@@ -62,14 +65,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varColorText ► Color Text                                                                                |
         |      ▪ (string) varColorBackground ► Color Background                                                                    |
         |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
-            $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
-            string $varDocumentNumber = null, string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, int $varProject_RefID = null, string $varColorText = null, string $varColorBackground = null, array $varAdditionalData = [])
+            $varUserSession,
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
+            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varColorText = null, string $varColorBackground = null,
+            array $varAdditionalData = []
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -80,15 +86,16 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varPerson_RefID, 'bigint'],
-                            [$varStartDateTimeTZ, 'timestamptz'],
-                            [$varFinishDateTimeTZ, 'timestamptz'],
-                            [$varProject_RefID, 'bigint'],
                             [$varColorText, 'varchar'],
                             [$varColorBackground, 'varchar'],
 
@@ -106,7 +113,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn['data'][0];
             }
 
 
@@ -114,34 +122,38 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000003                                                                                       |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2025-04-30                                                                                           |
         | ▪ Create Date     : 2021-11-01                                                                                           |
-        | ▪ Last Update     : 2022-01-28                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysDataValidityStartDateTimeTZ ► System Data Validity Start DateTimeTZ                                |
+        |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document Date Time TZ                                                            |
         |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
-        |      ▪ (string) varStartDateTimeTZ ► Start Date Time TZ                                                                  |
-        |      ▪ (string) varFinishDateTimeTZ ► Finish Date Time TZ                                                                |
-        |      ▪ (int)    varProject_RefID ► Project Reference ID                                                                  |
         |      ▪ (string) varColorText ► Color Text                                                                                |
         |      ▪ (string) varColorBackground ► Color Background                                                                    |
         |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
-            $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, int $varProject_RefID = null, string $varColorText = null, string $varColorBackground = null)
+            $varUserSession,
+            int $varSysID,
+            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
+            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varColorText = null, string $varColorBackground = null,
+            array $varAdditionalData = []
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -158,16 +170,25 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
  
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varPerson_RefID, 'bigint'],
-                            [$varStartDateTimeTZ, 'timestamptz'],
-                            [$varFinishDateTimeTZ, 'timestamptz'],
-                            [$varProject_RefID, 'bigint'],
                             [$varColorText, 'varchar'],
-                            [$varColorBackground, 'varchar']
+                            [$varColorBackground, 'varchar'],
+
+                            [
+                                ((count($varAdditionalData) === 0) 
+                                    ? null
+                                    : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                        $varUserSession,
+                                        $varAdditionalData
+                                        )
+                                ),
+                                'json'
+                            ]
                         ]
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn['data'][0];
             }
         }
     }
