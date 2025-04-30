@@ -5,7 +5,7 @@
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\supplyChain         |
 |                 \getPurchaseRequisitionSummary\v1                                                                                       |
-| ▪ API Key     : report.form.documentForm.taxation.getPurchaseRequisitionSummary                                                         |
+| ▪ API Key     : report.form.documentForm.supplyChain.getPurchaseRequisitionSummary                                                         |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                                     |
@@ -39,7 +39,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'latest',
                 [
                 'parameter' => [
-                    'CombinedBudgetCode' => '',
+                    'CombinedBudgetCode' => 'Q000062',
                     'CombinedBudgetSectionCode' => '222'
                     ]
                 ]
