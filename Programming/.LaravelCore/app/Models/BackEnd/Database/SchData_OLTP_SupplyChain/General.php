@@ -417,7 +417,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode"];
                             $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
                             $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID"];
-                            $varReturn['data'][$idxArray]['remarks'] = $value["Remarks"];
                             $varReturn['data'][$idxArray]['deliveryFrom_RefID'] = $value["DeliveryFrom_RefID"];
                             $varReturn['data'][$idxArray]['deliveryFromManualAddress'] = $value["DeliveryFromManualAddress"];
                             $varReturn['data'][$idxArray]['deliveryTo_RefID'] = $value["DeliveryTo_RefID"];
@@ -428,6 +427,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray]['product_RefID'] = $value["Product_RefID"];
                             $varReturn['data'][$idxArray]['deliveryOrder_RefID'] = $value["DeliveryOrder_RefID"];
                             $varReturn['data'][$idxArray]['deliveryOrderDetail_ID'] = $value["DeliveryOrderDetail_ID"];
+                            $varReturn['data'][$idxArray]['notes'] = $value["Note"];
                             $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
                             $varReturn['data'][$idxArray]['entity_RefID'] = $value["Entity_RefID"];
                             $varReturn['data'][$idxArray]['transporterName'] = $value["TransporterName"];
@@ -439,36 +439,36 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             if ((($value["UnderlyingDetail_RefID"] / 1000000000000) % 10000) === 86) {
                                 $varReturn['data'][$idxArray]['quantity'] = $value["Quantity_TblPurchaseOrderDetail"];
                                 $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['ProductUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['ProductUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceFinalCurrencyValue_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceFinalCurrencyValue_TblPurchaseOrderDetail"];
                                 $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = $value["ProductUnitPriceFinalCurrency_RefID_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['ProductUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['PriceCurrency_RefID'] = $value["PriceCurrency_RefID_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['PriceBaseCurrencyValue'] = $value["PriceBaseCurrencyValue_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['priceCurrency_RefID'] = $value["PriceCurrency_RefID_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = $value["PriceBaseCurrencyValue_TblPurchaseOrderDetail"];
                                 $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName_TblQuantityUnit_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['ProductUnitPriceCurrencyISOCode'] = $value["ISOCode_TblCurrency_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = $value["ISOCode_TblCurrency_TblPurchaseOrderDetail"];
                             } elseif ((($value["UnderlyingDetail_RefID"] / 1000000000000) % 10000) === 251) {
                                 $varReturn['data'][$idxArray]['quantity'] = $value["Quantity_TblOrderPickingDetail"];
                                 $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID_TblOrderPickingDetail"];
-                                $varReturn['data'][$idxArray]['ProductUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblOrderPickingDetail"];
-                                $varReturn['data'][$idxArray]['ProductUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceCurrencyValue_TblOrderPickingDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblOrderPickingDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceCurrencyValue_TblOrderPickingDetail"];
                                 $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = $value["ProductUnitPriceFinalCurrency_RefID_TblOrderPickingDetail"];
-                                $varReturn['data'][$idxArray]['ProductUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblOrderPickingDetail"];
-                                $varReturn['data'][$idxArray]['PriceCurrency_RefID'] = $value["PriceFinalCurrency_RefID_TblOrderPickingDetail"];
-                                $varReturn['data'][$idxArray]['PriceBaseCurrencyValue'] = $value["PriceFinalBaseCurrencyValue_TblOrderPickingDetail"];                            
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblOrderPickingDetail"];
+                                $varReturn['data'][$idxArray]['priceCurrency_RefID'] = $value["PriceFinalCurrency_RefID_TblOrderPickingDetail"];
+                                $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = $value["PriceFinalBaseCurrencyValue_TblOrderPickingDetail"];                            
                                 $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName_TblQuantityUnit_TblOrderPickingDetail"];
-                                $varReturn['data'][$idxArray]['ProductUnitPriceCurrencyISOCode'] = $value["ISOCode_TblCurrency_TblOrderPickingDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = $value["ISOCode_TblCurrency_TblOrderPickingDetail"];
                             } else {
                                 $varReturn['data'][$idxArray]['quantity'] = null;
                                 $varReturn['data'][$idxArray]['quantityUnit_RefID'] = null;
-                                $varReturn['data'][$idxArray]['ProductUnitPriceCurrency_RefID'] = null;
-                                $varReturn['data'][$idxArray]['ProductUnitPriceBaseCurrencyValue'] = null;
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = null;
+                                $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = null;
                                 $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = null;
-                                $varReturn['data'][$idxArray]['ProductUnitPriceCurrencyExchangeRate'] = null;
-                                $varReturn['data'][$idxArray]['PriceCurrency_RefID'] = null;
-                                $varReturn['data'][$idxArray]['PriceBaseCurrencyValue'] = null;
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = null;
+                                $varReturn['data'][$idxArray]['priceCurrency_RefID'] = null;
+                                $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = null;
                                 $varReturn['data'][$idxArray]['quantityUnitName'] = null;
-                                $varReturn['data'][$idxArray]['ProductUnitPriceCurrencyISOCode'] = null;
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = null;
                             }
                             $varReturn['data'][$idxArray]['businessDocumentType_RefID'] = $value["BusinessDocumentType_RefID"];
                             $varReturn['data'][$idxArray]['businessDocumentType_Name'] = $value["BusinessDocumentType_Name"];
