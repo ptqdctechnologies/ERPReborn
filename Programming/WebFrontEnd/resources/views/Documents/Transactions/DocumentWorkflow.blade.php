@@ -3,9 +3,9 @@
         <div class="card-header">
             <label class="card-title">
                 Last Status : 
-                @if(isset($DataWorkflowHistory))
+                @if(isset($dataWorkFlows))
                     @if($statusDocument == 0)
-                        Awaiting {{ $DataWorkflowHistory[count($DataWorkflowHistory)-1]['workFlowPathActionName'] }} from {{ $DataWorkflowHistory[count($DataWorkflowHistory)-1]['nextApproverEntityName'] }}
+                        Awaiting {{ $dataWorkFlows[count($dataWorkFlows)-1]['workFlowPathActionName'] }} from {{ $dataWorkFlows[count($dataWorkFlows)-1]['nextApproverEntityName'] }}
                     @elseif($statusDocument == 1)
                         Final Approved
                     @elseif($statusDocument == 2)

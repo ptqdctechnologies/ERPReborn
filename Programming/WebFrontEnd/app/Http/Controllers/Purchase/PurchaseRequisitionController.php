@@ -93,59 +93,66 @@ class PurchaseRequisitionController extends Controller
         try {
             $varAPIWebToken                     = Session::get('SessionLogin');
             $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
-            $purchaseRequisitionData            = $request->all();
-            $purchaseRequisitionDetail          = json_decode($purchaseRequisitionData['storeData']['purchaseRequisitionDetail'], true);
-            $fileID                             = $purchaseRequisitionData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $purchaseRequisitionData['storeData']['dataInput_Log_FileUpload_1'] : null;
+            // $purchaseRequisitionData            = $request->all();
+            // $purchaseRequisitionDetail          = json_decode($purchaseRequisitionData['storeData']['purchaseRequisitionDetail'], true);
+            // $fileID                             = $purchaseRequisitionData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $purchaseRequisitionData['storeData']['dataInput_Log_FileUpload_1'] : null;
 
-            $transformedDetails = [];
-            foreach ($purchaseRequisitionDetail as $entity) {
-                $transformedDetails[] = [
-                    "entities" => [
-                        "combinedBudgetSectionDetail_RefID"     => (int) $entity['combinedBudgetSectionDetail_RefID'],
-                        "product_RefID"                         => (int) $entity['product_RefID'],
-                        "quantity"                              => (float) str_replace(',', '', $entity['quantity']),
-                        "quantityUnit_RefID"                    => (int) $entity['quantityUnit_RefID'],
-                        "productUnitPriceCurrency_RefID"        => (int) $entity['productUnitPriceCurrency_RefID'],
-                        "productUnitPriceCurrencyValue"         => (float) str_replace(',', '', $entity['productUnitPriceCurrencyValue']),
-                        "productUnitPriceCurrencyExchangeRate"  => (int) $entity['productUnitPriceCurrencyExchangeRate'],
-                        "fulfillmentDeadlineDateTimeTZ"         => date('Y-m-d'), // Tanya
-                        "remarks"                               => $entity['remarks'],
-                    ]
-                ];
-            }
+            // $transformedDetails = [];
+            // foreach ($purchaseRequisitionDetail as $entity) {
+            //     $transformedDetails[] = [
+            //         "entities" => [
+            //             "combinedBudgetSectionDetail_RefID"     => (int) $entity['combinedBudgetSectionDetail_RefID'],
+            //             "product_RefID"                         => (int) $entity['product_RefID'],
+            //             "quantity"                              => (float) str_replace(',', '', $entity['quantity']),
+            //             "quantityUnit_RefID"                    => (int) $entity['quantityUnit_RefID'],
+            //             "productUnitPriceCurrency_RefID"        => (int) $entity['productUnitPriceCurrency_RefID'],
+            //             "productUnitPriceCurrencyValue"         => (float) str_replace(',', '', $entity['productUnitPriceCurrencyValue']),
+            //             "productUnitPriceCurrencyExchangeRate"  => (int) $entity['productUnitPriceCurrencyExchangeRate'],
+            //             "fulfillmentDeadlineDateTimeTZ"         => date('Y-m-d'), // Tanya
+            //             "remarks"                               => $entity['remarks'],
+            //         ]
+            //     ];
+            // }
 
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.create.supplyChain.setPurchaseRequisition', 
-                'latest',
-                [
-                'entities' => [
-                    "documentDateTimeTZ"                => date('Y-m-d'),
-                    "log_FileUpload_Pointer_RefID"      => (int) $fileID,
-                    "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
-                    "remarks"                           => $purchaseRequisitionData['storeData']['notes'],
-                    "additionalData"    => [
-                        "itemList"      => [
-                            "items"     => $transformedDetails
-                            ]
-                        ]
-                    ]
-                ]
-            );
+            // $varData = Helper_APICall::setCallAPIGateway(
+            //     Helper_Environment::getUserSessionID_System(),
+            //     $varAPIWebToken, 
+            //     'transaction.create.supplyChain.setPurchaseRequisition', 
+            //     'latest',
+            //     [
+            //     'entities' => [
+            //         "documentDateTimeTZ"                => date('Y-m-d'),
+            //         "log_FileUpload_Pointer_RefID"      => (int) $fileID,
+            //         "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
+            //         "remarks"                           => $purchaseRequisitionData['storeData']['notes'],
+            //         "additionalData"    => [
+            //             "itemList"      => [
+            //                 "items"     => $transformedDetails
+            //                 ]
+            //             ]
+            //         ]
+            //     ]
+            // );
 
-            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($varData);
-            }
+            // if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+            //     return response()->json($varData);
+            // }
 
-            return $this->SubmitWorkflow(
-                $varData['data']['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
-                $request->comment,
-                $request->approverEntity,
-                $request->nextApprover,
-                $varData['data']['businessDocument']['documentNumber']
-            );
+            $compact = [
+                "documentNumber"    => "PR/QDC/2025/000016",
+                "status"            => 200,
+            ];
+
+            return response()->json($compact);
+
+            // return $this->SubmitWorkflow(
+            //     $varData['data']['businessDocument']['businessDocument_RefID'],
+            //     $request->workFlowPath_RefID,
+            //     $request->comment,
+            //     $request->approverEntity,
+            //     $request->nextApprover,
+            //     $varData['data']['businessDocument']['documentNumber']
+            // );
         } catch (\Throwable $th) {
             Log::error("Error at store: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

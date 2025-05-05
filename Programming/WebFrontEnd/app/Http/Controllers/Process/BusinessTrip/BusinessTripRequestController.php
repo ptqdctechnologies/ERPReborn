@@ -47,7 +47,64 @@ class BusinessTripRequestController extends Controller
     public function store(Request $request)
     {
         try {
-            $input = $request->all();
+            $varAPIWebToken             = Session::get('SessionLogin');
+            $businessTripRequestData    = $request->all();
+            $fileID                     = $businessTripRequestData['dataInput_Log_FileUpload_1'] ? (int) $businessTripRequestData['dataInput_Log_FileUpload_1'] : null;
+            $components                 = $businessTripRequestData['components'] ?? [];
+
+            $result = [];
+            foreach ($components as $component) {
+                if (!empty($component['value'])) {
+                    $result[] = [
+                        'entities' => [
+                            'businessTripCostComponentEntity_RefID' => (int) $component['id'],
+                            'amountCurrency_RefID'                  => 62000000000001,
+                            'amountCurrencyValue'                   => (int) $component['value'],
+                            'amountCurrencyExchangeRate'            => 1,
+                            'remarks'                               => null
+                        ]
+                    ];
+                }
+            }
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.create.humanResource.setPersonBusinessTrip',
+                'latest',
+                [
+                'entities' => [
+                    'documentDateTimeTZ'                => date('Y-m-d'),
+                    'combinedBudgetSectionDetail_RefID' => (int) $businessTripRequestData['var_combinedBudget_RefID'], // 169000000000001,
+                    'paymentDisbursementMethod_RefID'   => 218000000000002,
+                    'additionalData'    => [
+                        'itemList'      => [
+                            'items'     => [
+                                    [
+                                    'entities'  => [
+                                        'sequence'                                          => 1,
+                                        'log_FileUpload_Pointer_RefID'                      => $fileID,
+                                        'requesterWorkerJobsPosition_RefID'                 => (int) $businessTripRequestData['requester_id'],
+                                        'startDateTimeTZ'                                   => $businessTripRequestData['dateCommance'],
+                                        'finishDateTimeTZ'                                  => $businessTripRequestData['dateEnd'],
+                                        'departurePoint'                                    => $businessTripRequestData['departingFrom'],
+                                        'destinationPoint'                                  => $businessTripRequestData['destinationTo'],
+                                        'reasonToTravel'                                    => $businessTripRequestData['reasonTravel'],
+                                        'businessTripAccommodationArrangementsType_RefID'   => 219000000000002,
+                                        'remarks'                                           => null,
+                                        'additionalData' => [
+                                            'itemList' => [
+                                                'items' => $result
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            );
 
             return response()->json($input);
         } catch (\Throwable $th) {
