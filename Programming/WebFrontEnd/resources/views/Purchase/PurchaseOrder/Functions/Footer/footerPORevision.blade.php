@@ -116,17 +116,17 @@
         $.each(dataDetail, function(key, val2) {
             let row = `
                 <tr>
-                    <td style="text-align: center; padding: 10px !important;">${val2.DocumentNumber || '-'}</td>
-                    <td style="text-align: center; padding: 10px !important;">${val2.ProductCode || '-'}</td>
-                    <td style="text-align: center; padding: 10px !important;">${val2.ProductName || '-'}</td>
+                    <td style="text-align: center; padding: 10px !important;">${val2.documentNumber || '-'}</td>
+                    <td style="text-align: center; padding: 10px !important;">${val2.productCode || '-'}</td>
+                    <td style="text-align: center; padding: 10px !important;">${val2.productName || '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">-</td>
                     <td style="text-align: center; padding: 10px !important;">-</td>
-                    <td style="text-align: center; padding: 10px !important;">${val2.QuantityUnitName || '-'}</td>
+                    <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName || '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">-</td>
                     <td style="text-align: center; padding: 10px !important;">-</td>
                     <td style="text-align: center; padding: 10px !important;">-</td>
                     <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
-                        <input class="form-control number-without-negative" id="qty_req${indexPurchaseOrder}" data-index=${indexPurchaseOrder} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px;" value="${val2.Quantity || ''}" />
+                        <input class="form-control number-without-negative" id="qty_req${indexPurchaseOrder}" data-index=${indexPurchaseOrder} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px;" value="${val2.quantity || ''}" />
                     </td>
                     <td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                         <input class="form-control number-without-negative" id="price_req${indexPurchaseOrder}" data-index=${indexPurchaseOrder} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px;" />
@@ -138,7 +138,7 @@
                         <input class="form-control number-without-negative" id="balance${indexPurchaseOrder}" data-default="" autocomplete="off" style="border-radius:0px;" disabled />
                     </td>
                     <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
-                        <textarea id="note${indexPurchaseOrder}" data-default="" class="form-control">${val2.Remarks || ''}</textarea>
+                        <textarea id="note${indexPurchaseOrder}" data-default="" class="form-control">${val2.remarks || ''}</textarea>
                     </td>
                 </tr>
             `;
@@ -147,15 +147,15 @@
 
             let rowList = `
                 <tr>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.DocumentNumber || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.ProductCode || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.ProductName || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.QuantityUnitName || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.documentNumber || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">-</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.Quantity || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantity || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">-</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">-</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.Remarks || ''}</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.remarks || ''}</td>
                 </tr>
             `;
 

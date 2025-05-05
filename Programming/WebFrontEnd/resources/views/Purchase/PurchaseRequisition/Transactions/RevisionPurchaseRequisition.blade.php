@@ -2,8 +2,9 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getPurchaseRequisition')
+@include('getFunction.getDeliverTo')
 @include('getFunction.getWorkFlow')
+@include('getFunction.getPurchaseRequisition')
 @include('Purchase.PurchaseRequisition.Functions.PopUp.PopUpPrRevision')
 
 <div class="content-wrapper">
@@ -20,6 +21,10 @@
 
       @include('Purchase.PurchaseOrder.Functions.Menu.MenuPurchaseOrder')
       <div class="card">
+        <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+        <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
+        <input type="hidden" id="purchaseRequisitionDetail" value='<?= json_encode($detail ?? []) ?>'>
+
         <!-- PURCHASE REQUISITION -->
         <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
           <div class="row">
@@ -128,7 +133,7 @@
 
                 <!-- BODY -->
                 <div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;">
-                  <table class="table table-head-fixed text-nowrap table-sm" id="tableGetBudgetDetails">
+                  <table class="table table-head-fixed text-nowrap table-sm" id="tableGetPRDetails">
                     <thead>
                       <tr>
                         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
@@ -148,7 +153,7 @@
                     </thead>
                     <tbody></tbody>
                     <tfoot>
-                      <tr class="loadingBudgetDetails">
+                      <tr class="loadingPRDetails">
                         <td colspan="13" class="p-0" style="border: 0px; height: 150px;">
                           <div class="d-flex flex-column justify-content-center align-items-center py-3">
                             <div class="spinner-border" role="status">
@@ -160,10 +165,10 @@
                           </div>
                         </td>
                       </tr>
-                      <tr class="errorMessageContainerBudgetDetails">
+                      <tr class="errorMessageContainerPRDetails">
                         <td colspan="13" class="p-0" style="border: 0px;">
                           <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                            <div id="errorMessageBudgetDetails" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                            <div id="errorMessagePRDetails" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                           </div>
                         </td>
                       </tr>
@@ -214,7 +219,7 @@
 
                 <!-- TABLE -->
                 <div class="card-body table-responsive p-0" style="height:135px;">
-                  <table class="table table-head-fixed text-nowrap table-sm" id="tablePurchaseRequisitionList">
+                  <table class="table table-head-fixed text-nowrap table-sm" id="tablePRDetailList">
                     <thead>
                       <tr>
                         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>

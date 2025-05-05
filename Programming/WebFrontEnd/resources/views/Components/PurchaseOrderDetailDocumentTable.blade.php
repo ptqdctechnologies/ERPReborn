@@ -17,17 +17,17 @@
         <tbody>
             <?php $no = 1; $grand_total = 0; ?>
             <?php foreach ($dataHeader as $dataDetail) { ?>
-            <?php $grand_total += $dataDetail['Quantity'];  ?>
+            <?php $grand_total += $dataDetail['quantity'];  ?>
                 <tr>
                     <td style="border:1px solid #4B586A;color:#4B586A;"><?= $no++; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['ProductCode']; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['ProductName']; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['UoM']; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? '-'; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productName'] ?? '-'; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['quantityUnitName'] ?? '-'; ?></td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['Quantity'], 2); ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['Quantity'], 2); ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['Remarks']; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['quantity'], 2); ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['quantity'], 2); ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['remarks']; ?></td>
                 </tr>
             <?php } ?>
         </tbody>

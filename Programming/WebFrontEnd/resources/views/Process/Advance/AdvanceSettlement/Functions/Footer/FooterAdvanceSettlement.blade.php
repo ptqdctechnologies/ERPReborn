@@ -37,6 +37,8 @@
             type: 'GET',
             url: '{!! route("getAdvanceDetail") !!}?advanceRefID=' + advanceRefID,
             success: function(response) {
+                console.log('response', response);
+                
                 $(".loadingAdvanceSettlementTable").hide();
 
                 if (response.metadata.HTTPStatusCode === 200) {

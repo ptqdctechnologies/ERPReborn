@@ -1,4 +1,33 @@
+<!-- BODY -->
 <div class="card-body">
+  <div class="row py-3" style="gap: 15px;">
+    <!-- LEFT COLUMN -->
+    <div class="col-md-12 col-lg-5">
+      <!-- PR NUMBER -->
+      <div class="row">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+          PR Number
+        </label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div>
+            <input id="pr_number" style="border-radius:0;" class="form-control" size="20" readonly>
+            <input id="pr_id" style="border-radius:0;" name="pr_id" class="form-control" hidden>
+            <input id="pr_detail_id" style="border-radius:0;" name="pr_detail_id" class="form-control" hidden>
+          </div>
+          <div class="input-group-append invisible">
+            <span style="border-radius:0;" class="input-group-text form-control">
+              <a href="javascript:;" id="referenceNumberTrigger" style="display: block;">
+                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="doNumberTrigger">
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{-- <div class="card-body">
   <div class="row py-3" style="gap: 15px;">
     <!-- BUDGET CODE -->
     <div class="col-md-12 col-lg-5">
@@ -54,4 +83,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}

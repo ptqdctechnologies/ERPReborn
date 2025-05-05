@@ -10,8 +10,9 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="do_number" style="border-radius:0;" class="form-control" size="20" value="<?= $Data[0]['DocumentNumber'] ?? ''; ?>" readonly>
-            <input id="do_id" style="border-radius:0;" name="reference_id" class="form-control" value="<?= $Data[0]['DeliveryOrder_ID'] ?? ''; ?>" hidden>
+            <input id="do_number" style="border-radius:0;" class="form-control" size="20" value="<?= $header['doNumber']; ?>" readonly>
+            <input id="do_id" style="border-radius:0;" name="do_id" class="form-control" value="<?= $header['doID']; ?>" hidden>
+            <input id="do_detail_id" style="border-radius:0;" name="do_detail_id" class="form-control" value="<?= $header['doDetailID']; ?>" hidden>
           </div>
           <div class="input-group-append invisible">
             <span style="border-radius:0;" class="input-group-text form-control">
@@ -33,7 +34,7 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <textarea id="delivery_from" rows="3" style="border-radius:0;" class="form-control"><?= $Data[0]['DocumentNumber'] ?? ''; ?></textarea>
+            <textarea id="delivery_from" rows="3" style="border-radius:0;" class="form-control"><?= $header['deliveryFrom']; ?></textarea>
           </div>
         </div>
       </div>
@@ -45,7 +46,7 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <textarea id="delivery_to" rows="3" style="border-radius:0;" class="form-control"></textarea>
+            <textarea id="delivery_to" rows="3" style="border-radius:0;" class="form-control"><?= $header['deliveryTo']; ?></textarea>
           </div>
         </div>
       </div>

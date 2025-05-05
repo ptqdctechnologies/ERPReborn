@@ -85,7 +85,7 @@ class MaterialReceiveController extends Controller
             $varAPIWebToken = Session::get('SessionLogin');
             $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
             $input = $request->all();
-            $deliveryOrderDetail = json_decode($input['materialReceiveDetail'], true);
+            $deliveryOrderDetail = json_decode($input['storeData']['materialReceiveDetail'], true);
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
@@ -95,9 +95,9 @@ class MaterialReceiveController extends Controller
                 [
                 'entities' => [
                     'documentDateTimeTZ'                => date('Y-m-d'),
-                    'log_FileUpload_Pointer_RefID'      => (int) $input['dataInput_Log_FileUpload_1'],
+                    'log_FileUpload_Pointer_RefID'      => (int) $input['storeData']['dataInput_Log_FileUpload_1'],
                     'requesterWorkerJobsPosition_RefID' => (int) $SessionWorkerCareerInternal_RefID,
-                    'remarks'                           => $input['var_remark'],
+                    'remarks'                           => $input['storeData']['var_remark'],
                     "additionalData"                    => [
                         "itemList"                      => [
                             "items"                     => $deliveryOrderDetail
@@ -116,16 +116,16 @@ class MaterialReceiveController extends Controller
                 "status"            => $varData['metadata']['HTTPStatusCode'],
             ];
 
-            return response()->json($compact);
+            // return response()->json($compact);
 
-            // return $this->SubmitWorkflow(
-            //     $varData['data']['businessDocument']['businessDocument_RefID'],
-            //     $request->workFlowPath_RefID,
-            //     $request->comment,
-            //     $request->approverEntity,
-            //     $request->nextApprover,
-            //     $varData['data']['businessDocument']['documentNumber']
-            // );
+            return $this->SubmitWorkflow(
+                $varData['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+                $request->nextApprover,
+                $varData['data']['businessDocument']['documentNumber']
+            );
         } catch (\Throwable $th) {
             Log::error("Error at store: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

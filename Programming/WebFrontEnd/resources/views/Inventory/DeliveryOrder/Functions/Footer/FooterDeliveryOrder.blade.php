@@ -64,9 +64,14 @@
             type: 'GET',
             url: '{!! route("getPurchaseOrderDetail") !!}?purchase_order_id=' + reference_id,
             success: function(data) {
-                console.log('data', data);
-                
                 $(".loadingReferenceNumberDetail").hide();
+
+                $("#delivery_from").val(data[0]['supplierAddress']);
+                $("#delivery_to").val(data[0]['deliveryDestinationManualAddress']);
+                $("#delivery_from").prop("disabled", false);
+                $("#delivery_to").prop("disabled", false);
+
+                console.log('data', data);
 
                 let tbody = $('#tableReferenceNumberDetail tbody');
 
@@ -77,23 +82,23 @@
                         let randomNumber = Math.floor(Math.random() * 11);
                         let row = `
                             <tr>
-                                <input id="underlyingDetail_RefID${indexReferenceNumberDetail}" value="${val2.Sys_PID}" type="hidden" />
+                                <input id="underlyingDetail_RefID${indexReferenceNumberDetail}" value="-" type="hidden" />
                                 <input id="reference_number${indexReferenceNumberDetail}" value="${reference_number}" type="hidden" />
-                                <input id="product_code${indexReferenceNumberDetail}" value="-" type="hidden" />
-                                <input id="product_name${indexReferenceNumberDetail}" value="-" type="hidden" />
-                                <input id="uom${indexReferenceNumberDetail}" value="-" type="hidden" />
-                                <input id="qty_reference${indexReferenceNumberDetail}" value="${currencyTotal(val2.Quantity)}" type="hidden" />
-                                <input id="qty_avail${indexReferenceNumberDetail}" value="${currencyTotal(randomNumber)}" type="hidden" />
-                                <input id="qty_unit_refID${indexReferenceNumberDetail}" value="${val2.QuantityUnit_RefID}" type="hidden" />
+                                <input id="product_code${indexReferenceNumberDetail}" value="${val2.productCode || '-'}" type="hidden" />
+                                <input id="product_name${indexReferenceNumberDetail}" value="${val2.productName || '-'}" type="hidden" />
+                                <input id="uom${indexReferenceNumberDetail}" value="${val2.quantityUnitName || '-'}" type="hidden" />
+                                <input id="qty_reference${indexReferenceNumberDetail}" value="${currencyTotal(val2.quantity)}" type="hidden" />
+                                <input id="qty_avail${indexReferenceNumberDetail}" value="-" type="hidden" />
+                                <input id="qty_unit_refID${indexReferenceNumberDetail}" value="-" type="hidden" />
 
                                 ${key === 0 ? modifyColumn : ''}
+                                <td style="text-align: center;">${val2.productCode || '-'}</td>
+                                <td style="text-align: center;">${val2.productName || '-'}</td>
+                                <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
+                                <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
                                 <td style="text-align: center;">-</td>
-                                <td style="text-align: center;">-</td>
-                                <td style="text-align: center;">-</td>
-                                <td style="text-align: center;">${currencyTotal(val2.Quantity)}</td>
-                                <td style="text-align: center;">${currencyTotal(randomNumber)}</td>
                                 <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                                    <input class="form-control number-without-negative" id="qty_req${indexReferenceNumberDetail}" data-index=${indexReferenceNumberDetail} data-quantity=${randomNumber} autocomplete="off" style="border-radius:0px;" />
+                                    <input class="form-control number-without-negative" id="qty_req${indexReferenceNumberDetail}" data-index=${indexReferenceNumberDetail} data-quantity="" autocomplete="off" style="border-radius:0px;" />
                                 </td>
                                 <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
                                     <input class="form-control number-without-negative" id="balance${indexReferenceNumberDetail}" autocomplete="off" style="border-radius:0px;" disabled />
@@ -110,9 +115,9 @@
                             var qty_req = $(this).val().replace(/,/g, '');
                             var data_index = $(this).data('index');
                             var data_total_request = $(this).data('quantity');
-                            var result = data_total_request - qty_req;
+                            var result = val2.quantity - qty_req;
 
-                            if (Math.sign(result) === -1) {
+                            if (qty_req > val2.quantity) {
                                 $(this).val("");
                                 $(`#balance${data_index}`).val("");
                                 ErrorNotif("Qty Request is over Qty Avail !");
@@ -207,8 +212,6 @@
             data: formatData,
             url: '{{ route("DeliveryOrder.store") }}',
             success: function(res) {
-                console.log('res do', res);
-                
                 HideLoading();
 
                 if (res.status === 200) {
@@ -252,8 +255,6 @@
         var totalReferenceNumber = document.getElementById('TotalReferenceNumber').textContent;
 
         $("#tableReferenceNumberDetail tbody tr").each(function(index) {
-            console.log('sini');
-            
             var referenceNumber         = $(this).find(`input[id="reference_number${index}"]`).val();
             var productCode             = $(this).find(`input[id="product_code${index}"]`).val();
             var productName             = $(this).find(`input[id="product_name${index}"]`).val();
@@ -405,8 +406,6 @@
                     data: form_data,
                     type: method,
                     success: function(response) {
-                        console.log('response', response);
-                        
                         if (response.message == "WorkflowError") {
                             HideLoading();
                             $("#submitDO").prop("disabled", false);
@@ -457,6 +456,8 @@
         $(".loadingReferenceNumberDetail").hide();
         $(".errorMessageContainerReferenceNumberDetail").hide();
         $("#var_date").val(date);
+        $("#delivery_from").prop("disabled", true);
+        $("#delivery_to").prop("disabled", true);
 
         getDocumentType();
         checkTableDataDO();

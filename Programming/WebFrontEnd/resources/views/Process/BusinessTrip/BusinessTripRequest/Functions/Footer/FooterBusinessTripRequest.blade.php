@@ -274,7 +274,8 @@
                   <label for="${inputId}" class="${labelClass}">${type.name}</label>
                   <div class="p-0">
                     <div class="input-group">
-                      <input id="${inputId}" name="${inputId}" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                      <input type="hidden" name="components[${type.value}][id]" value="${type.value}">
+                      <input name="components[${type.value}][value]" id="${inputId}" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
                     </div>
                   </div>
                 </div>
@@ -304,6 +305,8 @@
       type: 'GET',
       url: '{!! route("getDocumentType") !!}',
       success: function(data) {
+        console.log('data', data);
+        
         const result = data.find(({ Name }) => Name === "Person Business Trip Form");
 
         if (Object.keys(result).length > 0) {
@@ -314,6 +317,77 @@
       },
       error: function (textStatus, errorThrown) {
         console.log('error', textStatus, errorThrown);
+      }
+    });
+  }
+
+  function SelectWorkFlow(formatData) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      confirmButtonClass: 'btn btn-success btn-sm',
+      cancelButtonClass: 'btn btn-danger btn-sm',
+      buttonsStyling: true,
+    });
+
+    swalWithBootstrapButtons.fire({
+      title: 'Comment',
+      text: "Please write your comment here",
+      type: 'question',
+      input: 'textarea',
+      showCloseButton: false,
+      showCancelButton: false,
+      focusConfirm: false,
+      confirmButtonText: '<span style="color:black;"> OK </span>',
+      confirmButtonColor: '#4B586A',
+      confirmButtonColor: '#e9ecef',
+      reverseButtons: true
+    }).then((result) => {
+      ShowLoading();
+      BusinessTripRequestStore({...formatData, comment: result.value});
+    });
+  }
+
+  function BusinessTripRequestStore(formatData) {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'POST',
+      data: formatData,
+      url: '{{ route("BusinessTripRequest.store") }}',
+      success: function(res) {
+        HideLoading();
+
+        if (res.status === 200) {
+          const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+          });
+
+          swalWithBootstrapButtons.fire({
+            title: 'Successful !',
+            type: 'success',
+            html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+            showCloseButton: false,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            confirmButtonColor: '#4B586A',
+            confirmButtonColor: '#e9ecef',
+            reverseButtons: true
+          }).then((result) => {
+            ShowLoading();
+            window.location.href = '/BusinessTripRequest?var=1';
+          });
+        } else {
+          ErrorNotif("Data Cancel Inputed");
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log('error', jqXHR, textStatus, errorThrown);
       }
     });
   }
@@ -775,85 +849,85 @@
   // ========== TO OTHER ==========
 
   // SUBMIT FORM
-  $("#FormSubmitBusinessTrip").on("submit", function(e) {
-    e.preventDefault();
+  // $("#FormSubmitBusinessTrip").on("submit", function(e) {
+  //   e.preventDefault();
 
-    const swalWithBootstrapButtons = Swal.mixin({
-      confirmButtonClass: 'btn btn-success',
-      cancelButtonClass: 'btn btn-danger',
-      buttonsStyling: true,
-    });
+  //   const swalWithBootstrapButtons = Swal.mixin({
+  //     confirmButtonClass: 'btn btn-success',
+  //     cancelButtonClass: 'btn btn-danger',
+  //     buttonsStyling: true,
+  //   });
 
-    swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: "Please confirm to save this data.",
-      type: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, submit it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.value) {
-        var action = $(this).attr("action");
-        var method = $(this).attr("method");
-        var form_data = new FormData($(this)[0]); 
-        var form = $(this);
+  //   swalWithBootstrapButtons.fire({
+  //     title: 'Are you sure?',
+  //     text: "Please confirm to save this data.",
+  //     type: 'question',
+  //     showCancelButton: true,
+  //     confirmButtonText: 'Yes, submit it!',
+  //     cancelButtonText: 'No, cancel!',
+  //     reverseButtons: true
+  //   }).then((result) => {
+  //     if (result.value) {
+  //       var action = $(this).attr("action");
+  //       var method = $(this).attr("method");
+  //       var form_data = new FormData($(this)[0]); 
+  //       var form = $(this);
 
-        ShowLoading();
+  //       ShowLoading();
 
-        $.ajax({
-          url: action,
-          dataType: 'json',
-          cache: false,
-          contentType: false,
-          processData: false,
-          data: form_data,
-          type: method,
-          success: function(response) {
-            HideLoading();
+  //       $.ajax({
+  //         url: action,
+  //         dataType: 'json',
+  //         cache: false,
+  //         contentType: false,
+  //         processData: false,
+  //         data: form_data,
+  //         type: method,
+  //         success: function(response) {
+  //           HideLoading();
 
-            console.log('response', response);
+  //           console.log('response', response);
 
-            // if (response.message == "WorkflowError") {
-            //   $("#submitArf").prop("disabled", false);
+  //           if (response.message == "WorkflowError") {
+  //             $("#submitArf").prop("disabled", false);
 
-            //   CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
-            // } else if (response.message == "MoreThanOne") {
-            //   $('#getWorkFlow').modal('toggle');
+  //             CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
+  //           } else if (response.message == "MoreThanOne") {
+  //             $('#getWorkFlow').modal('toggle');
 
-            //   var t = $('#tableGetWorkFlow').DataTable();
-            //   t.clear();
-            //   $.each(response.data, function(key, val) {
-            //     t.row.add([
-            //       '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-            //       '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-            //     ]).draw();
-            //   });
-            // } else {
-            //   const formatData = {
-            //     workFlowPath_RefID: response.workFlowPath_RefID, 
-            //     nextApprover: response.nextApprover_RefID, 
-            //     approverEntity: response.approverEntity_RefID, 
-            //     documentTypeID: response.documentTypeID,
-            //     storeData: response.storeData
-            //   };
+  //             var t = $('#tableGetWorkFlow').DataTable();
+  //             t.clear();
+  //             $.each(response.data, function(key, val) {
+  //               t.row.add([
+  //                 '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+  //                 '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+  //               ]).draw();
+  //             });
+  //           } else {
+  //             const formatData = {
+  //               workFlowPath_RefID: response.workFlowPath_RefID, 
+  //               nextApprover: response.nextApprover_RefID, 
+  //               approverEntity: response.approverEntity_RefID, 
+  //               documentTypeID: response.documentTypeID,
+  //               storeData: response.storeData
+  //             };
 
-            //   SelectWorkFlow(formatData);
-            // }
-          },
-          error: function(response) {
-            HideLoading();
-            // $("#submitArf").prop("disabled", false);
-            CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
-            console.log('error response', response);
-          }
-        });
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        HideLoading();
-        CancelNotif("Data Cancel Inputed", '/BusinessTripRequest?var=1');
-      }
-    });
-  });
+  //             SelectWorkFlow(formatData);
+  //           }
+  //         },
+  //         error: function(response) {
+  //           HideLoading();
+  //           // $("#submitArf").prop("disabled", false);
+  //           CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
+  //           console.log('error response', response);
+  //         }
+  //       });
+  //     } else if (result.dismiss === Swal.DismissReason.cancel) {
+  //       HideLoading();
+  //       CancelNotif("Data Cancel Inputed", '/BusinessTripRequest?var=1');
+  //     }
+  //   });
+  // });
 
   $(document).on('input', '.number-without-negative', function() {
     allowNumbersWithoutNegative(this);

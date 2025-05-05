@@ -172,6 +172,8 @@
             success: function(data) {
                 $(".loadingPurchaseOrderTable").hide();
 
+                console.log('data', data);
+
                 if (data && Array.isArray(data) && data.length > 0) {
                     $("#tablePurchaseOrderDetail tbody").show();
 
