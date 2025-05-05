@@ -60,6 +60,8 @@
                       @include('Components.DeliveryOrderDetailDocument')
                     <?php } else if ($businessDocumentType_Name == "Purchase Order Form") { ?>
                       @include('Components.PurchaseOrderDetailDocument')
+                    <?php } else if ($businessDocumentType_Name == "Purchase Requisition Form") { ?>
+                      @include('Components.PurchaseRequisitionDetailDocument')
                     <?php } ?>
                   </div>
                 </div>
@@ -76,6 +78,8 @@
                     @include('Components.DeliveryOrderDetailDocumentTable')
                   <?php } else if ($businessDocumentType_Name == "Purchase Order Form") { ?>
                     @include('Components.PurchaseOrderDetailDocumentTable')
+                  <?php } else if ($businessDocumentType_Name == "Purchase Requisition Form") { ?>
+                    @include('Components.PurchaseRequisitionDetailDocumentTable')
                   <?php } ?>
                 </div>
               </div>

@@ -140,6 +140,32 @@ class CheckDocumentController extends Controller
         return $DataPurchaseOrderDetail['data'];
     }
 
+    // GET PURCHASE REQUISITION DETAIL
+    private function FetchPurchaseRequisitionDetails($varAPIWebToken, $Document, $filterType)
+    {
+        $DataPurchaseRequisitionDetail = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
+            'latest',
+            [
+            'parameter' => [
+                'purchaseRequisition_RefID' => (int) $Document
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
+
+        // dd($DataPurchaseRequisitionDetail);
+
+        return $DataPurchaseRequisitionDetail['data']['data'];
+    }
+
     // GET WORKFLOW HISTORY
     private function FetchWorkflowHistory($varAPIWebToken, $businessDocumentRefID)
     {
@@ -219,6 +245,11 @@ class CheckDocumentController extends Controller
             $businessDocument_RefID = $advanceDetails[0]['purchaseOrder_RefID'];
             $businessDocumentNumber = $advanceDetails[0]['documentNumber'];
             $title = "PURCHASE ORDER FORM";
+        } else if ($businessDocumentTypeName === "Purchase Requisition Form") {
+            $firstDetail = $advanceDetails;
+            $businessDocument_RefID = $advanceDetails[0]['purchaseRequisition_RefID'];
+            $businessDocumentNumber = $advanceDetails[0]['documentNumber'] ?? "PR/QDC/2025/000017";
+            $title = "PURCHASE REQUISITION FORM";
         } else {
             $firstDetail = [$advanceDetails[0]];
             $businessDocument_RefID = $advanceDetails[0]['sys_ID_Advance'] ?? 76000000000544;
@@ -257,6 +288,12 @@ class CheckDocumentController extends Controller
                 $collection = $this->FetchPurchaseOrderDetails($varAPIWebToken, $Document, $filterType);
 
                 $collection[0]['businessDocument_RefID'] = 74000000021289;
+            } else if ($businessDocumentTypeName === "Purchase Requisition Form") {
+                $collection = $this->FetchPurchaseRequisitionDetails($varAPIWebToken, $Document, $filterType);
+
+                // dd($collection);
+
+                $collection[0]['businessDocument_RefID'] = 74000000021347;
             } else {
                 $collection = $this->FetchAdvanceDetails($varAPIWebToken, $Document, $filterType);
 
@@ -360,8 +397,13 @@ class CheckDocumentController extends Controller
                 );
 
                 if ($varData['metadata']['HTTPStatusCode'] === 200) {
-                    Helper_Redis::setValue($sessionID, $cacheKey, json_encode($varData['data']), 300); // Cache 5 menit
-                    $DataDetail = $varData['data'];
+                    if (isset($varData['data']['data']) && !empty($varData['data']['data'])) {
+                        Helper_Redis::setValue($sessionID, $cacheKey, json_encode($varData['data']['data']), 300);
+                        $DataDetail = $varData['data']['data'];
+                    } else {
+                        Helper_Redis::setValue($sessionID, $cacheKey, json_encode($varData['data']), 300); // Cache 5 menit
+                        $DataDetail = $varData['data'];
+                    }
                 } else {
                     return redirect()->back()->with('NotFound', 'Error');
                 }
@@ -455,6 +497,10 @@ class CheckDocumentController extends Controller
                 $API['key'] = "transaction.read.dataList.supplyChain.getPurchaseOrderDetail";
                 $API['parameter'] = ['purchaseOrder_RefID' => (int) $formDocumentNumber_RefID];
                 $API['title'] = "PURCHASE ORDER FORM";
+            } else if ($businessDocumentTypeName === "Purchase Requisition Form") {
+                $API['key'] = "transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail";
+                $API['parameter'] = ['purchaseRequisition_RefID' => (int) $formDocumentNumber_RefID];
+                $API['title'] = "PURCHASE REQUISITION FORM";
             }
 
             // dd([
@@ -469,7 +515,7 @@ class CheckDocumentController extends Controller
                 return $varDataWorkflow; 
             }
 
-            // dump($varDataWorkflow);
+            dump($varDataWorkflow);
 
             return view('Documents.Transactions.IndexCheckDetailDocument', $varDataWorkflow);
         } catch (\Throwable $th) {
