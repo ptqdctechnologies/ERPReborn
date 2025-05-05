@@ -418,9 +418,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
                             $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID"];
                             $varReturn['data'][$idxArray]['deliveryFrom_RefID'] = $value["DeliveryFrom_RefID"];
-                            $varReturn['data'][$idxArray]['deliveryFromManualAddress'] = $value["DeliveryFromManualAddress"];
+                            $varReturn['data'][$idxArray]['deliveryFrom_NonRefID'] = json_decode($value["DeliveryFrom_NonRefID"]);
                             $varReturn['data'][$idxArray]['deliveryTo_RefID'] = $value["DeliveryTo_RefID"];
-                            $varReturn['data'][$idxArray]['deliveryToManualAddress'] = $value["DeliveryToManualAddress"];
+                            $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = json_decode($value["DeliveryTo_NonRefID"]);
+                            $varReturn['data'][$idxArray]['deliveryDateTimeTZ'] = $value["DeliveryDateTimeTZ"];
                             $varReturn['data'][$idxArray]['transporter_RefID'] = $value["Transporter_RefID"];
                             $varReturn['data'][$idxArray]['qtyReq'] = $value["QtyReq"];
                             $varReturn['data'][$idxArray]['underlyingDetail_RefID'] = $value["UnderlyingDetail_RefID"];
