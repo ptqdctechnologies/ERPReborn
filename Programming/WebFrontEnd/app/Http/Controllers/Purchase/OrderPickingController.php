@@ -65,6 +65,42 @@ class OrderPickingController extends Controller
 
         return view('Purchase.OrderPicking.Reports.ReportOrderPickingDetail', $compact);
     }
+
+    public function ReportOPtoDO(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionPurchaseOrderPrNumber");
+        $request->session()->forget("SessionPurchaseOrder");
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'var' => $var,
+            'statusRevisi' => 1,
+        ];
+
+        return view('Purchase.OrderPicking.Reports.ReportOrderPickingtoDO', $compact);
+    }
+
+    public function ReportStockMovementtoDO(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionPurchaseOrderPrNumber");
+        $request->session()->forget("SessionPurchaseOrder");
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'var' => $var,
+            'statusRevisi' => 1,
+        ];
+
+        return view('Purchase.OrderPicking.Reports.ReportStockMovementtoDO', $compact);
+    }
     public function StoreValidateOrderPickingPrNumber(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');

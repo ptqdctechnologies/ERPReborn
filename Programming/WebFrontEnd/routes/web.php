@@ -292,7 +292,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('PrintExportReportPurchaseRequisitionSummary', 'Purchase\PurchaseRequisitionController@PrintExportReportPurchaseRequisitionSummary')->name('PurchaseRequisition.PrintExportReportPurchaseRequisitionSummary');
     Route::post('PrintExportReportPurchaseRequisitionDetail', 'Purchase\PurchaseRequisitionController@PrintExportReportPurchaseRequisitionDetail')->name('PurchaseRequisition.PrintExportReportPurchaseRequisitionDetail');
     
-    Route::get('ReportPurchaseRequisitionToPurchaseOrder', 'Purchase\PurchaseRequisitionController@ReportsPrtoPo')->name('PurchaseRequisition.ReportPurchaseRequisitionToPurchaseOrder');
+    Route::get('ReportPRtoPO', 'Purchase\PurchaseRequisitionController@ReportPRtoPO')->name('PurchaseRequisition.ReportPRtoPO');
+    Route::post('ReportPRtoPOStore', 'Purchase\PurchaseRequisitionController@ReportPRtoPOStore')->name('PurchaseRequisition.ReportPRtoPOStore');
+    Route::post('PrintExportReportPRtoPO', 'Purchase\PurchaseRequisitionController@PrintExportReportPRtoPO')->name('PurchaseRequisition.PrintExportReportPRtoPO');
+
     Route::get('ReportPurchaseRequisitionDetail', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetail')->name('PurchaseRequisition.ReportPurchaseRequisitionDetail');
     Route::post('ReportPurchaseRequisitionDetailStore', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetailStore')->name('PurchaseRequisition.ReportPurchaseRequisitionDetailStore');
     Route::get('PurchaseRequisitionListData', 'Purchase\PurchaseRequisitionController@PurchaseRequisitionListData')->name('PurchaseRequisition.PurchaseRequisitionListData');
@@ -308,7 +311,15 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportPurchaseOrderSummaryStore', 'Purchase\PurchaseOrderController@ReportPurchaseOrderSummaryStore')->name('PurchaseOrder.ReportPurchaseOrderSummaryStore');
     Route::post('PrintExportReportPurchaseOrderSummary', 'Purchase\PurchaseOrderController@PrintExportReportPurchaseOrderSummary')->name('PurchaseOrder.PrintExportReportPurchaseOrderSummary');
     Route::get('ReportPurchaseOrderDetail', 'Purchase\PurchaseOrderController@ReportPoDetail')->name('PurchaseOrder.ReportPurchaseOrderDetail');
-    Route::get('ReportPOtoAP', 'Purchase\PurchaseOrderController@ReportPoToAp')->name('PurchaseOrder.ReportPOtoAP');
+
+    Route::get('ReportPOtoDO', 'Purchase\PurchaseOrderController@ReportPOtoDO')->name('PurchaseOrder.ReportPOtoDO');
+    Route::post('ReportPOtoDOStore', 'Purchase\PurchaseOrderController@ReportPOtoDOStore')->name('PurchaseOrder.ReportPOtoDOStore');
+    Route::post('PrintExportReportPOtoDO', 'Purchase\PurchaseOrderController@PrintExportReportPOtoDO')->name('PurchaseOrder.PrintExportReportPOtoDO');
+
+    Route::get('ReportPOtoAP', 'Purchase\PurchaseOrderController@ReportPOtoAP')->name('PurchaseOrder.ReportPOtoAP');
+    Route::post('ReportPOtoAPStore', 'Purchase\PurchaseOrderController@ReportPOtoAPStore')->name('PurchaseOrder.ReportPOtoAPStore');
+    Route::post('PrintExportReportPOtoAP', 'Purchase\PurchaseOrderController@PrintExportReportPOtoAP')->name('PurchaseOrder.PrintExportReportPOtoAP');
+    
     Route::get('ReportCFS', 'Purchase\PurchaseOrderController@ReportCFS')->name('PurchaseOrder.ReportCFS');
     Route::post('ReportCFSStore', 'Purchase\PurchaseOrderController@ReportCFSStore')->name('PurchaseOrder.ReportCFSStore');
     Route::post('PrintExportReportCFS', 'Purchase\PurchaseOrderController@PrintExportReportCFS')->name('PurchaseOrder.PrintExportReportCFS');
@@ -327,12 +338,15 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('RevisionOrderPicking', 'Purchase\OrderPickingController@RevisionOrderPickingIndex')->name('OrderPicking.RevisionOrderPicking');
     Route::get('ReportOrderPickingSummary', 'Purchase\OrderPickingController@ReportPoSummary')->name('OrderPicking.ReportOrderPickingSummary');
     Route::get('ReportOrderPickingDetail', 'Purchase\OrderPickingController@ReportPoDetail')->name('OrderPicking.ReportOrderPickingDetail');
+    Route::get('ReportOPtoDO', 'Purchase\OrderPickingController@ReportOPtoDO')->name('OrderPicking.ReportOPtoDO');
     Route::get('OrderPickingListData', 'Purchase\OrderPickingController@OrderPickingListData')->name('OrderPicking.OrderPickingListData');
     // Route::post('RevisionOrderPicking', 'Purchase\OrderPickingController@RevisionOrderPicking')->name('OrderPicking.RevisionOrderPicking');
     Route::get('OrderPickingByPrID', 'Purchase\OrderPickingController@OrderPickingByPrID')->name('OrderPicking.OrderPickingByPrID');
     Route::post('addListCartOrderPicking', 'Purchase\OrderPickingController@addListCartOrderPicking')->name('OrderPicking.addListCartOrderPicking');
     Route::resource('OrderPicking', 'Purchase\OrderPickingController');
     
+
+    Route::get('ReportStockMovementtoDO', 'Purchase\OrderPickingController@ReportStockMovementtoDO')->name('OrderPicking.ReportStockMovementtoDO');
 
     // PPM
     Route::post('StoreValidatePieceMeal', 'HumanResource\PieceMealController@StoreValidatePieceMeal')->name('PieceMeal.StoreValidatePieceMeal');
@@ -345,6 +359,12 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('Timesheet/event', 'HumanResourckae\TimesheetController@event')->name('Timesheet.event');                                                                                                                                                                                                                                                                                                                                                                   
     Route::post('Timesheet/updates', 'HumanResource\TimesheetController@updates')->name('Timesheet.updates');
     Route::post('Timesheet/storeActivity', 'HumanResource\TimesheetController@storeActivity')->name('Timesheet.storeActivity');
+
+    Route::get('ReportTimesheetSummary', 'HumanResource\TimesheetController@ReportTimesheetSummary')->name('Timesheet.ReportTimesheetSummary');
+    Route::post('ReportTimesheetSummaryStore', 'HumanResource\TimesheetController@ReportTimesheetSummaryStore')->name('Timesheet.ReportTimesheetSummaryStore');
+    Route::post('PrintExportReportTimesheetSummary', 'HumanResource\TimesheetController@PrintExportReportTimesheetSummary')->name('Timesheet.PrintExportReportTimesheetSummary');
+
+
     Route::resource('Timesheet', 'HumanResource\TimesheetController');
 
     // DOR
