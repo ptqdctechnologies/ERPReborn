@@ -25,7 +25,7 @@
                     <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
                     <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['qtyReq'] ?? 0; ?></td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['remarks']; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['notes']; ?></td>
                 </tr>
             <?php } ?>
         </tbody>

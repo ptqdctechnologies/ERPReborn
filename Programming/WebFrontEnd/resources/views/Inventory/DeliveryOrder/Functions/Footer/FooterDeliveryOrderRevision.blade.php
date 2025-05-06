@@ -31,9 +31,8 @@
 
             let row = `
                 <tr>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.documentNumber || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">-</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.productName}</td>
+                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.productName || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">-</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">-</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">-</td>
@@ -44,7 +43,7 @@
                         <input class="form-control number-without-negative" id="balance${key}" autocomplete="off" style="border-radius:0px;" value="0" disabled />
                     </td>
                     <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 150px;">
-                        <textarea id="note${key}" class="form-control">${val2.remarks || ''}</textarea>
+                        <textarea id="note${key}" class="form-control">${val2.notes || ''}</textarea>
                     </td>
                 </tr>
             `;
@@ -69,14 +68,13 @@
 
             let rowList = `
                 <tr>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.documentNumber || ''}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">-</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName || ''}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">-</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.qtyReq || ''}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">0</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.remarks || ''}</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.notes || ''}</td>
                 </tr>
             `;
 
