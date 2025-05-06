@@ -250,11 +250,16 @@ class CheckDocumentController extends Controller
             $businessDocument_RefID = $advanceDetails[0]['purchaseRequisition_RefID'];
             $businessDocumentNumber = $advanceDetails[0]['documentNumber'] ?? "PR/QDC/2025/000017";
             $title = "PURCHASE REQUISITION FORM";
-        } else {
+        } else if ($businessDocumentTypeName === "Advance Request Form") {
             $firstDetail = [$advanceDetails[0]];
             $businessDocument_RefID = $advanceDetails[0]['sys_ID_Advance'] ?? 76000000000544;
             $businessDocumentNumber = $advanceDetails[0]['documentNumber'] ?? "Adv/QDC/2025/000134";
             $title = "ADVANCE FORM";
+        } else if ($businessDocumentTypeName === "Warehouse Inbound Order Form") {
+            $firstDetail = [];
+            $businessDocument_RefID = $advanceDetails[0]['sys_ID_Warehouse_Inbound'] ?? 176000000000028;
+            $businessDocumentNumber = $advanceDetails[0]['documentNumber'] ?? "WHIn/QDC/2025/000027";
+            $title = "MATERIAL RECEIVE";
         }
 
         return [
@@ -294,9 +299,11 @@ class CheckDocumentController extends Controller
                 // dd($collection);
 
                 $collection[0]['businessDocument_RefID'] = 74000000021347;
-            } else {
+            } else if ($businessDocumentTypeName === "Advance Request Form") {
                 $collection = $this->FetchAdvanceDetails($varAPIWebToken, $Document, $filterType);
 
+                $collection[0]['businessDocument_RefID'] = 74000000021304;
+            } else if ($businessDocumentTypeName === "Warehouse Inbound Order Form") {
                 $collection[0]['businessDocument_RefID'] = 74000000021304;
             }
 

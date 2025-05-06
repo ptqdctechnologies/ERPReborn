@@ -62,6 +62,8 @@
                       @include('Components.PurchaseOrderDetailDocument')
                     <?php } else if ($businessDocumentType_Name == "Purchase Requisition Form") { ?>
                       @include('Components.PurchaseRequisitionDetailDocument')
+                    <?php } else if ($businessDocumentType_Name == "Warehouse Inbound Order Form") { ?>
+                      @include('Components.MaterialReceiveDetailDocument')
                     <?php } ?>
                   </div>
                 </div>
