@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.supplyChain.setDeliveryOrder.v1_throughAPIGateway              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-04-24                                                                                           |
+        | ▪ Last Update     : 2025-05-06                                                                                           |
         | ▪ Creation Date   : 2024-01-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -42,12 +42,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "documentDateTimeTZ" => '2025-03-26',
                     "log_FileUpload_Pointer_RefID" => null,
                     "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                    "remarks" => 'My Remarks',
                     "transporter_RefID" => 164000000000559,
+                    "deliveryDateTimeTZ" => null,
                     "deliveryFrom_RefID" => 126000000000001,
-                    "deliveryFromManualAddress" => 'Jl. Nuri No. 1, Jakarta Barat',
+                    "deliveryFrom_NonRefID" => 'Jl. Salemba No. 23, Jakarta Pusat',
                     "deliveryTo_RefID" => 126000000000005,
-                    "deliveryToManualAddress" => 'Jl. Melati No. 2, Surabaya',
+                    "deliveryTo_NonRefID" => 'Jl. Mawar No. 50, Surabaya',
+                    "remarks" => 'My Remarks',
                     "additionalData" => [
                         "itemList" => [
                             "items" => [
