@@ -1,5 +1,5 @@
-<div class="wrapper-budget card-body table-responsive p-0"  style="height: 230px;" id="tablePurchaseOrderDetail">
-    <table class="table table-head-fixed text-nowrap table-striped">
+<div class="wrapper-budget card-body table-responsive p-0"  style="height: 230px;">
+    <table class="table table-head-fixed text-nowrap table-striped" id="tablePurchaseOrderDetail">
         <thead>
             <tr>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">PR Number</th>
@@ -101,9 +101,9 @@
                 <a id="purchase-details-add" class="btn btn-default btn-sm float-right" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Purchase List"> Add
                 </a>
-                <a id="purchase-details-reset" class="btn btn-default btn-sm float-right" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                {{-- <a id="purchase-details-reset" class="btn btn-default btn-sm float-right" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
-                </a>
+                </a> --}}
             </td>
         </tr>
     </table>
