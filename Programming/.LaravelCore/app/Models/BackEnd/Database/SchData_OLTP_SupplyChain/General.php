@@ -423,6 +423,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = json_decode($value["DeliveryTo_NonRefID"]);
                             $varReturn['data'][$idxArray]['deliveryDateTimeTZ'] = $value["DeliveryDateTimeTZ"];
                             $varReturn['data'][$idxArray]['transporter_RefID'] = $value["Transporter_RefID"];
+                            $varReturn['data'][$idxArray]['remarks'] = $value["Remarks"];
                             $varReturn['data'][$idxArray]['qtyReq'] = $value["QtyReq"];
                             $varReturn['data'][$idxArray]['underlyingDetail_RefID'] = $value["UnderlyingDetail_RefID"];
                             $varReturn['data'][$idxArray]['product_RefID'] = $value["Product_RefID"];
@@ -430,6 +431,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray]['deliveryOrderDetail_ID'] = $value["DeliveryOrderDetail_ID"];
                             $varReturn['data'][$idxArray]['notes'] = $value["Note"];
                             $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
+                            $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
                             $varReturn['data'][$idxArray]['entity_RefID'] = $value["Entity_RefID"];
                             $varReturn['data'][$idxArray]['transporterName'] = $value["TransporterName"];
                             $varReturn['data'][$idxArray]['transporterContactPerson'] = $value["TransporterContactPerson"];
