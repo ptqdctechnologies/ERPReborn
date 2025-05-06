@@ -17,7 +17,7 @@
       <div class="row mb-1" style="background-color:#4B586A;">
         <div class="col-sm-6" style="height:30px;">
           <label style="font-size:15px;position:relative;top:7px;color:white;">
-            Purchase Requisition
+            Purchase Request
           </label>
         </div>
       </div>
@@ -31,7 +31,7 @@
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
           <input type="hidden" name="purchaseRequisitionDetail" id="purchaseRequisitionDetail">
 
-          <!-- ADD NEW PURCHASE REQUISITION -->
+          <!-- ADD NEW PURCHASE REQUEST -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -39,7 +39,7 @@
                   <!-- HEADER -->
                   <div class="card-header">
                     <label class="card-title">
-                      Add New Purchase Requisition
+                      Add New Purchase Request
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -54,7 +54,7 @@
             </div>
           </div>
 
-          <!-- PURCHASE REQUISITION DETAIL -->
+          <!-- PURCHASE REQUEST DETAIL -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -62,7 +62,7 @@
                   <!-- HEADER -->
                   <div class="card-header">
                     <label class="card-title">
-                      Purchase Requisition Detail
+                      Purchase Request Detail
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -141,7 +141,7 @@
             </div>
           </div>
 
-          <!-- PURCHASE REQUISITION (CART) -->
+          <!-- PURCHASE REQUEST (CART) -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -149,7 +149,7 @@
                   <!-- HEADER -->
                   <div class="card-header">
                     <label class="card-title">
-                      Purchase Requisition List (Cart)
+                      Purchase Request List (Cart)
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -170,7 +170,7 @@
                           <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Remark</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Note</th>
                         </tr>
                       </thead>
                       <tbody></tbody>

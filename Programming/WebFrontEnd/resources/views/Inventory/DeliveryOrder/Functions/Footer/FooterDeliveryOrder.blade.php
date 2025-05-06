@@ -28,7 +28,7 @@
     referenceNumber.addEventListener('input', checkTableDataDO);
     deliveryFrom.addEventListener('input', checkTableDataDO);
     deliveryTo.addEventListener('input', checkTableDataDO);
-    transporterName.addEventListener('input', checkTableDataDO);
+    transporterName.addEventListener('change', checkTableDataDO);
 
     function calculateTotal() {
         let total = 0;
@@ -359,15 +359,17 @@
 
     $('#tableGetTransporter tbody').on('click', 'tr', function () {
         var sysId           = $(this).find('input[data-trigger="sys_id_transporter"]').val();
-        var transporterName = $(this).find('td:nth-child(2)').text();
+        var transporterNames = $(this).find('td:nth-child(2)').text();
 
         $("#transporter_id").val(sysId);
-        $("#transporter_name").val(transporterName);
+        $("#transporter_name").val(transporterNames);
         $("#transporter_phone").val('-');
         $("#transporter_fax").val('-');
         $("#transporter_contact").val('-');
         $("#transporter_handphone").val('-');
         $("#transporter_address").val('-');
+
+        checkTableDataDO();
     });
 
     $("#FormSubmitDeliveryOrder").on("submit", function(e) {

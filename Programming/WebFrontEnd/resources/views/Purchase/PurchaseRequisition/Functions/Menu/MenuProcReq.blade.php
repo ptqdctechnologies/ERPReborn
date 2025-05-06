@@ -14,12 +14,12 @@
                             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
                                 <li class="nav-item">
                                     <a href="{{ route('PurchaseRequisition.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
-                                        <i class="far fa-file nav-icon-sm"> Create Delivery Requisition</i>
+                                        <i class="far fa-file nav-icon-sm"> Create Purchase Request</i>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="modal" data-target="#myPopUpPurchaseRequisitionRevision" style="color:white;padding-bottom:10px;cursor:pointer;">
-                                        <i class="far fa-file nav-icon-sm"> Revision Delivery Requisition</i>
+                                        <i class="far fa-file nav-icon-sm"> Revision Purchase Request</i>
                                     </a>
                                 </li>
                             </ul>

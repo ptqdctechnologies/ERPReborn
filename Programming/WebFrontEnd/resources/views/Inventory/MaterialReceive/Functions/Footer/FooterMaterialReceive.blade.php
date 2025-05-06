@@ -1,4 +1,11 @@
 <script>
+    const deliveryOrderCode         = document.getElementById("delivery_order_code");
+    const addressDeliveryOrderFrom  = document.getElementById("address_delivery_order_from");
+    const addressDeliveryOrderTo    = document.getElementById("address_delivery_order_to");
+    const tableMaterialReceiveLists = document.querySelector("#tableMaterialReceiveList tbody");
+
+    $("#submitMaterialReceive").prop("disabled", true);
+
     function calculateTotal() {
         let total = 0;
         
@@ -191,6 +198,25 @@
             }
         });
     }
+
+    function validationForm() {
+        const isDeliveryOrderCodeNotEmpty           = deliveryOrderCode.value.trim() !== '';
+        const isAddressDeliveryOrderFromNotEmpty    = addressDeliveryOrderFrom.value.trim() !== '';
+        const isAddressDeliveryOrderToNotEmpty      = addressDeliveryOrderTo.value.trim() !== '';
+        const isTableNotEmpty                       = tableMaterialReceiveLists.rows.length > 0;
+
+        if (isDeliveryOrderCodeNotEmpty && isAddressDeliveryOrderFromNotEmpty && isAddressDeliveryOrderToNotEmpty && isTableNotEmpty) {
+            $("#submitMaterialReceive").prop("disabled", false);
+        } else {
+            $("#submitMaterialReceive").prop("disabled", true);
+        }
+    }
+
+    const observertableMaterialReceiveList = new MutationObserver(validationForm);
+    observertableMaterialReceiveList.observe(tableMaterialReceiveLists, { childList: true });
+    deliveryOrderCode.addEventListener('input', validationForm);
+    addressDeliveryOrderFrom.addEventListener('input', validationForm);
+    addressDeliveryOrderTo.addEventListener('input', validationForm);
 
     $('#delivery-order-details-add').on('click', function() {
         let dataStore = [];

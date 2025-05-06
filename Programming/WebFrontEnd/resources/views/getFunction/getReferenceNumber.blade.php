@@ -19,7 +19,8 @@
                                     <select class="form-control" onchange="getReferenceNumber(this);">
                                         <option disabled selected>Select a Source</option>
                                         <option value="PURCHASE_ORDER">Purchase Order</option>
-                                        <option disabled value="ORDER_PICKING">Order Picking</option>
+                                        <option disabled value="INTERNAL_USE">Internal Use</option>
+                                        {{-- <option disabled value="ORDER_PICKING">Order Picking</option> --}}
                                         <option disabled value="STOCK_MOVEMENT">Stock Movement</option>
                                     </select>
                                 </div>

@@ -584,32 +584,32 @@ class DeliveryOrderController extends Controller
 
             $data = $varData['data'];
 
+            // dump($data);
+
             $compact = [
                 'varAPIWebToken'            => $varAPIWebToken,
                 'header'                    => [
-                    'combinedBudget_RefID'  => $data[0]['combinedBudget_RefID'],
+                    'combinedBudget_RefID'  => $data[0]['combinedBudget_RefID'] ?? '',
                     'doNumber'              => $data[0]['documentNumber'] ?? '',
                     'doID'                  => $data[0]['deliveryOrder_RefID'] ?? '',
                     'doDetailID'            => $data[0]['deliveryOrderDetail_ID'] ?? '',
-                    'deliveryFrom'          => $data[0]['deliveryFromManualAddress'] ?? '',
+                    'deliveryFrom'          => $data[0]['deliveryFrom_NonRefID']['address'] ?? '',
                     'deliveryFromID'        => $data[0]['deliveryFrom_RefID'] ?? '',
-                    'deliveryTo'            => $data[0]['deliveryToManualAddress'] ?? '',
+                    'deliveryTo'            => $data[0]['deliveryTo_NonRefID']['address'] ?? '',
                     'deliveryToID'          => $data[0]['deliveryTo_RefID'] ?? '',
-                    'transporterID'         => '',
+                    'transporterID'         => $data[0]['transporter_RefID'] ?? '',
                     'transporterCode'       => '',
-                    'transporterName'       => '',
-                    'transporterPhone'      => '',
-                    'transporterFax'        => '',
-                    'transporterContact'    => '',
-                    'transporterHandphone'  => '',
-                    'transporterAddress'    => '',
-                    'fileID'                => $data[0]['log_FileUpload_Pointer_RefID'],
-                    'remarks'               => $data[0]['remarks'],
+                    'transporterName'       => $data[0]['transporterName'] ?? '',
+                    'transporterPhone'      => $data[0]['transporterPhone'] ?? '',
+                    'transporterFax'        => $data[0]['transporterFax'] ?? '',
+                    'transporterContact'    => $data[0]['transporterContactPerson'] ?? '',
+                    'transporterHandphone'  => $data[0]['transporterHandphone'] ?? '',
+                    'transporterAddress'    => $data[0]['transporterAddress'] ?? '',
+                    'fileID'                => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                    'remarks'               => $data[0]['remarks'] ?? '',
                 ],
                 'data'                      => $data
             ];
-
-            // dump($varData);
 
             return view('Inventory.DeliveryOrder.Transactions.RevisionDeliveryOrder', $compact);
         } catch (\Throwable $th) {

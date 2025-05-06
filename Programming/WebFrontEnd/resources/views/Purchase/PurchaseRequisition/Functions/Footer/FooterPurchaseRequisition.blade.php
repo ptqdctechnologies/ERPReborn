@@ -1,11 +1,16 @@
 <script>
-    var dataStore           = [];
-    var DocumentTypeID      = $("#DocumentTypeID").val();
-    var TotalBudgetSelected = document.getElementById('TotalBudgetSelected');
+    var dataStore                   = [];
+    var TotalBudgetSelected         = document.getElementById('TotalBudgetSelected');
+    const siteCode                  = document.getElementById("site_code_second");
+    const deliverCode               = document.getElementById("deliverCode");
+    const dateDelivery              = document.getElementById("dateCommance");
+    const tablePurchaseRequestLists = document.querySelector("#tablePurchaseRequisitionList tbody");
 
-    $("#deliverModalTrigger").prop("disabled", true);
     $(".loadingBudgetDetails").hide();
     $(".errorMessageContainerBudgetDetails").hide();
+    $("#submitPR").prop("disabled", true);
+    $("#deliverModalTrigger").prop("disabled", true);
+    $("#mySiteCodeSecondTrigger").prop("disabled", true);
 
     function getDocumentType() {
         $.ajaxSetup({
@@ -320,10 +325,30 @@
         });
     }
 
+    function validationForm() {
+        const isSiteCodeNotEmpty        = siteCode.value.trim() !== '';
+        const isDeliverCodeNotEmpty     = deliverCode.value.trim() !== '';
+        const isDateDeliveryNotEmpty    = dateDelivery.value.trim() !== '';
+        const isTableNotEmpty           = tablePurchaseRequestLists.rows.length > 0;
+
+        if (isSiteCodeNotEmpty && isDeliverCodeNotEmpty && isDateDeliveryNotEmpty && isTableNotEmpty) {
+            $("#submitPR").prop("disabled", false);
+        } else {
+            $("#submitPR").prop("disabled", true);
+        }
+    }
+
+    const observertablePurchaseRequestList = new MutationObserver(validationForm);
+    observertablePurchaseRequestList.observe(tablePurchaseRequestLists, { childList: true });
+    siteCode.addEventListener('input', validationForm);
+    deliverCode.addEventListener('input', validationForm);
+    dateDelivery.addEventListener('input', validationForm);
+
     $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
-        var sysId       = $(this).find('input[data-trigger="sys_id_project_second"]').val();
-        var projectCode = $(this).find('td:nth-child(2)').text();
-        var projectName = $(this).find('td:nth-child(3)').text();
+        var sysId           = $(this).find('input[data-trigger="sys_id_project_second"]').val();
+        var projectCode     = $(this).find('td:nth-child(2)').text();
+        var projectName     = $(this).find('td:nth-child(3)').text();
+        var documentTypeID  = $("#DocumentTypeID").val();
 
         $("#project_id_second").val("");
         $("#project_code_second").val("");
@@ -333,9 +358,9 @@
         $("#myProjectSecondTrigger").css({"display":"none"});
 
         try {
-            // var checkWorkFlow = await checkingWorkflow(sysId, documentTypeID);
+            var checkWorkFlow = await checkingWorkflow(sysId, documentTypeID);
 
-            // if (checkWorkFlow) {
+            if (checkWorkFlow) {
                 $("#project_id_second").val(sysId);
                 $("#project_code_second").val(projectCode);
                 $("#project_name_second").val(projectName);
@@ -344,7 +369,7 @@
 
                 getSiteSecond(sysId);
                 $("#mySiteCodeSecondTrigger").prop("disabled", false);
-            // }
+            }
 
             $("#loadingBudget").css({"display":"none"});
             $("#myProjectSecondTrigger").css({"display":"block"});
@@ -477,7 +502,11 @@
         
         targetTableBody.innerHTML = '';
 
+        dataStore = [];
+
         document.getElementById('GrandTotal').innerText = '0.00';
+
+        $("#purchaseRequisitionDetail").val("");
     });
 
     document.querySelector('#tablePurchaseRequisitionList tbody').addEventListener('click', function (e) {
