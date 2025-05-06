@@ -184,7 +184,7 @@ class PurchaseRequisitionController extends Controller
         return response()->json($compact);
     }
 
-    public function RevisionPrIndex(Request $request)
+    public function RevisionPurchaseRequest(Request $request)
     {
         $varAPIWebToken             = $request->session()->get('SessionLogin');
         $purchaseRequisition_RefID  = $request->modal_purchase_requisition_id;

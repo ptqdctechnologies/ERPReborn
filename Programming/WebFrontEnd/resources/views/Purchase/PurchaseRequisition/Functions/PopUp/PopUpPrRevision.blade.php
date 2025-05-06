@@ -3,8 +3,8 @@
         <div class="modal-content" style="width:90%;">
             <div class="modal-header">
                 <div class="modal-body">
-                    <span style="font-size: 15px;position:relative;left:17%;font-weight:bold;">PURCHASE REQUISITION REVISION</span><br><br><br>
-                    <form action="{{ route('PurchaseRequisition.RevisionPrIndex') }}" method="post">
+                    <span style="font-size: 15px;position:relative;left:17%;font-weight:bold;">PURCHASE REQUEST REVISION</span><br><br><br>
+                    <form action="{{ route('PurchaseRequisition.RevisionPurchaseRequest') }}" method="post">
                         @csrf
                         <div class="card" style="margin-left: 8%;">
                             <div class="card-body">

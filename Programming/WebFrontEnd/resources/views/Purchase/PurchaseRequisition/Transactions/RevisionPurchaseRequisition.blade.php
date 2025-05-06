@@ -14,18 +14,18 @@
       <div class="row mb-1" style="background-color:#4B586A;">
         <div class="col-sm-6" style="height:30px;">
           <label style="font-size:15px;position:relative;top:7px;color:white;">
-            Revision Purchase Requisition
+            Revision Purchase Request
           </label>
         </div>
       </div>
 
-      @include('Purchase.PurchaseOrder.Functions.Menu.MenuPurchaseOrder')
+      @include('Purchase.PurchaseRequisition.Functions.Menu.MenuProcReq')
       <div class="card">
         <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
         <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
         <input type="hidden" id="purchaseRequisitionDetail" value='<?= json_encode($detail ?? []) ?>'>
 
-        <!-- PURCHASE REQUISITION -->
+        <!-- PURCHASE REQUEST -->
         <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
           <div class="row">
             <div class="col-12">
@@ -33,7 +33,7 @@
                 <!-- HEADER -->
                 <div class="card-header">
                   <label class="card-title">
-                    Purchase Requisition
+                    Purchase Request
                   </label>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <!-- PURCHASE REQUISITION DETAIL -->
+        <!-- PURCHASE REQUEST DETAIL -->
         <div class="tab-content px-3 pb-2" id="nav-tabContent">
           <div class="row">
             <div class="col-12">
@@ -56,7 +56,7 @@
                 <!-- HEADER -->
                 <div class="card-header">
                   <label class="card-title">
-                    Purchase Requisition Detail
+                    Purchase Request Detail
                   </label>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -200,7 +200,7 @@
           </div>
         </div>
 
-        <!-- PURCHASE REQUISITION (CART) -->
+        <!-- PURCHASE REQUEST (CART) -->
         <div class="tab-content px-3 pb-2" id="nav-tabContent">
           <div class="row">
             <div class="col-12">
@@ -208,7 +208,7 @@
                 <!-- HEADER -->
                 <div class="card-header">
                   <label class="card-title">
-                    Purchase Requisition List (Cart)
+                    Purchase Request List (Cart)
                   </label>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">

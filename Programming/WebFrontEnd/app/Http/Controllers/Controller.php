@@ -278,6 +278,12 @@ class Controller extends BaseController
 
             $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
+            // Log::error("Request at ", [
+            //     'businessDocumentType_RefID'    => (int)$documentTypeID,
+            //     'submitterEntity_RefID'         => (int)$SessionWorkerCareerInternal_RefID,
+            //     'combinedBudget_RefID'          => (int)$combinedBudget_RefID
+            // ]);
+
             // if (Redis::get("BusinessDocumentTypeWorkFlowPath" . $documentTypeID) == null) {
                 // $varAPIWebToken = Session::get('SessionLogin');
                 $VarSelectWorkFlow = Helper_APICall::setCallAPIGateway(
@@ -294,6 +300,8 @@ class Controller extends BaseController
                     ],
                     false
                 );
+
+                Log::error("VarSelectWorkFlow at ", [$VarSelectWorkFlow]);
 
             // }
 

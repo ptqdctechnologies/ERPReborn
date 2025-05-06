@@ -141,7 +141,7 @@
                                         </div>
                                     </div>
 
-                                    @include('Inventory.DeliveryOrder.Functions.Table.TableReferenceNumberDetail')
+                                    @include('Inventory.DeliveryOrder.Functions.Table.TableRevisionReferenceNumberDetail')
                                 </div>
                             </div>
                         </div>
@@ -164,7 +164,7 @@
                                         </div>
                                     </div>
 
-                                    @include('Inventory.DeliveryOrder.Functions.Table.TableReferenceNumberList')
+                                    @include('Inventory.DeliveryOrder.Functions.Table.TableRevisionReferenceNumberList')
                                 </div>
                             </div>
                         </div>

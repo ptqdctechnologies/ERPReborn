@@ -6,7 +6,6 @@
     const msrNumber                 = document.getElementById("modal_purchase_requisition_document_number");
     const deliveryTo                = document.getElementById("delivery_to");
     const supplierCode              = document.getElementById("supplier_code");
-    const dataInput_Log_FileUpload  = document.getElementById("dataInput_Log_FileUpload");
     const ppn                       = document.getElementById('ppn');
     const TotalBudgetSelecteds      = document.getElementById('TotalBudgetSelected');
     const TotalBudgetSelectedPpn    = document.getElementById('TotalBudgetSelectedPpn');
@@ -37,6 +36,7 @@
     $('#containerValuePPN').hide();
     $(".loadingPurchaseOrderTable").hide();
     $(".errorPurchaseOrderTable").hide();
+    $("#supplier_code2").prop("disabled", true);
 
     function checkTableDataPO() {
         const isMSRNumberNotEmpty                   = msrNumber.value.trim() !== '';
@@ -44,10 +44,9 @@
         const isSupplierCodeNotEmpty                = supplierCode.value.trim() !== '';
         const isDownPaymentValueNotEmpty            = downPaymentValue.value.trim() !== '';
         const isTermOfPaymentOptionValueNotEmpty    = termOfPaymentOption.value.trim() !== 'Select a TOP';
-        const isFileUploadNotEmpty                  = dataInput_Log_FileUpload.value.trim() !== '';
         const isTableNotEmpty                       = tablePurchaseOrderLists.rows.length > 0;
 
-        if (isMSRNumberNotEmpty && isDeliveryToNotEmpty && isSupplierCodeNotEmpty && isDownPaymentValueNotEmpty && isTermOfPaymentOptionValueNotEmpty && isFileUploadNotEmpty && isTableNotEmpty) {
+        if (isMSRNumberNotEmpty && isDeliveryToNotEmpty && isSupplierCodeNotEmpty && isDownPaymentValueNotEmpty && isTermOfPaymentOptionValueNotEmpty && isTableNotEmpty) {
             submitPurchaseOrder.disabled = false;
         } else {
             submitPurchaseOrder.disabled = true;
@@ -62,7 +61,6 @@
     supplierCode.addEventListener('input', checkTableDataPO);
     downPaymentValue.addEventListener('input', checkTableDataPO);
     termOfPaymentOption.addEventListener('change', checkTableDataPO);
-    dataInput_Log_FileUpload.addEventListener('input', checkTableDataPO);
     
     function getPaymentTerm() {
         $('#containerSelectTOP').hide();
@@ -389,8 +387,8 @@
     }
 
     $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function() {
-        var sysId = $(this).find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
-        var trano = $(this).find('td:nth-child(2)').text();
+        var sysId               = $(this).find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
+        var trano               = $(this).find('td:nth-child(2)').text();
         var checkDoubleMsrID    = msrIDList.includes(sysId);
 
         if (checkDoubleMsrID) {
@@ -398,6 +396,7 @@
         } else {
             msrIDList.push(sysId);
             getDetailPurchaseRequisition(trano, sysId);
+            $("#supplier_code2").prop("disabled", false);
         }
     });
 

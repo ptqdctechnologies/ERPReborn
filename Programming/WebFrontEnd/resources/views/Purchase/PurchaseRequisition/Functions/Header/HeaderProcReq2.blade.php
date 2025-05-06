@@ -27,17 +27,17 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Date of Delivery</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div style="width: 42%;">
-                        <input id="dateCwommance" name="dateCommance" style="border-radius:0;width: 100%;" type="date" class="form-control">
+                        <input id="dateCommance" name="dateCommance" style="border-radius:0;width: 100%;" type="date" class="form-control">
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-12 col-lg-5">
-            <!-- NOTES -->
+            <!-- REMARK -->
             <div class="row" style="margin-bottom: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                    Notes
+                    Remark
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
