@@ -82,7 +82,7 @@
                         let randomNumber = Math.floor(Math.random() * 11);
                         let row = `
                             <tr>
-                                <input id="underlyingDetail_RefID${indexReferenceNumberDetail}" value="-" type="hidden" />
+                                <input id="underlyingDetail_RefID${indexReferenceNumberDetail}" value="${val2.purchaseOrderDetail_RefID || '-'}" type="hidden" />
                                 <input id="reference_number${indexReferenceNumberDetail}" value="${reference_number}" type="hidden" />
                                 <input id="product_code${indexReferenceNumberDetail}" value="${val2.productCode || '-'}" type="hidden" />
                                 <input id="product_name${indexReferenceNumberDetail}" value="${val2.productName || '-'}" type="hidden" />

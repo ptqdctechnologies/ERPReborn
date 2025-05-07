@@ -522,7 +522,7 @@ class CheckDocumentController extends Controller
                 return $varDataWorkflow; 
             }
 
-            // dump($varDataWorkflow);
+            dump($varDataWorkflow);
 
             return view('Documents.Transactions.IndexCheckDetailDocument', $varDataWorkflow);
         } catch (\Throwable $th) {

@@ -21,7 +21,7 @@ $varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzQ2NDk3MzY0fQ.MzdkY2VhMGQ2ZTFmNjg4NDgyOTI1MjY0NGIxZmFhZDgzNzJhYTU0ZWQ5NzEzOGY1ZmU1NWMzMTI2YTUzZDdjZA';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzQ2NjAzNjA0fQ.NzQ4OWIwNmZiZjMwZGZiZDk5YTU3Y2Q5ZDg2YzRiZjY0ZDAyODY0MzFmNDE3ZGY3YWZlZDJmZjY3NDE0MTc5OQ';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -386,6 +386,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportDODetailStore', 'Inventory\DeliveryOrderController@ReportDODetailStore')->name('Inventory.ReportDODetailStore');
     Route::post('PrintExportReportDODetail', 'Inventory\DeliveryOrderController@PrintExportReportDODetail')->name('Inventory.PrintExportReportDODetail');
     Route::post('SearchDeliveryOrderRequest', 'Inventory\DeliveryOrderController@SearchDeliveryOrderRequest')->name('DeliveryOrder.SearchDeliveryOrderRequest');
+    Route::post('updates', 'Inventory\DeliveryOrderController@updates')->name('DeliveryOrder.updates');
     Route::resource('DeliveryOrder', 'Inventory\DeliveryOrderController');
 
     //MaterialReceive
