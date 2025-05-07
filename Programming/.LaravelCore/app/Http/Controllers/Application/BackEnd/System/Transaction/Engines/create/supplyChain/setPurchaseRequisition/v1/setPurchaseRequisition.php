@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000005                                                                                       |
-        | ▪ Last Update     : 2025-01-24                                                                                           |
+        | ▪ Last Update     : 2025-05-07                                                                                           |
         | ▪ Creation Date   : 2022-03-14                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -93,6 +93,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     $varData['entities']['documentDateTimeTZ'],
                                     $varData['entities']['log_FileUpload_Pointer_RefID'],
                                     $varData['entities']['requesterWorkerJobsPosition_RefID'],
+                                    $varData['entities']['deliveryDateTimeTZ'],
+                                    $varData['entities']['deliveryTo_RefID'],
+                                    $varData['entities']['deliveryTo_NonRefID'],
+                                    $varData['entities']['fulfillmentDeadlineDateTimeTZ'],
                                     $varData['entities']['remarks'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(

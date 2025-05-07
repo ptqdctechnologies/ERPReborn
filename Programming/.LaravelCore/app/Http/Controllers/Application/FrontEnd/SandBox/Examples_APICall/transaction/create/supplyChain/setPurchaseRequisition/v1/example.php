@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.supplyChain.setPurchaseRequisition.v1_throughAPIGateway       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-24                                                                                           |
+        | ▪ Last Update     : 2025-05-07                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -49,6 +49,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "documentDateTimeTZ" => '2022-03-07',
                             "log_FileUpload_Pointer_RefID" => null,
                             "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                            "deliveryDateTimeTZ" => '2025-05-07',
+                            "deliveryTo_RefID" => 126000000000005,
+                            "deliveryTo_NonRefID" => 'Jl. Siliwangi No. 30, Surabaya',
+                            "fulfillmentDeadlineDateTimeTZ" => '2025-05-30',
                             "remarks" => 'My Remarks',
                             "additionalData" => [
                                 "itemList" => [
@@ -62,7 +66,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "productUnitPriceCurrency_RefID" => 62000000000001,
                                                 "productUnitPriceCurrencyValue" => 30000,
                                                 "productUnitPriceCurrencyExchangeRate" => 1,
-                                                "fulfillmentDeadlineDateTimeTZ" => '2023-05-10',
                                                 "remarks" => 'Catatan Pertama'
                                                 ]                                   
                                             ],
@@ -75,7 +78,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "productUnitPriceCurrency_RefID" => 62000000000001,
                                                 "productUnitPriceCurrencyValue" => 30000,
                                                 "productUnitPriceCurrencyExchangeRate" => 1,
-                                                "fulfillmentDeadlineDateTimeTZ" => '2023-03-01',
                                                 "remarks" => 'Catatan Kedua'
                                                 ]
                                             ],
@@ -87,7 +89,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     //-----[ DATA ]-----(  END  )-----
                     );
 
-            var_dump($varData);
+            return $varData;
             }
 
 
