@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.343.2",
+            "version": "3.343.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "95d43e71d3395622394b36079f2fb2289d3284b3"
+                "reference": "69b4b232072c4eb01f6701ba3f137728dc8c7aa8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/95d43e71d3395622394b36079f2fb2289d3284b3",
-                "reference": "95d43e71d3395622394b36079f2fb2289d3284b3",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/69b4b232072c4eb01f6701ba3f137728dc8c7aa8",
+                "reference": "69b4b232072c4eb01f6701ba3f137728dc8c7aa8",
                 "shasum": ""
             },
             "require": {
@@ -153,9 +153,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.343.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.343.5"
             },
-            "time": "2025-05-01T18:05:02+00:00"
+            "time": "2025-05-06T18:08:44+00:00"
         },
         {
             "name": "brick/math",
@@ -2191,16 +2191,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.6.2",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "06c3b0bf2540338094575612f4a1778d0d2d5e94"
+                "reference": "6fbb36d44824ed4091adbcf4c7d4a3923cdb3405"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/06c3b0bf2540338094575612f4a1778d0d2d5e94",
-                "reference": "06c3b0bf2540338094575612f4a1778d0d2d5e94",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/6fbb36d44824ed4091adbcf4c7d4a3923cdb3405",
+                "reference": "6fbb36d44824ed4091adbcf4c7d4a3923cdb3405",
                 "shasum": ""
             },
             "require": {
@@ -2237,7 +2237,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.7-dev"
+                    "dev-main": "2.8-dev"
                 }
             },
             "autoload": {
@@ -2294,7 +2294,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-04-18T21:09:27+00:00"
+            "time": "2025-05-05T12:20:28+00:00"
         },
         {
             "name": "league/config",
@@ -4993,16 +4993,16 @@
         },
         {
             "name": "spatie/backtrace",
-            "version": "1.7.2",
+            "version": "1.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/backtrace.git",
-                "reference": "9807de6b8fecfaa5b3d10650985f0348b02862b2"
+                "reference": "80ae5fabe2a1e3bc7df5c7ca5d91b094dc314b20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/backtrace/zipball/9807de6b8fecfaa5b3d10650985f0348b02862b2",
-                "reference": "9807de6b8fecfaa5b3d10650985f0348b02862b2",
+                "url": "https://api.github.com/repos/spatie/backtrace/zipball/80ae5fabe2a1e3bc7df5c7ca5d91b094dc314b20",
+                "reference": "80ae5fabe2a1e3bc7df5c7ca5d91b094dc314b20",
                 "shasum": ""
             },
             "require": {
@@ -5040,7 +5040,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/backtrace/tree/1.7.2"
+                "source": "https://github.com/spatie/backtrace/tree/1.7.3"
             },
             "funding": [
                 {
@@ -5052,7 +5052,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2025-04-28T14:55:53+00:00"
+            "time": "2025-05-07T07:20:00+00:00"
         },
         {
             "name": "spatie/error-solutions",
@@ -6483,7 +6483,7 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.31.0",
+            "version": "v1.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -6542,7 +6542,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.31.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.32.0"
             },
             "funding": [
                 {
@@ -6640,16 +6640,16 @@
         },
         {
             "name": "symfony/polyfill-intl-idn",
-            "version": "v1.31.0",
+            "version": "v1.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-idn.git",
-                "reference": "c36586dcf89a12315939e00ec9b4474adcb1d773"
+                "reference": "9614ac4d8061dc257ecc64cba1b140873dce8ad3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/c36586dcf89a12315939e00ec9b4474adcb1d773",
-                "reference": "c36586dcf89a12315939e00ec9b4474adcb1d773",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/9614ac4d8061dc257ecc64cba1b140873dce8ad3",
+                "reference": "9614ac4d8061dc257ecc64cba1b140873dce8ad3",
                 "shasum": ""
             },
             "require": {
@@ -6703,7 +6703,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.31.0"
+                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.32.0"
             },
             "funding": [
                 {
@@ -6719,7 +6719,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-09T11:45:10+00:00"
+            "time": "2024-09-10T14:38:51+00:00"
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
