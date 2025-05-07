@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">Report Purchase Order to Delivery Order</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">Report Timesheet Summary</label>
                 </div>
             </div>
             <div class="card">
@@ -23,7 +23,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row p-1" style="row-gap: 1rem;">
-                                        @include('Purchase.PurchaseOrder.Functions.Header.HeaderReportPOtoAP')
+                                        @include('HumanResource.Timesheet.Functions.Header.HeaderReportTimesheetSummary')
                                     </div>
                                 </div>
                             </div>
@@ -54,15 +54,17 @@
                                         <thead>
                                             <tr>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PO Number</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PO Total</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PR Number</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PR Date</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Product Id</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Description</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PR Total</th>
                                                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Valuta</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">AP Number</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">AP Total</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Balance PO-AP</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Payment AP</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Payment Date</th>
-                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Balance Net AP-Pay</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PO Number</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PO Date</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PO Qty</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PO Total</th>
+                                                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Balance</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -71,17 +73,16 @@
                                                 <tr>
                                                     <td><?= $counter++; ?></td>
                                                     <td><?= $dataDetail['DocumentNumber']; ?></td>
+                                                    <td><?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?></td>
+                                                    <td><?= $dataDetail['Product_ID']; ?></td>
+                                                    <td><?= $dataDetail['Description']; ?></td>
                                                     <td><?= $dataDetail['TotalAdvance']; ?></td>
                                                     <td><?= $dataDetail['CurrencyName']; ?></td>
                                                     <td><?= $dataDetail['DepartingFrom']; ?></td>
                                                     <td><?= $dataDetail['DestinationTo']; ?></td>
                                                     <td><?= $dataDetail['TotalExpenseClaimCart']; ?></td>
                                                     <td><?= $dataDetail['TotalAmountDueToCompanyCart']; ?></td>
-                                                    <td><?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?></td>
-                                                    <td><?= $dataDetail['Description']; ?></td>
-                                                    
-                                                    
-                                    
+                                                    <td><?= $dataDetail['remark']; ?></td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -100,7 +101,7 @@
                             </div>
                         </div>
                     </div>
-                    <?php }; Session::forget("isButtonReportPOSubmit"); ?> 
+                    <?php }; Session::forget("isButtonReportTimesheetSummarySubmit"); ?>
                 </div>
             </div>
         </div>
@@ -108,5 +109,5 @@
 </div>
 
 @include('Partials.footer')
-@include('Purchase.PurchaseOrder.Functions.Footer.footerReportPOtoAP')
+@include('HumanResource.Timesheet.Functions.Footer.FooterReportTimesheetSummary')
 @endsection
