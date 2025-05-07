@@ -53,10 +53,10 @@
                                                         : <?= $dataReport['dataHeaderOne']['siteCode']; ?>
                                                     </div>
                                                 </div>
-                                                <!-- PRODUCT -->
+                                                <!-- DESCRIPTION -->
                                                 <div class="row">
                                                     <div class="col-sm-4 col-md-3 p-0 text-bold">
-                                                        Product
+                                                        Description
                                                     </div>
                                                     <div class="col-sm-8 col-md-9 p-0">
                                                         : <?= $dataReport['dataHeaderOne']['productID']; ?> (<?= $dataReport['dataHeaderOne']['productName']; ?>)

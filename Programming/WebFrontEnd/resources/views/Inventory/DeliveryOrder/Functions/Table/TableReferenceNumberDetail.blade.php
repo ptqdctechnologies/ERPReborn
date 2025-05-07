@@ -7,7 +7,7 @@
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Reference</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty PO</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Avail</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Req</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Balance</th>
@@ -18,14 +18,14 @@
         <tfoot>
             <tr class="loadingReferenceNumberDetail">
                 <td colspan="9" class="p-0" style="border: 0px; height: 150px;">
-                  <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                    <div class="spinner-border" role="status">
-                      <span class="sr-only">Loading...</span>
+                    <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
+                            Loading...
+                        </div>
                     </div>
-                    <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
-                      Loading...
-                    </div>
-                  </div>
                 </td>
             </tr>
             <tr class="errorMessageContainerReferenceNumberDetail">

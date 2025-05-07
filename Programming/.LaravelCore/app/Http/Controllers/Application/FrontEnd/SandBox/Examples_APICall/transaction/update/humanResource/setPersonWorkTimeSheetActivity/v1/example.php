@@ -34,25 +34,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.humanResource.setPersonWorkTimeSheetActivity', 
-                'latest', 
-                [
-                'recordID' => 50000000085287,
-                'entities' => [
-                    'personWorkTimeSheet_RefID' => 48000000000001,
-                    'projectSectionItem_RefID' => null,
-                    'startDateTimeTZ' => '2026-01-01 07:00:00 +07',
-                    'finishDateTimeTZ' => '2026-01-01 13:00:00 +07',
-                    'activity' => 'Kegiatan ABCD dan EFGH',
-                    'colorText' => '#000000',
-                    'colorBackground' => '#ababab'
-                    ]
-                ]
-                );
-            var_dump($varData);
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.update.humanResource.setPersonWorkTimeSheetActivity', 
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]-----( START )-----
+                        [
+                        'recordID' => 50000000000001,
+                        'entities' => [
+                            'personWorkTimeSheet_RefID' => 48000000000001,
+                            'projectSectionItem_RefID' => null,
+                            'startDateTimeTZ' => '2026-01-01 07:00:00 +07',
+                            'finishDateTimeTZ' => '2026-01-01 13:00:00 +07',
+                            'activity' => 'Kegiatan ABCD dan EFGH',
+                            'colorText' => '#000000',
+                            'colorBackground' => '#ababab'
+                            ]
+                        ]
+                    //-----[ DATA ]-----(  END  )-----
+                    );
+
+            return
+                $varData;
             }
 
 

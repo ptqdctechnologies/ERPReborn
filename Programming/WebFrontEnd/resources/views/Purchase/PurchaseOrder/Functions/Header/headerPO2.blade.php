@@ -4,7 +4,7 @@
       <div class="form-group">
         <table>
           <tr>
-            <td style="padding-top: 12px;"><label>MSR Number</label></td>
+            <td style="padding-top: 12px;"><label>PR Number</label></td>
             <td>
               <div class="input-group">
                 <input id="modal_purchase_requisition_document_number" style="border-radius:0;" name="modal_purchase_requisition_document_number" class="form-control" readonly>

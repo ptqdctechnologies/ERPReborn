@@ -82,6 +82,8 @@
                 table.clear();
 
                 if (Array.isArray(data) && data.length > 0) {
+                    console.log('data', data);
+                    
                     $.each(data, function(key, val) {
                         keys += 1;
                         table.row.add([

@@ -155,7 +155,7 @@
                     <div class="card-body table-responsive p-0" style="height:135px;">
                       <table class="table table-head-fixed text-nowrap table-sm" id="tablePurchaseOrderList">
                         <thead>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">MSR Number</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">PR Number</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
@@ -176,6 +176,14 @@
                           <th> Total Item :
                             <span id="GrandTotal">0.00</span>
                           </th>
+                        </tr>
+                        <tr>
+                          <td>
+                            <br>
+                            <a id="purchase-details-reset" class="btn btn-default btn-sm float-right" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                              <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
+                            </a>
+                          </td>
                         </tr>
                       </table>
                     </div>

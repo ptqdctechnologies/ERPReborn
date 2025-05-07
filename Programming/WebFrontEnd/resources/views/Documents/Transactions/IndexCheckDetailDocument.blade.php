@@ -23,11 +23,15 @@
               id="FormSubmitRevision">
               @csrf
 
-              @if ($title == 'ADVANCE FORM')
+              <?php if ($title === "ADVANCE FORM") { ?>
                 <input type="hidden" id="refID" name="advance_RefID" value="76000000000539" class="form-control" style="border-radius:0;">
-              @else
-                <input type="hidden" id="refID" name="do_RefID" value="{{ $dataHeader[0]['DeliveryOrder_ID'] }}" class="form-control" style="border-radius:0;">
-              @endif
+              <?php } else if ($title === "DELIVERY ORDER FORM") { ?>
+                <input type="hidden" id="refID" name="do_RefID" value="{{ $dataHeader[0]['deliveryOrder_RefID'] }}" class="form-control" style="border-radius:0;">
+              <?php } else if ($title === "PURCHASE ORDER FORM") { ?>
+                <input type="hidden" id="refID" name="purchaseOrder_RefID" value="{{ $dataHeader[0]['purchaseOrder_RefID'] }}" class="form-control" style="border-radius:0;">
+              <?php } else if ($title === "PURCHASE REQUISITION FORM") { ?>
+                <input type="hidden" id="refID" name="modal_purchase_requisition_id" value="{{ $dataHeader[0]['purchaseRequisition_RefID'] }}" class="form-control" style="border-radius:0;">
+              <?php } ?>
             </form>
 
             <!-- HEADER -->
@@ -47,6 +51,10 @@
                       @include('Components.AdvanceDetailDocument')
                     <?php } else if ($title ===  "DELIVERY ORDER FORM") { ?>
                       @include('Components.DeliveryOrderDetailDocument')
+                    <?php } else if ($title ===  "PURCHASE ORDER FORM") { ?>
+                      @include('Components.PurchaseOrderDetailDocument')
+                    <?php } else if ($title ===  "PURCHASE REQUISITION FORM") { ?>
+                      @include('Components.PurchaseRequisitionDetailDocument')
                     <?php } ?>
                   </div>
                 </div>
@@ -61,6 +69,10 @@
                     @include('Components.AdvanceDetailDocumentTable')
                   <?php } else if ($title === "DELIVERY ORDER FORM") { ?>
                     @include('Components.DeliveryOrderDetailDocumentTable')
+                  <?php } else if ($title === "PURCHASE ORDER FORM") { ?>
+                    @include('Components.PurchaseOrderDetailDocumentTable')
+                  <?php } else if ($title === "PURCHASE REQUISITION FORM") { ?>
+                    @include('Components.PurchaseRequisitionDetailDocumentTable')
                   <?php } ?>
                 </div>
               </div>

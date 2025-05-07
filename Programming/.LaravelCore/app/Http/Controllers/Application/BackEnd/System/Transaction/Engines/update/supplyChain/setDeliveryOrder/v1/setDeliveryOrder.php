@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-04-10                                                                                           |
+        | ▪ Last Update     : 2025-05-06                                                                                            |
         | ▪ Creation Date   : 2022-03-10                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -66,7 +66,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
-                        if (!($varDataSend = 
+                        if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
                                 $varUserSession,
                                 (new \App\Models\Database\SchData_OLTP_SupplyChain\TblDeliveryOrder())->setDataUpdate(
@@ -94,22 +94,23 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     $varData['entities']['documentDateTimeTZ'],
                                     $varData['entities']['log_FileUpload_Pointer_RefID'],
                                     $varData['entities']['requesterWorkerJobsPosition_RefID'],
-                                    $varData['entities']['remarks'],
                                     $varData['entities']['transporter_RefID'],
+                                    $varData['entities']['deliveryDateTimeTZ'],
                                     $varData['entities']['deliveryFrom_RefID'],
-                                    $varData['entities']['deliveryFromManualAddress'],
+                                    $varData['entities']['deliveryFrom_NonRefID'],
                                     $varData['entities']['deliveryTo_RefID'],
-                                    $varData['entities']['deliveryToManualAddress'],
+                                    $varData['entities']['deliveryTo_NonRefID'],
+                                    $varData['entities']['remarks'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,
                                         'additionalData',
                                         $varData['entities']
-                                        ) 
+                                        )
                                         ?   (
                                                 (
                                                 !is_null($varData['entities']['additionalData'])
-                                                ) 
+                                                )
                                                 ? $varData['entities']['additionalData']
                                                 : []
                                             )

@@ -44,7 +44,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-04-10                                                                                           |
+        | ▪ Last Update     : 2025-05-06                                                                                           |
         | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -60,28 +60,29 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
         |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Person Reference ID                                     |
-        |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |      ▪ (int)    varTransporter_RefID ► Transporter Reference ID                                                          |
+        |      ▪ (string) varDeliveryDateTimeTZ ► Delivery DateTime TZ                                                             |
         |      ▪ (int)    varDeliveryFrom_RefID ► Delivery From Reference ID                                                       |
-        |      ▪ (string) varDeliveryFromManualAddress ► Delivery From                                                             |
+        |      ▪ (string) varDeliveryFrom_NonRefID ► Delivery From                                                                 |
         |      ▪ (int)    varDeliveryTo_RefID ► Delivery To Reference ID                                                           |
-        |      ▪ (string) varDeliveryToManualAddress ► Delivery To                                                                 |
+        |      ▪ (string) varDeliveryTo_NonRefID ► Delivery To                                                                     |
+        |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null, int $varTransporter_RefID = null, int $varDeliveryFrom_RefID = null, string $varDeliveryFromManualAddress = null, int $varDeliveryTo_RefID = null, string $varDeliveryToManualAddress = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varTransporter_RefID = null, string $varDeliveryDateTimeTZ = null, int $varDeliveryFrom_RefID = null, string $varDeliveryFrom_NonRefID = null, int $varDeliveryTo_RefID = null, string $varDeliveryTo_NonRefID = null, string $varRemarks = null,
             array $varAdditionalData = null
             )
             {
-            $varReturn = 
+            $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
@@ -99,15 +100,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                             [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
-                            [$varRemarks, 'varchar'],
                             [$varTransporter_RefID, 'bigint'],
+                            [$varDeliveryDateTimeTZ, 'timestamptz'],
                             [$varDeliveryFrom_RefID, 'bigint'],
-                            [$varDeliveryFromManualAddress, 'varchar'],
+                            [$varDeliveryFrom_NonRefID, 'varchar'],
                             [$varDeliveryTo_RefID, 'bigint'],
-                            [$varDeliveryToManualAddress, 'varchar'],
+                            [$varDeliveryTo_NonRefID, 'varchar'],
+                            [$varRemarks, 'varchar'],
 
                             [
-                                ((count($varAdditionalData) === 0) 
+                                ((count($varAdditionalData) === 0)
                                     ? null
                                     : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                         $varUserSession,
@@ -130,7 +132,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-04-10                                                                                           |
+        | ▪ Last Update     : 2025-05-06                                                                                           |
         | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -147,25 +149,30 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
         |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Person Reference ID                                     |
-        |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |      ▪ (int)    varTransporter_RefID ► Transporter Reference ID                                                          |
+        |      ▪ (string) varDeliveryDateTimeTZ ► Delivery DateTime TZ                                                             |
+        |      ▪ (int)    varDeliveryFrom_RefID ► Delivery From Reference ID                                                       |
+        |      ▪ (string) varDeliveryFrom_NonRefID ► Delivery From                                                                 |
+        |      ▪ (int)    varDeliveryTo_RefID ► Delivery To Reference ID                                                           |
+        |      ▪ (string) varDeliveryTo_NonRefID ► Delivery To                                                                     |
+        |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null, int $varTransporter_RefID = null, int $varDeliveryFrom_RefID = null, string $varDeliveryFromManualAddress = null, int $varDeliveryTo_RefID = null, string $varDeliveryToManualAddress = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varTransporter_RefID = null, string $varDeliveryDateTimeTZ = null, int $varDeliveryFrom_RefID = null, string $varDeliveryFrom_NonRefID  = null, int $varDeliveryTo_RefID = null, string $varDeliveryTo_NonRefID  = null, string $varRemarks = null,
             array $varAdditionalData = null
             )
             {
-            $varReturn = 
+            $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
@@ -183,15 +190,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                             [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
-                            [$varRemarks, 'varchar'],
                             [$varTransporter_RefID, 'bigint'],
+                            [$varDeliveryDateTimeTZ, 'timestamptz'],
                             [$varDeliveryFrom_RefID, 'bigint'],
-                            [$varDeliveryFromManualAddress, 'varchar'],
+                            [$varDeliveryFrom_NonRefID, 'varchar'],
                             [$varDeliveryTo_RefID, 'bigint'],
-                            [$varDeliveryToManualAddress, 'varchar'],
+                            [$varDeliveryTo_NonRefID, 'varchar'],
+                            [$varRemarks, 'varchar'],
 
                             [
-                                ((count($varAdditionalData) === 0) 
+                                ((count($varAdditionalData) === 0)
                                     ? null
                                     : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                         $varUserSession,

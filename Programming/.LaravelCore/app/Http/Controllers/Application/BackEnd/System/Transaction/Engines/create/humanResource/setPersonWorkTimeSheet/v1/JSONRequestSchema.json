@@ -19,10 +19,15 @@
                         "minLength": 1
                         }
                     },
-                "required": [ "key", "version" ]
+                "required": [
+                    "key",
+                    "version"
+                    ]
                 }
             },
-        "required": [ "API" ]
+        "required": [
+            "API"
+            ]
         },
     "data": {
         "type": "object",
@@ -42,25 +47,6 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "startDateTimeTZ": {
-                        "type": [ "string" ],
-                        "format": "string",
-                        "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
-                        "minLength": 10,
-                        "maxLength": 30
-                        },
-                    "finishDateTimeTZ": {
-                        "type": [ "string" ],
-                        "format": "string",
-                        "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
-                        "minLength": 10,
-                        "maxLength": 30
-                        },
-                    "project_RefID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
-                        },
                     "colorText": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
@@ -72,11 +58,21 @@
                         "maxLength": 7
                         }
                     },
-                "required": [ "documentDateTimeTZ", "person_RefID", "startDateTimeTZ", "finishDateTimeTZ", "project_RefID", "colorText", "colorBackground" ]
+                "required": [
+                    "documentDateTimeTZ",
+                    "person_RefID",
+                    "colorText",
+                    "colorBackground"
+                    ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [
+            "entities"
+            ]
         }
     },
-"required": [ "metadata", "data" ]
+"required": [
+    "metadata",
+    "data"
+    ]
 }

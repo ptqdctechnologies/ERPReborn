@@ -58,6 +58,12 @@
                       @include('Components.AdvanceDetailDocument')
                     <?php } else if ($businessDocumentType_Name == "Delivery Order Form") { ?>
                       @include('Components.DeliveryOrderDetailDocument')
+                    <?php } else if ($businessDocumentType_Name == "Purchase Order Form") { ?>
+                      @include('Components.PurchaseOrderDetailDocument')
+                    <?php } else if ($businessDocumentType_Name == "Purchase Requisition Form") { ?>
+                      @include('Components.PurchaseRequisitionDetailDocument')
+                    <?php } else if ($businessDocumentType_Name == "Warehouse Inbound Order Form") { ?>
+                      @include('Components.MaterialReceiveDetailDocument')
                     <?php } ?>
                   </div>
                 </div>
@@ -72,6 +78,10 @@
                     @include('Components.AdvanceDetailDocumentTable')
                   <?php } else if ($businessDocumentType_Name == "Delivery Order Form") { ?>
                     @include('Components.DeliveryOrderDetailDocumentTable')
+                  <?php } else if ($businessDocumentType_Name == "Purchase Order Form") { ?>
+                    @include('Components.PurchaseOrderDetailDocumentTable')
+                  <?php } else if ($businessDocumentType_Name == "Purchase Requisition Form") { ?>
+                    @include('Components.PurchaseRequisitionDetailDocumentTable')
                   <?php } ?>
                 </div>
               </div>

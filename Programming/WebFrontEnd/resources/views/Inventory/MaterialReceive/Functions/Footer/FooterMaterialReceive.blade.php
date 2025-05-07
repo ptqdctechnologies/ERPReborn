@@ -1,4 +1,11 @@
 <script>
+    const deliveryOrderCode         = document.getElementById("delivery_order_code");
+    const addressDeliveryOrderFrom  = document.getElementById("address_delivery_order_from");
+    const addressDeliveryOrderTo    = document.getElementById("address_delivery_order_to");
+    const tableMaterialReceiveLists = document.querySelector("#tableMaterialReceiveList tbody");
+
+    $("#submitMaterialReceive").prop("disabled", true);
+
     function calculateTotal() {
         let total = 0;
         
@@ -46,17 +53,17 @@
                         let row = `
                             <tr>
                                 <input id="trano${key}" value="${delivery_order_number}" type="hidden" />
-                                <input id="delivery_order_detail_id${key}" value="${val2.DeliveryOrderDetail_ID}" type="hidden" />
+                                <input id="delivery_order_detail_id${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
                                 <input id="product_code${key}" value="-" type="hidden" />
                                 <input id="product_name${key}" value="-" type="hidden" />
-                                <input id="qty_do${key}" value="-" type="hidden" />
+                                <input id="qty_do${key}" value="${val2.qtyReq}" type="hidden" />
                                 <input id="qty_available${key}" value="-" type="hidden" />
                                 <input id="uom${key}" value="-" type="hidden" />
 
                                 ${key === 0 ? modifyColumn : ''}
                                 <td style="text-align: center;">-</td>
                                 <td style="text-align: center;">-</td>
-                                <td style="text-align: center;">-</td>
+                                <td style="text-align: center;">${val2.qtyReq}</td>
                                 <td style="text-align: center;">-</td>
                                 <td style="text-align: center;">-</td>
                                 <td style="text-align: center; width: 100px;">
@@ -155,11 +162,13 @@
         $.ajax({
             type: 'POST',
             data: formatData,
-            url: '{{ route("PurchaseOrder.store") }}',
+            url: '{{ route("MaterialReceive.store") }}',
             success: function(res) {
                 HideLoading();
 
-                if (response.status == 200) {
+                console.log('res', res);
+
+                if (res.status == 200) {
                     const swalWithBootstrapButtonsss = Swal.mixin({
                         confirmButtonClass: 'btn btn-success btn-sm',
                         cancelButtonClass: 'btn btn-danger btn-sm',
@@ -169,7 +178,7 @@
                     swalWithBootstrapButtonsss.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -189,6 +198,25 @@
             }
         });
     }
+
+    function validationForm() {
+        const isDeliveryOrderCodeNotEmpty           = deliveryOrderCode.value.trim() !== '';
+        const isAddressDeliveryOrderFromNotEmpty    = addressDeliveryOrderFrom.value.trim() !== '';
+        const isAddressDeliveryOrderToNotEmpty      = addressDeliveryOrderTo.value.trim() !== '';
+        const isTableNotEmpty                       = tableMaterialReceiveLists.rows.length > 0;
+
+        if (isDeliveryOrderCodeNotEmpty && isAddressDeliveryOrderFromNotEmpty && isAddressDeliveryOrderToNotEmpty && isTableNotEmpty) {
+            $("#submitMaterialReceive").prop("disabled", false);
+        } else {
+            $("#submitMaterialReceive").prop("disabled", true);
+        }
+    }
+
+    const observertableMaterialReceiveList = new MutationObserver(validationForm);
+    observertableMaterialReceiveList.observe(tableMaterialReceiveLists, { childList: true });
+    deliveryOrderCode.addEventListener('input', validationForm);
+    addressDeliveryOrderFrom.addEventListener('input', validationForm);
+    addressDeliveryOrderTo.addEventListener('input', validationForm);
 
     $('#delivery-order-details-add').on('click', function() {
         let dataStore = [];
@@ -331,6 +359,33 @@
                     type: method,
                     success: function(response) {
                         HideLoading();
+
+                        console.log('response', response);
+
+                        // if (response.status == 200) {
+                        //     const swalWithBootstrapButtonsss = Swal.mixin({
+                        //         confirmButtonClass: 'btn btn-success btn-sm',
+                        //         cancelButtonClass: 'btn btn-danger btn-sm',
+                        //         buttonsStyling: true,
+                        //     });
+
+                        //     swalWithBootstrapButtonsss.fire({
+                        //         title: 'Successful !',
+                        //         type: 'success',
+                        //         html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.documentNumber + '</span>',
+                        //         showCloseButton: false,
+                        //         showCancelButton: false,
+                        //         focusConfirm: false,
+                        //         confirmButtonText: '<span style="color:black;"> OK </span>',
+                        //         confirmButtonColor: '#4B586A',
+                        //         confirmButtonColor: '#e9ecef',
+                        //         reverseButtons: true
+                        //     }).then((result) => {
+                        //         window.location.href = '/MaterialReceive?var=1';
+                        //     });
+                        // } else {
+                        //     ErrorNotif("Data Cancel Inputed");
+                        // }
                         
                         if (response.message == "WorkflowError") {
                             HideLoading();
@@ -365,7 +420,7 @@
                         }
                     },
                     error: function(response) {
-                        console.log('response error', response);
+                        console.log('response error', response.responseText);
                         
                         HideLoading();
                         $("#submitMaterialReceive").prop("disabled", false);

@@ -47,13 +47,11 @@
 
             $.ajax({
                 type: 'GET',
-                url: '{!! route("AdvanceRequest.AdvanceListData") !!}',
+                url: '{!! route("getAdvance") !!}',
                 success: function(data) {
-                    var result = data.data;
-                    
                     var no = 1; t = $('#TableSearchArfRevision').DataTable();
                     t.clear();
-                    $.each(result, function(key, val) {
+                    $.each(data, function(key, val) {
                         keys += 1;
                         t.row.add([
                             '<tbody><tr><input id="sys_id_advance_revision' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',

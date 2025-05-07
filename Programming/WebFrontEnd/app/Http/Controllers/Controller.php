@@ -42,6 +42,7 @@ class Controller extends BaseController
             $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
             $dataInput = $request->all();
+            Log::error("dataInput at ", [$dataInput, $SessionWorkerCareerInternal_RefID]);
             if (isset($dataInput['dataInput_Log_FileUpload_Pointer_RefID_Action'])) {
                 unset($dataInput['dataInput_Log_FileUpload_Pointer_RefID_Action']);
             }
@@ -71,6 +72,8 @@ class Controller extends BaseController
                     false
                 );
             // }
+
+            Log::error("VarSelectWorkFlow at ", [$VarSelectWorkFlow]);
 
             if ($VarSelectWorkFlow['metadata']['HTTPStatusCode'] !== 200) {
                 return redirect()->back()->with('NotFound', 'Process Error');
@@ -275,6 +278,12 @@ class Controller extends BaseController
 
             $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
 
+            // Log::error("Request at ", [
+            //     'businessDocumentType_RefID'    => (int)$documentTypeID,
+            //     'submitterEntity_RefID'         => (int)$SessionWorkerCareerInternal_RefID,
+            //     'combinedBudget_RefID'          => (int)$combinedBudget_RefID
+            // ]);
+
             // if (Redis::get("BusinessDocumentTypeWorkFlowPath" . $documentTypeID) == null) {
                 // $varAPIWebToken = Session::get('SessionLogin');
                 $VarSelectWorkFlow = Helper_APICall::setCallAPIGateway(
@@ -291,6 +300,8 @@ class Controller extends BaseController
                     ],
                     false
                 );
+
+                Log::error("VarSelectWorkFlow at ", [$VarSelectWorkFlow]);
 
             // }
 

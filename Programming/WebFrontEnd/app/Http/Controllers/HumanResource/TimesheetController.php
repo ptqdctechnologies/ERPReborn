@@ -13,6 +13,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class TimesheetController extends Controller
 {
@@ -240,111 +242,20 @@ class TimesheetController extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.project.getProject',
-            'latest',
-            [
-                'parameter' => []
-            ]
-        );
-        $varData2 = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'dataPickList.master.getPerson', 
-            'latest',
-            [
-            'parameter' => [
-                ]
-            ]
-            );
-        $val = 0;
-        if($request->test == '1'){
-            $timesheet = (int) $request->timesheet;
-            $FilterDocumentNumber = $request->FilterDocumentNumber;
-            $FilterDate = $request->FilterDate;
-            $FilterBehalfOf = (int) $request->FilterBehalfOf;
-            if($request->timesheet == ""){
-                $timesheet = null;
-            }
-            if($request->FilterDocumentNumber == ""){
-                $FilterDocumentNumber = null;
-            }
-            if($request->FilterDate == ""){
-                $FilterDate = null;
-            }
-            if($request->FilterBehalfOf == ""){
-                $FilterBehalfOf = null;
-            }
-            $varData3 = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'report.form.resume.humanResource.getPersonWorkTimeSheet', 
-            'latest', 
-            [
-            'parameter' => [
-                'personWorkTimeSheet_RefID' => $timesheet
-                ],
-            "dataFilter" =>
-                [
-                'documentNumber' => $FilterDocumentNumber,
-                'eventDateTimeTZ' => $FilterDate,
-                'person_RefID' => $FilterBehalfOf
-                ]
-            ]
-            );
-            // dd($varData3['data']['0']['details']);
-            // dd($varData3);
-            $val = 1 ;
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
         }
 
-        $varData4 = Helper_APICall::setCallAPIGateway(
-        Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.read.dataList.humanResource.getPersonWorkTimeSheet', 
-        'latest', 
-        [
-        'parameter' => null,
-        'SQLStatement' => [
-            'pick' => null,
-            'sort' => null,
-            'filter' => null,
-            'paging' => null
-            ]
-        ]
-        );
-        if($val == 1){
-            if($varData3['metadata']['HTTPStatusCode'] == "200"){
-                $compact = [
-                    'data' => $varData['data']['data'],
-                    'data2' => $varData2['data'],
-                    'varData' => $varData3['data'],
-                    'varData2' => $varData3['data']['0']['details'],
-                    'status' => $varData3['metadata']['HTTPStatusCode'],
-                    'TimesheetData' => $varData4['data'],
-                ];
-            }
-            else{
-                $compact = [
-                    'data' => $varData['data']['data'],
-                    'data2' => $varData2['data'],
-                    'varData' => $varData3['data'],
-                    'varData2' => $varData3['data'],
-                    'status' => $varData3['metadata']['HTTPStatusCode'],
-                    'TimesheetData' => $varData4['data'],
-                ];
-            }
-        }
-        else{
-            $compact = [
-                'data' => $varData['data']['data'],
-                'data2' => $varData2['data'],
-                'status' => "400",
-                'TimesheetData' => $varData4['data'],
-            ];
-        }
-        return view('HumanResource.Timesheet.Transactions.index', $compact);
+        $compact = [
+            'var'               => $var,
+            'statusRevisi'      => 0,
+            'varAPIWebToken'    => $varAPIWebToken
+        ];
+
+        // dump($compact);
+
+        return view('HumanResources.Timesheet.Transactions.index', $compact);
     }
 
     /**
@@ -370,29 +281,91 @@ class TimesheetController extends Controller
      */
     public function store(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $timesheetData = $request->all();
+            $timesheetDataDetail = json_decode($timesheetData['storeData']['timesheetDetail'], true);
 
-        $varData = Helper_APICall::setCallAPIGateway(
-        Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.create.humanResource.setPersonWorkTimeSheet', 
-        'latest', 
-        [
-        'entities' => [
-            'documentDateTimeTZ' => $request->startDate,
-            'person_RefID' => (int) $request->behalfOf,
-            'startDateTimeTZ' => $request->startDate,
-            'finishDateTimeTZ' => $request->finishDate,
-            'project_RefID' => (int) $request->ProjectEvent,
-            'colorText' => $request->textColor,
-            'colorBackground' => $request->backgroundColor
-            
-            ]
-        ]
-        );
-        return redirect()->route('Timesheet.index')->with('message', 'Timesheet successfully created ...');
-        
+            $transformedDetails = [];
+            foreach ($timesheetDataDetail as $entity) {
+                $transformedDetails[] = [
+                    'entities' => [
+                        'personWorkTimeSheet_RefID' => null,
+                        'projectSectionItem_RefID'  => null,
+                        'startDateTimeTZ'           => $entity['startDateTimeTZ'],
+                        'finishDateTimeTZ'          => $entity['finishDateTimeTZ'],
+                        'activity'                  => $entity['activity'],
+                        'colorText'                 => null,
+                        'colorBackground'           => null,
+                    ]
+                ];
+            }
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.humanResource.setPersonWorkTimeSheet', 
+                'latest', 
+                [
+                'entities' => [
+                    'documentNumber'        => null,
+                    'documentDateTimeTZ'    => date('Y-m-d H:i:s') . ' +07',
+                    'person_RefID'          => (int) $timesheetDataDetail[0]['person_RefID'],
+                    'startDateTimeTZ'       => $timesheetDataDetail[0]['startDateTimeTZ'],
+                    'finishDateTimeTZ'      => $timesheetDataDetail[0]['finishDateTimeTZ'],
+                    'project_RefID'         => (int) $timesheetDataDetail[0]['project_RefID'],
+                    'colorText'             => null,
+                    'colorBackground'       => null,
+                    "additionalData"        => [
+                        "itemList"          => [
+                            "items"         => $transformedDetails
+                            ]
+                        ]
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($varData);
+            }
+
+            $compact = [
+                "documentNumber"    => "Timesheet/QDC/2025/000021",
+                "status"            => $varData['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Error at store: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
+    // public function store(Request $request)
+    // {
+    //     $varAPIWebToken = $request->session()->get('SessionLogin');
+
+    //     $varData = Helper_APICall::setCallAPIGateway(
+    //     Helper_Environment::getUserSessionID_System(),
+    //     $varAPIWebToken, 
+    //     'transaction.create.humanResource.setPersonWorkTimeSheet', 
+    //     'latest', 
+    //     [
+    //     'entities' => [
+    //         'documentDateTimeTZ' => $request->startDate,
+    //         'person_RefID' => (int) $request->behalfOf,
+    //         'startDateTimeTZ' => $request->startDate,
+    //         'finishDateTimeTZ' => $request->finishDate,
+    //         'project_RefID' => (int) $request->ProjectEvent,
+    //         'colorText' => $request->textColor,
+    //         'colorBackground' => $request->backgroundColor
+            
+    //         ]
+    //     ]
+    //     );
+    //     return redirect()->route('Timesheet.index')->with('message', 'Timesheet successfully created ...');
+        
+    // }
+
     public function storeActivity(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -489,5 +462,18 @@ class TimesheetController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function RevisionTimesheet(Request $request)
+    {
+        try {
+            $varAPIWebToken     = Session::get('SessionLogin');
+            $timesheet_RefID    = $request->timesheet_RefID;
+
+            return view('HumanResources.Timesheet.Transactions.RevisionTimesheet');
+        } catch (\Throwable $th) {
+            Log::error("RevisionTimesheet Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 }

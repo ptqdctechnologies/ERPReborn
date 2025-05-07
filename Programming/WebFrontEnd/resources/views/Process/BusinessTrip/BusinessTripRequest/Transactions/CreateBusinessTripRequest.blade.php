@@ -29,8 +29,8 @@
       @include('Process.BusinessTrip.BusinessTripRequest.Functions.Menu.MenuBusinessTripRequest')
       @if($var == 0)
         <div class="card">
-          {{-- <form method="post" action="{{ route('BusinessTripRequest.store') }}" id="FormSubmitBusinessTrip"> --}}
-            <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitBusinessTrip">
+          <form method="post" action="{{ route('BusinessTripRequest.store') }}" id="FormSubmitBusinessTrip">
+            {{-- <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitBusinessTrip"> --}}
             @csrf
             <input hidden id="DocumentTypeID" name="DocumentTypeID">
             <input hidden id="var_combinedBudget_RefID" name="var_combinedBudget_RefID" />

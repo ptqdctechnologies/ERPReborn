@@ -7,7 +7,7 @@
                 DO Number
             </div>
             <div class="col">
-                : <?= $dataHeader[0]['DocumentNumber']; ?>
+                : <?= isset($dataHeader[0]['documentNumber']) ? $dataHeader[0]['documentNumber'] : ($businessDocumentNumber ?? '-') ?>
             </div>
         </div>
         
@@ -17,7 +17,7 @@
                 Delivery From
             </div>
             <div class="col">
-                : -
+                : <?= isset($dataHeader[0]['deliveryFromManualAddress']) ? $dataHeader[0]['deliveryFromManualAddress'] : '-'; ?>
             </div>
         </div>
         
@@ -27,7 +27,7 @@
                 Delivery To
             </div>
             <div class="col">
-                : -
+                : <?= isset($dataHeader[0]['deliveryToManualAddress']) ? $dataHeader[0]['deliveryToManualAddress'] : '-'; ?>
             </div>
         </div>
         
@@ -37,7 +37,7 @@
                 Budget Code
             </div>
             <div class="col">
-                : -
+                : <?= isset($dataHeader[0]['combinedBudgetCode']) && isset($dataHeader[0]['combinedBudgetName']) ? $dataHeader[0]['combinedBudgetCode'] . ' - ' . $dataHeader[0]['combinedBudgetName'] : '-'; ?>
             </div>
         </div>
         
@@ -47,7 +47,7 @@
                 Sub Budget Code
             </div>
             <div class="col">
-                : -
+                : <?= isset($dataHeader[0]['combinedBudgetSectionCode']) && isset($dataHeader[0]['combinedBudgetSectionName']) ? $dataHeader[0]['combinedBudgetSectionCode'] . ' - ' . $dataHeader[0]['combinedBudgetSectionName'] : '-'; ?>
             </div>
         </div>
         
@@ -60,13 +60,13 @@
                 <div>
                     :
                 </div>
-                <?php if (isset($dataHeader[0]['Log_FileUpload_Pointer_RefID']) && $dataHeader[0]['Log_FileUpload_Pointer_RefID']) { ?>
+                <?php if (isset($dataHeader[0]['log_FileUpload_Pointer_RefID']) && $dataHeader[0]['log_FileUpload_Pointer_RefID']) { ?>
                     <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
                     <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken,
                         'dataInput_Log_FileUpload',
-                        $dataHeader[0]['Log_FileUpload_Pointer_RefID']
+                        $dataHeader[0]['log_FileUpload_Pointer_RefID']
                         ).
                         ''; ?>
                 <?php } else { ?>
@@ -86,7 +86,7 @@
                 Trans. Name
             </div>
             <div class="col">
-                : -
+                : <?= isset($dataHeader[0]['transporterName']) ? $dataHeader[0]['transporterName'] : '-'; ?>
             </div>
         </div>
         
@@ -96,7 +96,7 @@
                 Trans. Contact Person
             </div>
             <div class="col">
-                : -
+                : <?= isset($dataHeader[0]['transporterContactPerson']) ? $dataHeader[0]['transporterContactPerson'] : '-'; ?>
             </div>
         </div>
         
@@ -106,7 +106,7 @@
                 Trans. Phone
             </div>
             <div class="col">
-                : -
+                : <?= isset($dataHeader[0]['transporterPhone']) ? $dataHeader[0]['transporterPhone'] : '-'; ?>
             </div>
         </div>
         
@@ -116,7 +116,7 @@
                 Trans. Handphone
             </div>
             <div class="col">
-                : -
+                : <?= isset($dataHeader[0]['transporterHandphone']) ? $dataHeader[0]['transporterHandphone'] : '-'; ?>
             </div>
         </div>
         
@@ -126,7 +126,7 @@
                 Trans. Fax
             </div>
             <div class="col">
-                : -
+                : <?= isset($dataHeader[0]['transporterFax']) ? $dataHeader[0]['transporterFax'] : '-'; ?>
             </div>
         </div>
         
@@ -136,7 +136,7 @@
                 Trans. Address
             </div>
             <div class="col">
-                : -
+                : <?= isset($dataHeader[0]['transporterAddress']) ? $dataHeader[0]['transporterAddress'] : '-'; ?>
             </div>
         </div>
     </div>

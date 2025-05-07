@@ -39,6 +39,8 @@
             type: 'GET',
             url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentTypeID=' + DocumentTypeID + '&DocumentTypeName=' + DocumentTypeName,
             success: function(data) {
+                console.log('data', data);
+                
                 $(".loadingGetCheckDocument").hide();
 
                 var no = 1;

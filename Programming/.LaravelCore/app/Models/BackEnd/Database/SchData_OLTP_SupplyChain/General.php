@@ -389,80 +389,96 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [TRUE, 'boolean']
                             ]
                             )
-                        );                        
+                        );
                         $resultArray = $varReturn['data'];
                         $varReturn['data'] = [];
+                        $idxArray = 0;
                         foreach ($resultArray as $key => $value) {
-                            $varReturn['data']['sys_ID'] = $value["Sys_ID"];
-                            $varReturn['data']['sys_PID'] = $value["Sys_PID"];
-                            $varReturn['data']['sys_SID'] = $value["Sys_SID"];
-                            $varReturn['data']['sys_RPK'] = $value["Sys_RPK"];
-                            $varReturn['data']['sys_Branch_RefID'] = $value["Sys_Branch_RefID"];
-                            $varReturn['data']['sys_BaseBranch_RefID'] = $value["Sys_BaseBranch_RefID"];
-                            $varReturn['data']['sys_BaseCurrency_RefID'] = $value["Sys_BaseCurrency_RefID"];
-                            $varReturn['data']['sys_Data_Entry_DateTimeTZ'] = $value["Sys_Data_Entry_DateTimeTZ"];
-                            $varReturn['data']['sys_Data_Edit_DateTimeTZ'] = $value["Sys_Data_Edit_DateTimeTZ"];
-                            $varReturn['data']['log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];
-                            $varReturn['data']['businessDocument_RefID'] = $value["BusinessDocument_RefID"];
-                            $varReturn['data']['documentNumber'] = $value["DocumentNumber"];
-                            $varReturn['data']['businessDocumentVersion_RefID'] = $value["BusinessDocumentVersion_RefID"];
-                            $varReturn['data']['version'] = $value["Version"];
-                            $varReturn['data']['documentDateTimeTZ'] = $value["DocumentDateTimeTZ"];
-                            $varReturn['data']['annotation'] = $value["Annotation"];
-                            $varReturn['data']['combinedBudget_RefID'] = $value["CombinedBudget_RefID"];
-                            $varReturn['data']['combinedBudgetCode'] = $value["CombinedBudgetCode"];
-                            $varReturn['data']['combinedBudgetName'] = $value["CombinedBudgetName"];
-                            $varReturn['data']['combinedBudgetSection_RefID'] = $value["CombinedBudgetSection_RefID"];
-                            $varReturn['data']['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode"];
-                            $varReturn['data']['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
-                            $varReturn['data']['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID"];
-                            $varReturn['data']['remarks'] = $value["Remarks"];
-                            $varReturn['data']['deliveryFrom_RefID'] = $value["DeliveryFrom_RefID"];
-                            $varReturn['data']['deliveryFromManualAddress'] = $value["DeliveryFromManualAddress"];
-                            $varReturn['data']['deliveryTo_RefID'] = $value["DeliveryTo_RefID"];
-                            $varReturn['data']['deliveryToManualAddress'] = $value["DeliveryToManualAddress"];
-                            $varReturn['data']['transporter_RefID'] = $value["Transporter_RefID"];
-                            $varReturn['data']['qtyReq'] = $value["QtyReq"];
-                            $varReturn['data']['underlyingDetail_RefID'] = $value["UnderlyingDetail_RefID"];
-                            $varReturn['data']['product_RefID'] = $value["Product_RefID"];
-                            $varReturn['data']['deliveryOrder_RefID'] = $value["DeliveryOrder_RefID"];
-                            $varReturn['data']['deliveryOrderDetail_ID'] = $value["DeliveryOrderDetail_ID"];
-                            $varReturn['data']['productName'] = $value["ProductName"];
-                            $varReturn['data']['entity_RefID'] = $value["Entity_RefID"];
-                            $varReturn['data']['transporterName'] = $value["TransporterName"];
-                            $varReturn['data']['transporterContactPerson'] = $value["TransporterContactPerson"];
-                            $varReturn['data']['transporterPhone'] = $value["TransporterPhone"];
-                            $varReturn['data']['transporterHandphone'] = $value["TransporterHandphone"];
-                            $varReturn['data']['transporterFax'] = $value["TransporterFax"];
-                            $varReturn['data']['transporterAddress'] = $value["TransporterAddress"];
+                            $varReturn['data'][$idxArray]['sys_ID'] = $value["Sys_ID"];
+                            $varReturn['data'][$idxArray]['sys_PID'] = $value["Sys_PID"];
+                            $varReturn['data'][$idxArray]['sys_SID'] = $value["Sys_SID"];
+                            $varReturn['data'][$idxArray]['sys_RPK'] = $value["Sys_RPK"];
+                            $varReturn['data'][$idxArray]['sys_Branch_RefID'] = $value["Sys_Branch_RefID"];
+                            $varReturn['data'][$idxArray]['sys_BaseBranch_RefID'] = $value["Sys_BaseBranch_RefID"];
+                            $varReturn['data'][$idxArray]['sys_BaseCurrency_RefID'] = $value["Sys_BaseCurrency_RefID"];
+                            $varReturn['data'][$idxArray]['sys_Data_Entry_DateTimeTZ'] = $value["Sys_Data_Entry_DateTimeTZ"];
+                            $varReturn['data'][$idxArray]['sys_Data_Edit_DateTimeTZ'] = $value["Sys_Data_Edit_DateTimeTZ"];
+                            $varReturn['data'][$idxArray]['log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];
+                            $varReturn['data'][$idxArray]['businessDocument_RefID'] = $value["BusinessDocument_RefID"];
+                            $varReturn['data'][$idxArray]['documentNumber'] = $value["DocumentNumber"];
+                            $varReturn['data'][$idxArray]['businessDocumentVersion_RefID'] = $value["BusinessDocumentVersion_RefID"];
+                            $varReturn['data'][$idxArray]['version'] = $value["Version"];
+                            $varReturn['data'][$idxArray]['documentDateTimeTZ'] = $value["DocumentDateTimeTZ"];
+                            $varReturn['data'][$idxArray]['annotation'] = $value["Annotation"];
+                            $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID"];
+                            $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode"];
+                            $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName"];
+                            $varReturn['data'][$idxArray]['combinedBudgetSection_RefID'] = $value["CombinedBudgetSection_RefID"];
+                            $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode"];
+                            $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
+                            $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID"];
+                            $varReturn['data'][$idxArray]['deliveryFrom_RefID'] = $value["DeliveryFrom_RefID"];
+                            $varReturn['data'][$idxArray]['deliveryFrom_NonRefID'] = json_decode($value["DeliveryFrom_NonRefID"]);
+                            $varReturn['data'][$idxArray]['deliveryTo_RefID'] = $value["DeliveryTo_RefID"];
+                            $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = json_decode($value["DeliveryTo_NonRefID"]);
+                            $varReturn['data'][$idxArray]['deliveryDateTimeTZ'] = $value["DeliveryDateTimeTZ"];
+                            $varReturn['data'][$idxArray]['transporter_RefID'] = $value["Transporter_RefID"];
+                            $varReturn['data'][$idxArray]['remarks'] = $value["Remarks"];
+                            $varReturn['data'][$idxArray]['qtyReq'] = $value["QtyReq"];
+                            $varReturn['data'][$idxArray]['underlyingDetail_RefID'] = $value["UnderlyingDetail_RefID"];
+                            $varReturn['data'][$idxArray]['product_RefID'] = $value["Product_RefID"];
+                            $varReturn['data'][$idxArray]['deliveryOrder_RefID'] = $value["DeliveryOrder_RefID"];
+                            $varReturn['data'][$idxArray]['deliveryOrderDetail_ID'] = $value["DeliveryOrderDetail_ID"];
+                            $varReturn['data'][$idxArray]['notes'] = $value["Note"];
+                            $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
+                            $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
+                            $varReturn['data'][$idxArray]['entity_RefID'] = $value["Entity_RefID"];
+                            $varReturn['data'][$idxArray]['transporterName'] = $value["TransporterName"];
+                            $varReturn['data'][$idxArray]['transporterContactPerson'] = $value["TransporterContactPerson"];
+                            $varReturn['data'][$idxArray]['transporterPhone'] = $value["TransporterPhone"];
+                            $varReturn['data'][$idxArray]['transporterHandphone'] = $value["TransporterHandphone"];
+                            $varReturn['data'][$idxArray]['transporterFax'] = $value["TransporterFax"];
+                            $varReturn['data'][$idxArray]['transporterAddress'] = $value["TransporterAddress"];
                             if ((($value["UnderlyingDetail_RefID"] / 1000000000000) % 10000) === 86) {
-                                $varReturn['data']['quantity'] = $value["Quantity_TblPurchaseOrderDetail"];
-                                $varReturn['data']['quantityUnit_RefID'] = $value["QuantityUnit_RefID_TblPurchaseOrderDetail"];
-                                $varReturn['data']['ProductUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblPurchaseOrderDetail"];
-                                $varReturn['data']['ProductUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceFinalCurrencyValue_TblPurchaseOrderDetail"];
-                                $varReturn['data']['productUnitPriceFinalCurrency_RefID'] = $value["ProductUnitPriceFinalCurrency_RefID_TblPurchaseOrderDetail"];
-                                $varReturn['data']['ProductUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblPurchaseOrderDetail"];
-                                $varReturn['data']['PriceCurrency_RefID'] = $value["PriceCurrency_RefID_TblPurchaseOrderDetail"];
-                                $varReturn['data']['PriceBaseCurrencyValue'] = $value["PriceBaseCurrencyValue_TblPurchaseOrderDetail"];
-                                $varReturn['data']['quantityUnitName'] = $value["QuantityUnitName_TblQuantityUnit_TblPurchaseOrderDetail"];
-                                $varReturn['data']['ProductUnitPriceCurrencyISOCode'] = $value["ISOCode_TblCurrency_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['quantity'] = $value["Quantity_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceFinalCurrencyValue_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = $value["ProductUnitPriceFinalCurrency_RefID_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['priceCurrency_RefID'] = $value["PriceCurrency_RefID_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = $value["PriceBaseCurrencyValue_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName_TblQuantityUnit_TblPurchaseOrderDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = $value["ISOCode_TblCurrency_TblPurchaseOrderDetail"];
                             } elseif ((($value["UnderlyingDetail_RefID"] / 1000000000000) % 10000) === 251) {
-                                $varReturn['data']['quantity'] = $value["Quantity_TblOrderPickingDetail"];
-                                $varReturn['data']['quantityUnit_RefID'] = $value["QuantityUnit_RefID_TblOrderPickingDetail"];
-                                $varReturn['data']['ProductUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblOrderPickingDetail"];
-                                $varReturn['data']['ProductUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceCurrencyValue_TblOrderPickingDetail"];
-                                $varReturn['data']['productUnitPriceFinalCurrency_RefID'] = $value["ProductUnitPriceFinalCurrency_RefID_TblOrderPickingDetail"];
-                                $varReturn['data']['ProductUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblOrderPickingDetail"];
-                                $varReturn['data']['PriceCurrency_RefID'] = $value["PriceFinalCurrency_RefID_TblOrderPickingDetail"];
-                                $varReturn['data']['PriceBaseCurrencyValue'] = $value["PriceFinalBaseCurrencyValue_TblOrderPickingDetail"];                            
-                                $varReturn['data']['quantityUnitName'] = $value["QuantityUnitName_TblQuantityUnit_TblOrderPickingDetail"];
-                                $varReturn['data']['ProductUnitPriceCurrencyISOCode'] = $value["ISOCode_TblCurrency_TblOrderPickingDetail"];
+                                $varReturn['data'][$idxArray]['quantity'] = $value["Quantity_TblOrderPickingDetail"];
+                                $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID_TblOrderPickingDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblOrderPickingDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceCurrencyValue_TblOrderPickingDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = $value["ProductUnitPriceFinalCurrency_RefID_TblOrderPickingDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblOrderPickingDetail"];
+                                $varReturn['data'][$idxArray]['priceCurrency_RefID'] = $value["PriceFinalCurrency_RefID_TblOrderPickingDetail"];
+                                $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = $value["PriceFinalBaseCurrencyValue_TblOrderPickingDetail"];                            
+                                $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName_TblQuantityUnit_TblOrderPickingDetail"];
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = $value["ISOCode_TblCurrency_TblOrderPickingDetail"];
+                            } else {
+                                $varReturn['data'][$idxArray]['quantity'] = null;
+                                $varReturn['data'][$idxArray]['quantityUnit_RefID'] = null;
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = null;
+                                $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = null;
+                                $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = null;
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = null;
+                                $varReturn['data'][$idxArray]['priceCurrency_RefID'] = null;
+                                $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = null;
+                                $varReturn['data'][$idxArray]['quantityUnitName'] = null;
+                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = null;
                             }
-                            $varReturn['data']['businessDocumentType_RefID'] = $value["BusinessDocumentType_RefID"];
-                            $varReturn['data']['businessDocumentType_Name'] = $value["BusinessDocumentType_Name"];
-                            $varReturn['data']['requesterWorkerJobsPosition_RefID'] = $value["RequesterWorkerJobsPosition_RefID"];
-                            $varReturn['data']['requesterWorkerName'] = $value["RequesterWorkerName"];
-                            $varReturn['data']['orderSequence'] = $value["OrderSequence"];
+                            $varReturn['data'][$idxArray]['businessDocumentType_RefID'] = $value["BusinessDocumentType_RefID"];
+                            $varReturn['data'][$idxArray]['businessDocumentType_Name'] = $value["BusinessDocumentType_Name"];
+                            $varReturn['data'][$idxArray]['requesterWorkerJobsPosition_RefID'] = $value["RequesterWorkerJobsPosition_RefID"];
+                            $varReturn['data'][$idxArray]['requesterWorkerName'] = $value["RequesterWorkerName"];
+                            $varReturn['data'][$idxArray]['orderSequence'] = $value["OrderSequence"];
+                            $idxArray++;
                         }
 
                         return
@@ -2142,7 +2158,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-04-23                                                                                           |
+        | ▪ Last Update     : 2025-04-25                                                                                           |
         | ▪ Creation Date   : 2025-03-05                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pembelian (Purchase Order Detail) Versi Terakhir                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -2174,29 +2190,46 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );
+                $resultArray = $varReturn['data'];
+                $varReturn['data'] = [];
+                $idxArray = 0;
+                foreach ($resultArray as $key => $value) {
+                    $total = (float)$value["Price"] * (float)$value["Quantity"];
+                    $totalWithvat = $total + (float)$value["Vat"];
+                    $varReturn['data'][$idxArray]['purchaseOrder_RefID'] = $value["PurchaseOrder_RefID"];
+                    $varReturn['data'][$idxArray]['deliveryDestinationManualAddress'] = $value["DeliveryDestinationManualAddress"];
+                    $varReturn['data'][$idxArray]['purchaseOrderDetail_RefID'] = $value["PurchaseOrderDetail_RefID"];
+                    $varReturn['data'][$idxArray]['remarks'] = $value["Remarks"];
+                    $varReturn['data'][$idxArray]['productUnitPriceCurrencyValue'] = $value["ProductUnitPriceCurrencyValue"];
+                    $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate"];
+                    $varReturn['data'][$idxArray]['quantity'] = $value["Quantity"];
+                    $varReturn['data'][$idxArray]['price'] = $value["Price"];
+                    $varReturn['data'][$idxArray]['paymentTerm'] = $value["PaymentTerm"];
+                    $varReturn['data'][$idxArray]['documentNumber'] = $value["DocumentNumber"];
+                    $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
+                    $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
+                    $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName"];
+                    $varReturn['data'][$idxArray]['supplierCode'] = $value["SupplierCode"];
+                    if ((($value["Entity_RefIDTblSupplier"] / 1000000000000) % 10000) === 124) {
+                        $varReturn['data'][$idxArray]['supplierAddress'] = $value["SupplierAddressTblInstitution"];
+                        $varReturn['data'][$idxArray]['supplierName'] = $value["SupplierNameTblInstitution"];
+                    } elseif ((($value["Entity_RefIDTblSupplier"] / 1000000000000) % 10000) === 25) {
+                        $varReturn['data'][$idxArray]['supplierName'] = $value["SupplierNameTblPerson"];
+                        $varReturn['data'][$idxArray]['supplierAddress'] = $value["SupplierAddressTblPerson"];
+                    } else {
+                        $varReturn['data'][$idxArray]['supplierName'] = null;
+                        $varReturn['data'][$idxArray]['supplierAddress'] = null;
+                    }
+                    $varReturn['data'][$idxArray]['vat'] = $value["Vat"];
+                    $varReturn['data'][$idxArray]['total'] = $total;
+                    $varReturn['data'][$idxArray]['totalWithvat'] = $totalWithvat;
+                    $varReturn['data'][$idxArray]['totalAP'] = null;
+                    $varReturn['data'][$idxArray]['balanced'] = null;
+                    $idxArray++;
+                }
 
-                return [
-                    [
-                        "poNumber" => 85000000000002,
-                        "paymentTerm" => "Cash Before Delivery (Single Payment)",
-                        "remark" => "Remark Example",
-                        "supplierCode" => "VDR0002",
-                        "supplierName" => "Supplier 1",
-                        "supplierAddres" => "Jakarta",
-                        "deliveryTo" => "Bandung",
-                        "currencyValue" => 1,
-                        "exchangeRate" => 1,
-                        "productCode" => 88000000000302,
-                        "productName" => "Cat dinding Catylac - Putih",
-                        "uom" => "set",
-                        "quantity" => 4.00,
-                        "price" => 38000.00,
-                        "ppn" => 10,
-                        "total" => 167200,
-                        "totalAP" => null,
-                        "balanced" => null,
-                    ]
-                ];
+                return
+                    $varReturn['data'];
                 }
 
             catch (\Exception $ex) {
@@ -3611,6 +3644,49 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseRequisition'])
                     ];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_PurchaseRequisitionSummary                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-04-30                                                                                           |
+        | ▪ Creation Date   : 2025-04-30                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Permintaan Pembelian (Purchase Requisition)                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
+        |      ▪ (string)    varCombinedBudgetSectionCode ► Combined Budget Section Code                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_PurchaseRequisitionSummary(
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode, string $varCombinedBudgetSectionCode
+            )
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseRequisitionSummary',
+                            [
+                                [$varCombinedBudgetCode, 'varchar' ],
+                                [$varCombinedBudgetSectionCode, 'varchar' ],
+                            ]
+                            )
+                        );
+                return $varReturn;
                 }
             catch (\Exception $ex) {
                 return [];

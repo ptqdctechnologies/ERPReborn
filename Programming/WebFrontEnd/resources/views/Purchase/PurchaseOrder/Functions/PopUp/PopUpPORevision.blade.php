@@ -18,10 +18,10 @@
                                         </td>
                                         <td>
                                             <div class="input-group">
-                                                {{-- <form id="editForm" action="{{ route('MaterialReceive.RevisionMaterialReceiveIndex') }}" method="post"> --}}
-                                                {{-- @csrf --}}
+                                                <form id="editForm" action="{{ route('PurchaseOrder.RevisionPurchaseOrder') }}" method="post">
+                                                @csrf
                                                 <input id="purchaseOrder_RefID" style="border-radius:0;" name="purchaseOrder_RefID" type="hidden" class="form-control">
-                                                {{-- </form> --}}
+                                                </form>
                                                 <input required="" id="purchaseOrder_number" style="border-radius:0;" name="purchaseOrder_number" type="text" class="form-control" required readonly>
                                                 <div class="input-group-append">
                                                     <span style="border-radius:0;" class="input-group-text form-control" id="purchaseOrder_number_icon">
@@ -52,18 +52,32 @@
 
 <script>
     $('.btn-edit').on('click', function() {
-        var purchaseOrder_RefID = $('#purchaseOrder_RefID').val();
-        var purchaseOrder_number = $('#purchaseOrder_number').val();
-        
-        if (purchaseOrder_RefID) {
+        var purchaseOrderRefID = $('#purchaseOrder_RefID').val();
+
+        if (purchaseOrderRefID) {
             ShowLoading();
-            window.location.href = '/RevisionPurchaseOrder?purchaseOrder_RefID=' + purchaseOrder_RefID + '&purchaseOrder_number=' + purchaseOrder_number;
+
+            $('#editForm').submit();
         } else {
             $('#purchaseOrder_number').focus();
             $('#purchaseOrder_number').css("border", "1px solid red");
             $('#purchaseOrder_number_icon').css("border", "1px solid red");
         }
     });
+
+    // $('.btn-edit').on('click', function() {
+    //     var purchaseOrder_RefID = $('#purchaseOrder_RefID').val();
+    //     var purchaseOrder_number = $('#purchaseOrder_number').val();
+        
+    //     if (purchaseOrder_RefID) {
+    //         ShowLoading();
+    //         window.location.href = '/RevisionPurchaseOrder?purchaseOrder_RefID=' + purchaseOrder_RefID + '&purchaseOrder_number=' + purchaseOrder_number;
+    //     } else {
+    //         $('#purchaseOrder_number').focus();
+    //         $('#purchaseOrder_number').css("border", "1px solid red");
+    //         $('#purchaseOrder_number_icon').css("border", "1px solid red");
+    //     }
+    // });
 
     $('.btn-cancel').on('click', function() {
         $('#purchaseOrder_RefID').val("");

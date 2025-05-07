@@ -16,16 +16,16 @@
         <tbody>
             <?php $no = 1; $grand_total = 0; ?>
             <?php foreach ($dataHeader as $dataDetail) { ?>
-            <?php $grand_total += $dataDetail['QtyReq'];  ?>
+            <?php $grand_total += $dataDetail['qtyReq'];  ?>
                 <tr>
                     <td style="border:1px solid #4B586A;color:#4B586A;"><?= $no++; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['DocumentNumber']; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['DocumentNumber']; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['QtyReq'], 2); ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['RemarksDeliveryOrder']; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['QtyReq'], 2); ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['QtyReq'], 2); ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['RemarksDeliveryOrderDetail']; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? '-'; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productName'] ?? '-'; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['quantityUnitName'] ?? '-'; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['qtyReq'] ?? 0; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['notes']; ?></td>
                 </tr>
             <?php } ?>
         </tbody>

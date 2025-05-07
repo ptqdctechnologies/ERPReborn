@@ -1,112 +1,107 @@
+<!-- BODY -->
 <div class="card-body">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <table>
-          <tr>
-            <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;MSR Number</label></td>
-            <td>
-              <div class="input-group">
-                <input id="msr_number" style="border-radius:0;" name="msr_number" class="col-4 form-control" readonly>
-                <div class="input-group-append">
-                  <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="#" id="msr_number_popup" data-toggle="modal" data-target="#myMaterialServiceRequest" class="myMaterialServiceRequest"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                  </span>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Budget Code</label></td>
-            <td>
-              <div class="input-group">
-                <input id="project_code" style="border-radius:0;" name="project_code" class="col-4 form-control" readonly>
-                <div class="input-group-append">
-                  <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="#" id="project_code_popup" data-toggle="modal" data-target="#myProject" class="myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                  </span>
-                </div>
-                <input id="project_code_detail" style="border-radius:0;" class="col-8 form-control" name="project_code_detail" readonly>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Sub Budget Code</label></td>
-            <td>
-              <div class="input-group">
-                <input id="site_code" style="border-radius:0;" name="site_code" class="col-4 form-control" readonly>
-                <div class="input-group-append">
-                  <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="#" id="site_code_popup" data-toggle="modal" data-target="#mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
-                  </span>
-                </div>
-                <input id="site_code_detail" style="border-radius:0;" class="col-8 form-control" name="site_code_detail" readonly>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Item Location</label></td>
-            <td>
-              <div class="input-group">
-                <input id="warehouse_from_id" name="warehouse_from_id" class="form-control" hidden>
-                <input id="warehouse_from" name="warehouse_from" class="form-control">
-                <div class="input-group-append">
-                  <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="#"><i id="warehouse_from_2" data-toggle="modal" data-target="#myGetWarehouse" class="fas fa-gift myGetWarehouseFrom" style="color:grey;"></i></a>
-                  </span>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Delivery To</label></td>
-            <td>
-              <div class="input-group">
-                <input id="warehouse_to_id" name="warehouse_to_id" class="form-control" hidden>
-                <input id="warehouse_to" name="warehouse_to" class="form-control">
-                <div class="input-group-append">
-                  <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="#"><i id="warehouse_to_2" data-toggle="modal" data-target="#myGetWarehouse" class="fas fa-gift myGetWarehouseTo" style="color:grey;"></i></a>
-                  </span>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
+  <div class="row py-3" style="gap: 15px;">
+    <!-- LEFT COLUMN -->
+    <div class="col-md-12 col-lg-5">
+      <!-- PR NUMBER -->
+      <div class="row" style="margin-bottom: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+          PR Number
+        </label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div>
+            <input id="modal_purchase_requisition_document_number" style="border-radius:0;" name="modal_purchase_requisition_document_number" class="form-control" readonly>
+            <input id="modal_purchase_requisition_id" style="border-radius:0;" name="modal_purchase_requisition_id" class="form-control" hidden>
+          </div>
+          <div class="input-group-append">
+            <span style="border-radius:0;" class="input-group-text form-control">
+              <a href="javascript:;" id="purchaseRequisitionTrigger" data-toggle="modal" data-target="#purchaseRequisitionModal" style="display: block;">
+                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="purchaseRequisitionTrigger">
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BUDGET CODE -->
+      <div class="row" style="margin-bottom: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+          Budget Code
+        </label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div>
+            <input id="budget_code_id" style="border-radius:0;" name="budget_code_id" class="form-control" readonly>
+            <input id="budget_code_name" style="border-radius:0;" name="budget_code_name" class="form-control" hidden>
+          </div>
+        </div>
+      </div>
+
+      <!-- ITEM LOCATION -->
+      <div class="row" style="margin-bottom: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+          Item Location
+        </label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div>
+            <input id="warehouse_from_id" name="warehouse_from_id" class="form-control" hidden>
+            <input id="warehouse_from" name="warehouse_from" class="form-control" style="border-radius:0;" readonly>
+          </div>
+          <div class="input-group-append">
+            <span style="border-radius:0;" class="input-group-text form-control">
+              <a href="javascript:;">
+                <i id="warehouse_from_2" data-toggle="modal" data-target="#myGetWarehouse" class="fas fa-gift myGetWarehouseFrom" style="color:grey;"></i>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELIVERY TO -->
+      <div class="row">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+          Delivery To
+        </label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div>
+            <input id="warehouse_to_id" name="warehouse_to_id" class="form-control" hidden>
+            <input id="warehouse_to" name="warehouse_to" class="form-control" style="border-radius:0;" readonly>
+          </div>
+          <div class="input-group-append">
+            <span style="border-radius:0;" class="input-group-text form-control">
+              <a href="javascript:;">
+                <i id="warehouse_to_2" data-toggle="modal" data-target="#myGetWarehouse" class="fas fa-gift myGetWarehouseTo" style="color:grey;"></i>
+              </a>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="form-group">
-        <table>
-          <tr>
-            <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Delivery Date</label></td>
-            <td>
-              <div class="input-group">
-                <input id="dateCommance" name="dateCommance" style="border-radius:0;" type="date" class="form-control">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding-top: 5px;"><label>&nbsp;&nbsp;&nbsp;Notes</label></td>
-            <td>
-              <div class="input-group">
-                <textarea name="var_remark" id="remark" rows="5" cols="20" class="form-control"></textarea>
-              </div>
-            </td>
-          </tr>
-        </table>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-md-12 col-lg-5">
+      <!-- DELIVERY DATE -->
+      <div class="row" style="margin-bottom: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+          Delivery Date
+        </label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div style="width: 42%;">
+            <input id="dateCommance" name="dateCommance" style="border-radius:0;width: 100%;" type="date" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <!-- NOTES -->
+      <div class="row">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+          Notes
+        </label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div>
+            <textarea id="notes" name="notes" rows="3" style="border-radius:0;" class="form-control"></textarea>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-  <a onclick="CancelMaterialReceive();" class="btn btn-default btn-sm float-right CancelDor" style="background-color:#e9ecef;border:1px solid #ced4da;">
-    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel"> Cancel
-  </a>
-
-  <a onclick="CancelMaterialReceive();" class="btn btn-default btn-sm float-right CancelDor" style="background-color:#e9ecef;border:1px solid #ced4da;">
-    <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Cancel"> Reset
-  </a>
-  <a class="btn btn-default btn-sm float-right" id="AddToDetail" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-    <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add"> Add
-  </a>
 </div>

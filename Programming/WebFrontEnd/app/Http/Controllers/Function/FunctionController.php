@@ -1077,6 +1077,7 @@ class FunctionController extends Controller
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
                 'transaction.read.dataList.supplyChain.getDeliveryOrder', 
+                // 'dataPickList.supplyChain.getDeliveryOrder',
                 'latest',
                 [
                     'parameter' => null,
@@ -1331,7 +1332,7 @@ class FunctionController extends Controller
                 return redirect()->back()->with('NotFound', 'Process Error');
             }
 
-            return response()->json($varData['data']['data']);
+            return response()->json($varData['data']);
         } catch (\Throwable $th) {
             Log::error("Error at getPurchaseOrderDetail: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -1370,6 +1371,34 @@ class FunctionController extends Controller
             return response()->json($varData);
         } catch (\Throwable $th) {
             Log::error("Error at getBusinessTripCostComponentEntityNew: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function getTimesheetList(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $userSession    = Helper_Environment::getUserSessionID_System();
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.humanResource.getPersonWorkTimeSheet', 
+                'latest',
+                [
+                'parameter' => [
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getTimesheetList: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }

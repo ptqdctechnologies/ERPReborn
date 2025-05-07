@@ -15,9 +15,9 @@
                     </div>
                     <div class="input-group-append">
                         <span style="border-radius:0;" class="input-group-text form-control myTransporter">
-                          <a href="javascript:;" id="myTransporterTrigger" data-toggle="modal" data-target="#myTransporter" style="display: block;">
-                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myTransporterTrigger">
-                          </a>
+                            <a href="javascript:;" id="myTransporterTrigger" data-toggle="modal" data-target="#myTransporter" style="display: block;">
+                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myTransporterTrigger">
+                            </a>
                         </span>
                     </div>
                 </div>
