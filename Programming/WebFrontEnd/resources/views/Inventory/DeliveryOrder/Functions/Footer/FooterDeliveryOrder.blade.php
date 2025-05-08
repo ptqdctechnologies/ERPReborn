@@ -373,6 +373,8 @@
     });
 
     $('#reference-number-details-reset').on('click', function() {
+        dataStore = [];
+
         $('input[id^="qty_req"]').each(function() {
             $(this).val($(this).data('default'));
         });
@@ -383,6 +385,7 @@
             $(this).val($(this).data('default'));
         });
         $('#tableDeliverOrderDetailList tbody').empty();
+        $('#deliveryOrderDetail').val("");
 
         document.getElementById('GrandTotal').textContent = "0.00";
         document.getElementById('TotalReferenceNumber').textContent = "0.00";

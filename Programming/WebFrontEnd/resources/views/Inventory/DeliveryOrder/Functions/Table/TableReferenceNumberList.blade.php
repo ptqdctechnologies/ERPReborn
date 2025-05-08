@@ -23,5 +23,13 @@
         <tr>
             <th style="position: relative;right:20px;"> Total : <span id="GrandTotal">0.00</span></th>
         </tr>
+        <tr>
+            <td>
+                <br>
+                <a class="btn btn-default btn-sm float-right" id="reference-number-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
+                </a>
+            </td>
+        </tr>
     </table>
 </div>
