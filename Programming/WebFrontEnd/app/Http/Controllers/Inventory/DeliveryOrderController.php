@@ -47,20 +47,6 @@ class DeliveryOrderController extends Controller
             $deliveryOrderDetail                = json_decode($deliveryOrderData['storeData']['deliveryOrderDetail'], true);
             $fileID                             = $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
 
-            $transformedDetails = [];
-            foreach ($deliveryOrderDetail as $entity) {
-                $transformedDetails[] = [
-                    "entities" => [
-                        "referenceDocument_RefID"   => null,
-                        "quantity"                  => (float) str_replace(',', '', $entity['quantity']),
-                        "quantityUnit_RefID"        => (int) 73000000000001, // $entity['quantityUnit_RefID'] 
-                        "remarks"                   => $entity['remarks'],
-                        "underlyingDetail_RefID"    => (int) $entity['underlyingDetail_RefID'],
-                        "product_RefID"             => (int) 88000000000794 // null
-                    ]
-                ];
-            }
-
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
@@ -71,7 +57,7 @@ class DeliveryOrderController extends Controller
                         "documentDateTimeTZ"                => $deliveryOrderData['storeData']['var_date'],
                         "log_FileUpload_Pointer_RefID"      => $fileID,
                         "requesterWorkerJobsPosition_RefID" => $SessionWorkerCareerInternal_RefID,
-                        "transporter_RefID"                 => (int) $deliveryOrderData['storeData']['transporter_id'],
+                        "transporter_RefID"                 => 164000000000559, // (int) $deliveryOrderData['storeData']['transporter_id'],
                         "deliveryDateTimeTZ"                => null,
                         "deliveryFrom_RefID"                => null,
                         "deliveryFrom_NonRefID"             => $deliveryOrderData['storeData']['delivery_from'],
@@ -80,7 +66,7 @@ class DeliveryOrderController extends Controller
                         "remarks"                           => $deliveryOrderData['storeData']['var_remark'],
                         "additionalData"                    => [
                             "itemList"                      => [
-                                "items"                     => $transformedDetails
+                                "items"                     => $deliveryOrderDetail
                             ]
                         ]
                     ]

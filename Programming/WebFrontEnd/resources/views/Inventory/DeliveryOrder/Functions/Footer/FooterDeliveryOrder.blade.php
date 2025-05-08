@@ -1,4 +1,5 @@
 <script>
+    var dataStore                   = [];
     var date                        = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
     var indexReferenceNumberDetail  = 0;
     var referenceNumber             = document.getElementById("reference_number");
@@ -80,28 +81,31 @@
 
                     $.each(data, function(key, val2) {
                         let randomNumber = Math.floor(Math.random() * 11);
+                        let balanced = currencyTotal(val2.quantity);
                         let row = `
                             <tr>
-                                <input id="underlyingDetail_RefID${indexReferenceNumberDetail}" value="${val2.purchaseOrderDetail_RefID || '-'}" type="hidden" />
+                                <input id="refDocument_RefID${indexReferenceNumberDetail}" value="${val2.purchaseOrder_RefID || ''}" type="hidden" />
+                                <input id="underlyingDetail_RefID${indexReferenceNumberDetail}" value="${val2.purchaseOrderDetail_RefID || ''}" type="hidden" />
                                 <input id="reference_number${indexReferenceNumberDetail}" value="${reference_number}" type="hidden" />
-                                <input id="product_code${indexReferenceNumberDetail}" value="${val2.productCode || '-'}" type="hidden" />
-                                <input id="product_name${indexReferenceNumberDetail}" value="${val2.productName || '-'}" type="hidden" />
-                                <input id="uom${indexReferenceNumberDetail}" value="${val2.quantityUnitName || '-'}" type="hidden" />
+                                <input id="product_code${indexReferenceNumberDetail}" value="${val2.productCode || '1000742' + indexReferenceNumberDetail}" type="hidden" />
+                                <input id="product_name${indexReferenceNumberDetail}" value="${val2.productName || ''}" type="hidden" />
+                                <input id="uom${indexReferenceNumberDetail}" value="${val2.quantityUnitName || ''}" type="hidden" />
                                 <input id="qty_reference${indexReferenceNumberDetail}" value="${currencyTotal(val2.quantity)}" type="hidden" />
-                                <input id="qty_avail${indexReferenceNumberDetail}" value="-" type="hidden" />
-                                <input id="qty_unit_refID${indexReferenceNumberDetail}" value="-" type="hidden" />
+                                <input id="qty_avail${indexReferenceNumberDetail}" value="${currencyTotal(val2.quantity)}" type="hidden" />
+                                <input id="qty_unit_refID${indexReferenceNumberDetail}" value="${val2.quantityUnit_RefID || '73000000000001'}" type="hidden" />
+                                <input id="product_refID${indexReferenceNumberDetail}" value="${val2.product_RefID || '8800000000079' + indexReferenceNumberDetail}" type="hidden" />
 
                                 ${key === 0 ? modifyColumn : ''}
-                                <td style="text-align: center;">${val2.productCode || '-'}</td>
+                                <td style="text-align: center;">${val2.productCode || '1000742' + indexReferenceNumberDetail}</td>
                                 <td style="text-align: center;">${val2.productName || '-'}</td>
                                 <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
                                 <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
-                                <td style="text-align: center;">-</td>
+                                <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
                                 <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
                                     <input class="form-control number-without-negative" id="qty_req${indexReferenceNumberDetail}" data-index=${indexReferenceNumberDetail} data-quantity="" autocomplete="off" style="border-radius:0px;" />
                                 </td>
                                 <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
-                                    <input class="form-control number-without-negative" id="balance${indexReferenceNumberDetail}" autocomplete="off" style="border-radius:0px;" disabled />
+                                    <input class="form-control number-without-negative" id="balance${indexReferenceNumberDetail}" autocomplete="off" data-default="${balanced}" value="${balanced}" style="border-radius:0px;" disabled />
                                 </td>
                                 <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 150px;">
                                     <textarea id="note${indexReferenceNumberDetail}" class="form-control"></textarea>
@@ -114,12 +118,11 @@
                         $(`#qty_req${indexReferenceNumberDetail}`).on('keyup', function() {
                             var qty_req = $(this).val().replace(/,/g, '');
                             var data_index = $(this).data('index');
-                            var data_total_request = $(this).data('quantity');
                             var result = val2.quantity - qty_req;
 
-                            if (qty_req > val2.quantity) {
+                            if (parseFloat(qty_req) > val2.quantity) {
                                 $(this).val("");
-                                $(`#balance${data_index}`).val("");
+                                $(`#balance${data_index}`).val(balanced);
                                 ErrorNotif("Qty Request is over Qty Avail !");
                             } else {
                                 $(`#balance${data_index}`).val(result.toFixed(2));
@@ -246,84 +249,127 @@
         });
     }
 
+    function updateGrandTotal() {
+        let total = 0;
+        const rows = document.querySelectorAll('#tableDeliverOrderDetailList tbody tr');
+        rows.forEach(row => {
+            const totalCell = row.children[6];
+            const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
+            total += value;
+        });
+
+        document.getElementById('TotalReferenceNumber').innerText = "0.00";
+        document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);
     });
 
     $("#reference-number-details-add").on('click', function() {
-        let dataStore = [];
-        var totalReferenceNumber = document.getElementById('TotalReferenceNumber').textContent;
+        const sourceTable = document.getElementById('tableReferenceNumberDetail').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('tableDeliverOrderDetailList').getElementsByTagName('tbody')[0];
 
-        $("#tableReferenceNumberDetail tbody tr").each(function(index) {
-            var referenceNumber         = $(this).find(`input[id="reference_number${index}"]`).val();
-            var productCode             = $(this).find(`input[id="product_code${index}"]`).val();
-            var productName             = $(this).find(`input[id="product_name${index}"]`).val();
-            var uom                     = $(this).find(`input[id="uom${index}"]`).val();
-            var qtyAvail                = $(this).find(`input[id="qty_avail${index}"]`).val();
-            var qtyReq                  = $(this).find(`input[id="qty_req${index}"]`).val();
-            var balance                 = $(this).find(`input[id="balance${index}"]`).val();
-            var note                    = $(this).find(`textarea[id="note${index}"]`).val();
-            var underlyingDetailRefID   = $(this).find(`input[id="underlyingDetail_RefID${index}"]`).val();
-            var qtyUnitRefID            = $(this).find(`input[id="qty_unit_refID${index}"]`).val();
+        const rows = sourceTable.getElementsByTagName('tr');
 
-            if (!qtyReq || !note) {
-                return;
-            }
+        for (let row of rows) {
+            const refDocument_RefID         = row.querySelector('input[id^="refDocument_RefID"]');
+            const underlyingDetail_RefID    = row.querySelector('input[id^="underlyingDetail_RefID"]');
+            const qtyInput                  = row.querySelector('input[id^="qty_req"]');
+            const balanceInput              = row.querySelector('input[id^="balance"]');
+            const noteInput                 = row.querySelector('textarea[id^="note"]');
+            const qtyUnitRefId              = row.querySelector('input[id^="qty_unit_refID"]');
+            const productRefId              = row.querySelector('input[id^="product_refID"]');
 
-            var rowToUpdate = null;
+            if (
+                qtyInput && balanceInput && noteInput &&
+                qtyInput.value.trim() !== '' &&
+                balanceInput.value.trim() !== '' &&
+                noteInput.value.trim() !== ''
+            ) {
+                const refNumber     = row.children[1].value.trim();
+                const productCode   = row.children[3].value.trim();
+                const productName   = row.children[10].innerText.trim();
+                const uom           = row.children[4].value.trim();
+                const qtyAvail      = row.children[6].value.trim();
 
-            $("#tableDeliverOrderDetailList tbody tr").each(function() {
-                var existingRefNumber   = $(this).find("td:eq(0)").text();
-                var existingProductCode = $(this).find("td:eq(1)").text();
-                var existingProductName = $(this).find("td:eq(2)").text();
-                var existingUOM         = $(this).find("td:eq(3)").text();
-                var existingQtyAvail    = $(this).find("td:eq(4)").text();
+                const qty       = qtyInput.value.trim();
+                const balance   = balanceInput.value.trim();
+                const note      = noteInput.value.trim();
 
-                if (existingRefNumber === referenceNumber) {
-                    if (existingProductCode === productCode && existingProductName === productName && existingUOM === uom &&  existingQtyAvail === qtyAvail) {
-                        rowToUpdate = $(this);
+                let found           = false;
+                const existingRows  = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetRefNumber   = targetRow.children[1].innerText.trim();
+                    const targetProductCode = targetRow.children[2].innerText.trim();
+
+                    if (targetRefNumber === refNumber && targetProductCode === productCode) {
+                        targetRow.children[6].innerText = qty;
+                        targetRow.children[7].innerText = balance;
+                        targetRow.children[8].innerText = note;
+                        found = true;
+
+                        const indexToUpdate = dataStore.findIndex(item => item.entities.refNumber === refNumber && item.entities.productCode === productCode);
+                        if (indexToUpdate !== -1) {
+                            dataStore[indexToUpdate] = {
+                                entities: {
+                                    referenceDocument_RefID: refDocument_RefID.value,
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantityUnit_RefID: qtyUnitRefId.value,
+                                    remarks: note,
+                                    underlyingDetail_RefID: underlyingDetail_RefID.value,
+                                    product_RefID: productRefId.value,
+                                    refNumber: refNumber,
+                                    productCode: productCode
+                                }
+                            };
+                        }
                     }
                 }
-            });
 
-            if (rowToUpdate) {
-                rowToUpdate.find("td:eq(5)").text(qtyReq);
-                rowToUpdate.find("td:eq(6)").text(balance);
-                rowToUpdate.find("td:eq(7)").text(note);
+                if (!found) {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
+                        <td style="text-align: center;padding: 0.8rem;">${refNumber}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${productName}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${qtyAvail}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${qty}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${balance}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${note}</td>
+                    `;
+                    targetTable.appendChild(newRow);
 
-                dataStore[index] = {
-                    quantity: qtyReq,
-                    quantityUnit_RefID: qtyUnitRefID,
-                    remarks: note,
-                    underlyingDetail_RefID: underlyingDetailRefID,
-                };
-            } else {
-                var newRow = `<tr>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${referenceNumber}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${productCode}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${productName}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${uom}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${qtyAvail}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${currencyTotal(qtyReq)}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${currencyTotal(balance)}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${note}</td>
-                </tr>`;
+                    dataStore.push({
+                        entities: {
+                            referenceDocument_RefID: refDocument_RefID.value,
+                            quantity: parseFloat(qty.replace(/,/g, '')),
+                            quantityUnit_RefID: qtyUnitRefId.value,
+                            remarks: note,
+                            underlyingDetail_RefID: underlyingDetail_RefID.value,
+                            product_RefID: productRefId.value,
+                            refNumber: refNumber,
+                            productCode: productCode
+                        }
+                    });
+                }
 
-                dataStore.push({
-                    quantity: qtyReq,
-                    quantityUnit_RefID: qtyUnitRefID,
-                    remarks: note,
-                    underlyingDetail_RefID: underlyingDetailRefID,
-                });
-
-                $("#tableDeliverOrderDetailList").find("tbody").append(newRow);
+                qtyInput.value = '';
+                noteInput.value = '';
+                balanceInput.value = balanceInput.getAttribute('data-default');
             }
-        });
+        }
 
         dataStore = dataStore.filter(item => item !== undefined);
-
         $("#deliveryOrderDetail").val(JSON.stringify(dataStore));
-        document.getElementById('GrandTotal').textContent = totalReferenceNumber;
+
+        updateGrandTotal();
     });
 
     $('#reference-number-details-reset').on('click', function() {

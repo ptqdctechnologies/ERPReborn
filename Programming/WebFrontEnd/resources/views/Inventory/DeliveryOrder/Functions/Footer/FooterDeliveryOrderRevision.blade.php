@@ -42,7 +42,7 @@
                 },
             });
 
-            let balanced = val2.quantity - val2.qtyReq;
+            let balanced = parseFloat(val2.quantity) - parseFloat(val2.qtyReq);
 
             let row = `
                 <tr>
