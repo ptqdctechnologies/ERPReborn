@@ -72,8 +72,6 @@
                 $("#delivery_from").prop("disabled", false);
                 $("#delivery_to").prop("disabled", false);
 
-                console.log('data', data);
-
                 let tbody = $('#tableReferenceNumberDetail tbody');
 
                 if (Array.isArray(data) && data.length > 0) {
@@ -88,7 +86,7 @@
                                 <input id="underlyingDetail_RefID${indexReferenceNumberDetail}" value="${val2.purchaseOrderDetail_RefID || ''}" type="hidden" />
                                 <input id="reference_number${indexReferenceNumberDetail}" value="${reference_number}" type="hidden" />
                                 <input id="product_code${indexReferenceNumberDetail}" value="${val2.productCode || '1000742' + indexReferenceNumberDetail}" type="hidden" />
-                                <input id="product_name${indexReferenceNumberDetail}" value="${val2.productName || ''}" type="hidden" />
+                                <input id="product_name${indexReferenceNumberDetail}" value="${val2.productName || '-'}" type="hidden" />
                                 <input id="uom${indexReferenceNumberDetail}" value="${val2.quantityUnitName || ''}" type="hidden" />
                                 <input id="qty_reference${indexReferenceNumberDetail}" value="${currencyTotal(val2.quantity)}" type="hidden" />
                                 <input id="qty_avail${indexReferenceNumberDetail}" value="${currencyTotal(val2.quantity)}" type="hidden" />
@@ -290,11 +288,11 @@
                 balanceInput.value.trim() !== '' &&
                 noteInput.value.trim() !== ''
             ) {
-                const refNumber     = row.children[1].value.trim();
+                const refNumber     = row.children[2].value.trim();
                 const productCode   = row.children[3].value.trim();
-                const productName   = row.children[10].innerText.trim();
-                const uom           = row.children[4].value.trim();
-                const qtyAvail      = row.children[6].value.trim();
+                const productName   = row.children[4].value.trim();
+                const uom           = row.children[5].value.trim();
+                const qtyAvail      = row.children[7].value.trim();
 
                 const qty       = qtyInput.value.trim();
                 const balance   = balanceInput.value.trim();
@@ -308,9 +306,9 @@
                     const targetProductCode = targetRow.children[2].innerText.trim();
 
                     if (targetRefNumber === refNumber && targetProductCode === productCode) {
-                        targetRow.children[6].innerText = qty;
-                        targetRow.children[7].innerText = balance;
-                        targetRow.children[8].innerText = note;
+                        targetRow.children[5].innerText = qty;
+                        targetRow.children[6].innerText = balance;
+                        targetRow.children[7].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.entities.refNumber === refNumber && item.entities.productCode === productCode);
@@ -339,7 +337,6 @@
                         <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
                         <td style="text-align: center;padding: 0.8rem;">${productName}</td>
                         <td style="text-align: center;padding: 0.8rem;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${qtyAvail}</td>
                         <td style="text-align: center;padding: 0.8rem;">${qty}</td>
                         <td style="text-align: center;padding: 0.8rem;">${balance}</td>
                         <td style="text-align: center;padding: 0.8rem;">${note}</td>
@@ -389,6 +386,85 @@
 
         document.getElementById('GrandTotal').textContent = "0.00";
         document.getElementById('TotalReferenceNumber').textContent = "0.00";
+    });
+
+    document.querySelector('#tableDeliverOrderDetailList tbody').addEventListener('click', function (e) {
+        const row = e.target.closest('tr');
+        if (!row) return;
+
+        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+
+        const qtyAvail = row.children[0];
+        const qtyCell = row.children[5];
+        const balanceCell = row.children[6];
+        const noteCell = row.children[7];
+
+        if (row.classList.contains('editing-row')) {
+            const newQty = qtyCell.querySelector('input')?.value || '';
+            const newBalance = balanceCell.querySelector('input')?.value || '';
+            const newNote = noteCell.querySelector('textarea')?.value || '';
+
+            qtyCell.innerHTML = newQty;
+            balanceCell.innerHTML = newBalance;
+            noteCell.innerHTML = newNote;
+
+            const hidden = noteCell.querySelector('input[type="hidden"]');
+            noteCell.innerHTML = `${newNote}`;
+            if (hidden) noteCell.appendChild(hidden);
+
+            row.classList.remove('editing-row');
+
+            const refNumber   = row.children[1].innerText.trim();
+            const productCode = row.children[2].innerText.trim();
+            const storeItem   = dataStore.find(item => item.entities.refNumber === refNumber && item.entities.productCode === productCode);
+            
+            if (storeItem) {
+                storeItem.entities.quantity = newQty;
+                storeItem.entities.remarks = newNote;
+
+                $("#deliveryOrderDetail").val(JSON.stringify(dataStore));
+            }
+        } else {
+            const currentQty = qtyCell.innerText.trim();
+            const currentBalance = balanceCell.innerText.trim();
+
+            const hiddenInput = noteCell.querySelector('input[type="hidden"]');
+            const currentNote = noteCell.childNodes[0]?.nodeValue?.trim() || '';
+
+            qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+            balanceCell.innerHTML = `<input class="form-control number-without-negative balance-input" value="${currentBalance}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
+            noteCell.innerHTML = `
+                <textarea class="form-control" style="width:100px;">${currentNote}</textarea>
+            `;
+            if (hiddenInput) noteCell.appendChild(hiddenInput);
+
+            row.classList.add('editing-row');
+
+            const qtyInput = qtyCell.querySelector('.qty-input');
+            const balanceInput = balanceCell.querySelector('.balance-input');
+
+            function updateBalance() {
+                var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
+                const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
+                var balance = qtyAvailValue - qty;
+
+                if (qty > qtyAvailValue) {
+                    balance = qtyAvailValue;
+                    qty = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                    ErrorNotif("Qty Req is over Qty Avail !");
+                }
+
+                balanceInput.value = balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+
+            qtyInput.addEventListener('input', updateBalance);
+
+            document.getElementById('GrandTotal').innerText = qtyInput.value;
+        }
+
+        updateGrandTotal();
     });
 
     $('#referenceNumberModal').on('click', 'tbody tr', function() {
