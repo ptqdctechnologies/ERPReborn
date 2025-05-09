@@ -1,0 +1,42 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrder (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrder" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "parameter": {
+                "type": "object",
+                "properties": {
+                    
+                    },
+                "required": [ "CombinedBudgetCode", "CombinedBudgetSectionCode" ]
+                }
+            },
+        "required": [ "parameter" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}

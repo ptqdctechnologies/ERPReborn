@@ -4,25 +4,25 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\supplyChain         |
-|                 \getPurchaseRequisitionSummary\v1                                                                                       |
-| ▪ API Key     : report.form.documentForm.supplyChain.getPurchaseRequisitionSummary                                                         |
+|                 \getPurchaseRequisitionToPurchaseOrder\v1                                                                                       |
+| ▪ API Key     : report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrder                                                         |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\supplyChain\getPurchaseRequisitionSummary\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\supplyChain\getPurchaseRequisitionToPurchaseOrder\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/report.form.documentForm.supplyChain.getPurchaseRequisitionSummary.v1_throughAPIGateway    |
-        |                     ► http://172.28.0.4/report.form.documentForm.supplyChain.getPurchaseRequisitionSummary.v1_throughAPIGateway |
+        | ▪ Call URL        : http(s)://<HOST>/report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrder.v1_throughAPIGateway    |
+        |                     ► http://172.28.0.4/report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrder.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-04-30                                                                                           |
-        | ▪ Creation Date   : 2025-04-30                                                                                           |
+        | ▪ Last Update     : 2025-05-08                                                                                           |
+        | ▪ Creation Date   : 2025-05-08                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -35,7 +35,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
-                'report.form.documentForm.supplyChain.getPurchaseRequisitionSummary',
+                'report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrder',
                 'latest',
                 [
                 'parameter' => [
