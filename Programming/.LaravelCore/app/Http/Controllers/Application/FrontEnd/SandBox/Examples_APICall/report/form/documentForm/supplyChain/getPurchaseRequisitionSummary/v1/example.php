@@ -40,7 +40,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 [
                 'parameter' => [
                     'CombinedBudgetCode' => 'Q000062',
-                    'CombinedBudgetSectionCode' => '222'
+                    'CombinedBudgetSectionCode' => '235'
                     ]
                 ]
                 );
