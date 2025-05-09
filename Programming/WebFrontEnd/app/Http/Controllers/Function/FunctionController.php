@@ -1339,6 +1339,38 @@ class FunctionController extends Controller
         }
     }
 
+    public function getBusinessTripList(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.humanResource.getBusinessTripList',
+                'latest',
+                [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']);
+        } catch (\Throwable $th) {
+            Log::error('Error at getBusinessTripList'. $th->getMessage());
+            return redirect()->back()->with('NotFound','Process Error');
+        }
+    }
+
     public function getBusinessTripCostComponentEntityNew(Request $request)
     {
         try {

@@ -32,7 +32,7 @@ class BusinessTripRequestController extends Controller
 
         $var = 0;
         if(!empty($_GET['var'])){
-           $var =  $_GET['var'];
+            $var =  $_GET['var'];
         }
         
         $compact = [
@@ -49,8 +49,8 @@ class BusinessTripRequestController extends Controller
         try {
             $varAPIWebToken             = Session::get('SessionLogin');
             $businessTripRequestData    = $request->all();
-            $fileID                     = $businessTripRequestData['dataInput_Log_FileUpload_1'] ? (int) $businessTripRequestData['dataInput_Log_FileUpload_1'] : null;
-            $components                 = $businessTripRequestData['components'] ?? [];
+            $fileID                     = $businessTripRequestData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $businessTripRequestData['storeData']['dataInput_Log_FileUpload_1'] : null;
+            $components                 = $businessTripRequestData['storeData']['components'] ?? [];
 
             $result = [];
             foreach ($components as $component) {
@@ -59,7 +59,7 @@ class BusinessTripRequestController extends Controller
                         'entities' => [
                             'businessTripCostComponentEntity_RefID' => (int) $component['id'],
                             'amountCurrency_RefID'                  => 62000000000001,
-                            'amountCurrencyValue'                   => (int) $component['value'],
+                            'amountCurrencyValue'                   => (float) str_replace(',', '', $component['value']),
                             'amountCurrencyExchangeRate'            => 1,
                             'remarks'                               => null
                         ]
@@ -75,7 +75,7 @@ class BusinessTripRequestController extends Controller
                 [
                 'entities' => [
                     'documentDateTimeTZ'                => date('Y-m-d'),
-                    'combinedBudgetSectionDetail_RefID' => (int) $businessTripRequestData['var_combinedBudget_RefID'], // 169000000000001,
+                    'combinedBudgetSectionDetail_RefID' => (int) 169000000000001, // 169000000000001,
                     'paymentDisbursementMethod_RefID'   => 218000000000002,
                     'additionalData'    => [
                         'itemList'      => [
@@ -84,12 +84,12 @@ class BusinessTripRequestController extends Controller
                                     'entities'  => [
                                         'sequence'                                          => 1,
                                         'log_FileUpload_Pointer_RefID'                      => $fileID,
-                                        'requesterWorkerJobsPosition_RefID'                 => (int) $businessTripRequestData['requester_id'],
-                                        'startDateTimeTZ'                                   => $businessTripRequestData['dateCommance'],
-                                        'finishDateTimeTZ'                                  => $businessTripRequestData['dateEnd'],
-                                        'departurePoint'                                    => $businessTripRequestData['departingFrom'],
-                                        'destinationPoint'                                  => $businessTripRequestData['destinationTo'],
-                                        'reasonToTravel'                                    => $businessTripRequestData['reasonTravel'],
+                                        'requesterWorkerJobsPosition_RefID'                 => 164000000000497, //(int) $businessTripRequestData['storeData']['requester_id'],
+                                        'startDateTimeTZ'                                   => $businessTripRequestData['storeData']['dateCommance'],
+                                        'finishDateTimeTZ'                                  => $businessTripRequestData['storeData']['dateEnd'],
+                                        'departurePoint'                                    => $businessTripRequestData['storeData']['departingFrom'],
+                                        'destinationPoint'                                  => $businessTripRequestData['storeData']['destinationTo'],
+                                        'reasonToTravel'                                    => $businessTripRequestData['storeData']['reasonTravel'],
                                         'businessTripAccommodationArrangementsType_RefID'   => 219000000000002,
                                         'remarks'                                           => null,
                                         'additionalData' => [
@@ -106,7 +106,18 @@ class BusinessTripRequestController extends Controller
                 ]
             );
 
-            return response()->json($input);
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($varData);
+            }
+
+            return $this->SubmitWorkflow(
+                $varData['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+                $request->nextApprover,
+                $varData['data']['businessDocument']['documentNumber']
+            );
         } catch (\Throwable $th) {
             Log::error("Store Business Trip Request Function Error: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

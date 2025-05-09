@@ -29,8 +29,7 @@
       @include('Process.BusinessTrip.BusinessTripRequest.Functions.Menu.MenuBusinessTripRequest')
       @if($var == 0)
         <div class="card">
-          <form method="post" action="{{ route('BusinessTripRequest.store') }}" id="FormSubmitBusinessTrip">
-            {{-- <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitBusinessTrip"> --}}
+          <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitBusinessTrip">
             @csrf
             <input hidden id="DocumentTypeID" name="DocumentTypeID">
             <input hidden id="var_combinedBudget_RefID" name="var_combinedBudget_RefID" />
@@ -231,7 +230,7 @@
                         <thead>
                           <tr>
                             <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;"></th>
-                            <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Id</th>
+                            <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Code</th>
                             <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Product Name</th>
                             <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Total Budget</th>
                             <th style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important;">Qty Budget</th>

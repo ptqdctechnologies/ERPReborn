@@ -290,85 +290,85 @@ class MaterialReceiveController extends Controller
     {
         try {
 
-            $materialReceive_RefID = $request->materialReceive_RefID;
+            // $materialReceive_RefID = $request->materialReceive_RefID;
             $varAPIWebToken = Session::get('SessionLogin');
 
-            // DATA REVISION ADVANCE
-            if (Redis::get("DataListAdvanceDetailComplex") == null) {
-                Helper_APICall::setCallAPIGateway(
-                    Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'transaction.read.dataList.finance.getAdvanceDetailComplex',
-                    'latest',
-                    [
-                        'parameter' => [
-                            'advance_RefID' => (int) $materialReceive_RefID,
-                        ],
-                        'SQLStatement' => [
-                            'pick' => null,
-                            'sort' => null,
-                            'filter' => null,
-                            'paging' => null
-                        ]
-                    ],
-                    false
-                );
-            }
+            // // DATA REVISION ADVANCE
+            // if (Redis::get("DataListAdvanceDetailComplex") == null) {
+            //     Helper_APICall::setCallAPIGateway(
+            //         Helper_Environment::getUserSessionID_System(),
+            //         $varAPIWebToken,
+            //         'transaction.read.dataList.finance.getAdvanceDetailComplex',
+            //         'latest',
+            //         [
+            //             'parameter' => [
+            //                 'advance_RefID' => (int) $materialReceive_RefID,
+            //             ],
+            //             'SQLStatement' => [
+            //                 'pick' => null,
+            //                 'sort' => null,
+            //                 'filter' => null,
+            //                 'paging' => null
+            //             ]
+            //         ],
+            //         false
+            //     );
+            // }
 
-            $DataAdvanceDetailComplex = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "DataListAdvanceDetailComplex"
-                ),
-                true
-            );
+            // $DataAdvanceDetailComplex = json_decode(
+            //     Helper_Redis::getValue(
+            //         Helper_Environment::getUserSessionID_System(),
+            //         "DataListAdvanceDetailComplex"
+            //     ),
+            //     true
+            // );
 
-            $collection = collect($DataAdvanceDetailComplex);
-            $collection = $collection->where('Sys_ID_Advance', $materialReceive_RefID);
+            // $collection = collect($DataAdvanceDetailComplex);
+            // $collection = $collection->where('Sys_ID_Advance', $materialReceive_RefID);
 
-            $num = 0;
-            $filteredArray = [];
+            // $num = 0;
+            // $filteredArray = [];
 
-            foreach ($collection as $collections) {
-                $filteredArray[$num] = $collections;
-                $num++;
-            }
+            // foreach ($collection as $collections) {
+            //     $filteredArray[$num] = $collections;
+            //     $num++;
+            // }
 
-            if ($filteredArray[0]['Log_FileUpload_Pointer_RefID'] == 0) {
-                $dataDetailFileAttachment = null;
-            } else {
-                $dataDetailFileAttachment = $filteredArray[0]['Log_FileUpload_Pointer_RefID'];
-            }
+            // if ($filteredArray[0]['Log_FileUpload_Pointer_RefID'] == 0) {
+            //     $dataDetailFileAttachment = null;
+            // } else {
+            //     $dataDetailFileAttachment = $filteredArray[0]['Log_FileUpload_Pointer_RefID'];
+            // }
 
-            for ($i = 0; $i < count($filteredArray); $i++) {
-                unset($filteredArray[$i]['FileAttachment']);
-            }
+            // for ($i = 0; $i < count($filteredArray); $i++) {
+            //     unset($filteredArray[$i]['FileAttachment']);
+            // }
 
-            //DOCUMENT TYPE ID ADVANCE
-            $DocumentType = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "DocumentType"
-                ),
-                true
-            );
-            $collection = collect($DocumentType);
-            $collection = $collection->where('Name', "Advance Form");
-            foreach ($collection->all() as $collections) {
-                $DocumentTypeID = $collections['Sys_ID'];
-            }
+            // //DOCUMENT TYPE ID ADVANCE
+            // $DocumentType = json_decode(
+            //     Helper_Redis::getValue(
+            //         Helper_Environment::getUserSessionID_System(),
+            //         "DocumentType"
+            //     ),
+            //     true
+            // );
+            // $collection = collect($DocumentType);
+            // $collection = $collection->where('Name', "Advance Form");
+            // foreach ($collection->all() as $collections) {
+            //     $DocumentTypeID = $collections['Sys_ID'];
+            // }
 
-            $remark = $filteredArray[0]['Remarks'];
-            $filteredArray[0]['Remarks'] = "";
+            // $remark = $filteredArray[0]['Remarks'];
+            // $filteredArray[0]['Remarks'] = "";
 
             $compact = [
-                'dataHeader' => $filteredArray[0],
-                'dataDetail' => $filteredArray,
-                'remark' => $remark,
-                'dataFileAttachment' => $dataDetailFileAttachment,
-                'DocumentTypeID' => $DocumentTypeID,
+                // 'dataHeader' => $filteredArray[0],
+                // 'dataDetail' => $filteredArray,
+                // 'remark' => $remark,
+                // 'dataFileAttachment' => $dataDetailFileAttachment,
+                // 'DocumentTypeID' => $DocumentTypeID,
                 'varAPIWebToken' => $varAPIWebToken,
-                'statusRevisi' => 1,
+                // 'statusRevisi' => 1,
             ];
             return view('Inventory.MaterialReceive.Transactions.RevisionMaterialReceive', $compact);
         } catch (\Throwable $th) {

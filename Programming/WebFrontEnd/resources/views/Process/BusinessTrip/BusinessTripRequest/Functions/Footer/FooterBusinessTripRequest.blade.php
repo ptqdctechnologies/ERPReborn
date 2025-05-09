@@ -2,31 +2,8 @@
   // var currentModalSource = '';
   const initialValue = 0;
   const totalBusinessTrip = [];
-  const transportInputs = [
-    'taxi',
-    'airplane',
-    'train',
-    'bus',
-    'ship',
-    'tol_road',
-    'park',
-    'access_bagage',
-    'fuel',
-    'hotel',
-    'mess',
-    'guest_house',
-  ];
-  const businessTripInputs = [
-    'allowance',
-    'entertainment',
-    'other',
-  ];
-  const paymentsInputs = [
-    'direct_to_vendor',
-    'by_corp_card',
-    'to_other',
-  ];
-
+  
+  var currenctBudgetSelection = 0;
   var date = new Date();
   var today = new Date(date.setMonth(date.getMonth() - 3));
 
@@ -90,11 +67,12 @@
         sysId: row.querySelector('input[data-budget-id="sys_ID"]').value
       };
       
-      $("#var_combinedBudget_RefID").val(datas.sysId);
+      // $("#var_combinedBudget_RefID").val(datas.sysId);
       $("#total_business_trip_request").val(datas.totalBudget);
       $("#total_balanced").val(datas.balanceBudget);
       
       budgetDetailsInput.value = JSON.stringify(datas);
+      currenctBudgetSelection = parseFormattedNumber(datas.balanceBudget);
 
       const balanceBudget = parseFormattedNumber(datas.balanceBudget);
       const totalBusinessTrip = parseFormattedNumber(totalBusinessTripInput.value || '0');
@@ -109,141 +87,57 @@
       }
     } else {
       budgetDetailsInput.value = '';
+      currenctBudgetSelection = 0;
 
-      $("#var_combinedBudget_RefID").val("");
+      // $("#var_combinedBudget_RefID").val("");
       $("#total_business_trip_request").val("");
       $("#total_balanced").val("");
     }
   }
 
-  // FUNGSI TOTAL TRANSPORT
-  function calculateTotalTransport() {
-    const taxi = parseFloat(document.getElementById('taxi').value.replace(/,/g, '')) || 0;
-    const airplane = parseFloat(document.getElementById('airplane').value.replace(/,/g, '')) || 0;
-    const train = parseFloat(document.getElementById('train').value.replace(/,/g, '')) || 0;
-    const bus = parseFloat(document.getElementById('bus').value.replace(/,/g, '')) || 0;
-    const ship = parseFloat(document.getElementById('ship').value.replace(/,/g, '')) || 0;
-    const tolRoad = parseFloat(document.getElementById('tol_road').value.replace(/,/g, '')) || 0;
-    const park = parseFloat(document.getElementById('park').value.replace(/,/g, '')) || 0;
-    const accessBagage = parseFloat(document.getElementById('access_bagage').value.replace(/,/g, '')) || 0;
-    const fuel = parseFloat(document.getElementById('fuel').value.replace(/,/g, '')) || 0;
-    const hotel = parseFloat(document.getElementById('hotel').value.replace(/,/g, '')) || 0;
-    const mess = parseFloat(document.getElementById('mess').value.replace(/,/g, '')) || 0;
-    const guest_house = parseFloat(document.getElementById('guest_house').value.replace(/,/g, '')) || 0;
+  function parseCurrency(value) {
+    const clean = value.replace(/,/g, '').trim();
+    return isNaN(parseFloat(clean)) ? 0 : parseFloat(clean);
+  }
 
-    let newFormatBudget = 0;
-    let budgetDetailsDataJSON = null;
-    try {
-      budgetDetailsDataJSON = document.getElementById('budgetDetailsData').value;
-      if (budgetDetailsDataJSON) {
-        const parsedData = JSON.parse(budgetDetailsDataJSON);
-        newFormatBudget = parseFloat(parsedData.balanceBudget.replace(/,/g, '')) || 0;
-      } else {
-        // console.warn('Budget details data is empty');
+  function formatCurrency(value) {
+    return value.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+
+  function calculateTotalBRF() {
+    const ids = ['taxi', 'airplane', 'train', 'bus', 'ship', 'tol/road', 'park', 'excess baggage', 'fuel', 'hotel', 'mess', 'guest house', 'accommodation', 'entertainment', 'other'];
+    let total = 0;
+
+    ids.forEach(id => {
+      const input = document.getElementById(id);
+      if (input && input.value) {
+        total += parseCurrency(input.value);
       }
-    } catch (error) {
-      console.error('Error parsing budget details JSON:', error);
-      return;
-    }
+    });
 
-    const total = taxi + airplane + train + bus + ship + tolRoad + park + accessBagage + fuel + hotel + mess + guest_house;
-    totalBusinessTrip[0] = total;
-
-    const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
-
-    document.getElementById('total_transport').value = numberFormatPHPCustom(total, 2);
-    document.getElementById('total_business_trip').value = numberFormatPHPCustom(sumTotalBusinessTrip, 2);
-
-    if (budgetDetailsDataJSON && sumTotalBusinessTrip > newFormatBudget) {
+    const totalField = document.getElementById('total_business_trip');
+    if (currenctBudgetSelection != 0 && currenctBudgetSelection >= total) {
+      totalField.value = currencyTotal(total);
+    } else if (currenctBudgetSelection != 0 && currenctBudgetSelection < total) {
+      totalField.value = currencyTotal("0.00");
       Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
     }
   }
 
-  transportInputs.forEach(id => {
-    const inputElement = document.getElementById(id);
-    if (inputElement) {
-      inputElement.addEventListener('input', calculateTotalTransport);
-    }
-  });
+  function initializeBRFCalculation() {
+    const ids = ['taxi', 'airplane', 'train', 'bus', 'ship', 'tol/road', 'park', 'excess baggage', 'fuel', 'hotel', 'mess', 'guest house', 'accommodation', 'entertainment', 'other'];
 
-  // FUNGSI TOTAL BUSINESS TRIP (TOTAL TRANSPORT + TOTAL ACCOMMODATION + ALLOWANCE + ENTERTAINMENT + OTHER)
-  function calculateTotalBusinessTrip() {
-    const allowance = parseFloat(document.getElementById('allowance').value.replace(/,/g, '')) || 0;
-    const entertainment = parseFloat(document.getElementById('entertainment').value.replace(/,/g, '')) || 0;
-    const other = parseFloat(document.getElementById('other').value.replace(/,/g, '')) || 0;
-
-    let newFormatBudget = 0;
-    let budgetDetailsDataJSON = null;
-    try {
-      budgetDetailsDataJSON = document.getElementById('budgetDetailsData').value;
-      if (budgetDetailsDataJSON) {
-        const parsedData = JSON.parse(budgetDetailsDataJSON);
-        newFormatBudget = parseFloat(parsedData.balanceBudget.replace(/,/g, '')) || 0;
-      } else {
-        // console.warn('Budget details data is empty');
+    ids.forEach(id => {
+      const input = document.getElementById(id);
+      
+      if (input) {
+        input.addEventListener('input', calculateTotalBRF);
       }
-    } catch (error) {
-      console.error('Error parsing budget details JSON:', error);
-      return;
-    }
-
-    const total = allowance + entertainment + other;
-    totalBusinessTrip[2] = total;
-
-    const sumTotalBusinessTrip = totalBusinessTrip.reduce((accumulator, currentValue) => accumulator + currentValue,initialValue);
-
-    document.getElementById('total_business_trip').value = numberFormatPHPCustom(sumTotalBusinessTrip, 2);
-
-    if (budgetDetailsDataJSON && sumTotalBusinessTrip > newFormatBudget) {
-      Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
-    }
+    });
   }
-
-  businessTripInputs.forEach(id => {
-    const inputElement = document.getElementById(id);
-    
-    if (inputElement) {
-      inputElement.addEventListener('input', calculateTotalBusinessTrip);
-    }
-  });
-
-  // FUNGSI TOTAL PAYMENT (DIRECT TO VENDOR + BY CORP CARD + TO OTHER)
-  function calculateTotalPayments() {
-    const directToVendor = parseFloat(document.getElementById('direct_to_vendor').value.replace(/,/g, '')) || 0;
-    const byCorpCard = parseFloat(document.getElementById('by_corp_card').value.replace(/,/g, '')) || 0;
-    const toOther = parseFloat(document.getElementById('to_other').value.replace(/,/g, '')) || 0;
-
-    let newFormatBudget = 0;
-    let budgetDetailsDataJSON = null;
-    try {
-      budgetDetailsDataJSON = document.getElementById('budgetDetailsData').value;
-      if (budgetDetailsDataJSON) {
-        const parsedData = JSON.parse(budgetDetailsDataJSON);
-        newFormatBudget = parseFloat(parsedData.balanceBudget.replace(/,/g, '')) || 0;
-      } else {
-        // console.warn('Budget details data is empty');
-      }
-    } catch (error) {
-      console.error('Error parsing budget details JSON:', error);
-      return;
-    }
-
-    const total = directToVendor + byCorpCard + toOther;
-
-    document.getElementById('total_payment').value = numberFormatPHPCustom(total, 2);
-
-    if (budgetDetailsDataJSON && total > newFormatBudget) {
-      Swal.fire("Error", `Total Payments must not exceed the selected Balanced Budget`, "error");
-    }
-  }
-
-  paymentsInputs.forEach(id => {
-    const inputElement = document.getElementById(id);
-    
-    if (inputElement) {
-      inputElement.addEventListener('input', calculateTotalPayments);
-    }
-  });
 
   function getBusinessTripCostComponentEntityNew() {
     $.ajaxSetup({
@@ -287,6 +181,8 @@
         });
 
         $(".loading-container").hide();
+
+        initializeBRFCalculation();
       },
       error: function (textStatus, errorThrown) {
         console.log('error', textStatus, errorThrown);
@@ -305,8 +201,6 @@
       type: 'GET',
       url: '{!! route("getDocumentType") !!}',
       success: function(data) {
-        console.log('data', data);
-        
         const result = data.find(({ Name }) => Name === "Person Business Trip Form");
 
         if (Object.keys(result).length > 0) {
@@ -417,6 +311,8 @@
     var sysId = $(this).find('input[data-trigger="sys_id_project_second"]').val();
     getSiteSecond(sysId);
 
+    $("#var_combinedBudget_RefID").val(sysId);
+
     $("#site_code_second").val("");
     $("#site_id_second").val("");
     $("#site_name_second").val("");
@@ -453,117 +349,39 @@
       type: 'GET',
       url: '{!! route("getBudget") !!}?site_code=' + sysId,
       success: function(data) {
-        const datas = [
-          {
-            product_RefID: "710006-0000",
-            productName: "Transportation & Operational",
-            quantity: 2,
-            priceBaseCurrencyValue: 3000000,
-            quantityRemaining: 1,
-            priceBaseCurrencyISOCode: "IDR",
-            currentBudget: 3500000,
-            sys_ID: 169000000000001
-          },
-          {
-            product_RefID: "820005-0000",
-            productName: "Travel & Fares/Business Trip",
-            quantity: 1,
-            priceBaseCurrencyValue: 2500000,
-            quantityRemaining: 0,
-            priceBaseCurrencyISOCode: "IDR",
-            currentBudget: 1000000,
-            sys_ID: 169000000000008
-          },
-          // {
-          //   product_RefID: 88000000003488,
-          //   productName: "Transportasi Lokal",
-          //   quantity: 3,
-          //   priceBaseCurrencyValue: 150000,
-          //   quantityRemaining: 1,
-          //   priceBaseCurrencyISOCode: "IDR",
-          //   currentBudget: 450000,
-          // },
-          // {
-          //   product_RefID: 88000000003489,
-          //   productName: "Makan Siang Selama Perjalanan",
-          //   quantity: 5,
-          //   priceBaseCurrencyValue: 50000,
-          //   quantityRemaining: 2,
-          //   priceBaseCurrencyISOCode: "IDR",
-          //   currentBudget: 250000,
-          // },
-          // {
-          //   product_RefID: 88000000003490,
-          //   productName: "Meeting Room Rental",
-          //   quantity: 1,
-          //   priceBaseCurrencyValue: 1000000,
-          //   quantityRemaining: 0,
-          //   priceBaseCurrencyISOCode: "IDR",
-          //   currentBudget: 1000000,
-          // },
-          // {
-          //   product_RefID: 88000000003491,
-          //   productName: "Sim Card dengan Paket Data",
-          //   quantity: 1,
-          //   priceBaseCurrencyValue: 200000,
-          //   quantityRemaining: 0,
-          //   priceBaseCurrencyISOCode: "IDR",
-          //   currentBudget: 200000,
-          // },
-          // {
-          //   product_RefID: 88000000003492,
-          //   productName: "Tiket Kereta Antar Kota",
-          //   quantity: 2,
-          //   priceBaseCurrencyValue: 500000,
-          //   quantityRemaining: 1,
-          //   priceBaseCurrencyISOCode: "IDR",
-          //   currentBudget: 1000000,
-          // },
-          // {
-          //   product_RefID: 88000000003493,
-          //   productName: "Pengeluaran Lain-Lain",
-          //   quantity: 1,
-          //   priceBaseCurrencyValue: 300000,
-          //   quantityRemaining: 0,
-          //   priceBaseCurrencyISOCode: "IDR",
-          //   currentBudget: 300000,
-          // },
-          // {
-          //   product_RefID: 88000000003494,
-          //   productName: "Biaya Overweight Bagasi",
-          //   quantity: 1,
-          //   priceBaseCurrencyValue: 100000,
-          //   quantityRemaining: 0,
-          //   priceBaseCurrencyISOCode: "IDR",
-          //   currentBudget: 100000,
-          // },
-          // {
-          //   product_RefID: 88000000003495,
-          //   productName: "Souvenir untuk Klien",
-          //   quantity: 4,
-          //   priceBaseCurrencyValue: 250000,
-          //   quantityRemaining: 2,
-          //   priceBaseCurrencyISOCode: "IDR",
-          //   currentBudget: 1000000,
-          // }
-        ];
-
         $(".loading").hide();
         searchBudgetBtn.style.display = 'block';
 
-        $.each(datas, function(key, val2) {
+        $.each(data, function(key, val2) {
+          let productColumn = `
+            <td style="text-align: center;">${val2.product_RefID}</td>
+            <td style="text-align: center;">${val2.productName}</td>
+          `;
+
+          if (!val2.product_RefID) {
+            productColumn = `
+              <td style="padding: 8px;">
+                <div class="input-group">
+                  <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly />
+                  <div class="input-group-append">
+                    <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" data-id="10">
+                      <a id="product_id2${key}" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(${key})">
+                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                      </a>
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name">${val2.productName}</td>
+            `;
+          }
           var html = 
             '<tr>' +
               '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
                 '<input hidden data-budget-id="sys_ID" value="' + val2.sys_ID + '">' +
                 '<input type="checkbox" aria-label="Checkbox for following text input">' +
               '</td>' +
-              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-                val2.product_RefID +
-              '</td>' +
-              '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-                val2.productName +
-              '</td>' +
+              productColumn +
               '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
                 numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) +
               '</td>' +
@@ -580,8 +398,7 @@
                 val2.priceBaseCurrencyISOCode +
               '</td>' +
               '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-                numberFormatPHPCustom(val2.currentBudget, 2) +
-                // numberFormatPHPCustom(50000, 2) +
+                numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) +
               '</td>' +
             '</tr>';
 
@@ -849,85 +666,85 @@
   // ========== TO OTHER ==========
 
   // SUBMIT FORM
-  // $("#FormSubmitBusinessTrip").on("submit", function(e) {
-  //   e.preventDefault();
+  $("#FormSubmitBusinessTrip").on("submit", function(e) {
+    e.preventDefault();
 
-  //   const swalWithBootstrapButtons = Swal.mixin({
-  //     confirmButtonClass: 'btn btn-success',
-  //     cancelButtonClass: 'btn btn-danger',
-  //     buttonsStyling: true,
-  //   });
+    const swalWithBootstrapButtons = Swal.mixin({
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: true,
+    });
 
-  //   swalWithBootstrapButtons.fire({
-  //     title: 'Are you sure?',
-  //     text: "Please confirm to save this data.",
-  //     type: 'question',
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Yes, submit it!',
-  //     cancelButtonText: 'No, cancel!',
-  //     reverseButtons: true
-  //   }).then((result) => {
-  //     if (result.value) {
-  //       var action = $(this).attr("action");
-  //       var method = $(this).attr("method");
-  //       var form_data = new FormData($(this)[0]); 
-  //       var form = $(this);
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "Please confirm to save this data.",
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, submit it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        var action = $(this).attr("action");
+        var method = $(this).attr("method");
+        var form_data = new FormData($(this)[0]); 
+        var form = $(this);
 
-  //       ShowLoading();
+        ShowLoading();
 
-  //       $.ajax({
-  //         url: action,
-  //         dataType: 'json',
-  //         cache: false,
-  //         contentType: false,
-  //         processData: false,
-  //         data: form_data,
-  //         type: method,
-  //         success: function(response) {
-  //           HideLoading();
+        $.ajax({
+          url: action,
+          dataType: 'json',
+          cache: false,
+          contentType: false,
+          processData: false,
+          data: form_data,
+          type: method,
+          success: function(response) {
+            HideLoading();
 
-  //           console.log('response', response);
+            console.log('response', response);
 
-  //           if (response.message == "WorkflowError") {
-  //             $("#submitArf").prop("disabled", false);
+            if (response.message == "WorkflowError") {
+              $("#submitArf").prop("disabled", false);
 
-  //             CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
-  //           } else if (response.message == "MoreThanOne") {
-  //             $('#getWorkFlow').modal('toggle');
+              CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
+            } else if (response.message == "MoreThanOne") {
+              $('#getWorkFlow').modal('toggle');
 
-  //             var t = $('#tableGetWorkFlow').DataTable();
-  //             t.clear();
-  //             $.each(response.data, function(key, val) {
-  //               t.row.add([
-  //                 '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-  //                 '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-  //               ]).draw();
-  //             });
-  //           } else {
-  //             const formatData = {
-  //               workFlowPath_RefID: response.workFlowPath_RefID, 
-  //               nextApprover: response.nextApprover_RefID, 
-  //               approverEntity: response.approverEntity_RefID, 
-  //               documentTypeID: response.documentTypeID,
-  //               storeData: response.storeData
-  //             };
+              var t = $('#tableGetWorkFlow').DataTable();
+              t.clear();
+              $.each(response.data, function(key, val) {
+                t.row.add([
+                  '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                  '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                ]).draw();
+              });
+            } else {
+              const formatData = {
+                workFlowPath_RefID: response.workFlowPath_RefID, 
+                nextApprover: response.nextApprover_RefID, 
+                approverEntity: response.approverEntity_RefID, 
+                documentTypeID: response.documentTypeID,
+                storeData: response.storeData
+              };
 
-  //             SelectWorkFlow(formatData);
-  //           }
-  //         },
-  //         error: function(response) {
-  //           HideLoading();
-  //           // $("#submitArf").prop("disabled", false);
-  //           CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
-  //           console.log('error response', response);
-  //         }
-  //       });
-  //     } else if (result.dismiss === Swal.DismissReason.cancel) {
-  //       HideLoading();
-  //       CancelNotif("Data Cancel Inputed", '/BusinessTripRequest?var=1');
-  //     }
-  //   });
-  // });
+              SelectWorkFlow(formatData);
+            }
+          },
+          error: function(response) {
+            HideLoading();
+            // $("#submitArf").prop("disabled", false);
+            CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
+            console.log('error response', response);
+          }
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        HideLoading();
+        CancelNotif("Data Cancel Inputed", '/BusinessTripRequest?var=1');
+      }
+    });
+  });
 
   $(document).on('input', '.number-without-negative', function() {
     allowNumbersWithoutNegative(this);

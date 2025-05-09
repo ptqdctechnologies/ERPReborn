@@ -41,71 +41,108 @@ class DeliveryOrderController extends Controller
     public function store(Request $request)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            // $deliveryOrderData = $request->all();
-            // $deliveryOrderDetail = json_decode($deliveryOrderData['storeData']['deliveryOrderDetail'], true);
-            // $fileID = $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
+            $varAPIWebToken                     = Session::get('SessionLogin');
+            $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
+            $deliveryOrderData                  = $request->all();
+            $deliveryOrderDetail                = json_decode($deliveryOrderData['storeData']['deliveryOrderDetail'], true);
+            $fileID                             = $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
 
-            // $transformedDetails = [];
-            // foreach ($deliveryOrderDetail as $entity) {
-            //     $transformedDetails[] = [
-            //         "entities" => [
-            //             "referenceDocument_RefID"   => null,
-            //             "quantity"                  => (float) str_replace(',', '', $entity['quantity']),
-            //             "quantityUnit_RefID"        => (int) $entity['quantityUnit_RefID'],
-            //             "remarks"                   => $entity['remarks'],
-            //             "underlyingDetail_RefID"    => (int) $entity['underlyingDetail_RefID'],
-            //             "product_RefID"             => null
-            //         ]
-            //     ];
-            // }
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.create.supplyChain.setDeliveryOrder',
+                'latest',
+                [
+                    'entities' => [
+                        "documentDateTimeTZ"                => $deliveryOrderData['storeData']['var_date'],
+                        "log_FileUpload_Pointer_RefID"      => $fileID,
+                        "requesterWorkerJobsPosition_RefID" => $SessionWorkerCareerInternal_RefID,
+                        "transporter_RefID"                 => 164000000000559, // (int) $deliveryOrderData['storeData']['transporter_id'],
+                        "deliveryDateTimeTZ"                => null,
+                        "deliveryFrom_RefID"                => null,
+                        "deliveryFrom_NonRefID"             => $deliveryOrderData['storeData']['delivery_from'],
+                        "deliveryTo_RefID"                  => null,
+                        "deliveryTo_NonRefID"               => $deliveryOrderData['storeData']['delivery_to'],
+                        "remarks"                           => $deliveryOrderData['storeData']['var_remark'],
+                        "additionalData"                    => [
+                            "itemList"                      => [
+                                "items"                     => $deliveryOrderDetail
+                            ]
+                        ]
+                    ]
+                ]
+            );
 
-            // $varData = Helper_APICall::setCallAPIGateway(
-            //     Helper_Environment::getUserSessionID_System(),
-            //     $varAPIWebToken,
-            //     'transaction.create.supplyChain.setDeliveryOrder',
-            //     'latest',
-            //     [
-            //         'entities' => [
-            //             "documentDateTimeTZ"                => $deliveryOrderData['storeData']['var_date'],
-            //             "log_FileUpload_Pointer_RefID"      => $fileID,
-            //             "requesterWorkerJobsPosition_RefID" => null,
-            //             "remarks"                           => $deliveryOrderData['storeData']['var_remark'],
-            //             "transporter_RefID"                 => (int) $deliveryOrderData['storeData']['transporter_id'],
-            //             "deliveryFrom_RefID"                => null,
-            //             "deliveryFromManualAddress"         => $deliveryOrderData['storeData']['delivery_from'],
-            //             "deliveryTo_RefID"                  => null,
-            //             "deliveryToManualAddress"           => $deliveryOrderData['storeData']['delivery_to'],
-            //             "additionalData"                    => [
-            //                 "itemList"                      => [
-            //                     "items"                     => $transformedDetails
-            //                 ]
-            //             ]
-            //         ]
-            //     ]
-            // );
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($varData);
+            }
 
-            // if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-            //     return response()->json($varData);
-            // }
-
-            // return $this->SubmitWorkflow(
-            //     $varData['data']['businessDocument']['businessDocument_RefID'],
-            //     $request->workFlowPath_RefID,
-            //     $request->comment,
-            //     $request->approverEntity,
-            //     $request->nextApprover,
-            //     $varData['data']['businessDocument']['documentNumber']
-            // );
-
-            $compact = [
-                "documentNumber"    => "DO/QDC/2025/000047",
-                "status"            => 200,
-            ];
-
-            return response()->json($compact);
+            return $this->SubmitWorkflow(
+                $varData['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+                $request->nextApprover,
+                $varData['data']['businessDocument']['documentNumber']
+            );
         } catch (\Throwable $th) {
             Log::error("Error at store: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function updates(Request $request)
+    {
+        try {
+            $varAPIWebToken                     = Session::get('SessionLogin');
+            $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
+            $revisionDeliveryOrderData          = $request->all();
+            Log::error("revisionDeliveryOrderData: ", [$revisionDeliveryOrderData]);
+            $deliveryOrderDetail                = json_decode($revisionDeliveryOrderData['storeData']['deliveryOrderDetail'], true);
+            $fileID                             = $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.update.supplyChain.setDeliveryOrder',
+                'latest',
+                [
+                'recordID' => (int) $revisionDeliveryOrderData['storeData']['do_id'],
+                'entities' => [
+                    "documentDateTimeTZ"                => date('Y-m-d'),
+                    "log_FileUpload_Pointer_RefID"      => $fileID,
+                    "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
+                    "transporter_RefID"                 => (int) $revisionDeliveryOrderData['storeData']['transporter_id'],
+                    "deliveryDateTimeTZ"                => null,
+                    "deliveryFrom_RefID"                => null,
+                    "deliveryFrom_NonRefID"             => $revisionDeliveryOrderData['storeData']['delivery_from'],
+                    "deliveryTo_RefID"                  => null,
+                    "deliveryTo_NonRefID"               => $revisionDeliveryOrderData['storeData']['delivery_to'],
+                    "remarks"                           => $revisionDeliveryOrderData['storeData']['var_remark'],
+                    "additionalData"    => [
+                        "itemList"      => [
+                            "items"     => $deliveryOrderDetail
+                            ]
+                        ]
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($varData);
+            }
+
+            Log::error("varData: ", [$varData]);
+
+            return $this->ResubmitWorkflow(
+                $varData['data'][0]['businessDocument']['businessDocument_RefID'],
+                $revisionDeliveryOrderData['comment'],
+                $revisionDeliveryOrderData['approverEntity'],
+                $revisionDeliveryOrderData['nextApprover'],
+                $varData['data'][0]['businessDocument']['documentNumber']
+            );
+        } catch (\Throwable $th) {
+            Log::error("Error at update: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -589,13 +626,13 @@ class DeliveryOrderController extends Controller
             $compact = [
                 'varAPIWebToken'            => $varAPIWebToken,
                 'header'                    => [
-                    'combinedBudget_RefID'  => $data[0]['combinedBudget_RefID'] ?? '',
+                    'combinedBudget_RefID'  => $data[0]['combinedBudget_RefID'] ?? '46000000000033',
                     'doNumber'              => $data[0]['documentNumber'] ?? '',
                     'doID'                  => $data[0]['deliveryOrder_RefID'] ?? '',
                     'doDetailID'            => $data[0]['deliveryOrderDetail_ID'] ?? '',
-                    'deliveryFrom'          => $data[0]['deliveryFrom_NonRefID']['address'] ?? '',
+                    'deliveryFrom'          => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
                     'deliveryFromID'        => $data[0]['deliveryFrom_RefID'] ?? '',
-                    'deliveryTo'            => $data[0]['deliveryTo_NonRefID']['address'] ?? '',
+                    'deliveryTo'            => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
                     'deliveryToID'          => $data[0]['deliveryTo_RefID'] ?? '',
                     'transporterID'         => $data[0]['transporter_RefID'] ?? '',
                     'transporterCode'       => '',
@@ -611,17 +648,13 @@ class DeliveryOrderController extends Controller
                 'data'                      => $data
             ];
 
+            // dump($compact);
+
             return view('Inventory.DeliveryOrder.Transactions.RevisionDeliveryOrder', $compact);
         } catch (\Throwable $th) {
             Log::error("RevisionDeliveryOrderIndex Function Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
-    }
-
-    public function update(Request $request, $id)
-    {
-        $input = $request->all();
-        dd($input);
     }
 
     public function DeliveryOrderListCartRevision(Request $request)

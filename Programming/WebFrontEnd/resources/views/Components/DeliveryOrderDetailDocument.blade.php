@@ -17,7 +17,7 @@
                 Delivery From
             </div>
             <div class="col">
-                : <?= isset($dataHeader[0]['deliveryFromManualAddress']) ? $dataHeader[0]['deliveryFromManualAddress'] : '-'; ?>
+                : <?= isset($dataHeader[0]['deliveryFrom_NonRefID']['Address']) ? $dataHeader[0]['deliveryFrom_NonRefID']['Address'] : '-'; ?>
             </div>
         </div>
         
@@ -27,7 +27,7 @@
                 Delivery To
             </div>
             <div class="col">
-                : <?= isset($dataHeader[0]['deliveryToManualAddress']) ? $dataHeader[0]['deliveryToManualAddress'] : '-'; ?>
+                : <?= isset($dataHeader[0]['deliveryTo_NonRefID']['Address']) ? $dataHeader[0]['deliveryTo_NonRefID']['Address'] : '-'; ?>
             </div>
         </div>
         
