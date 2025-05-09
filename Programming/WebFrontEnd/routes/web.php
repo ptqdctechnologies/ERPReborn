@@ -199,6 +199,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getPrivilageMenu', 'Function\FunctionController@getPrivilageMenu')->name('getPrivilageMenu');
     Route::get('getCurrency', 'Function\FunctionController@getCurrency')->name('getCurrency');
     Route::get('getDepartement', 'Function\FunctionController@getDepartement')->name('getDepartement');
+    Route::get('getBusinessTripList', 'Function\FunctionController@getBusinessTripList')->name('getBusinessTripList');
     Route::get('getRole', 'Function\FunctionController@getRole')->name('getRole');
     Route::get('getMenuGroup', 'Function\FunctionController@getMenuGroup')->name('getMenuGroup');
     Route::get('getSubMenu', 'Function\FunctionController@getSubMenu')->name('getSubMenu');

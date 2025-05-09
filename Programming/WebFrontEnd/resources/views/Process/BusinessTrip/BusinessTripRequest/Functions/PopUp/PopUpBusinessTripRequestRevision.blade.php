@@ -90,37 +90,27 @@
 </div>
 
 <script>
-    $('#TableSearchBusinessTripRevision tbody').on('click', 'tr', function() {
-        $('#searchBrfNumberRevisions').css("border", "1px solid #ced4da");
-        $('#searchBrfNumberRevisionsIcon').css("border", "1px solid #ced4da");
+    function getDOList() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-        $("#PopUpTableBusinessTripRevision").modal('toggle');
+        var keys = 0;
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getBusinessTripList") !!}',
+            success: function(data) {
+                console.log('data', data);
+            },
+            error: function (textStatus, errorThrown) {
+                
+            }
+        });
+    }
 
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var sys_id = $('#sys_id_brf_revision' + id).val();
-        var code = row.find("td:nth-child(2)").text();
-
-        $("#searchBrfNumberRevisionId").val(sys_id);
-        $("#searchBrfNumberRevisions").val(code);
-    });
-
-    $('.btn-edit').on('click', function() {
-        var searchBrfNumberRevisionId = $('#searchBrfNumberRevisionId').val();
-
-        // if (searchBrfNumberRevisionId) {
-            ShowLoading();
-
-            $('#editForm').submit();
-        // } else {
-        //     $('#searchBrfNumberRevisions').focus();
-        //     $('#searchBrfNumberRevisions').css("border", "1px solid red");
-        //     $('#searchBrfNumberRevisionsIcon').css("border", "1px solid red");
-        // }
-    });
-
-    $('.btn-cancel').on('click', function() {
-        $('#searchBrfNumberRevisionId').val("");
-        $('#searchBrfNumberRevisions').val("");
+    $(window).one('load', function(e) {
+        getDOList();
     });
 </script>
