@@ -62,7 +62,7 @@
                             '<td>' + val.CombinedBudgetSectionName + '</td></tr></tbody>'
                         ]).draw();
                     });
-                };
+                }
             });
         });
     });
