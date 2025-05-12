@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">NO</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRODUCT ID</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRODUCT CODE</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRODUCT NAME</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">QTY</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UOM</th>
@@ -14,16 +14,16 @@
 
         <tbody>
             <?php $no = 1; $grand_total = 0; ?>
-            <?php foreach ($dataHeader as $dataDetail) { ?>
-                <?php $grand_total += $dataDetail['PriceBaseCurrencyValue'] ?? $dataDetail['priceBaseCurrencyValue'];  ?>
+            <?php foreach ($dataDetails as $dataDetail) { ?>
+                <?php $grand_total += $dataDetail['priceBaseCurrencyValue'];  ?>
                 <tr>
                     <td style="border:1px solid #4B586A;color:#4B586A;"><?= $no++; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['Product_RefID'] ?? $dataDetail['product_RefID']; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['ProductName'] ?? $dataDetail['productName']; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['Quantity'] ?? $dataDetail['quantity'], 2); ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['QuantityUnitName'] ?? $dataDetail['quantityUnitName']; ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['ProductUnitPriceBaseCurrencyValue'] ?? $dataDetail['productUnitPriceBaseCurrencyValue'], 2); ?></td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['PriceBaseCurrencyValue'] ?? $dataDetail['priceBaseCurrencyValue'], 2); ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productName']; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['quantity'], 2); ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['quantityUnitName']; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['productUnitPriceBaseCurrencyValue'], 2); ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['priceBaseCurrencyValue'], 2); ?></td>
                 </tr>
             <?php } ?>
         </tbody>

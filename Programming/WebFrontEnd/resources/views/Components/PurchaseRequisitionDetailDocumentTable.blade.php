@@ -16,7 +16,7 @@
 
         <tbody>
             <?php $no = 1; $grand_total = 0; ?>
-            <?php foreach ($dataHeader as $dataDetail) { ?>
+            <?php foreach ($dataDetails as $dataDetail) { ?>
             <?php $grand_total += $dataDetail['quantity'] * $dataDetail['productUnitPriceCurrencyValue'];  ?>
                 <tr>
                     <td style="border:1px solid #4B586A;color:#4B586A;"><?= $no++; ?></td>

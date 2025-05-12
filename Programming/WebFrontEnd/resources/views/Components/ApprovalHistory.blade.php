@@ -7,7 +7,7 @@
                     <span style="text-transform:uppercase;font-weight:bold;">
                         <?= $dataWorkFlow['workFlowPathActionName'] == "Rejection To Resubmit" ? "Reject" : $dataWorkFlow['workFlowPathActionName']; ?>
                     </span>
-                    <?= date('D, m/d/Y H:m:s', strtotime($dataWorkFlow['approvalDateTimeTZ'])) ?> : <?= $dataWorkFlow['approverEntityName']; ?> (<?= $dataWorkFlow['approverEntityFullJobPositionTitle']; ?>)
+                    <?= date('D, m/d/Y H:i:s', strtotime($dataWorkFlow['approvalDateTimeTZ'])) ?> : <?= $dataWorkFlow['approverEntityName']; ?> (<?= $dataWorkFlow['approverEntityFullJobPositionTitle']; ?>)
                 </div>
                 <div>
                     Comment : <?= nl2br(e($comment)); ?>
