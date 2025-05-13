@@ -16,6 +16,11 @@ class DocumentTypeMapper
                 'key' => 'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
                 'parameter' => ['deliveryOrder_RefID' => (int) $referenceId],
             ],
+            'Person Business Trip Form' => [
+                'key' => '',
+                'parameter' => [],
+                'businessDocument_RefID' => (int) 74000000021494,
+            ],
             'Purchase Order Form' => [
                 'key' => 'transaction.read.dataList.supplyChain.getPurchaseOrderDetail',
                 'parameter' => ['purchaseOrder_RefID' => (int) $referenceId],
@@ -92,6 +97,22 @@ class DocumentTypeMapper
                 ],
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
             ],
+            'Person Business Trip Form' => [
+                'dataHeader'            => [
+                ],
+                'remarks'       => '-',
+                'components'    => [
+                    'detail'    => 'Components.BusinessTripRequestDetailDocument',
+                    'table'     => 'Components.BusinessTripRequestDetailDocumentTable',
+                ],
+                'resubmit'      => [
+                    'url'       => 'BusinessTripRequest.RevisionBusinessTripRequestIndex',
+                    'name'      => '',
+                    'value'     => ''
+                ],
+                'businessDocument_RefID' => '',
+                'css' => 'p-0'
+            ],
             'Purchase Order Form'       => [
                 'dataHeader'            => [
                     'poNumber'          => $dataDetail['documentNumber'] ?? '-',
@@ -140,7 +161,7 @@ class DocumentTypeMapper
                     'value'     => $dataDetail['purchaseRequisition_RefID'] ?? ''
                 ],
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
-            ]
+            ],
         ];
 
         return $mapping[$documentType] ?? null;

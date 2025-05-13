@@ -51,22 +51,36 @@ class CheckDocumentController extends Controller
                 return redirect()->back()->with('NotFound', 'Unsupported document type.');
             }
 
-            $responseData = Helper_APICall::setCallAPIGateway(
-                $sessionID,
-                $varAPIWebToken,
-                $apiConfig['key'],
-                'latest',
-                [
-                    'parameter' => $apiConfig['parameter'],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
+            if ($documentType === 'Person Business Trip Form') {
+                // JUST FOR TRIGGER, WHEN API KEY NOT READY
+                $responseData = [
+                    'metadata' => [
+                        'HTTPStatusCode' => 200
+                    ],
+                    'data' => [
+                        [
+                            'dummy' => 'Hello World'
+                        ],
+                    ],
+                ];
+            } else {
+                $responseData = Helper_APICall::setCallAPIGateway(
+                    $sessionID,
+                    $varAPIWebToken,
+                    $apiConfig['key'],
+                    'latest',
+                    [
+                        'parameter' => $apiConfig['parameter'],
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                        ]
+                    ],
+                    false
+                );
+            }
 
             if ($responseData['metadata']['HTTPStatusCode'] !== 200) {
                 return redirect()->back()->with('NotFound', value: 'API Error.');
@@ -79,6 +93,8 @@ class CheckDocumentController extends Controller
                 'dataDetail'            => $dataDetail,
                 'businessDocumentRefID' => $businessDocumentRefID,
             ];
+
+            // dd($compact);
 
             return $compact;
         } catch (\Throwable $th) {
@@ -211,6 +227,12 @@ class CheckDocumentController extends Controller
             $businessDocument_RefID     = $request->input('businessDocument_RefID');
             $sourceData                 = "NO";
 
+            // dd([
+            //     'transDetail_RefID' => $transDetail_RefID,
+            //     'businessDocumentTypeName'=> $businessDocumentTypeName,
+            //     'businessDocument_RefID' => $businessDocument_RefID,
+            // ]);
+
             if (!$transDetail_RefID || !$businessDocumentTypeName || !$businessDocument_RefID) {
                 return redirect()->back()->with('error', 'Data Not Found');
             }
@@ -225,6 +247,8 @@ class CheckDocumentController extends Controller
             }
 
             $workflowHistory    = $this->getWorkflowHistory($collection['businessDocumentRefID']);
+
+            // dd($workflowHistory);
 
             if (count($workflowHistory) === 0) {
                 return redirect()->back()->with('error', 'Data Not Found');
@@ -244,6 +268,8 @@ class CheckDocumentController extends Controller
                 'statusApprover'    => $approverStatus,
                 'documentStatus'    => $documentStatus,
             ] + $formatData;
+
+            // dump($compact);
 
             return view('Documents.Transactions.IndexCheckDetailDocument',$compact);
         } catch (\Throwable $th) {
