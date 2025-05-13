@@ -86,7 +86,7 @@
                 </a>
 
                 <!-- REJECT -->
-                <a onclick="RejectButton({{ $businessDocument_RefID }}, {{ $dataWorkflow[0]['approverEntity_RefID'] }})" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                <a onclick="RejectButton({{ $businessDocument_RefID }}, {{ $dataWorkFlows[0]['approverEntity_RefID'] }})" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Reject"> Reject
                 </a>
               <?php } ?>
