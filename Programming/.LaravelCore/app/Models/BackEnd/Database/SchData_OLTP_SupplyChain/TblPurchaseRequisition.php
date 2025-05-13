@@ -68,7 +68,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
@@ -78,9 +78,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
             array $varAdditionalData = []
             )
             {
-            $varReturn = 
+            $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
@@ -105,7 +105,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varRemarks, 'varchar'],
 
                             [
-                                ((count($varAdditionalData) === 0) 
+                                ((count($varAdditionalData) === 0)
                                     ? null
                                     : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                         $varUserSession,
@@ -128,7 +128,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-24                                                                                           |
+        | ▪ Last Update     : 2025-05-13                                                                                           |
         | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -145,24 +145,28 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
         |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
+        |      ▪ (string) varDeliveryDateTimeTZ ► Delivery Date Time with Timezone                                                 |
+        |      ▪ (int)    varDeliveryTo_RefID ► Delivery To Reference ID                                                           |
+        |      ▪ (string) varDeliveryTo_NonRefID ► Delivery To Non Reference ID                                                    |
+        |      ▪ (string) varFulfillmentDeadlineDateTimeTZ ► Fulfillment Deadline Date with Timezone                               |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varRemarks = null, 
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varDeliveryDateTimeTZ = null, int $varDeliveryTo_RefID = null, string $varDeliveryTo_NonRefID = null, string $varFulfillmentDeadlineDateTimeTZ = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
-            $varReturn = 
+            $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
@@ -180,10 +184,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                             [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
+                            [$varDeliveryDateTimeTZ, 'timestamptz'],
+                            [$varDeliveryTo_RefID, 'bigint'],
+                            [$varDeliveryTo_NonRefID, 'varchar'],
+                            [$varFulfillmentDeadlineDateTimeTZ, 'timestamptz'],
                             [$varRemarks, 'varchar'],
 
                             [
-                                ((count($varAdditionalData) === 0) 
+                                ((count($varAdditionalData) === 0)
                                     ? null
                                     : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                         $varUserSession,
