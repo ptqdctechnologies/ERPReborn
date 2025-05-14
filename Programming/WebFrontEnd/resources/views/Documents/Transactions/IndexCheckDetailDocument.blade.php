@@ -12,26 +12,15 @@
           <label style="font-size:15px;position:relative;top:7px;color:white;">Check Document on Process</label>
         </div>
       </div>
-      
+
       <!-- CONTENT -->
       <div class="card">
         <div class="tab-content p-3" id="nav-tabContent">
           <div class="row">
-            <form 
-              method="post" 
-              action="{{ $title == 'ADVANCE FORM' ? route('AdvanceRequest.RevisionAdvanceIndex') : route('DeliveryOrder.RevisionDeliveryOrderIndex') }}" 
-              id="FormSubmitRevision">
+            <form method="post" action="{{ route($resubmit['url']) }}" id="FormSubmitRevision">
               @csrf
 
-              <?php if ($title === "ADVANCE FORM") { ?>
-                <input type="hidden" id="refID" name="advance_RefID" value="76000000000539" class="form-control" style="border-radius:0;">
-              <?php } else if ($title === "DELIVERY ORDER FORM") { ?>
-                <input type="hidden" id="refID" name="do_RefID" value="{{ $dataHeader[0]['deliveryOrder_RefID'] }}" class="form-control" style="border-radius:0;">
-              <?php } else if ($title === "PURCHASE ORDER FORM") { ?>
-                <input type="hidden" id="refID" name="purchaseOrder_RefID" value="{{ $dataHeader[0]['purchaseOrder_RefID'] }}" class="form-control" style="border-radius:0;">
-              <?php } else if ($title === "PURCHASE REQUISITION FORM") { ?>
-                <input type="hidden" id="refID" name="modal_purchase_requisition_id" value="{{ $dataHeader[0]['purchaseRequisition_RefID'] }}" class="form-control" style="border-radius:0;">
-              <?php } ?>
+              <input type="hidden" id="refID" name="{{ $resubmit['name'] }}" value="{{ $resubmit['value'] }}" class="form-control" style="border-radius:0;">
             </form>
 
             <!-- HEADER -->
@@ -39,52 +28,42 @@
               <div class="card">
                 <!-- TITLE -->
                 <div class="card-header">
-                  <h3 class="text-bold text-center">
-                    <?= $title; ?>
+                  <h3 class="text-bold text-center text-uppercase">
+                    <?= $transactionType; ?>
                   </h3>
                 </div>
 
                 <!-- CONTENT -->
                 <div class="card-body">
                   <div class="row" style="margin: .6rem 0rem; gap: 1rem;">
-                    <?php if ($title === "ADVANCE FORM") { ?>
-                      @include('Components.AdvanceDetailDocument')
-                    <?php } else if ($title ===  "DELIVERY ORDER FORM") { ?>
-                      @include('Components.DeliveryOrderDetailDocument')
-                    <?php } else if ($title ===  "PURCHASE ORDER FORM") { ?>
-                      @include('Components.PurchaseOrderDetailDocument')
-                    <?php } else if ($title ===  "PURCHASE REQUISITION FORM") { ?>
-                      @include('Components.PurchaseRequisitionDetailDocument')
-                    <?php } ?>
+                    @include($components['detail'])
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- DETAIL -->
+            <!-- TABLE -->
             <div class="col-12">
               <div class="card">
-                <div class="card-body p-0">
-                  <?php if ($title === "ADVANCE FORM") { ?>
-                    @include('Components.AdvanceDetailDocumentTable')
-                  <?php } else if ($title === "DELIVERY ORDER FORM") { ?>
-                    @include('Components.DeliveryOrderDetailDocumentTable')
-                  <?php } else if ($title === "PURCHASE ORDER FORM") { ?>
-                    @include('Components.PurchaseOrderDetailDocumentTable')
-                  <?php } else if ($title === "PURCHASE REQUISITION FORM") { ?>
-                    @include('Components.PurchaseRequisitionDetailDocumentTable')
-                  <?php } ?>
-                </div>
+                  @include($components['table'])
               </div>
             </div>
 
-            <!-- REMARK -->
+            <?php if (isset($components['additional'])) { ?>
+              <div class="col-12">
+                <div class="card">
+                  @include($components['additional'])
+                </div>
+              </div>
+            <?php } ?>
+
+            <!-- TEXT AREA FIELD (Remarks, Reason To Travel) -->
             <div class="col-12">
               <div class="card">
                 <!-- TITLE -->
                 <div class="card-header">
                   <label class="card-title">
-                    Remark
+                    <?= $textAreaFields['title']; ?>
                   </label>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -97,7 +76,7 @@
                 <div class="card-body">
                   <div class="row" style="margin: .6rem 0rem;">
                     <div class="col">
-                      @include('Components.Remark')
+                      <?= nl2br(e($textAreaFields['text'])); ?>
                     </div>
                   </div>
                 </div>
@@ -113,7 +92,7 @@
                 </a>
 
                 <!-- REJECT -->
-                <a onclick="RejectButton({{ $businessDocument_RefID }}, {{ $submitter_ID }})" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                <a onclick="RejectButton({{ $businessDocument_RefID }}, {{ $dataWorkFlows[0]['approverEntity_RefID'] }})" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Reject"> Reject
                 </a>
               <?php } ?>

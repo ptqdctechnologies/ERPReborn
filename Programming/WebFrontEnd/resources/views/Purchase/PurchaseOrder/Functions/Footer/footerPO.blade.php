@@ -15,7 +15,7 @@
     const termOfPaymentOption       = document.getElementById('termOfPaymentOption');
     const tablePurchaseOrderLists   = document.querySelector("#tablePurchaseOrderList tbody");
     const submitPurchaseOrder       = document.getElementById("submitPurchaseOrder");
-    
+
     downPaymentValue.addEventListener('input', function () {
         let value = parseInt(this.value);
         if (value > 100) this.value = 100;
@@ -407,6 +407,8 @@
 
         if (checkDoubleMsrID) {
             Swal.fire("Error", "MSR number has been selected !", "error");
+            $('#modal_purchase_requisition_document_number').val("");
+            $('#modal_purchase_requisition_id').val("");
         } else {
             msrIDList.push(sysId);
             getDetailPurchaseRequisition(trano, sysId);

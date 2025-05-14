@@ -1,4 +1,6 @@
 <script>
+    var indexMaterialReceiveDetail  = 0;
+    var dataStore                   = [];
     const deliveryOrderCode         = document.getElementById("delivery_order_code");
     const addressDeliveryOrderFrom  = document.getElementById("address_delivery_order_from");
     const addressDeliveryOrderTo    = document.getElementById("address_delivery_order_to");
@@ -35,8 +37,6 @@
             type: 'GET',
             url: '{!! route("getDeliveryOrderDetail") !!}?delivery_order_id=' + delivery_order_id,
             success: function(data) {
-                console.log('data', data);
-                
                 $(".loadingMaterialReceiveDetail").hide();
 
                 let tbody = $('#tableMaterialReceiveDetail tbody');
@@ -49,28 +49,30 @@
                         </td>
                     `;
 
+                    // console.log('data', data);
+                    
                     $.each(data, function(key, val2) {
                         let row = `
                             <tr>
-                                <input id="trano${key}" value="${delivery_order_number}" type="hidden" />
-                                <input id="delivery_order_detail_id${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
-                                <input id="product_code${key}" value="-" type="hidden" />
-                                <input id="product_name${key}" value="-" type="hidden" />
-                                <input id="qty_do${key}" value="${val2.qtyReq}" type="hidden" />
-                                <input id="qty_available${key}" value="-" type="hidden" />
-                                <input id="uom${key}" value="-" type="hidden" />
+                                <input id="trano${indexMaterialReceiveDetail}" value="${delivery_order_number}" type="hidden" />
+                                <input id="delivery_order_detail_id${indexMaterialReceiveDetail}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
+                                <input id="product_code${indexMaterialReceiveDetail}" value="${val2.productCode}" type="hidden" />
+                                <input id="product_name${indexMaterialReceiveDetail}" value="${val2.productName}" type="hidden" />
+                                <input id="qty_do${indexMaterialReceiveDetail}" value="${val2.qtyReq}" type="hidden" />
+                                <input id="qty_available${indexMaterialReceiveDetail}" value="${val2.qtyReq}" type="hidden" />
+                                <input id="uom${indexMaterialReceiveDetail}" value="${val2.quantityUnitName}" type="hidden" />
 
-                                ${key === 0 ? modifyColumn : ''}
-                                <td style="text-align: center;">-</td>
-                                <td style="text-align: center;">-</td>
+                                ${key === 0 ? modifyColumn : `<td style="text-align: center; display: none;">${delivery_order_number}</td>`}
+                                <td style="text-align: center;">${val2.productCode}</td>
+                                <td style="text-align: center;text-wrap: auto;">${val2.productName}</td>
                                 <td style="text-align: center;">${val2.qtyReq}</td>
-                                <td style="text-align: center;">-</td>
-                                <td style="text-align: center;">-</td>
+                                <td style="text-align: center;">${val2.qtyReq}</td>
+                                <td style="text-align: center;">${val2.quantityUnitName}</td>
                                 <td style="text-align: center; width: 100px;">
-                                    <input class="form-control number-without-negative" id="qty_req${key}" data-default="" autocomplete="off" style="border-radius:0px;" />
+                                    <input class="form-control number-without-negative" id="qty_req${indexMaterialReceiveDetail}" data-index=${indexMaterialReceiveDetail} data-default="" autocomplete="off" style="border-radius:0px;" />
                                 </td>
                                 <td style="text-align: center; width: 150px; padding: 0.5rem !important;">
-                                    <textarea id="note${key}" class="form-control" data-default=""></textarea>
+                                    <textarea id="note${indexMaterialReceiveDetail}" class="form-control" data-default=""></textarea>
                                 </td>
                             </tr>
                         `;
@@ -78,8 +80,19 @@
                         tbody.append(row);
 
                         $(`#qty_req${key}`).on('keyup', function() {
-                            calculateTotal();
+                            var qty_req     = $(this).val().replace(/,/g, '');
+                            var data_index  = $(this).data('index');
+                            var result      = val2.qtyReq - qty_req;
+
+                            if (parseFloat(qty_req) > val2.qtyReq) {
+                                $(this).val("");
+                                ErrorNotif("Qty Request is over Qty Avail !");
+                            } else {
+                                calculateTotal();
+                            }
                         });
+
+                        indexMaterialReceiveDetail += 1;
                     });
 
                     $("#tableMaterialReceiveDetail tbody").show();
@@ -166,8 +179,6 @@
             success: function(res) {
                 HideLoading();
 
-                console.log('res', res);
-
                 if (res.status == 200) {
                     const swalWithBootstrapButtonsss = Swal.mixin({
                         confirmButtonClass: 'btn btn-success btn-sm',
@@ -212,80 +223,118 @@
         }
     }
 
+    function updateGrandTotal() {
+        let total = 0;
+        const rows = document.querySelectorAll('#tableMaterialReceiveList tbody tr');
+        rows.forEach(row => {
+            const totalCell = row.children[5];
+            const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
+            total += value;
+        });
+
+        document.getElementById('TotalDeliveryOrder').innerText = "0.00";
+        document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
     const observertableMaterialReceiveList = new MutationObserver(validationForm);
     observertableMaterialReceiveList.observe(tableMaterialReceiveLists, { childList: true });
     deliveryOrderCode.addEventListener('input', validationForm);
     addressDeliveryOrderFrom.addEventListener('input', validationForm);
     addressDeliveryOrderTo.addEventListener('input', validationForm);
 
-    $('#delivery-order-details-add').on('click', function() {
-        let dataStore = [];
-        var totalDeliveryOrder = document.getElementById('TotalDeliveryOrder').textContent;
+    $('#material-receive-details-add').on('click', function() {
+        const sourceTable = document.getElementById('tableMaterialReceiveDetail').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('tableMaterialReceiveList').getElementsByTagName('tbody')[0];
 
-        $("#tableMaterialReceiveDetail tbody tr").each(function(index) {
-            var trano       = $(this).find(`input[id="trano${index}"]`).val();
-            var doDetailID  = $(this).find(`input[id="delivery_order_detail_id${index}"]`).val();
-            var productCode = $(this).find(`input[id="product_code${index}"]`).val();
-            var productName = $(this).find(`input[id="product_name${index}"]`).val();
-            var uom         = $(this).find(`input[id="uom${index}"]`).val();
-            var qtyReq      = $(this).find(`input[id="qty_req${index}"]`).val();
-            var note        = $(this).find(`textarea[id="note${index}"]`).val();
+        const rows = sourceTable.getElementsByTagName('tr');
 
-            if (!qtyReq || !note) {
-                return;
-            }
+        for (let row of rows) {
+            const deliveryOrderDetail_RefID = row.querySelector('input[id^="delivery_order_detail_id"]');
+            const qtyInput                  = row.querySelector('input[id^="qty_req"]');
+            const noteInput                 = row.querySelector('textarea[id^="note"]');
 
-            var rowToUpdate = null;
+            if (
+                qtyInput && noteInput &&
+                qtyInput.value.trim() !== '' &&
+                noteInput.value.trim() !== ''
+            ) {
+                const transNumber   = row.children[0].value.trim();
+                const productCode   = row.children[2].value.trim();
+                const productName   = row.children[3].value.trim();
+                const qtyAvail      = row.children[5].value.trim();
+                const uom           = row.children[6].value.trim();
 
-            $("#tableMaterialReceiveList tbody tr").each(function() {
-                var existingTrano       = $(this).find("td:eq(0)").text();
-                var existingProductCode = $(this).find("td:eq(1)").text();
-                var existingProductName = $(this).find("td:eq(2)").text();
-                var existingUOM         = $(this).find("td:eq(3)").text();
+                const qty   = qtyInput.value.trim();
+                const note  = noteInput.value.trim();
 
-                if (existingTrano === trano) {
-                    if (existingProductCode === productCode && existingProductName === productName && existingUOM === uom) {
-                        rowToUpdate = $(this);
+                let found           = false;
+                const existingRows  = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetTransNumber = targetRow.children[1].innerText.trim();
+                    const targetProductCode = targetRow.children[2].innerText.trim();
+
+                    if (targetTransNumber === transNumber && targetProductCode === productCode) {
+                        targetRow.children[5].innerText = qty;
+                        targetRow.children[6].innerText = note;
+                        found = true;
+
+                        const indexToUpdate = dataStore.findIndex(item => item.entities.transNumber === transNumber && item.entities.productCode === productCode);
+                        if (indexToUpdate !== -1) {
+                            dataStore[indexToUpdate] = {
+                                entities: {
+                                    deliveryOrderDetail_RefID: deliveryOrderDetail_RefID.value,
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    remarks: note,
+                                    transNumber: transNumber,
+                                    productCode: productCode
+                                }
+                            };
+                        }
                     }
                 }
-            });
 
-            if (rowToUpdate) {
-                rowToUpdate.find("td:eq(4)").text(qtyReq);
-                rowToUpdate.find("td:eq(5)").text(note);
+                if (!found) {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
+                        <td style="text-align: center;padding: 0.8rem;">${transNumber}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
+                        <td style="text-align: center;padding: 0.8rem;text-wrap: auto;">${productName}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${qty}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${note}</td>
+                    `;
+                    targetTable.appendChild(newRow);
 
-                dataStore[index] = {
-                    deliveryOrderDetail_RefID: doDetailID,
-                    quantity: qtyReq,
-                    remarks: note,
-                };
-            } else {
-                var newRow = `<tr>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${trano}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${productCode}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${productName}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${uom}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${qtyReq}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${note}</td>
-                </tr>`;
+                    dataStore.push({
+                        entities: {
+                            deliveryOrderDetail_RefID: deliveryOrderDetail_RefID.value,
+                            quantity: parseFloat(qty.replace(/,/g, '')),
+                            remarks: note,
+                            transNumber: transNumber,
+                            productCode: productCode
+                        }
+                    });
+                }
 
-                dataStore.push({
-                    deliveryOrderDetail_RefID: doDetailID,
-                    quantity: qtyReq,
-                    remarks: note,
-                });
-
-                $("#tableMaterialReceiveList").find("tbody").append(newRow);
+                qtyInput.value = '';
+                noteInput.value = '';
             }
-        });
+        }
         
         dataStore = dataStore.filter(item => item !== undefined);
-
         $("#materialReceiveDetail").val(JSON.stringify(dataStore));
-        document.getElementById('GrandTotal').textContent = totalDeliveryOrder;
+
+        updateGrandTotal();
     });
 
-    $('#delivery-order-details-reset').on('click', function() {
+    $('#material-receive-details-reset').on('click', function() {
+        dataStore = [];
+
         $('input[id^="qty_req"]').each(function() {
             $(this).val($(this).data('default'));
         });
@@ -293,10 +342,80 @@
             $(this).val($(this).data('default'));
         });
         $('#tableMaterialReceiveList tbody').empty();
-        $("#materialReceiveDetail").val("");
+        $('#materialReceiveDetail').val("");
 
         document.getElementById('GrandTotal').textContent = "0.00";
         document.getElementById('TotalDeliveryOrder').textContent = "0.00";
+    });
+
+    document.querySelector('#tableMaterialReceiveList tbody').addEventListener('click', function (e) {
+        const row = e.target.closest('tr');
+        if (!row) return;
+
+        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+
+        const qtyAvail = row.children[0];
+        const qtyCell = row.children[5];
+        const noteCell = row.children[6];
+
+        if (row.classList.contains('editing-row')) {
+            const newQty = qtyCell.querySelector('input')?.value || '';
+            const newNote = noteCell.querySelector('textarea')?.value || '';
+
+            qtyCell.innerHTML = newQty;
+            noteCell.innerHTML = newNote;
+
+            const hidden = noteCell.querySelector('input[type="hidden"]');
+            noteCell.innerHTML = `${newNote}`;
+            if (hidden) noteCell.appendChild(hidden);
+
+            row.classList.remove('editing-row');
+
+            const transNumber = row.children[1].innerText.trim();
+            const productCode = row.children[2].innerText.trim();
+            const storeItem   = dataStore.find(item => item.entities.transNumber === transNumber && item.entities.productCode === productCode);
+
+            if (storeItem) {
+                storeItem.entities.quantity = parseFloat(newQty.replace(/,/g, ''));
+                storeItem.entities.remarks = newNote;
+
+                $("#materialReceiveDetail").val(JSON.stringify(dataStore));
+            }
+        } else {
+            const currentQty = qtyCell.innerText.trim();
+
+            const hiddenInput = noteCell.querySelector('input[type="hidden"]');
+            const currentNote = noteCell.childNodes[0]?.nodeValue?.trim() || '';
+
+            qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+            noteCell.innerHTML = `
+                <textarea class="form-control" style="width:100px;">${currentNote}</textarea>
+            `;
+            if (hiddenInput) noteCell.appendChild(hiddenInput);
+
+            row.classList.add('editing-row');
+
+            const qtyInput = qtyCell.querySelector('.qty-input');
+
+            function updateBalance() {
+                var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
+                const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
+                var balance = qtyAvailValue - qty;
+
+                if (qty > qtyAvailValue) {
+                    qty = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                    ErrorNotif("Qty Req is over Qty Avail !");
+                }
+            }
+
+            qtyInput.addEventListener('input', updateBalance);
+
+            document.getElementById('GrandTotal').innerText = qtyInput.value;
+        }
+
+        updateGrandTotal();
     });
 
     $('#tableGetDeliveryOrder').on('click', 'tbody tr', function() {

@@ -33,7 +33,7 @@
                             <?php $statusWorkflow = $dataWorkFlow['workFlowPathActionName'] === "Rejection To Resubmit" ? "Reject" : $dataWorkFlow['workFlowPathActionName']; ?>
                             <tr>
                                 <td style="border:1px solid #4B586A;color:#4B586A;"><?= $no++; ?></td>
-                                <td style="border:1px solid #4B586A;color:#4B586A;"><?= date('D, m/d/Y H:m:s', strtotime($dataWorkFlow['approvalDateTimeTZ'])); ?></td>
+                                <td style="border:1px solid #4B586A;color:#4B586A;"><?= date('D, m/d/Y H:i:s', strtotime($dataWorkFlow['approvalDateTimeTZ'])); ?></td>
                                 <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataWorkFlow['approverEntityName']; ?> (<?= $dataWorkFlow['approverEntityFullJobPositionTitle']; ?>)</td>
                                 <td style="border:1px solid #4B586A;color:#4B586A;"><?= $statusWorkflow; ?></td>
                                 <td style="border:1px solid #4B586A;color:#4B586A;"><?= nl2br(e($dataWorkFlow['remarks'])); ?></td>

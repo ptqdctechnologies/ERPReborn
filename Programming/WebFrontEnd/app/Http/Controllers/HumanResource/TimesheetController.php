@@ -13,8 +13,6 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 
 class TimesheetController extends Controller
 {
@@ -37,7 +35,6 @@ class TimesheetController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-
     public function ReportTimesheetSummaryData($project_id, $site_id, $project_name, $project_code, $site_code) 
     {
         try {
@@ -143,7 +140,6 @@ class TimesheetController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-
     public function ReportTimesheetSummaryStore(Request $request) 
     {
         try {
@@ -200,7 +196,6 @@ class TimesheetController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-
     public function PrintExportReportTimesheetSummary(Request $request) 
     {
         try {
@@ -318,7 +313,7 @@ class TimesheetController extends Controller
                     'colorBackground'       => null,
                     "additionalData"        => [
                         "itemList"          => [
-                            "items"         => $transformedDetails
+                            "items"         => $transformedDetails,
                             ]
                         ]
                     ]
@@ -383,13 +378,11 @@ class TimesheetController extends Controller
             'activity' => $request->activity3,
             'colorText' => $request->textColor3,
             'colorBackground' => $request->backgroundColor3
-
             ]
         ]
         );
         
         return redirect()->route('Timesheet.index')->with('message', 'Timesheet successfully created ...');
-        
     }
     public function updates(Request $request)
     {

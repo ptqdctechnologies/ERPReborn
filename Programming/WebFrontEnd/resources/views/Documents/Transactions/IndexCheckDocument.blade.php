@@ -17,17 +17,10 @@
         </div>
       </div>
 
-      <?php if ($statusHeader == "Yes") { ?>
-        @include('Documents.Functions.Menu.MenuCheckDocument')
-      <?php } ?>
+      @include('Documents.Functions.Menu.MenuCheckDocument')
 
       <?php if ($var == 1) { ?>
-        <?php if ($statusHeader == "No") { ?>
-          <div class="card">
-        <?php } else if ($statusHeader == "Yes") { ?>
-          <div class="card" style="position:relative;bottom:10px;">
-        <?php } ?>
-
+      <div class="card" style="position:relative;bottom:10px;">
         <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
           <!-- BUTTON VIEW DOCUMENT TRANSACTION -->
           <div class="row">
@@ -41,30 +34,20 @@
           <div class="row">
             @include('Documents.Transactions.DocumentWorkflow')
 
-            <!-- DETAIL -->
+            <!-- HEADER -->
             <div class="col-12 ShowDocumentList">
               <div class="card">
                 <!-- TITLE -->
                 <div class="card-header">
                   <h3 class="text-bold text-center text-uppercase">
-                    <?= $businessDocumentType_Name; ?>
+                    <?= $transactionType; ?>
                   </h3>
                 </div>
 
                 <!-- CONTENT -->
                 <div class="card-body">
                   <div class="row" style="margin: .6rem 0rem; gap: 1rem;">
-                    <?php if ($businessDocumentType_Name == "Advance Form") { ?>
-                      @include('Components.AdvanceDetailDocument')
-                    <?php } else if ($businessDocumentType_Name == "Delivery Order Form") { ?>
-                      @include('Components.DeliveryOrderDetailDocument')
-                    <?php } else if ($businessDocumentType_Name == "Purchase Order Form") { ?>
-                      @include('Components.PurchaseOrderDetailDocument')
-                    <?php } else if ($businessDocumentType_Name == "Purchase Requisition Form") { ?>
-                      @include('Components.PurchaseRequisitionDetailDocument')
-                    <?php } else if ($businessDocumentType_Name == "Warehouse Inbound Order Form") { ?>
-                      @include('Components.MaterialReceiveDetailDocument')
-                    <?php } ?>
+                    @include($components['detail'])
                   </div>
                 </div>
               </div>
@@ -74,26 +57,26 @@
             <div class="col-12 ShowDocumentList">
               <div class="card">
                 <div class="card-body p-0">
-                  <?php if ($businessDocumentType_Name == "Advance Form") { ?>
-                    @include('Components.AdvanceDetailDocumentTable')
-                  <?php } else if ($businessDocumentType_Name == "Delivery Order Form") { ?>
-                    @include('Components.DeliveryOrderDetailDocumentTable')
-                  <?php } else if ($businessDocumentType_Name == "Purchase Order Form") { ?>
-                    @include('Components.PurchaseOrderDetailDocumentTable')
-                  <?php } else if ($businessDocumentType_Name == "Purchase Requisition Form") { ?>
-                    @include('Components.PurchaseRequisitionDetailDocumentTable')
-                  <?php } ?>
+                  @include($components['table'])
                 </div>
               </div>
             </div>
 
-            <!-- REMARK -->
+            <?php if (isset($components['additional'])) { ?>
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  @include($components['additional'])
+                </div>
+              </div>
+            <?php } ?>
+
+            <!-- TEXT AREA FIELD (Remarks, Reason To Travel) -->
             <div class="col-12 ShowDocumentList">
               <div class="card">
                 <!-- TITLE -->
                 <div class="card-header">
                   <label class="card-title">
-                    Remark
+                    <?= $textAreaFields['title']; ?>
                   </label>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -101,12 +84,12 @@
                     </button>
                   </div>
                 </div>
-
+                
                 <!-- CONTENT -->
                 <div class="card-body">
                   <div class="row" style="margin: .6rem 0rem;">
                     <div class="col">
-                      @include('Components.Remark')
+                      <?= nl2br(e($textAreaFields['text'])); ?>
                     </div>
                   </div>
                 </div>
@@ -138,6 +121,7 @@
             </div>
           </div>
         </div>
+      </div>
       <?php } ?>
     </div>
   </section>

@@ -263,6 +263,24 @@
         });
     }
 
+    function referenceType(source) {
+        if (source.value == "PURCHASE_ORDER") {
+            $(".purchase-order-components").css("display", "flex");
+            $(".internal-use-components").css("display", "none");
+            $(".stock-movement-components").css("display", "none");
+
+            getReferenceNumber(source);
+        } else if (source.value == "INTERNAL_USE") {
+            $(".purchase-order-components").css("display", "none");
+            $(".internal-use-components").css("display", "flex");
+            $(".stock-movement-components").css("display", "none");
+        } else {
+            $(".purchase-order-components").css("display", "none");
+            $(".internal-use-components").css("display", "none");
+            $(".stock-movement-components").css("display", "flex");
+        }
+    }
+
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);
     });
