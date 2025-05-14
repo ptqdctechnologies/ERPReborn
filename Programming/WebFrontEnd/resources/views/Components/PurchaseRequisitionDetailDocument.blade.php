@@ -7,7 +7,7 @@
                 PR Number
             </div>
             <div class="col">
-                : <?= isset($dataHeader[0]['businessDocumentNumber']) ? $dataHeader[0]['businessDocumentNumber'] : ($businessDocumentNumber ?? '-') ?>
+                : <?= $dataHeader['prNumber']; ?>
             </div>
         </div>
         
@@ -17,7 +17,7 @@
                 Budget
             </div>
             <div class="col">
-                : <?= isset($dataHeader[0]['combinedBudgetCode']) || isset($dataHeader[0]['combinedBudgetName']) ? $dataHeader[0]['combinedBudgetCode'] . ' - ' . $dataHeader[0]['combinedBudgetName'] : '-'; ?>
+                : <?= isset($dataHeader['budgetCode']) && isset($dataHeader['budgetName']) ? $dataHeader['budgetCode'] . ' - ' . $dataHeader['budgetName'] : '-'; ?>
             </div>
         </div>
         
@@ -27,7 +27,7 @@
                 Sub Budget
             </div>
             <div class="col">
-                : <?= isset($dataHeader[0]['combinedBudgetSectionCode']) || isset($dataHeader[0]['combinedBudgetSectionName']) ? $dataHeader[0]['combinedBudgetSectionCode'] . ' - ' . $dataHeader[0]['combinedBudgetSectionName'] : '-'; ?>
+                : <?= isset($dataHeader['subBudgetCode']) && isset($dataHeader['subBudgetName']) ? $dataHeader['subBudgetCode'] . ' - ' . $dataHeader['subBudgetName'] : '-'; ?>
             </div>
         </div>
         
@@ -40,13 +40,13 @@
                 <div>
                     :
                 </div>
-                <?php if (isset($dataHeader[0]['log_FileUpload_Pointer_RefID']) && $dataHeader[0]['log_FileUpload_Pointer_RefID']) { ?>
+                <?php if ($dataHeader['fileID']) { ?>
                     <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
                     <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken,
                         'dataInput_Log_FileUpload',
-                        $dataHeader[0]['log_FileUpload_Pointer_RefID']
+                        $dataHeader['fileID']
                         ).
                         ''; ?>
                 <?php } else { ?>
@@ -66,7 +66,7 @@
                 Delivery To
             </div>
             <div class="col">
-                : -
+                : <?= $dataHeader['deliveryTo']; ?>
             </div>
         </div>
 
@@ -76,17 +76,7 @@
                 Date of Delivery
             </div>
             <div class="col">
-                : -
-            </div>
-        </div>
-
-        <!-- SUPPLIER NAME -->
-        <div class="row" id="revisionAdvance">
-            <div class="col-4 col-sm-4 col-md-6 col-lg-4 text-bold">
-                Notes
-            </div>
-            <div class="col">
-                : -
+                : <?= $dataHeader['dateOfDelivery']; ?>
             </div>
         </div>
     </div>

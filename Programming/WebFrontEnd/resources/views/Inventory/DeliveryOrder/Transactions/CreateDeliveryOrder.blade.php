@@ -29,32 +29,9 @@
                 <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
                 <input type="hidden" name="requesterWorkerJobsPosition_RefID" id="requesterWorkerJobsPosition_RefID">
                 <input type="hidden" name="deliveryOrderDetail" id="deliveryOrderDetail">
-                
-                <!-- ADD NEW DELIVERY ORDER -->
-                <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <!-- HEADER -->
-                                <div class="card-header">
-                                    <label class="card-title">
-                                        Add New Delivery Order
-                                    </label>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                @include('Inventory.DeliveryOrder.Functions.Header.HeaderDo')
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- TRANSPORTER DETAIL -->
-                <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -112,6 +89,29 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADD NEW DELIVERY ORDER -->
+                <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <!-- HEADER -->
+                                <div class="card-header">
+                                    <label class="card-title">
+                                        Add New Delivery Order
+                                    </label>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                @include('Inventory.DeliveryOrder.Functions.Header.HeaderDo')
                             </div>
                         </div>
                     </div>

@@ -47,11 +47,8 @@
         <tr>
             <td>
                 <br>
-                <a class="btn btn-default btn-sm float-right" id="delivery-order-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <a class="btn btn-default btn-sm float-right" id="material-receive-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Material Receive List"> Add
-                </a>
-                <a class="btn btn-default btn-sm float-right" id="delivery-order-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                    <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Reset to Material Receive List"> Reset
                 </a>
             </td>
         </tr>

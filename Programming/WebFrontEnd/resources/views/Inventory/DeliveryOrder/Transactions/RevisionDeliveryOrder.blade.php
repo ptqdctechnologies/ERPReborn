@@ -25,7 +25,8 @@
                 <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
                 <input type="hidden" id="data_table" value='<?= json_encode($data ?? []) ?>'>
                 <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value='<?= $header['combinedBudget_RefID']; ?>'>
-                
+                <input type="hidden" name="deliveryOrderDetail" id="deliveryOrderDetail">
+
                     <!-- DELIVERY ORDER -->
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                         <div class="row">

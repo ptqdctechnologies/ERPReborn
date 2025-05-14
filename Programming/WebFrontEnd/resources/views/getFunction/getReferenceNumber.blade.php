@@ -2,30 +2,12 @@
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="card-title">Choose Reference Number</label>
+                <label class="card-title">Choose Purchase Order</label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12">
-                        <div class="mb-3">
-                            <div class="row">
-                                <div class="col-2" style="vertical-align: middle;">
-                                    <label class="col-form-label p-0">
-                                        Source
-                                    </label>
-                                </div>
-                                <div class="col-4">
-                                    <select class="form-control" onchange="getReferenceNumber(this);">
-                                        <option disabled selected>Select a Source</option>
-                                        <option value="PURCHASE_ORDER">Purchase Order</option>
-                                        <option disabled value="INTERNAL_USE">Internal Use</option>
-                                        {{-- <option disabled value="ORDER_PICKING">Order Picking</option> --}}
-                                        <option disabled value="STOCK_MOVEMENT">Stock Movement</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         <div class="card">
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-head-fixed text-nowrap" id="referenceNumberTable">
@@ -81,7 +63,7 @@
 
         if (source.value === "PURCHASE_ORDER") {
             urls = '{!! route("getPurchaseOrderList") !!}';
-        } else if (source.value === "ORDER_PICKING") {
+        } else if (source.value === "INTERNAL_USE") {
             urls = '';
         } else {
             urls = '';

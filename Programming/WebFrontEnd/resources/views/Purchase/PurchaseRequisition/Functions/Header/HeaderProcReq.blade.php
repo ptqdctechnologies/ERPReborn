@@ -50,7 +50,7 @@
               <input id="site_name_second" style="border-radius:0;" class="form-control" readonly>
             </div>
           </div>
-      </div>
+        </div>
       </div>
     </div>
   </div>

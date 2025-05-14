@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.supplyChain.setPurchaseRequisition.v1_throughAPIGateway       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-24                                                                                           |
+        | ▪ Last Update     : 2025-05-13                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -45,17 +45,21 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
                     //-----[ DATA ]-----( START )-----
                         [
-                        'recordID' => 83000000000001,
+                        'recordID' => 83000000000068,
                         'entities' => [
                             "documentDateTimeTZ" => '2022-03-07',
                             "log_FileUpload_Pointer_RefID" => null,
                             "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                            "deliveryDateTimeTZ" => '2025-05-13',
+                            "deliveryTo_RefID" => 126000000000005,
+                            "deliveryTo_NonRefID" => 'Jl. Denpasar No. 47, Bandung',
+                            "fulfillmentDeadlineDateTimeTZ" => '2025-06-16',
                             "remarks" => 'My Remarks',
                             "additionalData" => [
                                 "itemList" => [
                                     "items" => [
                                             [
-                                            "recordID" => 84000000000001,
+                                            "recordID" => 84000000000108,
                                             "entities" => [
                                                 "combinedBudgetSectionDetail_RefID" => 169000000000001,
                                                 "product_RefID" => 88000000000002,
@@ -64,12 +68,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "productUnitPriceCurrency_RefID" => 62000000000001,
                                                 "productUnitPriceCurrencyValue" => 30000,
                                                 "productUnitPriceCurrencyExchangeRate" => 1,
-                                                "fulfillmentDeadlineDateTimeTZ" => '2023-05-10',
                                                 "remarks" => 'Catatan Pertama Revisi'
                                                 ]                                   
                                             ],
                                             [
-                                            "recordID" => 84000000000002,
+                                            "recordID" => 84000000000109,
                                             "entities" => [
                                                 "combinedBudgetSectionDetail_RefID" => 169000000000001,
                                                 "product_RefID" => 88000000000003,
@@ -78,7 +81,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "productUnitPriceCurrency_RefID" => 62000000000001,
                                                 "productUnitPriceCurrencyValue" => 30000,
                                                 "productUnitPriceCurrencyExchangeRate" => 1,
-                                                "fulfillmentDeadlineDateTimeTZ" => '2023-03-01',
                                                 "remarks" => 'Catatan Kedua Revisi'
                                                 ]
                                             ],
@@ -90,7 +92,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     //-----[ DATA ]-----(  END  )-----
                     );
 
-            var_dump($varData);
+            return $varData;
             }
 
 

@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2024-01-24                                                                                           |
+        | ▪ Last Update     : 2025-05-13                                                                                           |
         | ▪ Creation Date   : 2022-03-11                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -66,9 +66,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
-                        if (!($varDataSend = 
+                        if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate(
-                                $varUserSession, 
+                                $varUserSession,
                                 (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseRequisition())->setDataUpdate(
                                     $varUserSession,
                                     $varData['recordID'],
@@ -95,17 +95,21 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     $varData['entities']['documentDateTimeTZ'],
                                     $varData['entities']['log_FileUpload_Pointer_RefID'],
                                     $varData['entities']['requesterWorkerJobsPosition_RefID'],
+                                    $varData['entities']['deliveryDateTimeTZ'],
+                                    $varData['entities']['deliveryTo_RefID'],
+                                    $varData['entities']['deliveryTo_NonRefID'],
+                                    $varData['entities']['fulfillmentDeadlineDateTimeTZ'],
                                     $varData['entities']['remarks'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,
                                         'additionalData',
                                         $varData['entities']
-                                        ) 
+                                        )
                                         ?   (
                                                 (
                                                 !is_null($varData['entities']['additionalData'])
-                                                ) 
+                                                )
                                                 ? $varData['entities']['additionalData']
                                                 : []
                                             )
@@ -134,7 +138,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                         }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
 
                 catch (\Exception $ex) {
                     $varReturn =

@@ -54,15 +54,15 @@
     $('.btn-edit').on('click', function() {
         var materialReceiveRefID = $('#materialReceive_RefID').val();
 
-        if (materialReceiveRefID) {
+        // if (materialReceiveRefID) {
             ShowLoading();
 
             $('#editForm').submit();
-        } else {
-            $('#materialReceiveNumber').focus();
-            $('#materialReceiveNumber').css("border", "1px solid red");
-            $('#materialReceiveNumberIcon').css("border", "1px solid red");
-        }
+        // } else {
+        //     $('#materialReceiveNumber').focus();
+        //     $('#materialReceiveNumber').css("border", "1px solid red");
+        //     $('#materialReceiveNumberIcon').css("border", "1px solid red");
+        // }
     });
 
     $('.btn-cancel').on('click', function() {
