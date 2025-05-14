@@ -39,8 +39,8 @@ class DocumentTypeMapper
     public static function formatData(string $documentType, array $dataDetail): ?array
     {
         $mapping = [
-            'Advance Form' => [
-                'dataHeader' => [
+            'Advance Form'      => [
+                'dataHeader'    => [
                     'advanceNumber'     => '-',
                     'date'              => null,
                     'currency'          => $dataDetail['productUnitPriceCurrencyISOCode'] ?? '-',
@@ -56,15 +56,18 @@ class DocumentTypeMapper
                     'accountName'       => '-',
                     'accountNumber'     => '-',
                 ],
-                'remarks'       => $dataDetail['remarks'] ?? '-',
-                'components'    => [
-                    'detail'    => 'Components.AdvanceDetailDocument',
-                    'table'     => 'Components.AdvanceDetailDocumentTable',
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => $dataDetail['remarks'] ?? '-',
                 ],
-                'resubmit'      => [
-                    'url'       => 'AdvanceRequest.RevisionAdvanceIndex',
-                    'name'      => 'advance_RefID',
-                    'value'     => '76000000000539'
+                'components'        => [
+                    'detail'        => 'Components.AdvanceDetailDocument',
+                    'table'         => 'Components.AdvanceDetailDocumentTable',
+                ],
+                'resubmit'  => [
+                    'url'   => 'AdvanceRequest.RevisionAdvanceIndex',
+                    'name'  => 'advance_RefID',
+                    'value' => '76000000000539'
                 ],
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
             ],
@@ -85,7 +88,10 @@ class DocumentTypeMapper
                     'transporterFax'            => $dataDetail['transporterFax'] ?? '-',
                     'transporterAddress'        => $dataDetail['transporterAddress'] ?? '-',
                 ],
-                'remarks'       => $dataDetail['remarks'] ?? '-',
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => $dataDetail['remarks'] ?? '-',
+                ],
                 'components'    => [
                     'detail'    => 'Components.DeliveryOrderDetailDocument',
                     'table'     => 'Components.DeliveryOrderDetailDocumentTable',
@@ -99,11 +105,41 @@ class DocumentTypeMapper
             ],
             'Person Business Trip Form' => [
                 'dataHeader'            => [
+                    'btNumber'              => 'BT/QDC/2025/000008',
+                    'budgetCode'            => 'Q000196',
+                    'budgetName'            => 'XL Microcell 2007',
+                    'subBudgetCode'         => '235',
+                    'subBudgetName'         => 'Ampang Kuranji - Padang',
+                    'fileID'                => null,
+                    'description'           => '820005-0000 (Travel & Fares/Business Trip)',
+                    'dateCommenceTravel'    => '2025-12-18',
+                    'dateEndTravel'         => '2025-12-20',
+                    'brfDate'               => '2025-12-12',
+                    'contactPhone'          => '0896734873',
+                    'bankAccount'           => 'PT QDC Technologies',
+                    'bankName'              => 'BCA',
+                    'accountNumber'         => '0063032911',
+                    'requesterName'         => 'Abdollah Syani Siregar',
+                    'beneficiaryName'       => 'Abdul Rachman',
+                    'departingFrom'         => 'Jakarta',
+                    'destinationTo'         => 'Batam',
                 ],
-                'remarks'       => '-',
-                'components'    => [
-                    'detail'    => 'Components.BusinessTripRequestDetailDocument',
-                    'table'     => 'Components.BusinessTripRequestDetailDocumentTable',
+                'dataAdditional'    => [
+                    'allowance'     => '240000.00',
+                    'transport'     => '3450000.00',
+                    'entertainment' => '100000.00',
+                    'accommodation' => '0.00',
+                    'other'         => '100000.00',
+                    'totalBRF'      => '3890000.00'
+                ],
+                'textAreaFields'    => [
+                    'title'         => 'Reason to Travel',
+                    'text'          => '-',
+                ],
+                'components'        => [
+                    'detail'        => 'Components.BusinessTripRequestDetailDocument',
+                    'table'         => 'Components.BusinessTripRequestDetailDocumentTable',
+                    'additional'    => 'Components.BusinessTripRequestCostDetailDocument'
                 ],
                 'resubmit'      => [
                     'url'       => 'BusinessTripRequest.RevisionBusinessTripRequestIndex',
@@ -111,7 +147,6 @@ class DocumentTypeMapper
                     'value'     => ''
                 ],
                 'businessDocument_RefID' => '',
-                'css' => 'p-0'
             ],
             'Purchase Order Form'       => [
                 'dataHeader'            => [
@@ -126,7 +161,10 @@ class DocumentTypeMapper
                     'paymentNote'       => '-',
                     'internalNote'      => '-'
                 ],
-                'remarks'       => $dataDetail['remarks'] ?? '-',
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => $dataDetail['remarks'] ?? '-',
+                ],
                 'components'    => [
                     'detail'    => 'Components.PurchaseOrderDetailDocument',
                     'table'     => 'Components.PurchaseOrderDetailDocumentTable',
@@ -150,7 +188,10 @@ class DocumentTypeMapper
                     'dateOfDelivery'    => $dataDetail['deliveryDateTimeTZ'] ?? '-',
                     'note'              => $dataDetail['notes'] ?? '-'
                 ],
-                'remarks'       => $dataDetail['remarks'] ?? '-',
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => $dataDetail['remarks'] ?? '-',
+                ],
                 'components'    => [
                     'detail'    => 'Components.PurchaseRequisitionDetailDocument',
                     'table'     => 'Components.PurchaseRequisitionDetailDocumentTable',

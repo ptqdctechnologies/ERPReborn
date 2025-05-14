@@ -49,13 +49,21 @@
               </div>
             </div>
 
-            <!-- REMARK -->
+            <?php if (isset($components['additional'])) { ?>
+              <div class="col-12">
+                <div class="card">
+                  @include($components['additional'])
+                </div>
+              </div>
+            <?php } ?>
+
+            <!-- TEXT AREA FIELD (Remarks, Reason To Travel) -->
             <div class="col-12">
               <div class="card">
                 <!-- TITLE -->
                 <div class="card-header">
                   <label class="card-title">
-                    Remark
+                    <?= $textAreaFields['title']; ?>
                   </label>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -68,7 +76,7 @@
                 <div class="card-body">
                   <div class="row" style="margin: .6rem 0rem;">
                     <div class="col">
-                      <?= nl2br(e($remarks)); ?>
+                      <?= nl2br(e($textAreaFields['text'])); ?>
                     </div>
                   </div>
                 </div>
