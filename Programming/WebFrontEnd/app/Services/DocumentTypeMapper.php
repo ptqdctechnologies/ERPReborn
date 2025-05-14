@@ -31,6 +31,11 @@ class DocumentTypeMapper
                 'parameter' => ['purchaseRequisition_RefID' => (int) $referenceId],
                 'businessDocument_RefID' => (int) 74000000021491,
             ],
+            'Warehouse Inbound Order Form' => [
+                'key' => '',
+                'parameter' => [],
+                'businessDocument_RefID' => (int) 74000000021336,
+            ],
         ];
 
         return $mapping[$documentType] ?? null;
@@ -200,6 +205,28 @@ class DocumentTypeMapper
                     'url'       => 'PurchaseRequisition.RevisionPurchaseRequest',
                     'name'      => 'modal_purchase_requisition_id',
                     'value'     => $dataDetail['purchaseRequisition_RefID'] ?? ''
+                ],
+                'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
+            ],
+            'Warehouse Inbound Order Form' => [
+                'dataHeader'            => [
+                    'mrNumber'      => 'WHIn/QDC/2025/000027',
+                    'deliveryFrom'  => 'Jakarta',
+                    'deliveryTo'    => 'Batam',
+                    'fileID'        => null
+                ],
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => $dataDetail['remarks'] ?? '-',
+                ],
+                'components'    => [
+                    'detail'    => 'Components.MaterialReceiveDetailDocument',
+                    'table'     => 'Components.MaterialReceiveDetailDocumentTable',
+                ],
+                'resubmit'      => [
+                    'url'       => 'MaterialReceive.RevisionMaterialReceiveIndex',
+                    'name'      => '',
+                    'value'     => ''
                 ],
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
             ],

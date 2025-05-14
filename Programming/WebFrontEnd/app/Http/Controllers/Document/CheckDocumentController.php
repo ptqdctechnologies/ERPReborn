@@ -51,7 +51,7 @@ class CheckDocumentController extends Controller
                 return redirect()->back()->with('NotFound', 'Unsupported document type.');
             }
 
-            if ($documentType === 'Person Business Trip Form') {
+            if ($documentType === 'Person Business Trip Form' || $documentType === 'Warehouse Inbound Order Form') {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
                 $responseData = [
                     'metadata' => [
@@ -248,7 +248,7 @@ class CheckDocumentController extends Controller
 
             $workflowHistory    = $this->getWorkflowHistory($collection['businessDocumentRefID']);
 
-            // dd($workflowHistory);
+            // dd($collection, $workflowHistory);
 
             if (count($workflowHistory) === 0) {
                 return redirect()->back()->with('error', 'Data Not Found');
