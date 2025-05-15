@@ -6,9 +6,9 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Advance Number</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="advance_number" style="border-radius:0;" name="advance_number" size="20" class="form-control" readonly>
-            <input id="advance_id" style="border-radius:0;" name="advance_id" class="form-control" hidden>
-            <input id="modal_advance_document_number" style="border-radius:0;" name="modal_advance_document_number" class="form-control" hidden>
+            <input id="advance_number" style="border-radius:0;" size="20" class="form-control" readonly>
+            <input id="advance_id" style="border-radius:0;" class="form-control" hidden>
+            <input id="modal_advance_document_number" style="border-radius:0;" class="form-control" hidden>
           </div>
           <div class="input-group-append">
             <span style="border-radius:0;" class="input-group-text form-control">
@@ -27,7 +27,7 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="beneficiary_name" style="border-radius:0;" name="beneficiary_name" size="24" class="form-control" readonly>
+            <input id="beneficiary_name" style="border-radius:0;" size="24" class="form-control" readonly>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="bank_name" style="border-radius:0;" name="bank_name" size="24" class="form-control" readonly>
+            <input id="bank_name" style="border-radius:0;" size="24" class="form-control" readonly>
           </div>
         </div>
       </div>
@@ -53,7 +53,7 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Account</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
-            <input id="bank_account" style="border-radius:0;" name="bank_account" size="24" class="form-control" readonly>
+            <input id="bank_account" style="border-radius:0;" size="24" class="form-control" readonly>
           </div>
         </div>
       </div>

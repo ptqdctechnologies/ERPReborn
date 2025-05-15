@@ -39,232 +39,49 @@ class AdvanceSettlementController extends Controller
 
     public function store(Request $request)
     {
+        try {
+            $varAPIWebToken                     = Session::get('SessionLogin');
+            $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
+            $advanceSettlementData              = $request->all();
+            $advanceSettlementDetail            = json_decode($advanceSettlementData['storeData']['advanceSettlementDetail'], true);
+            $fileID                             = $advanceSettlementData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $advanceSettlementData['storeData']['dataInput_Log_FileUpload_1'] : null;
 
-        $varAPIWebToken = Session::get('SessionLogin');
-
-        $input = $request->all();
-        // dd($input);
-
-
-        $count_product_expense = 0;
-        $count_product_amount = 0;
-
-        if (isset($input['var_product_id_expense'])) {
-            $count_product_expense = count($input['var_product_id_expense']);
-        }
-        $count_product_amount = 0;
-        if (isset($input['var_product_id_amount'])) {
-            $count_product_amount = count($input['var_product_id_amount']);
-        }
-
-        $advanceSettlementDetail = [];
-
-        $count_product = $count_product_amount;
-        if ($count_product_expense > $count_product_amount) {
-            $count_product = $count_product_expense;
-        }
-
-        for ($n = 0; $n < $count_product; $n++) {
-
-            $productIdExpense = 0;
-            if (isset($input['var_product_id_expense'][$n])) {
-                $productIdExpense = $input['var_product_id_expense'][$n];
-            }
-            $productIdAmount = 0;
-            if (isset($input['var_product_id_amount'][$n])) {
-                $productIdAmount = $input['var_product_id_amount'][$n];
-            }
-            $quantityExpense = 0;
-            if (isset($input['var_quantity_expense'][$n])) {
-                $quantityExpense = $input['var_quantity_expense'][$n];
-            }
-            $quantityAmount = 0;
-            if (isset($input['var_quantity_amount'][$n])) {
-                $quantityAmount = $input['var_quantity_amount'][$n];
-            }
-            $quantityIdExpense = 0;
-            if (isset($input['var_qty_id_expense'][$n])) {
-                $quantityIdExpense = $input['var_qty_id_expense'][$n];
-            }
-            $quantityIdAmount = 0;
-            if (isset($input['var_quantity_id_amount'][$n])) {
-                $quantityIdAmount = $input['var_quantity_id_amount'][$n];
-            }
-            $currencyIdExpense = 0;
-            if (isset($input['var_currency_id_expense'][$n])) {
-                $currencyIdExpense = $input['var_currency_id_expense'][$n];
-            }
-            $currencyIdAmount = 0;
-            if (isset($input['var_currency_id_amount'][$n])) {
-                $currencyIdAmount = $input['var_currency_id_amount'][$n];
-            }
-            $priceExpense = 0;
-            if (isset($input['var_price_expense'][$n])) {
-                $priceExpense = $input['var_price_expense'][$n];
-            }
-            $priceAmount = 0;
-            if (isset($input['var_price_amount'][$n])) {
-                $priceAmount = $input['var_price_amount'][$n];
-            }
-            $exchangeRateIdExpense = 0;
-            if (isset($input['var_exchange_rate_id_expense'][$n])) {
-                $exchangeRateIdExpense = $input['var_exchange_rate_id_expense'][$n];
-            }
-            $exchangeRateIdAmount = 0;
-            if (isset($input['var_exchange_rate_id_amount'][$n])) {
-                $exchangeRateIdAmount = $input['var_exchange_rate_id_amount'][$n];
-            }
-
-            $advanceSettlementDetail[$n] = [
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.create.finance.setAdvanceSettlement',
+                'latest',
+                [
                 'entities' => [
-                    "advanceDetail_RefID" => (int) $var_advance_detail_id,
-                    "product_RefID" => (int) $productIdExpense,
-                    "quantity" => (float) $quantityExpense,
-                    "quantityUnit_RefID" => (int) $quantityIdExpense,
-                    "expenseClaimProductUnitPriceCurrency_RefID" => (int) $currencyIdExpense,
-                    "expenseClaimProductUnitPriceCurrencyValue" => (float) $priceExpense,
-                    "expenseClaimProductUnitPriceCurrencyExchangeRate" => (int) $exchangeRateIdExpense,
-                    "returnProductUnitPriceCurrency_RefID" => (int) $currencyIdAmount,
-                    "returnProductUnitPriceCurrencyValue" => (float) $priceAmount,
-                    "returnProductUnitPriceCurrencyExchangeRate" => (int) $exchangeRateIdAmount,
-                    "remarks" => 'Catatan Pertamax'
-                ]
-            ];
-        }
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.create.finance.setAdvanceSettlement',
-            'latest',
-            [
-                'entities' => [
-                    "documentDateTimeTZ" => $input['var_date'],
-                    "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
-                    "requesterWorkerJobsPosition_RefID" => (int)$input['beneficiary_id'],
-                    "remarks" => $input['remark'],
-                    "additionalData" => [
-                        "itemList" => [
-                            "items" => $advanceSettlementDetail
+                    "documentDateTimeTZ"                => date('Y-m-d'),
+                    "log_FileUpload_Pointer_RefID"      => $fileID,
+                    "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
+                    "remarks"                           => $advanceSettlementData['storeData']['var_remark'],
+                    "additionalData"    => [
+                        "itemList"      => [
+                            "items"     => $advanceSettlementDetail
+                            ]
                         ]
                     ]
                 ]
-            ]
-        );
+            );
 
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($varData);
+            }
 
-        // $varAPIWebToken = Session::get('SessionLogin');
-
-        // $input = $request->all();
-        // // dd($input);
-
-
-        // $count_product_expense = 0;
-        // $count_product_amount = 0;
-
-        // if (isset($input['var_product_id_expense'])) {
-        //     $count_product_expense = count($input['var_product_id_expense']);
-        // }
-        // $count_product_amount = 0;
-        // if (isset($input['var_product_id_amount'])) {
-        //     $count_product_amount = count($input['var_product_id_amount']);
-        // }
-
-        // $advanceSettlementDetail = [];
-
-        // $count_product = $count_product_amount;
-        // if ($count_product_expense > $count_product_amount) {
-        //     $count_product = $count_product_expense;
-        // }
-
-        // for ($n = 0; $n < $count_product; $n++) {
-
-        //     $productIdExpense = 0;
-        //     if (isset($input['var_product_id_expense'][$n])) {
-        //         $productIdExpense = $input['var_product_id_expense'][$n];
-        //     }
-        //     $productIdAmount = 0;
-        //     if (isset($input['var_product_id_amount'][$n])) {
-        //         $productIdAmount = $input['var_product_id_amount'][$n];
-        //     }
-        //     $quantityExpense = 0;
-        //     if (isset($input['var_quantity_expense'][$n])) {
-        //         $quantityExpense = $input['var_quantity_expense'][$n];
-        //     }
-        //     $quantityAmount = 0;
-        //     if (isset($input['var_quantity_amount'][$n])) {
-        //         $quantityAmount = $input['var_quantity_amount'][$n];
-        //     }
-        //     $quantityIdExpense = 0;
-        //     if (isset($input['var_qty_id_expense'][$n])) {
-        //         $quantityIdExpense = $input['var_qty_id_expense'][$n];
-        //     }
-        //     $quantityIdAmount = 0;
-        //     if (isset($input['var_quantity_id_amount'][$n])) {
-        //         $quantityIdAmount = $input['var_quantity_id_amount'][$n];
-        //     }
-        //     $currencyIdExpense = 0;
-        //     if (isset($input['var_currency_id_expense'][$n])) {
-        //         $currencyIdExpense = $input['var_currency_id_expense'][$n];
-        //     }
-        //     $currencyIdAmount = 0;
-        //     if (isset($input['var_currency_id_amount'][$n])) {
-        //         $currencyIdAmount = $input['var_currency_id_amount'][$n];
-        //     }
-        //     $priceExpense = 0;
-        //     if (isset($input['var_price_expense'][$n])) {
-        //         $priceExpense = $input['var_price_expense'][$n];
-        //     }
-        //     $priceAmount = 0;
-        //     if (isset($input['var_price_amount'][$n])) {
-        //         $priceAmount = $input['var_price_amount'][$n];
-        //     }
-        //     $exchangeRateIdExpense = 0;
-        //     if (isset($input['var_exchange_rate_id_expense'][$n])) {
-        //         $exchangeRateIdExpense = $input['var_exchange_rate_id_expense'][$n];
-        //     }
-        //     $exchangeRateIdAmount = 0;
-        //     if (isset($input['var_exchange_rate_id_amount'][$n])) {
-        //         $exchangeRateIdAmount = $input['var_exchange_rate_id_amount'][$n];
-        //     }
-
-        //     $advanceSettlementDetail[$n] = [
-        //         'entities' => [
-        //             "advanceDetail_RefID" => (int) $var_advance_detail_id,
-        //             "product_RefID" => (int) $productIdExpense,
-        //             "quantity" => (float) $quantityExpense,
-        //             "quantityUnit_RefID" => (int) $quantityIdExpense,
-        //             "expenseClaimProductUnitPriceCurrency_RefID" => (int) $currencyIdExpense,
-        //             "expenseClaimProductUnitPriceCurrencyValue" => (float) $priceExpense,
-        //             "expenseClaimProductUnitPriceCurrencyExchangeRate" => (int) $exchangeRateIdExpense,
-        //             "returnProductUnitPriceCurrency_RefID" => (int) $currencyIdAmount,
-        //             "returnProductUnitPriceCurrencyValue" => (float) $priceAmount,
-        //             "returnProductUnitPriceCurrencyExchangeRate" => (int) $exchangeRateIdAmount,
-        //             "remarks" => 'Catatan Pertamax'
-        //         ]
-        //     ];
-        // }
-        // $varData = Helper_APICall::setCallAPIGateway(
-        //     Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken,
-        //     'transaction.create.finance.setAdvanceSettlement',
-        //     'latest',
-        //     [
-        //         'entities' => [
-        //             "documentDateTimeTZ" => $input['var_date'],
-        //             "log_FileUpload_Pointer_RefID" => (int)$input['dataInput_Log_FileUpload_Pointer_RefID'],
-        //             "requesterWorkerJobsPosition_RefID" => (int)$input['beneficiary_id'],
-        //             "remarks" => $input['remark'],
-        //             "additionalData" => [
-        //                 "itemList" => [
-        //                     "items" => $advanceSettlementDetail
-        //                 ]
-        //             ]
-        //         ]
-        //     ]
-        // );
-
-        // return $this->SelectWorkFlow($varData, $SessionWorkerCareerInternal_RefID, $VarSelectWorkFlow);
-        // }
+            return $this->SubmitWorkflow(
+                $varData['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+                $request->nextApprover,
+                $varData['data']['businessDocument']['documentNumber']
+            );
+        } catch (\Throwable $th) {
+            Log::error("Error at store: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function StoreValidateAdvanceSettlementBeneficiary(Request $request)
