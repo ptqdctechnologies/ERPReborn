@@ -381,6 +381,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                                 $varUserSession,
                                 $varReturn['data'][0]['Func_General_JSONArray_ConvertKeysToCamelCase']
                                 );
+
                         $varReturn = $varReturn['data'];
                         }
                     else
