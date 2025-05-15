@@ -51,7 +51,11 @@ class CheckDocumentController extends Controller
                 return redirect()->back()->with('NotFound', 'Unsupported document type.');
             }
 
-            if ($documentType === 'Person Business Trip Form' || $documentType === 'Warehouse Inbound Order Form') {
+            if (
+                $documentType === 'Person Business Trip Form' || 
+                $documentType === 'Warehouse Inbound Order Form' ||
+                $documentType === 'Advance Settlement Form'
+            ) {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
                 $responseData = [
                     'metadata' => [
@@ -172,6 +176,12 @@ class CheckDocumentController extends Controller
             $businessDocumentTypeName   = $request->input('businessDocumentType_Name');
             $transDetail_RefID          = $request->input('businessDocument_RefID');
             $sourceData                 = 0;
+
+            // dd([
+            //     'transDetail_RefID'          => $transDetail_RefID,
+            //     'businessDocumentTypeName'   => $businessDocumentTypeName,
+            //     'businessDocumentNumber'     => $businessDocumentNumber,
+            // ]);
 
             if (!$businessDocumentNumber || !$businessDocumentTypeName || !$transDetail_RefID) {
                 return redirect()->back()->with('error', 'Data Not Found');

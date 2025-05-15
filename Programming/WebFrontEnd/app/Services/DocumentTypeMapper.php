@@ -12,6 +12,11 @@ class DocumentTypeMapper
                 'parameter' => ['advance_RefID' => (int) $referenceId],
                 'businessDocument_RefID' => (int) 74000000021304,
             ],
+            'Advance Settlement Form' => [
+                'key' => '',
+                'parameter' => [],
+                'businessDocument_RefID' => (int) 74000000021552,
+            ],
             'Delivery Order Form' => [
                 'key' => 'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
                 'parameter' => ['deliveryOrder_RefID' => (int) $referenceId],
@@ -75,6 +80,34 @@ class DocumentTypeMapper
                     'value' => '76000000000539'
                 ],
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
+            ],
+            'Advance Settlement Form' => [
+                'dataHeader'        => [
+                    'advanceNumber'     => 'AdvStl/QDC/2025/000030',
+                    'beneficiaryName'   => 'Agus Nuryadi',
+                    'bankName'          => 'BCA',
+                    'bankAccount'       => '2670159496',
+                    'budgetCode'        => $dataDetail['combinedBudgetCode'] ?? 'Q000062',
+                    'budgetName'        => $dataDetail['combinedBudgetName'] ?? 'XL Microcell 2007',
+                    'subBudgetCode'     => $dataDetail['combinedBudgetSectionCode'] ?? '235',
+                    'subBudgetName'     => $dataDetail['combinedBudgetSectionName'] ?? 'Ampang Kuranji - Padang',
+                    'fileID'            => null,
+                    'dateUpdate'        => null,
+                ],
+                'components'        => [
+                    'detail'        => 'Components.AdvanceSettlementDocument',
+                    'table'         => 'Components.AdvanceSettlementDocumentTable',
+                ],
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => $dataDetail['remarks'] ?? '-',
+                ],
+                'resubmit'  => [
+                    'url'   => 'AdvanceSettlement.RevisionAdvanceSettlementIndex',
+                    'name'  => '',
+                    'value' => ''
+                ],
+                'businessDocument_RefID' => 74000000021552,
             ],
             'Delivery Order Form'   => [
                 'dataHeader'    => [
