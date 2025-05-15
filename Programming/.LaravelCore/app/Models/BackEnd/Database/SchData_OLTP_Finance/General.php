@@ -1555,6 +1555,97 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_AdvanceSettlementDetail                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-05-15                                                                                           |
+        | ▪ Creation Date   : 2025-05-15                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Advance                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_AdvanceSettlementDetail(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varAdvanceSettlement_RefID = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                       $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetDataList_AdvanceSettlementDetails',
+                            [
+                                [$varAdvanceSettlement_RefID, 'bigint']
+                            ]
+                            )
+		    );
+                $resultArray = $varReturn['data'];
+                $varReturn['data'] = [];
+                $idxArray = 0;
+                foreach ($resultArray as $key => $value) {
+                    $varReturn['data'][$idxArray]['Sys_ID'] = $value["Sys_ID"];
+                    $varReturn['data'][$idxArray]['Sys_PID'] = $value["Sys_PID"];
+                    $varReturn['data'][$idxArray]['Sys_SID'] = $value["Sys_SID"];
+                    $varReturn['data'][$idxArray]['Sys_RPK'] = $value["Sys_RPK"];
+                    $varReturn['data'][$idxArray]['Sys_Branch_RefID'] = $value["Sys_Branch_RefID"];
+                    $varReturn['data'][$idxArray]['Sys_BaseCurrency_RefID'] = $value["Sys_BaseCurrency_RefID"];
+                    $varReturn['data'][$idxArray]['AdvanceSettlement_RefID'] = $value["AdvanceSettlement_RefID"];
+                    $varReturn['data'][$idxArray]['BusinessDocument_RefID'] = $value["BusinessDocument_RefID"];
+		    if ((($value["BeneficiaryWorkerJobsPosition_RefID"] / 1000000000000) % 10000) === 164) {
+                        $varReturn['data'][$idxArray]['BeneficiaryName'] = $value["BeneficiaryName_TblWorker"];
+                    } elseif ((($value["BeneficiaryWorkerJobsPosition_RefID"] / 1000000000000) % 10000) === 25) {
+                        $varReturn['data'][$idxArray]['BeneficiaryName'] = $value["BeneficiaryName_TblPerson"];
+                    } else {
+                        $varReturn['data'][$idxArray]['BeneficiaryName'] = null;
+                    }
+                    $varReturn['data'][$idxArray]['BankAccount'] = $value["BankAccount"];
+                    $varReturn['data'][$idxArray]['BankName'] = $value["BankName"];
+                    $varReturn['data'][$idxArray]['BankNameAcronym'] = $value["BankNameAcronym"];
+                    $varReturn['data'][$idxArray]['Remarks'] = $value["Remarks"];
+                    $varReturn['data'][$idxArray]['DocumentNumber'] = $value["DocumentNumber"];
+                    $varReturn['data'][$idxArray]['Log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];
+                    $varReturn['data'][$idxArray]['ProductCode'] = $value["ProductCode"];
+                    $varReturn['data'][$idxArray]['ProductName'] = $value["ProductName"];
+                    $varReturn['data'][$idxArray]['ExpenseQuantity'] = $value["ExpenseQuantity"];
+                    $varReturn['data'][$idxArray]['ExpenseProductUnitPriceCurrency_RefID'] = $value["ExpenseProductUnitPriceCurrency_RefID"];
+                    $varReturn['data'][$idxArray]['ExpenseProductUnitPriceCurrencyValue'] = $value["ExpenseProductUnitPriceCurrencyValue"];
+                    $varReturn['data'][$idxArray]['ExpenseProductUnitPriceCurrencyExchangeRate'] = $value["ExpenseProductUnitPriceCurrencyExchangeRate"];
+                    $varReturn['data'][$idxArray]['ExpenseProductUnitPriceBaseCurrencyValue'] = $value["ExpenseProductUnitPriceBaseCurrencyValue"];
+                    $varReturn['data'][$idxArray]['RefundQuantity'] = $value["RefundQuantity"];
+                    $varReturn['data'][$idxArray]['RefundProductUnitPriceCurrency_RefID'] = $value["RefundProductUnitPriceCurrency_RefID"];
+                    $varReturn['data'][$idxArray]['RefundProductUnitPriceCurrencyValue'] = $value["RefundProductUnitPriceCurrencyValue"];
+                    $varReturn['data'][$idxArray]['RefundProductUnitPriceCurrencyExchangeRate'] = $value["RefundProductUnitPriceCurrencyExchangeRate"];
+                    $varReturn['data'][$idxArray]['RefundProductUnitPriceBaseCurrencyValue'] = $value["RefundProductUnitPriceBaseCurrencyValue"];
+                    $varReturn['data'][$idxArray]['Note'] = $value["Note"];
+                    $idxArray++;
+                }
+
+                return
+                    $varReturn['data'];
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataListJSON_CreditNote_AllVersion                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
