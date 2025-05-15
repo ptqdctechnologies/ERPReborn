@@ -18,7 +18,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.master.getBank.v1_throughAPIGateway                       |
-        |                     ► http://172.28.0.4/transaction.read.dataList.master.getBank.v1_throughAPIGateway                    |
+            |                     ► http://172.28.0.4/transaction.read.dataList.master.getBank.v1_throughAPIGateway                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-13                                                                                           |
@@ -27,32 +27,39 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]------------------------------------------------------------------------------------------------
             if (!$varAPIWebToken) {
                 $varAPIWebToken =
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
-            //---Core---
+            //-----[ CORE PROCESS ]-------------------------------------------------------------------------------------------------
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.read.dataList.master.getBank', 
-                    'latest', 
-                    [
-                    'parameter' => [
-                        ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
+                    //-----[ METADATA ]-------------------------------------------------( START )-----
+                        $varAPIWebToken, 
+                        'transaction.read.dataList.master.getBank', 
+                        'latest',
+                    //-----[ METADATA ]-------------------------------------------------(  END  )-----
+
+                    //-----[ DATA ]-----------------------------------------------------( START )-----
+                        [
+                        'parameter' => [
+                            ],
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                            ]
                         ]
-                    ]
+                    //-----[ DATA ]-----------------------------------------------------(  END  )-----
                     );
 
-            var_dump($varData);
+            //-----[ DATA RETURN ]--------------------------------------------------------------------------------------------------
+            return
+                $varData;
             }
 
 

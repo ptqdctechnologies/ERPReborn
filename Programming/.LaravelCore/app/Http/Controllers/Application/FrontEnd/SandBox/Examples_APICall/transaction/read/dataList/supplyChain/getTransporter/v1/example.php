@@ -27,23 +27,23 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]------------------------------------------------------------------------------------------------
             if (!$varAPIWebToken) {
                 $varAPIWebToken =
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
 
-            //---Core---
+            //-----[ CORE PROCESS ]-------------------------------------------------------------------------------------------------
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    //-----[ METADATA ]-----( START )-----
+                    //-----[ METADATA ]-------------------------------------------------( START )-----
                         $varAPIWebToken,
                         'transaction.read.dataList.supplyChain.getTransporter',
                         'latest',
-                    //-----[ METADATA ]-----(  END  )-----
+                    //-----[ METADATA ]-------------------------------------------------(  END  )-----
 
-                    //-----[ DATA ]-----( START )-----
+                    //-----[ DATA ]-----------------------------------------------------( START )-----
                         [
                         'parameter' => null,
                         'SQLStatement' => [
@@ -53,6 +53,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             'paging' => null
                             ]
                         ]
+                    //-----[ DATA ]-----------------------------------------------------(  END  )-----
                     );
 
             return

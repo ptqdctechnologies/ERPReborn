@@ -904,7 +904,7 @@ namespace App\Helpers\ZhtHelper\Database
                                         $varUserSession, 
                                         "SELECT NOW();"
                                         );
-                                $varReturn['process']['startDateTime'] = $varDataTemp['data'][0]['now'];
+                                $varReturn['process']['startDateTimeTZ'] = $varDataTemp['data'][0]['now'];
                                 unset($varDataTemp);
 
                                 //---> Inisialisasi [Data], [RowCount], [Notice]
@@ -921,16 +921,16 @@ namespace App\Helpers\ZhtHelper\Database
                                         $varUserSession,
                                         "
                                         SELECT
-                                            \"SubSQL\".now AS \"FinishDateTime\",
-                                            (\"SubSQL\".now - '".$varReturn['process']['startDateTime']."')::interval AS \"ExecutionTime\"
+                                            \"SubSQL\".now AS \"FinishDateTimeTZ\",
+                                            (\"SubSQL\".now - '".$varReturn['process']['startDateTimeTZ']."')::interval AS \"ExecutionInterval\"
                                         FROM
                                             (
                                             SELECT NOW()
                                             ) AS \"SubSQL\"
                                         "
                                         );
-                                $varReturn['process']['finishDateTime'] = $varDataTemp['data'][0]['FinishDateTime'];
-                                $varReturn['process']['executionTime'] = $varDataTemp['data'][0]['ExecutionTime'];                    
+                                $varReturn['process']['finishDateTimeTZ'] = $varDataTemp['data'][0]['FinishDateTimeTZ'];
+                                $varReturn['process']['executionInterval'] = $varDataTemp['data'][0]['ExecutionInterval'];                    
                                 unset($varDataTemp);
                                 }
                             }

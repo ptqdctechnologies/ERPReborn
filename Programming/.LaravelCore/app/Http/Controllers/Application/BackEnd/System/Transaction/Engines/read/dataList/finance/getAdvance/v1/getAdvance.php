@@ -57,32 +57,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         */
         function main($varUserSession, $varData)
             {
-            $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-            $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
-            $workerCareerInternal_RefID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['userIdentity']['workerCareerInternal_RefID'];
-
-            /*
-            $varTTL = 86400; // 24 Jam
-            // GET DATA MASTER BUDGET 
-            $varDataListAdvance =
-                (new \App\Models\Database\SchData_OLTP_Finance\General())->getDataList_Advance(
-                    $userSessionID,
-                    $branchID
-                    );
-
-            //SET REDIS BUDGET
-
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                $userSessionID,
-                "DataListAdvance",
-                json_encode($varDataListAdvance),
-                $varTTL
-            );
-
-
-            return [];
-
-            */
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
 
             try {
