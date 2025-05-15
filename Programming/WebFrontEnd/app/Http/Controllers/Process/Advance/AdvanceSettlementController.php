@@ -14,9 +14,19 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\AdvanceSettlementService;
+use App\Services\WorkflowService;
 
 class AdvanceSettlementController extends Controller
 {
+    protected $advanceSettlementService, $workflowService;
+
+    public function __construct(AdvanceSettlementService $advanceSettlementService, WorkflowService $workflowService)
+    {
+        $this->advanceSettlementService = $advanceSettlementService;
+        $this->workflowService = $workflowService;
+    }
+
     public function index(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
@@ -40,149 +50,35 @@ class AdvanceSettlementController extends Controller
     public function store(Request $request)
     {
         try {
-            $varAPIWebToken                     = Session::get('SessionLogin');
-            $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
-            $advanceSettlementData              = $request->all();
-            $advanceSettlementDetail            = json_decode($advanceSettlementData['storeData']['advanceSettlementDetail'], true);
-            $fileID                             = $advanceSettlementData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $advanceSettlementData['storeData']['dataInput_Log_FileUpload_1'] : null;
+            $response = $this->advanceSettlementService->create($request);
 
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.create.finance.setAdvanceSettlement',
-                'latest',
-                [
-                'entities' => [
-                    "documentDateTimeTZ"                => date('Y-m-d'),
-                    "log_FileUpload_Pointer_RefID"      => $fileID,
-                    "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
-                    "remarks"                           => $advanceSettlementData['storeData']['var_remark'],
-                    "additionalData"    => [
-                        "itemList"      => [
-                            "items"     => $advanceSettlementDetail
-                            ]
-                        ]
-                    ]
-                ]
-            );
-
-            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($varData);
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
             }
 
-            return $this->SubmitWorkflow(
-                $varData['data']['businessDocument']['businessDocument_RefID'],
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
                 $request->workFlowPath_RefID,
                 $request->comment,
                 $request->approverEntity,
-                $request->nextApprover,
-                $varData['data']['businessDocument']['documentNumber']
             );
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Error at store: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
 
-    public function StoreValidateAdvanceSettlementBeneficiary(Request $request)
-    {
-        
-        $tamp = 0;
-        $tamp2 = 0;
-        $status = 200;
-        $varDataAdvanceList['data'] = [];
-        $beneficiary_id = $request->input('beneficiary_id');
-        $beneficiary = $request->input('beneficiary');
-        $advance_RefID = $request->input('advance_RefID');
-
-        $data = Session::get("SessionAdvanceSetllementBeneficiary");
-        $dataID = Session::get("SessionAdvanceSetllementBeneficiaryID");
-        if (Session::has("SessionAdvanceSetllementBeneficiary")) {
-            for ($i = 0; $i < count($data); $i++) {
-                if ($data[$i] == $advance_RefID) {
-                    $tamp = 1;
-                }
-            }
-            if ($tamp == 0) {
-                for ($i = 0; $i < count($dataID); $i++) {
-                    if ($dataID[$i] != $beneficiary_id) {
-                        $status = 500;
-                        $tamp2 = 1;
-                        break;
-                    }
-                }
-
-                if ($tamp2 == 0){
-
-                    $varDataAdvanceList = $this->AdvanceDetailComplexByBeneficiaryID($advance_RefID);
-
-                    Session::push("SessionAdvanceSetllementBeneficiary", $advance_RefID);
-                    Session::push("SessionAdvanceSetllementBeneficiaryID", $beneficiary_id);
-                }
-            } else {
-                $status = 501;
-            }
-        } else {
-
-            $varDataAdvanceList = $this->AdvanceDetailComplexByBeneficiaryID($advance_RefID);
-
-            Session::push("SessionAdvanceSetllementBeneficiary", $advance_RefID);
-            Session::push("SessionAdvanceSetllementBeneficiaryID", $beneficiary_id);
-        }
-        $compact = [
-            'status' => $status,
-            'beneficiary_id' => $beneficiary_id,
-            'beneficiary' => $beneficiary,
-            'data' => $varDataAdvanceList,
-        ];
-        return response()->json($compact);
-    }
-
-    public function AdvanceDetailComplexByBeneficiaryID($advance_RefID)
-    {
-        $varAPIWebToken = Session::get('SessionLogin');
-        // if (Redis::get("DataListAdvanceDetailComplex") == null) {
-            Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceDetailComplex',
-                'latest',
-                [
-                    'parameter' => [
-                        'advance_RefID' => (int) $advance_RefID,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-        // }
-
-        $DataAdvanceDetailComplex = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "DataListAdvanceDetailComplex"
-            ),
-            true
-        );
-        $collection = collect($DataAdvanceDetailComplex);
-        $collection = $collection->where('Sys_ID_Advance', $advance_RefID);
-
-
-        $filteredArray = [];
-        $num = 0;
-        foreach ($collection->all() as $collections) {
-            $filteredArray[$num] = $collections;
-            $num++;
-        }
-
-        return $filteredArray;
-    }
-    
     public function SearchAdvanceRequest(Request $request)
     {
         Session::forget("SessionAdvanceSetllementBeneficiary");
@@ -305,54 +201,6 @@ class AdvanceSettlementController extends Controller
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
-    }
-
-    public function AdvanceSettlementListDataById(Request $request)
-    {
-        $advance_RefID = $request->input('var_recordID');
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varDataAdvanceList = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvanceDetail',
-            'latest',
-            [
-                'parameter' => [
-                    'advance_RefID' => (int) $advance_RefID,
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        return response()->json($varDataAdvanceList['data']);
-    }
-
-    public function AdvanceSettlementListCartRevision(Request $request)
-    {
-        $var_recordID = $request->input('var_recordID');
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvanceDetail',
-            'latest',
-            [
-                'parameter' => [
-                    'advance_RefID' => (int) $var_recordID,
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
-        return response()->json($varData['data']);
     }
 
     public function RevisionAdvanceSettlementIndex(Request $request)
