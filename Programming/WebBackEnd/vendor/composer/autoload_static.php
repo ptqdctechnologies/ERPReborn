@@ -3340,6 +3340,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Models\\Database\\SchData_OLTP_Master\\TblEducationalInstitution' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblEducationalInstitution.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblEducationalInstitutionType' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblEducationalInstitutionType.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblEducationalLevel' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblEducationalLevel.php',
+        'App\\Models\\Database\\SchData_OLTP_Master\\TblEntityBankAccount' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblEntityBankAccount.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblEntityContactNumber' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblEntityContactNumber.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblEntityEMailAccount' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblEntityEMailAccount.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblEntityFinancialCard' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblEntityFinancialCard.php',
