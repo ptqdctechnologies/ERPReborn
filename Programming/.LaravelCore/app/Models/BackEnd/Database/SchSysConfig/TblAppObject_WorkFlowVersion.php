@@ -96,7 +96,7 @@ namespace App\Models\Database\SchSysConfig
                     );
 
             return
-                $varReturn['data'][0];
+                $varReturn;
             }
 
 
@@ -160,7 +160,7 @@ namespace App\Models\Database\SchSysConfig
                     );
 
             return
-                $varReturn['data'][0];
+                $varReturn;
             }
         }
     }

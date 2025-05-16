@@ -422,7 +422,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     '}'
                                                     )
                                                 ).
-                                            ').data'.
+                                            ').data.data'.
                                         '); '.
 
                                     'let varJSONReturn = \'\'; '.
@@ -670,7 +670,7 @@ namespace App\Helpers\ZhtHelper\General
                                                         '}'
                                                         )
                                                     ).
-                                                ').data'.
+                                                ').data.data'.
                                             '); '.
                                         '} '.
                                     'catch (varError) {'.
@@ -1968,7 +1968,7 @@ namespace App\Helpers\ZhtHelper\General
                                                         '}'
                                                         )
                                                     ).
-                                                ').data.data.signExist'.
+                                                ').data.signExist'.
                                             '); '.
                                         '}'.
                                     'catch(varError) {'.

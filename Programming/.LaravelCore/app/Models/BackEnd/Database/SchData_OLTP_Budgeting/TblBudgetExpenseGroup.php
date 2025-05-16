@@ -89,7 +89,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn;
             }
 
 
@@ -143,7 +144,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn;
             }
         }
     }

@@ -897,6 +897,7 @@ namespace App\Helpers\ZhtHelper\Database
                                 }
                             else
                                 {
+                                $varReturn['process']['DBMS']['executionInterval'] = NULL;
 
                                 //---> Inisialisasi [Process][StartDateTime]
                                 $varDataTemp = 
@@ -904,7 +905,7 @@ namespace App\Helpers\ZhtHelper\Database
                                         $varUserSession, 
                                         "SELECT NOW();"
                                         );
-                                $varReturn['process']['startDateTimeTZ'] = $varDataTemp['data'][0]['now'];
+                                $varReturn['process']['DBMS']['startDateTimeTZ'] = $varDataTemp['data'][0]['now'];
                                 unset($varDataTemp);
 
                                 //---> Inisialisasi [Data], [RowCount], [Notice]
@@ -922,15 +923,15 @@ namespace App\Helpers\ZhtHelper\Database
                                         "
                                         SELECT
                                             \"SubSQL\".now AS \"FinishDateTimeTZ\",
-                                            (\"SubSQL\".now - '".$varReturn['process']['startDateTimeTZ']."')::interval AS \"ExecutionInterval\"
+                                            (\"SubSQL\".now - '".$varReturn['process']['DBMS']['startDateTimeTZ']."')::interval AS \"ExecutionInterval\"
                                         FROM
                                             (
                                             SELECT NOW()
                                             ) AS \"SubSQL\"
                                         "
                                         );
-                                $varReturn['process']['finishDateTimeTZ'] = $varDataTemp['data'][0]['FinishDateTimeTZ'];
-                                $varReturn['process']['executionInterval'] = $varDataTemp['data'][0]['ExecutionInterval'];                    
+                                $varReturn['process']['DBMS']['finishDateTimeTZ'] = $varDataTemp['data'][0]['FinishDateTimeTZ'];
+                                $varReturn['process']['DBMS']['executionInterval'] = $varDataTemp['data'][0]['ExecutionInterval'];                    
                                 unset($varDataTemp);
                                 }
                             }

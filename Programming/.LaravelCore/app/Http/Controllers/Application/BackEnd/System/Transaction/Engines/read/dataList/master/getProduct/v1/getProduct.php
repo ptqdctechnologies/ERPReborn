@@ -56,43 +56,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         */
         function main($varUserSession, $varData)
             {
-/*
-            $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-            $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
-            $varProduct =
-                (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_Product(
-                    $userSessionID,
-                    $branchID
-                );
-*/
-            
-            /*
-            $userSessionID = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-            $branchID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['branchID'];
-            $workerCareerInternal_RefID = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($userSessionID)['userIdentity']['workerCareerInternal_RefID'];
-
-            $varTTL = 86400; // 24 Jam
-            // DATA MASTER PRODUCT
-
-            $varProduct =
-                (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_Product(
-                    $userSessionID,
-                    $branchID
-                );
-
-            //SET REDIS PRODUCT
-            \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
-                $userSessionID,
-                "Product",
-                json_encode($varProduct),
-                // $varTTL
-            );
-            return [];
-             */
-
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Person Gender Data List (version 1)');
+                $varSysDataProcess =
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Get Person Gender Data List (version 1)'
+                        );
+
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
@@ -154,6 +125,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
 
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
 

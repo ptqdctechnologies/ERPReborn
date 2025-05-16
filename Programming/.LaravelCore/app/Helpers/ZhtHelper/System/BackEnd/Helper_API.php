@@ -123,7 +123,19 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataCreate($varUserSession, array $varDataSend)
             {
-            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'SignRecordID', $varDataSend) == TRUE)
+            //---> Capture Process
+            $varReturnProcess = NULL;
+            if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                $varUserSession,
+                'data',
+                $varDataSend
+                ) == TRUE)
+                    {
+                    $varReturnProcess = $varDataSend['process'];
+                    $varDataSend = $varDataSend['data'][0];
+                    }
+            
+            if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'SignRecordID', $varDataSend) == TRUE)
                 {
                 if ($varDataSend['SignRecordID'])
                     {
@@ -176,6 +188,18 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                         };
 
                     $varReturn = [
+                        'process' => (
+                            $varReturnProcess === NULL ? 
+                                [
+                                'DBMS' => [
+                                    'executionInterval' => NULL,
+                                    'startDateTimeTZ' => NULL,
+                                    'finishDateTimeTZ' => NULL
+                                    ]
+                                ]
+                                :
+                                $varReturnProcess
+                                ),
                         'message' => 'Data Insertion Was Successful (New Record ID : '.$varDataSend['SignRecordID'].')',
                         'recordID' => $varDataSend['SignRecordID'],
                         'businessDocument' => $varBusinessDocument
@@ -308,12 +332,38 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataInitialize($varUserSession, array $varDataSend)
             {
-            if( 1 == 1 )
+            if ( 1 == 1 )
                 {
+                //---> Capture Process
+                $varReturnProcess = NULL;
+                if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                    $varUserSession,
+                    'data',
+                    $varDataSend
+                    ) == TRUE)
+                        {
+                        $varReturnProcess = $varDataSend['process'];
+                        $varDataSend = $varDataSend['data'][0];
+                        }
+                
                 $varReturn = [
+                    'process' => (
+                        $varReturnProcess === NULL ? 
+                            [
+                            'DBMS' => [
+                                'executionInterval' => NULL,
+                                'startDateTimeTZ' => NULL,
+                                'finishDateTimeTZ' => NULL
+                                ]
+                            ]
+                            :
+                            $varReturnProcess
+                            ),
                     'message' => 'Data Initialization Successful'
                     ];
-                return $varReturn;
+
+                return
+                    $varReturn;
                 }
             else
                 {
@@ -571,6 +621,18 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataUpdate($varUserSession, array $varDataSend)
             {
+            //---> Capture Process
+            $varReturnProcess = NULL;
+            if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                $varUserSession,
+                'data',
+                $varDataSend
+                ) == TRUE)
+                    {
+                    $varReturnProcess = $varDataSend['process'];
+                    $varDataSend = $varDataSend['data'][0];
+                    }
+
             if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'SignRecordID', $varDataSend) == TRUE)
                 {
                 if ($varDataSend['SignRecordID'])
@@ -651,6 +713,18 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                     
                     $varReturn = [
                         0 => [
+                            'process' => (
+                                $varReturnProcess === NULL ? 
+                                    [
+                                    'DBMS' => [
+                                        'executionInterval' => NULL,
+                                        'startDateTimeTZ' => NULL,
+                                        'finishDateTimeTZ' => NULL
+                                        ]
+                                    ]
+                                    :
+                                    $varReturnProcess
+                                    ),
                             'message' => 'Data Update Was Successful (Record ID : '.$varDataSend['SignRecordID'].')',
                             'recordID' => $varDataSend['SignRecordID'],
                             'businessDocument' => $varBusinessDocument

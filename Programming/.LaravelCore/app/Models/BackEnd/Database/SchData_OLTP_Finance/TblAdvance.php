@@ -117,7 +117,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     );
 
             return
-                $varReturn['data'][0];
+                $varReturn;
             }
 
 
@@ -201,7 +201,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     );
 
             return
-                $varReturn['data'][0];
+                $varReturn;
             }
         }
     }

@@ -29,12 +29,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
-            if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-                }
 
-
+/*
             $varData = 
                 [
                 'dataWarehouse.dataCheck.recordIDExistantion.acquisition.getFileUpload_Pointer', 
@@ -84,24 +80,36 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
 $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varResponse);
             
             dd($varResponseData);    
+*/
+                
+            //-----[ PARAMETER SET ]------------------------------------------------------------------------------------------------
+            if (!$varAPIWebToken) {
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
+                }
 
-/*            
-            //---Core---
-            $varData = 
+            //-----[ CORE PROCESS ]-------------------------------------------------------------------------------------------------
+            $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'dataWarehouse.dataCheck.recordIDExistantion.acquisition.getFileUpload_Pointer', 
-                    'latest', 
-                    [
-                    'parameter' => [
-                        'recordID' => 91000000000001
+                    //-----[ METADATA ]-------------------------------------------------( START )-----
+                        $varAPIWebToken,
+                        'dataWarehouse.dataCheck.recordIDExistantion.acquisition.getFileUpload_Pointer',
+                        'latest',
+                    //-----[ METADATA ]-------------------------------------------------(  END  )-----
+
+                    //-----[ DATA ]-----------------------------------------------------( START )-----
+                        [
+                        'parameter' => [
+                            'recordID' => 91000000000001
+                            ]
                         ]
-                    ]
+                    //-----[ DATA ]-----------------------------------------------------(  END  )-----
                     );
- 
- */
-            var_dump($varData);
+
+            //-----[ DATA RETURN ]--------------------------------------------------------------------------------------------------
+            return
+                $varData;
             }
 
 
