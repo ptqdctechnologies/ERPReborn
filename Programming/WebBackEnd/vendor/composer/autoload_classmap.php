@@ -2671,6 +2671,7 @@ return array(
     'App\\Models\\Database\\SchData_OLTP_Master\\TblEducationalInstitutionType' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblEducationalInstitutionType.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblEducationalLevel' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblEducationalLevel.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblEntityContactNumber' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblEntityContactNumber.php',
+    'App\\Models\\Database\\SchData_OLTP_Master\\TblEntityEMailAccount' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblEntityEMailAccount.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblEntityFinancialCard' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblEntityFinancialCard.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblFinancialCard' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblFinancialCard.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblFinancialCardProduct' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblFinancialCardProduct.php',

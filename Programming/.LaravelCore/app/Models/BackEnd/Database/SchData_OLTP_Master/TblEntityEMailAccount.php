@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblEntityBankAccount                                                                                         |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblEntityBankAccount                                       |
+    | ▪ Class Name  : TblEntityEMailAccount                                                                                        |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblEntityEMailAccount                                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblEntityBankAccount extends \App\Models\Database\DefaultClassPrototype
+    class TblEntityEMailAccount extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -61,7 +61,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchSysConfig-Initialize.Func_DtOLTP_Mstr_TblEntityBankAccount',
+                        'SchSysConfig-Initialize.Func_DtOLTP_Mstr_TblEntityEMailAccount',
                         []
                         )
                     );
