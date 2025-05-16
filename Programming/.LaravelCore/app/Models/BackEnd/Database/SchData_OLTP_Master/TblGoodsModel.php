@@ -66,7 +66,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn;
             }
 
 
@@ -119,7 +120,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn;
             }
 
 
@@ -173,7 +175,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn;
             }
         }
     }

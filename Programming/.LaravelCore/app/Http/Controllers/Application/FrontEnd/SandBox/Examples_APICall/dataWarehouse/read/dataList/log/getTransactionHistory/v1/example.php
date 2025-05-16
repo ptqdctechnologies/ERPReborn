@@ -27,29 +27,40 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]------------------------------------------------------------------------------------------------
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'dataWarehouse.read.dataList.log.getTransactionHistory', 
-                'latest', 
-                [
-                'parameter' => [
-                    'source_RefID' => 211000000000003
-                    ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                    ]
-                ]
-                );
-            var_dump($varData);
+
+            //-----[ CORE PROCESS ]-------------------------------------------------------------------------------------------------
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    //-----[ METADATA ]-------------------------------------------------( START )-----
+                         $varAPIWebToken,
+                        'dataWarehouse.read.dataList.log.getTransactionHistory',
+                        'latest',
+                    //-----[ METADATA ]-------------------------------------------------(  END  )-----
+
+                    //-----[ DATA ]-----------------------------------------------------( START )-----
+                        [
+                        'parameter' => [
+                            'source_RefID' => 211000000000003
+                            ],
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                            ]
+                        ]
+                    //-----[ DATA ]-----------------------------------------------------(  END  )-----
+                    );
+
+            //-----[ DATA RETURN ]--------------------------------------------------------------------------------------------------
+            return
+                $varData;
             }
 
 

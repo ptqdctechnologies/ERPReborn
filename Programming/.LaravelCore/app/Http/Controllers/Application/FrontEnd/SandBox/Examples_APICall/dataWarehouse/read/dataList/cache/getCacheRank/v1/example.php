@@ -27,31 +27,38 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]------------------------------------------------------------------------------------------------
             if (!$varAPIWebToken) {
                 $varAPIWebToken =
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
-            //---Core---
+            //-----[ CORE PROCESS ]-------------------------------------------------------------------------------------------------
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'dataWarehouse.read.dataList.cache.getCacheRank', 
-                    'latest', 
-                    [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
+                    //-----[ METADATA ]-------------------------------------------------( START )-----
+                        $varAPIWebToken,
+                        'dataWarehouse.read.dataList.cache.getCacheRank',
+                        'latest',
+                    //-----[ METADATA ]-------------------------------------------------(  END  )-----
+
+                    //-----[ DATA ]-----------------------------------------------------( START )-----
+                        [
+                        'parameter' => null,
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                            ]
                         ]
-                    ]
+                    //-----[ DATA ]-----------------------------------------------------(  END  )-----
                     );
 
-            var_dump($varData);
+            //-----[ DATA RETURN ]--------------------------------------------------------------------------------------------------
+            return
+                $varData;
             }
 
 
