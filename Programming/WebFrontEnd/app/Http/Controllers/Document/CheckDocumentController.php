@@ -54,7 +54,8 @@ class CheckDocumentController extends Controller
             if (
                 $documentType === 'Person Business Trip Form' || 
                 $documentType === 'Warehouse Inbound Order Form' ||
-                $documentType === 'Advance Settlement Form'
+                $documentType === 'Advance Settlement Form' || 
+                $documentType === 'Timesheet Form'
             ) {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
                 $responseData = [
@@ -202,10 +203,14 @@ class CheckDocumentController extends Controller
                 return redirect()->back()->with('error', 'Data Not Found');
             }
 
+            // dd($collection, $workflowHistory);
+
             $approverStatus     = $this->determineApproverStatus($workflowHistory, $sourceData);
             $documentStatus     = $this->determineDocumentStatus($workflowHistory);
 
             $formatData = DocumentTypeMapper::formatData($businessDocumentTypeName, $collection['dataDetail'][0]);
+
+            // dd($formatData);
 
             $compact = [
                 'varAPIWebToken'            => $varAPIWebToken,
@@ -213,7 +218,6 @@ class CheckDocumentController extends Controller
                 'var'                       => 1,
                 'transactionNumber'         => $businessDocumentNumber,
                 'transactionDetail_RefID'   => $transDetail_RefID,
-                'transactionType'           => $businessDocumentTypeName,
                 'dataWorkFlows'             => $workflowHistory,
                 'statusDocument'            => $documentStatus,
                 'approverStatus'            => $approverStatus,
