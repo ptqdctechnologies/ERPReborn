@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.read.dataList.master.getCountryAdministrativeAreaLevel1 (version 1)",
+"description": "JSON Request Schema of transaction.read.dataList.master.getCountryAdministrativeArea (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.read.dataList.master.getCountryAdministrativeAreaLevel1" ]
+                        "enum": [ "transaction.read.dataList.master.getCountryAdministrativeArea" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -33,17 +33,7 @@
         "type": "object",
         "properties": {
             "parameter": {
-                "type": "object",
-                "properties": {
-                    "country_RefID": {
-                        "type": [ "integer" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
-                        }
-                    },
-                "required": [
-                    "country_RefID"
-                    ]
+                "additionalProperties": false
                 },
             "SQLStatement": {
                 "type": "object",
