@@ -484,6 +484,113 @@
         document.getElementById('TotalAdvanceDetail').textContent = "0.00";
     });
 
+    document.querySelector('#tableAdvanceList tbody').addEventListener('click', function (e) {
+        const row = e.target.closest('tr');
+        if (!row) return;
+
+        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+
+        const qtyAvail      = row.children[0];
+        const priceAvail    = row.children[1];
+        const qtyExpense    = row.children[7];
+        const priceExpense  = row.children[8];
+        const totalExpense  = row.children[9];
+        const qtyCompany    = row.children[10];
+        const priceCompany  = row.children[11];
+        const totalCompany  = row.children[12];
+        const balance       = row.children[13];
+
+        if (row.classList.contains('editing-row')) {
+            const newQtyExpense     = qtyExpense.querySelector('input')?.value || '';
+            const newPriceExpense   = priceExpense.querySelector('input')?.value || '';
+            const newTotalExpense   = totalExpense.querySelector('input')?.value || '';
+            const newQtyCompany     = qtyCompany.querySelector('input')?.value || '';
+            const newPriceCompany   = priceCompany.querySelector('input')?.value || '';
+            const newTotalCompany   = totalCompany.querySelector('input')?.value || '';
+            const newBalance        = balance.querySelector('input')?.value || '';
+
+            qtyExpense.innerHTML    = newQtyExpense;
+            priceExpense.innerHTML  = newPriceExpense;
+            totalExpense.innerHTML  = newTotalExpense;
+            qtyCompany.innerHTML    = newQtyCompany;
+            priceCompany.innerHTML  = newPriceCompany;
+            totalCompany.innerHTML  = newTotalCompany;
+            balance.innerHTML       = newBalance;
+
+            row.classList.remove('editing-row');
+
+            const transNumber = row.children[2].innerText.trim();
+            const productCode = row.children[3].innerText.trim();
+            const storeItem = dataStore.find(item => item.entities.transactionNumber === transNumber && item.entities.productCode === productCode);
+            if (storeItem) {
+                storeItem.entities.expenseQuantity                      = parseFloat(newQtyExpense.replace(/,/g, ''));
+                storeItem.entities.expenseProductUnitPriceCurrencyValue = parseFloat(newPriceExpense.replace(/,/g, ''));
+                storeItem.entities.refundQuantity                       = parseFloat(newQtyCompany.replace(/,/g, ''));
+                storeItem.entities.refundProductUnitPriceCurrencyValue  = parseFloat(newPriceCompany.replace(/,/g, ''));
+
+                $("#advanceSettlementDetail").val(JSON.stringify(dataStore));
+            }
+        } else {
+            const currentQtyExpense     = qtyExpense.innerText.trim();
+            const currentPriceExpense   = priceExpense.innerText.trim();
+            const currentTotalExpense   = totalExpense.innerText.trim();
+            const currentQtyCompany     = qtyCompany.innerText.trim();
+            const currentPriceCompany   = priceCompany.innerText.trim();
+            const currentTotalCompany   = totalCompany.innerText.trim();
+            const currentBalance        = balance.innerText.trim();
+
+            qtyExpense.innerHTML = `<input class="form-control number-without-negative qty-expense-input" value="${currentQtyExpense}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+            priceExpense.innerHTML = `<input class="form-control number-without-negative price-expense-input" value="${currentPriceExpense}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+            totalExpense.innerHTML = `<input class="form-control number-without-negative total-expense-input" value="${currentTotalExpense}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
+            qtyCompany.innerHTML = `<input class="form-control number-without-negative qty-company-input" value="${currentQtyCompany}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+            priceCompany.innerHTML = `<input class="form-control number-without-negative price-company-input" value="${currentPriceCompany}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+            totalCompany.innerHTML = `<input class="form-control number-without-negative total-company-input" value="${currentTotalCompany}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
+            balance.innerHTML = `<input class="form-control number-without-negative balance-company-input" value="${currentBalance}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
+
+            row.classList.add('editing-row');
+
+            const qtyExpenseInput   = qtyExpense.querySelector('.qty-expense-input');
+            const priceExpenseInput = priceExpense.querySelector('.price-expense-input');
+            const totalExpenseInput = totalExpense.querySelector('.total-expense-input');
+            const qtyCompanyInput   = qtyCompany.querySelector('.qty-company-input');
+            const priceCompanyInput = priceCompany.querySelector('.price-company-input');
+            const totalCompanyInput = totalCompany.querySelector('.total-company-input');
+            const balanceInput      = balance.querySelector('.balance-company-input');
+
+            function updateTotalExpenseClaim() {
+                var price   = parseFloat(priceExpenseInput.value.replace(/,/g, '')) || 0;
+                var qty     = parseFloat(qtyExpenseInput.value.replace(/,/g, '')) || 0;
+                var total   = price * qty;
+
+                const qtyAvailValue     = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
+                const priceAvailValue   = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
+
+                if (qty > qtyAvailValue) {
+                    total                   = priceAvailValue * qtyAvailValue;
+                    qty                     = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    qtyExpenseInput.value   = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                    ErrorNotif("Qty Req is over Qty Avail !");
+                }
+
+                if (price > priceAvailValue) {
+                    total                   = qtyAvailValue * priceAvailValue;
+                    price                   = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    priceExpenseInput.value = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                    ErrorNotif("Price Req is over Price Avail !");
+                }
+
+                totalExpenseInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+
+            priceExpenseInput.addEventListener('input', updateTotalExpenseClaim);
+            qtyExpenseInput.addEventListener('input', updateTotalExpenseClaim);
+
+            document.getElementById('GrandTotal').innerText = totalExpenseInput.value;
+        }
+    });
+
     $('#tableGetModalAdvance').on('click', 'tbody tr', function() {
         var sysId               = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
         var bankAccount         = $(this).find('input[data-trigger="beneficiary_bank_account_name"]').val();
@@ -568,8 +675,6 @@
                     type: method,
                     success: function(response) {
                         HideLoading();
-
-                        console.log('response', response);
 
                         if (response.message == "WorkflowError") {
                             $("#submitPR").prop("disabled", false);

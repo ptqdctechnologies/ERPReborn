@@ -20,7 +20,6 @@
       @if($var == 0)
       <div class="card" style="position:relative;bottom:10px;">
         <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormStoreAdvanceSettlement">
-        {{-- <form method="post" action="{{ route('AdvanceSettlement.store') }}" id="FormStoreAdvanceSettlement"> --}}
           @csrf
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
