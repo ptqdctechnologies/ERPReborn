@@ -2,8 +2,9 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getSite')
 @include('getFunction.getProject')
+@include('getFunction.getWarehouse')
+@include('getFunction.getWarehouse2')
 @include('Process.Advance.AdvanceRequest.Functions.Table.TableAdvanceRevision')
 
 <div class="content-wrapper">
@@ -11,7 +12,7 @@
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">Material Return Summary Report</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">Material Receive Summary Report</label>
                 </div>
             </div>
             <div class="card">

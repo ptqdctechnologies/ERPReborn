@@ -209,33 +209,85 @@ class MaterialReturnController extends Controller
         try {
             $varAPIWebToken = Session::get('SessionLogin');
 
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getAdvance', 
-                'latest',
-                [
-                    'parameter' => [
-                        'recordID' => (int) $id
+            // $filteredArray = Helper_APICall::setCallAPIGateway(
+            //     Helper_Environment::getUserSessionID_System(),
+            //     $varAPIWebToken, 
+            //     'report.form.documentForm.finance.getAdvance', 
+            //     'latest',
+            //     [
+            //         'parameter' => [
+            //             'recordID' => (int) $id
+            //         ]
+            //     ]
+            // );
+
+            // if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+            //     throw new \Exception('Data not found in the API response.');
+            // }
+
+            // $getData = $filteredArray['data'][0]['document'];
+
+            $getData = [
+                'header' => [
+                    'date' => '2025-05-16'
+                ],
+                'content' => [
+                    'general' => [
+                        'budget' => [
+                            'combinedBudgetCodeList' => ['Q000062'],
+                            'combinedBudgetNameList' => ['XL Microcell 2007'],
+                            'combinedBudgetSectionCodeList' => ['235 - Ampang Kuranji - Padang']
+                        ],
+                        'involvedPersons' => [
+                            [
+                                'requesterWorkerName' => 'Iswahyuni'
+                            ]
+                        ]
+                    ],
+                    'details' => [
+                        'itemList' => [
+                            [
+                                'entities' => [
+                                    'product_RefID' => '1000416',
+                                    'productName' => 'Cable NYY',
+                                    'quantity' => 5,
+                                    'quantityUnitName' => 'pcs',
+                                    'remarks' => 'Kondisi barang sesuai dan dipacking dalam box'
+                                ]
+                            ],
+                            [
+                                'entities' => [
+                                    'product_RefID' => '313344-0000',
+                                    'productName' => 'Charger-200A plus dioda dropper',
+                                    'quantity' => 20,
+                                    'quantityUnitName' => 'pcs',
+                                    'remarks' => 'Kondisi barang sesuai'
+                                ]
+                            ],
+                            [
+                                'entities' => [
+                                    'product_RefID' => '211096-0000',
+                                    'productName' => 'Steel Support Apparatus',
+                                    'quantity' => 10,
+                                    'quantityUnitName' => 'kg',
+                                    'remarks' => 'Kondisi barang sesuai'
+                                ]
+                            ]
+                        ]
                     ]
                 ]
-            );
-
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Data not found in the API response.');
-            }
-
-            $getData = $filteredArray['data'][0]['document'];
+            ];
 
             // DATA HEADER
             $dataHeaders = [
-                'mrNumber'      => 'MR01-23000004',
+                'mrNumber'      => 'MR/QDC/2025/0000006',
+                'doNumber'      => 'DO/QDC/2025/0000010',
                 'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0],
                 'budgetName'    => $getData['content']['general']['budget']['combinedBudgetNameList'][0],
                 'subBudget'     => $getData['content']['general']['budget']['combinedBudgetSectionCodeList'][0],
                 'date'          => $getData['header']['date'],
                 'transporter'   => "VDR-2594 - Aman Jaya",
-                'deliveryFrom'  => "QDC",
+                'deliveryFrom'  => "Gudang Mampang",
                 'deliveryTo'    => 'Gudang Tigaraksa',
                 'PIC'           => $getData['content']['general']['involvedPersons'][0]['requesterWorkerName'],
             ];
@@ -251,8 +303,8 @@ class MaterialReturnController extends Controller
                 $dataDetails[$i]['productId']   = $dataReports['entities']['product_RefID'];
                 $dataDetails[$i]['productName'] = $dataReports['entities']['productName'];
                 $dataDetails[$i]['qty']         = number_format($dataReports['entities']['quantity'], 2, ',', '.');
-                $dataDetails[$i]['uom']         = 'Set';
-                $dataDetails[$i]['remark']      = $dataReports['entities']['quantityUnitName'];
+                $dataDetails[$i]['uom']         = $dataReports['entities']['quantityUnitName'];
+                $dataDetails[$i]['remark']      = $dataReports['entities']['remarks'];
                 $i++;
             }
 
@@ -314,9 +366,9 @@ class MaterialReturnController extends Controller
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
     
-                    return $pdf->download('Export Report Material Return Detail.pdf');
+                    return $pdf->download('Export Report Material Receive Detail.pdf');
                 } else {
-                    return Excel::download(new ExportReportMaterialReturnDetail, 'Export Report Material Return Detail.xlsx');
+                    return Excel::download(new ExportReportMaterialReturnDetail, 'Export Report Material Receive Detail.xlsx');
                 }
             } else {
                 return redirect()->route('Inventory.ReportMatReturnDetail')->with('NotFound', 'MR Number Cannot Empty');

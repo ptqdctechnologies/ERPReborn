@@ -24,7 +24,6 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
             $collection->push(
                 [
                     $detail['no'],
-                    $detail['dorNumber'],
                     $detail['productId'] . " - " . $detail['productName'],
                     $detail['qty'],
                     $detail['uom'],
@@ -35,7 +34,6 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
 
         $collection->push(
             [
-                '',
                 '',
                 'Total Qty',
                 $data['totalQty'],
@@ -51,8 +49,8 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
     public function headings(): array
     {
         return [
-            ["", "", "", "", "", ""],
-            ["No", "DOR Number", "Product Id", "Qty", "UOM", "Remark"]
+            ["", "", "", "", ""],
+            ["No", "Product Id", "Qty", "UOM", "Remark"]
         ];
     }
 
@@ -66,8 +64,8 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
                 $dataHeader = $data['dataHeader'];
 
                 $sheet->setCellValue('A1', date('F j, Y'))
-                    ->mergeCells('A1:F1')
-                    ->getStyle('A1:F1')
+                    ->mergeCells('A1:E1')
+                    ->getStyle('A1:E1')
                     ->applyFromArray([
                         'font' => [
                             'bold' => true,
@@ -78,9 +76,9 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
                         ],
                 ]);
 
-                $sheet->setCellValue('A2', 'Material Return Detail Report')
-                    ->mergeCells('A2:F2')
-                    ->getStyle('A2:F2')
+                $sheet->setCellValue('A2', 'Material Receive Detail Report')
+                    ->mergeCells('A2:E2')
+                    ->getStyle('A2:E2')
                     ->applyFromArray([
                         'font' => [
                             'bold' => true,
@@ -92,8 +90,8 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
                 ]);
 
                 $sheet->setCellValue('A3', date('h:i A'))
-                    ->mergeCells('A3:F3')
-                    ->getStyle('A3:F3')
+                    ->mergeCells('A3:E3')
+                    ->getStyle('A3:E3')
                     ->applyFromArray([
                         'font' => [
                             'bold' => true,
@@ -128,23 +126,15 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
                 ]);
                 $sheet->setCellValue('B6', ': ' . $dataHeader['subBudget']);
 
-                $sheet->setCellValue('A7', 'Date')->getStyle('A7')->applyFromArray([
+                $sheet->setCellValue('C4', 'DO Number')->getStyle('C4')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B7', ': ' . $dataHeader['date']);
+                $sheet->setCellValue('D4', ': ' . $dataHeader['doNumber']);
 
-                $sheet->setCellValue('C4', 'Transporter')->getStyle('C4')->applyFromArray([
-                    'font'  => [
-                        'bold'  => true,
-                        'color' => ['rgb' => '000000']
-                    ]
-                ]);
-                $sheet->setCellValue('D4', ': ' . $dataHeader['transporter']);
-
-                $sheet->setCellValue('C5', 'Delivery From')->getStyle('C5')->applyFromArray([
+                $sheet->setCellValue('C5', 'Source Warehouse')->getStyle('C5')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']
@@ -152,21 +142,13 @@ class ExportReportMaterialReturnDetail implements FromCollection, WithHeadings, 
                 ]);
                 $sheet->setCellValue('D5', ': ' . $dataHeader['deliveryFrom']);
 
-                $sheet->setCellValue('C6', 'Delivery To')->getStyle('C6')->applyFromArray([
+                $sheet->setCellValue('C6', 'Destination Warehouse')->getStyle('C6')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
                 $sheet->setCellValue('D6', ': ' . $dataHeader['deliveryTo']);
-
-                $sheet->setCellValue('C7', 'PIC')->getStyle('C7')->applyFromArray([
-                    'font'  => [
-                        'bold'  => true,
-                        'color' => ['rgb' => '000000']
-                    ]
-                ]);
-                $sheet->setCellValue('D7', ': ' . $dataHeader['PIC']);
             },
         ];
     }

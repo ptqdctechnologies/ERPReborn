@@ -68,7 +68,7 @@ if (strpos($current_url, 'ReportDORequestDetail') !== false) {
 
             $.ajax({
                 type: 'GET',
-                url: '{!! route("AdvanceRequest.AdvanceListData") !!}?project_id=' + $('#project_id').val() + '&site_id=' + $('#site_id').val(),
+                url: '{!! route("getAdvance") !!}?project_id=' + $('#project_id').val() + '&site_id=' + $('#site_id').val(),
                 success: function(data) {
                     console.log('data', data);
                     

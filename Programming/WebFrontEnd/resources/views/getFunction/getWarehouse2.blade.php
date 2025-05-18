@@ -1,4 +1,4 @@
-<div id="myGetWarehouse" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myGetWarehouse2" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,7 +11,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap TableGetWarehouse" id="TableGetWarehouse">
+                                <table class="table table-head-fixed text-nowrap TableGetWarehouse2" id="TableGetWarehouse2">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -54,7 +54,7 @@
                 url: '{!! route("getWarehouse") !!}',
                 success: function(data) {
                     var no = 1;
-                    var t = $('#TableGetWarehouse').DataTable();
+                    var t = $('#TableGetWarehouse2').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
                         keys += 1;
@@ -69,7 +69,7 @@
                 }
             });
 
-            $('#TableGetWarehouse tbody').on('click', 'tr', function() {
+            $('#TableGetWarehouse2 tbody').on('click', 'tr', function() {
 
                 $("#myGetWarehouse").modal('toggle');
 
@@ -80,9 +80,9 @@
                 var name = row.find("td:nth-child(3)").text();
                 var address = row.find("td:nth-child(5)").text();
 
-                $("#warehouse_from_id").val(sys_id_warehouse);
-                $("#warehouse_from").val(code + ' - ' + name);
-                $("#warehouse_from_addres").val(address);
+                $("#warehouse_from_id2").val(sys_id_warehouse);
+                $("#warehouse_from2").val(code + ' - ' + name);
+                $("#warehouse_from_addres2").val(address);
 
 
                 
@@ -166,7 +166,7 @@
                 url: '{!! route("getWarehouse") !!}',
                 success: function(data) {
                     var no = 1;
-                    var t = $('#TableGetWarehouse').DataTable();
+                    var t = $('#TableGetWarehouse2').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
                         keys += 1;
@@ -181,7 +181,7 @@
                 }
             });
 
-            $('#TableGetWarehouse tbody').on('click', 'tr', function() {
+            $('#TableGetWarehouse2 tbody').on('click', 'tr', function() {
 
                 $("#myGetWarehouse").modal('toggle');
 
@@ -206,7 +206,7 @@
 
 <script>
     $(function() {
-        $('#myGetWarehouse').one('click', function(e) {
+        $('#myGetWarehouse2').one('click', function(e) {
             e.preventDefault();
             // ShowLoading();
 
@@ -226,7 +226,7 @@
                 url: '{!! route("getWarehouse") !!}',
                 success: function(data) {
                     var no = 1;
-                    var t = $('#TableGetWarehouse').DataTable();
+                    var t = $('#TableGetWarehouse2').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
                         keys += 1;
@@ -241,7 +241,7 @@
                 }
             });
 
-            $('#TableGetWarehouse tbody').on('click', 'tr', function() {
+            $('#TableGetWarehouse2 tbody').on('click', 'tr', function() {
 
                 $("#myGetWarehouse").modal('toggle');
 
@@ -252,9 +252,9 @@
                 var name = row.find("td:nth-child(3)").text();
                 var address = row.find("td:nth-child(5)").text();
 
-                $("#warehouse_id").val(sys_id_warehouse);
-                $("#warehouse_name").val(code);
-                $("#warehouse_address").val(address);
+                $("#warehouse_id2").val(sys_id_warehouse);
+                $("#warehouse_name2").val(code);
+                $("#warehouse_address2").val(address);
 
             });
 
