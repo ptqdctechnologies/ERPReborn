@@ -26,27 +26,34 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]------------------------------------------------------------------------------------------------
             if (!$varAPIWebToken) {
                 $varAPIWebToken =
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
-            //---Core---
+            //-----[ CORE PROCESS ]-------------------------------------------------------------------------------------------------
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.create.master.setVehicleType', 
-                    'latest', 
-                    [
-                    'entities' => [
-                        "name" => 'Vehicle Name'
+                    //-----[ METADATA ]-------------------------------------------------( START )-----
+                         $varAPIWebToken,
+                        'transaction.create.master.setVehicleType',
+                        'latest',
+                    //-----[ METADATA ]-------------------------------------------------(  END  )-----
+
+                    //-----[ DATA ]-----------------------------------------------------( START )-----
+                        [
+                        'entities' => [
+                            "name" => 'Vehicle Name'
+                            ]
                         ]
-                    ]
+                    //-----[ DATA ]-----------------------------------------------------(  END  )-----
                     );
 
-            var_dump($varData);
+            //-----[ DATA RETURN ]--------------------------------------------------------------------------------------------------
+            return
+                $varData;
             }
 
 

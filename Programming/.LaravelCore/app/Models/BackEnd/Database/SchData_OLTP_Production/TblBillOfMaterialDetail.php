@@ -94,7 +94,9 @@ namespace App\Models\Database\SchData_OLTP_Production
                         ]
                         )
                     );
-            return $varReturn['data'][0];
+
+            return
+                $varReturn;
             }
 
 
@@ -126,7 +128,9 @@ namespace App\Models\Database\SchData_OLTP_Production
                     );
 
             $varReturn = [];
-            return $varReturn;
+
+            return
+                $varReturn;
             }
 
 
@@ -187,7 +191,8 @@ namespace App\Models\Database\SchData_OLTP_Production
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn;
             }
         }
     }

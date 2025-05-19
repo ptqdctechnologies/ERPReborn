@@ -98,7 +98,8 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn;
             }
 
 
@@ -131,7 +132,9 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                     );
 
             $varReturn = [];
-            return $varReturn;
+
+            return
+                $varReturn;
             }
 
 
@@ -196,7 +199,8 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn;
             }
         }
     }

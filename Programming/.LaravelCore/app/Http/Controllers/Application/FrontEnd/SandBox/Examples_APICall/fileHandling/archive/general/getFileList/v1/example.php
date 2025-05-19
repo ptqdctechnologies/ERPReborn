@@ -26,24 +26,34 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]------------------------------------------------------------------------------------------------
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
-            //---Core---
-            $varData = 
+
+            //-----[ CORE PROCESS ]-------------------------------------------------------------------------------------------------
+            $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'fileHandling.archive.general.getFileList', 
-                    'latest', 
-                    [
-                    'parameter' => [
-                        'log_FileUpload_Pointer_RefID' => 264000000000001
+                    //-----[ METADATA ]-------------------------------------------------( START )-----
+                        $varAPIWebToken,
+                        'fileHandling.archive.general.getFileList',
+                        'latest',
+                    //-----[ METADATA ]-------------------------------------------------(  END  )-----
+
+                    //-----[ DATA ]-----------------------------------------------------( START )-----
+                        [
+                        'parameter' => [
+                            'log_FileUpload_Pointer_RefID' => 91000000000272
+                            ]
                         ]
-                    ]
+                    //-----[ DATA ]-----------------------------------------------------(  END  )-----
                     );
-            var_dump(json_encode($varData));
+
+            //-----[ DATA RETURN ]--------------------------------------------------------------------------------------------------
+            return
+                $varData;
             }
 
 

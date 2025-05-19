@@ -67,7 +67,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                     );
 
             return
-                $varReturn['data'][0];
+                $varReturn;
             }
 
 
@@ -98,7 +98,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varName = null)
+            string $varName = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -123,7 +124,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                     );
 
             return
-                $varReturn['data'][0];
+                $varReturn;
             }
 
 
@@ -156,7 +157,8 @@ namespace App\Models\Database\SchData_OLTP_Master
             $varUserSession, 
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varName = null)
+            string $varName = null
+            )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -181,7 +183,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                     );
 
             return
-                $varReturn['data'][0];
+                $varReturn;
             }
         }
     }

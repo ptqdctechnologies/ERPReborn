@@ -86,7 +86,8 @@ namespace App\Models\Database\SchData_Warehouse_Acquisition
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn;
             }
 
 
@@ -138,7 +139,8 @@ namespace App\Models\Database\SchData_Warehouse_Acquisition
                         )
                     );
 
-            return $varReturn['data'][0];
+            return
+                $varReturn;
             }
         }
     }

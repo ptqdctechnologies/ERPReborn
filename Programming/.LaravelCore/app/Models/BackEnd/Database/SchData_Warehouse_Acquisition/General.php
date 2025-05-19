@@ -86,7 +86,9 @@ namespace App\Models\Database\SchData_Warehouse_Acquisition
                          * 
                          */                    
                         }
-                    return $varReturn['data'];
+
+                    return
+                        $varReturn;
                     }
                 else
                     {

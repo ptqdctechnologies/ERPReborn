@@ -568,6 +568,9 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         $varReturn['data'][0]['Func_GetDataPickListJSON_ChartOfAccount']
                         );
 
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
                 return
                     $varReturn;
                 }
@@ -622,6 +625,9 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         $varReturn['data'][0]['Func_GetDataPickListJSON_ChartOfAccountLinkage']
                         );
 
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
                 return
                     $varReturn;
                 }
@@ -674,6 +680,9 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataPickListJSON_CombinedChartOfAccount']
                         );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
 
                 return
                     $varReturn;

@@ -94,7 +94,7 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
                     );
 
             return
-                $varReturn['data'][0];
+                $varReturn;
             }
 
 
@@ -155,7 +155,7 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
                     );
 
             return
-                $varReturn['data'][0];
+                $varReturn;
             }
         }
     }

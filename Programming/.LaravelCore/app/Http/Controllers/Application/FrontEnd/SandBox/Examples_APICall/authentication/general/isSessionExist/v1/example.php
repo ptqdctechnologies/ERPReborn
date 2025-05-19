@@ -26,27 +26,34 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]------------------------------------------------------------------------------------------------
             if (!$varAPIWebToken) {
                 $varAPIWebToken =
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
-            //---Core---
+            //-----[ CORE PROCESS ]-------------------------------------------------------------------------------------------------
             $varData = 
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'authentication.general.isSessionExist',
-                    'latest', 
-                    [
-                    'parameter' => [
-                        ]
-                    ]
-                    );
-            //var_dump($varData);
+                    //-----[ METADATA ]-------------------------------------------------( START )-----
+                        $varAPIWebToken,
+                        'authentication.general.isSessionExist',
+                        'latest',
+                    //-----[ METADATA ]-------------------------------------------------(  END  )-----
 
-            var_dump(json_encode($varData));
+                    //-----[ DATA ]-----------------------------------------------------( START )-----
+                        [
+                        'parameter' => [
+                            ]
+                        ]
+                    //-----[ DATA ]-----------------------------------------------------(  END  )-----
+                    );
+
+            //-----[ DATA RETURN ]--------------------------------------------------------------------------------------------------
+            return
+                $varData;
+//            var_dump(json_encode($varData));
             }
 
 

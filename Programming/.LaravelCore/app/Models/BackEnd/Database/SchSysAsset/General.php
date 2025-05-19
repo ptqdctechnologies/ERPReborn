@@ -519,7 +519,8 @@ namespace App\Models\Database\SchSysAsset
                         )
                     );
 
-            return $varReturn['data'];
+            return
+                $varReturn;
             }
 
 
