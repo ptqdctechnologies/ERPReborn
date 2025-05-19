@@ -215,11 +215,11 @@ $varDataSend = [
                                 null,
                                 'NOW()',
                                 '(NOW() + \'' . $varSessionIntervalInSeconds . ' seconds\'::interval)'
-                                );
-                        //var_dump($varUserName);
+                                );  
                         //var_dump(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession));
 
-                        $varSysID = $varBufferDB['SignRecordID'];
+                        //$varSysID = $varBufferDB['SignRecordID'];
+                        $varSysID = $varBufferDB['data'][0]['SignRecordID'];
 
                         $varBufferDB =
                             (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord(
