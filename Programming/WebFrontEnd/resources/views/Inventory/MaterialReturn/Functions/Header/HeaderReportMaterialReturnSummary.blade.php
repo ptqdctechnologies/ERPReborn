@@ -33,7 +33,8 @@
                                 <div class="input-group">
                                     <input id="warehouse_id" style="border-radius:0;" class="form-control" name="sub_budget_id" type="hidden">
                                     <input id="warehouse_address" style="border-radius:0;" class="form-control" name="sub_budget_address" type="hidden">
-                                    <input id="warehouse_name" style="border-radius:0;background-color:white;" class="form-control myGetWarehouse" name="sub_budget" readonly data-toggle="modal" data-target="#myGetWarehouse">
+                                    <input id="warehouse_name" style="border-radius:0;" class="form-control" name="sub_budget_name" type="hidden">
+                                    <input id="warehouse_code" style="border-radius:0;background-color:white;" class="form-control myGetWarehouse" name="sub_budget" readonly data-toggle="modal" data-target="#myGetWarehouse">
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
                                             <a href="#" id="sub_budget_popup" data-toggle="modal" data-target="#myGetWarehouse" class="myGetWarehouse"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
@@ -52,9 +53,10 @@
                             <th style="padding-top: 7px;"><label style="text-wrap-mode: nowrap;">Destination Warehouse&nbsp;</label></th>
                             <td>
                                 <div class="input-group">
-                                    <input id="warehouse_id2" style="border-radius:0;" class="form-control" name="sub_budget_id" type="hidden">
-                                    <input id="warehouse_address2" style="border-radius:0;" class="form-control" name="sub_budget_id" type="hidden">
-                                    <input id="warehouse_name2" style="border-radius:0;background-color:white;" class="form-control myGetWarehouse2" name="sub_budget" readonly data-toggle="modal" data-target="#myGetWarehouse2">
+                                    <input id="warehouse_id2" style="border-radius:0;" class="form-control" name="sub_budget_id2" type="hidden">
+                                    <input id="warehouse_address2" style="border-radius:0;" class="form-control" name="sub_budget_address2" type="hidden">
+                                    <input id="warehouse_name2" style="border-radius:0;" class="form-control" name="sub_budget_name2" type="hidden">
+                                    <input id="warehouse_code2" style="border-radius:0;background-color:white;" class="form-control myGetWarehouse2" name="sub_budget2" readonly data-toggle="modal" data-target="#myGetWarehouse2">
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
                                             <a href="#" id="sub_budget_popup" data-toggle="modal" data-target="#myGetWarehouse2" class="myGetWarehouse2"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>

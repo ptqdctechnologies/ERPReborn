@@ -207,6 +207,8 @@
 <script>
     $(function() {
         $('#myGetWarehouse2').one('click', function(e) {
+            console.log('sini');
+            
             e.preventDefault();
             // ShowLoading();
 
@@ -225,6 +227,8 @@
                 type: 'GET',
                 url: '{!! route("getWarehouse") !!}',
                 success: function(data) {
+                    console.log('data sini', data);
+                    
                     var no = 1;
                     var t = $('#TableGetWarehouse2').DataTable();
                     t.clear();
@@ -253,7 +257,8 @@
                 var address = row.find("td:nth-child(5)").text();
 
                 $("#warehouse_id2").val(sys_id_warehouse);
-                $("#warehouse_name2").val(code);
+                $("#warehouse_code2").val(code);
+                $("#warehouse_name2").val(name);
                 $("#warehouse_address2").val(address);
 
             });

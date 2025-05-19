@@ -207,6 +207,8 @@
 <script>
     $(function() {
         $('#myGetWarehouse').one('click', function(e) {
+            console.log('sana');
+            
             e.preventDefault();
             // ShowLoading();
 
@@ -225,6 +227,7 @@
                 type: 'GET',
                 url: '{!! route("getWarehouse") !!}',
                 success: function(data) {
+                    console.log('data sana', data);
                     var no = 1;
                     var t = $('#TableGetWarehouse').DataTable();
                     t.clear();
@@ -253,7 +256,8 @@
                 var address = row.find("td:nth-child(5)").text();
 
                 $("#warehouse_id").val(sys_id_warehouse);
-                $("#warehouse_name").val(code);
+                $("#warehouse_code").val(code);
+                $("#warehouse_name").val(name);
                 $("#warehouse_address").val(address);
 
             });
