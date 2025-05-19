@@ -24,9 +24,13 @@ class ExportReportMaterialReturnSummary implements FromCollection, WithHeadings,
             $collection->push(
                 [
                     $detail['no'],
-                    $detail['DORNumber'],
-                    $detail['date'],
+                    $detail['documentNumber'],
+                    $detail['productCode'] . ' - ' . $detail['productName'],
+                    $detail['sourceCode'] . ' - ' . $detail['sourceName'],
+                    $detail['destinationCode'] . ' - ' . $detail['destinationName'],
                     $detail['total'],
+                    $detail['uom'],
+                    $detail['remark'],
                 ]
             );
         }
@@ -35,8 +39,12 @@ class ExportReportMaterialReturnSummary implements FromCollection, WithHeadings,
             [
                 '',
                 '',
+                '',
+                '',
                 'Total',
                 $data['total'],
+                '',
+                '',
             ]
         );
 
@@ -46,8 +54,8 @@ class ExportReportMaterialReturnSummary implements FromCollection, WithHeadings,
     public function headings(): array
     {
         return [
-            ["", "", "", "", ""],
-            ["No", "DOR Number", "Date", "Qty"]
+            ["", "", "", "", "", "", "", ""],
+            ["No", "MR Number", "Product", "Source Warehouse", "Destination Warehouse", "Qty", "UOM", "Remark"]
         ];
     }
 
@@ -61,8 +69,8 @@ class ExportReportMaterialReturnSummary implements FromCollection, WithHeadings,
                 $dataHeader = $data['dataHeader'];
 
                 $sheet->setCellValue('A1', date('F j, Y'))
-                    ->mergeCells('A1:F1')
-                    ->getStyle('A1:F1')
+                    ->mergeCells('A1:H1')
+                    ->getStyle('A1:H1')
                     ->applyFromArray([
                         'font' => [
                             'bold' => true,
@@ -73,9 +81,9 @@ class ExportReportMaterialReturnSummary implements FromCollection, WithHeadings,
                         ],
                 ]);
 
-                $sheet->setCellValue('A2', 'Material Return Summary Report')
-                    ->mergeCells('A2:F2')
-                    ->getStyle('A2:F2')
+                $sheet->setCellValue('A2', 'Material Receive Summary Report')
+                    ->mergeCells('A2:H2')
+                    ->getStyle('A2:H2')
                     ->applyFromArray([
                         'font' => [
                             'bold' => true,
@@ -87,8 +95,8 @@ class ExportReportMaterialReturnSummary implements FromCollection, WithHeadings,
                 ]);
 
                 $sheet->setCellValue('A3', date('h:i A'))
-                    ->mergeCells('A3:F3')
-                    ->getStyle('A3:F3')
+                    ->mergeCells('A3:H3')
+                    ->getStyle('A3:H3')
                     ->applyFromArray([
                         'font' => [
                             'bold' => true,

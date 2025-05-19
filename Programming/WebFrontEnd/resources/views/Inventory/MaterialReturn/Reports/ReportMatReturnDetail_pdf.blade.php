@@ -15,7 +15,7 @@
 <body>
     <div class="card-body table-responsive p-0">
         <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
-        <div style="text-align: center; font-size: 20px; font-weight: bold;">Material Return Detail Report</div>
+        <div style="text-align: center; font-size: 20px; font-weight: bold;">Material Receive Detail Report</div>
         <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
 
         <!-- HEADER -->
@@ -42,13 +42,13 @@
                     </table>
                 </td>
 
-                <!-- TRANSPORTER -->
+                <!-- DELIVERY FROM -->
                 <td style=" width: 350px;">
                     <table>
                         <tr>
                             <td style="width: 90px; height: 20px;">
                                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                                    Transporter
+                                    Source Warehouse
                                 </div>
                             </td>
                             <td style="width: 5px;">
@@ -56,13 +56,14 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['transporter']; ?>
+                                    <?= $dataReport['dataHeader']['deliveryFrom']; ?>
                                 </div>
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr>
+            
             <tr>
                 <!-- BUDGET -->
                 <td style=" width: 350px;">
@@ -85,13 +86,13 @@
                     </table>
                 </td>
 
-                <!-- DELIVERY FROM -->
+                <!-- DELIVERY TO -->
                 <td style=" width: 350px;">
                     <table>
                         <tr>
                             <td style="width: 90px; height: 20px;">
                                 <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                                    Delivery From
+                                    Destination Warehouse
                                 </div>
                             </td>
                             <td style="width: 5px;">
@@ -99,7 +100,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['deliveryFrom']; ?>
+                                    <?= $dataReport['dataHeader']['deliveryTo']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -127,70 +128,6 @@
                         </tr>
                     </table>
                 </td>
-
-                <!-- DELIVERY TO -->
-                <td style=" width: 350px;">
-                    <table>
-                        <tr>
-                            <td style="width: 90px; height: 20px;">
-                                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                                    Delivery To
-                                </div>
-                            </td>
-                            <td style="width: 5px;">
-                                :
-                            </td>
-                            <td style="height: 20px;">
-                                <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['deliveryTo']; ?>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <!-- DATE -->
-                <td style=" width: 350px;">
-                    <table>
-                        <tr>
-                            <td style="width: 90px; height: 20px;">
-                                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                                    Date
-                                </div>
-                            </td>
-                            <td style="width: 5px;">
-                                :
-                            </td>
-                            <td style="height: 20px;">
-                                <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['date']; ?>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                
-                <!-- PIC -->
-                <td style=" width: 350px;">
-                    <table>
-                        <tr>
-                            <td style="width: 90px; height: 20px;">
-                                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                                    PIC
-                                </div>
-                            </td>
-                            <td style="width: 5px;">
-                                :
-                            </td>
-                            <td style="height: 20px;">
-                                <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['PIC']; ?>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
             </tr>
         </table>
 
@@ -200,11 +137,6 @@
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
                         No
-                    </div>
-                </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        DOR Number
                     </div>
                 </td>
                 <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
@@ -238,11 +170,6 @@
                     </td>
                     <td>
                         <div style="margin-top: 4px;">
-                            <?= $dataDetail['dorNumber']; ?>
-                        </div>
-                    </td>
-                    <td>
-                        <div style="margin-top: 4px;">
                             <?= $dataDetail['productId'] . " - " . $dataDetail['productName']; ?>
                         </div>
                     </td>
@@ -267,9 +194,6 @@
             <div style="height: 16px;"></div>
 
             <tr style="border-top: 1px solid black;">
-                <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
-                </td>
                 <td style="height: 20px;">
                     <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
                 </td>

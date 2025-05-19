@@ -3,6 +3,7 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getAdvance')
+@include('getFunction.getWorkFlow')
 @include('Process.Advance.AdvanceSettlement.Functions.PopUp.PopUpAdvanceSettlementRevision')
 
 <div class="content-wrapper">
@@ -18,8 +19,12 @@
       @include('Process.Advance.AdvanceSettlement.Functions.Menu.MenuAdvanceSettlement')
       @if($var == 0)
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceSettlement.store') }}" id="FormStoreAdvanceSettlement">
+        <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormStoreAdvanceSettlement">
           @csrf
+          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+          <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
+          <input type="hidden" name="advanceSettlementDetail" id="advanceSettlementDetail">
+
           <!-- ADD NEW SETTLEMENT -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
             <div class="row">
@@ -119,9 +124,9 @@
                               <a class="btn btn-default btn-sm float-right" id="advance-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
                               </a>
-                              <a class="btn btn-default btn-sm float-right" id="advance-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                              {{-- <a class="btn btn-default btn-sm float-right" id="advance-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
-                              </a>
+                              </a> --}}
                             </td>
                           </tr>
                         </table>
@@ -149,20 +154,36 @@
                       </button>
                     </div>
                   </div>
-                  
+
                   <!-- BODY -->
                   <div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;">
                     <table class="table table-head-fixed text-nowrap table-sm" id="tableAdvanceList">
-                      <thead>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Transaction Number</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Balance</th>
+                      <thead style="position: sticky;top: 0px;z-index: 10;background: white;">
+                        <tr>
+                          <th rowspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Transaction Number</th>
+                          <th rowspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Product Code</th>
+                          <th rowspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Product Name</th>
+                          <th rowspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">UOM</th>
+                          <th rowspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Currency</th>
+                          <th colspan="6" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Settlement</th>
+                          <th rowspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle; padding-right: 0px;">Balance</th>
+                        </tr>
+                        <tr>
+                          <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">
+                            Expense Claim
+                          </th>
+                          <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">
+                            Amount To The Company
+                          </th>
+                        </tr>
+                        <tr>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Qty</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Price</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Total</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Qty</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Price</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;">Total</th>
+                        </tr>
                       </thead>
                       <tbody></tbody>
                     </table>
@@ -176,88 +197,20 @@
                           <span id="GrandTotal">0.00</span>
                         </th>
                       </tr>
+                      <tr>
+                        <td>
+                          <br>
+                          <a class="btn btn-default btn-sm float-right" id="advance-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                            <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
+                          </a>
+                        </td>
+                      </tr>
                     </table>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- TRANSACTION INFORMATION -->
-          {{-- <div class="tab-content px-3 pb-2" id="nav-tabContent">
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <!-- HEADER -->
-                  <div class="card-header">
-                    <label class="card-title">
-                      Transaction Information
-                    </label>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                      </button>
-                    </div>
-                  </div>
-
-                  <!-- BODY -->
-                  <div class="card-body">
-                    <div class="row pt-3" style="row-gap: 1rem;">
-                      <!-- BUDGET -->
-                      <div class="col-md-12 col-lg-5">
-                        <div class="row">
-                          <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Budget</label>
-                          <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                            <div>
-                              <input style="border-radius:0;" class="form-control" readonly>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- CURRENT SETTLE -->
-                      <div class="col-md-12 col-lg-5">
-                        <div class="row">
-                          <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Current Settle</label>
-                          <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                            <div>
-                              <input style="border-radius:0;" class="form-control" readonly>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row pt-3" style="row-gap: 1rem; margin-bottom: 1rem;">
-                      <!-- TOTAL UNSETTLEMENT -->
-                      <div class="col-md-12 col-lg-5">
-                        <div class="row">
-                          <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Total Unsettlement</label>
-                          <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                            <div>
-                              <input style="border-radius:0;" class="form-control" readonly>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- BALANCE UNSETTLED -->
-                      <div class="col-md-12 col-lg-5">
-                        <div class="row">
-                          <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Balanced Unsettled</label>
-                          <div class="col-sm-9 col-md-8 col-lg-4 p-0">
-                            <div>
-                              <input style="border-radius:0;" class="form-control" readonly>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> --}}
 
           <!-- REMARK -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">

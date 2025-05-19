@@ -12,6 +12,11 @@ class DocumentTypeMapper
                 'parameter' => ['advance_RefID' => (int) $referenceId],
                 'businessDocument_RefID' => (int) 74000000021304,
             ],
+            'Advance Settlement Form' => [
+                'key' => '',
+                'parameter' => [],
+                'businessDocument_RefID' => (int) 74000000021552,
+            ],
             'Delivery Order Form' => [
                 'key' => 'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
                 'parameter' => ['deliveryOrder_RefID' => (int) $referenceId],
@@ -29,6 +34,11 @@ class DocumentTypeMapper
             'Purchase Requisition Form' => [
                 'key' => 'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
                 'parameter' => ['purchaseRequisition_RefID' => (int) $referenceId],
+                'businessDocument_RefID' => (int) 74000000021491,
+            ],
+            'Timesheet Form' => [
+                'key' => '',
+                'parameter' => [],
                 'businessDocument_RefID' => (int) 74000000021491,
             ],
             'Warehouse Inbound Order Form' => [
@@ -74,7 +84,37 @@ class DocumentTypeMapper
                     'name'  => 'advance_RefID',
                     'value' => '76000000000539'
                 ],
+                'transactionType'        => 'ADVANCE REQUEST',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
+            ],
+            'Advance Settlement Form' => [
+                'dataHeader'        => [
+                    'advanceNumber'     => 'AdvStl/QDC/2025/000030',
+                    'beneficiaryName'   => 'Agus Nuryadi',
+                    'bankName'          => 'BCA',
+                    'bankAccount'       => '2670159496',
+                    'budgetCode'        => $dataDetail['combinedBudgetCode'] ?? 'Q000062',
+                    'budgetName'        => $dataDetail['combinedBudgetName'] ?? 'XL Microcell 2007',
+                    'subBudgetCode'     => $dataDetail['combinedBudgetSectionCode'] ?? '235',
+                    'subBudgetName'     => $dataDetail['combinedBudgetSectionName'] ?? 'Ampang Kuranji - Padang',
+                    'fileID'            => null,
+                    'dateUpdate'        => null,
+                ],
+                'components'        => [
+                    'detail'        => 'Components.AdvanceSettlementDocument',
+                    'table'         => 'Components.AdvanceSettlementDocumentTable',
+                ],
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => $dataDetail['remarks'] ?? '-',
+                ],
+                'resubmit'  => [
+                    'url'   => 'AdvanceSettlement.RevisionAdvanceSettlementIndex',
+                    'name'  => '',
+                    'value' => ''
+                ],
+                'transactionType'        => 'ADVANCE SETTLEMENT',
+                'businessDocument_RefID' => 74000000021552,
             ],
             'Delivery Order Form'   => [
                 'dataHeader'    => [
@@ -106,6 +146,7 @@ class DocumentTypeMapper
                     'name'      => 'do_RefID',
                     'value'     => $dataDetail['deliveryOrder_RefID'] ?? ''
                 ],
+                'transactionType'        => 'DELIVERY ORDER',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
             ],
             'Person Business Trip Form' => [
@@ -151,6 +192,7 @@ class DocumentTypeMapper
                     'name'      => '',
                     'value'     => ''
                 ],
+                'transactionType'        => 'BUSINESS TRIP',
                 'businessDocument_RefID' => '',
             ],
             'Purchase Order Form'       => [
@@ -179,6 +221,7 @@ class DocumentTypeMapper
                     'name'      => 'purchaseOrder_RefID',
                     'value'     => $dataDetail['purchaseOrder_RefID'] ?? ''
                 ],
+                'transactionType'        => 'PURCHASE ORDER',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
             ],
             'Purchase Requisition Form' => [
@@ -206,7 +249,25 @@ class DocumentTypeMapper
                     'name'      => 'modal_purchase_requisition_id',
                     'value'     => $dataDetail['purchaseRequisition_RefID'] ?? ''
                 ],
+                'transactionType'        => 'PURCHASE REQUEST',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
+            ],
+            'Timesheet Form' => [
+                'dataHeader'        => [
+                    'authorizedBy'      => 'Q000062 - XL Microcell 2007',
+                    'timesheetNUmber'   => 'Timesheet/QDC/2026/000054',
+                ],
+                'components'    => [
+                    'detail'    => 'Components.TimesheetDetailDocument',
+                    'table'     => 'Components.TimesheetDetailDocumentTable',
+                ],
+                'resubmit'      => [
+                    'url'       => 'Timesheet.index',
+                    'name'      => '',
+                    'value'     => ''
+                ],
+                'transactionType'        => 'TIMESHEET',
+                'businessDocument_RefID' => '74000000021491',
             ],
             'Warehouse Inbound Order Form' => [
                 'dataHeader'            => [

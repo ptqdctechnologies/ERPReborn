@@ -70,31 +70,33 @@
               </div>
             <?php } ?>
 
-            <!-- TEXT AREA FIELD (Remarks, Reason To Travel) -->
-            <div class="col-12 ShowDocumentList">
-              <div class="card">
-                <!-- TITLE -->
-                <div class="card-header">
-                  <label class="card-title">
-                    <?= $textAreaFields['title']; ?>
-                  </label>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                      <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                    </button>
+            <?php if (isset($components['textAreaFields'])) { ?>
+              <!-- TEXT AREA FIELD (Remarks, Reason To Travel) -->
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  <!-- TITLE -->
+                  <div class="card-header">
+                    <label class="card-title">
+                      <?= $textAreaFields['title']; ?>
+                    </label>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                      </button>
+                    </div>
                   </div>
-                </div>
-                
-                <!-- CONTENT -->
-                <div class="card-body">
-                  <div class="row" style="margin: .6rem 0rem;">
-                    <div class="col">
-                      <?= nl2br(e($textAreaFields['text'])); ?>
+                  
+                  <!-- CONTENT -->
+                  <div class="card-body">
+                    <div class="row" style="margin: .6rem 0rem;">
+                      <div class="col">
+                        <?= nl2br(e($textAreaFields['text'])); ?>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            <?php } ?>
 
             <!-- APPROVAL HISTORY -->
             <div class="col-12 ShowDocumentList">
