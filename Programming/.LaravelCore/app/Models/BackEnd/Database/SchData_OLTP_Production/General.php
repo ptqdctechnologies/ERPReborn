@@ -81,7 +81,7 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -93,7 +93,7 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BillOfMaterial(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -104,7 +104,7 @@ namespace App\Models\Database\SchData_OLTP_Production
                             $varUserSession,
                             'SchData-OLTP-Production.Func_GetDataList_BillOfMaterial',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -114,8 +114,10 @@ namespace App\Models\Database\SchData_OLTP_Production
                             )
                         );                
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -133,7 +135,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varBillOfMaterial_RefID ► Bill Of Material Reference ID                                                  |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
@@ -146,9 +149,10 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BillOfMaterialDetail(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varBillOfMaterial_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -158,7 +162,7 @@ namespace App\Models\Database\SchData_OLTP_Production
                             $varUserSession,
                             'SchData-OLTP-Production.Func_GetDataList_BillOfMaterialDetail',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
                                 [$varBillOfMaterial_RefID, 'bigint' ],
 
                                 [$varPickStatement, 'varchar'],
@@ -169,8 +173,10 @@ namespace App\Models\Database\SchData_OLTP_Production
                             )
                         );                
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -188,7 +194,7 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -200,8 +206,9 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_MaterialProductAssembly(
-            $varUserSession, int $varBranchID, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -211,7 +218,7 @@ namespace App\Models\Database\SchData_OLTP_Production
                             $varUserSession,
                             'SchData-OLTP-Production.Func_GetDataList_MaterialProductAssembly',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -221,8 +228,10 @@ namespace App\Models\Database\SchData_OLTP_Production
                             )
                         );                
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -240,7 +249,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
         |      ▪ (int)    varMaterialProductAssembly_RefID ► Material Product Assembly Reference ID                                |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
@@ -253,9 +263,10 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_MaterialProductAssemblyVersion(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varMaterialProductAssembly_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -265,7 +276,7 @@ namespace App\Models\Database\SchData_OLTP_Production
                             $varUserSession,
                             'SchData-OLTP-Production.Func_GetDataList_MaterialProductAssemblyVersion',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
                                 [$varMaterialProductAssembly_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
@@ -276,8 +287,10 @@ namespace App\Models\Database\SchData_OLTP_Production
                             )
                         );                
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -295,7 +308,7 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -307,8 +320,9 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_MaterialProductComponent(
-            $varUserSession, int $varBranchID, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -318,7 +332,7 @@ namespace App\Models\Database\SchData_OLTP_Production
                             $varUserSession,
                             'SchData-OLTP-Production.Func_GetDataList_MaterialProductComponent',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -326,9 +340,12 @@ namespace App\Models\Database\SchData_OLTP_Production
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );                
-                return $varReturn['data'];
+                        );
+
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -346,7 +363,7 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         | ▪ Output Variable :                                                                                                      |
@@ -354,7 +371,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BillOfMaterial(
-            $varUserSession, int $varBranchID)
+            $varUserSession, int $varSysBranch_RefID
+            )
             {
             try {
                 $varReturn =
@@ -364,18 +382,18 @@ namespace App\Models\Database\SchData_OLTP_Production
                             $varUserSession,
                             'SchData-OLTP-Production.Func_GetDataPickList_BillOfMaterial',
                             [
-                                [$varBranchID, 'bigint' ]
+                                [$varSysBranch_RefID, 'bigint' ]
                             ]
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
             }
-
-
         }
     }

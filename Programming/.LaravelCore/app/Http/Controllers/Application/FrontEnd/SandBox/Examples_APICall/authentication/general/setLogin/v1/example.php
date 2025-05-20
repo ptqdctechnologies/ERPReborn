@@ -72,10 +72,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\aut
                     $varUserPassword
                     );
 
-var_dump($varData);          
-            
-//            return
-//                $varData;
+            return
+                $varData;
             }
 
 

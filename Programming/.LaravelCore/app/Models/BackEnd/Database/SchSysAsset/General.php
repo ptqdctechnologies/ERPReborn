@@ -351,7 +351,7 @@ namespace App\Models\Database\SchSysAsset
         
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : Func_GetDataPickSet_ArchivedFilesObject                                                                  |
+        | ▪ Method Name     : Func_GetDataPickSet_ArchivedFilesObject                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-08-03                                                                                           |

@@ -29,7 +29,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -41,8 +41,9 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Project_AllVersion(
-            $varUserSession, int $varBranchID, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -52,7 +53,7 @@ namespace App\Models\Database\SchData_OLTP_Project
                             $varUserSession,
                             'SchData-OLTP-Project.Func_GetDataList_Project',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean'],
 
@@ -65,12 +66,11 @@ namespace App\Models\Database\SchData_OLTP_Project
                         );                
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -86,7 +86,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -98,8 +98,9 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Project_LatestVersion(
-            $varUserSession, int $varBranchID, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -109,7 +110,7 @@ namespace App\Models\Database\SchData_OLTP_Project
                             $varUserSession,
                             'SchData-OLTP-Project.Func_GetDataList_Project',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean'],
 
@@ -122,12 +123,11 @@ namespace App\Models\Database\SchData_OLTP_Project
                         );                
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -143,7 +143,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varProject_RefID ► Project Reference ID                                                                  |
         |      ------------------------------                                                                                      |
@@ -156,9 +156,10 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_ProjectSectionItem(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varProject_RefID, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -168,7 +169,7 @@ namespace App\Models\Database\SchData_OLTP_Project
                             $varUserSession,
                             'SchData-OLTP-Project.Func_GetDataList_ProjectSectionItem',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varProject_RefID, 'bigint' ],
 
@@ -180,8 +181,10 @@ namespace App\Models\Database\SchData_OLTP_Project
                             )
                         );                
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -199,7 +202,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varProjectSectionItem_RefID ► Project Section Item Reference ID                                          |
         |      ------------------------------                                                                                      |
@@ -212,9 +215,10 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_ProjectSectionItemWork(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varProjectSectionItem_RefID, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -224,7 +228,7 @@ namespace App\Models\Database\SchData_OLTP_Project
                             $varUserSession,
                             'SchData-OLTP-Project.Func_GetDataList_ProjectSectionItemWork',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varProjectSectionItem_RefID, 'bigint'],
 
@@ -236,8 +240,10 @@ namespace App\Models\Database\SchData_OLTP_Project
                             )
                         );                
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -255,7 +261,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -267,8 +273,9 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_Project_AllVersion(
-            $varUserSession, int $varBranchID, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -278,7 +285,7 @@ namespace App\Models\Database\SchData_OLTP_Project
                             $varUserSession,
                             'SchData-OLTP-Project.Func_GetDataListJSON_Project',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean'],
 
@@ -296,8 +303,11 @@ namespace App\Models\Database\SchData_OLTP_Project
                         $varReturn['data'][0]['Func_GetDataListJSON_Project']
                         );
 
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
@@ -318,7 +328,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -330,8 +340,9 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_Project_LatestVersion(
-            $varUserSession, int $varBranchID, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -341,7 +352,7 @@ namespace App\Models\Database\SchData_OLTP_Project
                             $varUserSession,
                             'SchData-OLTP-Project.Func_GetDataListJSON_Project',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean'],
 
@@ -359,8 +370,11 @@ namespace App\Models\Database\SchData_OLTP_Project
                         $varReturn['data'][0]['Func_GetDataListJSON_Project']
                         );
 
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
@@ -381,13 +395,14 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Project_AllVersion(
-            $varUserSession, int $varBranchID)
+            $varUserSession, int $varSysBranch_RefID
+            )
             {
             try {
                 $varReturn =
@@ -397,15 +412,17 @@ namespace App\Models\Database\SchData_OLTP_Project
                             $varUserSession,
                             'SchData-OLTP-Project.Func_GetDataPickList_Project',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean']
                             ]
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -423,13 +440,14 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Project_LatestVersion(
-            $varUserSession, int $varBranchID)
+            $varUserSession, int $varSysBranch_RefID
+            )
             {
             try {
                 $varReturn =
@@ -439,15 +457,17 @@ namespace App\Models\Database\SchData_OLTP_Project
                             $varUserSession,
                             'SchData-OLTP-Project.Func_GetDataPickList_Project',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean']
                             ]
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -465,7 +485,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varProject_RefID ► Project Reference ID                                                                  |
         | ▪ Output Variable :                                                                                                      |
@@ -473,7 +493,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_ProjectSectionItem(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varProject_RefID = null)
             {
             try {
@@ -484,15 +504,17 @@ namespace App\Models\Database\SchData_OLTP_Project
                             $varUserSession,
                             'SchData-OLTP-Project.Func_GetDataPickList_ProjectSectionItem',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varProject_RefID, 'bigint' ]
                             ]
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -510,7 +532,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varProjectSectionItem_RefID ► Project Section Item Reference ID                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -518,8 +540,9 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_ProjectSectionItemWork(
-            $varUserSession, int $varBranchID,
-            int $varProjectSectionItem_RefID)
+            $varUserSession, int $varSysBranch_RefID,
+            int $varProjectSectionItem_RefID
+            )
             {
             try {
                 $varReturn =
@@ -529,14 +552,16 @@ namespace App\Models\Database\SchData_OLTP_Project
                             $varUserSession,
                             'SchData-OLTP-Project.Func_GetDataPickList_ProjectSectionItemWork',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
                                 [$varProjectSectionItem_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }

@@ -29,7 +29,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |        ----------------------------------------                                                                          |
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -41,8 +41,9 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_TaxType(
-            $varUserSession, int $varBranchID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -52,7 +53,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                             $varUserSession,
                             'SchData-OLTP-Taxation.Func_GetDataList_TaxType',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
                                 [$varFilterStatement, 'varchar'],
@@ -61,63 +62,68 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
             }
 
 
-            /*
-            +--------------------------------------------------------------------------------------------------------------------------+
-            | ▪ Method Name     : getDataList_Vat                                                                                  |
-            +--------------------------------------------------------------------------------------------------------------------------+
-            | ▪ Version         : 1.0000.0000000                                                                                       |
-            | ▪ Last Update     : 2025-02-28                                                                                           |
-            | ▪ Creation Date   : 2025-02-28                                                                                           |
-            | ▪ Description     : Mendapatkan Daftar Persentase Pajak                                                                       |
-            +--------------------------------------------------------------------------------------------------------------------------+
-            | ▪ Input Variable  :                                                                                                      |
-            |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-            |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
-            |        ----------------------------------------                                                                          |
-            |        ----------------------------------------                                                                          |
-            |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-            |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-            |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-            |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-            | ▪ Output Variable :                                                                                                      |
-            |      ▪ (array)  varReturn                                                                                                |
-            +--------------------------------------------------------------------------------------------------------------------------+
-            */
-            public function getDataList_Vat(
-                $varUserSession, int $varBranchID,
-                string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-                {
-                try {
-                    $varReturn =
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_Vat                                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-02-28                                                                                           |
+        | ▪ Creation Date   : 2025-02-28                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Persentase Pajak                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ----------------------------------------                                                                          |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_Vat(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                                $varUserSession,
-                                'SchData-OLTP-Taxation.Func_GetDataList_Vat',
-                                [
-                                    // [$varBranchID, 'bigint' ],
-                                    // [$varPickStatement, 'varchar'],
-                                    // [$varSortStatement, 'varchar'],
-                                    // [$varFilterStatement, 'varchar'],
-                                    // [$varPagingStatement, 'varchar']
-                                ]
-                                )
-                            );
+                            'SchData-OLTP-Taxation.Func_GetDataList_Vat',
+                            [
+                                // [$varSysBranch_RefID, 'bigint' ],
+                                // [$varPickStatement, 'varchar'],
+                                // [$varSortStatement, 'varchar'],
+                                // [$varFilterStatement, 'varchar'],
+                                // [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
 
-                    return $varReturn['data'];
-                    }
-                catch (\Exception $ex) {
-                    return [];
-                    }
+                return
+                    $varReturn;
                 }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
 
 
         /*
@@ -131,14 +137,15 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_TaxType(
-            $varUserSession, int $varBranchID)
+            $varUserSession, int $varSysBranch_RefID
+            )
             {
             try {
                 $varReturn =
@@ -148,13 +155,15 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                             $varUserSession,
                             'SchData-OLTP-Taxation.Func_GetDataPickList_TaxType',
                             [
-                                [$varBranchID, 'bigint' ]
+                                [$varSysBranch_RefID, 'bigint' ]
                             ]
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -181,7 +190,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         */
         public function getReport_Form_DocumentForm_TransactionTax(
             $varUserSession, int $varSysBranch_RefID,
-            int $varSysID)
+            int $varSysID
+            )
             {
             try {
                 $varReturn =
