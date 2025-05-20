@@ -70,7 +70,7 @@
               </div>
             <?php } ?>
 
-            <?php if (isset($components['textAreaFields'])) { ?>
+            <?php if (isset($textAreaFields)) { ?>
               <!-- TEXT AREA FIELD (Remarks, Reason To Travel) -->
               <div class="col-12 ShowDocumentList">
                 <div class="card">

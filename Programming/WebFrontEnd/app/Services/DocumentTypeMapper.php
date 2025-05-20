@@ -13,8 +13,8 @@ class DocumentTypeMapper
                 'businessDocument_RefID' => (int) 74000000021304,
             ],
             'Advance Settlement Form' => [
-                'key' => '',
-                'parameter' => [],
+                'key' => 'transaction.read.dataList.finance.getAdvanceSettlementDetail',
+                'parameter' => ['advanceSettlement_RefID' => (int) $referenceId],
                 'businessDocument_RefID' => (int) 74000000021552,
             ],
             'Delivery Order Form' => [
@@ -89,15 +89,15 @@ class DocumentTypeMapper
             ],
             'Advance Settlement Form' => [
                 'dataHeader'        => [
-                    'advanceNumber'     => 'AdvStl/QDC/2025/000030',
-                    'beneficiaryName'   => 'Agus Nuryadi',
-                    'bankName'          => 'BCA',
-                    'bankAccount'       => '2670159496',
-                    'budgetCode'        => $dataDetail['combinedBudgetCode'] ?? 'Q000062',
-                    'budgetName'        => $dataDetail['combinedBudgetName'] ?? 'XL Microcell 2007',
-                    'subBudgetCode'     => $dataDetail['combinedBudgetSectionCode'] ?? '235',
-                    'subBudgetName'     => $dataDetail['combinedBudgetSectionName'] ?? 'Ampang Kuranji - Padang',
-                    'fileID'            => null,
+                    'advanceNumber'     => $dataDetail['documentNumber'] ?? '-',
+                    'beneficiaryName'   => $dataDetail['beneficiaryName'] ?? '-',
+                    'bankName'          => $dataDetail['bankName'] ?? '-',
+                    'bankAccount'       => $dataDetail['bankAccount'] ?? '-',
+                    'budgetCode'        => $dataDetail['combinedBudgetCode'] ?? '-',
+                    'budgetName'        => $dataDetail['combinedBudgetName'] ?? '-',
+                    'subBudgetCode'     => $dataDetail['combinedBudgetSectionCode'] ?? '-',
+                    'subBudgetName'     => $dataDetail['combinedBudgetSectionName'] ?? '-',
+                    'fileID'            => $dataDetail['log_FileUpload_Pointer_RefID'] ?? '-',
                     'dateUpdate'        => null,
                 ],
                 'components'        => [
@@ -114,7 +114,7 @@ class DocumentTypeMapper
                     'value' => ''
                 ],
                 'transactionType'        => 'ADVANCE SETTLEMENT',
-                'businessDocument_RefID' => 74000000021552,
+                'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '-',
             ],
             'Delivery Order Form'   => [
                 'dataHeader'    => [

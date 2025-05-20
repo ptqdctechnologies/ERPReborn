@@ -54,7 +54,6 @@ class CheckDocumentController extends Controller
             if (
                 $documentType === 'Person Business Trip Form' || 
                 $documentType === 'Warehouse Inbound Order Form' ||
-                $documentType === 'Advance Settlement Form' || 
                 $documentType === 'Timesheet Form'
             ) {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
@@ -98,8 +97,6 @@ class CheckDocumentController extends Controller
                 'dataDetail'            => $dataDetail,
                 'businessDocumentRefID' => $businessDocumentRefID,
             ];
-
-            // dd($compact);
 
             return $compact;
         } catch (\Throwable $th) {
@@ -203,8 +200,6 @@ class CheckDocumentController extends Controller
                 return redirect()->back()->with('error', 'Data Not Found');
             }
 
-            // dd($collection, $workflowHistory);
-
             $approverStatus     = $this->determineApproverStatus($workflowHistory, $sourceData);
             $documentStatus     = $this->determineDocumentStatus($workflowHistory);
 
@@ -223,6 +218,8 @@ class CheckDocumentController extends Controller
                 'approverStatus'            => $approverStatus,
                 'dataDetails'               => $collection['dataDetail']
             ] + $formatData;
+
+            // dump($compact);
 
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } catch (\Throwable $th) {
