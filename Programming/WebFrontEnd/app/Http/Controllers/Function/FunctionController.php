@@ -13,6 +13,7 @@ use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Illuminate\Support\Facades\Log;
+use App\Services\AdvanceSettlementService;
 
 class FunctionController extends Controller
 {
@@ -21,6 +22,13 @@ class FunctionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $advanceSettlementService;
+
+    public function __construct(AdvanceSettlementService $advanceSettlementService)
+    {
+        $this->advanceSettlementService = $advanceSettlementService;
+    }
+
     //FUNCTION PROJECT
     public function getProject(Request $request)
     {
@@ -1023,6 +1031,22 @@ class FunctionController extends Controller
         }
 
         return response()->json(array_values($filteredData));
+    }
+
+    public function getAdvanceSettlement(Request $request)
+    {
+        try {
+            $response = $this->advanceSettlementService->dataPickList();
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            return response()->json($response['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getAdvanceSettlement: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function getPerson(Request $request)

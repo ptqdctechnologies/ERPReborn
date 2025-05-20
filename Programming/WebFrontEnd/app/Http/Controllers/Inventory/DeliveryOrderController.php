@@ -847,4 +847,299 @@ class DeliveryOrderController extends Controller
 
         return response()->json($collection->all());
     }
+
+    public function ReportDOToMaterialReceive(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $isSubmitButton = $request->session()->get('isButtonReportDOToMaterialReceiveSubmit');
+
+            $dataReport = $isSubmitButton ? $request->session()->get('dataReportDOToMaterialReceive', []) : [];
+
+            $compact = [
+                'varAPIWebToken'    => $varAPIWebToken,
+                'dataReport'        => $dataReport
+            ];
+    
+            return view('Inventory.DeliveryOrder.Reports.ReportDOToMaterialReceive', $compact);
+        } catch (\Throwable $th) {
+            Log::error("ReportDOToMaterialReceive Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportDOToMaterialReceiveData($project_id, $site_id, $project_name, $project_code, $site_code)
+    {
+        try {
+            $varAPIWebToken             = Session::get('SessionLogin');
+            $getReportPOtoDO    = null;
+
+            // if (!Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary")) {
+            //     $getReportAdvanceSummary = Helper_APICall::setCallAPIGateway(
+            //         Helper_Environment::getUserSessionID_System(),
+            //         $varAPIWebToken,
+            //         'report.form.documentForm.finance.getReportAdvanceSummary',
+            //         'latest',
+            //         [
+            //             'parameter' => [
+            //                 'dataFilter' => [
+            //                     'budgetID' => 1,
+            //                     'subBudgetID' => 1,
+            //                     'workID' => 1,
+            //                     'productID' => 1,
+            //                     'beneficiaryID' => 1,
+            //                 ]
+            //             ]
+            //         ],
+            //         false
+            //     );
+            // } else {
+            //     $getReportAdvanceSummary = Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary");
+            // }
+
+            // DUMMY DATA
+            $getReportPOtoDO = [
+                [
+                    
+                    "DocumentNumber"                      => "MR/QDC/2025/000015",
+                    "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
+                    "TotalAdvance"                        => "2024-12-09 00:00:00+07",
+                    "TotalExpenseClaimCart"               => "100.00",
+                    "TotalAmountDueToCompanyCart"         => "DO/QDC/2025/000124",
+                    "Sys_ID"                              => 76000000000054,
+                    "CombinedBudgetCode"                  => "Q000062",
+                    "CombinedBudgetName"                  => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode"           => "235",
+                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                    "RequesterWorkerName"                 => "Adhe Kurniawan",
+                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                    "BeneficiaryWorkerName"               => "Batu Split 2/3",
+                    "CurrencyName"                        => "IDR",
+                    "Product_ID"                          => 88000000000527,
+                    "CombinedBudget_RefID"                => 46000000000033,
+                    "CombinedBudgetSection_RefID"         => 143000000000305,
+                    "remark"                              => "",
+                    "DepartingFrom"                       => "Jakarta",
+                    "DestinationTo"                       => "Batam",
+                    "DepartingFromMR"                     => "Jakarta",
+                    "DestinationToMR"                     => "Batam",
+                    "Description"                         => "111003-0000"
+                ],
+                [
+                    
+                    "DocumentNumber"                      => "MR/QDC/2025/000016",
+                    "DocumentDateTimeTZ"                  => "2024-12-06 00:00:00+07",
+                    "TotalAdvance"                        => "2024-12-10 00:00:00+07",
+                    "TotalExpenseClaimCart"               => "110.00",
+                    "TotalAmountDueToCompanyCart"         => "DO/QDC/2025/000125",
+                    "Sys_ID"                              => 76000000000054,
+                    "CombinedBudgetCode"                  => "Q000062",
+                    "CombinedBudgetName"                  => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode"           => "235",
+                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                    "RequesterWorkerName"                 => "Adhe Kurniawan",
+                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                    "BeneficiaryWorkerName"               => "Cable NYY",
+                    "CurrencyName"                        => "IDR",
+                    "Product_ID"                          => 88000000000527,
+                    "CombinedBudget_RefID"                => 46000000000033,
+                    "CombinedBudgetSection_RefID"         => 143000000000305,
+                    "remark"                              => "",
+                    "DepartingFrom"                       => "Jakarta",
+                    "DestinationTo"                       => "Bekasi",
+                    "DepartingFromMR"                     => "Jakarta",
+                    "DestinationToMR"                     => "Bekasi",
+                    "Description"                         => "111003-0001"
+                ],
+                [
+                    
+                    "DocumentNumber"                      => "MR/QDC/2025/000017",
+                    "DocumentDateTimeTZ"                  => "2024-12-07 00:00:00+07",
+                    "TotalAdvance"                        => "2024-12-11 00:00:00+07",
+                    "TotalExpenseClaimCart"               => "120.00",
+                    "TotalAmountDueToCompanyCart"         => "DO/QDC/2025/000126",
+                    "Sys_ID"                              => 76000000000054,
+                    "CombinedBudgetCode"                  => "Q000062",
+                    "CombinedBudgetName"                  => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode"           => "235",
+                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                    "RequesterWorkerName"                 => "Adhe Kurniawan",
+                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                    "BeneficiaryWorkerName"               => "Kabel grounding BCC 50mm",
+                    "CurrencyName"                        => "IDR",
+                    "Product_ID"                          => 88000000000527,
+                    "CombinedBudget_RefID"                => 46000000000033,
+                    "CombinedBudgetSection_RefID"         => 143000000000305,
+                    "remark"                              => "",
+                    "DepartingFrom"                       => "Jakarta",
+                    "DestinationTo"                       => "Medan",
+                    "DepartingFromMR"                     => "Jakarta",
+                    "DestinationToMR"                     => "Medan",
+                    "Description"                         => "111003-0002"
+                ],
+                [
+                    
+                    "DocumentNumber"                      => "MR/QDC/2025/000018",
+                    "DocumentDateTimeTZ"                  => "2024-12-08 00:00:00+07",
+                    "TotalAdvance"                        => "2024-12-12 00:00:00+07",
+                    "TotalExpenseClaimCart"               => "130.00",
+                    "TotalAmountDueToCompanyCart"         => "DO/QDC/2025/000127",
+                    "Sys_ID"                              => 76000000000054,
+                    "CombinedBudgetCode"                  => "Q000062",
+                    "CombinedBudgetName"                  => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode"           => "235",
+                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                    "RequesterWorkerName"                 => "Adhe Kurniawan",
+                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                    "BeneficiaryWorkerName"               => "Bus Bar 300 x 100 x 10 + Isolator Keramik 40 x 50 ( 2ea )",
+                    "CurrencyName"                        => "IDR",
+                    "Product_ID"                          => 88000000000527,
+                    "CombinedBudget_RefID"                => 46000000000033,
+                    "CombinedBudgetSection_RefID"         => 143000000000305,
+                    "remark"                              => "",
+                    "DepartingFrom"                       => "Bekasi",
+                    "DestinationTo"                       => "Jakarta",
+                    "DepartingFromMR"                     => "Bekasi",
+                    "DestinationToMR"                     => "Jakarta",
+                    "Description"                         => "111003-0003"
+                ],
+                [
+                    
+                    "DocumentNumber"                      => "MR/QDC/2025/000019",
+                    "DocumentDateTimeTZ"                  => "2024-12-09 00:00:00+07",
+                    "TotalAdvance"                        => "2024-12-13 00:00:00+07",
+                    "TotalExpenseClaimCart"               => "140.00",
+                    "TotalAmountDueToCompanyCart"         => "DO/QDC/2025/000128",
+                    "Sys_ID"                              => 76000000000054,
+                    "CombinedBudgetCode"                  => "Q000062",
+                    "CombinedBudgetName"                  => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode"           => "235",
+                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                    "RequesterWorkerName"                 => "Adhe Kurniawan",
+                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                    "BeneficiaryWorkerName"               => "Flexible 20 mm",
+                    "CurrencyName"                        => "IDR",
+                    "Product_ID"                          => 88000000000527,
+                    "CombinedBudget_RefID"                => 46000000000033,
+                    "CombinedBudgetSection_RefID"         => 143000000000305,
+                    "remark"                              => "",
+                    "DepartingFrom"                       => "Bekasi",
+                    "DestinationTo"                       => "Jakarta",
+                    "DepartingFromMR"                     => "Bekasi",
+                    "DestinationToMR"                     => "Jakarta",
+                    "Description"                         => "111003-0004"
+                ],
+            ];
+
+            $reportData = is_string($getReportPOtoDO) ? json_decode($getReportPOtoDO, true) : $getReportPOtoDO;
+
+            // $filteredData = array_filter($reportData, function ($item) use ($project_id, $site_id, $requester_id, $beneficiary_id) {
+            //     return 
+            //         (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
+            //         (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
+            //         (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
+            //         (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
+            // });
+
+            // $totalAdvance = array_reduce($filteredData, function ($carry, $item) {
+            // $totalAdvance = array_reduce($reportData, function ($carry, $item) {
+            //     return $carry + ($item['TotalAdvance'] ?? 0);
+            // }, 0);
+
+            // $totalExpense = array_reduce($reportData, function ($carry, $item) {
+            //     return $carry + ($item['TotalExpenseClaimCart'] ?? 0);
+            // }, 0);
+
+            // $totalAmount = array_reduce($reportData, function ($carry, $item) {
+            //     return $carry + ($item['TotalAmountDueToCompanyCart'] ?? 0);
+            // }, 0);
+
+            $compact = [
+                // 'dataDetail'        => $filteredData,
+                'dataDetail'        => $reportData,
+                'budgetCode'        => $project_code,
+                'budgetName'        => $project_name,
+                'siteCode'          => $site_code,
+                'requesterName'     => "",
+                'beneficiaryName'   => "",
+                'total'             => 0,
+                'totalExpense'      => 0,
+                'totalAmount'       => 0,
+            ];
+
+            Session::put("isButtonReportDOToMaterialReceiveSubmit", true);
+            Session::put("dataReportDOToMaterialReceive", $compact);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            Log::error("ReportDOToMaterialReceiveData Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportDOToMaterialReceiveStore(Request $request)
+    {
+        try {
+            $project_code       = $request->project_code_second;
+            $project_name       = $request->project_name_second;
+            $project_id         = $request->project_id_second;
+
+            $site_id            = $request->site_id_second;
+            $site_code          = $request->site_code_second;
+
+            // $requester_id       = $request->worker_id_second;
+            // $requester_name     = $request->worker_name_second;
+
+            // $beneficiary_id     = $request->beneficiary_second_id;
+            // $beneficiary_name   = $request->beneficiary_second_person_name;
+
+            // dd($project_code, $project_name);
+
+            $errors = [];
+
+            if (!$project_id) {
+                $errors[] = 'Budget';
+            }
+            if (!$site_id) {
+                $errors[] = 'Sub Budget';
+            }
+            // if (!$requester_id) {
+            //     $errors[] = 'Requester';
+            // }
+            // if (!$beneficiary_id) {
+            //     $errors[] = 'Beneficiary';
+            // }
+
+            if (!empty($errors)) {
+                $message = implode(', ', $errors) . ' Cannot Be Empty';
+            }
+
+            if (isset($message)) {
+                Session::forget("isButtonReportDOToMaterialReceiveSubmit");
+                Session::forget("dataReportDOToMaterialReceive");
+
+                return redirect()->route('Inventory.ReportDOToMaterialReceive')->with('NotFound', $message);
+            }
+
+            $compact = $this->ReportDOToMaterialReceiveData($project_id, $site_id, $project_name, $project_code, $site_code);
+            // dd($compact);
+            if ($compact === null || empty($compact)) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+            
+            return redirect()->route('Inventory.ReportDOToMaterialReceive');
+        } catch (\Throwable $th) {
+            Log::error("ReportDOToMaterialReceiveStore Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportDOToMaterialReceive(Request $request) {
+        
+    }
 }

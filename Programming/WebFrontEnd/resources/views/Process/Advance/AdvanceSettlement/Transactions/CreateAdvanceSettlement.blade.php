@@ -3,6 +3,7 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getAdvance')
+@include('getFunction.getAdvanceSettlement')
 @include('getFunction.getWorkFlow')
 @include('Process.Advance.AdvanceSettlement.Functions.PopUp.PopUpAdvanceSettlementRevision')
 
@@ -124,9 +125,6 @@
                               <a class="btn btn-default btn-sm float-right" id="advance-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
                               </a>
-                              {{-- <a class="btn btn-default btn-sm float-right" id="advance-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
-                              </a> --}}
                             </td>
                           </tr>
                         </table>

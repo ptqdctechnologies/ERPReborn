@@ -63,7 +63,7 @@ class AdvanceSettlementController extends Controller
                 $request->approverEntity,
             );
 
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($responseWorkflow);
             }
 
@@ -75,6 +75,38 @@ class AdvanceSettlementController extends Controller
             return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Error at store: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function updatesAdvanceSettlement(Request $request)
+    {
+        try {
+            $response = $this->advanceSettlementService->updates($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -205,81 +237,34 @@ class AdvanceSettlementController extends Controller
 
     public function RevisionAdvanceSettlementIndex(Request $request)
     {
-
         try {
-            Session::forget("SessionAdvanceSetllementBeneficiary");
-            Session::forget("SessionAdvanceSetllementBeneficiaryID");
-            
-            $AdvanceSattlement_RefID = $request->input('AdvanceSattlement_RefID');
             $varAPIWebToken = Session::get('SessionLogin');
+            $advanceSettlementID = $request->input('advance_settlement_id');
 
-            // // DATA REVISION ADVANCE
-            // $filteredArray = Helper_APICall::setCallAPIGateway(
-            //     Helper_Environment::getUserSessionID_System(),
-            //     $varAPIWebToken,
-            //     'transaction.read.dataList.finance.getAdvanceReport',
-            //     'latest',
-            //     [
-            //         'parameter' => [
-            //             'advance_RefID' => (int) $AdvanceSattlement_RefID,
-            //         ],
-            //         'SQLStatement' => [
-            //             'pick' => null,
-            //             'sort' => null,
-            //             'filter' => null,
-            //             'paging' => null
-            //         ]
-            //     ],
-            //     false
-            // );
-            
+            $response = $this->advanceSettlementService->getDetail($advanceSettlementID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $data = $response['data'];
+
             $compact = [
-            //     'dataHeader' => $filteredArray['data'][0]['document']['header'],
-            //     'dataContent' => $filteredArray['data'][0]['document']['content']['general'],
-            //     'dataDetail' => $filteredArray['data'][0]['document']['content']['details']['itemList'],
-                'varAPIWebToken' => $varAPIWebToken,
-            //     'statusRevisi' => 1,
-            //     'statusFinalApprove' => "No",
+                'advanceNumber'     => $data[0]['documentNumber'] ?? '-',
+                'beneficiaryName'   => $data[0]['beneficiaryName'] ?? '-',
+                'bankName'          => $data[0]['bankName'] ?? '-',
+                'bankAccount'       => $data[0]['bankAccount'] ?? '-',
+                'fileID'            => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                'remark'            => $data[0]['remarks'] ?? '-',
+                'dataDetail'        => $data,
+                'varAPIWebToken'    => $varAPIWebToken,
             ];
+
             return view('Process.Advance.AdvanceSettlement.Transactions.RevisionAdvanceSettlement', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
-
-        // $varAPIWebToken = Session::get('SessionLogin');
-        // Session::forget("SessionAdvanceSetllementBeneficiary");
-        // Session::forget("SessionAdvanceSetllementBeneficiaryID");
-
-        // $varDataAdvanceSettlementRevision = Helper_APICall::setCallAPIGateway(
-        //     Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken,
-        //     'report.form.documentForm.finance.getAdvance',
-        //     'latest',
-        //     [
-        //         'parameter' => [
-        //             'recordID' => (int) $request->searchAsfNumberRevisionId,
-        //         ]
-        //     ]
-        // );
-
-        // $compact = [
-        //     'dataRevisi' => $varDataAdvanceSettlementRevision['data'][0]['document']['content']['general'],
-        //     'trano' => $varDataAdvanceSettlementRevision['data'][0]['document']['header']['number'],
-        //     'var_recordID' => $request->searchAsfNumberRevisionId,
-        //     'varAPIWebToken' => $varAPIWebToken,
-        //     'statusRevisi' => 1,
-        // ];
-    }
-
-    public function update(Request $request, $id)
-    {
-        $input = $request->all();
-        $compact = [
-            "status" => true,
-        ];
-
-        return response()->json($compact);
     }
 
     public function ReportAdvanceSettlementSummary(Request $request)

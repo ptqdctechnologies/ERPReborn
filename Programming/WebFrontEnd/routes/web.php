@@ -21,7 +21,7 @@ $varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzQ3NjMzNTkwfQ.M2QwNjdhNWY2MjhhOWQ5YzFlOWE2YTVkOTcxNmEyZDI3MjU0NmFmZDA2MTVhYjA1ZDMxMTdiOTZkOGZlODcwOA';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzQ3NzM3MTg2fQ.ZjY5Zjg5YWEwODEwMjVlYTIyMzViMzI3YjI2ZDc0MjFiYWUzMmU1ZjMzYzU1OTk4YWIzMjE1YWExNmIxYmMyMQ';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -171,6 +171,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getNewSite', 'Function\FunctionController@getNewSite')->name('getNewSite');
     Route::get('getBudget', 'Function\FunctionController@getBudget')->name('getBudget');
     Route::get('getAdvance', 'Function\FunctionController@getAdvance')->name('getAdvance');
+    Route::get('getAdvanceSettlement', 'Function\FunctionController@getAdvanceSettlement')->name('getAdvanceSettlement');
     Route::get('getAdvanceDetail', 'Function\FunctionController@getAdvanceDetail')->name('getAdvanceDetail');
     Route::get('getDeliveryOrderList', 'Function\FunctionController@getDeliveryOrderList')->name('getDeliveryOrderList');
     Route::get('getDeliveryOrderDetail', 'Function\FunctionController@getDeliveryOrderDetail')->name('getDeliveryOrderDetail');
@@ -234,6 +235,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ReportAdvanceSettlementDetail', 'Process\Advance\AdvanceSettlementController@ReportAdvanceSettlementDetail')->name('AdvanceSettlement.ReportAdvanceSettlementDetail');
     Route::post('ReportAdvanceSettlementDetailStore', 'Process\Advance\AdvanceSettlementController@ReportAdvanceSettlementDetailStore')->name('AdvanceSettlement.ReportAdvanceSettlementDetailStore');
     Route::post('PrintExportReportAdvanceSettlementDetail', 'Process\Advance\AdvanceSettlementController@PrintExportReportAdvanceSettlementDetail')->name('AdvanceSettlement.PrintExportReportAdvanceSettlementDetail');
+    Route::post('UpdatesAdvanceSettlement', 'Process\Advance\AdvanceSettlementController@updatesAdvanceSettlement')->name('AdvanceSettlement.UpdatesAdvanceSettlement');
     Route::resource('AdvanceSettlement', 'Process\Advance\AdvanceSettlementController');
 
     // BSF
@@ -402,6 +404,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportDODetailStore', 'Inventory\DeliveryOrderController@ReportDODetailStore')->name('Inventory.ReportDODetailStore');
     Route::post('PrintExportReportDODetail', 'Inventory\DeliveryOrderController@PrintExportReportDODetail')->name('Inventory.PrintExportReportDODetail');
     Route::post('SearchDeliveryOrderRequest', 'Inventory\DeliveryOrderController@SearchDeliveryOrderRequest')->name('DeliveryOrder.SearchDeliveryOrderRequest');
+    Route::get('ReportDOToMaterialReceive', 'Inventory\DeliveryOrderController@ReportDOToMaterialReceive')->name('Inventory.ReportDOToMaterialReceive');
+    Route::post('ReportDOToMaterialReceiveStore', 'Inventory\DeliveryOrderController@ReportDOToMaterialReceiveStore')->name('Inventory.ReportDOToMaterialReceiveStore');
+    Route::post('PrintExportReportDOToMaterialReceive', 'Inventory\DeliveryOrderController@PrintExportReportDOToMaterialReceive')->name('Inventory.PrintExportReportDOToMaterialReceive');
     Route::post('updates', 'Inventory\DeliveryOrderController@updates')->name('DeliveryOrder.updates');
     Route::resource('DeliveryOrder', 'Inventory\DeliveryOrderController');
 

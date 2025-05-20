@@ -327,7 +327,7 @@ class CheckDocumentController extends Controller
         // );
 
         $compact = [
-            "data" => $varData['data'],
+            "data" => $varData['data']['data'],
             "DocumentTypeName" => $DocumentTypeName
         ];
 
