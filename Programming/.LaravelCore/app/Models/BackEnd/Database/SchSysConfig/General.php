@@ -63,7 +63,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varUser_RefID ► User Reference ID                                                                        |
         |      ▪ (int)    varBranch_RefID ► Branch Reference ID                                                                    |
@@ -115,7 +115,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varUser_RefID ► User Reference ID                                                                        |
         |      ▪ (string) varDateTimeTZ ► DateTimeTZ                                                                               |
@@ -163,7 +163,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varUser_RefID ► User Reference ID                                                                        |
         |      ▪ (int)    varBranch_RefID ► Branch Reference ID                                                                    |
@@ -213,7 +213,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBranch_RefID ► Branch Reference ID                                                                    |
         |      ▪ (int)    varUser_RefID ► User Reference ID                                                                        |
@@ -264,7 +264,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varUser_RefID ► User Reference ID                                                                        |
         |      ▪ (int)    varBranch_RefID ► Branch Reference ID                                                                    |
@@ -345,7 +345,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch Reference ID                                                                        |
+        |      ▪ (int)    varSysBranch_RefID ► Branch Reference ID                                                                        |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varKey ► Key                                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -353,14 +353,14 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (mixed)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getApplicationParameter_BaseCurrencyID($varUserSession, int $varBranchID, string $varKey)
+        public function getApplicationParameter_BaseCurrencyID($varUserSession, int $varSysBranch_RefID, string $varKey)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
                     'SELECT "SchSysConfig"."FuncSys_General_GetParameterValue_App"('.
                         '\''.$varKey.'\'::varchar, '.
-                        $varBranchID.'::bigint'.
+                        $varSysBranch_RefID.'::bigint'.
                         ');'
                     );
 
@@ -379,7 +379,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
         |      ▪ (int)    varSubmitterEntity_RefID ► Submitter Entity Reference ID                                                 |
@@ -389,7 +389,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getBusinessDocumentTypeWorkFlowPath(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varBusinessDocumentType_RefID = null, int $varSubmitterEntity_RefID = null, int $varCombinedBudget_RefID = null)
             {
             try {
@@ -400,7 +400,7 @@ namespace App\Models\Database\SchSysConfig
                             $varUserSession,
                             'SchSysConfig.Func_GetDataList_BusinessDocumentTypeWorkFlowPath',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varBusinessDocumentType_RefID, 'bigint'],
                                 [$varSubmitterEntity_RefID, 'bigint'],
@@ -430,7 +430,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBusinessDocument_RefID ► Business Document ID                                                         |
         | ▪ Output Variable :                                                                                                      |
@@ -438,7 +438,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getBusinessDocumentWorkFlowPathApprovementHistory(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varBusinessDocument_RefID = null, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -450,7 +450,7 @@ namespace App\Models\Database\SchSysConfig
                             $varUserSession,
                             'SchSysConfig.Func_General_GetBusDocWorkFlowPathApprovementHistory',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varBusinessDocument_RefID, 'bigint' ]
                             ]
@@ -476,7 +476,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBusinessDocument_RefID ► Business Document ID                                                         |
         | ▪ Output Variable :                                                                                                      |
@@ -484,7 +484,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getBusinessDocumentCurrentAndNextWorkFlowPathStage(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varBusinessDocument_RefID = null)
             {
             try {
@@ -495,7 +495,7 @@ namespace App\Models\Database\SchSysConfig
                             $varUserSession,
                             'SchSysConfig.Func_General_GetBusDocCurrentAndNextWorkFlowPathStage',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varBusinessDocument_RefID, 'bigint' ]
                             ]
@@ -661,13 +661,13 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_AppObject_WorkFlowPath(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varWorkFlowVersion_RefID = null, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -679,7 +679,7 @@ namespace App\Models\Database\SchSysConfig
                             $varUserSession,
                             'SchSysConfig.Func_GetDataPickList_AppObject_WorkFlowPath',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varWorkFlowVersion_RefID, 'bigint' ]
                             ]
@@ -705,13 +705,13 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_getBusinessDocumentTypeWorkFlowPath(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varBusinessDocumentType_RefID = null, int $varSubmitterEntity_RefID = null, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -723,7 +723,7 @@ namespace App\Models\Database\SchSysConfig
                             $varUserSession,
                             'SchSysConfig.Func_GetDataPickList_BusinessDocumentTypeWorkFlowPath',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varBusinessDocumentType_RefID, 'bigint'],
                                 [$varSubmitterEntity_RefID, 'bigint']
@@ -750,7 +750,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varWorkFlowPathSequence_RefID ► Work Flow Path Sequence Reference ID                                                      |
         | ▪ Output Variable :                                                                                                      |
@@ -758,7 +758,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getManualRemappingWorkFlowPathSequenceDestinationList(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varWorkFlow_RefID = null)
             {
             try {
@@ -795,7 +795,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varWorkFlowPathSequence_RefID ► Work Flow Path Sequence Reference ID                                                      |
         | ▪ Output Variable :                                                                                                      |
@@ -803,7 +803,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getManualRemappingWorkFlowPathSequenceSourceList(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varWorkFlow_RefID = null)
             {
             try {
@@ -869,21 +869,21 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch Reference ID                                                                        |
+        |      ▪ (int)    varSysBranch_RefID ► Branch Reference ID                                                                        |
         |      ▪ (int)    varUserID ► User Reference ID                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getUserRolePrivilege($varUserSession, int $varUserID, int $varBranchID)
+        public function getUserRolePrivilege($varUserSession, int $varUserID, int $varSysBranch_RefID)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
-                    'SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varUserID.'::bigint, '.$varBranchID.'::bigint);'
+                    'SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varUserID.'::bigint, '.$varSysBranch_RefID.'::bigint);'
                     );
-            //var_dump('SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varBranchID.'::bigint, '.$varUserID.'::bigint)');
+            //var_dump('SELECT "SchSysConfig"."Func_General_GetUserRolePrivilege"('.$varSysBranch_RefID.'::bigint, '.$varUserID.'::bigint)');
             
             return
                 \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
@@ -904,7 +904,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch Reference ID                                                                        |
+        |      ▪ (int)    varSysBranch_RefID ► Branch Reference ID                                                                        |
         |      ▪ (int)    varUserID ► User Reference ID                                                                            |
         |      ▪ (int)    varUserRoleID ► User Role Reference ID                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -912,13 +912,13 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getUserRolePrivilegeMenuAndBudget($varUserSession, int $varUserID, int $varBranchID, int $varUserRoleID = null)
+        public function getUserRolePrivilegeMenuAndBudget($varUserSession, int $varUserID, int $varSysBranch_RefID, int $varUserRoleID = null)
             {
             $varSQL = '
                 SELECT 
                     "SchSysConfig"."Func_General_GetUserPrivilege_MenuAccess"(
                         '.$varUserID.'::bigint,
-                        '.$varBranchID.'::bigint,
+                        '.$varSysBranch_RefID.'::bigint,
                         '.$varUserRoleID.'::bigint
                         )
                 ';
@@ -977,7 +977,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varWorkFlowPath_RefID ► Work Flow Path Reference ID                                                      |
         | ▪ Output Variable :                                                                                                      |
@@ -985,7 +985,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getWorkFlowVersionByWorkFlowPathID(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varWorkFlowPath_RefID = null)
             {
             try {
@@ -1111,7 +1111,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBusinessDocument_RefID ► Business Document Reference ID                                               |
         |      ▪ (int)    varWorkFlowPath_RefID ► Work Flow Path Reference ID                                                      |
@@ -1123,7 +1123,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setActionForBusinessDocumentWorkFlowPath(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varBusinessDocument_RefID = null, int $varWorkFlowPath_RefID = null, int $varWorkFlowPathAction_RefID = null, string $varRemarks = null, int $varApproverEntity_RefID = null)
             {
             try {
@@ -1162,19 +1162,19 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-10-16                                                                                           |
         | ▪ Creation Date   : 2020-10-16                                                                                           |
-        | ▪ Description     : Penyimpanan UserSessionBranch (varBranchID) dan UserRole (varUserRoleID) sesuai ID Record            |
+        | ▪ Description     : Penyimpanan UserSessionBranch (varSysBranch_RefID) dan UserRole (varUserRoleID) sesuai ID Record            |
         |                     (varRecordID)                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varRecordID ► Record ID                                                                                  |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         |      ▪ (int)    varUserRoleID ► User Role ID                                                                             |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function setUserSessionBranchAndUserRole($varUserSession, int $varRecordID, int $varBranchID, int $varUserRoleID)
+        public function setUserSessionBranchAndUserRole($varUserSession, int $varRecordID, int $varSysBranch_RefID, int $varUserRoleID)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1185,7 +1185,7 @@ namespace App\Models\Database\SchSysConfig
                         [
                             [$varUserSession, 'bigint'],
                             [$varRecordID, 'bigint'],
-                            [$varBranchID, 'bigint'],
+                            [$varSysBranch_RefID, 'bigint'],
                             [$varUserRoleID, 'bigint']
                         ]
                         )
@@ -1218,30 +1218,38 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_AppObject_Menu(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varUserRoleGroup_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_AppObject_Menu',
-                        [
-                            [$varBranchID, 'bigint'],
-                            
-                            [$varUserRoleGroup_RefID, 'bigint'],
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_AppObject_Menu',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varUserRoleGroup_RefID, 'bigint'],
 
-            return $varReturn['data'];
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -1267,27 +1275,35 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_AppObject_MenuGroup(
-            $varUserSession, int $varBranchID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_AppObject_MenuGroup',
-                        [
-                            [$varBranchID, 'bigint' ],
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_AppObject_MenuGroup',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
 
-            return $varReturn['data'];
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -1314,30 +1330,38 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_AppObject_MenuGroupMember(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varMenuGroup_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_AppObject_MenuGroupMember',
-                        [
-                            [$varBranchID, 'bigint'],
-                            
-                            [$varMenuGroup_RefID, 'bigint'],
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_AppObject_MenuGroupMember',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varMenuGroup_RefID, 'bigint'],
 
-            return $varReturn['data'];
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -1364,31 +1388,38 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_AppObject_UserRole(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varUserRoleGroup_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_AppObject_UserRole',
-                        [
-                            [$varBranchID, 'bigint'],
-                            
-                            [$varUserRoleGroup_RefID, 'bigint'],
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_AppObject_UserRole',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varUserRoleGroup_RefID, 'bigint'],
 
-            return
-                $varReturn['data'];
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -1414,28 +1445,35 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_AppObject_UserRoleGroup(
-            $varUserSession, int $varBranchID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_AppObject_UserRoleGroup',
-                        [
-                            [$varBranchID, 'bigint' ],
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_AppObject_UserRoleGroup',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
 
-            return
-                $varReturn['data'];
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -1450,6 +1488,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varUserRoleGroup_RefID ► User Role Group_Reference ID                                                    |
         |      ------------------------------                                                                                      |
@@ -1462,31 +1501,38 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_AppObject_UserRoleGroupMember(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varUserRoleGroup_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_AppObject_UserRoleGroupMember',
-                        [
-                            [$varBranchID, 'bigint'],
-                            
-                            [$varUserRoleGroup_RefID, 'bigint'],
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_AppObject_UserRoleGroupMember',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varUserRoleGroup_RefID, 'bigint'],
 
-            return
-                $varReturn['data'];
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -1501,6 +1547,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varUserRole_RefID ► User Role Reference ID                                                               |
         |      ------------------------------                                                                                      |
@@ -1513,31 +1560,38 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_AppObject_UserRolePrivileges(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varUserRole_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_AppObject_UserRolePrivileges',
-                        [
-                            [$varBranchID, 'bigint'],
-                            
-                            [$varUserRole_RefID, 'bigint'],
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_AppObject_UserRolePrivileges',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varUserRole_RefID, 'bigint'],
 
-            return
-                $varReturn['data'];
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -1552,6 +1606,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -1563,28 +1618,35 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_AppObject_WorkFlow(
-            $varUserSession, int $varBranchID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_AppObject_WorkFlow',
-                        [
-                            [$varBranchID, 'bigint' ],
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_AppObject_WorkFlow',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
 
-            return
-                $varReturn['data'];
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -1599,6 +1661,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varWorkFlowVersion_RefID ► WorkFlow Version Reference ID                                                 |
         |      ------------------------------                                                                                      |
@@ -1611,46 +1674,53 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_AppObject_WorkFlowPath(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varWorkFlowVersion_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_AppObject_WorkFlowPath',
-                        [
-                            [$varBranchID, 'bigint' ],
-
-                            [$varWorkFlowVersion_RefID, 'bigint' ],
-
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
-
-            for ($i=0, $iMax=count($varReturn['data']); $i!=$iMax; $i++)
-                {
-                $varReturn['data'][$i]['AlternativeItemList'] = 
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                         $varUserSession, 
-                        $varReturn['data'][$i]['AlternativeItemList']
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_AppObject_WorkFlowPath',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [$varWorkFlowVersion_RefID, 'bigint' ],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
                         );
 
-                $varReturn['data'][$i]['NextApproverPath'] = 
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
-                        $varReturn['data'][$i]['NextApproverPath']
-                        );
+                for ($i = 0, $iMax = count($varReturn['data']); $i != $iMax; $i++)
+                    {
+                    $varReturn['data'][$i]['AlternativeItemList'] = 
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                            $varUserSession, 
+                            $varReturn['data'][$i]['AlternativeItemList']
+                            );
+
+                    $varReturn['data'][$i]['NextApproverPath'] = 
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                            $varUserSession, 
+                            $varReturn['data'][$i]['NextApproverPath']
+                            );
+                    }
+
+                return
+                    $varReturn;
                 }
 
-            return
-                $varReturn['data'];
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -1665,8 +1735,9 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
-        |      ▪ (int)    varWorkFlowPath_RefID ► WorkFlow Version Reference ID                                                 |
+        |      ▪ (int)    varWorkFlowPath_RefID ► WorkFlow Version Reference ID                                                    |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -1677,31 +1748,38 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_AppObject_WorkFlowPathSequence(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varWorkFlowPath_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_AppObject_WorkFlowPathSequence',
-                        [
-                            [$varBranchID, 'bigint' ],
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_AppObject_WorkFlowPathSequence',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
 
-                            [$varWorkFlowPath_RefID, 'bigint' ],
+                                [$varWorkFlowPath_RefID, 'bigint' ],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
 
-            return
-                $varReturn['data'];
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -1716,6 +1794,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varWorkFlow_RefID ► WorkFlow Reference ID                                                                |
         |      ------------------------------                                                                                      |
@@ -1728,31 +1807,38 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_AppObject_WorkFlowVersion(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varWorkFlow_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_AppObject_WorkFlowVersion',
-                        [
-                            [$varBranchID, 'bigint' ],
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_AppObject_WorkFlowVersion',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
 
-                            [$varWorkFlow_RefID, 'bigint' ],
+                                [$varWorkFlow_RefID, 'bigint' ],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
 
-            return
-                $varReturn['data'];
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -1767,6 +1853,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
         |      ▪ (int)    varSubmitterEntity_RefID ► Submitter Entity Reference ID                                                 |
@@ -1780,47 +1867,54 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessDocumentTypeWorkFlowPath(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varBusinessDocumentType_RefID = null, int $varSubmitterEntity_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_BusinessDocumentTypeWorkFlowPath',
-                        [
-                            [$varBranchID, 'bigint'],
-
-                            [$varBusinessDocumentType_RefID, 'bigint'],
-                            [$varSubmitterEntity_RefID, 'bigint'],
-
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
-
-            for ($i=0, $iMax=count($varReturn['data']); $i!=$iMax; $i++)
-                {
-                $varReturn['data'][$i]['AlternativeItemList'] = 
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                         $varUserSession, 
-                        $varReturn['data'][$i]['AlternativeItemList']
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_BusinessDocumentTypeWorkFlowPath',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varBusinessDocumentType_RefID, 'bigint'],
+                                [$varSubmitterEntity_RefID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
                         );
 
-                $varReturn['data'][$i]['NextApproverPath'] = 
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession, 
-                        $varReturn['data'][$i]['NextApproverPath']
-                        );
+                for ($i = 0, $iMax = count($varReturn['data']); $i != $iMax; $i++)
+                    {
+                    $varReturn['data'][$i]['AlternativeItemList'] = 
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                            $varUserSession, 
+                            $varReturn['data'][$i]['AlternativeItemList']
+                            );
+
+                    $varReturn['data'][$i]['NextApproverPath'] = 
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                            $varUserSession, 
+                            $varReturn['data'][$i]['NextApproverPath']
+                            );
+                    }
+
+                return
+                    $varReturn;
                 }
 
-            return
-                $varReturn['data'];
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -1835,6 +1929,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -1846,28 +1941,35 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_DBObject_Schema(
-            $varUserSession, int $varBranchID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_DBObject_Schema',
-                        [
-                            [$varBranchID, 'bigint' ],
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_DBObject_Schema',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
 
-            return
-                $varReturn['data'];
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -1885,22 +1987,30 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_BranchAccess($varUserSession)
+        public function getDataList_BranchAccess(
+            $varUserSession
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.FuncSys_GetDataList_BranchAccess',
-                        [
-                            [$varUserSession, 'bigint']
-                        ]
-                        )
-                    );
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.FuncSys_GetDataList_BranchAccess',
+                            [
+                                [$varUserSession, 'bigint']
+                            ]
+                            )
+                        );
 
-            return
-                $varReturn['data'];
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -1915,6 +2025,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varLog_BusinessDocumentWorkFlowPathHistory_RefID ► Log Business Document Work Flow Path History          |
         |                                                                    Reference ID                                          |
@@ -1928,31 +2039,38 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Log_BusinessDocumentWorkFlowPathHistory(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varLog_BusinessDocumentWorkFlowPathHistory_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_Log_BusinessDocumentWorkFlowPathHistory',
-                        [
-                            [$varBranchID, 'bigint'],
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_Log_BusinessDocumentWorkFlowPathHistory',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
 
-                            [$varLog_BusinessDocumentWorkFlowPathHistory_RefID, 'bigint'],
+                                [$varLog_BusinessDocumentWorkFlowPathHistory_RefID, 'bigint'],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
 
-            return
-                $varReturn['data'];
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -1977,27 +2095,36 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_RotateLog_FileUploadStagingArea($varUserSession, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+        public function getDataList_RotateLog_FileUploadStagingArea(
+            $varUserSession, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_RotateLog_FileUploadStagingArea',
-                        [
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_RotateLog_FileUploadStagingArea',
+                            [
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
 
-            return
-                $varReturn['data'];
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
+
 
 
         /*
@@ -2022,29 +2149,38 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_RotateLog_FileUploadStagingAreaDetail($varUserSession, 
+        public function getDataList_RotateLog_FileUploadStagingAreaDetail(
+            $varUserSession,
             int $varRotateLog_FileUploadStagingArea_RefRPK, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.Func_GetDataList_RotateLog_FileUploadStagingAreaDetail',
-                        [
-                            [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint' ],
+            try
+                {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetDataList_RotateLog_FileUploadStagingAreaDetail',
+                            [
+                                [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint' ],
 
-                            [$varPickStatement, 'varchar'],
-                            [$varSortStatement, 'varchar'],
-                            [$varFilterStatement, 'varchar'],
-                            [$varPagingStatement, 'varchar']
-                        ]
-                        )
-                    );
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
 
-            return
-                $varReturn['data'];
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -2055,32 +2191,41 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-10-08                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan User Role berdasarkan User Session ID (varUserSessionID) dan Branch ID    |
-        |                     (varBranchID)                                                                                        |
+        |                     (varSysBranch_RefID)                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_UserRole($varUserSession, int $varUserID, int $varBranchID = null)
+        public function getDataList_UserRole(
+            $varUserSession,
+            int $varUserID, int $varSysBranch_RefID = null
+            )
             {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchSysConfig.FuncSys_GetDataList_UserRole',
-                        [
-                            [$varUserID, 'bigint'],
-                            [$varBranchID, 'bigint']
-                        ]
-                        )
-                    );
+            try
+                {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.FuncSys_GetDataList_UserRole',
+                            [
+                                [$varUserID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint']
+                            ]
+                            )
+                        );
 
-            return
-                $varReturn['data'];
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
             }
 
 
@@ -2095,6 +2240,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -2106,7 +2252,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_AppObject_UserRoleGroup(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -2117,7 +2263,7 @@ namespace App\Models\Database\SchSysConfig
                             $varUserSession,
                             'SchSysConfig.Func_GetDataListJSON_AppObject_UserRoleGroup',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -2133,11 +2279,15 @@ namespace App\Models\Database\SchSysConfig
                         $varReturn['data'][0]['Func_GetDataListJSON_AppObject_UserRoleGroup']
                         );
 
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
-            catch (Exception $ex) {
+            catch (\Exception $ex) {
+                return [];
                 }
             }
 
@@ -2183,16 +2333,16 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-12-14                                                                                           |
         | ▪ Creation Date   : 2020-12-14                                                                                           |
-        | ▪ Description     : Mendapatkan Menu berdasarkan User Role ID (varUserRoleIDe) dan Branch ID (varBranchID)               |
+        | ▪ Description     : Mendapatkan Menu berdasarkan User Role ID (varUserRoleIDe) dan Branch ID (varSysBranch_RefID)               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (int)    varUserRoleID ► User Role ID                                                                             |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getMenuByUserRoleIDAndBranchID($varUserSession, int $varUserRoleID, int $varBranchID)
+        public function getMenuByUserRoleIDAndBranchID($varUserSession, int $varUserRoleID, int $varSysBranch_RefID)
             {
             $varReturn = 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2202,7 +2352,7 @@ namespace App\Models\Database\SchSysConfig
                         'SchSysConfig.FuncSys_General_GetUserRolePrivilegesMenu',
                         [
                             [$varUserRoleID, 'bigint'],
-                            [$varBranchID, 'bigint']
+                            [$varSysBranch_RefID, 'bigint']
                         ]
                         )
                     );

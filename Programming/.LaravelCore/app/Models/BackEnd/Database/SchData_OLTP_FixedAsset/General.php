@@ -29,7 +29,7 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varGoodsModel_RefID ► Goods Model Reference ID                                                           |
         |      ------------------------------                                                                                      |
@@ -42,7 +42,7 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_GoodsIdentity(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varGoodsModel_RefID = null, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -54,7 +54,7 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
                             $varUserSession,
                             'SchData-OLTP-FixedAsset.Func_GetDataList_GoodsIdentity',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varGoodsModel_RefID, 'bigint' ],
 
@@ -66,8 +66,10 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
                             )
                         );                
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -85,16 +87,18 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varGoodsModel_RefID ► Goods Model Reference ID                                                           |
+        |      ------------------------------                                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_GoodsIdentity(
-            $varUserSession, int $varBranchID, 
-            int $varGoodsModel_RefID = null)
+            $varUserSession, int $varSysBranch_RefID, 
+            int $varGoodsModel_RefID = null
+            )
             {
             try {
                 $varReturn =
@@ -104,14 +108,16 @@ namespace App\Models\Database\SchData_OLTP_FixedAsset
                             $varUserSession,
                             'SchData-OLTP-FixedAsset.Func_GetDataPickList_GoodsIdentity',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
                                 [$varGoodsModel_RefID, 'bigint' ]
                             ]
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }

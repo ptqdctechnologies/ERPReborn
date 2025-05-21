@@ -294,7 +294,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -306,8 +306,9 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Budget(
-            $varUserSession, int $varBranchID, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -317,7 +318,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataList_Budget',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -327,8 +328,10 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -346,7 +349,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudget_RefID ► Budget Reference ID                                                                    |
         |      ------------------------------                                                                                      |
@@ -359,7 +362,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BudgetExpense(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varBudget_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -371,7 +374,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpense',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varBudget_RefID, 'bigint'],
 
@@ -383,8 +386,10 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );                
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -402,7 +407,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudgetExpenseLine_RefID ► Budget Expense Line Reference ID                                            |
         |      ------------------------------                                                                                      |
@@ -415,7 +420,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BudgetExpenseLineCeiling(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varBudgetExpenseLine_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -427,7 +432,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseLineCeiling',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
  
                                 [$varBudgetExpenseLine_RefID, 'bigint'],
 
@@ -439,8 +444,10 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );                
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -458,7 +465,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudgetExpenseLineCeiling_RefID ► Budget Expense Line Ceiling Reference ID                             |
         |      ------------------------------                                                                                      |
@@ -471,7 +478,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BudgetExpenseCeilingObjects(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varBudgetExpenseLineCeiling_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -483,7 +490,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseLineCeilingObjects',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varBudgetExpenseLineCeiling_RefID, 'bigint' ],
 
@@ -495,8 +502,10 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );                
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -514,7 +523,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -526,7 +535,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BudgetExpenseGroup(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -537,7 +546,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseGroup',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -547,8 +556,10 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -566,7 +577,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudgetSection_RefID ► Budget Section Reference ID                                                     |
         |      ------------------------------                                                                                      |
@@ -578,7 +589,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_BudgetExpenseLine($varUserSession, int $varBranchID, 
+        public function getDataList_BudgetExpenseLine($varUserSession, int $varSysBranch_RefID, 
             int $varBudgetSection_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -590,7 +601,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseLine',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varBudgetSection_RefID, 'bigint'],
 
@@ -602,8 +613,10 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -621,7 +634,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varDateTimeTZ ► DateTimeTZ                                                                               |
         |      ▪ (string) varBackwardInterval ► Backward Interval                                                                  |
@@ -635,7 +648,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BudgetExpenseOwner(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             string $varDateTimeTZ = null, string $varBackwardInterval = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -647,7 +660,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseOwner',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varDateTimeTZ, 'timestamptz' ],
                                 [$varBackwardInterval, 'interval' ],
@@ -660,8 +673,10 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );                
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -679,7 +694,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -690,7 +705,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CombinedBudget(
-            $varUserSession, int $varBranchID, 
+            $varUserSession, int $varSysBranch_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -701,7 +716,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudget',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -711,8 +726,10 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -730,7 +747,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                   |
         |      ------------------------------                                                                                      |
@@ -743,7 +760,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CombinedBudgetSection(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varCombinedBudget_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -755,7 +772,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudgetSection',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varCombinedBudget_RefID, 'bigint'],
 
@@ -767,8 +784,10 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -786,7 +805,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section Reference ID                                    |
         |      ------------------------------                                                                                      |
@@ -799,7 +818,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_CombinedBudgetSectionDetail(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varCombinedBudgetSection_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -811,7 +830,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataListJSON_CombinedBudgetSectionDetail',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varCombinedBudgetSection_RefID, 'bigint'],
 
@@ -829,10 +848,16 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         $varReturn['data'][0]['Func_GetDataListJSON_CombinedBudgetSectionDetail']
                         );
 
-                return $varReturn['data'];
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -848,7 +873,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section Reference ID                                    |
         |      ------------------------------                                                                                      |
@@ -861,7 +886,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CombinedBudgetSectionDetail(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varCombinedBudgetSection_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -873,7 +898,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudgetSectionDetail',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varCombinedBudgetSection_RefID, 'bigint'],
 
@@ -885,8 +910,10 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -904,7 +931,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section Reference ID                                    |
         | ▪ Output Variable :                                                                                                      |
@@ -912,7 +939,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CombinedBudgetSubSectionLevel1(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varCombinedBudgetSection_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -924,7 +951,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudgetSubSectionLevel1',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varCombinedBudgetSection_RefID, 'bigint'],
 
@@ -936,8 +963,10 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -955,13 +984,13 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Budget(
-            $varUserSession, int $varBranchID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn =
@@ -971,13 +1000,15 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataPickList_Budget',
                             [
-                                [$varBranchID, 'bigint']
+                                [$varSysBranch_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -995,7 +1026,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudget_RefID ► Budget Reference ID                                                                    |
         | ▪ Output Variable :                                                                                                      |
@@ -1003,7 +1034,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BudgetExpense(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varBudget_RefID = null)
             {
             try {
@@ -1014,15 +1045,17 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpense',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varBudget_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1040,13 +1073,13 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BudgetExpenseGroup(
-            $varUserSession, int $varBranchID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn =
@@ -1056,13 +1089,15 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpenseGroup',
                             [
-                                [$varBranchID, 'bigint']
+                                [$varSysBranch_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1080,7 +1115,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudgetExpense_RefID ► Budget Expense Reference ID                                                     |
         | ▪ Output Variable :                                                                                                      |
@@ -1088,7 +1123,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BudgetExpenseLine(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varBudgetExpense_RefID = null)
             {
             try {
@@ -1099,15 +1134,17 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpenseLine',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varBudgetExpense_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1125,7 +1162,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudgetExpenseLine_RefID ► Budget Expense Line Reference ID                                            |
         | ▪ Output Variable :                                                                                                      |
@@ -1133,7 +1170,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BudgetExpenseLineCeiling(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varBudgetExpenseLine_RefID = null)
             {
             try {
@@ -1144,15 +1181,17 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpenseLineCeiling',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varBudgetExpenseLine_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1170,7 +1209,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBudgetExpenseLineCeiling_RefID ► Budget Expense Line Ceiling Reference ID                             |
         | ▪ Output Variable :                                                                                                      |
@@ -1178,7 +1217,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BudgetExpenseLineCeilingObjects(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varBudgetExpenseLineCeiling_RefID = null)
             {
             try {
@@ -1189,15 +1228,17 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataPickList_BudgetExpenseLineCeilingObjects',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varBudgetExpenseLineCeiling_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1215,13 +1256,13 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_CombinedBudget(
-            $varUserSession, int $varBranchID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn =
@@ -1231,13 +1272,15 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudget',
                             [
-                                [$varBranchID, 'bigint']
+                                [$varSysBranch_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1255,7 +1298,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                   |
         | ▪ Output Variable :                                                                                                      |
@@ -1263,7 +1306,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_CombinedBudgetSection(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varCombinedBudget_RefID)
             {
             try {
@@ -1274,15 +1317,17 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSection',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varCombinedBudget_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1300,7 +1345,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section Reference ID                                    |
         | ▪ Output Variable :                                                                                                      |
@@ -1308,7 +1353,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_CombinedBudgetSectionDetail(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varCombinedBudgetSection_RefID)
             {
             try {
@@ -1319,15 +1364,17 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSectionDetail',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varCombinedBudgetSection_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1345,7 +1392,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section Reference ID                                    |
         | ▪ Output Variable :                                                                                                      |
@@ -1353,7 +1400,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_CombinedBudgetSubSectionLevel1(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varCombinedBudgetSection_RefID)
             {
             try {
@@ -1364,15 +1411,17 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSubSectionLevel1',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varCombinedBudgetSection_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1487,7 +1536,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section ID                                              |
         | ▪ Output Variable :                                                                                                      |
@@ -1495,7 +1544,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataReportFormResume_CombinedBudgetSectionSegmentedDetail(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varCombinedBudgetSection_RefID
             )
             {
@@ -1507,7 +1556,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetRptFormRsm_CombinedBudgetSectionSegmentedDetail',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varCombinedBudgetSection_RefID, 'bigint']
                             ]
@@ -1533,7 +1582,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section ID                                              |
         | ▪ Output Variable :                                                                                                      |
@@ -1541,7 +1590,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataReportFormResume_CombinedBudgetSectionUnsegmentedDetail(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varCombinedBudgetSection_RefID
             )
             {
@@ -1553,7 +1602,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             $varUserSession,
                             'SchData-OLTP-Budgeting.Func_GetRptFormRsm_CombinedBudgetSectionUnsegmentedDetail',
                             [
-                                [$varBranchID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varCombinedBudgetSection_RefID, 'bigint']
                             ]

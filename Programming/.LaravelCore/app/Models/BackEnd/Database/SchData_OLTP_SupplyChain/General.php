@@ -53,7 +53,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                for ($i=0; $i!=count($varTemp['data']); $i++) {
+                for ($i = 0; $i != count($varTemp['data']); $i++) {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession,
@@ -121,12 +121,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -181,12 +180,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -235,12 +233,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -291,12 +288,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -342,12 +338,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -481,13 +476,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $idxArray++;
                         }
 
-                        return
-                            $varReturn['data'];
+                return
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -540,12 +534,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -598,12 +591,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -656,12 +648,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -714,12 +705,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -772,12 +762,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -830,12 +819,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -887,12 +875,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -942,6 +929,91 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-04-25                                                                                           |
+        | ▪ Creation Date   : 2025-03-05                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pembelian (Purchase Order Detail) Versi Terakhir                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varPurchaseOrder_RefID ► Purchase Order ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_PurchaseOrderDetail_LatestVersion(
+            $varUserSession, int $varPurchaseOrder_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseOrderDetail',
+                            [
+                                [$varPurchaseOrder_RefID, 'bigint' ],
+                            ]
+                            )
+                        );
+                $resultArray = $varReturn['data'];
+                $varReturn['data'] = [];
+                $idxArray = 0;
+                foreach ($resultArray as $key => $value) {
+                    $total = (float)$value["Price"] * (float)$value["Quantity"];
+                    $totalWithvat = $total + (float)$value["Vat"];
+                    $varReturn['data'][$idxArray]['purchaseOrder_RefID'] = $value["PurchaseOrder_RefID"];
+                    $varReturn['data'][$idxArray]['deliveryDestinationManualAddress'] = $value["DeliveryDestinationManualAddress"];
+                    $varReturn['data'][$idxArray]['purchaseOrderDetail_RefID'] = $value["PurchaseOrderDetail_RefID"];
+                    $varReturn['data'][$idxArray]['remarks'] = $value["Remarks"];
+                    $varReturn['data'][$idxArray]['productUnitPriceCurrencyValue'] = $value["ProductUnitPriceCurrencyValue"];
+                    $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate"];
+                    $varReturn['data'][$idxArray]['quantity'] = $value["Quantity"];
+                    $varReturn['data'][$idxArray]['price'] = $value["Price"];
+                    $varReturn['data'][$idxArray]['paymentTerm'] = $value["PaymentTerm"];
+                    $varReturn['data'][$idxArray]['documentNumber'] = $value["DocumentNumber"];
+                    $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
+                    $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
+                    $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName"];
+                    $varReturn['data'][$idxArray]['supplierCode'] = $value["SupplierCode"];
+                    if ((($value["Entity_RefIDTblSupplier"] / 1000000000000) % 10000) === 124) {
+                        $varReturn['data'][$idxArray]['supplierAddress'] = $value["SupplierAddressTblInstitution"];
+                        $varReturn['data'][$idxArray]['supplierName'] = $value["SupplierNameTblInstitution"];
+                    } elseif ((($value["Entity_RefIDTblSupplier"] / 1000000000000) % 10000) === 25) {
+                        $varReturn['data'][$idxArray]['supplierName'] = $value["SupplierNameTblPerson"];
+                        $varReturn['data'][$idxArray]['supplierAddress'] = $value["SupplierAddressTblPerson"];
+                    } else {
+                        $varReturn['data'][$idxArray]['supplierName'] = null;
+                        $varReturn['data'][$idxArray]['supplierAddress'] = null;
+                    }
+                    $varReturn['data'][$idxArray]['vat'] = $value["Vat"];
+                    $varReturn['data'][$idxArray]['total'] = $total;
+                    $varReturn['data'][$idxArray]['totalWithvat'] = $totalWithvat;
+                    $varReturn['data'][$idxArray]['totalAP'] = null;
+                    $varReturn['data'][$idxArray]['balanced'] = null;
+                    $idxArray++;
+                }
 
                 return
                     $varReturn['data'];
@@ -1001,12 +1073,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -1058,12 +1129,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -1111,7 +1181,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
 		    );
 
-		        foreach ($varReturn['data'] as $key => $value) {
+                foreach ($varReturn['data'] as $key => $value) {
                     $varReturn['data'][$key] = [];
                     $varReturn['data'][$key]['Sys_ID'] = $value['Sys_ID'];
                     $varReturn['data'][$key]['Code'] = $value['Code'];
@@ -1121,12 +1191,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 		        }
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -1175,12 +1244,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -1229,12 +1297,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -1285,12 +1352,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -1340,8 +1406,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -1441,12 +1506,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -1497,12 +1561,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -1551,12 +1614,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -1615,6 +1677,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_DeliveryDestination']
                         );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
 
                 return
                     $varReturn;
@@ -1679,6 +1744,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisition']
                         );
 
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
                 return
                     $varReturn;
                 }
@@ -1741,6 +1809,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisition']
                         );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
 
                 return
                     $varReturn;
@@ -1807,6 +1878,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisitionDetail']
                         );
 
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
                 return
                     $varReturn;
                 }
@@ -1869,6 +1943,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][0]['Func_GetDataListJSON_OrderPicking']
                         );
 
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
                 return
                     $varReturn;
                 }
@@ -1930,6 +2007,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_OrderPicking']
                         );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
 
                 return
                     $varReturn;
@@ -1994,6 +2074,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][0]['Func_GetDataListJSON_OrderPickingRequisition']
                         );
 
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
                 return
                     $varReturn;
                 }
@@ -2056,6 +2139,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_OrderPickingRequisition']
                         );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
 
                 return
                     $varReturn;
@@ -2122,6 +2208,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][0]['Func_GetDataListJSON_OrderPickingRequisitionDetail']
                         );
 
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
                 return
                     $varReturn;
                 }
@@ -2184,12 +2273,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseOrder']
                         );
 
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
                 return
                     $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return [];
+                return
+                    [];
                 }
             }
 
@@ -2245,102 +2338,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseOrder']
                         );
 
-                        return
-                        $varReturn;
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                          |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-05-19                                                                                           |
-        | ▪ Creation Date   : 2025-03-05                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pembelian (Purchase Order Detail) Versi Terakhir                                 |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varPurchaseOrder_RefID ► Purchase Order ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataList_PurchaseOrderDetail_LatestVersion(
-            $varUserSession, int $varPurchaseOrder_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseOrderDetail',
-                            [
-                                [$varPurchaseOrder_RefID, 'bigint' ],
-                            ]
-                            )
-		    	);
-                $resultArray = $varReturn['data'];
-                $varReturn['data'] = [];
-                $idxArray = 0;
-                foreach ($resultArray as $key => $value) {
-                    $varReturn['data'][$idxArray]['sys_ID'] = $value["Sys_ID"];
-                    $varReturn['data'][$idxArray]['sys_PID'] = $value["Sys_PID"];
-                    $varReturn['data'][$idxArray]['sys_SID'] = $value["Sys_SID"];
-                    $varReturn['data'][$idxArray]['sys_RPK'] = $value["Sys_RPK"];
-                    $varReturn['data'][$idxArray]['sys_Branch_RefID'] = $value["Sys_Branch_RefID"];
-                    $varReturn['data'][$idxArray]['sys_BaseCurrency_RefID'] = $value["Sys_BaseCurrency_RefID"];
-                    $varReturn['data'][$idxArray]['purchaseOrder_RefID'] = $value["PurchaseOrder_RefID"];
-                    $varReturn['data'][$idxArray]['businessDocument_RefID'] = $value["BusinessDocument_RefID"];
-                    $varReturn['data'][$idxArray]['documentNumber'] = $value["DocumentNumber"];
-                    $varReturn['data'][$idxArray]['log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];
-                    $varReturn['data'][$idxArray]['supplier_RefID'] = $value["Supplier_RefID"];
-                    $varReturn['data'][$idxArray]['supplierCode'] = $value["SupplierCode"];
-                    if ((($value["Entity_RefIDTblSupplier"] / 1000000000000) % 10000) === 124) {
-                        $varReturn['data'][$idxArray]['supplierAddress'] = $value["SupplierAddressTblInstitution"];
-                        $varReturn['data'][$idxArray]['supplierName'] = $value["SupplierNameTblInstitution"];
-                    } elseif ((($value["Entity_RefIDTblSupplier"] / 1000000000000) % 10000) === 25) {
-                        $varReturn['data'][$idxArray]['supplierName'] = $value["SupplierNameTblPerson"];
-                        $varReturn['data'][$idxArray]['supplierAddress'] = $value["SupplierAddressTblPerson"];
-                    } else {
-                        $varReturn['data'][$idxArray]['supplierName'] = null;
-                        $varReturn['data'][$idxArray]['supplierAddress'] = null;
-                    }
-                    $varReturn['data'][$idxArray]['paymentNotes'] = $value["PaymentNotes"];
-                    $varReturn['data'][$idxArray]['internalNotes'] = $value["InternalNotes"];
-                    $varReturn['data'][$idxArray]['downPayment'] = $value["DownPayment"];
-                    $varReturn['data'][$idxArray]['termOfPayment_RefID'] = $value["TermOfPayment_RefID"];
-                    $varReturn['data'][$idxArray]['deliveryTo_RefID'] = $value["DeliveryTo_RefID"];
-                    $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = $value["DeliveryTo_NonRefID"];
-                    $varReturn['data'][$idxArray]['remarks'] = $value["Remarks"];
-                    $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
-                    $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
-                    $varReturn['data'][$idxArray]['quantity'] = $value["Quantity"];
-                    $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID"];
-                    $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID"];
-                    $varReturn['data'][$idxArray]['productUnitPriceCurrencyValue'] = $value["ProductUnitPriceCurrencyValue"];
-                    $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate"];
-                    $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceBaseCurrencyValue"];
-                    $varReturn['data'][$idxArray]['note'] = $value["Note"];
-                    $varReturn['data'][$idxArray]['tariffCurrencyValue'] = $value["TariffCurrencyValue"];
-                    $idxArray++;
-                }
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
@@ -2401,6 +2403,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseRequisition']
                         );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
 
                 return
                     $varReturn;
@@ -2464,6 +2469,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseRequisition']
                         );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
 
                 return
                     $varReturn;
@@ -2529,6 +2537,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseRequisitionDetail']
                         );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
 
                 return
                     $varReturn;
@@ -2638,12 +2649,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2681,12 +2691,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2726,12 +2735,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2771,12 +2779,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2817,12 +2824,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2863,12 +2869,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2908,12 +2913,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2953,12 +2957,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2998,12 +3001,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3044,12 +3046,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3089,12 +3090,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3134,12 +3134,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3177,12 +3176,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3222,12 +3220,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3267,12 +3264,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3310,12 +3306,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3353,12 +3348,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3396,12 +3390,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3441,12 +3434,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3486,12 +3478,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3531,12 +3522,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3576,12 +3566,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3619,12 +3608,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3675,8 +3663,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 

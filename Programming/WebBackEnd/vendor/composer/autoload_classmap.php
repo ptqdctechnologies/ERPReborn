@@ -3615,8 +3615,6 @@ return array(
     'Aws\\PresignUrlMiddleware' => $vendorDir . '/aws/aws-sdk-php/src/PresignUrlMiddleware.php',
     'Aws\\Pricing\\Exception\\PricingException' => $vendorDir . '/aws/aws-sdk-php/src/Pricing/Exception/PricingException.php',
     'Aws\\Pricing\\PricingClient' => $vendorDir . '/aws/aws-sdk-php/src/Pricing/PricingClient.php',
-    'Aws\\PrivateNetworks\\Exception\\PrivateNetworksException' => $vendorDir . '/aws/aws-sdk-php/src/PrivateNetworks/Exception/PrivateNetworksException.php',
-    'Aws\\PrivateNetworks\\PrivateNetworksClient' => $vendorDir . '/aws/aws-sdk-php/src/PrivateNetworks/PrivateNetworksClient.php',
     'Aws\\PrometheusService\\Exception\\PrometheusServiceException' => $vendorDir . '/aws/aws-sdk-php/src/PrometheusService/Exception/PrometheusServiceException.php',
     'Aws\\PrometheusService\\PrometheusServiceClient' => $vendorDir . '/aws/aws-sdk-php/src/PrometheusService/PrometheusServiceClient.php',
     'Aws\\Proton\\Exception\\ProtonException' => $vendorDir . '/aws/aws-sdk-php/src/Proton/Exception/ProtonException.php',

@@ -4285,8 +4285,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\PresignUrlMiddleware' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PresignUrlMiddleware.php',
         'Aws\\Pricing\\Exception\\PricingException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Pricing/Exception/PricingException.php',
         'Aws\\Pricing\\PricingClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Pricing/PricingClient.php',
-        'Aws\\PrivateNetworks\\Exception\\PrivateNetworksException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PrivateNetworks/Exception/PrivateNetworksException.php',
-        'Aws\\PrivateNetworks\\PrivateNetworksClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PrivateNetworks/PrivateNetworksClient.php',
         'Aws\\PrometheusService\\Exception\\PrometheusServiceException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PrometheusService/Exception/PrometheusServiceException.php',
         'Aws\\PrometheusService\\PrometheusServiceClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PrometheusService/PrometheusServiceClient.php',
         'Aws\\Proton\\Exception\\ProtonException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Proton/Exception/ProtonException.php',

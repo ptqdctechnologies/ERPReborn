@@ -62,8 +62,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varTemp['data'][$i][explode('.', $varFunctionName)[1]]);
                     }
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -81,7 +83,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -93,8 +95,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessTripAccommodationArrangementsType(
-            $varUserSession, int $varBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -104,7 +107,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_BusinessTripAccommodationArrangementsType',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -114,8 +117,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -133,7 +138,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -145,7 +150,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessTripCostComponent(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
             {
@@ -157,7 +162,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_BusinessTripCostComponent',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -168,7 +173,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
@@ -179,7 +184,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_BusinessTripList                                                                |
+        | ▪ Method Name     : getDataList_BusinessTripList                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-03-03                                                                                           |
@@ -188,7 +193,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -200,7 +205,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessTripList(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
             {
@@ -212,13 +217,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_PersonBusinessTrip',
                             [
-                                [$varBranch_RefID, 'bigint' ]
+                                [$varSysBranch_RefID, 'bigint' ]
                             ]
                             )
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
@@ -238,7 +243,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -250,7 +255,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BSFList(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
             {
@@ -262,13 +267,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_PersonBusinessTrip',
                             [
-                                [$varBranch_RefID, 'bigint' ]
+                                [$varSysBranch_RefID, 'bigint' ]
                             ]
                             )
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
@@ -288,7 +293,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (array)  varBusinessTripTransportationType_RefIDArray ► Business Trip Transportation Type Reference ID Array      |
         |      ------------------------------                                                                                      |
@@ -301,7 +306,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessTripCostComponentEntity(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             array $varBusinessTripTransportationType_RefIDArray = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
@@ -314,7 +319,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_BusinessTripCostComponentEntity',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varBusinessTripTransportationType_RefIDArray, 'bigint[]'],
 
@@ -327,7 +332,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
@@ -347,7 +352,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varBusinessTripTransportationType_RefID ► Business Trip Transportation Type Reference ID                 |
         |      ------------------------------                                                                                      |
@@ -360,9 +365,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessTripTransportationCostType(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varBusinessTripTransportationType_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -372,7 +378,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_BusinessTripTransportationCostType',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varBusinessTripTransportationType_RefID, 'bigint' ],
 
@@ -385,7 +391,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
@@ -405,7 +411,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -417,7 +423,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessTripTransportationCostTypeComponent(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
             {
@@ -429,7 +435,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_BusinessTripCostComponent',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -440,7 +446,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
@@ -460,7 +466,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -472,7 +478,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessTripTransportationType(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
             {
@@ -484,7 +490,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_BusinessTripTransportationType',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -495,7 +501,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
@@ -515,7 +521,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -527,7 +533,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_OrganizationalDepartment(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
             {
@@ -539,7 +545,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_OrganizationalDepartment',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
                                 [NULL, 'timestamptz'],
 
                                 [$varPickStatement, 'varchar'],
@@ -551,7 +557,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
@@ -571,7 +577,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -583,7 +589,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonBusinessTrip_AllVersion(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
             {
@@ -595,7 +601,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_PersonBusinessTrip',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [TRUE, 'boolean'],
 
@@ -606,6 +612,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             ]
                             )
                         );
+
                 return
                     $varReturn;
                 }
@@ -627,7 +634,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -639,7 +646,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonBusinessTrip_LatestVersion(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
             {
@@ -651,7 +658,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_PersonBusinessTrip',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [FALSE, 'boolean'],
 
@@ -661,7 +668,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );
+                        );  
+
                 return
                     $varReturn;
                 }
@@ -683,7 +691,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
         |      ------------------------------                                                                                      |
@@ -696,7 +704,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonBusinessTripSequence_AllVersion(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varPersonBusinessTrip_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
@@ -709,7 +717,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_PersonBusinessTripSequence',
                             [
-                                [$varBranch_RefID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean'],
                                 [$varPersonBusinessTrip_RefID, 'bigint'],
@@ -743,7 +751,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
         |      ------------------------------                                                                                      |
@@ -756,7 +764,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonBusinessTripSequence_LatestVersion(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varPersonBusinessTrip_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
@@ -769,7 +777,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_PersonBusinessTripSequence',
                             [
-                                [$varBranch_RefID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean'],
                                 [$varPersonBusinessTrip_RefID, 'bigint'],
@@ -803,7 +811,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
         |      ▪ (int)    varSequence ► Sequence                                                                                   |
@@ -817,7 +825,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonBusinessTripSequenceDetail(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varPersonBusinessTrip_RefID = null, int $varSequence = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
@@ -830,7 +838,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_PersonBusinessTripSequenceDetail',
                             [
-                                [$varBranch_RefID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPersonBusinessTrip_RefID, 'bigint'],
                                 [$varSequence, 'smallint'],
@@ -864,7 +872,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -876,8 +884,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonWorkTimeSheet(
-            $varUserSession, int $varBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -887,7 +896,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_PersonWorkTimeSheetNew',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -897,8 +906,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -916,7 +927,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varPersonWorkTimeSheet_RefID ► Person Work Time Sheet Referece ID                                        |
         |      ------------------------------                                                                                      |
@@ -929,9 +940,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonWorkTimeSheetDetail(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varPersonWorkTimeSheet_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -941,7 +953,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_PersonWorkTimeSheetNew',
                             [
-                                [$varBranch_RefID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
                             ]
                             )
                         );                        
@@ -966,8 +978,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                     $idxArray++;
                 }
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -985,7 +999,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varPersonWorkTimeSheet_RefID ► Person Work Time Sheet Referece ID                                        |
         |      ------------------------------                                                                                      |
@@ -998,9 +1012,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonWorkTimeSheetActivity(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varPersonWorkTimeSheet_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -1010,7 +1025,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_PersonWorkTimeSheetActivity',
                             [
-                                [$varBranch_RefID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPersonWorkTimeSheet_RefID, 'bigint'],
 
@@ -1022,8 +1037,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1041,7 +1058,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -1053,8 +1070,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Worker(
-            $varUserSession, int $varBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -1064,7 +1082,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_Worker',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -1074,8 +1092,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1093,7 +1113,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
         |      ▪ (string) varDateTimeTZ ► DateTimeTZ                                                                               |
@@ -1106,9 +1126,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_WorkerCareerInternal($varUserSession, int $varBranch_RefID,
+        public function getDataList_WorkerCareerInternal($varUserSession, int $varSysBranch_RefID,
             int $varWorker_RefID = null, string $varDateTimeTZ = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -1118,7 +1139,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_WorkerCareerInternal',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varWorker_RefID, 'bigint' ],
                                 [$varDateTimeTZ, 'timestamptz' ],
@@ -1131,8 +1152,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1150,7 +1173,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
         |      ------------------------------                                                                                      |
@@ -1163,9 +1186,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WorkerJobsPosition(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varWorker_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -1175,7 +1199,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_WorkerJobsPosition',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varWorker_RefID, 'bigint' ],
 
@@ -1187,8 +1211,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1206,7 +1232,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
         |      ------------------------------                                                                                      |
@@ -1219,9 +1245,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WorkerJobsPositionCurrent(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varWorker_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -1231,7 +1258,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_WorkerJobsPositionCurrent',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varWorker_RefID, 'bigint' ],
 
@@ -1243,8 +1270,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1262,7 +1291,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -1274,8 +1303,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WorkerType(
-            $varUserSession, int $varBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -1285,7 +1315,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataList_WorkerType',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -1295,8 +1325,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1327,7 +1359,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         */
         public function getDataListJSON_PersonBusinessTrip_AllVersion(
             $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn =
@@ -1363,8 +1396,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -1429,8 +1461,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -1446,7 +1477,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
         |      ------------------------------                                                                                      |
@@ -1459,7 +1490,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_PersonBusinessTripSequence_AllVersion(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varPersonBusinessTrip_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
@@ -1472,7 +1503,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataListJSON_PersonBusinessTripSequence',
                             [
-                                [$varBranch_RefID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean'],
                                 [$varPersonBusinessTrip_RefID, 'bigint'],
@@ -1499,8 +1530,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -1516,7 +1546,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
         |      ------------------------------                                                                                      |
@@ -1529,7 +1559,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_PersonBusinessTripSequence_LatestVersion(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varPersonBusinessTrip_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
@@ -1542,7 +1572,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataListJSON_PersonBusinessTripSequence',
                             [
-                                [$varBranch_RefID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean'],
                                 [$varPersonBusinessTrip_RefID, 'bigint'],
@@ -1569,8 +1599,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -1586,7 +1615,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
         |      ▪ (int)    varSequence ► Sequence                                                                                   |
@@ -1600,7 +1629,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_PersonBusinessTripSequenceDetail(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varPersonBusinessTrip_RefID = null, int $varSequence = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
             )
@@ -1613,7 +1642,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataListJSON_PersonBusinessTripSequenceDetail',
                             [
-                                [$varBranch_RefID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPersonBusinessTrip_RefID, 'bigint'],
                                 [$varSequence, 'smallint'],
@@ -1640,8 +1669,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -1657,13 +1685,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BusinessTripAccommodationArrangementsType(
-            $varUserSession, int $varBranch_RefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn =
@@ -1673,13 +1701,15 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_BusinessTripAccommodationArrangementsType',
                             [
-                                [$varBranch_RefID, 'bigint']
+                                [$varSysBranch_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1697,13 +1727,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BusinessTripCostComponent(
-            $varUserSession, int $varBranch_RefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn =
@@ -1713,13 +1743,15 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_BusinessTripCostComponent',
                             [
-                                [$varBranch_RefID, 'bigint']
+                                [$varSysBranch_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1737,7 +1769,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varIDSet ► ID Set                                                                                        |
         | ▪ Output Variable :                                                                                                      |
@@ -1745,7 +1777,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BusinessTripCostComponentEntity(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             array $varBusinessTripTransportationType_RefIDArray = null)
             {
             try {
@@ -1756,14 +1788,16 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_BusinessTripCostComponentEntity',
                             [
-                                [$varBranch_RefID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
                                 [$varBusinessTripTransportationType_RefIDArray, 'bigint[]']
                             ]
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1781,13 +1815,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BusinessTripTransportationCostType(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varBusinessTripTransportationType_RefID = null)
             {
             try {
@@ -1798,15 +1832,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_BusinessTripTransportationCostType',
                             [
-                                [$varBranch_RefID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varBusinessTripTransportationType_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1824,13 +1860,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BusinessTripTransportationCostTypeComponent(
-            $varUserSession, int $varBranch_RefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn =
@@ -1840,13 +1876,15 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_BusinessTripTransportationCostTypeComp',
                             [
-                                [$varBranch_RefID, 'bigint']
+                                [$varSysBranch_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1864,13 +1902,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BusinessTripTransportationType(
-            $varUserSession, int $varBranch_RefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn =
@@ -1880,13 +1918,15 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_BusinessTripTransportationType',
                             [
-                                [$varBranch_RefID, 'bigint']
+                                [$varSysBranch_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1904,13 +1944,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_OrganizationalDepartment(
-            $varUserSession, int $varBranch_RefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn =
@@ -1920,13 +1960,15 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_OrganizationalDepartment',
                             [
-                                [$varBranch_RefID, 'bigint']
+                                [$varSysBranch_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1944,13 +1986,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PersonBusinessTrip(
-            $varUserSession, int $varBranch_RefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn =
@@ -1960,13 +2002,15 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_PersonBusinessTrip',
                             [
-                                [$varBranch_RefID, 'bigint']
+                                [$varSysBranch_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -1984,13 +2028,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PersonBusinessTripSequence(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varPersonBusinessTrip_RefID = null)
             {
             try {
@@ -2001,15 +2045,17 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_PersonBusinessTripSequence',
                             [
-                                [$varBranch_RefID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPersonBusinessTrip_RefID, 'bigint']
                             ]
                             )
                         );
 
-                return $varReturn;
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -2027,7 +2073,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
         |      ▪ (int)    varSequence ► Sequence                                                                                   |
@@ -2036,7 +2082,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PersonBusinessTripSequenceDetail(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varPersonBusinessTrip_RefID = null, int $varSequence = null
             )
             {
@@ -2048,10 +2094,228 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickList_PersonBusinessTripSequenceDetail',
                             [
-                                [$varBranch_RefID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPersonBusinessTrip_RefID, 'bigint'],
                                 [$varSequence, 'smallint']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_PersonWorkTimeSheet                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-11-04                                                                                           |
+        | ▪ Creation Date   : 2022-11-04                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Worker                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_PersonWorkTimeSheet(
+            $varUserSession, int $varSysBranch_RefID)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-HumanResource.Func_GetDataPickList_PersonWorkTimeSheet',
+                            [
+                                [$varSysBranch_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_Worker                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-10-21                                                                                           |
+        | ▪ Creation Date   : 2021-10-21                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Worker                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_Worker(
+            $varUserSession, int $varSysBranch_RefID)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-HumanResource.Func_GetDataPickList_Worker',
+                        [
+                            [$varSysBranch_RefID, 'bigint']
+                        ]
+                        )
+                    );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_WorkerCareerInternal                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-10-11                                                                                           |
+        | ▪ Creation Date   : 2022-10-11                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Worker Career Internal                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_WorkerCareerInternal(
+            $varUserSession, int $varSysBranch_RefID)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-HumanResource.Func_GetDataPickList_WorkerCareerInternal',
+                            [
+                                [$varSysBranch_RefID, 'bigint']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_WorkerJobsPosition                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-06-09                                                                                           |
+        | ▪ Creation Date   : 2022-06-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Posisi Jabatan Pekerja                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_WorkerJobsPosition(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varWorker_RefID = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-HumanResource.Func_GetDataPickList_WorkerJobsPosition',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+                                [$varWorker_RefID, 'bigint' ]
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_WorkerJobsPositionCurrent                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-06-02                                                                                           |
+        | ▪ Creation Date   : 2022-06-02                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Posisi Jabatan Pekerja Saat Ini                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_WorkerJobsPositionCurrent(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varWorker_RefID = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-HumanResource.Func_GetDataPickList_WorkerJobsPositionCurrent',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+                                [$varWorker_RefID, 'bigint' ]
                             ]
                             )
                         );
@@ -2077,7 +2341,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
         |      ▪ (int)    varSequence ► Sequence                                                                                   |
@@ -2086,7 +2350,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickListJSON_PersonBusinessTripSequenceDetail(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varPersonBusinessTrip_RefID = null, int $varSequence = null
             )
             {
@@ -2098,7 +2362,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataPickListJSON_PersonBusinessTripSequenceDetail',
                             [
-                                [$varBranch_RefID, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPersonBusinessTrip_RefID, 'bigint'],
                                 [$varSequence, 'smallint']
@@ -2119,214 +2383,6 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                     $varReturn;
                 }
 
-            catch (\Exception $ex) {
-                return [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataPickList_PersonWorkTimeSheet                                                                  |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-11-04                                                                                           |
-        | ▪ Creation Date   : 2022-11-04                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Worker                                                               |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataPickList_PersonWorkTimeSheet(
-            $varUserSession, int $varBranch_RefID)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-HumanResource.Func_GetDataPickList_PersonWorkTimeSheet',
-                            [
-                                [$varBranch_RefID, 'bigint']
-                            ]
-                            )
-                        );
-
-                return $varReturn;
-                }
-            catch (\Exception $ex) {
-                return [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataPickList_Worker                                                                               |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-10-21                                                                                           |
-        | ▪ Creation Date   : 2021-10-21                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Worker                                                               |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataPickList_Worker(
-            $varUserSession, int $varBranch_RefID)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession,
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-HumanResource.Func_GetDataPickList_Worker',
-                        [
-                            [$varBranch_RefID, 'bigint']
-                        ]
-                        )
-                    );
-
-                return $varReturn;
-                }
-            catch (\Exception $ex) {
-                return [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataPickList_WorkerCareerInternal                                                                 |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-10-11                                                                                           |
-        | ▪ Creation Date   : 2022-10-11                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Worker Career Internal                                               |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataPickList_WorkerCareerInternal(
-            $varUserSession, int $varBranch_RefID)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-HumanResource.Func_GetDataPickList_WorkerCareerInternal',
-                            [
-                                [$varBranch_RefID, 'bigint']
-                            ]
-                            )
-                        );
-
-                return $varReturn;
-                }
-            catch (\Exception $ex) {
-                return [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataPickList_WorkerJobsPosition                                                                   |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-06-09                                                                                           |
-        | ▪ Creation Date   : 2022-06-09                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Posisi Jabatan Pekerja                                               |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
-        |      ------------------------------                                                                                      |
-        |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataPickList_WorkerJobsPosition(
-            $varUserSession, int $varBranch_RefID,
-            int $varWorker_RefID = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-HumanResource.Func_GetDataPickList_WorkerJobsPosition',
-                            [
-                                [$varBranch_RefID, 'bigint'],
-                                [$varWorker_RefID, 'bigint' ]
-                            ]
-                            )
-                        );
-
-                return $varReturn;
-                }
-            catch (\Exception $ex) {
-                return [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataPickList_WorkerJobsPositionCurrent                                                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-06-02                                                                                           |
-        | ▪ Creation Date   : 2022-06-02                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Posisi Jabatan Pekerja Saat Ini                                      |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
-        |      ------------------------------                                                                                      |
-        |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataPickList_WorkerJobsPositionCurrent(
-            $varUserSession, int $varBranch_RefID,
-            int $varWorker_RefID = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-HumanResource.Func_GetDataPickList_WorkerJobsPositionCurrent',
-                            [
-                                [$varBranch_RefID, 'bigint'],
-                                [$varWorker_RefID, 'bigint' ]
-                            ]
-                            )
-                        );
-
-                return $varReturn;
-                }
             catch (\Exception $ex) {
                 return [];
                 }
@@ -2438,7 +2494,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varWorkerCareerInternal_RefID ► Worker Career Internal Reference ID                                      |
         | ▪ Output Variable :                                                                                                      |
@@ -2446,7 +2502,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataResume_WorkerCareerInternalContactNumber(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varWorkerCareerInternal_RefID = null)
             {
             try {
@@ -2457,7 +2513,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataResume_WorkerCareerInternalContactNumber',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varWorkerCareerInternal_RefID, 'bigint' ]
                             ]
@@ -2487,7 +2543,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
         | ▪ Output Variable :                                                                                                      |
@@ -2495,7 +2551,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataResume_WorkerContactNumber(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varWorker_RefID = null)
             {
             try {
@@ -2506,7 +2562,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetDataResume_WorkerContactNumber',
                             [
-                                [$varBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varWorker_RefID, 'bigint' ]
                             ]
@@ -2536,7 +2592,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranch_RefID ► Branch ID                                                                              |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ▪ (int)    varPersonWorkTimeSheet_RefID ► Person Work TimeSheet ReferenceID                                         |
         |      ▪ (string) varDataFilter_DocumentNumber ► Data Filter : DocumentNumber                                              |
@@ -2547,7 +2603,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataReportFormResume_PersonWorkTimeSheet(
-            $varUserSession, int $varBranch_RefID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varPersonWorkTimeSheet_RefID = null,
             string $varDataFilter_DocumentNumber = null, string $varDataFilter_EventDateTimeTZ = null, int $varDataFilter_Person_RefID = null)
             {
@@ -2559,7 +2615,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             $varUserSession,
                             'SchData-OLTP-HumanResource.Func_GetRptFormRsm_PersonWorkTimeSheet',
                             [
-    //                          [$varBranch_RefID, 'bigint' ],
+    //                          [$varSysBranch_RefID, 'bigint' ],
     //                          [NULL, 'timestamptz'],
                                 [$varPersonWorkTimeSheet_RefID, 'bigint'],
                                 [$varDataFilter_DocumentNumber, 'varchar'],
