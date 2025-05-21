@@ -53,7 +53,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             )
                         );
 
-                for ($i=0; $i!=count($varTemp['data']); $i++) {
+                for ($i = 0; $i != count($varTemp['data']); $i++) {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession,
@@ -121,12 +121,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -181,12 +180,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -235,12 +233,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -291,12 +288,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -342,12 +338,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -481,13 +476,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $idxArray++;
                         }
 
-                        return
-                            $varReturn['data'];
+                return
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -540,12 +534,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -598,12 +591,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -656,12 +648,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -714,12 +705,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -772,12 +762,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -830,12 +819,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -887,12 +875,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -944,1198 +931,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-       /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_PurchaseRequisition_AllVersion                                                           |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-10-16                                                                                           |
-        | ▪ Creation Date   : 2022-03-07                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Permintaan Pembelian (Purchase Request) Semua Versi                               |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |        ------------------------------                                                                                    |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataList_PurchaseRequisition_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseRequisition',
-                            [
-                                [$varSysBranch_RefID, 'bigint'],
-
-                                [TRUE, 'boolean'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                return
-                    $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_PurchaseRequisition_LatestVersion                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-10-16                                                                                           |
-        | ▪ Creation Date   : 2022-03-07                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Permintaan Pembelian (Purchase Request) Versi Terakhir                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |        ------------------------------                                                                                    |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataList_PurchaseRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseRequisition',
-                            [
-                                [$varSysBranch_RefID, 'bigint'],
-
-                                [FALSE, 'boolean'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                return
-                    $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_Supplier                                                                                 |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-01                                                                                           |
-        | ▪ Creation Date   : 2022-03-01                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pemasok                                                                           |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataList_Supplier(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataList_Supplier',
-                            [
-                                [$varSysBranch_RefID, 'bigint'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-		    );
-
-		        foreach ($varReturn['data'] as $key => $value) {
-                    $varReturn['data'][$key] = [];
-                    $varReturn['data'][$key]['Sys_ID'] = $value['Sys_ID'];
-                    $varReturn['data'][$key]['Code'] = $value['Code'];
-                    $varReturn['data'][$key]['FullName'] = $value['FullName'];
-                    $varReturn['data'][$key]['Name'] = $value['Name'];
-                    $varReturn['data'][$key]['Address'] = $value['Address'];
-		        }
-
-                return
-                    $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_Transporter                                                                              |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-05-14                                                                                           |
-        | ▪ Creation Date   : 2025-05-14                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Gudang                                                                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataList_Transporter(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataList_Transporter',
-                            [
-                                [$varSysBranch_RefID, 'bigint'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                return
-                    $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_Warehouse                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-01                                                                                           |
-        | ▪ Creation Date   : 2022-03-01                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Gudang                                                                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataList_Warehouse(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataList_Warehouse',
-                            [
-                                [$varSysBranch_RefID, 'bigint'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                return
-                    $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_WarehouseInboundOrder_AllVersion                                                         |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-10-24                                                                                           |
-        | ▪ Creation Date   : 2022-03-08                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Penerimaan Barang Gudang (Warehouse Inbound Order) Semua Versi                    |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataList_WarehouseInboundOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseInboundOrder',
-                            [
-                                [$varSysBranch_RefID, 'bigint'],
-
-                                [TRUE, 'boolean'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                return
-                    $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_WarehouseInboundOrder_LatestVersion                                                      |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-03-17                                                                                           |
-        | ▪ Creation Date   : 2022-03-08                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Penerimaan Barang Gudang (Warehouse Inbound Order) Versi Terakhir                 |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataList_WarehouseInboundOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseInboundOrder',
-                            [
-                                [$varSysBranch_RefID, 'bigint'],
-
-                                [FALSE, 'boolean']
-                            ]
-                            )
-                        );
-
-                return
-                    $varReturn;
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_WarehouseOutboundOrder_AllVersion                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-10-24                                                                                           |
-        | ▪ Creation Date   : 2022-03-08                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pengeluaran Barang Gudang (Warehouse Outbound Order) Semua Versi                  |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataList_WarehouseOutboundOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseOutboundOrder',
-                            [
-                                [$varSysBranch_RefID, 'bigint' ],
-
-                                [TRUE, 'boolean'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                return
-                    $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_WarehouseOutboundOrder_LatestVersion                                                     |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-10-24                                                                                           |
-        | ▪ Creation Date   : 2022-03-08                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pengeluaran Barang Gudang (Warehouse Outbound Order) Versi Terakhir               |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataList_WarehouseOutboundOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseOutboundOrder',
-                            [
-                                [$varSysBranch_RefID, 'bigint' ],
-
-                                [FALSE, 'boolean'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                return
-                    $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_WarehouseType                                                                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-01                                                                                           |
-        | ▪ Creation Date   : 2022-03-01                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Jenis Gudang                                                                      |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataList_WarehouseType(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseType',
-                            [
-                                [$varSysBranch_RefID, 'bigint' ],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                return
-                    $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataListJSON_DeliveryDestination                                                                  |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-09-11                                                                                           |
-        | ▪ Creation Date   : 2024-09-11                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Tujuan Pengiriman                                                                 |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (int)    varDeliveryDestinationType_RefID ► Delivery Destination Type Reference ID                                |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataListJSON_DeliveryDestination(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varDeliveryDestinationType_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_DeliveryDestination',
-                            [
-                                [null, 'bigint'],
-                                [$varSysBranch_RefID, 'bigint'],
-
-                                [$varDeliveryDestinationType_RefID, 'bigint'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                $varReturn['data'] =
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession,
-                        $varReturn['data'][0]['Func_GetDataListJSON_DeliveryDestination']
-                        );
-
-                return
-                    $varReturn;
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataListJSON_MaterialServiceRequisition_AllVersion                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-10-16                                                                                           |
-        | ▪ Creation Date   : 2024-08-12                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Permintaan Material dan Service (Materal Service Requsition) Semua Versi          |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataListJSON_MaterialServiceRequisition_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_MaterialServiceRequisition',
-                            [
-                                [$varSysBranch_RefID, 'bigint' ],
-
-                                [TRUE, 'boolean'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                $varReturn['data'] =
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession,
-                        $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisition']
-                        );
-
-                return
-                    $varReturn;
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataListJSON_MaterialServiceRequisition_LatestVersion                                             |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-10-16                                                                                           |
-        | ▪ Creation Date   : 2024-08-12                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Permintaan Material dan Service (Materal Service Requsition) Versi Terakhir       |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataListJSON_MaterialServiceRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_MaterialServiceRequisition',
-                            [
-                                [$varSysBranch_RefID, 'bigint' ],
-
-                                [FALSE, 'boolean'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                $varReturn['data'] =
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession,
-                        $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisition']
-                        );
-
-                return
-                    $varReturn;
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataListJSON_MaterialServiceRequisitionDetail                                                     |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-09-09                                                                                           |
-        | ▪ Creation Date   : 2024-09-09                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Perincian Permintaan Material dan Service (Materal Service Requsition Detail)     |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (int)    varPurchaseRequisition_RefID ► Purchase Requisition Reference ID                                         |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataListJSON_MaterialServiceRequisitionDetail(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varMaterialServiceRequisition_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_MaterialServiceRequisitionDetail',
-                            [
-                                [$varSysBranch_RefID, 'bigint' ],
-
-                                [$varMaterialServiceRequisition_RefID, 'bigint' ],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                $varReturn['data'] =
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession,
-                        $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisitionDetail']
-                        );
-
-                return
-                    $varReturn;
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataListJSON_OrderPicking_AllVersion                                                              |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-10-24                                                                                           |
-        | ▪ Creation Date   : 2024-10-24                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pengambilan Barang Pesanan (Order Picking) Semua Versi                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataListJSON_OrderPicking_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPicking',
-                            [
-                                [$varSysBranch_RefID, 'bigint' ],
-
-                                [TRUE, 'boolean'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                $varReturn['data'] =
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession,
-                        $varReturn['data'][0]['Func_GetDataListJSON_OrderPicking']
-                        );
-
-                return
-                    $varReturn;
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataListJSON_OrderPicking_LatestVersion                                                           |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-10-24                                                                                           |
-        | ▪ Creation Date   : 2024-10-24                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pengambilan Barang Pesanan (Order Picking) Versi Terakhir                         |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataListJSON_OrderPicking_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPicking',
-                            [
-                                [$varSysBranch_RefID, 'bigint' ],
-
-                                [FALSE, 'boolean'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                $varReturn['data'] =
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession,
-                        $varReturn['data'][0]['Func_GetDataListJSON_OrderPicking']
-                        );
-
-                return
-                    $varReturn;
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataListJSON_OrderPickingRequisition_AllVersion                                                   |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-09-11                                                                                           |
-        | ▪ Creation Date   : 2024-09-11                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Permintaan Pengambilan Barang Pesanan (Order Picking Requisition) Semua Versi     |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataListJSON_OrderPickingRequisition_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPickingRequisition',
-                            [
-                                [$varSysBranch_RefID, 'bigint' ],
-
-                                [TRUE, 'boolean'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                $varReturn['data'] =
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession,
-                        $varReturn['data'][0]['Func_GetDataListJSON_OrderPickingRequisition']
-                        );
-
-                return
-                    $varReturn;
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataListJSON_OrderPickingRequisition_LatestVersion                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-09-11                                                                                           |
-        | ▪ Creation Date   : 2024-09-11                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Permintaan Pengambilan Barang Pesanan (Order Picking Requisition) Versi Terakhir  |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataListJSON_OrderPickingRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPickingRequisition',
-                            [
-                                [$varSysBranch_RefID, 'bigint' ],
-
-                                [FALSE, 'boolean'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                $varReturn['data'] =
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession,
-                        $varReturn['data'][0]['Func_GetDataListJSON_OrderPickingRequisition']
-                        );
-
-                return
-                    $varReturn;
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataListJSON_OrderPickingRequisitionDetail                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-09-09                                                                                           |
-        | ▪ Creation Date   : 2024-09-09                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Perincian Pengambilan Barang Pesanan (Order Picking Detail)                       |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (int)    varOrderPickingRequisition_RefID ► Order Picking Requisition Reference ID                                |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataListJSON_OrderPickingRequisitionDetail(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varOrderPickingRequisition_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPickingRequisitionDetail',
-                            [
-                                [$varSysBranch_RefID, 'bigint'],
-
-                                [$varOrderPickingRequisition_RefID, 'bigint'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                $varReturn['data'] =
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession,
-                        $varReturn['data'][0]['Func_GetDataListJSON_OrderPickingRequisitionDetail']
-                        );
-
-                return
-                    $varReturn;
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataListJSON_PurchaseOrder_AllVersion                                                             |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-10-16                                                                                           |
-        | ▪ Creation Date   : 2024-09-11                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pesanan Pembelian (Purchase Order) Semua Versi                                    |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataListJSON_PurchaseOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_PurchaseOrder',
-                            [
-                                [$varSysBranch_RefID, 'bigint' ],
-
-                                [TRUE, 'boolean'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                $varReturn['data'] =
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession,
-                        $varReturn['data'][0]['Func_GetDataListJSON_PurchaseOrder']
-                        );
-
-                return
                     $varReturn;
                 }
 
@@ -2147,69 +942,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataListJSON_PurchaseOrder_LatestVersion                                                          |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-10-16                                                                                           |
-        | ▪ Creation Date   : 2024-09-11                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pesanan Pembelian (Purchase Order) Versi Terakhir                                 |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataListJSON_PurchaseOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
-            try {
-                $varReturn =
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession,
-                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                            $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_PurchaseOrder',
-                            [
-                                [$varSysBranch_RefID, 'bigint' ],
-
-                                [FALSE, 'boolean'],
-
-                                [$varPickStatement, 'varchar'],
-                                [$varSortStatement, 'varchar'],
-                                [$varFilterStatement, 'varchar'],
-                                [$varPagingStatement, 'varchar']
-                            ]
-                            )
-                        );
-
-                $varReturn['data'] =
-                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                        $varUserSession,
-                        $varReturn['data'][0]['Func_GetDataListJSON_PurchaseOrder']
-                        );
-
-                        return
-                        $varReturn;
-                }
-
-            catch (\Exception $ex) {
-                return
-                    [];
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                          |
+        | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2025-04-25                                                                                           |
@@ -2293,6 +1026,1283 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
             }
 
 
+       /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_PurchaseRequisition_AllVersion                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-10-16                                                                                           |
+        | ▪ Creation Date   : 2022-03-07                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Permintaan Pembelian (Purchase Request) Semua Versi                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |        ------------------------------                                                                                    |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_PurchaseRequisition_AllVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseRequisition',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [TRUE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_PurchaseRequisition_LatestVersion                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-10-16                                                                                           |
+        | ▪ Creation Date   : 2022-03-07                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Permintaan Pembelian (Purchase Request) Versi Terakhir                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |        ------------------------------                                                                                    |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_PurchaseRequisition_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseRequisition',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [FALSE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_Supplier                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-03-01                                                                                           |
+        | ▪ Creation Date   : 2022-03-01                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pemasok                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_Supplier(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_Supplier',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+		    );
+
+                foreach ($varReturn['data'] as $key => $value) {
+                    $varReturn['data'][$key] = [];
+                    $varReturn['data'][$key]['Sys_ID'] = $value['Sys_ID'];
+                    $varReturn['data'][$key]['Code'] = $value['Code'];
+                    $varReturn['data'][$key]['FullName'] = $value['FullName'];
+                    $varReturn['data'][$key]['Name'] = $value['Name'];
+                    $varReturn['data'][$key]['Address'] = $value['Address'];
+		        }
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_Transporter                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-05-14                                                                                           |
+        | ▪ Creation Date   : 2025-05-14                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Gudang                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_Transporter(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_Transporter',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_Warehouse                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-03-01                                                                                           |
+        | ▪ Creation Date   : 2022-03-01                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Gudang                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_Warehouse(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_Warehouse',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_WarehouseInboundOrder_AllVersion                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-10-24                                                                                           |
+        | ▪ Creation Date   : 2022-03-08                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Penerimaan Barang Gudang (Warehouse Inbound Order) Semua Versi                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_WarehouseInboundOrder_AllVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseInboundOrder',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [TRUE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_WarehouseInboundOrder_LatestVersion                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-03-17                                                                                           |
+        | ▪ Creation Date   : 2022-03-08                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Penerimaan Barang Gudang (Warehouse Inbound Order) Versi Terakhir                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_WarehouseInboundOrder_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseInboundOrder',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [FALSE, 'boolean']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_WarehouseOutboundOrder_AllVersion                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-10-24                                                                                           |
+        | ▪ Creation Date   : 2022-03-08                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pengeluaran Barang Gudang (Warehouse Outbound Order) Semua Versi                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_WarehouseOutboundOrder_AllVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseOutboundOrder',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [TRUE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_WarehouseOutboundOrder_LatestVersion                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-10-24                                                                                           |
+        | ▪ Creation Date   : 2022-03-08                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pengeluaran Barang Gudang (Warehouse Outbound Order) Versi Terakhir               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_WarehouseOutboundOrder_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseOutboundOrder',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [FALSE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_WarehouseType                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-03-01                                                                                           |
+        | ▪ Creation Date   : 2022-03-01                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Jenis Gudang                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_WarehouseType(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseType',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_DeliveryDestination                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-09-11                                                                                           |
+        | ▪ Creation Date   : 2024-09-11                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Tujuan Pengiriman                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (int)    varDeliveryDestinationType_RefID ► Delivery Destination Type Reference ID                                |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_DeliveryDestination(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varDeliveryDestinationType_RefID = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_DeliveryDestination',
+                            [
+                                [null, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varDeliveryDestinationType_RefID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_DeliveryDestination']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_MaterialServiceRequisition_AllVersion                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-10-16                                                                                           |
+        | ▪ Creation Date   : 2024-08-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Permintaan Material dan Service (Materal Service Requsition) Semua Versi          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_MaterialServiceRequisition_AllVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_MaterialServiceRequisition',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [TRUE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisition']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_MaterialServiceRequisition_LatestVersion                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-10-16                                                                                           |
+        | ▪ Creation Date   : 2024-08-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Permintaan Material dan Service (Materal Service Requsition) Versi Terakhir       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_MaterialServiceRequisition_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_MaterialServiceRequisition',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [FALSE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisition']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_MaterialServiceRequisitionDetail                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-09-09                                                                                           |
+        | ▪ Creation Date   : 2024-09-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Perincian Permintaan Material dan Service (Materal Service Requsition Detail)     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (int)    varPurchaseRequisition_RefID ► Purchase Requisition Reference ID                                         |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_MaterialServiceRequisitionDetail(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varMaterialServiceRequisition_RefID = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_MaterialServiceRequisitionDetail',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [$varMaterialServiceRequisition_RefID, 'bigint' ],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisitionDetail']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_OrderPicking_AllVersion                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-10-24                                                                                           |
+        | ▪ Creation Date   : 2024-10-24                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pengambilan Barang Pesanan (Order Picking) Semua Versi                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_OrderPicking_AllVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPicking',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [TRUE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_OrderPicking']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_OrderPicking_LatestVersion                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-10-24                                                                                           |
+        | ▪ Creation Date   : 2024-10-24                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pengambilan Barang Pesanan (Order Picking) Versi Terakhir                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_OrderPicking_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPicking',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [FALSE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_OrderPicking']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_OrderPickingRequisition_AllVersion                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-09-11                                                                                           |
+        | ▪ Creation Date   : 2024-09-11                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Permintaan Pengambilan Barang Pesanan (Order Picking Requisition) Semua Versi     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_OrderPickingRequisition_AllVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPickingRequisition',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [TRUE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_OrderPickingRequisition']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_OrderPickingRequisition_LatestVersion                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-09-11                                                                                           |
+        | ▪ Creation Date   : 2024-09-11                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Permintaan Pengambilan Barang Pesanan (Order Picking Requisition) Versi Terakhir  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_OrderPickingRequisition_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPickingRequisition',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [FALSE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_OrderPickingRequisition']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_OrderPickingRequisitionDetail                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-09-09                                                                                           |
+        | ▪ Creation Date   : 2024-09-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Perincian Pengambilan Barang Pesanan (Order Picking Detail)                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (int)    varOrderPickingRequisition_RefID ► Order Picking Requisition Reference ID                                |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_OrderPickingRequisitionDetail(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varOrderPickingRequisition_RefID = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPickingRequisitionDetail',
+                            [
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varOrderPickingRequisition_RefID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_OrderPickingRequisitionDetail']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_PurchaseOrder_AllVersion                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-10-16                                                                                           |
+        | ▪ Creation Date   : 2024-09-11                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pesanan Pembelian (Purchase Order) Semua Versi                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_PurchaseOrder_AllVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_PurchaseOrder',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [TRUE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_PurchaseOrder']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_PurchaseOrder_LatestVersion                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2024-10-16                                                                                           |
+        | ▪ Creation Date   : 2024-09-11                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pesanan Pembelian (Purchase Order) Versi Terakhir                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_PurchaseOrder_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataListJSON_PurchaseOrder',
+                            [
+                                [$varSysBranch_RefID, 'bigint' ],
+
+                                [FALSE, 'boolean'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataListJSON_PurchaseOrder']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataListJSON_PurchaseRequisition_AllVersion                                                       |
@@ -2344,6 +2354,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseRequisition']
                         );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
 
                 return
                     $varReturn;
@@ -2407,6 +2420,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseRequisition']
                         );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
 
                 return
                     $varReturn;
@@ -2472,6 +2488,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseRequisitionDetail']
                         );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
 
                 return
                     $varReturn;
@@ -2581,12 +2600,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2624,12 +2642,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2669,12 +2686,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2714,12 +2730,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2760,12 +2775,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2806,12 +2820,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2851,12 +2864,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2896,12 +2908,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2941,12 +2952,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -2987,12 +2997,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3032,12 +3041,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3077,12 +3085,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3120,12 +3127,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3165,12 +3171,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3210,12 +3215,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3253,12 +3257,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3296,12 +3299,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3339,12 +3341,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3384,12 +3385,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3429,12 +3429,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3474,12 +3473,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3519,12 +3517,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3562,12 +3559,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         );
 
                 return
-                    $varReturn['data'];
+                    $varReturn;
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 
@@ -3618,8 +3614,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 }
 
             catch (\Exception $ex) {
-                return
-                    [];
+                return [];
                 }
             }
 

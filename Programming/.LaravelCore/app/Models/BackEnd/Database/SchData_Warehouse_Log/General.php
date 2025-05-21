@@ -29,7 +29,7 @@ namespace App\Models\Database\SchData_Warehouse_Log
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varSource_RefID ► Source Reference ID                                                                    |
         |        ----------------------------------------                                                                          |
@@ -42,9 +42,10 @@ namespace App\Models\Database\SchData_Warehouse_Log
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Log_TransactionHistory(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             int $varSource_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
+            )
             {
             try {
                 $varReturn = 
@@ -54,7 +55,7 @@ namespace App\Models\Database\SchData_Warehouse_Log
                             $varUserSession,
                             'SchData-Warehouse-Log.Func_GetDataList_Log_TransactionHistory',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varSource_RefID, 'bigint' ],
 
@@ -73,8 +74,11 @@ namespace App\Models\Database\SchData_Warehouse_Log
                             $varReturn['data'][$i]['Content']       
                             );                    
                     }
-                return $varReturn['data'];
+
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }

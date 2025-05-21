@@ -29,7 +29,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -41,7 +41,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Customer(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -52,7 +52,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                             $varUserSession,
                             'SchData-OLTP-CustomerRelation.Func_GetDataList_Customer',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -62,8 +62,10 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                             )
                         );                
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -81,7 +83,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ------------------------------                                                                                      |
         |      ------------------------------                                                                                      |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
@@ -93,7 +95,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_SalesOrder(
-            $varUserSession, int $varBranchID,
+            $varUserSession, int $varSysBranch_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -104,7 +106,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                             $varUserSession,
                             'SchData-OLTP-CustomerRelation.Func_GetDataList_SalesOrder',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint' ],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
@@ -114,8 +116,10 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                             )
                         );                
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
@@ -154,8 +158,10 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                             )
                         );
 
-                return $varReturn['data'];
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }
