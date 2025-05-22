@@ -14,6 +14,7 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Illuminate\Support\Facades\Log;
 use App\Services\AdvanceSettlementService;
+use App\Services\BusinessTripService;
 
 class FunctionController extends Controller
 {
@@ -22,11 +23,12 @@ class FunctionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    protected $advanceSettlementService;
+    protected $advanceSettlementService, $businessTripService;
 
-    public function __construct(AdvanceSettlementService $advanceSettlementService)
+    public function __construct(AdvanceSettlementService $advanceSettlementService, BusinessTripService $businessTripService)
     {
         $this->advanceSettlementService = $advanceSettlementService;
+        $this->businessTripService = $businessTripService;
     }
 
     //FUNCTION PROJECT
@@ -1366,32 +1368,16 @@ class FunctionController extends Controller
     public function getBusinessTripList(Request $request)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
+            $response = $this->businessTripService->dataPickList();
 
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.humanResource.getBusinessTripList',
-                'latest',
-                [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                    ]
-                ]
-            );
-
-            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Process Error');
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
             }
 
-            return response()->json($varData['data']);
+            return response()->json($response['data']['data']);
         } catch (\Throwable $th) {
-            Log::error('Error at getBusinessTripList'. $th->getMessage());
-            return redirect()->back()->with('NotFound','Process Error');
+            Log::error("Error at getBusinessTripList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
 
@@ -1458,29 +1444,4 @@ class FunctionController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-
-
-    // NITIP
-    // $userSessionID = Helper_Environment::getUserSessionID_System();
-    // $varData = Helper_APICall::setCallAPIGateway(
-    //     Helper_Environment::getUserSessionID_System(),
-    //     $varAPIWebToken, 
-    //     'transaction.read.dataList.customerRelation.getCustomer', 
-    //     'latest', 
-    //     [
-    //         'parameter' => null,
-    //         'SQLStatement' => [
-    //             'pick' => null,
-    //             'sort' => null,
-    //             'filter' => null,                    
-    //             'paging' => null
-    //         ]
-    //     ]
-    // );
-
-    // $varGetRedisCustomer = $this->syncDataWithRedis(
-    //     $userSessionID, 
-    //     "Customer", 
-    //     $varData['data']
-    // );
 }

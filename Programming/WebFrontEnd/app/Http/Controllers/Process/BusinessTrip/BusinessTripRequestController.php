@@ -123,7 +123,7 @@ class BusinessTripRequestController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-    
+
     public function BusinessTripRequestListData(Request $request)
     {
         try {

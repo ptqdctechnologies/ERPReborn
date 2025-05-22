@@ -289,6 +289,7 @@ class DocumentTypeMapper
                     'name'      => '',
                     'value'     => ''
                 ],
+                'transactionType'        => 'MATERIAL RECEIVE',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
             ],
         ];

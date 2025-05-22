@@ -69,8 +69,6 @@
             type: 'GET',
             url: '{!! route("getAdvanceSettlement") !!}',
             success: function(data) {
-                console.log('data', data);
-                
                 $(".loadingGetModalAdvanceSettlement").hide();
 
                 var no = 1;
