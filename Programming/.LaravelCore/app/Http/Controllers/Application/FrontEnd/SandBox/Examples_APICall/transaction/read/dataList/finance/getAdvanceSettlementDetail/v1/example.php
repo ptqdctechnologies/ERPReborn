@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.read.dataList.finance.getAdvanceSettlementDetail.v1_throughAPIGateway          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-05-15                                                                                           |
+        | ▪ Last Update     : 2025-05-22                                                                                           |
         | ▪ Creation Date   : 2025-05-15                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -39,7 +39,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'latest',
                 [
                 'parameter' => [
-                    'advanceSettlement_RefID' => 203000000000001
+                    'advanceSettlement_RefID' => 203000000000054
                     ],
                 'SQLStatement' => [
                     'pick' => null,

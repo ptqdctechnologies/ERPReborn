@@ -1470,7 +1470,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getDataList_AdvanceSettlementDetail                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-05-15                                                                                           |
+        | ▪ Last Update     : 2025-05-22                                                                                           |
         | ▪ Creation Date   : 2025-05-15                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Advance                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1531,6 +1531,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     $varReturn['data'][$idxArray]['Log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];
                     $varReturn['data'][$idxArray]['ProductCode'] = $value["ProductCode"];
                     $varReturn['data'][$idxArray]['ProductName'] = $value["ProductName"];
+                    $varReturn['data'][$idxArray]['UOM'] = $value["UOM"];
+                    $varReturn['data'][$idxArray]['Currency'] = $value["Currency"];
                     $varReturn['data'][$idxArray]['ExpenseQuantity'] = $value["ExpenseQuantity"];
                     $varReturn['data'][$idxArray]['ExpenseProductUnitPriceCurrency_RefID'] = $value["ExpenseProductUnitPriceCurrency_RefID"];
                     $varReturn['data'][$idxArray]['ExpenseProductUnitPriceCurrencyValue'] = $value["ExpenseProductUnitPriceCurrencyValue"];
