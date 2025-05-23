@@ -40,7 +40,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'latest',
                     [
                     'parameter' => [
-                        'warehouseInboundOrder_RefID' => 176000000000019
+                        'warehouseInboundOrder_RefID' => 176000000000015
                         ],
                     'SQLStatement' => [
                         'pick' => null,
