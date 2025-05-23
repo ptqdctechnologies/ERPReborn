@@ -1416,7 +1416,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_WarehouseInboundOrderDetail_LatestVersion                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-05-20                                                                                           |
+        | ▪ Last Update     : 2025-05-23                                                                                           |
         | ▪ Creation Date   : 2025-05-20                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Warehouse Inbound Order Detail Versi Terakhir                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1448,6 +1448,50 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
 		    	);
+                $resultArray = $varReturn['data'];
+
+                $arrayQtyAvailableDO = [];
+                $listPidDoDetail = [];
+                foreach ($resultArray as $key => $value) {
+                    if (in_array($value["Sys_PID_DO_Detail"], $listPidDoDetail)) {
+                        $arrayQtyAvailableDO[$value["Sys_PID_DO_Detail"]]["QtyAvailableDO"] = (float) $arrayQtyAvailableDO[$value["Sys_PID_DO_Detail"]]["QtyAvailableDO"] + (float) $value["Quantity"];
+                    } else {
+                        array_push($listPidDoDetail, $value["Sys_PID_DO_Detail"]);
+                        $arrayQtyAvailableDO[$value["Sys_PID_DO_Detail"]]["Sys_PID_DO_Detail"] = $value["Sys_PID_DO_Detail"];
+                        $arrayQtyAvailableDO[$value["Sys_PID_DO_Detail"]]["QtyAvailableDO"] = $value["Quantity"];
+                    }
+                }
+
+                $varReturn['data'] = [];
+                $idxArray = 0;
+                foreach ($resultArray as $key => $value) {
+                    $varReturn['data'][$idxArray]['businessDocumentVersion_RefID'] = $value["BusinessDocumentVersion_RefID"];
+                    $varReturn['data'][$idxArray]['log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];
+                    $varReturn['data'][$idxArray]['requesterWorkerJobsPosition_RefID'] = $value["RequesterWorkerJobsPosition_RefID"];
+                    $varReturn['data'][$idxArray]['warehouse_RefID'] = $value["Warehouse_RefID"];
+                    $varReturn['data'][$idxArray]['deliveryFrom_RefID'] = $value["DeliveryFrom_RefID"];
+                    $varReturn['data'][$idxArray]['deliveryFrom_NonRefID'] = $value["DeliveryFrom_NonRefID"];
+                    $varReturn['data'][$idxArray]['deliveryTo_RefID'] = $value["DeliveryTo_RefID"];
+                    $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = $value["DeliveryTo_NonRefID"];
+                    $varReturn['data'][$idxArray]['date'] = $value["Date"];
+                    $varReturn['data'][$idxArray]['remarks'] = $value["Remarks"];
+                    $varReturn['data'][$idxArray]['sys_PID'] = $value["Sys_PID"];
+                    $varReturn['data'][$idxArray]['sys_SID'] = $value["Sys_SID"];
+                    $varReturn['data'][$idxArray]['sys_RPK'] = $value["Sys_RPK"];
+                    $varReturn['data'][$idxArray]['sys_BaseCurrency_RefID'] = $value["Sys_BaseCurrency_RefID"];
+                    $varReturn['data'][$idxArray]['product_RefID'] = $value["Product_RefID"];
+                    $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
+                    $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
+                    $varReturn['data'][$idxArray]['quantity'] = (float) $value["Quantity"];
+                    $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID"];
+                    $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID"];
+                    $varReturn['data'][$idxArray]['productUnitPriceCurrencyValue'] = $value["ProductUnitPriceCurrencyValue"];
+                    $varReturn['data'][$idxArray]['warehouseInboundOrder_RefID'] = $value["WarehouseInboundOrder_RefID"];
+                    $varReturn['data'][$idxArray]['note'] = $value["Note"];
+                    $varReturn['data'][$idxArray]['qtyDO'] = (float) $value["QtyDO"];
+                    $varReturn['data'][$idxArray]['qtyAvailableDO'] = in_array($value["Sys_PID_DO_Detail"], $listPidDoDetail) ? $value["QtyDO"] - $arrayQtyAvailableDO[$value["Sys_PID_DO_Detail"]]["QtyAvailableDO"] : null;
+                    $idxArray++;
+                }
 
                 return
                     $varReturn['data'];
