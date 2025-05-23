@@ -18,14 +18,13 @@
                                         <td>
                                             <div class="input-group">
                                                 <form id="editForm" action="{{ route('AdvanceSettlement.RevisionAdvanceSettlementIndex') }}" method="POST">
-                                                @csrf
-                                                <input id="AdvanceSattlement_RefID" style="border-radius:0;" name="AdvanceSattlement_RefID" type="hidden" class="form-control">
-                                                <input id="siteCodeRevAsfBefore" style="border-radius:0;" name="siteCodeRevArfBefore" class="form-control" type="hidden">
+                                                    @csrf
+                                                    <input id="advance_settlement_id" style="border-radius:0;" name="advance_settlement_id" type="hidden" class="form-control">
                                                 </form>
-                                                <input required="" id="AdvanceSattlement_Number" style="border-radius:0;" name="AdvanceSattlement_Number" type="text" class="form-control" required readonly>
+                                                <input required="" id="advance_settlement_number" style="border-radius:0;" name="advance_settlement_number" type="text" class="form-control" required readonly>
                                                 <div class="input-group-append">
-                                                    <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" id="AdvanceSattlement_Number_Icon">
-                                                        <a data-toggle="modal" data-target="#PopUpTableAdvanceSettlementRevision">
+                                                    <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" id="advance_settlement_number_icon">
+                                                        <a data-toggle="modal" data-target="#myGetModalAdvanceSettlement">
                                                             <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                                         </a>
                                                     </span>
@@ -50,71 +49,31 @@
     </div>
 </div>
 
-<div id="PopUpTableAdvanceSettlementRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <label class="card-title">Choose Advance Settlement</label>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body table-responsive p-0" style="height: 430px;">
-                                <table class="table table-head-fixed text-nowrap" id="TableSearchAsfRevision">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Trano</th>
-                                            <th>Budget Code</th>
-                                            <th>Budget Name</th>
-                                            <th>Sub Budget Code</th>
-                                            <th>Sub Budget Name</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
-    $('#TableSearchAsfRevision tbody').on('click', 'tr', function () {
-        $('#AdvanceSattlement_Number').css("border", "1px solid #ced4da");
-        $('#AdvanceSattlement_Number_Icon').css("border", "1px solid #ced4da");
-        $("#PopUpTableAdvanceSettlementRevision").modal('toggle');
-        
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();  
-        var sys_id_advance_settlemetn_revision = $('#sys_id_advance_settlemetn_revision' + id).val();
-        var code = row.find("td:nth-child(2)").text();
-
-        $("#AdvanceSattlement_RefID").val(sys_id_advance_settlemetn_revision);
-        $("#AdvanceSattlement_Number").val(code);
-    });
-
     $('.btn-edit').on('click', function() {
-        var AdvanceSattlement_RefID = $('#AdvanceSattlement_RefID').val();
+        var advanceSettlementID = $('#advance_settlement_id').val();
 
-        if (AdvanceSattlement_RefID) {
+        if (advanceSettlementID) {
             ShowLoading();
 
             $('#editForm').submit();
         } else {
-            $('#AdvanceSattlement_Number').focus();
-            $('#AdvanceSattlement_Number').css("border", "1px solid red");
-            $('#AdvanceSattlement_Number_Icon').css("border", "1px solid red");
+            $('#advance_settlement_number').focus();
+            $('#advance_settlement_number').css("border", "1px solid red");
+            $('#advance_settlement_number_Icon').css("border", "1px solid red");
         }
     });
 
+    $('#tableGetModalAdvanceSettlement').on('click', 'tbody tr', function() {
+        $('#myPopUpAdvanceSettlementRevision').modal('show');
+    });
+
+    $('#advance_settlement_number_icon').on('click', function() {
+        $('#myPopUpAdvanceSettlementRevision').modal('hide');
+    });
+
     $('.btn-cancel').on('click', function() {
-        $('#AdvanceSattlement_RefID').val("");
-        $('#AdvanceSattlement_Number').val("");
+        $('#advance_settlement_id').val("");
+        $('#advance_settlement_number').val("");
     });
 </script>

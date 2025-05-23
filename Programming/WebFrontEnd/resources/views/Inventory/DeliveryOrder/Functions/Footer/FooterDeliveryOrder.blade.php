@@ -65,6 +65,8 @@
             type: 'GET',
             url: '{!! route("getPurchaseOrderDetail") !!}?purchase_order_id=' + reference_id,
             success: function(data) {
+                console.log('data', data);
+                
                 $(".loadingReferenceNumberDetail").hide();
 
                 $("#delivery_from").val(data[0]['supplierAddress']);

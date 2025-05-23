@@ -425,7 +425,7 @@
         $.ajax({
             type: 'POST',
             data: data,
-            url: '{!! route("AdvanceRequest.updates") !!}',
+            url: '{!! route("AdvanceRequest.UpdatesAdvanceRequest") !!}',
             success: function(data) {
                 HideLoading();
 

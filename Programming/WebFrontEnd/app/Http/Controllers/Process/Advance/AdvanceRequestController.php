@@ -309,7 +309,7 @@ class AdvanceRequestController extends Controller
     }
 
     // UPDATE FUNCTION
-    public function updates(Request $request)
+    public function UpdatesAdvanceRequest(Request $request)
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');

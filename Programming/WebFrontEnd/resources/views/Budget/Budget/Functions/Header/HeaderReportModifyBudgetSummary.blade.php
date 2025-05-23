@@ -48,6 +48,43 @@
                 <div class="form-group">
                     <table>
                         <tr>
+                            <th style="padding-top: 7px;"><label>Start&nbsp;Date&nbsp;</label></th>
+                            <td>
+                                <div class="input-group date" id="startDate" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input" name="eventStartDate" id="eventStartDate" data-target="#startDate" style="height: auto;" />
+                                    <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <table>
+                        <tr>
+                            <th style="padding-top: 7px;"><label>End&nbsp;Date&nbsp;</label></th>
+                            <td>
+                                <div class="input-group date" id="finishDate" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input" name="eventFinishDate" id="eventFinishDate" data-target="#finishDate" style="height: auto;" />
+                                    <div class="input-group-append" data-target="#finishDate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3 mt-2">
+                <div class="form-group">
+                    <table>
+                        <tr>
                             <td>
                                 <button class="btn btn-default btn-sm" type="submit">
                                     <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="" title="Show"> Show
