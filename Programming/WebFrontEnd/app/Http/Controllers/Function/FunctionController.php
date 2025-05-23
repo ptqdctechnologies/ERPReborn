@@ -15,6 +15,7 @@ use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Illuminate\Support\Facades\Log;
 use App\Services\AdvanceSettlementService;
 use App\Services\BusinessTripService;
+use App\Services\MasterDataService;
 
 class FunctionController extends Controller
 {
@@ -23,12 +24,13 @@ class FunctionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    protected $advanceSettlementService, $businessTripService;
+    protected $advanceSettlementService, $businessTripService, $masterDataService;
 
-    public function __construct(AdvanceSettlementService $advanceSettlementService, BusinessTripService $businessTripService)
+    public function __construct(AdvanceSettlementService $advanceSettlementService, BusinessTripService $businessTripService, MasterDataService $masterDataService)
     {
         $this->advanceSettlementService = $advanceSettlementService;
         $this->businessTripService = $businessTripService;
+        $this->masterDataService = $masterDataService;
     }
 
     //FUNCTION PROJECT
@@ -346,6 +348,23 @@ class FunctionController extends Controller
 
         // dd($DataWorker);
         return response()->json($DataWorker);
+    }
+
+    // FUNCTION WORKER 
+    public function getTransporter(Request $request)
+    {
+        try {
+            $response = $this->masterDataService->transporter();
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            return response()->json($response['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getTransporter: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     // FUNCTION SUPPLIER

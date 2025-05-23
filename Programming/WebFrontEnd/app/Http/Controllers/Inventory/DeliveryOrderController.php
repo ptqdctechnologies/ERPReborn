@@ -57,7 +57,7 @@ class DeliveryOrderController extends Controller
                         "documentDateTimeTZ"                => $deliveryOrderData['storeData']['var_date'],
                         "log_FileUpload_Pointer_RefID"      => $fileID,
                         "requesterWorkerJobsPosition_RefID" => $SessionWorkerCareerInternal_RefID,
-                        "transporter_RefID"                 => 164000000000559, // (int) $deliveryOrderData['storeData']['transporter_id'],
+                        "transporter_RefID"                 => (int) $deliveryOrderData['storeData']['transporter_id'], // (int) $deliveryOrderData['storeData']['transporter_id'],
                         "deliveryDateTimeTZ"                => null,
                         "deliveryFrom_RefID"                => null,
                         "deliveryFrom_NonRefID"             => $deliveryOrderData['storeData']['delivery_from'],

@@ -24,95 +24,66 @@ class PurchaseOrderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function ReportPOtoAP(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $isSubmitButton = $request->session()->get('isButtonReportPOtoAPSubmit');
 
-     public function ReportPOtoAP(Request $request)
-     {
-         try {
-             $varAPIWebToken = Session::get('SessionLogin');
-             $isSubmitButton = $request->session()->get('isButtonReportPOtoAPSubmit');
- 
-             $dataReport = $isSubmitButton ? $request->session()->get('dataReportPOtoAP', []) : [];
- 
-             $compact = [
-                 'varAPIWebToken' => $varAPIWebToken,
-                 'dataReport' => $dataReport
-             ];
-     
-             return view('Purchase.PurchaseOrder.Reports.ReportPOtoAP', $compact);
-         } catch (\Throwable $th) {
-             Log::error("ReportPOtoAP Function Error at " . $th->getMessage());
-             return redirect()->back()->with('NotFound', 'Process Error');
-         }
-     }
- 
-     public function ReportPOtoAPData($project_id, $site_id, $project_name, $project_code, $site_code) 
-     {
-         try {
-             $varAPIWebToken             = Session::get('SessionLogin');
-             $getReportPOtoAP    = null;
- 
-             // if (!Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary")) {
-             //     $getReportAdvanceSummary = Helper_APICall::setCallAPIGateway(
-             //         Helper_Environment::getUserSessionID_System(),
-             //         $varAPIWebToken,
-             //         'report.form.documentForm.finance.getReportAdvanceSummary',
-             //         'latest',
-             //         [
-             //             'parameter' => [
-             //                 'dataFilter' => [
-             //                     'budgetID' => 1,
-             //                     'subBudgetID' => 1,
-             //                     'workID' => 1,
-             //                     'productID' => 1,
-             //                     'beneficiaryID' => 1,
-             //                 ]
-             //             ]
-             //         ],
-             //         false
-             //     );
-             // } else {
-             //     $getReportAdvanceSummary = Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary");
-             // }
- 
-             // DUMMY DATA
-             $getReportPOtoAP = [
-                 [
-                     
-                     "DocumentNumber"                      => "PO/QDC/2025/000045",
-                     "TotalAdvance"                        => "850000",
-                     "CurrencyName"                        => "IDR",
-                     "DepartingFrom"                       => "AP/QDC/2025/000146",
-                     "DestinationTo"                       => "850000",
-                     "TotalExpenseClaimCart"               => "0",
-                     "TotalAmountDueToCompanyCart"         => "850000",
-                     "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
-                     "Description"                         => "0",
-                     
-                     "Sys_ID"                              => 76000000000054,
-                     "CombinedBudgetCode"                  => "Q000062",
-                     "CombinedBudgetName"                  => "XL Microcell 2007",
-                     "CombinedBudgetSectionCode"           => "235",
-                     "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
-                     "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
-                     "RequesterWorkerName"                 => "Adhe Kurniawan",
-                     "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                     "BeneficiaryWorkerName"               => "Batu Split 2/3",
-                     "Product_ID"                          => 88000000000527,
-                     "CombinedBudget_RefID"                => 46000000000033,
-                     "CombinedBudgetSection_RefID"         => 143000000000305,
-                     "remark"                              => "",
-                     
-                     
-                 ],
-                 [
-                     
-                    "DocumentNumber"                      => "PO/QDC/2025/000044",
-                    "TotalAdvance"                        => "3000000",
+            $dataReport = $isSubmitButton ? $request->session()->get('dataReportPOtoAP', []) : [];
+
+            $compact = [
+                'varAPIWebToken' => $varAPIWebToken,
+                'dataReport' => $dataReport
+            ];
+    
+            return view('Purchase.PurchaseOrder.Reports.ReportPOtoAP', $compact);
+        } catch (\Throwable $th) {
+            Log::error("ReportPOtoAP Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportPOtoAPData($project_id, $site_id, $project_name, $project_code, $site_code) 
+    {
+        try {
+            $varAPIWebToken             = Session::get('SessionLogin');
+            $getReportPOtoAP    = null;
+
+            // if (!Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary")) {
+            //     $getReportAdvanceSummary = Helper_APICall::setCallAPIGateway(
+            //         Helper_Environment::getUserSessionID_System(),
+            //         $varAPIWebToken,
+            //         'report.form.documentForm.finance.getReportAdvanceSummary',
+            //         'latest',
+            //         [
+            //             'parameter' => [
+            //                 'dataFilter' => [
+            //                     'budgetID' => 1,
+            //                     'subBudgetID' => 1,
+            //                     'workID' => 1,
+            //                     'productID' => 1,
+            //                     'beneficiaryID' => 1,
+            //                 ]
+            //             ]
+            //         ],
+            //         false
+            //     );
+            // } else {
+            //     $getReportAdvanceSummary = Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary");
+            // }
+
+            // DUMMY DATA
+            $getReportPOtoAP = [
+                [
+                    
+                    "DocumentNumber"                      => "PO/QDC/2025/000045",
+                    "TotalAdvance"                        => "850000",
                     "CurrencyName"                        => "IDR",
-                    "DepartingFrom"                       => "AP/QDC/2025/000145",
-                    "DestinationTo"                       => "3000000",
+                    "DepartingFrom"                       => "AP/QDC/2025/000146",
+                    "DestinationTo"                       => "850000",
                     "TotalExpenseClaimCart"               => "0",
-                    "TotalAmountDueToCompanyCart"         => "3000000",
+                    "TotalAmountDueToCompanyCart"         => "850000",
                     "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
                     "Description"                         => "0",
                     
@@ -133,374 +104,402 @@ class PurchaseOrderController extends Controller
                     
                 ],
                 [
-                     
-                    "DocumentNumber"                      => "PO/QDC/2025/000043",
-                    "TotalAdvance"                        => "3000000",
-                    "CurrencyName"                        => "IDR",
-                    "DepartingFrom"                       => "AP/QDC/2025/000144",
-                    "DestinationTo"                       => "3000000",
-                    "TotalExpenseClaimCart"               => "0",
-                    "TotalAmountDueToCompanyCart"         => "3000000",
-                    "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
-                    "Description"                         => "0",
                     
-                    "Sys_ID"                              => 76000000000054,
-                    "CombinedBudgetCode"                  => "Q000062",
-                    "CombinedBudgetName"                  => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode"           => "235",
-                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
-                    "RequesterWorkerName"                 => "Adhe Kurniawan",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName"               => "Batu Split 2/3",
-                    "Product_ID"                          => 88000000000527,
-                    "CombinedBudget_RefID"                => 46000000000033,
-                    "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => "",
+                "DocumentNumber"                      => "PO/QDC/2025/000044",
+                "TotalAdvance"                        => "3000000",
+                "CurrencyName"                        => "IDR",
+                "DepartingFrom"                       => "AP/QDC/2025/000145",
+                "DestinationTo"                       => "3000000",
+                "TotalExpenseClaimCart"               => "0",
+                "TotalAmountDueToCompanyCart"         => "3000000",
+                "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
+                "Description"                         => "0",
+                
+                "Sys_ID"                              => 76000000000054,
+                "CombinedBudgetCode"                  => "Q000062",
+                "CombinedBudgetName"                  => "XL Microcell 2007",
+                "CombinedBudgetSectionCode"           => "235",
+                "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                "RequesterWorkerName"                 => "Adhe Kurniawan",
+                "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                "BeneficiaryWorkerName"               => "Batu Split 2/3",
+                "Product_ID"                          => 88000000000527,
+                "CombinedBudget_RefID"                => 46000000000033,
+                "CombinedBudgetSection_RefID"         => 143000000000305,
+                "remark"                              => "",
+                
+                
+            ],
+            [
                     
+                "DocumentNumber"                      => "PO/QDC/2025/000043",
+                "TotalAdvance"                        => "3000000",
+                "CurrencyName"                        => "IDR",
+                "DepartingFrom"                       => "AP/QDC/2025/000144",
+                "DestinationTo"                       => "3000000",
+                "TotalExpenseClaimCart"               => "0",
+                "TotalAmountDueToCompanyCart"         => "3000000",
+                "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
+                "Description"                         => "0",
+                
+                "Sys_ID"                              => 76000000000054,
+                "CombinedBudgetCode"                  => "Q000062",
+                "CombinedBudgetName"                  => "XL Microcell 2007",
+                "CombinedBudgetSectionCode"           => "235",
+                "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                "RequesterWorkerName"                 => "Adhe Kurniawan",
+                "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                "BeneficiaryWorkerName"               => "Batu Split 2/3",
+                "Product_ID"                          => 88000000000527,
+                "CombinedBudget_RefID"                => 46000000000033,
+                "CombinedBudgetSection_RefID"         => 143000000000305,
+                "remark"                              => "",
+                
+                
+            ],
+            [
                     
-                ],
-                [
-                     
-                    "DocumentNumber"                      => "PO/QDC/2025/000042",
-                    "TotalAdvance"                        => "6600000",
-                    "CurrencyName"                        => "IDR",
-                    "DepartingFrom"                       => "AP/QDC/2025/000143",
-                    "DestinationTo"                       => "6600000",
-                    "TotalExpenseClaimCart"               => "0",
-                    "TotalAmountDueToCompanyCart"         => "6600000",
-                    "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
-                    "Description"                         => "0",
+                "DocumentNumber"                      => "PO/QDC/2025/000042",
+                "TotalAdvance"                        => "6600000",
+                "CurrencyName"                        => "IDR",
+                "DepartingFrom"                       => "AP/QDC/2025/000143",
+                "DestinationTo"                       => "6600000",
+                "TotalExpenseClaimCart"               => "0",
+                "TotalAmountDueToCompanyCart"         => "6600000",
+                "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
+                "Description"                         => "0",
+                
+                "Sys_ID"                              => 76000000000054,
+                "CombinedBudgetCode"                  => "Q000062",
+                "CombinedBudgetName"                  => "XL Microcell 2007",
+                "CombinedBudgetSectionCode"           => "235",
+                "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                "RequesterWorkerName"                 => "Adhe Kurniawan",
+                "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                "BeneficiaryWorkerName"               => "Batu Split 2/3",
+                "Product_ID"                          => 88000000000527,
+                "CombinedBudget_RefID"                => 46000000000033,
+                "CombinedBudgetSection_RefID"         => 143000000000305,
+                "remark"                              => "",
+                
+                
+            ],
+            [
                     
-                    "Sys_ID"                              => 76000000000054,
-                    "CombinedBudgetCode"                  => "Q000062",
-                    "CombinedBudgetName"                  => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode"           => "235",
-                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
-                    "RequesterWorkerName"                 => "Adhe Kurniawan",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName"               => "Batu Split 2/3",
-                    "Product_ID"                          => 88000000000527,
-                    "CombinedBudget_RefID"                => 46000000000033,
-                    "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => "",
+                "DocumentNumber"                      => "PO/QDC/2025/000041",
+                "TotalAdvance"                        => "720000",
+                "CurrencyName"                        => "IDR",
+                "DepartingFrom"                       => "AP/QDC/2025/000142",
+                "DestinationTo"                       => "720000",
+                "TotalExpenseClaimCart"               => "0",
+                "TotalAmountDueToCompanyCart"         => "720000",
+                "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
+                "Description"                         => "0",
+                
+                "Sys_ID"                              => 76000000000054,
+                "CombinedBudgetCode"                  => "Q000062",
+                "CombinedBudgetName"                  => "XL Microcell 2007",
+                "CombinedBudgetSectionCode"           => "235",
+                "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                "RequesterWorkerName"                 => "Adhe Kurniawan",
+                "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                "BeneficiaryWorkerName"               => "Batu Split 2/3",
+                "Product_ID"                          => 88000000000527,
+                "CombinedBudget_RefID"                => 46000000000033,
+                "CombinedBudgetSection_RefID"         => 143000000000305,
+                "remark"                              => "",
+                
+                
+            ],
+            [
                     
+                "DocumentNumber"                      => "PO/QDC/2025/000040",
+                "TotalAdvance"                        => "420000",
+                "CurrencyName"                        => "IDR",
+                "DepartingFrom"                       => "AP/QDC/2025/000141",
+                "DestinationTo"                       => "420000",
+                "TotalExpenseClaimCart"               => "0",
+                "TotalAmountDueToCompanyCart"         => "420000",
+                "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
+                "Description"                         => "0",
+                
+                "Sys_ID"                              => 76000000000054,
+                "CombinedBudgetCode"                  => "Q000062",
+                "CombinedBudgetName"                  => "XL Microcell 2007",
+                "CombinedBudgetSectionCode"           => "235",
+                "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                "RequesterWorkerName"                 => "Adhe Kurniawan",
+                "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                "BeneficiaryWorkerName"               => "Batu Split 2/3",
+                "Product_ID"                          => 88000000000527,
+                "CombinedBudget_RefID"                => 46000000000033,
+                "CombinedBudgetSection_RefID"         => 143000000000305,
+                "remark"                              => "",
+                
+                
+            ],
+            [
                     
-                ],
-                [
-                     
-                    "DocumentNumber"                      => "PO/QDC/2025/000041",
-                    "TotalAdvance"                        => "720000",
-                    "CurrencyName"                        => "IDR",
-                    "DepartingFrom"                       => "AP/QDC/2025/000142",
-                    "DestinationTo"                       => "720000",
-                    "TotalExpenseClaimCart"               => "0",
-                    "TotalAmountDueToCompanyCart"         => "720000",
-                    "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
-                    "Description"                         => "0",
+                "DocumentNumber"                      => "PO/QDC/2025/000039",
+                "TotalAdvance"                        => "1000000",
+                "CurrencyName"                        => "IDR",
+                "DepartingFrom"                       => "AP/QDC/2025/000140",
+                "DestinationTo"                       => "1000000",
+                "TotalExpenseClaimCart"               => "0",
+                "TotalAmountDueToCompanyCart"         => "1000000",
+                "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
+                "Description"                         => "0",
+                
+                "Sys_ID"                              => 76000000000054,
+                "CombinedBudgetCode"                  => "Q000062",
+                "CombinedBudgetName"                  => "XL Microcell 2007",
+                "CombinedBudgetSectionCode"           => "235",
+                "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                "RequesterWorkerName"                 => "Adhe Kurniawan",
+                "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                "BeneficiaryWorkerName"               => "Batu Split 2/3",
+                "Product_ID"                          => 88000000000527,
+                "CombinedBudget_RefID"                => 46000000000033,
+                "CombinedBudgetSection_RefID"         => 143000000000305,
+                "remark"                              => "",
+                
+                
+            ],
+            [
                     
-                    "Sys_ID"                              => 76000000000054,
-                    "CombinedBudgetCode"                  => "Q000062",
-                    "CombinedBudgetName"                  => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode"           => "235",
-                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
-                    "RequesterWorkerName"                 => "Adhe Kurniawan",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName"               => "Batu Split 2/3",
-                    "Product_ID"                          => 88000000000527,
-                    "CombinedBudget_RefID"                => 46000000000033,
-                    "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => "",
+                "DocumentNumber"                      => "PO/QDC/2025/000038",
+                "TotalAdvance"                        => "0",
+                "CurrencyName"                        => "IDR",
+                "DepartingFrom"                       => "-",
+                "DestinationTo"                       => "0",
+                "TotalExpenseClaimCart"               => "0",
+                "TotalAmountDueToCompanyCart"         => "0",
+                "DocumentDateTimeTZ"                  => "-",
+                "Description"                         => "0",
+                
+                "Sys_ID"                              => 76000000000054,
+                "CombinedBudgetCode"                  => "Q000062",
+                "CombinedBudgetName"                  => "XL Microcell 2007",
+                "CombinedBudgetSectionCode"           => "235",
+                "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                "RequesterWorkerName"                 => "Adhe Kurniawan",
+                "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                "BeneficiaryWorkerName"               => "Batu Split 2/3",
+                "Product_ID"                          => 88000000000527,
+                "CombinedBudget_RefID"                => 46000000000033,
+                "CombinedBudgetSection_RefID"         => 143000000000305,
+                "remark"                              => "",
+                
+                
+            ],
+            [
                     
+                "DocumentNumber"                      => "PO/QDC/2025/000037",
+                "TotalAdvance"                        => "0",
+                "CurrencyName"                        => "IDR",
+                "DepartingFrom"                       => "-",
+                "DestinationTo"                       => "0",
+                "TotalExpenseClaimCart"               => "0",
+                "TotalAmountDueToCompanyCart"         => "0",
+                "DocumentDateTimeTZ"                  => "-",
+                "Description"                         => "0",
+                
+                "Sys_ID"                              => 76000000000054,
+                "CombinedBudgetCode"                  => "Q000062",
+                "CombinedBudgetName"                  => "XL Microcell 2007",
+                "CombinedBudgetSectionCode"           => "235",
+                "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                "RequesterWorkerName"                 => "Adhe Kurniawan",
+                "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                "BeneficiaryWorkerName"               => "Batu Split 2/3",
+                "Product_ID"                          => 88000000000527,
+                "CombinedBudget_RefID"                => 46000000000033,
+                "CombinedBudgetSection_RefID"         => 143000000000305,
+                "remark"                              => "",
+                
+                
+            ],
+            [
                     
-                ],
-                [
-                     
-                    "DocumentNumber"                      => "PO/QDC/2025/000040",
-                    "TotalAdvance"                        => "420000",
-                    "CurrencyName"                        => "IDR",
-                    "DepartingFrom"                       => "AP/QDC/2025/000141",
-                    "DestinationTo"                       => "420000",
-                    "TotalExpenseClaimCart"               => "0",
-                    "TotalAmountDueToCompanyCart"         => "420000",
-                    "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
-                    "Description"                         => "0",
-                    
-                    "Sys_ID"                              => 76000000000054,
-                    "CombinedBudgetCode"                  => "Q000062",
-                    "CombinedBudgetName"                  => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode"           => "235",
-                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
-                    "RequesterWorkerName"                 => "Adhe Kurniawan",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName"               => "Batu Split 2/3",
-                    "Product_ID"                          => 88000000000527,
-                    "CombinedBudget_RefID"                => 46000000000033,
-                    "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => "",
-                    
-                    
-                ],
-                [
-                     
-                    "DocumentNumber"                      => "PO/QDC/2025/000039",
-                    "TotalAdvance"                        => "1000000",
-                    "CurrencyName"                        => "IDR",
-                    "DepartingFrom"                       => "AP/QDC/2025/000140",
-                    "DestinationTo"                       => "1000000",
-                    "TotalExpenseClaimCart"               => "0",
-                    "TotalAmountDueToCompanyCart"         => "1000000",
-                    "DocumentDateTimeTZ"                  => "2024-12-05 00:00:00+07",
-                    "Description"                         => "0",
-                    
-                    "Sys_ID"                              => 76000000000054,
-                    "CombinedBudgetCode"                  => "Q000062",
-                    "CombinedBudgetName"                  => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode"           => "235",
-                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
-                    "RequesterWorkerName"                 => "Adhe Kurniawan",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName"               => "Batu Split 2/3",
-                    "Product_ID"                          => 88000000000527,
-                    "CombinedBudget_RefID"                => 46000000000033,
-                    "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => "",
-                    
-                    
-                ],
-                [
-                     
-                    "DocumentNumber"                      => "PO/QDC/2025/000038",
-                    "TotalAdvance"                        => "0",
-                    "CurrencyName"                        => "IDR",
-                    "DepartingFrom"                       => "-",
-                    "DestinationTo"                       => "0",
-                    "TotalExpenseClaimCart"               => "0",
-                    "TotalAmountDueToCompanyCart"         => "0",
-                    "DocumentDateTimeTZ"                  => "-",
-                    "Description"                         => "0",
-                    
-                    "Sys_ID"                              => 76000000000054,
-                    "CombinedBudgetCode"                  => "Q000062",
-                    "CombinedBudgetName"                  => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode"           => "235",
-                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
-                    "RequesterWorkerName"                 => "Adhe Kurniawan",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName"               => "Batu Split 2/3",
-                    "Product_ID"                          => 88000000000527,
-                    "CombinedBudget_RefID"                => 46000000000033,
-                    "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => "",
-                    
-                    
-                ],
-                [
-                     
-                    "DocumentNumber"                      => "PO/QDC/2025/000037",
-                    "TotalAdvance"                        => "0",
-                    "CurrencyName"                        => "IDR",
-                    "DepartingFrom"                       => "-",
-                    "DestinationTo"                       => "0",
-                    "TotalExpenseClaimCart"               => "0",
-                    "TotalAmountDueToCompanyCart"         => "0",
-                    "DocumentDateTimeTZ"                  => "-",
-                    "Description"                         => "0",
-                    
-                    "Sys_ID"                              => 76000000000054,
-                    "CombinedBudgetCode"                  => "Q000062",
-                    "CombinedBudgetName"                  => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode"           => "235",
-                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
-                    "RequesterWorkerName"                 => "Adhe Kurniawan",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName"               => "Batu Split 2/3",
-                    "Product_ID"                          => 88000000000527,
-                    "CombinedBudget_RefID"                => 46000000000033,
-                    "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => "",
-                    
-                    
-                ],
-                [
-                     
-                    "DocumentNumber"                      => "PO/QDC/2025/000036",
-                    "TotalAdvance"                        => "0",
-                    "CurrencyName"                        => "IDR",
-                    "DepartingFrom"                       => "-",
-                    "DestinationTo"                       => "0",
-                    "TotalExpenseClaimCart"               => "0",
-                    "TotalAmountDueToCompanyCart"         => "0",
-                    "DocumentDateTimeTZ"                  => "-",
-                    "Description"                         => "0",
-                    
-                    "Sys_ID"                              => 76000000000054,
-                    "CombinedBudgetCode"                  => "Q000062",
-                    "CombinedBudgetName"                  => "XL Microcell 2007",
-                    "CombinedBudgetSectionCode"           => "235",
-                    "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
-                    "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
-                    "RequesterWorkerName"                 => "Adhe Kurniawan",
-                    "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
-                    "BeneficiaryWorkerName"               => "Batu Split 2/3",
-                    "Product_ID"                          => 88000000000527,
-                    "CombinedBudget_RefID"                => 46000000000033,
-                    "CombinedBudgetSection_RefID"         => 143000000000305,
-                    "remark"                              => "",
-                    
-                    
-                ],
-                 
-             ];
- 
-             $reportData = is_string($getReportPOtoAP) ? json_decode($getReportPOtoAP, true) : $getReportPOtoAP;
- 
-             // $filteredData = array_filter($reportData, function ($item) use ($project_id, $site_id, $requester_id, $beneficiary_id) {
-             //     return 
-             //         (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
-             //         (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
-             //         (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
-             //         (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
-             // });
- 
-             // $totalAdvance = array_reduce($filteredData, function ($carry, $item) {
-             // $totalAdvance = array_reduce($reportData, function ($carry, $item) {
-             //     return $carry + ($item['TotalAdvance'] ?? 0);
-             // }, 0);
- 
-             // $totalExpense = array_reduce($reportData, function ($carry, $item) {
-             //     return $carry + ($item['TotalExpenseClaimCart'] ?? 0);
-             // }, 0);
- 
-             // $totalAmount = array_reduce($reportData, function ($carry, $item) {
-             //     return $carry + ($item['TotalAmountDueToCompanyCart'] ?? 0);
-             // }, 0);
- 
-             $compact = [
-                 // 'dataDetail'        => $filteredData,
-                 'dataDetail'        => $reportData,
-                 'budgetCode'        => $project_code,
-                 'budgetName'        => $project_name,
-                 'siteCode'          => $site_code,
-                 'requesterName'     => "",
-                 'beneficiaryName'   => "",
-                 'total'             => 0,
-                 'totalExpense'      => 0,
-                 'totalAmount'       => 0,
-             ];
- 
-             Session::put("isButtonReportPOtoAPSubmit", true);
-             Session::put("dataReportPOtoAP", $compact);
- 
-             return $compact;
-         } catch (\Throwable $th) {
-             Log::error("ReportPOtoAPData Error at " . $th->getMessage());
-             return redirect()->back()->with('NotFound', 'Process Error');
-         }
-     }
- 
-     public function ReportPOtoAPStore(Request $request) 
-     {
-         try {
-             $project_code       = $request->project_code_second;
-             $project_name       = $request->project_name_second;
-             $project_id         = $request->project_id_second;
- 
-             $site_id            = $request->site_id_second;
-             $site_code          = $request->site_code_second;
- 
-             // $requester_id       = $request->worker_id_second;
-             // $requester_name     = $request->worker_name_second;
- 
-             // $beneficiary_id     = $request->beneficiary_second_id;
-             // $beneficiary_name   = $request->beneficiary_second_person_name;
- 
-             // dd($project_code, $project_name);
- 
-             $errors = [];
- 
-             if (!$project_id) {
-                 $errors[] = 'Budget';
-             }
-             if (!$site_id) {
-                 $errors[] = 'Sub Budget';
-             }
-             // if (!$requester_id) {
-             //     $errors[] = 'Requester';
-             // }
-             // if (!$beneficiary_id) {
-             //     $errors[] = 'Beneficiary';
-             // }
- 
-             if (!empty($errors)) {
-                 $message = implode(', ', $errors) . ' Cannot Be Empty';
-             }
- 
-             if (isset($message)) {
-                 Session::forget("isButtonReportPOtoAPSubmit");
-                 Session::forget("dataReportPOtoAP");
-         
-                 return redirect()->route('PurchaseOrder.ReportPOtoAP')->with('NotFound', $message);
-             }
- 
-             $compact = $this->ReportPOtoAPData($project_id, $site_id, $project_name, $project_code, $site_code);
-             // dd($compact);
-             if ($compact === null || empty($compact)) {
-                 return redirect()->back()->with('NotFound', 'Data Not Found');
-             }
-             
-             return redirect()->route('PurchaseOrder.ReportPOtoAP');
-         } catch (\Throwable $th) {
-             Log::error("ReportPOtoAPStore Error at " . $th->getMessage());
-             return redirect()->back()->with('NotFound', 'Process Error');
-         }
-     }
- 
-     public function PrintExportReportPOtoAP(Request $request) 
-     {
-         try {
-             $dataReport = Session::get("dataReportPOtoAP");
-             $print_type = $request->print_type;
-             $project_code_second_trigger = $request->project_code_second_trigger;
- 
-             if ($project_code_second_trigger == null) {
-                 Session::forget("isButtonReportPOtoAPSubmit");
-                 Session::forget("dataReportPOtoAP");
- 
-                 return redirect()->route('PurchasOrder.ReportPOtoAP')->with('NotFound', 'Budget, & Sub Budget Cannot Empty');
-             }
- 
-             if ($dataReport) {
-                 if ($print_type === "PDF") {
-                     $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPOtoAP_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
-                     $pdf->output();
-                     $dom_pdf = $pdf->getDomPDF();
- 
-                     $canvas = $dom_pdf ->get_canvas();
-                     $width = $canvas->get_width();
-                     $height = $canvas->get_height();
-                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
- 
-                     return $pdf->download('Export Report PO to AP.pdf');
-                 } else {
-                     return Excel::download(new ExportReportPOtoAP, 'Export Report PO to DO.xlsx');
-                 }
-             } else {
-                 return redirect()->route('PurchaseOrder.ReportPOtoAP')->with('NotFound', 'Budget, & Sub Budget Cannot Empty');
-             }
-         } catch (\Throwable $th) {
-             Log::error("PrintExportReportPOtoAP Error at " . $th->getMessage());
-             return redirect()->back()->with('NotFound', 'Process Error');
-         }
-     }
- 
+                "DocumentNumber"                      => "PO/QDC/2025/000036",
+                "TotalAdvance"                        => "0",
+                "CurrencyName"                        => "IDR",
+                "DepartingFrom"                       => "-",
+                "DestinationTo"                       => "0",
+                "TotalExpenseClaimCart"               => "0",
+                "TotalAmountDueToCompanyCart"         => "0",
+                "DocumentDateTimeTZ"                  => "-",
+                "Description"                         => "0",
+                
+                "Sys_ID"                              => 76000000000054,
+                "CombinedBudgetCode"                  => "Q000062",
+                "CombinedBudgetName"                  => "XL Microcell 2007",
+                "CombinedBudgetSectionCode"           => "235",
+                "CombinedBudgetSectionName"           => "Ampang Kuranji - Padang",
+                "RequesterWorkerJobsPosition_RefID"   => 164000000000023,
+                "RequesterWorkerName"                 => "Adhe Kurniawan",
+                "BeneficiaryWorkerJobsPosition_RefID" => 164000000000023,
+                "BeneficiaryWorkerName"               => "Batu Split 2/3",
+                "Product_ID"                          => 88000000000527,
+                "CombinedBudget_RefID"                => 46000000000033,
+                "CombinedBudgetSection_RefID"         => 143000000000305,
+                "remark"                              => "",
+                
+                
+            ],
+                
+            ];
+
+            $reportData = is_string($getReportPOtoAP) ? json_decode($getReportPOtoAP, true) : $getReportPOtoAP;
+
+            // $filteredData = array_filter($reportData, function ($item) use ($project_id, $site_id, $requester_id, $beneficiary_id) {
+            //     return 
+            //         (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
+            //         (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
+            //         (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
+            //         (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
+            // });
+
+            // $totalAdvance = array_reduce($filteredData, function ($carry, $item) {
+            // $totalAdvance = array_reduce($reportData, function ($carry, $item) {
+            //     return $carry + ($item['TotalAdvance'] ?? 0);
+            // }, 0);
+
+            // $totalExpense = array_reduce($reportData, function ($carry, $item) {
+            //     return $carry + ($item['TotalExpenseClaimCart'] ?? 0);
+            // }, 0);
+
+            // $totalAmount = array_reduce($reportData, function ($carry, $item) {
+            //     return $carry + ($item['TotalAmountDueToCompanyCart'] ?? 0);
+            // }, 0);
+
+            $compact = [
+                // 'dataDetail'        => $filteredData,
+                'dataDetail'        => $reportData,
+                'budgetCode'        => $project_code,
+                'budgetName'        => $project_name,
+                'siteCode'          => $site_code,
+                'requesterName'     => "",
+                'beneficiaryName'   => "",
+                'total'             => 0,
+                'totalExpense'      => 0,
+                'totalAmount'       => 0,
+            ];
+
+            Session::put("isButtonReportPOtoAPSubmit", true);
+            Session::put("dataReportPOtoAP", $compact);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            Log::error("ReportPOtoAPData Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportPOtoAPStore(Request $request) 
+    {
+        try {
+            $project_code       = $request->project_code_second;
+            $project_name       = $request->project_name_second;
+            $project_id         = $request->project_id_second;
+
+            $site_id            = $request->site_id_second;
+            $site_code          = $request->site_code_second;
+
+            // $requester_id       = $request->worker_id_second;
+            // $requester_name     = $request->worker_name_second;
+
+            // $beneficiary_id     = $request->beneficiary_second_id;
+            // $beneficiary_name   = $request->beneficiary_second_person_name;
+
+            // dd($project_code, $project_name);
+
+            $errors = [];
+
+            if (!$project_id) {
+                $errors[] = 'Budget';
+            }
+            if (!$site_id) {
+                $errors[] = 'Sub Budget';
+            }
+            // if (!$requester_id) {
+            //     $errors[] = 'Requester';
+            // }
+            // if (!$beneficiary_id) {
+            //     $errors[] = 'Beneficiary';
+            // }
+
+            if (!empty($errors)) {
+                $message = implode(', ', $errors) . ' Cannot Be Empty';
+            }
+
+            if (isset($message)) {
+                Session::forget("isButtonReportPOtoAPSubmit");
+                Session::forget("dataReportPOtoAP");
+        
+                return redirect()->route('PurchaseOrder.ReportPOtoAP')->with('NotFound', $message);
+            }
+
+            $compact = $this->ReportPOtoAPData($project_id, $site_id, $project_name, $project_code, $site_code);
+            // dd($compact);
+            if ($compact === null || empty($compact)) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+            
+            return redirect()->route('PurchaseOrder.ReportPOtoAP');
+        } catch (\Throwable $th) {
+            Log::error("ReportPOtoAPStore Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportPOtoAP(Request $request) 
+    {
+        try {
+            $dataReport = Session::get("dataReportPOtoAP");
+            $print_type = $request->print_type;
+            $project_code_second_trigger = $request->project_code_second_trigger;
+
+            if ($project_code_second_trigger == null) {
+                Session::forget("isButtonReportPOtoAPSubmit");
+                Session::forget("dataReportPOtoAP");
+
+                return redirect()->route('PurchasOrder.ReportPOtoAP')->with('NotFound', 'Budget, & Sub Budget Cannot Empty');
+            }
+
+            if ($dataReport) {
+                if ($print_type === "PDF") {
+                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPOtoAP_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report PO to AP.pdf');
+                } else {
+                    return Excel::download(new ExportReportPOtoAP, 'Export Report PO to DO.xlsx');
+                }
+            } else {
+                return redirect()->route('PurchaseOrder.ReportPOtoAP')->with('NotFound', 'Budget, & Sub Budget Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("PrintExportReportPOtoAP Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');

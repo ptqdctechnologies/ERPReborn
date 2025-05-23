@@ -730,6 +730,8 @@ class PurchaseRequisitionController extends Controller
 
         $data = $varData['data']['data'];
 
+        dump($data);
+
         $compact = [
             'varAPIWebToken'        => $varAPIWebToken,
             'header'                => [
@@ -749,7 +751,7 @@ class PurchaseRequisitionController extends Controller
             'detail'                => $data
         ];
 
-        dump($varData);
+        // dump($varData);
 
         return view('Purchase.PurchaseRequisition.Transactions.RevisionPurchaseRequisition', $compact);
     }
