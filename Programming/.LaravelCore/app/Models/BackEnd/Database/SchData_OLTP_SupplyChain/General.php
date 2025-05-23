@@ -1450,15 +1450,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 		    	);
                 $resultArray = $varReturn['data'];
 
-                $arrayQtyAvailableDO = [];
+                $arrayQtyMR = [];
                 $listPidDoDetail = [];
                 foreach ($resultArray as $key => $value) {
                     if (in_array($value["Sys_PID_DO_Detail"], $listPidDoDetail)) {
-                        $arrayQtyAvailableDO[$value["Sys_PID_DO_Detail"]]["QtyAvailableDO"] = (float) $arrayQtyAvailableDO[$value["Sys_PID_DO_Detail"]]["QtyAvailableDO"] + (float) $value["Quantity"];
+                        $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] = (float) $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] + (float) $value["Quantity"];
                     } else {
                         array_push($listPidDoDetail, $value["Sys_PID_DO_Detail"]);
-                        $arrayQtyAvailableDO[$value["Sys_PID_DO_Detail"]]["Sys_PID_DO_Detail"] = $value["Sys_PID_DO_Detail"];
-                        $arrayQtyAvailableDO[$value["Sys_PID_DO_Detail"]]["QtyAvailableDO"] = $value["Quantity"];
+                        $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["Sys_PID_DO_Detail"] = $value["Sys_PID_DO_Detail"];
+                        $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] = $value["Quantity"];
                     }
                 }
 
@@ -1489,7 +1489,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     $varReturn['data'][$idxArray]['warehouseInboundOrder_RefID'] = $value["WarehouseInboundOrder_RefID"];
                     $varReturn['data'][$idxArray]['note'] = $value["Note"];
                     $varReturn['data'][$idxArray]['qtyDO'] = (float) $value["QtyDO"];
-                    $varReturn['data'][$idxArray]['qtyAvailableDO'] = in_array($value["Sys_PID_DO_Detail"], $listPidDoDetail) ? $value["QtyDO"] - $arrayQtyAvailableDO[$value["Sys_PID_DO_Detail"]]["QtyAvailableDO"] : null;
+                    $varReturn['data'][$idxArray]['qtyAvailableDO'] = in_array($value["Sys_PID_DO_Detail"], $listPidDoDetail) ? $value["QtyDO"] - $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] : null;
                     $idxArray++;
                 }
 
