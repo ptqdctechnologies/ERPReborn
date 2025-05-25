@@ -75,17 +75,19 @@
 
             $.ajax({
                 type: 'GET',
-                url: '{!! route("getWorker") !!}',
+                url: '{!! route("getTransporter") !!}',
                 success: function(data) {
+                    console.log('data', data);
+                    
                     var no = 1;
                     var t = $('#tableGetTransporter').DataTable();
                     t.clear();
                     $.each(data, function(key, val) {
                         keys += 1;
                         t.row.add([
-                            '<tbody><tr><input id="sys_id_transporter' + keys + '" value="' + val.Sys_ID + '" data-trigger="sys_id_transporter" type="hidden"><td>' + no++ + '</td>',
-                            '<td>' + val.PersonName + '</td>',
-                            '<td>' + val.OrganizationalJobPositionName + '</td></tr></tbody>',
+                            '<tbody><tr><input id="sys_id_transporter' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_transporter" type="hidden"><td>' + no++ + '</td>',
+                            '<td>' + val.code + '</td>',
+                            '<td>' + val.sys_Text + '</td></tr></tbody>',
                         ]).draw();
                     });
                 }

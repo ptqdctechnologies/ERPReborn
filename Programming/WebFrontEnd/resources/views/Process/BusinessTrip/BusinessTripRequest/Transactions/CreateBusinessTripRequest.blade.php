@@ -13,6 +13,7 @@
 @include('getFunction.getBankAccount')
 @include('getFunction.getEntityBankAccount')
 @include('getFunction.getWorkFlow')
+@include('getFunction.getBusinessTripRequest')
 
 <div class="content-wrapper">
   <section class="content">

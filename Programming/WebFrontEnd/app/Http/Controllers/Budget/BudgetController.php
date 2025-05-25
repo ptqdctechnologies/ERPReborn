@@ -542,23 +542,68 @@ class BudgetController extends Controller
         try {
             $varAPIWebToken = Session::get('SessionLogin');
 
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getAdvance', 
-                'latest',
-                [
-                    'parameter' => [
-                        'recordID' => (int) $id
+            // $filteredArray = Helper_APICall::setCallAPIGateway(
+            //     Helper_Environment::getUserSessionID_System(),
+            //     $varAPIWebToken, 
+            //     'report.form.documentForm.finance.getAdvance', 
+            //     'latest',
+            //     [
+            //         'parameter' => [
+            //             'recordID' => (int) $id
+            //         ]
+            //     ]
+            // );
+
+            // if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+            //     throw new \Exception('Data not found in the API response.');
+            // }
+
+            // $getData = $filteredArray['data'][0]['document'];
+
+            $getData = [
+                'header' => [
+                    'date' => '2025-05-22',
+                ],
+                'content' => [
+                    'general' => [
+                        'budget' => [
+                            'combinedBudgetCodeList' => ['BGT-001'],
+                            'combinedBudgetNameList' => ['Operational Budget'],
+                            'combinedBudgetSectionCodeList' => ['SEC-01'],
+                        ],
+                        'involvedPersons' => [
+                            [
+                                'requesterWorkerName' => 'John Doe'
+                            ]
+                        ]
+                    ],
+                    'details' => [
+                        'itemList' => [
+                            [
+                                'entities' => [
+                                    'product_RefID' => 'PRD-1001',
+                                    'productName'   => 'Product A',
+                                    'quantity'      => 5,
+                                ]
+                            ],
+                            [
+                                'entities' => [
+                                    'product_RefID' => 'PRD-1002',
+                                    'productName'   => 'Product B',
+                                    'quantity'      => 3,
+                                ]
+                            ],
+                            [
+                                'entities' => [
+                                    'product_RefID' => 'PRD-1003',
+                                    'productName'   => 'Product C',
+                                    'quantity'      => 2,
+                                ]
+                            ],
+                        ]
                     ]
                 ]
-            );
-
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Data not found in the API response.');
-            }
-
-            $getData = $filteredArray['data'][0]['document'];
+            ];
 
             // DATA HEADER
             $dataHeaders = [
@@ -573,8 +618,6 @@ class BudgetController extends Controller
                 'PIC'           => $getData['content']['general']['involvedPersons'][0]['requesterWorkerName'],
             ];
 
-            // dd($getData['content']['details']['itemList']);
-
             $dataDetails = [];
             $i = 0;
             $totalQty = 0;
@@ -586,13 +629,6 @@ class BudgetController extends Controller
                 $dataDetails[$i]['productName'] = $dataReports['entities']['productName'];
                 $dataDetails[$i]['price']       = $dataReports['entities']['quantity'];
                 $dataDetails[$i]['total']       = ($i + 1) * $dataReports['entities']['quantity'];
-
-                // $dataDetails[$i]['dorNumber']   = "MB1-23000004";
-                // $dataDetails[$i]['productId']   = $dataReports['entities']['product_RefID'];
-                // $dataDetails[$i]['productName'] = $dataReports['entities']['productName'];
-                // $dataDetails[$i]['qty']         = number_format($dataReports['entities']['quantity'], 2, ',', '.');
-                // $dataDetails[$i]['uom']         = 'Set';
-                // $dataDetails[$i]['remark']      = $dataReports['entities']['quantityUnitName'];
                 $i++;
             }
 

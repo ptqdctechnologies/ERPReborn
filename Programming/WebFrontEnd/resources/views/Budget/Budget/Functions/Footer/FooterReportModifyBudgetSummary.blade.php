@@ -7,6 +7,16 @@
 
     $("#sub_budget").prop("disabled", true);
     $("#sub_budget_popup").prop("disabled", true);
+
+    $(document).ready(function () {
+        $('#startDate').datetimepicker({
+            format: 'L'
+        });
+
+        $('#finishDate').datetimepicker({
+            format: 'L'
+        });
+    });
 </script>
 
 <script>
