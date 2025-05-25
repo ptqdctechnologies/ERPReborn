@@ -155,8 +155,8 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2023-05-03                                                                                           |
+        | ▪ Version         : 1.0000.0000003                                                                                       |
+        | ▪ Last Update     : 2025-05-24                                                                                           |
         | ▪ Creation Date   : 2023-05-03                                                                                           |
         | ▪ Description     : Mengambil data berbentuk Array dari database sesuai syntax query (varSQLQuery) melalui koneksi       |
         |                     PgSql\Connection                                                                                     |
@@ -231,6 +231,7 @@ namespace App\Helpers\ZhtHelper\Database
 //                                    var_dump($key);
 //                                    var_dump($value);
 
+                                    $varData[$i][$key] = null;
                                     switch($varFieldType[$j++])
                                         {
                                         case 'bool':
@@ -239,15 +240,24 @@ namespace App\Helpers\ZhtHelper\Database
                                         case 'int2':
                                         case 'int4':
                                         case 'int8':
-                                            $varData[$i][$key] = (int) $value;
+                                            if (!is_null($value))
+                                                {
+                                                $varData[$i][$key] = (int) $value;
+                                                }
                                             break;
                                         case 'float4':
                                         case 'float8':
-                                            $varData[$i][$key] = (float) $value;
+                                            if (!is_null($value))
+                                                {
+                                                $varData[$i][$key] = (float) $value;
+                                                }
                                             break;
                                         case 'varchar':
                                         default:
-                                            $varData[$i][$key] = $value;
+                                            if (!is_null($value))
+                                                {
+                                                $varData[$i][$key] = $value;
+                                                }
                                             break;
                                         }
                                     }
@@ -373,7 +383,7 @@ namespace App\Helpers\ZhtHelper\Database
                     else
                         {
                         $varSQL = "SELECT ";
-                        for ($i=0; $i!=count($varReturnField); $i++)
+                        for ($i = 0; $i != count($varReturnField); $i++)
                             {
                             if ($i != 0)
                                 {
@@ -390,7 +400,7 @@ namespace App\Helpers\ZhtHelper\Database
                     $varSQL .= "(";
                     //--->
                     $varSpecialKeyword = ['NOW()'];
-                    for ($i=0; $i!=count($varData); $i++)
+                    for ($i = 0; $i != count($varData); $i++)
                         {
                         if ($i != 0)
                             {
@@ -419,7 +429,7 @@ namespace App\Helpers\ZhtHelper\Database
                                 {
                                 case 'bigint':
                                     {
-                                    if((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE) OR (is_int((int) $varData[$i][0]) == TRUE))
+                                    if ((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE) OR (is_int((int) $varData[$i][0]) == TRUE))
                                         {
                                         $varSQL .= (
                                             \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger(
@@ -436,7 +446,7 @@ namespace App\Helpers\ZhtHelper\Database
                                     }
                                 case 'bigint[]':
                                     {
-                                    if(is_array($varData[$i][0])==FALSE)
+                                    if (is_array($varData[$i][0])==FALSE)
                                         {
                                         $varSQL .= (
                                             \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
@@ -607,11 +617,9 @@ namespace App\Helpers\ZhtHelper\Database
                         }
                     //--->
                     $varSQL .= ");";
-
-
-
                     
-                    $varReturn = $varSQL;
+                    $varReturn =
+                        $varSQL;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
@@ -910,7 +918,12 @@ namespace App\Helpers\ZhtHelper\Database
 
                                 //---> Inisialisasi [Data], [RowCount], [Notice]
                                 //$varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection($varUserSession, $varSQLQuery);
-                                $varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection($varUserSession, $varSQLQuery);
+                                $varDataTemp = 
+                                    self::getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection(
+                                        $varUserSession,
+                                        $varSQLQuery
+                                        );
+
                                 $varReturn['data'] = $varDataTemp['data'];
                                 $varReturn['rowCount'] = $varDataTemp['rowCount'];
                                 $varReturn['notice'] = $varDataTemp['notice'];
@@ -1267,7 +1280,7 @@ namespace App\Helpers\ZhtHelper\Database
                         }
                     else
                         {
-                        if((!$varData) || (strcmp($varData, '')==0) || (strcmp(strtolower($varData), 'null')==0)) 
+                        if ((!$varData) || (strcmp($varData, '') == 0) || (strcmp(strtolower($varData), 'null') ==0) ) 
                             {
                             $varReturn = 'NULL';
                             }
