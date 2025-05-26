@@ -453,7 +453,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = $value["ProductUnitPriceFinalCurrency_RefID_TblOrderPickingDetail"];
                                 $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblOrderPickingDetail"];
                                 $varReturn['data'][$idxArray]['priceCurrency_RefID'] = $value["PriceFinalCurrency_RefID_TblOrderPickingDetail"];
-                                $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = $value["PriceFinalBaseCurrencyValue_TblOrderPickingDetail"];                            
+                                $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = $value["PriceFinalBaseCurrencyValue_TblOrderPickingDetail"];
                                 $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName_TblQuantityUnit_TblOrderPickingDetail"];
                                 $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = $value["ISOCode_TblCurrency_TblOrderPickingDetail"];
                             } else {
@@ -1010,7 +1010,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray]['downPayment'] = $value["DownPayment"];
                             $varReturn['data'][$idxArray]['termOfPayment_RefID'] = $value["TermOfPayment_RefID"];
                             $varReturn['data'][$idxArray]['deliveryTo_RefID'] = $value["DeliveryTo_RefID"];
-                            $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = $value["DeliveryTo_NonRefID"];
+                            $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = json_decode($value["DeliveryTo_NonRefID"]);
                             $varReturn['data'][$idxArray]['remarks'] = $value["Remarks"];
                             $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
                             $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
@@ -2648,7 +2648,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varPagingStatement, 'varchar']
                             ]
                             )
-                        );  
+                        );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
