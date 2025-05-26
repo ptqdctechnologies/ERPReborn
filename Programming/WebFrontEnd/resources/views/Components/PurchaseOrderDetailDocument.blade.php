@@ -27,7 +27,7 @@
                 DP
             </div>
             <div class="col">
-                : <?= $dataHeader['downPayment']; ?>
+                : <?= $dataHeader['downPayment'] . "%"; ?>
             </div>
         </div>
         

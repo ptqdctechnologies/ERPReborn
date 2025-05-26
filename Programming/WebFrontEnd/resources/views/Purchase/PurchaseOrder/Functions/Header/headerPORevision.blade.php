@@ -31,7 +31,9 @@
                     <tr>
                         <td><label>DP</label></td>
                         <td style="solid #e9ecef;">
-                            <p id="dp_section"><input type="number" id="downPaymentValue" name="downPaymentValue" max="100" style="width: 20%;" /> <strong>%</strong></p>
+                            <p id="dp_section">
+                                <input type="number" id="downPaymentValue" name="downPaymentValue" max="100" style="width: 20%;" value="<?= $header['downPayment']; ?>" /><strong>%</strong>
+                            </p>
                         </td>
                     </tr>
                     <tr>
@@ -44,8 +46,9 @@
                             </div>
                         </td>
                         <td id="containerSelectTOP" style="border:1px solid #e9ecef;">
+                            <input hidden id="termOfPaymentID" style="width: 20%;" value="<?= $header['termOfPaymentID']; ?>" />
                             <select name="termOfPaymentValue" id="termOfPaymentOption" style="border-radius:0;" type="text" class="form-control">
-                                <option disabled selected>Select a TOP</option>
+                                <option disabled >Select a TOP</option>
                             </select>
                         </td>
                     </tr>

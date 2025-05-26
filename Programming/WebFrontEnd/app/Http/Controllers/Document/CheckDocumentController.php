@@ -148,7 +148,7 @@ class CheckDocumentController extends Controller
             return "YES";
         }
 
-        if ($SessionWorkerCareerInternal_RefID === $submitterId && $nextApproverId === 0) {
+        if ($SessionWorkerCareerInternal_RefID === $submitterId && ($nextApproverId === 0 || !$nextApproverId)) {
             return "RESUBMIT";
         }
 
@@ -219,8 +219,6 @@ class CheckDocumentController extends Controller
                 'dataDetails'               => $collection['dataDetail']
             ] + $formatData;
 
-            // dump($compact);
-
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at ShowDocument: " . $th->getMessage());
@@ -279,8 +277,6 @@ class CheckDocumentController extends Controller
                 'statusApprover'    => $approverStatus,
                 'documentStatus'    => $documentStatus,
             ] + $formatData;
-
-            // dump($compact);
 
             return view('Documents.Transactions.IndexCheckDetailDocument',$compact);
         } catch (\Throwable $th) {
