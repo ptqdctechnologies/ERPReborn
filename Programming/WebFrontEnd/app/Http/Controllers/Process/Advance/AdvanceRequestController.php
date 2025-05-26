@@ -266,7 +266,7 @@ class AdvanceRequestController extends Controller
                 false
             );
 
-            $DataAdvanceDetailComplex = $DataAdvanceDetailComplex['data'];
+            $DataAdvanceDetailComplex = $DataAdvanceDetailComplex['data']['data'];
 
             $compact = [
                 'varAPIWebToken'                => $varAPIWebToken,

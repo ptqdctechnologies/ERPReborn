@@ -235,7 +235,7 @@ class FunctionController extends Controller
             false
         );
 
-        return response()->json($varData['data']);
+        return response()->json($varData['data']['data']);
 
 
         // $site_code = $request->input('site_code');

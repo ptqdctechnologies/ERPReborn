@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Purchase;
 
+use DateTime;
 use App\Http\Controllers\ExportExcel\PurchaseRequisition\ExportReportPRtoPO;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -52,7 +53,7 @@ class PurchaseRequisitionController extends Controller
 
         return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionSummary', $compact);
     }
-    
+
     public function ReportsPrtoPo(Request $request)
     {
         try {
@@ -643,7 +644,7 @@ class PurchaseRequisitionController extends Controller
                     "documentDateTimeTZ"                => date('Y-m-d'),
                     "log_FileUpload_Pointer_RefID"      => (int) $fileID,
                     "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
-                    "deliveryDateTimeTZ"                => null,
+                    "deliveryDateTimeTZ"                => $purchaseRequisitionData['storeData']['dateCommance'],
                     "deliveryTo_RefID"                  => (int) $purchaseRequisitionData['storeData']['deliver_RefID'],
                     "deliveryTo_NonRefID"               => null,
                     "fulfillmentDeadlineDateTimeTZ"     => $purchaseRequisitionData['storeData']['dateCommance'],
@@ -730,23 +731,25 @@ class PurchaseRequisitionController extends Controller
 
         $data = $varData['data']['data'];
 
-        dump($data);
+        $convertDate = new DateTime($data[0]['deliveryDateTimeTZ']);
+
+        // dump($data);
 
         $compact = [
             'varAPIWebToken'        => $varAPIWebToken,
             'header'                => [
-                'budgetID'          => $data[0]['combinedBudget_RefID'],
-                'budgetName'        => $data[0]['combinedBudgetName'],
-                'budgetCode'        => $data[0]['combinedBudgetCode'],
-                'subBudgetID'       => $data[0]['combinedBudgetSection_RefID'],
-                'subBudgetName'     => $data[0]['combinedBudgetSectionName'],
-                'subBudgetCode'     => $data[0]['combinedBudgetSectionCode'],
-                'deliverToID'       => $data[0]['deliveryTo_RefID'],
+                'budgetID'          => $data[0]['combinedBudget_RefID'] ?? '-',
+                'budgetName'        => $data[0]['combinedBudgetName'] ?? '-',
+                'budgetCode'        => $data[0]['combinedBudgetCode'] ?? '-',
+                'subBudgetID'       => $data[0]['combinedBudgetSection_RefID'] ?? '-',
+                'subBudgetName'     => $data[0]['combinedBudgetSectionName'] ?? '-',
+                'subBudgetCode'     => $data[0]['combinedBudgetSectionCode'] ?? '-',
+                'deliverToID'       => $data[0]['deliveryTo_RefID'] ?? '-',
                 'deliverToCode'     => '',
                 'deliverToName'     => '',
-                'dateOfDelivery'    => '',
-                'notes'             => $data[0]['remarks'],
-                'fileId'            => $data[0]['log_FileUpload_Pointer_RefID'],
+                'dateOfDelivery'    => $convertDate->format('Y-m-d') ?? '', 
+                'remarks'           => nl2br(e($data[0]['remarks'])) ?? '-',
+                'fileId'            => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
             ],
             'detail'                => $data
         ];
