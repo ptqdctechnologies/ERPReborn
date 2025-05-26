@@ -94,14 +94,25 @@
                     <div class="col-lg-5">
                       <div class="row">
                         <div class="col p-0">
-                          <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none">
-                          <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                            $varAPIWebToken,
-                            'dataInput_Log_FileUpload',
-                            null,
-                            'dataInput_Return'
-                            ).
-                          ''; ?>
+                          <?php if ($header['fileId']) { ?>
+                            <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none" value="<?= $header['fileId']; ?>">
+                            <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                              $varAPIWebToken,
+                              'dataInput_Log_FileUpload',
+                              null,
+                              'dataInput_Return'
+                              ).
+                            ''; ?>
+                          <?php } else { ?>
+                            <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none">
+                            <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                              $varAPIWebToken,
+                              'dataInput_Log_FileUpload',
+                              null,
+                              'dataInput_Return'
+                              ).
+                            ''; ?>
+                          <?php } ?>
                         </div>
                       </div>
                     </div>
@@ -148,7 +159,7 @@
                         <th class="sticky-col forth-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price Req</th>
                         <th class="sticky-col third-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>
                         <th class="sticky-col second-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Balance Qty</th>
-                        <th class="sticky-col first-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Remark</th>
+                        <th class="sticky-col first-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Note</th>
                       </tr>
                     </thead>
                     <tbody></tbody>
@@ -185,11 +196,8 @@
                     <tr>
                       <td>
                         <br>
-                        <a class="btn btn-default btn-sm float-right" id="budget-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                        <a class="btn btn-default btn-sm float-right" id="purchase-request-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                           <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                        </a>
-                        <a class="btn btn-default btn-sm float-right" id="budget-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                          <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
                         </a>
                       </td>
                     </tr>
@@ -229,7 +237,7 @@
                         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
                         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty</th>
                         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total</th>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Remark</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Note</th>
                       </tr>
                     </thead>
                     <tbody></tbody>
@@ -243,6 +251,14 @@
                       <th> Total Item :
                         <span id="GrandTotal">0.00</span>
                       </th>
+                    </tr>
+                    <tr>
+                      <td>
+                        <br>
+                        <a class="btn btn-default btn-sm float-right" id="purchase-request-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                          <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
+                        </a>
+                      </td>
                     </tr>
                   </table>
                 </div>

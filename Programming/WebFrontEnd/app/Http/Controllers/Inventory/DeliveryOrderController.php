@@ -57,7 +57,7 @@ class DeliveryOrderController extends Controller
                         "documentDateTimeTZ"                => $deliveryOrderData['storeData']['var_date'],
                         "log_FileUpload_Pointer_RefID"      => $fileID,
                         "requesterWorkerJobsPosition_RefID" => $SessionWorkerCareerInternal_RefID,
-                        "transporter_RefID"                 => (int) $deliveryOrderData['storeData']['transporter_id'], // (int) $deliveryOrderData['storeData']['transporter_id'],
+                        "transporter_RefID"                 => (int) $deliveryOrderData['storeData']['transporter_id'],
                         "deliveryDateTimeTZ"                => null,
                         "deliveryFrom_RefID"                => null,
                         "deliveryFrom_NonRefID"             => $deliveryOrderData['storeData']['delivery_from'],
@@ -619,9 +619,9 @@ class DeliveryOrderController extends Controller
                 return response()->json($varData);
             }
 
-            $data = $varData['data'];
+            $data = $varData['data']['data'];
 
-            // dump($data);
+            // dump($varData);
 
             $compact = [
                 'varAPIWebToken'            => $varAPIWebToken,

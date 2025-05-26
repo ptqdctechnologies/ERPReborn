@@ -27,21 +27,21 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Date of Delivery</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div style="width: 42%;">
-                        <input id="dateCwommance" name="dateCommance" style="border-radius:0;width: 100%;" type="date" class="form-control">
+                        <input id="dateCwommance" name="dateCommance" style="border-radius:0;width: 100%;" type="date" class="form-control" value="<?= $header['dateOfDelivery']; ?>">
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-12 col-lg-5">
-            <!-- NOTES -->
+            <!-- REMARKS -->
             <div class="row" style="margin-bottom: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                    Notes
+                    Remarks
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <textarea id="notes" name="notes" rows="3" style="border-radius:0;" class="form-control"></textarea>
+                        <textarea id="remarks" name="remarks" rows="3" style="border-radius:0;" class="form-control"><?= $header['remarks']; ?></textarea>
                     </div>
                 </div>
             </div>

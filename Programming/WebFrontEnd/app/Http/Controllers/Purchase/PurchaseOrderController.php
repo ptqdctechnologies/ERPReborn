@@ -1285,7 +1285,7 @@ class PurchaseOrderController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-    
+
     public function StoreValidatePurchaseOrderPrNumber(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -1709,7 +1709,6 @@ class PurchaseOrderController extends Controller
         
         return view('Advance.Advance.Transactions.revisionASF', ['data' => $varData['data']['data']]);
     }
-
 
     public function addListCartPO(Request $request)
     {

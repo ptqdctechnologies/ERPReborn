@@ -235,7 +235,7 @@ class FunctionController extends Controller
             false
         );
 
-        return response()->json($varData['data']);
+        return response()->json($varData['data']['data']);
 
 
         // $site_code = $request->input('site_code');
@@ -402,7 +402,7 @@ class FunctionController extends Controller
         //     true
         // );
 
-        return response()->json($varData['data']);
+        return response()->json($varData['data']['data']);
     }
 
     // FUNCTION DELIVER TO
@@ -1135,7 +1135,7 @@ class FunctionController extends Controller
                 ]
             );
 
-            return response()->json($varData['data']);
+            return response()->json($varData['data']['data']);
         } catch (\Throwable $th) {
             Log::error("Error at getDeliveryOrderList: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -1175,7 +1175,7 @@ class FunctionController extends Controller
                 return response()->json($compact);
             }
 
-            return response()->json($varData['data']);
+            return response()->json($varData['data']['data']);
         } catch (\Throwable $th) {
             Log::error("Error at getDeliveryOrderDetail: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -1277,7 +1277,7 @@ class FunctionController extends Controller
                 return redirect()->back()->with('NotFound', 'Process Error');
             }
 
-            return response()->json($varData['data']);
+            return response()->json($varData['data']['data']);
         } catch (\Throwable $th) {
             Log::error("Error at getPaymentTerm: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -1310,7 +1310,7 @@ class FunctionController extends Controller
                 return redirect()->back()->with('NotFound', 'Process Error');
             }
 
-            return response()->json($varData['data']);
+            return response()->json($varData['data']['data']);
         } catch (\Throwable $th) {
             Log::error("Error at getVAT: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
