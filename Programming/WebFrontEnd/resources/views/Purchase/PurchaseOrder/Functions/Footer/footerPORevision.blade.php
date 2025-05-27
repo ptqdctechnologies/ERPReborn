@@ -1,5 +1,6 @@
 <script>
     var indexPurchaseOrder = 0;
+    const termOfPaymentID = document.getElementById('termOfPaymentID');
     const dataTable = document.getElementById('DataPurchaseOrderDetail');
     
     $('#containerValuePPN').hide();
@@ -28,7 +29,8 @@
                     $('#termOfPaymentOption').append('<option disabled selected>Select a TOP</option>');
 
                     data.forEach(function(project) {
-                        $('#termOfPaymentOption').append('<option value="' + project.sys_ID + '">' + project.name + '</option>');
+                        let isSelected = project.sys_ID == termOfPaymentID.value ? ' selected ' : ' ';
+                        $('#termOfPaymentOption').append('<option' + isSelected + 'value="' + project.sys_ID + '">' + project.name + '</option>');
                     });
                 } else {
                     console.log('Data top code not found.');
@@ -138,7 +140,7 @@
                         <input class="form-control number-without-negative" id="balance${indexPurchaseOrder}" data-default="" autocomplete="off" style="border-radius:0px;" disabled />
                     </td>
                     <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
-                        <textarea id="note${indexPurchaseOrder}" data-default="" class="form-control">${val2.remarks || ''}</textarea>
+                        <textarea id="note${indexPurchaseOrder}" data-default="" class="form-control">${val2.note || ''}</textarea>
                     </td>
                 </tr>
             `;

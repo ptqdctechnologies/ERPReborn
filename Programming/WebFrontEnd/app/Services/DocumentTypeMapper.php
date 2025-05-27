@@ -29,7 +29,6 @@ class DocumentTypeMapper
             'Purchase Order Form' => [
                 'key' => 'transaction.read.dataList.supplyChain.getPurchaseOrderDetail',
                 'parameter' => ['purchaseOrder_RefID' => (int) $referenceId],
-                'businessDocument_RefID' => (int) 74000000021353,
             ],
             'Purchase Requisition Form' => [
                 'key' => 'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
@@ -42,8 +41,8 @@ class DocumentTypeMapper
                 'businessDocument_RefID' => (int) 74000000021491,
             ],
             'Warehouse Inbound Order Form' => [
-                'key' => '',
-                'parameter' => [],
+                'key' => 'transaction.read.dataList.supplyChain.getWarehouseInboundOrderDetail',
+                'parameter' => ['warehouseInboundOrder_RefID' => (int) $referenceId],
                 'businessDocument_RefID' => (int) 74000000021336,
             ],
         ];
@@ -198,15 +197,15 @@ class DocumentTypeMapper
             'Purchase Order Form'       => [
                 'dataHeader'            => [
                     'poNumber'          => $dataDetail['documentNumber'] ?? '-',
-                    'deliveryTo'        => '-',
-                    'downPayment'       => '-',
-                    'termOfPayment'     => $dataDetail['paymentTerm'] ?? '-',
-                    'fileID'            => null,
+                    'deliveryTo'        => $dataDetail['deliveryTo_NonRefID']['address'] ?? '-',
+                    'downPayment'       => $dataDetail['downPayment'] ?? '-',
+                    'termOfPayment'     => $dataDetail['termOfPayment_RefID'] ?? '-',
+                    'fileID'            => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
                     'supplierCode'      => $dataDetail['supplierCode'] ?? '-',
                     'supplierName'      => $dataDetail['supplierName'] ?? '-',
                     'supplierAddress'   => $dataDetail['supplierAddress'] ?? '-',
-                    'paymentNote'       => '-',
-                    'internalNote'      => '-'
+                    'paymentNote'       => $dataDetail['paymentNotes'] ?? '-',
+                    'internalNote'      => $dataDetail['internalNotes'] ?? '-',
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',

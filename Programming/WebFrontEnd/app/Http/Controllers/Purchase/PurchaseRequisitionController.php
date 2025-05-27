@@ -733,8 +733,6 @@ class PurchaseRequisitionController extends Controller
 
         $convertDate = new DateTime($data[0]['deliveryDateTimeTZ']);
 
-        // dump($data);
-
         $compact = [
             'varAPIWebToken'        => $varAPIWebToken,
             'header'                => [
