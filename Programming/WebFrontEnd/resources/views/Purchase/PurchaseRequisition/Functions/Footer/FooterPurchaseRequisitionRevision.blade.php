@@ -268,6 +268,78 @@
         });
     }
 
+    function SelectWorkFlow(formatData) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            confirmButtonColor: '#4B586A',
+            confirmButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            ShowLoading();
+            RevisionPurchaseRequest({...formatData, comment: result.value});
+        });
+    }
+
+    function RevisionPurchaseRequest(formatData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("PurchaseRequisition.UpdatePurchaseRequest") }}',
+            success: function(res) {
+                HideLoading();
+
+                if (res.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        ShowLoading();
+                        window.location.href = '/PurchaseRequisition?var=1';
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                HideLoading();
+                console.log('error', jqXHR, textStatus, errorThrown);
+            }
+        });
+    }
+
     function GetPRNumberDetail(dataDetail) {
         let totalPRNumberDetail = 0;
 
@@ -367,14 +439,14 @@
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 productCode: productCode,
-                                recordID: purchaseRequisitionDetail.value,
+                                recordID: parseInt(purchaseRequisitionDetail.value),
                                 entities: {
                                     combinedBudgetSectionDetail_RefID: combinedBudgetSectionDetailInput.value,
                                     product_RefID: productCode,
-                                    quantity: qty,
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
                                     quantityUnit_RefID: qtyUnitRefId.value,
                                     productUnitPriceCurrency_RefID: currencyRefId.value,
-                                    productUnitPriceCurrencyValue: price,
+                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
                                     productUnitPriceCurrencyExchangeRate: 1,
                                     fulfillmentDeadlineDateTimeTZ: null,
                                     remarks: remark
@@ -402,14 +474,14 @@
 
                     dataStore.push({
                         productCode: productCode,
-                        recordID: purchaseRequisitionDetail.value,
+                        recordID: parseInt(purchaseRequisitionDetail.value),
                         entities: {
                             combinedBudgetSectionDetail_RefID: combinedBudgetSectionDetailInput.value,
                             product_RefID: productCode,
-                            quantity: qty,
+                            quantity: parseFloat(qty.replace(/,/g, '')),
                             quantityUnit_RefID: qtyUnitRefId.value,
                             productUnitPriceCurrency_RefID: currencyRefId.value,
-                            productUnitPriceCurrencyValue: price,
+                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
                             productUnitPriceCurrencyExchangeRate: 1,
                             fulfillmentDeadlineDateTimeTZ: null,
                             remarks: remark,
@@ -454,6 +526,88 @@
         document.getElementById('GrandTotal').textContent = "0.00";
         document.getElementById('purchaseRequisitionDetail').value = "";
         calculateTotal();
+    });
+
+    $("#FormRevisionPurchaseRequest").on("submit", function(e) {
+        e.preventDefault();
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "Save this data?",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+            confirmButtonColor: '#e9ecef',
+            cancelButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var action = $(this).attr("action");
+                var method = $(this).attr("method");
+                var form_data = new FormData($(this)[0]);
+
+                ShowLoading();
+
+                $.ajax({
+                    url: action,
+                    dataType: 'json',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    type: method,
+                    success: function(response) {
+                        if (response.message == "WorkflowError") {
+                            HideLoading();
+                            $("#submitRevisionPR").prop("disabled", false);
+
+                            CancelNotif("You don't have access", '/PurchaseRequisition?var=1');
+                        } else if (response.message == "MoreThanOne") {
+                            HideLoading();
+
+                            $('#getWorkFlow').modal('toggle');
+
+                            var t = $('#tableGetWorkFlow').DataTable();
+                            t.clear();
+                            $.each(response.data, function(key, val) {
+                                t.row.add([
+                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                                ]).draw();
+                            });
+                        } else {
+                            const formatData = {
+                                workFlowPath_RefID: response.workFlowPath_RefID, 
+                                nextApprover: response.nextApprover_RefID, 
+                                approverEntity: response.approverEntity_RefID, 
+                                documentTypeID: response.documentTypeID,
+                                storeData: response.storeData
+                            };
+
+                            HideLoading();
+                            SelectWorkFlow(formatData);
+                        }
+                    },
+                    error: function(response) {
+                        console.log('response error', response);
+                        
+                        HideLoading();
+                        $("#submitRevisionPR").prop("disabled", false);
+                        CancelNotif("You don't have access", '/PurchaseRequisition?var=1');
+                    }
+                });
+            }  else if (result.dismiss === Swal.DismissReason.cancel) {
+                HideLoading();
+                CancelNotif("Data Cancel Inputed", '/PurchaseRequisition?var=1');
+            }
+        })
     });
 
     $(document).on('input', '.number-without-negative', function() {

@@ -14,9 +14,19 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Services\PurchaseRequisitionService;
+use App\Services\WorkflowService;
 
 class PurchaseRequisitionController extends Controller
 {
+    protected $purchaseRequisitionService, $workflowService;
+
+    public function __construct(PurchaseRequisitionService $purchaseRequisitionService, WorkflowService $workflowService)
+    {
+        $this->purchaseRequisitionService = $purchaseRequisitionService;
+        $this->workflowService = $workflowService;
+    }
+
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -736,6 +746,7 @@ class PurchaseRequisitionController extends Controller
         $compact = [
             'varAPIWebToken'        => $varAPIWebToken,
             'header'                => [
+                'purchaseRequestID' => $data[0]['purchaseRequisition_RefID'] ?? '-',
                 'budgetID'          => $data[0]['combinedBudget_RefID'] ?? '-',
                 'budgetName'        => $data[0]['combinedBudgetName'] ?? '-',
                 'budgetCode'        => $data[0]['combinedBudgetCode'] ?? '-',
@@ -755,6 +766,38 @@ class PurchaseRequisitionController extends Controller
         // dump($varData);
 
         return view('Purchase.PurchaseRequisition.Transactions.RevisionPurchaseRequisition', $compact);
+    }
+
+    public function UpdatePurchaseRequest(Request $request)
+    {
+        try {
+            $response = $this->purchaseRequisitionService->updates($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function update(Request $request, $id)

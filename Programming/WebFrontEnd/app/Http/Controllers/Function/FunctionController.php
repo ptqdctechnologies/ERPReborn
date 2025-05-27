@@ -436,7 +436,7 @@ class FunctionController extends Controller
             ),
             true
         );
-        return response()->json($varDataDeliverTo);
+        return response()->json($varDataDeliverTo['data']);
     }
 
     // FUNCTION WAREHOUSE 
