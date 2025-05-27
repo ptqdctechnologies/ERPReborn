@@ -2,6 +2,7 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getProduct')
 @include('getFunction.getDeliverTo')
 @include('getFunction.getWorkFlow')
 @include('getFunction.getPurchaseRequisition')
@@ -22,8 +23,9 @@
       @include('Purchase.PurchaseRequisition.Functions.Menu.MenuProcReq')
       <div class="card">
         <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+        <input type="hidden" id="data_table" value='<?= json_encode($detail ?? []) ?>'>
         <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
-        <input type="hidden" id="purchaseRequisitionDetail" value='<?= json_encode($detail ?? []) ?>'>
+        <input type="hidden" name="purchaseRequisitionDetail" id="purchaseRequisitionDetail">
 
         <!-- PURCHASE REQUEST -->
         <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">

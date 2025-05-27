@@ -694,36 +694,25 @@ class FunctionController extends Controller
     // FUNCTION DOCUMENT TYPE 
     public function getDocumentType()
     {
-        if (Redis::get("DocumentType") == null) {
-
-            $varAPIWebToken = Session::get('SessionLogin');
-            $varBusinessDocumentType = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.master.getBusinessDocumentType',
-                'latest',
-                [
-                    'parameter' => [],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-        }
-
-        $DocumentType = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "DocumentType"
-            ),
-            true
+        $varAPIWebToken = Session::get('SessionLogin');
+        $varBusinessDocumentType = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.master.getBusinessDocumentType',
+            'latest',
+            [
+                'parameter' => [],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
         );
 
-        return response()->json($DocumentType);
+        return response()->json($varBusinessDocumentType['data']['data']);
     }
 
     // FUNCTION DOCUMENT TYPE 

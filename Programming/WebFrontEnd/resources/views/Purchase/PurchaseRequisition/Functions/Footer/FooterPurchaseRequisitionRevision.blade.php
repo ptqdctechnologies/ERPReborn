@@ -1,7 +1,7 @@
 <script>
     let dataStore   = [];
     const siteCode  = document.getElementById('site_id_second');
-    const dataTable = document.getElementById('purchaseRequisitionDetail');
+    const dataTable = document.getElementById('data_table');
 
     function getDocumentType() {
         $.ajaxSetup({
@@ -14,10 +14,10 @@
             type: 'GET',
             url: '{!! route("getDocumentType") !!}',
             success: function(data) {
-                const result = data.find(({ Name }) => Name === "Purchase Requisition Revision Form");
+                const result = data.find(({ name }) => name === "Purchase Requisition Revision Form");
 
                 if (Object.keys(result).length > 0) {
-                    $("#DocumentTypeID").val(result.Sys_ID);
+                    $("#DocumentTypeID").val(result.sys_ID);
                 } else {
                     console.log('error get document type');
                 }
@@ -40,7 +40,10 @@
 
         total = Math.ceil(total * 100) / 100;
 
-        document.getElementById('TotalBudgetSelected').textContent = currencyTotal(total);
+        document.getElementById('TotalBudgetSelected').textContent = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
     }
 
     function getBudget(site_code, dataDetail) {
@@ -98,6 +101,7 @@
                         <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                             <textarea id="remark${key}" class="form-control" data-default=""></textarea>
                         </td>
+                        <input id="purchase_requisition_detail${key}" value="null" type="hidden" />
                     `;
 
                     if (!val2.product_RefID) {
@@ -138,11 +142,23 @@
                             <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <textarea id="remark${key}" class="form-control" data-default="${findDataDetail.notes}">${findDataDetail.notes}</textarea>
                             </td>
+                            <input id="purchase_requisition_detail${key}" value="${findDataDetail.sys_ID}" type="hidden" />
                         `;
                     }
 
                     let row = `
                         <tr>
+                            <input id="productId${key}" data-product-id="productId" value="${val2.product_RefID}" type="hidden" />
+                            <input id="productName${key}" value="${val2.productName}" type="hidden" />
+                            <input id="qtyId${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
+                            <input id="qty${key}" value="${val2.quantity}" type="hidden" />
+                            <input id="price${key}" value="${val2.priceBaseCurrencyValue}" type="hidden" />
+                            <input id="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
+                            <input id="currency${key}" value="${val2.priceBaseCurrencyISOCode}" type="hidden" />
+                            <input id="currencyId${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
+                            <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
+                            <input id="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID}" type="hidden" />
+
                             ${productColumn}
                             <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
                             <td style="text-align: center;">${currencyTotal(val2.quantityRemaining)}</td>
@@ -236,6 +252,22 @@
         });
     }
 
+    function updateGrandTotal() {
+        let total = 0;
+        const rows = document.querySelectorAll('#tablePRDetailList tbody tr');
+        rows.forEach(row => {
+            const totalCell = row.children[7];
+            const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
+            total += value;
+        });
+
+        document.getElementById('TotalBudgetSelected').innerText = "0.00";
+        document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
     function GetPRNumberDetail(dataDetail) {
         let totalPRNumberDetail = 0;
 
@@ -244,6 +276,7 @@
 
         $.each(dataDetail, function(key, val2) {
             dataStore.push({
+                productCode: val2.product_RefID,
                 recordID: val2.sys_ID,
                 entities: {
                     combinedBudgetSectionDetail_RefID: val2.cmbBudgetSectDtl_RefID,
@@ -261,7 +294,8 @@
 
             let rowList = `
                 <tr>
-                    <td style="text-align: center;padding: 0.8rem 0px;">-</td>
+                    <input type="hidden" name="qty_avail[]" value="${currencyTotal(val2.combinedBudget_Quantity)}">
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.product_RefID}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.priceCurrencyISOCode}</td>
@@ -286,6 +320,115 @@
         const targetTable = document.getElementById('tablePRDetailList').getElementsByTagName('tbody')[0];
 
         const rows = sourceTable.getElementsByTagName('tr');
+
+        for (let row of rows) {
+            const qtyInput                          = row.querySelector('input[id^="qty_req"]');
+            const priceInput                        = row.querySelector('input[id^="price_req"]');
+            const totalInput                        = row.querySelector('input[id^="total_req"]');
+            const balanceInput                      = row.querySelector('input[id^="balanced_qty"]');
+            const remarkInput                       = row.querySelector('textarea[id^="remark"]');
+            const qtyUnitRefId                      = row.querySelector('input[id^="qtyId"]');
+            const currencyRefId                     = row.querySelector('input[id^="currencyId"]');
+            const combinedBudgetSectionDetailInput  = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const purchaseRequisitionDetail         = row.querySelector('input[id^="purchase_requisition_detail"]');
+
+            if (
+                qtyInput && priceInput && totalInput && balanceInput && remarkInput &&
+                qtyInput.value.trim() !== '' &&
+                priceInput.value.trim() !== '' &&
+                totalInput.value.trim() !== '' &&
+                balanceInput.value.trim() !== '' &&
+                remarkInput.value.trim() !== ''
+            ) {
+                const productCode = row.children[0].value.trim();
+                const productName = row.children[1].value.trim();
+                const uom = row.children[5].value.trim();
+                const currency = row.children[6].value.trim();
+                const qtyAvail = row.children[13].innerText.trim();
+
+                const price = priceInput.value.trim();
+                const qty = qtyInput.value.trim();
+                const total = totalInput.value.trim();
+                const remark = remarkInput.value.trim();
+
+                let found = false;
+                const existingRows = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetCode = targetRow.children[1].innerText.trim();
+                    if (targetCode === productCode) {
+                        targetRow.children[5].innerText = price;
+                        targetRow.children[6].innerText = qty;
+                        targetRow.children[7].innerText = total;
+                        targetRow.children[8].innerText = remark;
+                        found = true;
+
+                        const indexToUpdate = dataStore.findIndex(item => item.productCode == productCode);
+                        if (indexToUpdate !== -1) {
+                            dataStore[indexToUpdate] = {
+                                productCode: productCode,
+                                recordID: purchaseRequisitionDetail.value,
+                                entities: {
+                                    combinedBudgetSectionDetail_RefID: combinedBudgetSectionDetailInput.value,
+                                    product_RefID: productCode,
+                                    quantity: qty,
+                                    quantityUnit_RefID: qtyUnitRefId.value,
+                                    productUnitPriceCurrency_RefID: currencyRefId.value,
+                                    productUnitPriceCurrencyValue: price,
+                                    productUnitPriceCurrencyExchangeRate: 1,
+                                    fulfillmentDeadlineDateTimeTZ: null,
+                                    remarks: remark
+                                }
+                            };
+                        }
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
+                        <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${productName}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${currency}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${price}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${qty}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${total}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${remark}</td>
+                    `;
+                    targetTable.appendChild(newRow);
+
+                    dataStore.push({
+                        productCode: productCode,
+                        recordID: purchaseRequisitionDetail.value,
+                        entities: {
+                            combinedBudgetSectionDetail_RefID: combinedBudgetSectionDetailInput.value,
+                            product_RefID: productCode,
+                            quantity: qty,
+                            quantityUnit_RefID: qtyUnitRefId.value,
+                            productUnitPriceCurrency_RefID: currencyRefId.value,
+                            productUnitPriceCurrencyValue: price,
+                            productUnitPriceCurrencyExchangeRate: 1,
+                            fulfillmentDeadlineDateTimeTZ: null,
+                            remarks: remark,
+                        }
+                    });
+                }
+
+                qtyInput.value = '';
+                priceInput.value = '';
+                totalInput.value = '';
+                remarkInput.value = '';
+                balanceInput.value = balanceInput.getAttribute('data-default');
+            }
+        }
+
+        dataStore = dataStore.filter(item => item !== undefined);
+        $("#purchaseRequisitionDetail").val(JSON.stringify(dataStore));
+
+        updateGrandTotal();
     });
 
     $('#purchase-request-details-reset').on('click', function() {
@@ -309,7 +452,8 @@
         $('#tablePRDetailList tbody').empty();
 
         document.getElementById('GrandTotal').textContent = "0.00";
-        document.getElementById('TotalBudgetSelected').textContent = "0.00";
+        document.getElementById('purchaseRequisitionDetail').value = "";
+        calculateTotal();
     });
 
     $(document).on('input', '.number-without-negative', function() {
