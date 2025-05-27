@@ -14,8 +14,6 @@ function getDocumentType(name) {
     type: 'GET',
     url: '{!! route("getDocumentType") !!}?name=' + name,
     success: function(data) {
-      console.log('data', data);
-      
       if (Array.isArray(data) && data.length > 0) {
         if (name == "Advance Settlement Form") {
           $("#DocumentTypeID").val(77000000000097);
