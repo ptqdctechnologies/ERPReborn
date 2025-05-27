@@ -945,7 +945,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-04-25                                                                                           |
+        | ▪ Last Update     : 2025-05-27                                                                                           |
         | ▪ Creation Date   : 2025-03-05                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pembelian (Purchase Order Detail) Versi Terakhir                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1011,6 +1011,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray]['termOfPayment_RefID'] = $value["TermOfPayment_RefID"];
                             $varReturn['data'][$idxArray]['deliveryTo_RefID'] = $value["DeliveryTo_RefID"];
                             $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = json_decode($value["DeliveryTo_NonRefID"]);
+                            $varReturn['data'][$idxArray]['vatRatio'] = $value["VatRatio"];
                             $varReturn['data'][$idxArray]['remarks'] = $value["Remarks"];
                             $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
                             $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];

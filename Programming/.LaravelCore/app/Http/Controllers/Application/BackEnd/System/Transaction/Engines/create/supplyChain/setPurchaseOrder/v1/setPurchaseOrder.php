@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-04-16                                                                                           |
+        | ▪ Last Update     : 2025-05-27                                                                                           |
         | ▪ Creation Date   : 2022-03-02                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -99,6 +99,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     $varData['entities']['internalNotes'],
                                     $varData['entities']['downPayment'],
                                     $varData['entities']['termOfPayment_RefID'],
+                                    $varData['entities']['vatRatio'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,
