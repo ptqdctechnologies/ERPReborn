@@ -44,7 +44,7 @@ class CheckDocumentController extends Controller
             if (!$referenceId || !$documentType) {
                 return redirect()->back()->with('NotFound', 'Invalid request data.');
             }
-
+            
             $apiConfig = DocumentTypeMapper::getApiConfig($documentType, $referenceId);
 
             if (!$apiConfig) {

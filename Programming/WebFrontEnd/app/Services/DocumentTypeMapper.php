@@ -41,8 +41,8 @@ class DocumentTypeMapper
                 'businessDocument_RefID' => (int) 74000000021491,
             ],
             'Warehouse Inbound Order Form' => [
-                'key' => '',
-                'parameter' => [],
+                'key' => 'transaction.read.dataList.supplyChain.getWarehouseInboundOrderDetail',
+                'parameter' => ['warehouseInboundOrder_RefID' => (int) $referenceId],
                 'businessDocument_RefID' => (int) 74000000021336,
             ],
         ];

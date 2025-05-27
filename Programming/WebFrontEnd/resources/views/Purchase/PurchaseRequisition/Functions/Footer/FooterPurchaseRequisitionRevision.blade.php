@@ -59,11 +59,25 @@
                 let tbody = $('#tableGetPRDetails tbody');
                 tbody.empty();
 
+                let unspecifiedProducts = data.filter(item => item.productName === "Unspecified Product");
+
+                if (unspecifiedProducts.length > 1) {
+                    let maxBudgetProduct = unspecifiedProducts.reduce((max, item) => {
+                        let totalBudget = item.quantity * item.priceBaseCurrencyValue;
+                        return totalBudget > (max.quantity * max.priceBaseCurrencyValue) ? item : max;
+                    });
+
+                    data = data.filter(item => 
+                        item.productName !== "Unspecified Product" || 
+                        (item.productName === "Unspecified Product" && item === maxBudgetProduct)
+                    );
+                }
+
                 $.each(data, function(key, val2) {
                     let isUnspecified = '';
                     let balanced = currencyTotal(val2.quantity);
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
-                    let findDataDetail = dataDetail.find(el => el.product_RefID === val2.product_RefID && el.productName === val2.productName);
+                    let findDataDetail = dataDetail.find(el => el.product_RefID == val2.product_RefID && el.productName == val2.productName);
                     let productColumn = `
                         <td style="text-align: center;">${val2.product_RefID}</td>
                         <td style="text-align: center;">${val2.productName}</td>
