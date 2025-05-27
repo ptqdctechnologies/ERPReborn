@@ -3,31 +3,6 @@
     const siteCode  = document.getElementById('site_id_second');
     const dataTable = document.getElementById('data_table');
 
-    function getDocumentType() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getDocumentType") !!}',
-            success: function(data) {
-                const result = data.find(({ name }) => name === "Purchase Requisition Revision Form");
-
-                if (Object.keys(result).length > 0) {
-                    $("#DocumentTypeID").val(result.sys_ID);
-                } else {
-                    console.log('error get document type');
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                console.log('error', textStatus, errorThrown);
-            }
-        });
-    }
-
     function calculateTotal() {
         let total = 0;
         
@@ -622,7 +597,7 @@
 
         $(".errorMessageContainerPRDetails").hide();
 
-        getDocumentType();
+        getDocumentType("Purchase Requisition Revision Form");
         GetPRNumberDetail(data);
         getBudget(siteCode.value, data);
     });

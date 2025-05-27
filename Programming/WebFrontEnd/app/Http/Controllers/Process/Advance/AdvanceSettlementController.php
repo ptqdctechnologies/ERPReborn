@@ -247,7 +247,7 @@ class AdvanceSettlementController extends Controller
                 return response()->json($response);
             }
 
-            $data = $response['data'];
+            $data = $response['data']['data'];
 
             $compact = [
                 'advanceNumber'     => $data[0]['documentNumber'] ?? '-',

@@ -81,9 +81,9 @@
                         $.each(data, function(key, val) {
                             keys += 1;
                             table.row.add([
-                                '<input id="sys_id_worker_second' + keys + '" value="' + val.Sys_ID + '" data-trigger="sys_id_worker_second" type="hidden">' + no++,
-                                val.PersonName || '-',
-                                val.OrganizationalJobPositionName || '-',
+                                '<input id="sys_id_worker_second' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_worker_second" type="hidden">' + no++,
+                                val.personName || '-',
+                                val.organizationalJobPositionName || '-',
                             ]).draw();
                         });
 
@@ -183,9 +183,9 @@
                         $.each(data, function(key, val) {
                             keys += 1;
                             t.row.add([
-                                '<tbody><tr><input id="sys_id_requester' + keys + '" value="' + val.Sys_ID + '" type="hidden"><input id="contact_number_requester' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                                '<td>' + val.PersonName + '</td>',
-                                '<td>' + val.OrganizationalJobPositionName + '</td></tr></tbody>',
+                                '<tbody><tr><input id="sys_id_requester' + keys + '" value="' + val.sys_ID + '" type="hidden"><input id="contact_number_requester' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                                '<td>' + val.personName + '</td>',
+                                '<td>' + val.organizationalJobPositionName + '</td></tr></tbody>',
                             ]).draw();
                         });
                     }

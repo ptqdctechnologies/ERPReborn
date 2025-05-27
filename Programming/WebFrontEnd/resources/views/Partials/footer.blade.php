@@ -2,6 +2,37 @@
   <strong>Copyright &copy; 2020 - </strong> PT Qdc Technologies
 </footer>
 
+<script>
+function getDocumentType(name) {
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $.ajax({
+    type: 'GET',
+    url: '{!! route("getDocumentType") !!}?name=' + name,
+    success: function(data) {
+      console.log('data', data);
+      
+      if (Array.isArray(data) && data.length > 0) {
+        if (name == "Advance Settlement Form") {
+          $("#DocumentTypeID").val(77000000000097);
+        } else {
+          $("#DocumentTypeID").val(data[0].sys_ID);
+        }
+      } else {
+        console.log('error get document type');
+      }
+    },
+    error: function (textStatus, errorThrown) {
+      console.log('error', textStatus, errorThrown);
+    }
+  });
+}
+</script>
+
 <!-- FUNCTION FOR FILE UPLOAD -->
 <script>
   if (document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action") != null) {
@@ -320,9 +351,6 @@
     $("#remark_icon").hide();
   });
 </script>
-
-
-
 
 <!-- FUNCTION LOGOUT IN MULTI PAGE -->
 

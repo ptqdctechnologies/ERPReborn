@@ -9,31 +9,6 @@
     $(".loadingAdvanceSettlementTable").hide();
     $(".errorAdvanceSettlementTable").hide();
 
-    function getDocumentType() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getDocumentType") !!}',
-            success: function(data) {
-                const result = data.find(({ Name }) => Name === "Advance Settlement Form");
-
-                if (Object.keys(result).length > 0) {
-                    $("#DocumentTypeID").val(77000000000097);
-                } else {
-                    console.log('error get document type');
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                console.log('error', textStatus, errorThrown);
-            }
-        });
-    }
-
     function calculateTotal() {
         let total = 0;
         
@@ -722,6 +697,6 @@
     });
 
     $(window).one('load', function(e) {
-        getDocumentType();
+        getDocumentType("Advance Settlement Form");
     });
 </script>
