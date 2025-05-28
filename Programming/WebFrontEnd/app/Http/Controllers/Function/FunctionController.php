@@ -313,41 +313,27 @@ class FunctionController extends Controller
     // FUNCTION WORKER 
     public function getWorker(Request $request)
     {
-
-        if (Redis::get("Worker") == null) {
-
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            $varDataWorker = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent',
-                'latest',
-                [
-                    'parameter' => [
-                        'worker_RefID' => null
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
+        $varAPIWebToken = Session::get('SessionLogin');
+        $varDataWorker = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent',
+            'latest',
+            [
+                'parameter' => [
+                    'worker_RefID' => null
                 ],
-                false
-            );
-        }
-
-        $DataWorker = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "Worker"
-            ),
-            true
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
         );
 
-        // dd($DataWorker);
-        return response()->json($DataWorker);
+        return response()->json($varDataWorker['data']['data']);
     }
 
     // FUNCTION WORKER 
@@ -436,7 +422,7 @@ class FunctionController extends Controller
             ),
             true
         );
-        return response()->json($varDataDeliverTo);
+        return response()->json($varDataDeliverTo['data']);
     }
 
     // FUNCTION WAREHOUSE 
@@ -547,12 +533,12 @@ class FunctionController extends Controller
             ]
         );
 
-        if ($person_RefID && isset($varData['data'])) {
-            $filteredData = array_filter($varData['data'], function($item) use ($person_RefID) {
+        if ($person_RefID && isset($varData['data']['data'])) {
+            $filteredData = array_filter($varData['data']['data'], function($item) use ($person_RefID) {
                 return $item['entity_RefID'] === $person_RefID;
             });
         } else {
-            $filteredData = $varData['data'] ?? [];
+            $filteredData = $varData['data']['data'] ?? [];
         }
 
         return response()->json(array_values($filteredData));
@@ -597,9 +583,9 @@ class FunctionController extends Controller
 
         $num = 0;
         $filteredArray = [];
-        for ($i = 0; $i < count($DataBank); $i++) {
-            if ($DataBank[$i]['Entity_RefID'] == $person_refID) {
-                $filteredArray[$num] = $DataBank[$i];
+        for ($i = 0; $i < count($DataBank['data']); $i++) {
+            if ($DataBank['data'][$i]['Entity_RefID'] == $person_refID) {
+                $filteredArray[$num] = $DataBank['data'][$i];
                 $num++;
             }
         }
@@ -692,38 +678,29 @@ class FunctionController extends Controller
     }
 
     // FUNCTION DOCUMENT TYPE 
-    public function getDocumentType()
+    public function getDocumentType(Request $request)
     {
-        if (Redis::get("DocumentType") == null) {
+        $varAPIWebToken = Session::get('SessionLogin');
+        $transName      = $request->input('name');
 
-            $varAPIWebToken = Session::get('SessionLogin');
-            $varBusinessDocumentType = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.master.getBusinessDocumentType',
-                'latest',
-                [
-                    'parameter' => [],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-        }
-
-        $DocumentType = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "DocumentType"
-            ),
-            true
+        $varBusinessDocumentType = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.master.getBusinessDocumentType',
+            'latest',
+            [
+                'parameter' => [],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => "\"Name\" = '$transName'",
+                    'paging' => null
+                ]
+            ],
+            false
         );
 
-        return response()->json($DocumentType);
+        return response()->json($varBusinessDocumentType['data']['data']);
     }
 
     // FUNCTION DOCUMENT TYPE 
@@ -1063,7 +1040,7 @@ class FunctionController extends Controller
                 return response()->json($response);
             }
 
-            return response()->json($response['data']);
+            return response()->json($response['data']['data']);
         } catch (\Throwable $th) {
             Log::error("Error at getAdvanceSettlement: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

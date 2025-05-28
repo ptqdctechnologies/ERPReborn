@@ -12,31 +12,6 @@
     $("#deliverModalTrigger").prop("disabled", true);
     $("#mySiteCodeSecondTrigger").prop("disabled", true);
 
-    function getDocumentType() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getDocumentType") !!}',
-            success: function(data) {
-                const result = data.find(({ Name }) => Name === "Purchase Requisition Form");
-
-                if (Object.keys(result).length > 0) {
-                    $("#DocumentTypeID").val(result.Sys_ID);
-                } else {
-                    console.log('error get document type');
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                console.log('error', textStatus, errorThrown);
-            }
-        });
-    }
-
     function calculateTotal() {
         let total = 0;
         
@@ -679,6 +654,6 @@
     });
 
     $(window).one('load', function(e) {
-        getDocumentType();
+        getDocumentType("Purchase Requisition Form");
     });
 </script>

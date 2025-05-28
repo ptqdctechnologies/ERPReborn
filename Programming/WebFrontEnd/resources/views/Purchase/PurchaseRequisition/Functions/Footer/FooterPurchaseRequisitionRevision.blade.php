@@ -1,32 +1,7 @@
 <script>
     let dataStore   = [];
     const siteCode  = document.getElementById('site_id_second');
-    const dataTable = document.getElementById('purchaseRequisitionDetail');
-
-    function getDocumentType() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getDocumentType") !!}',
-            success: function(data) {
-                const result = data.find(({ Name }) => Name === "Purchase Requisition Revision Form");
-
-                if (Object.keys(result).length > 0) {
-                    $("#DocumentTypeID").val(result.Sys_ID);
-                } else {
-                    console.log('error get document type');
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                console.log('error', textStatus, errorThrown);
-            }
-        });
-    }
+    const dataTable = document.getElementById('data_table');
 
     function calculateTotal() {
         let total = 0;
@@ -40,7 +15,10 @@
 
         total = Math.ceil(total * 100) / 100;
 
-        document.getElementById('TotalBudgetSelected').textContent = currencyTotal(total);
+        document.getElementById('TotalBudgetSelected').textContent = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
     }
 
     function getBudget(site_code, dataDetail) {
@@ -98,6 +76,7 @@
                         <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                             <textarea id="remark${key}" class="form-control" data-default=""></textarea>
                         </td>
+                        <input id="purchase_requisition_detail${key}" value="null" type="hidden" />
                     `;
 
                     if (!val2.product_RefID) {
@@ -138,11 +117,23 @@
                             <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <textarea id="remark${key}" class="form-control" data-default="${findDataDetail.notes}">${findDataDetail.notes}</textarea>
                             </td>
+                            <input id="purchase_requisition_detail${key}" value="${findDataDetail.sys_ID}" type="hidden" />
                         `;
                     }
 
                     let row = `
                         <tr>
+                            <input id="productId${key}" data-product-id="productId" value="${val2.product_RefID}" type="hidden" />
+                            <input id="productName${key}" value="${val2.productName}" type="hidden" />
+                            <input id="qtyId${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
+                            <input id="qty${key}" value="${val2.quantity}" type="hidden" />
+                            <input id="price${key}" value="${val2.priceBaseCurrencyValue}" type="hidden" />
+                            <input id="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
+                            <input id="currency${key}" value="${val2.priceBaseCurrencyISOCode}" type="hidden" />
+                            <input id="currencyId${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
+                            <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
+                            <input id="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID}" type="hidden" />
+
                             ${productColumn}
                             <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
                             <td style="text-align: center;">${currencyTotal(val2.quantityRemaining)}</td>
@@ -236,6 +227,94 @@
         });
     }
 
+    function updateGrandTotal() {
+        let total = 0;
+        const rows = document.querySelectorAll('#tablePRDetailList tbody tr');
+        rows.forEach(row => {
+            const totalCell = row.children[7];
+            const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
+            total += value;
+        });
+
+        document.getElementById('TotalBudgetSelected').innerText = "0.00";
+        document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
+    function SelectWorkFlow(formatData) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            showCloseButton: false,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            confirmButtonColor: '#4B586A',
+            confirmButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            ShowLoading();
+            RevisionPurchaseRequest({...formatData, comment: result.value});
+        });
+    }
+
+    function RevisionPurchaseRequest(formatData) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: formatData,
+            url: '{{ route("PurchaseRequisition.UpdatePurchaseRequest") }}',
+            success: function(res) {
+                HideLoading();
+
+                if (res.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        ShowLoading();
+                        window.location.href = '/PurchaseRequisition?var=1';
+                    });
+                } else {
+                    ErrorNotif("Data Cancel Inputed");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                HideLoading();
+                console.log('error', jqXHR, textStatus, errorThrown);
+            }
+        });
+    }
+
     function GetPRNumberDetail(dataDetail) {
         let totalPRNumberDetail = 0;
 
@@ -244,6 +323,7 @@
 
         $.each(dataDetail, function(key, val2) {
             dataStore.push({
+                productCode: val2.product_RefID,
                 recordID: val2.sys_ID,
                 entities: {
                     combinedBudgetSectionDetail_RefID: val2.cmbBudgetSectDtl_RefID,
@@ -261,7 +341,8 @@
 
             let rowList = `
                 <tr>
-                    <td style="text-align: center;padding: 0.8rem 0px;">-</td>
+                    <input type="hidden" name="qty_avail[]" value="${currencyTotal(val2.combinedBudget_Quantity)}">
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.product_RefID}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.priceCurrencyISOCode}</td>
@@ -269,6 +350,7 @@
                     <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.quantity)}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(totalRequest)}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.notes}</td>
+                    <input type="hidden" name="price_avail[]" value="${currencyTotal(val2.combinedBudget_PriceBaseCurrencyValue)}">
                 </tr>
             `;
 
@@ -286,6 +368,117 @@
         const targetTable = document.getElementById('tablePRDetailList').getElementsByTagName('tbody')[0];
 
         const rows = sourceTable.getElementsByTagName('tr');
+
+        for (let row of rows) {
+            const qtyInput                          = row.querySelector('input[id^="qty_req"]');
+            const priceInput                        = row.querySelector('input[id^="price_req"]');
+            const totalInput                        = row.querySelector('input[id^="total_req"]');
+            const balanceInput                      = row.querySelector('input[id^="balanced_qty"]');
+            const remarkInput                       = row.querySelector('textarea[id^="remark"]');
+            const qtyUnitRefId                      = row.querySelector('input[id^="qtyId"]');
+            const currencyRefId                     = row.querySelector('input[id^="currencyId"]');
+            const combinedBudgetSectionDetailInput  = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const purchaseRequisitionDetail         = row.querySelector('input[id^="purchase_requisition_detail"]');
+
+            if (
+                qtyInput && priceInput && totalInput && balanceInput && remarkInput &&
+                qtyInput.value.trim() !== '' &&
+                priceInput.value.trim() !== '' &&
+                totalInput.value.trim() !== '' &&
+                balanceInput.value.trim() !== '' &&
+                remarkInput.value.trim() !== ''
+            ) {
+                const productCode = row.children[0].value.trim();
+                const productName = row.children[1].value.trim();
+                const uom = row.children[5].value.trim();
+                const currency = row.children[6].value.trim();
+                const qtyAvail = row.children[13].innerText.trim();
+                const unitPrice = row.children[15].innerText.trim();
+
+                const price = priceInput.value.trim();
+                const qty = qtyInput.value.trim();
+                const total = totalInput.value.trim();
+                const remark = remarkInput.value.trim();
+
+                let found = false;
+                const existingRows = targetTable.getElementsByTagName('tr');
+
+                for (let targetRow of existingRows) {
+                    const targetCode = targetRow.children[1].innerText.trim();
+                    if (targetCode === productCode) {
+                        targetRow.children[5].innerText = price;
+                        targetRow.children[6].innerText = qty;
+                        targetRow.children[7].innerText = total;
+                        targetRow.children[8].innerText = remark;
+                        found = true;
+
+                        const indexToUpdate = dataStore.findIndex(item => item.productCode == productCode);
+                        if (indexToUpdate !== -1) {
+                            dataStore[indexToUpdate] = {
+                                productCode: productCode,
+                                recordID: parseInt(purchaseRequisitionDetail.value),
+                                entities: {
+                                    combinedBudgetSectionDetail_RefID: combinedBudgetSectionDetailInput.value,
+                                    product_RefID: productCode,
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantityUnit_RefID: qtyUnitRefId.value,
+                                    productUnitPriceCurrency_RefID: currencyRefId.value,
+                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                                    productUnitPriceCurrencyExchangeRate: 1,
+                                    fulfillmentDeadlineDateTimeTZ: null,
+                                    remarks: remark
+                                }
+                            };
+                        }
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
+                        <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${productName}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${currency}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${price}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${qty}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${total}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${remark}</td>
+                        <input type="hidden" name="price_avail[]" value="${unitPrice}">
+                    `;
+                    targetTable.appendChild(newRow);
+
+                    dataStore.push({
+                        productCode: productCode,
+                        recordID: parseInt(purchaseRequisitionDetail.value),
+                        entities: {
+                            combinedBudgetSectionDetail_RefID: combinedBudgetSectionDetailInput.value,
+                            product_RefID: productCode,
+                            quantity: parseFloat(qty.replace(/,/g, '')),
+                            quantityUnit_RefID: qtyUnitRefId.value,
+                            productUnitPriceCurrency_RefID: currencyRefId.value,
+                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                            productUnitPriceCurrencyExchangeRate: 1,
+                            fulfillmentDeadlineDateTimeTZ: null,
+                            remarks: remark,
+                        }
+                    });
+                }
+
+                qtyInput.value = '';
+                priceInput.value = '';
+                totalInput.value = '';
+                remarkInput.value = '';
+                balanceInput.value = balanceInput.getAttribute('data-default');
+            }
+        }
+
+        dataStore = dataStore.filter(item => item !== undefined);
+        $("#purchaseRequisitionDetail").val(JSON.stringify(dataStore));
+
+        updateGrandTotal();
     });
 
     $('#purchase-request-details-reset').on('click', function() {
@@ -309,7 +502,90 @@
         $('#tablePRDetailList tbody').empty();
 
         document.getElementById('GrandTotal').textContent = "0.00";
-        document.getElementById('TotalBudgetSelected').textContent = "0.00";
+        document.getElementById('purchaseRequisitionDetail').value = "";
+        calculateTotal();
+    });
+
+    $("#FormRevisionPurchaseRequest").on("submit", function(e) {
+        e.preventDefault();
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "Save this data?",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+            confirmButtonColor: '#e9ecef',
+            cancelButtonColor: '#e9ecef',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var action = $(this).attr("action");
+                var method = $(this).attr("method");
+                var form_data = new FormData($(this)[0]);
+
+                ShowLoading();
+
+                $.ajax({
+                    url: action,
+                    dataType: 'json',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    type: method,
+                    success: function(response) {
+                        if (response.message == "WorkflowError") {
+                            HideLoading();
+                            $("#submitRevisionPR").prop("disabled", false);
+
+                            CancelNotif("You don't have access", '/PurchaseRequisition?var=1');
+                        } else if (response.message == "MoreThanOne") {
+                            HideLoading();
+
+                            $('#getWorkFlow').modal('toggle');
+
+                            var t = $('#tableGetWorkFlow').DataTable();
+                            t.clear();
+                            $.each(response.data, function(key, val) {
+                                t.row.add([
+                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                                ]).draw();
+                            });
+                        } else {
+                            const formatData = {
+                                workFlowPath_RefID: response.workFlowPath_RefID, 
+                                nextApprover: response.nextApprover_RefID, 
+                                approverEntity: response.approverEntity_RefID, 
+                                documentTypeID: response.documentTypeID,
+                                storeData: response.storeData
+                            };
+
+                            HideLoading();
+                            SelectWorkFlow(formatData);
+                        }
+                    },
+                    error: function(response) {
+                        console.log('response error', response);
+                        
+                        HideLoading();
+                        $("#submitRevisionPR").prop("disabled", false);
+                        CancelNotif("You don't have access", '/PurchaseRequisition?var=1');
+                    }
+                });
+            }  else if (result.dismiss === Swal.DismissReason.cancel) {
+                HideLoading();
+                CancelNotif("Data Cancel Inputed", '/PurchaseRequisition?var=1');
+            }
+        })
     });
 
     $(document).on('input', '.number-without-negative', function() {
@@ -321,8 +597,104 @@
 
         $(".errorMessageContainerPRDetails").hide();
 
-        getDocumentType();
+        getDocumentType("Purchase Requisition Revision Form");
         GetPRNumberDetail(data);
         getBudget(siteCode.value, data);
+    });
+
+    document.querySelector('#tablePRDetailList tbody').addEventListener('click', function (e) {
+        const row = e.target.closest('tr');
+        if (!row) return;
+
+        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+
+        const qtyAvail      = row.children[0];
+        const priceAvail    = row.children[9];
+        const qtyReq        = row.children[6];
+        const priceReq      = row.children[5];
+        const totalReq      = row.children[7];
+        const remarks       = row.children[8];
+
+        if (row.classList.contains('editing-row')) {
+            const newQtyReq     = qtyReq.querySelector('input')?.value || '';
+            const newPriceReq   = priceReq.querySelector('input')?.value || '';
+            const newTotalReq   = totalReq.querySelector('input')?.value || '';
+            const newRemarks    = remarks.querySelector('textarea')?.value || '';
+
+            qtyReq.innerHTML    = newQtyReq;
+            priceReq.innerHTML  = newPriceReq;
+            totalReq.innerHTML  = newTotalReq;
+            remarks.innerHTML   = newRemarks;
+
+            const hidden = remarks.querySelector('input[type="hidden"]');
+            remarks.innerHTML = `${newRemarks}`;
+            if (hidden) remarks.appendChild(hidden);
+
+            row.classList.remove('editing-row');
+
+            const productCode   = row.children[1].innerText.trim();
+            const storeItem     = dataStore.find(item => item.productCode == productCode);
+
+            if (storeItem) {
+                storeItem.entities.quantity = newQtyReq;
+                storeItem.entities.productUnitPriceCurrencyValue = newPriceReq;
+                storeItem.entities.remarks = newRemarks;
+
+                $("#purchaseRequisitionDetail").val(JSON.stringify(dataStore));
+            }
+        } else {
+            const currentQty        = qtyReq.innerText.trim();
+            const currentPrice      = priceReq.innerText.trim();
+            const currentTotal      = totalReq.innerText.trim();
+
+            const hiddenInput       = remarks.querySelector('input[type="hidden"]');
+            const currentremarks    = remarks.childNodes[0]?.nodeValue?.trim() || '';
+
+            qtyReq.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+            priceReq.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+            totalReq.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
+            remarks.innerHTML = `
+                <textarea class="form-control" style="width:100px;">${currentremarks}</textarea>
+            `;
+            if (hiddenInput) remarks.appendChild(hiddenInput);
+
+            row.classList.add('editing-row');
+
+            const qtyInput = qtyReq.querySelector('.qty-input');
+            const priceInput = priceReq.querySelector('.price-input');
+            const totalInput = totalReq.querySelector('.total-input');
+
+            function updateGrandTotal() {
+                var price   = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
+                var qty     = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
+                var total   = price * qty;
+
+                const qtyAvailValue     = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
+                const priceAvailValue   = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
+
+                if (qty > qtyAvailValue) {
+                    total           = priceAvailValue * qtyAvailValue;
+                    qty             = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    qtyInput.value  = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                    ErrorNotif("Qty Req is over Qty Avail !");
+                }
+
+                if (price > priceAvailValue) {
+                    total               = qtyAvailValue * priceAvailValue;
+                    price               = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    priceInput.value    = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                    ErrorNotif("Price Req is over Price Avail !");
+                }
+
+                totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+
+            priceInput.addEventListener('input', updateGrandTotal);
+            qtyInput.addEventListener('input', updateGrandTotal);
+
+            document.getElementById('GrandTotal').innerText = totalInput.value;
+        }
     });
 </script>

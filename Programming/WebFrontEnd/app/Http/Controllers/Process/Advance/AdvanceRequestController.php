@@ -73,7 +73,7 @@ class AdvanceRequestController extends Controller
             $compact = [
                 'var' => $var,
                 'varAPIWebToken' => $varAPIWebToken,
-                'DocumentTypeID' => $DocumentTypeID,
+                'DocumentTypeID' => 77000000000057,
                 'statusRevisi' => 0,
             ];
 

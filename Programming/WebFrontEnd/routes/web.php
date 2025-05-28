@@ -20,7 +20,7 @@ use App\Http\Controllers\UserController;
 $varUserSession = 
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzQ4MzE5ODQ2fQ.Yzc1YmJjNjQ0ZDg5NmUwNjE2YTRlNzVkNzc4NWEwYzBiOGJjY2M3NTEwYTA4MmQ0MDkzN2FlMjVkMDFmMmFhZA';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzQ4MzIxMTk3fQ.MGJmZWNjNTFmMjE1OTgxNzQ1MmIwMTNhMzk0NDc2ZDVhMjA5ZGY1ZjBiNGFlMTc5NjgxMTRkMDA1ZGQ3ZGE4Mg';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -300,6 +300,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportPurchaseRequisitionDetailStore', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetailStore')->name('PurchaseRequisition.ReportPurchaseRequisitionDetailStore');
     Route::get('PurchaseRequisitionListData', 'Purchase\PurchaseRequisitionController@PurchaseRequisitionListData')->name('PurchaseRequisition.PurchaseRequisitionListData');
     Route::post('ProcReqListCartRevision', 'Purchase\PurchaseRequisitionController@ProcReqListCartRevision')->name('PurchaseRequisition.ProcReqListCartRevision');
+    Route::post('UpdatePurchaseRequest', 'Purchase\PurchaseRequisitionController@UpdatePurchaseRequest')->name('PurchaseRequisition.UpdatePurchaseRequest');
     Route::resource('PurchaseRequisition', 'Purchase\PurchaseRequisitionController');
 
     // PO

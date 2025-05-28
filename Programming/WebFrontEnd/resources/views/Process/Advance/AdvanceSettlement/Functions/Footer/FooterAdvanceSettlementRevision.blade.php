@@ -35,8 +35,6 @@
             totalExpenseClaim  += val2.expenseQuantity * val2.expenseProductUnitPriceCurrencyValue;
             totalAmountCompany += val2.refundQuantity * val2.refundProductUnitPriceCurrencyValue;
 
-            console.log('dataDetail', dataDetail);
-
             dataStore.push({
                 advanceSettlement_RefID: val2.advanceSettlement_RefID,
                 recordID: val2.sys_ID,
@@ -224,33 +222,6 @@
         document.getElementById('GrandTotal').textContent = currencyTotal(totalExpenseClaim + totalAmountCompany);
     }
 
-    function getDocumentType() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getDocumentType") !!}',
-            success: function(data) {
-                const result = data.find(({ Name }) => Name === "Advance Settlement Form");
-
-                if (Object.keys(result).length > 0) {
-                    // $("#DocumentTypeID").val(result.Sys_ID);
-                    $("#DocumentTypeID").val(77000000000097);
-                    
-                } else {
-                    console.log('error get document type');
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                console.log('error', textStatus, errorThrown);
-            }
-        });
-    }
-
     function SelectWorkFlow(formatData) {
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
@@ -363,8 +334,6 @@
                 const currency      = row.children[11].innerText.trim();
                 const qtyAvail      = row.children[12].innerText.trim();
                 const priceAvail    = row.children[13].innerText.trim();
-
-                console.log('productCode', productCode);
 
                 const qtyExpense    = qtyExpenseInput.value.trim();
                 const priceExpense  = priceExpenseInput.value.trim();
@@ -589,6 +558,6 @@
         const data = JSON.parse(dataTable.value);
 
         getDetailAdvanceSettlement(data);
-        getDocumentType();
+        getDocumentType("Advance Settlement Form");
     });
 </script>
