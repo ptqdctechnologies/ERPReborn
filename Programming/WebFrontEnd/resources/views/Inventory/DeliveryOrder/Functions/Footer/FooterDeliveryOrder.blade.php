@@ -310,12 +310,12 @@
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 entities: {
-                                    referenceDocument_RefID: refDocument_RefID.value,
+                                    referenceDocument_RefID: parseInt(refDocument_RefID.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
-                                    quantityUnit_RefID: qtyUnitRefId.value,
+                                    quantityUnit_RefID: parseInt(qtyUnitRefId.value),
                                     remarks: note,
-                                    underlyingDetail_RefID: underlyingDetail_RefID.value,
-                                    product_RefID: productRefId.value,
+                                    underlyingDetail_RefID: underlyingDetail_RefID.value || null,
+                                    product_RefID: parseInt(productRefId.value),
                                     refNumber: refNumber,
                                     productCode: productCode
                                 }
@@ -340,12 +340,12 @@
 
                     dataStore.push({
                         entities: {
-                            referenceDocument_RefID: refDocument_RefID.value,
+                            referenceDocument_RefID: parseInt(refDocument_RefID.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
-                            quantityUnit_RefID: qtyUnitRefId.value,
+                            quantityUnit_RefID: parseInt(qtyUnitRefId.value),
                             remarks: note,
-                            underlyingDetail_RefID: underlyingDetail_RefID.value,
-                            product_RefID: productRefId.value,
+                            underlyingDetail_RefID: underlyingDetail_RefID.value || null,
+                            product_RefID: parseInt(productRefId.value),
                             refNumber: refNumber,
                             productCode: productCode
                         }

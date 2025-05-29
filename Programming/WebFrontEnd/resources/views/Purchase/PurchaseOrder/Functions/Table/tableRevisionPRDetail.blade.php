@@ -53,7 +53,7 @@
                         <td style="border:1px solid #e9ecef;">
                             <select name="ppn" id="ppn" style="border-radius:0;" type="text" class="form-control">
                                 <option value="No">No</option>
-                                <option value="Yes">Yes</option>
+                                <option <?= $header['isVATSelected']; ?> value="Yes">Yes</option>
                             </select>
                         </td>
                     </tr>
@@ -72,8 +72,9 @@
                                 </div>
                             </div>
                         </td>
+                        
                         <td id="containerSelectPPN" style="border:1px solid #e9ecef;">
-                            <input hidden id="vatOptionValue" style="width: 20%;" />
+                            <input hidden id="vatOptionValue" style="width: 20%;" value="<?= $header['vatValue']; ?>" />
                             <select name="vatValue" id="vatOption" style="border-radius:0;" class="form-control" onChange="calculateTotal();">
                                 <option disabled selected>Select a PPN</option>
                             </select>

@@ -96,7 +96,7 @@ class DocumentTypeMapper
                     'budgetName'        => $dataDetail['combinedBudgetName'] ?? '-',
                     'subBudgetCode'     => $dataDetail['combinedBudgetSectionCode'] ?? '-',
                     'subBudgetName'     => $dataDetail['combinedBudgetSectionName'] ?? '-',
-                    'fileID'            => $dataDetail['log_FileUpload_Pointer_RefID'] ?? '-',
+                    'fileID'            => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
                     'dateUpdate'        => null,
                 ],
                 'components'        => [

@@ -95,7 +95,7 @@
                     $('#DocumentType').append('<option disabled selected>Select a Project Code</option>');
 
                     data.forEach(function(document) {
-                        $('#DocumentType').append('<option value="' + document.Sys_ID + '" data-name="' + document.Name + '">' + document.Name + '</option>');
+                        $('#DocumentType').append('<option value="' + document.sys_ID + '" data-name="' + document.name + '">' + document.name + '</option>');
                     });
                 } else {
                     console.log('Data document type not found.');
