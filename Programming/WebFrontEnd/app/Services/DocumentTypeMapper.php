@@ -26,6 +26,11 @@ class DocumentTypeMapper
                 'parameter' => [],
                 'businessDocument_RefID' => (int) 74000000021494,
             ],
+            'Person Business Trip Settlement Form' => [
+                'key' => '',
+                'parameter' => [],
+                'businessDocument_RefID' => (int) 74000000021494,
+            ],
             'Purchase Order Form' => [
                 'key' => 'transaction.read.dataList.supplyChain.getPurchaseOrderDetail',
                 'parameter' => ['purchaseOrder_RefID' => (int) $referenceId],
@@ -34,6 +39,16 @@ class DocumentTypeMapper
                 'key' => 'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
                 'parameter' => ['purchaseRequisition_RefID' => (int) $referenceId],
                 'businessDocument_RefID' => (int) 74000000021491,
+            ],
+            'Reimbursement Form' => [
+                'key' => '',
+                'parameter' => [],
+                'businessDocument_RefID' => (int) 74000000021494,
+            ],
+            'Sallary Allocation Form' => [
+                'key' => '',
+                'parameter' => [],
+                'businessDocument_RefID' => (int) 74000000021494,
             ],
             'Timesheet Form' => [
                 'key' => '',
@@ -194,6 +209,52 @@ class DocumentTypeMapper
                 'transactionType'        => 'BUSINESS TRIP',
                 'businessDocument_RefID' => '',
             ],
+            'Person Business Trip Settlement Form' => [
+                'dataHeader'            => [
+                    'btNumber'              => 'BTStl/QDC/2025/000008',
+                    'budgetCode'            => 'Q000196',
+                    'budgetName'            => 'XL Microcell 2007',
+                    'subBudgetCode'         => '235',
+                    'subBudgetName'         => 'Ampang Kuranji - Padang',
+                    'fileID'                => null,
+                    'description'           => '820005-0000 (Travel & Fares/Business Trip)',
+                    'dateCommenceTravel'    => '2025-12-18',
+                    'dateEndTravel'         => '2025-12-20',
+                    'brfDate'               => '2025-12-12',
+                    'contactPhone'          => '0896734873',
+                    'bankAccount'           => 'PT QDC Technologies',
+                    'bankName'              => 'BCA',
+                    'accountNumber'         => '0063032911',
+                    'requesterName'         => 'Abdollah Syani Siregar',
+                    'beneficiaryName'       => 'Abdul Rachman',
+                    'departingFrom'         => 'Jakarta',
+                    'destinationTo'         => 'Batam',
+                ],
+                'dataAdditional'    => [
+                    'allowance'     => '240000.00',
+                    'transport'     => '3450000.00',
+                    'entertainment' => '100000.00',
+                    'accommodation' => '0.00',
+                    'other'         => '100000.00',
+                    'totalBRF'      => '3890000.00'
+                ],
+                'textAreaFields'    => [
+                    'title'         => 'Reason to Travel',
+                    'text'          => '-',
+                ],
+                'components'        => [
+                    'detail'        => 'Components.BusinessTripSettlementDetailDocument',
+                    'table'         => 'Components.BusinessTripSettlementDetailDocumentTable',
+                    'additional'    => 'Components.BusinessTripSettlementCostDetailDocument'
+                ],
+                'resubmit'      => [
+                    'url'       => '',
+                    'name'      => '',
+                    'value'     => ''
+                ],
+                'transactionType'        => 'BUSINESS TRIP SETTLEMENT',
+                'businessDocument_RefID' => '',
+            ],
             'Purchase Order Form'       => [
                 'dataHeader'            => [
                     'poNumber'          => $dataDetail['documentNumber'] ?? '-',
@@ -250,6 +311,42 @@ class DocumentTypeMapper
                 ],
                 'transactionType'        => 'PURCHASE REQUEST',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
+            ],
+            'Reimbursement Form'       => [
+                'dataHeader'            => [],
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => '-',
+                ],
+                'components'    => [
+                    'detail'    => 'Components.ReimbursementDetailDocument',
+                    'table'     => 'Components.ReimbursementDetailDocumentTable',
+                ],
+                'resubmit'      => [
+                    'url'       => '',
+                    'name'      => '',
+                    'value'     => ''
+                ],
+                'transactionType'        => 'REIMBURSEMENT',
+                'businessDocument_RefID' => '',
+            ],
+            'Sallary Allocation Form'       => [
+                'dataHeader'            => [],
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => '-',
+                ],
+                'components'    => [
+                    'detail'    => 'Components.SallaryAllocationDetailDocument',
+                    'table'     => 'Components.SallaryAllocationDetailDocumentTable',
+                ],
+                'resubmit'      => [
+                    'url'       => '',
+                    'name'      => '',
+                    'value'     => ''
+                ],
+                'transactionType'        => 'SALLARY ALLOCATION',
+                'businessDocument_RefID' => '',
             ],
             'Timesheet Form' => [
                 'dataHeader'        => [

@@ -682,6 +682,11 @@ class FunctionController extends Controller
     {
         $varAPIWebToken = Session::get('SessionLogin');
         $transName      = $request->input('name');
+        $filterName     = null;
+
+        if ($transName) {
+            $filterName = "\"Name\" = '$transName'";
+        }
 
         $varBusinessDocumentType = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -693,7 +698,7 @@ class FunctionController extends Controller
                 'SQLStatement' => [
                     'pick' => null,
                     'sort' => null,
-                    'filter' => "\"Name\" = '$transName'",
+                    'filter' => $filterName,
                     'paging' => null
                 ]
             ],
