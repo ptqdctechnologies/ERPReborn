@@ -36,11 +36,12 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("getAdvanceDetail") !!}?advanceRefID=' + advanceRefID,
+            url: '{!! route(name: "getAdvanceDetail") !!}?advanceRefID=' + advanceRefID,
             success: function(response) {
                 $(".loadingAdvanceSettlementTable").hide();
 
-                if (response.metadata.HTTPStatusCode === 200) {
+                // if (response.metadata.HTTPStatusCode === 200) {
+                if (response.data) {
                     $("#tableAdvanceDetail tbody").show();
 
                     var result = response.data;

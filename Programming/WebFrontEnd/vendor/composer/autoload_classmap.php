@@ -1118,6 +1118,7 @@ return array(
     'App\\Services\\BusinessTripService' => $baseDir . '/app/Services/BusinessTripService.php',
     'App\\Services\\DocumentTypeMapper' => $baseDir . '/app/Services/DocumentTypeMapper.php',
     'App\\Services\\MasterDataService' => $baseDir . '/app/Services/MasterDataService.php',
+    'App\\Services\\PurchaseRequisitionService' => $baseDir . '/app/Services/PurchaseRequisitionService.php',
     'App\\Services\\WorkflowService' => $baseDir . '/app/Services/WorkflowService.php',
     'App\\User' => $baseDir . '/app/User.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',

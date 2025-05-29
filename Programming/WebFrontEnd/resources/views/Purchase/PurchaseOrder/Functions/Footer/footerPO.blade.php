@@ -119,7 +119,7 @@
                     $('#vatOption').append('<option disabled selected value="Select a PPN">Select a PPN</option>');
 
                     data.forEach(function(project) {
-                        $('#vatOption').append('<option value="' + project.sys_PID + '">' + project.tariffFixRate + '</option>');
+                        $('#vatOption').append('<option value="' + project.tariffFixRate + '">' + project.tariffFixRate + '</option>');
                     });
                 } else {
                     console.log('Data vat not found.');
@@ -450,15 +450,15 @@
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 entities: {
-                                    purchaseRequisitionDetail_RefID: purchaseRequisitionDetail_RefID.value,
-                                    quantity: qty,
-                                    quantityUnit_RefID: quantityUnit_RefID.value,
-                                    productUnitPriceCurrency_RefID: productUnitPriceCurrency_RefID.value,
-                                    productUnitPriceCurrencyValue: price,
-                                    productUnitPriceCurrencyExchangeRate: productUnitPriceCurrencyExchangeRate.value,
-                                    productUnitPriceDiscountCurrency_RefID: productUnitPriceDiscountCurrency_RefID.value,
-                                    productUnitPriceDiscountCurrencyValue: productUnitPriceDiscountCurrencyValue.value,
-                                    productUnitPriceDiscountCurrencyExchangeRate: productUnitPriceDiscountCurrencyExchangeRate.value,
+                                    purchaseRequisitionDetail_RefID: parseInt(purchaseRequisitionDetail_RefID.value),
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantityUnit_RefID: parseInt(quantityUnit_RefID.value),
+                                    productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
+                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                                    productUnitPriceCurrencyExchangeRate: parseFloat(productUnitPriceCurrencyExchangeRate.value.replace(/,/g, '')),
+                                    productUnitPriceDiscountCurrency_RefID: parseInt(productUnitPriceDiscountCurrency_RefID.value),
+                                    productUnitPriceDiscountCurrencyValue: parseFloat(productUnitPriceDiscountCurrencyValue.value.replace(/,/g, '')),
+                                    productUnitPriceDiscountCurrencyExchangeRate: parseFloat(productUnitPriceDiscountCurrencyExchangeRate.value.replace(/,/g, '')),
                                     remarks: note,
                                     documentNumber: documentNumber,
                                     product_RefID: productCode
@@ -487,15 +487,15 @@
                     // push to dataStore
                     dataStore.push({
                         entities: {
-                            purchaseRequisitionDetail_RefID: purchaseRequisitionDetail_RefID.value,
-                            quantity: qty,
-                            quantityUnit_RefID: quantityUnit_RefID.value,
-                            productUnitPriceCurrency_RefID: productUnitPriceCurrency_RefID.value,
-                            productUnitPriceCurrencyValue: price,
-                            productUnitPriceCurrencyExchangeRate: productUnitPriceCurrencyExchangeRate.value,
-                            productUnitPriceDiscountCurrency_RefID: productUnitPriceDiscountCurrency_RefID.value,
-                            productUnitPriceDiscountCurrencyValue: productUnitPriceDiscountCurrencyValue.value,
-                            productUnitPriceDiscountCurrencyExchangeRate: productUnitPriceDiscountCurrencyExchangeRate.value,
+                            purchaseRequisitionDetail_RefID: parseInt(purchaseRequisitionDetail_RefID.value),
+                            quantity: parseFloat(qty.replace(/,/g, '')),
+                            quantityUnit_RefID: parseInt(quantityUnit_RefID.value),
+                            productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
+                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                            productUnitPriceCurrencyExchangeRate: parseFloat(productUnitPriceCurrencyExchangeRate.value.replace(/,/g, '')),
+                            productUnitPriceDiscountCurrency_RefID: parseInt(productUnitPriceDiscountCurrency_RefID.value),
+                            productUnitPriceDiscountCurrencyValue: parseFloat(productUnitPriceDiscountCurrencyValue.value.replace(/,/g, '')),
+                            productUnitPriceDiscountCurrencyExchangeRate: parseFloat(productUnitPriceDiscountCurrencyExchangeRate.value.replace(/,/g, '')),
                             remarks: note,
                             documentNumber: documentNumber,
                             product_RefID: productCode

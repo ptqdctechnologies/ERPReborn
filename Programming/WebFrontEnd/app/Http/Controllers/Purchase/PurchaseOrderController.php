@@ -1523,10 +1523,13 @@ class PurchaseOrderController extends Controller
                 'remarkPO'          => $data[0]['remarks'] ?? '',
                 'internalNote'      => $data[0]['internalNotes'] ?? '',
                 'fileID'            => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
-                'vatValue'          => $data[0]['vat'] ?? '',
+                'vatValue'          => $data[0]['vatRatio'] ?? null,
+                'isVATSelected'     => $data[0]['vatRatio'] ? 'selected' : '',
             ],
             'detail'                => $data
         ];
+
+        dump($compact);
 
         return view('Purchase.PurchaseOrder.Transactions.RevisionPurchaseOrder', $compact);
     }
@@ -1555,24 +1558,6 @@ class PurchaseOrderController extends Controller
             $purchaseOrderDetail = json_decode($purchaseOrderData['storeData']['purchaseOrderDetail'], true);
             $fileID = $purchaseOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $purchaseOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
 
-            $transformedDetails = [];
-            foreach ($purchaseOrderDetail as $entity) {
-                $transformedDetails[] = [
-                    "entities" => [
-                        "purchaseRequisitionDetail_RefID"               => (int) $entity['purchaseRequisitionDetail_RefID'],
-                        "quantity"                                      => (float) str_replace(',', '', $entity['quantity']),
-                        "quantityUnit_RefID"                            => (int) $entity['quantityUnit_RefID'],
-                        "productUnitPriceCurrency_RefID"                => (int) $entity['productUnitPriceCurrency_RefID'],
-                        "productUnitPriceCurrencyValue"                 => (int) $entity['productUnitPriceCurrencyValue'],
-                        "productUnitPriceCurrencyExchangeRate"          => (int) $entity['productUnitPriceCurrencyExchangeRate'],
-                        "productUnitPriceDiscountCurrency_RefID"        => (int) $entity['productUnitPriceDiscountCurrency_RefID'],
-                        "productUnitPriceDiscountCurrencyValue"         => (int) $entity['productUnitPriceDiscountCurrencyValue'],
-                        "productUnitPriceDiscountCurrencyExchangeRate"  => (int) $entity['productUnitPriceDiscountCurrencyExchangeRate'],
-                        "remarks"                                       => $entity['remarks'],
-                    ]
-                ];
-            }
-
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken,
@@ -1586,16 +1571,17 @@ class PurchaseOrderController extends Controller
                     "supplier_RefID"                        => (int) $purchaseOrderData['storeData']['supplier_id'],
                     "deliveryDateTimeTZ"                    => date('Y-m-d'),
                     "deliveryDestination_RefID"             => null,
-                    "deliveryDestinationManualAddress"      => $purchaseOrderData['storeData']['delivery_to'],
                     "supplierInvoiceBillingPurpose_RefID"   => null,
                     "remarks"                               => $purchaseOrderData['storeData']['remarkPO'],
+                    "deliveryDestinationManualAddress"      => $purchaseOrderData['storeData']['delivery_to'],
                     "paymentNotes"                          => $purchaseOrderData['storeData']['paymentNotes'],
                     "internalNotes"                         => $purchaseOrderData['storeData']['internalNote'],
                     "downPayment"                           => (float) str_replace(',', '', $purchaseOrderData['storeData']['downPaymentValue']),
                     "termOfPayment_RefID"                   => (int) $purchaseOrderData['storeData']['termOfPaymentValue'],
+                    "vatRatio"                              => $purchaseOrderData['storeData']['vatValue'],
                     "additionalData"                        => [
                         "itemList"  => [
-                            "items" => $transformedDetails
+                            "items" => $purchaseOrderDetail
                             ],
                         "transactionTaxItemList" => [
                             "items" => [
@@ -1640,13 +1626,6 @@ class PurchaseOrderController extends Controller
                 $request->nextApprover,
                 $varData['data']['businessDocument']['documentNumber']
             );
-
-            $compact = [
-                "documentNumber"    => "PO/QDC/2025/000016",
-                "status"            => 200,
-            ];
-
-            return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Error at store: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

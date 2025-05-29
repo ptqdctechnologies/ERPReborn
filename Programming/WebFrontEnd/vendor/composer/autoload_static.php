@@ -1735,6 +1735,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Services\\BusinessTripService' => __DIR__ . '/../..' . '/app/Services/BusinessTripService.php',
         'App\\Services\\DocumentTypeMapper' => __DIR__ . '/../..' . '/app/Services/DocumentTypeMapper.php',
         'App\\Services\\MasterDataService' => __DIR__ . '/../..' . '/app/Services/MasterDataService.php',
+        'App\\Services\\PurchaseRequisitionService' => __DIR__ . '/../..' . '/app/Services/PurchaseRequisitionService.php',
         'App\\Services\\WorkflowService' => __DIR__ . '/../..' . '/app/Services/WorkflowService.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',

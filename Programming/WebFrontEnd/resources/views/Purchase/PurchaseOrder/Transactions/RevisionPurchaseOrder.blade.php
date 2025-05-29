@@ -2,6 +2,10 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getWorkFlow')
+@include('getFunction.getSupplier')
+@include('Purchase.PurchaseOrder.Functions.PopUp.PopUpPORevision')
+@include('Purchase.PurchaseOrder.Functions.PopUp.searchPO')
 
 <div class="content-wrapper">
   <section class="content">
@@ -19,7 +23,7 @@
       <div class="card">
         <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
         <input type="hidden" id="DataPurchaseOrderDetail" value='<?= json_encode($detail ?? []) ?>'>
-        
+
         <!-- PURCHASE ORDER -->
         <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
           <div class="row">
@@ -84,17 +88,28 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-12">
-                      <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none">
-                      <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        $varAPIWebToken,
-                        'dataInput_Log_FileUpload',
-                        null,
-                        'dataInput_Return'
-                        ).
-                      ''; ?>
+                      <?php if ($header['fileID']) { ?>
+                        <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none" value="<?= $header['fileID']; ?>">
+                        <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                          $varAPIWebToken,
+                          'dataInput_Log_FileUpload',
+                          $header['fileID'],
+                          'dataInput_Return'
+                          ).
+                        ''; ?>
+                      <?php } else { ?>
+                        <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none">
+                        <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                          $varAPIWebToken,
+                          'dataInput_Log_FileUpload',
+                          null,
+                          'dataInput_Return'
+                          ).
+                        ''; ?>
+                      <?php } ?>
                     </div>
                   </div>
-                  <br><br>
+                  <br>
                 </div>
               </div>
             </div>
@@ -118,7 +133,7 @@
                   </div>
                 </div>
 
-                @include('Purchase.PurchaseOrder.Functions.Table.tablePRDetail')
+                @include('Purchase.PurchaseOrder.Functions.Table.tableRevisionPRDetail')
               </div>
             </div>
           </div>
@@ -145,7 +160,7 @@
                 <div class="card-body table-responsive p-0" style="height:135px;">
                   <table class="table table-head-fixed text-nowrap table-sm" id="tablePurchaseOrderList">
                     <thead>
-                      <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">MSR Number</th>
+                      <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">PO Number</th>
                       <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
                       <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
                       <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
