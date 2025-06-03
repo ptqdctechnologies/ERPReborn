@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail.v1_throughAPIGateway            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-26                                                                                           |
+        | ▪ Last Update     : 2025-06-03                                                                                           |
         | ▪ Creation Date   : 2022-09-26                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -31,20 +31,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = 
+                $varAPIWebToken =
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
-            $varData = 
+            $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail', 
-                    'latest', 
+                    $varAPIWebToken,
+                    'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail',
+                    'latest',
                     [
                     'parameter' => [
-                        //'combinedBudgetSection_RefID' => 143000000000029, //104000000000003,
-                        'combinedBudgetSection_RefID' => null
+                        'combinedBudgetSection_RefID' => 143000000000305,
                         ],
                     'SQLStatement' => [
                         'pick' => null,
@@ -54,7 +53,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         ]
                     ]
                     );
-            var_dump($varData);
+            return $varData;
             }
 
 
@@ -88,10 +87,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
             echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail', 
-                'latest', 
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail',
+                'latest',
                 '{'.
                     '"parameter" : {'.
                         '"combinedBudgetSection_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSection_RefID").value), '.
@@ -103,7 +102,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
                         '}'.
                 '}'
-                ); 
+                );
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }
