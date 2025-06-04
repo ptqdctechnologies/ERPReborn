@@ -212,7 +212,6 @@ class FunctionController extends Controller
     // FUNCTION BUDGET 
     public function getBudget(Request $request)
     {
-
         $site_code = $request->input('site_code');
 
         $varAPIWebToken = Session::get('SessionLogin');

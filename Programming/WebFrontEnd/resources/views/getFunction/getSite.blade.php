@@ -110,9 +110,9 @@
             });
         }
 
-        $(window).one('load', function(e) {
-            getSiteSecond();
-        });
+        // $(window).one('load', function(e) {
+        //     getSiteSecond();
+        // });
 
         $('#tableGetSiteSecond').on('click', 'tbody tr', function() {
             var sysId       = $(this).find('input[data-trigger="sys_id_site_second"]').val();

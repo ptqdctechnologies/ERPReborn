@@ -313,7 +313,12 @@ class DocumentTypeMapper
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
             ],
             'Reimbursement Form'       => [
-                'dataHeader'            => [],
+                'dataHeader'            => [
+                    'customerVendorName'    => 'Alumagada Jaya Mandiri',
+                    'currency'              => 'IDR',
+                    'budgetCode'            => 'Q000062',
+                    'budgetName'            => 'XL Microcell 2007',
+                ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',
                     'text'          => '-',
@@ -331,7 +336,13 @@ class DocumentTypeMapper
                 'businessDocument_RefID' => '',
             ],
             'Sallary Allocation Form'       => [
-                'dataHeader'            => [],
+                'dataHeader'            => [
+                    'pic'           => 'Suyanto',
+                    'date'          => '2025-06-04 10:47:11.993084+07',
+                    'currency'      => 'IDR',
+                    'budgetCode'    => 'Q000062',
+                    'budgetName'    => 'XL Microcell 2007',
+                ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',
                     'text'          => '-',
