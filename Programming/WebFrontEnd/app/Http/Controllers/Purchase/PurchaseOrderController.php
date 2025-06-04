@@ -15,6 +15,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Services\PurchaseOrderService;
+use App\Services\WorkflowService;
 
 class PurchaseOrderController extends Controller
 {
@@ -23,6 +25,14 @@ class PurchaseOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $purchaseOrderService, $workflowService;
+
+    public function __construct(PurchaseOrderService $purchaseOrderService, WorkflowService $workflowService)
+    {
+        $this->purchaseOrderService = $purchaseOrderService;
+        $this->workflowService = $workflowService;
+    }
 
     public function ReportPOtoAP(Request $request)
     {
@@ -1509,9 +1519,10 @@ class PurchaseOrderController extends Controller
         $compact = [
             'varAPIWebToken'        => $varAPIWebToken,
             'header'                => [
+                'budgetID'          => '46000000000033',
                 'poNumberID'        => $data[0]['purchaseOrder_RefID'] ?? '',
                 'poNumber'          => $data[0]['documentNumber'] ?? '',
-                'deliveryTo'        => $data[0]['deliveryTo_NonRefID']['address'] ?? '',
+                'deliveryTo'        => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
                 'deliveryToID'      => $data[0]['deliveryTo_RefID'] ?? '',
                 'supplierID'        => $data[0]['supplier_RefID'] ?? '-',
                 'supplierName'      => $data[0]['supplierName'] ?? '',
@@ -1529,7 +1540,7 @@ class PurchaseOrderController extends Controller
             'detail'                => $data
         ];
 
-        dump($compact);
+        // dump($data);
 
         return view('Purchase.PurchaseOrder.Transactions.RevisionPurchaseOrder', $compact);
     }
@@ -1569,7 +1580,7 @@ class PurchaseOrderController extends Controller
                     "log_FileUpload_Pointer_RefID"          => (int) $fileID,
                     "requesterWorkerJobsPosition_RefID"     => (int) $SessionWorkerCareerInternal_RefID,
                     "supplier_RefID"                        => (int) $purchaseOrderData['storeData']['supplier_id'],
-                    "deliveryDateTimeTZ"                    => date('Y-m-d'),
+                    "deliveryDateTimeTZ"                    => date('Y-m-d'), // Ganti ambil dari Detail PR
                     "deliveryDestination_RefID"             => null,
                     "supplierInvoiceBillingPurpose_RefID"   => null,
                     "remarks"                               => $purchaseOrderData['storeData']['remarkPO'],
@@ -1661,9 +1672,36 @@ class PurchaseOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function UpdatePurchaseOrder(Request $request)
     {
-        //
+        try {
+            $response = $this->purchaseOrderService->updates($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     /**

@@ -117,7 +117,7 @@
                     </div>
                 </div>
 
-                <!-- REFERENCE NUMBER DETAIL -->
+                <!-- REFERENCE DETAIL -->
                 <div class="tab-content px-3 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
@@ -125,7 +125,7 @@
                                 <!-- HEADER -->
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Reference Number Detail
+                                        Reference Detail
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -140,7 +140,7 @@
                     </div>
                 </div>
 
-                <!-- REFERENCE NUMBER LIST (CART) -->
+                <!-- REFERENCE LIST (CART) -->
                 <div class="tab-content px-3 pb-2" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
@@ -148,7 +148,7 @@
                                 <!-- HEADER -->
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Reference Number List (Cart)
+                                        Reference List (Cart)
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
