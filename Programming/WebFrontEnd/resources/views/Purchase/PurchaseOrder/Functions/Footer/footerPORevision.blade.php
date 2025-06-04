@@ -82,6 +82,28 @@
         });
     }
 
+    function updateGrandTotal() {
+        let total = 0;
+        const rows = document.querySelectorAll('#tablePurchaseOrderList tbody tr');
+        rows.forEach(row => {
+            const totalCell = row.children[9];
+            const input = totalCell.querySelector('input');
+            
+            const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
+            if (input) {
+                const text = parseFloat(input.value.replace(/,/g, '')) || 0;
+                total += text;
+            }
+            
+            total += value;
+        });
+
+        document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
     function SelectWorkFlow(formatData) {
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
@@ -119,8 +141,6 @@
             data: formatData,
             url: '{{ route("PurchaseOrder.UpdatePurchaseOrder") }}',
             success: function(res) {
-                console.log('res', res);
-                
                 HideLoading();
 
                 if (res.status === 200) {
@@ -337,7 +357,7 @@
         document.getElementById('TotalBudgetSelected').textContent = currencyTotal(totalRequest);
         document.getElementById('TotalPpn').textContent = currencyTotal(dataDetail[0].tariffCurrencyValue);
         document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(allTotal);
-        document.getElementById('GrandTotal').textContent = currencyTotal(allTotal);
+        document.getElementById('GrandTotal').textContent = currencyTotal(totalRequest);
     }
 
     $('#revision-po-details-add').on('click', function() {
@@ -548,8 +568,6 @@
                     success: function(response) {
                         HideLoading();
 
-                        console.log('response', response);
-
                         if (response.message == "WorkflowError") {
                             $("#submitRevisionPurchaseOrder").prop("disabled", false);
 
@@ -610,5 +628,101 @@
         getVAT();
         getDocumentType("Purchase Order Revision Form");
         viewPurchaseOrderDetail(data);
+    });
+
+    document.querySelector('#tablePurchaseOrderList tbody').addEventListener('click', function (e) {
+        const row = e.target.closest('tr');
+        if (!row) return;
+
+        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+
+        const qtyAvail      = row.children[1];
+        const priceAvail    = row.children[2];
+        const qtyReq        = row.children[8];
+        const priceReq      = row.children[7];
+        const totalReq      = row.children[9];
+        const remarks       = row.children[10];
+
+        if (row.classList.contains('editing-row')) {
+            const newQtyReq     = qtyReq.querySelector('input')?.value || '';
+            const newPriceReq   = priceReq.querySelector('input')?.value || '';
+            const newTotalReq   = totalReq.querySelector('input')?.value || '';
+            const newRemarks    = remarks.querySelector('textarea')?.value || '';
+
+            qtyReq.innerHTML    = newQtyReq;
+            priceReq.innerHTML  = newPriceReq;
+            totalReq.innerHTML  = newTotalReq;
+            remarks.innerHTML   = newRemarks;
+
+            const hidden = remarks.querySelector('input[type="hidden"]');
+            remarks.innerHTML = `${newRemarks}`;
+            if (hidden) remarks.appendChild(hidden);
+
+            row.classList.remove('editing-row');
+
+            const recordID  = row.children[0].value.trim();
+            const storeItem = dataStore.find(item => item.recordID == recordID);
+
+            if (storeItem) {
+                storeItem.entities.quantity = parseFloat(newQtyReq.replace(/,/g, ''));
+                storeItem.entities.productUnitPriceCurrencyValue = parseFloat(newPriceReq.replace(/,/g, ''));
+                storeItem.entities.remarks = newRemarks;
+
+                $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
+            }
+        } else {
+            const currentQty        = qtyReq.innerText.trim();
+            const currentPrice      = priceReq.innerText.trim();
+            const currentTotal      = totalReq.innerText.trim();
+
+            const hiddenInput       = remarks.querySelector('input[type="hidden"]');
+            const currentremarks    = remarks.childNodes[0]?.nodeValue?.trim() || '';
+
+            qtyReq.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+            priceReq.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+            totalReq.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
+            remarks.innerHTML = `
+                <textarea class="form-control" style="width:100px;">${currentremarks}</textarea>
+            `;
+            if (hiddenInput) remarks.appendChild(hiddenInput);
+
+            row.classList.add('editing-row');
+
+            const qtyInput      = qtyReq.querySelector('.qty-input');
+            const priceInput    = priceReq.querySelector('.price-input');
+            const totalInput    = totalReq.querySelector('.total-input');
+
+            function validateQtyPrice() {
+                var price   = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
+                var qty     = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
+                var total   = price * qty;
+
+                const qtyAvailValue     = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
+                const priceAvailValue   = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
+
+                if (qty > qtyAvailValue) {
+                    total           = priceAvailValue * qtyAvailValue;
+                    qty             = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    qtyInput.value  = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                    ErrorNotif("Qty Req is over Qty Avail !");
+                }
+
+                if (price > priceAvailValue) {
+                    total               = qtyAvailValue * priceAvailValue;
+                    price               = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    priceInput.value    = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                    ErrorNotif("Price Req is over Price Avail !");
+                }
+
+                totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+
+            priceInput.addEventListener('input', validateQtyPrice);
+            qtyInput.addEventListener('input', validateQtyPrice);
+        }
+
+        updateGrandTotal();
     });
 </script>
