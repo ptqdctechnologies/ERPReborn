@@ -741,6 +741,8 @@ class PurchaseRequisitionController extends Controller
 
         $data = $varData['data']['data'];
 
+        // dump($data);
+
         $convertDate = new DateTime($data[0]['deliveryDateTimeTZ']);
 
         $compact = [
@@ -754,8 +756,8 @@ class PurchaseRequisitionController extends Controller
                 'subBudgetName'     => $data[0]['combinedBudgetSectionName'] ?? '-',
                 'subBudgetCode'     => $data[0]['combinedBudgetSectionCode'] ?? '-',
                 'deliverToID'       => $data[0]['deliveryTo_RefID'] ?? '-',
-                'deliverToCode'     => '',
-                'deliverToName'     => '',
+                'deliverToCode'     => $data[0]['deliveryToCode'] ?? '-',
+                'deliverToName'     => $data[0]['deliveryToName'] ?? '-',
                 'dateOfDelivery'    => $convertDate->format('Y-m-d') ?? '', 
                 'remarks'           => nl2br(e($data[0]['remarks'])) ?? '-',
                 'fileId'            => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
@@ -763,7 +765,7 @@ class PurchaseRequisitionController extends Controller
             'detail'                => $data
         ];
 
-        // dump($varData);
+        // dump($compact);
 
         return view('Purchase.PurchaseRequisition.Transactions.RevisionPurchaseRequisition', $compact);
     }

@@ -62,7 +62,7 @@
                     let balanced = currencyTotal(val2.quantity);
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
                     let productColumn = `
-                        <td style="text-align: center;">${val2.product_RefID}</td>
+                        <td style="text-align: center;">${val2.productCode}</td>
                         <td style="text-align: center;">${val2.productName}</td>
                     `;
 
@@ -121,6 +121,8 @@
                             <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <textarea id="remark${key}" class="form-control"></textarea>
                             </td>
+
+                            <input id="productCodeShow${key}" data-product-id="productCodeShow" value="${val2.productCode}" type="hidden" />
                         </tr>
                     `;
 
@@ -288,7 +290,7 @@
         let total = 0;
         const rows = document.querySelectorAll('#tablePurchaseRequisitionList tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[7];
+            const totalCell = row.children[8];
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             total += value;
         });
@@ -370,6 +372,7 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
+            const productCodeShow = row.querySelector('input[id^="productCodeShow"]');
             const qtyInput = row.querySelector('input[id^="qty_req"]');
             const priceInput = row.querySelector('input[id^="price_req"]');
             const totalInput = row.querySelector('input[id^="total_req"]');
@@ -400,14 +403,14 @@
 
                 let found = false;
                 const existingRows = targetTable.getElementsByTagName('tr');
-                
+
                 for (let targetRow of existingRows) {
                     const targetCode = targetRow.children[1].innerText.trim();
                     if (targetCode === productCode) {
-                        targetRow.children[5].innerText = price;
-                        targetRow.children[6].innerText = qty;
-                        targetRow.children[7].innerText = total;
-                        targetRow.children[8].innerText = remark;
+                        targetRow.children[6].innerText = price;
+                        targetRow.children[7].innerText = qty;
+                        targetRow.children[8].innerText = total;
+                        targetRow.children[9].innerText = remark;
                         found = true;
 
                         // update dataStore
@@ -433,7 +436,8 @@
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                        <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
+                        <td style="text-align: center;padding: 0.8rem;" hidden>${productCode}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${productCodeShow.value}</td>
                         <td style="text-align: center;padding: 0.8rem;">${productName}</td>
                         <td style="text-align: center;padding: 0.8rem;">${uom}</td>
                         <td style="text-align: center;padding: 0.8rem;">${currency}</td>
@@ -468,10 +472,10 @@
 
         dataStore = dataStore.filter(item => item !== undefined);
         $("#purchaseRequisitionDetail").val(JSON.stringify(dataStore));
-        
+
         updateGrandTotal();
     });
-    
+
     $("#budget-details-reset").on('click', function() {
         const targetTableBody = document.querySelector('#tablePurchaseRequisitionList tbody');
         

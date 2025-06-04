@@ -6,8 +6,8 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Delivery To</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="deliver_RefID" name="deliver_RefID" style="border-radius:0;" class="form-control" readonly hidden>
-                        <input id="deliverCode" style="border-radius:0;" class="form-control" readonly>
+                        <input id="deliver_RefID" name="deliver_RefID" style="border-radius:0;" class="form-control" readonly hidden value="<?= $header['deliverToID']; ?>">
+                        <input id="deliverCode" style="border-radius:0;" class="form-control" readonly value="<?= $header['deliverToCode']; ?>">
                     </div>
                     <div>
                         <span style="border-radius:0;" class="input-group-text form-control">
@@ -17,7 +17,7 @@
                         </span>
                     </div>
                     <div style="flex: 100%;">
-                        <input id="deliverName" style="border-radius:0;" class="form-control" readonly>
+                        <input id="deliverName" style="border-radius:0;" class="form-control" readonly value="<?= $header['deliverToName']; ?>">
                     </div>
                 </div>
             </div>

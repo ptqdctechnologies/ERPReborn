@@ -108,6 +108,7 @@
         $("#note_req" + key).prop("disabled", false);
 
         $("#productId" + key).val(id_product);
+        $("#productCodeShow" + key).val(sys_id);
         $("#productName" + key).val(name);
         $("#uom" + key).val(uom);
         $("#qtyId" + key).val(budget_qty_id);
