@@ -241,11 +241,11 @@ class CheckDocumentController extends Controller
             $businessDocument_RefID     = $request->input('businessDocument_RefID');
             $sourceData                 = "NO";
 
-            dd([
-                'transDetail_RefID' => $transDetail_RefID,
-                'businessDocumentTypeName'=> $businessDocumentTypeName,
-                'businessDocument_RefID' => $businessDocument_RefID,
-            ]);
+            // dd([
+            //     'transDetail_RefID' => $transDetail_RefID,
+            //     'businessDocumentTypeName'=> $businessDocumentTypeName,
+            //     'businessDocument_RefID' => $businessDocument_RefID,
+            // ]);
 
             if (!$transDetail_RefID || !$businessDocumentTypeName || !$businessDocument_RefID) {
                 return redirect()->back()->with('error', 'Data Not Found');
