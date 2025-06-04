@@ -16,23 +16,27 @@
     const tablePurchaseOrderLists   = document.querySelector("#tablePurchaseOrderList tbody");
     const submitPurchaseOrder       = document.getElementById("submitPurchaseOrder");
 
-    downPaymentValue.addEventListener('input', function () {
-        let value = parseInt(this.value);
-        if (value > 100) this.value = 100;
-        if (value < 0) this.value = 0;
-    });
+    if (downPaymentValue) {
+        downPaymentValue.addEventListener('input', function () {
+            let value = parseInt(this.value);
+            if (value > 100) this.value = 100;
+            if (value < 0) this.value = 0;
+        });
+    }
 
-    ppn.addEventListener('change', function () {
-        if (this.value == "Yes") {
-            $('#containerValuePPN').show();
-        } else {
-            TotalBudgetSelectedPpn.textContent = TotalBudgetSelecteds.textContent;
-            TotalPpns.textContent = "0.00";
-            $('#tariffCurrencyValue').val('0.00');
-            $('#vatOption').val('Select a PPN');
-            $('#containerValuePPN').hide();
-        }
-    });
+    if (ppn) {
+        ppn.addEventListener('change', function () {
+            if (this.value == "Yes") {
+                $('#containerValuePPN').show();
+            } else {
+                TotalBudgetSelectedPpn.textContent = TotalBudgetSelecteds.textContent;
+                TotalPpns.textContent = "0.00";
+                $('#tariffCurrencyValue').val('0.00');
+                $('#vatOption').val('Select a PPN');
+                $('#containerValuePPN').hide();
+            }
+        });
+    }
 
     $('#containerValuePPN').hide();
     $(".loadingPurchaseOrderTable").hide();
@@ -54,15 +58,17 @@
         }
     }
 
-    const observertablePurchaseOrderList = new MutationObserver(checkTableDataPO);
-    observertablePurchaseOrderList.observe(tablePurchaseOrderLists, { childList: true });
+    if (tablePurchaseOrderLists && msrNumber && deliveryTo && supplierCode && downPaymentValue && termOfPaymentOption) {
+        const observertablePurchaseOrderList = new MutationObserver(checkTableDataPO);
+        observertablePurchaseOrderList.observe(tablePurchaseOrderLists, { childList: true });
 
-    msrNumber.addEventListener('input', checkTableDataPO);
-    deliveryTo.addEventListener('input', checkTableDataPO);
-    supplierCode.addEventListener('input', checkTableDataPO);
-    downPaymentValue.addEventListener('input', checkTableDataPO);
-    termOfPaymentOption.addEventListener('change', checkTableDataPO);
-    
+        msrNumber.addEventListener('input', checkTableDataPO);
+        deliveryTo.addEventListener('input', checkTableDataPO);
+        supplierCode.addEventListener('input', checkTableDataPO);
+        downPaymentValue.addEventListener('input', checkTableDataPO);
+        termOfPaymentOption.addEventListener('change', checkTableDataPO);
+    }
+
     function getPaymentTerm() {
         $('#containerSelectTOP').hide();
         
@@ -531,93 +537,95 @@
         $("#purchaseOrderDetail").val("");
     });
 
-    document.querySelector('#tablePurchaseOrderList tbody').addEventListener('click', function (e) {
-        const row = e.target.closest('tr');
-        if (!row) return;
+    if (tablePurchaseOrderLists) {
+        document.querySelector('#tablePurchaseOrderList tbody').addEventListener('click', function (e) {
+            const row = e.target.closest('tr');
+            if (!row) return;
 
-        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+            if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
 
-        const qtyAvail      = row.children[0];
-        const priceCell     = row.children[6];
-        const qtyCell       = row.children[7];
-        const totalCell     = row.children[8];
-        const remarkCell    = row.children[9];
+            const qtyAvail      = row.children[0];
+            const priceCell     = row.children[6];
+            const qtyCell       = row.children[7];
+            const totalCell     = row.children[8];
+            const remarkCell    = row.children[9];
 
-        if (row.classList.contains('editing-row')) {
-            const newPrice  = priceCell.querySelector('input')?.value || '';
-            const newQty    = qtyCell.querySelector('input')?.value || '';
-            const newTotal  = totalCell.querySelector('input')?.value || '';
-            const newRemark = remarkCell.querySelector('textarea')?.value || '';
+            if (row.classList.contains('editing-row')) {
+                const newPrice  = priceCell.querySelector('input')?.value || '';
+                const newQty    = qtyCell.querySelector('input')?.value || '';
+                const newTotal  = totalCell.querySelector('input')?.value || '';
+                const newRemark = remarkCell.querySelector('textarea')?.value || '';
 
-            priceCell.innerHTML = newPrice;
-            qtyCell.innerHTML   = newQty;
-            totalCell.innerHTML = newTotal;
+                priceCell.innerHTML = newPrice;
+                qtyCell.innerHTML   = newQty;
+                totalCell.innerHTML = newTotal;
 
-            const hidden = remarkCell.querySelector('input[type="hidden"]');
-            remarkCell.innerHTML = `${newRemark}`;
-            if (hidden) remarkCell.appendChild(hidden);
+                const hidden = remarkCell.querySelector('input[type="hidden"]');
+                remarkCell.innerHTML = `${newRemark}`;
+                if (hidden) remarkCell.appendChild(hidden);
 
-            row.classList.remove('editing-row');
+                row.classList.remove('editing-row');
 
-            const documentNumber = row.children[1].innerText.trim();
-            const productCode = row.children[2].innerText.trim();
-            const storeItem = dataStore.find(item => item.entities.documentNumber === documentNumber && item.entities.product_RefID === productCode);
+                const documentNumber = row.children[1].innerText.trim();
+                const productCode = row.children[2].innerText.trim();
+                const storeItem = dataStore.find(item => item.entities.documentNumber === documentNumber && item.entities.product_RefID === productCode);
 
-            if (storeItem) {
-                storeItem.entities.quantity = newQty;
-                storeItem.entities.productUnitPriceCurrencyValue = newPrice;
-                storeItem.entities.remarks = newRemark;
+                if (storeItem) {
+                    storeItem.entities.quantity = newQty;
+                    storeItem.entities.productUnitPriceCurrencyValue = newPrice;
+                    storeItem.entities.remarks = newRemark;
 
-                $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
-            }
-        } else {
-            const currentPrice = priceCell.innerText.trim();
-            const currentQty = qtyCell.innerText.trim();
-            const currentTotal = totalCell.innerText.trim();
+                    $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
+                }
+            } else {
+                const currentPrice = priceCell.innerText.trim();
+                const currentQty = qtyCell.innerText.trim();
+                const currentTotal = totalCell.innerText.trim();
 
-            const hiddenInput = remarkCell.querySelector('input[type="hidden"]');
-            const currentRemark = remarkCell.childNodes[0]?.nodeValue?.trim() || '';
+                const hiddenInput = remarkCell.querySelector('input[type="hidden"]');
+                const currentRemark = remarkCell.childNodes[0]?.nodeValue?.trim() || '';
 
-            priceCell.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            totalCell.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-            remarkCell.innerHTML = `
-                <textarea class="form-control" style="width:100px;">${currentRemark}</textarea>
-            `;
-            if (hiddenInput) remarkCell.appendChild(hiddenInput);
+                priceCell.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+                qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+                totalCell.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
+                remarkCell.innerHTML = `
+                    <textarea class="form-control" style="width:100px;">${currentRemark}</textarea>
+                `;
+                if (hiddenInput) remarkCell.appendChild(hiddenInput);
 
-            row.classList.add('editing-row');
+                row.classList.add('editing-row');
 
-            const priceInput = priceCell.querySelector('.price-input');
-            const qtyInput = qtyCell.querySelector('.qty-input');
-            const totalInput = totalCell.querySelector('.total-input');
+                const priceInput = priceCell.querySelector('.price-input');
+                const qtyInput = qtyCell.querySelector('.qty-input');
+                const totalInput = totalCell.querySelector('.total-input');
 
-            function updateTotal() {
-                const price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
-                var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
-                var total = price * qty;
+                function updateTotal() {
+                    const price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
+                    var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
+                    var total = price * qty;
 
-                const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
+                    const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
 
-                if (qty > qtyAvailValue) {
-                    total = price * qtyAvailValue;
-                    qty = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    if (qty > qtyAvailValue) {
+                        total = price * qtyAvailValue;
+                        qty = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-                    ErrorNotif("Qty Req is over Qty Avail !");
+                        ErrorNotif("Qty Req is over Qty Avail !");
+                    }
+
+                    totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 }
 
-                totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                priceInput.addEventListener('input', updateTotal);
+                qtyInput.addEventListener('input', updateTotal);
+
+                document.getElementById('GrandTotal').innerText = totalInput.value;
             }
 
-            priceInput.addEventListener('input', updateTotal);
-            qtyInput.addEventListener('input', updateTotal);
-
-            document.getElementById('GrandTotal').innerText = totalInput.value;
-        }
-
-        updateGrandTotal();
-    });
+            updateGrandTotal();
+        });
+    }
 
     $("#FormSubmitPurchaseOrder").on("submit", function(e) {
         e.preventDefault();

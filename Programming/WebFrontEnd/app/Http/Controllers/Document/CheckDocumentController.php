@@ -52,9 +52,12 @@ class CheckDocumentController extends Controller
             }
 
             if (
-                $documentType === 'Person Business Trip Form' || 
-                $documentType === 'Warehouse Inbound Order Form' ||
-                $documentType === 'Timesheet Form'
+                $documentType === 'Person Business Trip Form' ||
+                $documentType === 'Person Business Trip Settlement Form' || 
+                $documentType === 'Reimbursement Form' || 
+                $documentType === 'Sallary Allocation Form' || 
+                $documentType === 'Timesheet Form' ||
+                $documentType === 'Warehouse Inbound Order Form'
             ) {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
                 $responseData = [
@@ -200,6 +203,8 @@ class CheckDocumentController extends Controller
                 return redirect()->back()->with('error', 'Data Not Found');
             }
 
+            // dd($collection, $workflowHistory);
+
             $approverStatus     = $this->determineApproverStatus($workflowHistory, $sourceData);
             $documentStatus     = $this->determineDocumentStatus($workflowHistory);
 
@@ -236,11 +241,11 @@ class CheckDocumentController extends Controller
             $businessDocument_RefID     = $request->input('businessDocument_RefID');
             $sourceData                 = "NO";
 
-            // dd([
-            //     'transDetail_RefID' => $transDetail_RefID,
-            //     'businessDocumentTypeName'=> $businessDocumentTypeName,
-            //     'businessDocument_RefID' => $businessDocument_RefID,
-            // ]);
+            dd([
+                'transDetail_RefID' => $transDetail_RefID,
+                'businessDocumentTypeName'=> $businessDocumentTypeName,
+                'businessDocument_RefID' => $businessDocument_RefID,
+            ]);
 
             if (!$transDetail_RefID || !$businessDocumentTypeName || !$businessDocument_RefID) {
                 return redirect()->back()->with('error', 'Data Not Found');
@@ -291,33 +296,63 @@ class CheckDocumentController extends Controller
         $DocumentTypeID = $request->input('DocumentTypeID');
         $DocumentTypeName = $request->input('DocumentTypeName');
 
-        // if ($DocumentTypeID == 77000000000045) {
-        //     $DocumentTypeID = 77000000000057;
-        // }
-
-        // if (Redis::get("CheckDocumentTypeID" . $DocumentType) == null) {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.master.getBusinessDocumentFormLatestVersion',
-            'latest',
-            [
-                'parameter' => [
-                    'businessDocumentType_RefID' => (int)$DocumentTypeID
-                ]
-            ],
-            false
-        );
-        // }
-
-        // $varData = json_decode(
-        //     Helper_Redis::getValue(
-        //         Helper_Environment::getUserSessionID_System(),
-        //         "CheckDocumentTypeID" . $DocumentTypeID
-        //     ),
-        //     true
-        // );
+        switch ($DocumentTypeName) {
+            case "Sallary Allocation Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 12345678,
+                                'sys_Text'  => 'SA/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 23456781,
+                                'sys_Text'  => 'SA/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            case "Reimbursement Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 12345678,
+                                'sys_Text'  => 'REM/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 23456781,
+                                'sys_Text'  => 'REM/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            default:
+                $varAPIWebToken = Session::get('SessionLogin');
+                $varData = Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'dataPickList.master.getBusinessDocumentFormLatestVersion',
+                    'latest',
+                    [
+                        'parameter' => [
+                            'businessDocumentType_RefID' => (int)$DocumentTypeID
+                        ]
+                    ],
+                    false
+                );
+                break;
+        }
 
         $compact = [
             "data" => $varData['data']['data'],

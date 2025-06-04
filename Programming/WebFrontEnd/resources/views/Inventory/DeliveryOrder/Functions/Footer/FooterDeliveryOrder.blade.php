@@ -246,15 +246,26 @@
             $(".internal-use-components").css("display", "none");
             $(".stock-movement-components").css("display", "none");
 
+            $(".thead-purchase-order").css("display", "table-row");
+            $(".thead-internal-use").css("display", "none");
+            $(".thead-stock-movement").css("display", "none");
             getReferenceNumber(source);
         } else if (source.value == "INTERNAL_USE") {
             $(".purchase-order-components").css("display", "none");
             $(".internal-use-components").css("display", "flex");
             $(".stock-movement-components").css("display", "none");
+
+            $(".thead-purchase-order").css("display", "none");
+            $(".thead-internal-use").css("display", "table-row");
+            $(".thead-stock-movement").css("display", "none");
         } else {
             $(".purchase-order-components").css("display", "none");
             $(".internal-use-components").css("display", "none");
             $(".stock-movement-components").css("display", "flex");
+
+            $(".thead-purchase-order").css("display", "none");
+            $(".thead-internal-use").css("display", "none");
+            $(".thead-stock-movement").css("display", "table-row");
         }
     }
 
