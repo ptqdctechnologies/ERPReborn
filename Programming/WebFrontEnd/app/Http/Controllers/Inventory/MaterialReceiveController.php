@@ -11,9 +11,19 @@ use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
+use App\Services\MaterialReceiveService;
+use App\Services\WorkflowService;
 
 class MaterialReceiveController extends Controller
 {
+    protected $materialReceiveService, $workflowService;
+
+    public function __construct(MaterialReceiveService $materialReceiveService, WorkflowService $workflowService)
+    {
+        $this->materialReceiveService = $materialReceiveService;
+        $this->workflowService = $workflowService;
+    }
+
     public function index(Request $request)
     {
 
@@ -95,7 +105,7 @@ class MaterialReceiveController extends Controller
                 [
                 'entities' => [
                     'documentDateTimeTZ'                => date('Y-m-d'),
-                    'log_FileUpload_Pointer_RefID'      => (int) $input['storeData']['dataInput_Log_FileUpload_1'],
+                    'log_FileUpload_Pointer_RefID'      => null,
                     'requesterWorkerJobsPosition_RefID' => (int) $SessionWorkerCareerInternal_RefID,
                     'remarks'                           => $input['storeData']['var_remark'],
                     "additionalData"                    => [
@@ -106,6 +116,8 @@ class MaterialReceiveController extends Controller
                     ]
                 ]
             );
+
+            Log::error("Error at store: ", $varData);
 
             if ($varData['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($varData);
@@ -289,87 +301,22 @@ class MaterialReceiveController extends Controller
     public function RevisionMaterialReceiveIndex(Request $request)
     {
         try {
-
-            // $materialReceive_RefID = $request->materialReceive_RefID;
             $varAPIWebToken = Session::get('SessionLogin');
+            $response = $this->materialReceiveService->detail($request->modal_material_receive_id);
 
-            // // DATA REVISION ADVANCE
-            // if (Redis::get("DataListAdvanceDetailComplex") == null) {
-            //     Helper_APICall::setCallAPIGateway(
-            //         Helper_Environment::getUserSessionID_System(),
-            //         $varAPIWebToken,
-            //         'transaction.read.dataList.finance.getAdvanceDetailComplex',
-            //         'latest',
-            //         [
-            //             'parameter' => [
-            //                 'advance_RefID' => (int) $materialReceive_RefID,
-            //             ],
-            //             'SQLStatement' => [
-            //                 'pick' => null,
-            //                 'sort' => null,
-            //                 'filter' => null,
-            //                 'paging' => null
-            //             ]
-            //         ],
-            //         false
-            //     );
-            // }
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
 
-            // $DataAdvanceDetailComplex = json_decode(
-            //     Helper_Redis::getValue(
-            //         Helper_Environment::getUserSessionID_System(),
-            //         "DataListAdvanceDetailComplex"
-            //     ),
-            //     true
-            // );
-
-            // $collection = collect($DataAdvanceDetailComplex);
-            // $collection = $collection->where('Sys_ID_Advance', $materialReceive_RefID);
-
-            // $num = 0;
-            // $filteredArray = [];
-
-            // foreach ($collection as $collections) {
-            //     $filteredArray[$num] = $collections;
-            //     $num++;
-            // }
-
-            // if ($filteredArray[0]['Log_FileUpload_Pointer_RefID'] == 0) {
-            //     $dataDetailFileAttachment = null;
-            // } else {
-            //     $dataDetailFileAttachment = $filteredArray[0]['Log_FileUpload_Pointer_RefID'];
-            // }
-
-            // for ($i = 0; $i < count($filteredArray); $i++) {
-            //     unset($filteredArray[$i]['FileAttachment']);
-            // }
-
-            // //DOCUMENT TYPE ID ADVANCE
-            // $DocumentType = json_decode(
-            //     Helper_Redis::getValue(
-            //         Helper_Environment::getUserSessionID_System(),
-            //         "DocumentType"
-            //     ),
-            //     true
-            // );
-            // $collection = collect($DocumentType);
-            // $collection = $collection->where('Name', "Advance Form");
-            // foreach ($collection->all() as $collections) {
-            //     $DocumentTypeID = $collections['Sys_ID'];
-            // }
-
-            // $remark = $filteredArray[0]['Remarks'];
-            // $filteredArray[0]['Remarks'] = "";
+            $data = $response['data'];
 
             $compact = [
-                // 'dataHeader' => $filteredArray[0],
-                // 'dataDetail' => $filteredArray,
-                // 'remark' => $remark,
-                // 'dataFileAttachment' => $dataDetailFileAttachment,
-                // 'DocumentTypeID' => $DocumentTypeID,
-                'varAPIWebToken' => $varAPIWebToken,
-                // 'statusRevisi' => 1,
+                'dataDetail'        => $data,
+                'varAPIWebToken'    => $varAPIWebToken,
             ];
+
+            dump($data);
+
             return view('Inventory.MaterialReceive.Transactions.RevisionMaterialReceive', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
@@ -476,5 +423,21 @@ class MaterialReceiveController extends Controller
         }
 
         return response()->json($collection->all());
+    }
+
+    public function MaterialReceiveList()
+    {
+        try {
+            $response = $this->materialReceiveService->dataPickList();
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            return response()->json($response['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at MaterialReceiveList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 }

@@ -421,6 +421,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('MaterialReceiveListDataDO', 'Inventory\MaterialReceiveController@MaterialReceiveListDataDO')->name('MaterialReceive.MaterialReceiveListDataDO');
     Route::post('RevisionMaterialReceiveIndex', 'Inventory\MaterialReceiveController@RevisionMaterialReceiveIndex')->name('MaterialReceive.RevisionMaterialReceiveIndex');
     Route::get('MaterialReceiveListData', 'Inventory\MaterialReceiveController@MaterialReceiveListData')->name('MaterialReceive.MaterialReceiveListData');
+    Route::get('MaterialReceiveList', 'Inventory\MaterialReceiveController@MaterialReceiveList')->name('MaterialReceive.MaterialReceiveList');
     Route::post('SearchDeliveryOrder', 'Inventory\MaterialReceiveController@SearchDeliveryOrder')->name('MaterialReceive.SearchDeliveryOrder');
     Route::resource('MaterialReceive', 'Inventory\MaterialReceiveController');
 
