@@ -60,6 +60,33 @@
 <!-- RIGHT COLUMN -->
 <div class="col-12 col-md-5 col-lg-5">
     <div class="form-group">
+        <!-- REVISION -->
+        <div class="row" id="revisionAdvance" style="margin-bottom: 1rem;">
+            <div class="col-4 text-bold">
+                Revision
+            </div>
+            <?php if (isset($dataHeader['dateUpdate'])) { ?>
+                <div class="col d-flex" style="gap: .1rem;">
+                    <div>
+                        :
+                    </div>
+                    <div class="input-group">
+                        <button class="btn btn-default btn-sm" onclick="window.location.href='{{ route('LogTransaction', [
+                            'id'        => $dataHeader['purchaseRequestRefID'],
+                            'docNum'    => $dataHeader['prNumber'],
+                            'docName'   => 'Purchase Request'
+                            ]) }}'">
+                            Show Revision History
+                        </button>
+                    </div>
+                </div>
+            <?php } else { ?>
+                <div class="col">
+                    : 0
+                </div>
+            <?php } ?>
+        </div>
+
         <!-- DELIVERY TO -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-4 col-lg-4 text-bold">
@@ -76,7 +103,7 @@
                 Date of Delivery
             </div>
             <div class="col">
-                : <?= $dataHeader['dateOfDelivery']; ?>
+                : <?= date('Y-m-d', strtotime($dataHeader['dateOfDelivery'])); ?>
             </div>
         </div>
     </div>
