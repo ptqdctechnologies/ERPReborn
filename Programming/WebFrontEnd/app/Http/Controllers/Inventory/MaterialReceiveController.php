@@ -315,8 +315,6 @@ class MaterialReceiveController extends Controller
                 'varAPIWebToken'    => $varAPIWebToken,
             ];
 
-            dump($data);
-
             return view('Inventory.MaterialReceive.Transactions.RevisionMaterialReceive', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
