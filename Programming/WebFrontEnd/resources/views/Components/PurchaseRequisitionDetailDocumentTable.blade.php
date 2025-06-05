@@ -28,7 +28,7 @@
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['productUnitPriceCurrencyValue'] ?? 0, 2); ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['quantity'] ?? 0, 2); ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['quantity'] * $dataDetail['productUnitPriceCurrencyValue'], 2); ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['remarks']; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['notes']; ?></td>
                     </tr>
                 <?php } ?>
             </tbody>

@@ -38,7 +38,6 @@ class DocumentTypeMapper
             'Purchase Requisition Form' => [
                 'key' => 'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
                 'parameter' => ['purchaseRequisition_RefID' => (int) $referenceId],
-                'businessDocument_RefID' => (int) 74000000021491,
             ],
             'Reimbursement Form' => [
                 'key' => '',
@@ -286,15 +285,17 @@ class DocumentTypeMapper
             ],
             'Purchase Requisition Form' => [
                 'dataHeader'            => [
-                    'prNumber'          => '-',
-                    'budgetCode'        => $dataDetail['combinedBudgetCode'] ?? null,
-                    'budgetName'        => $dataDetail['combinedBudgetName'] ?? null,
-                    'subBudgetCode'     => $dataDetail['combinedBudgetSectionCode'] ?? null,
-                    'subBudgetName'     => $dataDetail['combinedBudgetSectionName'] ?? null,
-                    'fileID'            => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
-                    'deliveryTo'        => $dataDetail['deliveryTo_NonRefID'] ?? '-',
-                    'dateOfDelivery'    => $dataDetail['deliveryDateTimeTZ'] ?? '-',
-                    'note'              => $dataDetail['notes'] ?? '-'
+                    'purchaseRequestRefID'  => $dataDetail['purchaseRequisition_RefID'] ?? null,
+                    'dateUpdate'            => $dataDetail['dateUpdate'] ?? '-',
+                    'prNumber'              => $dataDetail['documentNumber'] ?? '-',
+                    'budgetCode'            => $dataDetail['combinedBudgetCode'] ?? null,
+                    'budgetName'            => $dataDetail['combinedBudgetName'] ?? null,
+                    'subBudgetCode'         => $dataDetail['combinedBudgetSectionCode'] ?? null,
+                    'subBudgetName'         => $dataDetail['combinedBudgetSectionName'] ?? null,
+                    'fileID'                => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
+                    'deliveryTo'            => $dataDetail['deliveryTo_RefID'] ? $dataDetail['deliveryToCode'] . ' - ' . $dataDetail['deliveryToName'] :  '-',
+                    'dateOfDelivery'        => $dataDetail['deliveryDateTimeTZ'] ?? '-',
+                    'note'                  => $dataDetail['notes'] ?? '-'
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',

@@ -224,6 +224,8 @@ class CheckDocumentController extends Controller
                 'dataDetails'               => $collection['dataDetail']
             ] + $formatData;
 
+            // dump($compact);
+
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } catch (\Throwable $th) {
             Log::error("Error at ShowDocument: " . $th->getMessage());
@@ -276,12 +278,14 @@ class CheckDocumentController extends Controller
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'var'               => 1,
-                'transactionType'   => $businessDocumentTypeName,
+                // 'transactionType'   => $businessDocumentTypeName,
                 'dataDetails'       => $collection['dataDetail'],
                 'dataWorkFlows'     => $workflowHistory,
                 'statusApprover'    => $approverStatus,
                 'documentStatus'    => $documentStatus,
             ] + $formatData;
+
+            // dump($compact);
 
             return view('Documents.Transactions.IndexCheckDetailDocument',$compact);
         } catch (\Throwable $th) {
@@ -388,6 +392,8 @@ class CheckDocumentController extends Controller
                 ]
             ]
         );
+
+        dd($varData);
 
         $collection = collect($varData['data']);
         $collection = $collection->sort();
