@@ -235,51 +235,6 @@ class FunctionController extends Controller
         );
 
         return response()->json($varData['data']['data']);
-
-
-        // $site_code = $request->input('site_code');
-
-        // if (Redis::get("DataBudget") == null) {
-
-        //     $varAPIWebToken = Session::get('SessionLogin');
-        //     $varData = Helper_APICall::setCallAPIGateway(
-        //         Helper_Environment::getUserSessionID_System(),
-        //         $varAPIWebToken,
-        //         'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail',
-        //         'latest',
-        //         [
-        //             'parameter' => [
-        //                 'combinedBudgetSection_RefID' => (int)$site_code,
-        //             ],
-        //             'SQLStatement' => [
-        //                 'pick' => null,
-        //                 'sort' => null,
-        //                 'filter' => null,
-        //                 'paging' => null
-        //             ]
-        //         ],
-        //         false
-        //     );
-        // }
-
-        // $varDataBudget = json_decode(
-        //     Helper_Redis::getValue(
-        //         Helper_Environment::getUserSessionID_System(),
-        //         "DataBudget"
-        //     ),
-        //     true
-        // );
-
-        // $num = 0;
-        // $filteredArray = [];
-        // for ($i = 0; $i < count($varDataBudget); $i++) {
-        //     if ($varDataBudget[$i]['CombinedBudgetSection_RefID'] == $site_code) {
-        //         $filteredArray[$num] = $varDataBudget[$i];
-        //         $num++;
-        //     }
-        // }
-
-        // return response()->json($filteredArray);
     }
 
     // FUNCTION PURCHASE REQUISTION 

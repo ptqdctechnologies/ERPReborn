@@ -39,6 +39,8 @@
             url: '{!! route("getBudget") !!}?site_code=' + site_code,
             success: function(data) {
                 $(".loadingBudgetDetails").hide();
+                $('#tableGetBudgetDetails tbody').empty();
+                $(".errorMessageContainerBudgetDetails").hide();
 
                 let tbody = $('#tableGetBudgetDetails tbody');
                 tbody.empty();
@@ -315,11 +317,108 @@
         }
     }
 
-    const observertablePurchaseRequestList = new MutationObserver(validationForm);
-    observertablePurchaseRequestList.observe(tablePurchaseRequestLists, { childList: true });
-    siteCode.addEventListener('input', validationForm);
-    deliverCode.addEventListener('input', validationForm);
-    dateDelivery.addEventListener('input', validationForm);
+    if (siteCode) {
+        siteCode.addEventListener('input', validationForm);
+    }
+
+    if (deliverCode) {
+        deliverCode.addEventListener('input', validationForm);
+    }
+
+    if (dateDelivery) {
+        dateDelivery.addEventListener('input', validationForm);
+    }
+
+    if (tablePurchaseRequestLists) {
+        const observertablePurchaseRequestList = new MutationObserver(validationForm);
+        observertablePurchaseRequestList.observe(tablePurchaseRequestLists, { childList: true });
+
+        document.querySelector('#tablePurchaseRequisitionList tbody').addEventListener('click', function (e) {
+            const row = e.target.closest('tr');
+            if (!row) return;
+
+            if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+
+            const qtyAvail = row.children[0];
+            const priceCell = row.children[5];
+            const qtyCell = row.children[6];
+            const totalCell = row.children[7];
+            const remarkCell = row.children[8];
+
+            if (row.classList.contains('editing-row')) {
+                const newPrice = priceCell.querySelector('input')?.value || '';
+                const newQty = qtyCell.querySelector('input')?.value || '';
+                const newTotal = totalCell.querySelector('input')?.value || '';
+                const newRemark = remarkCell.querySelector('textarea')?.value || '';
+
+                priceCell.innerHTML = newPrice;
+                qtyCell.innerHTML = newQty;
+                totalCell.innerHTML = newTotal;
+
+                const hidden = remarkCell.querySelector('input[type="hidden"]');
+                remarkCell.innerHTML = `${newRemark}`;
+                if (hidden) remarkCell.appendChild(hidden);
+
+                row.classList.remove('editing-row');
+
+                const productCode = row.children[1].innerText.trim();
+                const storeItem = dataStore.find(item => item.product_RefID === productCode);
+                if (storeItem) {
+                    storeItem.quantity = newQty;
+                    storeItem.productUnitPriceCurrencyValue = newPrice;
+                    storeItem.remarks = newRemark;
+
+                    $("#purchaseRequisitionDetail").val(JSON.stringify(dataStore));
+                }
+            } else {
+                const currentPrice = priceCell.innerText.trim();
+                const currentQty = qtyCell.innerText.trim();
+                const currentTotal = totalCell.innerText.trim();
+
+                const hiddenInput = remarkCell.querySelector('input[type="hidden"]');
+                const currentRemark = remarkCell.childNodes[0]?.nodeValue?.trim() || '';
+
+                priceCell.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+                qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+                totalCell.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
+                remarkCell.innerHTML = `
+                    <textarea class="form-control" style="width:100px;">${currentRemark}</textarea>
+                `;
+                if (hiddenInput) remarkCell.appendChild(hiddenInput);
+
+                row.classList.add('editing-row');
+
+                const priceInput = priceCell.querySelector('.price-input');
+                const qtyInput = qtyCell.querySelector('.qty-input');
+                const totalInput = totalCell.querySelector('.total-input');
+
+                function updateTotal() {
+                    const price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
+                    var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
+                    var total = price * qty;
+
+                    const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
+
+                    if (qty > qtyAvailValue) {
+                        total = price * qtyAvailValue;
+                        qty = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                        ErrorNotif("Qty Req is over Qty Avail !");
+                    }
+
+                    totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                }
+
+                priceInput.addEventListener('input', updateTotal);
+                qtyInput.addEventListener('input', updateTotal);
+
+                document.getElementById('GrandTotal').innerText = totalInput.value;
+            }
+
+            updateGrandTotal();
+        });
+    }
 
     $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
         var sysId           = $(this).find('input[data-trigger="sys_id_project_second"]').val();
@@ -478,7 +577,7 @@
 
     $("#budget-details-reset").on('click', function() {
         const targetTableBody = document.querySelector('#tablePurchaseRequisitionList tbody');
-        
+
         targetTableBody.innerHTML = '';
 
         dataStore = [];
@@ -486,92 +585,6 @@
         document.getElementById('GrandTotal').innerText = '0.00';
 
         $("#purchaseRequisitionDetail").val("");
-    });
-
-    document.querySelector('#tablePurchaseRequisitionList tbody').addEventListener('click', function (e) {
-        const row = e.target.closest('tr');
-        if (!row) return;
-
-        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
-
-        const qtyAvail = row.children[0];
-        const priceCell = row.children[5];
-        const qtyCell = row.children[6];
-        const totalCell = row.children[7];
-        const remarkCell = row.children[8];
-
-        if (row.classList.contains('editing-row')) {
-            const newPrice = priceCell.querySelector('input')?.value || '';
-            const newQty = qtyCell.querySelector('input')?.value || '';
-            const newTotal = totalCell.querySelector('input')?.value || '';
-            const newRemark = remarkCell.querySelector('textarea')?.value || '';
-
-            priceCell.innerHTML = newPrice;
-            qtyCell.innerHTML = newQty;
-            totalCell.innerHTML = newTotal;
-
-            const hidden = remarkCell.querySelector('input[type="hidden"]');
-            remarkCell.innerHTML = `${newRemark}`;
-            if (hidden) remarkCell.appendChild(hidden);
-
-            row.classList.remove('editing-row');
-
-            const productCode = row.children[1].innerText.trim();
-            const storeItem = dataStore.find(item => item.product_RefID === productCode);
-            if (storeItem) {
-                storeItem.quantity = newQty;
-                storeItem.productUnitPriceCurrencyValue = newPrice;
-                storeItem.remarks = newRemark;
-
-                $("#purchaseRequisitionDetail").val(JSON.stringify(dataStore));
-            }
-        } else {
-            const currentPrice = priceCell.innerText.trim();
-            const currentQty = qtyCell.innerText.trim();
-            const currentTotal = totalCell.innerText.trim();
-
-            const hiddenInput = remarkCell.querySelector('input[type="hidden"]');
-            const currentRemark = remarkCell.childNodes[0]?.nodeValue?.trim() || '';
-
-            priceCell.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            totalCell.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-            remarkCell.innerHTML = `
-                <textarea class="form-control" style="width:100px;">${currentRemark}</textarea>
-            `;
-            if (hiddenInput) remarkCell.appendChild(hiddenInput);
-
-            row.classList.add('editing-row');
-
-            const priceInput = priceCell.querySelector('.price-input');
-            const qtyInput = qtyCell.querySelector('.qty-input');
-            const totalInput = totalCell.querySelector('.total-input');
-
-            function updateTotal() {
-                const price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
-                var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
-                var total = price * qty;
-
-                const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
-
-                if (qty > qtyAvailValue) {
-                    total = price * qtyAvailValue;
-                    qty = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                    ErrorNotif("Qty Req is over Qty Avail !");
-                }
-
-                totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            }
-
-            priceInput.addEventListener('input', updateTotal);
-            qtyInput.addEventListener('input', updateTotal);
-
-            document.getElementById('GrandTotal').innerText = totalInput.value;
-        }
-
-        updateGrandTotal();
     });
 
     $("#FormSubmitPurchaseRequisition").on("submit", function(e) {

@@ -55,11 +55,30 @@
                     let isUnspecified = '';
                     let balanced = currencyTotal(val2.quantity);
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
-                    let findDataDetail = dataDetail.find(el => el.product_RefID == val2.product_RefID && el.productName == val2.productName);
+
+                    let findDataDetail = dataDetail.find(el => 
+                        el.product_RefID == val2.product_RefID && 
+                        el.productName == val2.productName);
+
+                    let findDataMiscellaneous = dataDetail.find(el => 
+                        el.combinedBudgetSubSectionLevel2_RefID == val2.combinedBudgetSubSectionLevel2_RefID && 
+                        el.combinedBudgetSubSectionLevel2Name == val2.combinedBudgetSubSectionLevel2Name && 
+                        el.product_RefID != val2.product_RefID && 
+                        el.productName != val2.productName);
+
                     let productColumn = `
-                        <td style="text-align: center;">${val2.product_RefID}</td>
+                        <input id="recordID${key}" value="-" type="hidden" />
+                        <input id="productCode${key}" value="${val2.productCode}" type="hidden" />
+                        <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
+                        <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
+                        <input id="productUnitPriceCurrency_RefID${key}" value="${val2.unitPriceCurrency_RefID}" type="hidden" />
+                        <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
+                        <input id="productUnitPriceCurrencyExchangeRate${key}" value="1" type="hidden" />
+
+                        <td style="text-align: center;">${val2.productCode}</td>
                         <td style="text-align: center;">${val2.productName}</td>
                     `;
+
                     let componentsInput = `
                         <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                             <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" data-default="" ${isUnspecified} />
@@ -76,11 +95,21 @@
                         <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                             <textarea id="remark${key}" class="form-control" data-default=""></textarea>
                         </td>
-                        <input id="purchase_requisition_detail${key}" value="null" type="hidden" />
                     `;
 
-                    if (!val2.product_RefID) {
+                    if (!val2.product_RefID && !findDataMiscellaneous) {
+                        isUnspecified = 'disabled';
+                        balanced = '-';
+
                         productColumn = `
+                            <input id="recordID${key}" value="-" type="hidden" />
+                            <input id="productCode${key}" value="${val2.productCode}" type="hidden" />
+                            <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
+                            <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
+                            <input id="productUnitPriceCurrency_RefID${key}" value="${val2.unitPriceCurrency_RefID}" type="hidden" />
+                            <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
+                            <input id="productUnitPriceCurrencyExchangeRate${key}" value="1" type="hidden" />
+
                             <td style="padding: 8px;">
                                 <div class="input-group">
                                     <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly data-default="" />
@@ -95,12 +124,71 @@
                             </td>
                             <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name" data-default="${val2.productName}">${val2.productName}</td>
                         `;
+                    } else if (!val2.product_RefID && findDataMiscellaneous) {
                         isUnspecified = 'disabled';
                         balanced = '-';
+
+                        let balancedDetail = val2.quantity - findDataMiscellaneous.quantity;
+
+                        productColumn = `
+                            <input id="recordID${key}" value="${findDataMiscellaneous.sys_ID}" type="hidden" />
+                            <input id="productCode${key}" value="${findDataMiscellaneous.productCode}" type="hidden" />
+                            <input id="product_RefID${key}" value="${findDataMiscellaneous.product_RefID}" type="hidden" />
+                            <input id="quantityUnit_RefID${key}" value="${findDataMiscellaneous.quantityUnit_RefID}" type="hidden" />
+                            <input id="productUnitPriceCurrency_RefID${key}" value="${findDataMiscellaneous.productUnitPriceCurrency_RefID}" type="hidden" />
+                            <input id="combinedBudgetSectionDetail_RefID${key}" value="${findDataMiscellaneous.combinedBudgetSectionDetail_RefID}" type="hidden" />
+                            <input id="productUnitPriceCurrencyExchangeRate${key}" value="${findDataMiscellaneous.productUnitPriceCurrencyExchangeRate}" type="hidden" />
+
+                            <td style="padding: 8px;">
+                                <div class="input-group">
+                                    <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly data-default="${findDataMiscellaneous.productCode}" value="${findDataMiscellaneous.productCode}" />
+                                    <div class="input-group-append">
+                                        <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" data-id="10">
+                                            <a id="product_id2${key}" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(${key})">
+                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name" data-default="${findDataMiscellaneous.productName}">${findDataMiscellaneous.productName}</td>
+                        `;
+                        
+                        componentsInput = `
+                            <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                                <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${currencyTotal(findDataMiscellaneous.quantity)}" value="${currencyTotal(findDataMiscellaneous.quantity)}" />
+                            </td>
+                            <td class="sticky-col forth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                                <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${currencyTotal(findDataMiscellaneous.productUnitPriceCurrencyValue)}" value="${currencyTotal(findDataMiscellaneous.productUnitPriceCurrencyValue)}" />
+                            </td>
+                            <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled data-default="${currencyTotal(findDataMiscellaneous.priceCurrencyValue)}" value="${currencyTotal(findDataMiscellaneous.priceCurrencyValue)}" />
+                            </td>
+                            <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" data-default="${currencyTotal(balancedDetail)}" value="${currencyTotal(balancedDetail)}" disabled />
+                            </td>
+                            <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
+                                <textarea id="remark${key}" class="form-control" data-default="${findDataMiscellaneous.notes}">${findDataMiscellaneous.notes}</textarea>
+                            </td>
+                        `;
                     }
 
                     if (findDataDetail) {
                         let balancedDetail = val2.quantity - findDataDetail.quantity;
+
+                        productColumn = `
+                            <input id="recordID${key}" value="${findDataDetail.sys_ID}" type="hidden" />
+                            <input id="productCode${key}" value="${findDataDetail.productCode}" type="hidden" />
+                            <input id="product_RefID${key}" value="${findDataDetail.product_RefID}" type="hidden" />
+                            <input id="quantityUnit_RefID${key}" value="${findDataDetail.quantityUnit_RefID}" type="hidden" />
+                            <input id="productUnitPriceCurrency_RefID${key}" value="${findDataDetail.productUnitPriceCurrency_RefID}" type="hidden" />
+                            <input id="combinedBudgetSectionDetail_RefID${key}" value="${findDataDetail.combinedBudgetSectionDetail_RefID}" type="hidden" />
+                            <input id="productUnitPriceCurrencyExchangeRate${key}" value="${findDataDetail.productUnitPriceCurrencyExchangeRate}" type="hidden" />
+
+                            <td style="text-align: center;">${val2.productCode}</td>
+                            <td style="text-align: center;">${val2.productName}</td>
+                        `;
+
                         componentsInput = `
                             <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${currencyTotal(findDataDetail.quantity)}" value="${currencyTotal(findDataDetail.quantity)}" />
@@ -117,23 +205,11 @@
                             <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <textarea id="remark${key}" class="form-control" data-default="${findDataDetail.notes}">${findDataDetail.notes}</textarea>
                             </td>
-                            <input id="purchase_requisition_detail${key}" value="${findDataDetail.sys_ID}" type="hidden" />
                         `;
                     }
 
                     let row = `
                         <tr>
-                            <input id="productId${key}" data-product-id="productId" value="${val2.product_RefID}" type="hidden" />
-                            <input id="productName${key}" value="${val2.productName}" type="hidden" />
-                            <input id="qtyId${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
-                            <input id="qty${key}" value="${val2.quantity}" type="hidden" />
-                            <input id="price${key}" value="${val2.priceBaseCurrencyValue}" type="hidden" />
-                            <input id="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
-                            <input id="currency${key}" value="${val2.priceBaseCurrencyISOCode}" type="hidden" />
-                            <input id="currencyId${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
-                            <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
-                            <input id="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID}" type="hidden" />
-
                             ${productColumn}
                             <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
                             <td style="text-align: center;">${currencyTotal(val2.quantityRemaining)}</td>
@@ -231,8 +307,15 @@
         let total = 0;
         const rows = document.querySelectorAll('#tablePRDetailList tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[7];
+            const totalCell = row.children[9];
+            const input = totalCell.querySelector('input');
+
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
+            if (input) {
+                const text = parseFloat(input.value.replace(/,/g, '')) || 0;
+                total += text;
+            }
+
             total += value;
         });
 
@@ -323,16 +406,15 @@
 
         $.each(dataDetail, function(key, val2) {
             dataStore.push({
-                productCode: val2.product_RefID,
-                recordID: val2.sys_ID,
+                recordID: parseInt(val2.sys_ID),
                 entities: {
-                    combinedBudgetSectionDetail_RefID: val2.cmbBudgetSectDtl_RefID,
-                    product_RefID: val2.product_RefID,
+                    combinedBudgetSectionDetail_RefID: parseInt(val2.combinedBudgetSectionDetail_RefID),
+                    product_RefID: parseInt(val2.product_RefID),
                     quantity: val2.quantity,
-                    quantityUnit_RefID: val2.quantityUnit_RefID,
-                    productUnitPriceCurrency_RefID: val2.productUnitPriceCurrency_RefID,
+                    quantityUnit_RefID: parseInt(val2.quantityUnit_RefID),
+                    productUnitPriceCurrency_RefID: parseInt(val2.productUnitPriceCurrency_RefID),
                     productUnitPriceCurrencyValue: val2.productUnitPriceCurrencyValue,
-                    productUnitPriceCurrencyExchangeRate: val2.productUnitPriceCurrencyExchangeRate,
+                    productUnitPriceCurrencyExchangeRate: parseFloat(val2.productUnitPriceCurrencyExchangeRate.replace(/,/g, '')),
                     remarks: val2.remarks
                 },
             });
@@ -341,8 +423,10 @@
 
             let rowList = `
                 <tr>
+                    <input type="hidden" name="record_RefID[]" value="${val2.sys_ID}">
                     <input type="hidden" name="qty_avail[]" value="${currencyTotal(val2.combinedBudget_Quantity)}">
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.product_RefID}</td>
+                    <input type="hidden" name="price_avail[]" value="${currencyTotal(val2.productUnitPriceCurrencyValue)}">
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.priceCurrencyISOCode}</td>
@@ -350,7 +434,6 @@
                     <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.quantity)}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(totalRequest)}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.notes}</td>
-                    <input type="hidden" name="price_avail[]" value="${currencyTotal(val2.combinedBudget_PriceBaseCurrencyValue)}">
                 </tr>
             `;
 
@@ -370,107 +453,105 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const qtyInput                          = row.querySelector('input[id^="qty_req"]');
-            const priceInput                        = row.querySelector('input[id^="price_req"]');
-            const totalInput                        = row.querySelector('input[id^="total_req"]');
-            const balanceInput                      = row.querySelector('input[id^="balanced_qty"]');
-            const remarkInput                       = row.querySelector('textarea[id^="remark"]');
-            const qtyUnitRefId                      = row.querySelector('input[id^="qtyId"]');
-            const currencyRefId                     = row.querySelector('input[id^="currencyId"]');
-            const combinedBudgetSectionDetailInput  = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
-            const purchaseRequisitionDetail         = row.querySelector('input[id^="purchase_requisition_detail"]');
+            const recordRefID                           = row.querySelector('input[id^="recordID"]');
+            const productCode                           = row.querySelector('input[id^="productCode"]');
+            const productRefID                          = row.querySelector('input[id^="product_RefID"]');
+            const quantityUnitRefID                     = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const productUnitPriceCurrencyRefID         = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
+            const combinedBudgetSectionDetailRefID      = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const productUnitPriceCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
+
+            const qtyInput      = row.querySelector('input[id^="qty_req"]');
+            const priceInput    = row.querySelector('input[id^="price_req"]');
+            const totalInput    = row.querySelector('input[id^="total_req"]');
+            const balanceInput  = row.querySelector('input[id^="balanced_qty"]');
+            const noteInput     = row.querySelector('textarea[id^="remark"]');
 
             if (
-                qtyInput && priceInput && totalInput && balanceInput && remarkInput &&
+                qtyInput && priceInput && totalInput && balanceInput && noteInput &&
                 qtyInput.value.trim() !== '' &&
                 priceInput.value.trim() !== '' &&
                 totalInput.value.trim() !== '' &&
                 balanceInput.value.trim() !== '' &&
-                remarkInput.value.trim() !== ''
+                noteInput.value.trim() !== ''
             ) {
-                const productCode = row.children[0].value.trim();
-                const productName = row.children[1].value.trim();
-                const uom = row.children[5].value.trim();
-                const currency = row.children[6].value.trim();
-                const qtyAvail = row.children[13].innerText.trim();
-                const unitPrice = row.children[15].innerText.trim();
+                const productName = row.children[8].innerText.trim();
+                const qtyAvail = row.children[10].innerText.trim();
+                const uom = row.children[11].innerText.trim();
+                const priceAvail = row.children[12].innerText.trim();
+                const currency = row.children[14].innerText.trim();
 
                 const price = priceInput.value.trim();
-                const qty = qtyInput.value.trim();
+                const qty   = qtyInput.value.trim();
                 const total = totalInput.value.trim();
-                const remark = remarkInput.value.trim();
+                const note  = noteInput.value.trim();
 
                 let found = false;
                 const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetCode = targetRow.children[1].innerText.trim();
-                    if (targetCode === productCode) {
-                        targetRow.children[5].innerText = price;
-                        targetRow.children[6].innerText = qty;
-                        targetRow.children[7].innerText = total;
-                        targetRow.children[8].innerText = remark;
+                    const targetRecordID = targetRow.children[0].value.trim();
+                    if (targetRecordID == recordRefID.value) {
+                        targetRow.children[7].innerText = price;
+                        targetRow.children[8].innerText = qty;
+                        targetRow.children[9].innerText = total;
+                        targetRow.children[10].innerText = note;
                         found = true;
 
-                        const indexToUpdate = dataStore.findIndex(item => item.productCode == productCode);
+                        const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
-                                productCode: productCode,
-                                recordID: parseInt(purchaseRequisitionDetail.value),
+                                recordID: parseInt(recordRefID.value),
                                 entities: {
-                                    combinedBudgetSectionDetail_RefID: combinedBudgetSectionDetailInput.value,
-                                    product_RefID: productCode,
+                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
+                                    product_RefID: parseInt(productRefID.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
-                                    quantityUnit_RefID: qtyUnitRefId.value,
-                                    productUnitPriceCurrency_RefID: currencyRefId.value,
+                                    quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                                    productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
                                     productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
-                                    productUnitPriceCurrencyExchangeRate: 1,
-                                    fulfillmentDeadlineDateTimeTZ: null,
-                                    remarks: remark
-                                }
+                                    productUnitPriceCurrencyExchangeRate: parseFloat(productUnitPriceCurrencyExchangeRate.value.replace(/,/g, '')),
+                                    remarks: note
+                                },
                             };
                         }
-                        break;
                     }
                 }
 
                 if (!found) {
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
+                        <input type="hidden" name="record_RefID[]" value="${recordRefID.value}">
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                        <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productName}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${currency}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${price}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${qty}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${total}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${remark}</td>
-                        <input type="hidden" name="price_avail[]" value="${unitPrice}">
+                        <input type="hidden" name="price_avail[]" value="${priceAvail}">
+                        <td style="text-align: center;padding: 0.8rem 0px;">${productCode.value}</td>
+                        <td style="text-align: center;padding: 0.8rem 0px;">${productName}</td>
+                        <td style="text-align: center;padding: 0.8rem 0px;">${uom}</td>
+                        <td style="text-align: center;padding: 0.8rem 0px;">${currency}</td>
+                        <td style="text-align: center;padding: 0.8rem 0px;">${price}</td>
+                        <td style="text-align: center;padding: 0.8rem 0px;">${qty}</td>
+                        <td style="text-align: center;padding: 0.8rem 0px;">${total}</td>
+                        <td style="text-align: center;padding: 0.8rem 0px;">${note}</td>
                     `;
                     targetTable.appendChild(newRow);
 
                     dataStore.push({
-                        productCode: productCode,
-                        recordID: parseInt(purchaseRequisitionDetail.value),
+                        recordID: parseInt(recordRefID.value),
                         entities: {
-                            combinedBudgetSectionDetail_RefID: combinedBudgetSectionDetailInput.value,
-                            product_RefID: productCode,
+                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailRefID.value),
+                            product_RefID: parseInt(productRefID.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
-                            quantityUnit_RefID: qtyUnitRefId.value,
-                            productUnitPriceCurrency_RefID: currencyRefId.value,
+                            quantityUnit_RefID: parseInt(quantityUnitRefID.value),
+                            productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrencyRefID.value),
                             productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
-                            productUnitPriceCurrencyExchangeRate: 1,
-                            fulfillmentDeadlineDateTimeTZ: null,
-                            remarks: remark,
-                        }
+                            productUnitPriceCurrencyExchangeRate: parseFloat(productUnitPriceCurrencyExchangeRate.value.replace(/,/g, '')),
+                            remarks: note
+                        },
                     });
                 }
-
                 qtyInput.value = '';
                 priceInput.value = '';
                 totalInput.value = '';
-                remarkInput.value = '';
+                noteInput.value = '';
                 balanceInput.value = balanceInput.getAttribute('data-default');
             }
         }
@@ -608,55 +689,55 @@
 
         if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
 
-        const qtyAvail      = row.children[0];
-        const priceAvail    = row.children[9];
-        const qtyReq        = row.children[6];
-        const priceReq      = row.children[5];
-        const totalReq      = row.children[7];
-        const remarks       = row.children[8];
+        const qtyAvail      = row.children[1];
+        const priceAvail    = row.children[2];
+        const qtyReq        = row.children[8];
+        const priceReq      = row.children[7];
+        const totalReq      = row.children[9];
+        const notes          = row.children[10];
 
         if (row.classList.contains('editing-row')) {
             const newQtyReq     = qtyReq.querySelector('input')?.value || '';
             const newPriceReq   = priceReq.querySelector('input')?.value || '';
             const newTotalReq   = totalReq.querySelector('input')?.value || '';
-            const newRemarks    = remarks.querySelector('textarea')?.value || '';
+            const newNotes      = notes.querySelector('textarea')?.value || '';
 
             qtyReq.innerHTML    = newQtyReq;
             priceReq.innerHTML  = newPriceReq;
             totalReq.innerHTML  = newTotalReq;
-            remarks.innerHTML   = newRemarks;
+            notes.innerHTML     = newNotes;
 
-            const hidden = remarks.querySelector('input[type="hidden"]');
-            remarks.innerHTML = `${newRemarks}`;
-            if (hidden) remarks.appendChild(hidden);
+            const hidden = notes.querySelector('input[type="hidden"]');
+            notes.innerHTML = `${newNotes}`;
+            if (hidden) notes.appendChild(hidden);
 
             row.classList.remove('editing-row');
 
-            const productCode   = row.children[1].innerText.trim();
-            const storeItem     = dataStore.find(item => item.productCode == productCode);
+            const recordRefID   = row.children[0].value.trim();
+            const storeItem     = dataStore.find(item => item.recordID == recordRefID);
 
             if (storeItem) {
-                storeItem.entities.quantity = newQtyReq;
-                storeItem.entities.productUnitPriceCurrencyValue = newPriceReq;
-                storeItem.entities.remarks = newRemarks;
+                storeItem.entities.quantity = parseFloat(newQtyReq.replace(/,/g, ''));
+                storeItem.entities.productUnitPriceCurrencyValue = parseFloat(newPriceReq.replace(/,/g, ''));
+                storeItem.entities.remarks = newNotes;
 
                 $("#purchaseRequisitionDetail").val(JSON.stringify(dataStore));
             }
         } else {
-            const currentQty        = qtyReq.innerText.trim();
-            const currentPrice      = priceReq.innerText.trim();
-            const currentTotal      = totalReq.innerText.trim();
+            const currentQty    = qtyReq.innerText.trim();
+            const currentPrice  = priceReq.innerText.trim();
+            const currentTotal  = totalReq.innerText.trim();
 
-            const hiddenInput       = remarks.querySelector('input[type="hidden"]');
-            const currentremarks    = remarks.childNodes[0]?.nodeValue?.trim() || '';
+            const hiddenInput       = notes.querySelector('input[type="hidden"]');
+            const currentremarks    = notes.childNodes[0]?.nodeValue?.trim() || '';
 
             qtyReq.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
             priceReq.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
             totalReq.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-            remarks.innerHTML = `
+            notes.innerHTML = `
                 <textarea class="form-control" style="width:100px;">${currentremarks}</textarea>
             `;
-            if (hiddenInput) remarks.appendChild(hiddenInput);
+            if (hiddenInput) notes.appendChild(hiddenInput);
 
             row.classList.add('editing-row');
 
@@ -664,7 +745,7 @@
             const priceInput = priceReq.querySelector('.price-input');
             const totalInput = totalReq.querySelector('.total-input');
 
-            function updateGrandTotal() {
+            function validateTotal() {
                 var price   = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
                 var qty     = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
                 var total   = price * qty;
@@ -691,10 +772,10 @@
                 totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             }
 
-            priceInput.addEventListener('input', updateGrandTotal);
-            qtyInput.addEventListener('input', updateGrandTotal);
+            priceInput.addEventListener('input', validateTotal);
+            qtyInput.addEventListener('input', validateTotal);
 
-            document.getElementById('GrandTotal').innerText = totalInput.value;
+            updateGrandTotal();
         }
     });
 </script>
