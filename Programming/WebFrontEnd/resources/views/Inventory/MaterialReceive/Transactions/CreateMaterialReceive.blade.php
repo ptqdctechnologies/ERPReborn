@@ -3,6 +3,7 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('Inventory.MaterialReceive.Functions.PopUp.PopUpMaterialReceiveRevision')
+@include('getFunction.getMaterialReceive')
 @include('getFunction.getDeliveryOrder')
 @include('getFunction.getWorkFlow')
 

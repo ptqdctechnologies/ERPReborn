@@ -35,6 +35,7 @@ class TimesheetController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
     public function ReportTimesheetSummaryData($project_id, $site_id, $project_name, $project_code, $site_code) 
     {
         try {
@@ -140,6 +141,7 @@ class TimesheetController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
     public function ReportTimesheetSummaryStore(Request $request) 
     {
         try {
@@ -196,6 +198,7 @@ class TimesheetController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
     public function PrintExportReportTimesheetSummary(Request $request) 
     {
         try {
@@ -234,6 +237,7 @@ class TimesheetController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -335,31 +339,6 @@ class TimesheetController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-    // public function store(Request $request)
-    // {
-    //     $varAPIWebToken = $request->session()->get('SessionLogin');
-
-    //     $varData = Helper_APICall::setCallAPIGateway(
-    //     Helper_Environment::getUserSessionID_System(),
-    //     $varAPIWebToken, 
-    //     'transaction.create.humanResource.setPersonWorkTimeSheet', 
-    //     'latest', 
-    //     [
-    //     'entities' => [
-    //         'documentDateTimeTZ' => $request->startDate,
-    //         'person_RefID' => (int) $request->behalfOf,
-    //         'startDateTimeTZ' => $request->startDate,
-    //         'finishDateTimeTZ' => $request->finishDate,
-    //         'project_RefID' => (int) $request->ProjectEvent,
-    //         'colorText' => $request->textColor,
-    //         'colorBackground' => $request->backgroundColor
-            
-    //         ]
-    //     ]
-    //     );
-    //     return redirect()->route('Timesheet.index')->with('message', 'Timesheet successfully created ...');
-        
-    // }
 
     public function storeActivity(Request $request)
     {
@@ -384,6 +363,7 @@ class TimesheetController extends Controller
         
         return redirect()->route('Timesheet.index')->with('message', 'Timesheet successfully created ...');
     }
+
     public function updates(Request $request)
     {
         // echo $request->backgroundColor2;die;
@@ -410,7 +390,6 @@ class TimesheetController extends Controller
         
         return redirect()->route('Timesheet.index')->with('message', 'Timesheet successfully updated ...');
     }
-
 
     /**
      * Display the specified resource.

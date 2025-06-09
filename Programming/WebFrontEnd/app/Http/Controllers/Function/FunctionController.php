@@ -1020,7 +1020,7 @@ class FunctionController extends Controller
             ]
         );
 
-        return response()->json($varDataPerson['data']);
+        return response()->json($varDataPerson['data']['data']);
     }
 
     public function getAdvanceDetail(Request $request) 

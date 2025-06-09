@@ -20,12 +20,13 @@
                                             <div class="input-group">
                                                 <form id="editForm" action="{{ route('MaterialReceive.RevisionMaterialReceiveIndex') }}" method="post">
                                                 @csrf
-                                                <input id="materialReceive_RefID" style="border-radius:0;" name="materialReceive_RefID" type="hidden" class="form-control">
+                                                    <input id="modal_material_receive_id" style="border-radius:0;" name="modal_material_receive_id" type="hidden" class="form-control">
                                                 </form>
-                                                <input required="" id="materialReceiveNumber" style="border-radius:0;" name="materialReceiveNumber" type="text" class="form-control" required readonly>
+
+                                                <input required="" id="modal_material_receive_document_number" style="border-radius:0;" name="modal_material_receive_document_number" type="text" class="form-control" required readonly>
                                                 <div class="input-group-append" style="cursor: pointer;">
-                                                    <span style="border-radius:0;" class="input-group-text form-control" id="materialReceiveNumberIcon">
-                                                        <a data-toggle="modal" data-target="#PopUpTableMaterialReceiveRevision">
+                                                    <span style="border-radius:0;" class="input-group-text form-control" id="modal_material_receive_document_numberIcon">
+                                                        <a data-toggle="modal" data-target="#myGetModalMaterialReceive">
                                                             <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                                         </a>
                                                     </span>
@@ -52,21 +53,21 @@
 
 <script>
     $('.btn-edit').on('click', function() {
-        var materialReceiveRefID = $('#materialReceive_RefID').val();
+        var materialReceiveRefID = $('#modal_material_receive_id').val();
 
-        // if (materialReceiveRefID) {
+        if (materialReceiveRefID) {
             ShowLoading();
 
             $('#editForm').submit();
-        // } else {
-        //     $('#materialReceiveNumber').focus();
-        //     $('#materialReceiveNumber').css("border", "1px solid red");
-        //     $('#materialReceiveNumberIcon').css("border", "1px solid red");
-        // }
+        } else {
+            $('#modal_material_receive_document_number').focus();
+            $('#modal_material_receive_document_number').css("border", "1px solid red");
+            $('#modal_material_receive_document_numberIcon').css("border", "1px solid red");
+        }
     });
 
     $('.btn-cancel').on('click', function() {
-        $('#materialReceive_RefID').val("");
-        $('#materialReceiveNumber').val("");
+        $('#modal_material_receive_id').val("");
+        $('#modal_material_receive_document_number').val("");
     });
 </script>

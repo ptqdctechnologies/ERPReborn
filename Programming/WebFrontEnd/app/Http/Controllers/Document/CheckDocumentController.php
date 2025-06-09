@@ -44,7 +44,7 @@ class CheckDocumentController extends Controller
             if (!$referenceId || !$documentType) {
                 return redirect()->back()->with('NotFound', 'Invalid request data.');
             }
-            
+
             $apiConfig = DocumentTypeMapper::getApiConfig($documentType, $referenceId);
 
             if (!$apiConfig) {
@@ -52,6 +52,8 @@ class CheckDocumentController extends Controller
             }
 
             if (
+                $documentType === 'Loan Form' ||
+                $documentType === 'Loan Settlement Form' ||
                 $documentType === 'Person Business Trip Form' ||
                 $documentType === 'Person Business Trip Settlement Form' || 
                 $documentType === 'Reimbursement Form' || 
@@ -216,6 +218,7 @@ class CheckDocumentController extends Controller
                 'varAPIWebToken'            => $varAPIWebToken,
                 'sourceData'                => $sourceData,
                 'var'                       => 1,
+                'transactionForm'           => $businessDocumentTypeName,
                 'transactionNumber'         => $businessDocumentNumber,
                 'transactionDetail_RefID'   => $transDetail_RefID,
                 'dataWorkFlows'             => $workflowHistory,
@@ -224,7 +227,7 @@ class CheckDocumentController extends Controller
                 'dataDetails'               => $collection['dataDetail']
             ] + $formatData;
 
-            // dump($compact);
+            // dd($compact);
 
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } catch (\Throwable $th) {
@@ -278,7 +281,6 @@ class CheckDocumentController extends Controller
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'var'               => 1,
-                // 'transactionType'   => $businessDocumentTypeName,
                 'dataDetails'       => $collection['dataDetail'],
                 'dataWorkFlows'     => $workflowHistory,
                 'statusApprover'    => $approverStatus,
@@ -301,6 +303,46 @@ class CheckDocumentController extends Controller
         $DocumentTypeName = $request->input('DocumentTypeName');
 
         switch ($DocumentTypeName) {
+            case "Loan Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 12345678,
+                                'sys_Text'  => 'LN/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 23456781,
+                                'sys_Text'  => 'LN/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            case "Loan Settlement Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 12345678,
+                                'sys_Text'  => 'LNS/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 23456781,
+                                'sys_Text'  => 'LNS/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
             case "Sallary Allocation Form":
                 $varData = [
                     'data' => [
