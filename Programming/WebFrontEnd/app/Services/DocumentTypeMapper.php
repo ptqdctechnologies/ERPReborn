@@ -293,7 +293,8 @@ class DocumentTypeMapper
                     'subBudgetCode'         => $dataDetail['combinedBudgetSectionCode'] ?? null,
                     'subBudgetName'         => $dataDetail['combinedBudgetSectionName'] ?? null,
                     'fileID'                => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
-                    'deliveryTo'            => $dataDetail['deliveryTo_RefID'] ? $dataDetail['deliveryToCode'] . ' - ' . $dataDetail['deliveryToName'] :  '-',
+                    'deliveryToCode'        => $dataDetail['deliveryToCode'] ?? '-',
+                    'deliveryToName'        => $dataDetail['deliveryToName'] ?? '-',
                     'dateOfDelivery'        => $dataDetail['deliveryDateTimeTZ'] ?? '-',
                     'note'                  => $dataDetail['notes'] ?? '-'
                 ],

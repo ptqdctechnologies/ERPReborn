@@ -93,7 +93,7 @@
                 Delivery To
             </div>
             <div class="col">
-                : <?= $dataHeader['deliveryTo']; ?>
+                : (<?= $dataHeader['deliveryToCode']; ?>) <?= $dataHeader['deliveryToName']; ?>
             </div>
         </div>
 
