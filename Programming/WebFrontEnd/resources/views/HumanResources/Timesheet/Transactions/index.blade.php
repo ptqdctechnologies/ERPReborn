@@ -76,7 +76,7 @@
                       <div class="col-2 p-0">
                         <div id="onBehalfSelectContainer">
                           <select class="form-control select2bs4" id="onBehalfSelect" style="width: 100%;">
-                            <option disabled selected>Select On Behalf</option>
+                            <option disabled selected>Select a Person on Behalf</option>
                           </select>
                         </div>
 

@@ -179,11 +179,9 @@
             type: 'GET',
             url: '{!! route("getPerson") !!}',
             success: function(data) {
-                console.log('data', data);
-                
                 if (data && Array.isArray(data)) {
                     $('#onBehalfSelect').empty();
-                    $('#onBehalfSelect').append('<option disabled selected>Select On Behalf</option>');
+                    $('#onBehalfSelect').append('<option disabled selected>Select a Person on Behalf</option>');
 
                     data.forEach(function(person) {
                         $('#onBehalfSelect').append('<option value="' + person.sys_ID + '">' + person.sys_Text + '</option>');
@@ -344,7 +342,7 @@
             changeProjectID: 'Select a Project Code',
             changeDisabledSiteID: true,
             changeSiteID: 'Select a Site Code',
-            changePersonID: 'Select On Behalf'
+            changePersonID: 'Select a Person on Behalf'
         });
     }
 
@@ -611,7 +609,7 @@
                 changeProjectID: 'Select a Project Code',
                 changeDisabledSiteID: true,
                 changeSiteID: 'Select a Site Code',
-                changePersonID: 'Select On Behalf'
+                changePersonID: 'Select a Person on Behalf'
             });
         });
     });
