@@ -292,7 +292,7 @@
         let total = 0;
         const rows = document.querySelectorAll('#tablePurchaseRequisitionList tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[8];
+            const totalCell = row.children[9];
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             total += value;
         });
@@ -340,10 +340,11 @@
             if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
 
             const qtyAvail = row.children[0];
-            const priceCell = row.children[5];
-            const qtyCell = row.children[6];
-            const totalCell = row.children[7];
-            const remarkCell = row.children[8];
+            const priceAvail = row.children[1];
+            const priceCell = row.children[7];
+            const qtyCell = row.children[8];
+            const totalCell = row.children[9];
+            const remarkCell = row.children[10];
 
             if (row.classList.contains('editing-row')) {
                 const newPrice = priceCell.querySelector('input')?.value || '';
@@ -361,7 +362,7 @@
 
                 row.classList.remove('editing-row');
 
-                const productCode = row.children[1].innerText.trim();
+                const productCode = row.children[2].innerText.trim();
                 const storeItem = dataStore.find(item => item.product_RefID === productCode);
                 if (storeItem) {
                     storeItem.quantity = newQty;
@@ -393,11 +394,12 @@
                 const totalInput = totalCell.querySelector('.total-input');
 
                 function updateTotal() {
-                    const price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
+                    var price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
                     var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
                     var total = price * qty;
 
                     const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
+                    const priceAvailValue = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
 
                     if (qty > qtyAvailValue) {
                         total = price * qtyAvailValue;
@@ -405,6 +407,14 @@
                         qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
                         ErrorNotif("Qty Req is over Qty Avail !");
+                    }
+
+                    if (price > priceAvailValue) {
+                        total = priceAvailValue * qtyAvailValue;
+                        price = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        priceInput.value = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                        ErrorNotif("Price Req is over Price Avail !");
                     }
 
                     totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -494,6 +504,7 @@
                 const uom = row.children[5].value.trim();
                 const currency = row.children[6].value.trim();
                 const qtyAvail = row.children[13].innerText.trim();
+                const priceAvail = row.children[15].innerText.trim();
 
                 const price = priceInput.value.trim();
                 const qty = qtyInput.value.trim();
@@ -506,10 +517,10 @@
                 for (let targetRow of existingRows) {
                     const targetCode = targetRow.children[1].innerText.trim();
                     if (targetCode === productCode) {
-                        targetRow.children[6].innerText = price;
-                        targetRow.children[7].innerText = qty;
-                        targetRow.children[8].innerText = total;
-                        targetRow.children[9].innerText = remark;
+                        targetRow.children[7].innerText = price;
+                        targetRow.children[8].innerText = qty;
+                        targetRow.children[9].innerText = total;
+                        targetRow.children[10].innerText = remark;
                         found = true;
 
                         // update dataStore
@@ -535,6 +546,7 @@
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
+                        <input type="hidden" name="price_avail[]" value="${priceAvail}">
                         <td style="text-align: center;padding: 0.8rem;" hidden>${productCode}</td>
                         <td style="text-align: center;padding: 0.8rem;">${productCodeShow.value}</td>
                         <td style="text-align: center;padding: 0.8rem;">${productName}</td>
