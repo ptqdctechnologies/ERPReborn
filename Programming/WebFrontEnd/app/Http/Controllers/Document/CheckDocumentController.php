@@ -216,6 +216,7 @@ class CheckDocumentController extends Controller
                 'varAPIWebToken'            => $varAPIWebToken,
                 'sourceData'                => $sourceData,
                 'var'                       => 1,
+                'transactionForm'           => $businessDocumentTypeName,
                 'transactionNumber'         => $businessDocumentNumber,
                 'transactionDetail_RefID'   => $transDetail_RefID,
                 'dataWorkFlows'             => $workflowHistory,
@@ -278,7 +279,6 @@ class CheckDocumentController extends Controller
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'var'               => 1,
-                // 'transactionType'   => $businessDocumentTypeName,
                 'dataDetails'       => $collection['dataDetail'],
                 'dataWorkFlows'     => $workflowHistory,
                 'statusApprover'    => $approverStatus,
