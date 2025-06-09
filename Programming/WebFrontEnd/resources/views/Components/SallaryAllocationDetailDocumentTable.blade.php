@@ -20,11 +20,55 @@
                     <td style="border:1px solid #4B586A;color:#4B586A;">1</td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">Eka Bagus</td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">1000080</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Batu Split</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">m3</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">4,000.00</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">3.32</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">13,280.00</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">Sallary</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">4,000,000.00</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">1.00</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">4,000,000.00</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">2</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">Iman Faisal Abdurahman</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">1000080</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">Sallary</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">5,000,000.00</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">1.00</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">5,000,000.00</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">3</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">Muhammad Sholikhun</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">1000080</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">Sallary</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">6,000,000.00</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">1.00</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">6,000,000.00</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">4</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">Sakinah Tantriani Lubis</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">1000080</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">Sallary</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">7,000,000.00</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">1.00</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">7,000,000.00</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">5</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">Togar Sihombing</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">1000080</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">Sallary</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">8,000,000.00</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">1.00</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">8,000,000.00</td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
                 </tr>
             </tbody>
@@ -36,7 +80,7 @@
                     </th>
                     <td style="border:1px solid #4B586A;color:#4B586A;">
                         <span id="GrandTotal">
-                            13,280.00
+                            30,000,000.00
                         </span>
                     </td>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"></th>
