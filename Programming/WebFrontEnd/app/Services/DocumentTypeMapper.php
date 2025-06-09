@@ -21,6 +21,16 @@ class DocumentTypeMapper
                 'key' => 'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
                 'parameter' => ['deliveryOrder_RefID' => (int) $referenceId],
             ],
+            'Loan Form' => [
+                'key' => '',
+                'parameter' => [],
+                'businessDocument_RefID' => (int) 74000000021494,
+            ],
+            'Loan Settlement Form' => [
+                'key' => '',
+                'parameter' => [],
+                'businessDocument_RefID' => (int) 74000000021494,
+            ],
             'Person Business Trip Form' => [
                 'key' => '',
                 'parameter' => [],
@@ -161,6 +171,44 @@ class DocumentTypeMapper
                 ],
                 'transactionType'        => 'DELIVERY ORDER',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
+            ],
+            'Loan Form' => [
+                'dataHeader'    => [
+                ],
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => '-',
+                ],
+                'components'    => [
+                    'detail'    => 'Components.LoanDetailDocument',
+                    'table'     => 'Components.LoanDetailDocumentTable',
+                ],
+                'resubmit'      => [
+                    'url'       => '',
+                    'name'      => '',
+                    'value'     => ''
+                ],
+                'transactionType'        => 'LOAN',
+                'businessDocument_RefID' => '',
+            ],
+            'Loan Settlement Form' => [
+                'dataHeader'    => [
+                ],
+                'textAreaFields'    => [
+                    'title'         => 'Remark',
+                    'text'          => '-',
+                ],
+                'components'    => [
+                    'detail'    => 'Components.LoanSettlementDetailDocument',
+                    'table'     => 'Components.LoanSettlementDetailDocumentTable',
+                ],
+                'resubmit'      => [
+                    'url'       => '',
+                    'name'      => '',
+                    'value'     => ''
+                ],
+                'transactionType'        => 'LOAN SETTLEMENT',
+                'businessDocument_RefID' => '',
             ],
             'Person Business Trip Form' => [
                 'dataHeader'            => [
