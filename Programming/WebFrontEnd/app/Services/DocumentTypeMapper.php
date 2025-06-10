@@ -174,14 +174,24 @@ class DocumentTypeMapper
             ],
             'Loan Form' => [
                 'dataHeader'    => [
+                    'loanNumber'    => 'LN/QDC/2025/000001',
+                    'loanType'      => '-',
+                    'creditors'     => 'Ajeng Supratna',
+                    'debtor'        => 'Timothy Fajar',
+                    'bankName'      => 'BCA',
+                    'bankAccount'   => '32382231293',
+                    'principalLoan' => 'Dadang Surana',
+                    'landingRate'   => 20000.32,
+                    'totalRate'     => 30233.94,
+                    'loanTerm'      => '-',
+                    'COA'           => 50234.26,
                 ],
                 'textAreaFields'    => [
-                    'title'         => 'Remark',
+                    'title'         => 'Notes',
                     'text'          => '-',
                 ],
                 'components'    => [
                     'detail'    => 'Components.LoanDetailDocument',
-                    'table'     => 'Components.LoanDetailDocumentTable',
                 ],
                 'resubmit'      => [
                     'url'       => '',
@@ -193,14 +203,23 @@ class DocumentTypeMapper
             ],
             'Loan Settlement Form' => [
                 'dataHeader'    => [
+                    'loanSettlementNumber' => 'LNS/QDC/2025/000001',
+                ],
+                'dataAdditional'        => [
+                    'penaltyValue'      => 4150000.00,
+                    'penaltyCOA'        => 8040000.00,
+                    'interestValue'     => 5770000.00,
+                    'interestCOA'       => 7370000.00,
+                    'totalSettlement'   => 67000000.00
                 ],
                 'textAreaFields'    => [
-                    'title'         => 'Remark',
+                    'title'         => 'Notes',
                     'text'          => '-',
                 ],
                 'components'    => [
-                    'detail'    => 'Components.LoanSettlementDetailDocument',
-                    'table'     => 'Components.LoanSettlementDetailDocumentTable',
+                    'detail'        => 'Components.LoanSettlementDetailDocument',
+                    'table'         => 'Components.LoanSettlementDetailDocumentTable',
+                    'additional'    => 'Components.LoanSettlementAddtionalDocument'
                 ],
                 'resubmit'      => [
                     'url'       => '',
