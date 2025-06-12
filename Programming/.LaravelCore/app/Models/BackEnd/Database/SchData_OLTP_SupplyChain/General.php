@@ -3362,7 +3362,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_PurchaseRequisition_LatestVersion                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-10-16                                                                                           |
+        | ▪ Last Update     : 2025-06-12                                                                                           |
         | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Permintaan Pembelian (Purchase Requisition) Versi Terakhir           |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -3382,11 +3382,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataPickList_PurchaseRequisition',
+                            'SchData-OLTP-SupplyChain.Func_GetDataPickList_PurchaseRequisitionNew',
                             [
-                                [$varSysBranch_RefID, 'bigint'],
-
-                                [FALSE, 'boolean']
+                                [$varSysBranch_RefID, 'bigint']
                             ]
                             )
                         );
