@@ -39,7 +39,7 @@
                         </span>
                     </div>
                     <div style="flex: 100%;">
-                        <input id="beneficiary_second_person_name" style="border-radius:0;" name="beneficiary" class="form-control" readonly>  
+                        <input id="beneficiary_second_person_name" style="border-radius:0;" name="beneficiary" class="form-control" readonly>
                     </div>
                 </div>
             </div>

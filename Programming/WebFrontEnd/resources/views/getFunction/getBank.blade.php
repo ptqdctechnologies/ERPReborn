@@ -53,6 +53,7 @@
     </div>
 
     <script>
+        let currentURL = window.location.href;
         $(".errorBankMessageContainerSecond").hide();
 
         function getBankSecond(person_refID) {
@@ -95,9 +96,16 @@
                         $("#bank_accounts_third").val(data[0].AccountNumber);
                         $("#bank_accounts_third_id").val(data[0].Sys_PID);
                         $("#bank_accounts_third_detail").val(data[0].AccountName);
-                        adjustInputSize(document.getElementById("bank_accounts_third"), "string");
 
-                        getBankAccountData(data[0].Bank_RefID, "third_modal", person_refID);
+                        if (!currentURL.includes("AdvanceRequest")) {
+                            adjustInputSize(document.getElementById("bank_accounts_third"), "string");
+                        }
+
+                        if (currentURL.includes("AdvanceRequest")) {
+                            getBankAccountData(data[0].Bank_RefID, person_refID);
+                        } else {
+                            getBankAccountData(data[0].Bank_RefID, "third_modal", person_refID);
+                        }
                     } else {
                         $("#bank_accounts_third_popup").prop("disabled", true);
                     }
