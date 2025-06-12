@@ -40,11 +40,10 @@
             success: function(response) {
                 $(".loadingAdvanceSettlementTable").hide();
 
-                // if (response.metadata.HTTPStatusCode === 200) {
-                if (response.data) {
+                if (response.metadata.HTTPStatusCode === 200) {
                     $("#tableAdvanceDetail tbody").show();
 
-                    var result = response.data;
+                    var result = response.data.data;
 
                     let tbody = $('#tableAdvanceDetail tbody');
 
