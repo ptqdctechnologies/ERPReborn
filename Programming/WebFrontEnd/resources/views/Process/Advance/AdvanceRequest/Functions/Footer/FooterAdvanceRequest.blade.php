@@ -182,7 +182,7 @@
 
                 $.each(data, function(key, val2) {
                     let isUnspecified = '';
-                    let balanced = currencyTotal(val2.quantity);
+                    let balanced = currencyTotal(val2.quantityRemaining);
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
                     let productColumn = `
                         <td style="text-align: center;">${val2.productCode}</td>
@@ -219,7 +219,7 @@
                             
                             ${productColumn}
                             <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
-                            <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantity)}</td>
+                            <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantityRemaining)}</td>
                             <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
                             <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
                             <td style="text-align: center;">${currencyTotal(totalBudget)}</td>
@@ -282,7 +282,7 @@
                             var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
                             var total = parseFloat(balanced) - parseFloat(qty_req || 0);
 
-                            if (parseFloat(qty_req) > val2.quantity) {
+                            if (parseFloat(qty_req) > val2.quantityRemaining) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
                                 ErrorNotif("Qty Req is over budget !");

@@ -3,6 +3,7 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getProject')
+@include('getFunction.getAdvance')
 @include('getFunction.getSite')
 @include('getFunction.getWorker')
 @include('getFunction.getBeneficiary')

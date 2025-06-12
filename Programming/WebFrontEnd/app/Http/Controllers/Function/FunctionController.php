@@ -638,7 +638,7 @@ class FunctionController extends Controller
         $transName      = $request->input('name');
         $filterName     = null;
 
-        if ($transName) {
+        if ($transName && $transName != "undefined" && $transName != null) {
             $filterName = "\"Name\" = '$transName'";
         }
 
@@ -658,6 +658,10 @@ class FunctionController extends Controller
             ],
             false
         );
+
+        Log::error("transName: ",[$transName]);
+        Log::error("filterName: ",[$filterName]);
+        Log::error("varBusinessDocumentType: ",[$varBusinessDocumentType]);
 
         return response()->json($varBusinessDocumentType['data']['data']);
     }
@@ -938,41 +942,29 @@ class FunctionController extends Controller
         $projectId     = (int) $request->input('project_id', 0);
         $siteId        = (int) $request->input('site_id', 0);
         $varAPIWebToken = Session::get('SessionLogin');
-        $DataAdvance    = [];
 
-        if (!Redis::get("DataListAdvance")) {
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvance',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvance',
+            'latest',
+            [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
+        );
 
-            if (isset($varData['data']['data'])) {
-                $DataAdvance = $this->syncDataWithRedis(
-                    $varAPIWebToken, 
-                    "DataListAdvance", 
-                    $varData['data']['data']
-                );
-            }
-        } else {
-            $redisData = Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "DataListAdvance"
-            );
-
-            $DataAdvance = $redisData ? json_decode($redisData, true) : [];
+        if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json($varData);
         }
+
+        $DataAdvance = $varData['data']['data'];
 
         $filteredData = $DataAdvance;
 
