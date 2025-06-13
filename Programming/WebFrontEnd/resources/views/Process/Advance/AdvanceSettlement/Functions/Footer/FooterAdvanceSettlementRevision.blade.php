@@ -74,8 +74,8 @@
 
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.productCode || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.productName || '-'}</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${'-'}</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${'-'}</td>
+                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.UOM || '-'}</td>
+                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.currency || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${currencyTotal(qtyRequest) || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${currencyTotal(priceRequest) || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${currencyTotal(totalRequest) || '-'}</td>
@@ -202,8 +202,8 @@
                 <tr>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${'-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${'-'}</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.UOM || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.currency || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.expenseQuantity || 0)}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.expenseProductUnitPriceCurrencyValue || 0)}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(totalExpense || 0)}</td>
