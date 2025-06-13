@@ -19,13 +19,14 @@
                                         <td>
                                             <div class="input-group">
                                                 <form id="editForm" action="{{ route('AdvanceRequest.RevisionAdvanceIndex') }}" method="POST">
-                                                @csrf
-                                                <input id="advance_RefID" style="border-radius:0;" name="advance_RefID" type="hidden" class="form-control">
+                                                    @csrf
+                                                    <input id="modal_advance_id" style="border-radius:0;" name="modal_advance_id" type="hidden" class="form-control">
                                                 </form>
-                                                <input required="" id="advance_number" style="border-radius:0;" name="advance_number" type="text" class="form-control" required readonly>
+
+                                                <input required="" id="modal_advance_document_number" style="border-radius:0;" name="modal_advance_document_number" type="text" class="form-control" required readonly>
                                                 <div class="input-group-append" style="cursor: pointer;">
-                                                    <span style="border-radius:0;" class="input-group-text form-control" id="advance_number_icon">
-                                                        <a data-toggle="modal" data-target="#PopUpTableAdvanceRevision">
+                                                    <span style="border-radius:0;" class="input-group-text form-control" id="modal_advance_document_number_icon">
+                                                        <a data-toggle="modal" data-target="#myGetModalAdvance">
                                                             <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                                                         </a>
                                                     </span>
@@ -52,21 +53,21 @@
 
 <script>
     $('.btn-edit').on('click', function() {
-        var advance_RefID = $('#advance_RefID').val();
+        var advance_RefID = $('#modal_advance_id').val();
 
         if (advance_RefID) {
             ShowLoading();
 
             $('#editForm').submit();
         } else {
-            $('#advance_number').focus();
-            $('#advance_number').css("border", "1px solid red");
-            $('#advance_number_icon').css("border", "1px solid red");
+            $('#modal_advance_document_number').focus();
+            $('#modal_advance_document_number').css("border", "1px solid red");
+            $('#modal_advance_document_number_icon').css("border", "1px solid red");
         }
     });
 
     $('.btn-cancel').on('click', function() {
-        $('#advance_RefID').val("");
-        $('#advance_number').val("");
+        $('#modal_advance_id').val("");
+        $('#modal_advance_document_number').val("");
     });
 </script>

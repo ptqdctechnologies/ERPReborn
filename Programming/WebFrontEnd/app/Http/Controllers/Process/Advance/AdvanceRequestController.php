@@ -16,9 +16,18 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
+use App\Services\AdvanceRequestService;
+use App\Services\WorkflowService;
 
 class AdvanceRequestController extends Controller
 {
+    protected $advanceRequestService, $workflowService;
+
+    public function __construct(AdvanceRequestService $advanceRequestService, WorkflowService $workflowService)
+    {
+        $this->advanceRequestService    = $advanceRequestService;
+        $this->workflowService          = $workflowService;
+    }
 
     // +--------------------------------------------------------------------------------------------------------------------------+
     // |                                        TRANSACTIONS                                                                      |
@@ -27,129 +36,47 @@ class AdvanceRequestController extends Controller
     // INDEX FUNCTION
     public function index(Request $request)
     {
-        try {
-
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            if (Redis::get("DocumentType") == null) {
-
-                $varAPIWebToken = Session::get('SessionLogin');
-                Helper_APICall::setCallAPIGateway(
-                    Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'transaction.read.dataList.master.getBusinessDocumentType',
-                    'latest',
-                    [
-                        'parameter' => [],
-                        'SQLStatement' => [
-                            'pick' => null,
-                            'sort' => null,
-                            'filter' => null,
-                            'paging' => null
-                        ]
-                    ],
-                    false
-                );
-            }
-
-            $DocumentType = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "DocumentType"
-                ),
-                true
-            );
-            $collection = collect($DocumentType);
-            $collection = $collection->where('Name', "Advance Form");
-            foreach ($collection->all() as $collections) {
-                $DocumentTypeID = $collections['Sys_ID'];
-            }
-
-            $var = 0;
-            if (!empty($_GET['var'])) {
-                $var =  $_GET['var'];
-            }
-
-            $compact = [
-                'var' => $var,
-                'varAPIWebToken' => $varAPIWebToken,
-                'DocumentTypeID' => 77000000000057,
-                'statusRevisi' => 0,
-            ];
-
-            return view('Process.Advance.AdvanceRequest.Transactions.CreateAdvanceRequest', $compact);
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+        $varAPIWebToken = Session::get('SessionLogin');
+        $var            = 0;
+        if (!empty($_GET['var'])) {
+            $var = $_GET['var'];
         }
+
+        $compact = [
+            'var'               => $var,
+            'varAPIWebToken'    => $varAPIWebToken,
+        ];
+
+        return view('Process.Advance.AdvanceRequest.Transactions.CreateAdvanceRequest', $compact);
     }
 
     // STORE FUNCTION FOR INSERT DATA (NEW FUNCTION)
     public function store(Request $request)
     {
         try {
-            $varAPIWebToken                                     = Session::get('SessionLogin');
-            $documentTypeID                                     = $request->documentTypeID;
-            $input                                              = Session::get('dataInputStore' . $documentTypeID);
-            $input['dataInput_Log_FileUpload_Pointer_RefID']    = $request->fileAttachment;
+            $response = $this->advanceRequestService->create($request);
 
-            $product_id                         = json_decode($input['var_product_id'], true);
-            $quantity                           = json_decode($input['var_quantity'], true);
-            $qty_id                             = json_decode($input['var_qty_id'], true);
-            $currency_id                        = json_decode($input['var_currency_id'], true);
-            $price                              = json_decode($input['var_price'], true);
-            $combinedBudgetSectionDetail_RefID  = json_decode($input['var_combinedBudgetSectionDetail_RefID'], true);
-
-            $advanceDetail = array_map(function ($index) use ($product_id, $quantity, $qty_id, $currency_id, $price, $combinedBudgetSectionDetail_RefID) {
-                return [
-                    'entities' => [
-                        "combinedBudgetSectionDetail_RefID"     => (int) $combinedBudgetSectionDetail_RefID[$index], // Hardcode: 169000000000001, Actually: $combinedBudgetSectionDetail_RefID[$index]
-                        "product_RefID"                         => (int) $product_id[$index],
-                        "quantity"                              => (float) str_replace(',', '', $quantity[$index]),
-                        "quantityUnit_RefID"                    => (int) $qty_id[$index], 
-                        "productUnitPriceCurrency_RefID"        => (int) $currency_id[$index],
-                        "productUnitPriceCurrencyValue"         => (float) str_replace(',', '', $price[$index]),
-                        "productUnitPriceCurrencyExchangeRate"  => 1,
-                        "remarks"                               => 'Catatan Detail'
-                    ]
-                ];
-            }, array_keys($product_id));
-
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.create.finance.setAdvance',
-                'latest',
-                [
-                    'entities' => [
-                        "documentDateTimeTZ"                    => $input['var_date'],
-                        "log_FileUpload_Pointer_RefID"          => (int) $input['dataInput_Log_FileUpload_Pointer_RefID'],
-                        "requesterWorkerJobsPosition_RefID"     => (int) $input['requester_id'],
-                        "beneficiaryWorkerJobsPosition_RefID"   => (int) $input['beneficiary_id'],
-                        "beneficiaryBankAccount_RefID"          => (int) $input['bank_account_id'],
-                        "internalNotes"                         => 'Testing Advance',
-                        "remarks"                               => $input['var_remark'],
-                        "additionalData"                        => [
-                            "itemList"                          => [
-                                "items"                         => $advanceDetail
-                            ]
-                        ]
-                    ]
-                ]
-            );
-
-            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Error Status Code: ' . $varData['metadata']['HTTPStatusCode']);
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
             }
 
-            return $this->SubmitWorkflow(
-                $varData['data']['businessDocument']['businessDocument_RefID'],
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
                 $request->workFlowPath_RefID,
                 $request->comment,
-                $request->approverEntity_RefID,
-                $request->nextApprover_RefID,
-                $varData['data']['businessDocument']['documentNumber']
+                $request->approverEntity,
             );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Store Advance Request Function Error: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -163,143 +90,54 @@ class AdvanceRequestController extends Controller
         }, 0);
     }
 
-    // STORE FUNCTION FOR INSERT DATA (OLD FUNCTION)
-    // public function store(Request $request)
-    // {
-    //     try {
-    //         // dd($request->all());
-    //         $varAPIWebToken = Session::get('SessionLogin');
-
-    //         $documentTypeID = $request->documentTypeID;
-    //         $input = Session::get('dataInputStore' . $documentTypeID);
-    //         $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->fileAttachment;
-
-    //         $product_id_convert = json_decode($input['var_product_id'], true);
-    //         $quantity_convert = json_decode($input['var_quantity'], true);
-    //         $qty_id_convert = json_decode($input['var_qty_id'], true);
-    //         $currency_id_convert = json_decode($input['var_currency_id'], true);
-    //         $price_convert = json_decode($input['var_price'], true);
-    //         $combinedBudgetSectionDetail_RefID_convert = json_decode($input['var_combinedBudgetSectionDetail_RefID'], true);
-
-    //         $count_product = count($product_id_convert);
-    //         $advanceDetail = [];
-    //         for ($n = 0; $n < $count_product; $n++) {
-    //             $advanceDetail[$n] = [
-    //                 'entities' => [
-    //                     "combinedBudgetSectionDetail_RefID" => (int) 169000000000001, // DISINI $combinedBudgetSectionDetail_RefID_convert[$n]
-    //                     "product_RefID" => (int) $product_id_convert[$n],
-    //                     "quantity" => (float) $quantity_convert[$n],
-    //                     "quantityUnit_RefID" => (int) $qty_id_convert[$n], // DISINI
-    //                     "productUnitPriceCurrency_RefID" => (int) $currency_id_convert[$n],
-    //                     "productUnitPriceCurrencyValue" => (float) $price_convert[$n],
-    //                     "productUnitPriceCurrencyExchangeRate" => 1,
-    //                     "remarks" => 'Catatan Detail'
-    //                 ]
-    //             ];
-    //         }
-
-    //         $varData = Helper_APICall::setCallAPIGateway(
-    //             Helper_Environment::getUserSessionID_System(),
-    //             $varAPIWebToken,
-    //             'transaction.create.finance.setAdvance',
-    //             'latest',
-    //             [
-    //                 'entities' => [
-    //                     "documentDateTimeTZ" => $input['var_date'],
-    //                     "log_FileUpload_Pointer_RefID" => (int) $input['dataInput_Log_FileUpload_Pointer_RefID'],
-    //                     "requesterWorkerJobsPosition_RefID" => (int) $input['requester_id'],
-    //                     "beneficiaryWorkerJobsPosition_RefID" => (int)$input['beneficiary_id'],
-    //                     "beneficiaryBankAccount_RefID" => (int)$input['bank_account_id'],
-    //                     "internalNotes" => 'Testing Advance',
-    //                     "remarks" => $input['var_remark'],
-    //                     "additionalData" => [
-    //                         "itemList" => [
-    //                             "items" => $advanceDetail
-    //                         ]
-    //                     ]
-    //                 ]
-    //             ]
-    //         );
-
-    //         if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-    //             return redirect()->back()->with('NotFound', 'Error Status Code: ' . $varData['metadata']['HTTPStatusCode']);
-    //         }
-
-    //         $businessDocument_RefID = $varData['data']['businessDocument']['businessDocument_RefID'];
-    //         $workFlowPath_RefID = $request->workFlowPath_RefID;
-    //         $comment = $request->comment;
-    //         $approverEntity_RefID = $request->approverEntity_RefID;
-    //         $nextApprover_RefID = $request->nextApprover_RefID;
-    //         $documentNumber = $varData['data']['businessDocument']['documentNumber'];
-
-    //         return $this->SubmitWorkflow($businessDocument_RefID, $workFlowPath_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber);
-    //     } catch (\Throwable $th) {
-    //         Log::error("Store Advance Request Function Error at " . $th->getMessage());
-    //         return redirect()->back()->with('NotFound', 'Process Error');
-    //     }
-    // }
-
     // REVISION FUNCTION FOR SHOW LIST DATA FILTER BY ID 
     public function RevisionAdvanceIndex(Request $request)
     {
         try {
-            $sessionID      = Helper_Environment::getUserSessionID_System();
             $varAPIWebToken = Session::get('SessionLogin');
-            $advance_RefID  = $request->input('advance_RefID');
+            $advance_RefID  = $request->input('modal_advance_id');
 
-            $DataAdvanceDetailComplex = Helper_APICall::setCallAPIGateway(
-                $sessionID,
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvanceDetail',
-                'latest',
-                [
-                    'parameter' => [
-                        'advance_RefID' => (int) $advance_RefID,
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
+            $response = $this->advanceRequestService->getDetail($advance_RefID);
 
-            $DataAdvanceDetailComplex = $DataAdvanceDetailComplex['data']['data'];
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $dataAdvanceDetail = $response['data']['data'];
 
             $compact = [
                 'varAPIWebToken'                => $varAPIWebToken,
                 'statusRevisi'                  => 0,
-                'DocumentTypeID'                => $DataAdvanceDetailComplex[0]['BusinessDocumentType_RefID'] ?? '', // REQUEST
-                'Sys_ID_Advance'                => $DataAdvanceDetailComplex[0]['Sys_ID_Advance'] ?? '', // REQUEST
+                'advance_RefID'                 => $dataAdvanceDetail[0]['advance_RefID'] ?? '', 
                 'headerAdvanceRevision'         => [
-                    'budgetCode'                => $DataAdvanceDetailComplex[0]['combinedBudgetCode'],
-                    'budgetCodeId'              => $DataAdvanceDetailComplex[0]['CombinedBudget_RefID'] ?? '', // REQUEST
-                    'budgetCodeName'            => $DataAdvanceDetailComplex[0]['combinedBudgetName'] ?? '',
-                    'subBudgetCode'             => $DataAdvanceDetailComplex[0]['combinedBudgetSectionCode'],
-                    'subBudgetCodeId'           => '143000000000305', // REQUEST
-                    'subBudgetCodeName'         => $DataAdvanceDetailComplex[0]['combinedBudgetSectionName'],
+                    'budgetCode'                => $dataAdvanceDetail[0]['combinedBudgetCode'] ?? '',
+                    'budgetCodeId'              => $dataAdvanceDetail[0]['combinedBudget_RefID'] ?? '', 
+                    'budgetCodeName'            => $dataAdvanceDetail[0]['combinedBudgetName'] ?? '',
+                    'subBudgetCode'             => $dataAdvanceDetail[0]['combinedBudgetSectionCode'] ?? '',
+                    'subBudgetCodeId'           => $dataAdvanceDetail[0]['combinedBudgetSection_RefID'] ?? '', 
+                    'subBudgetCodeName'         => $dataAdvanceDetail[0]['combinedBudgetSectionName'] ?? '',
                 ],
                 'headerAdvanceRequestDetail'    => [
-                    'requesterPosition'         => $DataAdvanceDetailComplex[0]['RequesterWorkerJobsPositionName'] ?? '', // REQUEST
-                    'requesterId'               => $DataAdvanceDetailComplex[0]['RequesterWorkerJobsPosition_RefID'] ?? '', // REQUEST
-                    'requesterName'             => $DataAdvanceDetailComplex[0]['RequesterWorkerName'] ?? '', // REQUEST
-                    'beneficiaryPosition'       => $DataAdvanceDetailComplex[0]['BeneficiaryWorkerJobsPositionName'] ?? '', // REQUEST
-                    'beneficiaryId'             => $DataAdvanceDetailComplex[0]['BeneficiaryWorkerJobsPosition_RefID'] ?? '', // REQUEST
-                    'beneficiaryName'           => $DataAdvanceDetailComplex[0]['BeneficiaryWorkerName'] ?? '', // REQUEST
-                    'person_RefId'              => '', // REQUEST
-                    'bankAcronym'               => $DataAdvanceDetailComplex[0]['BankAcronym'] ?? '', // REQUEST
-                    'bankId'                    => $DataAdvanceDetailComplex[0]['Bank_RefID'] ?? '', // REQUEST
-                    'bankName'                  => $DataAdvanceDetailComplex[0]['BankName'] ?? '', // REQUEST
-                    'bankAccountNumber'         => $DataAdvanceDetailComplex[0]['BankAccountNumber'] ?? '', // REQUEST
-                    'bankAccountId'             => $DataAdvanceDetailComplex[0]['BankAccount_RefID'] ?? '', // REQUEST
-                    'bankAccountName'           => $DataAdvanceDetailComplex[0]['BankAccountName'] ?? '', // REQUEST
+                    'requesterPosition'         => $dataAdvanceDetail[0]['requesterWorkerJobPositionName'] ?? '', 
+                    'requesterId'               => $dataAdvanceDetail[0]['requesterWorkerJobsPosition_RefID'] ?? '', 
+                    'requesterName'             => $dataAdvanceDetail[0]['requesterWorkerName'] ?? '', 
+                    'beneficiaryPosition'       => $dataAdvanceDetail[0]['beneficiaryWorkerJobsPositionName'] ?? '', 
+                    'beneficiaryId'             => $dataAdvanceDetail[0]['beneficiaryWorkerJobsPosition_RefID'] ?? '', 
+                    'beneficiaryName'           => $dataAdvanceDetail[0]['beneficiaryWorkerName'] ?? '', 
+                    'person_RefId'              => $dataAdvanceDetail[0]['person_RefID'] ?? '',
+                    'bankAcronym'               => $dataAdvanceDetail[0]['beneficiaryBankAcronym'] ?? '', 
+                    'bankId'                    => $dataAdvanceDetail[0]['beneficiaryBank_RefID'] ?? '', 
+                    'bankName'                  => $dataAdvanceDetail[0]['beneficiaryBankName'] ?? '', 
+                    'bankAccountNumber'         => $dataAdvanceDetail[0]['beneficiaryBankAccountNumber'] ?? '', 
+                    'bankAccountId'             => $dataAdvanceDetail[0]['beneficiaryBankAccount_RefID'] ?? '', 
+                    'bankAccountName'           => $dataAdvanceDetail[0]['beneficiaryBankAccountName'] ?? '', 
                 ],
-                'dataAdvanceList'               => $DataAdvanceDetailComplex,
-                'fileAttachment'                => $DataAdvanceDetailComplex[0]['Log_FileUpload_Pointer_RefID'] ?? null, // REQUEST
-                'remark'                        => $DataAdvanceDetailComplex[0]['Remarks'] ?? '' // REQUEST
+                'dataAdvanceList'               => $dataAdvanceDetail,
+                'fileAttachment'                => $dataAdvanceDetail[0]['log_FileUpload_Pointer_RefID'] ?? null, 
+                'remark'                        => $dataAdvanceDetail[0]['remarks'] ?? '' 
             ];
+
+            // dump($compact);
 
             return view('Process.Advance.AdvanceRequest.Transactions.RevisionAdvanceRequest', $compact);
         } catch (\Throwable $th) {
@@ -312,79 +150,29 @@ class AdvanceRequestController extends Controller
     public function UpdatesAdvanceRequest(Request $request)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $documentTypeID = $request->documentTypeID;
-            $Sys_ID_Advance = $request->Sys_ID_Advance;
-            $input          = Session::get('dataInputUpdate' . $documentTypeID . $Sys_ID_Advance);
+            $response = $this->advanceRequestService->updates($request);
 
-            if (isset($request->dataInput_Log_FileUpload_1)) {
-                $input['dataInput_Log_FileUpload_Pointer_RefID'] = $request->dataInput_Log_FileUpload_1;
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
             }
 
-            $record_id_convert                          = json_decode($input['var_recordIDDetail'], true);
-            $product_id_convert                         = json_decode($input['var_product_id'], true);
-            $quantity_convert                           = json_decode($input['var_quantity'], true);
-            $qty_id_convert                             = json_decode($input['var_qty_id'], true);
-            $currency_id_convert                        = json_decode($input['var_currency_id'], true);
-            $price_convert                              = json_decode($input['var_price'], true);
-            $combinedBudgetSectionDetail_RefID_convert  = json_decode($input['var_combinedBudgetSectionDetail_RefID'], true);
-
-            $count_product = count($product_id_convert);
-            $advanceDetail = [];
-            if ($count_product > 0 && isset($count_product)) {
-                for ($n = 0; $n < $count_product; $n++) {
-                    $advanceDetail[$n] = [
-                        'recordID' => ((!$record_id_convert[$n]) ? null : (int) $record_id_convert[$n]),
-                        'entities' => [
-                            "combinedBudgetSectionDetail_RefID"     => (int) $combinedBudgetSectionDetail_RefID_convert[$n], // Hardcode: 169000000000001, Actually: $combinedBudgetSectionDetail_RefID_convert[$n]
-                            "product_RefID"                         => (int) $product_id_convert[$n],
-                            "quantity"                              => (float) str_replace(',', '', $quantity_convert[$n]),
-                            "quantityUnit_RefID"                    => (int) $qty_id_convert[$n],
-                            "productUnitPriceCurrency_RefID"        => (int) $currency_id_convert[$n],
-                            "productUnitPriceCurrencyValue"         => (float) str_replace(',', '', $price_convert[$n]),
-                            "productUnitPriceCurrencyExchangeRate"  => 1,
-                            "remarks"                               => 'Catatan Detail'
-                        ]
-                    ];
-                }
-            }
-
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.update.finance.setAdvance',
-                'latest',
-                [
-                    'recordID' => (int) $input['Sys_ID_Advance'],
-                    'entities' => [
-                        "documentDateTimeTZ"                    => $input['var_date'],
-                        "log_FileUpload_Pointer_RefID"          => (int) $request->dataInput_Log_FileUpload_1,
-                        "requesterWorkerJobsPosition_RefID"     => (int) $input['requester_id'],
-                        "beneficiaryWorkerJobsPosition_RefID"   => (int) $input['beneficiary_id'],
-                        "beneficiaryBankAccount_RefID"          => (int) $input['bank_account_id'],
-                        "internalNotes"                         => 'My Internal Notes',
-                        "remarks"                               => $input['var_remark'],
-                        "additionalData"                        => [
-                            "itemList"                          => [
-                                "items"                         => $advanceDetail
-                            ]
-                        ]
-                    ]
-                ]
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
             );
 
-            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Error Status Code: ' . $varData['metadata']['HTTPStatusCode']);
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
             }
 
-            $businessDocument_RefID = $varData['data'][0]['businessDocument']['businessDocument_RefID'];
-            $workFlowPath_RefID     = $request->workFlowPath_RefID;
-            $comment                = $request->comment;
-            $approverEntity_RefID   = $request->approverEntity_RefID;
-            $nextApprover_RefID     = $request->nextApprover_RefID;
-            $documentNumber         = $varData['data'][0]['businessDocument']['documentNumber'];
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
 
-            return $this->ResubmitWorkflow($businessDocument_RefID, $comment, $approverEntity_RefID, $nextApprover_RefID, $documentNumber);
+            return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Updates Function Error: " . $th->getMessage());
 

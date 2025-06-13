@@ -4,19 +4,14 @@ namespace App\Http\Controllers\Document;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Alert;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
-use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use App\Services\DocumentTypeMapper;
 
 class CheckDocumentController extends Controller
 {
-    // FUNCTION INDEX 
     public function index()
     {
         $compact = [
@@ -170,7 +165,6 @@ class CheckDocumentController extends Controller
         return $nextApproverId === 0 ? 1 : 0;
     }
 
-    // FUNCTION FOR SHOW DOCUMENT FORM SUBMIT IN CHECK DOCUMENT 
     public function ShowDocument(Request $request)
     {
         try {
@@ -227,7 +221,7 @@ class CheckDocumentController extends Controller
                 'dataDetails'               => $collection['dataDetail']
             ] + $formatData;
 
-            // dd($compact);
+            // dump($compact);
 
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } catch (\Throwable $th) {
@@ -236,7 +230,6 @@ class CheckDocumentController extends Controller
         }
     }
 
-    // FUNCTION FOR SHOW DOCUMENT BY CLICK DATA IN MY DOCUMENT 
     public function ShowDocumentByID(Request $request)
     {
         try {
@@ -296,7 +289,6 @@ class CheckDocumentController extends Controller
         }
     }
 
-    // FUNCTION FOR SHOW LIST DATA BY DOCUMENT TYPE 
     public function ShowDocumentListData(Request $request)
     {
         $DocumentTypeID = $request->input('DocumentTypeID');
@@ -408,7 +400,6 @@ class CheckDocumentController extends Controller
         return response()->json($compact);
     }
 
-    //LOG TRANSACTION
     public function LogTransaction(Request $request)
     {
         $id         = $request->input('id');

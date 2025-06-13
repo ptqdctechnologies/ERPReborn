@@ -76,8 +76,6 @@
                 type: 'GET',
                 url: '{!! route("getBankAccount") !!}?bank_RefID=' + bank_RefID + '&person_RefID=' + person_RefID,
                 success: function(data) {
-                    console.log('data', data);
-                    
                     $(".loadingGetBankAccount").hide();
 
                     var no = 1;

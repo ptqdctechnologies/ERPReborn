@@ -40,11 +40,10 @@
             success: function(response) {
                 $(".loadingAdvanceSettlementTable").hide();
 
-                // if (response.metadata.HTTPStatusCode === 200) {
-                if (response.data) {
+                if (response.metadata.HTTPStatusCode === 200) {
                     $("#tableAdvanceDetail tbody").show();
 
-                    var result = response.data;
+                    var result = response.data.data;
 
                     let tbody = $('#tableAdvanceDetail tbody');
 
@@ -201,7 +200,7 @@
     function updateGrandTotal() {
         let total = 0;
         const rows = document.querySelectorAll('#tableAdvanceList tbody tr');
-        
+
         rows.forEach(row => {
             const totalExpenseCell = row.children[9];
             const totalCompanyCell = row.children[12];
@@ -212,10 +211,7 @@
         });
 
         document.getElementById('TotalAdvanceDetail').innerText = "0.00";
-        document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
+        document.getElementById('GrandTotal').innerText = currencyTotal(total);
     }
 
     function SelectWorkFlow(formatData) {
@@ -360,12 +356,14 @@
                                     expenseProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
                                     expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
                                     expenseProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
-                                    expenseProductUnitPriceBaseCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
+                                    expenseProductUnitPriceBaseCurrencyValue: null,
+                                    // expenseProductUnitPriceBaseCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
                                     refundQuantity: parseFloat(qtyCompany.replace(/,/g, '')),
                                     refundProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
                                     refundProductUnitPriceCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
                                     refundProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
-                                    refundProductUnitPriceBaseCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
+                                    refundProductUnitPriceBaseCurrencyValue: null,
+                                    // refundProductUnitPriceBaseCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
                                     remarks: null,
                                     transactionNumber: transNumber,
                                     productCode: productCode
@@ -391,8 +389,8 @@
                         <td style="text-align: center;padding: 0.8rem;">${qtyCompany || '-'}</td>
                         <td style="text-align: center;padding: 0.8rem;">${priceCompany || '-'}</td>
                         <td style="text-align: center;padding: 0.8rem;">${totalCompany || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${balance}</td>
                     `;
+                        // <td style="text-align: center;padding: 0.8rem;">${balance}</td>
                     targetTable.appendChild(newRow);
 
                     dataStore.push({
@@ -402,12 +400,14 @@
                             expenseProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
                             expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
                             expenseProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
-                            expenseProductUnitPriceBaseCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
+                            expenseProductUnitPriceBaseCurrencyValue: null,
+                            // expenseProductUnitPriceBaseCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
                             refundQuantity: parseFloat(qtyCompany.replace(/,/g, '')),
                             refundProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
                             refundProductUnitPriceCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
                             refundProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
-                            refundProductUnitPriceBaseCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
+                            refundProductUnitPriceBaseCurrencyValue: null,
+                            // refundProductUnitPriceBaseCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
                             remarks: null,
                             transactionNumber: transNumber,
                             productCode: productCode
@@ -474,7 +474,7 @@
         const qtyCompany    = row.children[10];
         const priceCompany  = row.children[11];
         const totalCompany  = row.children[12];
-        const balance       = row.children[13];
+        // const balance       = row.children[13];
 
         if (row.classList.contains('editing-row')) {
             const newQtyExpense     = qtyExpense.querySelector('input')?.value || '';
@@ -483,7 +483,7 @@
             const newQtyCompany     = qtyCompany.querySelector('input')?.value || '';
             const newPriceCompany   = priceCompany.querySelector('input')?.value || '';
             const newTotalCompany   = totalCompany.querySelector('input')?.value || '';
-            const newBalance        = balance.querySelector('input')?.value || '';
+            // const newBalance        = balance.querySelector('input')?.value || '';
 
             qtyExpense.innerHTML    = newQtyExpense;
             priceExpense.innerHTML  = newPriceExpense;
@@ -491,7 +491,7 @@
             qtyCompany.innerHTML    = newQtyCompany;
             priceCompany.innerHTML  = newPriceCompany;
             totalCompany.innerHTML  = newTotalCompany;
-            balance.innerHTML       = newBalance;
+            // balance.innerHTML       = newBalance;
 
             row.classList.remove('editing-row');
 
@@ -506,6 +506,8 @@
 
                 $("#advanceSettlementDetail").val(JSON.stringify(dataStore));
             }
+
+            updateGrandTotal();
         } else {
             const currentQtyExpense     = qtyExpense.innerText.trim();
             const currentPriceExpense   = priceExpense.innerText.trim();
@@ -513,7 +515,7 @@
             const currentQtyCompany     = qtyCompany.innerText.trim();
             const currentPriceCompany   = priceCompany.innerText.trim();
             const currentTotalCompany   = totalCompany.innerText.trim();
-            const currentBalance        = balance.innerText.trim();
+            // const currentBalance        = balance.innerText.trim();
 
             qtyExpense.innerHTML = `<input class="form-control number-without-negative qty-expense-input" value="${currentQtyExpense}" autocomplete="off" style="border-radius:0px;width:100px;">`;
             priceExpense.innerHTML = `<input class="form-control number-without-negative price-expense-input" value="${currentPriceExpense}" autocomplete="off" style="border-radius:0px;width:100px;">`;
@@ -521,7 +523,7 @@
             qtyCompany.innerHTML = `<input class="form-control number-without-negative qty-company-input" value="${currentQtyCompany}" autocomplete="off" style="border-radius:0px;width:100px;">`;
             priceCompany.innerHTML = `<input class="form-control number-without-negative price-company-input" value="${currentPriceCompany}" autocomplete="off" style="border-radius:0px;width:100px;">`;
             totalCompany.innerHTML = `<input class="form-control number-without-negative total-company-input" value="${currentTotalCompany}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-            balance.innerHTML = `<input class="form-control number-without-negative balance-company-input" value="${currentBalance}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
+            // balance.innerHTML = `<input class="form-control number-without-negative balance-company-input" value="${currentBalance}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
 
             row.classList.add('editing-row');
 
@@ -531,7 +533,7 @@
             const qtyCompanyInput   = qtyCompany.querySelector('.qty-company-input');
             const priceCompanyInput = priceCompany.querySelector('.price-company-input');
             const totalCompanyInput = totalCompany.querySelector('.total-company-input');
-            const balanceInput      = balance.querySelector('.balance-company-input');
+            // const balanceInput      = balance.querySelector('.balance-company-input');
 
             function updateTotalExpenseClaim() {
                 var price   = parseFloat(priceExpenseInput.value.replace(/,/g, '')) || 0;
@@ -546,7 +548,7 @@
                     qty                     = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     qtyExpenseInput.value   = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-                    ErrorNotif("Qty Req is over Qty Avail !");
+                    ErrorNotif("Qty Expense Claim is over Qty Avail !");
                 }
 
                 if (price > priceAvailValue) {
@@ -554,7 +556,7 @@
                     price                   = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     priceExpenseInput.value = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-                    ErrorNotif("Price Req is over Price Avail !");
+                    ErrorNotif("Price Expense Claim is over Price Avail !");
                 }
 
                 totalExpenseInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -563,7 +565,37 @@
             priceExpenseInput.addEventListener('input', updateTotalExpenseClaim);
             qtyExpenseInput.addEventListener('input', updateTotalExpenseClaim);
 
-            document.getElementById('GrandTotal').innerText = totalExpenseInput.value;
+            function updateTotalCompanyClaim() {
+                var price   = parseFloat(priceCompanyInput.value.replace(/,/g, '')) || 0;
+                var qty     = parseFloat(qtyCompanyInput.value.replace(/,/g, '')) || 0;
+                var total   = price * qty;
+
+                const qtyAvailValue     = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
+                const priceAvailValue   = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
+
+                if (qty > qtyAvailValue) {
+                    total                   = priceAvailValue * qtyAvailValue;
+                    qty                     = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    qtyCompanyInput.value   = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                    ErrorNotif("Qty Amount to the Company is over Qty Avail !");
+                }
+
+                if (price > priceAvailValue) {
+                    total                   = qtyAvailValue * priceAvailValue;
+                    price                   = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    priceCompanyInput.value = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                    ErrorNotif("Price Amount to the Company is over Price Avail !");
+                }
+
+                totalCompanyInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+
+            priceCompanyInput.addEventListener('input', updateTotalCompanyClaim);
+            qtyCompanyInput.addEventListener('input', updateTotalCompanyClaim);
+
+            document.getElementById('GrandTotal').innerText = parseFloat(totalCompanyInput?.value.replace(/,/g, '')) + parseFloat(totalExpenseInput?.value.replace(/,/g, ''));
         }
     });
 

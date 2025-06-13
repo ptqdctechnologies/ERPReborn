@@ -54,13 +54,15 @@
             </div>
 
             <!-- TABLE -->
-            <div class="col-12 ShowDocumentList">
-              <div class="card">
-                <div class="card-body p-0">
-                  @include($components['table'])
+            <?php if (isset($components['table'])) { ?>
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  <div class="card-body p-0">
+                    @include($components['table'])
+                  </div>
                 </div>
               </div>
-            </div>
+            <?php } ?>
 
             <?php if (isset($components['additional'])) { ?>
               <div class="col-12 ShowDocumentList">
