@@ -10,7 +10,6 @@ class DocumentTypeMapper
             'Advance Form' => [
                 'key' => 'transaction.read.dataList.finance.getAdvanceDetail',
                 'parameter' => ['advance_RefID' => (int) $referenceId],
-                'businessDocument_RefID' => (int) 74000000021304,
             ],
             'Advance Settlement Form' => [
                 'key' => 'transaction.read.dataList.finance.getAdvanceSettlementDetail',
@@ -79,20 +78,21 @@ class DocumentTypeMapper
         $mapping = [
             'Advance Form'      => [
                 'dataHeader'    => [
-                    'advanceNumber'     => '-',
-                    'date'              => null,
+                    'advance_RefID'     => $dataDetail['advance_RefID'] ?? '-',
+                    'advanceNumber'     => $dataDetail['businessDocumentNumber'] ?? '-',
+                    'date'              => $dataDetail['date'] ?? '-',
                     'currency'          => $dataDetail['productUnitPriceCurrencyISOCode'] ?? '-',
                     'budgetCode'        => $dataDetail['combinedBudgetCode'] ?? null,
                     'budgetName'        => $dataDetail['combinedBudgetName'] ?? null,
                     'subBudgetCode'     => $dataDetail['combinedBudgetSectionCode'] ?? null,
                     'subBudgetName'     => $dataDetail['combinedBudgetSectionName'] ?? null,
-                    'fileID'            => null,
-                    'dateUpdate'        => null,
-                    'requesterName'     => '-',
-                    'beneficiaryName'   => '-',
-                    'bankName'          => '-',
-                    'accountName'       => '-',
-                    'accountNumber'     => '-',
+                    'fileID'            => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
+                    'dateUpdate'        => $dataDetail['dateUpdate'] ?? null,
+                    'requesterName'     => $dataDetail['requesterWorkerName'] ?? '-',
+                    'beneficiaryName'   => $dataDetail['beneficiaryWorkerName'] ?? '-',
+                    'bankName'          => $dataDetail['beneficiaryBankName'] ?? '-',
+                    'accountName'       => $dataDetail['beneficiaryBankAccountName'] ?? '-',
+                    'accountNumber'     => $dataDetail['beneficiaryBankAccountNumber'] ?? '-',
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',
@@ -105,7 +105,7 @@ class DocumentTypeMapper
                 'resubmit'  => [
                     'url'   => 'AdvanceRequest.RevisionAdvanceIndex',
                     'name'  => 'advance_RefID',
-                    'value' => '76000000000539'
+                    'value' => $dataDetail['advance_RefID'] ?? '-',
                 ],
                 'transactionType'        => 'ADVANCE REQUEST',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',

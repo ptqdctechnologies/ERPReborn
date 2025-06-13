@@ -1,10 +1,10 @@
 <!-- LEFT COLUMN -->
 <div class="col-12 col-md-6 col-lg-7">
     <div class="form-group">
-        <!-- ADVANCE FORM -->
+        <!-- ADVANCE NUMBER -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                Advance Form
+                Advance Number
             </div>
             <div class="col">
                 : <?= $dataHeader['advanceNumber']; ?>
@@ -92,9 +92,9 @@
                     </div>
                     <div class="input-group">
                         <button class="btn btn-default btn-sm" onclick="window.location.href='{{ route('LogTransaction', [
-                            'id'        => $dataHeader['Sys_ID_Advance'],
-                            'docNum'    => $dataHeader['DocumentNumber'],
-                            'docName'   => $dataHeader['BusinessDocumentType_Name']
+                            'id'        => $dataHeader['advance_RefID'],
+                            'docNum'    => $dataHeader['advanceNumber'],
+                            'docName'   => 'Advance Form'
                             ]) }}'">
                             Show Revision History
                         </button>
