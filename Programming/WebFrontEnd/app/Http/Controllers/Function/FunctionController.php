@@ -1119,7 +1119,7 @@ class FunctionController extends Controller
             $varData = Helper_APICall::setCallAPIGateway(
                 $userSession,
                 $varAPIWebToken, 
-                'transaction.read.dataList.supplyChain.getPurchaseRequisition', 
+                'dataPickList.supplyChain.getPurchaseRequisition', 
                 'latest', 
                 [
                 'parameter' => null,
@@ -1253,7 +1253,7 @@ class FunctionController extends Controller
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.read.dataList.supplyChain.getPurchaseOrder', 
+                'dataPickList.supplyChain.getPurchaseOrder', 
                 'latest', 
                 [
                 'parameter' => null,
