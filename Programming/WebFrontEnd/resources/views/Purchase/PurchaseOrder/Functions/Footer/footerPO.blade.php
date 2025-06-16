@@ -196,7 +196,7 @@
                                 <input id="productUnitPriceDiscountCurrency_RefID${indexPurchaseOrder}" value="${val2.productUnitPriceCurrency_RefID}" type="hidden" />
                                 <input id="productUnitPriceDiscountCurrencyValue${indexPurchaseOrder}" value="0" type="hidden" />
                                 <input id="productUnitPriceDiscountCurrencyExchangeRate${indexPurchaseOrder}" value="1" type="hidden" />
-                                <input id="product_code${indexPurchaseOrder}" value="${val2.product_RefID}" type="hidden" />
+                                <input id="product_code${indexPurchaseOrder}" value="${val2.productCode}" type="hidden" />
                                 <input id="product_name${indexPurchaseOrder}" value="${val2.productName}" type="hidden" />
                                 <input id="qty_msr${indexPurchaseOrder}" value="${val2.quantity}" type="hidden" />
                                 <input id="qty_available${indexPurchaseOrder}" value="${val2.quantity}" type="hidden" />
@@ -426,7 +426,7 @@
                 noteInput.value.trim() !== ''
             ) {
                 const documentNumber    = row.children[0].value.trim();
-                const productCode       = row.children[1].value.trim();
+                const productCode       = row.children[17].innerText.trim();
                 const productName       = row.children[10].value.trim();
                 const uom               = row.children[13].value.trim();
                 const currency          = row.children[15].value.trim();
@@ -522,6 +522,7 @@
         dataStore = dataStore.filter(item => item !== undefined);
         $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
 
+        document.getElementById('GrandTotal').textContent = TotalBudgetSelecteds.innerText;
         document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
         document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
         document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
