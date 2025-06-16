@@ -205,7 +205,7 @@
                                 <input id="currency${indexPurchaseOrder}" value="${val2.priceCurrencyISOCode}" type="hidden" />
 
                                 ${key === 0 ? modifyColumn : ''}
-                                <td style="text-align: center; padding: 10px !important;">${val2.sys_ID}</td>
+                                <td style="text-align: center; padding: 10px !important;">${val2.productCode}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity)}</td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity)}</td>
@@ -265,7 +265,7 @@
 
                             countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                            if (price_req > val2.productUnitPriceCurrencyValue) {
+                            if (parseFloat(price_req) > val2.productUnitPriceBaseCurrencyValue) {
                                 $(this).val(0);
                                 $(`#total_req${data_index}`).val(0);
                                 $(`#balance${data_index}`).val(0);
@@ -431,6 +431,7 @@
                 const uom               = row.children[13].value.trim();
                 const currency          = row.children[15].value.trim();
                 const qtyAvail          = row.children[20].innerText.trim();
+                const priceAvail        = row.children[22].innerText.trim();
 
                 const qty   = qtyInput.value.trim();
                 const price = priceInput.value.trim();
@@ -487,6 +488,7 @@
                         <td style="text-align: center;padding: 0.8rem;">${qty}</td>
                         <td style="text-align: center;padding: 0.8rem;">${total}</td>
                         <td style="text-align: center;padding: 0.8rem;">${note}</td>
+                        <input type="hidden" name="price_avail[]" value="${priceAvail}">
                     `;
                     targetTable.appendChild(newRow);
 
@@ -545,6 +547,7 @@
             if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
 
             const qtyAvail      = row.children[0];
+            const priceAvail    = row.children[10];
             const priceCell     = row.children[6];
             const qtyCell       = row.children[7];
             const totalCell     = row.children[8];
@@ -571,8 +574,8 @@
                 const storeItem = dataStore.find(item => item.entities.documentNumber === documentNumber && item.entities.product_RefID === productCode);
 
                 if (storeItem) {
-                    storeItem.entities.quantity = newQty;
-                    storeItem.entities.productUnitPriceCurrencyValue = newPrice;
+                    storeItem.entities.quantity = parseFloat(newQty.replace(/,/g, ''));
+                    storeItem.entities.productUnitPriceCurrencyValue = parseFloat(newPrice.replace(/,/g, ''));
                     storeItem.entities.remarks = newRemark;
 
                     $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
@@ -600,11 +603,12 @@
                 const totalInput = totalCell.querySelector('.total-input');
 
                 function updateTotal() {
-                    const price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
+                    var price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
                     var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
                     var total = price * qty;
 
                     const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
+                    const priceAvailValue = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
 
                     if (qty > qtyAvailValue) {
                         total = price * qtyAvailValue;
@@ -612,6 +616,14 @@
                         qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
                         ErrorNotif("Qty Req is over Qty Avail !");
+                    }
+
+                    if (price > priceAvailValue) {
+                        total               = priceAvailValue * qtyAvailValue;
+                        price               = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        priceInput.value    = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                        ErrorNotif("Price Req is over Price Avail !");
                     }
 
                     totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
