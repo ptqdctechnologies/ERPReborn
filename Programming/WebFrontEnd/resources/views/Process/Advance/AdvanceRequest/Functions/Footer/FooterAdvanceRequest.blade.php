@@ -402,6 +402,11 @@
         });
     }
 
+    function CancelAdvance() {
+        ShowLoading();
+        window.location.href = '/AdvanceRequest?var=1';
+    }
+
     $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
         var sysId       = $(this).find('input[data-trigger="sys_id_project_second"]').val();
         var projectCode = $(this).find('td:nth-child(2)').text();
