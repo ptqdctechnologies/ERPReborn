@@ -1577,7 +1577,7 @@ class PurchaseOrderController extends Controller
                 [
                 'entities' => [
                     "documentDateTimeTZ"                    => date('Y-m-d'),
-                    "log_FileUpload_Pointer_RefID"          => $fileID,
+                    "log_FileUpload_Pointer_RefID"          => (int) $fileID,
                     "requesterWorkerJobsPosition_RefID"     => (int) $SessionWorkerCareerInternal_RefID,
                     "supplier_RefID"                        => (int) $purchaseOrderData['storeData']['supplier_id'],
                     "deliveryDateTimeTZ"                    => date('Y-m-d'), // Ganti ambil dari Detail PR
@@ -1587,31 +1587,12 @@ class PurchaseOrderController extends Controller
                     "deliveryDestinationManualAddress"      => $purchaseOrderData['storeData']['delivery_to'],
                     "paymentNotes"                          => $purchaseOrderData['storeData']['paymentNotes'],
                     "internalNotes"                         => $purchaseOrderData['storeData']['internalNote'],
-                    "downPayment"                           => (int) $purchaseOrderData['storeData']['downPaymentValue'],
-                    // "downPayment"                           => (float) str_replace(',', '', $purchaseOrderData['storeData']['downPaymentValue']),
+                    "downPayment"                           => (float) str_replace(',', '', $purchaseOrderData['storeData']['downPaymentValue']),
                     "termOfPayment_RefID"                   => (int) $purchaseOrderData['storeData']['termOfPaymentValue'],
-                    "vatRatio"                              => (int) $purchaseOrderData['storeData']['vatValue'],
+                    "vatRatio"                              => $purchaseOrderData['storeData']['vatValue'],
                     "additionalData"                        => [
                         "itemList"  => [
-                            "items" => [
-                                    [
-                                        "entities" => [
-                                            "purchaseRequisitionDetail_RefID" => 84000000000150,
-                                            "quantity" => 3.00,
-                                            "quantityUnit_RefID" => 73000000000002,
-                                            "productUnitPriceCurrency_RefID" => 62000000000001,
-                                            "productUnitPriceCurrencyValue" => 15000.00,
-                                            "productUnitPriceCurrencyExchangeRate" => 1,
-                                            "productUnitPriceDiscountCurrency_RefID" => 62000000000001,
-                                            "productUnitPriceDiscountCurrencyValue" => 0,
-                                            "productUnitPriceDiscountCurrencyExchangeRate" => 1,
-                                            "remarks" => 'Remark',
-                                            "documentNumber" => "PR/QDC/2025/000041 (Version: 0)",
-                                            "product_RefID" => "84000000000150"
-                                        ]
-                                    ]
-                                ]
-                            // "items" => $purchaseOrderDetail
+                            "items" => $purchaseOrderDetail
                             ],
                         "transactionTaxItemList" => [
                             "items" => [
@@ -1643,9 +1624,6 @@ class PurchaseOrderController extends Controller
                     ]
                 ]
             );
-
-            Log::error("purchaseOrderData: ", [$purchaseOrderData]);
-            Log::error("purchaseOrderDetail: ", [$purchaseOrderDetail]);
 
             if ($varData['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($varData);
