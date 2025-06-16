@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.read.dataList.supplyChain.getPurchaseOrderDetail.v1_throughAPIGateway      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-03-05                                                                                           |
+        | ▪ Last Update     : 2025-06-16                                                                                           |
         | ▪ Creation Date   : 2025-03-05                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -40,7 +40,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'latest',
                     [
                     'parameter' => [
-                        'purchaseOrder_RefID' => 85000000000007
+                        'purchaseOrder_RefID' => 85000000000006
                         ],
                     'SQLStatement' => [
                         'pick' => null,
