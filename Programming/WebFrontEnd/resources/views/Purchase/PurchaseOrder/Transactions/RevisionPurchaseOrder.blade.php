@@ -25,10 +25,10 @@
         @csrf
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" />
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $header['budgetID']; ?>" />
-          <input type="hidden" id="DataPurchaseOrderDetail" value='<?= json_encode($detail ?? []) ?>' />
           <input type="hidden" name="purchaseOrderDetail" id="purchaseOrderDetail" />
           <input type="hidden" name="purchaseOrderRecord_RefID" id="purchaseOrderRecord_RefID" />
           <input type="hidden" name="tariffCurrencyValue" id="tariffCurrencyValue" />
+          <input type="hidden" name="transactionTaxDetail_RefID" id="transactionTaxDetail_RefID" value="<?= $header['transactionTaxDetailRefID']; ?>" />
 
           <!-- PURCHASE ORDER -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
