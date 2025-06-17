@@ -1470,7 +1470,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getDataList_AdvanceSettlementDetail                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-05-22                                                                                           |
+        | ▪ Last Update     : 2025-06-16                                                                                           |
         | ▪ Creation Date   : 2025-05-15                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Advance                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1544,6 +1544,19 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     $varReturn['data'][$idxArray]['RefundProductUnitPriceCurrencyExchangeRate'] = $value["RefundProductUnitPriceCurrencyExchangeRate"];
                     $varReturn['data'][$idxArray]['RefundProductUnitPriceBaseCurrencyValue'] = $value["RefundProductUnitPriceBaseCurrencyValue"];
                     $varReturn['data'][$idxArray]['Note'] = $value["Note"];
+                    $varReturn['data'][$idxArray]['BusinessDocumentTypeName'] = $value["BusinessDocumentTypeName"];
+                    $varReturn['data'][$idxArray]['CombinedBudget_RefID'] = $value["CombinedBudget_RefID"];
+                    $varReturn['data'][$idxArray]['CombinedBudgetCode'] = $value["CombinedBudgetCode"];
+                    $varReturn['data'][$idxArray]['CombinedBudgetName'] = $value["CombinedBudgetName"];
+                    $varReturn['data'][$idxArray]['CombinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode"];
+                    $varReturn['data'][$idxArray]['CombinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
+                    $varReturn['data'][$idxArray]['Date'] = $value["Date"];
+                    $varReturn['data'][$idxArray]['DateUpdate'] = $value["DateUpdate"];
+                    $varReturn['data'][$idxArray]['Quantity'] = $value["Quantity"];
+                    $varReturn['data'][$idxArray]['QuantityUnitName'] = $value["QuantityUnitName"];
+                    $varReturn['data'][$idxArray]['ProductUnitPriceCurrencyValue'] = $value["ProductUnitPriceCurrencyValue"];
+		    $varReturn['data'][$idxArray]['ProductUnitPriceCurrencyISOCode'] = $value["ProductUnitPriceCurrencyISOCode"];
+                    $varReturn['data'][$idxArray]['Balance'] = ($value["Quantity"] * $value["ProductUnitPriceCurrencyValue"]) - (($value["ExpenseQuantity"] * $value["ExpenseProductUnitPriceCurrencyValue"]) + ($value["RefundQuantity"] * $value["RefundProductUnitPriceCurrencyValue"]));
                     $idxArray++;
                 }
 
