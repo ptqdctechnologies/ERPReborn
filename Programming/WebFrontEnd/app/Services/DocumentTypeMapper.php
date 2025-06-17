@@ -9,12 +9,11 @@ class DocumentTypeMapper
         $mapping = [
             'Advance Form' => [
                 'key' => 'transaction.read.dataList.finance.getAdvanceDetail',
-                'parameter' => ['advance_RefID' => (int) $referenceId],
+                'parameter' => ['advance_RefID' => (int) $referenceId]
             ],
             'Advance Settlement Form' => [
                 'key' => 'transaction.read.dataList.finance.getAdvanceSettlementDetail',
-                'parameter' => ['advanceSettlement_RefID' => (int) $referenceId],
-                'businessDocument_RefID' => (int) 74000000021552,
+                'parameter' => ['advanceSettlement_RefID' => (int) $referenceId]
             ],
             'Delivery Order Form' => [
                 'key' => 'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
@@ -112,16 +111,17 @@ class DocumentTypeMapper
             ],
             'Advance Settlement Form' => [
                 'dataHeader'        => [
-                    'advanceNumber'     => $dataDetail['documentNumber'] ?? '-',
-                    'beneficiaryName'   => $dataDetail['beneficiaryName'] ?? '-',
-                    'bankName'          => $dataDetail['bankName'] ?? '-',
-                    'bankAccount'       => $dataDetail['bankAccount'] ?? '-',
-                    'budgetCode'        => $dataDetail['combinedBudgetCode'] ?? '-',
-                    'budgetName'        => $dataDetail['combinedBudgetName'] ?? '-',
-                    'subBudgetCode'     => $dataDetail['combinedBudgetSectionCode'] ?? '-',
-                    'subBudgetName'     => $dataDetail['combinedBudgetSectionName'] ?? '-',
-                    'fileID'            => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
-                    'dateUpdate'        => null,
+                    'advanceSettlement_RefID'   => $dataDetail['advanceSettlement_RefID'] ?? '-',
+                    'advanceNumber'             => $dataDetail['documentNumber'] ?? '-',
+                    'beneficiaryName'           => $dataDetail['beneficiaryName'] ?? '-',
+                    'bankName'                  => $dataDetail['bankName'] ?? '-',
+                    'bankAccount'               => $dataDetail['bankAccount'] ?? '-',
+                    'budgetCode'                => $dataDetail['combinedBudgetCode'] ?? null,
+                    'budgetName'                => $dataDetail['combinedBudgetName'] ?? null,
+                    'subBudgetCode'             => $dataDetail['combinedBudgetSectionCode'] ?? null,
+                    'subBudgetName'             => $dataDetail['combinedBudgetSectionName'] ?? null,
+                    'fileID'                    => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
+                    'dateUpdate'                => $dataDetail['dateUpdate'] ?? null,
                 ],
                 'components'        => [
                     'detail'        => 'Components.AdvanceSettlementDocument',
@@ -133,15 +133,18 @@ class DocumentTypeMapper
                 ],
                 'resubmit'  => [
                     'url'   => 'AdvanceSettlement.RevisionAdvanceSettlementIndex',
-                    'name'  => '',
-                    'value' => ''
+                    'name'  => 'advance_settlement_id',
+                    'value' => $dataDetail['advanceSettlement_RefID'] ?? '-',
                 ],
                 'transactionType'        => 'ADVANCE SETTLEMENT',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '-',
             ],
             'Delivery Order Form'   => [
                 'dataHeader'    => [
+                    'deliveryOrderRefID'        => $dataDetail['deliveryOrder_RefID'] ?? '',
                     'doNumber'                  => $dataDetail['documentNumber'] ?? '-',
+                    'date'                      => $dataDetail['sys_Data_Entry_DateTimeTZ'] ?? null,
+                    'dateUpdate'                => $dataDetail['sys_Data_Edit_DateTimeTZ'] ?? null,
                     'deliveryFrom'              => $dataDetail['deliveryFrom_NonRefID']['Address'] ?? '-',
                     'deliveryTo'                => $dataDetail['deliveryTo_NonRefID']['Address'] ?? '-',
                     'budgetCode'                => $dataDetail['combinedBudgetCode'] ?? null,
@@ -323,16 +326,19 @@ class DocumentTypeMapper
             ],
             'Purchase Order Form'       => [
                 'dataHeader'            => [
-                    'poNumber'          => $dataDetail['documentNumber'] ?? '-',
-                    'deliveryTo'        => $dataDetail['deliveryTo_NonRefID']['address'] ?? '-',
-                    'downPayment'       => $dataDetail['downPayment'] ?? '-',
-                    'termOfPayment'     => $dataDetail['termOfPayment_RefID'] ?? '-',
-                    'fileID'            => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
-                    'supplierCode'      => $dataDetail['supplierCode'] ?? '-',
-                    'supplierName'      => $dataDetail['supplierName'] ?? '-',
-                    'supplierAddress'   => $dataDetail['supplierAddress'] ?? '-',
-                    'paymentNote'       => $dataDetail['paymentNotes'] ?? '-',
-                    'internalNote'      => $dataDetail['internalNotes'] ?? '-',
+                    'date'                  => $dataDetail['date'] ?? '-',
+                    'dateUpdate'            => $dataDetail['dateUpdate'] ?? '-',
+                    'purchaseOrderRefID'    => $dataDetail['purchaseOrder_RefID'] ?? '-',
+                    'poNumber'              => $dataDetail['documentNumber'] ?? '-',
+                    'deliveryTo'            => $dataDetail['deliveryTo_NonRefID']['address'] ?? '-',
+                    'downPayment'           => $dataDetail['downPayment'] ?? '-',
+                    'termOfPayment'         => $dataDetail['termOfPaymentName'] ?? '-',
+                    'fileID'                => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
+                    'supplierCode'          => $dataDetail['supplierCode'] ?? '-',
+                    'supplierName'          => $dataDetail['supplierName'] ?? '-',
+                    'supplierAddress'       => $dataDetail['supplierAddress'] ?? '-',
+                    'paymentNote'           => $dataDetail['paymentNotes'] ?? '-',
+                    'internalNote'          => $dataDetail['internalNotes'] ?? '-',
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',

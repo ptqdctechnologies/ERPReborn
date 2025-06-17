@@ -189,6 +189,8 @@ class CheckDocumentController extends Controller
                 'transDetail_RefID'         => $transDetail_RefID
             ]);
 
+            // dd($collection);
+
             if (count($collection['dataDetail']) === 0) {
                 return redirect()->back()->with('error', 'Data Not Found');
             }
@@ -221,7 +223,7 @@ class CheckDocumentController extends Controller
                 'dataDetails'               => $collection['dataDetail']
             ] + $formatData;
 
-            // dump($compact);
+            // dd($compact);
 
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } catch (\Throwable $th) {
@@ -278,6 +280,7 @@ class CheckDocumentController extends Controller
                 'dataWorkFlows'     => $workflowHistory,
                 'statusApprover'    => $approverStatus,
                 'documentStatus'    => $documentStatus,
+                'transactionForm'           => $businessDocumentTypeName,
             ] + $formatData;
 
             // dump($compact);

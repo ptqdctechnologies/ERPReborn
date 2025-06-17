@@ -72,9 +72,9 @@
                     </div>
                     <div class="input-group">
                         <button class="btn btn-default btn-sm" onclick="window.location.href='{{ route('LogTransaction', [
-                            'id'        => $dataHeader['Sys_ID_Advance'],
-                            'docNum'    => $dataHeader['DocumentNumber'],
-                            'docName'   => $dataHeader['BusinessDocumentType_Name']
+                            'id'        => $dataHeader['advanceSettlement_RefID'],
+                            'docNum'    => $dataHeader['advanceNumber'],
+                            'docName'   => $transactionForm
                             ]) }}'">
                             Show Revision History
                         </button>
