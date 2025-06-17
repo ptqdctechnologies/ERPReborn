@@ -127,33 +127,13 @@
             </div>
         </div>
 
-        <!-- BANK NAME -->
+        <!-- BANK -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 text-bold">
-                Bank Name
+                Bank
             </div>
             <div class="col">
-                : <?= $dataHeader['bankName']; ?>
-            </div>
-        </div>
-
-        <!-- ACCOUNT NAME -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 text-bold">
-                Account Name
-            </div>
-            <div class="col">
-                : <?= $dataHeader['accountName']; ?>
-            </div>
-        </div>
-
-        <!-- ACCOUNT NUMBER -->
-        <div class="row">
-            <div class="col-4 text-bold">
-                Account Number
-            </div>
-            <div class="col">
-                : <?= $dataHeader['accountNumber']; ?>
+                : (<?= $dataHeader['bankName']; ?>) <?= $dataHeader['accountNumber']; ?> - <?= $dataHeader['accountName']; ?>
             </div>
         </div>
     </div>

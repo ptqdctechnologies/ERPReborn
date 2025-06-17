@@ -36,7 +36,7 @@
             <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
                 TOP
             </div>
-            <div class="col">
+            <div class="col" style="line-height: normal;">
                 : <?= $dataHeader['termOfPayment']; ?>
             </div>
         </div>
@@ -66,13 +66,13 @@
         </div>
     </div>
 </div>
-    
+
 <!-- RIGHT COLUMN -->
 <div class="col-12 col-md-5 col-lg-5">
     <div class="form-group">
         <!-- REVISION -->
         <div class="row" id="revisionAdvance" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-6 col-lg-5 text-bold">
+            <div class="col-4 col-sm-4 col-md-6 col-lg-4 text-bold">
                 Revision
             </div>
             <?php if (isset($dataHeader['dateUpdate'])) { ?>
@@ -97,39 +97,19 @@
             <?php } ?>
         </div>
 
-        <!-- SUPPLIER CODE -->
+        <!-- SUPPLIER -->
         <div class="row" id="revisionAdvance" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-6 col-lg-5 text-bold">
-                Supplier Code
+            <div class="col-4 col-sm-4 col-md-6 col-lg-4 text-bold">
+                Supplier
             </div>
-            <div class="col">
-                : <?= $dataHeader['supplierCode']; ?>
-            </div>
-        </div>
-
-        <!-- SUPPLIER NAME -->
-        <div class="row" id="revisionAdvance" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-6 col-lg-5 text-bold">
-                Supplier Name
-            </div>
-            <div class="col">
-                : <?= $dataHeader['supplierName']; ?>
-            </div>
-        </div>
-        
-        <!-- SUPPLIER ADDRESS -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-6 col-lg-5 text-bold">
-                Supplier Address
-            </div>
-            <div class="col">
-                : <?= $dataHeader['supplierAddress']; ?>
+            <div class="col" style="line-height: normal;">
+                : (<?= $dataHeader['supplierCode']; ?>) <?= $dataHeader['supplierName']; ?> - <?= $dataHeader['supplierAddress']; ?>
             </div>
         </div>
         
         <!-- PAYMENT NOTES -->
         <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-6 col-lg-5 text-bold">
+            <div class="col-4 col-sm-4 col-md-6 col-lg-4 text-bold">
                 Payment Notes
             </div>
             <div class="col">
@@ -139,7 +119,7 @@
         
         <!-- INTERNAL NOTE -->
         <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-6 col-lg-5 text-bold">
+            <div class="col-4 col-sm-4 col-md-6 col-lg-4 text-bold">
                 Internal Note
             </div>
             <div class="col">

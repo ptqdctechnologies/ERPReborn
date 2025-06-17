@@ -223,7 +223,7 @@ class CheckDocumentController extends Controller
                 'dataDetails'               => $collection['dataDetail']
             ] + $formatData;
 
-            // dd($compact);
+            // dump($compact);
 
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } catch (\Throwable $th) {
