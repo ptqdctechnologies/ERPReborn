@@ -44,7 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000003                                                                                       |
-        | ▪ Last Update     : 2025-04-30                                                                                           |
+        | ▪ Last Update     : 2025-06-17                                                                                           |
         | ▪ Creation date   : 2022-09-27                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -94,6 +94,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
 
                                     $varData['entities']['documentDateTimeTZ'],
                                     $varData['entities']['person_RefID'],
+                                    $varData['entities']['combinedBudget_RefID'],
                                     $varData['entities']['colorText'],
                                     $varData['entities']['colorBackground'],
 
@@ -101,11 +102,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                         $varUserSession,
                                         'additionalData',
                                         $varData['entities']
-                                        ) 
+                                        )
                                         ?   (
                                                 (
                                                 !is_null($varData['entities']['additionalData'])
-                                                ) 
+                                                )
                                                 ? $varData['entities']['additionalData']
                                                 : []
                                             )
@@ -115,13 +116,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                 )
                             ))
                             {
-                            throw new \Exception();                            
+                            throw new \Exception();
                             }
 
                         //---> Set Business Document Data Into varDataSend
-                        $varDataSend['businessDocument'] = 
+                        $varDataSend['businessDocument'] =
                             (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
-                                $varUserSession, 
+                                $varUserSession,
                                 $varDataSend['recordID']
                                 );
 
@@ -144,7 +145,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
 
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
 
                 catch (\Exception $ex) {
                     $varReturn =
@@ -158,7 +159,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                     }
 
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
 
             catch (\Exception $ex) {
                 }

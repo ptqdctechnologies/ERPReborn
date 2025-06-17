@@ -44,7 +44,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-04-30                                                                                           |
+        | ▪ Last Update     : 2025-06-17                                                                                           |
         | ▪ Create Date     : 2021-11-01                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,27 +59,25 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document Date Time TZ                                                            |
         |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
-        |      ▪ (string) varStartDateTimeTZ ► Start Date Time TZ                                                                  |
-        |      ▪ (string) varFinishDateTimeTZ ► Finish Date Time TZ                                                                |
-        |      ▪ (int)    varProject_RefID ► Project Reference ID                                                                  |
+        |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                   |
         |      ▪ (string) varColorText ► Color Text                                                                                |
         |      ▪ (string) varColorBackground ► Color Background                                                                    |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varColorText = null, string $varColorBackground = null,
+            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, int $varCombinedBudget_RefID = null, string $varColorText = null, string $varColorBackground = null,
             array $varAdditionalData = []
             )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
@@ -96,11 +94,12 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varPerson_RefID, 'bigint'],
+                            [$varCombinedBudget_RefID, 'bigint'],
                             [$varColorText, 'varchar'],
                             [$varColorBackground, 'varchar'],
 
                             [
-                                ((count($varAdditionalData) === 0) 
+                                ((count($varAdditionalData) === 0)
                                     ? null
                                     : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                         $varUserSession,
@@ -123,7 +122,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-04-30                                                                                           |
+        | ▪ Last Update     : 2025-06-17                                                                                           |
         | ▪ Create Date     : 2021-11-01                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -139,42 +138,48 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document Date Time TZ                                                            |
         |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
+        |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                                    |
         |      ▪ (string) varColorText ► Color Text                                                                                |
         |      ▪ (string) varColorBackground ► Color Background                                                                    |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varColorText = null, string $varColorBackground = null,
+            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, int $varCombinedBudget_RefID = null, string $varColorText = null, string $varColorBackground = null,
             array $varAdditionalData = []
             )
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
                         [
                             [$varUserSession, 'bigint'],
                             [$varSysID, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
- 
+                            [$varSysBaseCurrency_RefID, 'bigint'],
+
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varPerson_RefID, 'bigint'],
+                            [$varCombinedBudget_RefID, 'bigint'],
                             [$varColorText, 'varchar'],
                             [$varColorBackground, 'varchar'],
 
                             [
-                                ((count($varAdditionalData) === 0) 
+                                ((count($varAdditionalData) === 0)
                                     ? null
                                     : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                         $varUserSession,
