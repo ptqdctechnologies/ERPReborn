@@ -3,7 +3,7 @@
     let vat                         = document.getElementById("vatOption");
     const termOfPaymentID           = document.getElementById('termOfPaymentID');
     const vatOptionValue            = document.getElementById('vatOptionValue');
-    const dataTable                 = document.getElementById('DataPurchaseOrderDetail');
+    const dataTable                 = {!! json_encode($detail ?? []) !!};
     const ppn                       = document.getElementById('ppn');
     const TotalBudgetSelecteds      = document.getElementById('TotalBudgetSelected');
     const TotalBudgetSelectedPpn    = document.getElementById('TotalBudgetSelectedPpn');
@@ -235,16 +235,16 @@
             dataStore.push({
                 recordID: val2.sys_ID,
                 entities: {
-                    purchaseRequisitionDetail_RefID: parseInt(84000000000001),
+                    purchaseRequisitionDetail_RefID: parseInt(val2.purchaseRequisitionDetail_RefID),
                     quantity: parseFloat(val2.quantity.replace(/,/g, '')),
                     quantityUnit_RefID: parseInt(val2.quantityUnit_RefID),
                     productUnitPriceCurrency_RefID: parseInt(val2.productUnitPriceCurrency_RefID),
                     productUnitPriceCurrencyValue: parseFloat(val2.productUnitPriceCurrencyValue.replace(/,/g, '')),
                     productUnitPriceCurrencyExchangeRate: parseFloat(val2.productUnitPriceCurrencyExchangeRate.replace(/,/g, '')),
-                    productUnitPriceDiscountCurrency_RefID: parseInt(62000000000001),
-                    productUnitPriceDiscountCurrencyValue: 0,
-                    productUnitPriceDiscountCurrencyExchangeRate: 1,
-                    remarks: val2.note || '',
+                    productUnitPriceDiscountCurrency_RefID: parseInt(val2.productUnitPriceDiscountCurrency_RefID),
+                    productUnitPriceDiscountCurrencyValue: val2.productUnitPriceDiscountCurrencyValue,
+                    productUnitPriceDiscountCurrencyExchangeRate: val2.productUnitPriceDiscountCurrencyExchangeRate,
+                    remarks: val2.note,
                     productCode: val2.productCode
                 },
             });
@@ -253,22 +253,22 @@
             let row = `
                 <tr>
                     <input id="record_RefID${key}" value="${val2.sys_ID}" type="hidden" />
-                    <input id="purchaseRequisitionDetail_RefID${key}" value="84000000000001" type="hidden" />
+                    <input id="purchaseRequisitionDetail_RefID${key}" value="${val2.purchaseRequisitionDetail_RefID}" type="hidden" />
                     <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
                     <input id="productUnitPriceCurrency_RefID${key}" value="${val2.productUnitPriceCurrency_RefID}" type="hidden" />
                     <input id="productUnitPriceCurrencyExchangeRate${key}" value="${val2.productUnitPriceCurrencyExchangeRate}" type="hidden" />
-                    <input id="productUnitPriceDiscountCurrency_RefID${key}" value="62000000000001" type="hidden" />
-                    <input id="productUnitPriceDiscountCurrencyValue${key}" value="0" type="hidden" />
-                    <input id="productUnitPriceDiscountCurrencyExchangeRate${key}" value="1" type="hidden" />
+                    <input id="productUnitPriceDiscountCurrency_RefID${key}" value="${val2.productUnitPriceDiscountCurrency_RefID}" type="hidden" />
+                    <input id="productUnitPriceDiscountCurrencyValue${key}" value="${val2.productUnitPriceDiscountCurrencyValue}" type="hidden" />
+                    <input id="productUnitPriceDiscountCurrencyExchangeRate${key}" value="${val2.productUnitPriceDiscountCurrencyExchangeRate}" type="hidden" />
 
                     <td style="text-align: center; padding: 10px !important;">${val2.productCode || '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.productName || '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity || 0)}</td>
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity || 0)}</td>
-                    <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName || 'kg'}</td>
+                    <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName || '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}</td>
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(totalReq || 0)}</td>
-                    <td style="text-align: center; padding: 10px !important;">IDR</td>
+                    <td style="text-align: center; padding: 10px !important;">${val2.productUnitPriceCurrencyISOCode}</td>
                     <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                         <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-total-request=${totalReq} data-default="${currencyTotal(val2.quantity || 0)}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(val2.quantity || 0)}" />
                     </td>
@@ -340,12 +340,12 @@
                     <input type="hidden" name="price_avail[]" value="${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}">
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName || 'kg'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">IDR</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productUnitPriceCurrencyISOCode || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.quantity || 0)}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(totalReq || 0)}</td> 
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.remarks || ''}</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.note || '-'}</td>
                 </tr>
             `;
 
@@ -616,7 +616,7 @@
     });
 
     $(window).one('load', function(e) {
-        const data = JSON.parse(dataTable.value);
+        // const data = JSON.parse(dataTable.value);
 
         if (vatOptionValue.value) {
             $('#containerValuePPN').show();
@@ -627,7 +627,7 @@
         getPaymentTerm();
         getVAT();
         getDocumentType("Purchase Order Revision Form");
-        viewPurchaseOrderDetail(data);
+        viewPurchaseOrderDetail(dataTable);
     });
 
     document.querySelector('#tablePurchaseOrderList tbody').addEventListener('click', function (e) {

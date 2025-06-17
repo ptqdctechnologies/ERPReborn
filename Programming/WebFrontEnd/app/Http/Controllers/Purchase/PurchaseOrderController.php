@@ -1519,23 +1519,24 @@ class PurchaseOrderController extends Controller
         $compact = [
             'varAPIWebToken'        => $varAPIWebToken,
             'header'                => [
-                'budgetID'          => '46000000000033',
-                'poNumberID'        => $data[0]['purchaseOrder_RefID'] ?? '',
-                'poNumber'          => $data[0]['documentNumber'] ?? '',
-                'deliveryTo'        => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
-                'deliveryToID'      => $data[0]['deliveryTo_RefID'] ?? '',
-                'supplierID'        => $data[0]['supplier_RefID'] ?? '-',
-                'supplierName'      => $data[0]['supplierName'] ?? '',
-                'supplierCode'      => $data[0]['supplierCode'] ?? '',
-                'supplierAddress'   => $data[0]['supplierAddress'] ?? '',
-                'downPayment'       => (int) $data[0]['downPayment'] ?? '',
-                'termOfPaymentID'   => $data[0]['termOfPayment_RefID'] ?? '',
-                'paymentNotes'      => $data[0]['paymentNotes'] ?? '',
-                'remarkPO'          => $data[0]['remarks'] ?? '',
-                'internalNote'      => $data[0]['internalNotes'] ?? '',
-                'fileID'            => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
-                'vatValue'          => $data[0]['vatRatio'] ?? null,
-                'isVATSelected'     => $data[0]['vatRatio'] ? 'selected' : '',
+                'budgetID'                      => $data[0]['combinedBudget_RefID'] ?? '',
+                'poNumberID'                    => $data[0]['purchaseOrder_RefID'] ?? '',
+                'poNumber'                      => $data[0]['documentNumber'] ?? '',
+                'deliveryTo'                    => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
+                'deliveryToID'                  => $data[0]['deliveryTo_RefID'] ?? '',
+                'supplierID'                    => $data[0]['supplier_RefID'] ?? '-',
+                'supplierName'                  => $data[0]['supplierName'] ?? '',
+                'supplierCode'                  => $data[0]['supplierCode'] ?? '',
+                'supplierAddress'               => $data[0]['supplierAddress'] ?? '',
+                'downPayment'                   => (int) $data[0]['downPayment'] ?? '',
+                'termOfPaymentID'               => $data[0]['termOfPayment_RefID'] ?? '',
+                'paymentNotes'                  => $data[0]['paymentNotes'] ?? '',
+                'remarkPO'                      => $data[0]['remarks'] ?? '',
+                'internalNote'                  => $data[0]['internalNotes'] ?? '',
+                'fileID'                        => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                'vatValue'                      => $data[0]['vatRatio'] ?? null,
+                'isVATSelected'                 => $data[0]['vatRatio'] ? 'selected' : '',
+                'transactionTaxDetailRefID'     => $data[0]['transactionTaxDetail_RefID'] ?? ''
             ],
             'detail'                => $data
         ];
@@ -1676,6 +1677,8 @@ class PurchaseOrderController extends Controller
     {
         try {
             $response = $this->purchaseOrderService->updates($request);
+
+            Log::error("request at ", [$response]);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($response);

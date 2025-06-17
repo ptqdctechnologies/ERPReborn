@@ -659,9 +659,9 @@ class FunctionController extends Controller
             false
         );
 
-        Log::error("transName: ",[$transName]);
-        Log::error("filterName: ",[$filterName]);
-        Log::error("varBusinessDocumentType: ",[$varBusinessDocumentType]);
+        // Log::error("transName: ",[$transName]);
+        // Log::error("filterName: ",[$filterName]);
+        // Log::error("varBusinessDocumentType: ",[$varBusinessDocumentType]);
 
         return response()->json($varBusinessDocumentType['data']['data']);
     }

@@ -49,7 +49,7 @@ class PurchaseOrderService
                     "transactionTaxItemList"    => [
                         "items"                 => [
                             [
-                                "recordID" => null,
+                                "recordID" => (int) $data['transactionTaxDetail_RefID'],
                                 "entities" => [
                                     "taxType_RefID"                 => null,
                                     "tariffCurrency_RefID"          => null,
