@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.humanResource.setPersonWorkTimeSheet.v1_throughAPIGateway     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-04-30                                                                                           |
+        | ▪ Last Update     : 2025-06-17                                                                                           |
         | ▪ Creation Date   : 2022-09-19                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -44,19 +44,20 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
                     //-----[ DATA ]-----( START )-----
                         [
-                        'recordID' => 48000000000001,
+                        'recordID' => 48000000000006,
                         'entities' => [
                             'documentDateTimeTZ' => '2026-01-01 00:00:00 +07',
                             'person_RefID' => 25000000000439,
+                            'combinedBudget_RefID' => 46000000000008,
                             'colorText' => '#000000',
                             'colorBackground' => '#ababab',
                             'additionalData' => [
                                 'itemList' => [
                                     'items' => [
                                             [
-                                            'recordID' => 10050000000000001,
+                                            'recordID' => 50000000000015,
                                             'entities' => [
-                                                'combinedBudgetSection_RefID' => null,
+                                                'combinedBudgetSection_RefID' => 143000000000308,
                                                 'startDateTimeTZ' => '2026-01-01 07:00:00 +07',
                                                 'finishDateTimeTZ' => '2026-01-01 13:00:00 +07',
                                                 'activity' => 'Kegiatan ABCD',
@@ -65,9 +66,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 ]
                                             ],
                                             [
-                                            'recordID' => 10050000000000002,
+                                            'recordID' => 50000000000016,
                                             'entities' => [
-                                                'combinedBudgetSection_RefID' => null,
+                                                'combinedBudgetSection_RefID' => 143000000000308,
                                                 'startDateTimeTZ' => '2026-01-01 07:00:00 +07',
                                                 'finishDateTimeTZ' => '2026-01-01 13:00:00 +07',
                                                 'activity' => 'Kegiatan EFGH',
