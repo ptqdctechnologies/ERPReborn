@@ -45,11 +45,17 @@
                 </div>
 
                 <!-- CONTENT -->
-                <div class="card-body">
-                  <div class="row" style="margin: .6rem 0rem; gap: 1rem;">
-                    @include($components['detail'])
+                <?php if (isset($components['detail'])) { ?>
+                  <div class="card-body">
+                    <div class="row" style="margin: .6rem 0rem; gap: 1rem;">
+                      @include($components['detail'])
+                    </div>
                   </div>
-                </div>
+                <?php } ?>
+
+                <?php if (isset($components['customDetail'])) { ?>
+                  @include($components['customDetail'])
+                <?php } ?>
               </div>
             </div>
 

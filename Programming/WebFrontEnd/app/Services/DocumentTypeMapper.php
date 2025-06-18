@@ -29,6 +29,11 @@ class DocumentTypeMapper
                 'parameter' => [],
                 'businessDocument_RefID' => (int) 74000000021494,
             ],
+            'Modify Budget Form' => [
+                'key' => '',
+                'parameter' => [],
+                'businessDocument_RefID' => (int) 74000000021494,
+            ],
             'Person Business Trip Form' => [
                 'key' => '',
                 'parameter' => [],
@@ -230,6 +235,18 @@ class DocumentTypeMapper
                     'value'     => ''
                 ],
                 'transactionType'        => 'LOAN SETTLEMENT',
+                'businessDocument_RefID' => '',
+            ],
+            'Modify Budget Form' => [
+                'components'    => [
+                    'customDetail'  => 'Components.ModifyBudget',
+                ],
+                'resubmit'      => [
+                    'url'       => '',
+                    'name'      => '',
+                    'value'     => ''
+                ],
+                'transactionType'        => 'MODIFY BUDGET',
                 'businessDocument_RefID' => '',
             ],
             'Person Business Trip Form' => [
