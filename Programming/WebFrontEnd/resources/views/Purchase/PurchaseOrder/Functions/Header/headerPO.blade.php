@@ -6,6 +6,16 @@
                     <tr>
                         <td style="padding-top: 5px;">
                             <label>
+                                Date of Delivery
+                            </label>
+                        </td>
+                        <td>
+                            <input id="dateOfDelivery" name="dateOfDelivery" style="border-radius:0;width: 100%;" type="date" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 5px;">
+                            <label>
                                 Supplier Code
                             </label>
                         </td>

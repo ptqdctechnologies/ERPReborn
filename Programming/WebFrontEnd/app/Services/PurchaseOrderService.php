@@ -17,7 +17,7 @@ class PurchaseOrderService
         $data                       = $request->storeData;
         $detailItems                = json_decode($data['purchaseOrderDetail'], true);
         $fileID                     = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
-        $deliveryDestinationRefID   = isset($data['delivery_to_id']) ? (int) $data['delivery_to_id'] : null;
+        $deliveryDestinationRefID   = isset($data['delivery_to_id']) && $data['delivery_to_id'] ? (int) $data['delivery_to_id'] : null;
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),

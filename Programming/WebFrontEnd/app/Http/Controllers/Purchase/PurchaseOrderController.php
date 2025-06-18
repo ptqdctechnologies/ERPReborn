@@ -6,9 +6,7 @@ use App\Http\Controllers\ExportExcel\Purchase\ExportReportPurchaseOrderSummary;
 use App\Http\Controllers\ExportExcel\Purchase\ExportReportPOtoDO;
 use App\Http\Controllers\ExportExcel\Purchase\ExportReportPOtoAP;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
@@ -1564,11 +1562,12 @@ class PurchaseOrderController extends Controller
     public function store(Request $request)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-            $purchaseOrderData = $request->all();
-            $purchaseOrderDetail = json_decode($purchaseOrderData['storeData']['purchaseOrderDetail'], true);
-            $fileID = $purchaseOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $purchaseOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
+            $varAPIWebToken                     = Session::get('SessionLogin');
+            $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
+            $purchaseOrderData                  = $request->all();
+            $deliveryToRefID                    = $purchaseOrderData['storeData']['deliveryTo_RefID'] ? (int) $purchaseOrderData['storeData']['deliveryTo_RefID'] : null;
+            $purchaseOrderDetail                = json_decode($purchaseOrderData['storeData']['purchaseOrderDetail'], true);
+            $fileID                             = $purchaseOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $purchaseOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
 
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
@@ -1581,8 +1580,8 @@ class PurchaseOrderController extends Controller
                     "log_FileUpload_Pointer_RefID"          => (int) $fileID,
                     "requesterWorkerJobsPosition_RefID"     => (int) $SessionWorkerCareerInternal_RefID,
                     "supplier_RefID"                        => (int) $purchaseOrderData['storeData']['supplier_id'],
-                    "deliveryDateTimeTZ"                    => date('Y-m-d'), // Ganti ambil dari Detail PR
-                    "deliveryDestination_RefID"             => null,
+                    "deliveryDateTimeTZ"                    => $purchaseOrderData['storeData']['dateOfDelivery'],
+                    "deliveryDestination_RefID"             => $deliveryToRefID,
                     "supplierInvoiceBillingPurpose_RefID"   => null,
                     "remarks"                               => $purchaseOrderData['storeData']['remarkPO'],
                     "deliveryDestinationManualAddress"      => $purchaseOrderData['storeData']['delivery_to'],
@@ -1590,7 +1589,7 @@ class PurchaseOrderController extends Controller
                     "internalNotes"                         => $purchaseOrderData['storeData']['internalNote'],
                     "downPayment"                           => (float) str_replace(',', '', $purchaseOrderData['storeData']['downPaymentValue']),
                     "termOfPayment_RefID"                   => (int) $purchaseOrderData['storeData']['termOfPaymentValue'],
-                    "vatRatio"                              => $purchaseOrderData['storeData']['vatValue'],
+                    "vatRatio"                              => $purchaseOrderData['storeData']['vatValue'] ?? null,
                     "additionalData"                        => [
                         "itemList"  => [
                             "items" => $purchaseOrderDetail
@@ -1677,8 +1676,6 @@ class PurchaseOrderController extends Controller
     {
         try {
             $response = $this->purchaseOrderService->updates($request);
-
-            Log::error("request at ", [$response]);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($response);

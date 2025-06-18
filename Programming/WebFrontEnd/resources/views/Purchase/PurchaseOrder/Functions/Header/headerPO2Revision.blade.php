@@ -21,8 +21,8 @@
           <tr>
             <td style="padding-top: 12px;"><label>Delivery To</label></td>
             <td style="border:1px solid #e9ecef;">
+              <input id="delivery_to_id" style="border-radius:0;" name="delivery_to_id" class="form-control" hidden value="<?= $header['deliveryToID']; ?>">
               <div class="input-group">
-                <input id="delivery_to_id" style="border-radius:0;" name="delivery_to_id" class="form-control" hidden value="<?= $header['deliveryToID']; ?>">
                 <textarea name="delivery_to" id="delivery_to" cols="30" rows="4" class="form-control"><?= $header['deliveryTo']; ?></textarea>
               </div>
             </td>
