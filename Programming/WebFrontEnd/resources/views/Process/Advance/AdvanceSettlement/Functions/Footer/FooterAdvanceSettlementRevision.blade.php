@@ -54,9 +54,7 @@
                 }
             });
 
-            let qtyRequest = val2.expenseQuantity + val2.refundQuantity;
-            let priceRequest = val2.expenseProductUnitPriceCurrencyValue + val2.refundProductUnitPriceCurrencyValue;
-            let totalRequest = qtyRequest * priceRequest;
+            let totalRequest = val2.quantity * val2.productUnitPriceCurrencyValue;
             let totalExpense = val2.expenseQuantity * val2.expenseProductUnitPriceCurrencyValue;
             let totalCompany = val2.refundQuantity * val2.refundProductUnitPriceCurrencyValue;
             let balanced = (totalRequest - totalExpense) + totalCompany;
@@ -76,10 +74,10 @@
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.productName || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.UOM || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.currency || '-'}</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${currencyTotal(qtyRequest) || '-'}</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${currencyTotal(priceRequest) || '-'}</td>
+                    <td style="text-align: center;border:1px solid #e9ecef;">${currencyTotal(val2.quantity) || '-'}</td>
+                    <td style="text-align: center;border:1px solid #e9ecef;">${currencyTotal(val2.productUnitPriceCurrencyValue) || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${currencyTotal(totalRequest) || '-'}</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">-</td>
+                    <td style="text-align: center;border:1px solid #e9ecef;">${currencyTotal(val2.balance) || '-'}</td>
                     <td style="text-align: center; padding: 10px !important; width: 120px;">
                         <input class="form-control number-without-negative" id="qty_settlement${key}" data-default=${currencyTotal(val2.expenseQuantity) || 0} data-index=${key} data-total-request=${totalRequest} autocomplete="off" value=${currencyTotal(val2.expenseQuantity) || 0} style="border-radius:0px; width: 75px;" />
                     </td>
@@ -116,7 +114,7 @@
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                if (qty_settlement > qtyRequest) {
+                if (parseFloat(qty_settlement) > val2.quantity) {
                     $(this).val(0);
                     $(`#total_settlement${data_index}`).val(0);
                     $(`#balance${data_index}`).val(0);
@@ -139,7 +137,7 @@
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                if (price_settlement > priceRequest) {
+                if (parseFloat(price_settlement) > val2.productUnitPriceCurrencyValue) {
                     $(this).val(0);
                     $(`#total_settlement${data_index}`).val(0);
                     $(`#balance${data_index}`).val(0);
@@ -162,7 +160,7 @@
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                if (qty_settlement_company > qtyRequest) {
+                if (parseFloat(qty_settlement_company) > val2.quantity) {
                     $(this).val(0);
                     $(`#total_settlement_company${data_index}`).val(0);
                     $(`#balance${data_index}`).val(0);
@@ -185,7 +183,7 @@
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                if (price_settlement_company > priceRequest) {
+                if (parseFloat(price_settlement_company) > val2.productUnitPriceCurrencyValue) {
                     $(this).val(0);
                     $(`#total_settlement_company${data_index}`).val(0);
                     $(`#balance${data_index}`).val(0);

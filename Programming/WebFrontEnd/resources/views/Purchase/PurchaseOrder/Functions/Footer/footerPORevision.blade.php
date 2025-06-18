@@ -4,6 +4,8 @@
     const termOfPaymentID           = document.getElementById('termOfPaymentID');
     const vatOptionValue            = document.getElementById('vatOptionValue');
     const dataTable                 = {!! json_encode($detail ?? []) !!};
+    const deliveryToID              = {!! json_encode($header['deliveryToID'] ?? []) !!};
+    const deliveryToAddress         = {!! json_encode($header['deliveryTo'] ?? []) !!};
     const ppn                       = document.getElementById('ppn');
     const TotalBudgetSelecteds      = document.getElementById('TotalBudgetSelected');
     const TotalBudgetSelectedPpn    = document.getElementById('TotalBudgetSelectedPpn');
@@ -628,6 +630,14 @@
         getVAT();
         getDocumentType("Purchase Order Revision Form");
         viewPurchaseOrderDetail(dataTable);
+    });
+
+    $('#delivery_to').on('input', function(e) {
+        if (e.target.value == deliveryToAddress) {
+            $("#delivery_to_id").val(deliveryToID);
+        } else {
+            $("#delivery_to_id").val("");
+        }
     });
 
     document.querySelector('#tablePurchaseOrderList tbody').addEventListener('click', function (e) {

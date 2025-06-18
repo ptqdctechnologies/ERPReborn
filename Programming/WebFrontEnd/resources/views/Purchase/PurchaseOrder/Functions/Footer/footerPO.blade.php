@@ -4,8 +4,12 @@
     var vat                         = document.getElementById("vatOption");
     var dataStore                   = [];
     const msrIDList                 = [];
+    const combinedBudgetTrigger     = document.getElementById("var_combinedBudget_RefID");
     const msrNumber                 = document.getElementById("modal_purchase_requisition_document_number");
     const deliveryTo                = document.getElementById("delivery_to");
+    const deliveryToDuplicate       = document.getElementById("deliveryToDuplicate");
+    const deliveryToDuplicateRefID  = document.getElementById("deliveryToDuplicate_RefID");
+    const deliveryToRefID           = document.getElementById("deliveryTo_RefID");
     const supplierCode              = document.getElementById("supplier_code");
     const ppn                       = document.getElementById('ppn');
     const TotalBudgetSelecteds      = document.getElementById('TotalBudgetSelected');
@@ -185,6 +189,14 @@
                     let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${purchase_requisition_number}</td>`;
 
                     $.each(data, function(key, val2) {
+                        let splitDateOfDelivery = val2.deliveryDateTimeTZ.split(' ')[0];
+
+                        $("#deliveryToDuplicate_RefID").val(val2.deliveryTo_RefID);
+                        $("#deliveryTo_RefID").val(val2.deliveryTo_RefID);
+                        $("#deliveryToDuplicate").val(val2.deliveryToName);
+                        $("#delivery_to").val(val2.deliveryToName);
+                        $("#dateOfDelivery").val(splitDateOfDelivery);
+
                         let row = `
                             <tr>
                                 <input id="msr_number${indexPurchaseOrder}" value="${purchase_requisition_number}" type="hidden" />
@@ -381,19 +393,41 @@
         });
     }
 
-    $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function() {
-        var sysId               = $(this).find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
-        var trano               = $(this).find('td:nth-child(2)').text();
-        var checkDoubleMsrID    = msrIDList.includes(sysId);
+    $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function () {
+        const $row = $(this);
 
-        if (checkDoubleMsrID) {
-            Swal.fire("Error", "MSR number has been selected !", "error");
-            $('#modal_purchase_requisition_document_number').val("");
-            $('#modal_purchase_requisition_id').val("");
-        } else {
+        const sysId = $row.find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
+        const combinedBudget = $row.find('input[data-trigger="sys_id_combinedBudget_purchase_requisition"]').val();
+        const trano = $row.find('td:nth-child(2)').text();
+
+        const isDuplicateMsr = msrIDList.includes(sysId);
+        const currentBudget = combinedBudgetTrigger.value;
+
+        if (currentBudget && currentBudget !== combinedBudget) {
+            Swal.fire("Error", "Budget Code must be the same!", "error");
+            clearModalFields();
+            return;
+        }
+
+        if (isDuplicateMsr) {
+            Swal.fire("Error", "MSR number has been selected!", "error");
+            clearModalFields();
+            return;
+        }
+
+        if (!currentBudget) {
+            $("#var_combinedBudget_RefID").val(combinedBudget);
+        }
+
+        if (currentBudget === combinedBudget || !currentBudget) {
             msrIDList.push(sysId);
             getDetailPurchaseRequisition(trano, sysId);
             $("#supplier_code2").prop("disabled", false);
+        }
+
+        function clearModalFields() {
+            $('#modal_purchase_requisition_document_number').val("");
+            $('#modal_purchase_requisition_id').val("");
         }
     });
 
@@ -723,10 +757,12 @@
         });
     });
 
-    $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function() {
-        var combinedBudget = $(this).find('input[data-trigger="sys_id_combinedBudget_purchase_requisition"]').val();
-
-        $("#var_combinedBudget_RefID").val(combinedBudget);
+    $('#delivery_to').on('input', function(e) {
+        if (e.target.value == deliveryToDuplicate.value) {
+            $("#deliveryTo_RefID").val(deliveryToDuplicateRefID.value);
+        } else {
+            $("#deliveryTo_RefID").val("");
+        }
     });
 
     $(document).on('input', '.number-without-negative', function() {

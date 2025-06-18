@@ -49,6 +49,7 @@ class CheckDocumentController extends Controller
             if (
                 $documentType === 'Loan Form' ||
                 $documentType === 'Loan Settlement Form' ||
+                $documentType === 'Modify Budget Form' ||
                 $documentType === 'Person Business Trip Form' ||
                 $documentType === 'Person Business Trip Settlement Form' || 
                 $documentType === 'Reimbursement Form' || 
@@ -189,6 +190,8 @@ class CheckDocumentController extends Controller
                 'transDetail_RefID'         => $transDetail_RefID
             ]);
 
+            // dd($collection);
+
             if (count($collection['dataDetail']) === 0) {
                 return redirect()->back()->with('error', 'Data Not Found');
             }
@@ -278,6 +281,7 @@ class CheckDocumentController extends Controller
                 'dataWorkFlows'     => $workflowHistory,
                 'statusApprover'    => $approverStatus,
                 'documentStatus'    => $documentStatus,
+                'transactionForm'           => $businessDocumentTypeName,
             ] + $formatData;
 
             // dump($compact);
@@ -328,6 +332,26 @@ class CheckDocumentController extends Controller
                             [
                                 'sys_ID'    => 23456781,
                                 'sys_Text'  => 'LNS/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            case "Modify Budget Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 12345678,
+                                'sys_Text'  => 'MOB/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 23456781,
+                                'sys_Text'  => 'MOB/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],

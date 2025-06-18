@@ -29,7 +29,7 @@
             <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
             <input type="hidden" name="purchaseOrderDetail" id="purchaseOrderDetail">
             <input type="hidden" name="tariffCurrencyValue" id="tariffCurrencyValue">
-            
+
             <!-- ADD NEW PURCHASE ORDER -->
             <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
               <div class="row">
@@ -81,9 +81,10 @@
               <div class="row">
                 <div class="col-12">
                   <div class="card">
+                    <!-- HEADER -->
                     <div class="card-header">
                       <label class="card-title">
-                        File Attachments
+                        File Attachment
                       </label>
                       <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -91,20 +92,25 @@
                         </button>
                       </div>
                     </div>
+
+                    <!-- BODY -->
                     <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none">
-                          <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                            $varAPIWebToken,
-                            'dataInput_Log_FileUpload',
-                            null,
-                            'dataInput_Return'
-                            ).
-                          ''; ?>
+                      <div class="row py-3">
+                        <div class="col-lg-5">
+                          <div class="row">
+                            <div class="col p-0">
+                              <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none">
+                              <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                $varAPIWebToken,
+                                'dataInput_Log_FileUpload',
+                                null,
+                                'dataInput_Return'
+                                ).
+                              ''; ?>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <br><br>
                     </div>
                   </div>
                 </div>

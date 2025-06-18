@@ -100,6 +100,7 @@
 
                     $('#DocumentType').append('<option value="' + 34567812 + '" data-name="Loan Form">Loan Form</option>');
                     $('#DocumentType').append('<option value="' + 45678123 + '" data-name="Loan Settlement Form">Loan Settlement Form</option>');
+                    $('#DocumentType').append('<option value="' + 56781234 + '" data-name="Modify Budget Form">Modify Budget Form</option>');
                     $('#DocumentType').append('<option value="' + 23456789 + '" data-name="Reimbursement Form">Reimbursement Form</option>');
                     $('#DocumentType').append('<option value="' + 12345678 + '" data-name="Sallary Allocation Form">Sallary Allocation Form</option>');
                 } else {
