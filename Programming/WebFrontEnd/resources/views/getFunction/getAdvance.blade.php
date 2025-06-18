@@ -76,7 +76,6 @@
             url: '{!! route("getAdvance") !!}?project_id=' + project_id + '&site_id=' + site_id,
             success: function(data) {
                 $(".loadingGetModalAdvance").hide();
-
                 var no = 1;
                 var table = $('#tableGetModalAdvance').DataTable();
                 table.clear();

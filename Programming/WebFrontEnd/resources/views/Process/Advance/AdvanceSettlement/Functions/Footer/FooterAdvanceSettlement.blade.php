@@ -57,7 +57,7 @@
                                 <input id="transNumber${indexAdvanceDetail}" value="${advanceNumber}" type="hidden" />
 
                                 ${key === 0 ? modifyColumn : `<td style="text-align: center; padding: 10px !important; display: none;">${advanceNumber}</td>`}
-                                <td style="text-align: center; padding: 10px !important;">${val2.product_RefID}</td>
+                                <td style="text-align: center; padding: 10px !important;">${val2.productCode}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productUnitPriceCurrencyISOCode}</td>
@@ -343,7 +343,6 @@
                         targetRow.children[10].innerText    = qtyCompany || '-';
                         targetRow.children[11].innerText    = priceCompany || '-';
                         targetRow.children[12].innerText    = totalCompany || '-';
-                        targetRow.children[13].innerText    = balance;
                         found = true;
 
                         // update dataStore
