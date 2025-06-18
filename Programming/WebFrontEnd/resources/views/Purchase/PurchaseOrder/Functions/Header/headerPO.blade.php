@@ -1,95 +1,83 @@
 <div class="card-body">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <table>
-                    <tr>
-                        <td style="padding-top: 5px;">
-                            <label>
-                                Date of Delivery
-                            </label>
-                        </td>
-                        <td>
-                            <input id="dateOfDelivery" name="dateOfDelivery" style="border-radius:0;width: 100%;" type="date" class="form-control">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding-top: 5px;">
-                            <label>
-                                Supplier Code
-                            </label>
-                        </td>
-                        <td>
-                            <div class="input-group" style="width: 52%;">
-                                <input id="supplier_id" name="supplier_id" style="border-radius:0;" type="hidden" class="form-control" readonly>
-                                <input id="supplier_code" style="border-radius:0;" class="form-control" readonly>
-                                <div class="input-group-append">
-                                    <span style="border-radius:0;" class="input-group-text form-control">
-                                        <a href="javascript:;" id="supplier_code2" data-toggle="modal" data-target="#mySupplier" class="mySupplier">
-                                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-                                        </a>
-                                    </span>
-                                </div>
+    <div class="row py-3" style="gap: 15px;">
+        <!-- LEFT -->
+        <div class="col-md-12 col-lg-5">
+            <!-- SUPPLIER -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Supplier</label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
+                        <input id="supplier_id" name="supplier_id" style="border-radius:0;" class="form-control" readonly hidden>
+                        <input id="supplier_code" style="border-radius:0;" class="form-control" readonly>
+                    </div>
+                    <div>
+                        <span style="border-radius:0;" class="input-group-text form-control">
+                            <a href="javascript:;" id="supplier_code2" data-toggle="modal" data-target="#mySupplier" class="mySupplier">
+                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="" />
+                            </a>
+                        </span>
+                    </div>
+                    <div style="flex: 100%;">
+                        <input id="supplier_name" style="border-radius:0;" class="form-control" name="projectname" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DP -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">DP</label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div id="dp_section">
+                        <input type="number" id="downPaymentValue" name="downPaymentValue" max="100" style="width: 25%;" /> <strong>%</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOP -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">TOP</label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div id="containerLoadingTOP">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="sr-only">Loading...</span>
                             </div>
-                        </td>
-                        <td>
-                            <div class="input-group" style="position:relative;right:98.5%;">
-                                <input id="supplier_name" style="border-radius:0;" class="form-control" name="projectname" readonly>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>DP</label></td>
-                        <td style="solid #e9ecef;">
-                            <p id="dp_section"><input type="number" id="downPaymentValue" name="downPaymentValue" max="100" style="width: 20%;" /> <strong>%</strong></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>TOP</label></td>
-                        <td id="containerLoadingTOP">
-                            <div class="d-flex flex-column justify-content-center py-3">
-                                <div class="spinner-border spinner-border-sm" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td id="containerSelectTOP" style="border:1px solid #e9ecef;">
-                            <select name="termOfPaymentValue" id="termOfPaymentOption" style="border-radius:0;" type="text" class="form-control">
-                                <option disabled selected>Select a TOP</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Payment Notes</label></td>
-                        <td style="border:1px solid #e9ecef;">
-                            <div class="input-group">
-                                <input id="paymentNotes" name="paymentNotes" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                        </div>
+                    </div>
+
+                    <div id="containerSelectTOP" style="display: none;">
+                        <select class="form-control" name="termOfPaymentValue" id="termOfPaymentOption" style="border-radius:0;" type="text">
+                            <option disabled selected>Select a TOP</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAYMENT NOTES -->
+            <div class="row">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Payment Notes</label>
+                <div class="col-sm-9 col-md-8 col-lg-7 bg-red d-flex p-0">
+                    <input id="paymentNotes" name="paymentNotes" style="border-radius:0;" type="text" class="form-control" />
+                </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <table>
-                    <tr>
-                        <td><label>Remark PO</label></td>
-                        <td style="border:1px solid #e9ecef;">
-                            <div class="input-group">
-                                <input id="remarkPO" name="remarkPO" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Internal Note</label></td>
-                        <td style="border:1px solid #e9ecef;">
-                            <div class="input-group">
-                                <textarea name="internalNote" id="internalNote" cols="30" rows="4" class="form-control"></textarea>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+
+        <!-- RIGHT -->
+        <div class="col-md-12 col-lg-5">
+            <!-- REMARK PO -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Remark PO</label>
+                <div class="col-sm-9 col-md-8 col-lg-6 d-flex p-0">
+                    <input id="remarkPO" name="remarkPO" style="border-radius:0;" type="text" class="form-control" />
+                </div>
+            </div>
+
+            <!-- INTERNAL NOTE -->
+            <div class="row">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Internal Note</label>
+                <div class="col-sm-9 col-md-8 col-lg-6 d-flex p-0">
+                    <textarea name="internalNote" id="internalNote" cols="30" rows="4" class="form-control"></textarea>
+                </div>
             </div>
         </div>
     </div>
