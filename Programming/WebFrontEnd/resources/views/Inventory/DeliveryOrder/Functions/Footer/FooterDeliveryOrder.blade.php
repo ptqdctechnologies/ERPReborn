@@ -72,6 +72,7 @@
             url: '{!! route("getPurchaseOrderDetail") !!}?purchase_order_id=' + reference_id,
             success: function(data) {
                 let deliveryFroms = `(${data[0]['supplierCode']}) ${data[0]['supplierName']} - ${data[0]['supplierAddress']}`;
+                let deliveryToNonRefIDs = data[0]['deliveryTo_NonRefID'] ? data[0]['deliveryTo_NonRefID'].Address : '';
 
                 $(".loadingReferenceNumberDetail").hide();
 
@@ -81,8 +82,8 @@
                 $("#deliveryFrom_RefID").val(data[0]['supplier_RefID']);
                 $("#delivery_from").prop("disabled", false);
 
-                $("#delivery_to").val(data[0]['deliveryTo_NonRefID'].Address);
-                $("#delivery_toDuplicate").val(data[0]['deliveryTo_NonRefID'].Address);
+                $("#delivery_to").val(deliveryToNonRefIDs);
+                $("#delivery_toDuplicate").val(deliveryToNonRefIDs);
                 $("#deliveryTo_RefID").val(data[0]['deliveryTo_RefID']);
                 $("#deliveryToDuplicate_RefID").val(data[0]['deliveryTo_RefID']);
                 $("#delivery_to").prop("disabled", false);
