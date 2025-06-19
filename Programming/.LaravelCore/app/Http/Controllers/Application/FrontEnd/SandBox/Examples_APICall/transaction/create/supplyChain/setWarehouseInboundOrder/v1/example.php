@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.supplyChain.setWarehouseInboundOrder.v1_throughAPIGateway                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-04-15                                                                                           |
+        | ▪ Last Update     : 2025-06-18                                                                                           |
         | ▪ Creation Date   : 2025-04-15                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -42,10 +42,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'latest',
                     [
                     'entities' => [
-                        'documentDateTimeTZ' => '2025-04-10',
+                        'documentDateTimeTZ' => '2025-06-18',
                         'log_FileUpload_Pointer_RefID' => null,
                         'requesterWorkerJobsPosition_RefID' => 164000000000497,
-                        'remarks' => 'Catatan Test',
+                        'remarks' => 'Catatan Test 1',
                         "additionalData" => [
                             "itemList" => [
                                 "items" => [
@@ -53,14 +53,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         'entities' => [
                                             "deliveryOrderDetail_RefID" => 181000000000001,
                                             "quantity" => 25,
-                                            'remarks' => 'Catatan - 1',
+                                            'remarks' => 'Catatan Detail - 1',
                                             ]
                                         ],
                                         [
                                         'entities' => [
                                             "deliveryOrderDetail_RefID" => 181000000000002,
                                             "quantity" => 30,
-                                            'remarks' => 'Catatan - 2',
+                                            'remarks' => 'Catatan Detail - 2',
                                             ]
                                         ],
                                     ]
