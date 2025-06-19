@@ -273,7 +273,7 @@
 
         const dataObjectDetail = {
             entities: {
-                combinedBudgetSection_RefID: siteID.value,
+                combinedBudgetSection_RefID: parseInt(siteID.value),
                 startDateTimeTZ: `${convertToISODateTimeNew(startDate.value)} ${fromHours.value}:00 +07`,
                 finishDateTimeTZ: `${convertToISODateTimeNew(finishDate.value)} ${toHours.value}:00 +07`,
                 activity: dailyAct.value,

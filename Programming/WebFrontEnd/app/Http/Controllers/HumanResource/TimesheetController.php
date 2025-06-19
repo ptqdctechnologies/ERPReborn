@@ -13,9 +13,19 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Services\TimesheetService;
+use App\Services\WorkflowService;
 
 class TimesheetController extends Controller
 {
+    protected $timesheetService, $workflowService;
+
+    public function __construct(TimesheetService $timesheetService, WorkflowService $workflowService)
+    {
+        $this->timesheetService = $timesheetService;
+        $this->workflowService  = $workflowService;
+    }
+
     public function ReportTimesheetSummary(Request $request)
     {
         try {
@@ -281,56 +291,26 @@ class TimesheetController extends Controller
     public function store(Request $request)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $timesheetData = $request->all();
-            $timesheetDataDetail = json_decode($timesheetData['storeData']['timesheetDetail'], true);
+            $response = $this->timesheetService->create($request);
 
-            $transformedDetails = [];
-            foreach ($timesheetDataDetail as $entity) {
-                $transformedDetails[] = [
-                    'entities' => [
-                        'personWorkTimeSheet_RefID' => null,
-                        'projectSectionItem_RefID'  => null,
-                        'startDateTimeTZ'           => $entity['startDateTimeTZ'],
-                        'finishDateTimeTZ'          => $entity['finishDateTimeTZ'],
-                        'activity'                  => $entity['activity'],
-                        'colorText'                 => null,
-                        'colorBackground'           => null,
-                    ]
-                ];
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
             }
 
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.create.humanResource.setPersonWorkTimeSheet', 
-                'latest', 
-                [
-                'entities' => [
-                    'documentNumber'        => null,
-                    'documentDateTimeTZ'    => date('Y-m-d H:i:s') . ' +07',
-                    'person_RefID'          => (int) $timesheetDataDetail[0]['person_RefID'],
-                    'startDateTimeTZ'       => $timesheetDataDetail[0]['startDateTimeTZ'],
-                    'finishDateTimeTZ'      => $timesheetDataDetail[0]['finishDateTimeTZ'],
-                    'project_RefID'         => (int) $timesheetDataDetail[0]['project_RefID'],
-                    'colorText'             => null,
-                    'colorBackground'       => null,
-                    "additionalData"        => [
-                        "itemList"          => [
-                            "items"         => $transformedDetails,
-                            ]
-                        ]
-                    ]
-                ]
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
             );
 
-            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($varData);
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
             }
 
             $compact = [
-                "documentNumber"    => "Timesheet/QDC/2025/000021",
-                "status"            => $varData['metadata']['HTTPStatusCode'],
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);

@@ -14,9 +14,17 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
+use App\Services\DeliveryOrderService;
+use App\Services\WorkflowService;
 
 class DeliveryOrderController extends Controller
 {
+    protected $deliveryOrderService, $workflowService;
+    public function __construct(DeliveryOrderService $deliveryOrderService, WorkflowService $workflowService)
+    {
+        $this->deliveryOrderService = $deliveryOrderService;
+        $this->workflowService      = $workflowService;
+    }
 
     public function index(Request $request)
     {
@@ -40,50 +48,29 @@ class DeliveryOrderController extends Controller
     public function store(Request $request)
     {
         try {
-            $varAPIWebToken                     = Session::get('SessionLogin');
-            $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
-            $deliveryOrderData                  = $request->all();
-            $deliveryOrderDetail                = json_decode($deliveryOrderData['storeData']['deliveryOrderDetail'], true);
-            $fileID                             = $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
+            $response = $this->deliveryOrderService->create($request);
 
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.create.supplyChain.setDeliveryOrder',
-                'latest',
-                [
-                    'entities' => [
-                        "documentDateTimeTZ"                => $deliveryOrderData['storeData']['var_date'],
-                        "log_FileUpload_Pointer_RefID"      => $fileID,
-                        "requesterWorkerJobsPosition_RefID" => $SessionWorkerCareerInternal_RefID,
-                        "transporter_RefID"                 => (int) $deliveryOrderData['storeData']['transporter_id'],
-                        "deliveryDateTimeTZ"                => null,
-                        "deliveryFrom_RefID"                => null,
-                        "deliveryFrom_NonRefID"             => $deliveryOrderData['storeData']['delivery_from'],
-                        "deliveryTo_RefID"                  => null,
-                        "deliveryTo_NonRefID"               => $deliveryOrderData['storeData']['delivery_to'],
-                        "remarks"                           => $deliveryOrderData['storeData']['var_remark'],
-                        "additionalData"                    => [
-                            "itemList"                      => [
-                                "items"                     => $deliveryOrderDetail
-                            ]
-                        ]
-                    ]
-                ]
-            );
-
-            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($varData);
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
             }
 
-            return $this->SubmitWorkflow(
-                $varData['data']['businessDocument']['businessDocument_RefID'],
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
                 $request->workFlowPath_RefID,
                 $request->comment,
                 $request->approverEntity,
-                $request->nextApprover,
-                $varData['data']['businessDocument']['documentNumber']
             );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Error at store: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -620,8 +607,6 @@ class DeliveryOrderController extends Controller
 
             $data = $varData['data']['data'];
 
-            // dump($varData);
-
             $compact = [
                 'varAPIWebToken'            => $varAPIWebToken,
                 'header'                    => [
@@ -647,7 +632,7 @@ class DeliveryOrderController extends Controller
                 'data'                      => $data
             ];
 
-            // dump($compact);
+            // dump($data);
 
             return view('Inventory.DeliveryOrder.Transactions.RevisionDeliveryOrder', $compact);
         } catch (\Throwable $th) {

@@ -4,7 +4,13 @@
     var indexReferenceNumberDetail  = 0;
     var referenceNumber             = document.getElementById("reference_number");
     var deliveryFrom                = document.getElementById("delivery_from");
+    var deliveryFromDuplicate       = document.getElementById("delivery_fromDuplicate");
+    var deliveryFromRefID           = document.getElementById("deliveryFrom_RefID");
+    var deliveryFromDuplicateRefID  = document.getElementById("deliveryFromDuplicate_RefID");
     var deliveryTo                  = document.getElementById("delivery_to");
+    var deliveryToDuplicate         = document.getElementById("delivery_toDuplicate");
+    var deliveryToRefID             = document.getElementById("deliveryTo_RefID");
+    var deliveryToDuplicateRefID    = document.getElementById("deliveryToDuplicate_RefID");
     var transporterName             = document.getElementById("transporter_name");
     var tableDeliverOrderDetailList = document.querySelector("#tableDeliverOrderDetailList tbody");
     var submitDO                    = document.getElementById("submitDO");
@@ -65,13 +71,21 @@
             type: 'GET',
             url: '{!! route("getPurchaseOrderDetail") !!}?purchase_order_id=' + reference_id,
             success: function(data) {
-                console.log('data', data);
-                
+                let deliveryFroms = `(${data[0]['supplierCode']}) ${data[0]['supplierName']} - ${data[0]['supplierAddress']}`;
+                let deliveryToNonRefIDs = data[0]['deliveryTo_NonRefID'] ? data[0]['deliveryTo_NonRefID'].Address : '';
+
                 $(".loadingReferenceNumberDetail").hide();
 
-                $("#delivery_from").val(data[0]['supplierAddress']);
-                $("#delivery_to").val(data[0]['deliveryDestinationManualAddress']);
+                $("#delivery_fromDuplicate").val(deliveryFroms);
+                $("#delivery_from").val(deliveryFroms);
+                $("#deliveryFromDuplicate_RefID").val(data[0]['supplier_RefID']);
+                $("#deliveryFrom_RefID").val(data[0]['supplier_RefID']);
                 $("#delivery_from").prop("disabled", false);
+
+                $("#delivery_to").val(deliveryToNonRefIDs);
+                $("#delivery_toDuplicate").val(deliveryToNonRefIDs);
+                $("#deliveryTo_RefID").val(data[0]['deliveryTo_RefID']);
+                $("#deliveryToDuplicate_RefID").val(data[0]['deliveryTo_RefID']);
                 $("#delivery_to").prop("disabled", false);
 
                 let tbody = $('#tableReferenceNumberDetail tbody');
@@ -268,6 +282,22 @@
             $(".thead-stock-movement").css("display", "table-row");
         }
     }
+
+    $('#delivery_from').on('input', function(e) {
+        if (e.target.value == deliveryFromDuplicate.value) {
+            $("#deliveryFrom_RefID").val(deliveryFromDuplicateRefID.value);
+        } else {
+            $("#deliveryFrom_RefID").val("");
+        }
+    });
+
+    $('#delivery_to').on('input', function(e) {
+        if (e.target.value == deliveryToDuplicate.value) {
+            $("#deliveryTo_RefID").val(deliveryToDuplicateRefID.value);
+        } else {
+            $("#deliveryTo_RefID").val("");
+        }
+    });
 
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);
