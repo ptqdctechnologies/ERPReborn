@@ -20,7 +20,7 @@ use App\Http\Controllers\UserController;
 $varUserSession = 
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzUwMjMwNzc1fQ.YjM4NmY4YTVmZmI2ZWQ3YWY4OGZjOGVjZmY5MDM5YjA5YjI3ODQ4OTRhNWJjZDNiMzYwMzJhMzIwNzg4YWM1Mw';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzUwMjk4MzUxfQ.ZDA3ZjMyOWVmNjFhODkwMDNjMzljNjM3ZjkxYWZlOGJmNTA0ODYzN2FjNzA3YzBmYzVmNTg4MjhkNTU3YWVkNw';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
