@@ -17,7 +17,6 @@ use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 
 class DeliveryOrderController extends Controller
 {
-
     public function index(Request $request)
     {
 
@@ -43,6 +42,8 @@ class DeliveryOrderController extends Controller
             $varAPIWebToken                     = Session::get('SessionLogin');
             $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
             $deliveryOrderData                  = $request->all();
+            $deliveryFromRefID                  = $deliveryOrderData['storeData']['deliveryFrom_RefID'] ? (int) $deliveryOrderData['storeData']['deliveryFrom_RefID'] : null;
+            $deliveryToRefID                    = $deliveryOrderData['storeData']['deliveryTo_RefID'] ? (int) $deliveryOrderData['storeData']['deliveryTo_RefID'] : null;
             $deliveryOrderDetail                = json_decode($deliveryOrderData['storeData']['deliveryOrderDetail'], true);
             $fileID                             = $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $deliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
 
@@ -58,9 +59,9 @@ class DeliveryOrderController extends Controller
                         "requesterWorkerJobsPosition_RefID" => $SessionWorkerCareerInternal_RefID,
                         "transporter_RefID"                 => (int) $deliveryOrderData['storeData']['transporter_id'],
                         "deliveryDateTimeTZ"                => null,
-                        "deliveryFrom_RefID"                => null,
+                        "deliveryFrom_RefID"                => $deliveryFromRefID,
                         "deliveryFrom_NonRefID"             => $deliveryOrderData['storeData']['delivery_from'],
-                        "deliveryTo_RefID"                  => null,
+                        "deliveryTo_RefID"                  => $deliveryToRefID,
                         "deliveryTo_NonRefID"               => $deliveryOrderData['storeData']['delivery_to'],
                         "remarks"                           => $deliveryOrderData['storeData']['var_remark'],
                         "additionalData"                    => [
@@ -619,8 +620,6 @@ class DeliveryOrderController extends Controller
             }
 
             $data = $varData['data']['data'];
-
-            // dump($varData);
 
             $compact = [
                 'varAPIWebToken'            => $varAPIWebToken,
