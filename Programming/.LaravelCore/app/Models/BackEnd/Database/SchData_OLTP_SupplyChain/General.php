@@ -2927,11 +2927,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataPickList_DeliveryOrder',
+                            'SchData-OLTP-SupplyChain.Func_GetDataPickList_DeliveryOrder_New',
                             [
-                                [$varSysBranch_RefID, 'bigint'],
-
-                                [FALSE, 'boolean']
+                                [$varSysBranch_RefID, 'bigint']
                             ]
                             )
                         );
