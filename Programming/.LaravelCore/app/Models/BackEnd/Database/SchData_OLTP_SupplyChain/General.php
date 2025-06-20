@@ -1457,7 +1457,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_WarehouseInboundOrderDetail_LatestVersion                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-05-23                                                                                           |
+        | ▪ Last Update     : 2025-06-20                                                                                           |
         | ▪ Creation Date   : 2025-05-20                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Warehouse Inbound Order Detail Versi Terakhir                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1510,7 +1510,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     $varReturn['data'][$idxArray]['businessDocumentVersion_RefID'] = $value["BusinessDocumentVersion_RefID"];
                     $varReturn['data'][$idxArray]['log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];
                     $varReturn['data'][$idxArray]['requesterWorkerJobsPosition_RefID'] = $value["RequesterWorkerJobsPosition_RefID"];
-                    $varReturn['data'][$idxArray]['warehouse_RefID'] = $value["Warehouse_RefID"];
                     $varReturn['data'][$idxArray]['deliveryFrom_RefID'] = $value["DeliveryFrom_RefID"];
                     $varReturn['data'][$idxArray]['deliveryFrom_NonRefID'] = $value["DeliveryFrom_NonRefID"];
                     $varReturn['data'][$idxArray]['deliveryTo_RefID'] = $value["DeliveryTo_RefID"];
@@ -1526,12 +1525,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
                     $varReturn['data'][$idxArray]['quantity'] = (float) $value["Quantity"];
                     $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID"];
-                    $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID"];
-                    $varReturn['data'][$idxArray]['productUnitPriceCurrencyValue'] = $value["ProductUnitPriceCurrencyValue"];
                     $varReturn['data'][$idxArray]['warehouseInboundOrder_RefID'] = $value["WarehouseInboundOrder_RefID"];
                     $varReturn['data'][$idxArray]['note'] = $value["Note"];
                     $varReturn['data'][$idxArray]['qtyDO'] = (float) $value["QtyDO"];
                     $varReturn['data'][$idxArray]['qtyAvailableDO'] = in_array($value["Sys_PID_DO_Detail"], $listPidDoDetail) ? $value["QtyDO"] - $arrayQtyMR[$value["Sys_PID_DO_Detail"]]["QtyMR"] : null;
+                    $varReturn['data'][$idxArray]['sys_ID'] = $value["Sys_ID"];
+                    $varReturn['data'][$idxArray]['businessDocument_RefID'] = $value["BusinessDocument_RefID"];
+                    $varReturn['data'][$idxArray]['businessDocumentNumber'] = $value["BusinessDocumentNumber"];
+                    $varReturn['data'][$idxArray]['businessDocumentTypeName'] = $value["BusinessDocumentTypeName"];
+                    $varReturn['data'][$idxArray]['dateUpdate'] = $value["DateUpdate"];
+                    $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName"];
+                    $varReturn['data'][$idxArray]['deliveryOrderDetail_RefID'] = $value["DeliveryOrderDetail_RefID"];
+                    $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID"];
+                    $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName"];
+                    $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode"];
+                    $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
+                    $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode"];
                     $idxArray++;
                 }
 
