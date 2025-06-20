@@ -918,10 +918,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_PersonWorkTimeSheetDetail                                                              |
+        | ▪ Method Name     : getDataList_PersonWorkTimeSheetDetail                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-03-19                                                                                           |
+        | ▪ Last Update     : 2025-06-20                                                                                           |
         | ▪ Creation Date   : 2025-03-19                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Aktivitas Timesheet Pekerjaan Perorangan                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -951,30 +951,46 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-HumanResource.Func_GetDataList_PersonWorkTimeSheetNew',
+                            'SchData-OLTP-HumanResource.Func_GetDataList_PersonWorkTimeSheet_New',
                             [
-                                [$varSysBranch_RefID, 'bigint'],
+                                [$varPersonWorkTimeSheet_RefID, 'bigint'],
                             ]
                             )
-                        );                        
-                $collection = collect($varReturn['data']);
-                $filtered = $collection->where('Sys_ID', $varPersonWorkTimeSheet_RefID);
-                $resultArray = $filtered->toArray();
+		    );
 
+                $resultArray = $varReturn['data'];
                 $varReturn['data'] = [];
                 $idxArray = 0;
                 foreach ($resultArray as $key => $value) {
-                    $varReturn['data']['sys_ID'] = $value["Sys_ID"];
-                    $varReturn['data']['documentNumber'] = $value["DocumentNumber"];
-                    $varReturn['data']['documentDateTimeTZ'] = $value["DocumentDateTimeTZ"];
-                    $varReturn['data']['person_RefID'] = $value["Person_RefID"];
-                    $varReturn['data']['personName'] = $value["PersonName"];
-                                        
-                    $varReturn['data']['detail'][$idxArray]['startDateTimeTZ'] = $value["StartDateTimeTZ"];
-                    $varReturn['data']['detail'][$idxArray]['finishDateTimeTZ'] = $value["FinishDateTimeTZ"];
-                    $varReturn['data']['detail'][$idxArray]['project_RefID'] = $value["Project_RefID"];
-                    $varReturn['data']['detail'][$idxArray]['siteCode_RefID'] = $value["SiteCode_RefID"];
-                    $varReturn['data']['detail'][$idxArray]['activity'] = $value["Activity"];
+                    $varReturn['data'][$idxArray]['sys_ID'] = $value["Sys_ID"];
+                    $varReturn['data'][$idxArray]['businessDocument_RefID'] = $value["BusinessDocument_RefID"];
+                    $varReturn['data'][$idxArray]['businessDocumentNumber'] = $value["BusinessDocumentNumber"];
+                    $varReturn['data'][$idxArray]['businessDocumentTypeName'] = $value["BusinessDocumentTypeName"];
+                    $varReturn['data'][$idxArray]['date'] = $value["Date"];
+                    $varReturn['data'][$idxArray]['dateUpdate'] = $value["DateUpdate"];
+                    $varReturn['data'][$idxArray]['combinedBudget_RefID_Header'] = $value["CombinedBudget_RefID_Header"];
+                    $varReturn['data'][$idxArray]['combinedBudgetCode_Header'] = $value["CombinedBudgetCode_Header"];
+                    $varReturn['data'][$idxArray]['combinedBudgetName_Header'] = $value["CombinedBudgetName_Header"];
+                    $varReturn['data'][$idxArray]['colorText_Header'] = $value["ColorText_Header"];
+                    $varReturn['data'][$idxArray]['colorBackground_Header'] = $value["ColorBackground_Header"];
+                    $varReturn['data'][$idxArray]['combinedBudgetSection_RefID_Detail'] = $value["CombinedBudgetSection_RefID_Detail"];
+                    $varReturn['data'][$idxArray]['combinedBudgetName_Detail'] = $value["CombinedBudgetName_Detail"];
+                    $varReturn['data'][$idxArray]['combinedBudgetCode_Detail'] = $value["CombinedBudgetCode_Detail"];
+                    $varReturn['data'][$idxArray]['combinedBudgetSectionName_Detail'] = $value["CombinedBudgetSectionName_Detail"];
+                    $varReturn['data'][$idxArray]['combinedBudgetSectionCode_Detail'] = $value["CombinedBudgetSectionCode_Detail"];
+                    $varReturn['data'][$idxArray]['startDateTimeTZ'] = $value["StartDateTimeTZ"];
+                    $varReturn['data'][$idxArray]['finishDateTimeTZ'] = $value["FinishDateTimeTZ"];
+                    $varReturn['data'][$idxArray]['activity'] = $value["Activity"];
+                    $varReturn['data'][$idxArray]['colorText_Detail'] = $value["ColorText_Detail"];
+                    $varReturn['data'][$idxArray]['colorBackground_Detail'] = $value["ColorBackground_Detail"];
+                    $varReturn['data'][$idxArray]['person_RefID'] = $value["Person_RefID"];
+                    if ((($value["Person_RefID"] / 1000000000000) % 10000) === 164) {
+                        $varReturn['data'][$idxArray]['personName'] = $value["PersonName_TblWorker"];
+                    } elseif ((($value["Person_RefID"] / 1000000000000) % 10000) === 25) {
+                        $varReturn['data'][$idxArray]['personName'] = $value["PersonName_TblPerson"];
+                    } else {
+                        $varReturn['data'][$idxArray]['personName'] = null;
+                    }
                     $idxArray++;
                 }
 
