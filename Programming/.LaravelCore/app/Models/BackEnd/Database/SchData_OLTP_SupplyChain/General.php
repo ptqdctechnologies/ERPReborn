@@ -945,7 +945,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-06-16                                                                                           |
+        | ▪ Last Update     : 2025-06-23                                                                                           |
         | ▪ Creation Date   : 2025-03-05                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pembelian (Purchase Order Detail) Versi Terakhir                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -977,7 +977,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
 		            );
-                    $resultArray = $varReturn['data'];                    
+                    $resultArray = $varReturn['data'];
 
                     // Description: Menjumlahkan Quantity DO Detail berdasarkan ID PO Detail yg sama.
                     $qtyDODetail = [];
@@ -991,7 +991,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $qtyDODetail[$value["Sys_ID"]]["Qty"] = $value["Quantity_TblDeliveryOrderDetail"];
                         }
                     }
-                    
+
                     // Description: Generate API.
                     $varReturn['data'] = [];
                     $idxArray = 0;
@@ -1051,8 +1051,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][$idxArray]['productUnitPriceDiscountCurrencyExchangeRate'] = $value["ProductUnitPriceDiscountCurrencyExchangeRate"];
                         $varReturn['data'][$idxArray]['transactionTax_RefID'] = $value["TransactionTax_RefID"];
                         $varReturn['data'][$idxArray]['transactionTaxDetail_RefID'] = $value["TransactionTaxDetail_RefID"];
-                        $varReturn['data'][$idxArray]['quantity_TblDeliveryOrderDetail'] = $value["Quantity_TblDeliveryOrderDetail"];                        
+                        $varReturn['data'][$idxArray]['quantity_TblDeliveryOrderDetail'] = $value["Quantity_TblDeliveryOrderDetail"];
                         $varReturn['data'][$idxArray]['qtyAvail'] = in_array($value["Sys_ID"], $listIdPODetail) ? $value["Quantity"] - $qtyDODetail[$value["Sys_ID"]]["Qty"] : null;
+                        $varReturn['data'][$idxArray]['deliveryDateTimeTZ'] = $value["DeliveryDateTimeTZ"];
+                        $varReturn['data'][$idxArray]['purchaseRequisitionNumber'] = $value["PurchaseRequisitionNumber"];
+                        $varReturn['data'][$idxArray]['product_RefID'] = $value["Product_RefID"];
                         $idxArray++;
                     }
 
@@ -3507,7 +3510,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );
-                        
+
                 return
                     $varReturn;
                 }
