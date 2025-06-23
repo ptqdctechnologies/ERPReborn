@@ -46,7 +46,7 @@
                       Add New Advance Request
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Add New Advance Request">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>
@@ -70,7 +70,7 @@
                       Advance Request Detail
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Advance Request Detail">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>
@@ -93,7 +93,7 @@
                       File Attachment
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section File Attachment">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>
@@ -134,7 +134,7 @@
                       Budget Details
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Budget Details">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>
@@ -218,7 +218,7 @@
                       Advance List (Cart)
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Advance List (Cart)">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>
@@ -271,11 +271,11 @@
                 <div class="card">
                   <!-- HEADER -->
                   <div class="card-header">
-                    <label class="card-title">
+                    <label for="remark" class="card-title">
                       Remark
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Remark">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>
