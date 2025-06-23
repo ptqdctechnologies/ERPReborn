@@ -6,20 +6,13 @@ use App\Http\Controllers\ExportExcel\Budget\ExportReportModifyBudgetDetail;
 use App\Http\Controllers\ExportExcel\Budget\ExportReportModifyBudgetSummary;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
-use DB;
-use PDO;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redis;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
-use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use App\Services\Budget\BudgetService;
 
 class BudgetController extends Controller
@@ -399,7 +392,7 @@ class BudgetController extends Controller
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
 
-            Cache::put('dataReportModifyBudgetSummary', $compact, now()->addMinutes(1));
+            Cache::put('dataReportModifyBudgetSummary', $compact, now()->addMinutes(5));
 
             return redirect()->route('Budget.ReportModifyBudgetSummary');
         } catch (\Throwable $th) {
@@ -408,25 +401,29 @@ class BudgetController extends Controller
         }
     }
 
-    public function PrintExportReportModifyBudgetSummary(Request $request) {
+    public function PrintExportReportModifyBudgetSummary(Request $request) 
+    {
         try {
             $dataReport = Cache::get('dataReportModifyBudgetSummary');
 
             if ($dataReport) {
-                if ($request->print_type == "PDF") {
-                    $pdf = PDF::loadView('Budget.Budget.Reports.ReportModifyBudgetSummary_pdf', ['dataReport' => $dataReport]);
-                    $pdf->output();
-                    $dom_pdf = $pdf->getDomPDF();
+                switch ($request->print_type) {
+                    case "PDF":
+                        $pdf = PDF::loadView('Budget.Budget.Reports.ReportModifyBudgetSummary_pdf', ['dataReport' => $dataReport]);
+                        $pdf->output();
+                        $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
-                    $width = $canvas->get_width();
-                    $height = $canvas->get_height();
-                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
-    
-                    return $pdf->download('Export Report Modify Budget Summary.pdf');
-                } else {
-                    return Excel::download(new ExportReportModifyBudgetSummary, 'Export Report Modify Budget Summary.xlsx');
+                        $canvas = $dom_pdf->get_canvas();
+                        $width = $canvas->get_width();
+                        $height = $canvas->get_height();
+                        $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                        $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                        return $pdf->download('Export Report Modify Budget Summary.pdf');
+                    case "Excel":
+                        return Excel::download(new ExportReportModifyBudgetSummary, 'Export Report Modify Budget Summary.xlsx');
+                    default:
+                        return redirect()->route('Budget.ReportModifyBudgetSummary')->with('NotFound', 'Invalid Print Type');
                 }
             } else {
                 return redirect()->route('Budget.ReportModifyBudgetSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
