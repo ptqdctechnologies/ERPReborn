@@ -3,7 +3,7 @@
     <!-- BUDGET CODE -->
     <div class="col-md-12 col-lg-5">
       <div class="row">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Budget Code</label>
+        <label for="project_code_second" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Budget Code</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
             <input id="project_code_second" style="border-radius:0;" name="project_code" class="form-control" size="17" readonly>
@@ -22,7 +22,7 @@
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
-              <input id="project_name_second" style="border-radius:0;" name="project_code_detail" class="form-control" readonly>
+              <input id="project_name_second" style="border-radius:0;" name="project_code_detail" class="form-control" readonly aria-label="Project Name">
             </div>
           </div>
         </div>
@@ -32,7 +32,7 @@
     <!-- SUB BUDGET CODE -->
     <div class="col-md-12 col-lg-5">
       <div class="row">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Sub Budget Code</label>
+        <label for="site_code_second" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Sub Budget Code</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
             <input id="site_code_second" style="border-radius:0;" name="site_code" class="form-control" size="17" readonly>
@@ -47,7 +47,7 @@
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
-              <input id="site_name_second" style="border-radius:0;" name="site_code_detail" class="form-control" readonly>
+              <input id="site_name_second" style="border-radius:0;" name="site_code_detail" class="form-control" readonly aria-label="Site Name">
             </div>
           </div>
       </div>
