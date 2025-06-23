@@ -360,13 +360,9 @@ class BudgetController extends Controller
 
     public function ReportModifyBudgetSummary(Request $request)
     {
-        $dataReport     = Cache::get('dataReportModifyBudgetSummary') ?? [];
-
-        $compact = [
-            'dataReport' => $dataReport
-        ];
-
-        return view('Budget.Budget.Reports.ReportModifyBudgetSummary', $compact);
+        return view('Budget.Budget.Reports.ReportModifyBudgetSummary', [
+            'dataReport' => Cache::get('dataReportModifyBudgetSummary') ?? []
+        ]);
     }
 
     public function ReportModifyBudgetSummaryStore(Request $request) 
@@ -392,7 +388,7 @@ class BudgetController extends Controller
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
 
-            Cache::put('dataReportModifyBudgetSummary', $compact, now()->addMinutes(5));
+            Cache::put('dataReportModifyBudgetSummary', $compact, now()->addMinutes(3));
 
             return redirect()->route('Budget.ReportModifyBudgetSummary');
         } catch (\Throwable $th) {

@@ -109,7 +109,7 @@ class ExportReportModifyBudgetSummary implements FromCollection, WithHeadings, S
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B4', ': ' . $dataHeader['budget']);
+                $sheet->setCellValue('B4', ': ' . $dataHeader['budget'] . " - " . $dataHeader['budget_name']);
             },
         ];
     }

@@ -8,11 +8,12 @@ class BudgetService
 {
     public function reportModifyBudgetSummaryData(Request $request): array
     {
-        // Transaksi, Project code, Project name, total(+/-), pic
         $budgetID       = $request->budget_id;
         $budgetCode     = $request->budget;
         $budgetName     = $request->budget_name;
         $subBudgetID    = $request->sub_budget_id;
+        $subBudget      = $request->sub_budget;
+        $subBudgetName  = $request->sub_budget_name;
         $startDate      = $request->startDate;
         $finishDate     = $request->finishDate;
 
@@ -84,7 +85,6 @@ class BudgetService
             ]
         ]);
 
-        // Filter data berdasarkan budgetID, subBudgetID, startDate, finishDate
         $filtered = $dataDummy->filter(function($item) use ($budgetID, $subBudgetID, $startDate, $finishDate) {
             // Filter berdasarkan budgetID dan subBudgetID
             $isBudgetIDMatch = ($item['combinedBudget_RefID'] == $budgetID);
@@ -99,7 +99,14 @@ class BudgetService
 
         $compact = [
             'dataHeader'            => [
-                'budget' => (string) $budgetCode . " - " . $budgetName
+                'budget'            => $budgetCode,
+                'budget_id'         => $budgetID,
+                'budget_name'       => $budgetName,
+                'sub_budget_id'     => $subBudgetID,
+                'sub_budget'        => $subBudget,
+                'sub_budget_name'   => $subBudgetName,
+                'startDate'         => $startDate,
+                'finishDate'        => $finishDate
             ],
             'dataDetail'            => $filtered->toArray(),
             'total'                 => $filtered->sum('total'),

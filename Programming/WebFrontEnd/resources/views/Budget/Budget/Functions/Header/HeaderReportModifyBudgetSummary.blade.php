@@ -6,8 +6,8 @@
             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
                 <div>
-                    <input id="budget" style="border-radius:0;background-color:white;" class="form-control myProject" name="budget" readonly data-toggle="modal" data-target="#myProject">
-                    <input id="budget_id" style="border-radius:0;" class="form-control" name="budget_id" type="hidden">
+                    <input id="budget" style="border-radius:0;background-color:white;" class="form-control myProject" name="budget" readonly data-toggle="modal" data-target="#myProject" value="<?= $dataReport['dataHeader']['budget'] ?? ''; ?>" />
+                    <input type="hidden" id="budget_id" style="border-radius:0;" class="form-control" name="budget_id" value="<?= $dataReport['dataHeader']['budget_id'] ?? ''; ?>" />
                 </div>
                 <div>
                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -17,7 +17,7 @@
                     </span>
                 </div>
                 <div class="d-sm-none d-md-none d-lg-block">
-                    <input id="budget_name" style="border-radius:0;" class="form-control" name="budget_name" type="hidden">
+                    <input type="hidden" id="budget_name" style="border-radius:0;" class="form-control" name="budget_name" value="<?= $dataReport['dataHeader']['budget_name'] ?? ''; ?>" />
                 </div>
             </div>
         </div>
@@ -27,8 +27,8 @@
             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
                 <div>
-                    <input id="sub_budget" style="border-radius:0;background-color:white;" class="form-control mySiteCode" name="sub_budget" readonly data-toggle="modal" data-target="#mySiteCode">
-                    <input id="sub_budget_id" style="border-radius:0;" class="form-control" name="sub_budget_id" type="hidden">
+                    <input id="sub_budget" style="border-radius:0;background-color:white;" class="form-control mySiteCode" name="sub_budget" readonly value="<?= $dataReport['dataHeader']['sub_budget'] ?? ''; ?>" />
+                    <input type="hidden" id="sub_budget_id" style="border-radius:0;" class="form-control" name="sub_budget_id" value="<?= $dataReport['dataHeader']['sub_budget_id'] ?? ''; ?>" />
                 </div>
                 <div>
                     <span style="border-radius:0;" class="input-group-text form-control">
@@ -38,6 +38,7 @@
                     </span>
                 </div>
                 <div class="d-sm-none d-md-none d-lg-block">
+                    <input type="hidden" id="sub_budget_name" style="border-radius:0;" class="form-control" name="sub_budget_name" value="<?= $dataReport['dataHeader']['sub_budget_name'] ?? ''; ?>" />
                 </div>
             </div>
         </div>
@@ -49,7 +50,7 @@
             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
                 <div>
                     <div class="input-group date" id="startDate" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" name="startDate" id="startDate" data-target="#startDate" style="height: auto;" />
+                        <input type="text" class="form-control datetimepicker-input" name="startDate" id="startDate" data-target="#startDate" style="height: auto;" value="<?= $dataReport['dataHeader']['startDate'] ?? ''; ?>" />
                         <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -64,7 +65,7 @@
             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
                 <div>
                     <div class="input-group date" id="finishDate" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" name="finishDate" id="finishDate" data-target="#finishDate" style="height: auto;" />
+                        <input type="text" class="form-control datetimepicker-input" name="finishDate" id="finishDate" data-target="#finishDate" style="height: auto;" value="<?= $dataReport['dataHeader']['finishDate'] ?? ''; ?>" />
                         <div class="input-group-append" data-target="#finishDate" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>

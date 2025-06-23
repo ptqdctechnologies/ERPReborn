@@ -37,7 +37,7 @@
                                                     <tr>
                                                         <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
                                                         <td><b>:</b></td>
-                                                        <td><b><?= $dataReport['dataHeader']['budget']; ?></b></td>
+                                                        <td><b><?= $dataReport['dataHeader']['budget'] . " - " . $dataReport['dataHeader']['budget_name']; ?></b></td>
                                                     </tr>
                                                 </table>
                                             </div>
