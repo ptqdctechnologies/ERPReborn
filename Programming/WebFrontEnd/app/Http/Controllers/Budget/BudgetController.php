@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Input;
 use DB;
 use PDO;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -19,6 +20,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
+use App\Services\Budget\BudgetService;
 
 class BudgetController extends Controller
 {
@@ -27,6 +29,12 @@ class BudgetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $budgetService;
+    public function __construct(BudgetService $budgetService)
+    {
+        $this->budgetService = $budgetService;
+    }
+
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -359,110 +367,19 @@ class BudgetController extends Controller
 
     public function ReportModifyBudgetSummary(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $isSubmitButton = $request->session()->get('isButtonReportModifyBudgetSummarySubmit');
-
-        $dataReport = $isSubmitButton ? $request->session()->get('dataReportModifyBudgetSummary', []) : [];
+        $dataReport     = Cache::get('dataReportModifyBudgetSummary') ?? [];
 
         $compact = [
-            'varAPIWebToken' => [],
             'dataReport' => $dataReport
         ];
 
         return view('Budget.Budget.Reports.ReportModifyBudgetSummary', $compact);
     }
 
-    public function ReportModifyBudgetSummaryData($projectId, $siteId, $projectCode, $projectName)
-    {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'report.form.documentForm.finance.getReportAdvanceSummary',
-                'latest',
-                [
-                    'parameter' => [
-                        'dataFilter' => [
-                            'budgetID' => 1,
-                            'subBudgetID' => 1,
-                            'workID' => 1,
-                            'productID' => 1,
-                            'beneficiaryID' => 1,
-                        ]
-                    ]
-                ],
-                false
-            );
-
-            $DataReportModifyBudgetSummary = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "ReportAdvanceSummary"
-                ),
-                true
-            );
-
-            $collection = collect($DataReportModifyBudgetSummary);
-
-            if ($projectId != "") {
-                $collection = $collection->where('CombinedBudget_RefID', $projectId);
-            }
-            if ($siteId != "") {
-                $collection = $collection->where('CombinedBudgetSection_RefID', $siteId);
-            }
-
-            $collection = $collection->all();
-
-            $dataHeaders = [
-                'budget'        => $projectCode . " - " . $projectName
-            ];
-
-            // dd($collection);
-
-            $dataDetails = [];
-            $i = 0;
-            $total = 0;
-            $productID = 88000000003832;
-            foreach ($collection as $collections) {
-                $total                              += $collections['TotalAdvance'];
-
-                $dataDetails[$i]['no']              = $i + 1;
-                $dataDetails[$i]['productID']       = $productID + $i;
-                $dataDetails[$i]['productName']     = $collections['remark'];
-                $dataDetails[$i]['price']           = $collections['TotalAdvance'];
-                $dataDetails[$i]['total']           = ($i + 1) * $collections['TotalAdvance'];
-    
-                // $dataDetails[$i]['ModifyNumber']        = "MB01-23000004";
-                // $dataDetails[$i]['budgetCode']          = $collections['CombinedBudgetCode'];
-                // $dataDetails[$i]['date']                = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
-                // $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
-                $i++;
-            }
-
-            $compact = [
-                'dataHeader'            => $dataHeaders,
-                'dataDetail'            => $dataDetails,
-                'total'                 => number_format($total, 2),
-            ];
-
-            Session::put("isButtonReportModifyBudgetSummarySubmit", true);
-            Session::put("dataReportModifyBudgetSummary", $compact);
-
-            return $compact;
-        } catch (\Throwable $th) {
-            Log::error("Error at ReportModifyBudgetSummaryData: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
     public function ReportModifyBudgetSummaryStore(Request $request) 
     {
         try {
-            $budget         = $request->budget;
             $budgetID       = $request->budget_id;
-            $budgetName     = $request->budget_name;
             $subBudgetID    = $request->sub_budget_id;
 
             if (!$budgetID && !$subBudgetID) {
@@ -472,17 +389,17 @@ class BudgetController extends Controller
             }
 
             if (isset($message)) {
-                Session::forget("isButtonReportModifyBudgetSummarySubmit");
-                Session::forget("dataReportModifyBudgetSummary");
-
+                Cache::forget('dataReportModifyBudgetSummary');
                 return redirect()->route('Budget.ReportModifyBudgetSummary')->with('NotFound', $message);
             }
 
-            $compact = $this->ReportModifyBudgetSummaryData($budgetID, $subBudgetID, $budget, $budgetName);
+            $compact = $this->budgetService->reportModifyBudgetSummaryData($request);
 
             if ($compact === null || empty($compact['dataHeader'])) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
+
+            Cache::put('dataReportModifyBudgetSummary', $compact, now()->addMinutes(1));
 
             return redirect()->route('Budget.ReportModifyBudgetSummary');
         } catch (\Throwable $th) {
@@ -493,7 +410,7 @@ class BudgetController extends Controller
 
     public function PrintExportReportModifyBudgetSummary(Request $request) {
         try {
-            $dataReport = Session::get("dataReportModifyBudgetSummary");
+            $dataReport = Cache::get('dataReportModifyBudgetSummary');
 
             if ($dataReport) {
                 if ($request->print_type == "PDF") {
