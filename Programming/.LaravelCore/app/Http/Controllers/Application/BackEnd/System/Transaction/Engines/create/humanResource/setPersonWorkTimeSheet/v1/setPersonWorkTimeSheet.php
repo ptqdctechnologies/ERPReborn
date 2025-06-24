@@ -44,7 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000003                                                                                       |
-        | ▪ Last Update     : 2025-06-17                                                                                           |
+        | ▪ Last Update     : 2025-06-24                                                                                           |
         | ▪ Creation date   : 2022-09-27                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -125,6 +125,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                 $varUserSession,
                                 $varDataSend['recordID']
                                 );
+                        $varDataSend['businessDocument']['businessDocument_RefID'] = $varDataSend['process']['AdditionalDocumentData']['data'][0]['BusinessDocument_RefID'];
+                        $varDataSend['businessDocument']['businessDocumentVersion_RefID'] = $varDataSend['process']['AdditionalDocumentData']['data'][0]['BusinessDocumentVersion_RefID'];
+                        unset($varDataSend['process']['AdditionalDocumentData']);
 
                         $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
