@@ -61,7 +61,7 @@
 
                 $.each(data, function(key, val2) {
                     let isUnspecified = '';
-                    let balanced = currencyTotal(val2.quantity);
+                    let balanced = currencyTotal(val2.quantityRemaining);
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
                     let productColumn = `
                         <td style="text-align: center;">${val2.productCode}</td>
@@ -515,8 +515,8 @@
                 const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetCode = targetRow.children[1].innerText.trim();
-                    if (targetCode === productCode) {
+                    const targetCode = targetRow.children[2].innerText.trim();
+                    if (targetCode == productCode) {
                         targetRow.children[7].innerText = price;
                         targetRow.children[8].innerText = qty;
                         targetRow.children[9].innerText = total;

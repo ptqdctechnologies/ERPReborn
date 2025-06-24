@@ -221,7 +221,7 @@
                         isUnspecified = 'disabled';
                         balanced = '-';
 
-                        let balancedDetail = val2.quantity - findDataMiscellaneous.quantity;
+                        let balancedDetail = currencyTotal(val2.quantityRemaining);
 
                         productColumn = `
                             <input id="recordID${key}" value="${findDataMiscellaneous.sys_ID}" type="hidden" />
@@ -264,7 +264,7 @@
                     }
 
                     if (findDataDetail) {
-                        let balancedDetail = val2.quantity - findDataDetail.quantity;
+                        let balancedDetail = currencyTotal(val2.quantityRemaining);
 
                         productColumn = `
                             <input id="recordID${key}" value="${findDataDetail.sys_ID}" type="hidden" />

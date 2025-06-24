@@ -1,11 +1,7 @@
 <script>
-    // $("#advance_number").prop("disabled", true);
-    // $("#advance_popup").prop("disabled", true);
-
     $("#warehouse_from").prop("disabled", true);
     $("#warehouse_from_2").prop("disabled", true);
 
-    $("#sub_budget").prop("disabled", true);
     $("#sub_budget_popup").prop("disabled", true);
 
     $(document).ready(function () {
@@ -17,11 +13,8 @@
             format: 'L'
         });
     });
-</script>
 
-<script>
     $('#tableGetProject tbody').on('click', 'tr', function() {
-
         $("#myProject").modal('toggle');
 
         var row = $(this).closest("tr");
@@ -33,11 +26,6 @@
         $("#budget_id").val(sys_id);
         $("#budget_name").val(name);
         $("#budget").val(code);
-
-        // $("#advance_number").prop("disabled", false);
-        // $("#advance_popup").prop("disabled", false);
-        // $("#advance_RefID").val("");
-        // $("#advance_number").val("");
 
         $("#sub_budget").prop("disabled", false);
         $("#sub_budget_popup").prop("disabled", false);
@@ -70,11 +58,8 @@
             }
         });
     });
-</script>
 
-<script>
     $('#tableGetSite tbody').on('click', 'tr', function() {
-
         $("#mySiteCode").modal('toggle');
 
         var row = $(this).closest("tr");
@@ -85,6 +70,6 @@
 
         $("#sub_budget_id").val(sys_id);
         $("#sub_budget").val(code);
-
+        $("#sub_budget_name").val(name);
     });
 </script>

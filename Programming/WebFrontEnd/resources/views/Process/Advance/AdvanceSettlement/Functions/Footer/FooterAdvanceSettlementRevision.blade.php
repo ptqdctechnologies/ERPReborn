@@ -212,7 +212,6 @@
                     <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.refundQuantity || 0)}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.refundProductUnitPriceCurrencyValue || 0)}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(totalCompany || 0)}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(balanced || 0)}</td>
                 </tr>
             `;
 
@@ -332,7 +331,7 @@
             const qtyCompanyInput                               = row.querySelector('input[id^="qty_settlement_company"]');
             const priceCompanyInput                             = row.querySelector('input[id^="price_settlement_company"]');
             const totalCompanyInput                             = row.querySelector('input[id^="total_settlement_company"]');
-            const balanceInput                                  = row.querySelector('input[id^="balance"]');
+            // const balanceInput                                  = row.querySelector('input[id^="balance"]');
 
             if (
                 (qtyExpenseInput && priceExpenseInput && totalExpenseInput &&
@@ -358,7 +357,7 @@
                 const qtyCompany    = qtyCompanyInput.value.trim();
                 const priceCompany  = priceCompanyInput.value.trim();
                 const totalCompany  = totalCompanyInput.value.trim();
-                const balance       = balanceInput.value.trim();
+                // const balance       = balanceInput.value.trim();
 
                 let found = false;
                 const existingRows = targetTable.getElementsByTagName('tr');
@@ -374,7 +373,7 @@
                         targetRow.children[11].innerText     = qtyCompany || '-';
                         targetRow.children[12].innerText     = priceCompany || '-';
                         targetRow.children[13].innerText     = totalCompany || '-';
-                        targetRow.children[14].innerText    = balance;
+                        // targetRow.children[14].innerText    = balance;
                         found = true;
 
                         // update dataStore
@@ -419,8 +418,8 @@
                         <td style="text-align: center;padding: 0.8rem;">${qtyCompany || '-'}</td>
                         <td style="text-align: center;padding: 0.8rem;">${priceCompany || '-'}</td>
                         <td style="text-align: center;padding: 0.8rem;">${totalCompany || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${balance}</td>
                     `;
+                    // <td style="text-align: center;padding: 0.8rem;">${balance}</td>
                     targetTable.appendChild(newRow);
 
                     dataStore.push({
@@ -449,7 +448,7 @@
                 qtyCompanyInput.value = '';
                 priceCompanyInput.value = '';
                 totalCompanyInput.value = '';
-                balanceInput.value = balanceInput.getAttribute('data-default');
+                // balanceInput.value = balanceInput.getAttribute('data-default');
             }
         }
 

@@ -16,10 +16,17 @@
                 <div class="tab-content p-3" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12 ShowDocument">
-                            @include("Budget.Budget.Functions.Header.HeaderReportModifyBudgetDetail")
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row p-1" style="row-gap: 1rem;">
+                                        @include("Budget.Budget.Functions.Header.HeaderReportModifyBudgetDetail")
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <?php if ($dataReport) { ?>
-                            <div class="col-12 ShowTableReportAdvanceSummary">
+                            <div class="col-12 ShowTableReportDOSummary">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
@@ -28,15 +35,15 @@
                                                     <table>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Modify Number&nbsp;</label></th>
-                                                            <td><?= $dataReport['dataHeader']['doNumber']; ?></td>
+                                                            <td><?= $dataReport['dataHeader']['modifyNumber']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
-                                                            <td>Q000062 - XL Microcell 2007</td>
+                                                            <td><?= $dataReport['dataHeader']['budget_code'] . " - " . $dataReport['dataHeader']['budget_name']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Sub Budget&nbsp;</label></th>
-                                                            <td>235 - Ampang Kuranji - Padang</td>
+                                                            <td><?= $dataReport['dataHeader']['sub_budget_code'] . " - " . $dataReport['dataHeader']['sub_budget_name']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Date&nbsp;</label></th>
@@ -51,7 +58,7 @@
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>Transporter&nbsp;</label></th>
                                                             <td>
-                                                                <?= $dataReport['dataHeader']['transporter']; ?>
+                                                                <?= $dataReport['dataHeader']['transporterCode'] . " - " . $dataReport['dataHeader']['transporterName']; ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -69,7 +76,7 @@
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>PIC&nbsp;</label></th>
                                                             <td>
-                                                                Abdul Rahman Sitompul
+                                                                <?= $dataReport['dataHeader']['PIC']; ?>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -80,10 +87,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 ShowTableReportAdvanceSummary">
+                            <div class="col-12 ShowTableReportDOSummary">
                                 <div class="card">
                                     <div class="card-body table-responsive p-0">
-                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="TableReportAdvanceSummary">
+                                        <table class="table table-head-fixed text-nowrap TableReportDOSummary" id="DefaultFeatures">
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
@@ -95,61 +102,27 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Add(subt)</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total(+/-)</th>
                                                 </tr>
-
-                                                {{-- <tr>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; vertical-align: middle;" rowspan="2">No</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;" colspan="2">Product</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;" colspan="3">Budget</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;" rowspan="2">Qty(+/-)</th>
-                                                </tr>
-                                                <tr>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">ID</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Name</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Price</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total</th>
-                                                </tr> --}}
                                             </thead>
                                             <tbody>
+                                                <?php $counter = 1; ?>
                                                 <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
+                                                    <tr>
+                                                        <td><?= $counter++; ?></td>
+                                                        <td><?= $dataDetail['productCode']; ?></td>
+                                                        <td><?= $dataDetail['productName']; ?></td>
+                                                        <td><?= number_format($dataDetail['origin'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['previous'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['qty'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['addSubt'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['total'], 2, '.', ','); ?></td>
+                                                    </tr>
                                                 <?php } ?>
-
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>1000416</td>
-                                                    <td>Double Nipple 3/4 Besi</td>
-                                                    <td>127,427,636.00</td>
-                                                    <td>127,427,636.00</td>
-                                                    <td>-80.30</td>
-                                                    <td>23.00</td>
-                                                    <td>-1,846.90</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>313344-0000</td>
-                                                    <td>110V DC FUSE BOX</td>
-                                                    <td>117,427,636.00</td>
-                                                    <td>117,427,636.00</td>
-                                                    <td>-50.30</td>
-                                                    <td>13.00</td>
-                                                    <td>-653.90</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>410056-RSBG</td>
-                                                    <td>Splitter 3 Way</td>
-                                                    <td>97,427,636.00</td>
-                                                    <td>97,427,636.00</td>
-                                                    <td>39.30</td>
-                                                    <td>15.00</td>
-                                                    <td>589.50</td>
-                                                </tr>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="7" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;background-color:#4B586A;color:white;">Grand Total</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                        -1,911.40
+                                                        <?= number_format($dataReport['total'], 2, '.', ','); ?>
                                                     </th>
                                                 </tr>
                                             </tfoot>
@@ -157,7 +130,7 @@
                                     </div>
                                 </div>
                             </div>
-                        <?php }; Session::forget("isButtonReportModifyBudgetDetailSubmit"); ?>
+                        <?php }; ?>
                     </div>
                 </div>
             </div>
