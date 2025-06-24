@@ -44,7 +44,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-06-17                                                                                           |
+        | ▪ Last Update     : 2025-06-24                                                                                           |
         | ▪ Create Date     : 2021-11-01                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -108,6 +108,18 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                                 ),
                                 'json'
                             ]
+                        ]
+                        )
+                    );
+
+            $varReturn['process']['AdditionalDocumentData'] =
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        parent::getSchemaName($varUserSession).'.Func_GetDataList_AdditionalDocumentData_PersonWorkTimeSheet',
+                        [
+                            [$varReturn['data'][0]['SignRecordID'], 'bigint' ]
                         ]
                         )
                     );
