@@ -515,8 +515,8 @@
                 const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetCode = targetRow.children[1].innerText.trim();
-                    if (targetCode === productCode) {
+                    const targetCode = targetRow.children[2].innerText.trim();
+                    if (targetCode == productCode) {
                         targetRow.children[7].innerText = price;
                         targetRow.children[8].innerText = qty;
                         targetRow.children[9].innerText = total;
