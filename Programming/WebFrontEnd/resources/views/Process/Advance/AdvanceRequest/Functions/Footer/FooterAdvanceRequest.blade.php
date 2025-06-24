@@ -518,8 +518,8 @@
                 const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetCode = targetRow.children[2].innerText.trim();
-                    const targetName = targetRow.children[3].innerText.trim();
+                    const targetCode = targetRow.children[3].innerText.trim();
+                    const targetName = targetRow.children[4].innerText.trim();
                     if (targetCode == productCode.value && targetName == productName) {
                         targetRow.children[6].innerText = price;
                         targetRow.children[7].innerText = qty;
