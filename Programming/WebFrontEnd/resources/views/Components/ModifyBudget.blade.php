@@ -556,7 +556,7 @@
                 <table class="table table-bordered table-hover text-nowrap" style="border: 2px solid #e9e9e9;">
                     <thead>
                         <tr>
-                            <th class="text-center">Product ID</th>
+                            <th class="text-center">Product Code</th>
                             <th class="text-center">Product Name</th>
                             <th class="text-center">Origin</th>
                             <th class="text-center">Previous</th>
@@ -574,7 +574,7 @@
                                 Install PLN Connection
                             </td>
                             <td class="text-left">
-                                IDR
+                                250,000.00
                             </td>
                             <td class="text-left">
                                 500,000.00
@@ -597,7 +597,7 @@
                                 Concrete Formwork
                             </td>
                             <td class="text-left">
-                                IDR
+                                150,000.00
                             </td>
                             <td class="text-left">
                                 150,000.00
@@ -620,7 +620,7 @@
                                 Cable Ladder Outdoor W300
                             </td>
                             <td class="text-left">
-                                IDR
+                                375,000.00
                             </td>
                             <td class="text-left">
                                 300,000.00
@@ -637,13 +637,13 @@
                         </tr>
                         <tr>
                             <td class="text-left" style="padding-left: .70rem;">
-                                1000185
+                                1000416
                             </td>
                             <td class="text-left text-wrap">
-                                Cable Ladder Outdoor W300
+                                Double Nipple 3/4 Besi
                             </td>
                             <td class="text-left">
-                                IDR
+                                110,000.00
                             </td>
                             <td class="text-left">
                                 200,000.00
@@ -655,7 +655,7 @@
                                 -90,000.00
                             </td>
                             <td class="text-left">
-                                290,000.00
+                                110,000.00
                             </td>
                         </tr>
                         <tr>
@@ -666,7 +666,7 @@
                                 Install Kabel grounding BCC 50mm
                             </td>
                             <td class="text-left">
-                                USD
+                                50,000.00
                             </td>
                             <td class="text-left">
                                 100,000.00
@@ -688,7 +688,7 @@
                                 GRAND TOTAL
                             </td>
                             <td class="font-weight-bold text-left">
-                                1,455,000.00
+                                1,275,000.00
                             </td>
                         </tr>
                     </tfoot>

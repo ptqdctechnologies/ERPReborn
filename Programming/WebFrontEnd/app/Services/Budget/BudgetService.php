@@ -6,6 +6,77 @@ use Illuminate\Http\Request;
 
 class BudgetService
 {
+    public function reportModifyBudgetDetailData(Request $request): array
+    {
+        $dataDummy = collect([
+            [
+                'productCode'   => '2000253',
+                'productName'   => 'Install PLN Connection',
+                'origin'        => 250000.00,
+                'previous'      => 500000.00,
+                'qty'           => 2,
+                'addSubt'       => 100000.00,
+                'total'         => 600000.00
+            ],
+            [
+                'productCode'   => '2000245',
+                'productName'   => 'Concrete Formwork',
+                'origin'        => 150000.00,
+                'previous'      => 150000.00,
+                'qty'           => 1,
+                'addSubt'       => 50000.00,
+                'total'         => 200000.00
+            ],
+            [
+                'productCode'   => '1000185',
+                'productName'   => 'Cable Ladder Outdoor W300',
+                'origin'        => 375000.00,
+                'previous'      => 300000.00,
+                'qty'           => -1,
+                'addSubt'       => -75000.00,
+                'total'         => 225000.00
+            ],
+            [
+                'productCode'   => '1000416',
+                'productName'   => 'Double Nipple 3/4 Besi',
+                'origin'        => 110000.00,
+                'previous'      => 200000.00,
+                'qty'           => 3,
+                'addSubt'       => -90000.00,
+                'total'         => 110000.00
+            ],
+            [
+                'productCode'   => '2000127',
+                'productName'   => 'Install Kabel grounding BCC 50mm',
+                'origin'        => 50000.00,
+                'previous'      => 100000.00,
+                'qty'           => -1,
+                'addSubt'       => 40000.00,
+                'total'         => 140000.00
+            ],
+        ]);
+
+        $compact = [
+            'dataHeader'            => [
+                'modifyNumber'      => 'MB01-53000004',
+                'budget_code'       => 'Q000062',
+                'budget_name'       => 'XL Microcell 2007',
+                'sub_budget_code'   => '235',
+                'sub_budget_name'   => 'Ampang Kuranji - Padang',
+                'date'              => '2025-05-22',
+                'transporterCode'   => 'VDR-2594',
+                'transporterName'   => 'Aman Jaya',
+                'deliveryFrom'      => 'QDC',
+                'deliveryTo'        => 'Gudang Tigaraksa',
+                'PIC'               => 'Abdul Rahman Sitompul'
+            ],
+            'dataDetail'            => $dataDummy->toArray(),
+            'total'                 => $dataDummy->sum('total'),
+        ];
+
+        return $compact;
+    }
+
     public function reportModifyBudgetSummaryData(Request $request): array
     {
         $budgetID       = $request->budget_id;

@@ -432,130 +432,9 @@ class BudgetController extends Controller
 
     public function ReportModifyBudgetDetail(Request $request)
     {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $isSubmitButton = $request->session()->get('isButtonReportModifyBudgetDetailSubmit');
-
-        $dataReport = $isSubmitButton ? $request->session()->get('dataReportModifyBudgetDetail', []) : [];
-
-        // dump($dataReport);
-
-        $compact = [
-            'varAPIWebToken'    => [],
-            'dataReport'        => $dataReport
-        ];
-
-        return view('Budget.Budget.Reports.ReportModifyBudgetDetail', $compact);
-    }
-
-    public function ReportModifyBudgetDetailData($id) 
-    {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            // $filteredArray = Helper_APICall::setCallAPIGateway(
-            //     Helper_Environment::getUserSessionID_System(),
-            //     $varAPIWebToken, 
-            //     'report.form.documentForm.finance.getAdvance', 
-            //     'latest',
-            //     [
-            //         'parameter' => [
-            //             'recordID' => (int) $id
-            //         ]
-            //     ]
-            // );
-
-            // if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-            //     throw new \Exception('Data not found in the API response.');
-            // }
-
-            // $getData = $filteredArray['data'][0]['document'];
-
-            $getData = [
-                'header' => [
-                    'date' => '2025-05-22',
-                ],
-                'content' => [
-                    'general' => [
-                        'budget' => [
-                            'combinedBudgetCodeList' => ['BGT-001'],
-                            'combinedBudgetNameList' => ['Operational Budget'],
-                            'combinedBudgetSectionCodeList' => ['SEC-01'],
-                        ],
-                        'involvedPersons' => [
-                            [
-                                'requesterWorkerName' => 'John Doe'
-                            ]
-                        ]
-                    ],
-                    'details' => [
-                        'itemList' => [
-                            [
-                                'entities' => [
-                                    'product_RefID' => 'PRD-1001',
-                                    'productName'   => 'Product A',
-                                    'quantity'      => 5,
-                                ]
-                            ],
-                            [
-                                'entities' => [
-                                    'product_RefID' => 'PRD-1002',
-                                    'productName'   => 'Product B',
-                                    'quantity'      => 3,
-                                ]
-                            ],
-                            [
-                                'entities' => [
-                                    'product_RefID' => 'PRD-1003',
-                                    'productName'   => 'Product C',
-                                    'quantity'      => 2,
-                                ]
-                            ],
-                        ]
-                    ]
-                ]
-            ];
-
-            // DATA HEADER
-            $dataHeaders = [
-                'doNumber'      => 'MB01-53000004',
-                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0],
-                'budgetName'    => $getData['content']['general']['budget']['combinedBudgetNameList'][0],
-                'subBudget'     => $getData['content']['general']['budget']['combinedBudgetSectionCodeList'][0],
-                'date'          => $getData['header']['date'],
-                'transporter'   => "VDR-2594 - Aman Jaya",
-                'deliveryFrom'  => "QDC",
-                'deliveryTo'    => 'Gudang Tigaraksa',
-                'PIC'           => $getData['content']['general']['involvedPersons'][0]['requesterWorkerName'],
-            ];
-
-            $dataDetails = [];
-            $i = 0;
-            $totalQty = 0;
-            foreach ($getData['content']['details']['itemList'] as $dataReports) {
-                $totalQty += ($i + 1) * $dataReports['entities']['quantity'];
-            
-                $dataDetails[$i]['no']          = $i + 1;
-                $dataDetails[$i]['productID']   = $dataReports['entities']['product_RefID'];
-                $dataDetails[$i]['productName'] = $dataReports['entities']['productName'];
-                $dataDetails[$i]['price']       = $dataReports['entities']['quantity'];
-                $dataDetails[$i]['total']       = ($i + 1) * $dataReports['entities']['quantity'];
-                $i++;
-            }
-
-            $compact = [
-                'dataHeader'    => $dataHeaders,
-                'dataDetail'    => $dataDetails,
-                'totalQty'      => number_format($totalQty, 2, ',', '.'),
-            ];
-
-            Session::put("isButtonReportModifyBudgetDetailSubmit", true);
-            Session::put("dataReportModifyBudgetDetail", $compact);
-
-            return $compact;
-        } catch (\Throwable $th) {
-            Log::error("Error at ReportModifyBudgetDetailData: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
+        return view('Budget.Budget.Reports.ReportModifyBudgetDetail', [
+            'dataReport' => Cache::get('dataReportModifyBudgetDetail') ?? []
+        ]);
     }
 
     public function ReportModifyBudgetDetailStore(Request $request) 
@@ -565,17 +444,18 @@ class BudgetController extends Controller
             $advanceNumber  = $request->advance_number;
 
             if (!$advanceRefID && !$advanceNumber) {
-                Session::forget("isButtonReportModifyBudgetDetailSubmit");
-                Session::forget("dataReportModifyBudgetDetail");
+                Cache::forget('dataReportModifyBudgetDetail');
 
                 return redirect()->route('Budget.ReportModifyBudgetDetail')->with('NotFound', 'Modify Number Cannot Empty');
             }
 
-            $compact = $this->ReportModifyBudgetDetailData($advanceRefID);
+            $compact = $this->budgetService->reportModifyBudgetDetailData($request);
 
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
+
+            Cache::put('dataReportModifyBudgetDetail', $compact, now()->addMinutes(3));
 
             return redirect()->route('Budget.ReportModifyBudgetDetail');
         } catch (\Throwable $th) {
@@ -586,7 +466,7 @@ class BudgetController extends Controller
 
     public function PrintExportReportModifyBudgetDetail(Request $request) {
         try {
-            $dataReport = Session::get("dataReportModifyBudgetDetail");
+            $dataReport = Cache::get('dataReportModifyBudgetDetail');
 
             if ($dataReport) {
                 if ($request->print_type == "PDF") {
