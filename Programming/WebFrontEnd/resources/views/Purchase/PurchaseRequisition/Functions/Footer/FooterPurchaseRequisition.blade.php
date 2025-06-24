@@ -61,7 +61,7 @@
 
                 $.each(data, function(key, val2) {
                     let isUnspecified = '';
-                    let balanced = currencyTotal(val2.quantity);
+                    let balanced = currencyTotal(val2.quantityRemaining);
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
                     let productColumn = `
                         <td style="text-align: center;">${val2.productCode}</td>

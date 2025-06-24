@@ -105,7 +105,7 @@
                                 <input id="product_name${indexReferenceNumberDetail}" value="${val2.productName || '-'}" type="hidden" />
                                 <input id="uom${indexReferenceNumberDetail}" value="${val2.quantityUnitName || ''}" type="hidden" />
                                 <input id="qty_reference${indexReferenceNumberDetail}" value="${currencyTotal(val2.quantity)}" type="hidden" />
-                                <input id="qty_avail${indexReferenceNumberDetail}" value="${currencyTotal(val2.quantity)}" type="hidden" />
+                                <input id="qty_avail${indexReferenceNumberDetail}" value="${currencyTotal(val2.qtyAvail)}" type="hidden" />
                                 <input id="qty_unit_refID${indexReferenceNumberDetail}" value="${val2.quantityUnit_RefID || '73000000000001'}" type="hidden" />
                                 <input id="product_refID${indexReferenceNumberDetail}" value="${val2.product_RefID || '8800000000079' + indexReferenceNumberDetail}" type="hidden" />
 
@@ -114,7 +114,7 @@
                                 <td style="text-align: center;">${val2.productName || '-'}</td>
                                 <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
                                 <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
-                                <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
+                                <td style="text-align: center;">${currencyTotal(val2.qtyAvail)}</td>
                                 <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
                                     <input class="form-control number-without-negative" id="qty_req${indexReferenceNumberDetail}" data-index=${indexReferenceNumberDetail} data-quantity="" autocomplete="off" style="border-radius:0px;" />
                                 </td>
@@ -313,15 +313,16 @@
             const refDocument_RefID         = row.querySelector('input[id^="refDocument_RefID"]');
             const underlyingDetail_RefID    = row.querySelector('input[id^="underlyingDetail_RefID"]');
             const qtyInput                  = row.querySelector('input[id^="qty_req"]');
-            const balanceInput              = row.querySelector('input[id^="balance"]');
+            // const balanceInput              = row.querySelector('input[id^="balance"]');
             const noteInput                 = row.querySelector('textarea[id^="note"]');
             const qtyUnitRefId              = row.querySelector('input[id^="qty_unit_refID"]');
             const productRefId              = row.querySelector('input[id^="product_refID"]');
 
             if (
-                qtyInput && balanceInput && noteInput &&
+                // qtyInput && balanceInput && noteInput &&
+                qtyInput && noteInput &&
                 qtyInput.value.trim() !== '' &&
-                balanceInput.value.trim() !== '' &&
+                // balanceInput.value.trim() !== '' &&
                 noteInput.value.trim() !== ''
             ) {
                 const refNumber     = row.children[2].value.trim();
@@ -331,7 +332,7 @@
                 const qtyAvail      = row.children[7].value.trim();
 
                 const qty       = qtyInput.value.trim();
-                const balance   = balanceInput.value.trim();
+                // const balance   = balanceInput.value.trim();
                 const note      = noteInput.value.trim();
 
                 let found           = false;
@@ -343,8 +344,8 @@
 
                     if (targetRefNumber === refNumber && targetProductCode === productCode) {
                         targetRow.children[5].innerText = qty;
-                        targetRow.children[6].innerText = balance;
-                        targetRow.children[7].innerText = note;
+                        // targetRow.children[6].innerText = balance;
+                        targetRow.children[6].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.entities.refNumber === refNumber && item.entities.productCode === productCode);
@@ -374,10 +375,10 @@
                         <td style="text-align: center;padding: 0.8rem;">${productName}</td>
                         <td style="text-align: center;padding: 0.8rem;">${uom}</td>
                         <td style="text-align: center;padding: 0.8rem;">${qty}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${balance}</td>
                         <td style="text-align: center;padding: 0.8rem;">${note}</td>
                     `;
                     targetTable.appendChild(newRow);
+                    // <td style="text-align: center;padding: 0.8rem;">${balance}</td>
 
                     dataStore.push({
                         entities: {
@@ -395,7 +396,7 @@
 
                 qtyInput.value = '';
                 noteInput.value = '';
-                balanceInput.value = balanceInput.getAttribute('data-default');
+                // balanceInput.value = balanceInput.getAttribute('data-default');
             }
         }
 

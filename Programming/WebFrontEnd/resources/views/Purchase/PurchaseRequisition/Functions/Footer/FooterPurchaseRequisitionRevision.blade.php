@@ -53,7 +53,7 @@
 
                 $.each(data, function(key, val2) {
                     let isUnspecified = '';
-                    let balanced = currencyTotal(val2.quantity);
+                    let balanced = currencyTotal(val2.quantityRemaining);
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
 
                     let findDataDetail = dataDetail.find(el => 
@@ -128,7 +128,7 @@
                         isUnspecified = 'disabled';
                         balanced = '-';
 
-                        let balancedDetail = val2.quantity - findDataMiscellaneous.quantity;
+                        let balancedDetail = currencyTotal(val2.quantityRemaining);
 
                         productColumn = `
                             <input id="recordID${key}" value="${findDataMiscellaneous.sys_ID}" type="hidden" />
@@ -153,7 +153,7 @@
                             </td>
                             <td id="product_name${key}" style="text-align: center;text-wrap: auto;" name="product_name" data-default="${findDataMiscellaneous.productName}">${findDataMiscellaneous.productName}</td>
                         `;
-                        
+
                         componentsInput = `
                             <td class="sticky-col fifth-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${currencyTotal(findDataMiscellaneous.quantity)}" value="${currencyTotal(findDataMiscellaneous.quantity)}" />
@@ -174,7 +174,7 @@
                     }
 
                     if (findDataDetail) {
-                        let balancedDetail = val2.quantity - findDataDetail.quantity;
+                        let balancedDetail = currencyTotal(val2.quantityRemaining);
 
                         productColumn = `
                             <input id="recordID${key}" value="${findDataDetail.sys_ID}" type="hidden" />

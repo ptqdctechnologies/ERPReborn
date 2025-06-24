@@ -265,8 +265,8 @@
 
                     <td style="text-align: center; padding: 10px !important;">${val2.productCode || '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.productName || '-'}</td>
-                    <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity || 0)}</td>
-                    <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity || 0)}</td>
+                    <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.qtyPR || 0)}</td>
+                    <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.qtyAvail || 0)}</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName || '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}</td>
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(totalReq || 0)}</td>
