@@ -469,20 +469,23 @@ class BudgetController extends Controller
             $dataReport = Cache::get('dataReportModifyBudgetDetail');
 
             if ($dataReport) {
-                if ($request->print_type == "PDF") {
-                    $pdf = PDF::loadView('Budget.Budget.Reports.ReportModifyBudgetDetail_pdf', ['dataReport' => $dataReport]);
-                    $pdf->output();
-                    $dom_pdf = $pdf->getDomPDF();
+                switch ($request->print_type) {
+                    case "PDF":
+                        $pdf = PDF::loadView('Budget.Budget.Reports.ReportModifyBudgetDetail_pdf', ['dataReport' => $dataReport]);
+                        $pdf->output();
+                        $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
-                    $width = $canvas->get_width();
-                    $height = $canvas->get_height();
-                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
-    
-                    return $pdf->download('Export Report Modify Budget Detail.pdf');
-                } else {
-                    return Excel::download(new ExportReportModifyBudgetDetail, 'Export Report Modify Budget Detail.xlsx');
+                        $canvas = $dom_pdf ->get_canvas();
+                        $width = $canvas->get_width();
+                        $height = $canvas->get_height();
+                        $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                        $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+        
+                        return $pdf->download('Export Report Modify Budget Detail.pdf');
+                    case "Excel":
+                        return Excel::download(new ExportReportModifyBudgetDetail, 'Export Report Modify Budget Detail.xlsx');
+                    default:
+                        return redirect()->route('Budget.ReportModifyBudgetDetail')->with('NotFound', 'Invalid Print Type');
                 }
             } else {
                 return redirect()->route('Budget.ReportModifyBudgetDetail')->with('NotFound', 'Modify Number Cannot Empty');
