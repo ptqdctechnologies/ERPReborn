@@ -1562,81 +1562,29 @@ class PurchaseOrderController extends Controller
     public function store(Request $request)
     {
         try {
-            $varAPIWebToken                     = Session::get('SessionLogin');
-            $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
-            $purchaseOrderData                  = $request->all();
-            $deliveryToRefID                    = $purchaseOrderData['storeData']['deliveryTo_RefID'] ? (int) $purchaseOrderData['storeData']['deliveryTo_RefID'] : null;
-            $purchaseOrderDetail                = json_decode($purchaseOrderData['storeData']['purchaseOrderDetail'], true);
-            $fileID                             = $purchaseOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $purchaseOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
+            $response = $this->purchaseOrderService->create($request);
 
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.create.supplyChain.setPurchaseOrder',
-                'latest',
-                [
-                'entities' => [
-                    "documentDateTimeTZ"                    => date('Y-m-d'),
-                    "log_FileUpload_Pointer_RefID"          => (int) $fileID,
-                    "requesterWorkerJobsPosition_RefID"     => (int) $SessionWorkerCareerInternal_RefID,
-                    "supplier_RefID"                        => (int) $purchaseOrderData['storeData']['supplier_id'],
-                    "deliveryDateTimeTZ"                    => $purchaseOrderData['storeData']['dateOfDelivery'],
-                    "deliveryDestination_RefID"             => $deliveryToRefID,
-                    "supplierInvoiceBillingPurpose_RefID"   => null,
-                    "remarks"                               => $purchaseOrderData['storeData']['remarkPO'],
-                    "deliveryDestinationManualAddress"      => $purchaseOrderData['storeData']['delivery_to'],
-                    "paymentNotes"                          => $purchaseOrderData['storeData']['paymentNotes'],
-                    "internalNotes"                         => $purchaseOrderData['storeData']['internalNote'],
-                    "downPayment"                           => (float) str_replace(',', '', $purchaseOrderData['storeData']['downPaymentValue']),
-                    "termOfPayment_RefID"                   => (int) $purchaseOrderData['storeData']['termOfPaymentValue'],
-                    "vatRatio"                              => $purchaseOrderData['storeData']['vatValue'] ?? null,
-                    "additionalData"                        => [
-                        "itemList"  => [
-                            "items" => $purchaseOrderDetail
-                            ],
-                        "transactionTaxItemList" => [
-                            "items" => [
-                                    [
-                                    "entities" => [
-                                        "taxType_RefID"                 => null,
-                                        "tariffCurrency_RefID"          => null,
-                                        "tariffCurrencyValue"           => (float) str_replace(',', '', $purchaseOrderData['storeData']['tariffCurrencyValue']),
-                                        "tariffCurrencyExchangeRate"    => null,
-                                        "remarks"                       => null
-                                        ]
-                                    ],
-                                ]
-                            ],
-                        "additionalCostItemList" => [
-                            "items" => [
-                                    [
-                                    "entities" => [
-                                        "transactionAdditionalCostType_RefID"   => null,
-                                        "priceCurrency_RefID"                   => null,
-                                        "priceCurrencyValue"                    => null,
-                                        "priceCurrencyExchangeRate"             => null,
-                                        "remarks"                               => null
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            );
-
-            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($varData);
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
             }
 
-            return $this->SubmitWorkflow(
-                $varData['data']['businessDocument']['businessDocument_RefID'],
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
                 $request->workFlowPath_RefID,
                 $request->comment,
                 $request->approverEntity,
-                $request->nextApprover,
-                $varData['data']['businessDocument']['documentNumber']
             );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Error at store: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

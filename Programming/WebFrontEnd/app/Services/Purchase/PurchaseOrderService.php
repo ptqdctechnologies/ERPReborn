@@ -9,6 +9,73 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class PurchaseOrderService
 {
+    public function create(Request $request): array 
+    {
+        $sessionToken   = Session::get('SessionLogin');
+        $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
+
+        $data                   = $request->storeData;
+        $deliveryToRefID        = $data['deliveryTo_RefID'] ? (int) $data['deliveryTo_RefID'] : null;
+        $purchaseOrderDetail    = json_decode($data['purchaseOrderDetail'], true);
+        $fileID                 = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.create.supplyChain.setPurchaseOrder',
+            'latest',
+            [
+            'entities' => [
+                "documentDateTimeTZ"                    => date('Y-m-d'),
+                "log_FileUpload_Pointer_RefID"          => (int) $fileID,
+                "requesterWorkerJobsPosition_RefID"     => (int) $careerRefID,
+                "supplier_RefID"                        => (int) $data['supplier_id'],
+                "deliveryDateTimeTZ"                    => $data['dateOfDelivery'],
+                "deliveryDestination_RefID"             => $deliveryToRefID,
+                "supplierInvoiceBillingPurpose_RefID"   => null,
+                "remarks"                               => $data['remarkPO'],
+                "deliveryDestinationManualAddress"      => $data['delivery_to'],
+                "paymentNotes"                          => $data['paymentNotes'],
+                "internalNotes"                         => $data['internalNote'],
+                "downPayment"                           => (float) str_replace(',', '', $data['downPaymentValue']),
+                "termOfPayment_RefID"                   => (int) $data['termOfPaymentValue'],
+                "vatRatio"                              => $data['vatValue'] ?? null,
+                "additionalData"                        => [
+                    "itemList"  => [
+                        "items" => $purchaseOrderDetail
+                        ],
+                    "transactionTaxItemList" => [
+                        "items" => [
+                                [
+                                "entities" => [
+                                    "taxType_RefID"                 => null,
+                                    "tariffCurrency_RefID"          => null,
+                                    "tariffCurrencyValue"           => (float) str_replace(',', '', $data['tariffCurrencyValue']),
+                                    "tariffCurrencyExchangeRate"    => null,
+                                    "remarks"                       => null
+                                    ]
+                                ],
+                            ]
+                        ],
+                    "additionalCostItemList" => [
+                        "items" => [
+                                [
+                                "entities" => [
+                                    "transactionAdditionalCostType_RefID"   => null,
+                                    "priceCurrency_RefID"                   => null,
+                                    "priceCurrencyValue"                    => null,
+                                    "priceCurrencyExchangeRate"             => null,
+                                    "remarks"                               => null
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        );
+    }
+
     public function updates(Request $request): array
     {
         $sessionToken   = Session::get('SessionLogin');
