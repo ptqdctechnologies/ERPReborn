@@ -552,7 +552,6 @@
         }
 
         dataStore = dataStore.filter(item => item !== undefined);
-        $("#advanceRequestDetail").val(JSON.stringify(dataStore));
 
         updateGrandTotal();
     });
@@ -575,7 +574,6 @@
         $('#tableAdvanceList tbody').empty();
 
         document.getElementById('GrandTotal').textContent = "0.00";
-        document.getElementById('advanceRequestDetail').value = "";
         calculateTotal();
     });
 
@@ -603,6 +601,7 @@
                 var action = $(this).attr("action");
                 var method = $(this).attr("method");
                 var form_data = new FormData($(this)[0]);
+                form_data.append('advanceRequestDetail', JSON.stringify(dataStore));
 
                 ShowLoading();
 
@@ -699,8 +698,6 @@
             if (storeItem) {
                 storeItem.entities.quantity = parseFloat(newQtyReq.replace(/,/g, ''));
                 storeItem.entities.productUnitPriceCurrencyValue = parseFloat(newPriceReq.replace(/,/g, ''));
-
-                $("#advanceRequestDetail").val(JSON.stringify(dataStore));
             }
 
             updateGrandTotal();
