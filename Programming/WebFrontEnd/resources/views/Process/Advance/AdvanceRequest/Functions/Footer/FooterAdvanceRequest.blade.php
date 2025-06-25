@@ -521,9 +521,9 @@
                     const targetCode = targetRow.children[3].innerText.trim();
                     const targetName = targetRow.children[4].innerText.trim();
                     if (targetCode == productCode.value && targetName == productName) {
-                        targetRow.children[6].innerText = price;
-                        targetRow.children[7].innerText = qty;
-                        targetRow.children[8].innerText = total;
+                        targetRow.children[7].innerText = price;
+                        targetRow.children[8].innerText = qty;
+                        targetRow.children[9].innerText = total;
                         found = true;
 
                         // update dataStore

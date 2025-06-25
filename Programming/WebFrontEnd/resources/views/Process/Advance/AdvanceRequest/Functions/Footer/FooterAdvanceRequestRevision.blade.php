@@ -1,7 +1,7 @@
 <script>
     let dataStore   = [];
     const siteCode  = document.getElementById('site_id_second');
-    const dataTable = document.getElementById('data_table');
+    const dataTable = {!! json_encode($dataAdvanceList ?? []) !!};
 
     function calculateTotal() {
         let total = 0;
@@ -662,10 +662,10 @@
     });
 
     $(window).one('load', function(e) {
-        const data = JSON.parse(dataTable.value);
+        // const data = JSON.parse(dataTable.value);
 
-        GetARFNumberDetail(data);
-        getBudgetDetails(siteCode.value, data);
+        GetARFNumberDetail(dataTable);
+        getBudgetDetails(siteCode.value, dataTable);
 
         getDocumentType("Advance Settlement Form");
     });
