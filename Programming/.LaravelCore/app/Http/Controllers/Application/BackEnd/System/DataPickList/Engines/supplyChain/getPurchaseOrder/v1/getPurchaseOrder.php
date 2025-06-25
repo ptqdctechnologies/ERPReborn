@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\s
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-07                                                                                           |
+        | ▪ Last Update     : 2025-06-25                                                                                           |
         | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -67,7 +67,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\s
                                 $varUserSession,
                                 (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getDataPickList_PurchaseOrder_LatestVersion(
                                     $varUserSession,
-                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                                    $varData['SQLStatement']['pick'], 
+                                    $varData['SQLStatement']['sort'], 
+                                    $varData['SQLStatement']['filter'], 
+                                    $varData['SQLStatement']['paging']
                                     )
                                 )
                             ))

@@ -3272,7 +3272,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_PurchaseOrder_LatestVersion                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-06-13                                                                                           |
+        | ▪ Last Update     : 2025-06-25                                                                                           |
         | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Pesanan Pembelian (Purchase Order) Versi Terakhir                    |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -3284,7 +3284,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PurchaseOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID)
+            $varUserSession, int $varSysBranch_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn =
@@ -3292,9 +3293,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataPickList_PurchaseOrderNew',
+                            'SchData-OLTP-SupplyChain.Func_GetDataPickList_PurchaseOrder_New',
                             [
-                                [$varSysBranch_RefID, 'bigint']
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPickStatement, 'varchar'],
+                                [$varSortStatement, 'varchar'],
+                                [$varFilterStatement, 'varchar'],
+                                [$varPagingStatement, 'varchar']
                             ]
                             )
                         );
