@@ -13,8 +13,8 @@ use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Illuminate\Support\Facades\Log;
-use App\Services\AdvanceSettlementService;
-use App\Services\BusinessTripService;
+use App\Services\Process\Advance\AdvanceSettlementService;
+use App\Services\Process\BusinessTrip\BusinessTripService;
 use App\Services\MasterDataService;
 
 class FunctionController extends Controller

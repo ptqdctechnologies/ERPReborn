@@ -26,7 +26,6 @@
           @csrf
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $header['budgetID']; ?>">
-          <input type="hidden" id="data_table" value='<?= json_encode($detail ?? []) ?>'>
           <input type="hidden" name="purchaseRequisitionDetail" id="purchaseRequisitionDetail">
           <input type="hidden" name="purchaseRequestID" id="purchaseRequestID" value="<?= $header['purchaseRequestID']; ?>">
 
@@ -276,7 +275,7 @@
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
               <div class="col">
-                <a class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                <a onclick="CancelPurchaseRequisition()" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                 </a>
 

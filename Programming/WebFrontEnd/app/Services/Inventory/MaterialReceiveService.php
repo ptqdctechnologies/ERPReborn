@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Inventory;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;

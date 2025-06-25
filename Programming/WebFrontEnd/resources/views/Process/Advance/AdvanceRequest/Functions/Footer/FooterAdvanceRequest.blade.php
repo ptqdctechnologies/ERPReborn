@@ -62,8 +62,6 @@
                 if (storeItem) {
                     storeItem.entities.quantity = parseFloat(newQty.replace(/,/g, ''));
                     storeItem.entities.productUnitPriceCurrencyValue = parseFloat(newPrice.replace(/,/g, ''));
-
-                    $("#advanceRequestDetail").val(JSON.stringify(dataStore));
                 }
             } else {
                 const currentPrice  = priceCell.innerText.trim();
@@ -521,9 +519,9 @@
                     const targetCode = targetRow.children[3].innerText.trim();
                     const targetName = targetRow.children[4].innerText.trim();
                     if (targetCode == productCode.value && targetName == productName) {
-                        targetRow.children[6].innerText = price;
-                        targetRow.children[7].innerText = qty;
-                        targetRow.children[8].innerText = total;
+                        targetRow.children[7].innerText = price;
+                        targetRow.children[8].innerText = qty;
+                        targetRow.children[9].innerText = total;
                         found = true;
 
                         // update dataStore
@@ -585,7 +583,6 @@
         }
 
         dataStore = dataStore.filter(item => item !== undefined);
-        $("#advanceRequestDetail").val(JSON.stringify(dataStore));
 
         updateGrandTotal();
     });
@@ -609,7 +606,6 @@
         $('input[id^="balanced_qty"]').each(function() {
             $(this).val($(this).data('default'));
         });
-        $("#advanceRequestDetail").val("");
         $('#tableAdvanceList tbody').empty();
 
         dataStore = [];
@@ -641,8 +637,8 @@
             if (result.value) {
                 var action = $(this).attr("action");
                 var method = $(this).attr("method");
-                var form_data = new FormData($(this)[0]); 
-                var form = $(this);
+                var form_data = new FormData($(this)[0]);
+                form_data.append('advanceRequestDetail', JSON.stringify(dataStore));
 
                 ShowLoading();
 

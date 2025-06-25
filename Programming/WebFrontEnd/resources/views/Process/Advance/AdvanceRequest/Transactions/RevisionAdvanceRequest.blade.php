@@ -31,8 +31,6 @@
           @csrf
           <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
           <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $headerAdvanceRevision['budgetCodeId']; ?>">
-          <input type="hidden" id="data_table" value='<?= json_encode($dataAdvanceList ?? []) ?>'>
-          <input type="hidden" name="advanceRequestDetail" id="advanceRequestDetail">
           <input type="hidden" name="advanceRequestID" id="advanceRequestID" value="<?= $advance_RefID; ?>">
 
           <!-- ADVANCE REQUEST -->

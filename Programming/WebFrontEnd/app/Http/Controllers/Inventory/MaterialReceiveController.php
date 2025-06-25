@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Inventory;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
@@ -11,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
-use App\Services\MaterialReceiveService;
+use App\Services\Inventory\MaterialReceiveService;
 use App\Services\WorkflowService;
 
 class MaterialReceiveController extends Controller

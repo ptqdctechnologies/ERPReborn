@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
-use App\Services\PurchaseRequisitionService;
+use App\Services\Purchase\PurchaseRequisitionService;
 use App\Services\WorkflowService;
 
 class PurchaseRequisitionController extends Controller
@@ -620,64 +620,29 @@ class PurchaseRequisitionController extends Controller
     public function store(Request $request)
     {
         try {
-            $varAPIWebToken                     = Session::get('SessionLogin');
-            $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
-            $purchaseRequisitionData            = $request->all();
-            $purchaseRequisitionDetail          = json_decode($purchaseRequisitionData['storeData']['purchaseRequisitionDetail'], true);
-            $fileID                             = $purchaseRequisitionData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $purchaseRequisitionData['storeData']['dataInput_Log_FileUpload_1'] : null;
+            $response = $this->purchaseRequisitionService->create($request);
 
-            $transformedDetails = [];
-            foreach ($purchaseRequisitionDetail as $entity) {
-                $transformedDetails[] = [
-                    "entities" => [
-                        "combinedBudgetSectionDetail_RefID"     => (int) $entity['combinedBudgetSectionDetail_RefID'],
-                        "product_RefID"                         => (int) $entity['product_RefID'],
-                        "quantity"                              => (float) str_replace(',', '', $entity['quantity']),
-                        "quantityUnit_RefID"                    => (int) $entity['quantityUnit_RefID'],
-                        "productUnitPriceCurrency_RefID"        => (int) $entity['productUnitPriceCurrency_RefID'],
-                        "productUnitPriceCurrencyValue"         => (float) str_replace(',', '', $entity['productUnitPriceCurrencyValue']),
-                        "productUnitPriceCurrencyExchangeRate"  => (int) $entity['productUnitPriceCurrencyExchangeRate'],
-                        "remarks"                               => $entity['remarks'],
-                    ]
-                ];
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
             }
 
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.create.supplyChain.setPurchaseRequisition', 
-                'latest',
-                [
-                'entities' => [
-                    "documentDateTimeTZ"                => date('Y-m-d'),
-                    "log_FileUpload_Pointer_RefID"      => (int) $fileID,
-                    "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
-                    "deliveryDateTimeTZ"                => $purchaseRequisitionData['storeData']['dateCommance'],
-                    "deliveryTo_RefID"                  => (int) $purchaseRequisitionData['storeData']['deliver_RefID'],
-                    "deliveryTo_NonRefID"               => null,
-                    "fulfillmentDeadlineDateTimeTZ"     => $purchaseRequisitionData['storeData']['dateCommance'],
-                    "remarks"                           => $purchaseRequisitionData['storeData']['notes'],
-                    "additionalData"    => [
-                        "itemList"      => [
-                            "items"     => $transformedDetails
-                            ]
-                        ]
-                    ]
-                ]
-            );
-
-            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($varData);
-            }
-
-            return $this->SubmitWorkflow(
-                $varData['data']['businessDocument']['businessDocument_RefID'],
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
                 $request->workFlowPath_RefID,
                 $request->comment,
                 $request->approverEntity,
-                $request->nextApprover,
-                $varData['data']['businessDocument']['documentNumber']
             );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Error at store: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

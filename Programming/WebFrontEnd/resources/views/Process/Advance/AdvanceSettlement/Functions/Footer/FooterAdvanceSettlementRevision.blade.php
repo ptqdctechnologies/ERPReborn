@@ -2,7 +2,7 @@
     let dataStore           = [];
     let totalAdvanceDetail  = 0;
     let trigger             = 0;
-    const dataTable         = document.getElementById('data_table');
+    const dataTable         = {!! json_encode($dataDetail ?? []) !!};
 
     function calculateTotal() {
         let total = 0;
@@ -22,6 +22,7 @@
     function getDetailAdvanceSettlement(dataDetail) {
         $(".loadingAdvanceSettlementTable").hide();
         $(".errorAdvanceSettlementTable").hide();
+        $("#var_combinedBudget_RefID").val(dataDetail[0].combinedBudget_RefID);
 
         let totalExpenseClaim  = 0;
         let totalAmountCompany = 0;
@@ -36,6 +37,7 @@
             totalAmountCompany += val2.refundQuantity * val2.refundProductUnitPriceCurrencyValue;
 
             dataStore.push({
+                advanceRequestNumber: val2.ARFNumber,
                 advanceSettlement_RefID: val2.advanceSettlement_RefID,
                 recordID: val2.sys_ID,
                 entities: {
@@ -70,6 +72,7 @@
                     <input id="refundProductUnitPriceCurrencyExchangeRate${key}" value="${val2.refundProductUnitPriceCurrencyExchangeRate}" type="hidden" />
                     <input id="refundProductUnitPriceBaseCurrencyValue${key}" value="${val2.refundProductUnitPriceBaseCurrencyValue}" type="hidden" />
 
+                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.ARFNumber || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.productCode || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.productName || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.UOM || '-'}</td>
@@ -202,6 +205,7 @@
                     <input type="hidden" name="price_expense_avail[]" value="${val2.expenseProductUnitPriceCurrencyValue}">
                     <input type="hidden" name="qty_company_avail[]" value="${val2.refundQuantity}">
                     <input type="hidden" name="price_company_avail[]" value="${val2.refundProductUnitPriceCurrencyValue}">
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.ARFNumber || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.UOM || '-'}</td>
@@ -228,15 +232,15 @@
         const rows = document.querySelectorAll('#tableAdvanceList tbody tr');
 
         rows.forEach(row => {
-            const totalExpenseCell = row.children[10];
-            const totalCompanyCell = row.children[13];
+            const totalExpenseCell = row.children[11];
+            const totalCompanyCell = row.children[14];
             const valueExpense = parseFloat(totalExpenseCell.innerText.replace(/,/g, '')) || 0;
             const valueCompany = parseFloat(totalCompanyCell.innerText.replace(/,/g, '')) || 0;
             total += valueExpense;
             total += valueCompany;
         });
 
-        document.getElementById('TotalAdvanceDetail').innerText = "0.00";
+        // document.getElementById('TotalAdvanceDetail').innerText = "0.00";
         document.getElementById('GrandTotal').innerText = currencyTotal(total);
     }
 
@@ -311,6 +315,11 @@
         });
     }
 
+    function CancelAdvance() {
+        ShowLoading();
+        window.location.href = '/AdvanceSettlement?var=1';
+    }
+
     $("#advance-details-add").on('click', function() {
         const totalsAdvanceDetail   = document.getElementById('TotalAdvanceDetail').textContent;
         const sourceTable           = document.getElementById('tableAdvanceDetail').getElementsByTagName('tbody')[0];
@@ -344,12 +353,13 @@
                     totalCompanyInput.value.trim() !== ''
                 )
             ) {
-                const productCode   = row.children[8].innerText.trim();
-                const productName   = row.children[9].innerText.trim();
-                const uom           = row.children[10].innerText.trim();
-                const currency      = row.children[11].innerText.trim();
-                const qtyAvail      = row.children[12].innerText.trim();
-                const priceAvail    = row.children[13].innerText.trim();
+                const arfNumber     = row.children[8].innerText.trim();
+                const productCode   = row.children[9].innerText.trim();
+                const productName   = row.children[10].innerText.trim();
+                const uom           = row.children[11].innerText.trim();
+                const currency      = row.children[12].innerText.trim();
+                const qtyAvail      = row.children[13].innerText.trim();
+                const priceAvail    = row.children[14].innerText.trim();
 
                 const qtyExpense    = qtyExpenseInput.value.trim();
                 const priceExpense  = priceExpenseInput.value.trim();
@@ -363,23 +373,24 @@
                 const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetProductCode = targetRow.children[4].innerText.trim();
-                    const targetProductName = targetRow.children[5].innerText.trim();
+                    const targetARFNumber   = targetRow.children[4].innerText.trim();
+                    const targetProductCode = targetRow.children[5].innerText.trim();
 
-                    if (targetProductCode == productCode) {
-                        targetRow.children[8].innerText     = qtyExpense || '-';
-                        targetRow.children[9].innerText     = priceExpense || '-';
-                        targetRow.children[10].innerText     = totalExpense || '-';
-                        targetRow.children[11].innerText     = qtyCompany || '-';
-                        targetRow.children[12].innerText     = priceCompany || '-';
-                        targetRow.children[13].innerText     = totalCompany || '-';
+                    if (targetARFNumber == arfNumber && targetProductCode == productCode) {
+                        targetRow.children[9].innerText     = qtyExpense || '-';
+                        targetRow.children[10].innerText    = priceExpense || '-';
+                        targetRow.children[11].innerText    = totalExpense || '-';
+                        targetRow.children[12].innerText    = qtyCompany || '-';
+                        targetRow.children[13].innerText    = priceCompany || '-';
+                        targetRow.children[14].innerText    = totalCompany || '-';
                         // targetRow.children[14].innerText    = balance;
                         found = true;
 
                         // update dataStore
-                        const indexToUpdate = dataStore.findIndex(item => item.entities.productCode == productCode);
+                        const indexToUpdate = dataStore.findIndex(item => item.recordID == advanceDetail_RefID.value && item.entities.productCode == productCode);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
+                                advanceRequestNumber: arfNumber,
                                 advanceSettlement_RefID: advanceSettlement_RefID.value,
                                 recordID: parseInt(advanceDetail_RefID.value),
                                 entities: {
@@ -408,6 +419,7 @@
                         <input type="hidden" name="price_expense_avail[]" value="${priceAvail}">
                         <input type="hidden" name="qty_company_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="price_company_avail[]" value="${priceAvail}">
+                        <td style="text-align: center;padding: 0.8rem;">${arfNumber}</td>
                         <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
                         <td style="text-align: center;padding: 0.8rem;">${productName}</td>
                         <td style="text-align: center;padding: 0.8rem;">${uom}</td>
@@ -423,6 +435,7 @@
                     targetTable.appendChild(newRow);
 
                     dataStore.push({
+                        advanceRequestNumber: arfNumber,
                         advanceSettlement_RefID: advanceSettlement_RefID.value,
                         recordID: parseInt(advanceDetail_RefID.value),
                         entities: {
@@ -453,7 +466,6 @@
         }
 
         dataStore = dataStore.filter(item => item !== undefined);
-        $("#advanceSettlementDetail").val(JSON.stringify(dataStore));
 
         document.getElementById('GrandTotal').textContent = totalsAdvanceDetail;
         document.getElementById('TotalAdvanceDetail').textContent = "0.00";
@@ -482,7 +494,6 @@
             $(this).val($(this).data('default'));
         });
         $('#tableAdvanceList tbody').empty();
-        $('#advanceSettlementDetail').val("");
         dataStore = [];
 
         document.getElementById('GrandTotal').textContent = "0.00";
@@ -513,6 +524,7 @@
                 var action = $(this).attr("action");
                 var method = $(this).attr("method");
                 var form_data = new FormData($(this)[0]);
+                form_data.append('advanceSettlementDetail', JSON.stringify(dataStore));
 
                 ShowLoading();
 
@@ -580,12 +592,12 @@
         const qtyCompanyAvail      = row.children[2];
         const priceCompanyAvail    = row.children[3];
 
-        const qtyExpenseReq    = row.children[8];
-        const priceExpenseReq  = row.children[9];
-        const totalExpenseReq  = row.children[10];
-        const qtyCompanyReq    = row.children[11];
-        const priceCompanyReq  = row.children[12];
-        const totalCompanyReq  = row.children[13];
+        const qtyExpenseReq    = row.children[9];
+        const priceExpenseReq  = row.children[10];
+        const totalExpenseReq  = row.children[11];
+        const qtyCompanyReq    = row.children[12];
+        const priceCompanyReq  = row.children[13];
+        const totalCompanyReq  = row.children[14];
 
         if (row.classList.contains('editing-row')) {
             const newQtyExpenseReq     = qtyExpenseReq.querySelector('input')?.value || '';
@@ -604,15 +616,16 @@
 
             row.classList.remove('editing-row');
 
-            const productCode = row.children[4].innerText.trim();
-            const storeItem = dataStore.find(item => item.entities.productCode == productCode);
+            const arfNumber     = row.children[4].innerText.trim();
+            const productCode   = row.children[5].innerText.trim();
+            const storeItem = dataStore.find(item => item.advanceRequestNumber == arfNumber && item.entities.productCode == productCode);
             if (storeItem) {
-                storeItem.entities.expenseQuantity                      = parseFloat(newQtyExpenseReq.replace(/,/g, ''));
-                storeItem.entities.expenseProductUnitPriceCurrencyValue = parseFloat(newPriceExpenseReq.replace(/,/g, ''));
-                storeItem.entities.refundQuantity                       = parseFloat(newQtyCompanyReq.replace(/,/g, ''));
-                storeItem.entities.refundProductUnitPriceCurrencyValue  = parseFloat(newPriceCompanyReq.replace(/,/g, ''));
-
-                $("#advanceSettlementDetail").val(JSON.stringify(dataStore));
+                storeItem.entities.expenseQuantity                          = parseFloat(newQtyExpenseReq.replace(/,/g, ''));
+                storeItem.entities.expenseProductUnitPriceCurrencyValue     = parseFloat(newPriceExpenseReq.replace(/,/g, ''));
+                storeItem.entities.expenseProductUnitPriceBaseCurrencyValue = parseFloat(newPriceExpenseReq.replace(/,/g, ''));
+                storeItem.entities.refundQuantity                           = parseFloat(newQtyCompanyReq.replace(/,/g, ''));
+                storeItem.entities.refundProductUnitPriceCurrencyValue      = parseFloat(newPriceCompanyReq.replace(/,/g, ''));
+                storeItem.entities.refundProductUnitPriceBaseCurrencyValue  = parseFloat(newPriceCompanyReq.replace(/,/g, ''));
             }
         } else {
             const currentQtyExpense     = qtyExpenseReq.innerText.trim();
@@ -697,9 +710,11 @@
 
             priceCompanyInput.addEventListener('input', updateTotalCompanyClaim);
             qtyCompanyInput.addEventListener('input', updateTotalCompanyClaim);
-
-            document.getElementById('GrandTotal').innerText = parseFloat(totalCompanyInput?.value.replace(/,/g, '')) + parseFloat(totalExpenseInput?.value.replace(/,/g, ''));
         }
+
+        updateGrandTotal();
+
+        console.log('dataStore', dataStore);
     });
 
     $(document).on('input', '.number-without-negative', function() {
@@ -707,9 +722,9 @@
     });
 
     $(window).on('load', function() {
-        const data = JSON.parse(dataTable.value);
+        // const data = JSON.parse(dataTable.value);
 
-        getDetailAdvanceSettlement(data);
+        getDetailAdvanceSettlement(dataTable);
         getDocumentType("Advance Settlement Form");
     });
 </script>
