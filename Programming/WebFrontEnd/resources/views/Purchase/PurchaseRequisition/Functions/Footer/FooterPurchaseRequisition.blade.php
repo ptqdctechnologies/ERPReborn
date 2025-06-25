@@ -317,6 +317,11 @@
         }
     }
 
+    function CancelPurchaseRequisition() {
+        ShowLoading();
+        window.location.href = '/PurchaseRequisition?var=1';
+    }
+
     if (siteCode) {
         siteCode.addEventListener('input', validationForm);
     }

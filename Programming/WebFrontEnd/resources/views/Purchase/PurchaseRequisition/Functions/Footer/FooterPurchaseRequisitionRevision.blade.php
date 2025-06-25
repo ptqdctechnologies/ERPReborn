@@ -1,7 +1,8 @@
 <script>
     let dataStore   = [];
     const siteCode  = document.getElementById('site_id_second');
-    const dataTable = document.getElementById('data_table');
+    const dataTable = {!! json_encode($detail ?? []) !!};
+    // const dataTable = document.getElementById('data_table');
 
     function calculateTotal() {
         let total = 0;
@@ -446,6 +447,11 @@
         document.getElementById('GrandTotal').textContent = currencyTotal(totalPRNumberDetail);
     }
 
+    function CancelPurchaseRequisition() {
+        ShowLoading();
+        window.location.href = '/PurchaseRequisition?var=1';
+    }
+
     $('#purchase-request-details-add').on('click', function() {
         const sourceTable = document.getElementById('tableGetPRDetails').getElementsByTagName('tbody')[0];
         const targetTable = document.getElementById('tablePRDetailList').getElementsByTagName('tbody')[0];
@@ -674,13 +680,13 @@
     });
 
     $(window).one('load', function(e) {
-        const data = JSON.parse(dataTable.value);
+        // const data = JSON.parse(dataTable.value);
 
         $(".errorMessageContainerPRDetails").hide();
 
         getDocumentType("Purchase Requisition Revision Form");
-        GetPRNumberDetail(data);
-        getBudget(siteCode.value, data);
+        GetPRNumberDetail(dataTable);
+        getBudget(siteCode.value, dataTable);
     });
 
     document.querySelector('#tablePRDetailList tbody').addEventListener('click', function (e) {
