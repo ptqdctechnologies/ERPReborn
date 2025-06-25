@@ -16,7 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
-use App\Services\AdvanceRequestService;
+use App\Services\Process\Advance\AdvanceRequestService;
 use App\Services\WorkflowService;
 
 class AdvanceRequestController extends Controller

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Purchase;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;

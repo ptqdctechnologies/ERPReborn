@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
-use App\Services\PurchaseOrderService;
+use App\Services\Purchase\PurchaseOrderService;
 use App\Services\WorkflowService;
 
 class PurchaseOrderController extends Controller

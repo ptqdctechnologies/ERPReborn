@@ -14,7 +14,7 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\Services\AdvanceSettlementService;
+use App\Services\Process\Advance\AdvanceSettlementService;
 use App\Services\WorkflowService;
 
 class AdvanceSettlementController extends Controller

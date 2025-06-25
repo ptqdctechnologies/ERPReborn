@@ -14,7 +14,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
-use App\Services\DeliveryOrderService;
+use App\Services\Inventory\DeliveryOrderService;
 use App\Services\WorkflowService;
 
 class DeliveryOrderController extends Controller

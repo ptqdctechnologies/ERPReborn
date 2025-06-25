@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
-use App\Services\PurchaseRequisitionService;
+use App\Services\Purchase\PurchaseRequisitionService;
 use App\Services\WorkflowService;
 
 class PurchaseRequisitionController extends Controller
