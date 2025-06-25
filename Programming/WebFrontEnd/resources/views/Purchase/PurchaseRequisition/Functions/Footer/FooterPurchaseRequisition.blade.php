@@ -363,13 +363,11 @@
                 row.classList.remove('editing-row');
 
                 const productCode = row.children[2].innerText.trim();
-                const storeItem = dataStore.find(item => item.product_RefID === productCode);
+                const storeItem = dataStore.find(item => item.entities.product_RefID === productCode);
                 if (storeItem) {
                     storeItem.quantity = newQty;
                     storeItem.productUnitPriceCurrencyValue = newPrice;
                     storeItem.remarks = newRemark;
-
-                    $("#purchaseRequisitionDetail").val(JSON.stringify(dataStore));
                 }
             } else {
                 const currentPrice = priceCell.innerText.trim();
@@ -524,18 +522,20 @@
                         found = true;
 
                         // update dataStore
-                        const indexToUpdate = dataStore.findIndex(item => item.product_RefID === productCode);
+                        const indexToUpdate = dataStore.findIndex(item => item.entities.product_RefID === productCode);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
-                                combinedBudgetSectionDetail_RefID: combinedBudgetSectionDetailInput.value,
-                                product_RefID: productCode,
-                                quantity: qty,
-                                quantityUnit_RefID: qtyUnitRefId.value,
-                                productUnitPriceCurrency_RefID: currencyRefId.value,
-                                productUnitPriceCurrencyValue: price,
-                                productUnitPriceCurrencyExchangeRate: 1,
-                                fulfillmentDeadlineDateTimeTZ: null,
-                                remarks: remark
+                                entities: {
+                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
+                                    product_RefID: parseInt(productCode),
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantityUnit_RefID: parseInt(qtyUnitRefId.value),
+                                    productUnitPriceCurrency_RefID: parseInt(currencyRefId.value),
+                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                                    productUnitPriceCurrencyExchangeRate: 1,
+                                    fulfillmentDeadlineDateTimeTZ: null,
+                                    remarks: remark
+                                }
                             };
                         }
                         break;
@@ -561,15 +561,17 @@
 
                     // push to dataStore
                     dataStore.push({
-                        combinedBudgetSectionDetail_RefID: combinedBudgetSectionDetailInput.value,
-                        product_RefID: productCode,
-                        quantity: qty,
-                        quantityUnit_RefID: qtyUnitRefId.value,
-                        productUnitPriceCurrency_RefID: currencyRefId.value,
-                        productUnitPriceCurrencyValue: price,
-                        productUnitPriceCurrencyExchangeRate: 1,
-                        fulfillmentDeadlineDateTimeTZ: null,
-                        remarks: remark
+                        entities: {
+                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
+                            product_RefID: parseInt(productCode),
+                            quantity: parseFloat(qty.replace(/,/g, '')),
+                            quantityUnit_RefID: parseInt(qtyUnitRefId.value),
+                            productUnitPriceCurrency_RefID: parseInt(currencyRefId.value),
+                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                            productUnitPriceCurrencyExchangeRate: 1,
+                            fulfillmentDeadlineDateTimeTZ: null,
+                            remarks: remark
+                        }
                     });
                 }
 
@@ -582,7 +584,6 @@
         }
 
         dataStore = dataStore.filter(item => item !== undefined);
-        $("#purchaseRequisitionDetail").val(JSON.stringify(dataStore));
 
         updateGrandTotal();
     });
@@ -595,8 +596,6 @@
         dataStore = [];
 
         document.getElementById('GrandTotal').innerText = '0.00';
-
-        $("#purchaseRequisitionDetail").val("");
     });
 
     $("#FormSubmitPurchaseRequisition").on("submit", function(e) {
@@ -623,6 +622,7 @@
                 var action = $(this).attr("action");
                 var method = $(this).attr("method");
                 var form_data = new FormData($(this)[0]);
+                form_data.append('purchaseRequisitionDetail', JSON.stringify(dataStore));
 
                 ShowLoading();
 
