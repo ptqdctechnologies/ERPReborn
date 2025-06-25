@@ -37,6 +37,7 @@
             totalAmountCompany += val2.refundQuantity * val2.refundProductUnitPriceCurrencyValue;
 
             dataStore.push({
+                advanceRequestNumber: val2.ARFNumber,
                 advanceSettlement_RefID: val2.advanceSettlement_RefID,
                 recordID: val2.sys_ID,
                 entities: {
@@ -231,15 +232,15 @@
         const rows = document.querySelectorAll('#tableAdvanceList tbody tr');
 
         rows.forEach(row => {
-            const totalExpenseCell = row.children[10];
-            const totalCompanyCell = row.children[13];
+            const totalExpenseCell = row.children[11];
+            const totalCompanyCell = row.children[14];
             const valueExpense = parseFloat(totalExpenseCell.innerText.replace(/,/g, '')) || 0;
             const valueCompany = parseFloat(totalCompanyCell.innerText.replace(/,/g, '')) || 0;
             total += valueExpense;
             total += valueCompany;
         });
 
-        document.getElementById('TotalAdvanceDetail').innerText = "0.00";
+        // document.getElementById('TotalAdvanceDetail').innerText = "0.00";
         document.getElementById('GrandTotal').innerText = currencyTotal(total);
     }
 
@@ -389,6 +390,7 @@
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == advanceDetail_RefID.value && item.entities.productCode == productCode);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
+                                advanceRequestNumber: arfNumber,
                                 advanceSettlement_RefID: advanceSettlement_RefID.value,
                                 recordID: parseInt(advanceDetail_RefID.value),
                                 entities: {
@@ -417,6 +419,7 @@
                         <input type="hidden" name="price_expense_avail[]" value="${priceAvail}">
                         <input type="hidden" name="qty_company_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="price_company_avail[]" value="${priceAvail}">
+                        <td style="text-align: center;padding: 0.8rem;">${arfNumber}</td>
                         <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
                         <td style="text-align: center;padding: 0.8rem;">${productName}</td>
                         <td style="text-align: center;padding: 0.8rem;">${uom}</td>
@@ -432,6 +435,7 @@
                     targetTable.appendChild(newRow);
 
                     dataStore.push({
+                        advanceRequestNumber: arfNumber,
                         advanceSettlement_RefID: advanceSettlement_RefID.value,
                         recordID: parseInt(advanceDetail_RefID.value),
                         entities: {
@@ -588,12 +592,12 @@
         const qtyCompanyAvail      = row.children[2];
         const priceCompanyAvail    = row.children[3];
 
-        const qtyExpenseReq    = row.children[8];
-        const priceExpenseReq  = row.children[9];
-        const totalExpenseReq  = row.children[10];
-        const qtyCompanyReq    = row.children[11];
-        const priceCompanyReq  = row.children[12];
-        const totalCompanyReq  = row.children[13];
+        const qtyExpenseReq    = row.children[9];
+        const priceExpenseReq  = row.children[10];
+        const totalExpenseReq  = row.children[11];
+        const qtyCompanyReq    = row.children[12];
+        const priceCompanyReq  = row.children[13];
+        const totalCompanyReq  = row.children[14];
 
         if (row.classList.contains('editing-row')) {
             const newQtyExpenseReq     = qtyExpenseReq.querySelector('input')?.value || '';
@@ -612,13 +616,16 @@
 
             row.classList.remove('editing-row');
 
-            const productCode = row.children[4].innerText.trim();
-            const storeItem = dataStore.find(item => item.entities.productCode == productCode);
+            const arfNumber     = row.children[4].innerText.trim();
+            const productCode   = row.children[5].innerText.trim();
+            const storeItem = dataStore.find(item => item.advanceRequestNumber == arfNumber && item.entities.productCode == productCode);
             if (storeItem) {
-                storeItem.entities.expenseQuantity                      = parseFloat(newQtyExpenseReq.replace(/,/g, ''));
-                storeItem.entities.expenseProductUnitPriceCurrencyValue = parseFloat(newPriceExpenseReq.replace(/,/g, ''));
-                storeItem.entities.refundQuantity                       = parseFloat(newQtyCompanyReq.replace(/,/g, ''));
-                storeItem.entities.refundProductUnitPriceCurrencyValue  = parseFloat(newPriceCompanyReq.replace(/,/g, ''));
+                storeItem.entities.expenseQuantity                          = parseFloat(newQtyExpenseReq.replace(/,/g, ''));
+                storeItem.entities.expenseProductUnitPriceCurrencyValue     = parseFloat(newPriceExpenseReq.replace(/,/g, ''));
+                storeItem.entities.expenseProductUnitPriceBaseCurrencyValue = parseFloat(newPriceExpenseReq.replace(/,/g, ''));
+                storeItem.entities.refundQuantity                           = parseFloat(newQtyCompanyReq.replace(/,/g, ''));
+                storeItem.entities.refundProductUnitPriceCurrencyValue      = parseFloat(newPriceCompanyReq.replace(/,/g, ''));
+                storeItem.entities.refundProductUnitPriceBaseCurrencyValue  = parseFloat(newPriceCompanyReq.replace(/,/g, ''));
             }
         } else {
             const currentQtyExpense     = qtyExpenseReq.innerText.trim();
@@ -703,9 +710,11 @@
 
             priceCompanyInput.addEventListener('input', updateTotalCompanyClaim);
             qtyCompanyInput.addEventListener('input', updateTotalCompanyClaim);
-
-            document.getElementById('GrandTotal').innerText = parseFloat(totalCompanyInput?.value.replace(/,/g, '')) + parseFloat(totalExpenseInput?.value.replace(/,/g, ''));
         }
+
+        updateGrandTotal();
+
+        console.log('dataStore', dataStore);
     });
 
     $(document).on('input', '.number-without-negative', function() {
