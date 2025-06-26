@@ -100,6 +100,9 @@
             total += value;
         });
 
+        document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
+        document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
+        document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
         document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
@@ -496,10 +499,11 @@
 
         $('#tariffCurrencyValue').val(TotalPpns.textContent);
 
-        document.getElementById('GrandTotal').textContent = TotalBudgetSelectedPpn.textContent;
-        document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
-        document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
-        document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
+        updateGrandTotal();
+        // document.getElementById('GrandTotal').textContent = TotalBudgetSelectedPpn.textContent;
+        // document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
+        // document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
+        // document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
     });
 
     $('#revision-po-details-reset').on('click', function() {

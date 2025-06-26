@@ -21,7 +21,7 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Date of Delivery</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div style="width: 42%;">
-            <input id="dateOfDelivery" name="dateOfDelivery" style="border-radius:0;width: 100%;" type="date" class="form-control">
+            <input id="dateOfDelivery" name="dateOfDelivery" style="border-radius:0;width: 100%;" type="date" class="form-control" value="<?= $header['deliveryDateTime']; ?>">
           </div>
         </div>
       </div>

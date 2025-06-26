@@ -255,7 +255,7 @@
 
                             countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                            if (qty_req > val2.quantity) {
+                            if (qty_req > val2.qtyAvail) {
                                 $(this).val(0);
                                 $(`#total_req${data_index}`).val(0);
                                 $(`#balance${data_index}`).val(0);
@@ -387,6 +387,9 @@
             total += value;
         });
 
+        document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
+        document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
+        document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
         document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
@@ -556,10 +559,11 @@
         dataStore = dataStore.filter(item => item !== undefined);
         $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
 
-        document.getElementById('GrandTotal').textContent = TotalBudgetSelecteds.innerText;
-        document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
-        document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
-        document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
+        updateGrandTotal();
+        // document.getElementById('GrandTotal').textContent = TotalBudgetSelecteds.innerText;
+        // document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
+        // document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
+        // document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
     });
 
     $('#purchase-details-reset').on('click', function() {
