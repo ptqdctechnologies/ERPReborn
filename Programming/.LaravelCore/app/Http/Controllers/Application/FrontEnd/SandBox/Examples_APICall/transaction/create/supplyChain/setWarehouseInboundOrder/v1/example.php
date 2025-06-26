@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.supplyChain.setWarehouseInboundOrder.v1_throughAPIGateway                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-06-18                                                                                           |
+        | ▪ Last Update     : 2025-06-26                                                                                           |
         | ▪ Creation Date   : 2025-04-15                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -45,6 +45,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         'documentDateTimeTZ' => '2025-06-18',
                         'log_FileUpload_Pointer_RefID' => null,
                         'requesterWorkerJobsPosition_RefID' => 164000000000497,
+                        "transporter_RefID" => 164000000000559,
+                        "deliveryDateTimeTZ" => null,
+                        "deliveryFrom_RefID" => 126000000000001,
+                        "deliveryFrom_NonRefID" => 'Jl. Salemba No. 23, Jakarta Pusat',
+                        "deliveryTo_RefID" => 126000000000005,
+                        "deliveryTo_NonRefID" => 'Jl. Mawar No. 50, Surabaya',
                         'remarks' => 'Catatan Test 1',
                         "additionalData" => [
                             "itemList" => [
