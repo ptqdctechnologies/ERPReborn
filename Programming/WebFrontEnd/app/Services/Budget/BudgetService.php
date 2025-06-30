@@ -159,7 +159,7 @@ class BudgetService
         $filtered = $dataDummy->filter(function($item) use ($budgetID, $subBudgetID, $startDate, $finishDate) {
             // Filter berdasarkan budgetID dan subBudgetID
             $isBudgetIDMatch = ($item['combinedBudget_RefID'] == $budgetID);
-            $isSubBudgetIDMatch = ($item['combniedBudgetSection_RefID'] == $subBudgetID);
+            $isSubBudgetIDMatch = !$subBudgetID || ($item['combniedBudgetSection_RefID'] == $subBudgetID);
 
             // Filter berdasarkan startDate dan finishDate (opsional)
             $isStartDateMatch = !$startDate || (strtotime($item['date']) >= strtotime($startDate));

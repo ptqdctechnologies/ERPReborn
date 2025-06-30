@@ -41,6 +41,26 @@
                         </tr>
                     </table>
                 </td>
+                <!-- Sub Budget -->
+                <td style=" width: 350px;">
+                    <table>
+                        <tr>
+                            <td style="width: 90px; height: 20px;">
+                                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                                    Sub Budget
+                                </div>
+                            </td>
+                            <td style="width: 5px; font-size: 12px;">
+                                :
+                            </td>
+                            <td style="height: 20px;">
+                                <div style="line-height: 14px; font-size: 12px;">
+                                    <?= $dataReport['dataHeader']['sub_budget'] . " - " . $dataReport['dataHeader']['sub_budget_name']; ?>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
         </table>
 

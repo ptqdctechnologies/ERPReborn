@@ -369,12 +369,9 @@ class BudgetController extends Controller
     {
         try {
             $budgetID       = $request->budget_id;
-            $subBudgetID    = $request->sub_budget_id;
 
-            if (!$budgetID && !$subBudgetID) {
-                $message = 'Budget & Sub Budget Cannot Empty';
-            } else if ($budgetID && !$subBudgetID) {
-                $message = 'Sub Budget Cannot Empty';
+            if (!$budgetID) {
+                $message = 'Budget Cannot Empty';
             }
 
             if (isset($message)) {
@@ -422,7 +419,7 @@ class BudgetController extends Controller
                         return redirect()->route('Budget.ReportModifyBudgetSummary')->with('NotFound', 'Invalid Print Type');
                 }
             } else {
-                return redirect()->route('Budget.ReportModifyBudgetSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
+                return redirect()->route('Budget.ReportModifyBudgetSummary')->with('NotFound', 'Budget Cannot Empty');
             }
         } catch (\Throwable $th) {
             Log::error("Error at PrintExportReportModifyBudgetSummary: " . $th->getMessage());
