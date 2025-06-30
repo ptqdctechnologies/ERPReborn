@@ -42,13 +42,13 @@
                     </table>
                 </td>
 
-                <!-- TRANSPORTER -->
+                <!-- DATE -->
                 <td style="width: 350px;">
                     <table>
                         <tr>
                             <td style="width: 90px; height: 20px;">
                                 <div style="font-weight: bold; line-height: 14px;">
-                                    Transporter
+                                    Date
                                 </div>
                             </td>
                             <td style="width: 5px;">
@@ -56,7 +56,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['transporterCode'] . " - " . $dataReport['dataHeader']['transporterName']; ?>
+                                    <?= $dataReport['dataHeader']['date']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -85,13 +85,13 @@
                     </table>
                 </td>
 
-                <!-- DELIVERY FROM -->
+                <!-- PIC -->
                 <td style="width: 350px;">
                     <table>
                         <tr>
                             <td style="width: 90px; height: 20px;">
                                 <div style="font-weight: bold; line-height: 14px;">
-                                    Delivery From
+                                    PIC
                                 </div>
                             </td>
                             <td style="width: 5px;">
@@ -99,7 +99,7 @@
                             </td>
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['deliveryFrom']; ?>
+                                    <?= $dataReport['dataHeader']['PIC']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -122,70 +122,6 @@
                             <td style="height: 20px;">
                                 <div style="line-height: 14px;">
                                     <?= $dataReport['dataHeader']['sub_budget_code'] . " - " . $dataReport['dataHeader']['sub_budget_name']; ?>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-
-                <!-- DELIVERY TO -->
-                <td style="width: 350px;">
-                    <table>
-                        <tr>
-                            <td style="width: 90px; height: 20px;">
-                                <div style="font-weight: bold; line-height: 14px;">
-                                    Delivery To
-                                </div>
-                            </td>
-                            <td style="width: 5px;">
-                                :
-                            </td>
-                            <td style="height: 20px;">
-                                <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['deliveryTo']; ?>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <!-- DATE -->
-                <td style="width: 350px;">
-                    <table>
-                        <tr>
-                            <td style="width: 90px; height: 20px;">
-                                <div style="font-weight: bold; line-height: 14px;">
-                                    Date
-                                </div>
-                            </td>
-                            <td style="width: 5px;">
-                                :
-                            </td>
-                            <td style="height: 20px;">
-                                <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['date']; ?>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                
-                <!-- PIC -->
-                <td style="width: 350px;">
-                    <table>
-                        <tr>
-                            <td style="width: 90px; height: 20px;">
-                                <div style="font-weight: bold; line-height: 14px;">
-                                    PIC
-                                </div>
-                            </td>
-                            <td style="width: 5px;">
-                                :
-                            </td>
-                            <td style="height: 20px;">
-                                <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['PIC']; ?>
                                 </div>
                             </td>
                         </tr>

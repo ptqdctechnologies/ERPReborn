@@ -132,45 +132,21 @@ class ExportReportModifyBudgetDetail implements FromCollection, WithHeadings, Sh
                 ]);
                 $sheet->setCellValue('B6', ': ' . $dataHeader['sub_budget_code'] . " - " . $dataHeader['sub_budget_name']);
 
-                $sheet->setCellValue('A7', 'Date')->getStyle('A7')->applyFromArray([
+                $sheet->setCellValue('C4', 'Date')->getStyle('C4')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B7', ': ' . $dataHeader['date']);
+                $sheet->setCellValue('D4', ': ' . $dataHeader['date']);
 
-                $sheet->setCellValue('C4', 'Transporter')->getStyle('C4')->applyFromArray([
+                $sheet->setCellValue('C5', 'PIC')->getStyle('C5')->applyFromArray([
                     'font'  => [
                         'bold'  => true,
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('D4', ': ' . $dataHeader['transporterCode']  . " - " . $dataHeader['transporterName']);
-
-                $sheet->setCellValue('C5', 'Delivery From')->getStyle('C5')->applyFromArray([
-                    'font'  => [
-                        'bold'  => true,
-                        'color' => ['rgb' => '000000']
-                    ]
-                ]);
-                $sheet->setCellValue('D5', ': ' . $dataHeader['deliveryFrom']);
-
-                $sheet->setCellValue('C6', 'Delivery To')->getStyle('C6')->applyFromArray([
-                    'font'  => [
-                        'bold'  => true,
-                        'color' => ['rgb' => '000000']
-                    ]
-                ]);
-                $sheet->setCellValue('D6', ': ' . $dataHeader['deliveryTo']);
-
-                $sheet->setCellValue('C7', 'PIC')->getStyle('C7')->applyFromArray([
-                    'font'  => [
-                        'bold'  => true,
-                        'color' => ['rgb' => '000000']
-                    ]
-                ]);
-                $sheet->setCellValue('D7', ': ' . $dataHeader['PIC']);
+                $sheet->setCellValue('D5', ': ' . $dataHeader['PIC']);
             },
         ];
     }

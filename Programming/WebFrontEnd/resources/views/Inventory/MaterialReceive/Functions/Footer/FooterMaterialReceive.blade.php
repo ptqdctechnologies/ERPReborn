@@ -39,6 +39,8 @@
             success: function(data) {
                 $(".loadingMaterialReceiveDetail").hide();
 
+                console.log('data', data);
+
                 let tbody = $('#tableMaterialReceiveDetail tbody');
                 tbody.empty();
 
@@ -453,42 +455,12 @@
                     type: method,
                     success: function(response) {
                         HideLoading();
-
-                        console.log('response', response);
-
-                        // if (response.status == 200) {
-                        //     const swalWithBootstrapButtonsss = Swal.mixin({
-                        //         confirmButtonClass: 'btn btn-success btn-sm',
-                        //         cancelButtonClass: 'btn btn-danger btn-sm',
-                        //         buttonsStyling: true,
-                        //     });
-
-                        //     swalWithBootstrapButtonsss.fire({
-                        //         title: 'Successful !',
-                        //         type: 'success',
-                        //         html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.documentNumber + '</span>',
-                        //         showCloseButton: false,
-                        //         showCancelButton: false,
-                        //         focusConfirm: false,
-                        //         confirmButtonText: '<span style="color:black;"> OK </span>',
-                        //         confirmButtonColor: '#4B586A',
-                        //         confirmButtonColor: '#e9ecef',
-                        //         reverseButtons: true
-                        //     }).then((result) => {
-                        //         window.location.href = '/MaterialReceive?var=1';
-                        //     });
-                        // } else {
-                        //     ErrorNotif("Data Cancel Inputed");
-                        // }
                         
                         if (response.message == "WorkflowError") {
-                            HideLoading();
                             $("#submitMaterialReceive").prop("disabled", false);
 
                             CancelNotif("You don't have access", '/MaterialReceive?var=1');
                         } else if (response.message == "MoreThanOne") {
-                            HideLoading();
-
                             $('#getWorkFlow').modal('toggle');
 
                             var t = $('#tableGetWorkFlow').DataTable();
@@ -507,8 +479,6 @@
                                 documentTypeID: response.documentTypeID,
                                 storeData: response.storeData
                             };
-
-                            HideLoading();
 
                             SelectWorkFlow(formatData);
                         }

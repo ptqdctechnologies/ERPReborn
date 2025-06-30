@@ -20,7 +20,7 @@ use App\Http\Controllers\UserController;
 $varUserSession = 
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzUwOTA0MTE4fQ.NzE2Mzk2ZDQzMDQ5YThiZjU3OTdkNmZlMDFhOTk5NzAyYzhiOTFjN2VlOWQxMjM3OWMzMjAwOWM2YjY2OGY5ZQ';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzUwOTI4NzA4fQ.MDAyNTRlMWY3YmZiYmQ2NWYzOWEwYjBhNDQzMjdlNmYxZWU2ODMxMGI4M2RiYjFjMTYyM2I5MDI4NTE4MzAzMw';
 
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
@@ -423,6 +423,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('MaterialReceiveListData', 'Inventory\MaterialReceiveController@MaterialReceiveListData')->name('MaterialReceive.MaterialReceiveListData');
     Route::get('MaterialReceiveList', 'Inventory\MaterialReceiveController@MaterialReceiveList')->name('MaterialReceive.MaterialReceiveList');
     Route::post('SearchDeliveryOrder', 'Inventory\MaterialReceiveController@SearchDeliveryOrder')->name('MaterialReceive.SearchDeliveryOrder');
+    Route::post('UpdateMaterialReceive', 'Inventory\MaterialReceiveController@UpdateMaterialReceive')->name('MaterialReceive.UpdateMaterialReceive');
     Route::resource('MaterialReceive', 'Inventory\MaterialReceiveController');
 
     // MRET
