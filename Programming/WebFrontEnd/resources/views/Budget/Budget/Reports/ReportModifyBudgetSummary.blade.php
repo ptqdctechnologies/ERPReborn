@@ -40,6 +40,11 @@
                                                             <td><b>:</b></td>
                                                             <td><b><?= $dataReport['dataHeader']['budget'] . " - " . $dataReport['dataHeader']['budget_name']; ?></b></td>
                                                         </tr>
+                                                        <tr>
+                                                            <th style="padding-top: 7px;"><label>Sub Budget&nbsp;</label></th>
+                                                            <td><b>:</b></td>
+                                                            <td><b><?= $dataReport['dataHeader']['sub_budget'] . " - " . $dataReport['dataHeader']['sub_budget_name']; ?></b></td>
+                                                        </tr>
                                                     </table>
                                                 </div>
                                             </div>
@@ -47,9 +52,9 @@
                                                 <div class="form-group">
                                                     <table>
                                                         <tr>
-                                                            <th style="padding-top: 7px;"><label>Sub Budget&nbsp;</label></th>
+                                                            <th style="padding-top: 7px;"><label>Date&nbsp;</label></th>
                                                             <td><b>:</b></td>
-                                                            <td><b><?= $dataReport['dataHeader']['sub_budget'] . " - " . $dataReport['dataHeader']['sub_budget_name']; ?></b></td>
+                                                            <td><b><?= $dataReport['dataHeader']['date'] ?? '-'; ?></b></td>
                                                         </tr>
                                                     </table>
                                                 </div>

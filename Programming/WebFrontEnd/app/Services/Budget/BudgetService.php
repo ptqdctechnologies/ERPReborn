@@ -85,8 +85,9 @@ class BudgetService
         $subBudgetID    = $request->sub_budget_id;
         $subBudget      = $request->sub_budget;
         $subBudgetName  = $request->sub_budget_name;
-        $startDate      = $request->startDate;
-        $finishDate     = $request->finishDate;
+        $explodeDate    = isset($request->testing) ? explode(" - ", $request->testing) : [];
+        $startDate      = isset($explodeDate[0]) ? $explodeDate[0] : null;
+        $endDate        = isset($explodeDate[1]) ? $explodeDate[1] : null;
 
         $dataDummy = collect([
             [
@@ -156,14 +157,14 @@ class BudgetService
             ]
         ]);
 
-        $filtered = $dataDummy->filter(function($item) use ($budgetID, $subBudgetID, $startDate, $finishDate) {
+        $filtered = $dataDummy->filter(function($item) use ($budgetID, $subBudgetID, $startDate, $endDate) {
             // Filter berdasarkan budgetID dan subBudgetID
             $isBudgetIDMatch = ($item['combinedBudget_RefID'] == $budgetID);
             $isSubBudgetIDMatch = !$subBudgetID || ($item['combniedBudgetSection_RefID'] == $subBudgetID);
 
             // Filter berdasarkan startDate dan finishDate (opsional)
             $isStartDateMatch = !$startDate || (strtotime($item['date']) >= strtotime($startDate));
-            $isFinishDateMatch = !$finishDate || (strtotime($item['date']) <= strtotime($finishDate));
+            $isFinishDateMatch = !$endDate || (strtotime($item['date']) <= strtotime($endDate));
 
             return $isBudgetIDMatch && $isSubBudgetIDMatch && $isStartDateMatch && $isFinishDateMatch;
         });
@@ -177,7 +178,8 @@ class BudgetService
                 'sub_budget'        => $subBudget,
                 'sub_budget_name'   => $subBudgetName,
                 'startDate'         => $startDate,
-                'finishDate'        => $finishDate
+                'finishDate'        => $endDate,
+                'date'              => $request->testing
             ],
             'dataDetail'            => $filtered->toArray(),
             'total'                 => $filtered->sum('total'),

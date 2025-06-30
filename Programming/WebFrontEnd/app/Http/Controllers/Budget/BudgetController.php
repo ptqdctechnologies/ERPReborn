@@ -385,6 +385,8 @@ class BudgetController extends Controller
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
 
+            // dd($compact);
+
             Cache::put('dataReportModifyBudgetSummary', $compact, now()->addMinutes(3));
 
             return redirect()->route('Budget.ReportModifyBudgetSummary');

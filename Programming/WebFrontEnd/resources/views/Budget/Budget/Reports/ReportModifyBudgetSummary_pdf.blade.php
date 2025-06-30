@@ -21,7 +21,6 @@
         <!-- HEADER -->
         <table style="margin: 30px 0px 10px 1px;">
             <tr>
-                <!-- Budget -->
                 <td style=" width: 350px;">
                     <table>
                         <tr>
@@ -41,7 +40,27 @@
                         </tr>
                     </table>
                 </td>
-                <!-- Sub Budget -->
+                <td style=" width: 350px;">
+                    <table>
+                        <tr>
+                            <td style="width: 90px; height: 20px;">
+                                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
+                                    Date
+                                </div>
+                            </td>
+                            <td style="width: 5px; font-size: 12px;">
+                                :
+                            </td>
+                            <td style="height: 20px;">
+                                <div style="line-height: 14px; font-size: 12px;">
+                                    <?= $dataReport['dataHeader']['date']; ?>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
                 <td style=" width: 350px;">
                     <table>
                         <tr>
