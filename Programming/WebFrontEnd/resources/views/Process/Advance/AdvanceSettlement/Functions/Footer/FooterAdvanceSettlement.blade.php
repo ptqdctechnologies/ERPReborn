@@ -1,13 +1,13 @@
 <script>
-    var dataStore           = [];
-    var advanceID           = [];
-    var arrAdvanceNumber    = [];
-    var isValidatePass      = false;
-    var budgetCodeTrigger   = "";
-    var beneficiaryTrigger  = "";
-    var indexAdvanceDetail  = 0;
-    var totalAdvanceDetail  = 0;
-    var tableAdvanceList    = document.getElementById("tableAdvanceList");
+    let dataStore           = [];
+    let advanceID           = [];
+    let arrAdvanceNumber    = [];
+    let isValidatePass      = false;
+    let budgetCodeTrigger   = "";
+    let beneficiaryTrigger  = "";
+    let indexAdvanceDetail  = 0;
+    let totalAdvanceDetail  = 0;
+    let tableAdvanceList    = document.getElementById("tableAdvanceList");
 
     $(".loadingAdvanceSettlementTable").hide();
     $(".errorAdvanceSettlementTable").hide();
@@ -27,10 +27,26 @@
         document.getElementById('TotalAdvanceDetail').textContent = currencyTotal(total);
     }
 
+    function updateAdvanceUI(result, advanceRefID, advanceNumber) {
+        $("#advance_id").val(advanceRefID);
+        $("#advance_number").val(advanceNumber);
+        $("#var_combinedBudget_RefID").val(result[0].combinedBudget_RefID);
+        $("#beneficiary_name").val(result[0].beneficiaryBankAccountName);
+        $("#bank_name").val(result[0].beneficiaryBankName);
+        $("#bank_account").val(result[0].beneficiaryBankAccountNumber);
+        $("#budget_value").val(result[0].combinedBudgetCode + ' - ' + result[0].combinedBudgetName);
+        $("#sub_budget_value").val(result[0].combinedBudgetSectionCode + ' - ' + result[0].combinedBudgetSectionName);
+    }
+
+    function showError(message) {
+        isValidatePass = true;
+        Swal.fire("Error", message, "error");
+    }
+
     function getAdvanceDetail(advanceRefID, advanceNumber) {
         $("#tableAdvanceDetail tbody").hide();
         $(".loadingAdvanceSettlementTable").show();
-        
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -46,45 +62,30 @@
                 if (response.metadata.HTTPStatusCode === 200) {
                     $("#tableAdvanceDetail tbody").show();
 
-                    var result = response.data.data;
-                    var checkDoubleTrano = arrAdvanceNumber.includes(result[0].businessDocumentNumber);
+                    const result            = response.data.data;
+                    const isDuplicate       = arrAdvanceNumber.includes(result[0].businessDocumentNumber);
+                    const sameBeneficiary   = beneficiaryTrigger === result[0].beneficiaryBankAccountName;
+                    const sameBudget        = budgetCodeTrigger === result[0].combinedBudget_RefID;
 
-                    if (beneficiaryTrigger && beneficiaryTrigger == result[0].beneficiaryBankAccountName && budgetCodeTrigger && budgetCodeTrigger == result[0].combinedBudget_RefID && checkDoubleTrano == false) {
-                        isValidatePass = false;
-                        advanceID.push(result[0].advance_RefID);
-                        arrAdvanceNumber.push(result[0].businessDocumentNumber);
-
-                        $("#advance_id").val(advanceRefID);
-                        $("#advance_number").val(advanceNumber);
-                        $("#beneficiary_name").val(result[0].beneficiaryBankAccountName);
-                        $("#bank_name").val(result[0].beneficiaryBankName);
-                        $("#bank_account").val(result[0].beneficiaryBankAccountNumber);
-                        $("#budget_value").val(result[0].combinedBudgetCode + ' - ' + result[0].combinedBudgetName);
-                        $("#sub_budget_value").val(result[0].combinedBudgetSectionCode + ' - ' + result[0].combinedBudgetSectionName);
-                    } else if (beneficiaryTrigger && beneficiaryTrigger != result[0].beneficiaryBankAccountName && budgetCodeTrigger && budgetCodeTrigger == result[0].combinedBudget_RefID && checkDoubleTrano == false) {
-                        isValidatePass = true;
-                        Swal.fire("Error", "Beneficiary cannot be different !", "error");
-                    } else if (beneficiaryTrigger && beneficiaryTrigger == result[0].beneficiaryBankAccountName && budgetCodeTrigger && budgetCodeTrigger != result[0].combinedBudget_RefID && checkDoubleTrano == false) {
-                        isValidatePass = true;
-                        Swal.fire("Error", "Budget cannot be different !", "error");
-                    } else if (beneficiaryTrigger && beneficiaryTrigger == result[0].beneficiaryBankAccountName && budgetCodeTrigger && budgetCodeTrigger == result[0].combinedBudget_RefID && checkDoubleTrano == true) {
-                        isValidatePass = true;
-                        Swal.fire("Error", "Advance number has been selected !", "error");
-                    }
-
-                    if (arrAdvanceNumber && arrAdvanceNumber.length == 0) {
+                    if (arrAdvanceNumber.length === 0) {
                         advanceID.push(result[0].advance_RefID);
                         arrAdvanceNumber.push(result[0].businessDocumentNumber);
                         beneficiaryTrigger = result[0].beneficiaryBankAccountName;
                         budgetCodeTrigger = result[0].combinedBudget_RefID;
+                        updateAdvanceUI(result, advanceRefID, advanceNumber);
+                    }
 
-                        $("#advance_id").val(advanceRefID);
-                        $("#advance_number").val(advanceNumber);
-                        $("#beneficiary_name").val(result[0].beneficiaryBankAccountName);
-                        $("#bank_name").val(result[0].beneficiaryBankName);
-                        $("#bank_account").val(result[0].beneficiaryBankAccountNumber);
-                        $("#budget_value").val(result[0].combinedBudgetCode + ' - ' + result[0].combinedBudgetName);
-                        $("#sub_budget_value").val(result[0].combinedBudgetSectionCode + ' - ' + result[0].combinedBudgetSectionName);
+                    if (!isDuplicate && sameBeneficiary && sameBudget) {
+                        isValidatePass = false;
+                        advanceID.push(result[0].advance_RefID);
+                        arrAdvanceNumber.push(result[0].businessDocumentNumber);
+                        updateAdvanceUI(result, advanceRefID, advanceNumber);
+                    } else if (!isDuplicate && !sameBeneficiary && sameBudget) {
+                        showError("Beneficiary cannot be different !");
+                    } else if (!isDuplicate && sameBeneficiary && !sameBudget) {
+                        showError("Budget cannot be different !");
+                    } else if (isDuplicate && sameBeneficiary && sameBudget) {
+                        showError("Advance number has been selected !");
                     }
 
                     if (!isValidatePass) {
