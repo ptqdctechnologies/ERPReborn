@@ -9,9 +9,17 @@ use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Services\DocumentTypeMapper;
+use App\Services\Document\CheckDocumentService;
 
 class CheckDocumentController extends Controller
 {
+    protected $checkDocumentService;
+
+    public function __construct(CheckDocumentService $checkDocumentService)
+    {
+        $this->checkDocumentService = $checkDocumentService;
+    }
+
     public function index()
     {
         $compact = [
@@ -426,66 +434,42 @@ class CheckDocumentController extends Controller
 
     public function LogTransaction(Request $request)
     {
-        $id         = $request->input('id');
-        $docNum     = $request->input('docNum');
-        $docName    = $request->input('docName');
+        try {
+            $id         = $request->input('id');
+            $docNum     = $request->input('docNum');
+            $docName    = $request->input('docName');
 
-        $varAPIWebToken = Session::get('SessionLogin');
+            $response   = $this->checkDocumentService->getTransactionHistory($id);
 
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataWarehouse.read.dataList.log.getTransactionHistory',
-            'latest',
-            [
-                'parameter' => [
-                    'source_RefID' => (int) $id
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
 
-        dd($varData);
+            $collection = collect($response['data']['data'])->sort();
 
-        $collection = collect($varData['data']);
-        $collection = $collection->sort();
+            $dataHeader = $collection->where('type', 'Header')->values()->all();
 
-        // HEADER
-        $header = $collection->where('type', 'Header');
+            $dataDetail = $collection->where('type', 'Detail')
+                ->groupBy(fn ($item) => $item['content']['sys_PID'])
+                ->values()
+                ->all();
 
-        $dataHeader = [];
-        foreach ($header as $headers) {
-            $dataHeader[] = $headers;
-        }
+            $compact = [
+                'data'              => $response['data'],
+                'documentNumber'    => $docNum,
+                'documentName'      => $docName,
+                'dataHeader'        => $dataHeader,
+                'dataDetail'        => $dataDetail
+            ];
 
-        //DETAIL
-        $detail = $collection->where('type', 'Detail');
-        $groupedByDetail = $detail->groupBy('source_RefPID');
-
-        $dataDetail = [];
-        foreach ($groupedByDetail as $groupedByDetails) {
-            $dataDetail[] = $groupedByDetails;
-        }
-
-        // dd($dataDetail);
-
-        $compact = [
-            'data'              => $varData['data'],
-            'documentNumber'    => $docNum,
-            'documentName'      => $docName,
-            'dataHeader'        => $dataHeader,
-            'dataDetail'        => $dataDetail
-        ];
-
-        if ($docName == "Advance Form") {
-            return view('Documents.Transactions.LogTransaction.LogTransactionAdvance', $compact);
-        } else if ($docName == "Purchase Order Form") {
-            return view('Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder', $compact);
+            if ($docName == "Advance Form") {
+                return view('Documents.Transactions.LogTransaction.LogTransactionAdvance', $compact);
+            } else if ($docName == "Purchase Order Form") {
+                return view('Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder', $compact);
+            }
+        } catch (\Throwable $th) {
+            Log::error("LogTransaction Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
 }
