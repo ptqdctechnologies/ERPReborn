@@ -229,6 +229,7 @@ class CheckDocumentController extends Controller
                 'dataWorkFlows'             => $workflowHistory,
                 'statusDocument'            => $documentStatus,
                 'approverStatus'            => $approverStatus,
+                'page'                      => 'Document Tracking',
                 'dataDetails'               => $collection['dataDetail']
             ] + $formatData;
 
@@ -289,7 +290,8 @@ class CheckDocumentController extends Controller
                 'dataWorkFlows'     => $workflowHistory,
                 'statusApprover'    => $approverStatus,
                 'documentStatus'    => $documentStatus,
-                'transactionForm'           => $businessDocumentTypeName,
+                'transactionForm'   => $businessDocumentTypeName,
+                'page'              => 'My Document'
             ] + $formatData;
 
             // dump($compact);
@@ -438,6 +440,7 @@ class CheckDocumentController extends Controller
             $id         = $request->input('id');
             $docNum     = $request->input('docNum');
             $docName    = $request->input('docName');
+            $page       = $request->input('page');
 
             $response   = $this->checkDocumentService->getTransactionHistory($id);
 
@@ -454,13 +457,18 @@ class CheckDocumentController extends Controller
                 ->values()
                 ->all();
 
+            $urlPage = $page == "Document Tracking" ? "CheckDocument.ShowDocument" : "CheckDocument.ShowDocumentByID";
+
             $compact = [
                 'data'              => $response['data'],
                 'documentNumber'    => $docNum,
                 'documentName'      => $docName,
                 'dataHeader'        => $dataHeader,
-                'dataDetail'        => $dataDetail
+                'dataDetail'        => $dataDetail,
+                'urlPage'           => $urlPage
             ];
+
+            // dd($compact);
 
             if ($docName == "Advance Form") {
                 return view('Documents.Transactions.LogTransaction.LogTransactionAdvance', $compact);

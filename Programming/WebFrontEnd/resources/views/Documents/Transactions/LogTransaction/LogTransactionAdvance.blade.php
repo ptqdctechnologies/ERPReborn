@@ -18,11 +18,13 @@
                                     </h3>
                                 </div>
                                 <div class="d-flex" style="flex-direction: column; justify-content: center;">
-                                    <form id="showDocumentForm" method="POST" action="{{ route('CheckDocument.ShowDocument') }}" style="display: inline;">
+                                    <form id="showDocumentForm" method="POST" action="{{ route($urlPage) }}" style="display: inline;">
                                     @csrf
-                                        <input type="hidden" name="businessDocument_RefID" value="<?= $dataHeader[0]['content']['sys_PID']; ?>" />
                                         <input type="hidden" name="businessDocumentType_Name" value="<?= $documentName; ?>" />
+                                        <input type="hidden" name="businessDocument_RefID" value="<?= $dataHeader[0]['content']['sys_PID']; ?>" />
                                         <input type="hidden" name="businessDocumentNumber" value="<?= $documentNumber; ?>" />
+                                        <input type="hidden" name="businessDocumentTypeName" value="<?= $documentName; ?>" />
+                                        <input type="hidden" name="formDocumentNumber_RefID" value="<?= $dataHeader[0]['content']['sys_PID']; ?>" />
                                         <button type="submit" class="btn btn-default btn-sm" style="border:1px solid #ced4da;">
                                             <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="">
                                         </button>
