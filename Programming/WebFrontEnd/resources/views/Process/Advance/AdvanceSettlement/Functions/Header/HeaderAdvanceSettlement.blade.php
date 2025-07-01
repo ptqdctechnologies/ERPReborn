@@ -1,5 +1,5 @@
 <div class="card-body">
-  <div class="row pt-3" style="row-gap: 1rem; margin-bottom: 1rem;">
+  <div class="row pt-3" style="row-gap: 1rem;">
     <!-- ADVANCE NUMBER -->
     <div class="col-md-12 col-lg-5">
       <div class="row">
@@ -34,7 +34,19 @@
     </div>
   </div>
 
-  <div class="row pb-3" style="row-gap: 1rem;">
+  <div class="row pt-3" style="row-gap: 1rem; margin-bottom: 1rem;">
+    <!-- BUDGET -->
+    <div class="col-md-12 col-lg-5">
+      <div class="row">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Budget</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div>
+            <input id="budget_value" style="border-radius:0;" size="24" class="form-control" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- BANK NAME -->
     <div class="col-md-12 col-lg-5">
       <div class="row">
@@ -42,6 +54,21 @@
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
             <input id="bank_name" style="border-radius:0;" size="24" class="form-control" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="row pb-3" style="row-gap: 1rem;">
+    <!-- SUB BUDGET -->
+    <div class="col-md-12 col-lg-5">
+      <div class="row">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Sub Budget</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div>
+            <input id="sub_budget_value" style="border-radius:0;" size="24" class="form-control" readonly>
           </div>
         </div>
       </div>
