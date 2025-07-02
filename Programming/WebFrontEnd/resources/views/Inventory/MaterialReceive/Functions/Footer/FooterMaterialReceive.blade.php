@@ -1,5 +1,5 @@
 <script>
-    var dataStore                           = [];
+    let dataStore                           = [];
     const deliveryOrderCode                 = document.getElementById("delivery_order_code");
     const tableMaterialReceiveLists         = document.querySelector("#tableMaterialReceiveList tbody");
 
@@ -61,12 +61,6 @@
                     $("#id_delivery_order_to").val(data[0].deliveryTo_RefID);
                     $("#id_delivery_order_to_duplicate").val(data[0].deliveryTo_RefID);
 
-                    let modifyColumn = `
-                        <td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">
-                            ${delivery_order_number}
-                        </td>
-                    `;
-
                     $.each(data, function(key, val2) {
                         let row = `
                             <tr>
@@ -78,7 +72,6 @@
                                 <input id="qty_available${key}" value="${val2.qtyReq}" type="hidden" />
                                 <input id="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
 
-                                ${key === 0 ? modifyColumn : `<td style="text-align: center; display: none;">${delivery_order_number}</td>`}
                                 <td style="text-align: center;">${val2.productCode}</td>
                                 <td style="text-align: center;text-wrap: auto;">${val2.productName}</td>
                                 <td style="text-align: center;">${val2.qtyReq}</td>
@@ -263,22 +256,20 @@
                 const existingRows  = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetTransNumber = targetRow.children[1].innerText.trim();
-                    const targetProductCode = targetRow.children[2].innerText.trim();
+                    const targetProductCode = targetRow.children[1].innerText.trim();
 
-                    if (targetTransNumber === transNumber && targetProductCode === productCode) {
-                        targetRow.children[5].innerText = qty;
-                        targetRow.children[6].innerText = note;
+                    if (targetProductCode == productCode) {
+                        targetRow.children[4].innerText = qty;
+                        targetRow.children[5].innerText = note;
                         found = true;
 
-                        const indexToUpdate = dataStore.findIndex(item => item.entities.transNumber === transNumber && item.entities.productCode === productCode);
+                        const indexToUpdate = dataStore.findIndex(item => item.entities.productCode == productCode);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 entities: {
-                                    deliveryOrderDetail_RefID: deliveryOrderDetail_RefID.value,
+                                    deliveryOrderDetail_RefID: parseInt(deliveryOrderDetail_RefID.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
                                     remarks: note,
-                                    transNumber: transNumber,
                                     productCode: productCode
                                 }
                             };
@@ -290,7 +281,6 @@
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                        <td style="text-align: center;padding: 0.8rem;">${transNumber}</td>
                         <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
                         <td style="text-align: center;padding: 0.8rem;text-wrap: auto;">${productName}</td>
                         <td style="text-align: center;padding: 0.8rem;">${uom}</td>
@@ -301,10 +291,9 @@
 
                     dataStore.push({
                         entities: {
-                            deliveryOrderDetail_RefID: deliveryOrderDetail_RefID.value,
+                            deliveryOrderDetail_RefID: parseInt(deliveryOrderDetail_RefID.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
                             remarks: note,
-                            transNumber: transNumber,
                             productCode: productCode
                         }
                     });
@@ -344,8 +333,8 @@
         if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
 
         const qtyAvail = row.children[0];
-        const qtyCell = row.children[5];
-        const noteCell = row.children[6];
+        const qtyCell = row.children[4];
+        const noteCell = row.children[5];
 
         if (row.classList.contains('editing-row')) {
             const newQty = qtyCell.querySelector('input')?.value || '';
@@ -360,9 +349,8 @@
 
             row.classList.remove('editing-row');
 
-            const transNumber = row.children[1].innerText.trim();
-            const productCode = row.children[2].innerText.trim();
-            const storeItem   = dataStore.find(item => item.entities.transNumber === transNumber && item.entities.productCode === productCode);
+            const productCode = row.children[1].innerText.trim();
+            const storeItem   = dataStore.find(item => item.entities.productCode == productCode);
 
             if (storeItem) {
                 storeItem.entities.quantity = parseFloat(newQty.replace(/,/g, ''));
