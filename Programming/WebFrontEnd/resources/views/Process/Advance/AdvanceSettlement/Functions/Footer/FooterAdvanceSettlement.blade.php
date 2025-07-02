@@ -39,7 +39,6 @@
     }
 
     function showError(message) {
-        isValidatePass = true;
         Swal.fire("Error", message, "error");
     }
 
@@ -76,160 +75,160 @@
                     }
 
                     if (!isDuplicate && sameBeneficiary && sameBudget) {
-                        isValidatePass = false;
                         advanceID.push(result[0].advance_RefID);
                         arrAdvanceNumber.push(result[0].businessDocumentNumber);
                         updateAdvanceUI(result, advanceRefID, advanceNumber);
                     } else if (!isDuplicate && !sameBeneficiary && sameBudget) {
                         showError("Beneficiary cannot be different !");
+                        return;
                     } else if (!isDuplicate && sameBeneficiary && !sameBudget) {
                         showError("Budget cannot be different !");
+                        return;
                     } else if (isDuplicate && sameBeneficiary && sameBudget) {
                         showError("Advance number has been selected !");
+                        return;
                     }
 
-                    if (!isValidatePass) {
-                        let tbody = $('#tableAdvanceDetail tbody');
+                    let tbody = $('#tableAdvanceDetail tbody');
 
-                        let modifyColumn = `<td rowspan="${result.length}" style="text-align: center; padding: 10px !important;">${advanceNumber}</td>`;
+                    let modifyColumn = `<td rowspan="${result.length}" style="text-align: center; padding: 10px !important;">${advanceNumber}</td>`;
 
-                        $.each(result, function(key, val2) {
-                            let row = `
-                                <tr>
-                                    <input id="advanceDetail_RefID${indexAdvanceDetail}" value="${val2.sys_ID}" type="hidden" />
-                                    <input id="productUnitPriceCurrency_RefID${indexAdvanceDetail}" value="${val2.productUnitPriceCurrency_RefID}" type="hidden" />
-                                    <input id="transNumber${indexAdvanceDetail}" value="${advanceNumber}" type="hidden" />
+                    $.each(result, function(key, val2) {
+                        let row = `
+                            <tr>
+                                <input id="advanceDetail_RefID${indexAdvanceDetail}" value="${val2.sys_ID}" type="hidden" />
+                                <input id="productUnitPriceCurrency_RefID${indexAdvanceDetail}" value="${val2.productUnitPriceCurrency_RefID}" type="hidden" />
+                                <input id="transNumber${indexAdvanceDetail}" value="${advanceNumber}" type="hidden" />
 
-                                    ${key === 0 ? modifyColumn : `<td style="text-align: center; padding: 10px !important; display: none;">${advanceNumber}</td>`}
-                                    <td style="text-align: center; padding: 10px !important;">${val2.productCode}</td>
-                                    <td style="text-align: center; padding: 10px !important;">${val2.productName}</td>
-                                    <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName}</td>
-                                    <td style="text-align: center; padding: 10px !important;">${val2.productUnitPriceCurrencyISOCode}</td>
-                                    <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity)}</td>
-                                    <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.productUnitPriceCurrencyValue)}</td>
-                                    <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
-                                    <td style="text-align: center; padding: 10px !important;">-</td>
-                                    <td style="text-align: center; padding: 10px !important; width: 120px;">
-                                        <input class="form-control number-without-negative" id="qty_settlement${indexAdvanceDetail}" data-index=${indexAdvanceDetail} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px; width: 75px;" />
-                                    </td>
-                                    <td style="text-align: center; padding: 10px !important; width: 120px;">
-                                        <input class="form-control number-without-negative" id="price_settlement${indexAdvanceDetail}" data-index=${indexAdvanceDetail} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px; width: 75px;" />
-                                    </td>
-                                    <td style="text-align: center; padding: 10px !important; width: 120px;">
-                                        <input class="form-control number-without-negative" id="total_settlement${indexAdvanceDetail}" autocomplete="off" style="border-radius:0px; width: 75px;" data-default="" readonly />
-                                    </td>
-                                    <td style="text-align: center; padding: 10px !important; width: 120px;">
-                                        <input class="form-control number-without-negative" id="qty_settlement_company${indexAdvanceDetail}" data-index=${indexAdvanceDetail} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px; width: 75px;" />
-                                    </td>
-                                    <td style="text-align: center; padding: 10px !important; width: 120px;">
-                                        <input class="form-control number-without-negative" id="price_settlement_company${indexAdvanceDetail}" data-index=${indexAdvanceDetail} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px; width: 75px;" />
-                                    </td>
-                                    <td style="text-align: center; padding: 10px !important; width: 120px;">
-                                        <input class="form-control number-without-negative" id="total_settlement_company${indexAdvanceDetail}" autocomplete="off" style="border-radius:0px; width: 75px;" data-default="" readonly />
-                                    </td>
-                                    <td style="text-align: center; padding: 10px !important; width: 120px;">
-                                        <input class="form-control number-without-negative" id="balance${indexAdvanceDetail}" autocomplete="off" style="border-radius:0px; width: 75px;" data-default="" readonly />
-                                    </td>
-                                </tr>
-                            `;
+                                ${key === 0 ? modifyColumn : `<td style="text-align: center; padding: 10px !important; display: none;">${advanceNumber}</td>`}
+                                <td style="text-align: center; padding: 10px !important;">${val2.productCode}</td>
+                                <td style="text-align: center; padding: 10px !important;">${val2.productName}</td>
+                                <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName}</td>
+                                <td style="text-align: center; padding: 10px !important;">${val2.productUnitPriceCurrencyISOCode}</td>
+                                <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity)}</td>
+                                <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.productUnitPriceCurrencyValue)}</td>
+                                <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
+                                <td style="text-align: center; padding: 10px !important;">-</td>
+                                <td style="text-align: center; padding: 10px !important; width: 120px;">
+                                    <input class="form-control number-without-negative" id="qty_settlement${indexAdvanceDetail}" data-index=${indexAdvanceDetail} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px; width: 75px;" />
+                                </td>
+                                <td style="text-align: center; padding: 10px !important; width: 120px;">
+                                    <input class="form-control number-without-negative" id="price_settlement${indexAdvanceDetail}" data-index=${indexAdvanceDetail} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px; width: 75px;" />
+                                </td>
+                                <td style="text-align: center; padding: 10px !important; width: 120px;">
+                                    <input class="form-control number-without-negative" id="total_settlement${indexAdvanceDetail}" autocomplete="off" style="border-radius:0px; width: 75px;" data-default="" readonly />
+                                </td>
+                                <td style="text-align: center; padding: 10px !important; width: 120px;">
+                                    <input class="form-control number-without-negative" id="qty_settlement_company${indexAdvanceDetail}" data-index=${indexAdvanceDetail} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px; width: 75px;" />
+                                </td>
+                                <td style="text-align: center; padding: 10px !important; width: 120px;">
+                                    <input class="form-control number-without-negative" id="price_settlement_company${indexAdvanceDetail}" data-index=${indexAdvanceDetail} data-total-request=${val2.priceBaseCurrencyValue} data-default="" autocomplete="off" style="border-radius:0px; width: 75px;" />
+                                </td>
+                                <td style="text-align: center; padding: 10px !important; width: 120px;">
+                                    <input class="form-control number-without-negative" id="total_settlement_company${indexAdvanceDetail}" autocomplete="off" style="border-radius:0px; width: 75px;" data-default="" readonly />
+                                </td>
+                                <td style="text-align: center; padding: 10px !important; width: 120px;">
+                                    <input class="form-control number-without-negative" id="balance${indexAdvanceDetail}" autocomplete="off" style="border-radius:0px; width: 75px;" data-default="" readonly />
+                                </td>
+                            </tr>
+                        `;
 
-                            tbody.append(row);
+                        tbody.append(row);
 
-                            $(`#qty_settlement${indexAdvanceDetail}`).on('keyup', function() {
-                                var qty_settlement = $(this).val().replace(/,/g, '');
-                                var data_index = $(this).data('index');
-                                var data_total_request = $(this).data('total-request');
-                                var price_settlement = $(`#price_settlement${data_index}`).val();
-                                var total_settlements = parseFloat(qty_settlement || 0) * parseFloat(price_settlement.replace(/,/g, '') || 0);
-                                var countBalance = data_total_request - total_settlements;
+                        $(`#qty_settlement${indexAdvanceDetail}`).on('keyup', function() {
+                            var qty_settlement = $(this).val().replace(/,/g, '');
+                            var data_index = $(this).data('index');
+                            var data_total_request = $(this).data('total-request');
+                            var price_settlement = $(`#price_settlement${data_index}`).val();
+                            var total_settlements = parseFloat(qty_settlement || 0) * parseFloat(price_settlement.replace(/,/g, '') || 0);
+                            var countBalance = data_total_request - total_settlements;
 
-                                countBalance = countBalance < 0.00 ? 0.00 : countBalance;
+                            countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                                if (qty_settlement > val2.quantity) {
-                                    $(this).val(0);
-                                    $(`#total_settlement${data_index}`).val(0);
-                                    $(`#balance${data_index}`).val(0);
-                                    ErrorNotif("Qty Settlement is over Qty Request !");
-                                } else {
-                                    $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
-                                    $(`#balance${data_index}`).val(currencyTotal(countBalance));
-                                    $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
-                                    calculateTotal();
-                                }
-                            });
-
-                            $(`#price_settlement${indexAdvanceDetail}`).on('keyup', function() {
-                                var price_settlement = $(this).val().replace(/,/g, '');
-                                var data_index = $(this).data('index');
-                                var data_total_request = $(this).data('total-request');
-                                var qty_settlement = $(`#qty_settlement${data_index}`).val();
-                                var total_settlements = parseFloat(qty_settlement.replace(/,/g, '') || 0) * parseFloat(price_settlement || 0);
-                                var countBalance = data_total_request - total_settlements;
-
-                                countBalance = countBalance < 0.00 ? 0.00 : countBalance;
-
-                                if (price_settlement > val2.productUnitPriceCurrencyValue) {
-                                    $(this).val(0);
-                                    $(`#total_settlement${data_index}`).val(0);
-                                    $(`#balance${data_index}`).val(0);
-                                    ErrorNotif("Price Settlement is over Price Request !");
-                                } else {
-                                    $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
-                                    $(`#balance${data_index}`).val(currencyTotal(countBalance));
-                                    $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
-                                    calculateTotal();
-                                }
-                            });
-
-                            $(`#qty_settlement_company${indexAdvanceDetail}`).on('keyup', function() {
-                                var qty_settlement_company = $(this).val().replace(/,/g, '');
-                                var data_index = $(this).data('index');
-                                var data_total_request = $(this).data('total-request');
-                                var price_settlement_company = $(`#price_settlement_company${data_index}`).val();
-                                var total_settlement_company = parseFloat(qty_settlement_company || 0) * parseFloat(price_settlement_company.replace(/,/g, '') || 0);
-                                var countBalance = data_total_request - total_settlement_company;
-
-                                countBalance = countBalance < 0.00 ? 0.00 : countBalance;
-
-                                if (qty_settlement_company > val2.quantity) {
-                                    $(this).val(0);
-                                    $(`#total_settlement_company${data_index}`).val(0);
-                                    $(`#balance${data_index}`).val(0);
-                                    ErrorNotif("Qty Settlement is over Qty Request !");
-                                } else {
-                                    $(`#total_settlement_company${data_index}`).val(currencyTotal(total_settlement_company));
-                                    $(`#balance${data_index}`).val(currencyTotal(countBalance));
-                                    $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
-                                    calculateTotal();
-                                }
-                            });
-
-                            $(`#price_settlement_company${indexAdvanceDetail}`).on('keyup', function() {
-                                var price_settlement_company = $(this).val().replace(/,/g, '');
-                                var data_index = $(this).data('index');
-                                var data_total_request = $(this).data('total-request');
-                                var qty_settlement_company = $(`#qty_settlement_company${data_index}`).val();
-                                var total_settlement_company = parseFloat(qty_settlement_company.replace(/,/g, '') || 0) * parseFloat(price_settlement_company || 0);
-                                var countBalance = data_total_request - total_settlement_company;
-
-                                countBalance = countBalance < 0.00 ? 0.00 : countBalance;
-
-                                if (price_settlement_company > val2.productUnitPriceCurrencyValue) {
-                                    $(this).val(0);
-                                    $(`#total_settlement_company${data_index}`).val(0);
-                                    $(`#balance${data_index}`).val(0);
-                                    ErrorNotif("Price Settlement is over Price Request !");
-                                } else {
-                                    $(`#total_settlement_company${data_index}`).val(currencyTotal(total_settlement_company));
-                                    $(`#balance${data_index}`).val(currencyTotal(countBalance));
-                                    $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
-                                    calculateTotal();
-                                }
-                            });
-
-                            indexAdvanceDetail += 1;
+                            if (qty_settlement > val2.quantity) {
+                                $(this).val(0);
+                                $(`#total_settlement${data_index}`).val(0);
+                                $(`#balance${data_index}`).val(0);
+                                ErrorNotif("Qty Settlement is over Qty Request !");
+                            } else {
+                                $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
+                                $(`#balance${data_index}`).val(currencyTotal(countBalance));
+                                $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
+                                calculateTotal();
+                            }
                         });
-                    }
+
+                        $(`#price_settlement${indexAdvanceDetail}`).on('keyup', function() {
+                            var price_settlement = $(this).val().replace(/,/g, '');
+                            var data_index = $(this).data('index');
+                            var data_total_request = $(this).data('total-request');
+                            var qty_settlement = $(`#qty_settlement${data_index}`).val();
+                            var total_settlements = parseFloat(qty_settlement.replace(/,/g, '') || 0) * parseFloat(price_settlement || 0);
+                            var countBalance = data_total_request - total_settlements;
+
+                            countBalance = countBalance < 0.00 ? 0.00 : countBalance;
+
+                            if (price_settlement > val2.productUnitPriceCurrencyValue) {
+                                $(this).val(0);
+                                $(`#total_settlement${data_index}`).val(0);
+                                $(`#balance${data_index}`).val(0);
+                                ErrorNotif("Price Settlement is over Price Request !");
+                            } else {
+                                $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
+                                $(`#balance${data_index}`).val(currencyTotal(countBalance));
+                                $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
+                                calculateTotal();
+                            }
+                        });
+
+                        $(`#qty_settlement_company${indexAdvanceDetail}`).on('keyup', function() {
+                            var qty_settlement_company = $(this).val().replace(/,/g, '');
+                            var data_index = $(this).data('index');
+                            var data_total_request = $(this).data('total-request');
+                            var price_settlement_company = $(`#price_settlement_company${data_index}`).val();
+                            var total_settlement_company = parseFloat(qty_settlement_company || 0) * parseFloat(price_settlement_company.replace(/,/g, '') || 0);
+                            var countBalance = data_total_request - total_settlement_company;
+
+                            countBalance = countBalance < 0.00 ? 0.00 : countBalance;
+
+                            if (qty_settlement_company > val2.quantity) {
+                                $(this).val(0);
+                                $(`#total_settlement_company${data_index}`).val(0);
+                                $(`#balance${data_index}`).val(0);
+                                ErrorNotif("Qty Settlement is over Qty Request !");
+                            } else {
+                                $(`#total_settlement_company${data_index}`).val(currencyTotal(total_settlement_company));
+                                $(`#balance${data_index}`).val(currencyTotal(countBalance));
+                                $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
+                                calculateTotal();
+                            }
+                        });
+
+                        $(`#price_settlement_company${indexAdvanceDetail}`).on('keyup', function() {
+                            var price_settlement_company = $(this).val().replace(/,/g, '');
+                            var data_index = $(this).data('index');
+                            var data_total_request = $(this).data('total-request');
+                            var qty_settlement_company = $(`#qty_settlement_company${data_index}`).val();
+                            var total_settlement_company = parseFloat(qty_settlement_company.replace(/,/g, '') || 0) * parseFloat(price_settlement_company || 0);
+                            var countBalance = data_total_request - total_settlement_company;
+
+                            countBalance = countBalance < 0.00 ? 0.00 : countBalance;
+
+                            if (price_settlement_company > val2.productUnitPriceCurrencyValue) {
+                                $(this).val(0);
+                                $(`#total_settlement_company${data_index}`).val(0);
+                                $(`#balance${data_index}`).val(0);
+                                ErrorNotif("Price Settlement is over Price Request !");
+                            } else {
+                                $(`#total_settlement_company${data_index}`).val(currencyTotal(total_settlement_company));
+                                $(`#balance${data_index}`).val(currencyTotal(countBalance));
+                                $(`#TotalAdvanceDetail`).text(currencyTotal(totalAdvanceDetail));
+                                calculateTotal();
+                            }
+                        });
+
+                        indexAdvanceDetail += 1;
+                    });
                 } else {
                     console.log('error');
                     $(".errorAdvanceSettlementTable").show();
