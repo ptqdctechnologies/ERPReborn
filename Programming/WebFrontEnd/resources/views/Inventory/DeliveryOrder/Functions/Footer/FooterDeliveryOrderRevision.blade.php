@@ -2,6 +2,11 @@
     let dataStore = [];
     const dataTable = document.getElementById('data_table');
 
+    function CancelDeliveryOrder() {
+        ShowLoading();
+        window.location.href = '/DeliveryOrder?var=1';
+    }
+
     function calculateTotal() {
         let total = 0;
         
