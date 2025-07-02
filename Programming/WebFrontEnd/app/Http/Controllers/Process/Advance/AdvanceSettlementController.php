@@ -251,6 +251,8 @@ class AdvanceSettlementController extends Controller
 
             $compact = [
                 'advanceNumber'     => $data[0]['documentNumber'] ?? '-',
+                'budget'            => $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'],
+                'subBudget'         => $data[0]['combinedBudgetSectionCode'] . ' - ' . $data[0]['combinedBudgetSectionName'],
                 'beneficiaryName'   => $data[0]['beneficiaryName'] ?? '-',
                 'bankName'          => $data[0]['bankName'] ?? '-',
                 'bankAccount'       => $data[0]['bankAccount'] ?? '-',

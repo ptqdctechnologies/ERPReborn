@@ -44,30 +44,17 @@
         </div>
 </div>
 <div class="col-sm-12 col-md-12 col-lg-4">
-        <!-- START DATE -->
-        <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
-            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Start Date</label>
-            <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
-                <div>
-                    <div class="input-group date" id="startDate" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" name="startDate" id="startDate" data-target="#startDate" style="height: auto;" value="<?= $dataReport['dataHeader']['startDate'] ?? ''; ?>" />
-                        <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- END DATE -->
+        <!-- TESTING -->
         <div class="row p-0 align-items-center">
-            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">End Date</label>
+            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date</label>
             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
                 <div>
-                    <div class="input-group date" id="finishDate" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" name="finishDate" id="finishDate" data-target="#finishDate" style="height: auto;" value="<?= $dataReport['dataHeader']['finishDate'] ?? ''; ?>" />
-                        <div class="input-group-append" data-target="#finishDate" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" style="height: 21.8px;border-radius:0;" id="reservation" name="testing" value="<?= $dataReport['dataHeader']['date'] ?? ''; ?>">
+                        <div class="input-group-prepend" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
+                            <span class="input-group-text" id="reservation-icon">
+                                <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
+                            </span>
                         </div>
                     </div>
                 </div>

@@ -704,7 +704,7 @@ class PurchaseRequisitionController extends Controller
 
         $data = $varData['data']['data'];
 
-        // dump($data);
+        dump($data);
 
         $convertDate = new DateTime($data[0]['deliveryDateTimeTZ']);
 

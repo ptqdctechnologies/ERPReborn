@@ -3,7 +3,7 @@
 
 <!-- Log Transaction css -->
 <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/log-transaction.min.css') }}">
-  
+
 <section class="content">
     <div class="container-fluid">
         <div class="card">
@@ -18,23 +18,27 @@
                                     </h3>
                                 </div>
                                 <div class="d-flex" style="flex-direction: column; justify-content: center;">
-                                <button class="btn btn-default btn-sm" style="border:1px solid #ced4da;" onclick="window.location.href='{{ route('CheckDocument.ShowDocumentByID', [
-                                    'businessDocument_RefID' => $dataHeader[0]['source_RefPID'],
-                                    'businessDocumentTypeName' => $documentName,
-                                    ]) }}'">
-                                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="">
-                                </button>
+                                    <form id="showDocumentForm" method="POST" action="{{ route($urlPage) }}" style="display: inline;">
+                                    @csrf
+                                        <input type="hidden" name="businessDocumentType_Name" value="<?= $documentName; ?>" />
+                                        <input type="hidden" name="businessDocument_RefID" value="<?= $dataHeader[0]['content']['sys_PID']; ?>" />
+                                        <input type="hidden" name="businessDocumentNumber" value="<?= $documentNumber; ?>" />
+                                        <input type="hidden" name="businessDocumentTypeName" value="<?= $documentName; ?>" />
+                                        <input type="hidden" name="formDocumentNumber_RefID" value="<?= $dataHeader[0]['content']['sys_PID']; ?>" />
+                                        <button type="submit" class="btn btn-default btn-sm" style="border:1px solid #ced4da;">
+                                            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="">
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-
                         <div class="card">
                             <div id="container">
                                 <div class="table-responsive table-height">
                                     <table class="table table-bordered table-striped table-hover table-sticky table-sm">
                                         <thead>
                                             <tr>
-                                                <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Product ID</th>
+                                                <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Product Code</th>
                                                 <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Product Name</th>
                                                 <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> UOM</th>
                                                 <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Qty</th>
@@ -42,8 +46,8 @@
                                                 <th style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">Total</th>
                                                 @if(sizeof($dataHeader))
                                                     @for($i = 1; $i < count($dataHeader); $i++) 
-                                                        <th colspan="3" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">
-                                                            Rev {{ $i }} - {{ $dataHeader[$i]['submitterWorkerName'] }} - ( {{ date('Y-m-d', strtotime($dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ'])) }} )
+                                                        <th colspan="3" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;line-height: normal;">
+                                                            Rev {{ $i }} - {{ $dataHeader[$i]['submitterWorkerName'] }} <br /> ( {{ date('Y-m-d', strtotime($dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ'])) }} {{ date('H:i', strtotime($dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ'])) }}  )
                                                         </th>
                                                     @endfor
                                                 @endif
@@ -95,7 +99,9 @@
                                                 <th rowspan="2" style="padding-bottom:15px;border:1px solid #e9ecef;text-align: center;"> Note</th>
                                                 @if(sizeof($dataHeader))
                                                     @for($i = 1; $i < count($dataHeader); $i++) 
-                                                        <th colspan="3" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">Rev {{ $i }}</th>
+                                                        <th colspan="3" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;line-height: normal;">
+                                                            Rev {{ $i }} - {{ $dataHeader[$i]['submitterWorkerName'] }} <br /> ( {{ date('Y-m-d', strtotime($dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ'])) }} {{ date('H:i', strtotime($dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ'])) }}  )
+                                                        </th>
                                                     @endfor
                                                 @endif
                                             </tr>

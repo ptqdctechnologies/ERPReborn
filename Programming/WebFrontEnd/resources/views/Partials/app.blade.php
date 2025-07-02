@@ -92,6 +92,29 @@
   <script src="{{ asset('AdminLTE-master/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
   <script>
+    $('#reservation').daterangepicker({
+      autoUpdateInput: false,
+      maxDate: moment(),
+      locale: {
+        cancelLabel: 'Clear'    // label tombol batal
+      }
+    });
+
+    // Saat tanggal dipilih, isi manual ke input
+    $('#reservation').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+    });
+
+    // Saat tombol cancel ditekan, kosongkan input
+    $('#reservation').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+    });
+
+    // Tambahkan trigger agar klik ikon memunculkan datepicker
+    $('#reservation-icon').on('click', function () {
+        $('#reservation').trigger('click');
+    });
+
     $(function () {
       bsCustomFileInput.init();
     });

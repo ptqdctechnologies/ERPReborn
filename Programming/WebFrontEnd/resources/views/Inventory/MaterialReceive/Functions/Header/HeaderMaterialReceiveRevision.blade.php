@@ -10,8 +10,8 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="delivery_order_code" style="border-radius:0;" class="form-control" size="20" readonly>
-                        <input id="delivery_order_id" style="border-radius:0;" name="delivery_order_id" class="form-control" hidden>
+                        <input id="delivery_order_code" style="border-radius:0;" class="form-control" size="20" readonly value="<?= $header['materialReceiveNumber']; ?>" />
+                        <input id="warehouseInboundOrderRefID" style="border-radius:0;" name="warehouseInboundOrderRefID" class="form-control" value="<?= $header['warehouseInboundOrderRefID']; ?>" hidden />
                     </div>
                     {{-- <div class="input-group-append">
                         <span style="border-radius:0;" class="input-group-text form-control">
@@ -33,8 +33,10 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="id_delivery_order_from" style="border-radius:0;" class="form-control" size="20" readonly hidden>
-                        <textarea id="address_delivery_order_from" rows="3" style="border-radius:0;" class="form-control"></textarea>
+                        <input id="id_delivery_order_from" style="border-radius:0;" class="form-control" size="20" readonly hidden value="<?= $header['deliveryFromRefID']; ?>">
+                        <textarea id="address_delivery_order_from" rows="3" style="border-radius:0;" class="form-control">
+                            <?= $header['deliveryFromNonRefID']; ?>
+                        </textarea>
                     </div>
                 </div>
             </div>
@@ -46,8 +48,10 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="id_delivery_order_to" style="border-radius:0;" class="form-control" size="20" readonly hidden>
-                        <textarea id="address_delivery_order_to" rows="3" style="border-radius:0;" class="form-control"></textarea>
+                        <input id="id_delivery_order_to" style="border-radius:0;" class="form-control" size="20" readonly hidden value="<?= $header['deliveryToRefID']; ?>">
+                        <textarea id="address_delivery_order_to" rows="3" style="border-radius:0;" class="form-control">
+                            <?= $header['deliveryToNonRefID']; ?>
+                        </textarea>
                     </div>
                 </div>
             </div>

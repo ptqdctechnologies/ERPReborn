@@ -88,7 +88,7 @@
         let total = 0;
         const rows = document.querySelectorAll('#tablePurchaseOrderList tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[9];
+            const totalCell = row.children[10];
             const input = totalCell.querySelector('input');
             
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
@@ -100,6 +100,9 @@
             total += value;
         });
 
+        document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
+        document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
+        document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
         document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
@@ -244,8 +247,8 @@
                     productUnitPriceCurrencyValue: parseFloat(val2.productUnitPriceCurrencyValue.replace(/,/g, '')),
                     productUnitPriceCurrencyExchangeRate: parseFloat(val2.productUnitPriceCurrencyExchangeRate.replace(/,/g, '')),
                     productUnitPriceDiscountCurrency_RefID: parseInt(val2.productUnitPriceDiscountCurrency_RefID),
-                    productUnitPriceDiscountCurrencyValue: val2.productUnitPriceDiscountCurrencyValue,
-                    productUnitPriceDiscountCurrencyExchangeRate: val2.productUnitPriceDiscountCurrencyExchangeRate,
+                    productUnitPriceDiscountCurrencyValue: parseFloat(val2.productUnitPriceDiscountCurrencyValue || 1),
+                    productUnitPriceDiscountCurrencyExchangeRate: parseFloat(val2.productUnitPriceDiscountCurrencyExchangeRate || 1),
                     remarks: val2.note,
                     productCode: val2.productCode
                 },
@@ -260,9 +263,10 @@
                     <input id="productUnitPriceCurrency_RefID${key}" value="${val2.productUnitPriceCurrency_RefID}" type="hidden" />
                     <input id="productUnitPriceCurrencyExchangeRate${key}" value="${val2.productUnitPriceCurrencyExchangeRate}" type="hidden" />
                     <input id="productUnitPriceDiscountCurrency_RefID${key}" value="${val2.productUnitPriceDiscountCurrency_RefID}" type="hidden" />
-                    <input id="productUnitPriceDiscountCurrencyValue${key}" value="${val2.productUnitPriceDiscountCurrencyValue}" type="hidden" />
-                    <input id="productUnitPriceDiscountCurrencyExchangeRate${key}" value="${val2.productUnitPriceDiscountCurrencyExchangeRate}" type="hidden" />
+                    <input id="productUnitPriceDiscountCurrencyValue${key}" value="${val2.productUnitPriceDiscountCurrencyValue || 1}" type="hidden" />
+                    <input id="productUnitPriceDiscountCurrencyExchangeRate${key}" value="${val2.productUnitPriceDiscountCurrencyExchangeRate || 1}" type="hidden" />
 
+                    <td style="text-align: center; padding: 10px !important;">${val2.purchaseRequisitionNumber || '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.productCode || '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.productName || '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.qtyPR || 0)}</td>
@@ -340,6 +344,7 @@
                     <input type="hidden" name="record_RefID[]" value="${val2.sys_ID}">
                     <input type="hidden" name="qty_avail[]" value="${currencyTotal(val2.quantity || 0)}">
                     <input type="hidden" name="price_avail[]" value="${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}">
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.purchaseRequisitionNumber || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName || '-'}</td>
@@ -392,12 +397,13 @@
                 balanceInput.value.trim() !== '' &&
                 noteInput.value.trim() !== ''
             ) {
-                const productCode   = row.children[8].innerText.trim();
-                const productName   = row.children[9].innerText.trim();
-                const qtyAvail      = row.children[11].innerText.trim();
-                const uom           = row.children[12].innerText.trim();
-                const priceAvail    = row.children[13].innerText.trim();
-                const currency      = row.children[15].innerText.trim();
+                const prNumber      = row.children[8].innerText.trim();
+                const productCode   = row.children[9].innerText.trim();
+                const productName   = row.children[10].innerText.trim();
+                const qtyAvail      = row.children[12].innerText.trim();
+                const uom           = row.children[13].innerText.trim();
+                const priceAvail    = row.children[14].innerText.trim();
+                const currency      = row.children[16].innerText.trim();
 
                 const qty   = qtyInput.value.trim();
                 const price = priceInput.value.trim();
@@ -411,10 +417,10 @@
                     const recordID = targetRow.children[0].value.trim();
 
                     if (recordID == recordRefID.value) {
-                        targetRow.children[7].innerText = currencyTotal(price);
-                        targetRow.children[8].innerText = currencyTotal(qty);
-                        targetRow.children[9].innerText = currencyTotal(total);
-                        targetRow.children[10].innerText = note;
+                        targetRow.children[8].innerText = currencyTotal(price);
+                        targetRow.children[9].innerText = currencyTotal(qty);
+                        targetRow.children[10].innerText = currencyTotal(total);
+                        targetRow.children[11].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
@@ -445,6 +451,7 @@
                         <input type="hidden" name="record_RefID[]" value="${recordRefID.value}">
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
+                        <td style="text-align: center;padding: 0.8rem;">${prNumber}</td>
                         <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
                         <td style="text-align: center;padding: 0.8rem;">${productName}</td>
                         <td style="text-align: center;padding: 0.8rem;">${uom}</td>
@@ -492,10 +499,11 @@
 
         $('#tariffCurrencyValue').val(TotalPpns.textContent);
 
-        document.getElementById('GrandTotal').textContent = TotalBudgetSelectedPpn.textContent;
-        document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
-        document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
-        document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
+        updateGrandTotal();
+        // document.getElementById('GrandTotal').textContent = TotalBudgetSelectedPpn.textContent;
+        // document.getElementById('TotalPpn').textContent = currencyTotal(0.00);
+        // document.getElementById('TotalBudgetSelected').textContent = currencyTotal(0.00);
+        // document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(0.00);
     });
 
     $('#revision-po-details-reset').on('click', function() {
@@ -648,10 +656,10 @@
 
         const qtyAvail      = row.children[1];
         const priceAvail    = row.children[2];
-        const qtyReq        = row.children[8];
-        const priceReq      = row.children[7];
-        const totalReq      = row.children[9];
-        const remarks       = row.children[10];
+        const qtyReq        = row.children[9];
+        const priceReq      = row.children[8];
+        const totalReq      = row.children[10];
+        const remarks       = row.children[11];
 
         if (row.classList.contains('editing-row')) {
             const newQtyReq     = qtyReq.querySelector('input')?.value || '';

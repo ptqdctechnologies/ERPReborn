@@ -6,6 +6,7 @@ use App\Http\Controllers\ExportExcel\Purchase\ExportReportPurchaseOrderSummary;
 use App\Http\Controllers\ExportExcel\Purchase\ExportReportPOtoDO;
 use App\Http\Controllers\ExportExcel\Purchase\ExportReportPOtoAP;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
@@ -1511,6 +1512,7 @@ class PurchaseOrderController extends Controller
         // dd($varData);
 
         $data = $varData['data'];
+        $dateOfDelivery = $data[0]['deliveryDateTimeTZ'] ? Carbon::parse($data[0]['deliveryDateTimeTZ'])->toDateString() : '';
 
         // dump($data);
 
@@ -1520,6 +1522,7 @@ class PurchaseOrderController extends Controller
                 'budgetID'                      => $data[0]['combinedBudget_RefID'] ?? '',
                 'poNumberID'                    => $data[0]['purchaseOrder_RefID'] ?? '',
                 'poNumber'                      => $data[0]['documentNumber'] ?? '',
+                'deliveryDateTime'              => $dateOfDelivery,
                 'deliveryTo'                    => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
                 'deliveryToID'                  => $data[0]['deliveryTo_RefID'] ?? '',
                 'supplierID'                    => $data[0]['supplier_RefID'] ?? '-',

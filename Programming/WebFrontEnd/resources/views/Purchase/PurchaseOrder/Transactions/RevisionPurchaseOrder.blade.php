@@ -166,6 +166,7 @@
                   <div class="card-body table-responsive p-0" style="height:135px;">
                     <table class="table table-head-fixed text-nowrap table-sm" id="tablePurchaseOrderList">
                       <thead>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">PR Number</th>
                         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
                         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
                         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>

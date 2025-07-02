@@ -406,6 +406,7 @@ class DocumentTypeMapper
             ],
             'Reimbursement Form'       => [
                 'dataHeader'            => [
+                    'customerVendorProject' => 'VDR0006',
                     'customerVendorName'    => 'Alumagada Jaya Mandiri',
                     'currency'              => 'IDR',
                     'budgetCode'            => 'Q000062',

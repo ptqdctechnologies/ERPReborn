@@ -45,10 +45,6 @@
                                                             <th style="padding-top: 7px;"><label>Sub Budget&nbsp;</label></th>
                                                             <td><?= $dataReport['dataHeader']['sub_budget_code'] . " - " . $dataReport['dataHeader']['sub_budget_name']; ?></td>
                                                         </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;"><label>Date&nbsp;</label></th>
-                                                            <td><?= $dataReport['dataHeader']['date']; ?></td>
-                                                        </tr>
                                                     </table>
                                                 </div>
                                             </div>
@@ -56,22 +52,8 @@
                                                 <div class="form-group">
                                                     <table>
                                                         <tr>
-                                                            <th style="padding-top: 7px;"><label>Transporter&nbsp;</label></th>
-                                                            <td>
-                                                                <?= $dataReport['dataHeader']['transporterCode'] . " - " . $dataReport['dataHeader']['transporterName']; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;"><label>Delivery From&nbsp;</label></th>
-                                                            <td>
-                                                                <?= $dataReport['dataHeader']['deliveryFrom']; ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="padding-top: 7px;"><label>Delivery To&nbsp;</label></th>
-                                                            <td>
-                                                                <?= $dataReport['dataHeader']['deliveryTo']; ?>
-                                                            </td>
+                                                            <th style="padding-top: 7px;"><label>Date&nbsp;</label></th>
+                                                            <td><?= $dataReport['dataHeader']['date']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="padding-top: 7px;"><label>PIC&nbsp;</label></th>
