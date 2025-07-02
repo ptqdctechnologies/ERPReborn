@@ -2,10 +2,10 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('Inventory.MaterialReceive.Functions.PopUp.PopUpMaterialReceiveRevision')
-@include('getFunction.getMaterialReceive')
-@include('getFunction.getDeliveryOrder')
 @include('getFunction.getWorkFlow')
+@include('getFunction.getDeliveryOrder')
+@include('getFunction.getMaterialReceive')
+@include('Inventory.MaterialReceive.Functions.PopUp.PopUpMaterialReceiveRevision')
 
 <div class="content-wrapper">
     <section class="content">
