@@ -1,10 +1,15 @@
 <script>
-    var indexMaterialReceiveDetail  = 0;
-    var dataStore                   = [];
-    const deliveryOrderCode         = document.getElementById("delivery_order_code");
-    const addressDeliveryOrderFrom  = document.getElementById("address_delivery_order_from");
-    const addressDeliveryOrderTo    = document.getElementById("address_delivery_order_to");
-    const tableMaterialReceiveLists = document.querySelector("#tableMaterialReceiveList tbody");
+    var dataStore                           = [];
+    const deliveryOrderCode                 = document.getElementById("delivery_order_code");
+    const tableMaterialReceiveLists         = document.querySelector("#tableMaterialReceiveList tbody");
+
+    const addressDeliveryOrderFrom          = document.getElementById("address_delivery_order_from");
+    const addressDeliveryOrderFromDuplicate = document.getElementById("address_delivery_order_from_duplicate");
+    const idDeliveryOrderFromDuplicate      = document.getElementById("id_delivery_order_from_duplicate");
+
+    const addressDeliveryOrderTo            = document.getElementById("address_delivery_order_to");
+    const addressDeliveryOrderToDuplicate   = document.getElementById("address_delivery_order_to_duplicate");
+    const idDeliveryOrderToDuplicate        = document.getElementById("id_delivery_order_to_duplicate");
 
     $("#submitMaterialReceive").prop("disabled", true);
 
@@ -39,30 +44,39 @@
             success: function(data) {
                 $(".loadingMaterialReceiveDetail").hide();
 
-                console.log('data', data);
-
                 let tbody = $('#tableMaterialReceiveDetail tbody');
                 tbody.empty();
 
                 if (Array.isArray(data) && data.length > 0) {
+                    $("#transporterRefID").val(data[0].transporter_RefID);
+
+                    $("#budget_value").val(data[0].combinedBudgetCode + ' - ' + data[0].combinedBudgetName);
+                    $("#sub_budget_value").val(data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName);
+                    $("#address_delivery_order_from").val(data[0].deliveryFrom_NonRefID.Address);
+                    $("#address_delivery_order_from_duplicate").val(data[0].deliveryFrom_NonRefID.Address);
+                    $("#id_delivery_order_from").val(data[0].deliveryFrom_RefID);
+                    $("#id_delivery_order_from_duplicate").val(data[0].deliveryFrom_RefID);
+                    $("#address_delivery_order_to").val(data[0].deliveryTo_NonRefID.Address);
+                    $("#address_delivery_order_to_duplicate").val(data[0].deliveryTo_NonRefID.Address);
+                    $("#id_delivery_order_to").val(data[0].deliveryTo_RefID);
+                    $("#id_delivery_order_to_duplicate").val(data[0].deliveryTo_RefID);
+
                     let modifyColumn = `
                         <td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">
                             ${delivery_order_number}
                         </td>
                     `;
 
-                    // console.log('data', data);
-                    
                     $.each(data, function(key, val2) {
                         let row = `
                             <tr>
-                                <input id="trano${indexMaterialReceiveDetail}" value="${delivery_order_number}" type="hidden" />
-                                <input id="delivery_order_detail_id${indexMaterialReceiveDetail}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
-                                <input id="product_code${indexMaterialReceiveDetail}" value="${val2.productCode}" type="hidden" />
-                                <input id="product_name${indexMaterialReceiveDetail}" value="${val2.productName}" type="hidden" />
-                                <input id="qty_do${indexMaterialReceiveDetail}" value="${val2.qtyReq}" type="hidden" />
-                                <input id="qty_available${indexMaterialReceiveDetail}" value="${val2.qtyReq}" type="hidden" />
-                                <input id="uom${indexMaterialReceiveDetail}" value="${val2.quantityUnitName}" type="hidden" />
+                                <input id="trano${key}" value="${delivery_order_number}" type="hidden" />
+                                <input id="delivery_order_detail_id${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
+                                <input id="product_code${key}" value="${val2.productCode}" type="hidden" />
+                                <input id="product_name${key}" value="${val2.productName}" type="hidden" />
+                                <input id="qty_do${key}" value="${val2.qtyReq}" type="hidden" />
+                                <input id="qty_available${key}" value="${val2.qtyReq}" type="hidden" />
+                                <input id="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
 
                                 ${key === 0 ? modifyColumn : `<td style="text-align: center; display: none;">${delivery_order_number}</td>`}
                                 <td style="text-align: center;">${val2.productCode}</td>
@@ -71,10 +85,10 @@
                                 <td style="text-align: center;">${val2.qtyReq}</td>
                                 <td style="text-align: center;">${val2.quantityUnitName}</td>
                                 <td style="text-align: center; width: 100px;">
-                                    <input class="form-control number-without-negative" id="qty_req${indexMaterialReceiveDetail}" data-index=${indexMaterialReceiveDetail} data-default="" autocomplete="off" style="border-radius:0px;" />
+                                    <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-default="" autocomplete="off" style="border-radius:0px;" />
                                 </td>
                                 <td style="text-align: center; width: 150px; padding: 0.5rem !important;">
-                                    <textarea id="note${indexMaterialReceiveDetail}" class="form-control" data-default=""></textarea>
+                                    <textarea id="note${key}" class="form-control" data-default=""></textarea>
                                 </td>
                             </tr>
                         `;
@@ -93,8 +107,6 @@
                                 calculateTotal();
                             }
                         });
-
-                        indexMaterialReceiveDetail += 1;
                     });
 
                     $("#tableMaterialReceiveDetail tbody").show();
@@ -403,16 +415,16 @@
     });
 
     $('#address_delivery_order_from').on('input', function() {
-        if ($(this).val().trim() === address_delivery_order_from_duplicate) {
-            $("#id_delivery_order_from").val(id_delivery_order_from_duplicate);
+        if ($(this).val().trim() === addressDeliveryOrderFromDuplicate.value) {
+            $("#id_delivery_order_from").val(idDeliveryOrderFromDuplicate.value);
         } else {
             $("#id_delivery_order_from").val('');
         }
     });
 
     $('#address_delivery_order_to').on('input', function() {
-        if ($(this).val().trim() === address_delivery_order_to_duplicate) {
-            $("#id_delivery_order_to").val(id_delivery_order_to_duplicate);
+        if ($(this).val().trim() === addressDeliveryOrderToDuplicate.value) {
+            $("#id_delivery_order_to").val(idDeliveryOrderToDuplicate.value);
         } else {
             $("#id_delivery_order_to").val('');
         }

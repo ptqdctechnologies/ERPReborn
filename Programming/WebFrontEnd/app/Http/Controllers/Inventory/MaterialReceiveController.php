@@ -93,8 +93,6 @@ class MaterialReceiveController extends Controller
         try {
             $response = $this->materialReceiveService->create($request);
 
-            Log::error("Error at response: ", [$response]);
-
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($response);
             }
