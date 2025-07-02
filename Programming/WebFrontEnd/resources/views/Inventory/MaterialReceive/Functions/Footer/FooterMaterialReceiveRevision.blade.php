@@ -25,6 +25,11 @@
         document.getElementById('TotalDeliveryOrder').textContent = currencyTotal(total);
     }
 
+    function CancelRevisionMaterialReceive() {
+        ShowLoading();
+        window.location.href = '/MaterialReceive?var=1';
+    }
+
     function viewMaterialReceiveDetail(dataDetail) {
         $(".loadingMaterialReceiveDetail").hide();
         $(".errorMessageContainerMaterialReceiveDetail").hide();

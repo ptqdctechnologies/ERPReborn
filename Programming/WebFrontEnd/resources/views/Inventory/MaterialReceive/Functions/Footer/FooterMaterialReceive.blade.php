@@ -13,6 +13,11 @@
 
     $("#submitMaterialReceive").prop("disabled", true);
 
+    function CancelMaterialReceive() {
+        ShowLoading();
+        window.location.href = '/MaterialReceive?var=1';
+    }
+
     function calculateTotal() {
         let total = 0;
         
