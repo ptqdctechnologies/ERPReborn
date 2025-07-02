@@ -74,7 +74,8 @@
                         <button class="btn btn-default btn-sm" onclick="window.location.href='{{ route('LogTransaction', [
                             'id'        => $dataHeader['advanceSettlement_RefID'],
                             'docNum'    => $dataHeader['advanceNumber'],
-                            'docName'   => $transactionForm
+                            'docName'   => $transactionForm,
+                            'page'      => $page
                             ]) }}'">
                             Show Revision History
                         </button>

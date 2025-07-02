@@ -468,10 +468,12 @@ class CheckDocumentController extends Controller
                 'urlPage'           => $urlPage
             ];
 
-            // dd($compact);
+            // dump($compact);
 
             if ($docName == "Advance Form") {
                 return view('Documents.Transactions.LogTransaction.LogTransactionAdvance', $compact);
+            } else if ($docName == "Advance Settlement Form") {
+                return view('Documents.Transactions.LogTransaction.LogTransactionAdvanceSettlement', $compact);
             } else if ($docName == "Purchase Order Form") {
                 return view('Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder', $compact);
             }
