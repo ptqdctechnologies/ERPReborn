@@ -286,13 +286,16 @@ class MaterialReceiveController extends Controller
 
             $data = $response['data'];
 
-            dump($data);
+            // dump($data);
 
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'header'            => [
                     'warehouseInboundOrderRefID'    => $data[0]['warehouseInboundOrder_RefID'] ?? '',
                     'materialReceiveNumber'         => $data[0]['businessDocumentNumber'] ?? '',
+                    'budget'                        => '',
+                    'subBudget'                     => '',
+                    'transporterRefID'              => '',
                     'deliveryFromRefID'             => $data[0]['deliveryFrom_RefID'] ?? '',
                     'deliveryFromNonRefID'          => $data[0]['deliveryFrom_NonRefID'] ?? '',
                     'deliveryToRefID'               => $data[0]['deliveryTo_RefID'] ?? '',
@@ -320,14 +323,14 @@ class MaterialReceiveController extends Controller
             }
 
             $responseWorkflow = $this->workflowService->submit(
-                $response['data']['businessDocument']['businessDocument_RefID'],
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
                 $request->workFlowPath_RefID,
                 $request->comment,
                 $request->approverEntity,
             );
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
                 "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 

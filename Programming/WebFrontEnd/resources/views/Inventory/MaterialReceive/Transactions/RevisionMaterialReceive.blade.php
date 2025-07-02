@@ -3,6 +3,7 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getWorkFlow')
+@include('getFunction.getMaterialReceive')
 @include('Inventory.MaterialReceive.Functions.PopUp.PopUpMaterialReceiveRevision')
 
 <div class="content-wrapper">
@@ -24,6 +25,7 @@
                     <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" />
                     <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="46000000000033">
                     <input type="hidden" name="warehouseInboundOrder_RefID" id="warehouseInboundOrder_RefID" value="<?= $header['warehouseInboundOrderRefID']; ?>">
+                    <input type="hidden" name="transporter_RefID" id="transporter_RefID" value="<?= $header['transporterRefID']; ?>">
 
                     <!-- ADD NEW MATERIAL RECEIVE -->
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">

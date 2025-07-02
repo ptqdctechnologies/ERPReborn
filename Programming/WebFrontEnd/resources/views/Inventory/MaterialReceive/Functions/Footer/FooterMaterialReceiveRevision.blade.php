@@ -2,6 +2,14 @@
     let dataStore   = [];
     const dataTable = {!! json_encode($dataDetail ?? []) !!};
 
+    const addressDeliveryOrderFrom          = document.getElementById("address_delivery_order_from");
+    const addressDeliveryOrderFromDuplicate = document.getElementById("address_delivery_order_from_duplicate");
+    const idDeliveryOrderFromDuplicate      = document.getElementById("id_delivery_order_from_duplicate");
+
+    const addressDeliveryOrderTo            = document.getElementById("address_delivery_order_to");
+    const addressDeliveryOrderToDuplicate   = document.getElementById("address_delivery_order_to_duplicate");
+    const idDeliveryOrderToDuplicate        = document.getElementById("id_delivery_order_to_duplicate");
+
     function calculateTotal() {
         let total = 0;
         
@@ -183,6 +191,22 @@
 
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);
+    });
+
+    $('#address_delivery_order_from').on('input', function() {
+        if ($(this).val().trim() === addressDeliveryOrderFromDuplicate.value) {
+            $("#id_delivery_order_from").val(idDeliveryOrderFromDuplicate.value);
+        } else {
+            $("#id_delivery_order_from").val('');
+        }
+    });
+
+    $('#address_delivery_order_to').on('input', function() {
+        if ($(this).val().trim() === addressDeliveryOrderToDuplicate.value) {
+            $("#id_delivery_order_to").val(idDeliveryOrderToDuplicate.value);
+        } else {
+            $("#id_delivery_order_to").val('');
+        }
     });
 
     $('#material-receive-details-add').on('click', function() {
