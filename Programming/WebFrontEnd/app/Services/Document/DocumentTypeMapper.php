@@ -69,8 +69,7 @@ class DocumentTypeMapper
             ],
             'Warehouse Inbound Order Form' => [
                 'key' => 'transaction.read.dataList.supplyChain.getWarehouseInboundOrderDetail',
-                'parameter' => ['warehouseInboundOrder_RefID' => (int) $referenceId],
-                'businessDocument_RefID' => (int) 74000000021336,
+                'parameter' => ['warehouseInboundOrder_RefID' => (int) $referenceId]
             ],
         ];
 
@@ -471,10 +470,13 @@ class DocumentTypeMapper
             ],
             'Warehouse Inbound Order Form' => [
                 'dataHeader'            => [
-                    'mrNumber'      => 'WHIn/QDC/2025/000027',
-                    'deliveryFrom'  => 'Jakarta',
-                    'deliveryTo'    => 'Batam',
-                    'fileID'        => null
+                    'materialReceive_RefID' => $dataDetail['warehouseInboundOrder_RefID'] ?? '-',
+                    'date'                  => $dataDetail['date'] ?? '-',
+                    'dateUpdate'            => $dataDetail['dateUpdate'] ?? null,
+                    'mrNumber'              => $dataDetail['businessDocumentNumber'] ?? '-',
+                    'deliveryFrom'          => $dataDetail['deliveryFrom_NonRefID'] ?? '-',
+                    'deliveryTo'            => $dataDetail['deliveryTo_NonRefID'] ?? '-',
+                    'fileID'                => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',
@@ -500,10 +502,11 @@ class DocumentTypeMapper
     public static function getHistoryPage(string $documentType): string
     {
         $mapping = [
-            'Advance Form'              => 'Documents.Transactions.LogTransaction.LogTransactionAdvance',
-            'Advance Settlement Form'   => 'Documents.Transactions.LogTransaction.LogTransactionAdvanceSettlement',
-            'Purchase Order Form'       => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder',
-            'Purchase Requisition Form' => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
+            'Advance Form'                  => 'Documents.Transactions.LogTransaction.LogTransactionAdvance',
+            'Advance Settlement Form'       => 'Documents.Transactions.LogTransaction.LogTransactionAdvanceSettlement',
+            'Purchase Order Form'           => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder',
+            'Purchase Requisition Form'     => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
+            'Warehouse Inbound Order Form'  => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReceive'
         ];
 
         return $mapping[$documentType] ?? null;

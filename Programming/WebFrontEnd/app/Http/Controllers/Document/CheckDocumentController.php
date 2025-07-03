@@ -62,8 +62,7 @@ class CheckDocumentController extends Controller
                 $documentType === 'Person Business Trip Settlement Form' || 
                 $documentType === 'Reimbursement Form' || 
                 $documentType === 'Sallary Allocation Form' || 
-                $documentType === 'Timesheet Form' ||
-                $documentType === 'Warehouse Inbound Order Form'
+                $documentType === 'Timesheet Form'
             ) {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
                 $responseData = [
@@ -447,6 +446,8 @@ class CheckDocumentController extends Controller
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($response);
             }
+
+            // dd($response);
 
             $url = DocumentTypeMapper::getHistoryPage($docName);
 

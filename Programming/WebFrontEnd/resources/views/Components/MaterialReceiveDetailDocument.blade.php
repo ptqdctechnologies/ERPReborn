@@ -10,6 +10,16 @@
                 : <?= $dataHeader['mrNumber']; ?>
             </div>
         </div>
+
+        <!-- DATE -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                Date
+            </div>
+            <div class="col">
+                : <?= isset($dataHeader['date']) ? date('Y-m-d', strtotime($dataHeader['date'])) : '-'; ?>
+            </div>
+        </div>
         
         <!-- FILE ATTACHMENT -->
         <div class="row">
@@ -40,6 +50,36 @@
 <!-- RIGHT COLUMN -->
 <div class="col-12 col-md-5 col-lg-5">
     <div class="form-group">
+        <!-- REVISION -->
+        <div class="row" id="revisionAdvance" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                Revision
+            </div>
+            <?php if (isset($dataHeader['dateUpdate'])) { ?>
+                <div class="col d-flex" style="gap: .1rem;">
+                    <div>
+                        :
+                    </div>
+                    <div class="input-group">
+                        <form method="POST" action="{{ route('LogTransaction') }}">
+                            @csrf
+                            <input type="hidden" name="id" value="<?= $dataHeader['materialReceive_RefID']; ?>" />
+                            <input type="hidden" name="docNum" value="<?= $dataHeader['mrNumber']; ?>" />
+                            <input type="hidden" name="docName" value="<?= $transactionForm; ?>" />
+                            <input type="hidden" name="page" value="<?= $page; ?>" />
+                            <button type="submit" class="btn btn-default btn-sm">
+                                Show Revision History
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            <?php } else { ?>
+                <div class="col">
+                    : 0
+                </div>
+            <?php } ?>
+        </div>
+
         <!-- DELIVERY FROM -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
