@@ -405,7 +405,7 @@
                         reverseButtons: true
                     }).then((result) => {
                         ShowLoading();
-                        window.location.href = '/Timesheet';
+                        window.location.href = '/Timesheet?var=1';
                     });
                 } else {
                     ErrorNotif("Data Cancel Inputed");
