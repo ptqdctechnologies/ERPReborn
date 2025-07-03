@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Document;
 
 class DocumentTypeMapper
 {
@@ -344,7 +344,7 @@ class DocumentTypeMapper
             'Purchase Order Form'       => [
                 'dataHeader'            => [
                     'date'                  => $dataDetail['date'] ?? '-',
-                    'dateUpdate'            => $dataDetail['dateUpdate'] ?? '-',
+                    'dateUpdate'            => $dataDetail['dateUpdate'] ?? null,
                     'purchaseOrderRefID'    => $dataDetail['purchaseOrder_RefID'] ?? '-',
                     'poNumber'              => $dataDetail['documentNumber'] ?? '-',
                     'deliveryTo'            => $dataDetail['deliveryTo_NonRefID']['address'] ?? '-',
@@ -376,7 +376,7 @@ class DocumentTypeMapper
             'Purchase Requisition Form' => [
                 'dataHeader'            => [
                     'purchaseRequestRefID'  => $dataDetail['purchaseRequisition_RefID'] ?? null,
-                    'dateUpdate'            => $dataDetail['dateUpdate'] ?? '-',
+                    'dateUpdate'            => $dataDetail['dateUpdate'] ?? null,
                     'prNumber'              => $dataDetail['documentNumber'] ?? '-',
                     'budgetCode'            => $dataDetail['combinedBudgetCode'] ?? null,
                     'budgetName'            => $dataDetail['combinedBudgetName'] ?? null,
@@ -492,6 +492,18 @@ class DocumentTypeMapper
                 'transactionType'        => 'MATERIAL RECEIVE',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
             ],
+        ];
+
+        return $mapping[$documentType] ?? null;
+    }
+
+    public static function getHistoryPage(string $documentType): string
+    {
+        $mapping = [
+            'Advance Form'              => 'Documents.Transactions.LogTransaction.LogTransactionAdvance',
+            'Advance Settlement Form'   => 'Documents.Transactions.LogTransaction.LogTransactionAdvanceSettlement',
+            'Purchase Order Form'       => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder',
+            'Purchase Requisition Form' => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
         ];
 
         return $mapping[$documentType] ?? null;
