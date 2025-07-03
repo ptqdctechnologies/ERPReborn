@@ -488,8 +488,8 @@ class DocumentTypeMapper
                 ],
                 'resubmit'      => [
                     'url'       => 'MaterialReceive.RevisionMaterialReceiveIndex',
-                    'name'      => '',
-                    'value'     => ''
+                    'name'      => 'modal_material_receive_id',
+                    'value'     => $dataDetail['warehouseInboundOrder_RefID'] ?? '-',
                 ],
                 'transactionType'        => 'MATERIAL RECEIVE',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
