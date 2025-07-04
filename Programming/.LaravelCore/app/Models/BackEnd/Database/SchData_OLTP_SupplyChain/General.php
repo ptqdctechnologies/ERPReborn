@@ -1010,7 +1010,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-06-23                                                                                           |
+        | ▪ Last Update     : 2025-07-04                                                                                           |
         | ▪ Creation Date   : 2025-03-05                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pembelian (Purchase Order Detail) Versi Terakhir                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1117,10 +1117,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][$idxArray]['transactionTax_RefID'] = $value["TransactionTax_RefID"];
                         $varReturn['data'][$idxArray]['transactionTaxDetail_RefID'] = $value["TransactionTaxDetail_RefID"];
                         $varReturn['data'][$idxArray]['quantity_TblDeliveryOrderDetail'] = $value["Quantity_TblDeliveryOrderDetail"];
-                        $varReturn['data'][$idxArray]['qtyAvail'] = in_array($value["Sys_ID"], $listIdPODetail) ? $value["Quantity"] - $qtyDODetail[$value["Sys_ID"]]["Qty"] : null;
+                        $varReturn['data'][$idxArray]['qtyAvail'] = in_array($value["Sys_ID"], $listIdPODetail) ? round($value["Quantity"] - $qtyDODetail[$value["Sys_ID"]]["Qty"], 2) : null;
                         $varReturn['data'][$idxArray]['deliveryDateTimeTZ'] = $value["DeliveryDateTimeTZ"];
                         $varReturn['data'][$idxArray]['purchaseRequisitionNumber'] = $value["PurchaseRequisitionNumber"];
                         $varReturn['data'][$idxArray]['product_RefID'] = $value["Product_RefID"];
+                        $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode"];
+                        $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
                         $idxArray++;
                     }
 
