@@ -3,28 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\supplyChain\getTransporter\v1  |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\supplyChain                           |
+|                \getPurchaseRequisitionToPurchaseOrder\v1                                                                         |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\supplyChain\getTransporter\v1 {
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\supplyChain\getPurchaseRequisitionToPurchaseOrder\v1
+    {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getTransporter                                                                                               |
-    | ▪ Description : Menangani API transaction.read.dataList.supplyChain.getTransporter Version 1                                 |
+    | ▪ Class Name  : getPurchaseRequisitionToPurchaseOrder                                                                        |
+    | ▪ Description : Menangani API report.form.resume.supplyChain.getPurchaseRequisitionToPurchaseOrder Version 1                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getTransporter extends \App\Http\Controllers\Controller
-    {
+    class getPurchaseRequisitionToPurchaseOrder extends \App\Http\Controllers\Controller
+        {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-05-14                                                                                           |
-        | ▪ Creation Date   : 2025-05-14                                                                                           |
+        | ▪ Last Update     : 2025-07-04                                                                                           |
+        | ▪ Creation date   : 2025-07-04                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -34,8 +35,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function __construct()
-        {
-        }
+            {
+            }
 
 
         /*
@@ -43,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-05-14                                                                                           |
-        | ▪ Creation Date   : 2025-05-14                                                                                           |
+        | ▪ Last Update     : 2025-07-04                                                                                           |
+        | ▪ Creation date   : 2025-07-04                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -61,23 +62,39 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Get Transporter Data List (version 1)'
+                        'Get Report Form - Purchase Requisition To Purchase Order (version 1)'
                         );
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
-                        if (($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE))
-                            {
-                            throw new \Exception('SQL Injection Threat Prevention');
-                            }
-
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getDataListJSON_Transporter(
-                                    $varUserSession,
-                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                                (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getReport_Form_ResumeJSON_PurchaseRequisitonToPurchaseOrder(
+                                    $varUserSession, 
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                        $varUserSession,
+                                        'combinedBudget_RefID',
+                                        $varData['parameter']) ? 
+                                            ((!is_null($varData['parameter']['combinedBudget_RefID'])) ? 
+                                                $varData['parameter']['combinedBudget_RefID'] : 
+                                                null
+                                                ) : 
+                                            null
+                                    ),
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                        $varUserSession,
+                                        'combinedBudgetSection_RefID',
+                                        $varData['parameter']) ? 
+                                            ((!is_null($varData['parameter']['combinedBudgetSection_RefID'])) ?
+                                                $varData['parameter']['combinedBudgetSection_RefID'] :
+                                                null
+                                                ) : 
+                                            null
+                                    ),
 
                                     $varData['SQLStatement']['pick'],
                                     $varData['SQLStatement']['sort'], 
@@ -110,7 +127,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
-                    
+
                 catch (\Exception $ex) {
                     $varReturn =
                         \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
@@ -121,6 +138,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
 
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
 
