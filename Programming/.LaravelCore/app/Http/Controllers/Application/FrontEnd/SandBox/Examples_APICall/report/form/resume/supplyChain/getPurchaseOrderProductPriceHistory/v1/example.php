@@ -3,12 +3,12 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\resume\supplyChain                 |
-|                 \getPurchaseOrderProductPriceHistory\v1                                                                      |
-| ▪ API Key     : report.form.resume.supplyChain.getPurchaseOrderProductPriceHistory                                             |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\resume\supplyChain               |
+|                 \getPurchaseOrderProductPriceHistory\v1                                                                          |
+| ▪ API Key     : report.form.resume.supplyChain.getPurchaseOrderProductPriceHistory                                               |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\resume\supplyChain\getPurchaseOrderProductPriceHistory\v1
@@ -23,8 +23,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                       report.form.resume.supplyChain.getPurchaseOrderProductPriceHistory.v1_throughAPIGateway            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-20                                                                                           |
-        | ▪ Creation Date   : 2022-09-20                                                                                           |
+        | ▪ Last Update     : 2025-07-04                                                                                           |
+        | ▪ Creation Date   : 2025-07-04                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -33,20 +33,36 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.resume.supplyChain.getPurchaseOrderProductPriceHistory', 
-                'latest',
-                [
-                'parameter' => [
-                    'recordID' => 88000000000003,
-                    'dataFilter' => null             
-                    ]
-                ]
-                );
-            var_dump($varData);
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'report.form.resume.supplyChain.getPurchaseRequisitionToPurchaseOrder', 
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]-----( START )-----
+                        [
+                        'parameter' => [
+                            'combinedBudget_RefID' => 46000000000033,
+                            'combinedBudgetSection_RefID' => null             
+                            ],
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                            ]
+                        ]
+                    //-----[ DATA ]-----(  END  )-----
+                    );
+
+            //-----[ DATA RETURN ]--------------------------------------------------------------------------------------------------
+            return
+                $varData;
             }
 
 
@@ -77,7 +93,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'report.form.resume.supplyChain.getPurchaseOrderProductPriceHistory', 
+                'report.form.resume.supplyChain.getPurchaseRequisitionToPurchaseOrder', 
                 'latest', 
                 '{'.
                     '"parameter" : {'.

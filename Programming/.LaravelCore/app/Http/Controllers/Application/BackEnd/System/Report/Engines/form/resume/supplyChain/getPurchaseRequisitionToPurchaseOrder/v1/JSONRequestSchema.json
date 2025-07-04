@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.read.dataList.supplyChain.getPurchaseOrderDetail (version 1)",
+"description": "JSON Request Schema of report.form.resume.supplyChain.getPurchaseRequisitionToPurchaseOrder (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.read.dataList.supplyChain.getPurchaseOrderDetail" ]
+                        "enum": [ "report.form.resume.supplyChain.getPurchaseRequisitionToPurchaseOrder" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -35,13 +35,20 @@
             "parameter": {
                 "type": "object",
                 "properties": {
-                    "purchaseOrder_RefID": {
-                        "type": "integer",
-                        "minimum": 0
+                    "combinedBudget_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "combinedBudgetSection_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         }
                     },
                 "required": [
-                    "purchaseOrder_RefID"
+                    "combinedBudget_RefID",
+                    "combinedBudgetSection_RefID"
                     ]
                 },
             "SQLStatement": {
