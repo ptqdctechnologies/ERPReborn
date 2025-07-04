@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail.v1_throughAPIGateway            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-05-08                                                                                           |
+        | ▪ Last Update     : 2025-05-30                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'latest',
                     [
                     'parameter' => [
-                        'purchaseRequisition_RefID' => 83000000000069
+                        'purchaseRequisition_RefID' => 83000000000088
                         ],
                     'SQLStatement' => [
                         'pick' => null,

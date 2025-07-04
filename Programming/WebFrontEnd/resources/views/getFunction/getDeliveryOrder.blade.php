@@ -55,11 +55,6 @@
 </div>
 
 <script>
-    let id_delivery_order_from_duplicate        = '';
-    let address_delivery_order_from_duplicate   = '';
-    let id_delivery_order_to_duplicate          = '';
-    let address_delivery_order_to_duplicate     = '';
-
     $(".errorDeliveryOrderMessageContainerSecond").hide();
 
     function getDeliveryOrder() {
@@ -89,11 +84,11 @@
                         keys += 1;
                         table.row.add([
                             '<input id="sys_id_delivery_order' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_delivery_order" type="hidden">' + no++,
-                            '<input id="sys_id_delivery_from' + keys + '" value="' + val.deliveryFrom_RefID + '" data-trigger="sys_id_delivery_from" type="hidden">' + (val.documentNumber || '-'),
-                            '<input id="sys_id_delivery_to' + keys + '" value="' + val.deliveryTo_RefID + '" data-trigger="sys_id_delivery_to" type="hidden">' + (val.combinedBudgetCode || '-'),
-                            '<input id="address_delivery_from' + keys + '" value="' + val.deliveryFromManualAddress + '" data-trigger="address_delivery_from" type="hidden">' + (val.combinedBudgetName || '-'),
-                            '<input id="address_delivery_to' + keys + '" value="' + val.deliveryToManualAddress + '" data-trigger="address_delivery_to" type="hidden">' + (val.combinedBudgetSectionCode || '-'),
-                            (val.combinedBudgetSectionName || '-'),
+                            val.sys_Text || '-',
+                            val.combinedBudgetCode || '-',
+                            val.combinedBudgetName || '-',
+                            val.combinedBudgetSectionCode || '-',
+                            val.combinedBudgetSectionName || '-'
                         ]).draw();
                     });
 
@@ -126,26 +121,10 @@
 
     $('#tableGetDeliveryOrder').on('click', 'tbody tr', function() {
         var sysId                       = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
-        var deliveryOrderFromID         = $(this).find('input[data-trigger="sys_id_delivery_from"]').val();
-        var deliveryOrderToID           = $(this).find('input[data-trigger="sys_id_delivery_to"]').val();
-        var deliveryOrderFromAddress    = $(this).find('input[data-trigger="address_delivery_from"]').val();
-        var deliveryOrderToAddress      = $(this).find('input[data-trigger="address_delivery_to"]').val();
         var projectCode                 = $(this).find('td:nth-child(2)').text();
 
         $("#delivery_order_id").val(sysId);
         $("#delivery_order_code").val(projectCode);
-
-        id_delivery_order_from_duplicate = deliveryOrderFromID;
-        $("#id_delivery_order_from").val(deliveryOrderFromID);
-
-        address_delivery_order_from_duplicate = deliveryOrderFromAddress;
-        $("#address_delivery_order_from").val(deliveryOrderFromAddress);
-
-        id_delivery_order_to_duplicate = deliveryOrderToID;
-        $("#id_delivery_order_to").val(deliveryOrderToID);
-
-        address_delivery_order_to_duplicate = deliveryOrderToAddress;
-        $("#address_delivery_order_to").val(deliveryOrderToAddress);
 
         $('#myDeliveryOrder').modal('hide');
     });

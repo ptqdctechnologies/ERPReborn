@@ -4,7 +4,13 @@
     var indexReferenceNumberDetail  = 0;
     var referenceNumber             = document.getElementById("reference_number");
     var deliveryFrom                = document.getElementById("delivery_from");
+    var deliveryFromDuplicate       = document.getElementById("delivery_fromDuplicate");
+    var deliveryFromRefID           = document.getElementById("deliveryFrom_RefID");
+    var deliveryFromDuplicateRefID  = document.getElementById("deliveryFromDuplicate_RefID");
     var deliveryTo                  = document.getElementById("delivery_to");
+    var deliveryToDuplicate         = document.getElementById("delivery_toDuplicate");
+    var deliveryToRefID             = document.getElementById("deliveryTo_RefID");
+    var deliveryToDuplicateRefID    = document.getElementById("deliveryToDuplicate_RefID");
     var transporterName             = document.getElementById("transporter_name");
     var tableDeliverOrderDetailList = document.querySelector("#tableDeliverOrderDetailList tbody");
     var submitDO                    = document.getElementById("submitDO");
@@ -65,13 +71,21 @@
             type: 'GET',
             url: '{!! route("getPurchaseOrderDetail") !!}?purchase_order_id=' + reference_id,
             success: function(data) {
-                console.log('data', data);
-                
+                let deliveryFroms = `(${data[0]['supplierCode']}) ${data[0]['supplierName']} - ${data[0]['supplierAddress']}`;
+                let deliveryToNonRefIDs = data[0]['deliveryTo_NonRefID'] ? data[0]['deliveryTo_NonRefID'].Address : '';
+
                 $(".loadingReferenceNumberDetail").hide();
 
-                $("#delivery_from").val(data[0]['supplierAddress']);
-                $("#delivery_to").val(data[0]['deliveryDestinationManualAddress']);
+                $("#delivery_fromDuplicate").val(deliveryFroms);
+                $("#delivery_from").val(deliveryFroms);
+                $("#deliveryFromDuplicate_RefID").val(data[0]['supplier_RefID']);
+                $("#deliveryFrom_RefID").val(data[0]['supplier_RefID']);
                 $("#delivery_from").prop("disabled", false);
+
+                $("#delivery_to").val(deliveryToNonRefIDs);
+                $("#delivery_toDuplicate").val(deliveryToNonRefIDs);
+                $("#deliveryTo_RefID").val(data[0]['deliveryTo_RefID']);
+                $("#deliveryToDuplicate_RefID").val(data[0]['deliveryTo_RefID']);
                 $("#delivery_to").prop("disabled", false);
 
                 let tbody = $('#tableReferenceNumberDetail tbody');
@@ -91,7 +105,7 @@
                                 <input id="product_name${indexReferenceNumberDetail}" value="${val2.productName || '-'}" type="hidden" />
                                 <input id="uom${indexReferenceNumberDetail}" value="${val2.quantityUnitName || ''}" type="hidden" />
                                 <input id="qty_reference${indexReferenceNumberDetail}" value="${currencyTotal(val2.quantity)}" type="hidden" />
-                                <input id="qty_avail${indexReferenceNumberDetail}" value="${currencyTotal(val2.quantity)}" type="hidden" />
+                                <input id="qty_avail${indexReferenceNumberDetail}" value="${currencyTotal(val2.qtyAvail)}" type="hidden" />
                                 <input id="qty_unit_refID${indexReferenceNumberDetail}" value="${val2.quantityUnit_RefID || '73000000000001'}" type="hidden" />
                                 <input id="product_refID${indexReferenceNumberDetail}" value="${val2.product_RefID || '8800000000079' + indexReferenceNumberDetail}" type="hidden" />
 
@@ -100,7 +114,7 @@
                                 <td style="text-align: center;">${val2.productName || '-'}</td>
                                 <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
                                 <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
-                                <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
+                                <td style="text-align: center;">${currencyTotal(val2.qtyAvail)}</td>
                                 <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
                                     <input class="form-control number-without-negative" id="qty_req${indexReferenceNumberDetail}" data-index=${indexReferenceNumberDetail} data-quantity="" autocomplete="off" style="border-radius:0px;" />
                                 </td>
@@ -149,31 +163,6 @@
                 $(".loadingReferenceNumberDetail").hide();
                 $(".errorMessageContainerReferenceNumberDetail").show();
                 $("#errorMessageReferenceNumberDetail").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
-            }
-        });
-    }
-
-    function getDocumentType() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getDocumentType") !!}',
-            success: function(data) {
-                const result = data.find(({ Name }) => Name === "Delivery Order Form");
-
-                if (Object.keys(result).length > 0) {
-                    $("#DocumentTypeID").val(result.Sys_ID);
-                } else {
-                    console.log('error get document type');
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                console.log('error', textStatus, errorThrown);
             }
         });
     }
@@ -271,17 +260,44 @@
             $(".internal-use-components").css("display", "none");
             $(".stock-movement-components").css("display", "none");
 
+            $(".thead-purchase-order").css("display", "table-row");
+            $(".thead-internal-use").css("display", "none");
+            $(".thead-stock-movement").css("display", "none");
             getReferenceNumber(source);
         } else if (source.value == "INTERNAL_USE") {
             $(".purchase-order-components").css("display", "none");
             $(".internal-use-components").css("display", "flex");
             $(".stock-movement-components").css("display", "none");
+
+            $(".thead-purchase-order").css("display", "none");
+            $(".thead-internal-use").css("display", "table-row");
+            $(".thead-stock-movement").css("display", "none");
         } else {
             $(".purchase-order-components").css("display", "none");
             $(".internal-use-components").css("display", "none");
             $(".stock-movement-components").css("display", "flex");
+
+            $(".thead-purchase-order").css("display", "none");
+            $(".thead-internal-use").css("display", "none");
+            $(".thead-stock-movement").css("display", "table-row");
         }
     }
+
+    $('#delivery_from').on('input', function(e) {
+        if (e.target.value == deliveryFromDuplicate.value) {
+            $("#deliveryFrom_RefID").val(deliveryFromDuplicateRefID.value);
+        } else {
+            $("#deliveryFrom_RefID").val("");
+        }
+    });
+
+    $('#delivery_to').on('input', function(e) {
+        if (e.target.value == deliveryToDuplicate.value) {
+            $("#deliveryTo_RefID").val(deliveryToDuplicateRefID.value);
+        } else {
+            $("#deliveryTo_RefID").val("");
+        }
+    });
 
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);
@@ -297,15 +313,16 @@
             const refDocument_RefID         = row.querySelector('input[id^="refDocument_RefID"]');
             const underlyingDetail_RefID    = row.querySelector('input[id^="underlyingDetail_RefID"]');
             const qtyInput                  = row.querySelector('input[id^="qty_req"]');
-            const balanceInput              = row.querySelector('input[id^="balance"]');
+            // const balanceInput              = row.querySelector('input[id^="balance"]');
             const noteInput                 = row.querySelector('textarea[id^="note"]');
             const qtyUnitRefId              = row.querySelector('input[id^="qty_unit_refID"]');
             const productRefId              = row.querySelector('input[id^="product_refID"]');
 
             if (
-                qtyInput && balanceInput && noteInput &&
+                // qtyInput && balanceInput && noteInput &&
+                qtyInput && noteInput &&
                 qtyInput.value.trim() !== '' &&
-                balanceInput.value.trim() !== '' &&
+                // balanceInput.value.trim() !== '' &&
                 noteInput.value.trim() !== ''
             ) {
                 const refNumber     = row.children[2].value.trim();
@@ -315,7 +332,7 @@
                 const qtyAvail      = row.children[7].value.trim();
 
                 const qty       = qtyInput.value.trim();
-                const balance   = balanceInput.value.trim();
+                // const balance   = balanceInput.value.trim();
                 const note      = noteInput.value.trim();
 
                 let found           = false;
@@ -327,20 +344,20 @@
 
                     if (targetRefNumber === refNumber && targetProductCode === productCode) {
                         targetRow.children[5].innerText = qty;
-                        targetRow.children[6].innerText = balance;
-                        targetRow.children[7].innerText = note;
+                        // targetRow.children[6].innerText = balance;
+                        targetRow.children[6].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.entities.refNumber === refNumber && item.entities.productCode === productCode);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 entities: {
-                                    referenceDocument_RefID: refDocument_RefID.value,
+                                    referenceDocument_RefID: parseInt(refDocument_RefID.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
-                                    quantityUnit_RefID: qtyUnitRefId.value,
+                                    quantityUnit_RefID: parseInt(qtyUnitRefId.value),
                                     remarks: note,
-                                    underlyingDetail_RefID: underlyingDetail_RefID.value,
-                                    product_RefID: productRefId.value,
+                                    underlyingDetail_RefID: underlyingDetail_RefID.value || null,
+                                    product_RefID: parseInt(productRefId.value),
                                     refNumber: refNumber,
                                     productCode: productCode
                                 }
@@ -358,19 +375,19 @@
                         <td style="text-align: center;padding: 0.8rem;">${productName}</td>
                         <td style="text-align: center;padding: 0.8rem;">${uom}</td>
                         <td style="text-align: center;padding: 0.8rem;">${qty}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${balance}</td>
                         <td style="text-align: center;padding: 0.8rem;">${note}</td>
                     `;
                     targetTable.appendChild(newRow);
+                    // <td style="text-align: center;padding: 0.8rem;">${balance}</td>
 
                     dataStore.push({
                         entities: {
-                            referenceDocument_RefID: refDocument_RefID.value,
+                            referenceDocument_RefID: parseInt(refDocument_RefID.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
-                            quantityUnit_RefID: qtyUnitRefId.value,
+                            quantityUnit_RefID: parseInt(qtyUnitRefId.value),
                             remarks: note,
-                            underlyingDetail_RefID: underlyingDetail_RefID.value,
-                            product_RefID: productRefId.value,
+                            underlyingDetail_RefID: underlyingDetail_RefID.value || null,
+                            product_RefID: parseInt(productRefId.value),
                             refNumber: refNumber,
                             productCode: productCode
                         }
@@ -379,7 +396,7 @@
 
                 qtyInput.value = '';
                 noteInput.value = '';
-                balanceInput.value = balanceInput.getAttribute('data-default');
+                // balanceInput.value = balanceInput.getAttribute('data-default');
             }
         }
 
@@ -606,7 +623,7 @@
         $("#delivery_from").prop("disabled", true);
         $("#delivery_to").prop("disabled", true);
 
-        getDocumentType();
+        getDocumentType("Delivery Order Form");
         checkTableDataDO();
     });
 </script>

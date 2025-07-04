@@ -53,7 +53,40 @@
         // },
     ];
     var dataDetail = [];
-    
+
+    function getAuthorized() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getNewProject") !!}',
+            success: function(data) {
+                if (data && Array.isArray(data)) {
+                    dataProject = data;
+
+                    $('#authorizedSelect').empty();
+                    $('#authorizedSelect').append('<option disabled selected>Select an Authorized</option>');
+
+                    data.forEach(function(project) {
+                        $('#authorizedSelect').append('<option value="' + project.sys_ID + '">' + project.sys_Text + '</option>');
+                    });
+                } else {
+                    console.log('Data project code not found.');
+                }
+
+                $("#authorizedSelectContainer").show();
+                $("#authorizedLoading").hide();
+            },
+            error: function (textStatus, errorThrown) {
+                console.log('Function getProject error: ', textStatus, errorThrown);
+            },
+        });
+    }
+
     function getProject() {
         $.ajaxSetup({
             headers: {
@@ -77,7 +110,7 @@
                 } else {
                     console.log('Data project code not found.');
                 }
-            }, 
+            },
             error: function (textStatus, errorThrown) {
                 console.log('Function getProject error: ', textStatus, errorThrown);
             },
@@ -148,7 +181,7 @@
             success: function(data) {
                 if (data && Array.isArray(data)) {
                     $('#onBehalfSelect').empty();
-                    $('#onBehalfSelect').append('<option disabled selected>Select On Behalf</option>');
+                    $('#onBehalfSelect').append('<option disabled selected>Select a Person on Behalf</option>');
 
                     data.forEach(function(person) {
                         $('#onBehalfSelect').append('<option value="' + person.sys_ID + '">' + person.sys_Text + '</option>');
@@ -156,6 +189,9 @@
                 } else {
                     console.log('Data not found.');
                 }
+
+                $("#onBehalfSelectContainer").show();
+                $("#onBehalfLoading").hide();
             }, 
             error: function (textStatus, errorThrown) {
                 console.log('Function getPerson error: ', textStatus, errorThrown);
@@ -163,29 +199,8 @@
         });
     }
 
-    function getDocumentType() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getDocumentType") !!}',
-            success: function(data) {
-                const result = data.find(({ Name }) => Name === "Timesheet Form");
-
-                if (Object.keys(result).length > 0) {
-                    $("#DocumentTypeID").val(result.Sys_ID);
-                } else {
-                    console.log('error get document type');
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                console.log('error', textStatus, errorThrown);
-            }
-        });
+    function saveCombinedBudget(params) {
+        $("#var_combinedBudget_RefID").val(params.value);
     }
 
     function convertToISODateTime(startDate, fromHours) {
@@ -222,12 +237,10 @@
         document.getElementById("eventModalSubmit").innerHTML   = params.submit;
         document.getElementById("projectSelect").value          = params.projectID;
         document.getElementById("siteSelect").value             = params.siteID;
-        document.getElementById("onBehalfSelect").value         = params.personID;
 
         $("#projectSelect").val(params.changeProjectID).change();
         $("#siteSelect").prop("disabled", params.changeDisabledSiteID);
         $("#siteSelect").val(params.changeSiteID).change();
-        $("#onBehalfSelect").val(params.changePersonID).change();
     }
 
     function saveEvent() {
@@ -259,33 +272,35 @@
         };
 
         const dataObjectDetail = {
-            // HEADER
-            documentNumber: null,
-            person_RefID: personID.value,
-            startDateTimeTZ: `${convertToISODateTimeNew(startDate.value)} ${fromHours.value}:00 +07`,
-            finishDateTimeTZ: `${convertToISODateTimeNew(finishDate.value)} ${toHours.value}:00 +07`,
-            project_RefID: projectID.value,
-            colorText: null,
-            colorBackground: null,
-            // DETAIL
-            personWorkTimeSheet_RefID: null,
-            projectSectionItem_RefID: null,
-            startDateTimeTZ: `${convertToISODateTimeNew(startDate.value)} ${fromHours.value}:00 +07`,
-            finishDateTimeTZ: `${convertToISODateTimeNew(finishDate.value)} ${toHours.value}:00 +07`,
-            activity: dailyAct.value,
-            colorText: null,
-            colorBackground: null,
+            entities: {
+                combinedBudgetSection_RefID: parseInt(siteID.value),
+                startDateTimeTZ: `${convertToISODateTimeNew(startDate.value)} ${fromHours.value}:00 +07`,
+                finishDateTimeTZ: `${convertToISODateTimeNew(finishDate.value)} ${toHours.value}:00 +07`,
+                activity: dailyAct.value,
+                colorText: null,
+                colorBackground: null
+            }
         };
 
-        console.log('dataObject', dataObject);
-
-        // 'personWorkTimeSheet_RefID' => null,
-        // 'projectSectionItem_RefID' => null,
-        // 'startDateTimeTZ' => '2026-01-01 07:00:00 +07', // start date + from
-        // 'finishDateTimeTZ' => '2026-01-01 13:00:00 +07', // end date + from
-        // 'activity' => 'Kegiatan ABCD dan EFGH', // daily act
-        // 'colorText' => null,
-        // 'colorBackground' => null
+        // OLD
+        // const dataObjectDetail = {
+        //     // HEADER
+        //     documentNumber: null,
+        //     person_RefID: personID.value,
+        //     startDateTimeTZ: `${convertToISODateTimeNew(startDate.value)} ${fromHours.value}:00 +07`,
+        //     finishDateTimeTZ: `${convertToISODateTimeNew(finishDate.value)} ${toHours.value}:00 +07`,
+        //     project_RefID: projectID.value,
+        //     colorText: null,
+        //     colorBackground: null,
+        //     // DETAIL
+        //     personWorkTimeSheet_RefID: null,
+        //     projectSectionItem_RefID: null,
+        //     startDateTimeTZ: `${convertToISODateTimeNew(startDate.value)} ${fromHours.value}:00 +07`,
+        //     finishDateTimeTZ: `${convertToISODateTimeNew(finishDate.value)} ${toHours.value}:00 +07`,
+        //     activity: dailyAct.value,
+        //     colorText: null,
+        //     colorBackground: null,
+        // };
 
         if (triggerUpdateByID) {
             var findIndex       = dataEvents.findIndex((val) => val.id == triggerUpdateByID);
@@ -293,7 +308,7 @@
 
             dataObject.id = triggerUpdateByID;
             dataObjectDetail.id = triggerUpdateByID;
-            
+
             $('#calendar').fullCalendar('removeEvents', triggerUpdateByID);
 
             dataEvents[findIndex] = dataObject;
@@ -306,7 +321,7 @@
 
             dataEvents.push(dataObject);
             dataDetail.push(dataObjectDetail);
-            
+
             $('#calendar').fullCalendar('renderEvent', dataObject, true);
         }
 
@@ -324,11 +339,10 @@
             submit: 'Add',
             projectID: '',
             siteID: '',
-            personID: '',
             changeProjectID: 'Select a Project Code',
             changeDisabledSiteID: true,
             changeSiteID: 'Select a Site Code',
-            changePersonID: 'Select On Behalf'
+            changePersonID: 'Select a Person on Behalf'
         });
     }
 
@@ -439,7 +453,6 @@
                     data: form_data,
                     type: method,
                     success: function(response) {
-                        console.log('response success', response);
                         if (response.message == "WorkflowError") {
                             HideLoading();
                             $("#submitTimesheet").prop("disabled", false);
@@ -487,12 +500,16 @@
     });
 
     $(document).ready(function () {
+        $("#onBehalfSelectContainer").hide();
+        $("#authorizedSelectContainer").hide();
+
         $("#siteSelect").prop("disabled", true);
         $("#siteLoading").hide();
 
+        getAuthorized();
         getProject();
         getPerson();
-        getDocumentType();
+        getDocumentType("Timesheet Form");
 
         $('#fromHours').datetimepicker({
             use24hours: true,
@@ -565,7 +582,6 @@
                     submit: 'Edit',
                     projectID: originData.projectID,
                     siteID: originData.siteID,
-                    personID: originData.personID,
                     changeProjectID: originData.projectID,
                     changeDisabledSiteID: false,
                     changeSiteID: originData.siteID,
@@ -573,17 +589,13 @@
                 });
 
                 $('#eventModal').modal('show');
-
-                // if (info.event.url) {
-                //     window.open(info.event.url);
-                // }
             },
             lazyFetching: true,
         });
 
         $('#eventModal').on('hidden.bs.modal', function (event) {
             triggerUpdateByID = '';
-            
+
             resetForm({
                 startDate: '',
                 finishDate: '',
@@ -594,11 +606,10 @@
                 submit: 'Add',
                 projectID: '',
                 siteID: '',
-                personID: '',
                 changeProjectID: 'Select a Project Code',
                 changeDisabledSiteID: true,
                 changeSiteID: 'Select a Site Code',
-                changePersonID: 'Select On Behalf'
+                changePersonID: 'Select a Person on Behalf'
             });
         });
     });

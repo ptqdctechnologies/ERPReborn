@@ -80,6 +80,33 @@
 <!-- RIGHT COLUMN -->
 <div class="col-12 col-md-5 col-lg-5">
     <div class="form-group">
+        <!-- REVISION -->
+        <div class="row" id="revisionAdvance" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-6 col-lg-5 text-bold">
+                Revision
+            </div>
+            <?php if (isset($dataHeader['dateUpdate'])) { ?>
+                <div class="col d-flex" style="gap: .1rem;">
+                    <div>
+                        :
+                    </div>
+                    <div class="input-group">
+                        <button class="btn btn-default btn-sm" onclick="window.location.href='{{ route('LogTransaction', [
+                            'id'        => $dataHeader['deliveryOrderRefID'],
+                            'docNum'    => $dataHeader['doNumber'],
+                            'docName'   => $transactionForm
+                            ]) }}'">
+                            Show Revision History
+                        </button>
+                    </div>
+                </div>
+            <?php } else { ?>
+                <div class="col">
+                    : 0
+                </div>
+            <?php } ?>
+        </div>
+
         <!-- TRANSPORTER NAME -->
         <div class="row" id="revisionAdvance" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-6 col-lg-5 text-bold">

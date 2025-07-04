@@ -4,19 +4,22 @@ namespace App\Http\Controllers\Document;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Alert;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
-use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use App\Services\DocumentTypeMapper;
+use App\Services\Document\CheckDocumentService;
 
 class CheckDocumentController extends Controller
 {
-    // FUNCTION INDEX 
+    protected $checkDocumentService;
+
+    public function __construct(CheckDocumentService $checkDocumentService)
+    {
+        $this->checkDocumentService = $checkDocumentService;
+    }
+
     public function index()
     {
         $compact = [
@@ -52,9 +55,15 @@ class CheckDocumentController extends Controller
             }
 
             if (
-                $documentType === 'Person Business Trip Form' || 
-                $documentType === 'Warehouse Inbound Order Form' ||
-                $documentType === 'Timesheet Form'
+                $documentType === 'Loan Form' ||
+                $documentType === 'Loan Settlement Form' ||
+                $documentType === 'Modify Budget Form' ||
+                $documentType === 'Person Business Trip Form' ||
+                $documentType === 'Person Business Trip Settlement Form' || 
+                $documentType === 'Reimbursement Form' || 
+                $documentType === 'Sallary Allocation Form' || 
+                $documentType === 'Timesheet Form' ||
+                $documentType === 'Warehouse Inbound Order Form'
             ) {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
                 $responseData = [
@@ -148,7 +157,7 @@ class CheckDocumentController extends Controller
             return "YES";
         }
 
-        if ($SessionWorkerCareerInternal_RefID === $submitterId && $nextApproverId === 0) {
+        if ($SessionWorkerCareerInternal_RefID === $submitterId && ($nextApproverId === 0 || !$nextApproverId)) {
             return "RESUBMIT";
         }
 
@@ -165,7 +174,6 @@ class CheckDocumentController extends Controller
         return $nextApproverId === 0 ? 1 : 0;
     }
 
-    // FUNCTION FOR SHOW DOCUMENT FORM SUBMIT IN CHECK DOCUMENT 
     public function ShowDocument(Request $request)
     {
         try {
@@ -190,6 +198,8 @@ class CheckDocumentController extends Controller
                 'transDetail_RefID'         => $transDetail_RefID
             ]);
 
+            // dd($collection);
+
             if (count($collection['dataDetail']) === 0) {
                 return redirect()->back()->with('error', 'Data Not Found');
             }
@@ -199,6 +209,8 @@ class CheckDocumentController extends Controller
             if (count($workflowHistory) === 0) {
                 return redirect()->back()->with('error', 'Data Not Found');
             }
+
+            // dd($collection, $workflowHistory);
 
             $approverStatus     = $this->determineApproverStatus($workflowHistory, $sourceData);
             $documentStatus     = $this->determineDocumentStatus($workflowHistory);
@@ -211,11 +223,13 @@ class CheckDocumentController extends Controller
                 'varAPIWebToken'            => $varAPIWebToken,
                 'sourceData'                => $sourceData,
                 'var'                       => 1,
+                'transactionForm'           => $businessDocumentTypeName,
                 'transactionNumber'         => $businessDocumentNumber,
                 'transactionDetail_RefID'   => $transDetail_RefID,
                 'dataWorkFlows'             => $workflowHistory,
                 'statusDocument'            => $documentStatus,
                 'approverStatus'            => $approverStatus,
+                'page'                      => 'Document Tracking',
                 'dataDetails'               => $collection['dataDetail']
             ] + $formatData;
 
@@ -228,7 +242,6 @@ class CheckDocumentController extends Controller
         }
     }
 
-    // FUNCTION FOR SHOW DOCUMENT BY CLICK DATA IN MY DOCUMENT 
     public function ShowDocumentByID(Request $request)
     {
         try {
@@ -273,11 +286,12 @@ class CheckDocumentController extends Controller
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'var'               => 1,
-                'transactionType'   => $businessDocumentTypeName,
                 'dataDetails'       => $collection['dataDetail'],
                 'dataWorkFlows'     => $workflowHistory,
                 'statusApprover'    => $approverStatus,
                 'documentStatus'    => $documentStatus,
+                'transactionForm'   => $businessDocumentTypeName,
+                'page'              => 'My Document'
             ] + $formatData;
 
             // dump($compact);
@@ -289,39 +303,128 @@ class CheckDocumentController extends Controller
         }
     }
 
-    // FUNCTION FOR SHOW LIST DATA BY DOCUMENT TYPE 
     public function ShowDocumentListData(Request $request)
     {
         $DocumentTypeID = $request->input('DocumentTypeID');
         $DocumentTypeName = $request->input('DocumentTypeName');
 
-        // if ($DocumentTypeID == 77000000000045) {
-        //     $DocumentTypeID = 77000000000057;
-        // }
-
-        // if (Redis::get("CheckDocumentTypeID" . $DocumentType) == null) {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataPickList.master.getBusinessDocumentFormLatestVersion',
-            'latest',
-            [
-                'parameter' => [
-                    'businessDocumentType_RefID' => (int)$DocumentTypeID
-                ]
-            ],
-            false
-        );
-        // }
-
-        // $varData = json_decode(
-        //     Helper_Redis::getValue(
-        //         Helper_Environment::getUserSessionID_System(),
-        //         "CheckDocumentTypeID" . $DocumentTypeID
-        //     ),
-        //     true
-        // );
+        switch ($DocumentTypeName) {
+            case "Loan Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 12345678,
+                                'sys_Text'  => 'LN/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 23456781,
+                                'sys_Text'  => 'LN/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            case "Loan Settlement Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 12345678,
+                                'sys_Text'  => 'LNS/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 23456781,
+                                'sys_Text'  => 'LNS/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            case "Modify Budget Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 12345678,
+                                'sys_Text'  => 'MOB/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 23456781,
+                                'sys_Text'  => 'MOB/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            case "Sallary Allocation Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 12345678,
+                                'sys_Text'  => 'SA/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 23456781,
+                                'sys_Text'  => 'SA/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            case "Reimbursement Form":
+                $varData = [
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID'    => 12345678,
+                                'sys_Text'  => 'REM/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID'    => 23456781,
+                                'sys_Text'  => 'REM/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            default:
+                $varAPIWebToken = Session::get('SessionLogin');
+                $varData = Helper_APICall::setCallAPIGateway(
+                    Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken,
+                    'dataPickList.master.getBusinessDocumentFormLatestVersion',
+                    'latest',
+                    [
+                        'parameter' => [
+                            'businessDocumentType_RefID' => (int)$DocumentTypeID
+                        ]
+                    ],
+                    false
+                );
+                break;
+        }
 
         $compact = [
             "data" => $varData['data']['data'],
@@ -331,67 +434,50 @@ class CheckDocumentController extends Controller
         return response()->json($compact);
     }
 
-    //LOG TRANSACTION
     public function LogTransaction(Request $request)
     {
-        $id         = $request->input('id');
-        $docNum     = $request->input('docNum');
-        $docName    = $request->input('docName');
+        try {
+            $id         = $request->input('id');
+            $docNum     = $request->input('docNum');
+            $docName    = $request->input('docName');
+            $page       = $request->input('page');
 
-        $varAPIWebToken = Session::get('SessionLogin');
+            $response   = $this->checkDocumentService->getTransactionHistory($id);
 
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'dataWarehouse.read.dataList.log.getTransactionHistory',
-            'latest',
-            [
-                'parameter' => [
-                    'source_RefID' => (int) $id
-                ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                ]
-            ]
-        );
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
 
-        $collection = collect($varData['data']);
-        $collection = $collection->sort();
+            $collection = collect($response['data']['data'])->sort();
 
-        // HEADER
-        $header = $collection->where('type', 'Header');
+            $dataHeader = $collection->where('type', 'Header')->values()->all();
 
-        $dataHeader = [];
-        foreach ($header as $headers) {
-            $dataHeader[] = $headers;
-        }
+            $dataDetail = $collection->where('type', 'Detail')
+                ->groupBy(fn ($item) => $item['content']['sys_PID'])
+                ->values()
+                ->all();
 
-        //DETAIL
-        $detail = $collection->where('type', 'Detail');
-        $groupedByDetail = $detail->groupBy('source_RefPID');
+            $urlPage = $page == "Document Tracking" ? "CheckDocument.ShowDocument" : "CheckDocument.ShowDocumentByID";
 
-        $dataDetail = [];
-        foreach ($groupedByDetail as $groupedByDetails) {
-            $dataDetail[] = $groupedByDetails;
-        }
+            $compact = [
+                'data'              => $response['data'],
+                'documentNumber'    => $docNum,
+                'documentName'      => $docName,
+                'dataHeader'        => $dataHeader,
+                'dataDetail'        => $dataDetail,
+                'urlPage'           => $urlPage
+            ];
 
-        // dd($dataDetail);
+            // dd($compact);
 
-        $compact = [
-            'data'              => $varData['data'],
-            'documentNumber'    => $docNum,
-            'documentName'      => $docName,
-            'dataHeader'        => $dataHeader,
-            'dataDetail'        => $dataDetail
-        ];
-
-        if ($docName == "Advance Form") {
-            return view('Documents.Transactions.LogTransaction.LogTransactionAdvance', $compact);
-        } else if ($docName == "Purchase Order Form") {
-            return view('Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder', $compact);
+            if ($docName == "Advance Form") {
+                return view('Documents.Transactions.LogTransaction.LogTransactionAdvance', $compact);
+            } else if ($docName == "Purchase Order Form") {
+                return view('Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder', $compact);
+            }
+        } catch (\Throwable $th) {
+            Log::error("LogTransaction Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
 }

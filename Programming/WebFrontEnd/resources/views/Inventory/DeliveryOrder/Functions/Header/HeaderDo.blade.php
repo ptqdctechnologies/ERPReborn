@@ -108,6 +108,9 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
+            <input hidden id="deliveryFromDuplicate_RefID">
+            <input hidden name="deliveryFrom_RefID" id="deliveryFrom_RefID">
+            <input hidden id="delivery_fromDuplicate">
             <textarea id="delivery_from" name="delivery_from" rows="3" style="border-radius:0;" class="form-control"></textarea>
           </div>
         </div>
@@ -120,6 +123,9 @@
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
+            <input hidden id="deliveryToDuplicate_RefID">
+            <input hidden name="deliveryTo_RefID" id="deliveryTo_RefID">
+            <input hidden id="delivery_toDuplicate">
             <textarea id="delivery_to" name="delivery_to" rows="3" style="border-radius:0;" class="form-control"></textarea>
           </div>
         </div>

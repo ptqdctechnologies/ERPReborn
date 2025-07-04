@@ -1,13 +1,12 @@
 <script>
-    var date                = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-    var currentURL          = window.location.href;
-    var documentTypeID      = $("#DocumentTypeID").val();
-    var bankNameInput       = document.getElementById("bank_name_second_name");
+    var dataStore           = [];
+    var documentTypeID      = document.getElementById("DocumentTypeID");
     var siteCode            = document.getElementById("site_code_second");
     var requester           = document.getElementById("worker_name_second");
     var beneficiary         = document.getElementById("beneficiary_second_person_name");
-    var tableAdvanceList    = document.querySelector("#tableAdvanceList tbody");
     var submitArf           = document.getElementById("submitArf");
+    var bankNameInput       = document.getElementById("bank_name_second_name");
+    var tableAdvanceList    = document.querySelector("#tableAdvanceList tbody");
 
     $(".loadingBudgetDetails").hide();
     $(".errorMessageContainerBudgetDetails").hide();
@@ -16,7 +15,6 @@
     $("#myBeneficiarySecondTrigger").prop("disabled", true);
     $("#myGetBankSecondTrigger").prop("disabled", true);
     $("#myBankAccountTrigger").prop("disabled", true);
-    $("#var_date").val(date);
     $("#submitArf").prop("disabled", true);
 
     function checkTableDataARF() {
@@ -32,12 +30,121 @@
         }
     }
 
-    const observerTableAdvanceList = new MutationObserver(checkTableDataARF);
-    observerTableAdvanceList.observe(tableAdvanceList, { childList: true });
+    if (tableAdvanceList) {
+        const observerTableAdvanceList = new MutationObserver(checkTableDataARF);
+        observerTableAdvanceList.observe(tableAdvanceList, { childList: true });
 
-    siteCode.addEventListener('input', checkTableDataARF);
-    requester.addEventListener('input', checkTableDataARF);
-    beneficiary.addEventListener('input', checkTableDataARF);
+        document.querySelector('#tableAdvanceList tbody').addEventListener('click', function (e) {
+            const row = e.target.closest('tr');
+            if (!row) return;
+
+            if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+
+            const qtyAvail      = row.children[0];
+            const priceAvail    = row.children[1];
+            const productRefID  = row.children[2];
+            const priceCell     = row.children[7];
+            const qtyCell       = row.children[8];
+            const totalCell     = row.children[9];
+
+            if (row.classList.contains('editing-row')) {
+                const newPrice = priceCell.querySelector('input')?.value || '';
+                const newQty = qtyCell.querySelector('input')?.value || '';
+                const newTotal = totalCell.querySelector('input')?.value || '';
+
+                priceCell.innerHTML = newPrice;
+                qtyCell.innerHTML = newQty;
+                totalCell.innerHTML = newTotal;
+
+                row.classList.remove('editing-row');
+
+                const storeItem = dataStore.find(item => item.entities.product_RefID == productRefID.value);
+                if (storeItem) {
+                    storeItem.entities.quantity = parseFloat(newQty.replace(/,/g, ''));
+                    storeItem.entities.productUnitPriceCurrencyValue = parseFloat(newPrice.replace(/,/g, ''));
+                }
+            } else {
+                const currentPrice  = priceCell.innerText.trim();
+                const currentQty    = qtyCell.innerText.trim();
+                const currentTotal  = totalCell.innerText.trim();
+
+                priceCell.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+                qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+                totalCell.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
+
+                row.classList.add('editing-row');
+
+                const priceInput    = priceCell.querySelector('.price-input');
+                const qtyInput      = qtyCell.querySelector('.qty-input');
+                const totalInput    = totalCell.querySelector('.total-input');
+
+                function updateTotal() {
+                    var price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
+                    var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
+                    var total = price * qty;
+
+                    const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
+                    const priceAvailValue = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
+
+                    if (qty > qtyAvailValue) {
+                        total           = price * qtyAvailValue;
+                        qty             = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        qtyInput.value  = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                        ErrorNotif("Qty Req is over Qty Avail !");
+                    }
+
+                    if (price > priceAvailValue) {
+                        total               = priceAvailValue * qtyAvailValue;
+                        price               = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        priceInput.value    = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                        ErrorNotif("Price Req is over Price Avail !");
+                    }
+
+                    totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                }
+
+                priceInput.addEventListener('input', updateTotal);
+                qtyInput.addEventListener('input', updateTotal);
+
+                document.getElementById('GrandTotal').innerText = totalInput.value;
+            }
+
+            updateGrandTotal();
+        });
+    }
+
+    function calculateTotal() {
+        let total = 0;
+        
+        document.querySelectorAll('input[id^="total_req"]').forEach(function(input) {
+            let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
+            if (!isNaN(value)) {
+                total += value;
+            }
+        });
+
+        total = Math.ceil(total * 100) / 100;
+
+        document.getElementById('TotalBudgetSelected').textContent = currencyTotal(total);
+    }
+
+    function updateGrandTotal() {
+        let total = 0;
+        const rows = document.querySelectorAll('#tableAdvanceList tbody tr');
+        rows.forEach(row => {
+            const totalCell = row.children[9];
+            const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
+            total += value;
+        });
+
+        document.getElementById('TotalBudgetSelected').innerText = "0.00";
+        document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
 
     function getBudgetDetails(site_code) {
         $.ajaxSetup({
@@ -51,6 +158,8 @@
             url: '{!! route("getBudget") !!}?site_code=' + site_code,
             success: function(data) {
                 $(".loadingBudgetDetails").hide();
+                $('#tableGetBudgetDetails tbody').empty();
+                $(".errorMessageContainerBudgetDetails").hide();
 
                 let tbody = $('#tableGetBudgetDetails tbody');
                 tbody.empty();
@@ -71,10 +180,10 @@
 
                 $.each(data, function(key, val2) {
                     let isUnspecified = '';
-                    let balanced = currencyTotal(val2.quantity);
+                    let balanced = currencyTotal(val2.quantityRemaining);
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
                     let productColumn = `
-                        <td style="text-align: center;">${val2.product_RefID}</td>
+                        <td style="text-align: center;">${val2.productCode}</td>
                         <td style="text-align: center;">${val2.productName}</td>
                     `;
 
@@ -82,7 +191,7 @@
                         productColumn = `
                             <td style="padding: 8px;">
                                 <div class="input-group">
-                                    <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly />
+                                    <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" class="form-control" readonly />
                                     <div class="input-group-append">
                                         <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" data-id="10">
                                             <a id="product_id2${key}" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(${key})">
@@ -98,27 +207,21 @@
                         balanced = '-';
                     }
 
-                    // <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantityRemaining)}</td>
                     let row = `
                         <tr>
-                            <input id="productId${key}" name="productId${key}" data-product-id="productId" value="${val2.product_RefID}" type="hidden" />
-                            <input id="productName${key}" name="productName${key}" value="${val2.productName}" type="hidden" />
-                            <input id="qtyId${key}" name="qtyId${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
-                            <input id="qty${key}" name="qty${key}" value="${val2.quantity}" type="hidden" />
-                            <input id="price${key}" name="price${key}" value="${val2.priceBaseCurrencyValue}" type="hidden" />
-                            <input id="uom${key}" name="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
-                            <input id="currency${key}" name="currency${key}" value="${val2.priceBaseCurrencyISOCode}" type="hidden" />
-                            <input id="currencyId${key}" name="currencyId${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
-                            <input id="combinedBudgetSectionDetail_RefID${key}" name="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
-                            <input id="combinedBudget_RefID${key}" name="combinedBudget_RefID${key}" value="${val2.combinedBudget_RefID}" type="hidden" />
+                            <input id="productId${key}" value="${val2.product_RefID}" type="hidden" />
+                            <input id="productCode${key}" value="${val2.productCode}" type="hidden" />
+                            <input id="qtyId${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
+                            <input id="currencyId${key}" value="${val2.sys_BaseCurrency_RefID}" type="hidden" />
+                            <input id="combinedBudgetSectionDetail_RefID${key}" value="${val2.sys_ID}" type="hidden" />
                             
                             ${productColumn}
                             <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
-                            <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantity)}</td>
-                            <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
+                            <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantityRemaining)}</td>
                             <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
-                            <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
+                            <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
                             <td style="text-align: center;">${currencyTotal(totalBudget)}</td>
+                            <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
                             <td class="sticky-col forth-col-arf" style="border:1px solid #e9ecef;background-color:white;">
                                 <input class="form-control number-without-negative" id="qty_req${key}" autocomplete="off" style="border-radius:0px;" ${isUnspecified} />
                             </td>
@@ -129,7 +232,7 @@
                                 <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled />
                             </td>
                             <td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" value="${balanced}" disabled />
+                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" data-default="${balanced}" value="${balanced}" disabled />
                             </td>
                         </tr>
                     `;
@@ -166,6 +269,7 @@
                                 $(`#total_req${key}`).val('');
                                 ErrorNotif("Total Req is over budget !");
                             } else {
+                                calculateTotal();
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
                             }
                         });
@@ -173,10 +277,10 @@
                         $(`#qty_req${key}`).on('keyup', function() {
                             var qty_req = $(this).val().replace(/,/g, '');
                             var price_req = $(`#price_req${key}`).val().replace(/,/g, '');
-                            var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
-                            var total = parseFloat(qty_req || 0) + parseFloat(balanced);
+                            var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
+                            var total = parseFloat(balanced) - parseFloat(qty_req || 0);
 
-                            if (parseFloat(qty_req) > val2.quantity) {
+                            if (parseFloat(qty_req) > val2.quantityRemaining) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
                                 ErrorNotif("Qty Req is over budget !");
@@ -185,6 +289,7 @@
                                 $(`#total_req${key}`).val('');
                                 ErrorNotif("Total Req is over budget !");
                             } else {
+                                calculateTotal();
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
                                 $(`#balanced_qty${key}`).val(currencyTotal(total));
                             }
@@ -194,7 +299,7 @@
                     $(`#price_req${key}`).on('keyup', function() {
                         var price_req = $(this).val().replace(/,/g, '');
                         var qty_req = $(`#qty_req${key}`).val().replace(/,/g, '');
-                        var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
+                        var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
                         var total = parseFloat(price_req || 0) + parseFloat(val2.priceBaseCurrencyValue);
 
                         if (parseFloat(price_req) > val2.priceBaseCurrencyValue) {
@@ -206,6 +311,7 @@
                             $(`#total_req${key}`).val('');
                             ErrorNotif("Total Req is over budget !");
                         } else {
+                            calculateTotal();
                             $(`#total_req${key}`).val(currencyTotal(total_req));
                         }
                     });
@@ -220,7 +326,7 @@
         });
     }
 
-    function SelectWorkFlow(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID) {
+    function SelectWorkFlow(formatData) {
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
             cancelButtonClass: 'btn btn-danger btn-sm',
@@ -241,11 +347,11 @@
             reverseButtons: true
         }).then((result) => {
             ShowLoading();
-            AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID, result.value);
-        })
+            AdvanceRequestStore({...formatData, comment: result.value});
+        });
     }
 
-    function AdvanceRequestStore(workFlowPath_RefID, nextApprover_RefID, approverEntity_RefID, documentTypeID, comment) {
+    function AdvanceRequestStore(formatData) {
         var fileAttachments = $("#dataInput_Log_FileUpload").val();
 
         $.ajaxSetup({
@@ -254,18 +360,9 @@
             }
         });
 
-        var data = {
-            workFlowPath_RefID: workFlowPath_RefID,
-            nextApprover_RefID: nextApprover_RefID,
-            approverEntity_RefID: approverEntity_RefID,
-            fileAttachment: fileAttachments,
-            documentTypeID: documentTypeID,
-            comment: comment
-        };
-
         $.ajax({
             type: 'POST',
-            data: data,
+            data: formatData,
             url: '{!! route("AdvanceRequest.store") !!}',
             success: function(res) {
                 HideLoading();
@@ -303,6 +400,11 @@
         });
     }
 
+    function CancelAdvance() {
+        ShowLoading();
+        window.location.href = '/AdvanceRequest?var=1';
+    }
+
     $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
         var sysId       = $(this).find('input[data-trigger="sys_id_project_second"]').val();
         var projectCode = $(this).find('td:nth-child(2)').text();
@@ -316,9 +418,10 @@
         $("#myProjectSecondTrigger").css({"display":"none"});
 
         try {
-            var checkWorkFlow = await checkingWorkflow(sysId, documentTypeID);
+            var checkWorkFlow = await checkingWorkflow(sysId, documentTypeID.value);
 
             if (checkWorkFlow) {
+                $("#var_combinedBudget_RefID").val(sysId);
                 $("#project_id_second").val(sysId);
                 $("#project_code_second").val(projectCode);
                 $("#project_name_second").val(projectName);
@@ -368,7 +471,7 @@
         var beneficiaryPersonRefID  = document.getElementById("beneficiary_second_person_ref_id");
 
         $("#myBankAccountTrigger").prop("disabled", false);
-        
+
         $("#bank_accounts").val("");
         $("#bank_accounts_id").val("");
         $("#bank_accounts_detail").val("");
@@ -376,140 +479,112 @@
         getBankAccountData(sysId, beneficiaryPersonRefID.value);
     });
 
-    const calculateTotal = () => {
-        const totalReqInputs = document.querySelectorAll('[id^="total_req"]');
-        let total = 0;
-
-        totalReqInputs.forEach(input => {
-            let value = input.value.trim().replace(/,/g, '');
-            let number = parseFloat(value);
-
-            if (!isNaN(number)) {
-                total += number;
-            }
-        });
-
-        document.getElementById('TotalBudgetSelected').textContent = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
-
-    $("#tableGetBudgetDetails").on('keyup', function(event) {
-        const targetId = event.target.id;
-        if (targetId.startsWith('qty_req') || targetId.startsWith('price_req')) {
-            calculateTotal();
-        }
-    });
-
-    $(document).on('input', '.number-without-negative', function() {
-        allowNumbersWithoutNegative(this);
-    });
-
     $("#budget-details-add").on('click', function() {
-        var totals = 0;
-        var var_product_id = [];
-        var var_product_name = [];
-        var var_quantity = [];
-        var var_uom = [];
-        var var_qty_id = [];
-        var var_currency_id = [];
-        var var_price = [];
-        var var_total = [];
-        var var_currency = [];
-        var var_combinedBudgetSectionDetail_RefID = [];
+        const sourceTable = document.getElementById('tableGetBudgetDetails').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('tableAdvanceList').getElementsByTagName('tbody')[0];
 
-        $("#tableGetBudgetDetails tbody tr").each(function(index) {
-            var productId = $(this).find(`input[name="productId${index}"]`).val();
-            var productName = $(this).find(`input[name="productName${index}"]`).val();
-            var qtyId = $(this).find(`input[name="qtyId${index}"]`).val();
-            var uom = $(this).find(`input[name="uom${index}"]`).val();
-            var currency = $(this).find(`input[name="currency${index}"]`).val();
-            var currencyId = $(this).find(`input[name="currencyId${index}"]`).val();
-            var qtyReq = $(this).find(`input[id^="qty_req${index}"]`).val();
-            var priceReq = $(this).find(`input[id^="price_req${index}"]`).val();
-            var totalReq = $(this).find(`input[id^="total_req${index}"]`).val();
-            var combinedBudgetSectionDetail_RefID = $(this).find(`input[id^="combinedBudgetSectionDetail_RefID${index}"]`).val();
+        const rows = sourceTable.getElementsByTagName('tr');
 
-            totalReq = totalReq.replace(/,/g, ""); 
-            totalReq = parseFloat(totalReq) || 0;
+        for (let row of rows) {
+            const productCode                       = row.querySelector('input[id^="productCode"]');
+            const productRefId                      = row.querySelector('input[id^="productId"]');
+            const qtyUnitRefId                      = row.querySelector('input[id^="qtyId"]');
+            const currencyRefId                     = row.querySelector('input[id^="currencyId"]');
+            const combinedBudgetSectionDetailInput  = row.querySelector('input[id^="combinedBudgetSectionDetail_RefID"]');
+            const qtyInput                          = row.querySelector('input[id^="qty_req"]');
+            const priceInput                        = row.querySelector('input[id^="price_req"]');
+            const totalInput                        = row.querySelector('input[id^="total_req"]');
+            const balanceInput                      = row.querySelector('input[id^="balanced_qty"]');
 
-            if (!productId || !qtyReq || !priceReq || !totalReq) {
-                return;
-            }
+            if (
+                qtyInput && priceInput && totalInput && 
+                qtyInput.value.trim() !== '' &&
+                priceInput.value.trim() !== '' &&
+                totalInput.value.trim() !== ''
+            ) {
+                const productName   = row.children[6].innerText.trim();
+                const qtyAvail      = row.children[8].innerText.trim();
+                const uom           = row.children[9].innerText.trim();
+                const priceAvail    = row.children[10].innerText.trim();
+                const currency      = row.children[12].innerText.trim();
 
-            totals += totalReq;
+                const price = priceInput.value.trim();
+                const qty   = qtyInput.value.trim();
+                const total = totalInput.value.trim();
 
-            var rowToUpdate = null;
+                let found = false;
+                const existingRows = targetTable.getElementsByTagName('tr');
 
-            $("#tableAdvanceList tbody tr").each(function() {
-                var existingProductId = $(this).find("td:eq(0)").text();
-                var existingQty = $(this).find("td:eq(5)").text();
-                var existingPrice = $(this).find("td:eq(4)").text();
+                for (let targetRow of existingRows) {
+                    const targetCode = targetRow.children[3].innerText.trim();
+                    const targetName = targetRow.children[4].innerText.trim();
+                    if (targetCode == productCode.value && targetName == productName) {
+                        targetRow.children[7].innerText = price;
+                        targetRow.children[8].innerText = qty;
+                        targetRow.children[9].innerText = total;
+                        found = true;
 
-                if (existingProductId === productId) {
-                    if (existingQty === qtyReq && existingPrice === priceReq) {
-                        rowToUpdate = $(this);
-                    } else {
-                        rowToUpdate = $(this);
+                        // update dataStore
+                        const indexToUpdate = dataStore.findIndex(item => item.entities.product_RefID == productRefId.value);
+                        if (indexToUpdate !== -1) {
+                            dataStore[indexToUpdate] = {
+                                entities: {
+                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
+                                    product_RefID: parseInt(productRefId.value),
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantityUnit_RefID: parseInt(qtyUnitRefId.value),
+                                    productUnitPriceCurrency_RefID: parseInt(currencyRefId.value),
+                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                                    productUnitPriceCurrencyExchangeRate: 1,
+                                    remarks: null
+                                }
+                            };
+                        }
+                        break;
                     }
-                    return false;
                 }
-            });
 
-            if (rowToUpdate) {
-                var_product_id.push(productId);
-                var_product_name.push(productName);
-                var_quantity.push(currencyTotal(qtyReq));
-                var_uom.push(uom);
-                var_qty_id.push(qtyId);
-                var_currency_id.push(currencyId);
-                var_price.push(currencyTotal(priceReq));
-                var_total.push(currencyTotal(totalReq));
-                var_currency.push(currency);
-                var_combinedBudgetSectionDetail_RefID.push(combinedBudgetSectionDetail_RefID);
+                if (!found) {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
+                        <input type="hidden" name="price_avail[]" value="${priceAvail}">
+                        <input type="hidden" name="product_RefID[]" value="${productRefId.value}">
+                        <td style="text-align: center;padding: 0.8rem;">${productCode.value}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${productName}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${currency}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${price}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${qty}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${total}</td>
+                    `;
+                    targetTable.appendChild(newRow);
 
-                rowToUpdate.find("td:eq(0)").text(productId);
-                rowToUpdate.find("td:eq(1)").text(productName);
-                rowToUpdate.find("td:eq(2)").text(uom);
-                rowToUpdate.find("td:eq(3)").text(currency);
-                rowToUpdate.find("td:eq(4)").text(priceReq);
-                rowToUpdate.find("td:eq(5)").text(qtyReq);
-                rowToUpdate.find("td:eq(6)").text(totalReq);
-            } else {
-                var_product_id.push(productId);
-                var_product_name.push(productName);
-                var_quantity.push(currencyTotal(qtyReq));
-                var_uom.push(uom);
-                var_qty_id.push(qtyId);
-                var_currency_id.push(currencyId);
-                var_price.push(currencyTotal(priceReq));
-                var_total.push(currencyTotal(totalReq));
-                var_currency.push(currency);
-                var_combinedBudgetSectionDetail_RefID.push(combinedBudgetSectionDetail_RefID);
+                    // push to dataStore
+                    dataStore.push({
+                        entities: {
+                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
+                            product_RefID: parseInt(productRefId.value),
+                            quantity: parseFloat(qty.replace(/,/g, '')),
+                            quantityUnit_RefID: parseInt(qtyUnitRefId.value),
+                            productUnitPriceCurrency_RefID: parseInt(currencyRefId.value),
+                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                            productUnitPriceCurrencyExchangeRate: 1,
+                            remarks: null
+                        }
+                    });
+                }
 
-                var newRow = `<tr>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${productId}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${productName}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${uom}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${currency}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${currencyTotal(priceReq)}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${currencyTotal(qtyReq)}</td>
-                    <td style="text-align: center; padding: 0.8rem 0px;">${currencyTotal(totalReq)}</td>
-                </tr>`;
-
-                $("#tableAdvanceList").find("tbody").append(newRow);
+                qtyInput.value = '';
+                priceInput.value = '';
+                totalInput.value = '';
+                balanceInput.value = balanceInput.getAttribute('data-default');
             }
-        });
+        }
 
-        document.getElementById('GrandTotal').textContent = totals.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById('var_product_id').value = JSON.stringify(var_product_id);
-        document.getElementById('var_product_name').value = JSON.stringify(var_product_name);
-        document.getElementById('var_quantity').value = JSON.stringify(var_quantity);
-        document.getElementById('var_uom').value = JSON.stringify(var_uom);
-        document.getElementById('var_qty_id').value = JSON.stringify(var_qty_id);
-        document.getElementById('var_currency_id').value = JSON.stringify(var_currency_id);
-        document.getElementById('var_price').value = JSON.stringify(var_price);
-        document.getElementById('var_total').value = JSON.stringify(var_total);
-        document.getElementById('var_currency').value = JSON.stringify(var_currency);
-        document.getElementById('var_combinedBudgetSectionDetail_RefID').value = JSON.stringify(var_combinedBudgetSectionDetail_RefID);
+        dataStore = dataStore.filter(item => item !== undefined);
+
+        updateGrandTotal();
     });
 
     $('#budget-details-reset').on('click', function() {
@@ -531,22 +606,14 @@
         $('input[id^="balanced_qty"]').each(function() {
             $(this).val($(this).data('default'));
         });
-        $(`#var_product_id`).val("");
-        $(`#var_product_name`).val("");
-        $(`#var_quantity`).val("");
-        $(`#var_uom`).val("");
-        $(`#var_qty_id`).val("");
-        $(`#var_currency_id`).val("");
-        $(`#var_price`).val("");
-        $(`#var_total`).val("");
-        $(`#var_currency`).val("");
-        $(`#var_combinedBudgetSectionDetail_RefID`).val("");
         $('#tableAdvanceList tbody').empty();
+
+        dataStore = [];
 
         document.getElementById('GrandTotal').textContent = "0.00";
         document.getElementById('TotalBudgetSelected').textContent = "0.00";
     });
-    
+
     $("#FormSubmitAdvance").on("submit", function(e) {
         e.preventDefault();
 
@@ -570,8 +637,8 @@
             if (result.value) {
                 var action = $(this).attr("action");
                 var method = $(this).attr("method");
-                var form_data = new FormData($(this)[0]); 
-                var form = $(this);
+                var form_data = new FormData($(this)[0]);
+                form_data.append('advanceRequestDetail', JSON.stringify(dataStore));
 
                 ShowLoading();
 
@@ -584,14 +651,13 @@
                     data: form_data,
                     type: method,
                     success: function(response) {
+                        HideLoading();
+
                         if (response.message == "WorkflowError") {
-                            HideLoading();
                             $("#submitArf").prop("disabled", false);
 
                             CancelNotif("You don't have access", '/AdvanceRequest?var=1');
                         } else if (response.message == "MoreThanOne") {
-                            HideLoading();
-
                             $('#getWorkFlow').modal('toggle');
 
                             var t = $('#tableGetWorkFlow').DataTable();
@@ -603,8 +669,15 @@
                                 ]).draw();
                             });
                         } else {
-                            HideLoading();
-                            SelectWorkFlow(response.workFlowPath_RefID, response.nextApprover_RefID, response.approverEntity_RefID, response.documentTypeID);
+                            const formatData = {
+                                workFlowPath_RefID: response.workFlowPath_RefID, 
+                                nextApprover: response.nextApprover_RefID, 
+                                approverEntity: response.approverEntity_RefID, 
+                                documentTypeID: response.documentTypeID,
+                                storeData: response.storeData
+                            };
+
+                            SelectWorkFlow(formatData);
                         }
                     },
                     error: function(response) {
@@ -620,8 +693,24 @@
         });
     });
 
-    $(window).one('load', function(e) {
+    $('#tableGetSiteSecond').on('click', 'tbody tr', function() {
         checkTableDataARF();
+    });
+
+    $('#tableGetWorkerSecond').on('click', 'tbody tr', function() {
+        checkTableDataARF();
+    });
+
+    $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function() {
+        checkTableDataARF();
+    });
+
+    $(document).on('input', '.number-without-negative', function() {
+        allowNumbersWithoutNegative(this);
+    });
+
+    $(window).one('load', function(e) {
+        getDocumentType("Advance Form");
     });
 
     const observer = new MutationObserver(() => {
@@ -634,8 +723,4 @@
             getBankAccountData(bankNameID.value, beneficiaryPersonRefID.value);
         }
     });
-
-    if (currentURL.search('var=1') == '-1') {
-        observer.observe(bankNameInput, { attributes: true, childList: true, subtree: true, characterData: true });
-    }
 </script>

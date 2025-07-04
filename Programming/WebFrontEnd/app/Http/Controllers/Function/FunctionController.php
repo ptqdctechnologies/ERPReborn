@@ -13,8 +13,8 @@ use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Illuminate\Support\Facades\Log;
-use App\Services\AdvanceSettlementService;
-use App\Services\BusinessTripService;
+use App\Services\Process\Advance\AdvanceSettlementService;
+use App\Services\Process\BusinessTrip\BusinessTripService;
 use App\Services\MasterDataService;
 
 class FunctionController extends Controller
@@ -212,7 +212,6 @@ class FunctionController extends Controller
     // FUNCTION BUDGET 
     public function getBudget(Request $request)
     {
-
         $site_code = $request->input('site_code');
 
         $varAPIWebToken = Session::get('SessionLogin');
@@ -235,52 +234,7 @@ class FunctionController extends Controller
             false
         );
 
-        return response()->json($varData['data']);
-
-
-        // $site_code = $request->input('site_code');
-
-        // if (Redis::get("DataBudget") == null) {
-
-        //     $varAPIWebToken = Session::get('SessionLogin');
-        //     $varData = Helper_APICall::setCallAPIGateway(
-        //         Helper_Environment::getUserSessionID_System(),
-        //         $varAPIWebToken,
-        //         'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail',
-        //         'latest',
-        //         [
-        //             'parameter' => [
-        //                 'combinedBudgetSection_RefID' => (int)$site_code,
-        //             ],
-        //             'SQLStatement' => [
-        //                 'pick' => null,
-        //                 'sort' => null,
-        //                 'filter' => null,
-        //                 'paging' => null
-        //             ]
-        //         ],
-        //         false
-        //     );
-        // }
-
-        // $varDataBudget = json_decode(
-        //     Helper_Redis::getValue(
-        //         Helper_Environment::getUserSessionID_System(),
-        //         "DataBudget"
-        //     ),
-        //     true
-        // );
-
-        // $num = 0;
-        // $filteredArray = [];
-        // for ($i = 0; $i < count($varDataBudget); $i++) {
-        //     if ($varDataBudget[$i]['CombinedBudgetSection_RefID'] == $site_code) {
-        //         $filteredArray[$num] = $varDataBudget[$i];
-        //         $num++;
-        //     }
-        // }
-
-        // return response()->json($filteredArray);
+        return response()->json($varData['data']['data']);
     }
 
     // FUNCTION PURCHASE REQUISTION 
@@ -313,41 +267,27 @@ class FunctionController extends Controller
     // FUNCTION WORKER 
     public function getWorker(Request $request)
     {
-
-        if (Redis::get("Worker") == null) {
-
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            $varDataWorker = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent',
-                'latest',
-                [
-                    'parameter' => [
-                        'worker_RefID' => null
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
+        $varAPIWebToken = Session::get('SessionLogin');
+        $varDataWorker = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent',
+            'latest',
+            [
+                'parameter' => [
+                    'worker_RefID' => null
                 ],
-                false
-            );
-        }
-
-        $DataWorker = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "Worker"
-            ),
-            true
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
         );
 
-        // dd($DataWorker);
-        return response()->json($DataWorker);
+        return response()->json($varDataWorker['data']['data']);
     }
 
     // FUNCTION WORKER 
@@ -402,7 +342,7 @@ class FunctionController extends Controller
         //     true
         // );
 
-        return response()->json($varData['data']);
+        return response()->json($varData['data']['data']);
     }
 
     // FUNCTION DELIVER TO
@@ -436,7 +376,7 @@ class FunctionController extends Controller
             ),
             true
         );
-        return response()->json($varDataDeliverTo);
+        return response()->json($varDataDeliverTo['data']);
     }
 
     // FUNCTION WAREHOUSE 
@@ -547,12 +487,12 @@ class FunctionController extends Controller
             ]
         );
 
-        if ($person_RefID && isset($varData['data'])) {
-            $filteredData = array_filter($varData['data'], function($item) use ($person_RefID) {
+        if ($person_RefID && isset($varData['data']['data'])) {
+            $filteredData = array_filter($varData['data']['data'], function($item) use ($person_RefID) {
                 return $item['entity_RefID'] === $person_RefID;
             });
         } else {
-            $filteredData = $varData['data'] ?? [];
+            $filteredData = $varData['data']['data'] ?? [];
         }
 
         return response()->json(array_values($filteredData));
@@ -597,9 +537,9 @@ class FunctionController extends Controller
 
         $num = 0;
         $filteredArray = [];
-        for ($i = 0; $i < count($DataBank); $i++) {
-            if ($DataBank[$i]['Entity_RefID'] == $person_refID) {
-                $filteredArray[$num] = $DataBank[$i];
+        for ($i = 0; $i < count($DataBank['data']); $i++) {
+            if ($DataBank['data'][$i]['Entity_RefID'] == $person_refID) {
+                $filteredArray[$num] = $DataBank['data'][$i];
                 $num++;
             }
         }
@@ -692,38 +632,38 @@ class FunctionController extends Controller
     }
 
     // FUNCTION DOCUMENT TYPE 
-    public function getDocumentType()
+    public function getDocumentType(Request $request)
     {
-        if (Redis::get("DocumentType") == null) {
+        $varAPIWebToken = Session::get('SessionLogin');
+        $transName      = $request->input('name');
+        $filterName     = null;
 
-            $varAPIWebToken = Session::get('SessionLogin');
-            $varBusinessDocumentType = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.master.getBusinessDocumentType',
-                'latest',
-                [
-                    'parameter' => [],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
+        if ($transName && $transName != "undefined" && $transName != null) {
+            $filterName = "\"Name\" = '$transName'";
         }
 
-        $DocumentType = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "DocumentType"
-            ),
-            true
+        $varBusinessDocumentType = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.master.getBusinessDocumentType',
+            'latest',
+            [
+                'parameter' => [],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => $filterName,
+                    'paging' => null
+                ]
+            ],
+            false
         );
 
-        return response()->json($DocumentType);
+        // Log::error("transName: ",[$transName]);
+        // Log::error("filterName: ",[$filterName]);
+        // Log::error("varBusinessDocumentType: ",[$varBusinessDocumentType]);
+
+        return response()->json($varBusinessDocumentType['data']['data']);
     }
 
     // FUNCTION DOCUMENT TYPE 
@@ -1002,41 +942,29 @@ class FunctionController extends Controller
         $projectId     = (int) $request->input('project_id', 0);
         $siteId        = (int) $request->input('site_id', 0);
         $varAPIWebToken = Session::get('SessionLogin');
-        $DataAdvance    = [];
 
-        if (!Redis::get("DataListAdvance")) {
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvance',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.finance.getAdvance',
+            'latest',
+            [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
+        );
 
-            if (isset($varData['data']['data'])) {
-                $DataAdvance = $this->syncDataWithRedis(
-                    $varAPIWebToken, 
-                    "DataListAdvance", 
-                    $varData['data']['data']
-                );
-            }
-        } else {
-            $redisData = Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "DataListAdvance"
-            );
-
-            $DataAdvance = $redisData ? json_decode($redisData, true) : [];
+        if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json($varData);
         }
+
+        $DataAdvance = $varData['data']['data'];
 
         $filteredData = $DataAdvance;
 
@@ -1063,7 +991,7 @@ class FunctionController extends Controller
                 return response()->json($response);
             }
 
-            return response()->json($response['data']);
+            return response()->json($response['data']['data']);
         } catch (\Throwable $th) {
             Log::error("Error at getAdvanceSettlement: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -1084,7 +1012,7 @@ class FunctionController extends Controller
             ]
         );
 
-        return response()->json($varDataPerson['data']);
+        return response()->json($varDataPerson['data']['data']);
     }
 
     public function getAdvanceDetail(Request $request) 
@@ -1121,8 +1049,8 @@ class FunctionController extends Controller
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.read.dataList.supplyChain.getDeliveryOrder', 
-                // 'dataPickList.supplyChain.getDeliveryOrder',
+                // 'transaction.read.dataList.supplyChain.getDeliveryOrder', 
+                'dataPickList.supplyChain.getDeliveryOrder',
                 'latest',
                 [
                     'parameter' => null,
@@ -1135,7 +1063,7 @@ class FunctionController extends Controller
                 ]
             );
 
-            return response()->json($varData['data']);
+            return response()->json($varData['data']['data']);
         } catch (\Throwable $th) {
             Log::error("Error at getDeliveryOrderList: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -1175,7 +1103,7 @@ class FunctionController extends Controller
                 return response()->json($compact);
             }
 
-            return response()->json($varData['data']);
+            return response()->json($varData['data']['data']);
         } catch (\Throwable $th) {
             Log::error("Error at getDeliveryOrderDetail: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -1191,7 +1119,7 @@ class FunctionController extends Controller
             $varData = Helper_APICall::setCallAPIGateway(
                 $userSession,
                 $varAPIWebToken, 
-                'transaction.read.dataList.supplyChain.getPurchaseRequisition', 
+                'dataPickList.supplyChain.getPurchaseRequisition', 
                 'latest', 
                 [
                 'parameter' => null,
@@ -1277,7 +1205,7 @@ class FunctionController extends Controller
                 return redirect()->back()->with('NotFound', 'Process Error');
             }
 
-            return response()->json($varData['data']);
+            return response()->json($varData['data']['data']);
         } catch (\Throwable $th) {
             Log::error("Error at getPaymentTerm: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -1310,7 +1238,7 @@ class FunctionController extends Controller
                 return redirect()->back()->with('NotFound', 'Process Error');
             }
 
-            return response()->json($varData['data']);
+            return response()->json($varData['data']['data']);
         } catch (\Throwable $th) {
             Log::error("Error at getVAT: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -1325,7 +1253,7 @@ class FunctionController extends Controller
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.read.dataList.supplyChain.getPurchaseOrder', 
+                'dataPickList.supplyChain.getPurchaseOrder', 
                 'latest', 
                 [
                 'parameter' => null,

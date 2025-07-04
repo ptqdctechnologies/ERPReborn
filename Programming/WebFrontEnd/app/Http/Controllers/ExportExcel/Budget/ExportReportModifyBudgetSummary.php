@@ -2,57 +2,45 @@
 
 namespace App\Http\Controllers\ExportExcel\Budget;
 
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\BeforeSheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use PhpOffice\PhpSpreadsheet\Style\Border;
 
 class ExportReportModifyBudgetSummary implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents
 {
     public function collection()
     {
-        $data = Session::get("dataReportModifyBudgetSummary");
+        $data = Cache::get('dataReportModifyBudgetSummary');
         $dataDetail = $data['dataDetail'];
         
         $collection = collect();
+        $index = 1;
         foreach ($dataDetail as $detail) {
             $collection->push(
                 [
-                    $detail['no'],
-                    $detail['productID'],
-                    $detail['productName'],
-                    $detail['no'],
-                    $detail['price'],
-                    $detail['total'],
-                    $detail['no'],
-                    $detail['price'],
-                    $detail['total'],
-                    $detail['no'],
-                    $detail['price'],
-                    $detail['total'],
+                    $index,
+                    $detail['documentNumber'],
+                    date('d-m-Y', strtotime($detail['date'])),
+                    number_format($detail['total'], 2, '.', ','),
+                    $detail['pic'],
+                    ucwords($detail['status'])
                 ]
             );
+            $index++;
         }
 
         $collection->push(
             [
-                '',
                 'Grand Total',
                 '',
                 '',
-                '',
                 $data['total'],
                 '',
                 '',
-                $data['total'],
-                '',
-                '',
-                $data['total'],
             ]
         );
 
@@ -63,8 +51,7 @@ class ExportReportModifyBudgetSummary implements FromCollection, WithHeadings, S
     {
         return [
             ["", "", "", "", "", ""],
-            ["No", "Product", "", "Budget", "", "", "After Additional", "", "", "After Saving", "", ""],
-            ["", "ID", "Name", "Qty", "Price", "Total", "Qty", "Price", "Total", "Qty", "Price", "Total"]
+            ["No", "Transaction Number", "Date", "Total(+/-)", "PIC", "Status Approval"]
         ];
     }
 
@@ -74,7 +61,7 @@ class ExportReportModifyBudgetSummary implements FromCollection, WithHeadings, S
             BeforeSheet::class => function (BeforeSheet $event) {
                 $sheet = $event->sheet->getDelegate();
 
-                $data = Session::get("dataReportModifyBudgetSummary");
+                $data = Cache::get('dataReportModifyBudgetSummary');
                 $dataHeader = $data['dataHeader'];
 
                 $sheet->setCellValue('A1', date('F j, Y'))
@@ -122,7 +109,23 @@ class ExportReportModifyBudgetSummary implements FromCollection, WithHeadings, S
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B4', ': ' . $dataHeader['budget']);
+                $sheet->setCellValue('B4', ': ' . $dataHeader['budget'] . " - " . $dataHeader['budget_name']);
+
+                $sheet->setCellValue('A5', 'Sub Budget')->getStyle(cellCoordinate: 'A5')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('B5', ': ' . $dataHeader['sub_budget'] . " - " . $dataHeader['sub_budget_name']);
+
+                $sheet->setCellValue('D4', 'Date')->getStyle(cellCoordinate: 'D4')->applyFromArray([
+                    'font'  => [
+                        'bold'  => true,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]);
+                $sheet->setCellValue('E4', ': ' . $dataHeader['date']);
             },
         ];
     }

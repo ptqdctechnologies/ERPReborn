@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                       transaction.update.supplyChain.setWarehouseInboundOrder.v1_throughAPIGateway                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-04-15                                                                                           |
+        | ▪ Last Update     : 2025-06-30                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -42,10 +42,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 [
                 'recordID' => 176000000000003,
                 'entities' => [
-                    'documentDateTimeTZ' => '2025-04-11',
+                    'documentDateTimeTZ' => '2025-06-11',
                     'log_FileUpload_Pointer_RefID' => null,
                     'requesterWorkerJobsPosition_RefID' => 164000000000497,
-                    'remarks' => 'Catatan Test Update',
+                    'transporter_RefID' => 164000000000559,
+                    'deliveryDateTimeTZ' => '2025-07-07',
+                    'deliveryFrom_RefID' => 126000000000001,
+                    'deliveryFrom_NonRefID' => 'Jl. Salemba No. 04, Jakarta Pusat',
+                    'deliveryTo_RefID' => 126000000000005,
+                    'deliveryTo_NonRefID' => 'Jl. Mawar No. 109, Surabaya',
+                    'remarks' => 'Catatan Test Update - 1B',
                     'additionalData' => [
                         'itemList' => [
                             'items' => [
@@ -54,7 +60,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     'entities' => [
                                         "deliveryOrderDetail_RefID" => 180000000000002,
                                         "quantity" => 40,
-                                        'remarks' => 'Catatan Update - 1'
+                                        'remarks' => 'Catatan Update - 3B'
                                         ]
                                     ],
                                     [
@@ -62,7 +68,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     'entities' => [
                                         "deliveryOrderDetail_RefID" => 180000000000003,
                                         "quantity" => 50,
-                                        'remarks' => 'Catatan Update - 2'
+                                        'remarks' => 'Catatan Update - 4B'
                                         ]
                                     ],
                                 ]

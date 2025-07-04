@@ -14,7 +14,7 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\Services\AdvanceSettlementService;
+use App\Services\Process\Advance\AdvanceSettlementService;
 use App\Services\WorkflowService;
 
 class AdvanceSettlementController extends Controller
@@ -247,10 +247,12 @@ class AdvanceSettlementController extends Controller
                 return response()->json($response);
             }
 
-            $data = $response['data'];
+            $data = $response['data']['data'];
 
             $compact = [
                 'advanceNumber'     => $data[0]['documentNumber'] ?? '-',
+                'budget'            => $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'],
+                'subBudget'         => $data[0]['combinedBudgetSectionCode'] . ' - ' . $data[0]['combinedBudgetSectionName'],
                 'beneficiaryName'   => $data[0]['beneficiaryName'] ?? '-',
                 'bankName'          => $data[0]['bankName'] ?? '-',
                 'bankAccount'       => $data[0]['bankAccount'] ?? '-',

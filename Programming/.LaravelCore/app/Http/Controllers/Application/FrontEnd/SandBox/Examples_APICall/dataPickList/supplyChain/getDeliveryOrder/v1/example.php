@@ -20,7 +20,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
         |                     ► http://172.28.0.4/dataPickList.supplyChain.getDeliveryOrder.v1_throughAPIGateway                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-22                                                                                           |
+        | ▪ Last Update     : 2025-06-19                                                                                           |
         | ▪ Creation Date   : 2022-07-22                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -41,7 +41,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                     ]
                 ]
                 );
-            var_dump($varData);
+            return $varData;
             }
 
 

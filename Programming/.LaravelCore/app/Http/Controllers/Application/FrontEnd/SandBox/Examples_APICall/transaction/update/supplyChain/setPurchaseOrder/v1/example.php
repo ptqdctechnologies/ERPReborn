@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.supplyChain.setPurchaseOrder.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-04-16                                                                                           |
+        | ▪ Last Update     : 2025-06-18                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -56,6 +56,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "internalNotes" => 'My Internal Notes 1',
                             "downPayment" => 20,
                             "termOfPayment_RefID" => 174000000000001,
+                            "vatRatio" => 11,
                             "additionalData" => [
                                 "itemList" => [
                                     "items" => [
@@ -98,7 +99,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             "entities" => [
                                                 "taxType_RefID" => 182000000000001,
                                                 "tariffCurrency_RefID" => 62000000000001,
-                                                "tariffCurrencyValue" => 30000,
+                                                "tariffCurrencyValue" => 35000,
                                                 "tariffCurrencyExchangeRate" => 1,
                                                 "remarks" => 'Catatan 1 Update'
                                                 ]
@@ -108,7 +109,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             "entities" => [
                                                 "taxType_RefID" => 182000000000002,
                                                 "tariffCurrency_RefID" => 62000000000001,
-                                                "tariffCurrencyValue" => 30000,
+                                                "tariffCurrencyValue" => 35000,
                                                 "tariffCurrencyExchangeRate" => 1,
                                                 "remarks" => 'Catatan 2 Update'
                                                 ]

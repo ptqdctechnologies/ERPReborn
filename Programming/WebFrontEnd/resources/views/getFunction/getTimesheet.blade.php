@@ -15,13 +15,17 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Trano</th>
+                                            <th>Budget Code</th>
+                                            <th>Budget Name</th>
+                                            <th>Sub Budget Code</th>
+                                            <th>Sub Budget Name</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                     <tfoot>
                                         <tr class="loadingTimesheetNumber">
-                                            <td colspan="2" class="p-0" style="height: 22rem;">
+                                            <td colspan="6" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
@@ -33,7 +37,7 @@
                                             </td>
                                         </tr>
                                         <tr class="errorTimesheetNumberMessageContainerSecond">
-                                            <td colspan="2" class="p-0" style="height: 22rem;">
+                                            <td colspan="6" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div id="errorTimesheetNumberMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
@@ -81,6 +85,10 @@
                         table.row.add([
                             '<input id="sys_id_timesheet' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_timesheet" type="hidden">' + no++,
                             (val.sys_Text || '-'),
+                            (val.combinedBudgetCode || '-'),
+                            (val.combinedBudgetName || '-'),
+                            (val.combinedBudgetSectionCode || '-'),
+                            (val.combinedBudgetSectionName || '-'),
                         ]).draw();
                     });
 
@@ -97,8 +105,6 @@
                     $("#tableTimesheetNumber_info").hide();
                     $("#tableTimesheetNumber_paginate").hide();
                 }
-
-                console.log('data timesheet', data);
             },
             error: function (textStatus, errorThrown) {
                 $('#tableTimesheetNumber tbody').empty();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Process\BusinessTrip;
 
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;

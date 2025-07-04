@@ -19,9 +19,8 @@ use App\Http\Controllers\UserController;
 
 $varUserSession = 
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-// Testing
-$varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzUxNjE3NDIzfQ.ODY4YTcxYjk2NzgwMmE2MTUwOTU0ZDgwM2E1ZjVhOGRlOTdiN2Y1OWIwNmM5YmZmMmM1YzQ0MWQ1MTVkYmQ1YQ';
+
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzUxMjc0MzI1fQ.ODJlMzQyYjIzMWNhMjc1YzM1ZDU0OTU2MDA4OTE0NjYxMjBhYmQyODNjNTdkOGQxODgyOWQ0MDRhYzlhZTlmMg';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -300,9 +299,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportPurchaseRequisitionDetailStore', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetailStore')->name('PurchaseRequisition.ReportPurchaseRequisitionDetailStore');
     Route::get('PurchaseRequisitionListData', 'Purchase\PurchaseRequisitionController@PurchaseRequisitionListData')->name('PurchaseRequisition.PurchaseRequisitionListData');
     Route::post('ProcReqListCartRevision', 'Purchase\PurchaseRequisitionController@ProcReqListCartRevision')->name('PurchaseRequisition.ProcReqListCartRevision');
+    Route::post('UpdatePurchaseRequest', 'Purchase\PurchaseRequisitionController@UpdatePurchaseRequest')->name('PurchaseRequisition.UpdatePurchaseRequest');
     Route::resource('PurchaseRequisition', 'Purchase\PurchaseRequisitionController');
 
     // PO
+    Route::post('UpdatePurchaseOrder', 'Purchase\PurchaseOrderController@UpdatePurchaseOrder')->name('PurchaseOrder.UpdatePurchaseOrder');
     Route::post('StoreValidatePurchaseOrder', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder')->name('PurchaseOrder.StoreValidatePurchaseOrder');
     Route::post('StoreValidatePurchaseOrder2', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder2')->name('PurchaseOrder.StoreValidatePurchaseOrder2');
     Route::post('StoreValidatePurchaseOrderPrNumber', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrderPrNumber')->name('PurchaseOrder.StoreValidatePurchaseOrderPrNumber');
@@ -419,7 +420,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('MaterialReceiveListDataDO', 'Inventory\MaterialReceiveController@MaterialReceiveListDataDO')->name('MaterialReceive.MaterialReceiveListDataDO');
     Route::post('RevisionMaterialReceiveIndex', 'Inventory\MaterialReceiveController@RevisionMaterialReceiveIndex')->name('MaterialReceive.RevisionMaterialReceiveIndex');
     Route::get('MaterialReceiveListData', 'Inventory\MaterialReceiveController@MaterialReceiveListData')->name('MaterialReceive.MaterialReceiveListData');
+    Route::get('MaterialReceiveList', 'Inventory\MaterialReceiveController@MaterialReceiveList')->name('MaterialReceive.MaterialReceiveList');
     Route::post('SearchDeliveryOrder', 'Inventory\MaterialReceiveController@SearchDeliveryOrder')->name('MaterialReceive.SearchDeliveryOrder');
+    Route::post('UpdateMaterialReceive', 'Inventory\MaterialReceiveController@UpdateMaterialReceive')->name('MaterialReceive.UpdateMaterialReceive');
     Route::resource('MaterialReceive', 'Inventory\MaterialReceiveController');
 
     // MRET

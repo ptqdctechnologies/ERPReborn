@@ -35,29 +35,33 @@
             </thead>
 
             <tbody>
-                <?php $no = 0; $grand_total = 0; ?>
+                <?php $no = 0; $grandTotalRequest = 0; $grandTotalExpense = 0; $grandTotalCompany = 0; ?>
                 <?php foreach ($dataDetails as $dataDetail) { ?>
                     <?php $no++;  ?>
-                    <?php $grand_total += $dataDetail['priceBaseCurrencyValue'] ?? 0;  ?>
+                    <?php $requestTotal = $dataDetail['quantity'] * $dataDetail['productUnitPriceCurrencyValue'];  ?>
                     <?php $expenseTotal = $dataDetail['expenseQuantity'] * $dataDetail['expenseProductUnitPriceCurrencyValue'];  ?>
                     <?php $companyTotal = $dataDetail['refundQuantity'] * $dataDetail['refundProductUnitPriceCurrencyValue'];  ?>
+                    <?php $balanceSettlement = ($requestTotal - $expenseTotal) + $companyTotal;  ?>
+                    <?php $grandTotalRequest += $requestTotal ?? 0;  ?>
+                    <?php $grandTotalExpense += $expenseTotal ?? 0;  ?>
+                    <?php $grandTotalCompany += $companyTotal ?? 0;  ?>
                     <tr>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $no; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productName'] ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['quantityUnitName'] ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['currency'] ?? '-'; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['qtyReq'] ?? 0, 2); ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['priceReq'] ?? 0, 2); ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['totalReq'] ?? 0, 2); ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['balanceReq'] ?? 0, 2); ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['quantity'] ?? 0, 2); ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['productUnitPriceCurrencyValue'] ?? 0, 2); ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($requestTotal ?? 0, 2); ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['balance'] ?? 0, 2); ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['expenseQuantity'] ?? 0, 2); ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['expenseProductUnitPriceCurrencyValue'] ?? 0, 2); ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($expenseTotal ?? 0, 2); ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['refundQuantity'] ?? 0, 2); ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['refundProductUnitPriceCurrencyValue'] ?? 0, 2); ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($companyTotal ?? 0, 2); ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['productUnitPriceBaseCurrencyValue'] ?? 0, 2); ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($balanceSettlement ?? 0, 2); ?></td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -67,61 +71,29 @@
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="5">
                         GRAND TOTAL
                     </th>
+                    <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"></td>
+                    <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"></td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">
                         <span id="GrandTotal">
-                            <?= number_format($grand_total, 2); ?>
+                            <?= number_format($grandTotalRequest, 2); ?>
                         </span>
                     </td>
+                    <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"></td>
+                    <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"></td>
+                    <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"></td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">
                         <span id="GrandTotal">
-                            <?= number_format($grand_total, 2); ?>
+                            <?= number_format($grandTotalExpense, 2); ?>
                         </span>
                     </td>
+                    <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"></td>
+                    <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"></td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">
                         <span id="GrandTotal">
-                            <?= number_format($grand_total, 2); ?>
+                            <?= number_format($grandTotalCompany, 2); ?>
                         </span>
                     </td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">
-                        <span id="GrandTotal">
-                            <?= number_format($grand_total, 2); ?>
-                        </span>
-                    </td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">
-                        <span id="GrandTotal">
-                            <?= number_format($grand_total, 2); ?>
-                        </span>
-                    </td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">
-                        <span id="GrandTotal">
-                            <?= number_format($grand_total, 2); ?>
-                        </span>
-                    </td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">
-                        <span id="GrandTotal">
-                            <?= number_format($grand_total, 2); ?>
-                        </span>
-                    </td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">
-                        <span id="GrandTotal">
-                            <?= number_format($grand_total, 2); ?>
-                        </span>
-                    </td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">
-                        <span id="GrandTotal">
-                            <?= number_format($grand_total, 2); ?>
-                        </span>
-                    </td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">
-                        <span id="GrandTotal">
-                            <?= number_format($grand_total, 2); ?>
-                        </span>
-                    </td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">
-                        <span id="GrandTotal">
-                            <?= number_format($grand_total, 2); ?>
-                        </span>
-                    </td>
+                    <td style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"></td>
                 </tr>
             </tfoot>
         </table>

@@ -45,22 +45,30 @@
                 </div>
 
                 <!-- CONTENT -->
-                <div class="card-body">
-                  <div class="row" style="margin: .6rem 0rem; gap: 1rem;">
-                    @include($components['detail'])
+                <?php if (isset($components['detail'])) { ?>
+                  <div class="card-body">
+                    <div class="row" style="margin: .6rem 0rem; gap: 1rem;">
+                      @include($components['detail'])
+                    </div>
                   </div>
-                </div>
+                <?php } ?>
+
+                <?php if (isset($components['customDetail'])) { ?>
+                  @include($components['customDetail'])
+                <?php } ?>
               </div>
             </div>
 
             <!-- TABLE -->
-            <div class="col-12 ShowDocumentList">
-              <div class="card">
-                <div class="card-body p-0">
-                  @include($components['table'])
+            <?php if (isset($components['table'])) { ?>
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  <div class="card-body p-0">
+                    @include($components['table'])
+                  </div>
                 </div>
               </div>
-            </div>
+            <?php } ?>
 
             <?php if (isset($components['additional'])) { ?>
               <div class="col-12 ShowDocumentList">

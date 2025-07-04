@@ -12,7 +12,7 @@
     <div class="row mb-1" style="background-color:#4B586A;">
       <div class="col-sm-6" style="height:30px;">
         <label style="font-size:15px;position:relative;top:7px;color:white;">
-          Purchase Order
+          Timesheet Form
         </label>
       </div>
     </div>
@@ -50,23 +50,70 @@
           <div class="col-md-12">
             <div class="card card-primary">
               <div class="card-body p-0">
-                <div class="ml-3 mt-3">
-                  <button class="btn btn-success btn-sm" id="addEventButton" data-toggle="modal" data-target="#eventModal">
-                    <i class="fa fa-plus"></i> Add Activity
-                  </button>
-                </div>
-                <div id="calendar"></div>
-                <div class="py-3 pr-3 d-flex justify-content-end">
-                  <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitTimesheet">
-                  @csrf
-                  <input type="hidden" name="timesheetDetail" id="timesheetDetail">
-                  <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
-                  <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="46000000000033">
+                <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitTimesheet">
+                @csrf
+                  <input hidden name="timesheetDetail" id="timesheetDetail">
+                  <input hidden name="DocumentTypeID" id="DocumentTypeID">
+                  <input hidden name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
+
+                  <div class="ml-3 mt-3">
+                    <!-- AUTHORIZED BY -->
+                    <div class="col-12" style="margin-bottom: 1rem;">
+                      <div class="row p-0 align-items-center">
+                        <label class="col-2 col-form-label p-0">Authorized By</label>
+                        <div class="col-2 p-0">
+                          <div id="authorizedSelectContainer">
+                            <select class="form-control select2bs4" id="authorizedSelect" name="authorizedSelect" onchange="saveCombinedBudget(this);" style="width: 100%;">
+                              <option disabled selected>Select an Authorized</option>
+                            </select>
+                          </div>
+
+                          <div class="spinner-border spinner-border-sm" id="authorizedLoading" role="status">
+                            <span class="sr-only"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ON BEHALF OF -->
+                    <div class="col-12" style="margin-bottom: 1rem;">
+                      <div class="row p-0 align-items-center">
+                        <label class="col-2 col-form-label p-0">On Behalf Of</label>
+                        <div class="col-2 p-0">
+                          <div id="onBehalfSelectContainer">
+                            <select class="form-control select2bs4" id="onBehalfSelect" name="onBehalfSelect" style="width: 100%;">
+                              <option disabled selected>Select a Person on Behalf</option>
+                            </select>
+                          </div>
+
+                          <div class="spinner-border spinner-border-sm" id="onBehalfLoading" role="status">
+                            <span class="sr-only"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ADD ACTIVITY -->
+                    <div class="col-12">
+                      <div class="row p-0 align-items-center">
+                        <label class="col-2 col-form-label p-0"></label>
+                        <div class="col-2 p-0">
+                          <button type="button" class="btn btn-success btn-sm" id="addEventButton" data-toggle="modal" data-target="#eventModal">
+                            <i class="fa fa-plus"></i> Add Activity
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="calendar"></div>
+
+                  <div class="py-3 pr-3 d-flex justify-content-end">         
                     <button type="submit" class="btn btn-success btn-sm" id="submitTimesheet">
                       <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit"> Submit
                     </button>
-                  </form>
-                </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -184,18 +231,6 @@
                 </div>
               </div>
 
-              <!-- ON BEHALF OF -->
-              <div class="col-sm-12 col-md-12 col-lg-6">
-                <div class="row p-0 align-items-center">
-                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">On Behalf Of</label>
-                  <div class="col-sm-9 col-md-8 col-lg-7 p-0">
-                    <select class="form-control select2bs4" id="onBehalfSelect" style="width: 100%;">
-                      <option disabled selected>Select On Behalf</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
               <!-- DAILY ACT -->
               <div class="col-sm-12 col-md-12 col-lg-6">
                 <div class="row p-0 align-items-center">
@@ -207,6 +242,14 @@
               </div>
 
               <div class="d-sm-none d-md-none d-lg-block col-sm-12 col-md-12 col-lg-6"></div>
+
+              <div class="d-sm-none d-md-none d-lg-block col-sm-12 col-md-12 col-lg-6">
+                <div class="row p-0 align-items-center">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                  <div class="col-sm-9 col-md-8 col-lg-7 p-0">
+                  </div>
+                </div>
+              </div>
 
               <!-- BUTTON -->
               <div class="col-sm-12 col-md-12 col-lg-6 float-right">

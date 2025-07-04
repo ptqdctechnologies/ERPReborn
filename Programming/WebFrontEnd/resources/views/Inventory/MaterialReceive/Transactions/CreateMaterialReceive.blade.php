@@ -3,6 +3,7 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('Inventory.MaterialReceive.Functions.PopUp.PopUpMaterialReceiveRevision')
+@include('getFunction.getMaterialReceive')
 @include('getFunction.getDeliveryOrder')
 @include('getFunction.getWorkFlow')
 
@@ -23,7 +24,6 @@
             <!-- CONTENT -->
             <div class="card">
                 <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitMaterialReceive">
-                {{-- <form method="post" action="{{ route('MaterialReceive.store') }}" id="FormSubmitMaterialReceive"> --}}
                     @csrf
                     <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
                     <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="46000000000033">

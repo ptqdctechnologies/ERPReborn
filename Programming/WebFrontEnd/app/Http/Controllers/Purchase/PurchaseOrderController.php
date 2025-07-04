@@ -6,15 +6,16 @@ use App\Http\Controllers\ExportExcel\Purchase\ExportReportPurchaseOrderSummary;
 use App\Http\Controllers\ExportExcel\Purchase\ExportReportPOtoDO;
 use App\Http\Controllers\ExportExcel\Purchase\ExportReportPOtoAP;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Services\Purchase\PurchaseOrderService;
+use App\Services\WorkflowService;
 
 class PurchaseOrderController extends Controller
 {
@@ -23,6 +24,14 @@ class PurchaseOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $purchaseOrderService, $workflowService;
+
+    public function __construct(PurchaseOrderService $purchaseOrderService, WorkflowService $workflowService)
+    {
+        $this->purchaseOrderService = $purchaseOrderService;
+        $this->workflowService = $workflowService;
+    }
 
     public function ReportPOtoAP(Request $request)
     {
@@ -1285,7 +1294,7 @@ class PurchaseOrderController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-    
+
     public function StoreValidatePurchaseOrderPrNumber(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -1495,34 +1504,45 @@ class PurchaseOrderController extends Controller
                 ]
             ]
         );
-        
+
         if ($varData['metadata']['HTTPStatusCode'] !== 200) {
             return response()->json($varData);
         }
-        
+
+        // dd($varData);
+
         $data = $varData['data'];
+        $dateOfDelivery = $data[0]['deliveryDateTimeTZ'] ? Carbon::parse($data[0]['deliveryDateTimeTZ'])->toDateString() : '';
+
+        // dump($data);
 
         $compact = [
             'varAPIWebToken'        => $varAPIWebToken,
             'header'                => [
-                'poNumberID'        => $data[0]['purchaseOrder_RefID'],
-                'poNumber'          => $data[0]['documentNumber'],
-                'deliveryTo'        => $data[0]['deliveryDestinationManualAddress'],
-                'deliveryToID'      => '',
-                'supplierID'        => '',
-                'supplierName'      => $data[0]['supplierName'],
-                'supplierCode'      => $data[0]['supplierCode'],
-                'supplierAddress'   => $data[0]['supplierAddress'],
-                'downPayment'       => '',
-                'termOfPaymentID'   => $data[0]['supplierAddress'],
-                'paymentNotes'      => '',
-                'remarkPO'          => '',
-                'internalNote'      => '',
-                'fileID'            => '',
-                'vatValue'          => $data[0]['vat'],
+                'budgetID'                      => $data[0]['combinedBudget_RefID'] ?? '',
+                'poNumberID'                    => $data[0]['purchaseOrder_RefID'] ?? '',
+                'poNumber'                      => $data[0]['documentNumber'] ?? '',
+                'deliveryDateTime'              => $dateOfDelivery,
+                'deliveryTo'                    => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
+                'deliveryToID'                  => $data[0]['deliveryTo_RefID'] ?? '',
+                'supplierID'                    => $data[0]['supplier_RefID'] ?? '-',
+                'supplierName'                  => $data[0]['supplierName'] ?? '',
+                'supplierCode'                  => $data[0]['supplierCode'] ?? '',
+                'supplierAddress'               => $data[0]['supplierAddress'] ?? '',
+                'downPayment'                   => (int) $data[0]['downPayment'] ?? '',
+                'termOfPaymentID'               => $data[0]['termOfPayment_RefID'] ?? '',
+                'paymentNotes'                  => $data[0]['paymentNotes'] ?? '',
+                'remarkPO'                      => $data[0]['remarks'] ?? '',
+                'internalNote'                  => $data[0]['internalNotes'] ?? '',
+                'fileID'                        => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                'vatValue'                      => $data[0]['vatRatio'] ?? null,
+                'isVATSelected'                 => $data[0]['vatRatio'] ? 'selected' : '',
+                'transactionTaxDetailRefID'     => $data[0]['transactionTaxDetail_RefID'] ?? ''
             ],
             'detail'                => $data
         ];
+
+        // dump($data);
 
         return view('Purchase.PurchaseOrder.Transactions.RevisionPurchaseOrder', $compact);
     }
@@ -1545,101 +1565,26 @@ class PurchaseOrderController extends Controller
     public function store(Request $request)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $SessionWorkerCareerInternal_RefID = Session::get('SessionWorkerCareerInternal_RefID');
-            // $purchaseOrderData = $request->all();
-            // $purchaseOrderDetail = json_decode($purchaseOrderData['storeData']['purchaseOrderDetail'], true);
-            // $fileID = $purchaseOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $purchaseOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
+            $response = $this->purchaseOrderService->create($request);
 
-            // $transformedDetails = [];
-            // foreach ($purchaseOrderDetail as $entity) {
-            //     $transformedDetails[] = [
-            //         "entities" => [
-            //             "purchaseRequisitionDetail_RefID"               => (int) $entity['purchaseRequisitionDetail_RefID'],
-            //             "quantity"                                      => (float) str_replace(',', '', $entity['quantity']),
-            //             "quantityUnit_RefID"                            => (int) $entity['quantityUnit_RefID'],
-            //             "productUnitPriceCurrency_RefID"                => (int) $entity['productUnitPriceCurrency_RefID'],
-            //             "productUnitPriceCurrencyValue"                 => (int) $entity['productUnitPriceCurrencyValue'],
-            //             "productUnitPriceCurrencyExchangeRate"          => (int) $entity['productUnitPriceCurrencyExchangeRate'],
-            //             "productUnitPriceDiscountCurrency_RefID"        => (int) $entity['productUnitPriceDiscountCurrency_RefID'],
-            //             "productUnitPriceDiscountCurrencyValue"         => (int) $entity['productUnitPriceDiscountCurrencyValue'],
-            //             "productUnitPriceDiscountCurrencyExchangeRate"  => (int) $entity['productUnitPriceDiscountCurrencyExchangeRate'],
-            //             "remarks"                                       => $entity['remarks'],
-            //         ]
-            //     ];
-            // }
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
 
-            // $varData = Helper_APICall::setCallAPIGateway(
-            //     Helper_Environment::getUserSessionID_System(),
-            //     $varAPIWebToken,
-            //     'transaction.create.supplyChain.setPurchaseOrder',
-            //     'latest',
-            //     [
-            //     'entities' => [
-            //         "documentDateTimeTZ"                    => date('Y-m-d'),
-            //         "log_FileUpload_Pointer_RefID"          => (int) $fileID,
-            //         "requesterWorkerJobsPosition_RefID"     => (int) $SessionWorkerCareerInternal_RefID,
-            //         "supplier_RefID"                        => (int) $purchaseOrderData['storeData']['supplier_id'],
-            //         "deliveryDateTimeTZ"                    => date('Y-m-d'),
-            //         "deliveryDestination_RefID"             => null,
-            //         "deliveryDestinationManualAddress"      => $purchaseOrderData['storeData']['delivery_to'],
-            //         "supplierInvoiceBillingPurpose_RefID"   => null,
-            //         "remarks"                               => $purchaseOrderData['storeData']['remarkPO'],
-            //         "paymentNotes"                          => $purchaseOrderData['storeData']['paymentNotes'],
-            //         "internalNotes"                         => $purchaseOrderData['storeData']['internalNote'],
-            //         "downPayment"                           => (float) str_replace(',', '', $purchaseOrderData['storeData']['downPaymentValue']),
-            //         "termOfPayment_RefID"                   => (int) $purchaseOrderData['storeData']['termOfPaymentValue'],
-            //         "additionalData"                        => [
-            //             "itemList"  => [
-            //                 "items" => $transformedDetails
-            //                 ],
-            //             "transactionTaxItemList" => [
-            //                 "items" => [
-            //                         [
-            //                         "entities" => [
-            //                             "taxType_RefID"                 => null,
-            //                             "tariffCurrency_RefID"          => null,
-            //                             "tariffCurrencyValue"           => (float) str_replace(',', '', $purchaseOrderData['storeData']['tariffCurrencyValue']),
-            //                             "tariffCurrencyExchangeRate"    => null,
-            //                             "remarks"                       => null
-            //                             ]
-            //                         ],
-            //                     ]
-            //                 ],
-            //             "additionalCostItemList" => [
-            //                 "items" => [
-            //                         [
-            //                         "entities" => [
-            //                             "transactionAdditionalCostType_RefID"   => null,
-            //                             "priceCurrency_RefID"                   => null,
-            //                             "priceCurrencyValue"                    => null,
-            //                             "priceCurrencyExchangeRate"             => null,
-            //                             "remarks"                               => null
-            //                             ]
-            //                         ]
-            //                     ]
-            //                 ]
-            //             ]
-            //         ]
-            //     ]
-            // );
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
 
-            // if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-            //     return response()->json($varData);
-            // }
-
-            // return $this->SubmitWorkflow(
-            //     $varData['data']['businessDocument']['businessDocument_RefID'],
-            //     $request->workFlowPath_RefID,
-            //     $request->comment,
-            //     $request->approverEntity,
-            //     $request->nextApprover,
-            //     $varData['data']['businessDocument']['documentNumber']
-            // );
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
 
             $compact = [
-                "documentNumber"    => "PO/QDC/2025/000016",
-                "status"            => 200,
+                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);
@@ -1678,9 +1623,36 @@ class PurchaseOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function UpdatePurchaseOrder(Request $request)
     {
-        //
+        try {
+            $response = $this->purchaseOrderService->updates($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     /**
@@ -1709,7 +1681,6 @@ class PurchaseOrderController extends Controller
         
         return view('Advance.Advance.Transactions.revisionASF', ['data' => $varData['data']['data']]);
     }
-
 
     public function addListCartPO(Request $request)
     {

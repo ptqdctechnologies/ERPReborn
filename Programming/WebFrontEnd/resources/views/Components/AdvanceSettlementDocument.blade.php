@@ -72,9 +72,9 @@
                     </div>
                     <div class="input-group">
                         <button class="btn btn-default btn-sm" onclick="window.location.href='{{ route('LogTransaction', [
-                            'id'        => $dataHeader['Sys_ID_Advance'],
-                            'docNum'    => $dataHeader['DocumentNumber'],
-                            'docName'   => $dataHeader['BusinessDocumentType_Name']
+                            'id'        => $dataHeader['advanceSettlement_RefID'],
+                            'docNum'    => $dataHeader['advanceNumber'],
+                            'docName'   => $transactionForm
                             ]) }}'">
                             Show Revision History
                         </button>
@@ -97,23 +97,13 @@
             </div>
         </div>
 
-        <!-- BANK NAME -->
+        <!-- BANK -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 text-bold">
-                Bank Name
+                Bank
             </div>
             <div class="col">
-                : <?= $dataHeader['bankName']; ?>
-            </div>
-        </div>
-
-        <!-- BANK ACCOUNT -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 text-bold">
-                Bank Account
-            </div>
-            <div class="col">
-                : <?= $dataHeader['bankAccount']; ?>
+                : (<?= $dataHeader['bankName']; ?>) <?= $dataHeader['bankAccount']; ?> - <?= $dataHeader['beneficiaryName']; ?>
             </div>
         </div>
     </div>

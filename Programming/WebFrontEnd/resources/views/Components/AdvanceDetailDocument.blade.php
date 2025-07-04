@@ -1,10 +1,10 @@
 <!-- LEFT COLUMN -->
 <div class="col-12 col-md-6 col-lg-7">
     <div class="form-group">
-        <!-- ADVANCE FORM -->
+        <!-- ADVANCE NUMBER -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                Advance Form
+                Advance Number
             </div>
             <div class="col">
                 : <?= $dataHeader['advanceNumber']; ?>
@@ -92,9 +92,10 @@
                     </div>
                     <div class="input-group">
                         <button class="btn btn-default btn-sm" onclick="window.location.href='{{ route('LogTransaction', [
-                            'id'        => $dataHeader['Sys_ID_Advance'],
-                            'docNum'    => $dataHeader['DocumentNumber'],
-                            'docName'   => $dataHeader['BusinessDocumentType_Name']
+                            'id'        => $dataHeader['advance_RefID'],
+                            'docNum'    => $dataHeader['advanceNumber'],
+                            'docName'   => $transactionForm,
+                            'page'      => $page
                             ]) }}'">
                             Show Revision History
                         </button>
@@ -127,33 +128,13 @@
             </div>
         </div>
 
-        <!-- BANK NAME -->
+        <!-- BANK -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 text-bold">
-                Bank Name
+                Bank
             </div>
             <div class="col">
-                : <?= $dataHeader['bankName']; ?>
-            </div>
-        </div>
-
-        <!-- ACCOUNT NAME -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 text-bold">
-                Account Name
-            </div>
-            <div class="col">
-                : <?= $dataHeader['accountName']; ?>
-            </div>
-        </div>
-
-        <!-- ACCOUNT NUMBER -->
-        <div class="row">
-            <div class="col-4 text-bold">
-                Account Number
-            </div>
-            <div class="col">
-                : <?= $dataHeader['accountNumber']; ?>
+                : (<?= $dataHeader['bankName']; ?>) <?= $dataHeader['accountNumber']; ?> - <?= $dataHeader['accountName']; ?>
             </div>
         </div>
     </div>

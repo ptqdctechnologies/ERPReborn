@@ -15,7 +15,7 @@
                 <th class="sticky-col forth-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price Req</th>
                 <th class="sticky-col third-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>
                 <th class="sticky-col second-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Balance</th>
-                <th class="sticky-col first-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Remark</th>
+                <th class="sticky-col first-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Notes</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -73,6 +73,7 @@
                             </div>
                         </td>
                         <td id="containerSelectPPN" style="border:1px solid #e9ecef;">
+                            <input hidden id="vatOptionValue" style="width: 20%;" />
                             <select name="vatValue" id="vatOption" style="border-radius:0;" class="form-control" onChange="calculateTotal();">
                                 <option disabled selected>Select a PPN</option>
                             </select>

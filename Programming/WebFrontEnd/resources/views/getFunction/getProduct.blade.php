@@ -56,7 +56,7 @@
                     for (var i = 0; i < result.length; i++) {
                         var no = i + 1;
                         dataShow.push([
-                            '<tbody><tr><input id="quantityUnit_RefID" value="' + result[i]['quantityUnit_RefID'] + '" data-trigger="quantityUnit_RefID" type="hidden" /><td>' + no + '</td>',
+                            '<tbody><tr><input id="sys_ID" value="' + result[i]['sys_ID'] + '" data-trigger="sys_ID" type="hidden" /><input id="quantityUnit_RefID" value="' + result[i]['quantityUnit_RefID'] + '" data-trigger="quantityUnit_RefID" type="hidden" /><td>' + no + '</td>',
                             '<td>' + result[i]['code'] + '</td>',
                             '<td>' + result[i]['name'] + '</td>',
                             '<td>' + result[i]['quantityUnitName'] + '</td>',
@@ -88,6 +88,7 @@
         var uom = row.find("td:nth-child(4)").text();
         // var budget_qty_id = row.find("td:nth-child(5)").text();
         var budget_qty_id = $(this).find('input[data-trigger="quantityUnit_RefID"]').val();
+        var id_product = $(this).find('input[data-trigger="sys_ID"]').val();
         var key = $("#key").val();
 
         $("#product_id" + key).val(sys_id);
@@ -106,7 +107,9 @@
         $("#other_req" + key).prop("disabled", false);
         $("#note_req" + key).prop("disabled", false);
 
-        $("#productId" + key).val(sys_id);
+        $("#productId" + key).val(id_product);
+        $("#productCode" + key).val(sys_id);
+        $("#productCodeShow" + key).val(sys_id);
         $("#productName" + key).val(name);
         $("#uom" + key).val(uom);
         $("#qtyId" + key).val(budget_qty_id);

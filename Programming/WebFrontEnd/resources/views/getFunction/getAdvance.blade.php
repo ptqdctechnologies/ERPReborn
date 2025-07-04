@@ -1,5 +1,5 @@
 <!-- GET ADVANCE -->
-<div id="myGetModalAdvance" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myGetModalAdvance" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true" style="z-index: 9999;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -76,7 +76,6 @@
             url: '{!! route("getAdvance") !!}?project_id=' + project_id + '&site_id=' + site_id,
             success: function(data) {
                 $(".loadingGetModalAdvance").hide();
-
                 var no = 1;
                 var table = $('#tableGetModalAdvance').DataTable();
                 table.clear();

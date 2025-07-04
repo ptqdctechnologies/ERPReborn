@@ -12,31 +12,6 @@
     $("#deliverModalTrigger").prop("disabled", true);
     $("#mySiteCodeSecondTrigger").prop("disabled", true);
 
-    function getDocumentType() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getDocumentType") !!}',
-            success: function(data) {
-                const result = data.find(({ Name }) => Name === "Purchase Requisition Form");
-
-                if (Object.keys(result).length > 0) {
-                    $("#DocumentTypeID").val(result.Sys_ID);
-                } else {
-                    console.log('error get document type');
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                console.log('error', textStatus, errorThrown);
-            }
-        });
-    }
-
     function calculateTotal() {
         let total = 0;
         
@@ -64,6 +39,8 @@
             url: '{!! route("getBudget") !!}?site_code=' + site_code,
             success: function(data) {
                 $(".loadingBudgetDetails").hide();
+                $('#tableGetBudgetDetails tbody').empty();
+                $(".errorMessageContainerBudgetDetails").hide();
 
                 let tbody = $('#tableGetBudgetDetails tbody');
                 tbody.empty();
@@ -84,10 +61,10 @@
 
                 $.each(data, function(key, val2) {
                     let isUnspecified = '';
-                    let balanced = currencyTotal(val2.quantity);
+                    let balanced = currencyTotal(val2.quantityRemaining);
                     let totalBudget = val2.quantity * val2.priceBaseCurrencyValue;
                     let productColumn = `
-                        <td style="text-align: center;">${val2.product_RefID}</td>
+                        <td style="text-align: center;">${val2.productCode}</td>
                         <td style="text-align: center;">${val2.productName}</td>
                     `;
 
@@ -126,7 +103,7 @@
                             
                             ${productColumn}
                             <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
-                            <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantity)}</td>
+                            <td style="text-align: center;">${val2.productName === "Unspecified Product" ? '-' : currencyTotal(val2.quantityRemaining)}</td>
                             <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
                             <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
                             <td style="text-align: center;">${currencyTotal(totalBudget)}</td>
@@ -146,6 +123,8 @@
                             <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <textarea id="remark${key}" class="form-control"></textarea>
                             </td>
+
+                            <input id="productCodeShow${key}" data-product-id="productCodeShow" value="${val2.productCode}" type="hidden" />
                         </tr>
                     `;
 
@@ -192,7 +171,7 @@
                             var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
                             var total = parseFloat(balanced) - parseFloat(qty_req || 0);
 
-                            if (parseFloat(qty_req) > val2.quantity) {
+                            if (parseFloat(qty_req) > val2.quantityRemaining) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
                                 ErrorNotif("Qty Req is over budget !");
@@ -313,7 +292,7 @@
         let total = 0;
         const rows = document.querySelectorAll('#tablePurchaseRequisitionList tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[7];
+            const totalCell = row.children[9];
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             total += value;
         });
@@ -338,11 +317,121 @@
         }
     }
 
-    const observertablePurchaseRequestList = new MutationObserver(validationForm);
-    observertablePurchaseRequestList.observe(tablePurchaseRequestLists, { childList: true });
-    siteCode.addEventListener('input', validationForm);
-    deliverCode.addEventListener('input', validationForm);
-    dateDelivery.addEventListener('input', validationForm);
+    function CancelPurchaseRequisition() {
+        ShowLoading();
+        window.location.href = '/PurchaseRequisition?var=1';
+    }
+
+    if (siteCode) {
+        siteCode.addEventListener('input', validationForm);
+    }
+
+    if (deliverCode) {
+        deliverCode.addEventListener('input', validationForm);
+    }
+
+    if (dateDelivery) {
+        dateDelivery.addEventListener('input', validationForm);
+    }
+
+    if (tablePurchaseRequestLists) {
+        const observertablePurchaseRequestList = new MutationObserver(validationForm);
+        observertablePurchaseRequestList.observe(tablePurchaseRequestLists, { childList: true });
+
+        document.querySelector('#tablePurchaseRequisitionList tbody').addEventListener('click', function (e) {
+            const row = e.target.closest('tr');
+            if (!row) return;
+
+            if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+
+            const qtyAvail = row.children[0];
+            const priceAvail = row.children[1];
+            const priceCell = row.children[7];
+            const qtyCell = row.children[8];
+            const totalCell = row.children[9];
+            const remarkCell = row.children[10];
+
+            if (row.classList.contains('editing-row')) {
+                const newPrice = priceCell.querySelector('input')?.value || '';
+                const newQty = qtyCell.querySelector('input')?.value || '';
+                const newTotal = totalCell.querySelector('input')?.value || '';
+                const newRemark = remarkCell.querySelector('textarea')?.value || '';
+
+                priceCell.innerHTML = newPrice;
+                qtyCell.innerHTML = newQty;
+                totalCell.innerHTML = newTotal;
+
+                const hidden = remarkCell.querySelector('input[type="hidden"]');
+                remarkCell.innerHTML = `${newRemark}`;
+                if (hidden) remarkCell.appendChild(hidden);
+
+                row.classList.remove('editing-row');
+
+                const productCode = row.children[2].innerText.trim();
+                const storeItem = dataStore.find(item => item.entities.product_RefID === productCode);
+                if (storeItem) {
+                    storeItem.quantity = newQty;
+                    storeItem.productUnitPriceCurrencyValue = newPrice;
+                    storeItem.remarks = newRemark;
+                }
+            } else {
+                const currentPrice = priceCell.innerText.trim();
+                const currentQty = qtyCell.innerText.trim();
+                const currentTotal = totalCell.innerText.trim();
+
+                const hiddenInput = remarkCell.querySelector('input[type="hidden"]');
+                const currentRemark = remarkCell.childNodes[0]?.nodeValue?.trim() || '';
+
+                priceCell.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+                qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+                totalCell.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
+                remarkCell.innerHTML = `
+                    <textarea class="form-control" style="width:100px;">${currentRemark}</textarea>
+                `;
+                if (hiddenInput) remarkCell.appendChild(hiddenInput);
+
+                row.classList.add('editing-row');
+
+                const priceInput = priceCell.querySelector('.price-input');
+                const qtyInput = qtyCell.querySelector('.qty-input');
+                const totalInput = totalCell.querySelector('.total-input');
+
+                function updateTotal() {
+                    var price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
+                    var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
+                    var total = price * qty;
+
+                    const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
+                    const priceAvailValue = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
+
+                    if (qty > qtyAvailValue) {
+                        total = price * qtyAvailValue;
+                        qty = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                        ErrorNotif("Qty Req is over Qty Avail !");
+                    }
+
+                    if (price > priceAvailValue) {
+                        total = priceAvailValue * qtyAvailValue;
+                        price = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        priceInput.value = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                        ErrorNotif("Price Req is over Price Avail !");
+                    }
+
+                    totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                }
+
+                priceInput.addEventListener('input', updateTotal);
+                qtyInput.addEventListener('input', updateTotal);
+
+                document.getElementById('GrandTotal').innerText = totalInput.value;
+            }
+
+            updateGrandTotal();
+        });
+    }
 
     $('#tableGetProjectSecond').on('click', 'tbody tr', async function() {
         var sysId           = $(this).find('input[data-trigger="sys_id_project_second"]').val();
@@ -395,6 +484,7 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
+            const productCodeShow = row.querySelector('input[id^="productCodeShow"]');
             const qtyInput = row.querySelector('input[id^="qty_req"]');
             const priceInput = row.querySelector('input[id^="price_req"]');
             const totalInput = row.querySelector('input[id^="total_req"]');
@@ -417,6 +507,7 @@
                 const uom = row.children[5].value.trim();
                 const currency = row.children[6].value.trim();
                 const qtyAvail = row.children[13].innerText.trim();
+                const priceAvail = row.children[15].innerText.trim();
 
                 const price = priceInput.value.trim();
                 const qty = qtyInput.value.trim();
@@ -425,29 +516,31 @@
 
                 let found = false;
                 const existingRows = targetTable.getElementsByTagName('tr');
-                
+
                 for (let targetRow of existingRows) {
-                    const targetCode = targetRow.children[1].innerText.trim();
-                    if (targetCode === productCode) {
-                        targetRow.children[5].innerText = price;
-                        targetRow.children[6].innerText = qty;
-                        targetRow.children[7].innerText = total;
-                        targetRow.children[8].innerText = remark;
+                    const targetCode = targetRow.children[2].innerText.trim();
+                    if (targetCode == productCode) {
+                        targetRow.children[7].innerText = price;
+                        targetRow.children[8].innerText = qty;
+                        targetRow.children[9].innerText = total;
+                        targetRow.children[10].innerText = remark;
                         found = true;
 
                         // update dataStore
-                        const indexToUpdate = dataStore.findIndex(item => item.product_RefID === productCode);
+                        const indexToUpdate = dataStore.findIndex(item => item.entities.product_RefID === productCode);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
-                                combinedBudgetSectionDetail_RefID: combinedBudgetSectionDetailInput.value,
-                                product_RefID: productCode,
-                                quantity: qty,
-                                quantityUnit_RefID: qtyUnitRefId.value,
-                                productUnitPriceCurrency_RefID: currencyRefId.value,
-                                productUnitPriceCurrencyValue: price,
-                                productUnitPriceCurrencyExchangeRate: 1,
-                                fulfillmentDeadlineDateTimeTZ: null,
-                                remarks: remark
+                                entities: {
+                                    combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
+                                    product_RefID: parseInt(productCode),
+                                    quantity: parseFloat(qty.replace(/,/g, '')),
+                                    quantityUnit_RefID: parseInt(qtyUnitRefId.value),
+                                    productUnitPriceCurrency_RefID: parseInt(currencyRefId.value),
+                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                                    productUnitPriceCurrencyExchangeRate: 1,
+                                    fulfillmentDeadlineDateTimeTZ: null,
+                                    remarks: remark
+                                }
                             };
                         }
                         break;
@@ -458,7 +551,9 @@
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                        <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
+                        <input type="hidden" name="price_avail[]" value="${priceAvail}">
+                        <td style="text-align: center;padding: 0.8rem;" hidden>${productCode}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${productCodeShow.value}</td>
                         <td style="text-align: center;padding: 0.8rem;">${productName}</td>
                         <td style="text-align: center;padding: 0.8rem;">${uom}</td>
                         <td style="text-align: center;padding: 0.8rem;">${currency}</td>
@@ -471,15 +566,17 @@
 
                     // push to dataStore
                     dataStore.push({
-                        combinedBudgetSectionDetail_RefID: combinedBudgetSectionDetailInput.value,
-                        product_RefID: productCode,
-                        quantity: qty,
-                        quantityUnit_RefID: qtyUnitRefId.value,
-                        productUnitPriceCurrency_RefID: currencyRefId.value,
-                        productUnitPriceCurrencyValue: price,
-                        productUnitPriceCurrencyExchangeRate: 1,
-                        fulfillmentDeadlineDateTimeTZ: null,
-                        remarks: remark
+                        entities: {
+                            combinedBudgetSectionDetail_RefID: parseInt(combinedBudgetSectionDetailInput.value),
+                            product_RefID: parseInt(productCode),
+                            quantity: parseFloat(qty.replace(/,/g, '')),
+                            quantityUnit_RefID: parseInt(qtyUnitRefId.value),
+                            productUnitPriceCurrency_RefID: parseInt(currencyRefId.value),
+                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, '')),
+                            productUnitPriceCurrencyExchangeRate: 1,
+                            fulfillmentDeadlineDateTimeTZ: null,
+                            remarks: remark
+                        }
                     });
                 }
 
@@ -492,107 +589,18 @@
         }
 
         dataStore = dataStore.filter(item => item !== undefined);
-        $("#purchaseRequisitionDetail").val(JSON.stringify(dataStore));
-        
+
         updateGrandTotal();
     });
-    
+
     $("#budget-details-reset").on('click', function() {
         const targetTableBody = document.querySelector('#tablePurchaseRequisitionList tbody');
-        
+
         targetTableBody.innerHTML = '';
 
         dataStore = [];
 
         document.getElementById('GrandTotal').innerText = '0.00';
-
-        $("#purchaseRequisitionDetail").val("");
-    });
-
-    document.querySelector('#tablePurchaseRequisitionList tbody').addEventListener('click', function (e) {
-        const row = e.target.closest('tr');
-        if (!row) return;
-
-        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
-
-        const qtyAvail = row.children[0];
-        const priceCell = row.children[5];
-        const qtyCell = row.children[6];
-        const totalCell = row.children[7];
-        const remarkCell = row.children[8];
-
-        if (row.classList.contains('editing-row')) {
-            const newPrice = priceCell.querySelector('input')?.value || '';
-            const newQty = qtyCell.querySelector('input')?.value || '';
-            const newTotal = totalCell.querySelector('input')?.value || '';
-            const newRemark = remarkCell.querySelector('textarea')?.value || '';
-
-            priceCell.innerHTML = newPrice;
-            qtyCell.innerHTML = newQty;
-            totalCell.innerHTML = newTotal;
-
-            const hidden = remarkCell.querySelector('input[type="hidden"]');
-            remarkCell.innerHTML = `${newRemark}`;
-            if (hidden) remarkCell.appendChild(hidden);
-
-            row.classList.remove('editing-row');
-
-            const productCode = row.children[1].innerText.trim();
-            const storeItem = dataStore.find(item => item.product_RefID === productCode);
-            if (storeItem) {
-                storeItem.quantity = newQty;
-                storeItem.productUnitPriceCurrencyValue = newPrice;
-                storeItem.remarks = newRemark;
-
-                $("#purchaseRequisitionDetail").val(JSON.stringify(dataStore));
-            }
-        } else {
-            const currentPrice = priceCell.innerText.trim();
-            const currentQty = qtyCell.innerText.trim();
-            const currentTotal = totalCell.innerText.trim();
-
-            const hiddenInput = remarkCell.querySelector('input[type="hidden"]');
-            const currentRemark = remarkCell.childNodes[0]?.nodeValue?.trim() || '';
-
-            priceCell.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            totalCell.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-            remarkCell.innerHTML = `
-                <textarea class="form-control" style="width:100px;">${currentRemark}</textarea>
-            `;
-            if (hiddenInput) remarkCell.appendChild(hiddenInput);
-
-            row.classList.add('editing-row');
-
-            const priceInput = priceCell.querySelector('.price-input');
-            const qtyInput = qtyCell.querySelector('.qty-input');
-            const totalInput = totalCell.querySelector('.total-input');
-
-            function updateTotal() {
-                const price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
-                var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
-                var total = price * qty;
-
-                const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
-
-                if (qty > qtyAvailValue) {
-                    total = price * qtyAvailValue;
-                    qty = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                    ErrorNotif("Qty Req is over Qty Avail !");
-                }
-
-                totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            }
-
-            priceInput.addEventListener('input', updateTotal);
-            qtyInput.addEventListener('input', updateTotal);
-
-            document.getElementById('GrandTotal').innerText = totalInput.value;
-        }
-
-        updateGrandTotal();
     });
 
     $("#FormSubmitPurchaseRequisition").on("submit", function(e) {
@@ -619,6 +627,7 @@
                 var action = $(this).attr("action");
                 var method = $(this).attr("method");
                 var form_data = new FormData($(this)[0]);
+                form_data.append('purchaseRequisitionDetail', JSON.stringify(dataStore));
 
                 ShowLoading();
 
@@ -679,6 +688,6 @@
     });
 
     $(window).one('load', function(e) {
-        getDocumentType();
+        getDocumentType("Purchase Requisition Form");
     });
 </script>

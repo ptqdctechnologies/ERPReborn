@@ -3,6 +3,7 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getProject')
+@include('getFunction.getAdvance')
 @include('getFunction.getSite')
 @include('getFunction.getWorker')
 @include('getFunction.getBeneficiary')
@@ -11,7 +12,6 @@
 @include('getFunction.getProduct')
 @include('getFunction.getWorkFlow')
 @include('Process.Advance.AdvanceRequest.Functions.PopUp.PopUpAdvanceRevision')
-@include('Process.Advance.AdvanceRequest.Functions.Table.TableAdvanceRevision')
 
 <div class="content-wrapper">
   <section class="content">
@@ -31,18 +31,8 @@
       <div class="card">
         <form method="post" enctype="multipart/form-data" action="{{ route('SelectWorkFlow') }}" id="FormSubmitAdvance">
           @csrf
-          <input type="hidden" name="DocumentTypeID" value="{{ $DocumentTypeID }}" id="DocumentTypeID">
-          <input type="hidden" name="var_date" id="var_date">
-          <input type="hidden" name="var_product_id" id="var_product_id">
-          <input type="hidden" name="var_product_name" id="var_product_name">
-          <input type="hidden" name="var_quantity" id="var_quantity">
-          <input type="hidden" name="var_uom" id="var_uom">
-          <input type="hidden" name="var_qty_id" id="var_qty_id">
-          <input type="hidden" name="var_currency_id" id="var_currency_id">
-          <input type="hidden" name="var_price" id="var_price">
-          <input type="hidden" name="var_total" id="var_total">
-          <input type="hidden" name="var_currency" id="var_currency">
-          <input type="hidden" name="var_combinedBudgetSectionDetail_RefID" id="var_combinedBudgetSectionDetail_RefID">
+          <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+          <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
 
           <!-- ADD NEW ADVANCE REQUEST -->
           <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -55,7 +45,7 @@
                       Add New Advance Request
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Add New Advance Request">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>
@@ -79,7 +69,7 @@
                       Advance Request Detail
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Advance Request Detail">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>
@@ -102,7 +92,7 @@
                       File Attachment
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section File Attachment">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>
@@ -143,7 +133,7 @@
                       Budget Details
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Budget Details">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>
@@ -158,18 +148,19 @@
                           <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Budget</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Avail</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
-                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Price</th>
                           <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total Budget</th>
+                          <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
                           <th class="sticky-col forth-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Qty Req</th>
                           <th class="sticky-col third-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price Req</th>
                           <th class="sticky-col second-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>
                           <th class="sticky-col first-col-arf" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Balance Qty</th>
                         </tr>
                       </thead>
-                      <tbody>
-                      </tbody>
+
+                      <tbody></tbody>
+
                       <tfoot>
                         <tr class="loadingBudgetDetails">
                           <td colspan="11" class="p-0" style="border: 0px; height: 150px;">
@@ -203,18 +194,9 @@
                       <tr>
                         <td>
                           <br>
-                          @if($statusRevisi == 1)
-                          <a class="btn btn-default btn-sm float-right" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                            <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
-                          </a>
-                          @else
                           <a class="btn btn-default btn-sm float-right" id="budget-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                             <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
                           </a>
-                          <a class="btn btn-default btn-sm float-right" id="budget-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
-                            <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
-                          </a>
-                          @endif
                         </td>
                       </tr>
                     </table>
@@ -235,17 +217,17 @@
                       Advance List (Cart)
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Advance List (Cart)">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>
                   </div>
-                  
+
                   <!-- TABLE -->
                   <div class="card-body table-responsive p-0" style="height:135px;">
                     <table class="table table-head-fixed text-nowrap table-sm" id="tableAdvanceList">
                       <thead>
-                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Id</th>
+                        <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
                         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
                         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
                         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
@@ -266,6 +248,14 @@
                           <span id="GrandTotal">0.00</span>
                         </th>
                       </tr>
+                      <tr>
+                        <td>
+                          <br>
+                          <a class="btn btn-default btn-sm float-right" id="budget-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                            <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
+                          </a>
+                        </td>
+                      </tr>
                     </table>
                   </div>
                 </div>
@@ -280,11 +270,11 @@
                 <div class="card">
                   <!-- HEADER -->
                   <div class="card-header">
-                    <label class="card-title">
+                    <label for="remark" class="card-title">
                       Remark
                     </label>
                     <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" aria-label="Collapse Section Remark">
                         <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                       </button>
                     </div>

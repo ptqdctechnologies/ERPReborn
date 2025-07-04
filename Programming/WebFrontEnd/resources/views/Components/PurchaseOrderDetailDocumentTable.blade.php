@@ -24,11 +24,11 @@
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productName'] ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['quantityUnitName'] ?? '-'; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;">-</td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productUnitPriceCurrencyISOCode'] ?? '-'; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['quantityUnitPrice'], 2); ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['quantity'], 2); ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['quantity'], 2); ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['remarks']; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['note']; ?></td>
                     </tr>
                 <?php } ?>
             </tbody>

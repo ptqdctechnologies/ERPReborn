@@ -44,7 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000003                                                                                       |
-        | ▪ Last Update     : 2025-04-30                                                                                           |
+        | ▪ Last Update     : 2025-06-24                                                                                           |
         | ▪ Creation date   : 2022-09-27                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -94,6 +94,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
 
                                     $varData['entities']['documentDateTimeTZ'],
                                     $varData['entities']['person_RefID'],
+                                    $varData['entities']['combinedBudget_RefID'],
                                     $varData['entities']['colorText'],
                                     $varData['entities']['colorBackground'],
 
@@ -101,11 +102,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                         $varUserSession,
                                         'additionalData',
                                         $varData['entities']
-                                        ) 
+                                        )
                                         ?   (
                                                 (
                                                 !is_null($varData['entities']['additionalData'])
-                                                ) 
+                                                )
                                                 ? $varData['entities']['additionalData']
                                                 : []
                                             )
@@ -115,15 +116,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                 )
                             ))
                             {
-                            throw new \Exception();                            
+                            throw new \Exception();
                             }
 
                         //---> Set Business Document Data Into varDataSend
-                        $varDataSend['businessDocument'] = 
+                        $varDataSend['businessDocument'] =
                             (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
-                                $varUserSession, 
+                                $varUserSession,
                                 $varDataSend['recordID']
                                 );
+                        $varDataSend['businessDocument']['businessDocument_RefID'] = $varDataSend['process']['AdditionalDocumentData']['data'][0]['BusinessDocument_RefID'];
+                        $varDataSend['businessDocument']['businessDocumentVersion_RefID'] = $varDataSend['process']['AdditionalDocumentData']['data'][0]['BusinessDocumentVersion_RefID'];
+                        unset($varDataSend['process']['AdditionalDocumentData']);
 
                         $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
@@ -144,7 +148,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
 
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
 
                 catch (\Exception $ex) {
                     $varReturn =
@@ -158,7 +162,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                     }
 
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
+                }
 
             catch (\Exception $ex) {
                 }

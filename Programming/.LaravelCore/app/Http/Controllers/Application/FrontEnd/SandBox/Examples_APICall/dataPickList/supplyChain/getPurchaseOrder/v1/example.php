@@ -20,7 +20,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
         |                     ► http://172.28.0.4/dataPickList.supplyChain.getPurchaseOrder.v1_throughAPIGateway                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-22                                                                                           |
+        | ▪ Last Update     : 2025-06-25                                                                                           |
         | ▪ Creation Date   : 2022-07-22                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -31,18 +31,28 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
             //---Core---
-            $varData = 
+            $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'dataPickList.supplyChain.getPurchaseOrder', 
+                    $varAPIWebToken,
+                    'dataPickList.supplyChain.getPurchaseOrder',
                     'latest',
                     [
                     'parameter' => [
+                        ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                        // 'pick' => '"Sys_ID"',
+                        // 'sort' => '"Sys_ID" ASC',
+                        // 'filter' => '"CombinedBudgetName" = \'XL Microcell 2007\'',
+                        // 'paging' => "LIMIT 17 OFFSET 41"
                         ]
                     ]
                     );
-            var_dump($varData);
+            return $varData;
             }
 
 
@@ -65,14 +75,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'dataPickList.supplyChain.getPurchaseOrder', 
-                'latest', 
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'dataPickList.supplyChain.getPurchaseOrder',
+                'latest',
                 '{'.
                     '"parameter" : null'.
                 '}'
-                );            
+                );
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }
