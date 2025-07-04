@@ -406,8 +406,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             }
                         }
 
-                        $unique2 = $collection->unique('DeliveryOrderDetail_ID')->toArray();
+                        $unique2 = $collection->unique('DeliveryOrderDetail_ID')->toArray();                        
                         $resultArray = $unique2;
+                        $varReturn['rowCount'] = count($unique2);
                         $varReturn['data'] = [];
                         $idxArray = 0;
                         foreach ($resultArray as $key => $value) {
