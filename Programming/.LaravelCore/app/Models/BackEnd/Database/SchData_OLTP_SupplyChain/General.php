@@ -352,7 +352,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_DeliveryOrderDetail_LatestVersion                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-04-24                                                                                           |
+        | ▪ Last Update     : 2025-07-04                                                                                           |
         | ▪ Creation Date   : 2025-03-27                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pengiriman (DO) Versi Terakhir                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -378,14 +378,37 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryOrderDetail',
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryOrderDetail_New',
                             [
                                 [$varDeliveryOrder_RefID, 'bigint' ],
                                 [TRUE, 'boolean']
                             ]
                             )
                         );
-                        $resultArray = $varReturn['data'];
+                        $collection = collect($varReturn['data']);
+                        /*
+                            Contact Number Type:
+                            - 223000000000002 (Mobile Phone)
+                            - 223000000000004 (Office Phone)
+                            - 223000000000005 (Faximile)
+                        */
+                        $unique = $collection->unique(function (array $item) {
+                            return $item['DeliveryOrderDetail_ID'].$item['ContactNumberType_RefID_TblPerson'];
+                        })->whereIn('ContactNumberType_RefID_TblPerson', [223000000000002, 223000000000004, 223000000000005])->toArray();
+                        
+                        // get contact number list
+                        $contactNumbers = [];
+                        foreach ($unique as $value2) {
+                            if (array_key_exists($value2['DeliveryOrderDetail_ID'], $contactNumbers)) {
+                                $contactNumbers[$value2['DeliveryOrderDetail_ID']] += [$value2['ContactNumberType_RefID_TblPerson'] => $value2['ContactNumber_TblPerson']];
+                            } else {
+                                $contactNumbers[$value2['DeliveryOrderDetail_ID']] = [$value2['ContactNumberType_RefID_TblPerson'] => $value2['ContactNumber_TblPerson']];
+                            }
+                        }
+
+                        $unique2 = $collection->unique('DeliveryOrderDetail_ID')->toArray();                        
+                        $resultArray = $unique2;
+                        $varReturn['rowCount'] = count($unique2);
                         $varReturn['data'] = [];
                         $idxArray = 0;
                         foreach ($resultArray as $key => $value) {
@@ -405,13 +428,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray]['version'] = $value["Version"];
                             $varReturn['data'][$idxArray]['documentDateTimeTZ'] = $value["DocumentDateTimeTZ"];
                             $varReturn['data'][$idxArray]['annotation'] = $value["Annotation"];
-                            $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID"];
-                            $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode"];
-                            $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName"];
-                            $varReturn['data'][$idxArray]['combinedBudgetSection_RefID'] = $value["CombinedBudgetSection_RefID"];
-                            $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode"];
-                            $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
-                            $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID"];
                             $varReturn['data'][$idxArray]['deliveryFrom_RefID'] = $value["DeliveryFrom_RefID"];
                             $varReturn['data'][$idxArray]['deliveryFrom_NonRefID'] = json_decode($value["DeliveryFrom_NonRefID"]);
                             $varReturn['data'][$idxArray]['deliveryTo_RefID'] = $value["DeliveryTo_RefID"];
@@ -428,12 +444,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
                             $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
                             $varReturn['data'][$idxArray]['entity_RefID'] = $value["Entity_RefID"];
-                            $varReturn['data'][$idxArray]['transporterName'] = $value["TransporterName"];
-                            $varReturn['data'][$idxArray]['transporterContactPerson'] = $value["TransporterContactPerson"];
-                            $varReturn['data'][$idxArray]['transporterPhone'] = $value["TransporterPhone"];
-                            $varReturn['data'][$idxArray]['transporterHandphone'] = $value["TransporterHandphone"];
-                            $varReturn['data'][$idxArray]['transporterFax'] = $value["TransporterFax"];
-                            $varReturn['data'][$idxArray]['transporterAddress'] = $value["TransporterAddress"];
                             if ((($value["UnderlyingDetail_RefID"] / 1000000000000) % 10000) === 86) {
                                 $varReturn['data'][$idxArray]['quantity'] = $value["Quantity_TblPurchaseOrderDetail"];
                                 $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID_TblPurchaseOrderDetail"];
@@ -470,12 +480,68 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             }
                             $varReturn['data'][$idxArray]['businessDocumentType_RefID'] = $value["BusinessDocumentType_RefID"];
                             $varReturn['data'][$idxArray]['businessDocumentType_Name'] = $value["BusinessDocumentType_Name"];
+                            $varReturn['data'][$idxArray]['sys_PID_TblPurchaseRequisitionDetail'] = $value["Sys_PID_TblPurchaseRequisitionDetail"];
+                            $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID_TblPurchaseRequisitionDetail"];
+                            $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode_New"];
+                            $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName_New"];
+                            $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode_New"];
+                            $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName_New"];
+                            $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID_New"];
+                            $varReturn['data'][$idxArray]['combinedBudgetSection_RefID'] = $value["CombinedBudgetSection_RefID_New"];
                             $varReturn['data'][$idxArray]['requesterWorkerJobsPosition_RefID'] = $value["RequesterWorkerJobsPosition_RefID"];
                             $varReturn['data'][$idxArray]['requesterWorkerName'] = $value["RequesterWorkerName"];
+                            if ((($value["Transporter_RefID"] / 1000000000000) % 10000) === 164) {
+                                $varReturn['data'][$idxArray]['transporterCode'] = $value["TransporterCode_TblWorkerCareerInternal"];
+                                $varReturn['data'][$idxArray]['transporterName'] = $value["TransporterName_TblWorkerCareerInternal"];
+                                $varReturn['data'][$idxArray]['transporterAddress'] = $value["TransporterAddress_TblWorkerCareerInternal"];
+                                $varReturn['data'][$idxArray]['transporterContactPerson'] = $value["TransporterContactPerson_TblWorkerCareerInternal"];
+                                if (array_key_exists($value["DeliveryOrderDetail_ID"], $contactNumbers)) {
+                                        $varReturn['data'][$idxArray]['transporterHandphone'] = array_key_exists(223000000000002, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000002] : null;
+                                        $varReturn['data'][$idxArray]['transporterPhone'] = array_key_exists(223000000000004, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000004] : null;
+                                        $varReturn['data'][$idxArray]['transporterFax'] = array_key_exists(223000000000005, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000005] : null;
+                                }
+                            } elseif ((($value["Transporter_RefID"] / 1000000000000) % 10000) === 284) {
+                                $varReturn['data'][$idxArray]['transporterCode'] = $value["TransporterCode_TblTransporter"];                                
+                                if ((($value["Entity_RefID"] / 1000000000000) % 10000) === 124) {
+                                    $varReturn['data'][$idxArray]['transporterName'] = $value["TransporterName_TblInstitutionBranch"];
+                                    $varReturn['data'][$idxArray]['transporterAddress'] = $value["TransporterAddress_TblInstitutionBranch"];
+                                    $varReturn['data'][$idxArray]['transporterContactPerson'] = $value["TransporterContactPerson_TblInstitutionBranch"];
+                                    if (array_key_exists($value["DeliveryOrderDetail_ID"], $contactNumbers)) {
+                                        $varReturn['data'][$idxArray]['transporterHandphone'] = array_key_exists(223000000000002, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000002] : null;
+                                        $varReturn['data'][$idxArray]['transporterPhone'] = array_key_exists(223000000000004, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000004] : null;
+                                        $varReturn['data'][$idxArray]['transporterFax'] = array_key_exists(223000000000005, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000005] : null;
+                                    }
+                                } elseif ((($value["Entity_RefID"] / 1000000000000) % 10000) === 25) {
+                                    $varReturn['data'][$idxArray]['transporterName'] = $value["TransporterName_TblPerson"];
+                                    $varReturn['data'][$idxArray]['transporterAddress'] = $value["TransporterAddress_TblPerson"];
+                                    $varReturn['data'][$idxArray]['transporterContactPerson'] = $value["TransporterContactPerson_TblPerson"];
+                                    if (array_key_exists($value["DeliveryOrderDetail_ID"], $contactNumbers)) {                                        
+                                        $varReturn['data'][$idxArray]['transporterHandphone'] = array_key_exists(223000000000002, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000002] : null;
+                                        $varReturn['data'][$idxArray]['transporterPhone'] = array_key_exists(223000000000004, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000004] : null;
+                                        $varReturn['data'][$idxArray]['transporterFax'] = array_key_exists(223000000000005, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000005] : null;                                        
+                                    }
+                                } else {
+                                    $varReturn['data'][$idxArray]['transporterName'] = null;   
+                                    $varReturn['data'][$idxArray]['transporterAddress'] = null;     
+                                    $varReturn['data'][$idxArray]['transporterContactPerson'] = null; 
+                                    $varReturn['data'][$idxArray]['transporterHandphone'] = null;
+                                    $varReturn['data'][$idxArray]['transporterPhone'] = null;
+                                    $varReturn['data'][$idxArray]['transporterFax'] = null;
+                                }  
+                            } else {
+                                $varReturn['data'][$idxArray]['transporterCode'] = null;
+                                $varReturn['data'][$idxArray]['transporterName'] = null;
+                                $varReturn['data'][$idxArray]['transporterAddress'] = null;
+                                $varReturn['data'][$idxArray]['transporterContactPerson'] = null;
+                                $varReturn['data'][$idxArray]['transporterHandphone'] = null;
+                                $varReturn['data'][$idxArray]['transporterPhone'] = null;
+                                $varReturn['data'][$idxArray]['transporterFax'] = null;
+                            }
+
                             $varReturn['data'][$idxArray]['orderSequence'] = $value["OrderSequence"];
                             $idxArray++;
                         }
-
+                        
                 return
                     $varReturn;
                 }
@@ -945,7 +1011,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_PurchaseOrderDetail_LatestVersion                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-06-23                                                                                           |
+        | ▪ Last Update     : 2025-07-04                                                                                           |
         | ▪ Creation Date   : 2025-03-05                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pembelian (Purchase Order Detail) Versi Terakhir                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1052,10 +1118,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][$idxArray]['transactionTax_RefID'] = $value["TransactionTax_RefID"];
                         $varReturn['data'][$idxArray]['transactionTaxDetail_RefID'] = $value["TransactionTaxDetail_RefID"];
                         $varReturn['data'][$idxArray]['quantity_TblDeliveryOrderDetail'] = $value["Quantity_TblDeliveryOrderDetail"];
-                        $varReturn['data'][$idxArray]['qtyAvail'] = in_array($value["Sys_ID"], $listIdPODetail) ? $value["Quantity"] - $qtyDODetail[$value["Sys_ID"]]["Qty"] : null;
+                        $varReturn['data'][$idxArray]['qtyAvail'] = in_array($value["Sys_ID"], $listIdPODetail) ? round($value["Quantity"] - $qtyDODetail[$value["Sys_ID"]]["Qty"], 2) : null;
                         $varReturn['data'][$idxArray]['deliveryDateTimeTZ'] = $value["DeliveryDateTimeTZ"];
                         $varReturn['data'][$idxArray]['purchaseRequisitionNumber'] = $value["PurchaseRequisitionNumber"];
                         $varReturn['data'][$idxArray]['product_RefID'] = $value["Product_RefID"];
+                        $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode"];
+                        $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
                         $idxArray++;
                     }
 
