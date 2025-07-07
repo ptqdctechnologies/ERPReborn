@@ -1530,7 +1530,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_WarehouseInboundOrderDetail_LatestVersion                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-06-20                                                                                           |
+        | ▪ Last Update     : 2025-07-07                                                                                           |
         | ▪ Creation Date   : 2025-05-20                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Warehouse Inbound Order Detail Versi Terakhir                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1564,7 +1564,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 		    	);
                 $resultArray = $varReturn['data'];
 
-                // Description: Menjumlahkan Quantity Material Receive Detail berdasarkan ID DO Detail yg sama.
+                // Menjumlahkan Quantity Material Receive Detail berdasarkan ID DO Detail yg sama.
                 $arrayQtyMR = [];
                 $listPidDoDetail = [];
                 foreach ($resultArray as $key => $value) {
@@ -1584,9 +1584,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     $varReturn['data'][$idxArray]['log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];
                     $varReturn['data'][$idxArray]['requesterWorkerJobsPosition_RefID'] = $value["RequesterWorkerJobsPosition_RefID"];
                     $varReturn['data'][$idxArray]['deliveryFrom_RefID'] = $value["DeliveryFrom_RefID"];
-                    $varReturn['data'][$idxArray]['deliveryFrom_NonRefID'] = $value["DeliveryFrom_NonRefID"];
+                    $varReturn['data'][$idxArray]['deliveryFrom_NonRefID'] = json_decode($value["DeliveryFrom_NonRefID"]);
                     $varReturn['data'][$idxArray]['deliveryTo_RefID'] = $value["DeliveryTo_RefID"];
-                    $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = $value["DeliveryTo_NonRefID"];
+                    $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = json_decode($value["DeliveryTo_NonRefID"]);
                     $varReturn['data'][$idxArray]['date'] = $value["Date"];
                     $varReturn['data'][$idxArray]['remarks'] = $value["Remarks"];
                     $varReturn['data'][$idxArray]['sys_PID'] = $value["Sys_PID"];
@@ -1614,6 +1614,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode"];
                     $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
                     $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode"];
+                    $varReturn['data'][$idxArray]['deliveryDateTimeTZ'] = $value["DeliveryDateTimeTZ"];
+                    $varReturn['data'][$idxArray]['transporter_RefID'] = $value["Transporter_RefID"];
                     $idxArray++;
                 }
 
