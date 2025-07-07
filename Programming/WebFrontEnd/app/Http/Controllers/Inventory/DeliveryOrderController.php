@@ -80,50 +80,61 @@ class DeliveryOrderController extends Controller
     public function updates(Request $request)
     {
         try {
-            $varAPIWebToken                     = Session::get('SessionLogin');
-            $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
-            $revisionDeliveryOrderData          = $request->all();
-            $deliveryOrderDetail                = json_decode($revisionDeliveryOrderData['storeData']['deliveryOrderDetail'], true);
-            $fileID                             = $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
+            // $varAPIWebToken                     = Session::get('SessionLogin');
+            // $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
+            // $revisionDeliveryOrderData          = $request->all();
+            // $deliveryOrderDetail                = json_decode($revisionDeliveryOrderData['storeData']['deliveryOrderDetail'], true);
+            // $fileID                             = $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
 
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.update.supplyChain.setDeliveryOrder',
-                'latest',
-                [
-                'recordID' => (int) $revisionDeliveryOrderData['storeData']['do_id'],
-                'entities' => [
-                    "documentDateTimeTZ"                => date('Y-m-d'),
-                    "log_FileUpload_Pointer_RefID"      => $fileID,
-                    "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
-                    "transporter_RefID"                 => (int) $revisionDeliveryOrderData['storeData']['transporter_id'],
-                    "deliveryDateTimeTZ"                => null,
-                    "deliveryFrom_RefID"                => null,
-                    "deliveryFrom_NonRefID"             => $revisionDeliveryOrderData['storeData']['delivery_from'],
-                    "deliveryTo_RefID"                  => null,
-                    "deliveryTo_NonRefID"               => $revisionDeliveryOrderData['storeData']['delivery_to'],
-                    "remarks"                           => $revisionDeliveryOrderData['storeData']['var_remark'],
-                    "additionalData"    => [
-                        "itemList"      => [
-                            "items"     => $deliveryOrderDetail
-                            ]
-                        ]
-                    ]
-                ]
-            );
+            // $varData = Helper_APICall::setCallAPIGateway(
+            //     Helper_Environment::getUserSessionID_System(),
+            //     $varAPIWebToken,
+            //     'transaction.update.supplyChain.setDeliveryOrder',
+            //     'latest',
+            //     [
+            //     'recordID' => (int) $revisionDeliveryOrderData['storeData']['do_id'],
+            //     'entities' => [
+            //         "documentDateTimeTZ"                => date('Y-m-d'),
+            //         "log_FileUpload_Pointer_RefID"      => $fileID,
+            //         "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
+            //         "transporter_RefID"                 => (int) $revisionDeliveryOrderData['storeData']['transporter_id'],
+            //         "deliveryDateTimeTZ"                => null,
+            //         "deliveryFrom_RefID"                => null,
+            //         "deliveryFrom_NonRefID"             => $revisionDeliveryOrderData['storeData']['delivery_from'],
+            //         "deliveryTo_RefID"                  => null,
+            //         "deliveryTo_NonRefID"               => $revisionDeliveryOrderData['storeData']['delivery_to'],
+            //         "remarks"                           => $revisionDeliveryOrderData['storeData']['var_remark'],
+            //         "additionalData"    => [
+            //             "itemList"      => [
+            //                 "items"     => $deliveryOrderDetail
+            //                 ]
+            //             ]
+            //         ]
+            //     ]
+            // );
 
-            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($varData);
+            $response = $this->deliveryOrderService->updates($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
             }
 
-            return $this->ResubmitWorkflow(
-                $varData['data'][0]['businessDocument']['businessDocument_RefID'],
-                $revisionDeliveryOrderData['comment'],
-                $revisionDeliveryOrderData['approverEntity'],
-                $revisionDeliveryOrderData['nextApprover'],
-                $varData['data'][0]['businessDocument']['documentNumber']
+            $responseWorkflow = $this->workflowService->resubmit(
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
+                $request->comment,
+                $request->approverEntity,
             );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Error at update: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

@@ -27,4 +27,23 @@ class WorkflowService
             ]
         );
     }
+
+    public function resubmit($businessDocument_RefID, $comment, $approverEntity_RefID) 
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'userAction.documentWorkFlow.approvalStage.setUserResubmission',
+            'latest',
+            [
+                'entities' => [
+                    "businessDocument_RefID"    => (int) $businessDocument_RefID,
+                    "remarks"                   => $comment,
+                    "approverEntity_RefID"      => (int) $approverEntity_RefID
+                ]
+            ]
+        );
+    }
 }

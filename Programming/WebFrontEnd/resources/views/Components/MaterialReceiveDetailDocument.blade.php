@@ -20,6 +20,26 @@
                 : <?= isset($dataHeader['date']) ? date('Y-m-d', strtotime($dataHeader['date'])) : '-'; ?>
             </div>
         </div>
+
+        <!-- BUDGET -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                Budget
+            </div>
+            <div class="col">
+                : <?= isset($dataHeader['budgetCode']) && isset($dataHeader['budgetName']) ? $dataHeader['budgetCode'] . ' - ' . $dataHeader['budgetName'] : '-'; ?>
+            </div>
+        </div>
+
+        <!-- SUB BUDGET -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                Sub Budget
+            </div>
+            <div class="col">
+                : <?= isset($dataHeader['subBudgetCode']) && isset($dataHeader['subBudgetName']) ? $dataHeader['subBudgetCode'] . ' - ' . $dataHeader['subBudgetName'] : '-'; ?>
+            </div>
+        </div>
         
         <!-- FILE ATTACHMENT -->
         <div class="row">
