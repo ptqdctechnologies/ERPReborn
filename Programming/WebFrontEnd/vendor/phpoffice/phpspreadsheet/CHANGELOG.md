@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+# 2025-06-22 - 1.29.11
+
+### Changed
+
+- Allow php-cs-fixer to Handle Implicit Backslashes.
+
+### Added
+
+- Allow spreadsheet to be serialized. [PR #4405](https://github.com/PHPOffice/PhpSpreadsheet/pull/4405)
+
+### Fixed
+
+- TEXT and TIMEVALUE functions. [Issue #4249](https://github.com/PHPOffice/PhpSpreadsheet/issues/4249) [PR #4352](https://github.com/PHPOffice/PhpSpreadsheet/pull/4352)
+- Removing Columns/Rows Containing Merged Cells. Backport of [PR #4465](https://github.com/PHPOffice/PhpSpreadsheet/pull/4465)
+- Allow Xlsx Reader to Specify ParseHuge. [Issue #4260](https://github.com/PHPOffice/PhpSpreadsheet/issues/4260) [PR #4515](https://github.com/PHPOffice/PhpSpreadsheet/pull/4515)
+
 # 2025-02-07 - 1.29.10
 
 ### Changed

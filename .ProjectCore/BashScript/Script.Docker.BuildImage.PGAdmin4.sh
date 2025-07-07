@@ -15,5 +15,7 @@
 clear;
 
 #sudo docker pull dpage/pgadmin4:5.2;
-sudo docker pull dpage/pgadmin4:latest;
+#sudo docker pull dpage/pgadmin4:latest;
+sudo docker pull dpage/pgadmin4:9.4;
+
 sudo docker build --file ./.ProjectCore/Configuration/Docker/PGAdmin4/Dockerfile -t erp-reborn-devtools-pgadmin4 .;
