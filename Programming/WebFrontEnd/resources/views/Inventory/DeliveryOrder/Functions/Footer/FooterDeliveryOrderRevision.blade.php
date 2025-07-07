@@ -233,6 +233,8 @@
             if (storeItem) {
                 storeItem.entities.quantity = parseFloat(newQty.replace(/,/g, ''));
                 storeItem.entities.remarks = newNote;
+
+                $("#deliveryOrderDetail").val(JSON.stringify(dataStore));
             }
         } else {
             const currentQty = qtyCell.innerText.trim();
@@ -367,6 +369,8 @@
         }
 
         dataStore = dataStore.filter(item => item !== undefined);
+        $("#deliveryOrderDetail").val(JSON.stringify(dataStore));
+
         updateGrandTotal();
     });
 
