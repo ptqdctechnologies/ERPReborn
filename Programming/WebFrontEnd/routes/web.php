@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 
 
 /*
-|--------------------------------------------------------------------------
+|-------------------------------------------------------------------------- 
 | Web Routes
 |--------------------------------------------------------------------------
 |
@@ -20,7 +20,7 @@ use App\Http\Controllers\UserController;
 $varUserSession = 
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzUxMjc0MzI1fQ.ODJlMzQyYjIzMWNhMjc1YzM1ZDU0OTU2MDA4OTE0NjYxMjBhYmQyODNjNTdkOGQxODgyOWQ0MDRhYzlhZTlmMg';
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzUxNTk0NzgxfQ.ZjEyMzJhMjI3OWNhOTFmMzYzM2JjMzM0MWUzNzVlYTdhNzYxYmYzY2JjOGQzYjE4MThmZGY3OWQ2ZmRjMGMzNA';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -88,7 +88,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     //Document
     Route::post('ShowDocument', 'Document\CheckDocumentController@ShowDocument')->name('CheckDocument.ShowDocument');
     Route::post('ShowDocumentByID', 'Document\CheckDocumentController@ShowDocumentByID')->name('CheckDocument.ShowDocumentByID');
-    Route::get('LogTransaction', 'Document\CheckDocumentController@LogTransaction')->name('LogTransaction');
+    Route::post('LogTransaction', 'Document\CheckDocumentController@LogTransaction')->name('LogTransaction');
     Route::get('ShowDocumentListData', 'Document\CheckDocumentController@ShowDocumentListData')->name('CheckDocument.ShowDocumentListData');
     Route::resource('CheckDocument', 'Document\CheckDocumentController');
 

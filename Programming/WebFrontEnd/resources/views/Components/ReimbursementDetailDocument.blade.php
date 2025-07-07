@@ -7,7 +7,7 @@
                 Customer/Vendor Name
             </div>
             <div class="col">
-                : (<?= $dataHeader['customerVendorProject']; ?>) <?= $dataHeader['customerVendorName']; ?>
+                : <?= $dataHeader['customerVendorProject']; ?> - <?= $dataHeader['customerVendorName']; ?>
             </div>
         </div>
         

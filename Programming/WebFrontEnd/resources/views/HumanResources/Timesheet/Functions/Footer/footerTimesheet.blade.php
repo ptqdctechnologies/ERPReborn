@@ -1,8 +1,8 @@
 <script>
-    var dataProject = [];
-    var triggerUpdateByID = '';
-    var siteUpdateID = '';
-    var dataEvents = [
+    let dataProject = [];
+    let triggerUpdateByID = '';
+    let siteUpdateID = '';
+    let dataEvents = [
         // {
         //     id: 1741599036136,
         //     title: "Party",
@@ -52,7 +52,7 @@
         //     url: 'https://google.com/'
         // },
     ];
-    var dataDetail = [];
+    let dataDetail = [];
 
     function getAuthorized() {
         $.ajaxSetup({
@@ -405,7 +405,7 @@
                         reverseButtons: true
                     }).then((result) => {
                         ShowLoading();
-                        window.location.href = '/Timesheet';
+                        window.location.href = '/Timesheet?var=1';
                     });
                 } else {
                     ErrorNotif("Data Cancel Inputed");
@@ -549,12 +549,14 @@
                 right: 'year,month,agendaWeek,agendaDay'
             },
             events: function(start, end, timezone, callback) {
+                $('#calendar').fullCalendar('removeEvents');
+
                 const visibleEvents = dataEvents.filter(event => {
                     const eventStart = new Date(event.start);
                     const eventEnd = new Date(event.end || event.start);
                     return eventStart <= end && eventEnd >= start;
                 });
-                
+
                 callback(visibleEvents);
                 // This ensures the calendar always uses the current dataEvents array
                 // callback(dataEvents);

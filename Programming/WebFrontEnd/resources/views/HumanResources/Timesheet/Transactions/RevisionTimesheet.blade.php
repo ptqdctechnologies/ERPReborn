@@ -49,6 +49,11 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-body p-0">
+                                <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitTimesheet">
+                                @csrf
+                                <input name="DocumentTypeID" id="DocumentTypeID">
+                                <input name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $combinedBudget_RefID; ?>">
+                                <input name="timesheetDetail" id="timesheetDetail">
                                 <div class="ml-3 mt-3">
                                     <!-- AUTHORIZED BY -->
                                     <div class="col-12" style="margin-bottom: 1rem;">
@@ -56,7 +61,8 @@
                                             <label class="col-2 col-form-label p-0">Authorized By</label>
                                             <div class="col-2 p-0">
                                                 <div id="authorizedSelectContainer">
-                                                    <select class="form-control select2bs4" id="authorizedSelect" onchange="saveCombinedBudget(this);" style="width: 100%;">
+                                                    <input hidden id="authorizedSelect_RefID" style="width: 20%;" value="<?= $combinedBudget_RefID; ?>" />
+                                                    <select class="form-control select2bs4" id="authorizedSelect" name="authorizedSelect" onchange="saveCombinedBudget(this);" style="width: 100%;">
                                                         <option disabled selected>Select an Authorized</option>
                                                     </select>
                                                 </div>
@@ -74,7 +80,8 @@
                                             <label class="col-2 col-form-label p-0">On Behalf Of</label>
                                             <div class="col-2 p-0">
                                                 <div id="onBehalfSelectContainer">
-                                                    <select class="form-control select2bs4" id="onBehalfSelect" style="width: 100%;">
+                                                    <input hidden id="onBehalfSelect_RefID" style="width: 20%;" value="<?= $person_RefID; ?>" />
+                                                    <select class="form-control select2bs4" id="onBehalfSelect" name="onBehalfSelect" style="width: 100%;">
                                                         <option disabled selected>Select a Person on Behalf</option>
                                                     </select>
                                                 </div>
@@ -102,16 +109,11 @@
                                 <div id="calendar"></div>
 
                                 <div class="py-3 pr-3 d-flex justify-content-end">
-                                    <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitTimesheet">
-                                    @csrf
-                                    <input type="hidden" name="timesheetDetail" id="timesheetDetail">
-                                    <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
-                                    <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID">
-                                        <button type="submit" class="btn btn-success btn-sm" id="submitTimesheet">
-                                            <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit"> Submit
-                                        </button>
-                                    </form>
+                                    <button type="submit" class="btn btn-success btn-sm" id="submitTimesheet">
+                                        <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit"> Submit
+                                    </button>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -267,5 +269,5 @@
 </div>
 
 @include('Partials.footer')
-@include('HumanResources.Timesheet.Functions.Footer.footerTimesheet')
+@include('HumanResources.Timesheet.Functions.Footer.footerRevisionTimesheet')
 @endsection
