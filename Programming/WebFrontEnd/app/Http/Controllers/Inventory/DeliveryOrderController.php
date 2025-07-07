@@ -83,7 +83,6 @@ class DeliveryOrderController extends Controller
             $varAPIWebToken                     = Session::get('SessionLogin');
             $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
             $revisionDeliveryOrderData          = $request->all();
-            Log::error("revisionDeliveryOrderData: ", [$revisionDeliveryOrderData]);
             $deliveryOrderDetail                = json_decode($revisionDeliveryOrderData['storeData']['deliveryOrderDetail'], true);
             $fileID                             = $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
 
@@ -117,8 +116,6 @@ class DeliveryOrderController extends Controller
             if ($varData['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($varData);
             }
-
-            Log::error("varData: ", [$varData]);
 
             return $this->ResubmitWorkflow(
                 $varData['data'][0]['businessDocument']['businessDocument_RefID'],
@@ -607,29 +604,35 @@ class DeliveryOrderController extends Controller
 
             $data = $varData['data']['data'];
 
+            // dump($data);
+
             $compact = [
-                'varAPIWebToken'            => $varAPIWebToken,
-                'header'                    => [
-                    'combinedBudget_RefID'  => $data[0]['combinedBudget_RefID'] ?? '46000000000033',
-                    'doNumber'              => $data[0]['documentNumber'] ?? '',
-                    'doID'                  => $data[0]['deliveryOrder_RefID'] ?? '',
-                    'doDetailID'            => $data[0]['deliveryOrderDetail_ID'] ?? '',
-                    'deliveryFrom'          => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
-                    'deliveryFromID'        => $data[0]['deliveryFrom_RefID'] ?? '',
-                    'deliveryTo'            => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
-                    'deliveryToID'          => $data[0]['deliveryTo_RefID'] ?? '',
-                    'transporterID'         => $data[0]['transporter_RefID'] ?? '',
-                    'transporterCode'       => '',
-                    'transporterName'       => $data[0]['transporterName'] ?? '',
-                    'transporterPhone'      => $data[0]['transporterPhone'] ?? '',
-                    'transporterFax'        => $data[0]['transporterFax'] ?? '',
-                    'transporterContact'    => $data[0]['transporterContactPerson'] ?? '',
-                    'transporterHandphone'  => $data[0]['transporterHandphone'] ?? '',
-                    'transporterAddress'    => $data[0]['transporterAddress'] ?? '',
-                    'fileID'                => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
-                    'remarks'               => $data[0]['remarks'] ?? '',
+                'varAPIWebToken'                => $varAPIWebToken,
+                'header'                        => [
+                    'combinedBudget_RefID'      => $data[0]['combinedBudget_RefID'] ?? '',
+                    'combinedBudgetCode'        => $data[0]['combinedBudgetCode'] ?? '',
+                    'combinedBudgetName'        => $data[0]['combinedBudgetName'] ?? '',
+                    'combinedBudgetSectionCode' => $data[0]['combinedBudgetSectionCode'] ?? '',
+                    'combinedBudgetSectionName' => $data[0]['combinedBudgetSectionName'] ?? '',
+                    'doNumber'                  => $data[0]['documentNumber'] ?? '',
+                    'doID'                      => $data[0]['deliveryOrder_RefID'] ?? '',
+                    'doDetailID'                => $data[0]['deliveryOrderDetail_ID'] ?? '',
+                    'deliveryFrom'              => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
+                    'deliveryFromID'            => $data[0]['deliveryFrom_RefID'] ?? '',
+                    'deliveryTo'                => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
+                    'deliveryToID'              => $data[0]['deliveryTo_RefID'] ?? '',
+                    'transporterID'             => $data[0]['transporter_RefID'] ?? '',
+                    'transporterCode'           => $data[0]['transporterCode'] ?? '',
+                    'transporterName'           => $data[0]['transporterName'] ?? '',
+                    'transporterPhone'          => $data[0]['transporterPhone'] ?? '',
+                    'transporterFax'            => $data[0]['transporterFax'] ?? '',
+                    'transporterContact'        => $data[0]['transporterContactPerson'] ?? '',
+                    'transporterHandphone'      => $data[0]['transporterHandphone'] ?? '',
+                    'transporterAddress'        => $data[0]['transporterAddress'] ?? '',
+                    'fileID'                    => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                    'remarks'                   => $data[0]['remarks'] ?? '',
                 ],
-                'data'                      => $data
+                'data'                          => $data
             ];
 
             // dump($data);

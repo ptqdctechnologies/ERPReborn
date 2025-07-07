@@ -1,19 +1,19 @@
 <script>
-    var dataStore                   = [];
-    var date                        = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-    var indexReferenceNumberDetail  = 0;
-    var referenceNumber             = document.getElementById("reference_number");
-    var deliveryFrom                = document.getElementById("delivery_from");
-    var deliveryFromDuplicate       = document.getElementById("delivery_fromDuplicate");
-    var deliveryFromRefID           = document.getElementById("deliveryFrom_RefID");
-    var deliveryFromDuplicateRefID  = document.getElementById("deliveryFromDuplicate_RefID");
-    var deliveryTo                  = document.getElementById("delivery_to");
-    var deliveryToDuplicate         = document.getElementById("delivery_toDuplicate");
-    var deliveryToRefID             = document.getElementById("deliveryTo_RefID");
-    var deliveryToDuplicateRefID    = document.getElementById("deliveryToDuplicate_RefID");
-    var transporterName             = document.getElementById("transporter_name");
-    var tableDeliverOrderDetailList = document.querySelector("#tableDeliverOrderDetailList tbody");
-    var submitDO                    = document.getElementById("submitDO");
+    let dataStore                   = [];
+    let date                        = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+    let indexReferenceNumberDetail  = 0;
+    let referenceNumber             = document.getElementById("reference_number");
+    let deliveryFrom                = document.getElementById("delivery_from");
+    let deliveryFromDuplicate       = document.getElementById("delivery_fromDuplicate");
+    let deliveryFromRefID           = document.getElementById("deliveryFrom_RefID");
+    let deliveryFromDuplicateRefID  = document.getElementById("deliveryFromDuplicate_RefID");
+    let deliveryTo                  = document.getElementById("delivery_to");
+    let deliveryToDuplicate         = document.getElementById("delivery_toDuplicate");
+    let deliveryToRefID             = document.getElementById("deliveryTo_RefID");
+    let deliveryToDuplicateRefID    = document.getElementById("deliveryToDuplicate_RefID");
+    let transporterName             = document.getElementById("transporter_name");
+    let tableDeliverOrderDetailList = document.querySelector("#tableDeliverOrderDetailList tbody");
+    let submitDO                    = document.getElementById("submitDO");
 
     function checkTableDataDO() {
         const isReferenceNumberNotEmpty = referenceNumber.value.trim() !== '';
@@ -99,7 +99,7 @@
                         let row = `
                             <tr>
                                 <input id="refDocument_RefID${indexReferenceNumberDetail}" value="${val2.purchaseOrder_RefID || ''}" type="hidden" />
-                                <input id="underlyingDetail_RefID${indexReferenceNumberDetail}" value="${val2.purchaseOrderDetail_RefID || ''}" type="hidden" />
+                                <input id="underlyingDetail_RefID${indexReferenceNumberDetail}" value="${val2.sys_ID || ''}" type="hidden" />
                                 <input id="reference_number${indexReferenceNumberDetail}" value="${reference_number}" type="hidden" />
                                 <input id="product_code${indexReferenceNumberDetail}" value="${val2.productCode || '1000742' + indexReferenceNumberDetail}" type="hidden" />
                                 <input id="product_name${indexReferenceNumberDetail}" value="${val2.productName || '-'}" type="hidden" />
@@ -356,7 +356,7 @@
                                     quantity: parseFloat(qty.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(qtyUnitRefId.value),
                                     remarks: note,
-                                    underlyingDetail_RefID: underlyingDetail_RefID.value || null,
+                                    underlyingDetail_RefID: parseInt(underlyingDetail_RefID.value),
                                     product_RefID: parseInt(productRefId.value),
                                     refNumber: refNumber,
                                     productCode: productCode
@@ -386,7 +386,7 @@
                             quantity: parseFloat(qty.replace(/,/g, '')),
                             quantityUnit_RefID: parseInt(qtyUnitRefId.value),
                             remarks: note,
-                            underlyingDetail_RefID: underlyingDetail_RefID.value || null,
+                            underlyingDetail_RefID: parseInt(underlyingDetail_RefID.value),
                             product_RefID: parseInt(productRefId.value),
                             refNumber: refNumber,
                             productCode: productCode
