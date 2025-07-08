@@ -17,7 +17,7 @@
                 <?php foreach ($dataDetails as $dataDetail) { ?>
                 <?php $grand_total += $dataDetail['quantity'] ?? 0;  ?>
                     <tr>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $no++; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;text-align: center;"><?= $no++; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productName'] ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['quantityUnitName'] ?? '-'; ?></td>
