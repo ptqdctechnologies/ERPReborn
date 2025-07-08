@@ -11,6 +11,16 @@
             </div>
         </div>
 
+        <!-- DELIVERY ORDER NUMBER -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                DO Number
+            </div>
+            <div class="col">
+                : <?= $dataHeader['doNumber']; ?>
+            </div>
+        </div>
+
         <!-- DATE -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">

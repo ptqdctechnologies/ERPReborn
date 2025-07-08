@@ -47,7 +47,7 @@
                 <!-- CONTENT -->
                 <?php if (isset($components['detail'])) { ?>
                   <div class="card-body">
-                    <div class="row" style="margin: .6rem 0rem; gap: 1rem;">
+                    <div class="row" style="margin: .6rem 0rem; gap: 1rem; line-height: normal;">
                       @include($components['detail'])
                     </div>
                   </div>

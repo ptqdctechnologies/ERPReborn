@@ -478,6 +478,7 @@ class DocumentTypeMapper
                     'date'                  => $dataDetail['date'] ?? '-',
                     'dateUpdate'            => $dataDetail['dateUpdate'] ?? null,
                     'mrNumber'              => $dataDetail['businessDocumentNumber'] ?? '-',
+                    'doNumber'              => '-',
                     'deliveryFrom'          => $dataDetail['deliveryFrom_NonRefID']['Address'] ?? '-',
                     'deliveryTo'            => $dataDetail['deliveryTo_NonRefID']['Address'] ?? '-',
                     'fileID'                => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
