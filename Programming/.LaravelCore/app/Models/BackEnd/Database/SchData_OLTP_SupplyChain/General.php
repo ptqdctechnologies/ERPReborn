@@ -352,7 +352,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_DeliveryOrderDetail_LatestVersion                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-07-04                                                                                           |
+        | ▪ Last Update     : 2025-07-08                                                                                           |
         | ▪ Creation Date   : 2025-03-27                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Detail Pesanan Pengiriman (DO) Versi Terakhir                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -408,6 +408,20 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                         $unique2 = $collection->unique('DeliveryOrderDetail_ID')->toArray();                        
                         $resultArray = $unique2;
+                        
+                        // Menjumlahkan Quantity WarehouseInboundOrderDetail berdasarkan ID DO Detail tersebut.
+                        $qtyWarehouseInboundOrderDetail = [];
+                        $listIdDODetail = [];
+                        foreach ($resultArray as $key => $value) {
+                            if (in_array($value["DeliveryOrderDetail_ID"], $listIdDODetail)) {
+                                $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["Qty"] = (float) $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["Qty"] + (float) $value["Quantity_TblWarehouseInboundOrderDetail"];
+                            } else {
+                                array_push($listIdDODetail, $value["DeliveryOrderDetail_ID"]);
+                                $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["DeliveryOrderDetail_ID"] = $value["DeliveryOrderDetail_ID"];
+                                $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["Qty"] = $value["Quantity_TblWarehouseInboundOrderDetail"];
+                            }
+                        }
+
                         $varReturn['rowCount'] = count($unique2);
                         $varReturn['data'] = [];
                         $idxArray = 0;
@@ -537,8 +551,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 $varReturn['data'][$idxArray]['transporterPhone'] = null;
                                 $varReturn['data'][$idxArray]['transporterFax'] = null;
                             }
-
-                            $varReturn['data'][$idxArray]['orderSequence'] = $value["OrderSequence"];
+                            $varReturn['data'][$idxArray]['referenceDocument_RefID'] = $value["ReferenceDocument_RefID"];
+                            $varReturn['data'][$idxArray]['qtyAvail'] = in_array($value["DeliveryOrderDetail_ID"], $listIdDODetail) ? round($value["QtyReq"] - $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["Qty"], 2) : null;
+                            $varReturn['data'][$idxArray]['orderSequence'] = $idxArray + 1;
                             $idxArray++;
                         }
                         
