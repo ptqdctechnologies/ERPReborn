@@ -34,16 +34,16 @@
                         </div>
                         <div class="card">
                             <div id="container">
-                                <div class="table-responsive table-height">
+                                <div class="wrapper-budget card-body table-responsive p-0 table-height">
                                     <table class="table table-bordered table-striped table-hover table-sticky table-sm">
                                         <thead>
                                             <tr>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Product Code</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Product Name</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> UOM</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Qty</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">Price</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">Total</th>
+                                                <th style="vertical-align: middle;border:1px solid #e9ecef; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;" class="text-center" rowspan="2"> Product Code</th>
+                                                <th style="vertical-align: middle;border:1px solid #e9ecef; width: 125px; min-width: 125px; max-width: 125px; left: 125px; z-index: 10;" class="text-center" rowspan="2"> Product Name</th>
+                                                <th style="vertical-align: middle;border:1px solid #e9ecef; width: 125px; min-width: 125px; max-width: 125px; left: 250px; z-index: 10;" class="text-center" rowspan="2"> UOM</th>
+                                                <th style="vertical-align: middle;border:1px solid #e9ecef; width: 125px; min-width: 125px; max-width: 125px; left: 375px; z-index: 10;" class="text-center" rowspan="2"> Qty</th>
+                                                <th style="vertical-align: middle;border:1px solid #e9ecef; width: 125px; min-width: 125px; max-width: 125px; left: 500px; z-index: 10;" class="text-center" rowspan="2">Price</th>
+                                                <th style="vertical-align: middle;border:1px solid #e9ecef; width: 125px; min-width: 125px; max-width: 125px; left: 625px; z-index: 10;" class="text-center" rowspan="2">Total</th>
                                                 @if(sizeof($dataHeader))
                                                     @for($i = 0; $i < (count($dataHeader) - 1); $i++) 
                                                         <?php $entryDateTime = $dataHeader[$i]['content']['sys_Data_Entry_DateTimeTZ']; $editDateTime = $dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ']; ?>
@@ -69,12 +69,12 @@
                                             @if(sizeof($dataDetail))
                                                 @for($i = 0; $i < count($dataDetail); $i++)
                                                     <tr>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][count($dataDetail[$i]) - 1]['content']['product_RefID'] }}</td>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][count($dataDetail[$i]) - 1]['productName'] }}</td>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][count($dataDetail[$i]) - 1]['quantityUnitName'] }}</td>
-                                                        <td style="padding: 8px;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['quantity'], 2) }}</td>
-                                                        <td style="padding: 8px;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
-                                                        <td style="padding: 8px;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['priceCurrencyValue'], 2) }}</td>
+                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;">{{ $dataDetail[$i][count($dataDetail[$i]) - 1]['content']['product_RefID'] }}</td>
+                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; left: 125px; z-index: 10;">{{ $dataDetail[$i][count($dataDetail[$i]) - 1]['productName'] }}</td>
+                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; left: 250px; z-index: 10;">{{ $dataDetail[$i][count($dataDetail[$i]) - 1]['quantityUnitName'] }}</td>
+                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; left: 375px; z-index: 10;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['quantity'], 2) }}</td>
+                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; left: 500px; z-index: 10;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
+                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; left: 625px; z-index: 10;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['priceCurrencyValue'], 2) }}</td>
                                                     
                                                         @for($n = 0; $n < (count($dataDetail[$i]) - 1); $n++)
                                                             <td style="padding: 8px;">{{ number_format($dataDetail[$i][$n]['content']['quantity'], 2) }}</td>
