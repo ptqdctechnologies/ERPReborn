@@ -117,7 +117,6 @@
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName || ''}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.qtyAvail || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.qtyReq || ''}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.notes || ''}</td>
                 </tr>
@@ -212,8 +211,8 @@
         if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
 
         const qtyAvail  = row.children[1];
-        const qtyCell   = row.children[6];
-        const noteCell  = row.children[7];
+        const qtyCell   = row.children[5];
+        const noteCell  = row.children[6];
 
         if (row.classList.contains('editing-row')) {
             const newQty    = qtyCell.querySelector('input')?.value || '';
@@ -312,8 +311,8 @@
                     const recordID = targetRow.children[0].value.trim();
 
                     if (recordID == recordRefID.value) {
-                        targetRow.children[6].innerText = currencyTotal(qty);
-                        targetRow.children[7].innerText = note;
+                        targetRow.children[5].innerText = currencyTotal(qty);
+                        targetRow.children[6].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
