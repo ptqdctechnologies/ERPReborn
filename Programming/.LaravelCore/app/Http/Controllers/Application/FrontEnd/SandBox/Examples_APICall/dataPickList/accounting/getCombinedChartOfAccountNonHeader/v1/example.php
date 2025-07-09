@@ -4,25 +4,25 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\accounting                      |
-|                 \getCombinedChartOfAccount\v1                                                                                    |
-| ▪ API Key     : dataPickList.accounting.getCombinedChartOfAccount                                                                |
+|                 \getCombinedChartOfAccountNonHeader\v1                                                                           |
+| ▪ API Key     : dataPickList.accounting.getCombinedChartOfAccountNonHeader                                                       |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\accounting\getCombinedChartOfAccount\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\accounting\getCombinedChartOfAccountNonHeader\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/dataPickList.accounting.getCombinedChartOfAccount.v1_throughAPIGateway              |
-        |                     ► http://172.28.0.4/dataPickList.accounting.getCombinedChartOfAccount.v1_throughAPIGateway           |
+        | ▪ Call URL        : http(s)://<HOST>/dataPickList.accounting.getCombinedChartOfAccountNonHeader.v1_throughAPIGateway     |
+        |                     ► http://172.28.0.4/dataPickList.accounting.getCombinedChartOfAccountNonHeader.v1_throughAPIGateway  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-11-12                                                                                           |
-        | ▪ Creation Date   : 2024-11-12                                                                                           |
+        | ▪ Last Update     : 2025-07-09                                                                                           |
+        | ▪ Creation Date   : 2025-07-09                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -39,7 +39,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     //-----[ METADATA ]-----( START )-----
                         $varAPIWebToken, 
-                        'dataPickList.accounting.getCombinedChartOfAccount', 
+                        'dataPickList.accounting.getCombinedChartOfAccountNonHeader', 
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 
@@ -60,12 +60,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/dataPickList.accounting.getCombinedChartOfAccount.v1_throughAPIGatewayJQuery                |
-        |                     ► http://172.28.0.4/dataPickList.accounting.getCombinedChartOfAccount.v1_throughAPIGatewayJQuery             |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     dataPickList.accounting.getCombinedChartOfAccountNonHeader.v1_throughAPIGatewayJQuery                |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       dataPickList.accounting.getCombinedChartOfAccountNonHeader.v1_throughAPIGatewayJQuery              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-11-12                                                                                           |
-        | ▪ Creation Date   : 2024-11-12                                                                                           |
+        | ▪ Last Update     : 2025-07-09                                                                                           |
+        | ▪ Creation Date   : 2025-07-09                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -86,7 +88,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                     $varAPIWebToken, 
-                    'dataPickList.accounting.getCombinedChartOfAccount', 
+                    'dataPickList.accounting.getCombinedChartOfAccountNonHeader', 
                     'latest', 
                     '{'.
                         '"parameter" : {'.

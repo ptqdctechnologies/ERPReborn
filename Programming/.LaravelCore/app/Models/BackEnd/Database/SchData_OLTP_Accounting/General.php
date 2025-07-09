@@ -693,5 +693,118 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                     [];
                 }
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickListJSON_CombinedChartOfAccountHeader                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-11-12                                                                                           |
+        | ▪ Creation Date   : 2024-11-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Gabungan Bagan Akun Header                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varEffectiveDateTimeTZ ► Effective DateTimeTZ                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickListJSON_CombinedChartOfAccountHeader(
+            $varUserSession, int $varBranchID, 
+            string $varEffectiveDateTimeTZ = null)
+            {
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Accounting.Func_GetDataPickListJSON_CombinedChartOfAccount_Header',
+                            [
+                                [$varBranchID, 'bigint'],
+                                [$varEffectiveDateTimeTZ, 'timestamptz']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataPickListJSON_CombinedChartOfAccount_Header']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickListJSON_CombinedChartOfAccountNonHeader                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2024-11-12                                                                                           |
+        | ▪ Creation Date   : 2024-11-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Gabungan Bagan Akun Header                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varEffectiveDateTimeTZ ► Effective DateTimeTZ                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickListJSON_CombinedChartOfAccountNonHeader(
+            $varUserSession, int $varBranchID, 
+            string $varEffectiveDateTimeTZ = null)
+            {
+            try {
+                $varReturn = 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Accounting.Func_GetDataPickListJSON_CombinedChartOfAccount_NonHeader',
+                            [
+                                [$varBranchID, 'bigint'],
+                                [$varEffectiveDateTimeTZ, 'timestamptz']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetDataPickListJSON_CombinedChartOfAccount_NonHeader']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
         }
     }
