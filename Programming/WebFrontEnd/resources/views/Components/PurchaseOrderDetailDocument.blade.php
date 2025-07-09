@@ -10,6 +10,26 @@
                 : <?= $dataHeader['poNumber']; ?>
             </div>
         </div>
+
+        <!-- BUDGET -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                Budget
+            </div>
+            <div class="col">
+                : <?= $dataHeader['budgetCode'] . " - " . $dataHeader['budgetName']; ?>
+            </div>
+        </div>
+
+        <!-- SUB BUDGET -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                Sub Budget
+            </div>
+            <div class="col">
+                : <?= $dataHeader['subBudgetCode'] . " - " . $dataHeader['subBudgetName']; ?>
+            </div>
+        </div>
         
         <!-- DELIVERY TO -->
         <div class="row" style="margin-bottom: 1rem;">

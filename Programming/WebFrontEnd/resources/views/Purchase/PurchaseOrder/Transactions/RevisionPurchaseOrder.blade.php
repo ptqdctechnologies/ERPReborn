@@ -4,8 +4,8 @@
 @include('Partials.sidebar')
 @include('getFunction.getWorkFlow')
 @include('getFunction.getSupplier')
+@include('getFunction.getPurchaseOrder')
 @include('Purchase.PurchaseOrder.Functions.PopUp.PopUpPORevision')
-@include('Purchase.PurchaseOrder.Functions.PopUp.searchPO')
 
 <div class="content-wrapper">
   <section class="content">

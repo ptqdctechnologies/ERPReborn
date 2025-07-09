@@ -241,8 +241,10 @@
     function updateGrandTotal() {
         let total = 0;
         const rows = document.querySelectorAll('#tableDeliverOrderDetailList tbody tr');
+        console.log('rows', rows);
+        
         rows.forEach(row => {
-            const totalCell = row.children[6];
+            const totalCell = row.children[5];
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             total += value;
         });
@@ -520,16 +522,21 @@
     });
 
     $('#tableGetTransporter tbody').on('click', 'tr', function () {
-        var sysId           = $(this).find('input[data-trigger="sys_id_transporter"]').val();
-        var transporterNames = $(this).find('td:nth-child(2)').text();
+        var sysId               = $(this).find('input[data-trigger="sys_id_transporter"]').val();
+        var fax                 = $(this).find('input[data-trigger="fax_transporter"]').val();
+        var phone               = $(this).find('input[data-trigger="phone_transporter"]').val();
+        var email               = $(this).find('input[data-trigger="email_transporter"]').val();
+        var phoneOffice         = $(this).find('input[data-trigger="office_phone_transporter"]').val();
+        var address             = $(this).find('input[data-trigger="address_transporter"]').val();
+        var transporterNames    = $(this).find('td:nth-child(2)').text();
 
         $("#transporter_id").val(sysId);
         $("#transporter_name").val(transporterNames);
-        $("#transporter_phone").val('-');
-        $("#transporter_fax").val('-');
-        $("#transporter_contact").val('-');
-        $("#transporter_handphone").val('-');
-        $("#transporter_address").val('-');
+        $("#transporter_phone").val(phone);
+        $("#transporter_fax").val(fax);
+        $("#transporter_contact").val(email);
+        $("#transporter_handphone").val(phoneOffice);
+        $("#transporter_address").val(address);
 
         checkTableDataDO();
     });

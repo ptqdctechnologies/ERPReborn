@@ -9,7 +9,7 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class MaterialReceiveService
 {
-    public function detail($materialReceiveRefID)
+    public function getDetail($materialReceiveRefID)
     {
         $sessionToken = Session::get('SessionLogin');
 

@@ -34,10 +34,10 @@
         </div>
 
         <div class="col-md-12 col-lg-5">
-            <!-- REMARKS -->
+            <!-- REMARK -->
             <div class="row" style="margin-bottom: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                    Remarks
+                    Remark
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>

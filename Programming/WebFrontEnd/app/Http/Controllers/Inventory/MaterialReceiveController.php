@@ -278,15 +278,13 @@ class MaterialReceiveController extends Controller
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $response = $this->materialReceiveService->detail($request->modal_material_receive_id);
+            $response = $this->materialReceiveService->getDetail($request->modal_material_receive_id);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($response);
             }
 
             $data = $response['data'];
-
-            // dump($data);
 
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,

@@ -18,7 +18,7 @@
             <tbody>
                 <?php $no = 1; $grand_total = 0; ?>
                 <?php foreach ($dataDetails as $dataDetail) { ?>
-                <?php $grand_total += $dataDetail['quantity'];  ?>
+                <?php $grand_total += $dataDetail['quantityUnitPrice'] * $dataDetail['quantity'];  ?>
                     <tr>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $no++; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? '-'; ?></td>
@@ -27,7 +27,7 @@
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productUnitPriceCurrencyISOCode'] ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['quantityUnitPrice'], 2); ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['quantity'], 2); ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['quantity'], 2); ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= number_format($dataDetail['quantityUnitPrice'] * $dataDetail['quantity'], 2); ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['note']; ?></td>
                     </tr>
                 <?php } ?>

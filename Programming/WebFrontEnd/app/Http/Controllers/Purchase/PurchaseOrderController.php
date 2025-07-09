@@ -1520,8 +1520,8 @@ class PurchaseOrderController extends Controller
             'varAPIWebToken'        => $varAPIWebToken,
             'header'                => [
                 'budgetID'                      => $data[0]['combinedBudget_RefID'] ?? '',
-                'budgetValue'                   => '',
-                'subBudgetValue'                => '',
+                'budgetValue'                   => $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'],
+                'subBudgetValue'                => $data[0]['combinedBudgetSectionCode'] . ' - ' . $data[0]['combinedBudgetSectionName'],
                 'poNumberID'                    => $data[0]['purchaseOrder_RefID'] ?? '',
                 'poNumber'                      => $data[0]['documentNumber'] ?? '',
                 'deliveryDateTime'              => $dateOfDelivery,

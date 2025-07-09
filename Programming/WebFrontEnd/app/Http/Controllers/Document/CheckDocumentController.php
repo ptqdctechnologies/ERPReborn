@@ -205,6 +205,8 @@ class CheckDocumentController extends Controller
 
             $workflowHistory = $this->getWorkflowHistory($collection['businessDocumentRefID']);
 
+            // dd($workflowHistory);
+
             if (count($workflowHistory) === 0) {
                 return redirect()->back()->with('error', 'Data Not Found');
             }

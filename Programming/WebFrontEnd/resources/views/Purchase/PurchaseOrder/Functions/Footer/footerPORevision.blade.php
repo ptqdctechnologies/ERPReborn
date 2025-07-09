@@ -40,11 +40,20 @@
             let result = (vat.options[vat.selectedIndex].text / 100) * total;
 
             $('#tariffCurrencyValue').val(currencyTotal(result));
-            document.getElementById('TotalPpn').textContent = currencyTotal(result);
-            document.getElementById('TotalBudgetSelected').textContent = currencyTotal(total);
+            document.getElementById('TotalPpn').textContent = result.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            document.getElementById('TotalBudgetSelected').textContent = total.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
             document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(result + total);
         } else {
-            document.getElementById('TotalBudgetSelected').textContent = currencyTotal(total);
+            document.getElementById('TotalBudgetSelected').textContent = total.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });;
             document.getElementById('TotalBudgetSelectedPpn').textContent = currencyTotal(total);
         }
     }

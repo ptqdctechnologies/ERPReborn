@@ -30,37 +30,6 @@
     </div>
 </div>
 
-<!-- <script>
-    $(function() {
-        $('.myTransporter').on('click', function(e) {
-            e.preventDefault();
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                type: 'GET',
-                url: '{!! route("getWorker") !!}',
-                success: function(data) {
-                    var no = 1;
-                    var t = $('#tableGetTransporter').DataTable();
-                    t.clear();
-                    $.each(data, function(key, val) {
-                        t.row.add([
-                            '<tbody><tr><td>' + no++ + '</td>',
-                            '<td><span data-dismiss="modal" onclick="klikTransporter(\'' + val.sys_ID + '\', \'' + val.personName + '\', \'' + val.sys_ID + '\', \'' + val.sys_ID + '\', \'' + val.sys_ID + '\', \'' + val.sys_ID + '\', \'' + val.sys_ID + '\');">' + val.sys_ID + '</span></td>',
-                            '<td style="border:1px solid #e9ecef;">' + val.personName + '</td>',
-                        ]).draw();
-                    });
-                }
-            });
-        });
-    });
-</script> -->
-
-
 <script>
     $(function() {
         $('.myTransporter').one('click', function(e) {
@@ -85,9 +54,9 @@
                     $.each(data, function(key, val) {
                         keys += 1;
                         t.row.add([
-                            '<tbody><tr><input id="sys_id_transporter' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_transporter" type="hidden"><td>' + no++ + '</td>',
-                            '<td>' + val.code + '</td>',
-                            '<td>' + val.sys_Text + '</td></tr></tbody>',
+                            '<tbody><tr><input id="sys_id_transporter' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_transporter" type="hidden"><input id="email_transporter' + keys + '" value="' + val.EMailAccount_Business + '" data-trigger="email_transporter" type="hidden"><td>' + no++ + '</td>',
+                            '<td><input id="fax_transporter' + keys + '" value="' + val.contactNumber_Faximile + '" data-trigger="fax_transporter" type="hidden"><input id="office_phone_transporter' + keys + '" value="' + val.contactNumber_OfficePhone + '" data-trigger="office_phone_transporter" type="hidden">' + val.code + '</td>',
+                            '<td><input id="phone_transporter' + keys + '" value="' + val.contactNumber_MobilePhone + '" data-trigger="phone_transporter" type="hidden"><input id="address_transporter' + keys + '" value="' + val.address + '" data-trigger="address_transporter" type="hidden">' + val.sys_Text + '</td></tr></tbody>',
                         ]).draw();
                     });
                 }
@@ -103,18 +72,23 @@
 
         $("#myTransporter").modal('toggle');
 
-        var row = $(this).closest("tr");  
-        var id = row.find("td:nth-child(1)").text();  
-        var sys_id_transporter = $('#sys_id_transporter' + id).val();
-        var name = row.find("td:nth-child(2)").text();
+        var row                         = $(this).closest("tr");  
+        var id                          = row.find("td:nth-child(1)").text();
+        var sys_id_transporter          = $('#sys_id_transporter' + id).val();
+        var fax_transporter             = $('#fax_transporter' + id).val();
+        var phone_transporter           = $('#phone_transporter' + id).val();
+        var email_transporter           = $('#email_transporter' + id).val();
+        var office_phone_transporter    = $('#office_phone_transporter' + id).val();
+        var address_transporter         = $('#address_transporter' + id).val();
+        var name                        = row.find("td:nth-child(2)").text();
 
         $("#transporter_id").val(sys_id_transporter);
         $("#transporter").val(name);
-        $("#trans_phone").val(sys_id_transporter);
-        $("#trans_fax").val(sys_id_transporter);
-        $("#trans_contact_person").val(sys_id_transporter);
-        $("#trans_handphone").val(sys_id_transporter);
-        $("#trans_address").val(name);
+        $("#trans_phone").val(office_phone_transporter);
+        $("#trans_fax").val(fax_transporter);
+        $("#trans_contact_person").val(email_transporter);
+        $("#trans_handphone").val(phone_transporter);
+        $("#trans_address").val(address_transporter);
 
         MandatoryFormFunctionFalse("#transporter", "#transporter_detail");
 
