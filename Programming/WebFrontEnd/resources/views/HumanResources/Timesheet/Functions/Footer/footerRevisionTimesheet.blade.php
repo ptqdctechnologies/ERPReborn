@@ -1,59 +1,46 @@
 <script>
-    var dataProject = [];
-    var triggerUpdateByID = '';
-    var siteUpdateID = '';
-    var dataEvents = [
-        // {
-        //     id: 1741599036136,
-        //     title: "Party",
-        //     start: "2025-03-20T14:30:00",
-        //     end: "2025-03-20T17:30:00",
-        //     allDay: false,
-        // },
-        // {
-        //     id: '33',
-        //     title: 'Live Music',
-        //     start: '2025-03-08T13:30:00',
-        // },
-        // {
-        //     id: '55',
-        //     title: 'Live Music',
-        //     start: '2025-03-08T14:30:00',
-        // },
-        // {
-        //     id: '88',
-        //     title: 'Live Music',
-        //     start: '2025-03-08T15:30:00',
-        // },
-        // {
-        //     id: '2313',
-        //     title: 'Live Music',
-        //     start: '2025-03-08T16:30:00',
-        // },
-        // {
-        //     id: '123',
-        //     title: 'Live Music',
-        //     start: '2025-03-08T17:30:00',
-        // },
-        // {
-        //     id: '423',
-        //     title: 'Live Music',
-        //     start: '2025-03-08T18:30:00',
-        // },
-        // {
-        //     id: '873',
-        //     title: 'Live Music',
-        //     start: '2025-03-08T19:30:00',
-        // },
-        // {
-        //     id: '99999',
-        //     title: 'Habede Ea',
-        //     start: '2025-03-08T20:30:00',
-        //     url: 'https://google.com/'
-        // },
-    ];
-    var dataDetail = [];
-    
+    let dataProject             = [];
+    let triggerUpdateByID       = '';
+    let siteUpdateID            = '';
+    let dataEvents              = {!! json_encode($dataEvents ?? []) !!};
+    let dataDetail              = {!! json_encode($dataDetails ?? []) !!};
+    const authorizedSelectRefID = document.getElementById('authorizedSelect_RefID');
+    const onBehalfSelectRefID   = document.getElementById('onBehalfSelect_RefID');
+
+    function getAuthorized() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("getNewProject") !!}',
+            success: function(data) {
+                if (data && Array.isArray(data)) {
+                    dataProject = data;
+
+                    $('#authorizedSelect').empty();
+                    $('#authorizedSelect').append('<option disabled selected>Select an Authorized</option>');
+
+                    data.forEach(function(project) {
+                        let isSelected = project.sys_ID == authorizedSelectRefID.value ? ' selected ' : ' ';
+                        $('#authorizedSelect').append('<option' + isSelected + 'value="' + project.sys_ID + '">' + project.sys_Text + '</option>');
+                    });
+                } else {
+                    console.log('Data project code not found.');
+                }
+
+                $("#authorizedSelectContainer").show();
+                $("#authorizedLoading").hide();
+            },
+            error: function (textStatus, errorThrown) {
+                console.log('Function getProject error: ', textStatus, errorThrown);
+            },
+        });
+    }
+
     function getProject() {
         $.ajaxSetup({
             headers: {
@@ -77,7 +64,7 @@
                 } else {
                     console.log('Data project code not found.');
                 }
-            }, 
+            },
             error: function (textStatus, errorThrown) {
                 console.log('Function getProject error: ', textStatus, errorThrown);
             },
@@ -148,14 +135,18 @@
             success: function(data) {
                 if (data && Array.isArray(data)) {
                     $('#onBehalfSelect').empty();
-                    $('#onBehalfSelect').append('<option disabled selected>Select On Behalf</option>');
+                    $('#onBehalfSelect').append('<option disabled selected>Select a Person on Behalf</option>');
 
                     data.forEach(function(person) {
-                        $('#onBehalfSelect').append('<option value="' + person.sys_ID + '">' + person.sys_Text + '</option>');
+                        let isSelected = person.sys_ID == onBehalfSelectRefID.value ? ' selected ' : ' ';
+                        $('#onBehalfSelect').append('<option' + isSelected + 'value="' + person.sys_ID + '">' + person.sys_Text + '</option>');
                     });
                 } else {
                     console.log('Data not found.');
                 }
+
+                $("#onBehalfSelectContainer").show();
+                $("#onBehalfLoading").hide();
             }, 
             error: function (textStatus, errorThrown) {
                 console.log('Function getPerson error: ', textStatus, errorThrown);
@@ -163,29 +154,8 @@
         });
     }
 
-    function getDocumentType() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getDocumentType") !!}',
-            success: function(data) {
-                const result = data.find(({ Name }) => Name === "Timesheet Form");
-
-                if (Object.keys(result).length > 0) {
-                    $("#DocumentTypeID").val(result.Sys_ID);
-                } else {
-                    console.log('error get document type');
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                console.log('error', textStatus, errorThrown);
-            }
-        });
+    function saveCombinedBudget(params) {
+        $("#var_combinedBudget_RefID").val(params.value);
     }
 
     function convertToISODateTime(startDate, fromHours) {
@@ -222,12 +192,10 @@
         document.getElementById("eventModalSubmit").innerHTML   = params.submit;
         document.getElementById("projectSelect").value          = params.projectID;
         document.getElementById("siteSelect").value             = params.siteID;
-        document.getElementById("onBehalfSelect").value         = params.personID;
 
         $("#projectSelect").val(params.changeProjectID).change();
         $("#siteSelect").prop("disabled", params.changeDisabledSiteID);
         $("#siteSelect").val(params.changeSiteID).change();
-        $("#onBehalfSelect").val(params.changePersonID).change();
     }
 
     function saveEvent() {
@@ -259,54 +227,37 @@
         };
 
         const dataObjectDetail = {
-            // HEADER
-            documentNumber: null,
-            person_RefID: personID.value,
-            startDateTimeTZ: `${convertToISODateTimeNew(startDate.value)} ${fromHours.value}:00 +07`,
-            finishDateTimeTZ: `${convertToISODateTimeNew(finishDate.value)} ${toHours.value}:00 +07`,
-            project_RefID: projectID.value,
-            colorText: null,
-            colorBackground: null,
-            // DETAIL
-            personWorkTimeSheet_RefID: null,
-            projectSectionItem_RefID: null,
-            startDateTimeTZ: `${convertToISODateTimeNew(startDate.value)} ${fromHours.value}:00 +07`,
-            finishDateTimeTZ: `${convertToISODateTimeNew(finishDate.value)} ${toHours.value}:00 +07`,
-            activity: dailyAct.value,
-            colorText: null,
-            colorBackground: null,
+            recordID: null,
+            entities: {
+                combinedBudgetSection_RefID: parseInt(siteID.value),
+                startDateTimeTZ: `${convertToISODateTimeNew(startDate.value)} ${fromHours.value}:00 +07`,
+                finishDateTimeTZ: `${convertToISODateTimeNew(finishDate.value)} ${toHours.value}:00 +07`,
+                activity: dailyAct.value,
+                colorText: null,
+                colorBackground: null
+            }
         };
-
-        console.log('dataObject', dataObject);
-
-        // 'personWorkTimeSheet_RefID' => null,
-        // 'projectSectionItem_RefID' => null,
-        // 'startDateTimeTZ' => '2026-01-01 07:00:00 +07', // start date + from
-        // 'finishDateTimeTZ' => '2026-01-01 13:00:00 +07', // end date + from
-        // 'activity' => 'Kegiatan ABCD dan EFGH', // daily act
-        // 'colorText' => null,
-        // 'colorBackground' => null
 
         if (triggerUpdateByID) {
             var findIndex       = dataEvents.findIndex((val) => val.id == triggerUpdateByID);
-            var findIndexDetail = dataDetail.findIndex((val) => val.id == triggerUpdateByID);
+            var findIndexDetail = dataDetail.findIndex((val) => val.recordID == triggerUpdateByID);
 
             dataObject.id = triggerUpdateByID;
-            dataObjectDetail.id = triggerUpdateByID;
-            
+            dataObjectDetail.recordID = triggerUpdateByID;
+
             $('#calendar').fullCalendar('removeEvents', triggerUpdateByID);
 
             dataEvents[findIndex] = dataObject;
-            dataDetail[findIndex] = dataObjectDetail;
+            dataDetail[findIndexDetail] = dataObjectDetail;
 
             $('#calendar').fullCalendar('renderEvent', dataObject, true);
         } else {
             dataObject.id = uniqid;
-            dataObjectDetail.id = uniqid;
+            dataObjectDetail.recordID = uniqid;
 
             dataEvents.push(dataObject);
             dataDetail.push(dataObjectDetail);
-            
+
             $('#calendar').fullCalendar('renderEvent', dataObject, true);
         }
 
@@ -324,11 +275,10 @@
             submit: 'Add',
             projectID: '',
             siteID: '',
-            personID: '',
             changeProjectID: 'Select a Project Code',
             changeDisabledSiteID: true,
             changeSiteID: 'Select a Site Code',
-            changePersonID: 'Select On Behalf'
+            changePersonID: 'Select a Person on Behalf'
         });
     }
 
@@ -353,11 +303,11 @@
             reverseButtons: true
         }).then((result) => {
             ShowLoading();
-            TimesheetStore({...formatData, comment: result.value});
+            RevisionTimesheetStore({...formatData, comment: result.value});
         });
     }
 
-    function TimesheetStore(formatData) {
+    function RevisionTimesheetStore(formatData) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -367,7 +317,7 @@
         $.ajax({
             type: 'POST',
             data: formatData,
-            url: '{{ route("Timesheet.store") }}',
+            url: '{{ route("Timesheet.updates") }}',
             success: function(res) {
                 HideLoading();
 
@@ -391,7 +341,7 @@
                         reverseButtons: true
                     }).then((result) => {
                         ShowLoading();
-                        window.location.href = '/Timesheet';
+                        window.location.href = '/Timesheet?var=1';
                     });
                 } else {
                     ErrorNotif("Data Cancel Inputed");
@@ -439,15 +389,13 @@
                     data: form_data,
                     type: method,
                     success: function(response) {
-                        console.log('response success', response);
+                        HideLoading();
+
                         if (response.message == "WorkflowError") {
-                            HideLoading();
                             $("#submitTimesheet").prop("disabled", false);
 
                             CancelNotif("You don't have access", '/Timesheet');
                         } else if (response.message == "MoreThanOne") {
-                            HideLoading();
-
                             $('#getWorkFlow').modal('toggle');
 
                             var t = $('#tableGetWorkFlow').DataTable();
@@ -467,7 +415,6 @@
                                 storeData: response.storeData
                             };
 
-                            HideLoading();
                             SelectWorkFlow(formatData);
                         }
                     },
@@ -481,18 +428,23 @@
                 });
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 HideLoading();
-                CancelNotif("Data Cancel Inputed", '/Timesheet');
+                CancelNotif("Data Cancel Inputed", '/Timesheet?var=1');
             }
         });
     });
 
     $(document).ready(function () {
+        $("#onBehalfSelectContainer").hide();
+        $("#authorizedSelectContainer").hide();
+
         $("#siteSelect").prop("disabled", true);
         $("#siteLoading").hide();
+        $("#timesheetDetail").val(JSON.stringify(dataDetail));
 
+        getAuthorized();
         getProject();
         getPerson();
-        getDocumentType();
+        getDocumentType("Timesheet Revision Form");
 
         $('#fromHours').datetimepicker({
             use24hours: true,
@@ -532,6 +484,8 @@
                 right: 'year,month,agendaWeek,agendaDay'
             },
             events: function(start, end, timezone, callback) {
+                $('#calendar').fullCalendar('removeEvents');
+
                 const visibleEvents = dataEvents.filter(event => {
                     const eventStart = new Date(event.start);
                     const eventEnd = new Date(event.end || event.start);
@@ -565,7 +519,6 @@
                     submit: 'Edit',
                     projectID: originData.projectID,
                     siteID: originData.siteID,
-                    personID: originData.personID,
                     changeProjectID: originData.projectID,
                     changeDisabledSiteID: false,
                     changeSiteID: originData.siteID,
@@ -573,17 +526,13 @@
                 });
 
                 $('#eventModal').modal('show');
-
-                // if (info.event.url) {
-                //     window.open(info.event.url);
-                // }
             },
             lazyFetching: true,
         });
 
         $('#eventModal').on('hidden.bs.modal', function (event) {
             triggerUpdateByID = '';
-            
+
             resetForm({
                 startDate: '',
                 finishDate: '',
@@ -594,11 +543,10 @@
                 submit: 'Add',
                 projectID: '',
                 siteID: '',
-                personID: '',
                 changeProjectID: 'Select a Project Code',
                 changeDisabledSiteID: true,
                 changeSiteID: 'Select a Site Code',
-                changePersonID: 'Select On Behalf'
+                changePersonID: 'Select a Person on Behalf'
             });
         });
     });

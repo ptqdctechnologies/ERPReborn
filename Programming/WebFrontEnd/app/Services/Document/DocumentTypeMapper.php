@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Document;
 
 class DocumentTypeMapper
 {
@@ -69,8 +69,7 @@ class DocumentTypeMapper
             ],
             'Warehouse Inbound Order Form' => [
                 'key' => 'transaction.read.dataList.supplyChain.getWarehouseInboundOrderDetail',
-                'parameter' => ['warehouseInboundOrder_RefID' => (int) $referenceId],
-                'businessDocument_RefID' => (int) 74000000021336,
+                'parameter' => ['warehouseInboundOrder_RefID' => (int) $referenceId]
             ],
         ];
 
@@ -344,7 +343,7 @@ class DocumentTypeMapper
             'Purchase Order Form'       => [
                 'dataHeader'            => [
                     'date'                  => $dataDetail['date'] ?? '-',
-                    'dateUpdate'            => $dataDetail['dateUpdate'] ?? '-',
+                    'dateUpdate'            => $dataDetail['dateUpdate'] ?? null,
                     'purchaseOrderRefID'    => $dataDetail['purchaseOrder_RefID'] ?? '-',
                     'poNumber'              => $dataDetail['documentNumber'] ?? '-',
                     'deliveryTo'            => $dataDetail['deliveryTo_NonRefID']['address'] ?? '-',
@@ -376,7 +375,7 @@ class DocumentTypeMapper
             'Purchase Requisition Form' => [
                 'dataHeader'            => [
                     'purchaseRequestRefID'  => $dataDetail['purchaseRequisition_RefID'] ?? null,
-                    'dateUpdate'            => $dataDetail['dateUpdate'] ?? '-',
+                    'dateUpdate'            => $dataDetail['dateUpdate'] ?? null,
                     'prNumber'              => $dataDetail['documentNumber'] ?? '-',
                     'budgetCode'            => $dataDetail['combinedBudgetCode'] ?? null,
                     'budgetName'            => $dataDetail['combinedBudgetName'] ?? null,
@@ -471,10 +470,18 @@ class DocumentTypeMapper
             ],
             'Warehouse Inbound Order Form' => [
                 'dataHeader'            => [
-                    'mrNumber'      => 'WHIn/QDC/2025/000027',
-                    'deliveryFrom'  => 'Jakarta',
-                    'deliveryTo'    => 'Batam',
-                    'fileID'        => null
+                    'budgetCode'            => $dataDetail['combinedBudgetCode'] ?? null,
+                    'budgetName'            => $dataDetail['combinedBudgetName'] ?? null,
+                    'subBudgetCode'         => $dataDetail['combinedBudgetSectionCode'] ?? null,
+                    'subBudgetName'         => $dataDetail['combinedBudgetSectionName'] ?? null,
+                    'materialReceive_RefID' => $dataDetail['warehouseInboundOrder_RefID'] ?? '-',
+                    'date'                  => $dataDetail['date'] ?? '-',
+                    'dateUpdate'            => $dataDetail['dateUpdate'] ?? null,
+                    'mrNumber'              => $dataDetail['businessDocumentNumber'] ?? '-',
+                    'doNumber'              => '-',
+                    'deliveryFrom'          => $dataDetail['deliveryFrom_NonRefID']['Address'] ?? '-',
+                    'deliveryTo'            => $dataDetail['deliveryTo_NonRefID']['Address'] ?? '-',
+                    'fileID'                => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',
@@ -486,12 +493,25 @@ class DocumentTypeMapper
                 ],
                 'resubmit'      => [
                     'url'       => 'MaterialReceive.RevisionMaterialReceiveIndex',
-                    'name'      => '',
-                    'value'     => ''
+                    'name'      => 'modal_material_receive_id',
+                    'value'     => $dataDetail['warehouseInboundOrder_RefID'] ?? '-',
                 ],
                 'transactionType'        => 'MATERIAL RECEIVE',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
             ],
+        ];
+
+        return $mapping[$documentType] ?? null;
+    }
+
+    public static function getHistoryPage(string $documentType): string
+    {
+        $mapping = [
+            'Advance Form'                  => 'Documents.Transactions.LogTransaction.LogTransactionAdvance',
+            'Advance Settlement Form'       => 'Documents.Transactions.LogTransaction.LogTransactionAdvanceSettlement',
+            'Purchase Order Form'           => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder',
+            'Purchase Requisition Form'     => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
+            'Warehouse Inbound Order Form'  => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReceive'
         ];
 
         return $mapping[$documentType] ?? null;

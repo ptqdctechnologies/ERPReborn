@@ -43,13 +43,9 @@
                                                 <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Product Name</th>
                                                 <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> UOM</th>
                                                 <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Qty</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">Price</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">Total</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">VAT</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">Total With VAT</th>
                                                 @if(sizeof($dataDetail))
                                                     @for($i = 1; $i < count($dataDetail[0]); $i++) 
-                                                        <th colspan="5" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">
+                                                        <th colspan="2" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">
                                                             Rev {{ $i }} - {{ $dataHeader[$i]['submitterWorkerName'] }} <br /> ( {{ date('Y-m-d', strtotime($dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ'])) }} {{ date('H:i', strtotime($dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ'])) }}  )
                                                         </th>
                                                     @endfor
@@ -59,10 +55,7 @@
                                             <tr>
                                                 @for($i = 1; $i < count($dataDetail[0]); $i++) 
                                                     <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;"> Qty</th>
-                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;"> Price</th>
-                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;"> Total</th>
-                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;"> VAT</th>
-                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;"> Total With VAT</th>
+                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;"> Note</th>
                                                 @endfor
                                             </tr>
                                             @endif
@@ -72,20 +65,13 @@
                                             @if(sizeof($dataDetail))
                                                 @for($i = 0; $i < count($dataDetail); $i++) 
                                                     <tr>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['sys_RPK'] }}</td>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['productName'] }}</td>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['quantityUnitName'] }}</td>
+                                                        <td style="padding: 8px;">-</td>
+                                                        <td style="padding: 8px;">-</td>
+                                                        <td style="padding: 8px;">-</td>
                                                         <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['quantity'] }}</td>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['productUnitPriceCurrencyValue'] }}</td>
-                                                        <td style="padding: 8px;">-</td>
-                                                        <td style="padding: 8px;">-</td>
-                                                        <td style="padding: 8px;">-</td>
                                                         @for($n = 1; $n < count($dataDetail[$i]); $n++) 
                                                             <td style="padding: 8px;">{{ $dataDetail[$i][$n]['content']['quantity'] }}</td>
-                                                            <td style="padding: 8px;">{{ $dataDetail[$i][$n]['content']['productUnitPriceCurrencyValue'] }}</td>
-                                                            <td style="padding: 8px;">-</td>
-                                                            <td style="padding: 8px;">-</td>
-                                                            <td style="padding: 8px;">-</td>
+                                                            <td style="padding: 8px;">{{ $dataDetail[$i][$n]['content']['remarks'] }}</td>
                                                         @endfor
                                                     </tr>
                                                 @endfor

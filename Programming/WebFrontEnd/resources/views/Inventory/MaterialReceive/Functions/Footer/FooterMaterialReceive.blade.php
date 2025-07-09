@@ -1,12 +1,22 @@
 <script>
-    var indexMaterialReceiveDetail  = 0;
-    var dataStore                   = [];
-    const deliveryOrderCode         = document.getElementById("delivery_order_code");
-    const addressDeliveryOrderFrom  = document.getElementById("address_delivery_order_from");
-    const addressDeliveryOrderTo    = document.getElementById("address_delivery_order_to");
-    const tableMaterialReceiveLists = document.querySelector("#tableMaterialReceiveList tbody");
+    let dataStore                           = [];
+    const deliveryOrderCode                 = document.getElementById("delivery_order_code");
+    const tableMaterialReceiveLists         = document.querySelector("#tableMaterialReceiveList tbody");
+
+    const addressDeliveryOrderFrom          = document.getElementById("address_delivery_order_from");
+    const addressDeliveryOrderFromDuplicate = document.getElementById("address_delivery_order_from_duplicate");
+    const idDeliveryOrderFromDuplicate      = document.getElementById("id_delivery_order_from_duplicate");
+
+    const addressDeliveryOrderTo            = document.getElementById("address_delivery_order_to");
+    const addressDeliveryOrderToDuplicate   = document.getElementById("address_delivery_order_to_duplicate");
+    const idDeliveryOrderToDuplicate        = document.getElementById("id_delivery_order_to_duplicate");
 
     $("#submitMaterialReceive").prop("disabled", true);
+
+    function CancelMaterialReceive() {
+        ShowLoading();
+        window.location.href = '/MaterialReceive?var=1';
+    }
 
     function calculateTotal() {
         let total = 0;
@@ -39,42 +49,44 @@
             success: function(data) {
                 $(".loadingMaterialReceiveDetail").hide();
 
-                console.log('data', data);
-
                 let tbody = $('#tableMaterialReceiveDetail tbody');
                 tbody.empty();
 
                 if (Array.isArray(data) && data.length > 0) {
-                    let modifyColumn = `
-                        <td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">
-                            ${delivery_order_number}
-                        </td>
-                    `;
+                    $("#transporterRefID").val(data[0].transporter_RefID);
 
-                    // console.log('data', data);
-                    
+                    $("#budget_value").val(data[0].combinedBudgetCode + ' - ' + data[0].combinedBudgetName);
+                    $("#sub_budget_value").val(data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName);
+                    $("#address_delivery_order_from").val(data[0].deliveryFrom_NonRefID.Address);
+                    $("#address_delivery_order_from_duplicate").val(data[0].deliveryFrom_NonRefID.Address);
+                    $("#id_delivery_order_from").val(data[0].deliveryFrom_RefID);
+                    $("#id_delivery_order_from_duplicate").val(data[0].deliveryFrom_RefID);
+                    $("#address_delivery_order_to").val(data[0].deliveryTo_NonRefID.Address);
+                    $("#address_delivery_order_to_duplicate").val(data[0].deliveryTo_NonRefID.Address);
+                    $("#id_delivery_order_to").val(data[0].deliveryTo_RefID);
+                    $("#id_delivery_order_to_duplicate").val(data[0].deliveryTo_RefID);
+
                     $.each(data, function(key, val2) {
                         let row = `
                             <tr>
-                                <input id="trano${indexMaterialReceiveDetail}" value="${delivery_order_number}" type="hidden" />
-                                <input id="delivery_order_detail_id${indexMaterialReceiveDetail}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
-                                <input id="product_code${indexMaterialReceiveDetail}" value="${val2.productCode}" type="hidden" />
-                                <input id="product_name${indexMaterialReceiveDetail}" value="${val2.productName}" type="hidden" />
-                                <input id="qty_do${indexMaterialReceiveDetail}" value="${val2.qtyReq}" type="hidden" />
-                                <input id="qty_available${indexMaterialReceiveDetail}" value="${val2.qtyReq}" type="hidden" />
-                                <input id="uom${indexMaterialReceiveDetail}" value="${val2.quantityUnitName}" type="hidden" />
+                                <input id="trano${key}" value="${delivery_order_number}" type="hidden" />
+                                <input id="delivery_order_detail_id${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
+                                <input id="product_code${key}" value="${val2.productCode}" type="hidden" />
+                                <input id="product_name${key}" value="${val2.productName}" type="hidden" />
+                                <input id="qty_do${key}" value="${val2.qtyReq}" type="hidden" />
+                                <input id="qty_available${key}" value="${val2.qtyReq}" type="hidden" />
+                                <input id="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
 
-                                ${key === 0 ? modifyColumn : `<td style="text-align: center; display: none;">${delivery_order_number}</td>`}
                                 <td style="text-align: center;">${val2.productCode}</td>
                                 <td style="text-align: center;text-wrap: auto;">${val2.productName}</td>
                                 <td style="text-align: center;">${val2.qtyReq}</td>
                                 <td style="text-align: center;">${val2.qtyReq}</td>
                                 <td style="text-align: center;">${val2.quantityUnitName}</td>
                                 <td style="text-align: center; width: 100px;">
-                                    <input class="form-control number-without-negative" id="qty_req${indexMaterialReceiveDetail}" data-index=${indexMaterialReceiveDetail} data-default="" autocomplete="off" style="border-radius:0px;" />
+                                    <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-default="" autocomplete="off" style="border-radius:0px;" />
                                 </td>
                                 <td style="text-align: center; width: 150px; padding: 0.5rem !important;">
-                                    <textarea id="note${indexMaterialReceiveDetail}" class="form-control" data-default=""></textarea>
+                                    <textarea id="note${key}" class="form-control" data-default=""></textarea>
                                 </td>
                             </tr>
                         `;
@@ -93,8 +105,6 @@
                                 calculateTotal();
                             }
                         });
-
-                        indexMaterialReceiveDetail += 1;
                     });
 
                     $("#tableMaterialReceiveDetail tbody").show();
@@ -251,22 +261,20 @@
                 const existingRows  = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetTransNumber = targetRow.children[1].innerText.trim();
-                    const targetProductCode = targetRow.children[2].innerText.trim();
+                    const targetProductCode = targetRow.children[1].innerText.trim();
 
-                    if (targetTransNumber === transNumber && targetProductCode === productCode) {
-                        targetRow.children[5].innerText = qty;
-                        targetRow.children[6].innerText = note;
+                    if (targetProductCode == productCode) {
+                        targetRow.children[4].innerText = qty;
+                        targetRow.children[5].innerText = note;
                         found = true;
 
-                        const indexToUpdate = dataStore.findIndex(item => item.entities.transNumber === transNumber && item.entities.productCode === productCode);
+                        const indexToUpdate = dataStore.findIndex(item => item.entities.productCode == productCode);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 entities: {
-                                    deliveryOrderDetail_RefID: deliveryOrderDetail_RefID.value,
+                                    deliveryOrderDetail_RefID: parseInt(deliveryOrderDetail_RefID.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
                                     remarks: note,
-                                    transNumber: transNumber,
                                     productCode: productCode
                                 }
                             };
@@ -278,7 +286,6 @@
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
-                        <td style="text-align: center;padding: 0.8rem;">${transNumber}</td>
                         <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
                         <td style="text-align: center;padding: 0.8rem;text-wrap: auto;">${productName}</td>
                         <td style="text-align: center;padding: 0.8rem;">${uom}</td>
@@ -289,10 +296,9 @@
 
                     dataStore.push({
                         entities: {
-                            deliveryOrderDetail_RefID: deliveryOrderDetail_RefID.value,
+                            deliveryOrderDetail_RefID: parseInt(deliveryOrderDetail_RefID.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
                             remarks: note,
-                            transNumber: transNumber,
                             productCode: productCode
                         }
                     });
@@ -332,8 +338,8 @@
         if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
 
         const qtyAvail = row.children[0];
-        const qtyCell = row.children[5];
-        const noteCell = row.children[6];
+        const qtyCell = row.children[4];
+        const noteCell = row.children[5];
 
         if (row.classList.contains('editing-row')) {
             const newQty = qtyCell.querySelector('input')?.value || '';
@@ -348,9 +354,8 @@
 
             row.classList.remove('editing-row');
 
-            const transNumber = row.children[1].innerText.trim();
-            const productCode = row.children[2].innerText.trim();
-            const storeItem   = dataStore.find(item => item.entities.transNumber === transNumber && item.entities.productCode === productCode);
+            const productCode = row.children[1].innerText.trim();
+            const storeItem   = dataStore.find(item => item.entities.productCode == productCode);
 
             if (storeItem) {
                 storeItem.entities.quantity = parseFloat(newQty.replace(/,/g, ''));
@@ -403,16 +408,16 @@
     });
 
     $('#address_delivery_order_from').on('input', function() {
-        if ($(this).val().trim() === address_delivery_order_from_duplicate) {
-            $("#id_delivery_order_from").val(id_delivery_order_from_duplicate);
+        if ($(this).val().trim() === addressDeliveryOrderFromDuplicate.value) {
+            $("#id_delivery_order_from").val(idDeliveryOrderFromDuplicate.value);
         } else {
             $("#id_delivery_order_from").val('');
         }
     });
 
     $('#address_delivery_order_to').on('input', function() {
-        if ($(this).val().trim() === address_delivery_order_to_duplicate) {
-            $("#id_delivery_order_to").val(id_delivery_order_to_duplicate);
+        if ($(this).val().trim() === addressDeliveryOrderToDuplicate.value) {
+            $("#id_delivery_order_to").val(idDeliveryOrderToDuplicate.value);
         } else {
             $("#id_delivery_order_to").val('');
         }

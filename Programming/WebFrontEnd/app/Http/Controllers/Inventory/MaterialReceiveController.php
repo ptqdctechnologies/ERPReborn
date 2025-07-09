@@ -93,8 +93,6 @@ class MaterialReceiveController extends Controller
         try {
             $response = $this->materialReceiveService->create($request);
 
-            Log::error("Error at response: ", [$response]);
-
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($response);
             }
@@ -288,22 +286,30 @@ class MaterialReceiveController extends Controller
 
             $data = $response['data'];
 
-            dump($data);
+            // dump($data);
 
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'header'            => [
+                    'combinedBudget_RefID'          => $data[0]['combinedBudget_RefID'] ?? '',
+                    'combinedBudgetCode'            => $data[0]['combinedBudgetCode'] ?? '',
+                    'combinedBudgetName'            => $data[0]['combinedBudgetName'] ?? '',
+                    'combinedBudgetSectionCode'     => $data[0]['combinedBudgetSectionCode'] ?? '',
+                    'combinedBudgetSectionName'     => $data[0]['combinedBudgetSectionName'] ?? '',
                     'warehouseInboundOrderRefID'    => $data[0]['warehouseInboundOrder_RefID'] ?? '',
                     'materialReceiveNumber'         => $data[0]['businessDocumentNumber'] ?? '',
+                    'transporterRefID'              => $data[0]['transporter_RefID'] ?? '',
                     'deliveryFromRefID'             => $data[0]['deliveryFrom_RefID'] ?? '',
-                    'deliveryFromNonRefID'          => $data[0]['deliveryFrom_NonRefID'] ?? '',
+                    'deliveryFromNonRefID'          => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
                     'deliveryToRefID'               => $data[0]['deliveryTo_RefID'] ?? '',
-                    'deliveryToNonRefID'            => $data[0]['deliveryTo_NonRefID'] ?? '',
+                    'deliveryToNonRefID'            => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
                     'fileID'                        => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
                     'remarks'                       => $data[0]['remarks'] ?? '',
                 ],
                 'dataDetail'        => $data,
             ];
+
+            // dump($compact);
 
             return view('Inventory.MaterialReceive.Transactions.RevisionMaterialReceive', $compact);
         } catch (\Throwable $th) {
@@ -322,14 +328,14 @@ class MaterialReceiveController extends Controller
             }
 
             $responseWorkflow = $this->workflowService->submit(
-                $response['data']['businessDocument']['businessDocument_RefID'],
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
                 $request->workFlowPath_RefID,
                 $request->comment,
                 $request->approverEntity,
             );
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
                 "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 

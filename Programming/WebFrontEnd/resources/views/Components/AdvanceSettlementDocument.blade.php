@@ -71,13 +71,16 @@
                         :
                     </div>
                     <div class="input-group">
-                        <button class="btn btn-default btn-sm" onclick="window.location.href='{{ route('LogTransaction', [
-                            'id'        => $dataHeader['advanceSettlement_RefID'],
-                            'docNum'    => $dataHeader['advanceNumber'],
-                            'docName'   => $transactionForm
-                            ]) }}'">
-                            Show Revision History
-                        </button>
+                        <form method="POST" action="{{ route('LogTransaction') }}">
+                            @csrf
+                            <input type="hidden" name="id" value="<?= $dataHeader['advanceSettlement_RefID']; ?>" />
+                            <input type="hidden" name="docNum" value="<?= $dataHeader['advanceNumber']; ?>" />
+                            <input type="hidden" name="docName" value="<?= $transactionForm; ?>" />
+                            <input type="hidden" name="page" value="<?= $page; ?>" />
+                            <button type="submit" class="btn btn-default btn-sm">
+                                Show Revision History
+                            </button>
+                        </form>
                     </div>
                 </div>
             <?php } else { ?>

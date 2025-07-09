@@ -13,6 +13,7 @@ use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Services\HumanResource\TimesheetService;
 use App\Services\WorkflowService;
+use Carbon\Carbon;
 
 class TimesheetController extends Controller
 {
@@ -291,6 +292,8 @@ class TimesheetController extends Controller
         try {
             $response = $this->timesheetService->create($request);
 
+            Log::error("Error at request: ", [$request->all()]);
+
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($response);
             }
@@ -344,29 +347,30 @@ class TimesheetController extends Controller
 
     public function updates(Request $request)
     {
-        // echo $request->backgroundColor2;die;
-        $varAPIWebToken = $request->session()->get('SessionLogin');
+        return response()->json($request->all());
+        // // echo $request->backgroundColor2;die;
+        // $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = Helper_APICall::setCallAPIGateway(
-        Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.update.humanResource.setPersonWorkTimeSheet', 
-        'latest', 
-        [
-        'recordID' => (int) $request->timesheetId,
-        'entities' => [
-            'documentDateTimeTZ' => $request->startDate2,
-            'person_RefID' => (int) $request->behalfOf2,
-            'startDateTimeTZ' => $request->startDate2,
-            'finishDateTimeTZ' => $request->finishDate2,
-            'project_RefID' => (int) $request->ProjectEvent2,
-            'colorText' => $request->textColor2,
-            'colorBackground' => $request->backgroundColor2
-            ]
-        ]
-        );
+        // $varData = Helper_APICall::setCallAPIGateway(
+        // Helper_Environment::getUserSessionID_System(),
+        // $varAPIWebToken, 
+        // 'transaction.update.humanResource.setPersonWorkTimeSheet', 
+        // 'latest', 
+        // [
+        // 'recordID' => (int) $request->timesheetId,
+        // 'entities' => [
+        //     'documentDateTimeTZ' => $request->startDate2,
+        //     'person_RefID' => (int) $request->behalfOf2,
+        //     'startDateTimeTZ' => $request->startDate2,
+        //     'finishDateTimeTZ' => $request->finishDate2,
+        //     'project_RefID' => (int) $request->ProjectEvent2,
+        //     'colorText' => $request->textColor2,
+        //     'colorBackground' => $request->backgroundColor2
+        //     ]
+        // ]
+        // );
         
-        return redirect()->route('Timesheet.index')->with('message', 'Timesheet successfully updated ...');
+        // return redirect()->route('Timesheet.index')->with('message', 'Timesheet successfully updated ...');
     }
 
     /**
@@ -417,10 +421,62 @@ class TimesheetController extends Controller
     public function RevisionTimesheet(Request $request)
     {
         try {
-            $varAPIWebToken     = Session::get('SessionLogin');
-            $timesheet_RefID    = $request->timesheet_RefID;
+            $timesheetRefID = $request->timesheet_RefID;
 
-            return view('HumanResources.Timesheet.Transactions.RevisionTimesheet');
+            $response = $this->timesheetService->getDetail($timesheetRefID);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $dataTimesheetDetail = $response['data']['data'];
+
+            $dataEvents = [];
+            $dataDetails = [];
+            foreach ($dataTimesheetDetail as $index => $item) {
+                $start = Carbon::parse($item['startDateTimeTZ']); 
+                $end = Carbon::parse($item['finishDateTimeTZ']);
+
+                $dataEvents[] = [
+                    'id'            => $item['sys_ID'],
+                    'start'         => $start->format('Y-m-d\TH:i'),
+                    'end'           => $end->format('Y-m-d\TH:i'),
+                    'title'         => "({$item['combinedBudgetCode_Detail']}) {$item['activity']}",
+                    'originData'    => [
+                        'dailyAct'      => $item['activity'],
+                        'finishDate'    => $end->format('m/d/Y'),
+                        'fromHours'     => $start->format('H:i'),
+                        'personID'      => 'Select a Person on Behalf',
+                        'projectID'     => (string) $item['combinedBudget_RefID_Header'],
+                        'siteID'        => (string) $item['combinedBudgetSection_RefID_Detail'],
+                        'startDate'     => $start->format('m/d/Y'),
+                        'toHours'       => $end->format('H:i'),
+                    ]
+                ];
+
+                $dataDetails[] = [
+                    'recordID' => $item['sys_ID'],
+                    'entities' => [
+                        'combinedBudgetSection_RefID'   => $item['combinedBudgetSection_RefID_Detail'],
+                        'startDateTimeTZ'               => $start->format('Y-m-d H:i:s O'),
+                        'finishDateTimeTZ'              => $end->format('Y-m-d H:i:s O'),
+                        'activity'                      => $item['activity'],
+                        'colorText'                     => $item['colorText_Detail'],
+                        'colorBackground'               => $item['colorBackground_Detail']
+                    ]
+                ];
+            }
+
+            $compact = [
+                'combinedBudget_RefID'  => $dataTimesheetDetail[0]['combinedBudget_RefID_Header'],
+                'person_RefID'          => $dataTimesheetDetail[0]['person_RefID'],
+                'dataEvents'            => $dataEvents,
+                'dataDetails'           => $dataDetails
+            ];
+
+            // dump($dataTimesheetDetail, $compact);
+
+            return view('HumanResources.Timesheet.Transactions.RevisionTimesheet', $compact);
         } catch (\Throwable $th) {
             Log::error("RevisionTimesheet Function Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

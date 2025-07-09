@@ -10,7 +10,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="transporter_name" style="border-radius:0;" class="form-control" size="20" value="<?= $header['transporterName']; ?>" readonly>
+                        <input id="transporter_name" style="border-radius:0;" class="form-control" size="20" value="<?= $header['transporterCode'] . (!empty($header['transporterName']) ? ' - ' . $header['transporterName'] : '') ?>" readonly>
                         <input id="transporter_id" style="border-radius:0;" name="transporter_id" class="form-control" value="<?= $header['transporterID']; ?>" hidden>
                     </div>
                     <div class="input-group-append">

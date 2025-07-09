@@ -2,6 +2,14 @@
     let dataStore   = [];
     const dataTable = {!! json_encode($dataDetail ?? []) !!};
 
+    const addressDeliveryOrderFrom          = document.getElementById("address_delivery_order_from");
+    const addressDeliveryOrderFromDuplicate = document.getElementById("address_delivery_order_from_duplicate");
+    const idDeliveryOrderFromDuplicate      = document.getElementById("id_delivery_order_from_duplicate");
+
+    const addressDeliveryOrderTo            = document.getElementById("address_delivery_order_to");
+    const addressDeliveryOrderToDuplicate   = document.getElementById("address_delivery_order_to_duplicate");
+    const idDeliveryOrderToDuplicate        = document.getElementById("id_delivery_order_to_duplicate");
+
     function calculateTotal() {
         let total = 0;
         
@@ -15,6 +23,11 @@
         total = Math.ceil(total * 100) / 100;
 
         document.getElementById('TotalDeliveryOrder').textContent = currencyTotal(total);
+    }
+
+    function CancelRevisionMaterialReceive() {
+        ShowLoading();
+        window.location.href = '/MaterialReceive?var=1';
     }
 
     function viewMaterialReceiveDetail(dataDetail) {
@@ -183,6 +196,88 @@
 
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);
+    });
+
+    document.querySelector('#tableMaterialReceiveList tbody').addEventListener('click', function (e) {
+        const row = e.target.closest('tr');
+        if (!row) return;
+
+        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+
+        const qtyAvail  = row.children[2];
+        const qtyCell   = row.children[6];
+        const noteCell  = row.children[7];
+
+        if (row.classList.contains('editing-row')) {
+            const newQty = qtyCell.querySelector('input')?.value || '';
+            const newNote = noteCell.querySelector('textarea')?.value || '';
+
+            qtyCell.innerHTML = newQty;
+            noteCell.innerHTML = newNote;
+
+            const hidden = noteCell.querySelector('input[type="hidden"]');
+            noteCell.innerHTML = `${newNote}`;
+            if (hidden) noteCell.appendChild(hidden);
+
+            row.classList.remove('editing-row');
+            const recordID  = row.children[0].value.trim();
+            const storeItem = dataStore.find(item => item.recordID == recordID);
+
+            if (storeItem) {
+                storeItem.entities.quantity = parseFloat(newQty.replace(/,/g, ''));
+                storeItem.entities.remarks = newNote;
+            }
+        } else {
+            const currentQty = qtyCell.innerText.trim();
+
+            const hiddenInput = noteCell.querySelector('input[type="hidden"]');
+            const currentNote = noteCell.childNodes[0]?.nodeValue?.trim() || '';
+
+            qtyCell.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
+            noteCell.innerHTML = `
+                <textarea class="form-control" style="width:100px;">${currentNote}</textarea>
+            `;
+            if (hiddenInput) noteCell.appendChild(hiddenInput);
+
+            row.classList.add('editing-row');
+
+            const qtyInput = qtyCell.querySelector('.qty-input');
+
+            function updateBalance() {
+                var qty = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
+                const qtyAvailValue = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
+                var balance = qtyAvailValue - qty;
+
+                if (qty > qtyAvailValue) {
+                    qty = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    qtyInput.value = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                    ErrorNotif("Qty Req is over Qty Avail !");
+                }
+            }
+
+            qtyInput.addEventListener('input', updateBalance);
+
+            document.getElementById('GrandTotal').innerText = qtyInput.value;
+        }
+
+        updateGrandTotal();
+    });
+
+    $('#address_delivery_order_from').on('input', function() {
+        if ($(this).val().trim() === addressDeliveryOrderFromDuplicate.value) {
+            $("#id_delivery_order_from").val(idDeliveryOrderFromDuplicate.value);
+        } else {
+            $("#id_delivery_order_from").val('');
+        }
+    });
+
+    $('#address_delivery_order_to').on('input', function() {
+        if ($(this).val().trim() === addressDeliveryOrderToDuplicate.value) {
+            $("#id_delivery_order_to").val(idDeliveryOrderToDuplicate.value);
+        } else {
+            $("#id_delivery_order_to").val('');
+        }
     });
 
     $('#material-receive-details-add').on('click', function() {

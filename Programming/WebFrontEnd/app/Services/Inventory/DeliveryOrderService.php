@@ -45,4 +45,40 @@ class DeliveryOrderService
             ]
         );
     }
+
+    public function updates(Request $request): array
+    {
+        $varAPIWebToken                     = Session::get('SessionLogin');
+        $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
+        $revisionDeliveryOrderData          = $request->all();
+        $deliveryOrderDetail                = json_decode($revisionDeliveryOrderData['storeData']['deliveryOrderDetail'], true);
+        $fileID                             = $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.update.supplyChain.setDeliveryOrder',
+            'latest',
+            [
+            'recordID' => (int) $revisionDeliveryOrderData['storeData']['do_id'],
+            'entities' => [
+                "documentDateTimeTZ"                => date('Y-m-d'),
+                "log_FileUpload_Pointer_RefID"      => $fileID,
+                "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
+                "transporter_RefID"                 => (int) $revisionDeliveryOrderData['storeData']['transporter_id'],
+                "deliveryDateTimeTZ"                => null,
+                "deliveryFrom_RefID"                => null,
+                "deliveryFrom_NonRefID"             => $revisionDeliveryOrderData['storeData']['delivery_from'],
+                "deliveryTo_RefID"                  => null,
+                "deliveryTo_NonRefID"               => $revisionDeliveryOrderData['storeData']['delivery_to'],
+                "remarks"                           => $revisionDeliveryOrderData['storeData']['var_remark'],
+                "additionalData"    => [
+                    "itemList"      => [
+                        "items"     => $deliveryOrderDetail
+                        ]
+                    ]
+                ]
+            ]
+        );
+    }
 }

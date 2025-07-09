@@ -24,7 +24,7 @@
         <!-- LOAN TERM -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                Loan Term
+                Term Loan
             </div>
             <div class="col">
                 : <?= $dataHeader['loanTerm']; ?>
@@ -41,10 +41,10 @@
             </div>
         </div>
 
-        <!-- DEBTOR -->
+        <!-- DEBITORS -->
         <div class="row">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                Debtor
+                Debitors
             </div>
             <div class="col">
                 : <?= $dataHeader['debtor']; ?>
@@ -69,10 +69,10 @@
         <!-- PRINCIPAL LOAN -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                Principal Loan
+                Loan Amount
             </div>
             <div class="col">
-                : <?= $dataHeader['principalLoan']; ?>
+                : 10,233.94
             </div>
         </div>
 
@@ -87,14 +87,15 @@
         </div>
 
         <!-- TOTAL RATE -->
-        <div class="row" style="margin-bottom: 1rem;">
+        <!-- DIHAPUS -->
+        {{-- <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                Total Rate
+                Total Loan
             </div>
             <div class="col">
-                : <?= number_format($dataHeader['totalRate'], 2); ?>
+                : <?php number_format($dataHeader['totalRate'], 2); ?>
             </div>
-        </div>
+        </div> --}}
 
         <!-- COA -->
         <div class="row">

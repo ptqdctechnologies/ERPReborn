@@ -53,9 +53,11 @@ class MaterialReceiveService
         $sessionToken   = Session::get('SessionLogin');
         $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $data           = $request->storeData;
-        $detailItems    = json_decode($data['materialReceiveDetail'], true);
-        $fileID         = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $data               = $request->storeData;
+        $detailItems        = json_decode($data['materialReceiveDetail'], true);
+        $fileID             = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $deliveryFromRefID  = isset($data['id_delivery_order_from']) ? (int) $data['id_delivery_order_from'] : null;
+        $deliveryToRefID    = isset($data['id_delivery_order_to']) ? (int) $data['id_delivery_order_to'] : null;
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -67,12 +69,12 @@ class MaterialReceiveService
                 'documentDateTimeTZ'                => date('Y-m-d'),
                 'log_FileUpload_Pointer_RefID'      => $fileID,
                 'requesterWorkerJobsPosition_RefID' => (int) $careerRefID,
-                "transporter_RefID" => 164000000000559,
-                "deliveryDateTimeTZ" => null,
-                "deliveryFrom_RefID" => 126000000000001,
-                "deliveryFrom_NonRefID" => 'Jl. Salemba No. 23, Jakarta Pusat',
-                "deliveryTo_RefID" => 126000000000005,
-                "deliveryTo_NonRefID" => 'Jl. Mawar No. 50, Surabaya',
+                "transporter_RefID"                 => $data['transporterRefID'],
+                "deliveryDateTimeTZ"                => null,
+                "deliveryFrom_RefID"                => $deliveryFromRefID,
+                "deliveryFrom_NonRefID"             => $data['address_delivery_order_from'],
+                "deliveryTo_RefID"                  => $deliveryToRefID,
+                "deliveryTo_NonRefID"               => $data['address_delivery_order_to'],
                 'remarks'                           => $data['var_remark'],
                 "additionalData"                    => [
                     "itemList"                      => [
@@ -89,9 +91,11 @@ class MaterialReceiveService
         $sessionToken   = Session::get('SessionLogin');
         $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $data           = $request->storeData;
-        $detailItems    = json_decode($data['materialReceiveDetail'], true);
-        $fileID         = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $data               = $request->storeData;
+        $detailItems        = json_decode($data['materialReceiveDetail'], true);
+        $fileID             = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $deliveryFromRefID  = isset($data['id_delivery_order_from']) ? (int) $data['id_delivery_order_from'] : null;
+        $deliveryToRefID    = isset($data['id_delivery_order_to']) ? (int) $data['id_delivery_order_to'] : null;
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -104,6 +108,12 @@ class MaterialReceiveService
                 'documentDateTimeTZ'                => date('Y-m-d'),
                 'log_FileUpload_Pointer_RefID'      => $fileID,
                 'requesterWorkerJobsPosition_RefID' => (int) $careerRefID,
+                'transporter_RefID'                 => null,
+                'deliveryDateTimeTZ'                => null,
+                'deliveryFrom_RefID'                => $deliveryFromRefID,
+                'deliveryFrom_NonRefID'             => $data['address_delivery_order_from'],
+                'deliveryTo_RefID'                  => $deliveryToRefID,
+                'deliveryTo_NonRefID'               => $data['address_delivery_order_to'],
                 'remarks'                           => $data['var_remark'],
                 'additionalData'                    => [
                     'itemList'                      => [

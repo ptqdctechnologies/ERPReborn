@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
-use App\Services\DocumentTypeMapper;
+use App\Services\Document\DocumentTypeMapper;
 use App\Services\Document\CheckDocumentService;
 
 class CheckDocumentController extends Controller
@@ -62,8 +62,7 @@ class CheckDocumentController extends Controller
                 $documentType === 'Person Business Trip Settlement Form' || 
                 $documentType === 'Reimbursement Form' || 
                 $documentType === 'Sallary Allocation Form' || 
-                $documentType === 'Timesheet Form' ||
-                $documentType === 'Warehouse Inbound Order Form'
+                $documentType === 'Timesheet Form'
             ) {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
                 $responseData = [
@@ -448,6 +447,14 @@ class CheckDocumentController extends Controller
                 return response()->json($response);
             }
 
+            // dd($response);
+
+            $url = DocumentTypeMapper::getHistoryPage($docName);
+
+            if (!$url) {
+                return redirect()->back()->with('NotFound', 'Page Not Found');
+            }
+
             $collection = collect($response['data']['data'])->sort();
 
             $dataHeader = $collection->where('type', 'Header')->values()->all();
@@ -468,13 +475,9 @@ class CheckDocumentController extends Controller
                 'urlPage'           => $urlPage
             ];
 
-            // dd($compact);
+            // dump($compact);
 
-            if ($docName == "Advance Form") {
-                return view('Documents.Transactions.LogTransaction.LogTransactionAdvance', $compact);
-            } else if ($docName == "Purchase Order Form") {
-                return view('Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder', $compact);
-            }
+            return view($url, $compact);
         } catch (\Throwable $th) {
             Log::error("LogTransaction Function Error: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

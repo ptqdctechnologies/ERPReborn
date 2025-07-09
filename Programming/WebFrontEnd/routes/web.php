@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 
 
 /*
-|--------------------------------------------------------------------------
+|-------------------------------------------------------------------------- 
 | Web Routes
 |--------------------------------------------------------------------------
 |
@@ -89,7 +89,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     //Document
     Route::post('ShowDocument', 'Document\CheckDocumentController@ShowDocument')->name('CheckDocument.ShowDocument');
     Route::post('ShowDocumentByID', 'Document\CheckDocumentController@ShowDocumentByID')->name('CheckDocument.ShowDocumentByID');
-    Route::get('LogTransaction', 'Document\CheckDocumentController@LogTransaction')->name('LogTransaction');
+    Route::post('LogTransaction', 'Document\CheckDocumentController@LogTransaction')->name('LogTransaction');
     Route::get('ShowDocumentListData', 'Document\CheckDocumentController@ShowDocumentListData')->name('CheckDocument.ShowDocumentListData');
     Route::resource('CheckDocument', 'Document\CheckDocumentController');
 

@@ -1,11 +1,11 @@
 <script>
-    var indexPurchaseOrder          = 0;
-    var totalPurchaseOrder          = 0;
-    var vat                         = document.getElementById("vatOption");
-    var dataStore                   = [];
-    const msrIDList                 = [];
+    let indexPurchaseOrder          = 0;
+    let totalPurchaseOrder          = 0;
+    let vat                         = document.getElementById("vatOption");
+    let dataStore                   = [];
+    let msrIDList                   = [];
     const combinedBudgetTrigger     = document.getElementById("var_combinedBudget_RefID");
-    const msrNumber                 = document.getElementById("modal_purchase_requisition_document_number");
+    const msrNumber                 = document.getElementById("modal_purchase_requisition_document_numbers");
     const deliveryTo                = document.getElementById("delivery_to");
     const deliveryToDuplicate       = document.getElementById("deliveryToDuplicate");
     const deliveryToDuplicateRefID  = document.getElementById("deliveryToDuplicate_RefID");
@@ -165,6 +165,21 @@
         }
     }
 
+    function updatePRUI(prNumber, prID, data) {
+        const splitDateOfDelivery = data[0].deliveryDateTimeTZ.split(' ')[0];
+
+        msrIDList.push(data[0].purchaseRequisition_RefID);
+        $("#modal_purchase_requisition_document_numbers").val(prNumber);
+        $("#modal_purchase_requisition_ids").val(prID);
+        $("#budget_value").val(data[0].combinedBudgetCode + ' - ' + data[0].combinedBudgetName);
+        $("#sub_budget_value").val(data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName);
+        $("#deliveryToDuplicate_RefID").val(data[0].deliveryTo_RefID);
+        $("#deliveryTo_RefID").val(data[0].deliveryTo_RefID);
+        $("#deliveryToDuplicate").val(data[0].deliveryToName);
+        $("#delivery_to").val(data[0].deliveryToName);
+        $("#dateOfDelivery").val(splitDateOfDelivery);
+    }
+
     function getDetailPurchaseRequisition(purchase_requisition_number, purchase_requisition_id) {
         $("#tablePurchaseOrderDetail tbody").hide();
         $(".loadingPurchaseOrderTable").show();
@@ -184,19 +199,34 @@
                 if (data && Array.isArray(data) && data.length > 0) {
                     $("#tablePurchaseOrderDetail tbody").show();
 
+                    const isDuplicateMsr        = msrIDList.includes(data[0].purchaseRequisition_RefID);
+                    const currentBudget         = combinedBudgetTrigger.value;
+
+                    if (currentBudget && currentBudget != data[0].combinedBudget_RefID) {
+                        Swal.fire("Error", "Budget must be the same!", "error");
+                        return;
+                    }
+
+                    if (isDuplicateMsr) {
+                        Swal.fire("Error", "PR number has been selected!", "error");
+                        return;
+                    }
+
+                    if (msrIDList.length == 0) {
+                        $("#var_combinedBudget_RefID").val(data[0].combinedBudget_RefID);
+                        $("#supplier_code2").prop("disabled", false);
+                        updatePRUI(purchase_requisition_number, purchase_requisition_id, data);
+                    }
+
+                    if (msrIDList.length > 0 && currentBudget == data[0].combinedBudget_RefID && !isDuplicateMsr) {
+                        updatePRUI(purchase_requisition_number, purchase_requisition_id, data);
+                    }
+
                     let tbody = $('#tablePurchaseOrderDetail tbody');
 
                     let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${purchase_requisition_number}</td>`;
 
                     $.each(data, function(key, val2) {
-                        let splitDateOfDelivery = val2.deliveryDateTimeTZ.split(' ')[0];
-
-                        $("#deliveryToDuplicate_RefID").val(val2.deliveryTo_RefID);
-                        $("#deliveryTo_RefID").val(val2.deliveryTo_RefID);
-                        $("#deliveryToDuplicate").val(val2.deliveryToName);
-                        $("#delivery_to").val(val2.deliveryToName);
-                        $("#dateOfDelivery").val(splitDateOfDelivery);
-
                         let row = `
                             <tr>
                                 <input id="msr_number${indexPurchaseOrder}" value="${purchase_requisition_number}" type="hidden" />
@@ -397,41 +427,11 @@
     }
 
     $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function () {
-        const $row = $(this);
-
+        const $row  = $(this);
         const sysId = $row.find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
-        const combinedBudget = $row.find('input[data-trigger="sys_id_combinedBudget_purchase_requisition"]').val();
         const trano = $row.find('td:nth-child(2)').text();
 
-        const isDuplicateMsr = msrIDList.includes(sysId);
-        const currentBudget = combinedBudgetTrigger.value;
-
-        if (currentBudget && currentBudget !== combinedBudget) {
-            Swal.fire("Error", "Budget Code must be the same!", "error");
-            clearModalFields();
-            return;
-        }
-
-        if (isDuplicateMsr) {
-            Swal.fire("Error", "MSR number has been selected!", "error");
-            clearModalFields();
-            return;
-        }
-
-        if (!currentBudget) {
-            $("#var_combinedBudget_RefID").val(combinedBudget);
-        }
-
-        if (currentBudget === combinedBudget || !currentBudget) {
-            msrIDList.push(sysId);
-            getDetailPurchaseRequisition(trano, sysId);
-            $("#supplier_code2").prop("disabled", false);
-        }
-
-        function clearModalFields() {
-            $('#modal_purchase_requisition_document_number').val("");
-            $('#modal_purchase_requisition_id').val("");
-        }
+        getDetailPurchaseRequisition(trano, sysId);
     });
 
     $('#purchase-details-add').on('click', function() {
