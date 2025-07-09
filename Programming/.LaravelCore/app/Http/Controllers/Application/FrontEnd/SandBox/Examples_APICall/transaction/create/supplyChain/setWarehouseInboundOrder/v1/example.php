@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.supplyChain.setWarehouseInboundOrder.v1_throughAPIGateway                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-06-26                                                                                           |
+        | ▪ Last Update     : 2025-07-09                                                                                           |
         | ▪ Creation Date   : 2025-04-15                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -46,12 +46,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         'log_FileUpload_Pointer_RefID' => null,
                         'requesterWorkerJobsPosition_RefID' => 164000000000497,
                         "transporter_RefID" => 164000000000559,
-                        "deliveryDateTimeTZ" => null,
+                        "deliveryDateTimeTZ" => '2025-06-30',
                         "deliveryFrom_RefID" => 126000000000001,
-                        "deliveryFrom_NonRefID" => 'Jl. Salemba No. 23, Jakarta Pusat',
+                        "deliveryFrom_NonRefID" => 'Jl. Salemba No. 29, Jakarta Pusat',
                         "deliveryTo_RefID" => 126000000000005,
-                        "deliveryTo_NonRefID" => 'Jl. Mawar No. 50, Surabaya',
-                        'remarks' => 'Catatan Test 1',
+                        "deliveryTo_NonRefID" => 'Jl. Mawar No. 51, Surabaya',
+                        'remarks' => 'Catatan Test 11',
                         "additionalData" => [
                             "itemList" => [
                                 "items" => [
@@ -59,14 +59,24 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         'entities' => [
                                             "deliveryOrderDetail_RefID" => 181000000000001,
                                             "quantity" => 25,
-                                            'remarks' => 'Catatan Detail - 1',
+                                            "product_RefID" => 88000000001664,
+                                            "quantityUnit_RefID" => 73000000000001,
+                                            "productUnitPriceCurrency_RefID" => 62000000000001,
+                                            "productUnitPriceCurrencyExchangeRate" => 1,
+                                            "productUnitPriceCurrencyValue" => 25000,
+                                            'remarks' => 'Catatan Detail - 11',
                                             ]
                                         ],
                                         [
                                         'entities' => [
                                             "deliveryOrderDetail_RefID" => 181000000000002,
                                             "quantity" => 30,
-                                            'remarks' => 'Catatan Detail - 2',
+                                            "product_RefID" => 88000000001533,
+                                            "quantityUnit_RefID" => 73000000000002,
+                                            "productUnitPriceCurrency_RefID" => 62000000000001,
+                                            "productUnitPriceCurrencyExchangeRate" => 1,
+                                            "productUnitPriceCurrencyValue" => 30000,
+                                            'remarks' => 'Catatan Detail - 22',
                                             ]
                                         ],
                                     ]
