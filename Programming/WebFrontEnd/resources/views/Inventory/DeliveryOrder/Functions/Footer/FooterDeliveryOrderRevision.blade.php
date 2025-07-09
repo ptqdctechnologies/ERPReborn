@@ -56,7 +56,7 @@
             dataStore.push({
                 recordID: parseInt(val2.deliveryOrderDetail_ID),
                 entities: {
-                    referenceDocument_RefID: parseInt(85000000000105), // DISINI
+                    referenceDocument_RefID: parseInt(val2.referenceDocument_RefID),
                     quantity: parseFloat(val2.qtyReq.replace(/,/g, '')),
                     quantityUnit_RefID: parseInt(val2.quantityUnit_RefID),
                     remarks: val2.notes,
@@ -117,7 +117,7 @@
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName || ''}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">-</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.qtyAvail || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.qtyReq || ''}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.notes || ''}</td>
                 </tr>
@@ -321,7 +321,7 @@
                             dataStore[indexToUpdate] = {
                                 recordID: parseInt(recordRefID.value),
                                 entities: {
-                                    referenceDocument_RefID: parseInt(referenceDocumentRefID.value), // DISINI
+                                    referenceDocument_RefID: parseInt(referenceDocumentRefID.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                     remarks: note,
@@ -353,7 +353,7 @@
                     dataStore.push({
                         recordID: parseInt(recordRefID.value),
                         entities: {
-                            referenceDocument_RefID: parseInt(referenceDocumentRefID.value), // DISINI
+                            referenceDocument_RefID: parseInt(referenceDocumentRefID.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
                             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                             remarks: note,
