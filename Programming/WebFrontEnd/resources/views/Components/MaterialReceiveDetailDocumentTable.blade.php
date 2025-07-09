@@ -7,8 +7,7 @@
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRODUCT CODE</th>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PRODUCT NAME</th>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UOM</th>
-                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">QTY AVAIL</th>
-                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">QTY REQ</th>
+                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">QTY</th>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">NOTE</th>
                 </tr>
             </thead>
@@ -18,11 +17,10 @@
                 <?php foreach ($dataDetails as $dataDetail) { ?>
                 <?php $grand_total += $dataDetail['quantity'] ?? 0;  ?>
                     <tr>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $no++; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;text-align: center;"><?= $no++; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productName'] ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['quantityUnitName'] ?? '-'; ?></td>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['qtyAvailableDO'] ?? 0; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['quantity'] ?? 0; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['note'] ?? '-'; ?></td>
                     </tr>
@@ -31,7 +29,7 @@
 
             <tfoot>
                 <tr>
-                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="5">
+                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="4">
                         GRAND TOTAL
                     </th>
                     <td style="border:1px solid #4B586A;color:#4B586A;">

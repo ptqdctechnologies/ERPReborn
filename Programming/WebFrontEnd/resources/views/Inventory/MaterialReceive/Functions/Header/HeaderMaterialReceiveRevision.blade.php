@@ -13,13 +13,6 @@
                         <input id="delivery_order_code" style="border-radius:0;" class="form-control" size="24" readonly value="<?= $header['materialReceiveNumber']; ?>" />
                         <input id="warehouseInboundOrderRefID" style="border-radius:0;" name="warehouseInboundOrderRefID" class="form-control" value="<?= $header['warehouseInboundOrderRefID']; ?>" hidden />
                     </div>
-                    {{-- <div class="input-group-append">
-                        <span style="border-radius:0;" class="input-group-text form-control">
-                            <a href="javascript:;" id="deliveryOrderTrigger" data-toggle="modal" data-target="#myDeliveryOrder" style="display: block;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="deliveryOrderTrigger">
-                            </a>
-                        </span>
-                    </div> --}}
                 </div>
             </div>
 
@@ -30,7 +23,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="budget_value" style="border-radius:0;" size="24" class="form-control" value="<?= $header['budget']; ?>" readonly>
+                        <input id="budget_value" style="border-radius:0;" size="24" class="form-control" value="<?= $header['combinedBudgetCode'] . ' - ' . $header['combinedBudgetName']; ?>" readonly>
                     </div>
                 </div>
             </div>
@@ -42,7 +35,7 @@
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="sub_budget_value" style="border-radius:0;" size="24" class="form-control" value="<?= $header['subBudget']; ?>" readonly>
+                        <input id="sub_budget_value" style="border-radius:0;" size="24" class="form-control" value="<?= $header['combinedBudgetSectionCode'] . ' - ' . $header['combinedBudgetSectionName']; ?>" readonly>
                     </div>
                 </div>
             </div>

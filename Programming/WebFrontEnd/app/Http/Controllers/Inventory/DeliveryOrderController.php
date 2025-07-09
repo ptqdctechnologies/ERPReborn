@@ -80,53 +80,61 @@ class DeliveryOrderController extends Controller
     public function updates(Request $request)
     {
         try {
-            $varAPIWebToken                     = Session::get('SessionLogin');
-            $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
-            $revisionDeliveryOrderData          = $request->all();
-            Log::error("revisionDeliveryOrderData: ", [$revisionDeliveryOrderData]);
-            $deliveryOrderDetail                = json_decode($revisionDeliveryOrderData['storeData']['deliveryOrderDetail'], true);
-            $fileID                             = $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
+            // $varAPIWebToken                     = Session::get('SessionLogin');
+            // $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
+            // $revisionDeliveryOrderData          = $request->all();
+            // $deliveryOrderDetail                = json_decode($revisionDeliveryOrderData['storeData']['deliveryOrderDetail'], true);
+            // $fileID                             = $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
 
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.update.supplyChain.setDeliveryOrder',
-                'latest',
-                [
-                'recordID' => (int) $revisionDeliveryOrderData['storeData']['do_id'],
-                'entities' => [
-                    "documentDateTimeTZ"                => date('Y-m-d'),
-                    "log_FileUpload_Pointer_RefID"      => $fileID,
-                    "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
-                    "transporter_RefID"                 => (int) $revisionDeliveryOrderData['storeData']['transporter_id'],
-                    "deliveryDateTimeTZ"                => null,
-                    "deliveryFrom_RefID"                => null,
-                    "deliveryFrom_NonRefID"             => $revisionDeliveryOrderData['storeData']['delivery_from'],
-                    "deliveryTo_RefID"                  => null,
-                    "deliveryTo_NonRefID"               => $revisionDeliveryOrderData['storeData']['delivery_to'],
-                    "remarks"                           => $revisionDeliveryOrderData['storeData']['var_remark'],
-                    "additionalData"    => [
-                        "itemList"      => [
-                            "items"     => $deliveryOrderDetail
-                            ]
-                        ]
-                    ]
-                ]
-            );
+            // $varData = Helper_APICall::setCallAPIGateway(
+            //     Helper_Environment::getUserSessionID_System(),
+            //     $varAPIWebToken,
+            //     'transaction.update.supplyChain.setDeliveryOrder',
+            //     'latest',
+            //     [
+            //     'recordID' => (int) $revisionDeliveryOrderData['storeData']['do_id'],
+            //     'entities' => [
+            //         "documentDateTimeTZ"                => date('Y-m-d'),
+            //         "log_FileUpload_Pointer_RefID"      => $fileID,
+            //         "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
+            //         "transporter_RefID"                 => (int) $revisionDeliveryOrderData['storeData']['transporter_id'],
+            //         "deliveryDateTimeTZ"                => null,
+            //         "deliveryFrom_RefID"                => null,
+            //         "deliveryFrom_NonRefID"             => $revisionDeliveryOrderData['storeData']['delivery_from'],
+            //         "deliveryTo_RefID"                  => null,
+            //         "deliveryTo_NonRefID"               => $revisionDeliveryOrderData['storeData']['delivery_to'],
+            //         "remarks"                           => $revisionDeliveryOrderData['storeData']['var_remark'],
+            //         "additionalData"    => [
+            //             "itemList"      => [
+            //                 "items"     => $deliveryOrderDetail
+            //                 ]
+            //             ]
+            //         ]
+            //     ]
+            // );
 
-            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($varData);
+            $response = $this->deliveryOrderService->updates($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
             }
 
-            Log::error("varData: ", [$varData]);
-
-            return $this->ResubmitWorkflow(
-                $varData['data'][0]['businessDocument']['businessDocument_RefID'],
-                $revisionDeliveryOrderData['comment'],
-                $revisionDeliveryOrderData['approverEntity'],
-                $revisionDeliveryOrderData['nextApprover'],
-                $varData['data'][0]['businessDocument']['documentNumber']
+            $responseWorkflow = $this->workflowService->resubmit(
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
+                $request->comment,
+                $request->approverEntity,
             );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($responseWorkflow);
+            }
+
+            $compact = [
+                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
+                "status"            => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
         } catch (\Throwable $th) {
             Log::error("Error at update: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
@@ -607,29 +615,35 @@ class DeliveryOrderController extends Controller
 
             $data = $varData['data']['data'];
 
+            // dump($data);
+
             $compact = [
-                'varAPIWebToken'            => $varAPIWebToken,
-                'header'                    => [
-                    'combinedBudget_RefID'  => $data[0]['combinedBudget_RefID'] ?? '46000000000033',
-                    'doNumber'              => $data[0]['documentNumber'] ?? '',
-                    'doID'                  => $data[0]['deliveryOrder_RefID'] ?? '',
-                    'doDetailID'            => $data[0]['deliveryOrderDetail_ID'] ?? '',
-                    'deliveryFrom'          => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
-                    'deliveryFromID'        => $data[0]['deliveryFrom_RefID'] ?? '',
-                    'deliveryTo'            => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
-                    'deliveryToID'          => $data[0]['deliveryTo_RefID'] ?? '',
-                    'transporterID'         => $data[0]['transporter_RefID'] ?? '',
-                    'transporterCode'       => '',
-                    'transporterName'       => $data[0]['transporterName'] ?? '',
-                    'transporterPhone'      => $data[0]['transporterPhone'] ?? '',
-                    'transporterFax'        => $data[0]['transporterFax'] ?? '',
-                    'transporterContact'    => $data[0]['transporterContactPerson'] ?? '',
-                    'transporterHandphone'  => $data[0]['transporterHandphone'] ?? '',
-                    'transporterAddress'    => $data[0]['transporterAddress'] ?? '',
-                    'fileID'                => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
-                    'remarks'               => $data[0]['remarks'] ?? '',
+                'varAPIWebToken'                => $varAPIWebToken,
+                'header'                        => [
+                    'combinedBudget_RefID'      => $data[0]['combinedBudget_RefID'] ?? '',
+                    'combinedBudgetCode'        => $data[0]['combinedBudgetCode'] ?? '',
+                    'combinedBudgetName'        => $data[0]['combinedBudgetName'] ?? '',
+                    'combinedBudgetSectionCode' => $data[0]['combinedBudgetSectionCode'] ?? '',
+                    'combinedBudgetSectionName' => $data[0]['combinedBudgetSectionName'] ?? '',
+                    'doNumber'                  => $data[0]['documentNumber'] ?? '',
+                    'doID'                      => $data[0]['deliveryOrder_RefID'] ?? '',
+                    'doDetailID'                => $data[0]['deliveryOrderDetail_ID'] ?? '',
+                    'deliveryFrom'              => $data[0]['deliveryFrom_NonRefID']['Address'] ?? '',
+                    'deliveryFromID'            => $data[0]['deliveryFrom_RefID'] ?? '',
+                    'deliveryTo'                => $data[0]['deliveryTo_NonRefID']['Address'] ?? '',
+                    'deliveryToID'              => $data[0]['deliveryTo_RefID'] ?? '',
+                    'transporterID'             => $data[0]['transporter_RefID'] ?? '',
+                    'transporterCode'           => $data[0]['transporterCode'] ?? '',
+                    'transporterName'           => $data[0]['transporterName'] ?? '',
+                    'transporterPhone'          => $data[0]['transporterPhone'] ?? '',
+                    'transporterFax'            => $data[0]['transporterFax'] ?? '',
+                    'transporterContact'        => $data[0]['transporterContactPerson'] ?? '',
+                    'transporterHandphone'      => $data[0]['transporterHandphone'] ?? '',
+                    'transporterAddress'        => $data[0]['transporterAddress'] ?? '',
+                    'fileID'                    => $data[0]['log_FileUpload_Pointer_RefID'] ?? null,
+                    'remarks'                   => $data[0]['remarks'] ?? '',
                 ],
-                'data'                      => $data
+                'data'                          => $data
             ];
 
             // dump($data);

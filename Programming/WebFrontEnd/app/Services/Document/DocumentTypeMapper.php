@@ -470,12 +470,17 @@ class DocumentTypeMapper
             ],
             'Warehouse Inbound Order Form' => [
                 'dataHeader'            => [
+                    'budgetCode'            => $dataDetail['combinedBudgetCode'] ?? null,
+                    'budgetName'            => $dataDetail['combinedBudgetName'] ?? null,
+                    'subBudgetCode'         => $dataDetail['combinedBudgetSectionCode'] ?? null,
+                    'subBudgetName'         => $dataDetail['combinedBudgetSectionName'] ?? null,
                     'materialReceive_RefID' => $dataDetail['warehouseInboundOrder_RefID'] ?? '-',
                     'date'                  => $dataDetail['date'] ?? '-',
                     'dateUpdate'            => $dataDetail['dateUpdate'] ?? null,
                     'mrNumber'              => $dataDetail['businessDocumentNumber'] ?? '-',
-                    'deliveryFrom'          => $dataDetail['deliveryFrom_NonRefID'] ?? '-',
-                    'deliveryTo'            => $dataDetail['deliveryTo_NonRefID'] ?? '-',
+                    'doNumber'              => '-',
+                    'deliveryFrom'          => $dataDetail['deliveryFrom_NonRefID']['Address'] ?? '-',
+                    'deliveryTo'            => $dataDetail['deliveryTo_NonRefID']['Address'] ?? '-',
                     'fileID'                => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
                 ],
                 'textAreaFields'    => [
