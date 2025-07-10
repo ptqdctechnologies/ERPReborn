@@ -51,9 +51,9 @@
                             <div class="card-body p-0">
                                 <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitTimesheet">
                                 @csrf
-                                <input name="DocumentTypeID" id="DocumentTypeID">
-                                <input name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $combinedBudget_RefID; ?>">
-                                <input name="timesheetDetail" id="timesheetDetail">
+                                <input type="hidden" name="DocumentTypeID" id="DocumentTypeID">
+                                <input type="hidden" name="var_combinedBudget_RefID" id="var_combinedBudget_RefID" value="<?= $combinedBudget_RefID; ?>">
+                                <input type="hidden" name="timesheetDetail" id="timesheetDetail">
                                 <div class="ml-3 mt-3">
                                     <!-- AUTHORIZED BY -->
                                     <div class="col-12" style="margin-bottom: 1rem;">
