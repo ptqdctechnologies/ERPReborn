@@ -45,6 +45,28 @@
                     </td>
                     <td style="border:1px solid #4B586A;color:#4B586A;"></td>
                 </tr>
+                <tr>
+                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="7">
+                        VAT
+                    </th>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">
+                        <span id="GrandTotal">
+                            <?= number_format($dataHeader['totalPPN'], 2); ?>
+                        </span>
+                    </td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"></td>
+                </tr>
+                <tr>
+                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="7">
+                        TOTAL
+                    </th>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">
+                        <span id="GrandTotal">
+                            <?= number_format($grand_total + $dataHeader['totalPPN'], 2); ?>
+                        </span>
+                    </td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;"></td>
+                </tr>
             </tfoot>
         </table>
     </div>

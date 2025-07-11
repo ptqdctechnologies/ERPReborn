@@ -43,7 +43,7 @@
                                                         <?php $entryDateTime = $dataHeader[$i]['content']['sys_Data_Entry_DateTimeTZ']; $editDateTime = $dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ']; ?>
 
                                                         @if ($i === 0)
-                                                            <th style="vertical-align: middle;left: 0px;z-index: 10;line-height: normal;" class="text-center" colspan="7">
+                                                            <th style="vertical-align: middle;left: 0px;z-index: 10;line-height: normal;" class="text-center" colspan="8">
                                                                 Actual - {{ $dataHeader[count($dataHeader) - 1]['submitterWorkerName'] }} <br /> ( {{ date('Y-m-d', strtotime($dataHeader[count($dataHeader) - 1]['content']['sys_Data_Edit_DateTimeTZ'])) }} {{ date('H:i', strtotime($dataHeader[count($dataHeader) - 1]['content']['sys_Data_Edit_DateTimeTZ'])) }} )
                                                             </th>
                                                         @endif
@@ -59,10 +59,11 @@
                                                 <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;">Product Code</th>
                                                 <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 125px; z-index: 10;">Product Name</th>
                                                 <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 250px; z-index: 10;">UOM</th>
-                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 375px; z-index: 10;">Qty</th>
-                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 500px; z-index: 10;">Price</th>
-                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 625px; z-index: 10;">Total</th>
-                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 750px; z-index: 10;">Note</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 375px; z-index: 10;">Currency</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 500px; z-index: 10;">Qty</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 625px; z-index: 10;">Price</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 750px; z-index: 10;">Total</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 875px; z-index: 10;">Note</th>
 
                                                 @for($i = 1; $i < count($dataDetail[0]); $i++)
                                                     <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;"> Qty</th>
@@ -81,16 +82,17 @@
                                                         <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 0px; z-index: 10;">{{ $dataDetail[$i][count($dataDetail[$i]) - 1]['content']['product_RefID'] }}</td>
                                                         <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 125px; z-index: 10;">{{ $dataDetail[$i][count($dataDetail[$i]) - 1]['productName'] }}</td>
                                                         <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 250px; z-index: 10;">{{ $dataDetail[$i][count($dataDetail[$i]) - 1]['quantityUnitName'] }}</td>
-                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 375px; z-index: 10;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['quantity'], 2) }}</td>
-                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 500px; z-index: 10;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
-                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 625px; z-index: 10;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['priceCurrencyValue'], 2) }}</td>
-                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 750px; z-index: 10;">-</td>
+                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 375px; z-index: 10;">-</td>
+                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 500px; z-index: 10;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['quantity'], 2) }}</td>
+                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 625px; z-index: 10;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
+                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 750px; z-index: 10;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['priceCurrencyValue'], 2) }}</td>
+                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 875px; z-index: 10;">-</td>
 
                                                         @for($n = 0; $n < (count($dataDetail[$i]) - 1); $n++)
-                                                            <td style="padding: 8px;">{{ number_format($dataDetail[$i][$n]['content']['quantity'], 2) }}</td>
-                                                            <td style="padding: 8px;">{{ number_format($dataDetail[$i][$n]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
-                                                            <td style="padding: 8px;">{{ number_format($dataDetail[$i][$n]['content']['priceCurrencyValue'], 2) }}</td>
-                                                            <td style="padding: 8px;">-</td>
+                                                            <td style="padding: 8px;border-right:1px solid #e9ecef;">{{ number_format($dataDetail[$i][$n]['content']['quantity'], 2) }}</td>
+                                                            <td style="padding: 8px;border-right:1px solid #e9ecef;">{{ number_format($dataDetail[$i][$n]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
+                                                            <td style="padding: 8px;border-right:1px solid #e9ecef;">{{ number_format($dataDetail[$i][$n]['content']['priceCurrencyValue'], 2) }}</td>
+                                                            <td style="padding: 8px;border-right:1px solid #e9ecef;">-</td>
                                                         @endfor
                                                     </tr>
                                                 @endfor
@@ -148,10 +150,10 @@
 
                                                 @if(sizeof($dataHeader))
                                                     @foreach(array_slice($dataHeader, 0, count($dataHeader) - 1) as $dataHeaders)
-                                                        <td style="padding: 8px;">-</td>
-                                                        <td style="padding: 8px;">-</td>
-                                                        <td style="padding: 8px;">-</td>
-                                                        <td style="padding: 8px;">{{ $dataHeaders['content']['remarks'] }}</td>
+                                                        <td style="padding: 8px;border-right:1px solid #e9ecef;">-</td>
+                                                        <td style="padding: 8px;border-right:1px solid #e9ecef;">-</td>
+                                                        <td style="padding: 8px;border-right:1px solid #e9ecef;">-</td>
+                                                        <td style="padding: 8px;border-right:1px solid #e9ecef;">{{ $dataHeaders['content']['remarks'] }}</td>
                                                     @endforeach
                                                 @endif
                                             </tr>

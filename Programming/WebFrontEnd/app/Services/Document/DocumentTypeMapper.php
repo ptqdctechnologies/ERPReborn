@@ -226,7 +226,7 @@ class DocumentTypeMapper
                 'components'    => [
                     'detail'        => 'Components.LoanSettlementDetailDocument',
                     'table'         => 'Components.LoanSettlementDetailDocumentTable',
-                    'additional'    => 'Components.LoanSettlementAddtionalDocument'
+                    // 'additional'    => 'Components.LoanSettlementAddtionalDocument'
                 ],
                 'resubmit'      => [
                     'url'       => '',
@@ -359,6 +359,8 @@ class DocumentTypeMapper
                     'supplierAddress'       => $dataDetail['supplierAddress'] ?? '',
                     'paymentNote'           => $dataDetail['paymentNotes'] ?? '-',
                     'internalNote'          => $dataDetail['internalNotes'] ?? '-',
+                    'ppn'                   => $dataDetail['vatRatio'] ?? '-',
+                    'totalPPN'              => $dataDetail['tariffCurrencyValue'] ?? '-',
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',

@@ -49,7 +49,7 @@
             <div class="form-group">
                 <table>
                     <tr>
-                        <td><label>PPN</label></td>
+                        <td><label>VAT</label></td>
                         <td style="border:1px solid #e9ecef;">
                             <select name="ppn" id="ppn" style="border-radius:0;" type="text" class="form-control">
                                 <option value="No">No</option>
@@ -64,7 +64,7 @@
             <div class="form-group">
                 <table>
                     <tr>
-                        <td><label>PPN(%)</label></td>
+                        <td><label>VAT(%)</label></td>
                         <td id="containerLoadingPPN">
                             <div class="d-flex flex-column justify-content-center py-3">
                                 <div class="spinner-border spinner-border-sm" role="status">
@@ -75,7 +75,7 @@
                         <td id="containerSelectPPN" style="border:1px solid #e9ecef;">
                             <input hidden id="vatOptionValue" style="width: 20%;" />
                             <select name="vatValue" id="vatOption" style="border-radius:0;" class="form-control" onChange="calculateTotal();">
-                                <option disabled selected>Select a PPN</option>
+                                <option disabled selected>Select a VAT</option>
                             </select>
                         </td>
                     </tr>
@@ -91,10 +91,10 @@
             <th style="position: relative;right:20px;"> Total Request: <span id="TotalBudgetSelected">0.00</span></th>
         </tr>
         <tr>
-            <th style="position: relative;right:20px;"> PPN: <span id="TotalPpn">0.00</span></th>
+            <th style="position: relative;right:20px;"> VAT: <span id="TotalPpn">0.00</span></th>
         </tr>
         <tr>
-            <th style="position: relative;right:20px;"> Total Request + PPN: <span id="TotalBudgetSelectedPpn">0.00</span></th>
+            <th style="position: relative;right:20px;"> Total Request + VAT: <span id="TotalBudgetSelectedPpn">0.00</span></th>
         </tr>
         <tr>
             <td>
