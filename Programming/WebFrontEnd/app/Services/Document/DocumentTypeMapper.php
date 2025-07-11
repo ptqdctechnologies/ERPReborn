@@ -63,8 +63,8 @@ class DocumentTypeMapper
                 'businessDocument_RefID' => (int) 74000000021494,
             ],
             'Timesheet Form' => [
-                'key' => '',
-                'parameter' => [],
+                'key' => 'transaction.read.dataList.humanResource.getPersonWorkTimeSheetActivity',
+                'parameter' => ['personWorkTimeSheet_RefID' => (int) $referenceId],
                 'businessDocument_RefID' => (int) 74000000021491,
             ],
             'Warehouse Inbound Order Form' => [
@@ -459,16 +459,20 @@ class DocumentTypeMapper
             ],
             'Timesheet Form' => [
                 'dataHeader'        => [
-                    'authorizedBy'      => 'Q000062 - XL Microcell 2007',
-                    'timesheetNUmber'   => 'Timesheet/QDC/2026/000054',
+                    'date'              => $dataDetail['date'] ?? null,
+                    'dateUpdate'        => $dataDetail['dateUpdate'] ?? null,
+                    'authorizedCode'    => $dataDetail['combinedBudgetCode_Header'] ?? '',
+                    'authorizedName'    => $dataDetail['combinedBudgetName_Header'] ?? '',
+                    'timesheetNUmber'   => $dataDetail['businessDocumentNumber'] ?? '-',
+                    'onBehalfOf'        => $dataDetail['personName'] ?? '-',
                 ],
                 'components'    => [
                     'detail'    => 'Components.TimesheetDetailDocument',
                     'table'     => 'Components.TimesheetDetailDocumentTable',
                 ],
                 'resubmit'      => [
-                    'url'       => 'Timesheet.index',
-                    'name'      => '',
+                    'url'       => 'RevisionTimesheet.index',
+                    'name'      => 'timesheet_RefID',
                     'value'     => ''
                 ],
                 'transactionType'        => 'TIMESHEET',

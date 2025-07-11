@@ -12,46 +12,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">1</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">2025-02-20 09:00</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">2025-02-20 17:00</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Q000062 - XL Microcell 2007</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">235 - Ampang Kuranji - Padang</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Site Visit</td>
-                </tr>
-                <tr>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">2</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">2025-03-12 09:00</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">2025-03-22 17:00</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Q000062 - XL Microcell 2007</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">235 - Ampang Kuranji - Padang</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Pondation Inspection</td>
-                </tr>
-                <tr>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">3</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">2025-03-12 09:00</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">2025-03-22 17:00</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Q000062 - XL Microcell 2007</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">423 - Cijaku Collocation</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Execution Supervision</td>
-                </tr>
-                <tr>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">4</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">2025-03-12 09:00</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">2025-03-22 17:00</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Q000062 - XL Microcell 2007</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">235 - Ampang Kuranji - Padang</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Access Rute Proporation</td>
-                </tr>
-                <tr>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">5</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">2025-03-12 09:00</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">2025-03-22 17:00</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Q000055 - Nokia 2G CME & TI Project</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">423 - Cijaku Collocation</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Daily Toolbox Meeting</td>
-                </tr>
+                <?php $no = 0; ?>
+                <?php foreach ($dataDetails as $dataDetail) { ?>
+                    <tr>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $no++; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= date('Y-m-d', strtotime($dataDetail['startDateTimeTZ'])) . " " . date('H:i', strtotime($dataDetail['startDateTimeTZ'])); ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= date('Y-m-d', strtotime($dataDetail['finishDateTimeTZ'])) . " " . date('H:i', strtotime($dataDetail['finishDateTimeTZ'])); ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['combinedBudgetCode_Detail']; ?> - <?= $dataDetail['combinedBudgetName_Detail']; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['combinedBudgetSectionCode_Detail']; ?> - <?= $dataDetail['combinedBudgetSectionName_Detail']; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= nl2br(e($dataDetail['activity'])); ?></td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
     </div>

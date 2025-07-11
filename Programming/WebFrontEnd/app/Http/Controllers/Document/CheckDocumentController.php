@@ -61,8 +61,7 @@ class CheckDocumentController extends Controller
                 $documentType === 'Person Business Trip Form' ||
                 $documentType === 'Person Business Trip Settlement Form' || 
                 $documentType === 'Reimbursement Form' || 
-                $documentType === 'Sallary Allocation Form' || 
-                $documentType === 'Timesheet Form'
+                $documentType === 'Sallary Allocation Form'
             ) {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
                 $responseData = [
