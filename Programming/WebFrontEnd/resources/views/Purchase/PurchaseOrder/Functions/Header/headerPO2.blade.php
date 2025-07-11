@@ -25,7 +25,7 @@
 
       <!-- BUDGET -->
       <div class="row">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0" style="margin-bottom: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           Budget
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
@@ -36,7 +36,7 @@
       </div>
 
       <!-- SUB BUDGET -->
-      <div class="row">
+      {{-- <div class="row">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           Sub Budget
         </label>
@@ -45,7 +45,7 @@
             <input id="sub_budget_value" style="border-radius:0;" size="24" class="form-control" readonly>
           </div>
         </div>
-      </div>
+      </div> --}}
     </div>
 
     <!-- RIGHT COLUMN -->

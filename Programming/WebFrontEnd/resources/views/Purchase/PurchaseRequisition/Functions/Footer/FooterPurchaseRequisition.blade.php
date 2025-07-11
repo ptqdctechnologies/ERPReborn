@@ -32,6 +32,7 @@
 
     function getBudgetDetails(site_code) {
         $('#tableGetBudgetDetails tbody').empty();
+        $(".errorMessageContainerBudgetDetails").hide();
 
         $.ajaxSetup({
             headers: {
@@ -44,7 +45,6 @@
             url: '{!! route("getBudget") !!}?site_code=' + site_code,
             success: function(data) {
                 $(".loadingBudgetDetails").hide();
-                $(".errorMessageContainerBudgetDetails").hide();
 
                 let tbody = $('#tableGetBudgetDetails tbody');
                 tbody.empty();
