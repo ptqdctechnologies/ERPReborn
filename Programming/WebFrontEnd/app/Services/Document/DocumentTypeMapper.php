@@ -226,7 +226,7 @@ class DocumentTypeMapper
                 'components'    => [
                     'detail'        => 'Components.LoanSettlementDetailDocument',
                     'table'         => 'Components.LoanSettlementDetailDocumentTable',
-                    'additional'    => 'Components.LoanSettlementAddtionalDocument'
+                    // 'additional'    => 'Components.LoanSettlementAddtionalDocument'
                 ],
                 'resubmit'      => [
                     'url'       => '',
@@ -346,7 +346,11 @@ class DocumentTypeMapper
                     'dateUpdate'            => $dataDetail['dateUpdate'] ?? null,
                     'purchaseOrderRefID'    => $dataDetail['purchaseOrder_RefID'] ?? '-',
                     'poNumber'              => $dataDetail['documentNumber'] ?? '-',
-                    'deliveryTo'            => $dataDetail['deliveryTo_NonRefID']['address'] ?? '-',
+                    'budgetCode'            => $dataDetail['combinedBudgetCode'] ?? null,
+                    'budgetName'            => $dataDetail['combinedBudgetName'] ?? null,
+                    'subBudgetCode'         => $dataDetail['combinedBudgetSectionCode'] ?? null,
+                    'subBudgetName'         => $dataDetail['combinedBudgetSectionName'] ?? null,
+                    'deliveryTo'            => $dataDetail['deliveryTo_NonRefID']['Address'] ?? '-',
                     'downPayment'           => $dataDetail['downPayment'] ?? '-',
                     'termOfPayment'         => $dataDetail['termOfPaymentName'] ?? '-',
                     'fileID'                => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,
@@ -355,6 +359,8 @@ class DocumentTypeMapper
                     'supplierAddress'       => $dataDetail['supplierAddress'] ?? '',
                     'paymentNote'           => $dataDetail['paymentNotes'] ?? '-',
                     'internalNote'          => $dataDetail['internalNotes'] ?? '-',
+                    'ppn'                   => $dataDetail['vatRatio'] ?? '-',
+                    'totalPPN'              => $dataDetail['tariffCurrencyValue'] ?? '-',
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',
@@ -478,7 +484,7 @@ class DocumentTypeMapper
                     'date'                  => $dataDetail['date'] ?? '-',
                     'dateUpdate'            => $dataDetail['dateUpdate'] ?? null,
                     'mrNumber'              => $dataDetail['businessDocumentNumber'] ?? '-',
-                    'doNumber'              => '-',
+                    'doNumber'              => $dataDetail['deliveryOrderNumber'] ?? '-',
                     'deliveryFrom'          => $dataDetail['deliveryFrom_NonRefID']['Address'] ?? '-',
                     'deliveryTo'            => $dataDetail['deliveryTo_NonRefID']['Address'] ?? '-',
                     'fileID'                => $dataDetail['log_FileUpload_Pointer_RefID'] ?? null,

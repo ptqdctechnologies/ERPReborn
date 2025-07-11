@@ -9,6 +9,28 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class PurchaseRequisitionService
 {
+    public function getDetail($purchaseRequisitionRefID)
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken, 
+            'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail', 
+            'latest', 
+            [
+            'parameter' => [
+                'purchaseRequisition_RefID' => (int) $purchaseRequisitionRefID
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
+    }
     public function create(Request $request): array
     {
         $sessionToken   = Session::get('SessionLogin');

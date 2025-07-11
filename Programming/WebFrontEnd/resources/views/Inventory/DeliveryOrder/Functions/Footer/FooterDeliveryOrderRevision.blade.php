@@ -56,7 +56,7 @@
             dataStore.push({
                 recordID: parseInt(val2.deliveryOrderDetail_ID),
                 entities: {
-                    referenceDocument_RefID: parseInt(85000000000105), // DISINI
+                    referenceDocument_RefID: parseInt(val2.referenceDocument_RefID),
                     quantity: parseFloat(val2.qtyReq.replace(/,/g, '')),
                     quantityUnit_RefID: parseInt(val2.quantityUnit_RefID),
                     remarks: val2.notes,
@@ -70,7 +70,7 @@
             let row = `
                 <tr>
                     <input id="record_RefID${key}" value="${val2.deliveryOrderDetail_ID}" type="hidden" />
-                    <input id="referenceDocument_RefID${key}" value="85000000000105" type="hidden" />
+                    <input id="referenceDocument_RefID${key}" value="${val2.referenceDocument_RefID}" type="hidden" />
                     <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
                     <input id="underlyingDetail_RefID${key}" value="${val2.underlyingDetail_RefID}" type="hidden" />
                     <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
@@ -79,7 +79,7 @@
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.productName || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.quantityUnitName || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.quantity || '-'}</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.quantity || '-'}</td>
+                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.qtyAvail || '-'}</td>
                     <td style="border:1px solid #e9ecef;background-color:white; padding: 0.5rem !important; width: 100px;">
                         <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-quantity=${val2.qtyReq || 0} autocomplete="off" value=${val2.qtyReq || 0} style="border-radius:0px;" />
                     </td>
@@ -97,9 +97,9 @@
             $(`#qty_req${key}`).on('keyup', function() {
                 var qty_req = $(this).val().replace(/,/g, '');
                 var data_index = $(this).data('index');
-                var result = val2.quantity - qty_req;
+                var result = val2.qtyAvail - qty_req;
 
-                if (qty_req > val2.quantity) {
+                if (qty_req > val2.qtyAvail) {
                     $(this).val("");
                     $(`#balance${data_index}`).val("");
                     ErrorNotif("Qty Request is over Qty Avail !");
@@ -117,7 +117,6 @@
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName || ''}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">-</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.qtyReq || ''}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.notes || ''}</td>
                 </tr>
@@ -212,8 +211,8 @@
         if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
 
         const qtyAvail  = row.children[1];
-        const qtyCell   = row.children[6];
-        const noteCell  = row.children[7];
+        const qtyCell   = row.children[5];
+        const noteCell  = row.children[6];
 
         if (row.classList.contains('editing-row')) {
             const newQty    = qtyCell.querySelector('input')?.value || '';
@@ -312,8 +311,8 @@
                     const recordID = targetRow.children[0].value.trim();
 
                     if (recordID == recordRefID.value) {
-                        targetRow.children[6].innerText = currencyTotal(qty);
-                        targetRow.children[7].innerText = note;
+                        targetRow.children[5].innerText = currencyTotal(qty);
+                        targetRow.children[6].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
@@ -321,7 +320,7 @@
                             dataStore[indexToUpdate] = {
                                 recordID: parseInt(recordRefID.value),
                                 entities: {
-                                    referenceDocument_RefID: parseInt(referenceDocumentRefID.value), // DISINI
+                                    referenceDocument_RefID: parseInt(referenceDocumentRefID.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
                                     quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                                     remarks: note,
@@ -353,7 +352,7 @@
                     dataStore.push({
                         recordID: parseInt(recordRefID.value),
                         entities: {
-                            referenceDocument_RefID: parseInt(referenceDocumentRefID.value), // DISINI
+                            referenceDocument_RefID: parseInt(referenceDocumentRefID.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
                             quantityUnit_RefID: parseInt(quantityUnitRefID.value),
                             remarks: note,

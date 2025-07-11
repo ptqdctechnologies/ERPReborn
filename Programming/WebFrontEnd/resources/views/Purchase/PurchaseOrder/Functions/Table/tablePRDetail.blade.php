@@ -6,7 +6,7 @@
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Code</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty PR</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty Available</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty Avail</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">UOM</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Unit Price</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
@@ -15,7 +15,7 @@
                 <th class="sticky-col forth-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price Req</th>
                 <th class="sticky-col third-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>
                 <th class="sticky-col second-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Balance</th>
-                <th class="sticky-col first-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Notes</th>
+                <th class="sticky-col first-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Note</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -49,7 +49,7 @@
             <div class="form-group">
                 <table>
                     <tr>
-                        <td><label>PPN</label></td>
+                        <td><label>VAT</label></td>
                         <td style="border:1px solid #e9ecef;">
                             <select name="ppn" id="ppn" style="border-radius:0;" type="text" class="form-control">
                                 <option value="No">No</option>
@@ -64,7 +64,7 @@
             <div class="form-group">
                 <table>
                     <tr>
-                        <td><label>PPN(%)</label></td>
+                        <td><label>VAT(%)</label></td>
                         <td id="containerLoadingPPN">
                             <div class="d-flex flex-column justify-content-center py-3">
                                 <div class="spinner-border spinner-border-sm" role="status">
@@ -75,7 +75,7 @@
                         <td id="containerSelectPPN" style="border:1px solid #e9ecef;">
                             <input hidden id="vatOptionValue" style="width: 20%;" />
                             <select name="vatValue" id="vatOption" style="border-radius:0;" class="form-control" onChange="calculateTotal();">
-                                <option disabled selected>Select a PPN</option>
+                                <option disabled selected>Select a VAT</option>
                             </select>
                         </td>
                     </tr>
@@ -91,10 +91,10 @@
             <th style="position: relative;right:20px;"> Total Request: <span id="TotalBudgetSelected">0.00</span></th>
         </tr>
         <tr>
-            <th style="position: relative;right:20px;"> PPN: <span id="TotalPpn">0.00</span></th>
+            <th style="position: relative;right:20px;"> VAT: <span id="TotalPpn">0.00</span></th>
         </tr>
         <tr>
-            <th style="position: relative;right:20px;"> Total Request + PPN: <span id="TotalBudgetSelectedPpn">0.00</span></th>
+            <th style="position: relative;right:20px;"> Total Request + VAT: <span id="TotalBudgetSelectedPpn">0.00</span></th>
         </tr>
         <tr>
             <td>

@@ -74,13 +74,13 @@
                                 <input id="product_code${key}" value="${val2.productCode}" type="hidden" />
                                 <input id="product_name${key}" value="${val2.productName}" type="hidden" />
                                 <input id="qty_do${key}" value="${val2.qtyReq}" type="hidden" />
-                                <input id="qty_available${key}" value="${val2.qtyReq}" type="hidden" />
+                                <input id="qty_available${key}" value="${val2.qtyAvail}" type="hidden" />
                                 <input id="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
 
                                 <td style="text-align: center;">${val2.productCode}</td>
                                 <td style="text-align: center;text-wrap: auto;">${val2.productName}</td>
                                 <td style="text-align: center;">${val2.qtyReq}</td>
-                                <td style="text-align: center;">${val2.qtyReq}</td>
+                                <td style="text-align: center;">${val2.qtyAvail}</td>
                                 <td style="text-align: center;">${val2.quantityUnitName}</td>
                                 <td style="text-align: center; width: 100px;">
                                     <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-default="" autocomplete="off" style="border-radius:0px;" />
@@ -100,6 +100,7 @@
 
                             if (parseFloat(qty_req) > val2.qtyReq) {
                                 $(this).val("");
+                                calculateTotal();
                                 ErrorNotif("Qty Request is over Qty Avail !");
                             } else {
                                 calculateTotal();
@@ -214,7 +215,7 @@
         let total = 0;
         const rows = document.querySelectorAll('#tableMaterialReceiveList tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[5];
+            const totalCell = row.children[4];
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
             total += value;
         });

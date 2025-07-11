@@ -24,10 +24,15 @@
 
         total = Math.ceil(total * 100) / 100;
 
-        document.getElementById('TotalBudgetSelected').textContent = currencyTotal(total);
+        document.getElementById('TotalBudgetSelected').textContent = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
     }
 
     function getBudgetDetails(site_code) {
+        $('#tableGetBudgetDetails tbody').empty();
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -39,7 +44,6 @@
             url: '{!! route("getBudget") !!}?site_code=' + site_code,
             success: function(data) {
                 $(".loadingBudgetDetails").hide();
-                $('#tableGetBudgetDetails tbody').empty();
                 $(".errorMessageContainerBudgetDetails").hide();
 
                 let tbody = $('#tableGetBudgetDetails tbody');

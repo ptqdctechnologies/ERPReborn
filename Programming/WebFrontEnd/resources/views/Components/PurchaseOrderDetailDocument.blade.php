@@ -10,14 +10,34 @@
                 : <?= $dataHeader['poNumber']; ?>
             </div>
         </div>
-        
-        <!-- DELIVERY TO -->
+
+        <!-- BUDGET -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
-                Delivery To
+                Budget
             </div>
             <div class="col">
-                : <?= $dataHeader['deliveryTo']; ?>
+                : <?= $dataHeader['budgetCode'] . " - " . $dataHeader['budgetName']; ?>
+            </div>
+        </div>
+
+        <!-- SUB BUDGET -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                Sub Budget
+            </div>
+            <div class="col">
+                : <?= $dataHeader['subBudgetCode'] . " - " . $dataHeader['subBudgetName']; ?>
+            </div>
+        </div>
+
+        <!-- VAT -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                VAT
+            </div>
+            <div class="col">
+                : <?= $dataHeader['ppn']; ?>
             </div>
         </div>
         
@@ -98,6 +118,16 @@
                     : 0
                 </div>
             <?php } ?>
+        </div>
+
+        <!-- DELIVERY TO -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-6 col-lg-4 text-bold">
+                Delivery To
+            </div>
+            <div class="col">
+                : <?= $dataHeader['deliveryTo']; ?>
+            </div>
         </div>
 
         <!-- SUPPLIER -->

@@ -9,6 +9,29 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class DeliveryOrderService
 {
+    public function getDetail($deliveryOrderID) 
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'deliveryOrder_RefID' => (int) $deliveryOrderID
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+    }
+
     public function create(Request $request): array
     {
         $sessionToken                       = Session::get('SessionLogin');

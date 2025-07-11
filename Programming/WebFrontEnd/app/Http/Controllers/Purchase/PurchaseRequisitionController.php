@@ -676,35 +676,18 @@ class PurchaseRequisitionController extends Controller
 
     public function RevisionPurchaseRequest(Request $request)
     {
-        $varAPIWebToken             = $request->session()->get('SessionLogin');
-        $purchaseRequisition_RefID  = $request->modal_purchase_requisition_id;
         $request->session()->forget("SessionPurchaseRequisition");
 
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail', 
-            'latest', 
-            [
-            'parameter' => [
-                'purchaseRequisition_RefID' => (int) $purchaseRequisition_RefID
-                ],
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-        );
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $response       = $this->purchaseRequisitionService->getDetail($request->modal_purchase_requisition_id);
 
-        if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-            return response()->json($varData);
+        if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json($response);
         }
 
-        $data = $varData['data']['data'];
+        $data = $response['data']['data'];
 
-        dump($data);
+        // dump($data);
 
         $convertDate = new DateTime($data[0]['deliveryDateTimeTZ']);
 

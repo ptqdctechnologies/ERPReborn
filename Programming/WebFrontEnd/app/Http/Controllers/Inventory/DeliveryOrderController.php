@@ -80,39 +80,6 @@ class DeliveryOrderController extends Controller
     public function updates(Request $request)
     {
         try {
-            // $varAPIWebToken                     = Session::get('SessionLogin');
-            // $SessionWorkerCareerInternal_RefID  = Session::get('SessionWorkerCareerInternal_RefID');
-            // $revisionDeliveryOrderData          = $request->all();
-            // $deliveryOrderDetail                = json_decode($revisionDeliveryOrderData['storeData']['deliveryOrderDetail'], true);
-            // $fileID                             = $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] ? (int) $revisionDeliveryOrderData['storeData']['dataInput_Log_FileUpload_1'] : null;
-
-            // $varData = Helper_APICall::setCallAPIGateway(
-            //     Helper_Environment::getUserSessionID_System(),
-            //     $varAPIWebToken,
-            //     'transaction.update.supplyChain.setDeliveryOrder',
-            //     'latest',
-            //     [
-            //     'recordID' => (int) $revisionDeliveryOrderData['storeData']['do_id'],
-            //     'entities' => [
-            //         "documentDateTimeTZ"                => date('Y-m-d'),
-            //         "log_FileUpload_Pointer_RefID"      => $fileID,
-            //         "requesterWorkerJobsPosition_RefID" => (int) $SessionWorkerCareerInternal_RefID,
-            //         "transporter_RefID"                 => (int) $revisionDeliveryOrderData['storeData']['transporter_id'],
-            //         "deliveryDateTimeTZ"                => null,
-            //         "deliveryFrom_RefID"                => null,
-            //         "deliveryFrom_NonRefID"             => $revisionDeliveryOrderData['storeData']['delivery_from'],
-            //         "deliveryTo_RefID"                  => null,
-            //         "deliveryTo_NonRefID"               => $revisionDeliveryOrderData['storeData']['delivery_to'],
-            //         "remarks"                           => $revisionDeliveryOrderData['storeData']['var_remark'],
-            //         "additionalData"    => [
-            //             "itemList"      => [
-            //                 "items"     => $deliveryOrderDetail
-            //                 ]
-            //             ]
-            //         ]
-            //     ]
-            // );
-
             $response = $this->deliveryOrderService->updates($request);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
@@ -589,33 +556,14 @@ class DeliveryOrderController extends Controller
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $do_RefID       = $request->do_RefID;
 
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
-                'latest',
-                [
-                    'parameter' => [
-                        'deliveryOrder_RefID' => (int) $do_RefID
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ]
-            );
+            $response = $this->deliveryOrderService->getDetail($request->do_RefID);
 
-            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($varData);
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
             }
 
-            $data = $varData['data']['data'];
-
-            // dump($data);
+            $data = $response['data']['data'];
 
             $compact = [
                 'varAPIWebToken'                => $varAPIWebToken,
@@ -645,8 +593,6 @@ class DeliveryOrderController extends Controller
                 ],
                 'data'                          => $data
             ];
-
-            // dump($data);
 
             return view('Inventory.DeliveryOrder.Transactions.RevisionDeliveryOrder', $compact);
         } catch (\Throwable $th) {

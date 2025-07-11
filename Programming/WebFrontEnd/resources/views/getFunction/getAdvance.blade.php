@@ -69,7 +69,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        
+
         var keys = 0;
         $.ajax({
             type: 'GET',

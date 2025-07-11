@@ -32,37 +32,45 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="card">
                             <div id="container">
-                                <div class="table-responsive table-height">
-                                    <table class="table table-bordered table-striped table-hover table-sticky table-sm">
+                                <div class="wrapper-budget card-body table-responsive p-0 table-height">
+                                    <table class="table table-striped table-hover table-sticky table-sm">
                                         <thead>
                                             <tr>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Product Code</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Product Name</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> UOM</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2"> Qty</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">Price</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">Total</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">VAT</th>
-                                                <th style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;" class="text-center" rowspan="2">Total With VAT</th>
-                                                @if(sizeof($dataDetail))
-                                                    @for($i = 1; $i < count($dataDetail[0]); $i++) 
-                                                        <th colspan="5" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">
-                                                            Rev {{ $i }} - {{ $dataHeader[$i]['submitterWorkerName'] }} <br /> ( {{ date('Y-m-d', strtotime($dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ'])) }} {{ date('H:i', strtotime($dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ'])) }}  )
+                                                @if(sizeof($dataHeader))
+                                                    @for($i = 0; $i < (count($dataHeader) - 1); $i++) 
+                                                        <?php $entryDateTime = $dataHeader[$i]['content']['sys_Data_Entry_DateTimeTZ']; $editDateTime = $dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ']; ?>
+
+                                                        @if ($i === 0)
+                                                            <th class="text-center" colspan="9" style="vertical-align: middle;left: 0px;z-index: 10;line-height: normal;">
+                                                                Actual - {{ $dataHeader[count($dataHeader) - 1]['submitterWorkerName'] }} <br />( {{ date('Y-m-d', strtotime($dataHeader[count($dataHeader) - 1]['content']['sys_Data_Edit_DateTimeTZ'])) }} {{ date('H:i', strtotime($dataHeader[count($dataHeader) - 1]['content']['sys_Data_Edit_DateTimeTZ'])) }} )
+                                                            </th>
+                                                        @endif
+
+                                                        <th class="text-center" colspan="4" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;line-height: normal;vertical-align: middle;">
+                                                            {{ !empty($editDateTime) ? 'Rev ' . $i : 'Original' }} - {{ $dataHeader[$i]['submitterWorkerName'] }} <br /> ( {{ !empty($editDateTime) ? date('Y-m-d', strtotime($editDateTime)) . " " . date('H:i', strtotime($editDateTime)) : date('Y-m-d', strtotime($entryDateTime)) . " " . date('H:i', strtotime($entryDateTime)) }} )
                                                         </th>
                                                     @endfor
                                                 @endif
                                             </tr>
                                             @if(sizeof($dataDetail))
                                             <tr>
+                                                <th class="text-center" style="vertical-align: middle;width: 125px;min-width: 125px;max-width: 125px;left: 0px;z-index: 10;" rowspan="2">PR Number</th>
+                                                <th class="text-center" style="vertical-align: middle;width: 125px;min-width: 125px;max-width: 125px;left: 125px;z-index: 10;" rowspan="2">Product Code</th>
+                                                <th class="text-center" style="vertical-align: middle;width: 125px;min-width: 125px;max-width: 125px;left: 250px;z-index: 10;" rowspan="2">Product Name</th>
+                                                <th class="text-center" style="vertical-align: middle;width: 125px;min-width: 125px;max-width: 125px;left: 375px;z-index: 10;" rowspan="2">UOM</th>
+                                                <th class="text-center" style="vertical-align: middle;width: 125px;min-width: 125px;max-width: 125px;left: 500px;z-index: 10;" rowspan="2">Currency</th>
+                                                <th class="text-center" style="vertical-align: middle;width: 125px;min-width: 125px;max-width: 125px;left: 625px;z-index: 10;" rowspan="2">Qty</th>
+                                                <th class="text-center" style="vertical-align: middle;width: 125px;min-width: 125px;max-width: 125px;left: 750px;z-index: 10;" rowspan="2">Price</th>
+                                                <th class="text-center" style="vertical-align: middle;width: 125px;min-width: 125px;max-width: 125px;left: 875px;z-index: 10;" rowspan="2">Total</th>
+                                                <th class="text-center" style="vertical-align: middle;width: 125px;min-width: 125px;max-width: 125px;left: 1000px;z-index: 10;" rowspan="2">Note</th>
+
                                                 @for($i = 1; $i < count($dataDetail[0]); $i++) 
-                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;"> Qty</th>
-                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;"> Price</th>
-                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;"> Total</th>
-                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;"> VAT</th>
-                                                    <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;"> Total With VAT</th>
+                                                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Qty</th>
+                                                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Price</th>
+                                                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Total</th>
+                                                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Note</th>
                                                 @endfor
                                             </tr>
                                             @endif
@@ -71,21 +79,25 @@
                                         <tbody>
                                             @if(sizeof($dataDetail))
                                                 @for($i = 0; $i < count($dataDetail); $i++) 
+                                                    <?php $quantity = $dataDetail[$i][count($dataDetail[$i]) - 1]['content']['quantity']; $price = $dataDetail[$i][count($dataDetail[$i]) - 1]['content']['productUnitPriceCurrencyValue']; ?>
                                                     <tr>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['sys_RPK'] }}</td>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['productName'] }}</td>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['quantityUnitName'] }}</td>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['quantity'] }}</td>
-                                                        <td style="padding: 8px;">{{ $dataDetail[$i][0]['content']['productUnitPriceCurrencyValue'] }}</td>
-                                                        <td style="padding: 8px;">-</td>
-                                                        <td style="padding: 8px;">-</td>
-                                                        <td style="padding: 8px;">-</td>
-                                                        @for($n = 1; $n < count($dataDetail[$i]); $n++) 
-                                                            <td style="padding: 8px;">{{ $dataDetail[$i][$n]['content']['quantity'] }}</td>
-                                                            <td style="padding: 8px;">{{ $dataDetail[$i][$n]['content']['productUnitPriceCurrencyValue'] }}</td>
-                                                            <td style="padding: 8px;">-</td>
-                                                            <td style="padding: 8px;">-</td>
-                                                            <td style="padding: 8px;">-</td>
+                                                        <td style="padding: 8px;width: 125px;min-width: 125px;max-width: 125px;position: sticky;background-color: white;left: 0px;z-index: 10;">-</td>
+                                                        <td style="padding: 8px;width: 125px;min-width: 125px;max-width: 125px;position: sticky;background-color: white;left: 125px;z-index: 10;">-</td>
+                                                        <td style="padding: 8px;width: 125px;min-width: 125px;max-width: 125px;position: sticky;background-color: white;left: 250px;z-index: 10;">-</td>
+                                                        <td style="padding: 8px;width: 125px;min-width: 125px;max-width: 125px;position: sticky;background-color: white;left: 375px;z-index: 10;">{{ $dataDetail[$i][count($dataDetail[$i]) - 1]['quantityUnitName'] }}</td>
+                                                        <td style="padding: 8px;width: 125px;min-width: 125px;max-width: 125px;position: sticky;background-color: white;left: 500px;z-index: 10;">-</td>
+                                                        <td style="padding: 8px;width: 125px;min-width: 125px;max-width: 125px;position: sticky;background-color: white;left: 625px;z-index: 10;">{{ number_format($quantity, 2) }}</td>
+                                                        <td style="padding: 8px;width: 125px;min-width: 125px;max-width: 125px;position: sticky;background-color: white;left: 750px;z-index: 10;">{{ number_format($price, 2) }}</td>
+                                                        <td style="padding: 8px;width: 125px;min-width: 125px;max-width: 125px;position: sticky;background-color: white;left: 875px;z-index: 10;">{{ number_format($quantity * $price, 2) }}</td>
+                                                        <td style="padding: 8px;width: 125px;min-width: 125px;max-width: 125px;position: sticky;background-color: white;left: 1000px;z-index: 10;">{{ $dataDetail[$i][count($dataDetail[$i]) - 1]['content']['remarks'] }}</td>
+
+                                                        @for($n = 0; $n < (count($dataDetail[$i]) - 1); $n++)
+                                                            <?php $quantities = $dataDetail[$i][$n]['content']['quantity']; $prices = $dataDetail[$i][$n]['content']['productUnitPriceCurrencyValue']; ?>
+
+                                                            <td style="padding: 8px;">{{ number_format($quantities, 2) }}</td>
+                                                            <td style="padding: 8px;">{{ number_format($prices, 2) }}</td>
+                                                            <td style="padding: 8px;">{{ number_format($quantities * $prices, 2) }}</td>
+                                                            <td style="padding: 8px;">{{ $dataDetail[$i][$n]['content']['remarks'] }}</td>
                                                         @endfor
                                                     </tr>
                                                 @endfor
@@ -98,38 +110,75 @@
                         <br><br>
                         <div class="card">
                             <div id="container">
-                                <div class="table-responsive table-height">
-                                    <table class="table table-bordered table-striped table-hover table-sticky table-sm">
+                                <div class="wrapper-budget card-body table-responsive p-0 table-height">
+                                    <table class="table table-striped table-hover table-sticky table-sm">
                                         <thead>
                                             <tr>
-                                                <th rowspan="2" style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;"> Requester</th>
-                                                <th rowspan="2" style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;"> Beneficiary</th>
-                                                <th rowspan="2" style="vertical-align: middle;border:1px solid #e9ecef;text-align: center;"> Note</th>
                                                 @if(sizeof($dataHeader))
-                                                    @for($i = 1; $i < count($dataHeader); $i++)
-                                                        <th colspan="3" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">
-                                                            Rev {{ $i }} - {{ $dataHeader[$i]['submitterWorkerName'] }} <br /> ( {{ date('Y-m-d', strtotime($dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ'])) }} {{ date('H:i', strtotime($dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ'])) }}  )
+                                                    @for($i = 0; $i < (count($dataHeader) - 1); $i++) 
+                                                        <?php $entryDateTime = $dataHeader[$i]['content']['sys_Data_Entry_DateTimeTZ']; $editDateTime = $dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ']; ?>
+
+                                                        @if ($i === 0)
+                                                            <th colspan="9" style="vertical-align: middle;left: 0px;z-index: 10;line-height: normal;" class="text-center">
+                                                                Actual - {{ $dataHeader[count($dataHeader) - 1]['submitterWorkerName'] }} <br /> ( {{ date('Y-m-d', strtotime($dataHeader[count($dataHeader) - 1]['content']['sys_Data_Edit_DateTimeTZ'])) }} {{ date('H:i', strtotime($dataHeader[count($dataHeader) - 1]['content']['sys_Data_Edit_DateTimeTZ'])) }} )
+                                                            </th>
+                                                        @endif
+
+                                                        <th colspan="9" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;line-height: normal;vertical-align: middle;">
+                                                            {{ !empty($editDateTime) ? 'Rev ' . $i : 'Original' }} - {{ $dataHeader[$i]['submitterWorkerName'] }} <br /> ( {{ !empty($editDateTime) ? date('Y-m-d', strtotime($editDateTime)) . " " . date('H:i', strtotime($editDateTime)) : date('Y-m-d', strtotime($entryDateTime)) . " " . date('H:i', strtotime($entryDateTime)) }} )
                                                         </th>
                                                     @endfor
                                                 @endif
                                             </tr>
                                             @if(sizeof($dataHeader))
-                                                <tr>
-                                                    @for($i = 1; $i < count($dataHeader); $i++)
-                                                        <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;top: 23px;"> Requester</th>
-                                                        <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;top: 23px;"> Beneficiary</th>
-                                                        <th class="text-center" style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;top: 23px;"> Note</th>
-                                                    @endfor
-                                                </tr>
+                                            <tr>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;text-wrap-mode: nowrap;">Delivery To</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 125px; z-index: 10;text-wrap-mode: nowrap;">Date of Delivery</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 250px; z-index: 10;">Supplier</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 375px; z-index: 10;">DP</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 500px; z-index: 10;">TOP</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 625px; z-index: 10;">PPN</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 750px; z-index: 10;text-wrap-mode: nowrap;">Payment Note</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 875px; z-index: 10;text-wrap-mode: nowrap;">Internal Note</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 1000px; z-index: 10;">Remark</th>
+
+                                                @for($i = 1; $i < count($dataHeader); $i++) 
+                                                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;text-wrap-mode: nowrap;">Delivery To</th>
+                                                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;text-wrap-mode: nowrap;">Date of Delivery</th>
+                                                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Supplier</th>
+                                                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">DP</th>
+                                                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">TOP</th>
+                                                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">PPN</th>
+                                                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;text-wrap-mode: nowrap;">Payment Note</th>
+                                                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;text-wrap-mode: nowrap;">Internal Note</th>
+                                                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Remark</th>
+                                                @endfor
+                                            </tr>
                                             @endif
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 0px; z-index: 10;"><?= $dataHeader[count($dataHeader) - 1]['beneficiaryWorkerName']; ?></td>
+                                                <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 125px; z-index: 10;"><?= $dataHeader[count($dataHeader) - 1]['requesterWorkerName']; ?></td>
+                                                <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 250px; z-index: 10;"><?= $dataHeader[count($dataHeader) - 1]['beneficiaryWorkerName']; ?></td>
+                                                <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 375px; z-index: 10;"><?= $dataHeader[count($dataHeader) - 1]['requesterWorkerName']; ?></td>
+                                                <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 500px; z-index: 10;"><?= $dataHeader[count($dataHeader) - 1]['beneficiaryWorkerName']; ?></td>
+                                                <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 625px; z-index: 10;"><?= $dataHeader[count($dataHeader) - 1]['requesterWorkerName']; ?></td>
+                                                <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 750px; z-index: 10;"><?= $dataHeader[count($dataHeader) - 1]['beneficiaryWorkerName']; ?></td>
+                                                <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 875px; z-index: 10;"><?= $dataHeader[count($dataHeader) - 1]['beneficiaryWorkerName']; ?></td>
+                                                <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 1000px; z-index: 10;"><?= $dataHeader[count($dataHeader) - 1]['content']['remarks']; ?></td>
+
                                                 @if(sizeof($dataHeader))
-                                                    @foreach($dataHeader as $dataHeaders)
-                                                        <td style="padding: 8px;">{{ $dataHeaders['requesterWorkerName'] ?? '-' }}</td>
-                                                        <td style="padding: 8px;">{{ $dataHeaders['beneficiaryWorkerName'] ?? '-' }}</td>
-                                                        <td style="padding: 8px;">{{ $dataHeaders['content']['remarks'] ?? '-' }}</td>
+                                                    @foreach(array_slice($dataHeader, 0, count($dataHeader) - 1) as $dataHeaders)
+                                                        <td style="padding: 8px;">{{ $dataHeaders['beneficiaryWorkerName'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataHeaders['requesterWorkerName'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataHeaders['beneficiaryWorkerName'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataHeaders['requesterWorkerName'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataHeaders['beneficiaryWorkerName'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataHeaders['requesterWorkerName'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataHeaders['beneficiaryWorkerName'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataHeaders['beneficiaryWorkerName'] }}</td>
+                                                        <td style="padding: 8px;">{{ $dataHeaders['content']['remarks'] }}</td>
                                                     @endforeach
                                                 @endif
                                             </tr>
@@ -144,3 +193,4 @@
         </div>
     </div>
 </section>
+@endsection
