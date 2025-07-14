@@ -92,4 +92,7 @@ if [ ! -f /zhtConf/tmp/processSign/.initialized ]; then
    samba-tool user delete marungkil;
    samba-tool user add marungkil marungkil1234;
 
+   samba-tool user delete marbun;
+   samba-tool user add marbun marbun1234;
+
 fi
