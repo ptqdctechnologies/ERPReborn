@@ -56,6 +56,7 @@ class CheckDocumentController extends Controller
 
             if (
                 $documentType === 'DO From Internal Use' ||
+                $documentType === 'DO From Stock Movement' ||
                 $documentType === 'Loan Form' ||
                 $documentType === 'Loan Settlement Form' ||
                 $documentType === 'Modify Budget Form' ||
@@ -234,7 +235,7 @@ class CheckDocumentController extends Controller
                 'dataDetails'               => $collection['dataDetail']
             ] + $formatData;
 
-            // dump($compact);
+            // dd($compact);
 
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } catch (\Throwable $th) {
