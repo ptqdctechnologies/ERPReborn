@@ -47,8 +47,8 @@ if [ ! -f /zhtConf/tmp/processSign/.initialized ]; then
    samba-tool user delete ferdian;
    samba-tool user add ferdian ferdian1234;
 
-   samba-tool user delete redi.subekti;
-   samba-tool user add redi.subekti redi1234;
+   samba-tool user delete redi;
+   samba-tool user add redi redi1234;
  
    samba-tool user delete restu;
    samba-tool user add restu restu1234;
