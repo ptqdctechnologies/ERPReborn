@@ -92,22 +92,22 @@
                 </a>
 
                 <!-- REJECT -->
-                <a onclick="RejectButton({{ $businessDocument_RefID }}, {{ $dataWorkFlows[0]['approverEntity_RefID'] }})" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                <a onclick="RejectButton({{ $businessDocument_RefID }}, {{ $dataWorkFlows[0]['approverEntity_RefID'] }})" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right:10px;">
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Reject"> Reject
                 </a>
               <?php } ?>
 
               <?php if ($statusApprover == "RESUBMIT") { ?>
                 <!-- RESUBMIT -->
-                <button class="btn btn-default btn-sm btn-resubmit" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                <button class="btn btn-default btn-sm btn-resubmit" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right:10px;">
                   <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Resubmit" /> Resubmit
                 </button>
-
-                <!-- CANCEL -->
-                <a href="/MyDocument" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                  <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel"> Cancel
-                </a>
               <?php } ?>
+
+              <!-- CANCEL -->
+              <a href="/MyDocument" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                <img src="{{ asset('images/Icon/Pagination/Previous-300-32.png') }}" width="13" alt="" title="Cancel"> Cancel
+              </a>
             </div>
 
             <!-- APPROVAL HISTORY -->
