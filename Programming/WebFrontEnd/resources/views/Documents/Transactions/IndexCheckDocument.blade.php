@@ -23,16 +23,16 @@
       <div class="card" style="position:relative;bottom:10px;">
         <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
           <!-- BUTTON VIEW DOCUMENT TRANSACTION -->
-          <div class="row">
+          {{-- <div class="row">
             <div class="card ViewDocument" style="background-color:#e9ecef;border:1px solid #ced4da;margin-left:10px;">
               <a class="btn btn-default btn-sm">
                 View Document Transaction
               </a>
             </div>
-          </div>
+          </div> --}}
 
           <div class="row">
-            @include('Documents.Transactions.DocumentWorkflow')
+            {{-- @include('Documents.Transactions.DocumentWorkflow') --}}
 
             <!-- HEADER -->
             <div class="col-12 ShowDocumentList">

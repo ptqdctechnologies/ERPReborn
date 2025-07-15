@@ -19,7 +19,7 @@
       </div>
 
       <!-- PURCHASE ORDER -->
-      <div class="row purchase-order-components" style="display: none;">
+      <div class="row purchase-order-components" style="display: none;margin-bottom: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           PO Number
         </label>
@@ -34,6 +34,18 @@
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="referenceNumberTrigger">
               </a>
             </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PURCHASE ORDER - BUDGET -->
+      <div class="row purchase-order-components" style="display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+          Budget
+        </label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div>
+            <input id="budget_value" style="border-radius:0;" size="24" class="form-control" readonly>
           </div>
         </div>
       </div>

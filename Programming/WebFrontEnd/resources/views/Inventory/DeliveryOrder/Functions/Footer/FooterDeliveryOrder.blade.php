@@ -76,6 +76,8 @@
 
                 $(".loadingReferenceNumberDetail").hide();
 
+                $("#budget_value").val(`${data[0]['combinedBudgetCode']} - ${data[0]['combinedBudgetName']}`);
+
                 $("#delivery_fromDuplicate").val(deliveryFroms);
                 $("#delivery_from").val(deliveryFroms);
                 $("#deliveryFromDuplicate_RefID").val(data[0]['supplier_RefID']);

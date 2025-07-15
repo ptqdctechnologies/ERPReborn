@@ -85,7 +85,7 @@
                 </div>
             <?php } else { ?>
                 <div class="col">
-                    : 0
+                    : -
                 </div>
             <?php } ?>
         </div>

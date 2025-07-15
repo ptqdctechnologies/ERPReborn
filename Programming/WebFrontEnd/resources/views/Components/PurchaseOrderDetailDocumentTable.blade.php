@@ -20,7 +20,7 @@
                 <?php foreach ($dataDetails as $dataDetail) { ?>
                 <?php $grand_total += $dataDetail['quantityUnitPrice'] * $dataDetail['quantity'];  ?>
                     <tr>
-                        <td style="border:1px solid #4B586A;color:#4B586A;"><?= $no++; ?></td>
+                        <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $no++; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productCode'] ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['productName'] ?? '-'; ?></td>
                         <td style="border:1px solid #4B586A;color:#4B586A;"><?= $dataDetail['quantityUnitName'] ?? '-'; ?></td>
@@ -36,17 +36,6 @@
             <tfoot>
                 <tr>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="7">
-                        GRAND TOTAL
-                    </th>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">
-                        <span id="GrandTotal">
-                            <?= number_format($grand_total, 2); ?>
-                        </span>
-                    </td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;"></td>
-                </tr>
-                <tr>
-                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="7">
                         VAT
                     </th>
                     <td style="border:1px solid #4B586A;color:#4B586A;">
@@ -58,11 +47,11 @@
                 </tr>
                 <tr>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;" colspan="7">
-                        TOTAL
+                        GRAND TOTAL
                     </th>
                     <td style="border:1px solid #4B586A;color:#4B586A;">
                         <span id="GrandTotal">
-                            <?= number_format($grand_total + $dataHeader['totalPPN'], 2); ?>
+                            <?= number_format($grand_total, 2); ?>
                         </span>
                     </td>
                     <td style="border:1px solid #4B586A;color:#4B586A;"></td>

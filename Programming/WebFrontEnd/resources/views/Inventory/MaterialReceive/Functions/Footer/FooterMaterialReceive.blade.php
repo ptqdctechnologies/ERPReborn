@@ -76,6 +76,11 @@
                                 <input id="qty_do${key}" value="${val2.qtyReq}" type="hidden" />
                                 <input id="qty_available${key}" value="${val2.qtyAvail}" type="hidden" />
                                 <input id="uom${key}" value="${val2.quantityUnitName}" type="hidden" />
+                                <input id="product_RefID${key}" value="${val2.product_RefID}" type="hidden" />
+                                <input id="quantityUnit_RefID${key}" value="${val2.quantityUnit_RefID}" type="hidden" />
+                                <input id="productUnitPriceCurrency_RefID${key}" value="${val2.productUnitPriceCurrency_RefID}" type="hidden" />
+                                <input id="productUnitPriceCurrencyExchangeRate${key}" value="${val2.productUnitPriceCurrencyExchangeRate}" type="hidden" />
+                                <input id="productUnitPriceBaseCurrencyValue${key}" value="${val2.productUnitPriceBaseCurrencyValue}" type="hidden" />
 
                                 <td style="text-align: center;">${val2.productCode}</td>
                                 <td style="text-align: center;text-wrap: auto;">${val2.productName}</td>
@@ -240,9 +245,14 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const deliveryOrderDetail_RefID = row.querySelector('input[id^="delivery_order_detail_id"]');
-            const qtyInput                  = row.querySelector('input[id^="qty_req"]');
-            const noteInput                 = row.querySelector('textarea[id^="note"]');
+            const deliveryOrderDetail_RefID             = row.querySelector('input[id^="delivery_order_detail_id"]');
+            const product_RefID                         = row.querySelector('input[id^="product_RefID"]');
+            const quantityUnit_RefID                    = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const productUnitPriceCurrency_RefID        = row.querySelector('input[id^="productUnitPriceCurrency_RefID"]');
+            const productUnitPriceCurrencyExchangeRate  = row.querySelector('input[id^="productUnitPriceCurrencyExchangeRate"]');
+            const productUnitPriceBaseCurrencyValue     = row.querySelector('input[id^="productUnitPriceBaseCurrencyValue"]');
+            const qtyInput                              = row.querySelector('input[id^="qty_req"]');
+            const noteInput                             = row.querySelector('textarea[id^="note"]');
 
             if (
                 qtyInput && noteInput &&
@@ -256,6 +266,7 @@
                 const uom           = row.children[6].value.trim();
 
                 const qty   = qtyInput.value.trim();
+                const price = productUnitPriceBaseCurrencyValue.value.trim();
                 const note  = noteInput.value.trim();
 
                 let found           = false;
@@ -276,7 +287,12 @@
                                     deliveryOrderDetail_RefID: parseInt(deliveryOrderDetail_RefID.value),
                                     quantity: parseFloat(qty.replace(/,/g, '')),
                                     remarks: note,
-                                    productCode: productCode
+                                    productCode: productCode,
+                                    product_RefID: parseInt(product_RefID.value),
+                                    quantityUnit_RefID: parseInt(quantityUnit_RefID.value),
+                                    productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
+                                    productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
+                                    productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, ''))
                                 }
                             };
                         }
@@ -300,7 +316,12 @@
                             deliveryOrderDetail_RefID: parseInt(deliveryOrderDetail_RefID.value),
                             quantity: parseFloat(qty.replace(/,/g, '')),
                             remarks: note,
-                            productCode: productCode
+                            productCode: productCode,
+                            product_RefID: parseInt(product_RefID.value),
+                            quantityUnit_RefID: parseInt(quantityUnit_RefID.value),
+                            productUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
+                            productUnitPriceCurrencyExchangeRate: parseInt(productUnitPriceCurrencyExchangeRate.value),
+                            productUnitPriceCurrencyValue: parseFloat(price.replace(/,/g, ''))
                         }
                     });
                 }
@@ -513,5 +534,9 @@
 
         $(".loadingMaterialReceiveDetail").hide();
         $(".errorMessageContainerMaterialReceiveDetail").hide();
+
+        $('#startDate').datetimepicker({
+            format: 'L'
+        });
     });
 </script>
