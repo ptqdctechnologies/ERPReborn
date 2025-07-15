@@ -11,6 +11,16 @@
             </div>
         </div>
 
+        <!-- TYPE -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                Type
+            </div>
+            <div class="col">
+                : Internal Use
+            </div>
+        </div>
+
         <!-- BUDGET CODE -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
@@ -47,7 +57,7 @@
                 Delivery To
             </div>
             <div class="col">
-                : <?= $dataHeader['deliveryTo']; ?>
+                : Makariki, Kel Makariki, Kec Amahai, Kab Maluku Tengah, Maluku
             </div>
         </div>
         
@@ -102,7 +112,7 @@
                 </div>
             <?php } else { ?>
                 <div class="col">
-                    : 0
+                    : -
                 </div>
             <?php } ?>
         </div>
@@ -163,7 +173,7 @@
                 Trans. Address
             </div>
             <div class="col">
-                : <?= $dataHeader['transporterAddress']; ?>
+                : Jl. Cendrawasih Jl. Belakang Soya, Kelurahan Rijali, Kec. Sirimau, Kota Ambon, Maluku 97123
             </div>
         </div>
     </div>

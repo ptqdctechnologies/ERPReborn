@@ -222,7 +222,7 @@ class DocumentTypeMapper
                     'name'      => '',
                     'value'     => $dataDetail['deliveryOrder_RefID'] ?? ''
                 ],
-                'transactionType'        => 'DELIVERY ORDER FROM INTERNAL USE',
+                'transactionType'        => 'DELIVERY ORDER',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
             ],
             'DO From Stock Movement'   => [
@@ -258,7 +258,7 @@ class DocumentTypeMapper
                     'name'      => '',
                     'value'     => $dataDetail['deliveryOrder_RefID'] ?? ''
                 ],
-                'transactionType'        => 'DELIVERY ORDER FROM STOCK MOVEMENT',
+                'transactionType'        => 'DELIVERY ORDER',
                 'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
             ],
             'Loan Form' => [

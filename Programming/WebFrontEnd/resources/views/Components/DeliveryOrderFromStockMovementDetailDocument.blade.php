@@ -10,6 +10,16 @@
                 : <?= $transactionNumber; ?>
             </div>
         </div>
+
+        <!-- TYPE -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
+                Type
+            </div>
+            <div class="col">
+                : Stock Movement
+            </div>
+        </div>
         
         <!-- DELIVERY FROM -->
         <div class="row" style="margin-bottom: 1rem;">
@@ -82,7 +92,7 @@
                 </div>
             <?php } else { ?>
                 <div class="col">
-                    : 0
+                    : -
                 </div>
             <?php } ?>
         </div>
@@ -143,7 +153,7 @@
                 Trans. Address
             </div>
             <div class="col">
-                : <?= $dataHeader['transporterAddress']; ?>
+                : Jln. Cimone No. 515, Tangerang
             </div>
         </div>
     </div>

@@ -3,16 +3,20 @@
 
     if (sourceData.value == 1) {
         $(".ShowDocumentList").show();
-        $(".InternalNotes").show();
-        $(".FileAttachment").show();
-        $(".ApprovalHistory").show();
+        // $(".InternalNotes").show();
+        // $(".FileAttachment").show();
+        // $(".ApprovalHistory").show();
         $(".ViewDocument").hide();
         $(".DocumentWorkflow").hide();
     } else {
-        $(".ShowDocumentList").hide();
-        $(".InternalNotes").hide();
-        $(".FileAttachment").hide();
-        $(".ApprovalHistory").hide();
+        // $(".ShowDocumentList").hide();
+        // $(".InternalNotes").hide();
+        // $(".FileAttachment").hide();
+        // $(".ApprovalHistory").hide();
+    }
+
+    function showLoading() {
+        ShowLoading();
     }
 
     function getListDocumentType(params) {
