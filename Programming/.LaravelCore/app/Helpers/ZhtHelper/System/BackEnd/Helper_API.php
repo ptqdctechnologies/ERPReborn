@@ -1205,7 +1205,9 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                 'organizationalJobPosition_RefID' => $varData['OrganizationalJobPosition_RefID'],
                 'organizationalJobPositionName' => $varData['OrganizationalJobPositionName']
                 ];
-            return $varReturn;
+
+            return
+                $varReturn;
             }
         }
     }

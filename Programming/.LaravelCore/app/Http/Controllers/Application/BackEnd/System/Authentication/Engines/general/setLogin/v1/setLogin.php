@@ -75,7 +75,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set Login (version 1)');
+                $varSysDataProcess = 
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                        'Set Login (version 1)'
+                        );
+
                 try {
                     $varSignLoginSuccess = FALSE;
 
@@ -295,15 +299,17 @@ $varDataSend = [
                                     json_encode($varBranch),
                                     $varTTL
                                 );
-                            }
+                                }
 
                             $varDataBranch = json_decode(
                                 \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
                                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                                     "Branch" . $user_RefID
-                                ),
+                                    ),
                                 true
-                            );
+                                );
+
+
 
                             // 2
                             //GET REDIS BRANCH
@@ -318,7 +324,9 @@ $varDataSend = [
                                             $user_RefID,
                                             null
                                         );
-                                } else {
+                                    }
+                                else
+                                    {
                                     $varRole =
                                         (new \App\Models\Database\SchSysConfig\General())->getUserPrivilege_Role(
                                             $varUserSession,
@@ -326,7 +334,7 @@ $varDataSend = [
                                             $varDataBranch[0]['Sys_ID'],
                                             null,
                                         );
-                                }
+                                    }
 
                                 // //SET REDIS ROLE
 
@@ -337,6 +345,7 @@ $varDataSend = [
                                     $varTTL
                                 );
                             }
+
 
                             // 3
                             //DATA MENU
