@@ -12,7 +12,7 @@
             type: 'GET',
             url: '{!! route("getMenuGroup") !!}',
             success: function(data) {
-                data.forEach(function(item) {
+                data.data.forEach(function(item) {
                     var option = $('<option>', {
                         value: item.Sys_ID,
                         text: item.Name
@@ -39,12 +39,16 @@
     function loadSubMenu(selectedValue) {
         $('.spinner-sub-menu').show();
         $('.data-menu-management').hide();
-        
+
+        console.log('selectedValue', selectedValue);
+
         $.ajax({
             type: 'GET',
             url: '{!! route("getOneSubMenu") !!}',
             data: { selectedValue: selectedValue },
             success: function(data) {
+                console.log('data', data);
+                
                 var resultArray = Array.isArray(data) ? data : Object.values(data);
 
                 localMenuData = [];

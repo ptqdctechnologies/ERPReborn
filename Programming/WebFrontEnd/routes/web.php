@@ -67,7 +67,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Route::get('SessionCheckingEvent', 'Auth\LoginController@SessionCheckingEvent')->name('SessionCheckingEvent');
 
     // Workflow
-    
     Route::get('CheckingWorkflow', 'Controller@CheckingWorkflow')->name('CheckingWorkflow');
     Route::post('SelectWorkFlow', 'Controller@SelectWorkFlow')->name('SelectWorkFlow');
 
@@ -82,7 +81,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Product', 'Register\Product\ProductController');
 
     //Approval Document
-
     Route::get('ApprovalAccepted', 'Document\ApprovalDocumentController@ApprovalAccepted')->name('ApprovalDocument.ApprovalAccepted');
     Route::get('ApprovalRejected', 'Document\ApprovalDocumentController@ApprovalRejected')->name('ApprovalDocument.ApprovalRejected');
 
@@ -329,7 +327,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportPurchaseOrderDetailStore', 'Purchase\PurchaseOrderController@ReportPurchaseOrderDetailStore')->name('PurchaseOrder.ReportPurchaseOrderDetailStore');
     Route::post('PrintExportReportPurchaseOrderDetail', 'Purchase\PurchaseOrderController@PrintExportReportPurchaseOrderDetail')->name('PurchaseOrder.PrintExportReportPurchaseOrderDetail');
     Route::get('PurchaseOrderListData', 'Purchase\PurchaseOrderController@PurchaseOrderListData')->name('PurchaseOrder.PurchaseOrderListData');
-    // Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrder')->name('PurchaseOrder.RevisionPurchaseOrder');
     Route::get('PurchaseOrderByPrID', 'Purchase\PurchaseOrderController@PurchaseOrderByPrID')->name('PurchaseOrder.PurchaseOrderByPrID');
     Route::post('addListCartPurchaseOrder', 'Purchase\PurchaseOrderController@addListCartPurchaseOrder')->name('PurchaseOrder.addListCartPurchaseOrder');
     Route::resource('PurchaseOrder', 'Purchase\PurchaseOrderController');
@@ -343,7 +340,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ReportOrderPickingDetail', 'Purchase\OrderPickingController@ReportPoDetail')->name('OrderPicking.ReportOrderPickingDetail');
     Route::get('ReportOPtoDO', 'Purchase\OrderPickingController@ReportOPtoDO')->name('OrderPicking.ReportOPtoDO');
     Route::get('OrderPickingListData', 'Purchase\OrderPickingController@OrderPickingListData')->name('OrderPicking.OrderPickingListData');
-    // Route::post('RevisionOrderPicking', 'Purchase\OrderPickingController@RevisionOrderPicking')->name('OrderPicking.RevisionOrderPicking');
     Route::get('OrderPickingByPrID', 'Purchase\OrderPickingController@OrderPickingByPrID')->name('OrderPicking.OrderPickingByPrID');
     Route::post('addListCartOrderPicking', 'Purchase\OrderPickingController@addListCartOrderPicking')->name('OrderPicking.addListCartOrderPicking');
     Route::resource('OrderPicking', 'Purchase\OrderPickingController');
@@ -386,7 +382,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportDORequestDetailStore', 'Inventory\DeliveryOrderRequestController@ReportDORDetailStore')->name('Inventory.ReportDORequestDetailStore');
     Route::post('PrintExportReportDORequestDetail', 'Inventory\DeliveryOrderRequestController@PrintExportReportDORDetail')->name('Inventory.PrintExportReportDORequestDetail');
     Route::get('ReportDORtoDO', 'Inventory\DeliveryOrderRequestController@ReportDORtoDO')->name('Inventory.ReportDORtoDO');
-    // Route::post('DeliveryOrderRequestByPrID', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestByPrID')->name('DeliveryOrderRequest.DeliveryOrderRequestByPrID');
     Route::post('DeliveryOrderRequestListCartRevision', 'Inventory\DeliveryOrderRequestController@DeliveryOrderRequestListCartRevision')->name('DeliveryOrderRequest.DeliveryOrderRequestListCartRevision');
     Route::post('SearchPurchaseOrder', 'Inventory\DeliveryOrderRequestController@SearchPurchaseOrder')->name('DeliveryOrderRequest.SearchPurchaseOrder');
     Route::post('SearchOrderPicking', 'Inventory\DeliveryOrderRequestController@SearchOrderPicking')->name('DeliveryOrderRequest.SearchOrderPicking');
@@ -453,15 +448,12 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
 
     //CO
-
     Route::get('CO', 'controllerSalesCo@index')->name('CO.index');
     Route::get('revisionCo', 'controllerSalesCo@revisionCo')->name('CO.revisionCo');
 
 
     //SETTING
     Route::get('ColorMode', 'Setting\Mode\ColorModeController@ColorMode')->name('ColorMode');
-
-    // Route::post('ModifyBudget', 'TestApiController@ModifyBudget')->name('ModifyBudget');
 });
 
 

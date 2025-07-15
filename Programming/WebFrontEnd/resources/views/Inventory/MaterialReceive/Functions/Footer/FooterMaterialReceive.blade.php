@@ -13,49 +13,6 @@
 
     $("#submitMaterialReceive").prop("disabled", true);
 
-    function getWarehouse() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getWarehouseList") !!}',
-            success: function(data) {
-                if (data && Array.isArray(data)) {
-                    $('#warehouseNameOption').empty();
-                    $('#warehouseNameOption').append('<option disabled selected>Select a Warehouse</option>');
-
-                    data.forEach(function(warehouse) {
-                        $('#warehouseNameOption').append('<option value="' + warehouse.sys_ID + '">' + warehouse.sys_Text + '</option>');
-                    });
-
-                    $('#warehouseNameOption').append('<option value="OTHER">Other...</option>');
-                } else {
-                    console.log('Data Warehouse Error.');
-
-                    $('#warehouseNameOption').append('<option disabled selected>Data Warehouse not found</option>');
-                }
-
-                $('#containerSelectWarehouse').show();
-                $('#containerLoadingWarehouse').hide();
-            },
-            error: function (textStatus, errorThrown) {
-                console.log('Function getWarehouse error: ', textStatus, errorThrown);
-            }
-        });
-    }
-
-    function selectWarehouse(val) {
-        if (val.value === "OTHER") {
-            $('#containerWarehouseName').show();
-        } else {
-            $('#containerWarehouseName').hide();
-        }
-    }
-
     function CancelMaterialReceive() {
         ShowLoading();
         window.location.href = '/MaterialReceive?var=1';
@@ -573,10 +530,8 @@
     });
 
     $(window).one('load', function(e) {
-        getWarehouse();
         getDocumentType("Warehouse Inbound Order Form");
 
-        $('#containerSelectWarehouse').hide();
         $(".loadingMaterialReceiveDetail").hide();
         $(".errorMessageContainerMaterialReceiveDetail").hide();
 

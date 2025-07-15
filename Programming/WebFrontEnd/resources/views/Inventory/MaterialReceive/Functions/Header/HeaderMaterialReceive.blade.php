@@ -23,10 +23,10 @@
                 </div>
             </div>
 
-            <!-- GOODS RECEIPT -->
+            <!-- RECEIVE DATE -->
             <div class="row" style="margin-bottom: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                    Goods Receipt
+                    Receive Date
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
@@ -70,34 +70,26 @@
 
         <!-- RIGHT COLUMN -->
         <div class="col-md-12 col-lg-5">
-            <!-- WAREHOUSE -->
+            <!-- RECEIVE IN -->
             <div class="row" style="margin-bottom: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                    Warehouse
-                </label>
-                <div class="col-sm-9 col-md-8 col-lg-4 d-flex p-0">
-                    <div id="containerLoadingWarehouse">
-                        <div class="d-flex flex-column justify-content-center">
-                            <div class="spinner-border spinner-border-sm" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="containerSelectWarehouse">
-                        <select class="form-control" onclick="selectWarehouse(this)" id="warehouseNameOption" style="border-radius:0;" type="text"></select>
-                    </div>
-                </div>
-            </div>
-
-            <!-- WAREHOUSE NAME -->
-            <div id="containerWarehouseName" class="row" style="margin-bottom: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                    Warehouse Name
+                    Receive in
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div style="flex: 100%;">
+                        <textarea disabled id="warehouse_name" rows="3" name="warehouse_name" style="border-radius:0;" class="form-control"></textarea>
+                    </div>
                     <div>
-                        <textarea id="warehouse_name" name="warehouse_name" rows="3" style="border-radius:0;" class="form-control"></textarea>
+                        <span style="border-radius:0;height:100%;" class="input-group-text form-control">
+                            <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond" style="display: block;">
+                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
+                            </a>
+                        </span>
+                    </div>
+                    <div style="flex: 100%;">
+                        <div class="input-group">
+                            <textarea disabled id="warehouse_name" rows="3" name="warehouse_name" style="border-radius:0;" class="form-control"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -108,7 +100,7 @@
                     Delivery From
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                    <div>
+                    <div style="width: 100%;">
                         <input type="hidden" id="id_delivery_order_from_duplicate" style="border-radius:0;" class="form-control" size="20" readonly>
                         <input type="hidden" id="id_delivery_order_from" name="id_delivery_order_from" style="border-radius:0;" class="form-control" size="20" readonly>
                         <input type="hidden" id="address_delivery_order_from_duplicate" style="border-radius:0;" class="form-control" size="20" readonly>
@@ -123,7 +115,7 @@
                     Delivery To
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                    <div>
+                    <div style="width: 100%;">
                         <input type="hidden" id="id_delivery_order_to_duplicate" style="border-radius:0;" class="form-control" size="20" readonly>
                         <input type="hidden" id="id_delivery_order_to" name="id_delivery_order_to" style="border-radius:0;" class="form-control" size="20" readonly>
                         <input type="hidden" id="address_delivery_order_to_duplicate" style="border-radius:0;" class="form-control" size="20" readonly>
