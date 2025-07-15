@@ -39,13 +39,6 @@
                                 </span>
                             </div>
                         </div>
-
-                        {{-- <div class="input-group date" id="startDate" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" name="eventStartDate" id="eventStartDate" data-target="#startDate" style="height: auto;" />
-                            <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -77,22 +70,34 @@
 
         <!-- RIGHT COLUMN -->
         <div class="col-md-12 col-lg-5">
-            <!-- WAREHOUSE NAME -->
+            <!-- WAREHOUSE -->
             <div class="row" style="margin-bottom: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+                    Warehouse
+                </label>
+                <div class="col-sm-9 col-md-8 col-lg-4 d-flex p-0">
+                    <div id="containerLoadingWarehouse">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="containerSelectWarehouse">
+                        <select class="form-control" onclick="selectWarehouse(this)" id="warehouseNameOption" style="border-radius:0;" type="text"></select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WAREHOUSE NAME -->
+            <div id="containerWarehouseName" class="row" style="margin-bottom: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
                     Warehouse Name
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="delivery_order_code" style="border-radius:0;" class="form-control" size="20" readonly>
-                        <input id="delivery_order_id" style="border-radius:0;" name="delivery_order_id" class="form-control" hidden>
-                    </div>
-                    <div class="input-group-append">
-                        <span style="border-radius:0;" class="input-group-text form-control">
-                            <a href="javascript:;" id="deliveryOrderTrigger" data-toggle="modal" data-target="#myDeliveryOrder" style="display: block;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="deliveryOrderTrigger">
-                            </a>
-                        </span>
+                        <textarea id="warehouse_name" name="warehouse_name" rows="3" style="border-radius:0;" class="form-control"></textarea>
                     </div>
                 </div>
             </div>
