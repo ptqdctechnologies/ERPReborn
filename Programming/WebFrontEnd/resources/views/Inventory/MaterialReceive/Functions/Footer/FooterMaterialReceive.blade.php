@@ -534,5 +534,9 @@
 
         $(".loadingMaterialReceiveDetail").hide();
         $(".errorMessageContainerMaterialReceiveDetail").hide();
+
+        $('#startDate').datetimepicker({
+            format: 'L'
+        });
     });
 </script>

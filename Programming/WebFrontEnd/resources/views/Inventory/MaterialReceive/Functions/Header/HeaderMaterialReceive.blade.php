@@ -23,6 +23,33 @@
                 </div>
             </div>
 
+            <!-- GOODS RECEIPT -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+                    Goods Receipt
+                </label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
+                        <div class="input-group date" id="startDate" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#startDate" style="height: 21.8px;border-radius:0;background-color:#e9ecef;">
+
+                            <div class="input-group-prepend" data-target="#startDate" data-toggle="datetimepicker" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        {{-- <div class="input-group date" id="startDate" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" name="eventStartDate" id="eventStartDate" data-target="#startDate" style="height: auto;" />
+                            <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div> --}}
+                    </div>
+                </div>
+            </div>
+
             <!-- BUDGET -->
             <div class="row">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
@@ -50,6 +77,26 @@
 
         <!-- RIGHT COLUMN -->
         <div class="col-md-12 col-lg-5">
+            <!-- WAREHOUSE NAME -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+                    Warehouse Name
+                </label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
+                        <input id="delivery_order_code" style="border-radius:0;" class="form-control" size="20" readonly>
+                        <input id="delivery_order_id" style="border-radius:0;" name="delivery_order_id" class="form-control" hidden>
+                    </div>
+                    <div class="input-group-append">
+                        <span style="border-radius:0;" class="input-group-text form-control">
+                            <a href="javascript:;" id="deliveryOrderTrigger" data-toggle="modal" data-target="#myDeliveryOrder" style="display: block;">
+                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="deliveryOrderTrigger">
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
             <!-- DELIVERY FROM -->
             <div class="row" style="margin-bottom: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
