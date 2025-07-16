@@ -76,11 +76,11 @@
                     Receive in
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                    <div style="flex: 100%;">
+                    <div>
                         <textarea disabled id="warehouse_name" rows="3" name="warehouse_name" style="border-radius:0;" class="form-control"></textarea>
                     </div>
                     <div>
-                        <span style="border-radius:0;height:100%;" class="input-group-text form-control">
+                        <span style="border-radius:0;min-height:23.19px;" class="input-group-text form-control">
                             <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond" style="display: block;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
                             </a>
