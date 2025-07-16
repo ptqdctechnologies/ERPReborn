@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/report.form.documentForm.supplyChain.getPurchaseRequisitionSummary.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-04-30                                                                                           |
+        | ▪ Last Update     : 2025-07-16                                                                                           |
         | ▪ Creation Date   : 2025-04-30                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -40,7 +40,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 [
                 'parameter' => [
                     'CombinedBudgetCode' => 'Q000062',
-                    'CombinedBudgetSectionCode' => '235'
+                    'CombinedBudgetSectionCode' => '235',
+                    'Supplier_RefID' => 126000000000002,
+                    // 'CombinedBudgetCode' => NULL,
+                    // 'CombinedBudgetSectionCode' => NULL,
+                    // 'Supplier_RefID' => NULL
                     ]
                 ]
                 );
