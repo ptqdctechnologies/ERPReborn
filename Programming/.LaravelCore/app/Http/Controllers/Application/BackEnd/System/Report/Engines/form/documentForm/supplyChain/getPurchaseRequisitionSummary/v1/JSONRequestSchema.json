@@ -32,7 +32,7 @@
                 "properties": {
                     
                     },
-                "required": [ "CombinedBudgetCode", "CombinedBudgetSectionCode" ]
+                "required": [ "CombinedBudgetCode", "CombinedBudgetSectionCode", "Supplier_RefID" ]
                 }
             },
         "required": [ "parameter" ]

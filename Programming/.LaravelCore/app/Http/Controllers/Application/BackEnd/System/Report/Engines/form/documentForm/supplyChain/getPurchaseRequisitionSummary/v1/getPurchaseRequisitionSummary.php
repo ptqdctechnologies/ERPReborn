@@ -45,7 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Create date     : 2025-04-30                                                                                           |
-        | ▪ Last Update     : 2025-04-30                                                                                           |
+        | ▪ Last Update     : 2025-07-16                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -67,7 +67,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['parameter']['CombinedBudgetCode'],
-                            $varData['parameter']['CombinedBudgetSectionCode']
+                            $varData['parameter']['CombinedBudgetSectionCode'],
+                            $varData['parameter']['Supplier_RefID']
                             ))))
                             {
                             throw new \Exception();
