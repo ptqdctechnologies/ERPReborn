@@ -40,15 +40,11 @@
         $('.spinner-sub-menu').show();
         $('.data-menu-management').hide();
 
-        console.log('selectedValue', selectedValue);
-
         $.ajax({
             type: 'GET',
             url: '{!! route("getOneSubMenu") !!}',
             data: { selectedValue: selectedValue },
             success: function(data) {
-                console.log('data', data);
-                
                 var resultArray = Array.isArray(data) ? data : Object.values(data);
 
                 localMenuData = [];

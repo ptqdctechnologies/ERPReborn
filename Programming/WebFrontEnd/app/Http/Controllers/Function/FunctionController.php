@@ -864,31 +864,27 @@ class FunctionController extends Controller
     {
         $selectedValue = $request->input('selectedValue');
 
-        // if (Redis::get("SubMenu") == null) {
-        //     Log::error("Testing", [$selectedValue]);
-
-        //     $varAPIWebToken = Session::get('SessionLogin');
-        //     $varData = Helper_APICall::setCallAPIGateway(
-        //         Helper_Environment::getUserSessionID_System(),
-        //         $varAPIWebToken,
-        //         'transaction.read.dataList.sysConfig.getAppObject_Menu',
-        //         'latest',
-        //         [
-        //             'parameter' => [
-        //                 'menuGroup_RefID' => null
-        //             ],
-        //             'SQLStatement' => [
-        //                 'pick' => null,
-        //                 'sort' => null,
-        //                 'filter' => null,
-        //                 'paging' => null
-        //             ]
-        //         ],
-        //         false
-        //     );
-
-        //     Log::error("varData", [$varData]);
-        // }
+        if (Redis::get("SubMenu") == null) {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken,
+                'transaction.read.dataList.sysConfig.getAppObject_Menu',
+                'latest',
+                [
+                    'parameter' => [
+                        'menuGroup_RefID' => (int) $selectedValue
+                    ],
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                    ]
+                ],
+                false
+            );
+        }
         
         $SubMenu = json_decode(
             Helper_Redis::getValue(
@@ -897,8 +893,6 @@ class FunctionController extends Controller
             ),
             true
         );
-
-        Log::error("Error at SubMenu: ", [$SubMenu]);
 
         $filteredSubMenu = array_filter($SubMenu, function($item) use ($selectedValue) {
             return $item['MenuGroup_RefID'] == $selectedValue;
