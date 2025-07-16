@@ -865,7 +865,6 @@ class FunctionController extends Controller
         $selectedValue = $request->input('selectedValue');
 
         if (Redis::get("SubMenu") == null) {
-
             $varAPIWebToken = Session::get('SessionLogin');
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
@@ -874,7 +873,7 @@ class FunctionController extends Controller
                 'latest',
                 [
                     'parameter' => [
-                        'menuGroup_RefID' => null
+                        'menuGroup_RefID' => (int) $selectedValue
                     ],
                     'SQLStatement' => [
                         'pick' => null,
@@ -1374,6 +1373,33 @@ class FunctionController extends Controller
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
                 'dataPickList.humanResource.getPersonWorkTimeSheet', 
+                'latest',
+                [
+                'parameter' => [
+                    ]
+                ]
+            );
+
+            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+            }
+
+            return response()->json($varData['data']['data']);
+        } catch (\Throwable $th) {
+            Log::error("Error at getTimesheetList: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function getWarehouseList(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $varData = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.supplyChain.getWarehouse', 
                 'latest',
                 [
                 'parameter' => [

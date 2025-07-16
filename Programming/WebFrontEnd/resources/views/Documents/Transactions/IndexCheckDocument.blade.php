@@ -112,7 +112,16 @@
                 <!-- TITLE -->
                 <div class="card-header">
                   <label class="card-title">
-                    Approval History
+                    Approval History - Last Status : 
+                      @if(isset($dataWorkFlows))
+                        @if($statusDocument == 0)
+                          Awaiting {{ $dataWorkFlows[count($dataWorkFlows)-1]['workFlowPathActionName'] }} from {{ $dataWorkFlows[count($dataWorkFlows)-1]['nextApproverEntityName'] }}
+                        @elseif($statusDocument == 1)
+                          Final Approved
+                        @elseif($statusDocument == 2)
+                          Document Doesn't Has Workflow
+                        @endif
+                      @endif
                   </label>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">

@@ -19,25 +19,26 @@
             reverseButtons: true
         }).then((result) => {
             if (result.value) {
-                const swalWithBootstrapButtons = Swal.mixin({
-                    confirmButtonClass: 'btn btn-success btn-sm',
-                    cancelButtonClass: 'btn btn-danger btn-sm',
-                    buttonsStyling: true,
-                });
+                var commentApproval = document.getElementById("comment_approval");
+                // const swalWithBootstrapButtons = Swal.mixin({
+                //     confirmButtonClass: 'btn btn-success btn-sm',
+                //     cancelButtonClass: 'btn btn-danger btn-sm',
+                //     buttonsStyling: true,
+                // });
 
-                swalWithBootstrapButtons.fire({
-                    title: 'Comment',
-                    text: "Please write your comment here",
-                    type: 'question',
-                    input: 'textarea',
-                    showCloseButton: false,
-                    showCancelButton: false,
-                    focusConfirm: false,
-                    confirmButtonText: '<span style="color:black;"> OK </span>',
-                    confirmButtonColor: '#4B586A',
-                    confirmButtonColor: '#e9ecef',
-                    reverseButtons: true
-                }).then((res) => {
+                // swalWithBootstrapButtons.fire({
+                //     title: 'Comment',
+                //     text: "Please write your comment here",
+                //     type: 'question',
+                //     input: 'textarea',
+                //     showCloseButton: false,
+                //     showCancelButton: false,
+                //     focusConfirm: false,
+                //     confirmButtonText: '<span style="color:black;"> OK </span>',
+                //     confirmButtonColor: '#4B586A',
+                //     confirmButtonColor: '#e9ecef',
+                //     reverseButtons: true
+                // }).then((res) => {
                     ShowLoading();
 
                     $.ajaxSetup({
@@ -48,7 +49,7 @@
 
                     $.ajax({
                         type: 'GET',
-                        url: '{!! route("ApprovalDocument.ApprovalAccepted") !!}?businessDocument_ID=' + businessDocument_ID + '&comment=' + res.value,
+                        url: '{!! route("ApprovalDocument.ApprovalAccepted") !!}?businessDocument_ID=' + businessDocument_ID + '&comment=' + commentApproval.value,
                         success: function(data) {
                             if (data.status == "200") {
                                 swalWithBootstrapButtons.fire({
@@ -94,7 +95,7 @@
                             Swal.fire("Error", "Data Error", "error");
                         }
                     });
-                });
+                // });
             } else {
                 HideLoading();
             }
@@ -121,25 +122,26 @@
             reverseButtons: true
         }).then((result) => {
             if (result.value) {
-                const swalWithBootstrapButtons = Swal.mixin({
-                    confirmButtonClass: 'btn btn-success btn-sm',
-                    cancelButtonClass: 'btn btn-danger btn-sm',
-                    buttonsStyling: true,
-                });
+                var commentApproval = document.getElementById("comment_approval");
+                // const swalWithBootstrapButtons = Swal.mixin({
+                //     confirmButtonClass: 'btn btn-success btn-sm',
+                //     cancelButtonClass: 'btn btn-danger btn-sm',
+                //     buttonsStyling: true,
+                // });
 
-                swalWithBootstrapButtons.fire({
-                    title: 'Comment',
-                    text: "Please write your comment here",
-                    type: 'question',
-                    input: 'textarea',
-                    showCloseButton: false,
-                    showCancelButton: false,
-                    focusConfirm: false,
-                    confirmButtonText: '<span style="color:black;"> OK </span>',
-                    confirmButtonColor: '#4B586A',
-                    confirmButtonColor: '#e9ecef',
-                    reverseButtons: true
-                }).then((res) => {
+                // swalWithBootstrapButtons.fire({
+                //     title: 'Comment',
+                //     text: "Please write your comment here",
+                //     type: 'question',
+                //     input: 'textarea',
+                //     showCloseButton: false,
+                //     showCancelButton: false,
+                //     focusConfirm: false,
+                //     confirmButtonText: '<span style="color:black;"> OK </span>',
+                //     confirmButtonColor: '#4B586A',
+                //     confirmButtonColor: '#e9ecef',
+                //     reverseButtons: true
+                // }).then((res) => {
                     ShowLoading();
 
                     $.ajaxSetup({
@@ -150,7 +152,7 @@
 
                     $.ajax({
                         type: 'GET',
-                        url: '{!! route("ApprovalDocument.ApprovalRejected") !!}?businessDocument_ID=' + businessDocument_ID + '&submitter_ID=' + submitter_ID + '&comment=' + res.value,
+                        url: '{!! route("ApprovalDocument.ApprovalRejected") !!}?businessDocument_ID=' + businessDocument_ID + '&submitter_ID=' + submitter_ID + '&comment=' + commentApproval.value,
                         success: function(data) {
                             if (data.status == "200") {
                                 swalWithBootstrapButtons.fire({
@@ -180,7 +182,7 @@
                             Swal.fire("Error", "Data Error", "error");
                         }
                     });
-                });
+                // });
             } else {
                 HideLoading();
             }

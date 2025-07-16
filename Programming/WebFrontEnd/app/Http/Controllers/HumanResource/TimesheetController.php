@@ -263,7 +263,7 @@ class TimesheetController extends Controller
 
         // dump($compact);
 
-        return view('HumanResources.Timesheet.Transactions.index', $compact);
+        return view('HumanResource.Timesheet.Transactions.index', $compact);
     }
 
     /**
@@ -476,7 +476,7 @@ class TimesheetController extends Controller
 
             // dump($dataTimesheetDetail, $compact);
 
-            return view('HumanResources.Timesheet.Transactions.RevisionTimesheet', $compact);
+            return view('HumanResource.Timesheet.Transactions.RevisionTimesheet', $compact);
         } catch (\Throwable $th) {
             Log::error("RevisionTimesheet Function Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');

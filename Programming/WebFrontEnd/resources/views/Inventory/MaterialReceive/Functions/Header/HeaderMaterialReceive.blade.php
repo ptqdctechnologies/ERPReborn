@@ -23,10 +23,10 @@
                 </div>
             </div>
 
-            <!-- GOODS RECEIPT -->
+            <!-- RECEIVE DATE -->
             <div class="row" style="margin-bottom: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                    Goods Receipt
+                    Receive Date
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
@@ -39,13 +39,6 @@
                                 </span>
                             </div>
                         </div>
-
-                        {{-- <div class="input-group date" id="startDate" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" name="eventStartDate" id="eventStartDate" data-target="#startDate" style="height: auto;" />
-                            <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -77,22 +70,26 @@
 
         <!-- RIGHT COLUMN -->
         <div class="col-md-12 col-lg-5">
-            <!-- WAREHOUSE NAME -->
+            <!-- RECEIVE IN -->
             <div class="row" style="margin-bottom: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                    Warehouse Name
+                    Receive in
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
-                        <input id="delivery_order_code" style="border-radius:0;" class="form-control" size="20" readonly>
-                        <input id="delivery_order_id" style="border-radius:0;" name="delivery_order_id" class="form-control" hidden>
+                        <textarea disabled id="warehouse_name" rows="3" name="warehouse_name" style="border-radius:0;" class="form-control"></textarea>
                     </div>
-                    <div class="input-group-append">
-                        <span style="border-radius:0;" class="input-group-text form-control">
-                            <a href="javascript:;" id="deliveryOrderTrigger" data-toggle="modal" data-target="#myDeliveryOrder" style="display: block;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="deliveryOrderTrigger">
+                    <div>
+                        <span style="border-radius:0;min-height:23.19px;" class="input-group-text form-control">
+                            <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond" style="display: block;">
+                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
                             </a>
                         </span>
+                    </div>
+                    <div style="flex: 100%;">
+                        <div class="input-group">
+                            <textarea disabled id="warehouse_name" rows="3" name="warehouse_name" style="border-radius:0;" class="form-control"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -103,7 +100,7 @@
                     Delivery From
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                    <div>
+                    <div style="width: 100%;">
                         <input type="hidden" id="id_delivery_order_from_duplicate" style="border-radius:0;" class="form-control" size="20" readonly>
                         <input type="hidden" id="id_delivery_order_from" name="id_delivery_order_from" style="border-radius:0;" class="form-control" size="20" readonly>
                         <input type="hidden" id="address_delivery_order_from_duplicate" style="border-radius:0;" class="form-control" size="20" readonly>
@@ -118,7 +115,7 @@
                     Delivery To
                 </label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                    <div>
+                    <div style="width: 100%;">
                         <input type="hidden" id="id_delivery_order_to_duplicate" style="border-radius:0;" class="form-control" size="20" readonly>
                         <input type="hidden" id="id_delivery_order_to" name="id_delivery_order_to" style="border-radius:0;" class="form-control" size="20" readonly>
                         <input type="hidden" id="address_delivery_order_to_duplicate" style="border-radius:0;" class="form-control" size="20" readonly>
