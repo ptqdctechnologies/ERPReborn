@@ -55,7 +55,6 @@ class PrivilageMenuController extends Controller
             "status" => $varData['metadata']['HTTPStatusCode'],
         ];
 
-
         // dd($compact);
         return response()->json($compact);
     }
@@ -63,7 +62,7 @@ class PrivilageMenuController extends Controller
     public function DataListPrivilageMenu(Request $request)
     {
         $sys_id_role = $request->input('sys_id_role') ?? 95000000000001;
-        
+
         $varAPIWebToken = Session::get('SessionLogin');
         $varData = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -86,8 +85,8 @@ class PrivilageMenuController extends Controller
         // dd($varData);
 
         $compact = [
-            "data" => $varData['data'],
-            "status" => $varData['metadata']['HTTPStatusCode']
+            "data"      => $varData['data']['data'],
+            "status"    => $varData['metadata']['HTTPStatusCode']
         ];
 
         return response()->json($compact);

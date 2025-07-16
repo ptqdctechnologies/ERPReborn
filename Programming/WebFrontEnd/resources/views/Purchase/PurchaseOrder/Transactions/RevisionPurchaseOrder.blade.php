@@ -3,7 +3,6 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getWorkFlow')
-@include('getFunction.getSupplier')
 @include('getFunction.getPurchaseOrder')
 @include('Purchase.PurchaseOrder.Functions.PopUp.PopUpPORevision')
 

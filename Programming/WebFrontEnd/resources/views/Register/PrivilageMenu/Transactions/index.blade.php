@@ -15,7 +15,6 @@
             </div>
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
-
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -29,7 +28,6 @@
                                         </button>
                                     </div>
                                 </div>
-
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -63,11 +61,9 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-
                                                 </table>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -182,6 +178,7 @@
                                                     </table>
                                                 </div>
                                             </div>
+
                                             <a href="{{ route('PrivilageMenu.index') }}" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                                 <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Back"> Back
                                             </a>

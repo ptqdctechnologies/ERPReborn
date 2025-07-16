@@ -43,7 +43,7 @@
                                                         <?php $entryDateTime = $dataHeader[$i]['content']['sys_Data_Entry_DateTimeTZ']; $editDateTime = $dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ']; ?>
 
                                                         @if ($i === 0)
-                                                            <th colspan="3" style="vertical-align: middle;left: 0px;z-index: 10;line-height: normal;" class="text-center">
+                                                            <th colspan="4" style="vertical-align: middle;left: 0px;z-index: 10;line-height: normal;" class="text-center">
                                                                 Actual - {{ $dataHeader[count($dataHeader) - 1]['submitterWorkerName'] }} <br /> ( {{ date('Y-m-d', strtotime($dataHeader[count($dataHeader) - 1]['content']['sys_Data_Edit_DateTimeTZ'])) }} {{ date('H:i', strtotime($dataHeader[count($dataHeader) - 1]['content']['sys_Data_Edit_DateTimeTZ'])) }} )
                                                             </th>
                                                         @endif
@@ -58,7 +58,8 @@
                                             <tr>
                                                 <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;text-wrap-mode: nowrap;">Delivery To</th>
                                                 <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 125px; z-index: 10;text-wrap-mode: nowrap;">Date of Delivery</th>
-                                                <th class="text-center" style="vertical-align: middle; width: 250px; min-width: 250px; max-width: 250px; left: 250px; z-index: 10;">Remark</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 70px; min-width: 70px; max-width: 70px; left: 250px; z-index: 10;text-wrap-mode: nowrap;">Currency</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 250px; min-width: 250px; max-width: 250px; left: 320px; z-index: 10;">Remark</th>
 
                                                 @for($i = 1; $i < count($dataHeader); $i++) 
                                                     <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;text-wrap-mode: nowrap;">Delivery To</th>
@@ -72,12 +73,13 @@
                                             <tr>
                                                 <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 0px; z-index: 10;">-</td>
                                                 <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 125px; z-index: 10;">-</td>
-                                                <td style="padding: 8px; width: 250px; min-width: 250px; max-width: 250px; position: sticky; background-color: white; left: 250px; z-index: 10;"><?= $dataHeader[count($dataHeader) - 1]['content']['remarks']; ?></td>
+                                                <td style="padding: 8px; width: 70px; min-width: 70px; max-width: 70px; position: sticky; background-color: white; left: 250px; z-index: 10;">-</td>
+                                                <td style="padding: 8px; width: 250px; min-width: 250px; max-width: 250px; position: sticky; background-color: white; left: 320px; z-index: 10;"><?= $dataHeader[count($dataHeader) - 1]['content']['remarks']; ?></td>
 
                                                 @if(sizeof($dataHeader))
                                                     @foreach(array_slice($dataHeader, 0, count($dataHeader) - 1) as $dataHeaders)
-                                                        <td style="padding: 8px;border-right:1px solid #e9ecef;">-</td>
-                                                        <td style="padding: 8px;border-right:1px solid #e9ecef;">-</td>
+                                                        <td style="padding: 8px;border-right:1px solid #e9ecef;width: 100px; min-width: 100px; max-width: 100px;">-</td>
+                                                        <td style="padding: 8px;border-right:1px solid #e9ecef;width: 100px; min-width: 100px; max-width: 100px;">-</td>
                                                         <td style="padding: 8px;border-right:1px solid #e9ecef;width: 250px; min-width: 250px; max-width: 250px;">{{ $dataHeaders['content']['remarks'] }}</td>
                                                     @endforeach
                                                 @endif
@@ -99,7 +101,7 @@
                                                         <?php $entryDateTime = $dataHeader[$i]['content']['sys_Data_Entry_DateTimeTZ']; $editDateTime = $dataHeader[$i]['content']['sys_Data_Edit_DateTimeTZ']; ?>
 
                                                         @if ($i === 0)
-                                                            <th style="vertical-align: middle;left: 0px;z-index: 10;line-height: normal;" class="text-center" colspan="8">
+                                                            <th style="vertical-align: middle;left: 0px;z-index: 10;line-height: normal;" class="text-center" colspan="7">
                                                                 Actual - {{ $dataHeader[count($dataHeader) - 1]['submitterWorkerName'] }} <br /> ( {{ date('Y-m-d', strtotime($dataHeader[count($dataHeader) - 1]['content']['sys_Data_Edit_DateTimeTZ'])) }} {{ date('H:i', strtotime($dataHeader[count($dataHeader) - 1]['content']['sys_Data_Edit_DateTimeTZ'])) }} )
                                                             </th>
                                                         @endif
@@ -115,11 +117,10 @@
                                                 <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;">Product Code</th>
                                                 <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 125px; z-index: 10;">Product Name</th>
                                                 <th class="text-center" style="vertical-align: middle; width: 40px; min-width: 40px; max-width: 40px; left: 250px; z-index: 10;">UOM</th>
-                                                <th class="text-center" style="vertical-align: middle; width: 70px; min-width: 70px; max-width: 70px; left: 375px; z-index: 10;">Currency</th>
-                                                <th class="text-center" style="vertical-align: middle; width: 80px; min-width: 80px; max-width: 80px; left: 500px; z-index: 10;">Qty</th>
-                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 625px; z-index: 10;">Price</th>
-                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 750px; z-index: 10;">Total</th>
-                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 875px; z-index: 10;">Note</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 80px; min-width: 80px; max-width: 80px; left: 290px; z-index: 10;">Qty</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 370px; z-index: 10;">Price</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 495px; z-index: 10;">Total</th>
+                                                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 620px; z-index: 10;">Note</th>
 
                                                 @for($i = 1; $i < count($dataDetail[0]); $i++)
                                                     <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;"> Qty</th>
@@ -138,17 +139,16 @@
                                                         <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 0px; z-index: 10;">{{ $dataDetail[$i][count($dataDetail[$i]) - 1]['content']['product_RefID'] }}</td>
                                                         <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 125px; z-index: 10;">{{ $dataDetail[$i][count($dataDetail[$i]) - 1]['productName'] }}</td>
                                                         <td style="padding: 8px; width: 40px; min-width: 40px; max-width: 40px; position: sticky; background-color: white; left: 250px; z-index: 10;">{{ $dataDetail[$i][count($dataDetail[$i]) - 1]['quantityUnitName'] }}</td>
-                                                        <td style="padding: 8px; width: 70px; min-width: 70px; max-width: 70px; position: sticky; background-color: white; left: 375px; z-index: 10;">-</td>
-                                                        <td style="padding: 8px; width: 80px; min-width: 80px; max-width: 80px; position: sticky; background-color: white; left: 500px; z-index: 10;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['quantity'], 2) }}</td>
-                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 625px; z-index: 10;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
-                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 750px; z-index: 10;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['priceCurrencyValue'], 2) }}</td>
-                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 875px; z-index: 10;">-</td>
+                                                        <td style="padding: 8px; width: 80px; min-width: 80px; max-width: 80px; position: sticky; background-color: white; left: 290px; z-index: 10;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['quantity'], 2) }}</td>
+                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 370px; z-index: 10;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
+                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 495px; z-index: 10;">{{ number_format($dataDetail[$i][count($dataDetail[$i]) - 1]['content']['priceCurrencyValue'], 2) }}</td>
+                                                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 620px; z-index: 10;">-</td>
 
                                                         @for($n = 0; $n < (count($dataDetail[$i]) - 1); $n++)
-                                                            <td style="padding: 8px;border-right:1px solid #e9ecef;">{{ number_format($dataDetail[$i][$n]['content']['quantity'], 2) }}</td>
-                                                            <td style="padding: 8px;border-right:1px solid #e9ecef;">{{ number_format($dataDetail[$i][$n]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
-                                                            <td style="padding: 8px;border-right:1px solid #e9ecef;">{{ number_format($dataDetail[$i][$n]['content']['priceCurrencyValue'], 2) }}</td>
-                                                            <td style="padding: 8px;border-right:1px solid #e9ecef;">-</td>
+                                                            <td style="padding: 8px;border-right:1px solid #e9ecef;width: 60px; min-width: 60px; max-width: 60px;">{{ number_format($dataDetail[$i][$n]['content']['quantity'], 2) }}</td>
+                                                            <td style="padding: 8px;border-right:1px solid #e9ecef;width: 80px; min-width: 80px; max-width: 80px;">{{ number_format($dataDetail[$i][$n]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
+                                                            <td style="padding: 8px;border-right:1px solid #e9ecef;width: 80px; min-width: 80px; max-width: 80px;">{{ number_format($dataDetail[$i][$n]['content']['priceCurrencyValue'], 2) }}</td>
+                                                            <td style="padding: 8px;border-right:1px solid #e9ecef;width: 150px; min-width: 150px; max-width: 150px;">-</td>
                                                         @endfor
                                                     </tr>
                                                 @endfor
