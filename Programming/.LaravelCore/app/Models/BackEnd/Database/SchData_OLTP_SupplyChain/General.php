@@ -4225,7 +4225,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getReport_Form_DocumentForm_PurchaseRequisitionSummary                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-07-10                                                                                           |
+        | ▪ Last Update     : 2025-07-16                                                                                           |
         | ▪ Creation Date   : 2025-04-30                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Permintaan Pembelian (Purchase Requisition)                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4248,7 +4248,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
-                            'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseRequisitionSummary_New',
+                            'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseRequisitionSummary',
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
