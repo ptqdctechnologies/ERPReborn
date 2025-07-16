@@ -17,9 +17,7 @@
                                             <th>Name</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
                             </div>
                         </div>
@@ -42,7 +40,6 @@
             });
 
             var keys = 0;
-
             var departement_id = $("#departement_id").val();
 
             $.ajax({
@@ -55,8 +52,8 @@
                     $.each(data, function(key, val) {
                         keys += 1;
                         t.row.add([
-                            '<tbody><tr><input id="sys_id_role' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                            '<td>' + val.FullName + '</td></tr></tbody>',
+                            '<tbody><tr><input id="sys_id_role' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<td>' + val.fullName + '</td></tr></tbody>',
                         ]).draw();
                     });
                 }
@@ -67,7 +64,6 @@
 
 <script>
     $('#tableGetRole tbody').on('click', 'tr', function() {
-
         $("#myRole").modal('toggle');
 
         var row = $(this).closest("tr");
@@ -99,10 +95,10 @@
                 var option = "<option value='" + '' + "'>" + 'Select Modul' + "</option>";
                 $(".Modul").append(option);
 
-                var len = data.length;
+                var len = data.data.length;
                 for (var i = 0; i < len; i++) {
-                    var ids = data[i].Sys_ID;
-                    var names = data[i].Name;
+                    var ids = data.data[i].Sys_ID;
+                    var names = data.data[i].Name;
                     var option2 = "<option value='" + ids + "'>" + names + "</option>";
                     $(".Modul").append(option2);
                 }
@@ -115,25 +111,17 @@
             type: 'GET',
             url: '{!! route("PrivilageMenu.DataListPrivilageMenu") !!}?sys_id_role=' + sys_id_role,
             success: function(data) {
-
                 if(data.status == 200){
-
                     $("#SavePrivilageMenu").prop("disabled", false);
 
                     var len = data.data.length;
-
                     for (var i = 0; i < len; i++) {
-
                         if(!checkedValue.includes(data.data[i]['menuAction_RefID'])){
                             checkedValue.push(data.data[i]['menuAction_RefID']);
                         }
-
                     }
                 }
-
-                
             }
         });
-
     });
 </script>
