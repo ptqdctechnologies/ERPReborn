@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 
-                    //-----[ DATA ]-----( START )-----
+                    //-----[ DATA ]---------( START )-----
                         [
                         'entities' => [
                             "documentDateTimeTZ" => '2022-03-07',
@@ -84,7 +84,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                 ]
                             ]
                         ]
-                    //-----[ DATA ]-----(  END  )-----
+                    //-----[ DATA ]---------(  END  )-----
                     );
 
             var_dump($varData);

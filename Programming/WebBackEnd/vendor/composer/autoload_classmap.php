@@ -3722,6 +3722,8 @@ return array(
     'Aws\\S3Outposts\\S3OutpostsClient' => $vendorDir . '/aws/aws-sdk-php/src/S3Outposts/S3OutpostsClient.php',
     'Aws\\S3Tables\\Exception\\S3TablesException' => $vendorDir . '/aws/aws-sdk-php/src/S3Tables/Exception/S3TablesException.php',
     'Aws\\S3Tables\\S3TablesClient' => $vendorDir . '/aws/aws-sdk-php/src/S3Tables/S3TablesClient.php',
+    'Aws\\S3Vectors\\Exception\\S3VectorsException' => $vendorDir . '/aws/aws-sdk-php/src/S3Vectors/Exception/S3VectorsException.php',
+    'Aws\\S3Vectors\\S3VectorsClient' => $vendorDir . '/aws/aws-sdk-php/src/S3Vectors/S3VectorsClient.php',
     'Aws\\S3\\AmbiguousSuccessParser' => $vendorDir . '/aws/aws-sdk-php/src/S3/AmbiguousSuccessParser.php',
     'Aws\\S3\\ApplyChecksumMiddleware' => $vendorDir . '/aws/aws-sdk-php/src/S3/ApplyChecksumMiddleware.php',
     'Aws\\S3\\BatchDelete' => $vendorDir . '/aws/aws-sdk-php/src/S3/BatchDelete.php',

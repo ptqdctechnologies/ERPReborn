@@ -100,8 +100,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
              */
 
                 $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+
                 try {
-                    $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Menu Data List (version 1)');
+                    $varSysDataProcess =
+                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                            'Get Menu Data List (version 1)'
+                            );
+
                     try {
                         //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                         try {
@@ -109,61 +114,93 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                                 {
                                 throw new \Exception('SQL Injection Threat Prevention');
                                 }
+
                             if (!($varDataSend = 
-                                $this->dataProcessing(
-                                    $varUserSession,
-                                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getDataList_AppObject_Menu(
+                                //$this->dataProcessing(
+                                //    $varUserSession,
+                                    \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                         $varUserSession,
-                                        (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
-                                        $varData['parameter']['menuGroup_RefID'],
-                                        $varData['SQLStatement']['pick'],
-                                        $varData['SQLStatement']['sort'],
-                                        $varData['SQLStatement']['filter'],
-                                        $varData['SQLStatement']['paging']
-                                        ))
-                                    )
+                                        (new \App\Models\Database\SchSysConfig\General())->getDataListJSON_AppObject_Menu(
+                                            $varUserSession,
+                                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
+                                            $varData['parameter']['menuGroup_RefID'],
+
+                                            $varData['SQLStatement']['pick'],
+                                            $varData['SQLStatement']['sort'],
+                                            $varData['SQLStatement']['filter'],
+                                            $varData['SQLStatement']['paging']
+                                            ),
+                                        FALSE
+                                        )
+                                //    )
                                 ))
                                 {
                                 throw new \Exception();
                                 }
-                            $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
-                            } 
+
+                            $varReturn =
+                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
+                                    $varUserSession,
+                                    $varDataSend
+                                    );
+                            }
+
                         catch (\Exception $ex) {
                             $varErrorMessage = $ex->getMessage();
-                            $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+                            
+                            $varReturn =
+                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                    $varUserSession,
+                                    500,
+                                    'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
+                                    );
                             }
                         //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                         \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                        } 
+                        }
+
                     catch (\Exception $ex) {
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
+                        $varReturn =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                                $varUserSession,
+                                401,
+                                $ex->getMessage()
+                                );
+
                         \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                         }
+
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                    } 
+                    }
+
                 catch (\Exception $ex) {
                     }
-                return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+                return
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
                 }
 
+
              private function dataProcessing($varUserSession, array $varData = null)
-                 {
+                {
                 $varReturn = null;
+
                 try {
-                    if($varData)
-                         {
-                        for ($i = 0, $iMax = count($varData); $i != $iMax; $i++)
+                    if ($varData['data'])
+                        {
+                        for ($i = 0, $iMax = count($varData['data']); $i != $iMax; $i++)
                             {
                             $varReturn[$i] = [
-                                'Sys_ID' => $varData[$i]['sys_ID'],
-                                'Sys_PID' => $varData[$i]['sys_PID'],
-                                'Sys_SID' => $varData[$i]['sys_SID'],
-                                'Sys_RPK' => $varData[$i]['sys_RPK'],
-                                'Sys_Branch_RefID' => $varData[$i]['sys_Branch_RefID'],
-                                'Key' => $varData[$i]['key'],
-                                'Caption' => $varData[$i]['caption'],
-                                'MenuAction' => (\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData[$i]['JSONDataMenuAction'])),
-                                'OrderSequence' => $varData[$i]['orderSequence']
+                                'Sys_ID' => $varData['data'][$i]['sys_ID'],
+                                'Sys_PID' => $varData['data'][$i]['sys_PID'],
+                                'Sys_SID' => $varData['data'][$i]['sys_SID'],
+                                'Sys_RPK' => $varData['data'][$i]['sys_RPK'],
+                                'Sys_Branch_RefID' => $varData['data'][$i]['sys_Branch_RefID'],
+                                'Key' => $varData['data'][$i]['key'],
+                                'Caption' => $varData['data'][$i]['caption'],
+                                //'MenuAction' => (\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData['data'][$i]['JSONDataMenuAction'])),
+                                'MenuAction' => $varData['data'][$i]['JSONDataMenuAction'],
+                                'OrderSequence' => $varData['data'][$i]['orderSequence']
                                 ];
                             }
                         }
@@ -174,7 +211,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                     }
                  catch (\Exception $ex) {
                     }
-                return $varReturn;
+
+            return
+                $varReturn;
+            }
         }
     }
-}

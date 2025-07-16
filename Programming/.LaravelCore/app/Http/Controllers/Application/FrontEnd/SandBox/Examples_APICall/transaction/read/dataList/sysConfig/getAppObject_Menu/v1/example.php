@@ -31,25 +31,34 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.read.dataList.sysConfig.getAppObject_Menu', 
-                'latest', 
-                [
-                'parameter' => [
-                    'menuGroup_RefID' => 254000000000001
-                    ],
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                    ]
-                ]
-                );
-            var_dump($varData);
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.read.dataList.sysConfig.getAppObject_Menu', 
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]---------( START )-----
+                        [
+                        'parameter' => [
+                            'menuGroup_RefID' => 254000000000001
+                            ],
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                            ]
+                        ]
+                    //-----[ DATA ]---------(  END  )-----
+                    );
+
+            return
+                $varData;
             }
 
 
