@@ -4392,6 +4392,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\S3Outposts\\S3OutpostsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/S3Outposts/S3OutpostsClient.php',
         'Aws\\S3Tables\\Exception\\S3TablesException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/S3Tables/Exception/S3TablesException.php',
         'Aws\\S3Tables\\S3TablesClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/S3Tables/S3TablesClient.php',
+        'Aws\\S3Vectors\\Exception\\S3VectorsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/S3Vectors/Exception/S3VectorsException.php',
+        'Aws\\S3Vectors\\S3VectorsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/S3Vectors/S3VectorsClient.php',
         'Aws\\S3\\AmbiguousSuccessParser' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/S3/AmbiguousSuccessParser.php',
         'Aws\\S3\\ApplyChecksumMiddleware' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/S3/ApplyChecksumMiddleware.php',
         'Aws\\S3\\BatchDelete' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/S3/BatchDelete.php',
