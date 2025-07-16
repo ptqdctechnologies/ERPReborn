@@ -44,7 +44,9 @@
                                     "maximum": 9223372036854775807
                                     }
                                 },
-                            "required": [ "menuGroup_RefID" ]
+                            "required": [
+                                "menuGroup_RefID"
+                                ]
                             }
                         ]
                     },
