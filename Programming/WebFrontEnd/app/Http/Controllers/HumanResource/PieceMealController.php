@@ -23,7 +23,7 @@ class PieceMealController extends Controller
             'var' => $var,
         ];
 
-        return view('HumanResources.PieceMeal.Transactions.CreatePieceMeal', $compact);
+        return view('HumanResource.PieceMeal.Transactions.CreatePieceMeal', $compact);
     }
 
     public function StoreValidatePieceMeal(Request $request)
@@ -160,7 +160,7 @@ class PieceMealController extends Controller
             'dataProcReqRevision' => $varDataProcReqRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
             'var_recordID' => $request->searchPmNumberRevisionId,
         ];
-        return view('HumanResources.PieceMeal.Transactions.RevisionPieceMeal', $compact);
+        return view('HumanResource.PieceMeal.Transactions.RevisionPieceMeal', $compact);
     }
 
     public function PieceMealListCartRevision(Request $request)

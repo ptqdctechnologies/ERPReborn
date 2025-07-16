@@ -25,7 +25,7 @@
       </div>
 
       <!-- BUDGET -->
-      <div class="row" style="margin-bottom: 1rem;">
+      <div class="row">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           Budget
         </label>
@@ -37,7 +37,7 @@
       </div>
 
       <!-- SUB BUDGET -->
-      <div class="row">
+      {{-- <div class="row">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           Sub Budget
         </label>
@@ -46,7 +46,7 @@
             <input style="border-radius:0;" class="form-control" size="20" value="<?= $header['combinedBudgetSectionCode'] . ' - ' . $header['combinedBudgetSectionName']; ?>" readonly>
           </div>
         </div>
-      </div>
+      </div> --}}
     </div>
 
     <!-- RIGHT COLUMN -->

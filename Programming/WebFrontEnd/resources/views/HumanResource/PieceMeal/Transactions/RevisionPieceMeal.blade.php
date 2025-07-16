@@ -4,7 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getSite')
 @include('getFunction.getProduk')
-@include('HumanResources.PieceMeal.Functions.PopUp.PopUpPieceMealRevision')
+@include('HumanResource.PieceMeal.Functions.PopUp.PopUpPieceMealRevision')
 @include('getFunction.getProject')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
@@ -15,7 +15,7 @@
           <label style="font-size:15px;position:relative;top:7px;color:white;">Piece Meal Revision</label>
         </div>
       </div>
-      @include('HumanResources.PieceMeal.Functions.Menu.MenuPieceMeal')
+      @include('HumanResource.PieceMeal.Functions.Menu.MenuPieceMeal')
       <div class="card" style="position:relative;bottom:10px;">
         <form method="post" enctype="multipart/form-data" action="{{ route('PieceMeal.update', $var_recordID) }}" id="FormSubmitPieceMeal">
           @csrf
@@ -36,7 +36,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('HumanResources.PieceMeal.Functions.Header.HeaderPieceMealRevision')
+                  @include('HumanResource.PieceMeal.Functions.Header.HeaderPieceMealRevision')
                 </div>
               </div>
             </div>
@@ -244,5 +244,5 @@
 </div>
 @include('Partials.footer')
 
-@include('HumanResources.PieceMeal.Functions.Footer.FooterPieceMealRevision')
+@include('HumanResource.PieceMeal.Functions.Footer.FooterPieceMealRevision')
 @endsection

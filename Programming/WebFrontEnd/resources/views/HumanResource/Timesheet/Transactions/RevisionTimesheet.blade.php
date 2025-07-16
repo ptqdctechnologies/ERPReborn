@@ -4,7 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getWorkFlow')
 @include('getFunction.getTimesheet')
-@include('HumanResources.Timesheet.Functions.PopUp.PopUpTimesheetRevision')
+@include('HumanResource.Timesheet.Functions.PopUp.PopUpTimesheetRevision')
 
 <div class="content-wrapper">
     <div class="container-fluid">
@@ -17,7 +17,7 @@
             </div>
         </div>
 
-        @include('HumanResources.Timesheet.Functions.Menu.MenuTimesheet')
+        @include('HumanResource.Timesheet.Functions.Menu.MenuTimesheet')
     </div>
 
     <div class="card card-primary">
@@ -269,5 +269,5 @@
 </div>
 
 @include('Partials.footer')
-@include('HumanResources.Timesheet.Functions.Footer.footerRevisionTimesheet')
+@include('HumanResource.Timesheet.Functions.Footer.footerRevisionTimesheet')
 @endsection

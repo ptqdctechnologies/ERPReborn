@@ -3,16 +3,20 @@
 
     if (sourceData.value == 1) {
         $(".ShowDocumentList").show();
-        $(".InternalNotes").show();
-        $(".FileAttachment").show();
-        $(".ApprovalHistory").show();
+        // $(".InternalNotes").show();
+        // $(".FileAttachment").show();
+        // $(".ApprovalHistory").show();
         $(".ViewDocument").hide();
         $(".DocumentWorkflow").hide();
     } else {
-        $(".ShowDocumentList").hide();
-        $(".InternalNotes").hide();
-        $(".FileAttachment").hide();
-        $(".ApprovalHistory").hide();
+        // $(".ShowDocumentList").hide();
+        // $(".InternalNotes").hide();
+        // $(".FileAttachment").hide();
+        // $(".ApprovalHistory").hide();
+    }
+
+    function showLoading() {
+        ShowLoading();
     }
 
     function getListDocumentType(params) {
@@ -98,6 +102,8 @@
                         $('#DocumentType').append('<option value="' + document.sys_ID + '" data-name="' + document.name + '">' + document.name + '</option>');
                     });
 
+                    $('#DocumentType').append('<option value="' + 78123456 + '" data-name="DO From Internal Use">DO From Internal Use</option>');
+                    $('#DocumentType').append('<option value="' + 67812345 + '" data-name="DO From Stock Movement">DO From Stock Movement</option>');
                     $('#DocumentType').append('<option value="' + 34567812 + '" data-name="Loan Form">Loan Form</option>');
                     $('#DocumentType').append('<option value="' + 45678123 + '" data-name="Loan Settlement Form">Loan Settlement Form</option>');
                     $('#DocumentType').append('<option value="' + 56781234 + '" data-name="Modify Budget Form">Modify Budget Form</option>');

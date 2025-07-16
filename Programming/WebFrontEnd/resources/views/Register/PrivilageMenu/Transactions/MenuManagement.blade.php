@@ -166,142 +166,142 @@
 
 <!-- MODAL ADD NEW MENU -->
 <div class="modal fade" id="modalNewMenu" tabindex="-1" aria-labelledby="modalNewMenuLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header align-items-center">
-        <div style="font-size: 16px;">
-            Add New Menu
-        </div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <label for="new_menu_caption" class="col-3 col-form-label pt-0" style="font-size: 14px;">Menu Caption</label>
-            <div class="col">
-                <div class="input-group">
-                    <input id="new_menu_caption" style="border-radius:0;" class="form-control" name="new_menu_caption" autocomplete="off">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header align-items-center">
+                <div style="font-size: 16px;">
+                    Add New Menu
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <label for="new_menu_caption" class="col-3 col-form-label pt-0" style="font-size: 14px;">Menu Caption</label>
+                    <div class="col">
+                        <div class="input-group">
+                            <input id="new_menu_caption" style="border-radius:0;" class="form-control" name="new_menu_caption" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="new_menu_id" class="col-3 col-form-label pt-0" style="font-size: 14px;">Menu ID</label>
+                    <div class="col">
+                        <div class="input-group">
+                            <input id="new_menu_id" style="border-radius:0;" class="form-control" name="new_menu_id" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="new_menu_link" class="col-3 col-form-label pt-0" style="font-size: 14px;">Link</label>
+                    <div class="col">
+                        <div class="input-group">
+                            <input id="new_menu_link" style="border-radius:0;" class="form-control" name="new_menu_link" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="new_type_folder" class="col-3 col-form-label pt-0" style="font-size: 14px;">Type</label>
+                    <div class="col">
+                        <div class="input-group">
+                            <select id="new_type_folder" class="custom-select" style="width: 100%; padding: .10rem .10rem; font-size: 0.75rem; border-radius: 0;">
+                                <option value="Transaction">TRANSACTION</option>
+                                <option value="Report">REPORT</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <label for="new_menu_id" class="col-3 col-form-label pt-0" style="font-size: 14px;">Menu ID</label>
-            <div class="col">
-                <div class="input-group">
-                    <input id="new_menu_id" style="border-radius:0;" class="form-control" name="new_menu_id" autocomplete="off">
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding: .275rem .75rem; font-size: 16px;">Close</button>
+                <button type="button" class="btn btn-primary" onclick="addNewSubMenu()" style="padding: .275rem .75rem; font-size: 16px;">Submit</button>
             </div>
         </div>
-        <div class="row">
-            <label for="new_menu_link" class="col-3 col-form-label pt-0" style="font-size: 14px;">Link</label>
-            <div class="col">
-                <div class="input-group">
-                    <input id="new_menu_link" style="border-radius:0;" class="form-control" name="new_menu_link" autocomplete="off">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <label for="new_type_folder" class="col-3 col-form-label pt-0" style="font-size: 14px;">Type</label>
-            <div class="col">
-                <div class="input-group">
-                    <select id="new_type_folder" class="custom-select" style="width: 100%; padding: .10rem .10rem; font-size: 0.75rem; border-radius: 0;">
-                        <option value="Transaction">TRANSACTION</option>
-                        <option value="Report">REPORT</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding: .275rem .75rem; font-size: 16px;">Close</button>
-        <button type="button" class="btn btn-primary" onclick="addNewSubMenu()" style="padding: .275rem .75rem; font-size: 16px;">Submit</button>
-      </div>
     </div>
-  </div>
 </div>
 
 <!-- MODAL DELETE -->
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header align-items-center">
-        <div style="font-size: 16px;">
-            Delete
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header align-items-center">
+                <div style="font-size: 16px;">
+                    Delete
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="font-size: 14px;">
+                    Are you sure delete this menu?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                    style="padding: .275rem .75rem; font-size: 16px;"
+                >
+                    Close
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-dismiss="modal"
+                    data-toggle="modal"
+                    data-target="#modalPin"
+                    style="padding: .275rem .75rem; font-size: 16px;"
+                >
+                    Submit
+                </button>
+            </div>
         </div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div style="font-size: 14px;">
-            Are you sure delete this menu?
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button
-            type="button"
-            class="btn btn-secondary"
-            data-dismiss="modal"
-            style="padding: .275rem .75rem; font-size: 16px;"
-        >
-            Close
-        </button>
-        <button
-            type="button"
-            class="btn btn-primary"
-            data-dismiss="modal"
-            data-toggle="modal"
-            data-target="#modalPin"
-            style="padding: .275rem .75rem; font-size: 16px;"
-        >
-            Submit
-        </button>
-      </div>
     </div>
-  </div>
 </div>
 
 <!-- MODAL CONFIRM PIN -->
 <div class="modal fade" id="modalPin" tabindex="-1" aria-labelledby="modalPinLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header align-items-center">
-        <div style="font-size: 16px;">
-            Confirmation PIN
-        </div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <label for="menu_password" class="col-form-label pt-0 pb-1" style="font-size: 14px;">To confirm, please enter your PIN below</label>
-        </div>
-        <div class="row">
-            <div class="input-group">
-                <input type="password" id="menu_password" class="form-control number-only" maxlength="6" autocomplete="off" autofocus required style="border-radius:0; font-size: 14px;">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" id="togglePassword" style="border-radius:0; height: 21.8px; font-size: 14px; padding: 0 0.5rem;">
-                        Show
-                    </button>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header align-items-center">
+                <div style="font-size: 16px;">
+                    Confirmation PIN
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <label for="menu_password" class="col-form-label pt-0 pb-1" style="font-size: 14px;">To confirm, please enter your PIN below</label>
+                </div>
+                <div class="row">
+                    <div class="input-group">
+                        <input type="password" id="menu_password" class="form-control number-only" maxlength="6" autocomplete="off" autofocus required style="border-radius:0; font-size: 14px;">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword" style="border-radius:0; height: 21.8px; font-size: 14px; padding: 0 0.5rem;">
+                                Show
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                    style="padding: .275rem .75rem; font-size: 16px;"
+                >
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary" style="padding: .275rem .75rem; font-size: 16px;">Submit</button>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button
-            type="button"
-            class="btn btn-secondary"
-            data-dismiss="modal"
-            style="padding: .275rem .75rem; font-size: 16px;"
-        >
-            Close
-        </button>
-        <button type="button" class="btn btn-primary" style="padding: .275rem .75rem; font-size: 16px;">Submit</button>
-      </div>
     </div>
-  </div>
 </div>
 
 @include('Partials.footer')

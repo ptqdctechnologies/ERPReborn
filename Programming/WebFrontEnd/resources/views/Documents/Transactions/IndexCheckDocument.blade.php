@@ -23,16 +23,16 @@
       <div class="card" style="position:relative;bottom:10px;">
         <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
           <!-- BUTTON VIEW DOCUMENT TRANSACTION -->
-          <div class="row">
+          {{-- <div class="row">
             <div class="card ViewDocument" style="background-color:#e9ecef;border:1px solid #ced4da;margin-left:10px;">
               <a class="btn btn-default btn-sm">
                 View Document Transaction
               </a>
             </div>
-          </div>
+          </div> --}}
 
           <div class="row">
-            @include('Documents.Transactions.DocumentWorkflow')
+            {{-- @include('Documents.Transactions.DocumentWorkflow') --}}
 
             <!-- HEADER -->
             <div class="col-12 ShowDocumentList">
@@ -112,7 +112,16 @@
                 <!-- TITLE -->
                 <div class="card-header">
                   <label class="card-title">
-                    Approval History
+                    Approval History - Last Status : 
+                      @if(isset($dataWorkFlows))
+                        @if($statusDocument == 0)
+                          Awaiting {{ $dataWorkFlows[count($dataWorkFlows)-1]['workFlowPathActionName'] }} from {{ $dataWorkFlows[count($dataWorkFlows)-1]['nextApproverEntityName'] }}
+                        @elseif($statusDocument == 1)
+                          Final Approved
+                        @elseif($statusDocument == 2)
+                          Document Doesn't Has Workflow
+                        @endif
+                      @endif
                   </label>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
