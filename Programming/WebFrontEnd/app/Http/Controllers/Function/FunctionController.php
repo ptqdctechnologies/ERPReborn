@@ -792,40 +792,30 @@ class FunctionController extends Controller
 
     public function getSubMenu(Request $request)
     {
-        if (Redis::get("SubMenu") == null) {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.sysConfig.getAppObject_Menu',
-                'latest',
-                [
-                    'parameter' => [
-                        'menuGroup_RefID' => null
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
+        $varAPIWebToken = Session::get('SessionLogin');
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.sysConfig.getAppObject_Menu',
+            'latest',
+            [
+                'parameter' => [
+                    'menuGroup_RefID' => null
                 ],
-                false
-            );
-        }
-
-        $SubMenu = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "SubMenu"
-            ),
-            true
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
         );
 
         $menu_group_id = $request->input('menu_group_id');
         $type = $request->input('type');
 
-        $collection = collect($SubMenu);
+        $collection = collect($varData['data']['data']);
         $collection = $collection->where('menuGroup_RefID', $menu_group_id);
         
         $collection = $collection->where('type', $type);
@@ -837,38 +827,28 @@ class FunctionController extends Controller
     {
         $selectedValue = $request->input('selectedValue');
 
-        if (Redis::get("SubMenu") == null) {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.sysConfig.getAppObject_Menu',
-                'latest',
-                [
-                    'parameter' => [
-                        'menuGroup_RefID' => (int) $selectedValue
-                    ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
+        $varAPIWebToken = Session::get('SessionLogin');
+        $varData = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.sysConfig.getAppObject_Menu',
+            'latest',
+            [
+                'parameter' => [
+                    'menuGroup_RefID' => (int) $selectedValue
                 ],
-                false
-            );
-        }
-        
-        $SubMenu = json_decode(
-            Helper_Redis::getValue(
-                Helper_Environment::getUserSessionID_System(),
-                "SubMenu"
-            ),
-            true
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
         );
 
-        $filteredSubMenu = array_filter($SubMenu, function($item) use ($selectedValue) {
-            return $item['MenuGroup_RefID'] == $selectedValue;
+        $filteredSubMenu = array_filter($varData['data']['data'], function($item) use ($selectedValue) {
+            return $item['menuGroup_RefID'] == $selectedValue;
         });
 
         return response()->json($filteredSubMenu);

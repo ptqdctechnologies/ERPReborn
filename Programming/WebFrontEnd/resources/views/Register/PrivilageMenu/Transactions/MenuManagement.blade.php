@@ -36,7 +36,7 @@
                                     <div class="row py-3">
                                         <label class="col-2 col-form-label p-0">Select Menu</label>
                                         <div class="col-3 menuOption">
-                                            <select class="form-control select2" id="menuSelect" style="width: 100%;"></select>
+                                            <select class="form-control" id="menuSelect" style="width: 100%;"></select>
                                         </div>
                                         <div class="spinner-border spinner-border-sm spinner-menu" role="status">
                                             <span class="sr-only">Loading...</span>

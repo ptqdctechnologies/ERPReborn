@@ -92,8 +92,8 @@
                                                         <td style="padding-top: 7px;"><label>Modul &nbsp;&nbsp;&nbsp;</label></td>
                                                         <td>
                                                             <div class="input-group" style="padding-bottom: 3px;">
-                                                                <select id="Modul" class="form-control Modul select2" name="Modul" style="width: 200px;">
-                                                                    <option selected="selected" value=""> Select Modul </option>
+                                                                <select id="Modul" class="form-control Modul" name="Modul" style="width: 200px;">
+                                                                    <option selected="selected"> Select Modul </option>
                                                                 </select>
                                                             </div>
                                                         </td>
@@ -108,7 +108,13 @@
                                                         <td style="padding-top: 7px;"><label>Menu Type &nbsp;&nbsp;&nbsp;</label></td>
                                                         <td>
                                                             <div class="input-group" style="padding-bottom: 3px;">
-                                                                <select id="Type" class="form-control Type select2" name="Type" style="width: 200px;">
+                                                                {{-- <select id="Type" class="form-control Type select2" name="Type" style="width: 200px;">
+                                                                    <option selected="selected"> Select Type </option>
+                                                                    <option value="Transaction"> Transaction </option>
+                                                                    <option value="Report"> Report </option>
+                                                                </select> --}}
+
+                                                                <select class="form-control" name="Type" id="Type" style="width: 200px;">
                                                                     <option selected="selected"> Select Type </option>
                                                                     <option value="Transaction"> Transaction </option>
                                                                     <option value="Report"> Report </option>
