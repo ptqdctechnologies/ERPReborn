@@ -58,21 +58,21 @@
                       <tbody>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $counter++; ?></td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['documentNumber']; ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">-</td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">-</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">-</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= number_format($dataDetail['total_Idr_WithVat'], 2, '.', ','); ?></td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= number_format($dataDetail['total_Other_Currency_WithVat'], 2, '.', ','); ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= number_format($dataDetail['total_IDR'], 2, '.', ','); ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= number_format($dataDetail['total_Other_Currency'], 2, '.', ','); ?></td>
                         
                       </tbody>
                     <?php } ?>
 
                       <tfoot>
                         <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="3">GRAND TOTAL</td>
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($dataDetail['total_Idr_WithVat'], 2, '.', ','); ?></td>
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($dataDetail['total_Other_Currency_WithVat'], 2, '.', ','); ?></td>
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;">-</td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="5">GRAND TOTAL</td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($dataDetail['grand_Total_IDR'], 2, '.', ','); ?></td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($dataDetail['grand_Total_Other_Currency'], 2, '.', ','); ?></td>
+                          
                         </tr>
                       </tfoot>
                     
