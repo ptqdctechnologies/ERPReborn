@@ -1,39 +1,17 @@
-<!-- SELECT FOR FILTER BY DOCUMENT TYPE  -->
 <script>
     $("#user_role_popup").prop("disabled", true);
     $("#SavePrivilageMenu").prop("disabled", true);
     $("#Modul").prop("disabled", true);
     var checkedValue = [];
-</script>
-<!-- 
-<script>
-    $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getMenuGroup") !!}',
-            success: function(data) {
-                $(".Modul").empty();
+    $('#Modul').on("change", function (e) {
+        TableSubMenu();
+    });
 
-                var option = "<option value='" + '' + "'>" + 'Select Modul' + "</option>";
-                $(".Modul").append(option);
+    $('#Type').on("change", function (e) {
+        TableSubMenu();
+    });
 
-                var len = data.length;
-                for (var i = 0; i < len; i++) {
-                    var ids = data[i].Sys_ID;
-                    var names = data[i].Name;
-                    var option2 = "<option value='" + ids + "'>" + names + "</option>";
-                    $(".Modul").append(option2);
-                }
-            }
-        });
-</script> -->
-
-<script>
     function TableSubMenu(){
         $('#SelectAll').prop("checked", false);
         $('#UnSelectAll').prop("checked", false);
@@ -52,28 +30,25 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("getSubMenu") !!}?menu_group_id=' + ModulID + '&type=' + Type,
+            url: '{!! route(name: "getSubMenu") !!}?menu_group_id=' + ModulID + '&type=' + Type,
             success: function(data) {
                 $.each(data, function(key, val) {
-                    
                     keys += 1;
-
                     var checkedSubMenu = "";
                     for (var i = 0; i < checkedValue.length; i++) {
-                        if (checkedValue[i] == val.DefaultMenuAction_RefID) {
-
+                        if (checkedValue[i] == val.defaultMenuAction_RefID) {
                             checkedSubMenu = "checked";
-
                         }
                     }
 
-                    var html = '<tr>' +
+                    var html = 
+                        '<tr>' +
                             '<td>' +
                                 '<div class="input-group">&nbsp;&nbsp;' +
                                     '<span class="input-group-text">' +
-                                        '<input type="checkbox" ' + checkedSubMenu + ' name="Sub_Menu" id="Sub_Menu' + keys + '" class="Sub_Menu" value="' + val.DefaultMenuAction_RefID + '">' +
+                                        '<input type="checkbox" ' + checkedSubMenu + ' name="Sub_Menu" id="Sub_Menu' + keys + '" class="Sub_Menu" value="' + val.defaultMenuAction_RefID + '">' +
                                     '</span>' +
-                                    '<span style="position: relative;top:7px;left:15px;">' + val.Caption + '</span>' +
+                                    '<span style="position: relative;top:7px;left:15px;">' + val.caption + '</span>' +
                                 '</div>' +
                             '</td>' +
                         '</tr>';
@@ -86,7 +61,6 @@
                     else{
                         $("#SavePrivilageMenu").prop("disabled", true);
                     }
-
                 });
 
                 $('.Sub_Menu').click(function() {
@@ -94,7 +68,6 @@
                     if ($(this).is(":checked")) {
                         $('#UnSelectAll').prop("checked", false);
                         checkedValue.push(id);
-
                     } else {
                         $('#SelectAll').prop("checked", false);
                         var result = checkedValue.filter(function(elem) {
@@ -119,21 +92,7 @@
             }
         });
     }
-</script>
 
-<script>
-    $('#Modul').on("select2:select", function(e) {
-        TableSubMenu();
-    });
-</script>
-
-<script>
-    $('#Type').on("select2:select", function(e) {
-        TableSubMenu();
-    });
-</script>
-
-<script>
     $('#SelectAll').click(function() {
         if ($(this).is(":checked")) {
             $('.Sub_Menu').prop("checked", true);
@@ -186,9 +145,7 @@
             $("#SavePrivilageMenu").prop("disabled", true);
         }
     });
-</script>
 
-<script>
     $('#SavePrivilageMenu').click(function() {
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
@@ -268,5 +225,9 @@
                 CancelNotif("Data Cancel Inputed", '/PrivilageMenu');
             }
         })
+    });
+
+    $(window).one('load', function(e) {
+        TableSubMenu();
     });
 </script>

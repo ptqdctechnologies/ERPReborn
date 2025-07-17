@@ -103,7 +103,7 @@
                         <div class="row">
                           <div class="col p-0">
                             <?php if ($fileAttachment) { ?>
-                              <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none" value="{{ $fileAttachment; }}">
+                              <input type="text" id="dataInput_Log_FileUpload" name="dataInput_Log_FileUpload_1" style="display:none" value="{{ $fileAttachment }}">
                               <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                                 $varAPIWebToken,
                                 'dataInput_Log_FileUpload',
@@ -290,7 +290,7 @@
                   <!-- CONTENT -->
                   <div class="card-body">
                     <div class="row py-3">
-                      <textarea name="var_remark" id="remark" class="form-control">{{ $remark; }}</textarea>
+                      <textarea name="var_remark" id="remark" class="form-control">{{ $remark }}</textarea>
                     </div>
                   </div>
                 </div>

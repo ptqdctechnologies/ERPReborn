@@ -21,7 +21,6 @@
                     $('#menuSelect').append(option);
                 });
 
-                $('#menuSelect').select2();
                 $('.menuOption').show();
                 $('.spinner-menu').hide();
 
@@ -118,10 +117,10 @@
     // SHOW FOLDER/MENU
     function displaySubMenu() {
         let groupedData = localMenuData.reduce(function(acc, item) {
-            if (!acc[item.Type]) {
-                acc[item.Type] = [];
+            if (!acc[item.type]) {
+                acc[item.type] = [];
             }
-            acc[item.Type].push(item);
+            acc[item.type].push(item);
             return acc;
         }, {});
 
@@ -129,26 +128,26 @@
 
         const groupedDatasss = {
             Transaction: {},
-            Reports: {}
+            Report: {}
         };
 
         localMenuData.forEach(item => {
-            const { Type, id } = item;
+            const { type, caption } = item;
 
-            if (!groupedDatasss[Type]) {
-                groupedDatasss[Type] = {};
+            if (!groupedDatasss[type]) {
+                groupedDatasss[type] = {};
             }
 
-            if (id) {
-                if (!groupedDatasss[Type][id]) {
-                    groupedDatasss[Type][id] = [];
+            if (caption) {
+                if (!groupedDatasss[type][caption]) {
+                    groupedDatasss[type][caption] = [];
                 }
-                groupedDatasss[Type][id].push(item);
+                groupedDatasss[type][caption].push(item);
             } else {
-                if (!groupedDatasss[Type].main) {
-                    groupedDatasss[Type].main = [];
+                if (!groupedDatasss[type].main) {
+                    groupedDatasss[type].main = [];
                 }
-                groupedDatasss[Type].main.push(item);
+                groupedDatasss[type].main.push(item);
             }
         });
 
@@ -166,10 +165,10 @@
             if (groupedDatasss.Transaction.main) {
                 groupedDatasss.Transaction.main.forEach(function(item) {
                     displayData += `<ul class="nav nav-treeview">`;
-                    displayData += `<li class="nav-item" data-id="${item.Key}" data-caption="${item.Caption}">`;
+                    displayData += `<li class="nav-item" data-id="${item.key}" data-caption="${item.caption}">`;
                     displayData += `<a href="#" class="nav-link d-flex align-items-center trigger-modal-delete">`;
                     displayData += `<i class="far fa-file nav-icon" style="font-size: 14px;"></i>`;
-                    displayData += `<p>${item.Caption}</p>`;
+                    displayData += `<p>${item.caption}</p>`;
                     displayData += `</a>`;
                     displayData += `</li>`;
                     displayData += `</ul>`;
@@ -188,12 +187,12 @@
                     displayData += `</div>`;
                     displayData += `</a>`;
 
-                    groupedDatasss.Transaction[id].forEach(function(item) {
+                    groupedDatasss.Transaction[id][0].JSONDataMenuAction.forEach(function(item) {
                         displayData += `<ul class="nav nav-treeview">`;
-                        displayData += `<li class="nav-item" data-id="${item.Key}" data-caption="${item.Caption}">`;
+                        displayData += `<li class="nav-item" data-id="${item.index}" data-caption="${item.entities.caption}">`;
                         displayData += `<a href="#" class="nav-link d-flex align-items-center trigger-modal-delete">`;
                         displayData += `<i class="far fa-file nav-icon" style="font-size: 14px;"></i>`;
-                        displayData += `<p>${item.Caption}</p>`;
+                        displayData += `<p>${item.entities.caption}</p>`;
                         displayData += `</a>`;
                         displayData += `</li>`;
                         displayData += `</ul>`;
@@ -220,10 +219,10 @@
             if (groupedDatasss.Report.main) {
                 groupedDatasss.Report.main.forEach(function(item) {
                     displayData += `<ul class="nav nav-treeview">`;
-                    displayData += `<li class="nav-item" data-id="${item.Key}" data-caption="${item.Caption}">`;
+                    displayData += `<li class="nav-item" data-id="${item.key}" data-caption="${item.caption}">`;
                     displayData += `<a href="#" class="nav-link d-flex align-items-center trigger-modal-delete">`;
                     displayData += `<i class="far fa-file nav-icon" style="font-size: 14px;"></i>`;
-                    displayData += `<p>${item.Caption}</p>`;
+                    displayData += `<p>${item.caption}</p>`;
                     displayData += `</a>`;
                     displayData += `</li>`;
                     displayData += `</ul>`;
@@ -242,12 +241,12 @@
                     displayData += `</div>`;
                     displayData += `</a>`;
 
-                    groupedDatasss.Report[id].forEach(function(item) {
+                    groupedDatasss.Report[id][0].JSONDataMenuAction.forEach(function(item) {
                         displayData += `<ul class="nav nav-treeview">`;
-                        displayData += `<li class="nav-item" data-id="${item.Key}" data-caption="${item.Caption}">`;
+                        displayData += `<li class="nav-item" data-id="${item.index}" data-caption="${item.entities.caption}">`;
                         displayData += `<a href="#" class="nav-link d-flex align-items-center trigger-modal-delete">`;
                         displayData += `<i class="far fa-file nav-icon" style="font-size: 14px;"></i>`;
-                        displayData += `<p>${item.Caption}</p>`;
+                        displayData += `<p>${item.entities.caption}</p>`;
                         displayData += `</a>`;
                         displayData += `</li>`;
                         displayData += `</ul>`;
@@ -265,7 +264,7 @@
         $('.spinner-sub-menu').hide();
     }
 
-    $('#menuSelect').on('input', function() {
+    $('#menuSelect').on('change', function() {
         loadSubMenu($(this).val());
     });
 </script>
