@@ -60,6 +60,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     'entities' => [
                                         "deliveryOrderDetail_RefID" => 180000000000002,
                                         "quantity" => 40,
+                                        "product_RefID" => 88000000001664,
+                                        "quantityUnit_RefID" => 73000000000001,
+                                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                                        "productUnitPriceCurrencyExchangeRate" => 1,
+                                        "productUnitPriceCurrencyValue" => 25000,
                                         'remarks' => 'Catatan Update - 3B'
                                         ]
                                     ],
@@ -68,6 +73,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     'entities' => [
                                         "deliveryOrderDetail_RefID" => 180000000000003,
                                         "quantity" => 50,
+                                        "product_RefID" => 88000000001533,
+                                        "quantityUnit_RefID" => 73000000000002,
+                                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                                        "productUnitPriceCurrencyExchangeRate" => 1,
+                                        "productUnitPriceCurrencyValue" => 30000,
                                         'remarks' => 'Catatan Update - 4B'
                                         ]
                                     ],
