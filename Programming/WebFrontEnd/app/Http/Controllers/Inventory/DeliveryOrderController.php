@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Inventory;
 
-use App\Http\Controllers\ExportExcel\Inventory\ExportReportDOSummary;
+use App\Http\Controllers\ExportExcel\Inventory\ExportReportDeliveryOrderSummary;
 use App\Http\Controllers\ExportExcel\Inventory\ExportReportDODetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -24,6 +24,142 @@ class DeliveryOrderController extends Controller
     {
         $this->deliveryOrderService = $deliveryOrderService;
         $this->workflowService      = $workflowService;
+    }
+
+    public function ReportDeliveryOrderSummary(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionDeliveryOrderNumber");
+        $dataDO = Session::get("DeliveryOrderReportSummaryDataPDF");
+
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'statusRevisi' => 1,
+            'statusHeader' => "Yes",
+            'statusDetail' => 1,
+            'dataHeader' => [],
+            'dataDO' => $dataDO
+        
+        ];
+        // dump($compact);
+
+        return view('Inventory.DeliveryOrder.Reports.ReportDeliveryOrderSummary', $compact);
+    }
+
+    public function ReportDeliveryOrderSummaryData( $project_code, $site_code){
+        
+            
+        try {
+            Log::error("Error at ",[$project_code, $site_code]);
+
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $filteredArray = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.form.documentForm.supplyChain.getDeliveryOrderSummary', 
+                'latest',
+                [
+                    'parameter' => [
+                        'CombinedBudgetCode' =>  $project_code,
+                        'CombinedBudgetSectionCode' =>  $site_code,
+                        'Warehouse_RefID' => NULL
+                        // 'Supplier_RefID' => NULL
+                        // 'DeliveryOrder_RefID' => (int) $DeliveryOrder_refID
+                    ],
+                     'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                        ]
+                ]
+            );
+            
+            Log::error("Error at " ,$filteredArray);
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+
+            }
+            Session::put("DeliveryOrderReportSummaryDataPDF", $filteredArray['data']['data']);
+            Session::put("DeliveryOrderReportSummaryDataExcel", $filteredArray['data']['data']);
+            return $filteredArray['data']['data'];
+        }
+        catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportDeliveryOrderSummaryStore(Request $request)
+    {
+        // tes;
+        try {
+            $project_code = $request->project_code_second;
+            $site_code = $request->site_id_second;
+
+            $statusHeader = "Yes";
+            Log::error("Error at " ,[$request->all()]);
+            if ($project_code == "" && $site_code == "") {
+                Session::forget("DeliveryOrderReportSummaryDataPDF");
+                Session::forget("DeliveryOrderReportSummaryDataExcel");
+                
+                return redirect()->route('DeliveryOrder.ReportDeliveryOrderSummary')->with('NotFound', 'Cannot Empty');
+            }
+
+            $compact = $this->ReportDeliveryOrderSummaryData($project_code, $site_code);
+            // dd($compact);
+            // if ($compact['dataHeader'] == []) {
+            //     Session::forget("PDeliveryOrderSummaryReportDataPDF");
+            //     Session::forget("PDeliveryOrderSummaryReportDataExcel");
+
+            //     return redirect()->back()->with('NotFound', 'Data Not Found');
+            // }
+
+            return redirect()->route('DeliveryOrder.ReportDeliveryOrderSummary');
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportDeliveryOrderSummary(Request $request)
+    {
+        try {
+            $dataPDF = Session::get("DeliveryOrderReportSummaryDataPDF");
+            $dataExcel = Session::get("DeliveryOrderReportSummaryDataExcel");
+
+            
+            if ($dataPDF && $dataExcel) {
+                $print_type = $request->print_type;
+                if ($print_type == "PDF") {
+                    $dataDO = Session::get("DeliveryOrderReportSummaryDataPDF");
+                    // dd($dataDO);
+
+                    $pdf = PDF::loadView('Inventory.DeliveryOrder.Reports.ReportDeliveryOrderSummary_pdf', ['dataDO' => $dataDO])->setPaper('a4', 'landscape');
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Delivery Order Summary.pdf');
+                } else if ($print_type == "Excel") {
+                    return Excel::download(new ExportReportDeliveryOrderSummary, 'Export Report Delivery Order Summary.xlsx');
+                }
+            } else {
+                return redirect()->route('DeliveryOrder.DeliveryOrderSummary')->with('NotFound', 'Data Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function index(Request $request)
@@ -108,160 +244,160 @@ class DeliveryOrderController extends Controller
         }
     }
 
-    public function ReportDOSummary(Request $request)
-    {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $isSubmitButton = $request->session()->get('isButtonReportDOSummarySubmit');
+    // public function ReportDOSummary(Request $request)
+    // {
+    //     $varAPIWebToken = $request->session()->get('SessionLogin');
+    //     $isSubmitButton = $request->session()->get('isButtonReportDOSummarySubmit');
 
-        $dataReport = $isSubmitButton ? $request->session()->get('dataReportDOSummary', []) : [];
+    //     $dataReport = $isSubmitButton ? $request->session()->get('dataReportDOSummary', []) : [];
 
-        $compact = [
-            'varAPIWebToken' => [],
-            'dataReport' => $dataReport
-        ];
+    //     $compact = [
+    //         'varAPIWebToken' => [],
+    //         'dataReport' => $dataReport
+    //     ];
 
-        return view('Inventory.DeliveryOrder.Reports.ReportDOSummary', $compact);
-    }
+    //     return view('Inventory.DeliveryOrder.Reports.ReportDOSummary', $compact);
+    // }
 
-    public function ReportDOSummaryData($projectId, $siteId, $projectCode, $projectName)
-    {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
+    // public function ReportDOSummaryData($projectId, $siteId, $projectCode, $projectName)
+    // {
+    //     try {
+    //         $varAPIWebToken = Session::get('SessionLogin');
 
-            Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'report.form.documentForm.finance.getReportAdvanceSummary',
-                'latest',
-                [
-                    'parameter' => [
-                        'dataFilter' => [
-                            'budgetID' => 1,
-                            'subBudgetID' => 1,
-                            'workID' => 1,
-                            'productID' => 1,
-                            'beneficiaryID' => 1,
-                        ]
-                    ]
-                ],
-                false
-            );
+    //         Helper_APICall::setCallAPIGateway(
+    //             Helper_Environment::getUserSessionID_System(),
+    //             $varAPIWebToken,
+    //             'report.form.documentForm.finance.getReportAdvanceSummary',
+    //             'latest',
+    //             [
+    //                 'parameter' => [
+    //                     'dataFilter' => [
+    //                         'budgetID' => 1,
+    //                         'subBudgetID' => 1,
+    //                         'workID' => 1,
+    //                         'productID' => 1,
+    //                         'beneficiaryID' => 1,
+    //                     ]
+    //                 ]
+    //             ],
+    //             false
+    //         );
 
-            $DataReportAdvanceSummary = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "ReportAdvanceSummary"
-                ),
-                true
-            );
+    //         $DataReportAdvanceSummary = json_decode(
+    //             Helper_Redis::getValue(
+    //                 Helper_Environment::getUserSessionID_System(),
+    //                 "ReportAdvanceSummary"
+    //             ),
+    //             true
+    //         );
 
-            $collection = collect($DataReportAdvanceSummary);
+    //         $collection = collect($DataReportAdvanceSummary);
 
-            if ($projectId != "") {
-                $collection = $collection->where('CombinedBudget_RefID', $projectId);
-            }
-            if ($siteId != "") {
-                $collection = $collection->where('CombinedBudgetSection_RefID', $siteId);
-            }
+    //         if ($projectId != "") {
+    //             $collection = $collection->where('CombinedBudget_RefID', $projectId);
+    //         }
+    //         if ($siteId != "") {
+    //             $collection = $collection->where('CombinedBudgetSection_RefID', $siteId);
+    //         }
 
-            $collection = $collection->all();
+    //         $collection = $collection->all();
 
-            $dataHeaders = [
-                'budget'        => $projectCode . " - " . $projectName
-            ];
+    //         $dataHeaders = [
+    //             'budget'        => $projectCode . " - " . $projectName
+    //         ];
 
-            $dataDetails = [];
-            $i = 0;
-            $total = 0;
-            foreach ($collection as $collections) {
-                $total              += $collections['TotalAdvance'];
+    //         $dataDetails = [];
+    //         $i = 0;
+    //         $total = 0;
+    //         foreach ($collection as $collections) {
+    //             $total              += $collections['TotalAdvance'];
 
-                $dataDetails[$i]['no']                  = $i + 1;
-                $dataDetails[$i]['DONumber']            = "DO01-23000004";
-                $dataDetails[$i]['budgetCode']          = $collections['CombinedBudgetCode'];
-                $dataDetails[$i]['date']                = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
-                $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
-                $i++;
-            }
+    //             $dataDetails[$i]['no']                  = $i + 1;
+    //             $dataDetails[$i]['DONumber']            = "DO01-23000004";
+    //             $dataDetails[$i]['budgetCode']          = $collections['CombinedBudgetCode'];
+    //             $dataDetails[$i]['date']                = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
+    //             $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
+    //             $i++;
+    //         }
 
-            $compact = [
-                'dataHeader'            => $dataHeaders,
-                'dataDetail'            => $dataDetails,
-                'total'                 => number_format($total, 2),
-            ];
+    //         $compact = [
+    //             'dataHeader'            => $dataHeaders,
+    //             'dataDetail'            => $dataDetails,
+    //             'total'                 => number_format($total, 2),
+    //         ];
 
-            Session::put("isButtonReportDOSummarySubmit", true);
-            Session::put("dataReportDOSummary", $compact);
+    //         Session::put("isButtonReportDOSummarySubmit", true);
+    //         Session::put("dataReportDOSummary", $compact);
 
-            return $compact;
-        } catch (\Throwable $th) {
-            Log::error("Error at ReportDOSummaryData: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
+    //         return $compact;
+    //     } catch (\Throwable $th) {
+    //         Log::error("Error at ReportDOSummaryData: " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
 
-    public function ReportDOSummaryStore(Request $request) 
-    {
-        try {
-            $budget         = $request->budget;
-            $budgetID       = $request->budget_id;
-            $budgetName     = $request->budget_name;
-            $subBudgetID    = $request->sub_budget_id;
+    // public function ReportDOSummaryStore(Request $request) 
+    // {
+    //     try {
+    //         $budget         = $request->budget;
+    //         $budgetID       = $request->budget_id;
+    //         $budgetName     = $request->budget_name;
+    //         $subBudgetID    = $request->sub_budget_id;
 
-            if (!$budgetID && !$subBudgetID) {
-                $message = 'Budget & Sub Budget Cannot Empty';
-            } else if ($budgetID && !$subBudgetID) {
-                $message = 'Sub Budget Cannot Empty';
-            }
+    //         if (!$budgetID && !$subBudgetID) {
+    //             $message = 'Budget & Sub Budget Cannot Empty';
+    //         } else if ($budgetID && !$subBudgetID) {
+    //             $message = 'Sub Budget Cannot Empty';
+    //         }
 
-            if (isset($message)) {
-                Session::forget("isButtonReportDOSummarySubmit");
-                Session::forget("dataReportDOSummary");
+    //         if (isset($message)) {
+    //             Session::forget("isButtonReportDOSummarySubmit");
+    //             Session::forget("dataReportDOSummary");
 
-                return redirect()->route('Inventory.ReportDOSummary')->with('NotFound', $message);
-            }
+    //             return redirect()->route('Inventory.ReportDOSummary')->with('NotFound', $message);
+    //         }
 
-            $compact = $this->ReportDOSummaryData($budgetID, $subBudgetID, $budget, $budgetName);
+    //         $compact = $this->ReportDOSummaryData($budgetID, $subBudgetID, $budget, $budgetName);
 
-            if ($compact === null || empty($compact['dataHeader'])) {
-                return redirect()->back()->with('NotFound', 'Data Not Found');
-            }
+    //         if ($compact === null || empty($compact['dataHeader'])) {
+    //             return redirect()->back()->with('NotFound', 'Data Not Found');
+    //         }
 
-            return redirect()->route('Inventory.ReportDOSummary');
-        } catch (\Throwable $th) {
-            Log::error("Error at ReportDOSummaryStore: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
+    //         return redirect()->route('Inventory.ReportDOSummary');
+    //     } catch (\Throwable $th) {
+    //         Log::error("Error at ReportDOSummaryStore: " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
 
-    public function PrintExportReportDOSummary(Request $request) {
-        try {
-            $dataReport = Session::get("dataReportDOSummary");
+    // public function PrintExportReportDOSummary(Request $request) {
+    //     try {
+    //         $dataReport = Session::get("dataReportDOSummary");
 
-            if ($dataReport) {
-                if ($request->print_type == "PDF") {
-                    $pdf = PDF::loadView('Inventory.DeliveryOrder.Reports.ReportDOSummary_pdf', ['dataReport' => $dataReport]);
-                    $pdf->output();
-                    $dom_pdf = $pdf->getDomPDF();
+    //         if ($dataReport) {
+    //             if ($request->print_type == "PDF") {
+    //                 $pdf = PDF::loadView('Inventory.DeliveryOrder.Reports.ReportDOSummary_pdf', ['dataReport' => $dataReport]);
+    //                 $pdf->output();
+    //                 $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
-                    $width = $canvas->get_width();
-                    $height = $canvas->get_height();
-                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+    //                 $canvas = $dom_pdf ->get_canvas();
+    //                 $width = $canvas->get_width();
+    //                 $height = $canvas->get_height();
+    //                 $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    //                 $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
     
-                    return $pdf->download('Export Report Delivery Order Summary.pdf');
-                } else {
-                    return Excel::download(new ExportReportDOSummary, 'Export Report Delivery Order Summary.xlsx');
-                }
-            } else {
-                return redirect()->route('Inventory.ReportDOSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
-            }
-        } catch (\Throwable $th) {
-            Log::error("Error at PrintExportReportDOSummary: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
+    //                 return $pdf->download('Export Report Delivery Order Summary.pdf');
+    //             } else {
+    //                 return Excel::download(new ExportReportDOSummary, 'Export Report Delivery Order Summary.xlsx');
+    //             }
+    //         } else {
+    //             return redirect()->route('Inventory.ReportDOSummary')->with('NotFound', 'Budget & Sub Budget Cannot Empty');
+    //         }
+    //     } catch (\Throwable $th) {
+    //         Log::error("Error at PrintExportReportDOSummary: " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
 
     public function ReportDODetail(Request $request)
     {

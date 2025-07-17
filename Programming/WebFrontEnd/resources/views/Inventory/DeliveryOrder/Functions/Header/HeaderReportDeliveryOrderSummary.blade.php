@@ -1,5 +1,5 @@
 <div class="col-sm-12 col-md-12 col-lg-3">
-    <form method="POST" action="{{ route('PurchaseOrder.ReportPurchaseOrderSummaryStore') }}">
+    <form method="POST" action="{{ route('DeliveryOrder.ReportDeliveryOrderSummaryStore') }}">
     @csrf
     <!-- BUDGET -->
     <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
@@ -48,14 +48,14 @@
     <div class="form-group">
         <table>
             <tr>
-                <th style="padding-top: 7px;"><label>Supplier&nbsp;</label></th>
+                <th style="padding-top: 7px;"><label>Warehouse&nbsp;</label></th>
                 <td>
                     <div class="input-group">
-                        <input id="supplier_id" hidden name="supplier_id">
-                        <input id="supplier_code" style="border-radius:0;background-color:white;" data-toggle="modal" data-target="#mySupplier" class="form-control mySupplier" readonly name="supplier_code"> 
+                        <input id="warehouse_from_id" style="border-radius:0;margin-left:33px;" name="warehouse_from_id" class="form-control" hidden>
+                        <input id="warehouse_from" style="border-radius:0;margin-left:33px;" name="warehouse_from" class="form-control">
                         <div class="input-group-append">
                             <span style="border-radius:0;" class="input-group-text form-control">
-                            <a href="#" id="supplier_popup" data-toggle="modal" data-target="#mySupplier" class="mySupplier"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                <a href="#"><i id="warehouse_from_2" data-toggle="modal" data-target="#myGetWarehouse" class="fas fa-gift myGetWarehouseFrom" style="color:grey;"></i></a>
                             </span>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
     </form>
 
     <!-- EXPORT -->
-    <form method="POST" action="{{ route('PurchaseOrder.PrintExportReportPurchaseOrderSummary') }}">
+    <form method="POST" action="{{ route('DeliveryOrder.PrintExportReportDeliveryOrderSummary') }}">
     @csrf
         <input id="project_code_second_trigger" style="border-radius:0;" name="project_code_second_trigger" class="form-control" size="34" value="<?= $dataReport['budgetCode'] ?? null; ?>" readonly hidden>
         <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row align-items-center p-0" style="margin-bottom: 1rem; gap: 0.5rem;">

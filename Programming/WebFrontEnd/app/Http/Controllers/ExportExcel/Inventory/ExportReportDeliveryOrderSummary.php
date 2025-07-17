@@ -12,42 +12,34 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 
-class ExportReportDOSummary implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents
+class ExportReportDeliveryOrderSummary implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents
 {
     public function collection()
     {
-        $data = Session::get("dataReportDOSummary");
-        $dataDetail = $data['dataDetail'];
-        
-        $collection = collect();
-        foreach ($dataDetail as $detail) {
-            $collection->push(
-                [
-                    $detail['no'],
-                    $detail['DONumber'],
-                    $detail['date'],
-                    $detail['total'],
-                ]
-            );
+        $data = Session::get("DeliveryOrderReportSummaryDataExcel");
+        // return collect($data);
+        $filteredData = [];
+        $counter = 1;
+        foreach ($data as $item) {
+            $filteredData[] = [
+                'No'                                => $counter++,
+                'DO Number'                         => $item['documentNumber'] ?? null,
+                'Date'                              => date('Y-m-d', strtotime($item['date'])) ?? null,
+                'Type'                              =>  null,
+                'Delivery From'                     =>  null,
+                'Delivery To'                       =>  null,
+                'Transporter'                       =>  null,
+            ];
         }
 
-        $collection->push(
-            [
-                '',
-                '',
-                'Total',
-                $data['total'],
-            ]
-        );
-
-        return $collection;
+        return collect($filteredData);
     }
 
     public function headings(): array
     {
         return [
-            ["", "", "", "", "", ""],
-            ["No", "DO Number", "Date", "Qty"]
+            ["", "", "", "", "", "", "", "", "", ""],
+            ["No", "DO Number","Date", "Type", "Delivery From", "Delivery To", "Transporter"],
         ];
     }
 
@@ -57,12 +49,12 @@ class ExportReportDOSummary implements FromCollection, WithHeadings, ShouldAutoS
             BeforeSheet::class => function (BeforeSheet $event) {
                 $sheet = $event->sheet->getDelegate();
 
-                $data = Session::get("dataReportDOSummary");
-                $dataHeader = $data['dataHeader'];
+                $data = Session::get("DeliveryOrderReportSummaryDataExcel");
+                // $dataHeader = $data['dataHeader'];
 
                 $sheet->setCellValue('A1', date('F j, Y'))
-                    ->mergeCells('A1:F1')
-                    ->getStyle('A1:F1')
+                    ->mergeCells('A1:G1')
+                    ->getStyle('A1:G1')
                     ->applyFromArray([
                         'font' => [
                             'bold' => true,
@@ -73,9 +65,9 @@ class ExportReportDOSummary implements FromCollection, WithHeadings, ShouldAutoS
                         ],
                 ]);
 
-                $sheet->setCellValue('A2', 'DO Summary Report')
-                    ->mergeCells('A2:F2')
-                    ->getStyle('A2:F2')
+                $sheet->setCellValue('A2', 'Delivery Order Summary Report')
+                    ->mergeCells('A2:G2')
+                    ->getStyle('A2:G2')
                     ->applyFromArray([
                         'font' => [
                             'bold' => true,
@@ -87,8 +79,8 @@ class ExportReportDOSummary implements FromCollection, WithHeadings, ShouldAutoS
                 ]);
 
                 $sheet->setCellValue('A3', date('h:i A'))
-                    ->mergeCells('A3:F3')
-                    ->getStyle('A3:F3')
+                    ->mergeCells('A3:G3')
+                    ->getStyle('A3:G3')
                     ->applyFromArray([
                         'font' => [
                             'bold' => true,
@@ -105,7 +97,7 @@ class ExportReportDOSummary implements FromCollection, WithHeadings, ShouldAutoS
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('B4', ': ' . $dataHeader['budget']);
+                $sheet->setCellValue('B4', ': ');
             },
         ];
     }
