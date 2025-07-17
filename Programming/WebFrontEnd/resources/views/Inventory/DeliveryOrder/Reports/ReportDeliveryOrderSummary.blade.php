@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">Purchase Requisition Report Summary</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">Delivery Order Report Summary</label>
                 </div>
             </div>
             <div class="card">
@@ -25,21 +25,21 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row p-1" style="row-gap: 1rem;">
-                                        @include('Purchase.PurchaseRequisition.Functions.Header.HeaderReportPRSummary')
+                                        @include('Inventory.DeliveryOrder.Functions.Header.HeaderReportDeliveryOrderSummary')
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     @endif
-                    @if($statusDetail == 1 && $dataPO)
+                    @if($statusDetail == 1 && $dataDO)
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row py-2 px-1" style="gap: 1rem;">
                                             <label class="p-0 text-bold mb-0">Budget</label>
-                                              :  <?= $dataPO[0]['combinedBudgetCode']; ?> - <?= $dataPO[0]['combinedBudgetName']; ?> 
+                                              :  <?= $dataDO[0]['combinedBudgetCode']; ?> - <?= $dataDO[0]['combinedBudgetName']; ?> 
                                         </div>
                                     </div>
                                 </div>
@@ -54,37 +54,35 @@
                                         <table class="table table-head-fixed text-nowrap" id="DefaultFeatures">
                                             <thead>
                                                 <tr>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PR Number</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width:10px;">No</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">DO Number</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Sub Budget</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Type</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Delivery From</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Delivery To</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Idr</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Other Currency</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Transporter</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $counter = 1; ?>
-                                                <?php foreach ($dataPO as $dataDetail) { ?>
+                                                <?php foreach ($dataDO as $dataDetail) { ?>
                                                     <tr>
-                                                        <td><?= $counter++; ?></td>
+                                                        <td style="text-align: center;"><?= $counter++; ?></td>
                                                         <td><?= $dataDetail['documentNumber']; ?></td>
+                                                        <td>{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
                                                         <td>-</td>
                                                         <td>-</td>
-                                                        <td><?= $dataDetail['supplier_Code']; ?> - <?= $dataDetail['supplier_Name']; ?> </td>
-                                                        <td><?= $dataDetail['total_Idr_WithVat']; ?></td>
-                                                        <td><?= $dataDetail['total_Idr_WithoutVat']; ?></td>
+                                                        <td>-</td>
+                                                        <td>-</td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
-                                            <tfoot>
+                                            <!-- <tfoot>
                                                 <tr>
-                                                    <th colspan="5" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
+                                                    <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
-                                                    
                                                 </tr>
-                                            </tfoot>
+                                            </tfoot> -->
                                         </table>
                                     </div>
                                 </div>
@@ -98,5 +96,5 @@
 </div>
 
 @include('Partials.footer')
-@include('Purchase.PurchaseRequisition.Functions.Footer.FooterReportPurchaseRequisitionSummary')
+@include('Inventory.DeliveryOrder.Functions.Footer.FooterReportDeliveryOrderSummary')
 @endsection

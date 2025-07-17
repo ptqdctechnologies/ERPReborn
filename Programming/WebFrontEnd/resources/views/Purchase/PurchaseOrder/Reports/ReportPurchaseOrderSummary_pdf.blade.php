@@ -1,259 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('Partials.app')
+@section('main')
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="{{ csrf_token() }}" />
+<!-- <style>
+  table,
+  th,
+  td {
+    border: 1px solid #ced4da;
+    border-collapse: collapse;
+  }
+</style> -->
 
-  <title>ERP Reborn</title>
-
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
-</head>
-
-<body>
-    <div class="card-body table-responsive p-0">
-        <div style="text-align: right; font-size: 14px;"><?= date('F j, Y'); ?></div>
-        <div style="text-align: center; font-size: 20px; font-weight: bold;">Purchase Order Summary Report</div>
-        <div style="text-align: right; font-size: 14px;"><?= date('h:i A'); ?></div>
-
-        <!-- HEADER -->
-        <table style="margin: 30px 0px 15px 1px;">
+<div class="content-wrapper">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row mb-1">
+        <div class="col-sm-12">
+          <center>
+            <div style="text-align: center; font-size: 20px; font-weight: bold;">Purchase Order Report Summary</div>
+          </center>
+          <table style="float:left;">
             <tr>
-                <!-- BUDGET -->
-                <td style=" width: 350px;">
-                    <table>
-                        <tr>
-                            <td style="width: 90px; height: 20px;">
-                                <div style="font-size: 12px; font-weight: bold; line-height: 14px;">
-                                    Budget
-                                </div>
-                            </td>
-                            <td style="width: 5px;">
-                                :
-                            </td>
-                            <td style="height: 20px;">
-                                <div style="line-height: 14px;">
-                                    <?= $dataReport['dataHeader']['budget'] . " - " . $dataReport['dataHeader']['budgetName']; ?>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
+              <td>Project</td>
+              <td>:</td>
+              <td><?= $dataPO[0]['combinedBudgetCode'] . ' - ' . $dataPO[0]['combinedBudgetName']; ?></td>
             </tr>
-        </table>
-
-        <!-- DISINI -->
-        <table class="TableReportAdvanceSummary" style="margin-left: 1px; width: 100%; margin-top: 30px;" id="TableReportAdvanceSummary">
-            <tr style="border-top: 1px solid black; border-bottom: 1px dotted black;">
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        No
-                    </div>
-                </td>
-                <!-- <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        PR Number
-                    </div>
-                </td> -->
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        Product Id
-                    </div>
-                </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        Qty
-                    </div>
-                </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        Price
-                    </div>
-                </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        UOM
-                    </div>
-                </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <table>
-                        <tr>
-                            <td colspan="2" style="text-align: center;">
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 8px 0px;">
-                                    Total IDR
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 16px 8px;">
-                                    With VAT
-                                </div>
-                            </td>
-                            <td>
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 16px 8px;">
-                                    Without VAT
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <table>
-                        <tr>
-                            <td colspan="2" style="text-align: center;">
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 8px 0px;">
-                                    Total Other Currency
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 16px 8px;">
-                                    With VAT
-                                </div>
-                            </td>
-                            <td>
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 8px 16px 8px;">
-                                    Without VAT
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                        Currency
-                    </div>
-                </td>
+          </table>
+          <table style="float:right;">
+            <!-- <tr>
+              <td><img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/AdminLTE-master/dist/img/qdc.png'))) }}" width="180"></td>
+            </tr> -->
             </tr>
+          </table>
+          <br><br>
+        </div>
+      </div>
+      <div class="card">
+        <div class="tab-content p-3" id="nav-tabContent">
+          <div class="row">
 
-            <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
-                <tr>
-                    <td>
-                        <div style="margin-top: 4px;">
-                            <?= $dataDetail['no']; ?>
-                        </div>
-                    </td>
-                    <td>
-                        <div style="margin-top: 4px; max-width: 125px;">
-                            <?= $dataDetail['productId'] . " - " . $dataDetail['productName']; ?>
-                        </div>
-                    </td>
-                    <td>
-                        <div style="margin-top: 4px;">
-                            <?= $dataDetail['qty']; ?>
-                        </div>
-                    </td>
-                    <td>
-                        <div style="margin-top: 4px;">
-                            <?= $dataDetail['price']; ?>
-                        </div>
-                    </td>
-                    <td>
-                        <div style="margin-top: 4px;">
-                            <?= $dataDetail['uom']; ?>
-                        </div>
-                    </td>
-                    <td>
-                        <table style="width: 100%;">
-                            <tr>
-                                <td>
-                                    <div style="margin-top: 4px;">
-                                        <?= $dataDetail['totalIDRWithPPN']; ?>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="margin-top: 4px;">
-                                        <?= $dataDetail['totalIDRWithoutPPN']; ?>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-                        <table style="width: 100%;">
-                            <tr>
-                                <td>
-                                    <div style="margin-top: 4px;">
-                                        <?= $dataDetail['totalOtherCurrencyWithPPN']; ?>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="margin-top: 4px;">
-                                        <?= $dataDetail['totalOtherCurrencyWithPPN']; ?>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-                        <div style="margin-top: 4px;">
-                            <?= $dataDetail['currency']; ?>
-                        </div>
-                    </td>
-                </tr>
-            <?php } ?>
+            <div class="col-12 ShowTableReportAdvanceSummary">
+              <div class="card">
+                <div class="card-body table-responsive p-0">
+                  <table class="TableReportAdvanceSummary" id="TableReportAdvanceSummary" style="font-size: 13px;width:100%;border: 1px solid #ced4da;border-collapse: collapse;">
+                    <thead>
+                      <tr style="border: 1px solid #ced4da;border-collapse: collapse;">
+                        <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">No</th>
+                        <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">PO Number</th>
+                        <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Product Id</th>
+                        <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Qty</th>
+                        <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Price</th>
+                        <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Uom</th>
+                        <th colspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total Idr</th>
+                        <th colspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total Other Currency</th>
+                        <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Currency</th>
+                      </tr>
+                      <tr>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">With VAT</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Without VAT</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">With VAT</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Without VAT</th>
+                      </tr>
+                    </thead>
+                    <?php $counter = 1; ?>
+                    <?php foreach ($dataPO as $dataDetail) { ?>
+                      <tbody>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $counter++; ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['documentNumber']; ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['product_Code']; ?> - <?= $dataDetail['product_Name']; ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['quantity']; ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['price']; ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['UOM']; ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['total_Idr_WithVat']; ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['total_Idr_WithoutVat']; ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['total_Other_Currency_WithVat']; ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['total_Other_Currency_WithoutVat']; ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['currency']; ?></td>
+                        
+                      </tbody>
+                    <?php } ?>
 
-            <div style="height: 16px;"></div>
-
-            <tr style="border-top: 1px solid black;">
-                <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
-                </td>
-                <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">Total</div>
-                </td>
-                <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= $dataReport['totalQty']; ?></div>
-                </td>
-                <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
-                </td>
-                <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
-                </td>
-                <td style="height: 20px;">
-                    <table style="width: 100%;">
-                        <tr>
-                            <td style="height: 20px;">
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                                    <?= $dataReport['totalIDRWithPPN']; ?>
-                                </div>
-                            </td>
-                            <td style="height: 20px;">
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                                    <?= $dataReport['totalIDRWithoutPPN']; ?>
-                                </div>
-                            </td>
+                      <tfoot>
+                        <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="6">GRAND TOTAL</td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
                         </tr>
-                    </table>
-                </td>
-                <td style="height: 20px;">
-                    <table style="width: 100%;">
-                        <tr>
-                            <td style="height: 20px;">
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                                    <?= $dataReport['totalOtherCurrencyWithPPN']; ?>
-                                </div>
-                            </td>
-                            <td style="height: 20px;">
-                                <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-                                    <?= $dataReport['totalOtherCurrencyWithoutPPN']; ?>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td style="height: 20px;">
-                    <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"></div>
-                </td>
-            </tr>
-        </table>
-        <!-- DISINI -->
+                      </tfoot>
+                    
+
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-</body>
-
-</html>
+  </section>
+</div>
+@endsection

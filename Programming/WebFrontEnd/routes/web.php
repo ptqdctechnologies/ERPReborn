@@ -281,8 +281,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidatePurchaseRequisition', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition')->name('PurchaseRequisition.StoreValidatePurchaseRequisition');
     Route::post('StoreValidatePurchaseRequisition2', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition2')->name('PurchaseRequisition.StoreValidatePurchaseRequisition2');
     Route::post('RevisionPurchaseRequest', 'Purchase\PurchaseRequisitionController@RevisionPurchaseRequest')->name('PurchaseRequisition.RevisionPurchaseRequest');
-    Route::get('ReportPurchaseRequisitionSummary', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionSummary')->name('PurchaseRequisition.ReportPurchaseRequisitionSummary');
-    Route::post('ReportPurchaseRequisitionSummaryStore', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionSummaryStore')->name('PurchaseRequisition.ReportPurchaseRequisitionSummaryStore');
     Route::get('ReportPurchaseRequisitionDetailID/{id}', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetailID')->name('PurchaseRequisition.ReportPurchaseRequisitionDetailID');
     Route::post('PrintExportReportPurchaseRequisitionSummary', 'Purchase\PurchaseRequisitionController@PrintExportReportPurchaseRequisitionSummary')->name('PurchaseRequisition.PrintExportReportPurchaseRequisitionSummary');
     Route::post('PrintExportReportPurchaseRequisitionDetail', 'Purchase\PurchaseRequisitionController@PrintExportReportPurchaseRequisitionDetail')->name('PurchaseRequisition.PrintExportReportPurchaseRequisitionDetail');
@@ -291,6 +289,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportPRtoPOStore', 'Purchase\PurchaseRequisitionController@ReportPRtoPOStore')->name('PurchaseRequisition.ReportPRtoPOStore');
     Route::post('PrintExportReportPRtoPO', 'Purchase\PurchaseRequisitionController@PrintExportReportPRtoPO')->name('PurchaseRequisition.PrintExportReportPRtoPO');
 
+    Route::get('ReportPurchaseRequisitionSummary', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionSummary')->name('PurchaseRequisition.ReportPurchaseRequisitionSummary');
+    Route::post('ReportPurchaseRequisitionSummaryStore', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionSummaryStore')->name('PurchaseRequisition.ReportPurchaseRequisitionSummaryStore');
+    
     Route::get('ReportPurchaseRequisitionDetail', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetail')->name('PurchaseRequisition.ReportPurchaseRequisitionDetail');
     Route::post('ReportPurchaseRequisitionDetailStore', 'Purchase\PurchaseRequisitionController@ReportPurchaseRequisitionDetailStore')->name('PurchaseRequisition.ReportPurchaseRequisitionDetailStore');
     Route::get('PurchaseRequisitionListData', 'Purchase\PurchaseRequisitionController@PurchaseRequisitionListData')->name('PurchaseRequisition.PurchaseRequisitionListData');
@@ -304,7 +305,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidatePurchaseOrder2', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder2')->name('PurchaseOrder.StoreValidatePurchaseOrder2');
     Route::post('StoreValidatePurchaseOrderPrNumber', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrderPrNumber')->name('PurchaseOrder.StoreValidatePurchaseOrderPrNumber');
     Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrderIndex')->name('PurchaseOrder.RevisionPurchaseOrder');
-    Route::get('ReportPurchaseOrderSummary', 'Purchase\PurchaseOrderController@ReportPoSummary')->name('PurchaseOrder.ReportPurchaseOrderSummary');
+    Route::get('ReportPurchaseOrderSummary', 'Purchase\PurchaseOrderController@ReportPurchaseOrderSummary')->name('PurchaseOrder.ReportPurchaseOrderSummary');
     Route::post('ReportPurchaseOrderSummaryStore', 'Purchase\PurchaseOrderController@ReportPurchaseOrderSummaryStore')->name('PurchaseOrder.ReportPurchaseOrderSummaryStore');
     Route::post('PrintExportReportPurchaseOrderSummary', 'Purchase\PurchaseOrderController@PrintExportReportPurchaseOrderSummary')->name('PurchaseOrder.PrintExportReportPurchaseOrderSummary');
     Route::get('ReportPurchaseOrderDetail', 'Purchase\PurchaseOrderController@ReportPoDetail')->name('PurchaseOrder.ReportPurchaseOrderDetail');
@@ -389,9 +390,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('DeliveryOrderListCartRevision', 'Inventory\DeliveryOrderController@DeliveryOrderListCartRevision')->name('DeliveryOrder.DeliveryOrderListCartRevision');
     Route::get('DeliveryOrderByBudgetID', 'Inventory\DeliveryOrderController@DeliveryOrderByBudgetID')->name('DeliveryOrder.DeliveryOrderByBudgetID');
     Route::get('DeliveryOrderByDorID', 'Inventory\DeliveryOrderController@DeliveryOrderByDorID')->name('DeliveryOrder.DeliveryOrderByDorID');
-    Route::get('ReportDOSummary', 'Inventory\DeliveryOrderController@ReportDOSummary')->name('Inventory.ReportDOSummary');
-    Route::post('ReportDOSummaryStore', 'Inventory\DeliveryOrderController@ReportDOSummaryStore')->name('Inventory.ReportDOSummaryStore');
-    Route::post('PrintExportReportDOSummary', 'Inventory\DeliveryOrderController@PrintExportReportDOSummary')->name('Inventory.PrintExportReportDOSummary');
+    Route::get('ReportDeliveryOrderSummary', 'Inventory\DeliveryOrderController@ReportDeliveryOrderSummary')->name('DeliveryOrder.ReportDeliveryOrderSummary');
+    Route::post('ReportDeliveryOrderSummaryStore', 'Inventory\DeliveryOrderController@ReportDeliveryOrderSummaryStore')->name('DeliveryOrder.ReportDeliveryOrderSummaryStore');
+    Route::post('PrintExportReportDeliveryOrderSummary', 'Inventory\DeliveryOrderController@PrintExportReportDeliveryOrderSummary')->name('DeliveryOrder.PrintExportReportDeliveryOrderSummary');
     Route::post('StoreValidateDeliveryOrderSupplier', 'Inventory\DeliveryOrderController@StoreValidateDeliveryOrderSupplier')->name('DeliveryOrder.StoreValidateDeliveryOrderSupplier');
     Route::get('ReportDODetail', 'Inventory\DeliveryOrderController@ReportDODetail')->name('Inventory.ReportDODetail');
     Route::post('ReportDODetailStore', 'Inventory\DeliveryOrderController@ReportDODetailStore')->name('Inventory.ReportDODetailStore');
