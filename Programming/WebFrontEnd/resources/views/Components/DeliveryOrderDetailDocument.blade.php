@@ -10,7 +10,7 @@
                 : <?= $dataHeader['doNumber']; ?>
             </div>
         </div>
-        
+
         <!-- DELIVERY FROM -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
@@ -20,7 +20,7 @@
                 : <?= $dataHeader['deliveryFrom']; ?>
             </div>
         </div>
-        
+
         <!-- DELIVERY TO -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
@@ -30,7 +30,7 @@
                 : <?= $dataHeader['deliveryTo']; ?>
             </div>
         </div>
-        
+
         <!-- BUDGET CODE -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
@@ -40,7 +40,7 @@
                 : <?= isset($dataHeader['budgetCode']) && isset($dataHeader['budgetName']) ? $dataHeader['budgetCode'] . ' - ' . $dataHeader['budgetName'] : '-'; ?>
             </div>
         </div>
-        
+
         <!-- SUB BUDGET CODE -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
@@ -50,7 +50,7 @@
                 : <?= isset($dataHeader['subBudgetCode']) && isset($dataHeader['subBudgetName']) ? $dataHeader['subBudgetCode'] . ' - ' . $dataHeader['subBudgetName'] : '-'; ?>
             </div>
         </div>
-        
+
         <!-- FILE ATTACHMENT -->
         <div class="row">
             <div class="col-4 col-sm-4 col-md-4 col-lg-3 text-bold">
@@ -76,7 +76,7 @@
         </div>
     </div>
 </div>
-    
+
 <!-- RIGHT COLUMN -->
 <div class="col-12 col-md-5 col-lg-5">
     <div class="form-group">
@@ -91,13 +91,16 @@
                         :
                     </div>
                     <div class="input-group">
-                        <button class="btn btn-default btn-sm" onclick="window.location.href='{{ route('LogTransaction', [
-                            'id'        => $dataHeader['deliveryOrderRefID'],
-                            'docNum'    => $dataHeader['doNumber'],
-                            'docName'   => $transactionForm
-                            ]) }}'">
-                            Show Revision History
-                        </button>
+                        <form method="POST" action="{{ route('LogTransaction') }}">
+                            @csrf
+                            <input type="hidden" name="id" value="<?= $dataHeader['deliveryOrderRefID']; ?>" />
+                            <input type="hidden" name="docNum" value="<?= $dataHeader['doNumber']; ?>" />
+                            <input type="hidden" name="docName" value="<?= $transactionForm; ?>" />
+                            <input type="hidden" name="page" value="<?= $page; ?>" />
+                            <button type="submit" class="btn btn-default btn-sm">
+                                Show Revision History
+                            </button>
+                        </form>
                     </div>
                 </div>
             <?php } else { ?>
@@ -126,7 +129,7 @@
                 : <?= $dataHeader['transporterContactPerson']; ?>
             </div>
         </div>
-        
+
         <!-- TRANSPORTER PHONE -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-6 col-lg-5 text-bold">
@@ -136,7 +139,7 @@
                 : <?= $dataHeader['transporterPhone']; ?>
             </div>
         </div>
-        
+
         <!-- TRANSPORTER HANDPHONE -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-6 col-lg-5 text-bold">
@@ -146,7 +149,7 @@
                 : <?= $dataHeader['transporterHandphone']; ?>
             </div>
         </div>
-        
+
         <!-- TRANSPORTER FAX -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-6 col-lg-5 text-bold">
@@ -156,7 +159,7 @@
                 : <?= $dataHeader['transporterFax']; ?>
             </div>
         </div>
-        
+
         <!-- TRANSPORTER ADDRESS -->
         <div class="row">
             <div class="col-4 col-sm-4 col-md-6 col-lg-5 text-bold">
