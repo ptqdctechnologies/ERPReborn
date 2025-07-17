@@ -24,17 +24,12 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
             $filteredData[] = [
                 'No'                                => $counter++,
                 'PR Number'                         => $item['documentNumber'] ?? null,
-                'Data'                              => null,
+                'Date'                              => date('Y-m-d', strtotime($item['date'])) ?? null,
                 'Sub Budget'                        => null,
                 'Delivery From'                     => null,
                 'Delivery To'                       => null,
-                'Total Idr'                         => $item['total_Idr_WithVat'] ?? null,
-                'Total Other Curreny'               => $item['total_Idr_WithoutVat'] ?? null,
-                // 'Combine Budget Code'               => $item['combinedBudgetCode'] ?? null,
-                // 'Combine Budget Name'               => $item['combinedBudgetName'] ?? null,
-                // 'Currency'                          => $item['currency'] ?? null,
-                // 'Total Other Currency WithVAT'      => $item['total_Other_Currency_WithVat'] ?? null,
-                // 'Total Other Currency WithoutVAT'   => $item['total_Other_Currency_WithoutVat'] ?? null,
+                'Total Idr'                         => $item['total_IDR'] ?? null,
+                'Total Other Currency'              => $item['total_Other_Currency'] ?? null,
                 
             ];
         }
@@ -47,7 +42,6 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
         return [
             ["", "", "", "", "", "", "", "", "", ""],
             ["No", "PR Number","Date", "Sub Budget", "Delivery From", "Delivery To", "Total IDR", "Total Other Currency"],
-            // ["", "", "", "", "","", "With VAT", "Without VAT", "With VAT", "Without VAT", ""],
         ];
     }
 

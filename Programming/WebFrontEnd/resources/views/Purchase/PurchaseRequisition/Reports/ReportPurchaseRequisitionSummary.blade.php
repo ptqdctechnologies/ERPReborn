@@ -69,19 +69,19 @@
                                                     <tr>
                                                         <td><?= $counter++; ?></td>
                                                         <td><?= $dataDetail['documentNumber']; ?></td>
+                                                        <td>{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
                                                         <td>-</td>
                                                         <td>-</td>
-                                                        <td><?= $dataDetail['supplier_Code']; ?> - <?= $dataDetail['supplier_Name']; ?> </td>
-                                                        <td><?= $dataDetail['total_Idr_WithVat']; ?></td>
-                                                        <td><?= $dataDetail['total_Idr_WithoutVat']; ?></td>
+                                                        <td><?= $dataDetail['total_IDR']; ?></td>
+                                                        <td><?= $dataDetail['total_Other_Currency']; ?></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="5" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">{{ $dataPO[0]['grand_Total_IDR'] }}</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">{{ $dataPO[0]['grand_Total_Other_Currency'] }}</th>
                                                     
                                                 </tr>
                                             </tfoot>
