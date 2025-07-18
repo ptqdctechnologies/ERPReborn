@@ -346,13 +346,13 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         ),
         'Spatie\\LaravelIgnition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
-            1 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
+            0 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
+            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
         ),
         'Spatie\\Ignition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
-            1 => __DIR__ . '/..' . '/spatie/ignition/src',
+            0 => __DIR__ . '/..' . '/spatie/ignition/src',
+            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
         ),
         'Spatie\\FlareClient\\' => 
         array (
@@ -868,6 +868,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\budgeting\\getCombinedBudgetSection\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/budgeting/getCombinedBudgetSection/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\budgeting\\getCombinedBudget\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/budgeting/getCombinedBudget/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\finance\\getAdvancePayment\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/finance/getAdvancePayment/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\finance\\getAdvanceSettlementSummary\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/finance/getAdvanceSettlementSummary/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\finance\\getAdvanceSettlement\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/finance/getAdvanceSettlement/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\finance\\getAdvance\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/finance/getAdvance/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\documentForm\\finance\\getDebitNote\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/documentForm/finance/getDebitNote/v1/example.php',

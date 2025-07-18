@@ -127,41 +127,6 @@
 
             $('#myProjectSecond').modal('hide');
         });
-
-        function checkingWorkflow(combinedBudget_RefID, documentTypeID) {
-            return new Promise((resolve, reject) => {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                    type: 'GET',
-                    url: '{!! route("CheckingWorkflow") !!}?combinedBudget_RefID=' + combinedBudget_RefID + '&documentTypeID=' + documentTypeID,
-                    success: function(data) {
-                        if (data > 0) {
-                            resolve(true);
-                        } else {
-                            $("#project_code_second").val("");
-                            $("#project_id_second").val("");
-                            $("#project_name_second").val("");
-
-                            Swal.fire("Error", "User Has Not Workflow For This Project", "error");
-                            resolve(false);
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        $("#project_code_second").val("");
-                        $("#project_id_second").val("");
-                        $("#project_name_second").val("");
-
-                        Swal.fire("Error", "Data Error", "error");
-                        resolve(false);
-                    }
-                });
-            });
-        }
     </script>
 @else 
     <div id="myProject" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">

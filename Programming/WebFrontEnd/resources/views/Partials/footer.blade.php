@@ -3,32 +3,71 @@
 </footer>
 
 <script>
-function getDocumentType(name) {
-  $.ajaxSetup({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-  });
+  function checkingWorkflow(combinedBudget_RefID, documentTypeID) {
+    // console.log('combinedBudget_RefID, documentTypeID', combinedBudget_RefID, documentTypeID);
 
-  $.ajax({
-    type: 'GET',
-    url: '{!! route("getDocumentType") !!}?name=' + name,
-    success: function(data) {
-      if (Array.isArray(data) && data.length > 0) {
-        if (name == "Advance Settlement Form") {
-          $("#DocumentTypeID").val(77000000000097);
-        } else {
-          $("#DocumentTypeID").val(data[0].sys_ID);
+    return new Promise((resolve, reject) => {
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-      } else {
-        console.log('error get document type');
+      });
+
+      $.ajax({
+        type: 'GET',
+        url: '{!! route("CheckingWorkflow") !!}?combinedBudget_RefID=' + combinedBudget_RefID + '&documentTypeID=' + documentTypeID,
+        success: function(data) {
+          if (data > 0) {
+            resolve(true);
+          } else {
+            $("#project_code_second").val("");
+            $("#project_id_second").val("");
+            $("#project_name_second").val("");
+
+            Swal.fire("Error", "User Has Not Workflow For This Project", "error");
+            resolve(false);
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          $("#project_code_second").val("");
+          $("#project_id_second").val("");
+          $("#project_name_second").val("");
+
+          Swal.fire("Error", "Data Error", "error");
+          resolve(false);
+        }
+      });
+    });
+  }
+</script>
+
+<script>
+  function getDocumentType(name) {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
-    },
-    error: function (textStatus, errorThrown) {
-      console.log('error', textStatus, errorThrown);
-    }
-  });
-}
+    });
+
+    $.ajax({
+      type: 'GET',
+      url: '{!! route("getDocumentType") !!}?name=' + name,
+      success: function(data) {
+        if (Array.isArray(data) && data.length > 0) {
+          if (name == "Advance Settlement Form") {
+            $("#DocumentTypeID").val(77000000000097);
+          } else {
+            $("#DocumentTypeID").val(data[0].sys_ID);
+          }
+        } else {
+          console.log('error get document type');
+        }
+      },
+      error: function (textStatus, errorThrown) {
+        console.log('error', textStatus, errorThrown);
+      }
+    });
+  }
 </script>
 
 <!-- FUNCTION FOR FILE UPLOAD -->
