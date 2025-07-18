@@ -1032,7 +1032,7 @@ return array(
     'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportDODetail' => $baseDir . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportDODetail.php',
     'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportDORDetail' => $baseDir . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportDORDetail.php',
     'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportDORSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportDORSummary.php',
-    'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportDOSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportDOSummary.php',
+    'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportDeliveryOrderSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportDeliveryOrderSummary.php',
     'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportMaterialReturnDetail' => $baseDir . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportMaterialReturnDetail.php',
     'App\\Http\\Controllers\\ExportExcel\\Inventory\\ExportReportMaterialReturnSummary' => $baseDir . '/app/Http/Controllers/ExportExcel/Inventory/ExportReportMaterialReturnSummary.php',
     'App\\Http\\Controllers\\ExportExcel\\Process\\ExportReportBusinessTripRequestDetail' => $baseDir . '/app/Http/Controllers/ExportExcel/Process/ExportReportBusinessTripRequestDetail.php',

@@ -53,8 +53,8 @@
                     $.each(data, function(key, val) {
                         keys += 1;
                         t.row.add([
-                            '<tbody><tr><input id="sys_id_departemnt' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                            '<td>' + val.Name + '</td></tr></tbody>',
+                            '<tbody><tr><input id="sys_id_departemnt' + keys + '" value="' + val.sys_ID + '" type="hidden"><td>' + no++ + '</td>',
+                            '<td>' + val.name + '</td></tr></tbody>',
                         ]).draw();
                     });
 
@@ -82,7 +82,5 @@
 
         $("#user_role_id").val("");
         $("#user_role").val("");
-
-
     });
 </script>

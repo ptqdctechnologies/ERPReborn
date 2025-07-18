@@ -16,13 +16,13 @@
       <div class="row mb-1">
         <div class="col-sm-12">
           <center>
-            <div style="text-align: center; font-size: 20px; font-weight: bold;">Purchase Requisition Report Summary</div>
+            <div style="text-align: center; font-size: 20px; font-weight: bold;">Delivery Order Report Summary</div>
           </center>
           <table style="float:left;">
             <tr>
               <td>Project</td>
               <td>:</td>
-              <td><?= $dataPO[0]['combinedBudgetCode'] . ' - ' . $dataPO[0]['combinedBudgetName']; ?></td>
+              <td><?= $dataDO[0]['combinedBudgetCode'] . ' - ' . $dataDO[0]['combinedBudgetName']; ?></td>
             </tr>
           </table>
           <table style="float:right;">
@@ -45,35 +45,35 @@
                     <thead>
                       <tr style="border: 1px solid #ced4da;border-collapse: collapse;">
                         <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">No</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">PR Number</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">DO Number</th>
                         <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Date</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Sub Budget</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Type</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Delivery From</th>
                         <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Delivery To</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total IDR</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Other Currency</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Transporter</th>
                       </tr>
                     </thead>
                     <?php $counter = 1; ?>
-                    <?php foreach ($dataPO as $dataDetail) { ?>
+                    <?php foreach ($dataDO as $dataDetail) { ?>
                       <tbody>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $counter++; ?></td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['documentNumber']; ?></td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">-</td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">-</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= number_format($dataDetail['total_IDR'], 2, '.', ','); ?></td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= number_format($dataDetail['total_Other_Currency'], 2, '.', ','); ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"></td>
                         
                       </tbody>
                     <?php } ?>
 
                       <tfoot>
-                        <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="5">GRAND TOTAL</td>
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($dataDetail['grand_Total_IDR'], 2, '.', ','); ?></td>
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"><?= number_format($dataDetail['grand_Total_Other_Currency'], 2, '.', ','); ?></td>
-                          
-                        </tr>
+                        <!-- <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="3">GRAND TOTAL</td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;">-</td>
+                        </tr> -->
                       </tfoot>
                     
 

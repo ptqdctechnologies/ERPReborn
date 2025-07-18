@@ -15,7 +15,6 @@
             </div>
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
-
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -29,7 +28,6 @@
                                         </button>
                                     </div>
                                 </div>
-
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -63,11 +61,9 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-
                                                 </table>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -96,8 +92,8 @@
                                                         <td style="padding-top: 7px;"><label>Modul &nbsp;&nbsp;&nbsp;</label></td>
                                                         <td>
                                                             <div class="input-group" style="padding-bottom: 3px;">
-                                                                <select id="Modul" class="form-control Modul select2" name="Modul" style="width: 200px;">
-                                                                    <option selected="selected" value=""> Select Modul </option>
+                                                                <select id="Modul" class="form-control Modul" name="Modul" style="width: 200px;">
+                                                                    <option selected="selected"> Select Modul </option>
                                                                 </select>
                                                             </div>
                                                         </td>
@@ -112,7 +108,13 @@
                                                         <td style="padding-top: 7px;"><label>Menu Type &nbsp;&nbsp;&nbsp;</label></td>
                                                         <td>
                                                             <div class="input-group" style="padding-bottom: 3px;">
-                                                                <select id="Type" class="form-control Type select2" name="Type" style="width: 200px;">
+                                                                {{-- <select id="Type" class="form-control Type select2" name="Type" style="width: 200px;">
+                                                                    <option selected="selected"> Select Type </option>
+                                                                    <option value="Transaction"> Transaction </option>
+                                                                    <option value="Report"> Report </option>
+                                                                </select> --}}
+
+                                                                <select class="form-control" name="Type" id="Type" style="width: 200px;">
                                                                     <option selected="selected"> Select Type </option>
                                                                     <option value="Transaction"> Transaction </option>
                                                                     <option value="Report"> Report </option>
@@ -182,6 +184,7 @@
                                                     </table>
                                                 </div>
                                             </div>
+
                                             <a href="{{ route('PrivilageMenu.index') }}" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
                                                 <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Back"> Back
                                             </a>

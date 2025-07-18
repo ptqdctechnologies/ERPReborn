@@ -32,6 +32,177 @@ class PurchaseOrderController extends Controller
         $this->purchaseOrderService = $purchaseOrderService;
         $this->workflowService = $workflowService;
     }
+    public function ReportPurchaseOrderSummary(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionPurchaseOrderNumber");
+        $dataPO = Session::get("PurchaseOrderReportSummaryDataPDF");
+
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'statusRevisi' => 1,
+            'statusHeader' => "Yes",
+            'statusDetail' => 1,
+            'dataHeader' => [],
+            'dataPO' => $dataPO
+        
+        ];
+        // dump($compact);
+
+        return view('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary', $compact);
+    }
+
+    public function ReportPurchaseOrderSummaryData( $project_code, $site_code){
+        
+            
+        try {
+            Log::error("Error at ",[$project_code, $site_code]);
+
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $filteredArray = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.form.documentForm.supplyChain.getPurchaseOrderSummary', 
+                'latest',
+                [
+                    'parameter' => [
+                        'CombinedBudgetCode' =>  $project_code,
+                        'CombinedBudgetSectionCode' =>  $site_code,
+                        'Supplier_RefID' => NULL
+                        // 'purchaseOrder_RefID' => (int) $purchaseOrder_refID
+                    ],
+                     'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                        ]
+                ]
+            );
+            
+            Log::error("Error at " ,$filteredArray);
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+
+            }
+            Session::put("PurchaseOrderReportSummaryDataPDF", $filteredArray['data']['data']);
+            Session::put("PurchaseOrderReportSummaryDataExcel", $filteredArray['data']['data']);
+            return $filteredArray['data']['data'];
+        }
+        catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportPurchaseOrderSummaryStore(Request $request)
+    {
+        // tes;
+        try {
+            $project_code = $request->project_code_second;
+            $site_code = $request->site_id_second;
+
+            $statusHeader = "Yes";
+            Log::error("Error at " ,[$request->all()]);
+            if ($project_code == "" && $site_code == "") {
+                Session::forget("PurchaseOrderReportSummaryDataPDF");
+                Session::forget("PurchaseOrderReportSummaryDataExcel");
+                
+                return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', 'Cannot Empty');
+            }
+
+            $compact = $this->ReportPurchaseOrderSummaryData($project_code, $site_code);
+            // dd($compact);
+            // if ($compact['dataHeader'] == []) {
+            //     Session::forget("PPurchaseOrderSummaryReportDataPDF");
+            //     Session::forget("PPurchaseOrderSummaryReportDataExcel");
+
+            //     return redirect()->back()->with('NotFound', 'Data Not Found');
+            // }
+
+            return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary');
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+    public function PrintExportReportPurchaseOrderSummary(Request $request)
+    {
+        try {
+            $dataPDF = Session::get("PurchaseOrderReportSummaryDataPDF");
+            $dataExcel = Session::get("PurchaseOrderReportSummaryDataExcel");
+
+            
+            if ($dataPDF && $dataExcel) {
+                $print_type = $request->print_type;
+                if ($print_type == "PDF") {
+                    $dataPO = Session::get("PurchaseOrderReportSummaryDataPDF");
+                    // dd($dataPO);
+
+                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary_pdf', ['dataPO' => $dataPO])->setPaper('a4', 'landscape');
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Purchase Order Summary.pdf');
+                } else if ($print_type == "Excel") {
+                    return Excel::download(new ExportReportPurchaseOrderSummary, 'Export Report Purchase Order Summary.xlsx');
+                }
+            } else {
+                return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', 'Data Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+    // public function PrintExportReportPurchaseOrderSummary(Request $request) 
+    // {
+    //     try {
+    //         $dataReport = Session::get("dataReportPurchaseOrderSummary");
+    //         $print_type = $request->print_type;
+    //         $project_code_second_trigger = $request->project_code_second_trigger;
+
+    //         if ($project_code_second_trigger == null) {
+    //             Session::forget("isButtonReportPurchaseOrderSummarySubmit");
+    //             Session::forget("dataReportPurchaseOrderSummary");
+
+    //             return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', 'Budget, & Sub Budget Cannot Empty');
+    //         }
+
+    //         if ($dataReport) {
+    //             if ($print_type === "PDF") {
+    //                 $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
+    //                 $pdf->output();
+    //                 $dom_pdf = $pdf->getDomPDF();
+
+    //                 $canvas = $dom_pdf ->get_canvas();
+    //                 $width = $canvas->get_width();
+    //                 $height = $canvas->get_height();
+    //                 $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    //                 $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+    //                 return $pdf->download('Export Report Purchase Order Summary.pdf');
+    //             } else {
+    //                 return Excel::download(new ExportReportPurchaseOrderSummary, 'Export Report Purchase Order Summary.xlsx');
+    //             }
+    //         } else {
+    //             return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', 'Budget, & Sub Budget Cannot Empty');
+    //         }
+    //     } catch (\Throwable $th) {
+    //         Log::error("PrintExportReportPurchaseOrderSummary Error at " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
 
     public function ReportPOtoAP(Request $request)
     {
@@ -527,175 +698,175 @@ class PurchaseOrderController extends Controller
         return view('Purchase.PurchaseOrder.Transactions.CreatePurchaseOrder', $compact);
     }
 
-    public function ReportPoSummary(Request $request)
-    {
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-        $isSubmitButton = $request->session()->get('isButtonReportPurchaseOrderSummarySubmit');
+    // public function ReportPoSummary(Request $request)
+    // {
+    //     $varAPIWebToken = $request->session()->get('SessionLogin');
+    //     $isSubmitButton = $request->session()->get('isButtonReportPurchaseOrderSummarySubmit');
 
-        $dataReport = $isSubmitButton ? $request->session()->get('dataReportPurchaseOrderSummary', []) : [];
+    //     $dataReport = $isSubmitButton ? $request->session()->get('dataReportPurchaseOrderSummary', []) : [];
 
-        $compact = [
-            'varAPIWebToken'    => [],
-            'dataReport'        => $dataReport
-        ];
+    //     $compact = [
+    //         'varAPIWebToken'    => [],
+    //         'dataReport'        => $dataReport
+    //     ];
 
-        return view('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary', $compact);
-    }
+    //     return view('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary', $compact);
+    // }
 
-    public function ReportPurchaseOrderSummaryData($id) 
-    {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
+    // public function ReportPurchaseOrderSummaryData($id) 
+    // {
+    //     try {
+    //         $varAPIWebToken = Session::get('SessionLogin');
 
-            $filteredArray = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getAdvance', 
-                'latest',
-                [
-                    'parameter' => [
-                        'recordID' => (int) $id
-                    ]
-                ]
-            );
+    //         $filteredArray = Helper_APICall::setCallAPIGateway(
+    //             Helper_Environment::getUserSessionID_System(),
+    //             $varAPIWebToken, 
+    //             'report.form.documentForm.finance.getAdvance', 
+    //             'latest',
+    //             [
+    //                 'parameter' => [
+    //                     'recordID' => (int) $id
+    //                 ]
+    //             ]
+    //         );
 
-            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Data not found in the API response.');
-            }
+    //         if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+    //             throw new \Exception('Data not found in the API response.');
+    //         }
 
-            // dd($filteredArray);
+    //         // dd($filteredArray);
 
-            $getData = $filteredArray['data'][0]['document'];
+    //         $getData = $filteredArray['data'][0]['document'];
 
-            // DATA HEADER
-            $dataHeaders = [
-                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0],
-                "budgetName"    => $getData['content']['general']['budget']['combinedBudgetNameList'][0]
-            ];
+    //         // DATA HEADER
+    //         $dataHeaders = [
+    //             'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0],
+    //             "budgetName"    => $getData['content']['general']['budget']['combinedBudgetNameList'][0]
+    //         ];
 
-            // DATA DETAIL
-            $dataDetails = [];
-            $i = 0;
-            $totalQty = 0;
-            $totalIDRWithPPN = 0;
-            $totalIDRWithoutPPN = 0;
-            $totalOtherCurrencyWithPPN = 0;
-            $totalOtherCurrencyWithoutPPN = 0;
-            foreach ($getData['content']['details']['itemList'] as $dataReports) {
-                $totalQty += $dataReports['entities']['quantity'];
+    //         // DATA DETAIL
+    //         $dataDetails = [];
+    //         $i = 0;
+    //         $totalQty = 0;
+    //         $totalIDRWithPPN = 0;
+    //         $totalIDRWithoutPPN = 0;
+    //         $totalOtherCurrencyWithPPN = 0;
+    //         $totalOtherCurrencyWithoutPPN = 0;
+    //         foreach ($getData['content']['details']['itemList'] as $dataReports) {
+    //             $totalQty += $dataReports['entities']['quantity'];
 
-                $quantity = $dataReports['entities']['quantity'];
-                $price = $quantity * 1000;
-                $totalWithoutPPN = $quantity * $price;
-                $totalWithPPN = ($totalWithoutPPN * 0.11) + $totalWithoutPPN;
+    //             $quantity = $dataReports['entities']['quantity'];
+    //             $price = $quantity * 1000;
+    //             $totalWithoutPPN = $quantity * $price;
+    //             $totalWithPPN = ($totalWithoutPPN * 0.11) + $totalWithoutPPN;
 
-                $dataDetails[$i]['no']                              = $i + 1;
-                $dataDetails[$i]['prNumber']                        = "PR01-83000004";
-                $dataDetails[$i]['productId']                       = $dataReports['entities']['product_RefID'];
-                $dataDetails[$i]['productName']                     = $dataReports['entities']['productName'];
-                $dataDetails[$i]['qty']                             = number_format($quantity, 2, ',', '.');
-                $dataDetails[$i]['price']                           = number_format($price, 2, ',', '.');
-                $dataDetails[$i]['uom']                             = 'Set';
-                $dataDetails[$i]['totalIDRWithoutPPN']              = number_format($totalWithoutPPN, 2, ',', '.');
-                $dataDetails[$i]['totalIDRWithPPN']                 = number_format($totalWithPPN, 2, ',', '.');
-                $dataDetails[$i]['totalOtherCurrencyWithPPN']       = number_format(0, 2, ',', '.');
-                $dataDetails[$i]['totalOtherCurrencyWithoutPPN']    = number_format(0, 2, ',', '.');
-                $dataDetails[$i]['currency']                        = 'IDR';
+    //             $dataDetails[$i]['no']                              = $i + 1;
+    //             $dataDetails[$i]['prNumber']                        = "PR01-83000004";
+    //             $dataDetails[$i]['productId']                       = $dataReports['entities']['product_RefID'];
+    //             $dataDetails[$i]['productName']                     = $dataReports['entities']['productName'];
+    //             $dataDetails[$i]['qty']                             = number_format($quantity, 2, ',', '.');
+    //             $dataDetails[$i]['price']                           = number_format($price, 2, ',', '.');
+    //             $dataDetails[$i]['uom']                             = 'Set';
+    //             $dataDetails[$i]['totalIDRWithoutPPN']              = number_format($totalWithoutPPN, 2, ',', '.');
+    //             $dataDetails[$i]['totalIDRWithPPN']                 = number_format($totalWithPPN, 2, ',', '.');
+    //             $dataDetails[$i]['totalOtherCurrencyWithPPN']       = number_format(0, 2, ',', '.');
+    //             $dataDetails[$i]['totalOtherCurrencyWithoutPPN']    = number_format(0, 2, ',', '.');
+    //             $dataDetails[$i]['currency']                        = 'IDR';
 
-                $totalIDRWithoutPPN += $totalWithoutPPN;
-                $totalIDRWithPPN += $totalWithPPN;
+    //             $totalIDRWithoutPPN += $totalWithoutPPN;
+    //             $totalIDRWithPPN += $totalWithPPN;
 
-                $i++;
-            }
+    //             $i++;
+    //         }
 
-            $compact = [
-                'dataHeader'                    => $dataHeaders,
-                'dataDetail'                    => $dataDetails,
-                'totalQty'                      => number_format($totalQty, 2, ',', '.'),
-                'totalIDRWithPPN'               => number_format($totalIDRWithPPN, 2, ',', '.'),
-                'totalIDRWithoutPPN'            => number_format($totalIDRWithoutPPN, 2, ',', '.'),
-                'totalOtherCurrencyWithPPN'     => number_format($totalOtherCurrencyWithPPN, 2, ',', '.'),
-                'totalOtherCurrencyWithoutPPN'  => number_format($totalOtherCurrencyWithoutPPN, 2, ',', '.'),
-            ];
+    //         $compact = [
+    //             'dataHeader'                    => $dataHeaders,
+    //             'dataDetail'                    => $dataDetails,
+    //             'totalQty'                      => number_format($totalQty, 2, ',', '.'),
+    //             'totalIDRWithPPN'               => number_format($totalIDRWithPPN, 2, ',', '.'),
+    //             'totalIDRWithoutPPN'            => number_format($totalIDRWithoutPPN, 2, ',', '.'),
+    //             'totalOtherCurrencyWithPPN'     => number_format($totalOtherCurrencyWithPPN, 2, ',', '.'),
+    //             'totalOtherCurrencyWithoutPPN'  => number_format($totalOtherCurrencyWithoutPPN, 2, ',', '.'),
+    //         ];
 
-            Session::put("isButtonReportPurchaseOrderSummarySubmit", true);
-            Session::put("dataReportPurchaseOrderSummary", $compact);
+    //         Session::put("isButtonReportPurchaseOrderSummarySubmit", true);
+    //         Session::put("dataReportPurchaseOrderSummary", $compact);
 
-            return $compact;
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
+    //         return $compact;
+    //     } catch (\Throwable $th) {
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
 
-    public function ReportPurchaseOrderSummaryStore(Request $request) {
-        try {
-            $budgetID       = $request->budget_id;
-            $subBudgetID    = $request->sub_budget_id;
-            $supplierID     = $request->advance_RefID;
+    // public function ReportPurchaseOrderSummaryStore(Request $request) {
+    //     try {
+    //         $budgetID       = $request->budget_id;
+    //         $subBudgetID    = $request->sub_budget_id;
+    //         $supplierID     = $request->advance_RefID;
             
-            if (!$budgetID && !$subBudgetID && !$supplierID) {
-                $message = 'Budget, Sub Budget & Supplier Code Cannot Empty';
-            } else if ($budgetID && !$subBudgetID && !$supplierID) {
-                $message = 'Sub Budget & Supplier Code Cannot Empty';
-            } else if ($budgetID && $subBudgetID && !$supplierID) {
-                $message = 'Supplier Code Cannot Empty';
-            } else if (!$budgetID && !$subBudgetID && $supplierID) {
-                $message = 'Budget & Sub Budget Cannot Empty';
-            } else if ($budgetID && !$subBudgetID && $supplierID) {
-                $message = 'Sub Budget Cannot Empty';
-            }
+    //         if (!$budgetID && !$subBudgetID && !$supplierID) {
+    //             $message = 'Budget, Sub Budget & Supplier Code Cannot Empty';
+    //         } else if ($budgetID && !$subBudgetID && !$supplierID) {
+    //             $message = 'Sub Budget & Supplier Code Cannot Empty';
+    //         } else if ($budgetID && $subBudgetID && !$supplierID) {
+    //             $message = 'Supplier Code Cannot Empty';
+    //         } else if (!$budgetID && !$subBudgetID && $supplierID) {
+    //             $message = 'Budget & Sub Budget Cannot Empty';
+    //         } else if ($budgetID && !$subBudgetID && $supplierID) {
+    //             $message = 'Sub Budget Cannot Empty';
+    //         }
 
-            if (isset($message)) {
-                Session::forget("isButtonReportPurchaseOrderSummarySubmit");
-                Session::forget("dataReportPurchaseOrderSummary");
+    //         if (isset($message)) {
+    //             Session::forget("isButtonReportPurchaseOrderSummarySubmit");
+    //             Session::forget("dataReportPurchaseOrderSummary");
 
-                return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', $message);
-            }
+    //             return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', $message);
+    //         }
 
-            $compact = $this->ReportPurchaseOrderSummaryData($supplierID);
+    //         $compact = $this->ReportPurchaseOrderSummaryData($supplierID);
 
-            if ($compact === null || empty($compact)) {
-                return redirect()->back()->with('NotFound', 'Data Not Found');
-            }
+    //         if ($compact === null || empty($compact)) {
+    //             return redirect()->back()->with('NotFound', 'Data Not Found');
+    //         }
 
-            return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary');
-        } catch (\Throwable $th) {
-            Log::error("Error at ReportPurchaseOrderSummaryStore: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
+    //         return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary');
+    //     } catch (\Throwable $th) {
+    //         Log::error("Error at ReportPurchaseOrderSummaryStore: " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
 
-    public function PrintExportReportPurchaseOrderSummary(Request $request) {
-        try {
-            $dataReport = Session::get("dataReportPurchaseOrderSummary");
+    // public function PrintExportReportPurchaseOrderSummary(Request $request) {
+    //     try {
+    //         $dataReport = Session::get("dataReportPurchaseOrderSummary");
 
-            if ($dataReport) {
-                if ($request->print_type == "PDF") {
-                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary_pdf', ['dataReport' => $dataReport]);
-                    $pdf->output();
-                    $dom_pdf = $pdf->getDomPDF();
+    //         if ($dataReport) {
+    //             if ($request->print_type == "PDF") {
+    //                 $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPurchaseOrderSummary_pdf', ['dataReport' => $dataReport]);
+    //                 $pdf->output();
+    //                 $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
-                    $width = $canvas->get_width();
-                    $height = $canvas->get_height();
-                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+    //                 $canvas = $dom_pdf ->get_canvas();
+    //                 $width = $canvas->get_width();
+    //                 $height = $canvas->get_height();
+    //                 $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    //                 $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                    // Preview PDF
-                    // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
+    //                 // Preview PDF
+    //                 // return $pdf->stream('Export_Report_Delivery_Order_Request_Detail.pdf');
     
-                    return $pdf->download('Export Report Purchase Order Summary.pdf');
-                } else {
-                    return Excel::download(new ExportReportPurchaseOrderSummary, 'Export Report Purchase Order Summary.xlsx');
-                }
-            } else {
-                return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', 'Budget, Sub Budget, & Supplier Cannot Empty');
-            }
-        } catch (\Throwable $th) {
-            Log::error("Error at PrintExportReportPurchaseOrderSummary: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
+    //                 return $pdf->download('Export Report Purchase Order Summary.pdf');
+    //             } else {
+    //                 return Excel::download(new ExportReportPurchaseOrderSummary, 'Export Report Purchase Order Summary.xlsx');
+    //             }
+    //         } else {
+    //             return redirect()->route('PurchaseOrder.ReportPurchaseOrderSummary')->with('NotFound', 'Budget, Sub Budget, & Supplier Cannot Empty');
+    //         }
+    //     } catch (\Throwable $th) {
+    //         Log::error("Error at PrintExportReportPurchaseOrderSummary: " . $th->getMessage());
+    //         return redirect()->back()->with('NotFound', 'Process Error');
+    //     }
+    // }
 
     public function ReportPoDetail(Request $request)
     {

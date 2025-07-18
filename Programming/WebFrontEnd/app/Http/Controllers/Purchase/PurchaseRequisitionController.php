@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Purchase;
 
 use DateTime;
+use App\Http\Controllers\ExportExcel\PurchaseRequisition\ExportReportPurchaseRequisitionSummary;
 use App\Http\Controllers\ExportExcel\PurchaseRequisition\ExportReportPRtoPO;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -41,28 +42,141 @@ class PurchaseRequisitionController extends Controller
         ];
         return view('Purchase.PurchaseRequisition.Transactions.CreatePurchaseRequisition', $compact);
     }
-
     public function ReportPurchaseRequisitionSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionPurchaseOrderPrNumber");
-        $request->session()->forget("SessionPurchaseOrder");
-        
-        $var = 0;
+        $request->session()->forget("SessionPurchaseRequisitionNumber");
+        $dataPO = Session::get("PurchaseRequisitionReportSummaryDataPDF");
+
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
         }
-        
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
-            'var' => $var,
             'statusRevisi' => 1,
+            'statusHeader' => "Yes",
+            'statusDetail' => 1,
+            'dataHeader' => [],
+            'dataPO' => $dataPO
+        
         ];
+        // dump($compact);
 
         return view('Purchase.PurchaseRequisition.Reports.ReportPurchaseRequisitionSummary', $compact);
     }
 
-    public function ReportsPrtoPo(Request $request)
+    public function ReportPurchaseRequisitionSummaryData( $project_code, $site_code){
+        
+            
+        try {
+            Log::error("Error at ",[$project_code, $site_code]);
+
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $filteredArray = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.form.documentForm.supplyChain.getPurchaseRequisitionSummary', 
+                'latest',
+                [
+                    'parameter' => [
+                        'CombinedBudgetCode' =>  $project_code,
+                        'CombinedBudgetSectionCode' =>  $site_code,
+                        'Supplier_RefID' => NULL
+                        // 'PurchaseRequisition_RefID' => (int) $PurchaseRequisition_refID
+                    ],
+                     'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                        ]
+                ]
+            );
+            
+            Log::error("Error at " ,$filteredArray);
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+
+            }
+            Session::put("PurchaseRequisitionReportSummaryDataPDF", $filteredArray['data']['data']);
+            Session::put("PurchaseRequisitionReportSummaryDataExcel", $filteredArray['data']['data']);
+            return $filteredArray['data']['data'];
+        }
+        catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportPurchaseRequisitionSummaryStore(Request $request)
+    {
+        // tes;
+        try {
+            $project_code = $request->project_code_second;
+            $site_code = $request->site_id_second;
+
+            $statusHeader = "Yes";
+            Log::error("Error at " ,[$request->all()]);
+            if ($project_code == "" && $site_code == "") {
+                Session::forget("PurchaseRequisitionReportSummaryDataPDF");
+                Session::forget("PurchaseRequisitionReportSummaryDataExcel");
+                
+                return redirect()->route('PurchaseRequisition.ReportPurchaseRequisitionSummary')->with('NotFound', 'Cannot Empty');
+            }
+
+            $compact = $this->ReportPurchaseRequisitionSummaryData($project_code, $site_code);
+            // dd($compact);
+            // if ($compact['dataHeader'] == []) {
+            //     Session::forget("PPurchaseRequisitionSummaryReportDataPDF");
+            //     Session::forget("PPurchaseRequisitionSummaryReportDataExcel");
+
+            //     return redirect()->back()->with('NotFound', 'Data Not Found');
+            // }
+
+            return redirect()->route('PurchaseRequisition.ReportPurchaseRequisitionSummary');
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+    public function PrintExportReportPurchaseRequisitionSummary(Request $request)
+    {
+        try {
+            $dataPDF = Session::get("PurchaseRequisitionReportSummaryDataPDF");
+            $dataExcel = Session::get("PurchaseRequisitionReportSummaryDataExcel");
+
+            
+            if ($dataPDF && $dataExcel) {
+                $print_type = $request->print_type;
+                if ($print_type == "PDF") {
+                    $dataPO = Session::get("PurchaseRequisitionReportSummaryDataPDF");
+                    // dd($dataPO);
+
+                    $pdf = PDF::loadView('Purchase.PurchaseRequisition.Reports.PrintReportPurchaseRequisitionSummary', ['dataPO' => $dataPO])->setPaper('a4', 'landscape');
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Purchase Requisition Summary.pdf');
+                } else if ($print_type == "Excel") {
+                    return Excel::download(new ExportReportPurchaseRequisitionSummary, 'Export Report Purchase Requisition Summary.xlsx');
+                }
+            } else {
+                return redirect()->route('PurchaseRequisition.ReportPurchaseRequisitionSummary')->with('NotFound', 'Data Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportPRtoPO(Request $request)
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');

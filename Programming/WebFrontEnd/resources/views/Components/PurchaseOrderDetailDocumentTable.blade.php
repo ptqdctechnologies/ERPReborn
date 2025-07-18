@@ -51,7 +51,7 @@
                     </th>
                     <td style="border:1px solid #4B586A;color:#4B586A;">
                         <span id="GrandTotal">
-                            <?= number_format($grand_total, 2); ?>
+                            <?= number_format($dataHeader['totalPPN'] + $grand_total, 2); ?>
                         </span>
                     </td>
                     <td style="border:1px solid #4B586A;color:#4B586A;"></td>
