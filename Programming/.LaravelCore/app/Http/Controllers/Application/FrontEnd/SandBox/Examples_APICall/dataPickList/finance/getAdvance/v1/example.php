@@ -42,12 +42,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 
-                    //-----[ DATA ]-----( START )-----
+                    //-----[ DATA ]---------( START )-----
                         [
                         'parameter' => [
                             ]
                         ]
-                    //-----[ DATA ]-----(  END  )-----
+                    //-----[ DATA ]---------(  END  )-----
                     );
 
             return
