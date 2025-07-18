@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.supplyChain.setPurchaseOrder.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-06-18                                                                                           |
+        | ▪ Last Update     : 2025-07-18                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -99,9 +99,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             "entities" => [
                                                 "taxType_RefID" => 182000000000001,
                                                 "tariffCurrency_RefID" => 62000000000001,
-                                                "tariffCurrencyValue" => 35000,
+                                                "tariffCurrencyValue" => 16000,
                                                 "tariffCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan 1 Update'
+                                                "remarks" => 'Remark Update - 1'
                                                 ]
                                             ],
                                             [
@@ -109,9 +109,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             "entities" => [
                                                 "taxType_RefID" => 182000000000002,
                                                 "tariffCurrency_RefID" => 62000000000001,
-                                                "tariffCurrencyValue" => 35000,
+                                                "tariffCurrencyValue" => 7500,
                                                 "tariffCurrencyExchangeRate" => 1,
-                                                "remarks" => 'Catatan 2 Update'
+                                                "remarks" => 'Remark Update - 2'
                                                 ]
                                             ]
                                         ]
