@@ -9139,6 +9139,7 @@ return array(
     'ZipStream\\LocalFileHeader' => $vendorDir . '/maennchen/zipstream-php/src/LocalFileHeader.php',
     'ZipStream\\OperationMode' => $vendorDir . '/maennchen/zipstream-php/src/OperationMode.php',
     'ZipStream\\PackField' => $vendorDir . '/maennchen/zipstream-php/src/PackField.php',
+    'ZipStream\\Stream\\CallbackStreamWrapper' => $vendorDir . '/maennchen/zipstream-php/src/Stream/CallbackStreamWrapper.php',
     'ZipStream\\Time' => $vendorDir . '/maennchen/zipstream-php/src/Time.php',
     'ZipStream\\Version' => $vendorDir . '/maennchen/zipstream-php/src/Version.php',
     'ZipStream\\Zip64\\DataDescriptor' => $vendorDir . '/maennchen/zipstream-php/src/Zip64/DataDescriptor.php',
