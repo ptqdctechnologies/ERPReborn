@@ -898,7 +898,7 @@ class FunctionController extends Controller
         $varData = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.dataList.finance.getAdvance',
+            'dataPickList.finance.getAdvance',
             'latest',
             [
                 'parameter' => null,

@@ -55,23 +55,37 @@
         $.ajax({
             type: 'GET',
             url: '{!! route(name: "getAdvanceDetail") !!}?advanceRefID=' + advanceRefID,
-            success: function(response) {
-                $(".loadingAdvanceSettlementTable").hide();
-
+            success: async function(response) {
                 if (response.metadata.HTTPStatusCode === 200) {
+                    const result            = response.data.data;
+                    const documentTypeID    = document.getElementById("DocumentTypeID");
+
+                    if (documentTypeID.value) {
+                        var checkWorkFlow = await checkingWorkflow(result[0].combinedBudget_RefID, documentTypeID.value);
+
+                        if (!checkWorkFlow) {
+                            return;
+                        }
+                    }
+
+                    $(".loadingAdvanceSettlementTable").hide();
                     $("#tableAdvanceDetail tbody").show();
 
-                    const result            = response.data.data;
                     const isDuplicate       = arrAdvanceNumber.includes(result[0].businessDocumentNumber);
-                    const sameBeneficiary   = beneficiaryTrigger === result[0].beneficiaryBankAccountName;
-                    const sameBudget        = budgetCodeTrigger === result[0].combinedBudget_RefID;
+                    const sameBeneficiary   = beneficiaryTrigger == result[0].beneficiaryBankAccountName;
+                    const sameBudget        = budgetCodeTrigger == result[0].combinedBudget_RefID;
 
-                    if (arrAdvanceNumber.length === 0) {
+                    if (arrAdvanceNumber.length == 0) {
                         advanceID.push(result[0].advance_RefID);
                         arrAdvanceNumber.push(result[0].businessDocumentNumber);
                         beneficiaryTrigger = result[0].beneficiaryBankAccountName;
                         budgetCodeTrigger = result[0].combinedBudget_RefID;
                         updateAdvanceUI(result, advanceRefID, advanceNumber);
+                    } else {
+                        if (!isDuplicate && !sameBeneficiary && !sameBudget) {
+                            showError("Beneficiary, & Budget cannot be different !");
+                            return;
+                        } 
                     }
 
                     if (!isDuplicate && sameBeneficiary && sameBudget) {
@@ -87,7 +101,7 @@
                     } else if (isDuplicate && sameBeneficiary && sameBudget) {
                         showError("Advance number has been selected !");
                         return;
-                    }
+                    } 
 
                     let tbody = $('#tableAdvanceDetail tbody');
 
@@ -231,6 +245,7 @@
                     });
                 } else {
                     console.log('error');
+                    $(".loadingAdvanceSettlementTable").hide();
                     $(".errorAdvanceSettlementTable").show();
                     $("#errorAdvanceSettlementMessageTable").text(`Data not found.`);
                 }
@@ -646,8 +661,8 @@
     }
 
     $('#tableGetModalAdvance').on('click', 'tbody tr', function() {
-        var sysId               = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
-        var trano               = $(this).find('td:nth-child(2)').text();
+        let sysId           = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
+        let trano           = $(this).find('td:nth-child(2)').text();
 
         getAdvanceDetail(sysId, trano);
     });

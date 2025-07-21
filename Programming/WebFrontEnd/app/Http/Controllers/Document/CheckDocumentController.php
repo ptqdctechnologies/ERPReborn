@@ -490,7 +490,7 @@ class CheckDocumentController extends Controller
                 return response()->json($response);
             }
 
-            // dd($response);
+            // dump($id, $docNum, $docName, $page);
 
             $url = DocumentTypeMapper::getHistoryPage($docName);
 
