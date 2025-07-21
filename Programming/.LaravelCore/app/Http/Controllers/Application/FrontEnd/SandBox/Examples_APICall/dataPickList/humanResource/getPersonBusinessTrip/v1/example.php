@@ -29,20 +29,30 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'dataPickList.humanResource.getPersonBusinessTrip', 
-                'latest',
-                [
-                'parameter' => [
-                    ]
-                ]
-                );
-            var_dump($varData);
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ METADATA ]-------------------------------------------------( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'dataPickList.humanResource.getPersonBusinessTrip',
+                        'latest',
+                    //-----[ METADATA ]-------------------------------------------------(  END  )-----
+
+                    //-----[ DATA ]-----------------------------------------------------( START )-----
+                        [
+                        'parameter' => [
+                            ]
+                        ]
+                    //-----[ DATA ]-----------------------------------------------------(  END  )-----
+                    );
+
+            return
+                $varData;
             }
 
 

@@ -36,14 +36,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
             //---Core---
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    //-----[ METADATA ]-----( START )-----
+                    //-----[ METADATA ]-------------------------------------------------( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken,
                         'report.form.resume.supplyChain.getPurchaseRequisitionToPurchaseOrder',
                         'latest',
-                    //-----[ METADATA ]-----(  END  )-----
+                    //-----[ METADATA ]-------------------------------------------------(  END  )-----
 
-                    //-----[ DATA ]---------( START )-----
+                    //-----[ DATA ]-----------------------------------------------------( START )-----
                         [
                         'parameter' => [
                             'combinedBudget_RefID' => 46000000000033,
@@ -56,7 +56,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                             'paging' => null
                             ]
                         ]
-                    //-----[ DATA ]---------(  END  )-----
+                    //-----[ DATA ]-----------------------------------------------------(  END  )-----
                     );
 
             return

@@ -19,15 +19,15 @@ clear;
 #sudo echo never > /sys/kernel/mm/transparent_hugepage/enabled;
 
 #---> General
+printf "\n▪ ▪ ▪ Docker Service Restart ▪ ▪ ▪\n";
+sudo systemctl restart docker;
+
 printf "▪ ▪ ▪ Reinitializing Laravel Folder Ownership ▪ ▪ ▪\n";
 #./BashScript/Script.Laravel.ComposerUpdate.sh;
 ./BashScript/Script.Docker.Reinitializing.LaravelFolderOwnership.sh;
 
 printf "\n▪ ▪ ▪ Laravel Dump Autoload ▪ ▪ ▪\n";
 ./BashScript/Script.Laravel.DumpAutoLoad.sh;
-
-printf "\n▪ ▪ ▪ Docker Service Restart ▪ ▪ ▪\n";
-sudo systemctl restart docker;
 
 printf "\n▪ ▪ ▪ Pruning Docker's Unused Objects ▪ ▪ ▪\n";
 sudo docker network prune --force;

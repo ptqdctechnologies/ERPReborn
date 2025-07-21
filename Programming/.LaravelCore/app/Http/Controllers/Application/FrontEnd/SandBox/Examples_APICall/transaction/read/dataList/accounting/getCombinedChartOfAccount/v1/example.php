@@ -37,24 +37,31 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData = 
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.read.dataList.accounting.getCombinedChartOfAccount', 
-                    'latest', 
-                    [
-                    'parameter' => [
-                        //'effectiveDateTimeTZ' => '2010-01-01 00:00:00+07'
-                        'effectiveDateTimeTZ' => NULL
-                        ],
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
+                    //-----[ METADATA ]-------------------------------------------------( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.read.dataList.accounting.getCombinedChartOfAccount', 
+                        'latest',
+                    //-----[ METADATA ]-------------------------------------------------(  END  )-----
+
+                    //-----[ DATA ]-----------------------------------------------------( START )-----
+                        [
+                        'parameter' => [
+                            //'effectiveDateTimeTZ' => '2010-01-01 00:00:00+07'
+                            'effectiveDateTimeTZ' => NULL
+                            ],
+                        'SQLStatement' => [
+                            'pick' => null,
+                            'sort' => null,
+                            'filter' => null,
+                            'paging' => null
+                            ]
                         ]
-                    ]
+                    //-----[ DATA ]-----------------------------------------------------(  END  )-----
                     );
-            var_dump($varData);
+
+            return 
+                $varData;
             }
 
 
