@@ -36,14 +36,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             $varData = 
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    //-----[ METADATA ]-----( START )-----
+                    //-----[ METADATA ]-------------------------------------------------( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken, 
                         'transaction.read.dataList.accounting.getChartOfAccount', 
                         'latest',
-                    //-----[ METADATA ]-----(  END  )-----
+                    //-----[ METADATA ]-------------------------------------------------(  END  )-----
 
-                    //-----[ DATA ]-----( START )-----
+                    //-----[ DATA ]-----------------------------------------------------( START )-----
                         [
                         'parameter' => [
                             //'effectiveDateTimeTZ' => '2010-01-01 00:00:00+07'
@@ -56,7 +56,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             'paging' => null
                             ]
                         ]
-                    //-----[ DATA ]-----(  END  )-----
+                    //-----[ DATA ]-----------------------------------------------------(  END  )-----
                     );
 
             var_dump($varData);
