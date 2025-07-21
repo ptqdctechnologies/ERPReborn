@@ -46,6 +46,8 @@
             success: function(data) {
                 $(".loadingBudgetDetails").hide();
 
+                console.log('data', data);
+
                 let tbody = $('#tableGetBudgetDetails tbody');
                 tbody.empty();
 

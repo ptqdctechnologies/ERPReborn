@@ -16,6 +16,8 @@
         $('#SelectAll').prop("checked", false);
         $('#UnSelectAll').prop("checked", false);
 
+        $('#containerLoadingMenu').show();
+
         var ModulID = $('#Modul').val();
         var Type = $('#Type').val();
         var keys = 0;
@@ -84,11 +86,14 @@
                     }
 
                 });
+
+                $('#containerLoadingMenu').hide();
             },
             error: function (textStatus, errorThrown, error) {
                 console.log('textStatus', textStatus);
                 console.log('errorThrown', errorThrown);
                 console.log('error', error);
+                $('#containerLoadingMenu').hide();
             }
         });
     }
@@ -227,7 +232,7 @@
         })
     });
 
-    $(window).one('load', function(e) {
-        TableSubMenu();
-    });
+    // $(window).one('load', function(e) {
+    //     TableSubMenu();
+    // });
 </script>
