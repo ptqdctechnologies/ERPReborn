@@ -3360,7 +3360,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_PurchaseOrder_LatestVersion                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2025-06-26                                                                                           |
+        | ▪ Last Update     : 2025-07-22                                                                                           |
         | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Pesanan Pembelian (Purchase Order) Versi Terakhir                    |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -3402,8 +3402,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID"];
                     $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode"];
                     $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName"];
-                    $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode"];
-                    $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
                     $varReturn['data'][$idxArray]['orderSequence'] = $value["OrderSequence"];
                     $idxArray++;
                 }
