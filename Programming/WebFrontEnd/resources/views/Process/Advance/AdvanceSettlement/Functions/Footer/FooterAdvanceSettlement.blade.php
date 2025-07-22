@@ -64,6 +64,7 @@
                         var checkWorkFlow = await checkingWorkflow(result[0].combinedBudget_RefID, documentTypeID.value);
 
                         if (!checkWorkFlow) {
+                            $(".loadingAdvanceSettlementTable").hide();
                             return;
                         }
                     }

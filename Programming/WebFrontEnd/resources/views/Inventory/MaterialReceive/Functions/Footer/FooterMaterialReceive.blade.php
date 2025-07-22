@@ -46,13 +46,22 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getDeliveryOrderDetail") !!}?delivery_order_id=' + delivery_order_id,
-            success: function(data) {
-                $(".loadingMaterialReceiveDetail").hide();
-
+            success: async function(data) {
                 let tbody = $('#tableMaterialReceiveDetail tbody');
                 tbody.empty();
 
                 if (Array.isArray(data) && data.length > 0) {
+                    const documentTypeID = document.getElementById("DocumentTypeID");
+
+                    if (documentTypeID.value) {
+                        var checkWorkFlow = await checkingWorkflow(data[0].combinedBudget_RefID, documentTypeID.value);
+
+                        if (!checkWorkFlow) {
+                            $(".loadingMaterialReceiveDetail").hide();
+                            return;
+                        }
+                    }
+
                     $("#transporterRefID").val(data[0].transporter_RefID);
 
                     $("#budget_value").val(data[0].combinedBudgetCode + ' - ' + data[0].combinedBudgetName);
@@ -113,8 +122,10 @@
                         });
                     });
 
+                    $(".loadingMaterialReceiveDetail").hide();
                     $("#tableMaterialReceiveDetail tbody").show();
                 } else {
+                    $(".loadingMaterialReceiveDetail").hide();
                     $(".errorMessageContainerMaterialReceiveDetail").show();
                     $("#errorMessageMaterialReceiveDetail").text(`Data not found.`);
 

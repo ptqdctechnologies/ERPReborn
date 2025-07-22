@@ -67,6 +67,9 @@
                         ]).draw();
 
                     });
+                },
+                error: function (textStatus, errorThrown) {
+                    console.log('error', textStatus, errorThrown);
                 }
             });
         });

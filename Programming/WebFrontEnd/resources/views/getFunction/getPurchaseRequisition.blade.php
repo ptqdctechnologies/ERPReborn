@@ -106,6 +106,8 @@
                 }
             },
             error: function (textStatus, errorThrown) {
+                console.log('error', textStatus, errorThrown);
+                
                 $('#tableGetModalPurchaseRequisition tbody').empty();
                 $(".loadingGetModalPurchaseRequisition").hide();
                 $(".errorModalPurchaseRequisitionMessageContainerSecond").show();
