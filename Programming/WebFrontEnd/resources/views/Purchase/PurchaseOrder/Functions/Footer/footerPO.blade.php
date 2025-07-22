@@ -193,10 +193,20 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getPurchaseRequisitionDetail") !!}?purchase_requisition_id=' + purchase_requisition_id,
-            success: function(data) {
-                $(".loadingPurchaseOrderTable").hide();
-
+            success: async function(data) {
                 if (data && Array.isArray(data) && data.length > 0) {
+                    const documentTypeID = document.getElementById("DocumentTypeID");
+
+                    if (documentTypeID.value) {
+                        var checkWorkFlow = await checkingWorkflow(data[0].combinedBudget_RefID, documentTypeID.value);
+
+                        if (!checkWorkFlow) {
+                            $(".loadingPurchaseOrderTable").hide();
+                            return;
+                        }
+                    }
+
+                    $(".loadingPurchaseOrderTable").hide();
                     $("#tablePurchaseOrderDetail tbody").show();
 
                     const isDuplicateMsr        = msrIDList.includes(data[0].purchaseRequisition_RefID);
@@ -322,6 +332,7 @@
                         indexPurchaseOrder += 1;
                     });
                 } else {
+                    $(".loadingPurchaseOrderTable").hide();
                     $(".errorPurchaseOrderTable").show();
                     $("#errorPurchaseOrderMessageTable").text(`Data not found.`);
                 }
