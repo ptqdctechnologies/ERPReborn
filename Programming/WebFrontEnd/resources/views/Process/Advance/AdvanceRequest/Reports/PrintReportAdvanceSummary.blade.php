@@ -69,16 +69,6 @@
         </td>
         <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Total
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
-            Currency
-          </div>
-        </td>
-        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
             Requester
           </div>
         </td>
@@ -87,6 +77,27 @@
             Beneficiary
           </div>
         </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Total Idr
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Total Other Currency
+          </div>
+        </td>
+        <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Total Equivalent Idr
+          </div>
+        </td>
+        <!-- <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            Currency
+          </div>
+        </td> -->
+        
         <td style="border-top: 1px solid black; border-bottom: 1px dotted black; height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
             Remark
@@ -120,16 +131,6 @@
         </td>
         <td>
           <div style="margin-top: 4px;">
-            {{ number_format($datas['TotalAdvance'],2) }}
-          </div>
-        </td>
-        <td>
-          <div style="margin-top: 4px;">
-            {{ $datas['CurrencyName'] }}
-          </div>
-        </td>
-        <td>
-          <div style="margin-top: 4px;">
             {{ $datas['RequesterWorkerName'] }}
           </div>
         </td>
@@ -138,6 +139,27 @@
             {{ $datas['BeneficiaryWorkerName'] }}
           </div>
         </td>
+        <td>
+          <div style="margin-top: 4px;">
+            {{ number_format($datas['TotalAdvance'],2) }}
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px;">
+            -
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px;">
+            -
+          </div>
+        </td>
+        <!-- <td>
+          <div style="margin-top: 4px;">
+            {{ $datas['CurrencyName'] }}
+          </div>
+        </td> -->
+        
         <td>
           <div style="margin-top: 4px;">
             {{ucfirst(trans($datas['remark']))}}
@@ -149,13 +171,13 @@
       <div style="height: 16px;"></div>
 
       <tr style="border-top: 1px solid black;">
-        <td style="height: 20px; text-align: left;" colspan="4">
+        <td style="height: 20px; text-align: left;" colspan="6">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL</div>
         </td>
         <td style="height: 20px;">
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">{{ number_format($TotalAdvance,2) }}</div>
         </td>
-        <td style="height: 20px; text-align: left;" colspan="4"></td>
+        <td style="height: 20px; text-align: left;" colspan="6"></td>
       </tr>
     </table>
   </div>
