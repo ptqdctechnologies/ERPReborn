@@ -79,8 +79,8 @@
                     <div>
                         <textarea disabled id="warehouse_name" rows="3" name="warehouse_name" style="border-radius:0;" class="form-control"></textarea>
                     </div>
-                    <div>
-                        <span style="border-radius:0;min-height:23.19px;" class="input-group-text form-control">
+                    <div style="background-color:#e9ecef;min-height:100%;border:1px solid #ced4da;">
+                        <span style="border-radius:0;border:0;" class="input-group-text form-control">
                             <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond" style="display: block;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
                             </a>
