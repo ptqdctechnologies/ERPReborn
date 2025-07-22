@@ -148,13 +148,17 @@
 
                             t.row.add([
                                 '<tbody><tr><td>' + no++ + '</td>',
-                                '<td><a href="ReportAdvanceSummaryDetailID/' + +val.Sys_ID + '">' + val.DocumentNumber + '</a></td>',
+                                // '<td><a href="ReportAdvanceSummaryDetailID/' + +val.Sys_ID + '">' + val.DocumentNumber + '</a></td>',
+                                '<td>' + val.DocumentNumber + '</td>',
                                 '<td>' + val.CombinedBudgetSectionName + '</td>',
                                 '<td>' + date + '</td>',
-                                '<td>' + currencyTotal(val.TotalAdvance) + '</td>',
-                                '<td>' + val.CurrencyName + '</td>',
                                 '<td>' + RequesterWorkerName + '</td>',
                                 '<td>' + BeneficiaryWorkerName + '</td>',
+                                '<td>' + currencyTotal(val.TotalAdvance) + '</td>',
+                                '<td>' + '-' + '</td>',
+                                '<td>' + '-' + '</td>',
+                                // '<td>' + val.CurrencyName + '</td>',
+                                
                                 '<td>' + val.remark.charAt(0).toUpperCase() + val.remark.slice(1) + '</td></tr></tbody>'
                             ]).draw();
 

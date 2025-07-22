@@ -44,7 +44,7 @@ class DeliveryOrderController extends Controller
             'dataDO' => $dataDO
         
         ];
-        // dump($compact);
+        // dump($dataDO);
 
         return view('Inventory.DeliveryOrder.Reports.ReportDeliveryOrderSummary', $compact);
     }

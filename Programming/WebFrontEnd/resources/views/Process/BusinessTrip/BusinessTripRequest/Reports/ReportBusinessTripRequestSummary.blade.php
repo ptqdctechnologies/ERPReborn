@@ -78,7 +78,7 @@
                                                         <td><?= $dataDetail['DepartingFrom']; ?></td>
                                                         <td><?= $dataDetail['DestinationTo']; ?></td>
                                                         <td><?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?></td>
-                                                        <td><?= number_format($dataDetail['TotalAdvance'], 2, '.', ','); ?></td>
+                                                        <td></td>
                                                         <td><?= $dataDetail['CurrencyName']; ?></td>
                                                         <td><?= $dataDetail['RequesterWorkerName']; ?></td>
                                                         <td><?= $dataDetail['BeneficiaryWorkerName']; ?></td>

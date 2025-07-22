@@ -37,7 +37,9 @@ class ExportReportDeliveryOrderSummary implements FromCollection, WithHeadings, 
 
     public function headings(): array
     {
+        $data = Session::get("DeliveryOrderReportSummaryDataExcel");
         return [
+            ["Budget", ": " . $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'], "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", "", ""],
             ["No", "DO Number","Date", "Type", "Delivery From", "Delivery To", "Transporter"],
         ];
@@ -91,13 +93,13 @@ class ExportReportDeliveryOrderSummary implements FromCollection, WithHeadings, 
                         ],
                 ]);
 
-                $sheet->setCellValue('A4', 'Budget')->getStyle('A4')->applyFromArray([
-                    'font'  => [
-                        'bold'  => true,
-                        'color' => ['rgb' => '000000']
-                    ]
-                ]);
-                $sheet->setCellValue('B4', ': ');
+                // $sheet->setCellValue('A4', 'Budget')->getStyle('A4')->applyFromArray([
+                //     'font'  => [
+                //         'bold'  => true,
+                //         'color' => ['rgb' => '000000']
+                //     ]
+                // ]);
+                // $sheet->setCellValue('B4', ': ');
             },
         ];
     }

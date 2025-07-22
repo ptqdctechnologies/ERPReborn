@@ -17,10 +17,19 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
     public function collection()
     {
         $data = Session::get("PurchaseRequisitionReportSummaryDataExcel");
-        // return collect($data);
         $filteredData = [];
         $counter = 1;
+
+        $grandTotalIDR = 0;
+        $grandTotalOtherCurrency = 0;
+
         foreach ($data as $item) {
+            $idr = $item['total_IDR'] ?? 0;
+            $other = $item['total_Other_Currency'] ?? 0;
+
+            $grandTotalIDR += $idr;
+            $grandTotalOtherCurrency += $other;
+
             $filteredData[] = [
                 'No'                                => $counter++,
                 'PR Number'                         => $item['documentNumber'] ?? null,
@@ -28,19 +37,33 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
                 'Sub Budget'                        => null,
                 'Delivery From'                     => null,
                 'Delivery To'                       => null,
-                'Total Idr'                         => $item['total_IDR'] ?? null,
-                'Total Other Currency'              => $item['total_Other_Currency'] ?? null,
-                
+                'Total Idr'                         => $idr,
+                'Total Other Currency'              => $other,
             ];
         }
+
+        // Tambahkan baris grand total
+        $filteredData[] = [
+            'No'                                => '',
+            'PR Number'                         => 'Grand Total:',
+            'Date'                              => '',
+            'Sub Budget'                        => '',
+            'Delivery From'                     => '',
+            'Delivery To'                       => '',
+            'Total Idr'                         => $grandTotalIDR,
+            'Total Other Currency'              => $grandTotalOtherCurrency,
+        ];
 
         return collect($filteredData);
     }
 
     public function headings(): array
     {
+        $data = Session::get("PurchaseRequisitionReportSummaryDataExcel");
+
         return [
-            ["", "", "", "", "", "", "", "", "", ""],
+            ["Budget", ": " . $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'], "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", ""],
             ["No", "PR Number","Date", "Sub Budget", "Delivery From", "Delivery To", "Total IDR", "Total Other Currency"],
         ];
     }
@@ -92,14 +115,6 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
                             'horizontal' => Alignment::HORIZONTAL_RIGHT,
                         ],
                 ]);
-
-                $sheet->setCellValue('A4', 'Budget')->getStyle('A4')->applyFromArray([
-                    'font'  => [
-                        'bold'  => true,
-                        'color' => ['rgb' => '000000']
-                    ]
-                ]);
-                $sheet->setCellValue('B4', '');
             },
         ];
     }

@@ -41,8 +41,10 @@ class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, 
 
     public function headings(): array
     {
+        $data = Session::get("PurchaseOrderReportSummaryDataExcel");
         return [
-            ["", "", "", "", "", "", "", "", "", ""],
+            ["Budget", ": " . $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'], "", "", "", "", "", "", ""],
+            ["","","","","","","","","","","",""],
             ["No", "PR Number","Description & Spesification", "Qty", "Unit Price", "Uom", "Total IDR", " ", "Total Other Currency", " ", "Currency"],
             ["", "", "", "", "","", "With VAT", "Without VAT", "With VAT", "Without VAT", ""],
         ];
@@ -96,13 +98,13 @@ class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, 
                         ],
                 ]);
 
-                $sheet->setCellValue('A4', 'Budget')->getStyle('A4')->applyFromArray([
-                    'font'  => [
-                        'bold'  => true,
-                        'color' => ['rgb' => '000000']
-                    ]
-                ]);
-                $sheet->setCellValue('B4', ': ');
+                // $sheet->setCellValue('A4', 'Budget')->getStyle('A4')->applyFromArray([
+                //     'font'  => [
+                //         'bold'  => true,
+                //         'color' => ['rgb' => '000000']
+                //     ]
+                // ]);
+                // $sheet->setCellValue('B4', ': ');
             },
         ];
     }

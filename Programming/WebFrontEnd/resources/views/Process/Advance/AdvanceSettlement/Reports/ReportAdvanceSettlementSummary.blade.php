@@ -4,8 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
-@include('getFunction.getBeneficiary')
-@include('getFunction.getWorker')
+@include('getFunction.getSupplier')
 
 <div class="content-wrapper">
     <section class="content">
@@ -18,6 +17,9 @@
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
                     <!-- FORM -->
+                    
+
+                    @if($statusHeader == "Yes")
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -29,16 +31,15 @@
                             </div>
                         </div>
                     </div>
-
-                    <?php if ($dataReport) { ?>
-                        <!-- HEADER -->
+                    @endif
+                    @if($statusDetail == 1 && $dataPO)
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row py-2 px-1" style="gap: 1rem;">
                                             <label class="p-0 text-bold mb-0">Budget</label>
-                                            <div>: <?= $dataReport['budgetCode']; ?> - <?= $dataReport['budgetName']; ?></div>
+                                              :  <?= $dataPO[0]['combinedBudgetCode']; ?> - <?= $dataPO[0]['combinedBudgetName']; ?> 
                                         </div>
                                     </div>
                                 </div>
@@ -67,31 +68,39 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Requester</th>
                                                     <!-- <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Beneficiary</th> -->
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Remark</th>
-                                                </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $counter = 1; ?>
-                                                <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
+                                                <?php foreach ($dataPO as $dataDetail) { ?>
                                                     <tr>
                                                         <td><?= $counter++; ?></td>
-                                                        <td><?= $dataDetail['DocumentNumber']; ?></td>
-                                                        <td><?= $dataDetail['Description']; ?></td>
-                                                        <td><?= date('d-m-Y', strtotime($dataDetail['DocumentDateTimeTZ'])); ?></td>
-                                                        <td><?= number_format($dataDetail['TotalExpenseClaimCart'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['TotalAmountDueToCompanyCart'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['TotalAdvance'], 2, '.', ','); ?></td>
-                                                        <td><?= $dataDetail['RequesterWorkerName']; ?></td>
-                                                        <td><?= $dataDetail['remark']; ?></td>
+                                                        <td><?= $dataDetail['documentNumber']; ?></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <!-- <td><?= $dataDetail['product_Code']; ?> - <?= $dataDetail['product_Name']; ?></td>
+                                                        <td><?= $dataDetail['quantity']; ?></td>
+                                                        <td><?= $dataDetail['price']; ?></td>
+                                                        <td><?= $dataDetail['UOM']; ?></td>
+                                                        <td><?= number_format($dataDetail['total_Idr_WithVat'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['total_Idr_WithoutVat'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['total_Other_Currency_WithVat'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['total_Other_Currency_WithoutVat'], 2, '.', ','); ?></td>
+                                                        <td><?= $dataDetail['currency']; ?></td> -->
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="4" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalExpense'], 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['totalAmount'], 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($dataReport['total'], 2, '.', ','); ?></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;background-color:#4B586A;"></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;background-color:#4B586A;"></th>
                                                 </tr>
                                             </tfoot>
@@ -100,7 +109,7 @@
                                 </div>
                             </div>
                         </div>
-                    <?php }; Session::forget("isButtonReportAdvanceSettlementSummarySubmit"); ?>
+                    @endif
                 </div>
             </div>
         </div>

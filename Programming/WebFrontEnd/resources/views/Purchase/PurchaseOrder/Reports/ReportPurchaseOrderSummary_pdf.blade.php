@@ -46,19 +46,23 @@
                       <tr style="border: 1px solid #ced4da;border-collapse: collapse;">
                         <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">No</th>
                         <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">PO Number</th>
-                        <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Product Id</th>
+                        <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Supplier</th>
+                        <!-- <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Product Id</th>
                         <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Qty</th>
                         <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Price</th>
-                        <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Uom</th>
+                        <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Uom</th> -->
                         <th colspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total Idr</th>
                         <th colspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total Other Currency</th>
-                        <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Currency</th>
+                        <th colspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Total Equivalent Idr</th>
+                        <!-- <th rowspan="2" style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Currency</th> -->
                       </tr>
                       <tr>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">With VAT</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Without VAT</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">With VAT</th>
-                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Without VAT</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Value</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">VAT</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Value</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">VAT</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Value</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">VAT</th>
                       </tr>
                     </thead>
                     <?php $counter = 1; ?>
@@ -66,22 +70,26 @@
                       <tbody>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $counter++; ?></td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['documentNumber']; ?></td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['product_Code']; ?> - <?= $dataDetail['product_Name']; ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['supplier_Code']; ?> - <?= $dataDetail['supplier_Name']; ?></td>
+                        <!-- <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['product_Code']; ?> - <?= $dataDetail['product_Name']; ?></td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['quantity']; ?></td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['price']; ?></td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['UOM']; ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['UOM']; ?></td> -->
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['total_Idr_WithVat']; ?></td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['total_Idr_WithoutVat']; ?></td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['total_Other_Currency_WithVat']; ?></td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['total_Other_Currency_WithoutVat']; ?></td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['currency']; ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['total_Idr_WithVat']; ?></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['total_Idr_WithoutVat']; ?></td>
+                        <!-- <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['currency']; ?></td> -->
                         
                       </tbody>
                     <?php } ?>
 
                       <tfoot>
                         <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">
-                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="6">GRAND TOTAL</td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;text-align:center;" colspan="3">GRAND TOTAL</td>
+                          <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
                           <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
                           <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
                           <td style="border: 1px solid #ced4da;border-collapse: collapse;padding: 5px;"></td>
