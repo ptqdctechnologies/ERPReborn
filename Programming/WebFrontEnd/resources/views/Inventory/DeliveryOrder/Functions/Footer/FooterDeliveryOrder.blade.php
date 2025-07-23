@@ -70,29 +70,39 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getPurchaseOrderDetail") !!}?purchase_order_id=' + reference_id,
-            success: function(data) {
-                let deliveryFroms = `(${data[0]['supplierCode']}) ${data[0]['supplierName']} - ${data[0]['supplierAddress']}`;
-                let deliveryToNonRefIDs = data[0]['deliveryTo_NonRefID'] ? data[0]['deliveryTo_NonRefID'].Address : '';
-
-                $(".loadingReferenceNumberDetail").hide();
-
-                $("#budget_value").val(`${data[0]['combinedBudgetCode']} - ${data[0]['combinedBudgetName']}`);
-
-                $("#delivery_fromDuplicate").val(deliveryFroms);
-                $("#delivery_from").val(deliveryFroms);
-                $("#deliveryFromDuplicate_RefID").val(data[0]['supplier_RefID']);
-                $("#deliveryFrom_RefID").val(data[0]['supplier_RefID']);
-                $("#delivery_from").prop("disabled", false);
-
-                $("#delivery_to").val(deliveryToNonRefIDs);
-                $("#delivery_toDuplicate").val(deliveryToNonRefIDs);
-                $("#deliveryTo_RefID").val(data[0]['deliveryTo_RefID']);
-                $("#deliveryToDuplicate_RefID").val(data[0]['deliveryTo_RefID']);
-                $("#delivery_to").prop("disabled", false);
-
-                let tbody = $('#tableReferenceNumberDetail tbody');
-
+            success: async function(data) {
                 if (Array.isArray(data) && data.length > 0) {
+                    const documentTypeID = document.getElementById("DocumentTypeID");
+
+                    if (documentTypeID.value) {
+                        var checkWorkFlow = await checkingWorkflow(data[0].combinedBudget_RefID, documentTypeID.value);
+
+                        if (!checkWorkFlow) {
+                            $(".loadingReferenceNumberDetail").hide();
+                            $("#reference_number").val("");
+                            $("#reference_id").val("");
+                            return;
+                        }
+                    }
+
+                    let deliveryFroms = `(${data[0]['supplierCode']}) ${data[0]['supplierName']} - ${data[0]['supplierAddress']}`;
+                    let deliveryToNonRefIDs = data[0]['deliveryTo_NonRefID'] ? data[0]['deliveryTo_NonRefID'].Address : '';
+
+                    $("#budget_value").val(`${data[0]['combinedBudgetCode']} - ${data[0]['combinedBudgetName']}`);
+
+                    $("#delivery_fromDuplicate").val(deliveryFroms);
+                    $("#delivery_from").val(deliveryFroms);
+                    $("#deliveryFromDuplicate_RefID").val(data[0]['supplier_RefID']);
+                    $("#deliveryFrom_RefID").val(data[0]['supplier_RefID']);
+                    $("#delivery_from").prop("disabled", false);
+
+                    $("#delivery_to").val(deliveryToNonRefIDs);
+                    $("#delivery_toDuplicate").val(deliveryToNonRefIDs);
+                    $("#deliveryTo_RefID").val(data[0]['deliveryTo_RefID']);
+                    $("#deliveryToDuplicate_RefID").val(data[0]['deliveryTo_RefID']);
+                    $("#delivery_to").prop("disabled", false);
+
+                    let tbody = $('#tableReferenceNumberDetail tbody');
                     let modifyColumn = `<td rowspan="${data.length}" style="text-align: center; padding: 10px !important;">${reference_number}</td>`;
 
                     $.each(data, function(key, val2) {
@@ -149,8 +159,10 @@
                         indexReferenceNumberDetail += 1;
                     });
 
+                    $(".loadingReferenceNumberDetail").hide();
                     $("#tableReferenceNumberDetail tbody").show();
                 } else {
+                    $(".loadingReferenceNumberDetail").hide();
                     $(".errorMessageContainerReferenceNumberDetail").show();
                     $("#errorMessageReferenceNumberDetail").text(`Data not found.`);
 
@@ -243,7 +255,6 @@
     function updateGrandTotal() {
         let total = 0;
         const rows = document.querySelectorAll('#tableDeliverOrderDetailList tbody tr');
-        console.log('rows', rows);
         
         rows.forEach(row => {
             const totalCell = row.children[5];
