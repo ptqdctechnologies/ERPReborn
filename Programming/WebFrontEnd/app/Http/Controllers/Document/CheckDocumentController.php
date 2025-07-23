@@ -219,23 +219,52 @@ class CheckDocumentController extends Controller
 
             $formatData = DocumentTypeMapper::formatData($businessDocumentTypeName, $collection['dataDetail'][0]);
 
-            // dd($formatData);
+            // dd($formatData['dataHeader']);
+
+            $compactTransactionHistory = [];
+            if ($formatData['dataHeader']['dateUpdate']) {
+                $responseGetTransactionHistory = $this->checkDocumentService->getTransactionHistory($transDetail_RefID);
+
+                if ($responseGetTransactionHistory['metadata']['HTTPStatusCode'] !== 200) {
+                    return redirect()->back()->with('error', 'Data Not Found');
+                }
+
+                $urlGetTransactionHistory = DocumentTypeMapper::getHistoryPage($businessDocumentTypeName);
+
+                if (!$urlGetTransactionHistory) {
+                    return redirect()->back()->with('NotFound', 'Page Not Found');
+                }
+
+                $collectionGetTransactionHistory = collect($responseGetTransactionHistory['data']['data'])->sort();
+
+                $dataHeaderGetTransactionHistory = $collectionGetTransactionHistory->where('type', 'Header')->values()->all();
+
+                $dataDetailGetTransactionHistory = $collectionGetTransactionHistory->where('type', 'Detail')
+                    ->groupBy(fn ($item) => $item['content']['sys_PID'])
+                    ->values()
+                    ->all();
+                
+                $compactTransactionHistory = [
+                    'dataHeaderTransactionHistory'      => $dataHeaderGetTransactionHistory,
+                    'dataDetailGetTransactionHistory'   => $dataDetailGetTransactionHistory
+                ];
+            }
 
             $compact = [
-                'varAPIWebToken'            => $varAPIWebToken,
-                'sourceData'                => $sourceData,
-                'var'                       => 1,
-                'transactionForm'           => $businessDocumentTypeName,
-                'transactionNumber'         => $businessDocumentNumber,
-                'transactionDetail_RefID'   => $transDetail_RefID,
-                'dataWorkFlows'             => $workflowHistory,
-                'statusDocument'            => $documentStatus,
-                'approverStatus'            => $approverStatus,
-                'page'                      => 'Document Tracking',
-                'dataDetails'               => $collection['dataDetail']
-            ] + $formatData;
+                'varAPIWebToken'                => $varAPIWebToken,
+                'sourceData'                    => $sourceData,
+                'var'                           => 1,
+                'transactionForm'               => $businessDocumentTypeName,
+                'transactionNumber'             => $businessDocumentNumber,
+                'transactionDetail_RefID'       => $transDetail_RefID,
+                'dataWorkFlows'                 => $workflowHistory,
+                'statusDocument'                => $documentStatus,
+                'approverStatus'                => $approverStatus,
+                'page'                          => 'Document Tracking',
+                'dataDetails'                   => $collection['dataDetail'],
+            ] + $formatData + $compactTransactionHistory;
 
-            // dd($compact);
+            // dump($compact);
 
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } catch (\Throwable $th) {
@@ -484,13 +513,13 @@ class CheckDocumentController extends Controller
             $docName    = $request->input('docName');
             $page       = $request->input('page');
 
+            // dd($id, $docNum, $docName, $page);
+
             $response   = $this->checkDocumentService->getTransactionHistory($id);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($response);
             }
-
-            // dump($id, $docNum, $docName, $page);
 
             $url = DocumentTypeMapper::getHistoryPage($docName);
 

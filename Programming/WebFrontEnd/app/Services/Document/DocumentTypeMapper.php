@@ -112,8 +112,10 @@ class DocumentTypeMapper
                     'text'          => $dataDetail['remarks'] ?? '-',
                 ],
                 'components'        => [
-                    'detail'        => 'Components.AdvanceDetailDocument',
-                    'table'         => 'Components.AdvanceDetailDocumentTable',
+                    'detail'            => 'Components.AdvanceDetailDocument',
+                    'headerRevision'    => 'Components.AdvanceDetailDocumentHeaderRevision',
+                    'revision'          => 'Components.AdvanceDetailDocumentRevision',
+                    'table'             => 'Components.AdvanceDetailDocumentTable',
                 ],
                 'resubmit'  => [
                     'url'   => 'AdvanceRequest.RevisionAdvanceIndex',

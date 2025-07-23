@@ -59,12 +59,27 @@
               </div>
             </div>
 
-            <!-- TABLE -->
-            <?php if (isset($components['table'])) { ?>
+            <!-- TABLE HEADER LOG HISTORY -->
+            <?php if (isset($components['headerRevision']) && $dataHeader['dateUpdate']) { ?>
               <div class="col-12 ShowDocumentList">
                 <div class="card">
                   <div class="card-body p-0">
-                    @include($components['table'])
+                    @include($components['headerRevision'])
+                  </div>
+                </div>
+              </div>
+            <?php } ?>
+
+            <!-- TABLE DOC TRACKING & LOG HISTORY -->
+            <?php if (isset($components['table']) && isset($components['revision'])) { ?>
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  <div class="card-body p-0">
+                    <?php if (!$dataHeader['dateUpdate']) { ?>
+                      @include($components['table'])
+                    <?php } else { ?>
+                      @include($components['revision'])
+                    <?php } ?>
                   </div>
                 </div>
               </div>
@@ -78,7 +93,7 @@
               </div>
             <?php } ?>
 
-            <?php if (isset($textAreaFields)) { ?>
+            <?php if (isset($textAreaFields) && !$dataHeader['dateUpdate']) { ?>
               <!-- TEXT AREA FIELD (Remarks, Reason To Travel) -->
               <div class="col-12 ShowDocumentList">
                 <div class="card">
@@ -140,6 +155,14 @@
                   </div>
                 </div>
               </div>
+            </div>
+
+            <!-- BUTTON APPROVAL -->
+            <div class="col-12 text-right">
+              <!-- CANCEL -->
+              <a href="/CheckDocument?var=1" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                <img src="{{ asset('images/Icon/Pagination/Previous-300-32.png') }}" width="13" alt="" title="Cancel"> Cancel
+              </a>
             </div>
           </div>
         </div>
