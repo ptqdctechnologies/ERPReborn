@@ -21,7 +21,7 @@ $varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzUzMTY5Mjg1fQ.M2NiNTZjMjdiYzlkNWNhZDdhOGMxNDMzMWJjN2Q0NGViMzQwNjMxNTgyZjNmOTAxOTlhOWUwMjlhZGIwZWE4MQ';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzUzMzQzNzA3fQ.YWU2YjIyM2FiNjRkNmU0OWQwNWNhZjQwYTUxZjJiMzMwNmY1MTg4NTdmMmMwZDJkMDY0YWExNzY0NGEwYTYzNw';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -327,6 +327,19 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('PurchaseOrderByPrID', 'Purchase\PurchaseOrderController@PurchaseOrderByPrID')->name('PurchaseOrder.PurchaseOrderByPrID');
     Route::post('addListCartPurchaseOrder', 'Purchase\PurchaseOrderController@addListCartPurchaseOrder')->name('PurchaseOrder.addListCartPurchaseOrder');
     Route::resource('PurchaseOrder', 'Purchase\PurchaseOrderController');
+
+    // LOAN
+    // Route::get('LoanListData', 'Process\Loan\LoanController@LoanListData')->name('Loan.LoanListData');
+    
+    Route::get('ReportLoanSummary', 'Process\Loan\LoanController@ReportLoanSummary')->name('Loan.ReportLoanSummary');
+    Route::post('ReportLoanSummaryStore', 'Process\Loan\LoanController@ReportLoanSummaryStore')->name('Loan.ReportLoanSummaryStore');
+    Route::post('PrintExportReportLoanSummary', 'Process\Loan\LoanController@PrintExportReportLoanSummary')->name('Loan.PrintExportReportLoanSummary');
+    
+    // Route::get('ReportLoanDetail', 'Process\Loan\LoanController@ReportLoanDetail')->name('Loan.ReportLoanDetail');
+    // Route::post('ReportLoanDetailStore', 'Process\Loan\LoanController@ReportLoanDetailStore')->name('Loan.ReportLoanDetailStore');
+    // Route::post('PrintExportReportLoanDetail', 'Process\Loan\LoanController@PrintExportReportLoanDetail')->name('Loan.PrintExportReportLoanDetail');
+    
+    Route::resource('Loan', 'Process\Loan\LoanController');
 
     // OP
     Route::post('StoreValidateOrderPicking', 'Purchase\OrderPickingController@StoreValidateOrderPicking')->name('OrderPicking.StoreValidateOrderPicking');

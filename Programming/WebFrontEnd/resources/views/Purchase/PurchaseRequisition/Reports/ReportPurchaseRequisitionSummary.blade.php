@@ -60,9 +60,9 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Sub Budget</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date Of Delivery</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Delivery To</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Idr</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total IDR</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Other Currency</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Equivalent Idr</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Equivalent IDR</th>
                                                     <!-- <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Currency</th> -->
                                                 </tr>
                                             </thead>
@@ -75,7 +75,7 @@
                                                         <td>{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
                                                         <td>{{ $dataDetail['combinedBudgetSectionCode'] }} - {{ $dataDetail['combinedBudgetSectionName'] }} </td>
                                                         <td>{{ date('Y-m-d', strtotime($dataDetail['dateOfDelivery'])) }}</td>
-                                                        <td></td>
+                                                        <td>{{ $dataDetail['deliveryTo_NonRefID']['address'] ?? '-' }}</td>
                                                         <td><?= $dataDetail['total_IDR']; ?></td>
                                                         <td><?= $dataDetail['total_Other_Currency']; ?></td>
                                                         <td></td>

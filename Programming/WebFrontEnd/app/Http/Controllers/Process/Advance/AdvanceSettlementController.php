@@ -62,21 +62,19 @@ class AdvanceSettlementController extends Controller
             $filteredArray = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'report.form.documentForm.supplyChain.getPurchaseOrderSummary', 
+                'report.form.documentForm.finance.getAdvanceSettlementSummary', 
                 'latest',
                 [
                     'parameter' => [
                         'CombinedBudgetCode' =>  $project_code,
                         'CombinedBudgetSectionCode' =>  $site_code,
-                        'Supplier_RefID' => NULL
-                        // 'AdvanceSettlement_RefID' => (int) $AdvanceSettlement_refID
                     ],
-                     'SQLStatement' => [
+                    'SQLStatement' => [
                         'pick' => null,
                         'sort' => null,
                         'filter' => null,
                         'paging' => null
-                        ]
+                    ]
                 ]
             );
             
