@@ -24,7 +24,7 @@
             $("#project_id_second").val("");
             $("#project_name_second").val("");
 
-            Swal.fire("Error", "You're not allowed to submit a transaction for this project.", "error");
+            Swal.fire("Error", "You're not allowed to submit a transaction for this project", "error");
             resolve(false);
           }
         },
