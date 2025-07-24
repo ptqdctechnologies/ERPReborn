@@ -75,12 +75,12 @@ class PurchaseOrderController extends Controller
                         'Supplier_RefID' => NULL
                         // 'purchaseOrder_RefID' => (int) $purchaseOrder_refID
                     ],
-                     'SQLStatement' => [
+                    'SQLStatement' => [
                         'pick' => null,
                         'sort' => null,
                         'filter' => null,
                         'paging' => null
-                        ]
+                    ]
                 ]
             );
             
