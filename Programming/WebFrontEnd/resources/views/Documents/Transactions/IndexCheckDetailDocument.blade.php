@@ -42,13 +42,33 @@
               </div>
             </div>
 
-            <!-- TABLE -->
-            <div class="col-12">
-              <div class="card">
-                  @include($components['table'])
+            <!-- TABLE HEADER LOG HISTORY -->
+            <?php if (isset($components['headerRevision']) && $dataHeader['dateUpdate']) { ?>
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  <div class="card-body p-0">
+                    @include($components['headerRevision'])
+                  </div>
+                </div>
               </div>
-            </div>
+            <?php } ?>
 
+            <!-- TABLE DOC TRACKING & LOG HISTORY -->
+            <?php if (isset($components['table']) && isset($components['revision'])) { ?>
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  <div class="card-body p-0">
+                    <?php if (!$dataHeader['dateUpdate']) { ?>
+                      @include($components['table'])
+                    <?php } else { ?>
+                      @include($components['revision'])
+                    <?php } ?>
+                  </div>
+                </div>
+              </div>
+            <?php } ?>
+
+            <!-- ADDITIONAL -->
             <?php if (isset($components['additional'])) { ?>
               <div class="col-12">
                 <div class="card">
@@ -58,30 +78,32 @@
             <?php } ?>
 
             <!-- TEXT AREA FIELD (Remarks, Reason To Travel) -->
-            <div class="col-12">
-              <div class="card">
-                <!-- TITLE -->
-                <div class="card-header">
-                  <label class="card-title">
-                    <?= $textAreaFields['title']; ?>
-                  </label>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                      <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                    </button>
+            <?php if (isset($textAreaFields) && !$dataHeader['dateUpdate']) { ?>
+              <div class="col-12">
+                <div class="card">
+                  <!-- TITLE -->
+                  <div class="card-header">
+                    <label class="card-title">
+                      <?= $textAreaFields['title']; ?>
+                    </label>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                      </button>
+                    </div>
                   </div>
-                </div>
 
-                <!-- CONTENT -->
-                <div class="card-body">
-                  <div class="row" style="margin: .6rem 0rem;">
-                    <div class="col">
-                      <?= nl2br(e($textAreaFields['text'])); ?>
+                  <!-- CONTENT -->
+                  <div class="card-body">
+                    <div class="row" style="margin: .6rem 0rem;">
+                      <div class="col">
+                        <?= nl2br(e($textAreaFields['text'])); ?>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            <?php } ?>
 
             <!-- APPROVAL HISTORY -->
             <div class="col-12">
@@ -89,7 +111,7 @@
                 <!-- TITLE -->
                 <div class="card-header">
                   <label class="card-title">
-                    Approval History - 
+                    Approval History 
                   </label>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -100,6 +122,18 @@
 
                 <!-- CONTENT -->
                 <div class="card-body">
+                  <div class="row text-bold" style="margin-top: .7rem; gap: 1rem;">
+                    Last Status : 
+                      @if(isset($dataWorkFlows))
+                        @if($statusDocument == 0)
+                          Waiting {{ $dataWorkFlows[count($dataWorkFlows)-1]['workFlowPathActionName'] }} from {{ $dataWorkFlows[count($dataWorkFlows)-1]['nextApproverEntityName'] }}
+                        @elseif($statusDocument == 1)
+                          Final Approved
+                        @elseif($statusDocument == 2)
+                          Document Doesn't Has Workflow
+                        @endif
+                      @endif
+                  </div>
                   <div class="row" style="margin-top: .7rem; gap: 1rem;">
                     @include('Components.ApprovalHistory')
                   </div>

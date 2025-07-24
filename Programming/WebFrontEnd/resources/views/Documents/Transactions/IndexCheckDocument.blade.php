@@ -71,20 +71,19 @@
             <?php } ?>
 
             <!-- TABLE DOC TRACKING & LOG HISTORY -->
-            <?php if (isset($components['table']) && isset($components['revision'])) { ?>
-              <div class="col-12 ShowDocumentList">
-                <div class="card">
-                  <div class="card-body p-0">
-                    <?php if (!$dataHeader['dateUpdate']) { ?>
-                      @include($components['table'])
-                    <?php } else { ?>
-                      @include($components['revision'])
-                    <?php } ?>
-                  </div>
+            <div class="col-12 ShowDocumentList">
+              <div class="card">
+                <div class="card-body p-0">
+                  <?php if (!$dataHeader['dateUpdate']) { ?>
+                    @include($components['table'])
+                  <?php } else { ?>
+                    @include($components['revision'])
+                  <?php } ?>
                 </div>
               </div>
-            <?php } ?>
+            </div>
 
+            <!-- ADDITIONAL -->
             <?php if (isset($components['additional'])) { ?>
               <div class="col-12 ShowDocumentList">
                 <div class="card">
@@ -93,8 +92,8 @@
               </div>
             <?php } ?>
 
+            <!-- TEXT AREA FIELD (Remarks, Reason To Travel) -->
             <?php if (isset($textAreaFields) && !$dataHeader['dateUpdate']) { ?>
-              <!-- TEXT AREA FIELD (Remarks, Reason To Travel) -->
               <div class="col-12 ShowDocumentList">
                 <div class="card">
                   <!-- TITLE -->
