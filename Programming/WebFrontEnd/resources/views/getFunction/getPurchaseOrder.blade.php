@@ -17,14 +17,14 @@
                                             <th>Trano</th>
                                             <th>Budget Code</th>
                                             <th>Budget Name</th>
-                                            <th>Sub Budget Code</th>
-                                            <th>Sub Budget Name</th>
+                                            {{-- <th>Sub Budget Code</th>
+                                            <th>Sub Budget Name</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
                                         <tr class="loadingGetPurchaseOrderRevision">
-                                            <td colspan="6" class="p-0" style="height: 22rem;">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
@@ -36,7 +36,7 @@
                                             </td>
                                         </tr>
                                         <tr class="errorPurchaseOrderRevisionMessageContainer">
-                                            <td colspan="6" class="p-0" style="height: 22rem;">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div id="errorPurchaseOrderRevisionMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
@@ -57,74 +57,79 @@
     $(".errorPurchaseOrderRevisionMessageContainer").hide();
 
     function getRevisionPOList() {
-        $('#TableSearchPORevision tbody').empty();
-        $(".loadingGetPurchaseOrderRevision").show();
-        $(".errorPurchaseOrderRevisionMessageContainer").hide();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        var keys = 0;
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getPurchaseOrderList") !!}',
-            success: function(data) {
-                $(".loadingGetPurchaseOrderRevision").hide();
-
-                var no = 1;
-                var table = $('#TableSearchPORevision').DataTable();
-                table.clear();
-
-                if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_po_revision' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_po_revision" type="hidden">' + no++,
-                            val.sys_Text || '-',
-                            val.combinedBudgetCode || '-',
-                            val.combinedBudgetName || '-',
-                            val.combinedBudgetSectionCode || '-',
-                            val.combinedBudgetSectionName || '-',
-                        ]).draw();
-                    });
-
-                    $("#TableSearchPORevision_length").show();
-                    $("#TableSearchPORevision_filter").show();
-                    $("#TableSearchPORevision_info").show();
-                    $("#TableSearchPORevision_paginate").show();
-                } else {
+        $('#TableSearchPORevision').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            info: true,
+            paging: true,
+            searching: true,
+            lengthChange: true,
+            pageLength: 10,
+            ajax: {
+                url: '{!! route("getPurchaseOrderList") !!}',
+                type: 'GET',
+                data: function (d) {
+                    return d;
+                },
+                beforeSend: function () {
+                    $(".loadingGetPurchaseOrderRevision").show();
+                    $(".errorPurchaseOrderRevisionMessageContainer").hide();
+                    $('#TableSearchPORevision tbody').empty();
+                },
+                complete: function () {
+                    $(".loadingGetPurchaseOrderRevision").hide();
+                },
+                error: function (xhr, error, thrown) {
+                    $(".loadingGetPurchaseOrderRevision").hide();
                     $(".errorPurchaseOrderRevisionMessageContainer").show();
-                    $("#errorPurchaseOrderRevisionMessage").text(`Data not found.`);
-
-                    $("#TableSearchPORevision_length").hide();
-                    $("#TableSearchPORevision_filter").hide();
-                    $("#TableSearchPORevision_info").hide();
-                    $("#TableSearchPORevision_paginate").hide();
+                    $("#errorPurchaseOrderRevisionMessage").text("Failed to load data.");
                 }
             },
-            error: function (textStatus, errorThrown) {
-            }
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    },
+                    className: "align-middle text-center"
+                },
+                {
+                    data: 'sys_Text',
+                    defaultContent: '-',
+                    className: "align-middle"
+                },
+                {
+                    data: 'combinedBudgetCode',
+                    defaultContent: '-',
+                    className: "align-middle"
+                },
+                {
+                    data: 'combinedBudgetName',
+                    defaultContent: '-',
+                    className: "align-middle"
+                }
+            ]
         });
     }
 
-    $('#TableSearchPORevision tbody').on('click', 'tr', function() {
-        $('#purchaseOrder_number').css("border", "1px solid #ced4da");
-        $('#purchaseOrder_number_icon').css("border", "1px solid #ced4da");
-
-        $("#mySearchPO").modal('toggle');
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var purchaseOrder_RefID = $('#sys_id_po_revision' + id).val();
-        var code = row.find("td:nth-child(2)").text();
-
-        $("#purchaseOrder_RefID").val(purchaseOrder_RefID);
-        $("#purchaseOrder_number").val(code);
-    });
-
-    $(window).one('load', function(e) {
+    $(window).one('load', function () {
         getRevisionPOList();
     });
+
+    $('#TableSearchPORevision tbody').on('click', 'tr', function () {
+        var table = $('#TableSearchPORevision').DataTable();
+        var data = table.row(this).data();
+
+        if (data) {
+            $("#mySearchPO").modal('toggle');
+
+            var purchaseOrder_RefID = data.sys_ID;
+            var code = data.sys_Text;
+
+            $("#purchaseOrder_RefID").val(purchaseOrder_RefID);
+            $("#purchaseOrder_number").val(code);
+        }
+    });
+
 </script>
