@@ -66,21 +66,22 @@
             <tr>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 10px;">
-                        <?= $dataReport['dataHeader']['poNumber']; ?>
+                        <?= $dataReport[0]['documentNumber']; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 10px;">
-                        <?= $dataReport['dataHeader']['revision']; ?>
+                        <?= $dataReport[0]['revision'] ?? '-'; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 10px;">
-                        <?= $dataReport['dataHeader']['date']; ?>
+                        <?= $dataReport[0]['date']; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 10px;">
+                        <?= $dataReport[0]['revision'] ?? '-'; ?>
                     </div>
                 </td>
             </tr>
@@ -99,10 +100,10 @@
                                     Supplier :
                                 </div>
                                 <div style="vertical-align: top; font-size: 10px; height: 20px;">
-                                    <?= $dataReport['dataHeader']['vendor']; ?>
+                                    <?= $dataReport[0]['supplierCode']; ?> - <?= $dataReport[0]['supplierName']; ?>
                                 </div>
                                 <div style="vertical-align: top; font-size: 10px; line-height: 15px;">
-                                    Dusun Kenteng RT 002 RW 008, Kenteng Kec Toroh Grobogan Telp: 081266523419 Fax: - KABUPATEN GROBOGAN
+                                    <?= $dataReport[0]['supplierAddress']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -121,7 +122,7 @@
                                     Deliver To :
                                 </div>
                                 <div style="vertical-align: top; font-size: 10px; height: 50px;">
-                                    PT QDC Technologies
+                                    <?= $dataReport[0]['deliveryTo_NonRefID']['Address']; ?>
                                 </div>
                             </td>
                         </tr>
@@ -175,22 +176,22 @@
             <tr>
                 <td style="border: 1px solid black; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
-                        <?= $dataReport['dataHeader']['budget']; ?>
+                        <?= $dataReport[0]['combinedBudgetCode']; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
-                        <?= $dataReport['dataHeader']['budgetName']; ?>
+                        -
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
-                        <?= $dataReport['dataHeader']['PIC']; ?>
+                        -
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
                     <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
-                        <?= $dataReport['dataHeader']['date']; ?>
+                        <?= $dataReport[0]['deliveryDateTimeTZ'] ?? '-'; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
@@ -211,7 +212,7 @@
                         Payment Term :
                     </div>
                     <div style="vertical-align: top; line-height: 10px; font-size: 10px;">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        <?= $dataReport[0]['termOfPaymentName'] ?? '-'; ?>
                     </div>
                 </div>
                 <div style="padding-left: 4px; margin: 10px 0px;">
@@ -219,7 +220,7 @@
                         Remark :
                     </div>
                     <div style="vertical-align: top; line-height: 10px; font-size: 10px;">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        <?= $dataReport[0]['remarks'] ?? '-'; ?>
                     </div>
                 </div>
             </td>
@@ -238,7 +239,7 @@
                         </td>
                         <td style="line-height: 20px; width: 95px;">
                             <div style="vertical-align: top; font-size: 12px; text-align: right;">
-                                <?= $dataReport['totalIDRWithoutPPN']; ?>
+                                <?= $dataReport['totalIDRWithoutPPN'] ?? '-'; ?>
                             </div>
                         </td>
                     </tr>
@@ -246,7 +247,7 @@
                     <tr>
                         <td style="line-height: 20px;width: 95px;">
                             <div style="vertical-align: top; font-size: 12px; font-weight: bold;">
-                                VAT 11 %
+                                VAT <?= (int) $dataReport[0]['vatRatio']; ?> %
                             </div>
                         </td>
                         <td style="line-height: 20px; width: 95px;">
@@ -274,7 +275,7 @@
                         </td>
                         <td style="line-height: 20px; width: 95px;">
                             <div style="vertical-align: top; font-size: 12px; text-align: right;">
-                                <?= $dataReport['totalIDRWithoutPPN']; ?>
+                                <?= $dataReport['totalIDRWithoutPPN'] ?? '-'; ?>
                             </div>
                         </td>
                     </tr>
@@ -573,31 +574,32 @@
                 </td>
             </tr>
 
-            <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
+            <?php $number = 1; ?>
+            <?php foreach ($dataReport as $dataDetail) { ?>
                 <tr>
                     <td>
                         <div style="margin-top: 4px; font-size: 11px;">
-                            <?= $dataDetail['no']; ?>
+                            <?= $number++; ?>
                         </div>
                     </td>
                     <td>
                         <div style="margin-top: 4px; max-width: 125px; font-size: 11px;">
-                            <?= $dataDetail['productId'] . " - " . $dataDetail['productName']; ?>
+                            <?= $dataDetail['productCode'] . " - " . $dataDetail['productName']; ?>
                         </div>
                     </td>
                     <td>
                         <div style="margin-top: 4px; font-size: 11px;">
-                            <?= $dataDetail['qty']; ?>
+                            <?= $dataDetail['quantity']; ?>
                         </div>
                     </td>
                     <td>
                         <div style="margin-top: 4px; font-size: 11px;">
-                            <?= $dataDetail['price']; ?>
+                            <?= $dataDetail['productUnitPriceCurrencyValue']; ?>
                         </div>
                     </td>
                     <td>
                         <div style="margin-top: 4px; font-size: 11px;">
-                            <?= $dataDetail['uom']; ?>
+                            <?= $dataDetail['quantityUnitName']; ?>
                         </div>
                     </td>
                     <td>
@@ -605,12 +607,12 @@
                             <tr>
                                 <td>
                                     <div style="margin-top: 4px; font-size: 11px;">
-                                        <?= $dataDetail['totalIDRWithPPN']; ?>
+                                        <?= $dataDetail['totalIDRWithPPN'] ?? '-'; ?>
                                     </div>
                                 </td>
                                 <td>
                                     <div style="margin-top: 4px; font-size: 11px;">
-                                        <?= $dataDetail['totalIDRWithoutPPN']; ?>
+                                        <?= $dataDetail['totalIDRWithoutPPN'] ?? '-'; ?>
                                     </div>
                                 </td>
                             </tr>
@@ -621,12 +623,12 @@
                             <tr>
                                 <td>
                                     <div style="margin-top: 4px; font-size: 11px;">
-                                        <?= $dataDetail['totalOtherCurrencyWithPPN']; ?>
+                                        <?= $dataDetail['totalOtherCurrencyWithPPN'] ?? '-'; ?>
                                     </div>
                                 </td>
                                 <td>
                                     <div style="margin-top: 4px; font-size: 11px;">
-                                        <?= $dataDetail['totalOtherCurrencyWithPPN']; ?>
+                                        <?= $dataDetail['totalOtherCurrencyWithPPN'] ?? '-'; ?>
                                     </div>
                                 </td>
                             </tr>
@@ -634,7 +636,7 @@
                     </td>
                     <td>
                         <div style="margin-top: 4px; font-size: 11px;">
-                            <?= $dataDetail['currency']; ?>
+                            <?= $dataDetail['productUnitPriceCurrencyISOCode']; ?>
                         </div>
                     </td>
                 </tr>
