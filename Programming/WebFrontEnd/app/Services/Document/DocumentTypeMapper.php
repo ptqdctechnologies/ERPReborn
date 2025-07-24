@@ -112,8 +112,10 @@ class DocumentTypeMapper
                     'text'          => $dataDetail['remarks'] ?? '-',
                 ],
                 'components'        => [
-                    'detail'        => 'Components.AdvanceDetailDocument',
-                    'table'         => 'Components.AdvanceDetailDocumentTable',
+                    'detail'            => 'Components.AdvanceDetailDocument',
+                    'headerRevision'    => 'Components.AdvanceDetailDocumentHeaderRevision',
+                    'revision'          => 'Components.AdvanceDetailDocumentRevision',
+                    'table'             => 'Components.AdvanceDetailDocumentTable',
                 ],
                 'resubmit'  => [
                     'url'   => 'AdvanceRequest.RevisionAdvanceIndex',
@@ -178,8 +180,10 @@ class DocumentTypeMapper
                     'text'          => $dataDetail['remarks'] ?? '-',
                 ],
                 'components'    => [
-                    'detail'    => 'Components.DeliveryOrderDetailDocument',
-                    'table'     => 'Components.DeliveryOrderDetailDocumentTable',
+                    'detail'            => 'Components.DeliveryOrderDetailDocument',
+                    'table'             => 'Components.DeliveryOrderDetailDocumentTable',
+                    'headerRevision'    => 'Components.DeliveryOrderDetailDocumentHeaderRevision',
+                    'revision'          => 'Components.DeliveryOrderDetailDocumentRevision',
                 ],
                 'resubmit'      => [
                     'url'       => 'DeliveryOrder.RevisionDeliveryOrderIndex',
@@ -263,6 +267,7 @@ class DocumentTypeMapper
             ],
             'Loan Form' => [
                 'dataHeader'    => [
+                    'dateUpdate'    => null,
                     'loanNumber'    => 'LN/QDC/2025/000001',
                     'loanType'      => '-',
                     'creditors'     => 'Ajeng Supratna',
@@ -449,8 +454,10 @@ class DocumentTypeMapper
                     'text'          => $dataDetail['remarks'] ?? '-',
                 ],
                 'components'    => [
-                    'detail'    => 'Components.PurchaseOrderDetailDocument',
-                    'table'     => 'Components.PurchaseOrderDetailDocumentTable',
+                    'detail'            => 'Components.PurchaseOrderDetailDocument',
+                    'table'             => 'Components.PurchaseOrderDetailDocumentTable',
+                    'headerRevision'    => 'Components.PurchaseOrderDetailDocumentHeaderRevision',
+                    'revision'          => 'Components.PurchaseOrderDetailDocumentRevision',
                 ],
                 'resubmit'      => [
                     'url'       => 'PurchaseOrder.RevisionPurchaseOrder',

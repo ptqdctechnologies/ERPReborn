@@ -1202,30 +1202,61 @@ class FunctionController extends Controller
         try {
             $varAPIWebToken = Session::get('SessionLogin');
 
+            $start  = $request->input('start', 0);
+            $length = $request->input('length', 10);
+            $offset = $start;
+            $limit  = $length;
+
+            $searchValue = $request->input('search.value');
+            $filter = null;
+
+            if (!empty($searchValue)) {
+                $filter = '"Sys_Text" = \'' . addslashes($searchValue) . '\'';
+            }
+
             $varData = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
                 'dataPickList.supplyChain.getPurchaseOrder', 
                 'latest', 
                 [
-                'parameter' => null,
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
+                    'parameter' => null,
+                    'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => '"Sys_Text" DESC',
+                        'filter' => $filter,
+                        'paging' => "LIMIT {$limit} OFFSET {$offset}"
                     ]
                 ]
             );
 
             if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Process Error');
+                return response()->json([
+                    'draw'              => intval($request->input('draw')),
+                    'recordsTotal'      => 0,
+                    'recordsFiltered'   => 0,
+                    'data'              => []
+                ]);
             }
 
-            return response()->json($varData['data']['data']);
+            $totalRecords = $varData['data']['totalRecords'];
+
+            return response()->json([
+                'draw'              => intval($request->input('draw')),
+                'recordsTotal'      => $totalRecords,
+                'recordsFiltered'   => $totalRecords,
+                'data'              => $varData['data']['data']
+            ]);
         } catch (\Throwable $th) {
             Log::error("Error at getPurchaseOrderList: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+
+            return response()->json([
+                'draw'              => intval($request->input('draw')),
+                'recordsTotal'      => 0,
+                'recordsFiltered'   => 0,
+                'data'              => [],
+                'error'             => 'Internal Server Error'
+            ]);
         }
     }
 

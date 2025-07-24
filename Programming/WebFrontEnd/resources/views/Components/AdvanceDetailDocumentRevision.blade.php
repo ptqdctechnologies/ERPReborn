@@ -1,0 +1,62 @@
+<div class="wrapper-budget table-responsive table-height">
+    <table class="table table-striped table-hover table-sticky table-sm">
+        <thead>
+            <tr>
+                @if(sizeof($dataHeaderTransactionHistory))
+                    @for($i = count($dataHeaderTransactionHistory) - 1; $i >= 0; $i--) 
+                        <?php $entryDateTime = $dataHeaderTransactionHistory[$i]['content']['sys_Data_Entry_DateTimeTZ']; $editDateTime = $dataHeaderTransactionHistory[$i]['content']['sys_Data_Edit_DateTimeTZ']; ?>
+
+                        @if ($i === count($dataHeaderTransactionHistory) - 1)
+                            <th class="text-center" colspan="6" style="vertical-align: middle;left: 0px;z-index: 10;line-height: normal;position: sticky;background: #FFF;">
+                                Rev {{ $i }} (Actual) - {{ $dataHeaderTransactionHistory[count($dataHeaderTransactionHistory) - 1]['submitterWorkerName'] }} <br />( {{ date('Y-m-d', strtotime($dataHeaderTransactionHistory[count($dataHeaderTransactionHistory) - 1]['content']['sys_Data_Edit_DateTimeTZ'])) }} {{ date('H:i', strtotime($dataHeaderTransactionHistory[count($dataHeaderTransactionHistory) - 1]['content']['sys_Data_Edit_DateTimeTZ'])) }} )
+                            </th>
+                        @else
+                            <th class="text-center" colspan="3" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;line-height: normal;vertical-align: middle;">
+                                {{ !empty($editDateTime) ? 'Rev ' . $i : 'Original' }} - {{ $dataHeaderTransactionHistory[$i]['submitterWorkerName'] }} <br /> ( {{ !empty($editDateTime) ? date('Y-m-d', strtotime($editDateTime)) . " " . date('H:i', strtotime($editDateTime)) : date('Y-m-d', strtotime($entryDateTime)) . " " . date('H:i', strtotime($entryDateTime)) }} )
+                            </th>
+                        @endif
+                    @endfor
+                @endif
+            </tr>
+            @if(sizeof($dataDetailGetTransactionHistory))
+            <tr>
+                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;position: sticky;background: #FFF;">Product Code</th>
+                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 125px; z-index: 10;position: sticky;background: #FFF;">Product Name</th>
+                <th class="text-center" style="vertical-align: middle; width: 40px; min-width: 40px; max-width: 40px; left: 250px; z-index: 10;position: sticky;background: #FFF;">UOM</th>
+                <th class="text-center" style="vertical-align: middle; width: 80px; min-width: 80px; max-width: 80px; left: 290px; z-index: 10;position: sticky;background: #FFF;">Qty</th>
+                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 370px; z-index: 10;position: sticky;background: #FFF;">Price</th>
+                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 495px; z-index: 10;position: sticky;background: #FFF;">Total</th>
+
+                @for($i = 1; $i < count($dataDetailGetTransactionHistory[0]); $i++)
+                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Qty</th>
+                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Price</th>
+                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Total</th>
+                @endfor
+            </tr>
+            @endif
+        </thead>
+
+        <tbody>
+            @if(sizeof($dataDetailGetTransactionHistory))
+                @for($i = count($dataDetailGetTransactionHistory) - 1; $i >= 0; $i--)
+                    <tr>
+                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 0px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['product_RefID'] }}</td>
+                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 125px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['productName'] }}</td>
+                        <td style="padding: 8px; width: 40px; min-width: 40px; max-width: 40px; position: sticky; background-color: white; left: 250px; z-index: 10;">{{ $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['quantityUnitName'] }}</td>
+                        <td style="padding: 8px; width: 80px; min-width: 80px; max-width: 80px; position: sticky; background-color: white; left: 290px; z-index: 10;">{{ number_format($dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['quantity'], 2) }}</td>
+                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 370px; z-index: 10;">{{ number_format($dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
+                        <td style="padding: 8px; width: 125px; min-width: 125px; max-width: 125px; position: sticky; background-color: white; left: 495px; z-index: 10;">{{ number_format($dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['priceCurrencyValue'], 2) }}</td>
+                        
+                        @for($n = count($dataDetailGetTransactionHistory[$i]) - 1; $n >= 0; $n--)
+                            @if ($n !== count($dataDetailGetTransactionHistory[$i]) - 1)
+                                <td style="padding: 8px;">{{ number_format($dataDetailGetTransactionHistory[$i][$n]['content']['quantity'], 2) }}</td>
+                                <td style="padding: 8px;">{{ number_format($dataDetailGetTransactionHistory[$i][$n]['content']['productUnitPriceCurrencyValue'], 2) }}</td>
+                                <td style="padding: 8px;">{{ number_format($dataDetailGetTransactionHistory[$i][$n]['content']['priceCurrencyValue'], 2) }}</td>
+                            @endif
+                        @endfor
+                    </tr>
+                @endfor
+            @endif
+        </tbody>
+    </table>
+</div>

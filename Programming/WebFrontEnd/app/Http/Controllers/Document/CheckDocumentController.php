@@ -10,14 +10,24 @@ use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Services\Document\DocumentTypeMapper;
 use App\Services\Document\CheckDocumentService;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\Purchase\PurchaseOrderService;
+use App\Services\Inventory\DeliveryOrderService;
+use App\Http\Controllers\ExportExcel\Purchase\ExportReportPurchaseOrderDetail;
 
 class CheckDocumentController extends Controller
 {
-    protected $checkDocumentService;
+    protected $checkDocumentService, $purchaseOrderService, $deliveryOrderService;
 
-    public function __construct(CheckDocumentService $checkDocumentService)
+    public function __construct(
+        CheckDocumentService $checkDocumentService, 
+        PurchaseOrderService $purchaseOrderService, 
+        DeliveryOrderService $deliveryOrderService)
     {
         $this->checkDocumentService = $checkDocumentService;
+        $this->purchaseOrderService = $purchaseOrderService;
+        $this->deliveryOrderService = $deliveryOrderService;
     }
 
     public function index()
@@ -219,23 +229,52 @@ class CheckDocumentController extends Controller
 
             $formatData = DocumentTypeMapper::formatData($businessDocumentTypeName, $collection['dataDetail'][0]);
 
-            // dd($formatData);
+            // dd($formatData['dataHeader']);
+
+            $compactTransactionHistory = [];
+            if ($formatData['dataHeader']['dateUpdate']) {
+                $responseGetTransactionHistory = $this->checkDocumentService->getTransactionHistory($transDetail_RefID);
+
+                if ($responseGetTransactionHistory['metadata']['HTTPStatusCode'] !== 200) {
+                    return redirect()->back()->with('error', 'Data Not Found');
+                }
+
+                $urlGetTransactionHistory = DocumentTypeMapper::getHistoryPage($businessDocumentTypeName);
+
+                if (!$urlGetTransactionHistory) {
+                    return redirect()->back()->with('NotFound', 'Page Not Found');
+                }
+
+                $collectionGetTransactionHistory = collect($responseGetTransactionHistory['data']['data'])->sort();
+
+                $dataHeaderGetTransactionHistory = $collectionGetTransactionHistory->where('type', 'Header')->values()->all();
+
+                $dataDetailGetTransactionHistory = $collectionGetTransactionHistory->where('type', 'Detail')
+                    ->groupBy(fn ($item) => $item['content']['sys_PID'])
+                    ->values()
+                    ->all();
+                
+                $compactTransactionHistory = [
+                    'dataHeaderTransactionHistory'      => $dataHeaderGetTransactionHistory,
+                    'dataDetailGetTransactionHistory'   => $dataDetailGetTransactionHistory
+                ];
+            }
 
             $compact = [
-                'varAPIWebToken'            => $varAPIWebToken,
-                'sourceData'                => $sourceData,
-                'var'                       => 1,
-                'transactionForm'           => $businessDocumentTypeName,
-                'transactionNumber'         => $businessDocumentNumber,
-                'transactionDetail_RefID'   => $transDetail_RefID,
-                'dataWorkFlows'             => $workflowHistory,
-                'statusDocument'            => $documentStatus,
-                'approverStatus'            => $approverStatus,
-                'page'                      => 'Document Tracking',
-                'dataDetails'               => $collection['dataDetail']
-            ] + $formatData;
+                'varAPIWebToken'                => $varAPIWebToken,
+                'sourceData'                    => $sourceData,
+                'var'                           => 1,
+                'transactionForm'               => $businessDocumentTypeName,
+                'transactionNumber'             => $businessDocumentNumber,
+                'transactionDetail_RefID'       => $transDetail_RefID,
+                'dataWorkFlows'                 => $workflowHistory,
+                'statusDocument'                => $documentStatus,
+                'approverStatus'                => $approverStatus,
+                'page'                          => 'Document Tracking',
+                'dataDetails'                   => $collection['dataDetail'],
+            ] + $formatData + $compactTransactionHistory;
 
-            // dd($compact);
+            // dump($compact);
 
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } catch (\Throwable $th) {
@@ -285,18 +324,47 @@ class CheckDocumentController extends Controller
 
             $formatData = DocumentTypeMapper::formatData($businessDocumentTypeName, $collection['dataDetail'][0]);
 
+            $compactTransactionHistory = [];
+            if (isset($formatData['dataHeader']['dateUpdate']) && $formatData['dataHeader']['dateUpdate']) {
+                $responseGetTransactionHistory = $this->checkDocumentService->getTransactionHistory($transDetail_RefID);
+
+                if ($responseGetTransactionHistory['metadata']['HTTPStatusCode'] !== 200) {
+                    return redirect()->back()->with('error', 'Data Not Found');
+                }
+
+                $urlGetTransactionHistory = DocumentTypeMapper::getHistoryPage($businessDocumentTypeName);
+
+                if (!$urlGetTransactionHistory) {
+                    return redirect()->back()->with('NotFound', 'Page Not Found');
+                }
+
+                $collectionGetTransactionHistory = collect($responseGetTransactionHistory['data']['data'])->sort();
+
+                $dataHeaderGetTransactionHistory = $collectionGetTransactionHistory->where('type', 'Header')->values()->all();
+
+                $dataDetailGetTransactionHistory = $collectionGetTransactionHistory->where('type', 'Detail')
+                    ->groupBy(fn ($item) => $item['content']['sys_PID'])
+                    ->values()
+                    ->all();
+                
+                $compactTransactionHistory = [
+                    'dataHeaderTransactionHistory'      => $dataHeaderGetTransactionHistory,
+                    'dataDetailGetTransactionHistory'   => $dataDetailGetTransactionHistory
+                ];
+            }
+
             $compact = [
                 'varAPIWebToken'    => $varAPIWebToken,
                 'var'               => 1,
                 'dataDetails'       => $collection['dataDetail'],
                 'dataWorkFlows'     => $workflowHistory,
                 'statusApprover'    => $approverStatus,
-                'documentStatus'    => $documentStatus,
+                'statusDocument'    => $documentStatus,
                 'transactionForm'   => $businessDocumentTypeName,
                 'page'              => 'My Document'
-            ] + $formatData;
+            ] + $formatData + $compactTransactionHistory;
 
-            // dump($compact);
+            dump($compact);
 
             return view('Documents.Transactions.IndexCheckDetailDocument',$compact);
         } catch (\Throwable $th) {
@@ -484,13 +552,13 @@ class CheckDocumentController extends Controller
             $docName    = $request->input('docName');
             $page       = $request->input('page');
 
+            // dd($id, $docNum, $docName, $page);
+
             $response   = $this->checkDocumentService->getTransactionHistory($id);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 return response()->json($response);
             }
-
-            // dump($id, $docNum, $docName, $page);
 
             $url = DocumentTypeMapper::getHistoryPage($docName);
 
@@ -523,6 +591,63 @@ class CheckDocumentController extends Controller
             return view($url, $compact);
         } catch (\Throwable $th) {
             Log::error("LogTransaction Function Error: " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function export(Request $request) 
+    {
+        try {
+            $printType          = $request->print_type;
+            $transactionRefID   = $request->transaction_RefID;
+            $transactionType    = $request->transactionType;
+
+            if ($transactionType === "DELIVERY ORDER") {
+                $response = $this->deliveryOrderService->getDetail($transactionRefID);
+            } else {
+                $response = $this->purchaseOrderService->getDetail($transactionRefID);
+            }
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                return response()->json($response);
+            }
+
+            $dataDetail = $response['data']['data'] ?? $response['data'];
+
+            // dd($dataDetail);
+
+            $arrData = [];
+            if ($transactionType === "DELIVERY ORDER") {
+                $arrData = [
+                    'viewPDF'       => 'Inventory.DeliveryOrder.Reports.ReportDODetail_pdf',
+                    'filenamePDF'   => 'Delivery Order.pdf',
+                    'excel'         => ''
+                ];
+            } else {
+                $arrData = [
+                    'viewPDF'       => 'Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail_pdf',
+                    'filenamePDF'   => 'Purchase Order.pdf',
+                    'excel'         => Excel::download(new ExportReportPurchaseOrderDetail($dataDetail), 'Purchase Order.xlsx')
+                ];
+            }
+
+            if ($printType == "PDF") {
+                $pdf = PDF::loadView($arrData['viewPDF'], ['dataReport' => $dataDetail])->setPaper('a4', 'portrait');
+                $pdf->output();
+                $dom_pdf = $pdf->getDomPDF();
+
+                $canvas = $dom_pdf ->get_canvas();
+                $width  = $canvas->get_width();
+                $height = $canvas->get_height();
+                $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                return $pdf->download($arrData['filenamePDF']);
+            } else {
+                return $arrData['excel'];
+            }
+        } catch (\Throwable $th) {
+            Log::error("Export Check Document Function Error: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
