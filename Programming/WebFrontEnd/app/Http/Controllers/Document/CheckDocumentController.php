@@ -109,6 +109,8 @@ class CheckDocumentController extends Controller
                 return redirect()->back()->with('NotFound', value: 'API Error.');
             }
 
+            // dd($responseData);
+
             $dataDetail             = $responseData['data']['data'] ?? $responseData['data'] ?? [];
             $businessDocumentRefID  = $dataDetail[0]['BusinessDocument_RefID'] ?? $dataDetail[0]['businessDocument_RefID'] ?? $apiConfig['businessDocument_RefID']; // Dummy: $apiConfig['businessDocument_RefID']
 
@@ -144,6 +146,8 @@ class CheckDocumentController extends Controller
             if ($responseData['metadata']['HTTPStatusCode'] !== 200) {
                 return redirect()->back()->with('NotFound', value: 'Workflow History API Error.');
             }
+
+            // dd($responseData);
 
             return $responseData['data'];
         } catch (\Throwable $th) {
@@ -241,6 +245,8 @@ class CheckDocumentController extends Controller
 
                 $urlGetTransactionHistory = DocumentTypeMapper::getHistoryPage($businessDocumentTypeName);
 
+                // dd($urlGetTransactionHistory);
+
                 if (!$urlGetTransactionHistory) {
                     return redirect()->back()->with('NotFound', 'Page Not Found');
                 }
@@ -260,6 +266,8 @@ class CheckDocumentController extends Controller
                 ];
             }
 
+            // dd($compactTransactionHistory);
+
             $compact = [
                 'varAPIWebToken'                => $varAPIWebToken,
                 'sourceData'                    => $sourceData,
@@ -274,7 +282,7 @@ class CheckDocumentController extends Controller
                 'dataDetails'                   => $collection['dataDetail'],
             ] + $formatData + $compactTransactionHistory;
 
-            // dump($compact);
+            // dd($compact);
 
             return view('Documents.Transactions.IndexCheckDocument', $compact);
         } catch (\Throwable $th) {
@@ -354,17 +362,18 @@ class CheckDocumentController extends Controller
             }
 
             $compact = [
-                'varAPIWebToken'    => $varAPIWebToken,
-                'var'               => 1,
-                'dataDetails'       => $collection['dataDetail'],
-                'dataWorkFlows'     => $workflowHistory,
-                'statusApprover'    => $approverStatus,
-                'statusDocument'    => $documentStatus,
-                'transactionForm'   => $businessDocumentTypeName,
-                'page'              => 'My Document'
+                'varAPIWebToken'            => $varAPIWebToken,
+                'var'                       => 1,
+                'dataDetails'               => $collection['dataDetail'],
+                'dataWorkFlows'             => $workflowHistory,
+                'transactionDetail_RefID'   => $transDetail_RefID,
+                'statusApprover'            => $approverStatus,
+                'statusDocument'            => $documentStatus,
+                'transactionForm'           => $businessDocumentTypeName,
+                'page'                      => 'My Document'
             ] + $formatData + $compactTransactionHistory;
 
-            dump($compact);
+            // dd($compact);
 
             return view('Documents.Transactions.IndexCheckDetailDocument',$compact);
         } catch (\Throwable $th) {
@@ -621,15 +630,15 @@ class CheckDocumentController extends Controller
                 $arrData = [
                     'viewPDF'       => 'Inventory.DeliveryOrder.Reports.ReportDODetail_pdf',
                     'filenamePDF'   => 'Delivery Order.pdf',
-                    'excel'         => ''
                 ];
             } else {
                 $arrData = [
                     'viewPDF'       => 'Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail_pdf',
                     'filenamePDF'   => 'Purchase Order.pdf',
-                    'excel'         => Excel::download(new ExportReportPurchaseOrderDetail($dataDetail), 'Purchase Order.xlsx')
                 ];
             }
+
+            // dd($arrData);
 
             if ($printType == "PDF") {
                 $pdf = PDF::loadView($arrData['viewPDF'], ['dataReport' => $dataDetail])->setPaper('a4', 'portrait');
@@ -644,7 +653,9 @@ class CheckDocumentController extends Controller
 
                 return $pdf->download($arrData['filenamePDF']);
             } else {
-                return $arrData['excel'];
+                if ($transactionType === "PURCHASE ORDER") {
+                    return Excel::download(new ExportReportPurchaseOrderDetail($dataDetail), 'Purchase Order.xlsx');
+                }
             }
         } catch (\Throwable $th) {
             Log::error("Export Check Document Function Error: " . $th->getMessage());
