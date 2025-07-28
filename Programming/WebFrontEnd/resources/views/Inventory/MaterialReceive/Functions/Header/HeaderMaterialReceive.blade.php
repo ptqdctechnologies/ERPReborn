@@ -43,8 +43,35 @@
                 </div>
             </div>
 
-            <!-- BUDGET -->
+            <!-- RECEIVE IN -->
             <div class="row">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+                    Receive in
+                </label>
+                <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
+                    <div>
+                        <textarea disabled id="warehouse_name" rows="3" name="warehouse_name" style="border-radius:0;" class="form-control"></textarea>
+                    </div>
+                    <div style="background-color:#e9ecef;min-height:100%;border:1px solid #ced4da;">
+                        <span style="border-radius:0;border:0;" class="input-group-text form-control">
+                            <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond" style="display: block;">
+                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
+                            </a>
+                        </span>
+                    </div>
+                    <div style="flex: 100%;">
+                        <div class="input-group">
+                            <textarea disabled id="warehouse_name" rows="3" name="warehouse_name" style="border-radius:0;" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col-md-12 col-lg-5">
+            <!-- BUDGET -->
+            <div class="row" style="margin-bottom: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
                     Budget
                 </label>
@@ -66,40 +93,13 @@
                     </div>
                 </div>
             </div> --}}
-        </div>
-
-        <!-- RIGHT COLUMN -->
-        <div class="col-md-12 col-lg-5">
-            <!-- RECEIVE IN -->
-            <div class="row" style="margin-bottom: 1rem;">
-                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
-                    Receive in
-                </label>
-                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
-                    <div>
-                        <textarea disabled id="warehouse_name" rows="3" name="warehouse_name" style="border-radius:0;" class="form-control"></textarea>
-                    </div>
-                    <div style="background-color:#e9ecef;min-height:100%;border:1px solid #ced4da;">
-                        <span style="border-radius:0;border:0;" class="input-group-text form-control">
-                            <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond" style="display: block;">
-                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
-                            </a>
-                        </span>
-                    </div>
-                    <div style="flex: 100%;">
-                        <div class="input-group">
-                            <textarea disabled id="warehouse_name" rows="3" name="warehouse_name" style="border-radius:0;" class="form-control"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- DELIVERY FROM -->
             <div class="row" style="margin-bottom: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
                     Delivery From
                 </label>
-                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                     <div style="width: 100%;">
                         <input type="hidden" id="id_delivery_order_from_duplicate" style="border-radius:0;" class="form-control" size="20" readonly>
                         <input type="hidden" id="id_delivery_order_from" name="id_delivery_order_from" style="border-radius:0;" class="form-control" size="20" readonly>
@@ -114,7 +114,7 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
                     Delivery To
                 </label>
-                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                <div class="col-sm-9 col-md-8 col-lg-5 d-flex p-0">
                     <div style="width: 100%;">
                         <input type="hidden" id="id_delivery_order_to_duplicate" style="border-radius:0;" class="form-control" size="20" readonly>
                         <input type="hidden" id="id_delivery_order_to" name="id_delivery_order_to" style="border-radius:0;" class="form-control" size="20" readonly>

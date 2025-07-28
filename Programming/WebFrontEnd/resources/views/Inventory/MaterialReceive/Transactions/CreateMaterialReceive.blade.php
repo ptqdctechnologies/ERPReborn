@@ -53,7 +53,7 @@
                         </div>
                     </div>
 
-                    <!-- FILE ATTACHMENT -->
+                    <!-- ATTACH FILE -->
                     <div class="tab-content px-3 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col-12">
@@ -61,7 +61,7 @@
                                     <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
-                                            File Attachment
+                                            Attach File
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
