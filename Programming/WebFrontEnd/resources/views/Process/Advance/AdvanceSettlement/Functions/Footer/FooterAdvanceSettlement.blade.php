@@ -116,6 +116,7 @@
                                 <input id="transNumber${indexAdvanceDetail}" value="${advanceNumber}" type="hidden" />
 
                                 ${key === 0 ? modifyColumn : `<td style="text-align: center; padding: 10px !important; display: none;">${advanceNumber}</td>`}
+                                <td style="text-align: center; padding: 10px !important;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productCode}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName}</td>
@@ -379,12 +380,12 @@
                 )
             ) {
                 const transNumber   = row.children[3].innerText.trim();
-                const productCode   = row.children[4].innerText.trim();
-                const productName   = row.children[5].innerText.trim();
-                const uom           = row.children[6].innerText.trim();
-                const currency      = row.children[7].innerText.trim();
-                const qtyAvail      = row.children[8].innerText.trim();
-                const priceAvail    = row.children[9].innerText.trim();
+                const productCode   = row.children[5].innerText.trim();
+                const productName   = row.children[6].innerText.trim();
+                const uom           = row.children[7].innerText.trim();
+                const currency      = row.children[8].innerText.trim();
+                const qtyAvail      = row.children[9].innerText.trim();
+                const priceAvail    = row.children[10].innerText.trim();
 
                 const qtyExpense    = qtyExpenseInput.value.trim();
                 const priceExpense  = priceExpenseInput.value.trim();
