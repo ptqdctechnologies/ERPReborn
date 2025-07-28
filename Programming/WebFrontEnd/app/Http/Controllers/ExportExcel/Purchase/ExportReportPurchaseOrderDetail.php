@@ -213,6 +213,7 @@ class ExportReportPurchaseOrderDetail implements FromCollection, WithHeadings, S
                 ]);
 
                 $dataHeader = $this->data;
+                $addres = $dataHeader[0]['deliveryTo_NonRefID']['address'] ?? $dataHeader[0]['deliveryTo_NonRefID']['Address'] ?? '';
 
                 $sheet->setCellValue('A1', date('F j, Y'))
                     ->mergeCells('A1:J1')
@@ -307,7 +308,7 @@ class ExportReportPurchaseOrderDetail implements FromCollection, WithHeadings, S
                         'color' => ['rgb' => '000000']
                     ]
                 ]);
-                $sheet->setCellValue('D5', ': ' . $dataHeader[0]['deliveryTo_NonRefID']['Address']);
+                $sheet->setCellValue('D5', ': ' . $addres);
 
                 $sheet->setCellValue('C6', 'Invoice To')->getStyle('C6')->applyFromArray([
                     'font'  => [
