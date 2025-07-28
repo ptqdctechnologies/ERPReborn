@@ -11,47 +11,47 @@
             </div>
         </div>
 
-        <!-- DATE -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                Date
-            </div>
-            <div class="col">
-                : <?= isset($dataHeader['date']) ? date('Y-m-d', strtotime($dataHeader['date'])) : '-'; ?>
-            </div>
-        </div>
-
-        <!-- CURRENCY -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                Currency
-            </div>
-            <div class="col">
-                : <?= $dataHeader['currency']; ?>
-            </div>
-        </div>
-
         <?php if (!isset($dataHeaderTransactionHistory)) { ?>
-            <!-- BUDGET CODE -->
+            <!-- DATE -->
             <div class="row" style="margin-bottom: 1rem;">
                 <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                    Budget Code
+                    Date
                 </div>
                 <div class="col">
-                    : <?= isset($dataHeader['budgetCode']) && isset($dataHeader['budgetName']) ? $dataHeader['budgetCode'] . ' - ' . $dataHeader['budgetName'] : '-'; ?>
+                    : <?= isset($dataHeader['date']) ? date('Y-m-d', strtotime($dataHeader['date'])) : '-'; ?>
                 </div>
             </div>
 
-            <!-- SUB BUDGET CODE -->
+            <!-- CURRENCY -->
             <div class="row" style="margin-bottom: 1rem;">
                 <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                    Sub Budget Code
+                    Currency
                 </div>
                 <div class="col">
-                    : <?= isset($dataHeader['subBudgetCode']) && isset($dataHeader['subBudgetName']) ? $dataHeader['subBudgetCode'] . ' - ' . $dataHeader['subBudgetName'] : '-'; ?>
+                    : <?= $dataHeader['currency']; ?>
                 </div>
             </div>
         <?php } ?>
+
+        <!-- BUDGET CODE -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
+                Budget Code
+            </div>
+            <div class="col">
+                : <?= isset($dataHeader['budgetCode']) && isset($dataHeader['budgetName']) ? $dataHeader['budgetCode'] . ' - ' . $dataHeader['budgetName'] : '-'; ?>
+            </div>
+        </div>
+
+        <!-- SUB BUDGET CODE -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
+                Sub Budget Code
+            </div>
+            <div class="col">
+                : <?= isset($dataHeader['subBudgetCode']) && isset($dataHeader['subBudgetName']) ? $dataHeader['subBudgetCode'] . ' - ' . $dataHeader['subBudgetName'] : '-'; ?>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -59,23 +59,13 @@
 <?php if (isset($dataHeaderTransactionHistory)) { ?>
     <div class="col-12 col-md-5 col-lg-4">
         <div class="form-group">
-            <!-- BUDGET CODE -->
+            <!-- CURRENCY -->
             <div class="row" style="margin-bottom: 1rem;">
                 <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
-                    Budget Code
+                    Currency
                 </div>
                 <div class="col">
-                    : <?= isset($dataHeader['budgetCode']) && isset($dataHeader['budgetName']) ? $dataHeader['budgetCode'] . ' - ' . $dataHeader['budgetName'] : '-'; ?>
-                </div>
-            </div>
-
-            <!-- SUB BUDGET CODE -->
-            <div class="row" style="margin-bottom: 1rem;">
-                <div class="col-4 col-sm-4 col-md-3 col-lg-4 text-bold">
-                    Sub Budget Code
-                </div>
-                <div class="col">
-                    : <?= isset($dataHeader['subBudgetCode']) && isset($dataHeader['subBudgetName']) ? $dataHeader['subBudgetCode'] . ' - ' . $dataHeader['subBudgetName'] : '-'; ?>
+                    : <?= $dataHeader['currency']; ?>
                 </div>
             </div>
 
