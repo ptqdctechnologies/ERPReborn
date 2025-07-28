@@ -63,7 +63,7 @@
                     <input type="hidden" name="formDocumentNumber_RefID" value="${val.entities.formDocumentNumber_RefID}">
                     <input type="hidden" name="businessDocumentTypeName" value="${val.entities.businessDocumentTypeName}">
                     <input type="hidden" name="businessDocument_RefID" value="${val.entities.businessDocument_RefID}">
-                    <a href="javascript:;" onclick="this.closest('form').submit()" style="color: blue; text-decoration: underline; cursor: pointer;">${val.entities.businessDocumentNumber}</a>
+                    <a href="javascript:;" onclick="ShowLoading(); this.closest('form').submit();" style="color: blue; text-decoration: underline; cursor: pointer;">${val.entities.businessDocumentNumber}</a>
                 </form>`,
                 val.entities.combinedBudgetCode[0],
                 val.entities.previousWorkFlowPathApproverName || '-',

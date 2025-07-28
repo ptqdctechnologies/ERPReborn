@@ -54,19 +54,17 @@
             <?php } ?>
 
             <!-- TABLE DOC TRACKING & LOG HISTORY -->
-            <?php if (isset($components['table']) && isset($components['revision'])) { ?>
-              <div class="col-12 ShowDocumentList">
-                <div class="card">
-                  <div class="card-body p-0">
-                    <?php if (!$dataHeader['dateUpdate']) { ?>
-                      @include($components['table'])
-                    <?php } else { ?>
-                      @include($components['revision'])
-                    <?php } ?>
-                  </div>
+            <div class="col-12 ShowDocumentList">
+              <div class="card">
+                <div class="card-body p-0">
+                  <?php if (isset($components['revision']) && $dataHeader['dateUpdate']) { ?>
+                    @include($components['revision'])
+                  <?php } else { ?>
+                    @include($components['table'])
+                  <?php } ?>
                 </div>
               </div>
-            <?php } ?>
+            </div>
 
             <!-- ADDITIONAL -->
             <?php if (isset($components['additional'])) { ?>

@@ -74,10 +74,10 @@
             <div class="col-12 ShowDocumentList">
               <div class="card">
                 <div class="card-body p-0">
-                  <?php if (!$dataHeader['dateUpdate']) { ?>
-                    @include($components['table'])
-                  <?php } else { ?>
+                  <?php if (isset($components['revision']) && $dataHeader['dateUpdate']) { ?>
                     @include($components['revision'])
+                  <?php } else { ?>
+                    @include($components['table'])
                   <?php } ?>
                 </div>
               </div>
@@ -159,8 +159,8 @@
             <!-- BUTTON APPROVAL -->
             <div class="col-12 text-right">
               <!-- CANCEL -->
-              <a href="/CheckDocument?var=1" class="btn btn-default btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                <img src="{{ asset('images/Icon/Pagination/Previous-300-32.png') }}" width="13" alt="" title="Cancel"> Cancel
+              <a class="btn btn-default btn-sm" onclick="backButton()" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                <img src="{{ asset('images/Icon/Pagination/Previous-300-32.png') }}" width="13" alt="" title="Cancel"> Back
               </a>
             </div>
           </div>

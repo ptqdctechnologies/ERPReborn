@@ -122,7 +122,7 @@
                                     Deliver To :
                                 </div>
                                 <div style="vertical-align: top; font-size: 10px; height: 50px;">
-                                    <?= $dataReport[0]['deliveryTo_NonRefID']['Address']; ?>
+                                    <?= $dataReport[0]['deliveryTo_NonRefID']['address'] ?? $dataReport[0]['deliveryTo_NonRefID']['Address'] ?? '-'; ?>
                                 </div>
                             </td>
                         </tr>

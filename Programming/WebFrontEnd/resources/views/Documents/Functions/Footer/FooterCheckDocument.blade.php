@@ -15,6 +15,11 @@
         // $(".ApprovalHistory").hide();
     }
 
+    function backButton() {
+        // ShowLoading();
+        window.location.href = '/CheckDocument?var=1';
+    }
+
     function showLoading() {
         ShowLoading();
     }
