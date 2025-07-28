@@ -17,8 +17,8 @@
                                             <th>Trano</th>
                                             <th>Budget Code</th>
                                             <th>Budget Name</th>
-                                            <th>Sub Budget Code</th>
-                                            <th>Sub Budget Name</th>
+                                            {{-- <th>Sub Budget Code</th>
+                                            <th>Sub Budget Name</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -28,7 +28,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr class="loadingReferenceNumber">
-                                            <td colspan="6" class="p-0" style="height: 22rem;">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
@@ -40,7 +40,7 @@
                                             </td>
                                         </tr>
                                         <tr class="errorReferenceNumberMessageContainer">
-                                            <td colspan="6" class="p-0" style="height: 22rem;">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div id="errorReferenceNumberMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
@@ -70,62 +70,117 @@
         }
 
         if (urls) {
-            $('#referenceNumberTable tbody').empty();
-            $(".loadingReferenceNumber").show();
-            $(".errorReferenceNumberMessageContainer").hide();
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            var keys = 0;
-            $.ajax({
-                type: 'GET',
-                url: urls,
-                success: function(data) {
-                    $(".loadingReferenceNumber").hide();
-
-                    var no = 1;
-                    var table = $('#referenceNumberTable').DataTable();
-                    table.clear();
-
-                    if (Array.isArray(data) && data.length > 0) {
-                        $.each(data, function(key, val) {
-                            keys += 1;
-                            table.row.add([
-                                '<input id="sys_id_reference_number' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_reference_number" type="hidden">' + no++,
-                                '<input id="sys_combined_budget_RefID' + keys + '" value="' + val.combinedBudget_RefID + '" data-trigger="sys_combined_budget_RefID" type="hidden">' + val.sys_Text || '-',
-                                '<input id="sys_requester_RefID' + keys + '" value="' + val.requesterWorkerJobsPosition_RefID + '" data-trigger="sys_requester_RefID" type="hidden">' + val.combinedBudgetCode || '-',
-                                val.combinedBudgetName || '-',
-                                val.combinedBudgetSectionCode || '-',
-                                val.combinedBudgetSectionName || '-',
-                            ]).draw();
-                        });
-
-                        $("#referenceNumberTable_length").show();
-                        $("#referenceNumberTable_filter").show();
-                        $("#referenceNumberTable_info").show();
-                        $("#referenceNumberTable_paginate").show();
-
-                    } else {
+            $('#referenceNumberTable').DataTable({
+                processing: true,
+                serverSide: true,
+                destroy: true,
+                info: true,
+                paging: true,
+                searching: true,
+                lengthChange: true,
+                pageLength: 10,
+                ajax: {
+                    url: urls,
+                    type: 'GET',
+                    data: function (d) {
+                        return d;
+                    },
+                    beforeSend: function () {
+                        $(".loadingReferenceNumber").show();
+                        $(".errorReferenceNumberMessageContainer").hide();
+                        $('#referenceNumberTable tbody').empty();
+                    },
+                    complete: function () {
+                        $(".loadingReferenceNumber").hide();
+                    },
+                    error: function (xhr, error, thrown) {
+                        $(".loadingReferenceNumber").hide();
                         $(".errorReferenceNumberMessageContainer").show();
-                        $("#errorReferenceNumberMessage").text(`Data not found.`);
-
-                        $("#referenceNumberTable_length").hide();
-                        $("#referenceNumberTable_filter").hide();
-                        $("#referenceNumberTable_info").hide();
-                        $("#referenceNumberTable_paginate").hide();
+                        $("#errorReferenceNumberMessage").text("Failed to load data.");
                     }
                 },
-                error: function (textStatus, errorThrown) {
-                    $('#referenceNumberTable tbody').empty();
-                    $(".loadingReferenceNumber").hide();
-                    $(".errorReferenceNumberMessageContainer").show();
-                    $("#errorReferenceNumberMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
-                },
+                columns: [
+                    {
+                        data: null,
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        },
+                        className: "align-middle text-center"
+                    },
+                    {
+                        data: 'sys_Text',
+                        defaultContent: '-',
+                        className: "align-middle"
+                    },
+                    {
+                        data: 'combinedBudgetCode',
+                        defaultContent: '-',
+                        className: "align-middle"
+                    },
+                    {
+                        data: 'combinedBudgetName',
+                        defaultContent: '-',
+                        className: "align-middle"
+                    }
+                ]
             });
+
+            // $('#referenceNumberTable tbody').empty();
+            // $(".loadingReferenceNumber").show();
+            // $(".errorReferenceNumberMessageContainer").hide();
+
+            // $.ajaxSetup({
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //     }
+            // });
+
+            // var keys = 0;
+            // $.ajax({
+            //     type: 'GET',
+            //     url: urls,
+            //     success: function(data) {
+            //         $(".loadingReferenceNumber").hide();
+
+            //         var no = 1;
+            //         var table = $('#referenceNumberTable').DataTable();
+            //         table.clear();
+
+            //         if (Array.isArray(data) && data.length > 0) {
+            //             $.each(data, function(key, val) {
+            //                 keys += 1;
+            //                 table.row.add([
+            //                     '<input id="sys_id_reference_number' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_reference_number" type="hidden">' + no++,
+            //                     '<input id="sys_combined_budget_RefID' + keys + '" value="' + val.combinedBudget_RefID + '" data-trigger="sys_combined_budget_RefID" type="hidden">' + val.sys_Text || '-',
+            //                     '<input id="sys_requester_RefID' + keys + '" value="' + val.requesterWorkerJobsPosition_RefID + '" data-trigger="sys_requester_RefID" type="hidden">' + val.combinedBudgetCode || '-',
+            //                     val.combinedBudgetName || '-',
+            //                     val.combinedBudgetSectionCode || '-',
+            //                     val.combinedBudgetSectionName || '-',
+            //                 ]).draw();
+            //             });
+
+            //             $("#referenceNumberTable_length").show();
+            //             $("#referenceNumberTable_filter").show();
+            //             $("#referenceNumberTable_info").show();
+            //             $("#referenceNumberTable_paginate").show();
+
+            //         } else {
+            //             $(".errorReferenceNumberMessageContainer").show();
+            //             $("#errorReferenceNumberMessage").text(`Data not found.`);
+
+            //             $("#referenceNumberTable_length").hide();
+            //             $("#referenceNumberTable_filter").hide();
+            //             $("#referenceNumberTable_info").hide();
+            //             $("#referenceNumberTable_paginate").hide();
+            //         }
+            //     },
+            //     error: function (textStatus, errorThrown) {
+            //         $('#referenceNumberTable tbody').empty();
+            //         $(".loadingReferenceNumber").hide();
+            //         $(".errorReferenceNumberMessageContainer").show();
+            //         $("#errorReferenceNumberMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            //     },
+            // });
         }
     }
 
