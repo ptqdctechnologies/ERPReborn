@@ -171,7 +171,7 @@
                   <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                 </a>
 
-                <button type="button" id="advance-details-add" class="btn btn-default btn-sm float-right" data-toggle="modal" data-target="#myModal" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <button type="button" id="advance-details-add" class="btn btn-default btn-sm float-right" data-toggle="modal" data-target="#advanceSettlementFormModal" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                   <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
                 </button>
               </div>
@@ -184,7 +184,7 @@
   </section>
 </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="advanceSettlementFormModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">

@@ -519,7 +519,7 @@
     });
 
     function SubmitForm() {
-        $('#myModal').modal('hide');
+        $('#advanceSettlementFormModal').modal('hide');
 
         var action = $("#FormStoreAdvanceSettlement").attr("action");
         var method = $("#FormStoreAdvanceSettlement").attr("method");
