@@ -7,7 +7,6 @@
     let beneficiaryTrigger  = "";
     let indexAdvanceDetail  = 0;
     let totalAdvanceDetail  = 0;
-    let tableAdvanceList    = document.getElementById("tableAdvanceList");
 
     $(".loadingAdvanceSettlementTable").hide();
     $(".errorAdvanceSettlementTable").hide();
@@ -263,16 +262,16 @@
         const rows = document.querySelectorAll('#tableAdvanceList tbody tr');
 
         rows.forEach(row => {
-            const totalExpenseCell = row.children[9];
-            const totalCompanyCell = row.children[12];
-            const valueExpense = parseFloat(totalExpenseCell.innerText.replace(/,/g, '')) || 0;
-            const valueCompany = parseFloat(totalCompanyCell.innerText.replace(/,/g, '')) || 0;
+            const totalExpenseCell = row.children[3];
+            const totalCompanyCell = row.children[4];
+            const valueExpense = parseFloat(totalExpenseCell.value.replace(/,/g, '')) || 0;
+            const valueCompany = parseFloat(totalCompanyCell.value.replace(/,/g, '')) || 0;
             total += valueExpense;
             total += valueCompany;
         });
 
-        document.getElementById('TotalAdvanceDetail').innerText = "0.00";
-        document.getElementById('GrandTotal').innerText = currencyTotal(total);
+        // document.getElementById('TotalAdvanceDetail').innerText = "0.00";
+        document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
     function SelectWorkFlow(formatData) {
@@ -288,15 +287,17 @@
             type: 'question',
             input: 'textarea',
             showCloseButton: false,
-            showCancelButton: false,
+            showCancelButton: true,
             focusConfirm: false,
             confirmButtonText: '<span style="color:black;"> OK </span>',
-            confirmButtonColor: '#4B586A',
-            confirmButtonColor: '#e9ecef',
+            cancelButtonColor: '#7A7A73',
+            confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
-            ShowLoading();
-            AdvanceSettlementStore({...formatData, comment: result.value});
+            if ('value' in result) {
+                ShowLoading();
+                AdvanceSettlementStore({...formatData, comment: result.value});
+            }
         });
     }
 
@@ -399,16 +400,12 @@
                 const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetTransNumber = targetRow.children[2].innerText.trim();
-                    const targetProductCode = targetRow.children[3].innerText.trim();
+                    const targetProductCode = targetRow.children[2].value.trim();
+                    const targetTransNumber = targetRow.children[5].innerText.trim();
 
                     if (targetTransNumber === transNumber && targetProductCode === productCode) {
-                        targetRow.children[7].innerText     = qtyExpense || '-';
-                        targetRow.children[8].innerText     = priceExpense || '-';
-                        targetRow.children[9].innerText     = totalExpense || '-';
-                        targetRow.children[10].innerText    = qtyCompany || '-';
-                        targetRow.children[11].innerText    = priceCompany || '-';
-                        targetRow.children[12].innerText    = totalCompany || '-';
+                        targetRow.children[9].innerText     = `Expence Claim: Rp ${totalExpense || '-'}`;
+                        targetRow.children[10].innerText    = `Amount to company: Rp ${totalCompany || '-'}`;
                         found = true;
 
                         // update dataStore
@@ -443,19 +440,17 @@
                     newRow.innerHTML = `
                         <input type="hidden" id="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" id="price_avail[]" value="${priceAvail}">
+                        <input type="hidden" id="product_code[]" value="${productCode}">
+                        <input type="hidden" id="total_expense[]" value="${totalExpense}">
+                        <input type="hidden" id="total_company[]" value="${totalCompany}">
+
                         <td style="text-align: center;padding: 0.8rem;">${transNumber}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productName}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${productCode + ' - ' + productName}</td>
                         <td style="text-align: center;padding: 0.8rem;">${uom}</td>
                         <td style="text-align: center;padding: 0.8rem;">${currency}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${qtyExpense || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${priceExpense || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${totalExpense || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${qtyCompany || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${priceCompany || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${totalCompany || '-'}</td>
+                        <td style="text-align: center;padding: 0.8rem;">Expence Claim: Rp ${totalExpense || '-'}</td>
+                        <td style="text-align: center;padding: 0.8rem;">Amount to company: Rp ${totalCompany || '-'}</td>
                     `;
-                        // <td style="text-align: center;padding: 0.8rem;">${balance}</td>
                     targetTable.appendChild(newRow);
 
                     dataStore.push({
@@ -479,14 +474,6 @@
                         }
                     });
                 }
-
-                qtyExpenseInput.value = '';
-                priceExpenseInput.value = '';
-                totalExpenseInput.value = '';
-                qtyCompanyInput.value = '';
-                priceCompanyInput.value = '';
-                totalCompanyInput.value = '';
-                balanceInput.value = balanceInput.getAttribute('data-default');
             }
         }
 
@@ -524,144 +511,6 @@
         document.getElementById('TotalAdvanceDetail').textContent = "0.00";
     });
 
-    if (tableAdvanceList) {
-        document.querySelector('#tableAdvanceList tbody').addEventListener('click', function (e) {
-            const row = e.target.closest('tr');
-            if (!row) return;
-
-            if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
-
-            const qtyAvail      = row.children[0];
-            const priceAvail    = row.children[1];
-            const qtyExpense    = row.children[7];
-            const priceExpense  = row.children[8];
-            const totalExpense  = row.children[9];
-            const qtyCompany    = row.children[10];
-            const priceCompany  = row.children[11];
-            const totalCompany  = row.children[12];
-            // const balance       = row.children[13];
-
-            if (row.classList.contains('editing-row')) {
-                const newQtyExpense     = qtyExpense.querySelector('input')?.value || '';
-                const newPriceExpense   = priceExpense.querySelector('input')?.value || '';
-                const newTotalExpense   = totalExpense.querySelector('input')?.value || '';
-                const newQtyCompany     = qtyCompany.querySelector('input')?.value || '';
-                const newPriceCompany   = priceCompany.querySelector('input')?.value || '';
-                const newTotalCompany   = totalCompany.querySelector('input')?.value || '';
-                // const newBalance        = balance.querySelector('input')?.value || '';
-
-                qtyExpense.innerHTML    = newQtyExpense;
-                priceExpense.innerHTML  = newPriceExpense;
-                totalExpense.innerHTML  = newTotalExpense;
-                qtyCompany.innerHTML    = newQtyCompany;
-                priceCompany.innerHTML  = newPriceCompany;
-                totalCompany.innerHTML  = newTotalCompany;
-                // balance.innerHTML       = newBalance;
-
-                row.classList.remove('editing-row');
-
-                const transNumber = row.children[2].innerText.trim();
-                const productCode = row.children[3].innerText.trim();
-                const storeItem = dataStore.find(item => item.entities.transactionNumber === transNumber && item.entities.productCode === productCode);
-                if (storeItem) {
-                    storeItem.entities.expenseQuantity                      = parseFloat(newQtyExpense.replace(/,/g, ''));
-                    storeItem.entities.expenseProductUnitPriceCurrencyValue = parseFloat(newPriceExpense.replace(/,/g, ''));
-                    storeItem.entities.refundQuantity                       = parseFloat(newQtyCompany.replace(/,/g, ''));
-                    storeItem.entities.refundProductUnitPriceCurrencyValue  = parseFloat(newPriceCompany.replace(/,/g, ''));
-                }
-            } else {
-                const currentQtyExpense     = qtyExpense.innerText.trim();
-                const currentPriceExpense   = priceExpense.innerText.trim();
-                const currentTotalExpense   = totalExpense.innerText.trim();
-                const currentQtyCompany     = qtyCompany.innerText.trim();
-                const currentPriceCompany   = priceCompany.innerText.trim();
-                const currentTotalCompany   = totalCompany.innerText.trim();
-                // const currentBalance        = balance.innerText.trim();
-
-                qtyExpense.innerHTML = `<input class="form-control number-without-negative qty-expense-input" value="${currentQtyExpense}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-                priceExpense.innerHTML = `<input class="form-control number-without-negative price-expense-input" value="${currentPriceExpense}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-                totalExpense.innerHTML = `<input class="form-control number-without-negative total-expense-input" value="${currentTotalExpense}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-                qtyCompany.innerHTML = `<input class="form-control number-without-negative qty-company-input" value="${currentQtyCompany}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-                priceCompany.innerHTML = `<input class="form-control number-without-negative price-company-input" value="${currentPriceCompany}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-                totalCompany.innerHTML = `<input class="form-control number-without-negative total-company-input" value="${currentTotalCompany}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-                // balance.innerHTML = `<input class="form-control number-without-negative balance-company-input" value="${currentBalance}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-
-                row.classList.add('editing-row');
-
-                const qtyExpenseInput   = qtyExpense.querySelector('.qty-expense-input');
-                const priceExpenseInput = priceExpense.querySelector('.price-expense-input');
-                const totalExpenseInput = totalExpense.querySelector('.total-expense-input');
-                const qtyCompanyInput   = qtyCompany.querySelector('.qty-company-input');
-                const priceCompanyInput = priceCompany.querySelector('.price-company-input');
-                const totalCompanyInput = totalCompany.querySelector('.total-company-input');
-                // const balanceInput      = balance.querySelector('.balance-company-input');
-
-                function updateTotalExpenseClaim() {
-                    var price   = parseFloat(priceExpenseInput.value.replace(/,/g, '')) || 0;
-                    var qty     = parseFloat(qtyExpenseInput.value.replace(/,/g, '')) || 0;
-                    var total   = price * qty;
-
-                    const qtyAvailValue     = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
-                    const priceAvailValue   = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
-
-                    if (qty > qtyAvailValue) {
-                        total                   = priceAvailValue * qtyAvailValue;
-                        qty                     = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                        qtyExpenseInput.value   = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                        ErrorNotif("Qty Expense Claim is over Qty Avail !");
-                    }
-
-                    if (price > priceAvailValue) {
-                        total                   = qtyAvailValue * priceAvailValue;
-                        price                   = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                        priceExpenseInput.value = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                        ErrorNotif("Price Expense Claim is over Price Avail !");
-                    }
-
-                    totalExpenseInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                }
-
-                priceExpenseInput.addEventListener('input', updateTotalExpenseClaim);
-                qtyExpenseInput.addEventListener('input', updateTotalExpenseClaim);
-
-                function updateTotalCompanyClaim() {
-                    var price   = parseFloat(priceCompanyInput.value.replace(/,/g, '')) || 0;
-                    var qty     = parseFloat(qtyCompanyInput.value.replace(/,/g, '')) || 0;
-                    var total   = price * qty;
-
-                    const qtyAvailValue     = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
-                    const priceAvailValue   = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
-
-                    if (qty > qtyAvailValue) {
-                        total                   = priceAvailValue * qtyAvailValue;
-                        qty                     = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                        qtyCompanyInput.value   = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                        ErrorNotif("Qty Amount to the Company is over Qty Avail !");
-                    }
-
-                    if (price > priceAvailValue) {
-                        total                   = qtyAvailValue * priceAvailValue;
-                        price                   = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                        priceCompanyInput.value = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                        ErrorNotif("Price Amount to the Company is over Price Avail !");
-                    }
-
-                    totalCompanyInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                }
-
-                priceCompanyInput.addEventListener('input', updateTotalCompanyClaim);
-                qtyCompanyInput.addEventListener('input', updateTotalCompanyClaim);
-
-                // document.getElementById('GrandTotal').innerText = parseFloat(totalCompanyInput?.value.replace(/,/g, '')) + parseFloat(totalExpenseInput?.value.replace(/,/g, ''));
-            }
-            updateGrandTotal();
-        });
-    }
-
     $('#tableGetModalAdvance').on('click', 'tbody tr', function() {
         let sysId           = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
         let trano           = $(this).find('td:nth-child(2)').text();
@@ -669,85 +518,62 @@
         getAdvanceDetail(sysId, trano);
     });
 
-    $("#FormStoreAdvanceSettlement").on("submit", function(e) {
-        e.preventDefault();
+    function SubmitForm() {
+        $('#myModal').modal('hide');
 
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        });
+        var action = $("#FormStoreAdvanceSettlement").attr("action");
+        var method = $("#FormStoreAdvanceSettlement").attr("method");
+        var form_data = new FormData($("#FormStoreAdvanceSettlement")[0]);
+        form_data.append('advanceSettlementDetail', JSON.stringify(dataStore));
 
-        swalWithBootstrapButtons.fire({
-            title: 'Are you sure?',
-            text: "Save this data?",
-            type: 'question',
-            showCancelButton: true,
-            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
-            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
-            confirmButtonColor: '#e9ecef',
-            cancelButtonColor: '#e9ecef',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                var action = $(this).attr("action");
-                var method = $(this).attr("method");
-                var form_data = new FormData($(this)[0]);
-                form_data.append('advanceSettlementDetail', JSON.stringify(dataStore));
+        ShowLoading();
 
-                ShowLoading();
-
-                $.ajax({
-                    url: action,
-                    dataType: 'json',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: form_data,
-                    type: method,
-                    success: function(response) {
-                        HideLoading();
-
-                        if (response.message == "WorkflowError") {
-                            $("#submitPR").prop("disabled", false);
-                            CancelNotif("You don't have access", '/AdvanceSettlement?var=1');
-                        } else if (response.message == "MoreThanOne") {
-                            $('#getWorkFlow').modal('toggle');
-
-                            var t = $('#tableGetWorkFlow').DataTable();
-                            t.clear();
-                            $.each(response.data, function(key, val) {
-                                t.row.add([
-                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                                ]).draw();
-                            });
-                        } else {
-                            const formatData = {
-                                workFlowPath_RefID: response.workFlowPath_RefID, 
-                                nextApprover: response.nextApprover_RefID, 
-                                approverEntity: response.approverEntity_RefID, 
-                                documentTypeID: response.documentTypeID,
-                                storeData: response.storeData
-                            };
-
-                            SelectWorkFlow(formatData);
-                        }
-                    },
-                    error: function(response) {
-                        console.log('response error', response);
-                        
-                        HideLoading();
-                        $("#submitArf").prop("disabled", false);
-                        CancelNotif("You don't have access", '/AdvanceSettlement?var=1');
-                    }
-                });
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
+        $.ajax({
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(response) {
                 HideLoading();
-                CancelNotif("Data Cancel Inputed", '/AdvanceSettlement?var=1');
+
+                if (response.message == "WorkflowError") {
+                    $("#submitArf").prop("disabled", false);
+                    CancelNotif("You don't have access", '/AdvanceSettlement?var=1');
+                } else if (response.message == "MoreThanOne") {
+                    $('#getWorkFlow').modal('toggle');
+
+                    var t = $('#tableGetWorkFlow').DataTable();
+                    t.clear();
+                    $.each(response.data, function(key, val) {
+                        t.row.add([
+                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                        ]).draw();
+                    });
+                } else {
+                    const formatData = {
+                        workFlowPath_RefID: response.workFlowPath_RefID, 
+                        nextApprover: response.nextApprover_RefID, 
+                        approverEntity: response.approverEntity_RefID, 
+                        documentTypeID: response.documentTypeID,
+                        storeData: response.storeData
+                    };
+
+                    SelectWorkFlow(formatData);
+                }
+            },
+            error: function(response) {
+                console.log('response error', response);
+                
+                HideLoading();
+                $("#submitArf").prop("disabled", false);
+                CancelNotif("You don't have access", '/AdvanceSettlement?var=1');
             }
         });
-    });
+    }
 
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);
