@@ -287,6 +287,72 @@
                     </td>
                 </tr>
             </table>
+
+            <!-- APPROVAL -->
+            <table style="width: 40%; border-collapse: collapse; margin-top: 4px;">
+                <tr>
+                    <td style="vertical-align: top;">
+                        <div style="vertical-align: top; padding: 0px 8px;">
+                            <div style="text-align: center; font-weight: bold; font-size: 12px;">
+                                Approved by Director
+                            </div>
+                            <div style="margin-top: 24px;">
+                                <table style="width: 100%; height: 2%;">
+                                    <td style="font-size: 8px; line-height: 15px; width: 40px;">
+                                        {{-- Digital Signature : --}}
+                                    </td>
+                                    <td style="font-size: 8px; line-height: 15px; max-width: 30px; word-wrap: break-word;">
+                                        {{-- bb4ab83f16b88a54afd8523d667dba91 --}}
+                                    </td>
+                                    <td style="font-size: 8px; line-height: 15px; width: 40px;">
+                                        {{-- Digital Signature : --}}
+                                    </td>
+                                    <td style="font-size: 8px; line-height: 15px; max-width: 30px; word-wrap: break-word;">
+                                        {{-- bb4ab83f16b88a54afd8523d667dba91 --}}
+                                    </td>
+                                </table>
+                                <hr style="border: 1px solid black; margin: 8px 0px 2px 0px;" />
+                                <div style="text-align: center; line-height: 15px; font-size: 8px;visibility: hidden;">
+                                    Redi
+                                </div>
+                                <div style="font-size: 10px;">
+                                    Date: <?= date('j F Y'); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="vertical-align: top;">
+                        <div style="vertical-align: top; padding: 0 8px;">
+                            <div style="text-align: center; font-weight: bold; font-size: 12px;">
+                                Accepted by Vendor
+                            </div>
+                            <div style="margin-top: 24px;">
+                                <table style="width: 100%; height: 2%;">
+                                    <td style="font-size: 8px; line-height: 15px; width: 40px;">
+                                        {{-- Digital Signature : --}}
+                                    </td>
+                                    <td style="font-size: 8px; line-height: 15px; max-width: 30px; word-wrap: break-word;">
+                                        {{-- bb4ab83f16b88a54afd8523d667dba91 --}}
+                                    </td>
+                                    <td style="font-size: 8px; line-height: 15px; width: 40px;">
+                                        {{-- Digital Signature : --}}
+                                    </td>
+                                    <td style="font-size: 8px; line-height: 15px; max-width: 30px; word-wrap: break-word;">
+                                        {{-- bb4ab83f16b88a54afd8523d667dba91 --}}
+                                    </td>
+                                </table>
+                                <hr style="border: 1px solid black; margin: 8px 0px 2px 0px;" />
+                                <div style="text-align: center; line-height: 15px; font-size: 8px; visibility: hidden;">
+                                    Redi
+                                </div>
+                                <div style="font-size: 10px;">
+                                    Date: <?= date('j F Y'); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
     </body>
 </html>
