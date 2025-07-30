@@ -405,7 +405,7 @@
 
                     if (targetTransNumber === transNumber && targetProductCode === productCode) {
                         targetRow.children[9].innerText     = `Expence Claim: Rp ${totalExpense || '-'}`;
-                        targetRow.children[10].innerText    = `Amount to company: Rp ${totalCompany || '-'}`;
+                        targetRow.children[10].innerText    = `Amount to Company: Rp ${totalCompany || '-'}`;
                         found = true;
 
                         // update dataStore
@@ -449,7 +449,7 @@
                         <td style="text-align: center;padding: 0.8rem;">${uom}</td>
                         <td style="text-align: center;padding: 0.8rem;">${currency}</td>
                         <td style="text-align: center;padding: 0.8rem;">Expence Claim: Rp ${totalExpense || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">Amount to company: Rp ${totalCompany || '-'}</td>
+                        <td style="text-align: center;padding: 0.8rem;">Amount to Company: Rp ${totalCompany || '-'}</td>
                     `;
                     targetTable.appendChild(newRow);
 
