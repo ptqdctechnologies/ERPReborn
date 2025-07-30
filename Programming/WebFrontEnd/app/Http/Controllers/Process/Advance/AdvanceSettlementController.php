@@ -31,22 +31,21 @@ class AdvanceSettlementController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionAdvanceSettlementNumber");
-        $dataPO = Session::get("AdvanceSettlementReportSummaryDataPDF");
+        $dataASF = Session::get("AdvanceSettlementReportSummaryDataPDF");
 
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
         }
-        // dump($dataPO);
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
             'statusRevisi' => 1,
             'statusHeader' => "Yes",
             'statusDetail' => 1,
             'dataHeader' => [],
-            'dataPO' => $dataPO
+            'dataASF' => $dataASF
         
         ];
-        
+        // dump($compact);
 
         return view('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementSummary', $compact);
     }
@@ -55,7 +54,7 @@ class AdvanceSettlementController extends Controller
         
             
         try {
-            Log::error("Error at ",[$project_code, $site_code]);
+            // Log::error("Error at ",[$project_code, $site_code]);
 
             $varAPIWebToken = Session::get('SessionLogin');
 
@@ -77,7 +76,7 @@ class AdvanceSettlementController extends Controller
                     ]
                 ]
             );
-            
+            // dd($filteredArray);
             Log::error("Error at " ,$filteredArray);
             if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
                 return redirect()->back()->with('NotFound', 'Process Error');
@@ -98,7 +97,9 @@ class AdvanceSettlementController extends Controller
         // tes;
         try {
             $project_code = $request->project_code_second;
-            $site_code = $request->site_id_second;
+            $site_code = $request->site_code_second;
+
+            // dd($project_code, $site_code);
 
             $statusHeader = "Yes";
             Log::error("Error at " ,[$request->all()]);
@@ -134,10 +135,10 @@ class AdvanceSettlementController extends Controller
             if ($dataPDF && $dataExcel) {
                 $print_type = $request->print_type;
                 if ($print_type == "PDF") {
-                    $dataPO = Session::get("AdvanceSettlementReportSummaryDataPDF");
-                    // dd($dataPO);
+                    $dataASF = Session::get("AdvanceSettlementReportSummaryDataPDF");
+                    // dd($dataASF);
 
-                    $pdf = PDF::loadView('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlement_pdf', ['dataPO' => $dataPO])->setPaper('a4', 'landscape');
+                    $pdf = PDF::loadView('Process.Advance.AdvanceSettlement.Reports.ReportAdvanceSettlementSummary_pdf', ['dataASF' => $dataASF])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
@@ -147,9 +148,9 @@ class AdvanceSettlementController extends Controller
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                    return $pdf->download('Export Report Purchase Requisition Summary.pdf');
+                    return $pdf->download('Export Report Advance Settlement Summary.pdf');
                 } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportAdvanceSettlementSummary, 'Export Report Purchase Requisition Summary.xlsx');
+                    return Excel::download(new ExportReportAdvanceSettlementSummary, 'Export Report Advance Settlement Summary.xlsx');
                 }
             } else {
                 return redirect()->route('AdvanceSettlement.ReportAdvanceSettlementSummary')->with('NotFound', 'Data Cannot Empty');

@@ -1681,6 +1681,8 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\Process\\Advance\\AdvanceSettlementController' => __DIR__ . '/../..' . '/app/Http/Controllers/Process/Advance/AdvanceSettlementController.php',
         'App\\Http\\Controllers\\Process\\BusinessTrip\\BusinessTripRequestController' => __DIR__ . '/../..' . '/app/Http/Controllers/Process/BusinessTrip/BusinessTripRequestController.php',
         'App\\Http\\Controllers\\Process\\BusinessTrip\\BusinessTripSettlementController' => __DIR__ . '/../..' . '/app/Http/Controllers/Process/BusinessTrip/BusinessTripSettlementController.php',
+        'App\\Http\\Controllers\\Process\\CreditNote\\CreditNoteController' => __DIR__ . '/../..' . '/app/Http/Controllers/Process/CreditNote/CreditNoteController.php',
+        'App\\Http\\Controllers\\Process\\LoanSettlement\\LoanSettlementController' => __DIR__ . '/../..' . '/app/Http/Controllers/Process/LoanSettlement/LoanSettlementController.php',
         'App\\Http\\Controllers\\Process\\Loan\\LoanController' => __DIR__ . '/../..' . '/app/Http/Controllers/Process/Loan/LoanController.php',
         'App\\Http\\Controllers\\Process\\Reimbursement\\ReimbursableExpenditureController' => __DIR__ . '/../..' . '/app/Http/Controllers/Process/Reimbursement/ReimbursableExpenditureController.php',
         'App\\Http\\Controllers\\Purchase\\OrderPickingController' => __DIR__ . '/../..' . '/app/Http/Controllers/Purchase/OrderPickingController.php',

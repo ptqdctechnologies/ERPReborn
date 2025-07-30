@@ -1064,6 +1064,8 @@ return array(
     'App\\Http\\Controllers\\Process\\Advance\\AdvanceSettlementController' => $baseDir . '/app/Http/Controllers/Process/Advance/AdvanceSettlementController.php',
     'App\\Http\\Controllers\\Process\\BusinessTrip\\BusinessTripRequestController' => $baseDir . '/app/Http/Controllers/Process/BusinessTrip/BusinessTripRequestController.php',
     'App\\Http\\Controllers\\Process\\BusinessTrip\\BusinessTripSettlementController' => $baseDir . '/app/Http/Controllers/Process/BusinessTrip/BusinessTripSettlementController.php',
+    'App\\Http\\Controllers\\Process\\CreditNote\\CreditNoteController' => $baseDir . '/app/Http/Controllers/Process/CreditNote/CreditNoteController.php',
+    'App\\Http\\Controllers\\Process\\LoanSettlement\\LoanSettlementController' => $baseDir . '/app/Http/Controllers/Process/LoanSettlement/LoanSettlementController.php',
     'App\\Http\\Controllers\\Process\\Loan\\LoanController' => $baseDir . '/app/Http/Controllers/Process/Loan/LoanController.php',
     'App\\Http\\Controllers\\Process\\Reimbursement\\ReimbursableExpenditureController' => $baseDir . '/app/Http/Controllers/Process/Reimbursement/ReimbursableExpenditureController.php',
     'App\\Http\\Controllers\\Purchase\\OrderPickingController' => $baseDir . '/app/Http/Controllers/Purchase/OrderPickingController.php',

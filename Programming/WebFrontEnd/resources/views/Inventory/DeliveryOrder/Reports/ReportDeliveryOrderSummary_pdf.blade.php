@@ -59,10 +59,10 @@
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $counter++; ?></td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"><?= $dataDetail['documentNumber']; ?></td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">-</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">-</td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"></td>
-                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;"></td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['type'] }}</td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['deliveryFrom_NonRefID']['address'] ?? '-' }}</td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['deliveryTo_NonRefID']['address'] ?? '-' }}</td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['transporter_Code'] }} - {{ $dataDetail['transporter_Name'] }}</td>
                         
                       </tbody>
                     <?php } ?>

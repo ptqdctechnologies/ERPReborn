@@ -72,6 +72,412 @@ class LoanController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
+    public function ReportLoantoLoanSettlement(Request $request)
+    {
+        try {
+            $varAPIWebToken = Session::get('SessionLogin');
+            $isSubmitButton = $request->session()->get('isButtonReportLoantoLoanSettlementSubmit');
+
+            $dataReport = $isSubmitButton ? $request->session()->get('dataReportLoantoLoanSettlement', []) : [];
+
+            $compact = [
+                'varAPIWebToken'    => $varAPIWebToken,
+                'dataReport'        => $dataReport
+            ];
+
+            return view('Process.Loan.Reports.ReportLoantoLoanSettlement', $compact);
+        } catch (\Throwable $th) {
+            Log::error("ReportLoantoLoanSettlement Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportLoantoLoanSettlementData($project, $site, $requester)
+    {
+        try {
+            // Budget
+            // 46000000000033, "XL Microcell 2007"
+            // 46000000000009, "Nokia 2G CME & TI Project"
+
+            // Sub Budget
+            // 143000000000305, "Ampang Kuranji - Padang"
+            // 143000000000308, "Bukit Pakis Sby Infill"
+
+            // Requester
+            // 164000000000521, "Fabrian Danang Destiyara"
+            // 164000000000155, "M. Fikri Caesarandi Hasibuan"
+
+            $dataDummy = [
+                // Fabrian Danang Destiyara
+                [
+                    "Sys_ID" => 76000000000059,
+                    "DocumentNumber" => "LN/QDC/2025/000015",
+                    "DocumentDateTimeTZ" => "2024-07-03 00:00:00+07",
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
+                    "TotalAdvance" => "4875412.00",
+                    "TotalPayment" => "4875412.00",
+                    "Status" => "Final Approval",
+                    "DocumentASFNumber" => "LNS/QDC/2025/000015",
+                    "DocumentASFDateTimeTZ" => "2024-07-03 00:00:00+07",
+                    "TotalSettlement" => "4875412.00",
+                    "TotalExpenseClaim" => "4674312.00",
+                    "TotalAmountCompany" => "201100.00",
+                    "Description" => "Settlement Biaya Penyambungan Listrik Baru",
+                    "StatusASF" => "Final Approval",
+                    "TotalAdvancePayment" => "0.00",
+                    "TotalAdvanceSettlement" => "0.00",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                ],
+                [
+                    "Sys_ID" => 76000000000060,
+                    "DocumentNumber" => "LN/QDC/2025/000014",
+                    "DocumentDateTimeTZ" => "2024-07-09 00:00:00+07",
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
+                    "TotalAdvance" => "2768450.00",
+                    "TotalPayment" => "2768450.00",
+                    "Status" => "Final Approval",
+                    "DocumentASFNumber" => "LNS/QDC/2025/000014",
+                    "DocumentASFDateTimeTZ" => "2024-07-09 00:00:00+07",
+                    "TotalSettlement" => "2768450.00",
+                    "TotalExpenseClaim" => "2589320.00",
+                    "TotalAmountCompany" => "179130.00",
+                    "Description" => "Settlement biaya pindah panel beton di gudang",
+                    "StatusASF" => "Final Approval",
+                    "TotalAdvancePayment" => "0.00",
+                    "TotalAdvanceSettlement" => "0.00",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                ],
+                [
+                    "Sys_ID" => 76000000000061,
+                    "DocumentNumber" => "LN/QDC/2025/000013",
+                    "DocumentDateTimeTZ" => "2024-07-16 00:00:00+07",
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
+                    "TotalAdvance" => "5689450.00",
+                    "TotalPayment" => "5689450.00",
+                    "Status" => "Final Approval",
+                    "DocumentASFNumber" => "LNS/QDC/2025/000013",
+                    "DocumentASFDateTimeTZ" => "2024-07-16 00:00:00+07",
+                    "TotalSettlement" => "5689450.00",
+                    "TotalExpenseClaim" => "5471364.00",
+                    "TotalAmountCompany" => "218086.00",
+                    "Description" => "Settlement Biaya Perbaikan Motor untuk dibawa ke Pangkalan Bun",
+                    "StatusASF" => "Final Approval",
+                    "TotalAdvancePayment" => "0.00",
+                    "TotalAdvanceSettlement" => "0.00",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                ],
+                [
+                    "Sys_ID" => 76000000000062,
+                    "DocumentNumber" => "LN/QDC/2025/000012",
+                    "DocumentDateTimeTZ" => "2024-07-05 00:00:00+07",
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
+                    "TotalAdvance" => "1476312.00",
+                    "TotalPayment" => "1476312.00",
+                    "Status" => "Final Approval",
+                    "DocumentASFNumber" => "LNS/QDC/2025/000012",
+                    "DocumentASFDateTimeTZ" => "2024-07-05 00:00:00+07",
+                    "TotalSettlement" => "1476312.00",
+                    "TotalExpenseClaim" => "1350874.00",
+                    "TotalAmountCompany" => "125438.00",
+                    "Description" => "Settlement Biaya Warmeking Surat Kuasa Jaminan",
+                    "StatusASF" => "Final Approval",
+                    "TotalAdvancePayment" => "0.00",
+                    "TotalAdvanceSettlement" => "0.00",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                ],
+                [
+                    "Sys_ID" => 76000000000063,
+                    "DocumentNumber" => "LN/QDC/2025/000011",
+                    "DocumentDateTimeTZ" => "2024-07-19 00:00:00+07",
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000521,
+                    "RequesterWorkerName" => "Fabrian Danang Destiyara",
+                    "TotalAdvance" => "6254399.00",
+                    "TotalPayment" => "6254399.00",
+                    "Status" => "Final Approval",
+                    "DocumentASFNumber" => "LNS/QDC/2025/000011",
+                    "DocumentASFDateTimeTZ" => "2024-07-19 00:00:00+07",
+                    "TotalSettlement" => "6254399.00",
+                    "TotalExpenseClaim" => "6021648.00",
+                    "TotalAmountCompany" => "232751.00",
+                    "Description" => "Settlement Operasional Crane (Jakarta-Semarang)",
+                    "StatusASF" => "Final Approval",
+                    "TotalAdvancePayment" => "0.00",
+                    "TotalAdvanceSettlement" => "0.00",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                ],
+                // M. Fikri Caesarandi Hasibuan
+                [
+                    "Sys_ID" => 76000000000059,
+                    "DocumentNumber" => "LN/QDC/2025/000005",
+                    "DocumentDateTimeTZ" => "2024-07-03 00:00:00+07",
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000155,
+                    "RequesterWorkerName" => "M. Fikri Caesarandi Hasibuan",
+                    "TotalAdvance" => "3589710.00",
+                    "TotalPayment" => "3589710.00",
+                    "Status" => "Final Approval",
+                    "DocumentASFNumber" => "LNS/QDC/2025/000005",
+                    "DocumentASFDateTimeTZ" => "2024-07-03 00:00:00+07",
+                    "TotalSettlement" => "3589710.00",
+                    "TotalExpenseClaim" => "3454672.00",
+                    "TotalAmountCompany" => "135038.00",
+                    "Description" => "Settlement Biaya Penyambungan Listrik Baru",
+                    "StatusASF" => "Final Approval",
+                    "TotalAdvancePayment" => "0.00",
+                    "TotalAdvanceSettlement" => "0.00",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                ],
+                [
+                    "Sys_ID" => 76000000000060,
+                    "DocumentNumber" => "LN/QDC/2025/000004",
+                    "DocumentDateTimeTZ" => "2024-07-09 00:00:00+07",
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000155,
+                    "RequesterWorkerName" => "M. Fikri Caesarandi Hasibuan",
+                    "TotalAdvance" => "1295614.00",
+                    "TotalPayment" => "1295614.00",
+                    "Status" => "Final Approval",
+                    "DocumentASFNumber" => "LNS/QDC/2025/000004",
+                    "DocumentASFDateTimeTZ" => "2024-07-09 00:00:00+07",
+                    "TotalSettlement" => "1295614.00",
+                    "TotalExpenseClaim" => "1234125.00",
+                    "TotalAmountCompany" => "61489.00",
+                    "Description" => "Settlement biaya pindah panel beton di gudang",
+                    "StatusASF" => "Final Approval",
+                    "TotalAdvancePayment" => "0.00",
+                    "TotalAdvanceSettlement" => "0.00",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                ],
+                [
+                    "Sys_ID" => 76000000000061,
+                    "DocumentNumber" => "LN/QDC/2025/000003",
+                    "DocumentDateTimeTZ" => "2024-07-16 00:00:00+07",
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000155,
+                    "RequesterWorkerName" => "M. Fikri Caesarandi Hasibuan",
+                    "TotalAdvance" => "5618352.00",
+                    "TotalPayment" => "5618352.00",
+                    "Status" => "Final Approval",
+                    "DocumentASFNumber" => "LNS/QDC/2025/000003",
+                    "DocumentASFDateTimeTZ" => "2024-07-16 00:00:00+07",
+                    "TotalSettlement" => "5618352.00",
+                    "TotalExpenseClaim" => "5245289.00",
+                    "TotalAmountCompany" => "373063.00",
+                    "Description" => "Settlement Biaya Perbaikan Motor untuk dibawa ke Pangkalan Bun",
+                    "StatusASF" => "Final Approval",
+                    "TotalAdvancePayment" => "0.00",
+                    "TotalAdvanceSettlement" => "0.00",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                ],
+                [
+                    "Sys_ID" => 76000000000062,
+                    "DocumentNumber" => "LN/QDC/2025/000002",
+                    "DocumentDateTimeTZ" => "2024-07-05 00:00:00+07",
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000155,
+                    "RequesterWorkerName" => "M. Fikri Caesarandi Hasibuan",
+                    "TotalAdvance" => "850237.00",
+                    "TotalPayment" => "850237.00",
+                    "Status" => "Final Approval",
+                    "DocumentASFNumber" => "LNS/QDC/2025/000002",
+                    "DocumentASFDateTimeTZ" => "2024-07-05 00:00:00+07",
+                    "TotalSettlement" => "850237.00",
+                    "TotalExpenseClaim" => "812568.00",
+                    "TotalAmountCompany" => "37669.00",
+                    "Description" => "Settlement Biaya Warmeking Surat Kuasa Jaminan",
+                    "StatusASF" => "Final Approval",
+                    "TotalAdvancePayment" => "0.00",
+                    "TotalAdvanceSettlement" => "0.00",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                ],
+                [
+                    "Sys_ID" => 76000000000063,
+                    "DocumentNumber" => "LN/QDC/2025/000001",
+                    "DocumentDateTimeTZ" => "2024-07-19 00:00:00+07",
+                    "CombinedBudgetCode" => "Q000062",
+                    "CombinedBudgetName" => "XL Microcell 2007",
+                    "CombinedBudgetSectionCode" => "254",
+                    "CombinedBudgetSectionName" => "Ampang Kuranji - Padang",
+                    "RequesterWorkerJobsPosition_RefID" => 164000000000155,
+                    "RequesterWorkerName" => "M. Fikri Caesarandi Hasibuan",
+                    "TotalAdvance" => "7014213.00",
+                    "TotalPayment" => "7014213.00",
+                    "Status" => "Final Approval",
+                    "DocumentASFNumber" => "LNS/QDC/2025/000001",
+                    "DocumentASFDateTimeTZ" => "2024-07-19 00:00:00+07",
+                    "TotalSettlement" => "7014213.00",
+                    "TotalExpenseClaim" => "6810928.00",
+                    "TotalAmountCompany" => "203285.00",
+                    "Description" => "Settlement Operasional Crane (Jakarta-Semarang)",
+                    "StatusASF" => "Final Approval",
+                    "TotalAdvancePayment" => "0.00",
+                    "TotalAdvanceSettlement" => "0.00",
+                    "CombinedBudget_RefID" => 46000000000033,
+                    "CombinedBudgetSection_RefID" => 143000000000305,
+                ],
+            ];
+
+            $filteredData = array_filter($dataDummy, function ($item) use ($project, $site, $requester) {
+                return 
+                    (empty($project['id'])      || $item['CombinedBudget_RefID'] == $project['id']) &&
+                    (empty($site['id'])         || $item['CombinedBudgetSection_RefID'] == $site['id']) &&
+                    (empty($requester['id'])    || $item['RequesterWorkerJobsPosition_RefID'] == $requester['id']);
+            });
+
+            $compact = [
+                'project'                   => $project,
+                'site'                      => $site,
+                'requester'                 => $requester,
+                'dataDetail'                => $filteredData,
+                'totalAdvance'              => $this->calculateTotal($filteredData, 'TotalAdvance'),
+                'totalPayment'              => $this->calculateTotal($filteredData, 'TotalPayment'),
+                'totalSettlement'           => $this->calculateTotal($filteredData, 'TotalSettlement'),
+                'totalExpenseClaim'         => $this->calculateTotal($filteredData, 'TotalExpenseClaim'),
+                'totalAmountCompany'        => $this->calculateTotal($filteredData, 'TotalAmountCompany'),
+                'totalAdvancePayment'       => $this->calculateTotal($filteredData, 'TotalAdvancePayment'),
+                'totalAdvanceSettlement'    => $this->calculateTotal($filteredData, 'TotalAdvanceSettlement'),
+            ];
+
+            Session::put("isButtonReportLoantoLoanSettlementSubmit", true);
+            Session::put("dataReportLoantoLoanSettlement", $compact);
+
+            return $compact;
+        } catch (\Throwable $th) {
+            Log::error("ReportLoantoLoanSettlementData Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportLoantoLoanSettlementStore(Request $request)
+    {
+        try {
+            $project = [
+                'id'        => $request->project_id_second,
+                'code'      => $request->project_code_second,
+                'name'      => $request->project_name_second,
+            ];
+
+            $site = [
+                'id'        => $request->site_id_second,
+                'code'      => $request->site_code_second,
+                'name'      => $request->site_name_second,
+            ];
+
+            $requester = [
+                'id'        => $request->worker_id_second,
+                'name'      => $request->worker_name_second,
+                'position'  => $request->worker_position_second,
+            ];
+
+            if (!$project['id'] && !$site['id'] && !$requester['id']) {
+                Session::forget("isButtonReportLoantoLoanSettlementSubmit");
+                Session::forget("dataReportLoantoLoanSettlement");
+
+                return redirect()->route('Loan.ReportLoantoLoanSettlement')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
+            }
+
+            $compact = $this->ReportLoantoLoanSettlementData($project, $site, $requester);
+
+            if ($compact === null || empty($compact)) {
+                return redirect()->back()->with('NotFound', 'Data Not Found');
+            }
+
+            return redirect()->route('Loan.ReportLoantoLoanSettlement');
+        } catch (\Throwable $th) {
+            Log::error("ReportLoantoLoanSettlementStore Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportLoantoLoanSettlement(Request $request)
+    {
+        try {
+            $dataReport = Session::get("dataReportLoantoLoanSettlement");
+            $print_type = $request->print_type;
+            $project_code_second_trigger = $request->project_code_second_trigger;
+
+            if ($project_code_second_trigger == null) {
+                Session::forget("isButtonReportLoantoLoanSettlementSubmit");
+                Session::forget("dataReportLoantoLoanSettlement");
+
+                return redirect()->route('Loan.ReportLoantoLoanSettlement')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
+            }
+
+            if ($dataReport) {
+                if ($print_type === "PDF") {
+                    $pdf = PDF::loadView('Process.Loan.Reports.ReportLoantoLoanSettlement_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Advance To ASF.pdf');
+                } else {
+                    return Excel::download(new ExportReportLoantoLoanSettlement, 'Export Advance To ASF.xlsx');
+                }
+            } else {
+                return redirect()->route('Loan.ReportLoantoLoanSettlement')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
+            }
+
+        } catch (\Throwable $th) {
+            Log::error("PrintExportReportLoantoLoanSettlement Function Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+    public function calculateTotal($filteredData, $key) {
+        return array_reduce($filteredData, function ($carry, $item) use ($key) {
+            return $carry + ($item[$key] ?? 0);
+        }, 0);
+    }
 
     public function ReportLoanSummary(Request $request)
     {
@@ -125,7 +531,7 @@ class LoanController extends Controller
             // DUMMY DATA (2 PAGE)
             $getReportAdvanceSummary = [
                 [
-                    "DocumentNumber" => "BRF-24000229",
+                    "DocumentNumber" => "LN/QDC/2025/000030",
                     "DocumentDateTimeTZ" => "2024-12-27 00:00:00+07",
                     "TotalBusinessTrip" => "6300000.00",
                     "Sys_ID" => 76000000000054,
@@ -148,7 +554,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "5095132.82",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000228",
+                    "DocumentNumber" => "LN/QDC/2025/000029",
                     "DocumentDateTimeTZ" => "2024-12-27 00:00:00+07",
                     "TotalBusinessTrip" => "8400000.00",
                     "Sys_ID" => 76000000000054,
@@ -171,7 +577,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "4296891.03",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000227",
+                    "DocumentNumber" => "LN/QDC/2025/000028",
                     "DocumentDateTimeTZ" => "2024-12-27 00:00:00+07",
                     "TotalBusinessTrip" => "5900000.00",
                     "Sys_ID" => 76000000000054,
@@ -194,7 +600,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "8143150.32",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000226",
+                    "DocumentNumber" => "LN/QDC/2025/000027",
                     "DocumentDateTimeTZ" => "2024-12-26 00:00:00+07",
                     "TotalBusinessTrip" => "7600000.00",
                     "Sys_ID" => 76000000000054,
@@ -217,7 +623,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "12253790.16",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000225",
+                    "DocumentNumber" => "LN/QDC/2025/000026",
                     "DocumentDateTimeTZ" => "2024-12-26 00:00:00+07",
                     "TotalBusinessTrip" => "5200000.00",
                     "Sys_ID" => 76000000000054,
@@ -240,7 +646,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "10151969.28",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000224",
+                    "DocumentNumber" => "LN/QDC/2025/000025",
                     "DocumentDateTimeTZ" => "2024-12-25 00:00:00+07",
                     "TotalBusinessTrip" => "6900000.00",
                     "Sys_ID" => 76000000000054,
@@ -263,7 +669,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "5316023.26",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000223",
+                    "DocumentNumber" => "LN/QDC/2025/000024",
                     "DocumentDateTimeTZ" => "2024-12-24 00:00:00+07",
                     "TotalBusinessTrip" => "4700000.00",
                     "Sys_ID" => 76000000000054,
@@ -286,7 +692,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "1215213.85",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000222",
+                    "DocumentNumber" => "LN/QDC/2025/000023",
                     "DocumentDateTimeTZ" => "2024-12-23 00:00:00+07",
                     "TotalBusinessTrip" => "8100000.00",
                     "Sys_ID" => 76000000000054,
@@ -309,7 +715,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "1085223.38",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000221",
+                    "DocumentNumber" => "LN/QDC/2025/000022",
                     "DocumentDateTimeTZ" => "2024-12-20 00:00:00+07",
                     "TotalBusinessTrip" => "5600000.00",
                     "Sys_ID" => 76000000000054,
@@ -332,7 +738,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "7405033.38",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000220",
+                    "DocumentNumber" => "LN/QDC/2025/000021",
                     "DocumentDateTimeTZ" => "2024-12-19 00:00:00+07",
                     "TotalBusinessTrip" => "7300000.00",
                     "Sys_ID" => 76000000000054,
@@ -355,7 +761,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "7023584.36",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000219",
+                    "DocumentNumber" => "LN/QDC/2025/000020",
                     "DocumentDateTimeTZ" => "2024-12-19 00:00:00+07",
                     "TotalBusinessTrip" => "6400000.00",
                     "Sys_ID" => 76000000000054,
@@ -378,7 +784,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "1742125.93",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000218",
+                    "DocumentNumber" => "LN/QDC/2025/000019",
                     "DocumentDateTimeTZ" => "2024-12-19 00:00:00+07",
                     "TotalBusinessTrip" => "7100000.00",
                     "Sys_ID" => 76000000000054,
@@ -401,7 +807,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "11445578.27",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000217",
+                    "DocumentNumber" => "LN/QDC/2025/000018",
                     "DocumentDateTimeTZ" => "2024-12-18 00:00:00+07",
                     "TotalBusinessTrip" => "4900000.00",
                     "Sys_ID" => 76000000000054,
@@ -424,7 +830,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "3469770.83",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000216",
+                    "DocumentNumber" => "LN/QDC/2025/000017",
                     "DocumentDateTimeTZ" => "2024-12-17 00:00:00+07",
                     "TotalBusinessTrip" => "8800000.00",
                     "Sys_ID" => 76000000000054,
@@ -447,7 +853,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "1019176.27",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000215",
+                    "DocumentNumber" => "LN/QDC/2025/000016",
                     "DocumentDateTimeTZ" => "2024-12-13 00:00:00+07",
                     "TotalBusinessTrip" => "5300000.00",
                     "Sys_ID" => 76000000000054,
@@ -470,7 +876,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "1074832.13",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000214",
+                    "DocumentNumber" => "LN/QDC/2025/000015",
                     "DocumentDateTimeTZ" => "2024-12-13 00:00:00+07",
                     "TotalBusinessTrip" => "6700000.00",
                     "Sys_ID" => 76000000000054,
@@ -493,7 +899,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "981594.58",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000213",
+                    "DocumentNumber" => "LN/QDC/2025/000014",
                     "DocumentDateTimeTZ" => "2024-12-12 00:00:00+07",
                     "TotalBusinessTrip" => "7800000.00",
                     "Sys_ID" => 76000000000054,
@@ -516,7 +922,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "2423840.88",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000212",
+                    "DocumentNumber" => "LN/QDC/2025/000013",
                     "DocumentDateTimeTZ" => "2024-12-11 00:00:00+07",
                     "TotalBusinessTrip" => "5100000.00",
                     "Sys_ID" => 76000000000054,
@@ -539,7 +945,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "895938.52",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000211",
+                    "DocumentNumber" => "LN/QDC/2025/000012",
                     "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
                     "TotalBusinessTrip" => "8200000.00",
                     "Sys_ID" => 76000000000054,
@@ -562,7 +968,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "2207263.87",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000210",
+                    "DocumentNumber" => "LN/QDC/2025/000011",
                     "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
                     "TotalBusinessTrip" => "6200000.00",
                     "Sys_ID" => 76000000000054,
@@ -585,7 +991,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "6407582.00",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000209",
+                    "DocumentNumber" => "LN/QDC/2025/000010",
                     "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
                     "TotalBusinessTrip" => "7500000.00",
                     "Sys_ID" => 76000000000054,
@@ -608,7 +1014,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "7677468.37",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000208",
+                    "DocumentNumber" => "LN/QDC/2025/000009",
                     "DocumentDateTimeTZ" => "2024-12-10 00:00:00+07",
                     "TotalBusinessTrip" => "5800000.00",
                     "Sys_ID" => 76000000000054,
@@ -631,7 +1037,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "4722046.68",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000207",
+                    "DocumentNumber" => "LN/QDC/2025/000008",
                     "DocumentDateTimeTZ" => "2024-12-09 00:00:00+07",
                     "TotalBusinessTrip" => "9000000.00",
                     "Sys_ID" => 76000000000054,
@@ -654,7 +1060,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "1818964.19",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000206",
+                    "DocumentNumber" => "LN/QDC/2025/000007",
                     "DocumentDateTimeTZ" => "2024-12-09 00:00:00+07",
                     "TotalBusinessTrip" => "4200000.00",
                     "Sys_ID" => 76000000000054,
@@ -677,7 +1083,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "2790922.28",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000205",
+                    "DocumentNumber" => "LN/QDC/2025/000006",
                     "DocumentDateTimeTZ" => "2024-12-09 00:00:00+07",
                     "TotalBusinessTrip" => "8500000.00",
                     "Sys_ID" => 76000000000054,
@@ -700,7 +1106,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "11937158.49",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000204",
+                    "DocumentNumber" => "LN/QDC/2025/000005",
                     "DocumentDateTimeTZ" => "2024-12-06 00:00:00+07",
                     "TotalBusinessTrip" => "3800000.00",
                     "Sys_ID" => 76000000000054,
@@ -723,7 +1129,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "513655.62",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000203",
+                    "DocumentNumber" => "LN/QDC/2025/000004",
                     "DocumentDateTimeTZ" => "2024-12-05 00:00:00+07",
                     "TotalBusinessTrip" => "7200000.00",
                     "Sys_ID" => 76000000000054,
@@ -746,7 +1152,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "1780691.21",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000202",
+                    "DocumentNumber" => "LN/QDC/2025/000003",
                     "DocumentDateTimeTZ" => "2024-12-04 00:00:00+07",
                     "TotalBusinessTrip" => "5500000.00",
                     "Sys_ID" => 76000000000054,
@@ -769,7 +1175,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "9816691.90",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000201",
+                    "DocumentNumber" => "LN/QDC/2025/000002",
                     "DocumentDateTimeTZ" => "2024-12-03 00:00:00+07",
                     "TotalBusinessTrip" => "4500000.00",
                     "Sys_ID" => 76000000000054,
@@ -792,7 +1198,7 @@ class LoanController extends Controller
                     "ByCorpCard" => "3944147.35",
                 ],
                 [
-                    "DocumentNumber" => "BRF-24000200",
+                    "DocumentNumber" => "LN/QDC/2025/000001",
                     "DocumentDateTimeTZ" => "2024-12-02 00:00:00+07",
                     "TotalBusinessTrip" => "6000000.00",
                     "Sys_ID" => 76000000000054,

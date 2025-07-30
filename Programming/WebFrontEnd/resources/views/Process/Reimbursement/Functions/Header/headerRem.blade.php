@@ -3,24 +3,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <table>
-          <tr>
-            <td style="padding-top: 5px;"><label>Customer</label></td>
-            <td>
-              <div class="input-group">
-                <input id="var_customer" style="border-radius:0;" name="var_customer" class="form-control" readonly>
-                <div class="input-group-append">
-                  <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myCustomer" class="fas fa-gift" style="color:grey;"></i></a>
-                  </span>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="input-group">
-                <input id="var_customer2" style="border-radius:0;" class="form-control" name="var_customer2" readonly>
-              </div>
-            </td>
-          </tr>
+          
           <tr>
             <td><label>Requester Name</label></td>
             <td>

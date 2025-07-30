@@ -274,20 +274,20 @@ class PurchaseRequisitionController extends Controller
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
-    public function PrintExportPRtoPO(Request $request)
+    public function PrintExportReportPRtoPO(Request $request)
     {
         try {
-            $dataPDF = Session::get("PurchaseRequisitionReportSummaryDataPDF");
+            $dataPDF = Session::get("ReportPRtoPODataPDF");
             $dataExcel = Session::get("PurchaseRequisitionReportSummaryDataExcel");
 
             
             if ($dataPDF && $dataExcel) {
                 $print_type = $request->print_type;
                 if ($print_type == "PDF") {
-                    $dataPO = Session::get("PurchaseRequisitionReportSummaryDataPDF");
-                    // dd($dataPO);
+                    $dataPRtoPO = Session::get("ReportPRtoPODataPDF");
+                    // dd($dataPRtoPO);
 
-                    $pdf = PDF::loadView('Purchase.PurchaseRequisition.Reports.PrintReportPurchaseRequisitionSummary', ['dataPO' => $dataPO])->setPaper('a4', 'landscape');
+                    $pdf = PDF::loadView('Purchase.PurchaseRequisition.Reports.ReportPRtoPO_pdf', ['dataPRtoPO' => $dataPRtoPO])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
@@ -297,12 +297,12 @@ class PurchaseRequisitionController extends Controller
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                    return $pdf->download('Export Report Purchase Requisition Summary.pdf');
+                    return $pdf->download('Export Report PR to PO .pdf');
                 } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportPurchaseRequisitionSummary, 'Export Report Purchase Requisition Summary.xlsx');
+                    return Excel::download(new ExportReportPRtoPO, 'Export Report PR to PO .xlsx');
                 }
             } else {
-                return redirect()->route('PurchaseRequisition.ReportPurchaseRequisitionSummary')->with('NotFound', 'Data Cannot Empty');
+                return redirect()->route('PurchaseRequisition.ReportPRtoPO')->with('NotFound', 'Data Cannot Empty');
             }
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
