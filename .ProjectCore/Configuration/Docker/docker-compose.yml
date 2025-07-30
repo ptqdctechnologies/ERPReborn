@@ -218,10 +218,10 @@ services:
     tty: true
 
 
-  #---> Services : Grafana
+#---> Services : Grafana
   grafana:
     container_name: 'grafana'
-    image: 'erp-reborn-grafana:latest'
+    image: 'erp-reborn-monitoring-grafana:latest'
     depends_on:
       - 'db-postgresql'
       #- 'minio-node01'
@@ -234,11 +234,37 @@ services:
       - '13000:3000'
     networks:
       app-network:
-        ipv4_address: '172.28.0.8'
+        ipv4_address: '172.28.0.110'
     volumes:
       #- './.ProjectCore/PermanentStorage/Grafana/etc/grafana/provisioning:/etc/grafana/provisioning'
       - './.ProjectCore/PermanentStorage/Grafana/var/lib/grafana/:/var/lib/grafana'
       - './.ProjectCore/PermanentStorage/Grafana/var/log/grafana/:/var/log/grafana'
+      - './.ProjectCore/Configuration/Docker/Grafana/System/etc/grafana/grafana.ini:/etc/grafana/grafana.ini'
+
+
+#---> Services : Percona
+  percona:
+    container_name: 'percona'
+    image: 'erp-reborn-monitoring-percona:latest'
+    restart: 'always'
+    #restart: 'unless-stopped'
+    ports:
+      - '40080:8080'
+      - '40443:8443'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.111'
+    volumes:
+      #- 'volume-percona:/srv'
+      - './.ProjectCore/PermanentStorage/Percona/srv/:/srv'
+    environment:
+      PMM_AGENT_SERVER_USERNAME: 'admin'
+      PMM_AGENT_SERVER_PASSWORD: 'admin'
+      PMM_AGENT_SERVER_INSECURE_TLS: 1
+      PMM_AGENT_SETUP: 1
+      PMM_DEBUG: 1
+      PMM_TRACE: 1
+
 
   #---> Services : NodeJS
   #nodejs:
@@ -471,6 +497,8 @@ services:
 #---> Docker Volumes
 volumes:
   volume-mysql:
+    external: true
+  volume-percona:
     external: true
   volume-postgresql:
     external: true

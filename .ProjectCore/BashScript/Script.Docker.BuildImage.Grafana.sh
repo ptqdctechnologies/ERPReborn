@@ -15,4 +15,6 @@
 clear;
 
 sudo docker pull grafana/grafana;
-sudo docker build --file ./.ProjectCore/Configuration/Docker/Grafana/Dockerfile -t erp-reborn-grafana .;
+sudo docker build --file ./.ProjectCore/Configuration/Docker/Grafana/Dockerfile -t erp-reborn-monitoring-grafana .;
+
+#sudo cp ./.ProjectCore/Configuration/Docker/Grafana/System/etc/grafana/grafana.ini /etc/grafana/grafana.ini;
