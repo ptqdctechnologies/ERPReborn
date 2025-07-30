@@ -5,7 +5,6 @@
 @include('getFunction.getProject')
 @include('getFunction.getSite')
 @include('getFunction.getWorker')
-@include('getFunction.getCustomer')
 @include('getFunction.getCurrency')
 @include('getFunction.getProduk')
 
@@ -30,7 +29,7 @@
                         </button>
                       </div>
                     </div>
-                  @include('Advance.Reimbursement.Functions.Header.headerArf')
+                  @include('Process.Reimbursement.Functions.Header.headerArf')
                   </div>
                 </div>
               </div>
@@ -88,7 +87,7 @@
                         </button>
                       </div>
                     </div>
-                  @include('Advance.Reimbursement.Functions.Header.headerRem')
+                  @include('Process.Reimbursement.Functions.Header.headerRem')
                   </div>
                 </div>
               </div>
@@ -109,7 +108,7 @@
                         </button>
                       </div>
                     </div>
-                    @include('Advance.Reimbursement.Functions.Header.headerRem2')
+                    @include('Process.Reimbursement.Functions.Header.headerRem2')
                   </div>
                 </div>
               </div>
@@ -165,5 +164,5 @@
 </div>
 @include('Partials.footer')
 
-@include('Advance.Reimbursement.Functions.Footer.footerRem')
+@include('Process.Reimbursement.Functions.Footer.footerRem')
 @endsection

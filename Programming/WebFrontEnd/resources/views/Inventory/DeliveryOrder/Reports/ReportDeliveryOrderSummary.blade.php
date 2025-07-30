@@ -70,10 +70,10 @@
                                                         <td style="text-align: center;"><?= $counter++; ?></td>
                                                         <td><?= $dataDetail['documentNumber']; ?></td>
                                                         <td>{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
-                                                        <td>-</td>
-                                                        <td>-</td>
-                                                        <td>-</td>
-                                                        <td>-</td>
+                                                        <td>{{ $dataDetail['type'] }}</td>
+                                                        <td>{{ $dataDetail['deliveryFrom_NonRefID']['address'] ?? '-' }}</td>
+                                                        <td>{{ $dataDetail['deliveryTo_NonRefID']['address'] ?? '-' }}</td>
+                                                        <td>{{ $dataDetail['transporter_Code'] }} - {{ $dataDetail['transporter_Name'] }}</td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>

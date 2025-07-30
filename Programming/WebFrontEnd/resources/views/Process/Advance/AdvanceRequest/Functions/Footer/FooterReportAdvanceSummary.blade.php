@@ -155,8 +155,8 @@
                                 '<td>' + RequesterWorkerName + '</td>',
                                 '<td>' + BeneficiaryWorkerName + '</td>',
                                 '<td>' + currencyTotal(val.TotalAdvance) + '</td>',
-                                '<td>' + '-' + '</td>',
-                                '<td>' + '-' + '</td>',
+                                '<td>' + '0' + '</td>',
+                                '<td>' + '0' + '</td>',
                                 // '<td>' + val.CurrencyName + '</td>',
                                 
                                 '<td>' + val.remark.charAt(0).toUpperCase() + val.remark.slice(1) + '</td></tr></tbody>'

@@ -15,26 +15,26 @@ class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadin
 {
     public function collection()
     {
-        $data = Session::get("dataReportAdvanceSettlementSummary");
+        $data = Session::get("AdvanceSettlementReportSummaryDataExcel");
 
         $filteredData = [];
         $counter = 1;
-        foreach ($data['dataDetail'] as $item) {
+        foreach ($data as $item) {
             $filteredData[] = [
                 'No'                                => $counter++,
-                'BSF Number'                        => $item['DocumentNumber'] ?? null,
-                'Description'                       => $item['Description'] ?? null,
+                'BSF Number'                        => $item['documentNumber'] ?? null,
+                'Description'                       => $item['product_Name'] ?? null,
                 // 'Sub Budget'                        => $item['CombinedBudgetSectionName'] ?? null,
                 // 'Departing From'                    => $item['DepartingFrom'] ?? null,
                 // 'Destination To'                    => $item['DestinationTo'] ?? null,
-                'Date'                              => date('d-m-Y', strtotime($item['DocumentDateTimeTZ'])) ?? null,
-                'Total Expense Claim Cart'          => $item['TotalExpenseClaimCart'] ?? null,
-                'Total Amount Due to Company Cart'  => $item['TotalAmountDueToCompanyCart'] ?? null,
-                'Total BSF'                         => $item['TotalAdvance'] ?? null,
+                'Date'                              => date('d-m-Y', strtotime($item['date'])) ?? null,
+                'Total Expense Claim Cart'          => $item['total_Expense_Claim'] ?? null,
+                'Total Amount Due to Company Cart'  => $item['total_Amount_Due_Company'] ?? null,
+                'Total BSF'                         => $item['total_Advance_Settlement'] ?? null,
                 // 'Currency'                          => $item['CurrencyName'] ?? null,
-                'Requester'                         => $item['RequesterWorkerName'] ?? null,
+                'Requester'                         => $item['requester'] ?? null,
                 // 'Beneficiary'                       => $item['BeneficiaryWorkerName'] ?? null,
-                'Remark'                            => $item['remark'] ?? null,
+                'Remark'                            => $item['remarks'] ?? null,
             ];
         }
 
@@ -43,13 +43,13 @@ class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadin
 
     public function headings(): array
     {
-        $data = Session::get("dataReportAdvanceSettlementSummary");
+        $data = Session::get("AdvanceSettlementReportSummaryDataExcel");
 
         return [
             [date('F j, Y')],
             ["ADVANCE SETTLEMENT SUMMARY", " ", " ", " ", " ", " ", " "],
             [date('h:i A')],
-            ["Budget", ": " . $data['budgetCode'] . ' - ' . $data['budgetName'], "", "", "", "", "", "", "", "", ""],
+            ["Budget", ": " . $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'], "", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", "", "", ""],
             ["No", "ASF Number", "Description", "Date", "Total Expense Claim Cart", "Total Amount Due to Company Cart", "Total Advance", "Requester", "Remark"]
             // ["No", "BSF Number", "Sub Budget", "Departing From", "Destination To", "Date", "Total Expense Claim Cart", "Total Amount Due to Company Cart", "Total BSF", "Currency", "Requester", "Beneficiary", "Remark"]
@@ -154,42 +154,42 @@ class ExportReportAdvanceSettlementSummary implements FromCollection, WithHeadin
             ],
         ];
 
-        $datas = Session::get("dataReportAdvanceSettlementSummary");
-        $totalCell = count($datas['dataDetail']);
-        $lastCell = 'A7:I' . $totalCell + 6;
-        $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
+        // $datas = Session::get("AdvanceSettlementReportSummaryDataExcel");
+        // $totalCell = count($datas['dataDetail']);
+        // $lastCell = 'A7:I' . $totalCell + 6;
+        // $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
-        $totalExpense   = $datas['totalExpense'];
-        $totalAmount    = $datas['totalAmount'];
-        $total          = $datas['total'];
+        // $totalExpense   = $datas['totalExpense'];
+        // $totalAmount    = $datas['totalAmount'];
+        // $total          = $datas['total'];
 
-        $sheet->insertNewRowBefore($totalCell + 7, 1);
-        $sheet->setCellValue('A' . $totalCell + 7, "GRAND TOTAL");
-        $sheet->setCellValue('E' . $totalCell + 7, $totalExpense);
-        $sheet->setCellValue('F' . $totalCell + 7, $totalAmount);
-        $sheet->setCellValue('G' . $totalCell + 7, $total);
-        $sheet->mergeCells('A' . $totalCell + 7 . ':' . 'D' . $totalCell + 7);
+        // $sheet->insertNewRowBefore($totalCell + 7, 1);
+        // $sheet->setCellValue('A' . $totalCell + 7, "GRAND TOTAL");
+        // $sheet->setCellValue('E' . $totalCell + 7, $totalExpense);
+        // $sheet->setCellValue('F' . $totalCell + 7, $totalAmount);
+        // $sheet->setCellValue('G' . $totalCell + 7, $total);
+        // $sheet->mergeCells('A' . $totalCell + 7 . ':' . 'D' . $totalCell + 7);
 
-        $styleArrayFooter = [
-            'font' => [
-                'bold' => true,
-                'color' => [
-                    'rgb' => '000000',
-                ],
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_CENTER,
-            ],
-            'fill' => [
-                'fillType' => 'solid',
-                'rotation' => 0,
-                'color' => [
-                    'rgb' => 'E9ECEF',
-                ],
-            ],
-        ];
+        // $styleArrayFooter = [
+        //     'font' => [
+        //         'bold' => true,
+        //         'color' => [
+        //             'rgb' => '000000',
+        //         ],
+        //     ],
+        //     'alignment' => [
+        //         'horizontal' => Alignment::HORIZONTAL_CENTER,
+        //     ],
+        //     'fill' => [
+        //         'fillType' => 'solid',
+        //         'rotation' => 0,
+        //         'color' => [
+        //             'rgb' => 'E9ECEF',
+        //         ],
+        //     ],
+        // ];
 
-        $sheet->getStyle('A' . $totalCell + 7 . ':' . 'I' . $totalCell + 7)->applyFromArray($styleArrayFooter);
+        // $sheet->getStyle('A' . $totalCell + 7 . ':' . 'I' . $totalCell + 7)->applyFromArray($styleArrayFooter);
 
     }
 }

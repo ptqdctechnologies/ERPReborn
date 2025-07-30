@@ -337,11 +337,14 @@ class AdvanceRequestController extends Controller
                 $varDataExcel[$i]['documentNumber'] = $collections['DocumentNumber'];
                 $varDataExcel[$i]['subBudget'] = $collections['CombinedBudgetSectionName'];
                 $varDataExcel[$i]['date'] = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
-                $varDataExcel[$i]['total'] = number_format($collections['TotalAdvance'], 2);
-                $varDataExcel[$i]['currency'] = $collections['CurrencyName'];
                 $varDataExcel[$i]['requester'] = $collections['RequesterWorkerName'];
                 $varDataExcel[$i]['beneficiary'] = $collections['BeneficiaryWorkerName'];
+                $varDataExcel[$i]['total_idr'] = number_format($collections['TotalAdvance'], 2);
+                $varDataExcel[$i]['total_other'] = number_format($collections['TotalAdvance'], 2);
+                $varDataExcel[$i]['total_equivalent'] = number_format($collections['TotalAdvance'], 2);
+                // $varDataExcel[$i]['currency'] = $collections['CurrencyName'];
                 $varDataExcel[$i]['remark'] = ucfirst(trans($collections['remark']));
+
                 $i++;
             }
 
