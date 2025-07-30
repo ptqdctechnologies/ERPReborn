@@ -2761,17 +2761,17 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "3.1.64",
-            "version_normalized": "3.1.64.0",
+            "version": "3.1.65",
+            "version_normalized": "3.1.65.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SpartnerNL/Laravel-Excel.git",
-                "reference": "e25d44a2d91da9179cd2d7fec952313548597a79"
+                "reference": "4ef746726f9515784846e4d02f3c0f8f3eae0f29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SpartnerNL/Laravel-Excel/zipball/e25d44a2d91da9179cd2d7fec952313548597a79",
-                "reference": "e25d44a2d91da9179cd2d7fec952313548597a79",
+                "url": "https://api.github.com/repos/SpartnerNL/Laravel-Excel/zipball/4ef746726f9515784846e4d02f3c0f8f3eae0f29",
+                "reference": "4ef746726f9515784846e4d02f3c0f8f3eae0f29",
                 "shasum": ""
             },
             "require": {
@@ -2779,7 +2779,7 @@
                 "ext-json": "*",
                 "illuminate/support": "5.8.*||^6.0||^7.0||^8.0||^9.0||^10.0||^11.0||^12.0",
                 "php": "^7.0||^8.0",
-                "phpoffice/phpspreadsheet": "^1.29.9",
+                "phpoffice/phpspreadsheet": "^1.29.12",
                 "psr/simple-cache": "^1.0||^2.0||^3.0"
             },
             "require-dev": {
@@ -2787,7 +2787,7 @@
                 "orchestra/testbench": "^6.0||^7.0||^8.0||^9.0||^10.0",
                 "predis/predis": "^1.1"
             },
-            "time": "2025-02-24T11:12:50+00:00",
+            "time": "2025-07-29T15:30:55+00:00",
             "type": "library",
             "extra": {
                 "laravel": {
@@ -2829,7 +2829,7 @@
             ],
             "support": {
                 "issues": "https://github.com/SpartnerNL/Laravel-Excel/issues",
-                "source": "https://github.com/SpartnerNL/Laravel-Excel/tree/3.1.64"
+                "source": "https://github.com/SpartnerNL/Laravel-Excel/tree/3.1.65"
             },
             "funding": [
                 {
