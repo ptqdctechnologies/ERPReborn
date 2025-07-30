@@ -140,8 +140,10 @@ class DocumentTypeMapper
                     'dateUpdate'                => $dataDetail['dateUpdate'] ?? null,
                 ],
                 'components'        => [
-                    'detail'        => 'Components.AdvanceSettlementDocument',
-                    'table'         => 'Components.AdvanceSettlementDocumentTable',
+                    'detail'            => 'Components.AdvanceSettlementDocument',
+                    'headerRevision'    => 'Components.AdvanceSettlementDocumentHeaderRevision',
+                    'revision'          => 'Components.AdvanceSettlementDocumentRevision',
+                    'table'             => 'Components.AdvanceSettlementDocumentTable',
                 ],
                 'textAreaFields'    => [
                     'title'         => 'Remark',
