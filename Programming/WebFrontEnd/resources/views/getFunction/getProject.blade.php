@@ -1,4 +1,4 @@
-@if (request()->is('ReportBusinessTripRequestSummary') ||request()->is('ReportDeliveryOrderSummary') || request()->is('ReportPurchaseOrderSummary') || request()->is('ReportPurchaseRequisitionSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail') || request()->is('ReportAdvanceSettlementSummary') || request()->is('ReportAdvanceSettlementDetail') || request()->is('BusinessTripRequest') || request()->is('AdvanceRequest') || request()->is('ReportAdvanceToASF') || request()->is('ReportBusinessTripToBSF') || request()->is('PurchaseRequisition') || request()->is('ReportMatReturnSummary') || request()->is('ReportPOtoDO') || request()->is('ReportDOToMaterialReceive'))
+@if (request()->is('ReportAccountPayableSummary') || request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportDeliveryOrderSummary') || request()->is('ReportPurchaseOrderSummary') || request()->is('ReportPurchaseRequisitionSummary') || request()->is('ReportBusinessTripRequestDetail') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportBusinessTripSettlementDetail') || request()->is('ReportAdvanceSettlementSummary') || request()->is('ReportAdvanceSettlementDetail') || request()->is('BusinessTripRequest') || request()->is('AdvanceRequest') || request()->is('ReportAdvanceToASF') || request()->is('ReportBusinessTripToBSF') || request()->is('PurchaseRequisition') || request()->is('ReportMatReturnSummary') || request()->is('ReportPOtoDO') || request()->is('ReportDOToMaterialReceive'))
     <div id="myProjectSecond" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -123,7 +123,7 @@
             $("#project_code_second").val(projectCode);
             $("#project_name_second").val(projectName);
 
-            adjustInputSize(document.getElementById("project_code_second"), "string");
+            // adjustInputSize(document.getElementById("project_code_second"), "string");
 
             $('#myProjectSecond').modal('hide');
         });

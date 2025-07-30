@@ -88,7 +88,7 @@
         var code = row.find("td:nth-child(2)").text();
         var name = row.find("td:nth-child(3)").text();
         var address = row.find("td:nth-child(4)").text();
-        
+
         $("#supplier_id").val(sys_id_supplier);
         $("#supplier_code").val(code + ' - ' + name);
         $("#address").val(address);
