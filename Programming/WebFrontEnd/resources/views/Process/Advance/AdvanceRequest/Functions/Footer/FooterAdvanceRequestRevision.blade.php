@@ -346,8 +346,9 @@
                             var price_req = $(`#price_req${key}`).val().replace(/,/g, '');
                             var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
                             var total = parseFloat(balanced) - parseFloat(qty_req || 0);
+                            var validate = findDataDetail && findDataDetail.quantity ? parseFloat((parseFloat(val2.quantityRemaining) + parseFloat(findDataDetail.quantity)).toFixed(2)) : val2.quantityRemaining;
 
-                            if (parseFloat(qty_req) > val2.quantityRemaining) {
+                            if (parseFloat(qty_req) > validate) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
                                 $(`#balanced_qty${key}`).val(currencyTotal(val2.quantityRemaining));
