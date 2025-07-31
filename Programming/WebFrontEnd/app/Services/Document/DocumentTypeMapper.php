@@ -8,77 +8,77 @@ class DocumentTypeMapper
     {
         $mapping = [
             'Advance Form' => [
-                'key' => 'transaction.read.dataList.finance.getAdvanceDetail',
+                'key'       => 'transaction.read.dataList.finance.getAdvanceDetail',
                 'parameter' => ['advance_RefID' => (int) $referenceId]
             ],
             'Advance Settlement Form' => [
-                'key' => 'transaction.read.dataList.finance.getAdvanceSettlementDetail',
+                'key'       => 'transaction.read.dataList.finance.getAdvanceSettlementDetail',
                 'parameter' => ['advanceSettlement_RefID' => (int) $referenceId]
             ],
             'Delivery Order Form' => [
-                'key' => 'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
+                'key'       => 'transaction.read.dataList.supplyChain.getDeliveryOrderDetail',
                 'parameter' => ['deliveryOrder_RefID' => (int) $referenceId],
             ],
             'DO From Internal Use' => [
-                'key' => '',
-                'parameter' => [],
-                'businessDocument_RefID' => (int) 74000000021494,
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
             ],
             'DO From Stock Movement' => [
-                'key' => '',
-                'parameter' => [],
-                'businessDocument_RefID' => (int) 74000000021494,
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
             ],
             'Loan Form' => [
-                'key' => '',
-                'parameter' => [],
-                'businessDocument_RefID' => (int) 74000000021494,
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
             ],
             'Loan Settlement Form' => [
-                'key' => '',
-                'parameter' => [],
-                'businessDocument_RefID' => (int) 74000000021494,
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
             ],
             'Modify Budget Form' => [
-                'key' => '',
-                'parameter' => [],
-                'businessDocument_RefID' => (int) 74000000021494,
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
             ],
             'Person Business Trip Form' => [
-                'key' => '',
-                'parameter' => [],
-                'businessDocument_RefID' => (int) 74000000021494,
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
             ],
             'Person Business Trip Settlement Form' => [
-                'key' => '',
-                'parameter' => [],
-                'businessDocument_RefID' => (int) 74000000021494,
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
             ],
             'Purchase Order Form' => [
-                'key' => 'transaction.read.dataList.supplyChain.getPurchaseOrderDetail',
+                'key'       => 'transaction.read.dataList.supplyChain.getPurchaseOrderDetail',
                 'parameter' => ['purchaseOrder_RefID' => (int) $referenceId],
             ],
             'Purchase Requisition Form' => [
-                'key' => 'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
+                'key'       => 'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
                 'parameter' => ['purchaseRequisition_RefID' => (int) $referenceId],
             ],
             'Reimbursement Form' => [
-                'key' => '',
-                'parameter' => [],
-                'businessDocument_RefID' => (int) 74000000021494,
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
             ],
             'Sallary Allocation Form' => [
-                'key' => '',
-                'parameter' => [],
-                'businessDocument_RefID' => (int) 74000000021494,
+                'key'                       => '',
+                'parameter'                 => [],
+                'businessDocument_RefID'    => (int) 74000000021494,
             ],
             'Timesheet Form' => [
-                'key' => 'transaction.read.dataList.humanResource.getPersonWorkTimeSheetActivity',
-                'parameter' => ['personWorkTimeSheet_RefID' => (int) $referenceId],
-                'businessDocument_RefID' => (int) 74000000021491,
+                'key'                       => 'transaction.read.dataList.humanResource.getPersonWorkTimeSheetActivity',
+                'parameter'                 => ['personWorkTimeSheet_RefID' => (int) $referenceId],
+                'businessDocument_RefID'    => (int) 74000000021491,
             ],
             'Warehouse Inbound Order Form' => [
-                'key' => 'transaction.read.dataList.supplyChain.getWarehouseInboundOrderDetail',
+                'key'       => 'transaction.read.dataList.supplyChain.getWarehouseInboundOrderDetail',
                 'parameter' => ['warehouseInboundOrder_RefID' => (int) $referenceId]
             ],
         ];
@@ -591,8 +591,10 @@ class DocumentTypeMapper
                     'text'          => $dataDetail['remarks'] ?? '-',
                 ],
                 'components'    => [
-                    'detail'    => 'Components.MaterialReceiveDetailDocument',
-                    'table'     => 'Components.MaterialReceiveDetailDocumentTable',
+                    'detail'            => 'Components.MaterialReceiveDetailDocument',
+                    'table'             => 'Components.MaterialReceiveDetailDocumentTable',
+                    'headerRevision'    => 'Components.MaterialReceiveDetailDocumentHeaderRevision',
+                    'revision'          => 'Components.MaterialReceiveDetailDocumentRevision'
                 ],
                 'resubmit'      => [
                     'url'       => 'MaterialReceive.RevisionMaterialReceiveIndex',
