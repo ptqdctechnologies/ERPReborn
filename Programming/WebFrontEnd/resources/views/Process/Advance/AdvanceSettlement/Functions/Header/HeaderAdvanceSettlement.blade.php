@@ -64,7 +64,7 @@
       </div>
 
       <!-- BANK ACCOUNT -->
-      <div class="row" style="margin-bottom: 1rem;">
+      <div class="row">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           Bank Account
         </label>
