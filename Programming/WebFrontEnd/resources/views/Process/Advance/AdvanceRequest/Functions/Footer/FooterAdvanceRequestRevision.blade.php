@@ -37,7 +37,7 @@
             total += value;
         });
 
-        document.getElementById('TotalBudgetSelected').innerText = "0.00";
+        // document.getElementById('TotalBudgetSelected').innerText = "0.00";
         document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
@@ -57,15 +57,17 @@
             type: 'question',
             input: 'textarea',
             showCloseButton: false,
-            showCancelButton: false,
+            showCancelButton: true,
             focusConfirm: false,
             confirmButtonText: '<span style="color:black;"> OK </span>',
-            confirmButtonColor: '#4B586A',
-            confirmButtonColor: '#e9ecef',
+            cancelButtonColor: '#7A7A73',
+            confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
-            ShowLoading();
-            RevisionAdvanceRequest({...formatData, comment: result.value});
+            if ('value' in result) {
+                ShowLoading();
+                RevisionAdvanceRequest({...formatData, comment: result.value});
+            }
         });
     }
 
@@ -447,6 +449,62 @@
         window.location.href = '/AdvanceRequest?var=1';
     }
 
+    function SubmitForm() {
+        $('#advanceRequestRevisionFormModal').modal('hide');
+        
+        var action = $('#FormUpdateAdvance').attr("action");
+        var method = $('#FormUpdateAdvance').attr("method");
+        var form_data = new FormData($('#FormUpdateAdvance')[0]);
+        form_data.append('advanceRequestDetail', JSON.stringify(dataStore));
+
+        ShowLoading();
+
+        $.ajax({
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(response) {
+                HideLoading();
+
+                if (response.message == "WorkflowError") {
+                    $("#submitArf").prop("disabled", false);
+
+                    CancelNotif("You don't have access", '/AdvanceRequest?var=1');
+                } else if (response.message == "MoreThanOne") {
+                    $('#getWorkFlow').modal('toggle');
+
+                    var t = $('#tableGetWorkFlow').DataTable();
+                    t.clear();
+                    $.each(response.data, function(key, val) {
+                        t.row.add([
+                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                        ]).draw();
+                    });
+                } else {
+                    const formatData = {
+                        workFlowPath_RefID: response.workFlowPath_RefID, 
+                        nextApprover: response.nextApprover_RefID, 
+                        approverEntity: response.approverEntity_RefID, 
+                        documentTypeID: response.documentTypeID,
+                        storeData: response.storeData
+                    };
+
+                    SelectWorkFlow(formatData);
+                }
+            },
+            error: function(response) {
+                HideLoading();
+                $("#submitArf").prop("disabled", false);
+                CancelNotif("You don't have access", '/AdvanceRequest?var=1');
+            }
+        });
+    }
+
     $("#budget-details-add").on('click', function() {
         const sourceTable = document.getElementById('tableGetBudgetDetails').getElementsByTagName('tbody')[0];
         const targetTable = document.getElementById('tableAdvanceList').getElementsByTagName('tbody')[0];
@@ -544,10 +602,10 @@
                     });
                 }
 
-                qtyInput.value = '';
-                priceInput.value = '';
-                totalInput.value = '';
-                balanceInput.value = balanceInput.getAttribute('data-default');
+                // qtyInput.value = '';
+                // priceInput.value = '';
+                // totalInput.value = '';
+                // balanceInput.value = balanceInput.getAttribute('data-default');
             }
         }
 
@@ -575,85 +633,6 @@
 
         document.getElementById('GrandTotal').textContent = "0.00";
         calculateTotal();
-    });
-
-    $("#FormUpdateAdvance").on("submit", function(e) {
-        e.preventDefault();
-
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        });
-
-        swalWithBootstrapButtons.fire({
-            title: 'Are you sure?',
-            text: "Save this data?",
-            type: 'question',
-            showCancelButton: true,
-            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
-            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
-            confirmButtonColor: '#e9ecef',
-            cancelButtonColor: '#e9ecef',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                var action = $(this).attr("action");
-                var method = $(this).attr("method");
-                var form_data = new FormData($(this)[0]);
-                form_data.append('advanceRequestDetail', JSON.stringify(dataStore));
-
-                ShowLoading();
-
-                $.ajax({
-                    url: action,
-                    dataType: 'json',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: form_data,
-                    type: method,
-                    success: function(response) {
-                        HideLoading();
-
-                        if (response.message == "WorkflowError") {
-                            $("#submitArf").prop("disabled", false);
-
-                            CancelNotif("You don't have access", '/AdvanceRequest?var=1');
-                        } else if (response.message == "MoreThanOne") {
-                            $('#getWorkFlow').modal('toggle');
-
-                            var t = $('#tableGetWorkFlow').DataTable();
-                            t.clear();
-                            $.each(response.data, function(key, val) {
-                                t.row.add([
-                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                                ]).draw();
-                            });
-                        } else {
-                            const formatData = {
-                                workFlowPath_RefID: response.workFlowPath_RefID, 
-                                nextApprover: response.nextApprover_RefID, 
-                                approverEntity: response.approverEntity_RefID, 
-                                documentTypeID: response.documentTypeID,
-                                storeData: response.storeData
-                            };
-
-                            SelectWorkFlow(formatData);
-                        }
-                    },
-                    error: function(response) {
-                        HideLoading();
-                        $("#submitArf").prop("disabled", false);
-                        CancelNotif("You don't have access", '/AdvanceRequest?var=1');
-                    }
-                });
-            }  else if (result.dismiss === Swal.DismissReason.cancel) {
-                HideLoading();
-                CancelNotif("Data Cancel Inputed", '/AdvanceRequest?var=1');
-            }
-        })
     });
 
     $(document).on('input', '.number-without-negative', function() {
