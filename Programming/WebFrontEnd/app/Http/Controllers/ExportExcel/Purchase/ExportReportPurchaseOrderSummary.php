@@ -28,11 +28,13 @@ class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, 
                 'Qty'                               => $item['quantity'] ?? null,
                 'Unit Price'                        => $item['price'] ?? null,
                 'Uom'                               => $item['UOM'] ?? null,
-                'Total Idr WithVAT'                 => $item['total_Idr_WithVat'] ?? null,
-                'Total Idr WithoutVAT'              => $item['total_Idr_WithoutVat'] ?? null,
-                'Total Other Currency WithVAT'      => $item['total_Other_Currency_WithVat'] ?? null,
+                'Total IDR WithoutVAT'              => $item['total_Idr_WithVat'] ?? null,
+                'Total Vat IDR'                     => $item['total_Vat_IDR'] ?? null,
                 'Total Other Currency WithoutVAT'   => $item['total_Other_Currency_WithoutVat'] ?? null,
-                'Currency'                          => $item['currency'] ?? null,
+                'Total VAT Other Currency'          => $item['total_Vat_Other_Currency'] ?? null,
+                'Total Equivalent Value'            => $item['total_Equivalent_Value'] ?? null,
+                'Total Equivalent Vat'              => $item['total_Equivalent_Vat'] ?? null,
+                // 'Currency'                          => $item['currency'] ?? null,
             ];
         }
 
@@ -45,8 +47,8 @@ class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, 
         return [
             ["Budget", ": " . $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'], "", "", "", "", "", "", ""],
             ["","","","","","","","","","","",""],
-            ["No", "PR Number","Description & Spesification", "Qty", "Unit Price", "Uom", "Total IDR", " ", "Total Other Currency", " ", "Currency"],
-            ["", "", "", "", "","", "With VAT", "Without VAT", "With VAT", "Without VAT", ""],
+            ["No", "PR Number","Description & Spesification", "Qty", "Unit Price", "Uom", "Total IDR", " ", "Total Other Currency", " ","Total Equivalent IDR", " "],
+            ["", "", "", "", "","", "Value", "VAT", "Value", "VAT","Value", "VAT"],
         ];
     }
 
@@ -60,8 +62,8 @@ class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, 
                 // $dataHeader = $data['dataHeader'];
 
                 $sheet->setCellValue('A1', date('F j, Y'))
-                    ->mergeCells('A1:K1')
-                    ->getStyle('A1:K1')
+                    ->mergeCells('A1:L1')
+                    ->getStyle('A1:L1')
                     ->applyFromArray([
                         'font' => [
                             'bold' => true,
@@ -73,8 +75,8 @@ class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, 
                 ]);
 
                 $sheet->setCellValue('A2', 'Purchase Order Summary Report')
-                    ->mergeCells('A2:K2')
-                    ->getStyle('A2:K2')
+                    ->mergeCells('A2:L2')
+                    ->getStyle('A2:L2')
                     ->applyFromArray([
                         'font' => [
                             'bold' => true,
@@ -86,8 +88,8 @@ class ExportReportPurchaseOrderSummary implements FromCollection, WithHeadings, 
                 ]);
 
                 $sheet->setCellValue('A3', date('h:i A'))
-                    ->mergeCells('A3:K3')
-                    ->getStyle('A3:K3')
+                    ->mergeCells('A3:L3')
+                    ->getStyle('A3:L3')
                     ->applyFromArray([
                         'font' => [
                             'bold' => true,

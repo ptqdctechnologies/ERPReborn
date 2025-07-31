@@ -57,14 +57,9 @@
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PO Number</th>
                                                     <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Supplier</th>
-                                                    <!-- <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Product Id</th>
-                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Qty</th>
-                                                    <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Price</th> -->
-                                                    <!-- <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">UOM</th> -->
-                                                    <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Purchase Order</th>
+                                                    <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PO</th>
                                                     <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PO Other Currency</th>
                                                     <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">PO Equivalent IDR</th>
-                                                    <!-- <th rowspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Currency</th> -->
                                                 </tr>
 
                                                 <tr>
@@ -77,36 +72,45 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $counter = 1; ?>
+                                                <?php $counter = 1; 
+                                                    $grandTotal_Idr_WithoutVat= 0; 
+                                                    $grandTotal_Vatidr= 0; 
+                                                    $grandTotal_Other_Currency_WithoutVat= 0;
+                                                    $grandTotal_Vat_othercurrency= 0; 
+                                                    $grandTotal_Equivalent_value=0; 
+                                                    $grandTotal_Equivalent_vat=0; 
+                                                ?>
                                                 <?php foreach ($dataPO as $dataDetail) { ?>
+                                                    <?php $grandTotal_Idr_WithoutVat += $dataDetail['total_Idr_WithoutVat'];?>
+                                                    <?php $grandTotal_Vatidr += $dataDetail['total_Vat_IDR'];?>
+                                                    <?php $grandTotal_Other_Currency_WithoutVat += $dataDetail['total_Other_Currency_WithoutVat'];?>
+                                                    <?php $grandTotal_Vat_othercurrency += $dataDetail['total_Vat_Other_Currency'];?>
+                                                    <?php $grandTotal_Equivalent_value += $dataDetail['total_Idr_WithoutVat'];?>
+                                                    <?php $grandTotal_Equivalent_vat += $dataDetail['total_Idr_WithoutVat'];?>
                                                     <tr>
                                                         <td><?= $counter++; ?></td>
                                                         <td><?= $dataDetail['documentNumber']; ?></td>
                                                         <td>{{ $dataDetail['supplier_Code']}} - {{ $dataDetail['supplier_Name']}}</td>
-                                                        <!-- <td><?= $dataDetail['product_Code']; ?> - <?= $dataDetail['product_Name']; ?></td>
-                                                        <td><?= $dataDetail['quantity']; ?></td>
-                                                        <td><?= $dataDetail['price']; ?></td> -->
-                                                        <!-- <td><?= $dataDetail['UOM']; ?></td> -->
-                                                        <td><?= number_format($dataDetail['total_Idr_WithVat'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['total_Idr_WithoutVat'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['total_Other_Currency_WithVat'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['total_Vat_IDR'], 2, '.', ','); ?></td>
                                                         <td><?= number_format($dataDetail['total_Other_Currency_WithoutVat'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['total_Other_Currency_WithVat'], 2, '.', ','); ?></td>
-                                                        <td><?= number_format($dataDetail['total_Other_Currency_WithoutVat'], 2, '.', ','); ?></td>
-                                                        <!-- <td><?= $dataDetail['currency']; ?></td> -->
+                                                        <td><?= number_format($dataDetail['total_Vat_Other_Currency'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['total_Equivalent_Vat'], 2, '.', ','); ?></td>
+                                                        <td><?= number_format($dataDetail['total_Equivalent_Value'], 2, '.', ','); ?></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <!-- <th colspan="2" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th> -->
-                                                    <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;background-color:#4B586A;"></th>
+                                                    <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
+                                                    
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotal_Idr_WithoutVat, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotal_Vatidr, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotal_Other_Currency_WithoutVat, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotal_Vat_othercurrency, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotal_Equivalent_value, 2, '.', ','); ?></th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format($grandTotal_Equivalent_vat, 2, '.', ','); ?></th>
+                                                    
                                                 </tr>
                                             </tfoot>
                                         </table>

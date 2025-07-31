@@ -25,10 +25,10 @@ class ExportReportDeliveryOrderSummary implements FromCollection, WithHeadings, 
                 'No'                                => $counter++,
                 'DO Number'                         => $item['documentNumber'] ?? null,
                 'Date'                              => date('Y-m-d', strtotime($item['date'])) ?? null,
-                'Type'                              =>  null,
-                'Delivery From'                     =>  null,
-                'Delivery To'                       =>  null,
-                'Transporter'                       =>  null,
+                'Type'                              =>  $item['type'] ?? null,
+                'Delivery From'                     =>  $item['deliveryFrom_NonRefID']['address']?? null,
+                'Delivery To'                       =>  $item['deliveryTo_NonRefID']['address'] ?? null,
+                'Transporter'                       =>  $item['transporter_Code'] ?? null,
             ];
         }
 
