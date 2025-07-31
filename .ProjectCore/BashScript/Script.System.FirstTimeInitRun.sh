@@ -28,6 +28,7 @@ sudo dnf -y install docker-compose;
 ./BashScript/Script.Docker.BuildPermanentStorage.Samba.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.OpenProject.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.Grafana.sh;
+./BashScript/Script.Docker.BuildPermanentStorage.Percona.sh;
 
 ./BashScript/Script.Docker.BuildTemporaryStorage.PostgreSQL.sh;
 ./BashScript/Script.Docker.BuildTemporaryStorage.OpenProject.sh;
@@ -41,8 +42,9 @@ sudo dnf -y install docker-compose;
 ./BashScript/Script.Docker.BuildImage.MinIO.sh;
 ./BashScript/Script.Docker.BuildImage.PHPApacheBackEnd.sh;
 ./BashScript/Script.Docker.BuildImage.PHPApacheFrontEnd.sh;
-./BashScript/Script.Docker.BuildImage.Grafana.sh;
 ./BashScript/Script.Docker.BuildImage.PGAdmin4.sh;
 ./BashScript/Script.Docker.BuildImage.OpenProject.sh;
+./BashScript/Script.Docker.BuildImage.Grafana.sh;
+./BashScript/Script.Docker.BuildImage.Percona.sh;
 
 ./BashScript/Script.Docker.Start.sh;
