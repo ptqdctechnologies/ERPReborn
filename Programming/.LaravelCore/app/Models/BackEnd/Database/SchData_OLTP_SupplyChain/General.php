@@ -4223,7 +4223,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getReport_Form_DocumentForm_PurchaseRequisitionSummary                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-07-16                                                                                           |
+        | ▪ Last Update     : 2025-07-31                                                                                           |
         | ▪ Creation Date   : 2025-04-30                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Permintaan Pembelian (Purchase Requisition)                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4254,6 +4254,41 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );
+                $resultArray = $varReturn['data'];
+                $listDocumentNumber = [];
+                $listTotalIDR = [];
+                foreach ($resultArray as $value) {
+                    if (in_array($value["DocumentNumber"], $listDocumentNumber)) {
+                        $listTotalIDR[$value["DocumentNumber"]]["Total_IDR"] = $listTotalIDR[$value["DocumentNumber"]]["Total_IDR"] + $value["Total_IDR"];
+                        $listTotalIDR[$value["DocumentNumber"]]["Total_Other_Currency"] = $listTotalIDR[$value["DocumentNumber"]]["Total_Other_Currency"] + $value["Total_Other_Currency"];
+                    } else {
+                        array_push($listDocumentNumber, $value["DocumentNumber"]);
+                        $listTotalIDR[$value["DocumentNumber"]]["Total_IDR"] = $value["Total_IDR"];
+                        $listTotalIDR[$value["DocumentNumber"]]["Total_Other_Currency"] = $value["Total_Other_Currency"];
+                    }
+                }
+
+                // Generate API.
+                $varReturn['data'] = [];
+                $idxArray = 0;
+                foreach ($resultArray as $value) {
+                    $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID"];
+                    $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode"];
+                    $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName"];
+                    $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
+                    $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode"];
+                    $varReturn['data'][$idxArray]['documentNumber'] = $value["DocumentNumber"];
+                    $varReturn['data'][$idxArray]['date'] = $value["Date"];
+                    $varReturn['data'][$idxArray]['dateOfDelivery'] = $value["DateOfDelivery"];
+                    $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = $value["DeliveryTo_NonRefID"];
+                    $varReturn['data'][$idxArray]['total_IDR'] = array_key_exists($value["DocumentNumber"], $listTotalIDR) ? $listTotalIDR[$value["DocumentNumber"]]["Total_IDR"] : 0;
+                    $varReturn['data'][$idxArray]['total_Other_Currency'] = array_key_exists($value["DocumentNumber"], $listTotalIDR) ? $listTotalIDR[$value["DocumentNumber"]]["Total_Other_Currency"] : 0;
+                    $varReturn['data'][$idxArray]['grand_Total_IDR'] = $value["Grand_Total_IDR"];
+                    $varReturn['data'][$idxArray]['grand_Total_Other_Currency'] = $value["Grand_Total_Other_Currency"];
+                    $varReturn['data'][$idxArray]['grand_Total_All'] = $value["Grand_Total_All"];
+                    $varReturn['data'][$idxArray]['grand_Total_Equivalent_IDR'] = $value["Grand_Total_Equivalent_IDR"];
+                    $idxArray++;
+                }
                 return $varReturn;
                 }
             catch (\Exception $ex) {
