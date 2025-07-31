@@ -16,12 +16,14 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Trano</th>
+                                            <th>Budget Code</th>
+                                            <th>Budget Name</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
                                         <tr class="loadingGetModalAdvanceSettlement">
-                                            <td colspan="2" class="p-0" style="height: 22rem;">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
@@ -33,7 +35,7 @@
                                             </td>
                                         </tr>
                                         <tr class="errorModalAdvanceSettlementMessageContainerSecond">
-                                            <td colspan="2" class="p-0" style="height: 22rem;">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div id="errorModalAdvanceSettlementMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
@@ -81,6 +83,8 @@
                         table.row.add([
                             '<input id="sys_id_modal_advance_settlement' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_advance_settlement" type="hidden">' + no++,
                             val.sys_Text || '-',
+                            '-',
+                            '-',
                         ]).draw();
                     });
 

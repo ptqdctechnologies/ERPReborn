@@ -18,14 +18,14 @@
                                             <th>Trano</th>
                                             <th>Budget Code</th>
                                             <th>Budget Name</th>
-                                            <th>Sub Budget Code</th>
-                                            <th>Sub Budget Name</th>
+                                            {{-- <th>Sub Budget Code</th>
+                                            <th>Sub Budget Name</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
                                         <tr class="loadingGetModalMaterialReceive">
-                                            <td colspan="6" class="p-0" style="height: 22rem;">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
@@ -37,7 +37,7 @@
                                             </td>
                                         </tr>
                                         <tr class="errorModalMaterialReceiveMessageContainerSecond">
-                                            <td colspan="6" class="p-0" style="height: 22rem;">
+                                            <td colspan="4" class="p-0" style="height: 22rem;">
                                                 <div class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div id="errorModalMaterialReceiveMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
@@ -87,8 +87,8 @@
                             val.documentNumber || '-',
                             val.combinedBudgetCode || '-',
                             val.combinedBudgetName || '-',
-                            val.combinedBudgetSectionCode || '-',
-                            val.combinedBudgetSectionName || '-',
+                            // val.combinedBudgetSectionCode || '-',
+                            // val.combinedBudgetSectionName || '-',
                         ]).draw();
                     });
 

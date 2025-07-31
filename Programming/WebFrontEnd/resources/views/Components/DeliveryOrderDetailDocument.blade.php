@@ -166,23 +166,24 @@
             <!-- EXPORT -->
             <div class="row">
                 <div class="col-4 col-sm-4 col-md-4 col-lg-5 text-bold">
-                    Export
+                    Export to PDF
                 </div>
                 <form method="POST" action="{{ route('CheckDocument.Export') }}">
                 @csrf
                     <input type="hidden" name="transaction_RefID" id="transaction_RefID" value="<?= $transactionDetail_RefID; ?>">
                     <input type="hidden" name="transactionType" id="transactionType" value="<?= $transactionType; ?>">
+                    <input type="hidden" name="print_type" id="print_type" value="PDF">
 
                     <div class="col d-flex" style="gap: .2rem;">
                         <div>
                             :
                         </div>
-                        <div>
+                        {{-- <div>
                             <select name="print_type" id="print_type" class="form-control" style="width: max-content;">
                                 <option value="PDF">PDF</option>
-                                {{-- <option value="Excel">Excel</option> --}}
+                                <option value="Excel">Excel</option>
                             </select>
-                        </div>
+                        </div> --}}
                         <div style="margin-left: .3rem;">
                             <button class="btn btn-default btn-sm" type="submit">
                                 <span>
@@ -221,23 +222,24 @@
             <!-- EXPORT -->
             <div class="row">
                 <div class="col-4 col-sm-4 col-md-4 col-lg-4 text-bold">
-                    Export
+                    Export to PDF
                 </div>
                 <form method="POST" action="{{ route('CheckDocument.Export') }}">
                 @csrf
                     <input type="hidden" name="transaction_RefID" id="transaction_RefID" value="<?= $transactionDetail_RefID; ?>">
                     <input type="hidden" name="transactionType" id="transactionType" value="<?= $transactionType; ?>">
+                    <input type="hidden" name="print_type" id="print_type" value="PDF">
 
                     <div class="col d-flex" style="gap: .2rem;">
                         <div>
                             :
                         </div>
-                        <div>
+                        {{-- <div>
                             <select name="print_type" id="print_type" class="form-control" style="width: max-content;">
                                 <option value="PDF">PDF</option>
-                                {{-- <option value="Excel">Excel</option> --}}
+                                <option value="Excel">Excel</option>
                             </select>
-                        </div>
+                        </div> --}}
                         <div style="margin-left: .3rem;">
                             <button class="btn btn-default btn-sm" type="submit">
                                 <span>
