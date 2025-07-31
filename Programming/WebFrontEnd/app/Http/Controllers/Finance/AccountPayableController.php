@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Finance;
 
+use App\Http\Controllers\ExportExcel\Finance\ExportReportAccountPayableSummary;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Finance\AccountPayableService;
 use Illuminate\Support\Facades\Session;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Log;
 
 class AccountPayableController extends Controller
@@ -56,9 +58,7 @@ class AccountPayableController extends Controller
                 'address'   => $request->supplier_address,
             ];
 
-            $date           = $request->input('date');
-
-            // dd($project, $site, $supplier, $date);
+            $date = $request->input('date');
 
             if (!$project['id']) {
                 Session::forget("isButtonReportAccountPayableSummary");
@@ -95,14 +95,14 @@ class AccountPayableController extends Controller
                 $dom_pdf = $pdf->getDomPDF();
 
                 $canvas = $dom_pdf ->get_canvas();
-                $width = $canvas->get_width();
+                $width  = $canvas->get_width();
                 $height = $canvas->get_height();
                 $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                 $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
                 return $pdf->download('Account Payable Summary.pdf');
             } else {
-
+                return Excel::download(new ExportReportAccountPayableSummary, 'Account Payable Summary.xlsx');
             }
         } catch (\Throwable $th) {
             Log::error("Print Export Account Payable Function Error: " . $th->getMessage());

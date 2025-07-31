@@ -169,6 +169,9 @@ class AccountPayableService
         ];
 
         $filtered = [];
+        $totalIDR = 0;
+        $totalOtherCurrency = 0;
+        $totalEquivalentIDR = 0;
         foreach ($dummyData as $data) {
             $dueDate = Carbon::parse($data['date']);
 
@@ -178,13 +181,17 @@ class AccountPayableService
             }
 
             // Validasi opsional
-            $isSiteMatch = isset($site['id']) ? $data['site_id'] == $site['id'] : true;
-            $isSupplierMatch = isset($supplier['id']) ? $data['supplier_id'] == $supplier['id'] : true;
-            $isDateInRange = !empty($date) ? $dueDate->between($startDate, $endDate) : true;
+            $isSiteMatch        = isset($site['id']) ? $data['site_id'] == $site['id'] : true;
+            $isSupplierMatch    = isset($supplier['id']) ? $data['supplier_id'] == $supplier['id'] : true;
+            $isDateInRange      = !empty($date) ? $dueDate->between($startDate, $endDate) : true;
 
             if ($isSiteMatch && $isSupplierMatch && $isDateInRange) {
                 $filtered[] = $data;
             }
+
+            $totalIDR += $data['total_idr'];
+            $totalOtherCurrency += $data['total_other_currency'];
+            $totalEquivalentIDR += $data['total_equivalent_idr'];
         }
 
         // if (empty($filtered)) {
@@ -192,11 +199,14 @@ class AccountPayableService
         // }
 
         $compact = [
-            'project'   => $project,
-            'site'      => $site,
-            'supplier' => $supplier,
-            'date'      => $date,
-            'data'      => $filtered
+            'project'               => $project,
+            'site'                  => $site,
+            'supplier'              => $supplier,
+            'date'                  => $date,
+            'totalIDR'              => $totalIDR,
+            'totalOtherCurrency'    => $totalOtherCurrency,
+            'totalEquivalentIDR'    => $totalEquivalentIDR,
+            'data'                  => $filtered
         ];
 
         return $compact;

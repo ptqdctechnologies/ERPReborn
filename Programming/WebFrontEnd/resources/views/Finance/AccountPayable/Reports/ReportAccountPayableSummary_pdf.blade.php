@@ -228,6 +228,23 @@
                         </td>
                     </tr>
                 <?php } ?>
+
+                <tr style="border-top: 1px solid black;">
+                    <td style="height: 20px; text-align: left;" colspan="5">
+                        <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL</div>
+                    </td>
+                    <td style="height: 20px; text-align: left;">
+                        <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalIDR'], 2); ?></div>
+                    </td>
+                    <td style="height: 20px; text-align: left;">
+                        <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalOtherCurrency'], 2); ?></div>
+                    </td>
+                    <td style="height: 20px; text-align: left;">
+                        <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($dataReport['totalEquivalentIDR'], 2); ?></div>
+                    </td>
+                    <td style="height: 20px; text-align: left;" colspan="3">
+                    </td>
+                </tr>
             </table>
         </div>
     </body>
