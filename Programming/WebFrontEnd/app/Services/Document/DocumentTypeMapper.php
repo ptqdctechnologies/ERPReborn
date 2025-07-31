@@ -489,8 +489,10 @@ class DocumentTypeMapper
                     'text'          => $dataDetail['remarks'] ?? '-',
                 ],
                 'components'    => [
-                    'detail'    => 'Components.PurchaseRequisitionDetailDocument',
-                    'table'     => 'Components.PurchaseRequisitionDetailDocumentTable',
+                    'detail'            => 'Components.PurchaseRequisitionDetailDocument',
+                    'table'             => 'Components.PurchaseRequisitionDetailDocumentTable',
+                    'headerRevision'    => 'Components.PurchaseRequisitionDetailDocumentHeaderRevision',
+                    'revision'          => 'Components.PurchaseRequisitionDetailDocumentRevision'
                 ],
                 'resubmit'      => [
                     'url'       => 'PurchaseRequisition.RevisionPurchaseRequest',
