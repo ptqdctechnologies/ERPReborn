@@ -118,7 +118,7 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
    pgadmin4 | http://localhost:15050 | pgadmin4 | http://172.28.0.100:5050
    openproject | http://localhost:30080 | openproject | http://172.28.0.102
    grafana | http://localhost:13000 | grafana | http://172.28.0.110:3000
-   percona | http://localhost:40443 | percona | http://172.28.0.111:8443
+   percona | http://localhost:40080<br />https://localhost:40443 | percona | http://172.28.0.111:8080<br />https://172.28.0.111:8443
 
 6. Untuk mematikan docker-composer tekan **[Ctrl+C]**
 
