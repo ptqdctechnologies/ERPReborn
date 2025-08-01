@@ -2759,12 +2759,19 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             )
                         );
 
-                return [
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_DocForm_PersonBusinessTrip'])
-                    ];
+                        $varReturn['data'][0]['Func_GetReport_DocForm_PersonBusinessTrip']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
                 }
+
             catch (\Exception $ex) {
                 return [];
                 }

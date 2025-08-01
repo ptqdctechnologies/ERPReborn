@@ -87,7 +87,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     //-----[ DATA ]---------(  END  )-----
                     );
 
-            var_dump($varData);
+            return
+                $varData;
             }
 
 

@@ -30,22 +30,31 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
             {
             //---Parameter Set---
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
+
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.humanResource.getPersonBusinessTrip', 
-                'latest',
-                [
-                'parameter' => [
-                    'recordID' => 78000000000010
-                    ]
-                ]
-                );
-            //dd($varData);
-            var_dump($varData);
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'report.form.documentForm.humanResource.getPersonBusinessTrip', 
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]---------( START )-----
+                        [
+                        'parameter' => [
+                            'recordID' => 78000000000010
+                            ]
+                        ]
+                    //-----[ DATA ]---------(  END  )-----
+                    );
+
+            return
+                $varData;
             }
         }
     }
