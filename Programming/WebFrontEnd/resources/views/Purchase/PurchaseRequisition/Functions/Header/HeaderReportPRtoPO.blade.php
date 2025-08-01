@@ -26,7 +26,7 @@
               </table>
             </div>
           </div>
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <div class="form-group">
               <table>
                 <tr>
@@ -47,7 +47,7 @@
                 </tr>
               </table>
             </div>
-          </div>
+          </div> -->
           <div class="col-md-3">
             <div class="form-group">
               <table>

@@ -368,6 +368,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportCreditNoteSummaryStore', 'Process\CreditNote\CreditNoteController@ReportCreditNoteSummaryStore')->name('CreditNote.ReportCreditNoteSummaryStore');
     Route::post('PrintExportReportCreditNoteSummary', 'Process\CreditNote\CreditNoteController@PrintExportReportCreditNoteSummary')->name('CreditNote.PrintExportReportCreditNoteSummary');
     
+    Route::get('ReportCNtoDN', 'Process\CreditNote\CreditNoteController@ReportCNtoDN')->name('CreditNote.ReportCNtoDN');
+    Route::post('ReportCNtoDNStore', 'Process\CreditNote\CreditNoteController@ReportCNtoDNStore')->name('CreditNote.ReportCNtoDNStore');
+    Route::post('PrintExportReportCNtoDN', 'Process\CreditNote\CreditNoteController@PrintExportReportCNtoDN')->name('CreditNote.PrintExportReportCNtoDN');
+    
     Route::get('ReportCreditNoteDetail', 'Process\CreditNote\CreditNoteController@ReportCreditNoteDetail')->name('CreditNote.ReportCreditNoteDetail');
     Route::post('ReportCreditNoteDetailStore', 'Process\CreditNote\CreditNoteController@ReportCreditNoteDetailStore')->name('CreditNote.ReportCreditNoteDetailStore');
     Route::post('PrintExportReportCreditNoteDetail', 'Process\CreditNote\CreditNoteController@PrintExportReportCreditNoteDetail')->name('CreditNote.PrintExportReportCreditNoteDetail');
