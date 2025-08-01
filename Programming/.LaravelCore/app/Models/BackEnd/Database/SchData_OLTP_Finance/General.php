@@ -3761,8 +3761,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReport_Form_DocumentForm_Advance                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-06-15                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-08-01                                                                                           |
         | ▪ Creation Date   : 2022-06-15                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Uang Muka (Advance)                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -3792,12 +3792,17 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             )
                         );
 
-                return [
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_DocForm_Advance'])
-                    ]
-                    ;
+                        $varReturn['data'][0]['Func_GetReport_DocForm_Advance']
+                        );
+
+                $varReturn['rowCount'] =
+                    count($varReturn['data']);
+
+                return
+                    $varReturn;
                 }
             catch (\Exception $ex) {
                 return [];

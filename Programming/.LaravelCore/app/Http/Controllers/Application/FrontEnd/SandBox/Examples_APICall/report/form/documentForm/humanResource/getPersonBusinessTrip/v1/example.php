@@ -8,7 +8,7 @@
 | ▪ API Key     : report.form.documentForm.humanResource.getPersonBusinessTrip                                                     |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2023 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\humanResource\getPersonBusinessTrip\v1
@@ -21,8 +21,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/                                                                                 |
         |                       report.form.documentForm.humanResource.getPersonBusinessTrip.v1_throughAPIGateway                  |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-09-18                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2025-07-31                                                                                           |
         | ▪ Creation Date   : 2023-09-18                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
