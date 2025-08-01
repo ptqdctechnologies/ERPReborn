@@ -74,9 +74,10 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
       redis | latest
       nowsci/samba-domain | latest
       minio/minio | latest
-      grafana/grafana | latest
       dpage/pgadmin4 | latest
       openproject/community | 12
+      grafana/grafana | latest
+      percona/pmm-server | latest
    4. Rebuild Customized Images Docker yang terdiri atas :
       **Customized Image** | **Source Image**
       :--- | :---
@@ -87,8 +88,10 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
       erp-reborn-minio | minio/minio:latest
       erp-reborn-devtools-pgadmin4 | dpage/pgadmin4:latest
       erp-reborn-devtools-openproject | openproject/community:12
-   5. Rebuild Network Docker yang berupa **erpreborn_app-network** (mode bridge)
-   6. Menjalankankan grup container Docker melalui docker-compose dengan memanggil images :
+      erp-reborn-monitoring-grafana | grafana/grafana:latest
+      erp-reborn-monitoring-percona | percona/pmm-server:latest
+   6. Rebuild Network Docker yang berupa **erpreborn_app-network** (mode bridge)
+   7. Menjalankankan grup container Docker melalui docker-compose dengan memanggil images :
       **Containers** | **Docker's IP** | **Image**
       :--- | :--- | :---
       postgresql | 172.28.0.2 | erp-reborn-postgresql
@@ -96,10 +99,11 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
       php-apache-frontend | 172.28.0.4 | erp-reborn-phpapache-frontend
       redis | 172.28.0.5 | redis
       samba | 172.28.0.7 | erp-reborn-samba
-      grafana | 172.28.0.8 | grafana
       minio-node1<br />minio-node2<br />minio-node3<br />minio-node4 | 172.28.0.9<br />172.28.0.7.10<br />172.28.0.7.11<br />172.28.0.7.12 | erp-reborn-minio
       pgadmin4 | 172.28.0.100 | erp-reborn-devtools-pgadmin4
       openproject | 172.28.0.102 | erp-reborn-devtools-openproject
+      grafana | 172.28.0.110 | erp-reborn-monitoring-grafana
+      percona | 172.28.0.111 | erp-reborn-monitoring-percona
 
 5. Setelah seluruh container terbentuk maka akan berjalan service didalam docker berupa :
    **Service** | **Local Host & Port** | **Container** | **NAT From**
@@ -111,9 +115,10 @@ Referensi (12 Agustus 2024) : https://docs.docker.com/engine/install/fedora/
    redis | http://localhost:16379 | redis | http://172.28.0.5:6379
    samba | http://localhost:10137<br />http://localhost:10138<br />http://localhost:10139<br />http://localhost:10445 | samba | http://172.28.0.7:137<br />http://172.28.0.7:138<br />http://172.28.0.7:139<br />http://172.28.0.7:445
    minio | http://localhost:19000<br />http://localhost:29000<br />http://localhost:39000<br />http://localhost:49000 | minio-node1<br />minio-node2<br />minio-node3<br />minio-node4 | http://172.28.0.9:9000<br />http://172.28.0.10:9000<br />http://172.28.0.11:9000<br />http://172.28.0.12:9000
-   grafana | http://localhost:13000 | grafana | http://172.28.0.8:3000
    pgadmin4 | http://localhost:15050 | pgadmin4 | http://172.28.0.100:5050
    openproject | http://localhost:30080 | openproject | http://172.28.0.102
+   grafana | http://localhost:13000 | grafana | http://172.28.0.110:3000
+   percona | http://localhost:40443 | percona | http://172.28.0.111:8443
 
 6. Untuk mematikan docker-composer tekan **[Ctrl+C]**
 
