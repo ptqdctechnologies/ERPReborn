@@ -2837,6 +2837,8 @@ return array(
     'Aws\\ACMPCA\\Exception\\ACMPCAException' => $vendorDir . '/aws/aws-sdk-php/src/ACMPCA/Exception/ACMPCAException.php',
     'Aws\\AIOps\\AIOpsClient' => $vendorDir . '/aws/aws-sdk-php/src/AIOps/AIOpsClient.php',
     'Aws\\AIOps\\Exception\\AIOpsException' => $vendorDir . '/aws/aws-sdk-php/src/AIOps/Exception/AIOpsException.php',
+    'Aws\\ARCRegionSwitch\\ARCRegionSwitchClient' => $vendorDir . '/aws/aws-sdk-php/src/ARCRegionSwitch/ARCRegionSwitchClient.php',
+    'Aws\\ARCRegionSwitch\\Exception\\ARCRegionSwitchException' => $vendorDir . '/aws/aws-sdk-php/src/ARCRegionSwitch/Exception/ARCRegionSwitchException.php',
     'Aws\\ARCZonalShift\\ARCZonalShiftClient' => $vendorDir . '/aws/aws-sdk-php/src/ARCZonalShift/ARCZonalShiftClient.php',
     'Aws\\ARCZonalShift\\Exception\\ARCZonalShiftException' => $vendorDir . '/aws/aws-sdk-php/src/ARCZonalShift/Exception/ARCZonalShiftException.php',
     'Aws\\AbstractConfigurationProvider' => $vendorDir . '/aws/aws-sdk-php/src/AbstractConfigurationProvider.php',
