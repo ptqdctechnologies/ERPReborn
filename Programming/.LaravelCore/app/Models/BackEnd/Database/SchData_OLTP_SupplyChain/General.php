@@ -3392,19 +3392,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );
-                $resultArray = $varReturn['data'];
-                $varReturn['data'] = [];
-                $varReturn['totalRecords'] = $resultArray[0]['TotalRecords'];
-                $idxArray = 0;
-                foreach ($resultArray as $key => $value) {
-                    $varReturn['data'][$idxArray]['sys_ID'] = $value["Sys_ID"];
-                    $varReturn['data'][$idxArray]['sys_Text'] = $value["Sys_Text"];
-                    $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID"];
-                    $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode"];
-                    $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName"];
-                    $varReturn['data'][$idxArray]['orderSequence'] = $value["OrderSequence"];
-                    $idxArray++;
-                }
+                $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
 
                 return
                     $varReturn;
