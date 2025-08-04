@@ -1,5 +1,5 @@
-<div class="wrapper-budget card-body table-responsive p-0 table-height">
-    <table class="table table-striped table-hover table-sticky table-sm">
+<div class="wrapper-budget card-body table-responsive p-0 table-height" style="max-height: 230px;">
+    <table class="table table-head-fixed table-striped table-hover table-sticky table-sm">
         <thead>
             <tr>
                 @if(sizeof($dataHeaderTransactionHistory))

@@ -220,6 +220,23 @@
   </section>
 </div>
 
+<div class="modal fade" id="purchaseRequestFormModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="margin: 0px;font-weight:bold;">Are you sure you want to save this data?</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="wrapper-budget card-body table-responsive p-0" style="max-height:230px;">
+          <table class="table table-head-fixed text-nowrap table-sm" id="tablePurchaseRequisitionList">
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 @include('Partials.footer')
 @include('Purchase.PurchaseRequisition.Functions.Footer.FooterPurchaseRequisition')
 @endsection

@@ -43,7 +43,7 @@
             @if(sizeof($dataDetailGetTransactionHistory))
                 @for($i = count($dataDetailGetTransactionHistory) - 1; $i >= 0; $i--)
                     <?php $quantity = $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['quantity']; $price = $dataDetailGetTransactionHistory[$i][count($dataDetailGetTransactionHistory[$i]) - 1]['content']['productUnitPriceCurrencyValue']; ?>
-                    <tr>
+                    <tr style="height: 40px;">
                         <td style="padding: 8px;width: 125px;min-width: 125px;max-width: 125px;position: sticky;background-color: white;left: 0px;z-index: 10;">-</td>
                         <td style="padding: 8px;width: 125px;min-width: 125px;max-width: 125px;position: sticky;background-color: white;left: 125px;z-index: 10;">-</td>
                         <td style="padding: 8px;width: 125px;min-width: 125px;max-width: 125px;position: sticky;background-color: white;left: 250px;z-index: 10;">-</td>

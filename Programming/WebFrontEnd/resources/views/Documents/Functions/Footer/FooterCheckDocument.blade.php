@@ -126,7 +126,7 @@
         });
     }
 
-    $('#TableCheckDocument').on('click', 'tbody tr', function() {
+    $('#TableCheckDocument').on('click', 'tbody tr', async function() {
         var sysId               = $(this).find('input[data-trigger="sys_id_check_document"]').val();
         var docTypeName         = $(this).find('input[data-trigger="sys_document_type_name"]').val();
         var trano               = $(this).find('td:nth-child(2)').text();

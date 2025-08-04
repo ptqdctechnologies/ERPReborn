@@ -13,10 +13,10 @@
         <th rowspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle; padding-right: 0px;background-color: #4B586A;color:white;">Balance</th>
       </tr>
       <tr>
-        <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color: #4B586A;color:white;">
+        <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color: #4B586A;color:white;border-bottom: 1px solid #dee2e6;">
           Expense Claim
         </th>
-        <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color: #4B586A;color:white;">
+        <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; vertical-align: middle;background-color: #4B586A;color:white;border-bottom: 1px solid #dee2e6;">
           Amount To The Company
         </th>
       </tr>

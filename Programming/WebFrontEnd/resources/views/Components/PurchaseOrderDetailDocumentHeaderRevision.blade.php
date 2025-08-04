@@ -42,7 +42,7 @@
             @endif
         </thead>
         <tbody>
-            <tr>
+            <tr style="height: 40px;">
                 @if(sizeof($dataHeaderTransactionHistory))
                     @for($i = count($dataHeaderTransactionHistory) - 1; $i >= 0; $i--)
                         @if ($i === count($dataHeaderTransactionHistory) - 1)
