@@ -3507,6 +3507,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\ACMPCA\\Exception\\ACMPCAException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ACMPCA/Exception/ACMPCAException.php',
         'Aws\\AIOps\\AIOpsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AIOps/AIOpsClient.php',
         'Aws\\AIOps\\Exception\\AIOpsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AIOps/Exception/AIOpsException.php',
+        'Aws\\ARCRegionSwitch\\ARCRegionSwitchClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ARCRegionSwitch/ARCRegionSwitchClient.php',
+        'Aws\\ARCRegionSwitch\\Exception\\ARCRegionSwitchException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ARCRegionSwitch/Exception/ARCRegionSwitchException.php',
         'Aws\\ARCZonalShift\\ARCZonalShiftClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ARCZonalShift/ARCZonalShiftClient.php',
         'Aws\\ARCZonalShift\\Exception\\ARCZonalShiftException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ARCZonalShift/Exception/ARCZonalShiftException.php',
         'Aws\\AbstractConfigurationProvider' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AbstractConfigurationProvider.php',
