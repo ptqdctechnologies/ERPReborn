@@ -108,47 +108,48 @@
                                                     <?php if ($isNewPR): ?>
                                                         @if (!in_array($dataDetail['PR_Number'], $renderedPRs))
                                                             <td rowspan="{{ $prRowspans[$dataDetail['PR_Number']] }}">{{ $dataDetail['PR_Number'] }}</td>
+                                                            <td rowspan="{{ $prRowspans[$dataDetail['PR_Number']] }}">{{ date('d-m-Y', strtotime($dataDetail['PR_Date'])) }}</td>
                                                             @php $renderedPRs[] = $dataDetail['PR_Number']; @endphp
                                                         @endif
-                                                        <td>{{ date('d-m-Y', strtotime($dataDetail['PR_Date'])) }}</td>
                                                         <td>{{ $dataDetail['product_Code'] }} - {{ $dataDetail['product_Name'] }}</td>
                                                         <td>{{ number_format($dataDetail['PR_Total'], 2, '.', ',') }}</td>
                                                         <td><?= number_format(0, 2, '.', ',') ?></td>
                                                         <td><?= number_format(0, 2, '.', ',') ?></td>
-                                                        <td>{{ $dataDetail['PO_Number'] }}</td>
+                                                        <td>{{ $dataDetail['PO_Number'] ?: '-' }}</td>
                                                         <!-- @if (!in_array($row['PO_Number'], $renderedPOs))
                                                             <td rowspan="{{ $poRowspans[$dataDetail['PO_Number']] }}">{{ $dataDetail['PO_Number'] }}</td>
                                                             @php $renderedPOs[] = $dataDetail['PO_Number']; @endphp
                                                         @endif -->
-                                                        <td>{{ date('d-m-Y', strtotime($dataDetail['PO_Date'])) }}</td>
-                                                        <td>{{ number_format($dataDetail['PO_Qty'], 2, '.', ',') }}</td>
-                                                        <td>{{ number_format($dataDetail['PO_Total'], 2, '.', ',') }}</td>
-                                                        <td><?= number_format(0, 2, '.', ',') ?></td>
-                                                        <td><?= number_format(0, 2, '.', ',') ?></td>
+                                                        <td>{{ $dataDetail['PO_Date'] ? date('d-m-Y', strtotime($dataDetail['PO_Date'])) : '-' }}</td>
+                                                        <td>{{ $dataDetail['PO_Qty'] ? number_format($dataDetail['PO_Qty'], 2, '.', ',') : '-' }}</td>
+                                                        <td>{{ $dataDetail['PO_Total'] ? number_format($dataDetail['PO_Total'], 2, '.', ',') : '-' }}</td>
+                                                        <td>{{ $dataDetail['PO_Total'] ? number_format($dataDetail['PO_Total'], 2, '.', ',') : '-' }}</td>
+                                                        <td>{{ $dataDetail['PO_Total'] ? number_format($dataDetail['PO_Total'], 2, '.', ',') : '-' }}</td>
+
                                                         <td>{{$dataDetail['balance']}}</td>
                                                         
                                                     <?php else: ?>
                                                         @if (!in_array($dataDetail['PR_Number'], $renderedPRs))
                                                             <td rowspan="{{ $prRowspans[$dataDetail['PR_Number']] }}">{{ $dataDetail['PR_Number'] }}</td>
+                                                            <td rowspan="{{ $prRowspans[$dataDetail['PR_Number']] }}">{{ date('d-m-Y', strtotime($dataDetail['PR_Date'])) }}</td>
                                                             @php $renderedPRs[] = $dataDetail['PR_Number']; @endphp
                                                         @endif
-                                                        <td>{{ date('d-m-Y', strtotime($dataDetail['PR_Date'])) }}</td>
                                                         <td>{{ $dataDetail['product_Code'] }} - {{ $dataDetail['product_Name'] }}</td>
                                                         <td>{{ number_format($dataDetail['PR_Total'], 2, '.', ',') }}</td>
                                                         <td><?= number_format(0, 2, '.', ',') ?></td>
                                                         <td><?= number_format(0, 2, '.', ',') ?></td>
-                                                        <td>{{ $dataDetail['PO_Number'] }}</td>
+                                                        <td>{{ $dataDetail['PO_Number'] ?: '-' }}</td>
                                                         <!-- @if (!in_array($row['PO_Number'], $renderedPOs))
                                                             <td rowspan="{{ $poRowspans[$dataDetail['PO_Number']] }}">{{ $dataDetail['PO_Number'] }}</td>
                                                             @php $renderedPOs[] = $dataDetail['PO_Number']; @endphp
                                                         @endif -->
-                                                        <td>{{ date('d-m-Y', strtotime($dataDetail['PO_Date'])) }}</td>
-                                                        <td>{{ number_format($dataDetail['PO_Qty'], 2, '.', ',') }}</td>
-                                                        <td>{{ number_format($dataDetail['PO_Total'], 2, '.', ',') }}</td>
-                                                        <td><?= number_format(0, 2, '.', ',') ?></td>
-                                                        <td><?= number_format(0, 2, '.', ',') ?></td>
+                                                        <td>{{ $dataDetail['PO_Date'] ? date('d-m-Y', strtotime($dataDetail['PO_Date'])) : '-' }}</td>
+                                                        <td>{{ $dataDetail['PO_Qty'] ? number_format($dataDetail['PO_Qty'], 2, '.', ',') : '-' }}</td>
+                                                        <td>{{ $dataDetail['PO_Total'] ? number_format($dataDetail['PO_Total'], 2, '.', ',') : '-' }}</td>
+                                                        <td>{{ $dataDetail['PO_Total'] ? number_format($dataDetail['PO_Total'], 2, '.', ',') : '-' }}</td>
+                                                        <td>{{ $dataDetail['PO_Total'] ? number_format($dataDetail['PO_Total'], 2, '.', ',') : '-' }}</td>
+
                                                         <td>{{$dataDetail['balance']}}</td>
-                                                        <td></td>
                                                     <?php endif; ?>
                                                     
                                                     

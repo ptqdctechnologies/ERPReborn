@@ -23,7 +23,7 @@
     </div>
 
     <!-- SUB BUDGET -->
-    <div class="row p-0 align-items-center">
+    <!-- <div class="row p-0 align-items-center">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
@@ -41,7 +41,7 @@
                 <input id="site_name_second" style="border-radius:0;" name="site_name_second" class="form-control invisible" value="<?= $dataReport['site']['name'] ?? ''; ?>" readonly>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 <div class="col-sm-12 col-md-12 col-lg-4">
     <!-- REQUESTER -->
