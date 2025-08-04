@@ -1,4 +1,4 @@
-<div class="col" style="max-height: 240px;overflow-y: scroll;">
+<div class="col" style="max-height: 135px;overflow-y: scroll;">
     <?php foreach ($dataWorkFlows as $dataWorkFlow) { ?>
         <?php $comment = $dataWorkFlow['remarks'] == "undefined" || !$dataWorkFlow['remarks'] ? '-' : $dataWorkFlow['remarks']; ?>
         <ul style="padding: 0 1rem;">
