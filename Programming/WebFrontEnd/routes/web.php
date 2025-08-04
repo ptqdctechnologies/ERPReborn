@@ -21,7 +21,7 @@ $varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzUzMjQxMDAzfQ.YWU1YWI2ZGNhNmMwOTQ4NWQzOTYxYzE3YzYyODVmZTZjZTAyZmUzMDJiMjhhZDVhOWVkMzVmNWU3NDNhZTZjOQ';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzU0MDM3MDY4fQ.ODkyNjc1MWJlMzJiMDgwNWE4ZGE0ODZhNDJiMjEzYjA1Mzk1MjM4ZmYzZGU0OGE0MzAyOTQzY2IwYWNhNWU3Yw';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -205,6 +205,12 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getOneSubMenu', 'Function\FunctionController@getOneSubMenu')->name('getOneSubMenu');
     Route::get('getTransporter', 'Function\FunctionController@getTransporter')->name('getTransporter');
 
+    // AP
+    Route::get('ReportAccountPayableSummary', 'Finance\AccountPayableController@ReportAccountPayableSummary')->name('AccountPayable.ReportAccountPayableSummary');
+    Route::post('ReportAccountPayableSummaryStore', 'Finance\AccountPayableController@ReportAccountPayableSummaryStore')->name('AccountPayable.ReportAccountPayableSummaryStore');
+    Route::post('PrintExportReportAccountPayableSummary', 'Finance\AccountPayableController@PrintExportReportAccountPayableSummary')->name('AccountPayable.PrintExportReportAccountPayableSummary');
+    Route::resource('AccountPayable', 'Finance\AccountPayableController');
+
     // ARF 
     Route::get('AdvanceListData', 'Process\Advance\AdvanceRequestController@AdvanceListData')->name('AdvanceRequest.AdvanceListData');
     Route::get('ReportAdvanceToASF', 'Process\Advance\AdvanceRequestController@ReportAdvanceToASF')->name('AdvanceRequest.ReportAdvanceToASF');
@@ -235,6 +241,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('UpdatesAdvanceSettlement', 'Process\Advance\AdvanceSettlementController@updatesAdvanceSettlement')->name('AdvanceSettlement.UpdatesAdvanceSettlement');
     Route::resource('AdvanceSettlement', 'Process\Advance\AdvanceSettlementController');
 
+    
     // BSF
     Route::post('StoreValidateBusinessTripSettlement', 'Process\BusinessTrip\BusinessTripSettlementController@StoreValidateBusinessTripSettlement')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement');
     Route::post('StoreValidateBusinessTripSettlement2', 'Process\BusinessTrip\BusinessTripSettlementController@StoreValidateBusinessTripSettlement2')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement2');
