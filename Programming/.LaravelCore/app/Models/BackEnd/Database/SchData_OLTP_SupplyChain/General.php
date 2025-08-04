@@ -4434,6 +4434,51 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_WarehouseInboundOrderSummary                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-08-01                                                                                           |
+        | ▪ Creation Date   : 2025-08-01                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen PurchaseOrder                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
+        |      ▪ (int)    varDeliveryFrom_RefID ► Delivery From RefID                                                              |
+        |      ▪ (int)    varDeliveryTo_RefID ► Delivery To RefID                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_WarehouseInboundOrderSummary(
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varDeliveryFrom_RefID = null, int $varDeliveryTo_RefID = null
+            )
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_WarehouseInboundOrderSummary',
+                            [
+                                [$varCombinedBudgetCode, 'varchar' ],
+                                [$varDeliveryFrom_RefID, 'bigint' ],
+                                [$varDeliveryTo_RefID, 'bigint' ],
+                            ]
+                            )
+                        );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReport_Form_DocumentForm_WarehouseInboundOrder                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

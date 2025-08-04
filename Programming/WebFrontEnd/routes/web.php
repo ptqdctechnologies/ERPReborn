@@ -21,7 +21,7 @@ $varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzU0MDM3MDY4fQ.ODkyNjc1MWJlMzJiMDgwNWE4ZGE0ODZhNDJiMjEzYjA1Mzk1MjM4ZmYzZGU0OGE0MzAyOTQzY2IwYWNhNWU3Yw';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzU0MDE5MjgxfQ.MjYwMTJlZDJiMjE3Mzc0MDAwYmM1YWYzMThmZTlhNzg4OWUzNDAxY2MwYjZiNTM3MDA1YjIwZjYxYTQ3OWE2MA';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -374,6 +374,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('ReportCreditNoteSummary', 'Process\CreditNote\CreditNoteController@ReportCreditNoteSummary')->name('CreditNote.ReportCreditNoteSummary');
     Route::post('ReportCreditNoteSummaryStore', 'Process\CreditNote\CreditNoteController@ReportCreditNoteSummaryStore')->name('CreditNote.ReportCreditNoteSummaryStore');
     Route::post('PrintExportReportCreditNoteSummary', 'Process\CreditNote\CreditNoteController@PrintExportReportCreditNoteSummary')->name('CreditNote.PrintExportReportCreditNoteSummary');
+    
+    Route::get('ReportCNtoDN', 'Process\CreditNote\CreditNoteController@ReportCNtoDN')->name('CreditNote.ReportCNtoDN');
+    Route::post('ReportCNtoDNStore', 'Process\CreditNote\CreditNoteController@ReportCNtoDNStore')->name('CreditNote.ReportCNtoDNStore');
+    Route::post('PrintExportReportCNtoDN', 'Process\CreditNote\CreditNoteController@PrintExportReportCNtoDN')->name('CreditNote.PrintExportReportCNtoDN');
     
     Route::get('ReportCreditNoteDetail', 'Process\CreditNote\CreditNoteController@ReportCreditNoteDetail')->name('CreditNote.ReportCreditNoteDetail');
     Route::post('ReportCreditNoteDetailStore', 'Process\CreditNote\CreditNoteController@ReportCreditNoteDetailStore')->name('CreditNote.ReportCreditNoteDetailStore');
