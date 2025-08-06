@@ -4211,7 +4211,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getReport_Form_DocumentForm_PurchaseRequisitionSummary                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-07-31                                                                                           |
+        | ▪ Last Update     : 2025-08-06                                                                                           |
         | ▪ Creation Date   : 2025-04-30                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Permintaan Pembelian (Purchase Requisition)                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4225,7 +4225,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseRequisitionSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varSupplier_RefID = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null
             )
             {
             try {
@@ -4238,7 +4238,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
-                                [$varSupplier_RefID, 'bigint' ],
                             ]
                             )
                         );
@@ -4263,8 +4262,6 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID"];
                     $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode"];
                     $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName"];
-                    $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
-                    $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode"];
                     $varReturn['data'][$idxArray]['documentNumber'] = $value["DocumentNumber"];
                     $varReturn['data'][$idxArray]['date'] = $value["Date"];
                     $varReturn['data'][$idxArray]['dateOfDelivery'] = $value["DateOfDelivery"];
