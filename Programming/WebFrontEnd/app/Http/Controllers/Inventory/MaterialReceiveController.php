@@ -12,6 +12,7 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use App\Services\Inventory\MaterialReceiveService;
 use App\Services\WorkflowService;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MaterialReceiveController extends Controller
 {
@@ -26,234 +27,116 @@ class MaterialReceiveController extends Controller
     public function ReportMaterialReceiveSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $isSubmitButton = $request->session()->get('isButtonReportMaterialReturnSubmit');
+        $request->session()->forget("SessionDeliveryOrderNumber");
+        $dataMR = Session::get("DeliveryOrderReportSummaryDataPDF");
 
-        $dataReport = $isSubmitButton ? $request->session()->get('dataReportMaterialReturn', []) : [];
-
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
-            'dataReport' => $dataReport
+            'statusRevisi' => 1,
+            'dataReport' => $dataReport ?? null,
+            'statusHeader' => "Yes",
+            'statusDetail' => 1,
+            'dataHeader' => [],
+            'dataMR' => $dataMR
+        
         ];
+        // dump($compact);
 
         return view('Inventory.MaterialReceive.Reports.ReportMaterialReceiveSummary', $compact);
     }
 
-    public function ReportMaterialReceiveSummaryData(
-        $projectId, 
-        $siteId, 
-        $projectCode, 
-        $projectName,
-        $subBudgetCode,
-        $subBudgetName,
-        $subBudgetAddress,
-        $subBudgetID2,
-        $subBudgetCode2,
-        $subBudgetName2,
-        $subBudgetAddress2
-    ) 
-    {
+    public function ReportMaterialReceiveSummaryData( $project_code){
+        
+            
         try {
+            // Log::error("Error at ",[$project_code]);
+
             $varAPIWebToken = Session::get('SessionLogin');
 
-            // Helper_APICall::setCallAPIGateway(
-            //     Helper_Environment::getUserSessionID_System(),
-            //     $varAPIWebToken,
-            //     'report.form.documentForm.finance.getReportAdvanceSummary',
-            //     'latest',
-            //     [
-            //         'parameter' => [
-            //             'dataFilter' => [
-            //                 'budgetID' => 1,
-            //                 'subBudgetID' => 1,
-            //                 'workID' => 1,
-            //                 'productID' => 1,
-            //                 'beneficiaryID' => 1,
-            //             ]
-            //         ]
-            //     ],
-            //     false
-            // );
-
-            // $DataReportAdvanceSummary = json_decode(
-            //     Helper_Redis::getValue(
-            //         Helper_Environment::getUserSessionID_System(),
-            //         "ReportAdvanceSummary"
-            //     ),
-            //     true
-            // );
-
-            $collection = collect([
+            $filteredArray = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.form.documentForm.supplyChain.getWarehouseInboundOrderSummary', 
+                'latest',
                 [
-                    'DocumentNumber'        => 'MR/QDC/2025/0000006',
-                    'ProductCode'           => '1000416',
-                    'ProductName'           => 'Cable NYY',
-                    'CombinedBudget_RefID'  => $projectId,
-                    'CombinedBudgetCode'    => $projectCode,
-                    'CombinedBudgetName'    => $projectName,
-                    'TotalAdvance'          => 5.00,
-                    'DocumentDateTimeTZ'    => '2025-05-16 14:36:22.706103+07',
-                    'SourceCode'            => $subBudgetCode,
-                    'SourceName'            => $subBudgetName,
-                    'DestinationCode'       => $subBudgetCode2,
-                    'DestinationName'       => $subBudgetName2,
-                    'Remark'                => 'Kondisi barang sesuai dan dipacking dalam box',
-                    'UOM'                   => 'pcs'
-                ],
-                [
-                    'DocumentNumber'        => 'MR/QDC/2025/0000007',
-                    'ProductCode'           => '313344-0000',
-                    'ProductName'           => 'Charger-200A plus dioda dropper',
-                    'CombinedBudget_RefID'  => $projectId,
-                    'CombinedBudgetCode'    => $projectCode,
-                    'CombinedBudgetName'    => $projectName,
-                    'TotalAdvance'          => 20.00,
-                    'DocumentDateTimeTZ'    => '2025-05-17 10:54:22.706103+07',
-                    'SourceCode'            => $subBudgetCode,
-                    'SourceName'            => $subBudgetName,
-                    'DestinationCode'       => $subBudgetCode2,
-                    'DestinationName'       => $subBudgetName2,
-                    'Remark'                => 'Kondisi barang sesuai',
-                    'UOM'                   => 'pcs'
-                ],
-                [
-                    'DocumentNumber'        => 'MR/QDC/2025/0000008',
-                    'ProductCode'           => '211096-0000',
-                    'ProductName'           => 'Steel Support Apparatus',
-                    'CombinedBudget_RefID'  => $projectId,
-                    'CombinedBudgetCode'    => $projectCode,
-                    'CombinedBudgetName'    => $projectName,
-                    'TotalAdvance'          => 10.00,
-                    'DocumentDateTimeTZ'    => '2025-05-18 17:49:22.706103+07',
-                    'SourceCode'            => $subBudgetCode,
-                    'SourceName'            => $subBudgetName,
-                    'DestinationCode'       => $subBudgetCode2,
-                    'DestinationName'       => $subBudgetName2,
-                    'Remark'                => 'Kondisi barang sesuai',
-                    'UOM'                   => 'kg'
-                ],
-            ]);
+                    'parameter' => [
+                        'CombinedBudgetCode' => $project_code,
+                        'DeliveryFrom_RefID' => NULL,
+                        'DeliveryTo_RefID' => NULL
+                    ],
+                     'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                        ]
+                ]
+            );
+            
+            // Log::error("Error at " ,$filteredArray);
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
 
-            if ($projectId != "") {
-                $collection = $collection->where('CombinedBudget_RefID', $projectId);
             }
-            // if ($siteId != "") {
-            //     $collection = $collection->where('CombinedBudgetSection_RefID', $siteId);
-            // }
-
-            $collection = $collection->all();
-
-            $dataHeaders = [
-                'budget'        => $projectCode . " - " . $projectName
-            ];
-
-            $dataDetails = [];
-            $i = 0;
-            $total = 0;
-            foreach ($collection as $collections) {
-                $total                                  += $collections['TotalAdvance'];
-
-                $dataDetails[$i]['no']                  = $i + 1;
-                $dataDetails[$i]['budgetCode']          = $collections['CombinedBudgetCode'];
-                $dataDetails[$i]['budgetName']          = $collections['CombinedBudgetName'];
-                $dataDetails[$i]['productCode']         = $collections['ProductCode'];
-                $dataDetails[$i]['productName']         = $collections['ProductName'];
-                $dataDetails[$i]['documentNumber']      = $collections['DocumentNumber'];
-                $dataDetails[$i]['sourceCode']          = $collections['SourceCode'];
-                $dataDetails[$i]['sourceName']          = $collections['SourceName'];
-                $dataDetails[$i]['destinationCode']     = $collections['DestinationCode'];
-                $dataDetails[$i]['destinationName']     = $collections['DestinationName'];
-                $dataDetails[$i]['uom']                 = $collections['UOM'];
-                $dataDetails[$i]['remark']              = $collections['Remark'];
-                $dataDetails[$i]['date']                = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
-                $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
-                $i++;
-            }
-
-            $compact = [
-                'dataHeader'            => $dataHeaders,
-                'dataDetail'            => $dataDetails,
-                'total'                 => number_format($total, 2),
-            ];
-
-            Session::put("isButtonReportMaterialReturnSubmit", true);
-            Session::put("dataReportMaterialReturn", $compact);
-
-            return $compact;
-        } catch (\Throwable $th) {
-            Log::error("Error at ReportMaterialReceiveSummaryData: " . $th->getMessage());
+            Session::put("DeliveryOrderReportSummaryDataPDF", $filteredArray['data']['data']);
+            Session::put("DeliveryOrderReportSummaryDataExcel", $filteredArray['data']['data']);
+            return $filteredArray['data']['data'];
+        }
+        catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
 
-    public function ReportMaterialReceiveSummaryStore(Request $request) 
+    public function ReportMaterialReceiveSummaryStore(Request $request)
+    {
+        // tes;
+        try {
+            $project_code = $request->budget;
+            // $site_code = $request->site_id_second;
+
+            $statusHeader = "Yes";
+            // Log::error("Error at " ,[$request->all()]);
+            if ($project_code == "") {
+                Session::forget("DeliveryOrderReportSummaryDataPDF");
+                Session::forget("DeliveryOrderReportSummaryDataExcel");
+                
+                return redirect()->route('MaterialReceive.ReportMaterialReceiveSummary')->with('NotFound', 'Cannot Empty');
+            }
+
+            $compact = $this->ReportMaterialReceiveSummaryData($project_code);
+            // dd($compact);
+            // if ($compact['dataHeader'] == []) {
+            //     Session::forget("PDeliveryOrderSummaryReportDataPDF");
+            //     Session::forget("PDeliveryOrderSummaryReportDataExcel");
+
+            //     return redirect()->back()->with('NotFound', 'Data Not Found');
+            // }
+
+            return redirect()->route('MaterialReceive.ReportMaterialReceiveSummary');
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportMaterialReceiveSummary(Request $request)
     {
         try {
-            // BUDGET
-            $budgetID       = $request->budget_id;
-            $budget         = $request->budget;
-            $budgetName     = $request->budget_name;
+            $dataPDF = Session::get("DeliveryOrderReportSummaryDataPDF");
+            $dataExcel = Session::get("DeliveryOrderReportSummaryDataExcel");
 
-            // SOURCE WAREHOUSE
-            $subBudgetID        = $request->sub_budget_id;
-            $subBudgetCode      = $request->sub_budget;
-            $subBudgetName      = $request->sub_budget_name;
-            $subBudgetAddress   = $request->sub_budget_address;
+            
+            if ($dataPDF && $dataExcel) {
+                $print_type = $request->print_type;
+                if ($print_type == "PDF") {
+                    $dataMR = Session::get("DeliveryOrderReportSummaryDataPDF");
+                    // dd($dataMR);
 
-            // DESTINATION WAREHOUSE
-            $subBudgetID2       = $request->sub_budget_id2;
-            $subBudgetCode2     = $request->sub_budget2;
-            $subBudgetName2     = $request->sub_budget_name2;
-            $subBudgetAddress2  = $request->sub_budget_address2;
-
-            // dd($request->all());
-
-            // if (!$budgetID && !$subBudgetID && !$subBudgetID2) {
-            //     $message = 'Budget, Source Warehouse, & Destination Warehouse Cannot Empty';
-            // } else if ($budgetID && !$subBudgetID) {
-            //     $message = 'Sub Budget Cannot Empty';
-            // } 
-
-            // if (isset($message)) {
-            //     Session::forget("isButtonReportMaterialReturnSubmit");
-            //     Session::forget("dataReportMaterialReturn");
-        
-            //     return redirect()->route('Inventory.ReportMaterialReceiveSummary')->with('NotFound', $message);
-            // }
-
-            $compact = $this->ReportMaterialReceiveSummaryData(
-                $budgetID, 
-                $subBudgetID, 
-                $budget, 
-                $budgetName,
-                $subBudgetCode,
-                $subBudgetName,
-                $subBudgetAddress,
-                $subBudgetID2,
-                $subBudgetCode2,
-                $subBudgetName2,
-                $subBudgetAddress2
-            );
-
-            // dd($compact);
-
-            if ($compact === null || empty($compact['dataHeader'])) {
-                return redirect()->back()->with('NotFound', 'Data Not Found');
-            }
-
-            return redirect()->route('Inventory.ReportMaterialReceiveSummary');
-        } catch (\Throwable $th) {
-            Log::error("Error at ReportMaterialReceiveSummaryStore: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function PrintExportMaterialReceiveSummary(Request $request) {
-        try {
-            $dataReport = Session::get("dataReportMaterialReturn");
-
-            if ($dataReport) {
-                if ($request->print_type == "PDF") {
-                    $pdf = PDF::loadView('Inventory.MaterialReturn.Reports.ReportMaterialReceiveSummary_pdf', ['dataReport' => $dataReport]);
+                    $pdf = PDF::loadView('Inventory.MaterialReceive.Reports.ReportMaterialReceiveSummary_pdf', ['dataMR' => $dataMR])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
@@ -262,16 +145,16 @@ class MaterialReceiveController extends Controller
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
-    
-                    return $pdf->download('Export Report Material Receive Summary.pdf');
-                } else {
-                    return Excel::download(new ExportReportMaterialReturnSummary, 'Export Report Material Receive Summary.xlsx');
+
+                    return $pdf->download('Export Report Delivery Order Summary.pdf');
+                } else if ($print_type == "Excel") {
+                    return Excel::download(new ExportReportDeliveryOrderSummary, 'Export Report Material Receive Summary.xlsx');
                 }
             } else {
-                return redirect()->route('Inventory.ReportMaterialReceiveSummary')->with('NotFound', 'Budget, Source Warehouse, Destination Warehouse Cannot Empty');
+                return redirect()->route('DeliveryOrder.DeliveryOrderSummary')->with('NotFound', 'Data Cannot Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Error at PrintExportReportMaterialReceiveSummary: " . $th->getMessage());
+            Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }
@@ -478,7 +361,7 @@ class MaterialReceiveController extends Controller
         return response()->json($filteredArray);
     }
 
-    public function MaterialReceiveListDataDO(Request $request)
+    public function MaterialReceiveListdataMR(Request $request)
     {
         $advance_RefID = $request->input('delivery_order_id');
         $varAPIWebToken = Session::get('SessionLogin');
