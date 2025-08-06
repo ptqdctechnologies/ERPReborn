@@ -3,48 +3,47 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getProject')
-@include('getFunction.getWarehouse')
-@include('getFunction.getWarehouse2')
-@include('Process.Advance.AdvanceRequest.Functions.Table.TableAdvanceRevision')
 
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
             <div class="row mb-1" style="background-color:#4B586A;">
                 <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">Material Receive Summary Report</label>
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">Report Material Receive Summary</label>
                 </div>
             </div>
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
+                    @if($statusHeader == "Yes")
                     <div class="row">
-                        <div class="col-12 ShowDocument">
-                            @include('Inventory.MaterialReceive.Functions.Header.HeaderReportMaterialReceiveSummary')
+                        <div class="col-12">
+                            <div class="row p-1" style="row-gap: 1rem;">
+                                @include('Inventory.MaterialReceive.Functions.Header.HeaderReportMaterialReceiveSummary')
+                            </div>
                         </div>
-                        <?php if ($dataReport) { ?>
-                            <div class="col-12 ShowTableReportAdvanceSummary">
+                    </div>
+                    @endif
+                    
+                    @if($statusDetail == 1 && $dataMR)
+                        <div class="row">
+                            <div class="col-12">
                                 <div class="card">
-                                    <!-- HEADER -->
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <table>
-                                                    <tr>
-                                                        <th style="padding-top: 7px;"><label>Budget&nbsp;</label></th>
-                                                        <td><b>:</b></td>
-                                                        <td><b><?= $dataReport['dataHeader']['budget']; ?></b></td>
-                                                    </tr>
-                                                </table>
-                                            </div>
+                                        <div class="row py-2 px-1" style="gap: 1rem;">
+                                            <label class="p-0 text-bold mb-0">Budget</label>
+                                              :  
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 ShowTableReportAdvanceSummary">
+                        </div>
+
+                        <!-- TABLE -->
+                        <div class="row">
+                            <div class="col-12">
                                 <div class="card">
-                                    <!-- DETAIL -->
                                     <div class="card-body table-responsive p-0">
-                                        <table class="table table-head-fixed text-nowrap TableReportAdvanceSummary" id="DefaultFeatures">
+                                        <table class="table table-head-fixed text-nowrap" id="DefaultFeatures">
                                             <thead>
                                                 <tr>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
@@ -58,35 +57,31 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($dataReport['dataDetail'] as $dataDetail) { ?>
+                                                @foreach($dataMR as $key => $dataDetail)
                                                     <tr>
-                                                        <td><?= $dataDetail['no']; ?></td>
-                                                        <td><?= $dataDetail['documentNumber']; ?></td>
-                                                        <td><?= $dataDetail['productCode'] . ' - ' . $dataDetail['productName']; ?></td>
-                                                        <td><?= $dataDetail['sourceCode'] . ' - ' . $dataDetail['sourceName']; ?></td>
-                                                        <td><?= $dataDetail['destinationCode'] . ' - ' . $dataDetail['destinationName']; ?></td>
-                                                        <td><?= $dataDetail['total']; ?></td>
-                                                        <td><?= $dataDetail['uom']; ?></td>
-                                                        <td><?= $dataDetail['remark']; ?></td>
+                                                        <td style="text-align: center;">{{ $key + 1 }}</td>
+                                                        <td>{{ $dataDetail['MR_Number'] }}</td>
+                                                        <td>{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
+                                                        <td>{{ $dataDetail['referenceNumber'] }}</td>
+                                                        <td>{{ $dataDetail['deliveryFrom_NonRefID']['address'] ?? '-' }}</td>
+                                                        <td>{{ $dataDetail['deliveryFrom_NonRefID']['address'] ?? '-' }}</td>
+                                                        <td>{{ $dataDetail['receiveAt'] }}</td>
+                                                        <td>{{ $dataDetail['remarks'] }}</td>
                                                     </tr>
-                                                <?php } ?>
+                                                @endforeach
                                             </tbody>
                                             <tfoot>
-                                                <tr>
-                                                    <th colspan="5" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: right;background-color:#4B586A;color:white;">Total</th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                        <?= $dataReport['total']; ?>
-                                                    </th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: right;background-color:#4B586A;color:white;"></th>
-                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: right;background-color:#4B586A;color:white;"></th>
-                                                </tr>
+                                                <!-- <tr>
+                                                    <th colspan="3" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
+                                                </tr> -->
                                             </tfoot>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                        <?php }; Session::forget("isButtonReportMaterialReceiveSubmit"); ?>
-                    </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

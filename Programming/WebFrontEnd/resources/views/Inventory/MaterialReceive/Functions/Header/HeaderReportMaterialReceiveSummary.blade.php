@@ -1,5 +1,5 @@
 <div class="card">
-    <form method="post" action="{{ route('Inventory.ReportMaterialReceiveSummaryStore') }}" id="FormSubmitReportMaterialReturnSummary">
+    <form method="post" action="{{ route('MaterialReceive.ReportMaterialReceiveSummaryStore') }}">
     @csrf
     <div class="card-body">
         <div class="row">
@@ -80,7 +80,7 @@
                             </td>
                             </form>
 
-                            <form method="post" action="{{ route('Inventory.PrintExportReportMaterialReceiveSummary') }}" id="FormSubmitReportMaterialReturnSummary">
+                            <form method="post" action="{{ route('MaterialReceive.PrintExportReportMaterialReceiveSummary') }}" id="FormSubmitReportMaterialReturnSummary">
                             @csrf
                                 <td>
                                     <select name="print_type" id="print_type" class="form-control">

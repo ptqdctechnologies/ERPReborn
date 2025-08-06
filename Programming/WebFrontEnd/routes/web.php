@@ -21,7 +21,7 @@ $varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzU0MDE5MjgxfQ.MjYwMTJlZDJiMjE3Mzc0MDAwYmM1YWYzMThmZTlhNzg4OWUzNDAxY2MwYjZiNTM3MDA1YjIwZjYxYTQ3OWE2MA';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzU0Mzc3MTExfQ.YmI0MTIyYzRmNTgyMzg0ZTBjNDljYmFlZjI4NDBmYWJjNmU0NjhkMzA5MWEzOGI1MzJlZmY0NDRmY2ZmZWFiMA';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -473,13 +473,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('SearchDeliveryOrder', 'Inventory\MaterialReceiveController@SearchDeliveryOrder')->name('MaterialReceive.SearchDeliveryOrder');
     Route::post('UpdateMaterialReceive', 'Inventory\MaterialReceiveController@UpdateMaterialReceive')->name('MaterialReceive.UpdateMaterialReceive');
     
-    // Route::get('ReportMaterialReceiveSummary', 'Inventory\MaterialReceiveController@ReportMaterialReceiveSummary')->name('MaterialReceive.ReportMaterialReceiveSummary');
-    // Route::post('ReportMaterialReceiveSummaryStore', 'Inventory\MaterialReceiveController@ReportMaterialReceiveSummaryStore')->name('MaterialReceive.ReportMaterialReceiveSummaryStore');
-    // Route::post('PrintExportReportMaterialReceiveSummary', 'Inventory\MaterialReceiveController@PrintExportReportMaterialReceiveSummary')->name('MaterialReceive.PrintExportReportMaterialReceiveSummary');
-    
-    Route::get('ReportMaterialReceiveSummary', 'Inventory\MaterialReceiveController@ReportMaterialReceiveSummary')->name('Inventory.ReportMaterialReceiveSummary');
-    Route::post('ReportMaterialReceiveSummaryStore', 'Inventory\MaterialReceiveController@ReportMaterialReceiveSummaryStore')->name('Inventory.ReportMaterialReceiveSummaryStore');
-    Route::post('PrintExportReportMaterialReceiveSummary', 'Inventory\MaterialReceiveController@PrintExportReportMaterialReceiveSummary')->name('Inventory.PrintExportReportMaterialReceiveSummary');
+    Route::get('ReportMaterialReceiveSummary', 'Inventory\MaterialReceiveController@ReportMaterialReceiveSummary')->name('MaterialReceive.ReportMaterialReceiveSummary');
+    Route::post('ReportMaterialReceiveSummaryStore', 'Inventory\MaterialReceiveController@ReportMaterialReceiveSummaryStore')->name('MaterialReceive.ReportMaterialReceiveSummaryStore');
+    Route::post('PrintExportReportMaterialReceiveSummary', 'Inventory\MaterialReceiveController@PrintExportReportMaterialReceiveSummary')->name('MaterialReceive.PrintExportReportMaterialReceiveSummary');
     
     Route::resource('MaterialReceive', 'Inventory\MaterialReceiveController');
 

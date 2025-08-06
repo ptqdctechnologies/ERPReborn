@@ -60,15 +60,13 @@ class DeliveryOrderController extends Controller
             $filteredArray = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'report.form.documentForm.supplyChain.getDeliveryOrderSummary', 
+                'report.form.documentForm.supplyChain.getWarehouseInboundOrderSummary', 
                 'latest',
                 [
                     'parameter' => [
                         'CombinedBudgetCode' =>  $project_code,
                         'CombinedBudgetSectionCode' =>  $site_code,
                         'Warehouse_RefID' => NULL
-                        // 'Supplier_RefID' => NULL
-                        // 'DeliveryOrder_RefID' => (int) $DeliveryOrder_refID
                     ],
                      'SQLStatement' => [
                         'pick' => null,
