@@ -528,13 +528,13 @@
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
                         <input type="hidden" name="product_RefID[]" value="${productRefId.value}">
-                        <td style="text-align: center;padding: 0.8rem;">${productCode.value}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productName}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${currency}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${price}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${qty}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${total}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productCode.value}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;">${currency}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${qty}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${total}</td>
                     `;
                     targetTable.appendChild(newRow);
 
