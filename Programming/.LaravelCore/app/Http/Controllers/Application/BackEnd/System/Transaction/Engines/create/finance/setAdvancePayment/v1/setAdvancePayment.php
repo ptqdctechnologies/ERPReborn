@@ -42,8 +42,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-10                                                                                           |
+        | ▪ Version         : 1.0001.0000001                                                                                       |
+        | ▪ Last Update     : 2025-08-04                                                                                           |
         | ▪ Creation Date   : 2022-07-13                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -65,12 +65,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
-                    try {
+                     try {
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Finance\TblAdvancePayment())->setDataInsert(
-                                    $varUserSession, 
+                                (new \App\Models\Database\SchData_OLTP_Finance\TblPayment())->setDataInsert(
+                                    $varUserSession,
 
                                     null,
                                     null,
