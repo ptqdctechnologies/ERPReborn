@@ -3,6 +3,7 @@
         <thead>
             <tr>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">PR Number</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Sub Budget</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Code</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty PR</th>
@@ -21,7 +22,7 @@
         <tbody></tbody>
         <tfoot>
             <tr class="loadingPurchaseOrderTable">
-                <td colspan="15" class="p-0" style="height: 12.3rem;">
+                <td colspan="16" class="p-0" style="height: 12.3rem;">
                     <div class="d-flex flex-column justify-content-center align-items-center py-3">
                         <div class="spinner-border" role="status">
                             <span class="sr-only">Loading...</span>
@@ -33,7 +34,7 @@
                 </td>
             </tr>
             <tr class="errorPurchaseOrderTable">
-                <td colspan="15" class="p-0" style="height: 12.3rem;">
+                <td colspan="16" class="p-0" style="height: 12.3rem;">
                     <div class="d-flex flex-column justify-content-center align-items-center py-3">
                         <div id="errorPurchaseOrderMessageTable" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;">Error</div>
                     </div>

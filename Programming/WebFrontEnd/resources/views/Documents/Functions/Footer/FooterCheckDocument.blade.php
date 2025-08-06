@@ -60,8 +60,8 @@
                         table.row.add([
                             '<input id="sys_id_check_document' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_check_document" type="hidden">' + no++,
                             '<input id="sys_document_type_name' + keys + '" value="' + DocumentTypeName + '" data-trigger="sys_document_type_name" type="hidden">' + val.sys_Text || '-',
-                            val.combinedBudgetCode || '-',
-                            val.combinedBudgetSectionCode || '-',
+                            '<input id="sys_id_combined_budget' + keys + '" value="' + params.value + '" data-trigger="sys_id_combined_budget" type="hidden">' + val.combinedBudgetCode || '-',
+                            '<input id="sys_id_document_type' + keys + '" value="' + val.combinedBudget_RefID + '" data-trigger="sys_id_document_type" type="hidden">' + val.combinedBudgetSectionCode || '-',
                         ]).draw();
                     });
 
@@ -126,16 +126,32 @@
         });
     }
 
-    $('#TableCheckDocument').on('click', 'tbody tr', function() {
-        var sysId       = $(this).find('input[data-trigger="sys_id_check_document"]').val();
-        var docTypeName = $(this).find('input[data-trigger="sys_document_type_name"]').val();
-        var trano       = $(this).find('td:nth-child(2)').text();
+    $('#TableCheckDocument').on('click', 'tbody tr', async function() {
+        var sysId               = $(this).find('input[data-trigger="sys_id_check_document"]').val();
+        var docTypeName         = $(this).find('input[data-trigger="sys_document_type_name"]').val();
+        var trano               = $(this).find('td:nth-child(2)').text();
+        var sysIdCombinedBudget = $(this).find('input[data-trigger="sys_id_combined_budget"]').val();
+        var sysIdDocumentType   = $(this).find('input[data-trigger="sys_id_document_type"]').val();
 
-        $("#businessDocument_RefID").val(sysId);
-        $("#businessDocumentType_Name").val(docTypeName);
-        $("#businessDocumentNumber").val(trano);
+        // $('#mySearchCheckDocument').modal('hide');
+        // $('#loadingDocTracking').show();
+        // $('.mySearchCheckDocument').hide();
+        // $("#businessDocument_RefID").val("");
+        // $("#businessDocumentType_Name").val("");
+        // $("#businessDocumentNumber").val("");
 
-        $('#mySearchCheckDocument').modal('hide');
+        // const validate = await checkingWorkflow(sysIdDocumentType, sysIdCombinedBudget);
+        // if (validate) {
+        //     $('.mySearchCheckDocument').show();
+        //     $('#loadingDocTracking').hide();
+
+            $("#businessDocument_RefID").val(sysId);
+            $("#businessDocumentType_Name").val(docTypeName);
+            $("#businessDocumentNumber").val(trano);
+        // } else {
+        //     $('.mySearchCheckDocument').show();
+        //     $('#loadingDocTracking').hide();
+        // }
     });
 
     $('.ViewDocument').on('click', function() {

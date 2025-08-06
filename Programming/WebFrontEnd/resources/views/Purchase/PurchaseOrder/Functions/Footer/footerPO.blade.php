@@ -257,6 +257,7 @@
                                 <input id="currency${indexPurchaseOrder}" value="${val2.priceCurrencyISOCode}" type="hidden" />
 
                                 ${key === 0 ? modifyColumn : ''}
+                                <td style="text-align: center; padding: 10px !important;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productCode}</td>
                                 <td style="text-align: center; padding: 10px !important;">${val2.productName}</td>
                                 <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.quantity)}</td>

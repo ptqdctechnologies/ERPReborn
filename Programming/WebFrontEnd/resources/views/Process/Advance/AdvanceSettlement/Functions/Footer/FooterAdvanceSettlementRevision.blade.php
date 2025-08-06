@@ -73,6 +73,7 @@
                     <input id="refundProductUnitPriceBaseCurrencyValue${key}" value="${val2.refundProductUnitPriceBaseCurrencyValue}" type="hidden" />
 
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.ARFNumber || '-'}</td>
+                    <td style="text-align: center;border:1px solid #e9ecef;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.productCode || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.productName || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${val2.UOM || '-'}</td>
@@ -201,21 +202,20 @@
 
             let rowList = `
                 <tr>
-                    <input type="hidden" name="qty_expense_avail[]" value="${val2.expenseQuantity}">
-                    <input type="hidden" name="price_expense_avail[]" value="${val2.expenseProductUnitPriceCurrencyValue}">
-                    <input type="hidden" name="qty_company_avail[]" value="${val2.refundQuantity}">
-                    <input type="hidden" name="price_company_avail[]" value="${val2.refundProductUnitPriceCurrencyValue}">
+                    <input type="hidden" id="qty_expense_avail[]" value="${val2.expenseQuantity}">
+                    <input type="hidden" id="price_expense_avail[]" value="${val2.expenseProductUnitPriceCurrencyValue}">
+                    <input type="hidden" id="qty_company_avail[]" value="${val2.refundQuantity}">
+                    <input type="hidden" id="price_company_avail[]" value="${val2.refundProductUnitPriceCurrencyValue}">
+                    <input type="hidden" id="product_code[]" value="${val2.productCode}">
+                    <input type="hidden" id="total_expense[]" value="${totalExpense}">
+                    <input type="hidden" id="total_company[]" value="${totalCompany}">
+
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.ARFNumber || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode + ' - ' + val2.productName}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.UOM || '-'}</td>
                     <td style="text-align: center;padding: 0.8rem 0px;">${val2.currency || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.expenseQuantity || 0)}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.expenseProductUnitPriceCurrencyValue || 0)}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(totalExpense || 0)}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.refundQuantity || 0)}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.refundProductUnitPriceCurrencyValue || 0)}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(totalCompany || 0)}</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">Expence Claim: Rp ${totalExpense || '-'}</td>
+                    <td style="text-align: center;padding: 0.8rem 0px;">Amount to Company: Rp ${totalCompany || '-'}</td>
                 </tr>
             `;
 
@@ -257,15 +257,17 @@
             type: 'question',
             input: 'textarea',
             showCloseButton: false,
-            showCancelButton: false,
+            showCancelButton: true,
             focusConfirm: false,
             confirmButtonText: '<span style="color:black;"> OK </span>',
-            confirmButtonColor: '#4B586A',
-            confirmButtonColor: '#e9ecef',
+            cancelButtonColor: '#7A7A73',
+            confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
-            ShowLoading();
-            RevisionAdvanceSettlementStore({...formatData, comment: result.value});
+            if ('value' in result) {
+                ShowLoading();
+                RevisionAdvanceSettlementStore({...formatData, comment: result.value});
+            }
         });
     }
 
@@ -340,7 +342,6 @@
             const qtyCompanyInput                               = row.querySelector('input[id^="qty_settlement_company"]');
             const priceCompanyInput                             = row.querySelector('input[id^="price_settlement_company"]');
             const totalCompanyInput                             = row.querySelector('input[id^="total_settlement_company"]');
-            // const balanceInput                                  = row.querySelector('input[id^="balance"]');
 
             if (
                 (qtyExpenseInput && priceExpenseInput && totalExpenseInput &&
@@ -354,12 +355,12 @@
                 )
             ) {
                 const arfNumber     = row.children[8].innerText.trim();
-                const productCode   = row.children[9].innerText.trim();
-                const productName   = row.children[10].innerText.trim();
-                const uom           = row.children[11].innerText.trim();
-                const currency      = row.children[12].innerText.trim();
-                const qtyAvail      = row.children[13].innerText.trim();
-                const priceAvail    = row.children[14].innerText.trim();
+                const productCode   = row.children[10].innerText.trim();
+                const productName   = row.children[11].innerText.trim();
+                const uom           = row.children[12].innerText.trim();
+                const currency      = row.children[13].innerText.trim();
+                const qtyAvail      = row.children[14].innerText.trim();
+                const priceAvail    = row.children[15].innerText.trim();
 
                 const qtyExpense    = qtyExpenseInput.value.trim();
                 const priceExpense  = priceExpenseInput.value.trim();
@@ -367,31 +368,24 @@
                 const qtyCompany    = qtyCompanyInput.value.trim();
                 const priceCompany  = priceCompanyInput.value.trim();
                 const totalCompany  = totalCompanyInput.value.trim();
-                // const balance       = balanceInput.value.trim();
 
                 let found = false;
                 const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetARFNumber   = targetRow.children[4].innerText.trim();
-                    const targetProductCode = targetRow.children[5].innerText.trim();
+                    const targetProductCode = targetRow.children[4].value.trim();
+                    const targetARFNumber   = targetRow.children[7].innerText.trim();
 
                     if (targetARFNumber == arfNumber && targetProductCode == productCode) {
-                        targetRow.children[9].innerText     = qtyExpense || '-';
-                        targetRow.children[10].innerText    = priceExpense || '-';
-                        targetRow.children[11].innerText    = totalExpense || '-';
-                        targetRow.children[12].innerText    = qtyCompany || '-';
-                        targetRow.children[13].innerText    = priceCompany || '-';
-                        targetRow.children[14].innerText    = totalCompany || '-';
-                        // targetRow.children[14].innerText    = balance;
+                        targetRow.children[11].innerText    = `Expence Claim: Rp ${totalExpense || '-'}`;
+                        targetRow.children[12].innerText    = `Amount to Company: Rp ${totalCompany || '-'}`;
                         found = true;
 
-                        // update dataStore
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == advanceDetail_RefID.value && item.entities.productCode == productCode);
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 advanceRequestNumber: arfNumber,
-                                advanceSettlement_RefID: advanceSettlement_RefID.value,
+                                advanceSettlement_RefID: parseInt(advanceSettlement_RefID.value),
                                 recordID: parseInt(advanceDetail_RefID.value),
                                 entities: {
                                     expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')),
@@ -415,28 +409,26 @@
                 if (!found) {
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
-                        <input type="hidden" name="qty_expense_avail[]" value="${qtyAvail}">
-                        <input type="hidden" name="price_expense_avail[]" value="${priceAvail}">
-                        <input type="hidden" name="qty_company_avail[]" value="${qtyAvail}">
-                        <input type="hidden" name="price_company_avail[]" value="${priceAvail}">
-                        <td style="text-align: center;padding: 0.8rem;">${arfNumber}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productCode}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productName}</td>
+                        <input type="hidden" id="qty_expense_avail[]" value="${qtyAvail}">
+                        <input type="hidden" id="price_expense_avail[]" value="${priceAvail}">
+                        <input type="hidden" id="qty_company_avail[]" value="${qtyAvail}">
+                        <input type="hidden" id="price_company_avail[]" value="${priceAvail}">
+                        <input type="hidden" id="product_code[]" value="${productCode}">
+                        <input type="hidden" id="total_expense[]" value="${totalExpense}">
+                        <input type="hidden" id="total_company[]" value="${totalCompany}">
+
+                        <td style="text-align: center;padding: 0.8rem;">${transNumber}</td>
+                        <td style="text-align: center;padding: 0.8rem;">${productCode + ' - ' + productName}</td>
                         <td style="text-align: center;padding: 0.8rem;">${uom}</td>
                         <td style="text-align: center;padding: 0.8rem;">${currency}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${qtyExpense || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${priceExpense || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${totalExpense || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${qtyCompany || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${priceCompany || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${totalCompany || '-'}</td>
+                        <td style="text-align: center;padding: 0.8rem;">Expence Claim: Rp ${totalExpense || '-'}</td>
+                        <td style="text-align: center;padding: 0.8rem;">Amount to Company: Rp ${totalCompany || '-'}</td>
                     `;
-                    // <td style="text-align: center;padding: 0.8rem;">${balance}</td>
                     targetTable.appendChild(newRow);
 
                     dataStore.push({
                         advanceRequestNumber: arfNumber,
-                        advanceSettlement_RefID: advanceSettlement_RefID.value,
+                        advanceSettlement_RefID: parseInt(advanceSettlement_RefID.value),
                         recordID: parseInt(advanceDetail_RefID.value),
                         entities: {
                             expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')),
@@ -454,21 +446,12 @@
                         }
                     });
                 }
-
-                qtyExpenseInput.value = '';
-                priceExpenseInput.value = '';
-                totalExpenseInput.value = '';
-                qtyCompanyInput.value = '';
-                priceCompanyInput.value = '';
-                totalCompanyInput.value = '';
-                // balanceInput.value = balanceInput.getAttribute('data-default');
             }
         }
 
         dataStore = dataStore.filter(item => item !== undefined);
 
         document.getElementById('GrandTotal').textContent = totalsAdvanceDetail;
-        document.getElementById('TotalAdvanceDetail').textContent = "0.00";
     });
 
     $('#advance-details-reset').on('click', function() {
@@ -500,86 +483,63 @@
         document.getElementById('TotalAdvanceDetail').textContent = trigger;
     });
 
-    $("#FormRevisionAdvanceSettlement").on("submit", function(e) {
-        e.preventDefault();
+    function SubmitForm() {
+        $('#advanceSettlementRevisionFormModal').modal('hide');
 
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        });
+        var action = $('#FormRevisionAdvanceSettlement').attr("action");
+        var method = $('#FormRevisionAdvanceSettlement').attr("method");
+        var form_data = new FormData($('#FormRevisionAdvanceSettlement')[0]);
+        form_data.append('advanceSettlementDetail', JSON.stringify(dataStore));
 
-        swalWithBootstrapButtons.fire({
-            title: 'Are you sure?',
-            text: "Save this data?",
-            type: 'question',
-            showCancelButton: true,
-            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
-            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
-            confirmButtonColor: '#e9ecef',
-            cancelButtonColor: '#e9ecef',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                var action = $(this).attr("action");
-                var method = $(this).attr("method");
-                var form_data = new FormData($(this)[0]);
-                form_data.append('advanceSettlementDetail', JSON.stringify(dataStore));
+        ShowLoading();
 
-                ShowLoading();
-
-                $.ajax({
-                    url: action,
-                    dataType: 'json',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: form_data,
-                    type: method,
-                    success: function(response) {
-                        HideLoading();
-
-                        if (response.message == "WorkflowError") {
-                            $("#submitAsf").prop("disabled", false);
-
-                            CancelNotif("You don't have access", '/AdvanceSettlement?var=1');
-                        } else if (response.message == "MoreThanOne") {
-                            $('#getWorkFlow').modal('toggle');
-
-                            var t = $('#tableGetWorkFlow').DataTable();
-                            t.clear();
-                            $.each(response.data, function(key, val) {
-                                t.row.add([
-                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                                ]).draw();
-                            });
-                        } else {
-                            const formatData = {
-                                workFlowPath_RefID: response.workFlowPath_RefID, 
-                                nextApprover: response.nextApprover_RefID, 
-                                approverEntity: response.approverEntity_RefID, 
-                                documentTypeID: response.documentTypeID,
-                                storeData: response.storeData
-                            };
-
-                            SelectWorkFlow(formatData);
-                        }
-                    },
-                    error: function(response) {
-                        console.log('response error', response);
-                        
-                        HideLoading();
-                        $("#submitAsf").prop("disabled", false);
-                        CancelNotif("You don't have access", '/AdvanceSettlement?var=1');
-                    }
-                });
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
+        $.ajax({
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(response) {
                 HideLoading();
-                CancelNotif("Data Cancel Inputed", '/AdvanceSettlement?var=1');
+
+                if (response.message == "WorkflowError") {
+                    $("#submitAsf").prop("disabled", false);
+
+                    CancelNotif("You don't have access", '/AdvanceSettlement?var=1');
+                } else if (response.message == "MoreThanOne") {
+                    $('#getWorkFlow').modal('toggle');
+
+                    var t = $('#tableGetWorkFlow').DataTable();
+                    t.clear();
+                    $.each(response.data, function(key, val) {
+                        t.row.add([
+                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                        ]).draw();
+                    });
+                } else {
+                    const formatData = {
+                        workFlowPath_RefID: response.workFlowPath_RefID, 
+                        nextApprover: response.nextApprover_RefID, 
+                        approverEntity: response.approverEntity_RefID, 
+                        documentTypeID: response.documentTypeID,
+                        storeData: response.storeData
+                    };
+
+                    SelectWorkFlow(formatData);
+                }
+            },
+            error: function(response) {
+                console.log('response error', response);
+                
+                HideLoading();
+                $("#submitAsf").prop("disabled", false);
+                CancelNotif("You don't have access", '/AdvanceSettlement?var=1');
             }
         });
-    });
+    }
 
     document.querySelector('#tableAdvanceList tbody').addEventListener('click', function (e) {
         const row = e.target.closest('tr');

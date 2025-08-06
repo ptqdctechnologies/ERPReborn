@@ -18,7 +18,13 @@
                                                     <input id="businessDocumentNumber" style="border-radius:0;" name="businessDocumentNumber" type="text" class="form-control" value="{{ $transactionNumber ?? '' }}" autocomplete="off">
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control">
-                                                            <a class="nav-link mySearchCheckDocument" data-toggle="modal" data-target="#mySearchCheckDocument" javascript(0);><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                            <a href="javascript:;" class="nav-link mySearchCheckDocument" data-toggle="modal" data-target="#mySearchCheckDocument">
+                                                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                                                            </a>
+
+                                                            <div id="loadingDocTracking" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+                                                                <span class="sr-only">Loading...</span>
+                                                            </div>
                                                         </span>
                                                     </div>
                                                 </div>

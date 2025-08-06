@@ -12,6 +12,7 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use App\Services\Inventory\MaterialReceiveService;
 use App\Services\WorkflowService;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MaterialReceiveController extends Controller
 {
@@ -21,6 +22,141 @@ class MaterialReceiveController extends Controller
     {
         $this->materialReceiveService = $materialReceiveService;
         $this->workflowService = $workflowService;
+    }
+
+    public function ReportMaterialReceiveSummary(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionDeliveryOrderNumber");
+        $dataMR = Session::get("DeliveryOrderReportSummaryDataPDF");
+
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'statusRevisi' => 1,
+            'dataReport' => $dataReport ?? null,
+            'statusHeader' => "Yes",
+            'statusDetail' => 1,
+            'dataHeader' => [],
+            'dataMR' => $dataMR
+        
+        ];
+        // dump($compact);
+
+        return view('Inventory.MaterialReceive.Reports.ReportMaterialReceiveSummary', $compact);
+    }
+
+    public function ReportMaterialReceiveSummaryData( $project_code){
+        
+            
+        try {
+            // Log::error("Error at ",[$project_code]);
+
+            $varAPIWebToken = Session::get('SessionLogin');
+
+            $filteredArray = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.form.documentForm.supplyChain.getWarehouseInboundOrderSummary', 
+                'latest',
+                [
+                    'parameter' => [
+                        'CombinedBudgetCode' => $project_code,
+                        'DeliveryFrom_RefID' => NULL,
+                        'DeliveryTo_RefID' => NULL
+                    ],
+                     'SQLStatement' => [
+                        'pick' => null,
+                        'sort' => null,
+                        'filter' => null,
+                        'paging' => null
+                        ]
+                ]
+            );
+            
+            // Log::error("Error at " ,$filteredArray);
+            if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
+                return redirect()->back()->with('NotFound', 'Process Error');
+
+            }
+            Session::put("DeliveryOrderReportSummaryDataPDF", $filteredArray['data']['data']);
+            Session::put("DeliveryOrderReportSummaryDataExcel", $filteredArray['data']['data']);
+            return $filteredArray['data']['data'];
+        }
+        catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function ReportMaterialReceiveSummaryStore(Request $request)
+    {
+        // tes;
+        try {
+            $project_code = $request->budget;
+            // $site_code = $request->site_id_second;
+
+            $statusHeader = "Yes";
+            // Log::error("Error at " ,[$request->all()]);
+            if ($project_code == "") {
+                Session::forget("DeliveryOrderReportSummaryDataPDF");
+                Session::forget("DeliveryOrderReportSummaryDataExcel");
+                
+                return redirect()->route('MaterialReceive.ReportMaterialReceiveSummary')->with('NotFound', 'Cannot Empty');
+            }
+
+            $compact = $this->ReportMaterialReceiveSummaryData($project_code);
+            // dd($compact);
+            // if ($compact['dataHeader'] == []) {
+            //     Session::forget("PDeliveryOrderSummaryReportDataPDF");
+            //     Session::forget("PDeliveryOrderSummaryReportDataExcel");
+
+            //     return redirect()->back()->with('NotFound', 'Data Not Found');
+            // }
+
+            return redirect()->route('MaterialReceive.ReportMaterialReceiveSummary');
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
+    }
+
+    public function PrintExportReportMaterialReceiveSummary(Request $request)
+    {
+        try {
+            $dataPDF = Session::get("DeliveryOrderReportSummaryDataPDF");
+            $dataExcel = Session::get("DeliveryOrderReportSummaryDataExcel");
+
+            
+            if ($dataPDF && $dataExcel) {
+                $print_type = $request->print_type;
+                if ($print_type == "PDF") {
+                    $dataMR = Session::get("DeliveryOrderReportSummaryDataPDF");
+                    // dd($dataMR);
+
+                    $pdf = PDF::loadView('Inventory.MaterialReceive.Reports.ReportMaterialReceiveSummary_pdf', ['dataMR' => $dataMR])->setPaper('a4', 'landscape');
+                    $pdf->output();
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf ->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Delivery Order Summary.pdf');
+                } else if ($print_type == "Excel") {
+                    return Excel::download(new ExportReportDeliveryOrderSummary, 'Export Report Material Receive Summary.xlsx');
+                }
+            } else {
+                return redirect()->route('DeliveryOrder.DeliveryOrderSummary')->with('NotFound', 'Data Cannot Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Error at " . $th->getMessage());
+            return redirect()->back()->with('NotFound', 'Process Error');
+        }
     }
 
     public function index(Request $request)
@@ -225,7 +361,7 @@ class MaterialReceiveController extends Controller
         return response()->json($filteredArray);
     }
 
-    public function MaterialReceiveListDataDO(Request $request)
+    public function MaterialReceiveListdataMR(Request $request)
     {
         $advance_RefID = $request->input('delivery_order_id');
         $varAPIWebToken = Session::get('SessionLogin');

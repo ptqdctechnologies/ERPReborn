@@ -39,6 +39,7 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
                 'Delivery To'                       => null,
                 'Total Idr'                         => $idr,
                 'Total Other Currency'              => $other,
+                'Total Equivalent IDR'              => null,
             ];
         }
 
@@ -52,6 +53,7 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
             'Delivery To'                       => '',
             'Total Idr'                         => $grandTotalIDR,
             'Total Other Currency'              => $grandTotalOtherCurrency,
+            'Total Equivalent IDR'              => '',
         ];
 
         return collect($filteredData);
@@ -64,7 +66,7 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
         return [
             ["Budget", ": " . $data[0]['combinedBudgetCode'] . ' - ' . $data[0]['combinedBudgetName'], "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", "", "", ""],
-            ["No", "PR Number","Date", "Sub Budget", "Delivery From", "Delivery To", "Total IDR", "Total Other Currency"],
+            ["No", "PR Number","Date", "Sub Budget", "Delivery From", "Delivery To", "Total IDR", "Total Other Currency", "Total Equivalent IDR"],
         ];
     }
 
@@ -78,8 +80,8 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
                 // $dataHeader = $data['dataHeader'];
 
                 $sheet->setCellValue('A1', date('F j, Y'))
-                    ->mergeCells('A1:H1')
-                    ->getStyle('A1:H1')
+                    ->mergeCells('A1:I1')
+                    ->getStyle('A1:I1')
                     ->applyFromArray([
                         'font' => [
                             'bold' => true,
@@ -91,8 +93,8 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
                 ]);
 
                 $sheet->setCellValue('A2', 'Purchase Requisition Summary Report')
-                    ->mergeCells('A2:H2')
-                    ->getStyle('A2:H2')
+                    ->mergeCells('A2:I2')
+                    ->getStyle('A2:I2')
                     ->applyFromArray([
                         'font' => [
                             'bold' => true,
@@ -104,8 +106,8 @@ class ExportReportPurchaseRequisitionSummary implements FromCollection, WithHead
                 ]);
 
                 $sheet->setCellValue('A3', date('h:i A'))
-                    ->mergeCells('A3:H3')
-                    ->getStyle('A3:H3')
+                    ->mergeCells('A3:I3')
+                    ->getStyle('A3:I3')
                     ->applyFromArray([
                         'font' => [
                             'bold' => true,

@@ -19,20 +19,20 @@
                 @endif
             </tr>
             @if(sizeof($dataDetailGetTransactionHistory))
-            <tr>
-                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;position: sticky;background: #FFF;">Product Code</th>
-                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 125px; z-index: 10;position: sticky;background: #FFF;">Product Name</th>
-                <th class="text-center" style="vertical-align: middle; width: 40px; min-width: 40px; max-width: 40px; left: 250px; z-index: 10;position: sticky;background: #FFF;">UOM</th>
-                <th class="text-center" style="vertical-align: middle; width: 80px; min-width: 80px; max-width: 80px; left: 290px; z-index: 10;position: sticky;background: #FFF;">Qty</th>
-                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 370px; z-index: 10;position: sticky;background: #FFF;">Price</th>
-                <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 495px; z-index: 10;position: sticky;background: #FFF;">Total</th>
+                <tr>
+                    <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;position: sticky;background: #FFF;">Product Code</th>
+                    <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 125px; z-index: 10;position: sticky;background: #FFF;">Product Name</th>
+                    <th class="text-center" style="vertical-align: middle; width: 40px; min-width: 40px; max-width: 40px; left: 250px; z-index: 10;position: sticky;background: #FFF;">UOM</th>
+                    <th class="text-center" style="vertical-align: middle; width: 80px; min-width: 80px; max-width: 80px; left: 290px; z-index: 10;position: sticky;background: #FFF;">Qty</th>
+                    <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 370px; z-index: 10;position: sticky;background: #FFF;">Price</th>
+                    <th class="text-center" style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 495px; z-index: 10;position: sticky;background: #FFF;">Total</th>
 
-                @for($i = 1; $i < count($dataDetailGetTransactionHistory[0]); $i++)
-                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Qty</th>
-                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Price</th>
-                    <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Total</th>
-                @endfor
-            </tr>
+                    @for($i = 1; $i < count($dataDetailGetTransactionHistory[0]); $i++)
+                        <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Qty</th>
+                        <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Price</th>
+                        <th class="text-center" style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">Total</th>
+                    @endfor
+                </tr>
             @endif
         </thead>
 

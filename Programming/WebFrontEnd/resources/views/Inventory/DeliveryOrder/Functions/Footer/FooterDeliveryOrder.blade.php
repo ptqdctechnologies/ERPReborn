@@ -88,6 +88,10 @@
                     let deliveryFroms = `(${data[0]['supplierCode']}) ${data[0]['supplierName']} - ${data[0]['supplierAddress']}`;
                     let deliveryToNonRefIDs = data[0]['deliveryTo_NonRefID'] ? data[0]['deliveryTo_NonRefID'].Address : '';
 
+                    $("#reference_id").val(reference_id);
+                    $("#reference_number").val(reference_number);
+                    $("#var_combinedBudget_RefID").val(data[0].combinedBudget_RefID);
+                    // $("#requesterWorkerJobsPosition_RefID").val(data.combinedBudget_RefID);
                     $("#budget_value").val(`${data[0]['combinedBudgetCode']} - ${data[0]['combinedBudgetName']}`);
 
                     $("#delivery_fromDuplicate").val(deliveryFroms);
@@ -113,16 +117,17 @@
                                 <input id="refDocument_RefID${indexReferenceNumberDetail}" value="${val2.purchaseOrder_RefID || ''}" type="hidden" />
                                 <input id="underlyingDetail_RefID${indexReferenceNumberDetail}" value="${val2.sys_ID || ''}" type="hidden" />
                                 <input id="reference_number${indexReferenceNumberDetail}" value="${reference_number}" type="hidden" />
-                                <input id="product_code${indexReferenceNumberDetail}" value="${val2.productCode || '1000742' + indexReferenceNumberDetail}" type="hidden" />
-                                <input id="product_name${indexReferenceNumberDetail}" value="${val2.productName || '-'}" type="hidden" />
+                                <input id="product_code${indexReferenceNumberDetail}" value="${val2.productCode || ''}" type="hidden" />
+                                <input id="product_name${indexReferenceNumberDetail}" value="${val2.productName || ''}" type="hidden" />
                                 <input id="uom${indexReferenceNumberDetail}" value="${val2.quantityUnitName || ''}" type="hidden" />
                                 <input id="qty_reference${indexReferenceNumberDetail}" value="${currencyTotal(val2.quantity)}" type="hidden" />
                                 <input id="qty_avail${indexReferenceNumberDetail}" value="${currencyTotal(val2.qtyAvail)}" type="hidden" />
-                                <input id="qty_unit_refID${indexReferenceNumberDetail}" value="${val2.quantityUnit_RefID || '73000000000001'}" type="hidden" />
-                                <input id="product_refID${indexReferenceNumberDetail}" value="${val2.product_RefID || '8800000000079' + indexReferenceNumberDetail}" type="hidden" />
+                                <input id="qty_unit_refID${indexReferenceNumberDetail}" value="${val2.quantityUnit_RefID || ''}" type="hidden" />
+                                <input id="product_refID${indexReferenceNumberDetail}" value="${val2.product_RefID || ''}" type="hidden" />
 
                                 ${key === 0 ? modifyColumn : ''}
-                                <td style="text-align: center;">${val2.productCode || '1000742' + indexReferenceNumberDetail}</td>
+                                <td style="text-align: center;">${val2.combinedBudgetSectionCode + ' - ' + val2.combinedBudgetSectionName}</td>
+                                <td style="text-align: center;">${val2.productCode || '-'}</td>
                                 <td style="text-align: center;">${val2.productName || '-'}</td>
                                 <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
                                 <td style="text-align: center;">${currencyTotal(val2.quantity)}</td>
@@ -520,18 +525,35 @@
     });
 
     $('#referenceNumberModal').on('click', 'tbody tr', function() {
-        var sysId                   = $(this).find('input[data-trigger="sys_id_reference_number"]').val();
-        var sysCombineBudgetRefID   = $(this).find('input[data-trigger="sys_combined_budget_RefID"]').val();
-        var sysRequesterRefID       = $(this).find('input[data-trigger="sys_requester_RefID"]').val();
-        var referenceNumber         = $(this).find('td:nth-child(2)').text();
-        
-        $("#reference_id").val(sysId);
-        $("#var_combinedBudget_RefID").val(sysCombineBudgetRefID);
-        $("#requesterWorkerJobsPosition_RefID").val(sysRequesterRefID);
-        $("#reference_number").val(referenceNumber);
-        GetReferenceNumberDetail(sysId, referenceNumber);
+        var table = $('#referenceNumberTable').DataTable();
+        var data = table.row(this).data();
 
-        $('#referenceNumberModal').modal('hide');
+        if (data) {
+            $("#referenceNumberModal").modal('toggle');
+
+            console.log('data referenceNumberModal', data);
+
+            // $("#reference_id").val(data.sys_ID);
+            // $("#reference_number").val(data.sys_Text);
+            // $("#var_combinedBudget_RefID").val(data.combinedBudget_RefID);
+            // $("#requesterWorkerJobsPosition_RefID").val(data.combinedBudget_RefID);
+
+            GetReferenceNumberDetail(data.sys_ID, data.sys_Text);
+        }
+
+
+        // var sysId                   = $(this).find('input[data-trigger="sys_id_reference_number"]').val();
+        // var sysCombineBudgetRefID   = $(this).find('input[data-trigger="sys_combined_budget_RefID"]').val();
+        // var sysRequesterRefID       = $(this).find('input[data-trigger="sys_requester_RefID"]').val();
+        // var referenceNumber         = $(this).find('td:nth-child(2)').text();
+        
+        // $("#reference_id").val(sysId);
+        // $("#var_combinedBudget_RefID").val(sysCombineBudgetRefID);
+        // $("#requesterWorkerJobsPosition_RefID").val(sysRequesterRefID);
+        // $("#reference_number").val(referenceNumber);
+        // GetReferenceNumberDetail(sysId, referenceNumber);
+
+        // $('#referenceNumberModal').modal('hide');
     });
 
     $('#tableGetTransporter tbody').on('click', 'tr', function () {

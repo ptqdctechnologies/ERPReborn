@@ -36,25 +36,25 @@
 </head>
 <body>
     <header>
-        <table style="width: 100%;">
+        <table style="width: 100%; border-collapse: collapse;">
             <tr>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 11px; font-weight: bold;">
+                    <div style="text-align: center; line-height: 30px; font-size: 11px; font-weight: bold;">
                         PO No
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 11px; font-weight: bold;">
+                    <div style="text-align: center; line-height: 30px; font-size: 11px; font-weight: bold;">
                         Rev No
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 11px; font-weight: bold;">
+                    <div style="text-align: center; line-height: 30px; font-size: 11px; font-weight: bold;">
                         PO Date
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 11px; font-weight: bold;">
+                    <div style="text-align: center; line-height: 30px; font-size: 11px; font-weight: bold;">
                         Page No
                     </div>
                 </td>
@@ -65,22 +65,22 @@
 
             <tr>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 10px;">
+                    <div style="text-align: center; line-height: 30px; font-size: 10px;">
                         <?= $dataReport[0]['documentNumber']; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 10px;">
+                    <div style="text-align: center; line-height: 30px; font-size: 10px;">
                         <?= $dataReport[0]['revision'] ?? '-'; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 10px;">
-                        <?= $dataReport[0]['date']; ?>
+                    <div style="text-align: center; line-height: 30px; font-size: 10px;">
+                        <?= substr($dataReport[0]['date'], 0, 10); ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 110px; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 0px; font-size: 10px;">
+                    <div style="text-align: center; line-height: 30px; font-size: 10px;">
                         <?= $dataReport[0]['revision'] ?? '-'; ?>
                     </div>
                 </td>
@@ -94,7 +94,7 @@
                         <tr>
                             <td style="height: 40px;"></td>
                         </tr>
-                        <tr style="border: 1px solid black;">
+                        <tr>
                             <td style="padding: 4px;">
                                 <div style="vertical-align: top; font-size: 11px; height: 20px; font-weight: bold;">
                                     Supplier :
@@ -108,7 +108,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td style="font-size: 14px; font-weight: bold;">
+                            <td style="font-size: 28px; font-weight: bold;">
                                 Purchase Order
                             </td>
                         </tr>
@@ -116,7 +116,7 @@
                 </td>
                 <td>
                     <table style="width: 100%;">
-                        <tr style="border: 1px solid black;">
+                        <tr>
                             <td style="padding: 4px;">
                                 <div style="vertical-align: top; font-size: 11px; height: 20px; font-weight: bold;">
                                     Deliver To :
@@ -127,7 +127,7 @@
                             </td>
                         </tr>
                         <tr><td style="height: 4px;"></td></tr>
-                        <tr style="border: 1px solid black;">
+                        <tr>
                             <td style="padding: 4px;">
                                 <div style="vertical-align: top; font-size: 11px; height: 20px; font-weight: bold;">
                                     Invoice To :
@@ -145,57 +145,57 @@
             </tr>
         </table>
 
-        <table style="width: 100%; margin-top: 4px;">
+        <table style="border-collapse: collapse; width: 100%; margin-top: 4px; border: 1px solid black;">
             <tr>
                 <td style="border: 1px solid black; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px; font-weight: bold;">
+                    <div style="text-align: center; line-height: 30px; font-size: 10px; font-weight: bold;">
                         Project Code
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px; font-weight: bold;">
+                    <div style="text-align: center; line-height: 30px; font-size: 10px; font-weight: bold;">
                         Budget Type
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px; font-weight: bold;">
+                    <div style="text-align: center; line-height: 30px; font-size: 10px; font-weight: bold;">
                         PIC Sourcing
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px; font-weight: bold;">
+                    <div style="text-align: center; line-height: 30px; font-size: 10px; font-weight: bold;">
                         Delivery Date Estimate
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px; font-weight: bold;">
+                    <div style="text-align: center; line-height: 30px; font-size: 10px; font-weight: bold;">
                         PIC Printing
                     </div>
                 </td>
             </tr>
             <tr>
                 <td style="border: 1px solid black; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
+                    <div style="text-align: center; line-height: 30px; font-size: 10px;">
                         <?= $dataReport[0]['combinedBudgetCode']; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
+                    <div style="text-align: center; line-height: 30px; font-size: 10px;">
                         -
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
+                    <div style="text-align: center; line-height: 30px; font-size: 10px;">
                         -
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
-                        <?= $dataReport[0]['deliveryDateTimeTZ'] ?? '-'; ?>
+                    <div style="text-align: center; line-height: 30px; font-size: 10px;">
+                        <?= substr($dataReport[0]['deliveryDateTimeTZ'], 0, 10) ?? '-'; ?>
                     </div>
                 </td>
                 <td style="border: 1px solid black; height: 30px;">
-                    <div style="vertical-align: middle; text-align: center; line-height: 30px; font-size: 10px;">
+                    <div style="text-align: center; line-height: 30px; font-size: 10px;">
                         <?= Session::get("SessionLoginName"); ?>
                     </div>
                 </td>
@@ -206,7 +206,7 @@
     <footer>
         <!-- PAYMENT TERM -->
         <table style="width: 100%; border: 1px solid black; margin-bottom: 16px;">
-            <td style="width: 60%; border: 1px solid black;">
+            <td style="width: 60%;">
                 <div style="padding-left: 4px;">
                     <div style="vertical-align: top; line-height: 10px; font-size: 10px; font-weight: bold;">
                         Payment Term :
@@ -224,7 +224,7 @@
                     </div>
                 </div>
             </td>
-            <td style="border: 1px solid black;">
+            <td>
                 <table style="padding: 0px 4px;">
                     <tr>
                         <td style="line-height: 20px;width: 95px;">
@@ -317,15 +317,15 @@
                 </td>
                 <td style="border: 1px solid black; width: 90px; height: 30px;">
                     <div style="font-size: 10px; vertical-align: top; line-height: 30px;"> 
-                        marungkil
+                        {{-- marungkil --}}
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 190px; height: 30px;">
                     <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
-                        d76f3e28ca516277dd15a9d7c0d5e69d
+                        {{-- d76f3e28ca516277dd15a9d7c0d5e69d --}}
                     </div>
                     <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
-                        Date: 18 Jul 2024
+                        {{-- Date: 18 Jul 2024 --}}
                     </div>
                 </td>
                 <td rowspan="5" style="vertical-align: top;">
@@ -336,10 +336,10 @@
                         <div style="margin-top: 24px;">
                             <table style="width: 100%;">
                                 <td style="font-size: 8px; line-height: 15px; width: 40px;">
-                                    Digital Signature :
+                                    {{-- Digital Signature : --}}
                                 </td>
                                 <td style="font-size: 8px; line-height: 15px; max-width: 30px; word-wrap: break-word;">
-                                    bb4ab83f16b88a54afd8523d667dba91
+                                    {{-- bb4ab83f16b88a54afd8523d667dba91 --}}
                                 </td>
                             </table>
                             <hr style="border: 1px solid black; margin: 8px 0px 2px 0px;" />
@@ -360,10 +360,10 @@
                         <div style="margin-top: 24px;">
                             <table style="width: 100%; visibility: hidden;">
                                 <td style="font-size: 8px; line-height: 15px; width: 40px;">
-                                    Digital Signature :
+                                    {{-- Digital Signature : --}}
                                 </td>
                                 <td style="font-size: 8px; line-height: 15px; max-width: 30px; word-wrap: break-word;">
-                                    bb4ab83f16b88a54afd8523d667dba91
+                                    {{-- bb4ab83f16b88a54afd8523d667dba91 --}}
                                 </td>
                             </table>
                             <hr style="border: 1px solid black; margin: 8px 0px 2px 0px;" />
@@ -386,15 +386,15 @@
                 </td>
                 <td style="border: 1px solid black; width: 90px; height: 30px;">
                     <div style="font-size: 10px; vertical-align: top; line-height: 30px;"> 
-                        emir
+                        {{-- emir --}}
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 190px; height: 30px;">
                     <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
-                        d76f3e28ca516277dd15a9d7c0d5e69d
+                        {{-- d76f3e28ca516277dd15a9d7c0d5e69d --}}
                     </div>
                     <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
-                        Date: 18 Jul 2024
+                        {{-- Date: 18 Jul 2024 --}}
                     </div>
                 </td>
             </tr>
@@ -412,10 +412,10 @@
                 </td>
                 <td style="border: 1px solid black; width: 190px; height: 30px;">
                     <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
-                        d76f3e28ca516277dd15a9d7c0d5e69d
+                        {{-- d76f3e28ca516277dd15a9d7c0d5e69d --}}
                     </div>
                     <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
-                        Date: 18 Jul 2024
+                        {{-- Date: 18 Jul 2024 --}}
                     </div>
                 </td>
             </tr>
@@ -433,10 +433,10 @@
                 </td>
                 <td style="border: 1px solid black; width: 190px; height: 30px;">
                     <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
-                        d76f3e28ca516277dd15a9d7c0d5e69d
+                        {{-- d76f3e28ca516277dd15a9d7c0d5e69d --}}
                     </div>
                     <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
-                        Date: 18 Jul 2024
+                        {{-- Date: 18 Jul 2024 --}}
                     </div>
                 </td>
             </tr>
@@ -449,15 +449,15 @@
                 </td>
                 <td style="border: 1px solid black; width: 90px; height: 30px;">
                     <div style="font-size: 10px; vertical-align: top; line-height: 30px;"> 
-                        adhe.kurniawan
+                        {{-- adhe.kurniawan --}}
                     </div>
                 </td>
                 <td style="border: 1px solid black; width: 190px; height: 30px;">
                     <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
-                        d76f3e28ca516277dd15a9d7c0d5e69d
+                        {{-- d76f3e28ca516277dd15a9d7c0d5e69d --}}
                     </div>
                     <div style="font-size: 10px; vertical-align: top; line-height: 15px;"> 
-                        Date: 18 Jul 2024
+                        {{-- Date: 18 Jul 2024 --}}
                     </div>
                 </td>
             </tr>
@@ -494,81 +494,81 @@
     </footer>
 
     <main>
-        <table class="TableReportAdvanceSummary" style="width: 100%;" id="TableReportAdvanceSummary">
-            <tr style="border-top: 1px solid black; border-bottom: 1px solid black;">
-                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
-                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 4px 0px;">
+        <table class="TableReportAdvanceSummary" style="width: 100%; border-collapse: collapse;" id="TableReportAdvanceSummary">
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black; height: 20px;">
+                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0;">
                         No
                     </div>
                 </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
-                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                <td style="border: 1px solid black; height: 20px;">
+                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0;">
                         Product Name
                     </div>
                 </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
-                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                <td style="border: 1px solid black; height: 20px;">
+                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0;">
                         Qty
                     </div>
                 </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
-                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                <td style="border: 1px solid black; height: 20px;">
+                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0;">
                         Price
                     </div>
                 </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
-                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                <td style="border: 1px solid black; height: 20px;">
+                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0;">
                         UOM
                     </div>
                 </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
-                    <table>
+                <td style="border: 1px solid black; height: 20px;">
+                    <table style="width: 100%; border-collapse: collapse;">
                         <tr>
-                            <td colspan="2" style="text-align: center;">
-                                <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 8px 0px;">
+                            <td colspan="2" style="border-bottom: 1px solid black; text-align: center;">
+                                <div style="font-size: 11px; font-weight: bold; margin: 4px 0 8px 0;">
                                     Total IDR
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <div style="font-size: 11px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                <div style="font-size: 11px; font-weight: bold; margin: 4px;">
                                     With VAT
                                 </div>
                             </td>
                             <td>
-                                <div style="font-size: 11px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                <div style="font-size: 11px; font-weight: bold; margin: 4px;">
                                     Without VAT
                                 </div>
                             </td>
                         </tr>
                     </table>
                 </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
-                    <table>
+                <td style="border: 1px solid black; height: 20px;">
+                    <table style="width: 100%; border-collapse: collapse;">
                         <tr>
-                            <td colspan="2" style="text-align: center;">
-                                <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 8px 0px;">
+                            <td colspan="2" style="border-bottom: 1px solid black;text-align: center;">
+                                <div style="font-size: 11px; font-weight: bold; margin: 4px 0 8px 0;">
                                     Total Other Currency
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <div style="font-size: 11px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                <div style="font-size: 11px; font-weight: bold; margin: 4px;">
                                     With VAT
                                 </div>
                             </td>
                             <td>
-                                <div style="font-size: 11px; font-weight: bold; margin: 4px 8px 4px 8px;">
+                                <div style="font-size: 11px; font-weight: bold; margin: 4px;">
                                     Without VAT
                                 </div>
                             </td>
                         </tr>
                     </table>
                 </td>
-                <td style="border-top: 1px solid black; border-bottom: 1px solid black; height: 20px;">
-                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0px 4px 0px;">
+                <td style="border: 1px solid black; height: 20px;">
+                    <div style="font-size: 11px; font-weight: bold; margin: 4px 0;">
                         Currency
                     </div>
                 </td>
@@ -603,7 +603,7 @@
                         </div>
                     </td>
                     <td>
-                        <table style="width: 100%;">
+                        <table style="width: 100%; border-collapse: collapse;">
                             <tr>
                                 <td>
                                     <div style="margin-top: 4px; font-size: 11px;">
@@ -619,7 +619,7 @@
                         </table>
                     </td>
                     <td>
-                        <table style="width: 100%;">
+                        <table style="width: 100%; border-collapse: collapse;">
                             <tr>
                                 <td>
                                     <div style="margin-top: 4px; font-size: 11px;">
@@ -628,7 +628,7 @@
                                 </td>
                                 <td>
                                     <div style="margin-top: 4px; font-size: 11px;">
-                                        <?= $dataDetail['totalOtherCurrencyWithPPN'] ?? '-'; ?>
+                                        <?= $dataDetail['totalOtherCurrencyWithoutPPN'] ?? '-'; ?>
                                     </div>
                                 </td>
                             </tr>

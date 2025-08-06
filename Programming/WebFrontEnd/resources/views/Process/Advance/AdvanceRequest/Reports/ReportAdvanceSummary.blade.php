@@ -68,10 +68,12 @@
                   <tbody>
                   </tbody>
                   <tfoot>
-                    <tr style="font-weight:bolder;">
-                      <td colspan="6">GRAND TOTAL ADVANCE</td>
-                      <td><span id="Total"></span></td>
-                      <td colspan="6"></td>
+                    <tr>
+                      <th colspan="6" style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">GRAND TOTAL</th>
+                      <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><span id="Total"></span></th>
+                      <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
+                      <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
+                      <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"><?= number_format(0, 2, '.', ','); ?></th>
                     </tr>
                   </tfoot>
                 </table>

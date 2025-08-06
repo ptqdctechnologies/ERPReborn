@@ -3392,19 +3392,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );
-                $resultArray = $varReturn['data'];
-                $varReturn['data'] = [];
-                $varReturn['totalRecords'] = $resultArray[0]['TotalRecords'];
-                $idxArray = 0;
-                foreach ($resultArray as $key => $value) {
-                    $varReturn['data'][$idxArray]['sys_ID'] = $value["Sys_ID"];
-                    $varReturn['data'][$idxArray]['sys_Text'] = $value["Sys_Text"];
-                    $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID"];
-                    $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode"];
-                    $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName"];
-                    $varReturn['data'][$idxArray]['orderSequence'] = $value["OrderSequence"];
-                    $idxArray++;
-                }
+                $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
 
                 return
                     $varReturn;
@@ -4223,7 +4211,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getReport_Form_DocumentForm_PurchaseRequisitionSummary                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-07-16                                                                                           |
+        | ▪ Last Update     : 2025-07-31                                                                                           |
         | ▪ Creation Date   : 2025-04-30                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Permintaan Pembelian (Purchase Requisition)                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4254,6 +4242,41 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );
+                $resultArray = $varReturn['data'];
+                $listDocumentNumber = [];
+                $listTotalIDR = [];
+                foreach ($resultArray as $value) {
+                    if (in_array($value["DocumentNumber"], $listDocumentNumber)) {
+                        $listTotalIDR[$value["DocumentNumber"]]["Total_IDR"] = $listTotalIDR[$value["DocumentNumber"]]["Total_IDR"] + $value["Total_IDR"];
+                        $listTotalIDR[$value["DocumentNumber"]]["Total_Other_Currency"] = $listTotalIDR[$value["DocumentNumber"]]["Total_Other_Currency"] + $value["Total_Other_Currency"];
+                    } else {
+                        array_push($listDocumentNumber, $value["DocumentNumber"]);
+                        $listTotalIDR[$value["DocumentNumber"]]["Total_IDR"] = $value["Total_IDR"];
+                        $listTotalIDR[$value["DocumentNumber"]]["Total_Other_Currency"] = $value["Total_Other_Currency"];
+                    }
+                }
+
+                // Generate API.
+                $varReturn['data'] = [];
+                $idxArray = 0;
+                foreach ($resultArray as $value) {
+                    $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID"];
+                    $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode"];
+                    $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName"];
+                    $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
+                    $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode"];
+                    $varReturn['data'][$idxArray]['documentNumber'] = $value["DocumentNumber"];
+                    $varReturn['data'][$idxArray]['date'] = $value["Date"];
+                    $varReturn['data'][$idxArray]['dateOfDelivery'] = $value["DateOfDelivery"];
+                    $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = $value["DeliveryTo_NonRefID"];
+                    $varReturn['data'][$idxArray]['total_IDR'] = array_key_exists($value["DocumentNumber"], $listTotalIDR) ? $listTotalIDR[$value["DocumentNumber"]]["Total_IDR"] : 0;
+                    $varReturn['data'][$idxArray]['total_Other_Currency'] = array_key_exists($value["DocumentNumber"], $listTotalIDR) ? $listTotalIDR[$value["DocumentNumber"]]["Total_Other_Currency"] : 0;
+                    $varReturn['data'][$idxArray]['grand_Total_IDR'] = $value["Grand_Total_IDR"];
+                    $varReturn['data'][$idxArray]['grand_Total_Other_Currency'] = $value["Grand_Total_Other_Currency"];
+                    $varReturn['data'][$idxArray]['grand_Total_All'] = $value["Grand_Total_All"];
+                    $varReturn['data'][$idxArray]['grand_Total_Equivalent_IDR'] = $value["Grand_Total_Equivalent_IDR"];
+                    $idxArray++;
+                }
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -4386,6 +4409,94 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
                                 [$varWarehouse_RefID, 'bigint' ],
+                            ]
+                            )
+                        );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_DeliveryOrderToWarehouseInboundOrderSummary                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-08-05                                                                                           |
+        | ▪ Creation Date   : 2025-08-05                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Delivery Order To Warehouse Inbound Order                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
+        |      ▪ (string)    varCombinedBudgetSectionCode ► Combined Budget Section Code                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_DeliveryOrderToWarehouseInboundOrderSummary(
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null
+            )
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_DeliveryOrderToWarehouseInboundOrder',
+                            [
+                                [$varCombinedBudgetCode, 'varchar' ],
+                                [$varCombinedBudgetSectionCode, 'varchar' ],
+                            ]
+                            )
+                        );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_WarehouseInboundOrderSummary                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2025-08-01                                                                                           |
+        | ▪ Creation Date   : 2025-08-01                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen PurchaseOrder                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
+        |      ▪ (int)    varDeliveryFrom_RefID ► Delivery From RefID                                                              |
+        |      ▪ (int)    varDeliveryTo_RefID ► Delivery To RefID                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_WarehouseInboundOrderSummary(
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varDeliveryFrom_RefID = null, int $varDeliveryTo_RefID = null
+            )
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_WarehouseInboundOrderSummary',
+                            [
+                                [$varCombinedBudgetCode, 'varchar' ],
+                                [$varDeliveryFrom_RefID, 'bigint' ],
+                                [$varDeliveryTo_RefID, 'bigint' ],
                             ]
                             )
                         );

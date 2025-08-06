@@ -91,6 +91,7 @@
                                 <input id="productUnitPriceCurrencyExchangeRate${key}" value="${val2.productUnitPriceCurrencyExchangeRate}" type="hidden" />
                                 <input id="productUnitPriceBaseCurrencyValue${key}" value="${val2.productUnitPriceBaseCurrencyValue}" type="hidden" />
 
+                                <td style="text-align: center;">${data[0].combinedBudgetSectionCode + ' - ' + data[0].combinedBudgetSectionName}</td>
                                 <td style="text-align: center;">${val2.productCode}</td>
                                 <td style="text-align: center;text-wrap: auto;">${val2.productName}</td>
                                 <td style="text-align: center;">${val2.qtyReq}</td>

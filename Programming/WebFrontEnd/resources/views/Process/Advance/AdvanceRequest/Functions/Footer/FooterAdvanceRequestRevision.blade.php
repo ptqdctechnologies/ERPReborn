@@ -37,7 +37,7 @@
             total += value;
         });
 
-        document.getElementById('TotalBudgetSelected').innerText = "0.00";
+        // document.getElementById('TotalBudgetSelected').innerText = "0.00";
         document.getElementById('GrandTotal').innerText = total.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
@@ -57,15 +57,17 @@
             type: 'question',
             input: 'textarea',
             showCloseButton: false,
-            showCancelButton: false,
+            showCancelButton: true,
             focusConfirm: false,
             confirmButtonText: '<span style="color:black;"> OK </span>',
-            confirmButtonColor: '#4B586A',
-            confirmButtonColor: '#e9ecef',
+            cancelButtonColor: '#7A7A73',
+            confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
-            ShowLoading();
-            RevisionAdvanceRequest({...formatData, comment: result.value});
+            if ('value' in result) {
+                ShowLoading();
+                RevisionAdvanceRequest({...formatData, comment: result.value});
+            }
         });
     }
 
@@ -344,8 +346,9 @@
                             var price_req = $(`#price_req${key}`).val().replace(/,/g, '');
                             var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
                             var total = parseFloat(balanced) - parseFloat(qty_req || 0);
+                            var validate = findDataDetail && findDataDetail.quantity ? parseFloat((parseFloat(val2.quantityRemaining) + parseFloat(findDataDetail.quantity)).toFixed(2)) : val2.quantityRemaining;
 
-                            if (parseFloat(qty_req) > val2.quantityRemaining) {
+                            if (parseFloat(qty_req) > validate) {
                                 $(`#qty_req${key}`).val('');
                                 $(`#total_req${key}`).val('');
                                 $(`#balanced_qty${key}`).val(currencyTotal(val2.quantityRemaining));
@@ -447,6 +450,62 @@
         window.location.href = '/AdvanceRequest?var=1';
     }
 
+    function SubmitForm() {
+        $('#advanceRequestRevisionFormModal').modal('hide');
+        
+        var action = $('#FormUpdateAdvance').attr("action");
+        var method = $('#FormUpdateAdvance').attr("method");
+        var form_data = new FormData($('#FormUpdateAdvance')[0]);
+        form_data.append('advanceRequestDetail', JSON.stringify(dataStore));
+
+        ShowLoading();
+
+        $.ajax({
+            url: action,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: method,
+            success: function(response) {
+                HideLoading();
+
+                if (response.message == "WorkflowError") {
+                    $("#submitArf").prop("disabled", false);
+
+                    CancelNotif("You don't have access", '/AdvanceRequest?var=1');
+                } else if (response.message == "MoreThanOne") {
+                    $('#getWorkFlow').modal('toggle');
+
+                    var t = $('#tableGetWorkFlow').DataTable();
+                    t.clear();
+                    $.each(response.data, function(key, val) {
+                        t.row.add([
+                            '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
+                            '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
+                        ]).draw();
+                    });
+                } else {
+                    const formatData = {
+                        workFlowPath_RefID: response.workFlowPath_RefID, 
+                        nextApprover: response.nextApprover_RefID, 
+                        approverEntity: response.approverEntity_RefID, 
+                        documentTypeID: response.documentTypeID,
+                        storeData: response.storeData
+                    };
+
+                    SelectWorkFlow(formatData);
+                }
+            },
+            error: function(response) {
+                HideLoading();
+                $("#submitArf").prop("disabled", false);
+                CancelNotif("You don't have access", '/AdvanceRequest?var=1');
+            }
+        });
+    }
+
     $("#budget-details-add").on('click', function() {
         const sourceTable = document.getElementById('tableGetBudgetDetails').getElementsByTagName('tbody')[0];
         const targetTable = document.getElementById('tableAdvanceList').getElementsByTagName('tbody')[0];
@@ -544,10 +603,10 @@
                     });
                 }
 
-                qtyInput.value = '';
-                priceInput.value = '';
-                totalInput.value = '';
-                balanceInput.value = balanceInput.getAttribute('data-default');
+                // qtyInput.value = '';
+                // priceInput.value = '';
+                // totalInput.value = '';
+                // balanceInput.value = balanceInput.getAttribute('data-default');
             }
         }
 
@@ -577,85 +636,6 @@
         calculateTotal();
     });
 
-    $("#FormUpdateAdvance").on("submit", function(e) {
-        e.preventDefault();
-
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        });
-
-        swalWithBootstrapButtons.fire({
-            title: 'Are you sure?',
-            text: "Save this data?",
-            type: 'question',
-            showCancelButton: true,
-            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
-            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
-            confirmButtonColor: '#e9ecef',
-            cancelButtonColor: '#e9ecef',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                var action = $(this).attr("action");
-                var method = $(this).attr("method");
-                var form_data = new FormData($(this)[0]);
-                form_data.append('advanceRequestDetail', JSON.stringify(dataStore));
-
-                ShowLoading();
-
-                $.ajax({
-                    url: action,
-                    dataType: 'json',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: form_data,
-                    type: method,
-                    success: function(response) {
-                        HideLoading();
-
-                        if (response.message == "WorkflowError") {
-                            $("#submitArf").prop("disabled", false);
-
-                            CancelNotif("You don't have access", '/AdvanceRequest?var=1');
-                        } else if (response.message == "MoreThanOne") {
-                            $('#getWorkFlow').modal('toggle');
-
-                            var t = $('#tableGetWorkFlow').DataTable();
-                            t.clear();
-                            $.each(response.data, function(key, val) {
-                                t.row.add([
-                                    '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-                                    '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-                                ]).draw();
-                            });
-                        } else {
-                            const formatData = {
-                                workFlowPath_RefID: response.workFlowPath_RefID, 
-                                nextApprover: response.nextApprover_RefID, 
-                                approverEntity: response.approverEntity_RefID, 
-                                documentTypeID: response.documentTypeID,
-                                storeData: response.storeData
-                            };
-
-                            SelectWorkFlow(formatData);
-                        }
-                    },
-                    error: function(response) {
-                        HideLoading();
-                        $("#submitArf").prop("disabled", false);
-                        CancelNotif("You don't have access", '/AdvanceRequest?var=1');
-                    }
-                });
-            }  else if (result.dismiss === Swal.DismissReason.cancel) {
-                HideLoading();
-                CancelNotif("Data Cancel Inputed", '/AdvanceRequest?var=1');
-            }
-        })
-    });
-
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);
     });
@@ -667,86 +647,5 @@
         getBudgetDetails(siteCode.value, dataTable);
 
         getDocumentType("Advance Settlement Form");
-    });
-
-    document.querySelector('#tableAdvanceList tbody').addEventListener('click', function (e) {
-        const row = e.target.closest('tr');
-        if (!row) return;
-
-        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
-
-        const qtyAvail      = row.children[1];
-        const priceAvail    = row.children[2];
-        const qtyReq        = row.children[8];
-        const priceReq      = row.children[7];
-        const totalReq      = row.children[9];
-        const notes         = row.children[10];
-
-        if (row.classList.contains('editing-row')) {
-            const newQtyReq     = qtyReq.querySelector('input')?.value || '';
-            const newPriceReq   = priceReq.querySelector('input')?.value || '';
-            const newTotalReq   = totalReq.querySelector('input')?.value || '';
-
-            qtyReq.innerHTML    = newQtyReq;
-            priceReq.innerHTML  = newPriceReq;
-            totalReq.innerHTML  = newTotalReq;
-
-            row.classList.remove('editing-row');
-
-            const recordRefID   = row.children[0].value.trim();
-            const storeItem     = dataStore.find(item => item.recordID == recordRefID);
-            if (storeItem) {
-                storeItem.entities.quantity = parseFloat(newQtyReq.replace(/,/g, ''));
-                storeItem.entities.productUnitPriceCurrencyValue = parseFloat(newPriceReq.replace(/,/g, ''));
-            }
-
-            updateGrandTotal();
-        } else {
-            const currentQty    = qtyReq.innerText.trim();
-            const currentPrice  = priceReq.innerText.trim();
-            const currentTotal  = totalReq.innerText.trim();
-
-            qtyReq.innerHTML = `<input class="form-control number-without-negative qty-input" value="${currentQty}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            priceReq.innerHTML = `<input class="form-control number-without-negative price-input" value="${currentPrice}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            totalReq.innerHTML = `<input class="form-control number-without-negative total-input" value="${currentTotal}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-
-            row.classList.add('editing-row');
-
-            const qtyInput = qtyReq.querySelector('.qty-input');
-            const priceInput = priceReq.querySelector('.price-input');
-            const totalInput = totalReq.querySelector('.total-input');
-
-            function validateTotal() {
-                var price   = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
-                var qty     = parseFloat(qtyInput.value.replace(/,/g, '')) || 0;
-                var total   = price * qty;
-
-                const qtyAvailValue     = parseFloat(qtyAvail?.value.replace(/,/g, '')) || 0;
-                const priceAvailValue   = parseFloat(priceAvail?.value.replace(/,/g, '')) || 0;
-
-                if (qty > qtyAvailValue) {
-                    total           = priceAvailValue * qtyAvailValue;
-                    qty             = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    qtyInput.value  = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                    ErrorNotif("Qty Req is over Qty Avail !");
-                }
-
-                if (price > priceAvailValue) {
-                    total               = qtyAvailValue * priceAvailValue;
-                    price               = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    priceInput.value    = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                    ErrorNotif("Price Req is over Price Avail !");
-                }
-
-                totalInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            }
-
-            priceInput.addEventListener('input', validateTotal);
-            qtyInput.addEventListener('input', validateTotal);
-
-            updateGrandTotal();
-        }
     });
 </script>
