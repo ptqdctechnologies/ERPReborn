@@ -88,10 +88,10 @@
                             <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" data-default="" ${isUnspecified} />
                         </td>
                         <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
-                            <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" data-default="" disabled />
+                            <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" data-default="" readonly />
                         </td>
                         <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
-                            <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" data-default="${balanced}" value="${balanced}" disabled />
+                            <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;" data-default="${balanced}" value="${balanced}" readonly />
                         </td>
                         <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                             <textarea id="remark${key}" class="form-control" data-default=""></textarea>
@@ -163,10 +163,10 @@
                                 <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${currencyTotal(findDataMiscellaneous.productUnitPriceCurrencyValue)}" value="${currencyTotal(findDataMiscellaneous.productUnitPriceCurrencyValue)}" />
                             </td>
                             <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled data-default="${currencyTotal(findDataMiscellaneous.priceCurrencyValue)}" value="${currencyTotal(findDataMiscellaneous.priceCurrencyValue)}" />
+                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" readonly data-default="${currencyTotal(findDataMiscellaneous.priceCurrencyValue)}" value="${currencyTotal(findDataMiscellaneous.priceCurrencyValue)}" />
                             </td>
                             <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" data-default="${currencyTotal(balancedDetail)}" value="${currencyTotal(balancedDetail)}" disabled />
+                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;" data-default="${currencyTotal(balancedDetail)}" value="${currencyTotal(balancedDetail)}" readonly />
                             </td>
                             <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <textarea id="remark${key}" class="form-control" data-default="${findDataMiscellaneous.notes}">${findDataMiscellaneous.notes}</textarea>
@@ -198,10 +198,10 @@
                                 <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" data-default="${currencyTotal(findDataDetail.productUnitPriceCurrencyValue)}" value="${currencyTotal(findDataDetail.productUnitPriceCurrencyValue)}" />
                             </td>
                             <td class="sticky-col third-col-pr" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled data-default="${currencyTotal(findDataDetail.priceCurrencyValue)}" value="${currencyTotal(findDataDetail.priceCurrencyValue)}" />
+                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" readonly data-default="${currencyTotal(findDataDetail.priceCurrencyValue)}" value="${currencyTotal(findDataDetail.priceCurrencyValue)}" />
                             </td>
                             <td class="sticky-col second-col-pr" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" data-default="${currencyTotal(balancedDetail)}" value="${currencyTotal(balancedDetail)}" disabled />
+                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;" data-default="${currencyTotal(balancedDetail)}" value="${currencyTotal(balancedDetail)}" readonly />
                             </td>
                             <td class="sticky-col first-col-pr" style="border:1px solid #e9ecef;background-color:white;">
                                 <textarea id="remark${key}" class="form-control" data-default="${findDataDetail.notes}">${findDataDetail.notes}</textarea>
@@ -234,10 +234,10 @@
                         });
 
                         $(`#qty_req${key}`).on('keyup', function() {
-                            var qty_req = $(this).val().replace(/,/g, '');
-                            var price_req = $(`#price_req${key}`).val().replace(/,/g, '');
-                            var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
-                            var total = parseFloat(qty_req || 0) + parseFloat(balanced);
+                            var qty_req     = $(this).val().replace(/,/g, '');
+                            var price_req   = $(`#price_req${key}`).val().replace(/,/g, '');
+                            var total_req   = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
+                            var total       = parseFloat(qty_req || 0) + parseFloat(balanced);
 
                             if (!qty_req) {
                                 $(`#qty_req${key}`).val('');
@@ -253,45 +253,79 @@
                         });
                     } else {
                         $(`#qty_req${key}`).on('keyup', function() {
-                            var qty_req = $(this).val().replace(/,/g, '');
-                            var price_req = $(`#price_req${key}`).val().replace(/,/g, '');
-                            var total_req = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
-                            var total = parseFloat(balanced) - parseFloat(qty_req || 0);
+                            var qty_req     = $(this).val().replace(/,/g, '');
+                            var price_req   = $(`#price_req${key}`).val().replace(/,/g, '');
+                            var total_req   = parseFloat(qty_req || 1) * parseFloat(price_req || 1);
+                            var total       = parseFloat(balanced) - parseFloat(qty_req || 0);
+                            var validate    = findDataDetail && findDataDetail.quantity ? parseFloat((parseFloat(val2.quantityRemaining) + parseFloat(findDataDetail.quantity)).toFixed(2)) : val2.quantityRemaining;
 
-                            if (parseFloat(qty_req) > val2.quantity) {
-                                $(`#qty_req${key}`).val('');
-                                $(`#total_req${key}`).val('');
+                            if (parseFloat(qty_req) > validate) {
+                                if (findDataDetail) {
+                                    $(`#qty_req${key}`).val(currencyTotal(findDataDetail.quantity));
+                                    $(`#total_req${key}`).val(currencyTotal(price_req * findDataDetail.priceBaseCurrencyValue));
+                                } else {
+                                    $(`#qty_req${key}`).val('');
+                                    $(`#total_req${key}`).val('');
+                                }
+
+                                $(`#balanced_qty${key}`).val(currencyTotal(val2.quantityRemaining));
                                 ErrorNotif("Qty Req is over budget !");
                             } else if (parseFloat(qty_req * price_req) > totalBudget) {
-                                $(`#qty_req${key}`).val('');
-                                $(`#total_req${key}`).val('');
+                                if (findDataDetail) {
+                                    $(`#qty_req${key}`).val(currencyTotal(findDataDetail.quantity));
+                                    $(`#total_req${key}`).val(currencyTotal(price_req * findDataDetail.priceBaseCurrencyValue));
+                                } else {
+                                    $(`#qty_req${key}`).val('');
+                                    $(`#total_req${key}`).val('');
+                                }
+
+                                $(`#balanced_qty${key}`).val(currencyTotal(val2.quantityRemaining));
                                 ErrorNotif("Total Req is over budget !");
                             } else {
-                                calculateTotal();
                                 $(`#total_req${key}`).val(currencyTotal(total_req));
-                                $(`#balanced_qty${key}`).val(currencyTotal(total));
+
+                                if (Math.sign(total) == "-1") {
+                                    $(`#balanced_qty${key}`).val(currencyTotal(0));
+                                } else {
+                                    $(`#balanced_qty${key}`).val(currencyTotal(total));
+                                }
                             }
+
+                            calculateTotal();
                         });
                     }
 
                     $(`#price_req${key}`).on('keyup', function() {
-                        var price_req = $(this).val().replace(/,/g, '');
-                        var qty_req = $(`#qty_req${key}`).val().replace(/,/g, '');
-                        var total_req = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
-                        var total = parseFloat(price_req || 0) + parseFloat(val2.priceBaseCurrencyValue);
+                        var price_req   = $(this).val().replace(/,/g, '');
+                        var qty_req     = $(`#qty_req${key}`).val().replace(/,/g, '');
+                        var total_req   = parseFloat(qty_req || 0) * parseFloat(price_req || 1);
+                        var total       = parseFloat(price_req || 0) + parseFloat(val2.priceBaseCurrencyValue);
 
                         if (parseFloat(price_req) > val2.priceBaseCurrencyValue) {
-                            $(`#price_req${key}`).val('');
-                            $(`#total_req${key}`).val('');
+                            if (findDataDetail) {
+                                $(`#price_req${key}`).val(currencyTotal(findDataDetail.productUnitPriceCurrencyValue));
+                                $(`#total_req${key}`).val(currencyTotal(qty_req * findDataDetail.productUnitPriceCurrencyValue));
+                            } else {
+                                $(`#price_req${key}`).val('');
+                                $(`#total_req${key}`).val('');
+                            }
+
                             ErrorNotif("Price Req is over budget !");
                         } else if (parseFloat(qty_req * price_req) > totalBudget) {
-                            $(`#price_req${key}`).val('');
-                            $(`#total_req${key}`).val('');
+                            if (findDataDetail) {
+                                $(`#price_req${key}`).val(currencyTotal(findDataDetail.productUnitPriceCurrencyValue));
+                                $(`#total_req${key}`).val(currencyTotal(qty_req * findDataDetail.productUnitPriceCurrencyValue));
+                            } else {
+                                $(`#price_req${key}`).val('');
+                                $(`#total_req${key}`).val('');
+                            }
+
                             ErrorNotif("Total Req is over budget !");
                         } else {
-                            calculateTotal();
                             $(`#total_req${key}`).val(currencyTotal(total_req));
                         }
+
+                        calculateTotal();
                     });
                 });
             },
@@ -340,11 +374,12 @@
             type: 'question',
             input: 'textarea',
             showCloseButton: false,
-            showCancelButton: false,
+            showCancelButton: true,
             focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
             confirmButtonText: '<span style="color:black;"> OK </span>',
-            confirmButtonColor: '#4B586A',
-            confirmButtonColor: '#e9ecef',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
             ShowLoading();
@@ -376,7 +411,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -427,14 +462,14 @@
                     <input type="hidden" name="record_RefID[]" value="${val2.sys_ID}">
                     <input type="hidden" name="qty_avail[]" value="${currencyTotal(val2.combinedBudget_Quantity)}">
                     <input type="hidden" name="price_avail[]" value="${currencyTotal(val2.productUnitPriceCurrencyValue)}">
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.priceCurrencyISOCode}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.productUnitPriceCurrencyValue)}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.quantity)}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(totalRequest)}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.notes}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 80px;">${val2.productCode}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;">${val2.productName}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.quantityUnitName}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;">${val2.priceCurrencyISOCode}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(val2.productUnitPriceCurrencyValue)}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${currencyTotal(val2.quantity)}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(totalRequest)}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 150px;">${val2.notes}</td>
                 </tr>
             `;
 
@@ -534,34 +569,34 @@
 
             if (
                 qtyInput && priceInput && totalInput && balanceInput && noteInput &&
-                qtyInput.value.trim() !== '' &&
-                priceInput.value.trim() !== '' &&
-                totalInput.value.trim() !== '' &&
-                balanceInput.value.trim() !== '' &&
-                noteInput.value.trim() !== ''
+                qtyInput.value.trim()       !== '' &&
+                priceInput.value.trim()     !== '' &&
+                totalInput.value.trim()     !== '' &&
+                balanceInput.value.trim()   !== '' &&
+                noteInput.value.trim()      !== ''
             ) {
-                const productName = row.children[8].innerText.trim();
-                const qtyAvail = row.children[10].innerText.trim();
-                const uom = row.children[11].innerText.trim();
-                const priceAvail = row.children[12].innerText.trim();
-                const currency = row.children[14].innerText.trim();
+                const productName   = row.children[8].innerText.trim();
+                const qtyAvail      = row.children[10].innerText.trim();
+                const uom           = row.children[11].innerText.trim();
+                const priceAvail    = row.children[12].innerText.trim();
+                const currency      = row.children[14].innerText.trim();
 
                 const price = priceInput.value.trim();
                 const qty   = qtyInput.value.trim();
                 const total = totalInput.value.trim();
                 const note  = noteInput.value.trim();
 
-                let found = false;
-                const existingRows = targetTable.getElementsByTagName('tr');
+                let found           = false;
+                const existingRows  = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
                     const targetRecordID = targetRow.children[0].value.trim();
                     if (targetRecordID == recordRefID.value) {
-                        targetRow.children[7].innerText = price;
-                        targetRow.children[8].innerText = qty;
-                        targetRow.children[9].innerText = total;
-                        targetRow.children[10].innerText = note;
-                        found = true;
+                        found                               = true;
+                        targetRow.children[7].innerText     = price;
+                        targetRow.children[8].innerText     = qty;
+                        targetRow.children[9].innerText     = total;
+                        targetRow.children[10].innerText    = note;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
                         if (indexToUpdate !== -1) {
@@ -588,14 +623,14 @@
                         <input type="hidden" name="record_RefID[]" value="${recordRefID.value}">
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
-                        <td style="text-align: center;padding: 0.8rem 0px;">${productCode.value}</td>
-                        <td style="text-align: center;padding: 0.8rem 0px;">${productName}</td>
-                        <td style="text-align: center;padding: 0.8rem 0px;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem 0px;">${currency}</td>
-                        <td style="text-align: center;padding: 0.8rem 0px;">${price}</td>
-                        <td style="text-align: center;padding: 0.8rem 0px;">${qty}</td>
-                        <td style="text-align: center;padding: 0.8rem 0px;">${total}</td>
-                        <td style="text-align: center;padding: 0.8rem 0px;">${note}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 80px;">${productCode.value}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;">${currency}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${qty}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${total}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 150px;">${note}</td>
                     `;
                     targetTable.appendChild(newRow);
 
