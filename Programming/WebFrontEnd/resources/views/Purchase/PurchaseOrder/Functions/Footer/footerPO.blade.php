@@ -364,8 +364,9 @@
             showCloseButton: false,
             showCancelButton: true,
             focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
             confirmButtonText: '<span style="color:black;"> OK </span>',
-            cancelButtonColor: '#7A7A73',
+            cancelButtonColor: '#DDDAD0',
             confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
@@ -400,7 +401,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -553,15 +554,15 @@
                 const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
-                    const targetDocNumber = targetRow.children[2].innerText.trim();
-                    const targetCode = targetRow.children[1].value.trim();
+                    const targetDocNumber   = targetRow.children[2].innerText.trim();
+                    const targetCode        = targetRow.children[1].value.trim();
 
                     if (targetDocNumber === documentNumber && targetCode === productCode) {
+                        found                           = true;
                         targetRow.children[6].innerText = price;
                         targetRow.children[7].innerText = qty;
                         targetRow.children[8].innerText = total;
                         targetRow.children[9].innerText = note;
-                        found = true;
 
                         // update dataStore
                         const indexToUpdate = dataStore.findIndex(item => item.entities.documentNumber === documentNumber && item.entities.product_RefID === productCode);
@@ -591,14 +592,14 @@
                     newRow.innerHTML = `
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="product_code[]" value="${productCode}">
-                        <td style="text-align: center;padding: 0.8rem;">${documentNumber}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productCode + ' - ' + productName}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${currency}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${price}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${qty}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${total}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${note}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${documentNumber}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode + ' - ' + productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;">${currency}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${qty}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${total}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 150px;">${note}</td>
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
                     `;
                     targetTable.appendChild(newRow);
