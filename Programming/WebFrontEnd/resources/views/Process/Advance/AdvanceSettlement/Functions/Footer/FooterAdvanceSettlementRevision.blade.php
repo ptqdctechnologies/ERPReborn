@@ -56,10 +56,10 @@
                 }
             });
 
-            let totalRequest = val2.quantity * val2.productUnitPriceCurrencyValue;
-            let totalExpense = val2.expenseQuantity * val2.expenseProductUnitPriceCurrencyValue;
-            let totalCompany = val2.refundQuantity * val2.refundProductUnitPriceCurrencyValue;
-            let balanced = (totalRequest - totalExpense) + totalCompany;
+            let totalRequest    = val2.quantity * val2.productUnitPriceCurrencyValue;
+            let totalExpense    = val2.expenseQuantity * val2.expenseProductUnitPriceCurrencyValue;
+            let totalCompany    = val2.refundQuantity * val2.refundProductUnitPriceCurrencyValue;
+            let balanced        = (totalRequest - totalExpense) + totalCompany;
 
             let row = `
                 <tr>
@@ -109,20 +109,23 @@
             tbody.append(row);
 
             $(`#qty_settlement${key}`).on('keyup', function() {
-                var qty_settlement = $(this).val().replace(/,/g, '');
-                var data_index = $(this).data('index');
-                var data_total_request = $(this).data('total-request');
-                var price_settlement = $(`#price_settlement${data_index}`).val();
-                var total_settlements = parseFloat(qty_settlement || 0) * parseFloat(price_settlement.replace(/,/g, '') || 0);
-                var countBalance = data_total_request - total_settlements;
+                var qty_settlement      = $(this).val().replace(/,/g, '');
+                var data_index          = $(this).data('index');
+                var data_total_request  = $(this).data('total-request');
+                var price_settlement    = $(`#price_settlement${data_index}`).val();
+                var total_company       = $(`#total_settlement_company${data_index}`).val().replace(/,/g, '');
+                var total_settlements   = parseFloat(qty_settlement || 0) * parseFloat(price_settlement.replace(/,/g, '') || 0);
+                var countBalance        = (totalRequest - total_settlements) + parseFloat(total_company || 0);
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                if (parseFloat(qty_settlement) > val2.quantity) {
-                    $(this).val(0);
-                    $(`#total_settlement${data_index}`).val(0);
-                    $(`#balance${data_index}`).val(0);
-                    ErrorNotif("Qty Settlement is over Qty Request !");
+                // if (parseFloat(qty_settlement) > val2.quantity) {
+                if (total_settlements > data_total_request) {
+                    $(this).val(currencyTotal(val2.expenseQuantity));
+                    $(`#total_settlement${data_index}`).val(currencyTotal(totalExpense));
+                    $(`#balance${data_index}`).val(currencyTotal(balanced));
+                    ErrorNotif("Total Expense Claim is over Total Request !");
+                    // ErrorNotif("Qty Settlement is over Qty Request !");
                 } else {
                     $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
                     $(`#balance${data_index}`).val(currencyTotal(countBalance));
@@ -132,20 +135,23 @@
             });
 
             $(`#price_settlement${key}`).on('keyup', function() {
-                var price_settlement = $(this).val().replace(/,/g, '');
-                var data_index = $(this).data('index');
-                var data_total_request = $(this).data('total-request');
-                var qty_settlement = $(`#qty_settlement${data_index}`).val();
-                var total_settlements = parseFloat(qty_settlement.replace(/,/g, '') || 0) * parseFloat(price_settlement || 0);
-                var countBalance = data_total_request - total_settlements;
+                var price_settlement    = $(this).val().replace(/,/g, '');
+                var data_index          = $(this).data('index');
+                var data_total_request  = $(this).data('total-request');
+                var qty_settlement      = $(`#qty_settlement${data_index}`).val();
+                var total_company       = $(`#total_settlement_company${data_index}`).val().replace(/,/g, '');
+                var total_settlements   = parseFloat(qty_settlement.replace(/,/g, '') || 0) * parseFloat(price_settlement || 0);
+                var countBalance        = (totalRequest - total_settlements) + parseFloat(total_company || 0);
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                if (parseFloat(price_settlement) > val2.productUnitPriceCurrencyValue) {
-                    $(this).val(0);
-                    $(`#total_settlement${data_index}`).val(0);
-                    $(`#balance${data_index}`).val(0);
-                    ErrorNotif("Price Settlement is over Price Request !");
+                // if (parseFloat(price_settlement) > val2.productUnitPriceCurrencyValue) {
+                if (total_settlements > data_total_request) {
+                    $(this).val(currencyTotal(val2.expenseProductUnitPriceCurrencyValue));
+                    $(`#total_settlement${data_index}`).val(currencyTotal(totalExpense));
+                    $(`#balance${data_index}`).val(currencyTotal(balanced));
+                    // ErrorNotif("Price Settlement is over Price Request !");
+                    ErrorNotif("Total Expense Claim is over Total Request !");
                 } else {
                     $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
                     $(`#balance${data_index}`).val(currencyTotal(countBalance));
@@ -155,20 +161,23 @@
             });
 
             $(`#qty_settlement_company${key}`).on('keyup', function() {
-                var qty_settlement_company = $(this).val().replace(/,/g, '');
-                var data_index = $(this).data('index');
-                var data_total_request = $(this).data('total-request');
-                var price_settlement_company = $(`#price_settlement_company${data_index}`).val();
-                var total_settlement_company = parseFloat(qty_settlement_company || 0) * parseFloat(price_settlement_company.replace(/,/g, '') || 0);
-                var countBalance = data_total_request - total_settlement_company;
+                var qty_settlement_company      = $(this).val().replace(/,/g, '');
+                var data_index                  = $(this).data('index');
+                var data_total_request          = $(this).data('total-request');
+                var price_settlement_company    = $(`#price_settlement_company${data_index}`).val();
+                var total_settlement            = $(`#total_settlement${data_index}`).val().replace(/,/g, '');
+                var total_settlement_company    = parseFloat(qty_settlement_company || 0) * parseFloat(price_settlement_company.replace(/,/g, '') || 0);
+                var countBalance                = (totalRequest - parseFloat(total_settlement || 0)) + total_settlement_company;
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                if (parseFloat(qty_settlement_company) > val2.quantity) {
-                    $(this).val(0);
-                    $(`#total_settlement_company${data_index}`).val(0);
-                    $(`#balance${data_index}`).val(0);
-                    ErrorNotif("Qty Settlement is over Qty Request !");
+                // if (parseFloat(qty_settlement_company) > val2.quantity) {
+                if (total_settlement_company > data_total_request) {
+                    $(this).val(currencyTotal(val2.refundQuantity));
+                    $(`#total_settlement_company${data_index}`).val(currencyTotal(totalCompany));
+                    $(`#balance${data_index}`).val(currencyTotal(balanced));
+                    // ErrorNotif("Qty Settlement is over Qty Request !");
+                    ErrorNotif("Total Return is over Total Request !");
                 } else {
                     $(`#total_settlement_company${data_index}`).val(currencyTotal(total_settlement_company));
                     $(`#balance${data_index}`).val(currencyTotal(countBalance));
@@ -178,20 +187,23 @@
             });
 
             $(`#price_settlement_company${key}`).on('keyup', function() {
-                var price_settlement_company = $(this).val().replace(/,/g, '');
-                var data_index = $(this).data('index');
-                var data_total_request = $(this).data('total-request');
-                var qty_settlement_company = $(`#qty_settlement_company${data_index}`).val();
-                var total_settlement_company = parseFloat(qty_settlement_company.replace(/,/g, '') || 0) * parseFloat(price_settlement_company || 0);
-                var countBalance = data_total_request - total_settlement_company;
+                var price_settlement_company    = $(this).val().replace(/,/g, '');
+                var data_index                  = $(this).data('index');
+                var data_total_request          = $(this).data('total-request');
+                var qty_settlement_company      = $(`#qty_settlement_company${data_index}`).val();
+                var total_settlement            = $(`#total_settlement${data_index}`).val().replace(/,/g, '');
+                var total_settlement_company    = parseFloat(qty_settlement_company.replace(/,/g, '') || 0) * parseFloat(price_settlement_company || 0);
+                var countBalance                = (totalRequest - parseFloat(total_settlement || 0)) + total_settlement_company;
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                if (parseFloat(price_settlement_company) > val2.productUnitPriceCurrencyValue) {
-                    $(this).val(0);
-                    $(`#total_settlement_company${data_index}`).val(0);
-                    $(`#balance${data_index}`).val(0);
-                    ErrorNotif("Price Settlement is over Price Request !");
+                // if (parseFloat(price_settlement_company) > val2.productUnitPriceCurrencyValue) {
+                if (total_settlement_company > data_total_request) {
+                    $(this).val(currencyTotal(val2.refundProductUnitPriceCurrencyValue));
+                    $(`#total_settlement_company${data_index}`).val(currencyTotal(totalCompany));
+                    $(`#balance${data_index}`).val(currencyTotal(balanced));
+                    // ErrorNotif("Price Settlement is over Price Request !");
+                    ErrorNotif("Total Return is over Total Request !");
                 } else {
                     $(`#total_settlement_company${data_index}`).val(currencyTotal(total_settlement_company));
                     $(`#balance${data_index}`).val(currencyTotal(countBalance));
@@ -210,12 +222,12 @@
                     <input type="hidden" id="total_expense[]" value="${totalExpense}">
                     <input type="hidden" id="total_company[]" value="${totalCompany}">
 
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.ARFNumber || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode + ' - ' + val2.productName}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.UOM || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.currency || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">Expence Claim: Rp ${totalExpense || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">Amount to Company: Rp ${totalCompany || '-'}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${val2.ARFNumber || '-'}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;">${val2.productCode + ' - ' + val2.productName}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.UOM || '-'}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;">${val2.currency || '-'}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;">Expence Claim: Rp ${totalExpense || '-'}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;">Return to the Company: Rp ${totalCompany || '-'}</td>
                 </tr>
             `;
 
@@ -259,8 +271,9 @@
             showCloseButton: false,
             showCancelButton: true,
             focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
             confirmButtonText: '<span style="color:black;"> OK </span>',
-            cancelButtonColor: '#7A7A73',
+            cancelButtonColor: '#DDDAD0',
             confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
@@ -295,7 +308,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -377,8 +390,8 @@
                     const targetARFNumber   = targetRow.children[7].innerText.trim();
 
                     if (targetARFNumber == arfNumber && targetProductCode == productCode) {
-                        targetRow.children[11].innerText    = `Expence Claim: Rp ${totalExpense || '-'}`;
-                        targetRow.children[12].innerText    = `Amount to Company: Rp ${totalCompany || '-'}`;
+                        targetRow.children[11].innerText    = `Expence Claim: Rp ${totalExpense || '0.00'}`;
+                        targetRow.children[12].innerText    = `Return to the Company: Rp ${totalCompany || '0.00'}`;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == advanceDetail_RefID.value && item.entities.productCode == productCode);
@@ -388,14 +401,14 @@
                                 advanceSettlement_RefID: parseInt(advanceSettlement_RefID.value),
                                 recordID: parseInt(advanceDetail_RefID.value),
                                 entities: {
-                                    expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')),
+                                    expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')) || 0,
                                     expenseProductUnitPriceCurrency_RefID: parseInt(expenseProductUnitPriceCurrency_RefID.value),
-                                    expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
+                                    expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')) || 0,
                                     expenseProductUnitPriceCurrencyExchangeRate: parseFloat(expenseProductUnitPriceCurrencyExchangeRate.value),
                                     expenseProductUnitPriceBaseCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
-                                    refundQuantity: parseFloat(qtyCompany.replace(/,/g, '')),
+                                    refundQuantity: parseFloat(qtyCompany.replace(/,/g, '')) || 0,
                                     refundProductUnitPriceCurrency_RefID: parseInt(refundProductUnitPriceCurrency_RefID.value),
-                                    refundProductUnitPriceCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
+                                    refundProductUnitPriceCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')) || 0,
                                     refundProductUnitPriceCurrencyExchangeRate: parseFloat(refundProductUnitPriceCurrencyExchangeRate.value),
                                     refundProductUnitPriceBaseCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
                                     remarks: null,
@@ -417,12 +430,12 @@
                         <input type="hidden" id="total_expense[]" value="${totalExpense}">
                         <input type="hidden" id="total_company[]" value="${totalCompany}">
 
-                        <td style="text-align: center;padding: 0.8rem;">${transNumber}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productCode + ' - ' + productName}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${currency}</td>
-                        <td style="text-align: center;padding: 0.8rem;">Expence Claim: Rp ${totalExpense || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">Amount to Company: Rp ${totalCompany || '-'}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${transNumber}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode + ' - ' + productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;">${currency}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">Expence Claim: Rp ${totalExpense || '0.00'}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">Return to the Company: Rp ${totalCompany || '0.00'}</td>
                     `;
                     targetTable.appendChild(newRow);
 
@@ -431,14 +444,14 @@
                         advanceSettlement_RefID: parseInt(advanceSettlement_RefID.value),
                         recordID: parseInt(advanceDetail_RefID.value),
                         entities: {
-                            expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')),
+                            expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')) || 0,
                             expenseProductUnitPriceCurrency_RefID: parseInt(expenseProductUnitPriceCurrency_RefID.value),
-                            expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
+                            expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')) || 0,
                             expenseProductUnitPriceCurrencyExchangeRate: parseFloat(expenseProductUnitPriceCurrencyExchangeRate.value),
                             expenseProductUnitPriceBaseCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
-                            refundQuantity: parseFloat(qtyCompany.replace(/,/g, '')),
+                            refundQuantity: parseFloat(qtyCompany.replace(/,/g, '')) || 0,
                             refundProductUnitPriceCurrency_RefID: parseInt(refundProductUnitPriceCurrency_RefID.value),
-                            refundProductUnitPriceCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
+                            refundProductUnitPriceCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')) || 0,
                             refundProductUnitPriceCurrencyExchangeRate: parseFloat(refundProductUnitPriceCurrencyExchangeRate.value),
                             refundProductUnitPriceBaseCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
                             remarks: null,
@@ -540,142 +553,6 @@
             }
         });
     }
-
-    document.querySelector('#tableAdvanceList tbody').addEventListener('click', function (e) {
-        const row = e.target.closest('tr');
-        if (!row) return;
-
-        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
-
-        const qtyExpenseAvail      = row.children[0];
-        const priceExpenseAvail    = row.children[1];
-        const qtyCompanyAvail      = row.children[2];
-        const priceCompanyAvail    = row.children[3];
-
-        const qtyExpenseReq    = row.children[9];
-        const priceExpenseReq  = row.children[10];
-        const totalExpenseReq  = row.children[11];
-        const qtyCompanyReq    = row.children[12];
-        const priceCompanyReq  = row.children[13];
-        const totalCompanyReq  = row.children[14];
-
-        if (row.classList.contains('editing-row')) {
-            const newQtyExpenseReq     = qtyExpenseReq.querySelector('input')?.value || '';
-            const newPriceExpenseReq   = priceExpenseReq.querySelector('input')?.value || '';
-            const newTotalExpenseReq   = totalExpenseReq.querySelector('input')?.value || '';
-            const newQtyCompanyReq     = qtyCompanyReq.querySelector('input')?.value || '';
-            const newPriceCompanyReq   = priceCompanyReq.querySelector('input')?.value || '';
-            const newTotalCompanyReq   = totalCompanyReq.querySelector('input')?.value || '';
-
-            qtyExpenseReq.innerHTML    = newQtyExpenseReq;
-            priceExpenseReq.innerHTML  = newPriceExpenseReq;
-            totalExpenseReq.innerHTML  = newTotalExpenseReq;
-            qtyCompanyReq.innerHTML    = newQtyCompanyReq;
-            priceCompanyReq.innerHTML  = newPriceCompanyReq;
-            totalCompanyReq.innerHTML  = newTotalCompanyReq;
-
-            row.classList.remove('editing-row');
-
-            const arfNumber     = row.children[4].innerText.trim();
-            const productCode   = row.children[5].innerText.trim();
-            const storeItem = dataStore.find(item => item.advanceRequestNumber == arfNumber && item.entities.productCode == productCode);
-            if (storeItem) {
-                storeItem.entities.expenseQuantity                          = parseFloat(newQtyExpenseReq.replace(/,/g, ''));
-                storeItem.entities.expenseProductUnitPriceCurrencyValue     = parseFloat(newPriceExpenseReq.replace(/,/g, ''));
-                storeItem.entities.expenseProductUnitPriceBaseCurrencyValue = parseFloat(newPriceExpenseReq.replace(/,/g, ''));
-                storeItem.entities.refundQuantity                           = parseFloat(newQtyCompanyReq.replace(/,/g, ''));
-                storeItem.entities.refundProductUnitPriceCurrencyValue      = parseFloat(newPriceCompanyReq.replace(/,/g, ''));
-                storeItem.entities.refundProductUnitPriceBaseCurrencyValue  = parseFloat(newPriceCompanyReq.replace(/,/g, ''));
-            }
-        } else {
-            const currentQtyExpense     = qtyExpenseReq.innerText.trim();
-            const currentPriceExpense   = priceExpenseReq.innerText.trim();
-            const currentTotalExpense   = totalExpenseReq.innerText.trim();
-            const currentQtyCompany     = qtyCompanyReq.innerText.trim();
-            const currentPriceCompany   = priceCompanyReq.innerText.trim();
-            const currentTotalCompany   = totalCompanyReq.innerText.trim();
-
-            qtyExpenseReq.innerHTML = `<input class="form-control number-without-negative qty-expense-input" value="${currentQtyExpense}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            priceExpenseReq.innerHTML = `<input class="form-control number-without-negative price-expense-input" value="${currentPriceExpense}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            totalExpenseReq.innerHTML = `<input class="form-control number-without-negative total-expense-input" value="${currentTotalExpense}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-            qtyCompanyReq.innerHTML = `<input class="form-control number-without-negative qty-company-input" value="${currentQtyCompany}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            priceCompanyReq.innerHTML = `<input class="form-control number-without-negative price-company-input" value="${currentPriceCompany}" autocomplete="off" style="border-radius:0px;width:100px;">`;
-            totalCompanyReq.innerHTML = `<input class="form-control number-without-negative total-company-input" value="${currentTotalCompany}" autocomplete="off" style="border-radius:0px;width:100px;" readonly>`;
-
-            row.classList.add('editing-row');
-
-            const qtyExpenseInput   = qtyExpenseReq.querySelector('.qty-expense-input');
-            const priceExpenseInput = priceExpenseReq.querySelector('.price-expense-input');
-            const totalExpenseInput = totalExpenseReq.querySelector('.total-expense-input');
-            const qtyCompanyInput   = qtyCompanyReq.querySelector('.qty-company-input');
-            const priceCompanyInput = priceCompanyReq.querySelector('.price-company-input');
-            const totalCompanyInput = totalCompanyReq.querySelector('.total-company-input');
-
-            function updateTotalExpenseClaim() {
-                var price   = parseFloat(priceExpenseInput.value.replace(/,/g, '')) || 0;
-                var qty     = parseFloat(qtyExpenseInput.value.replace(/,/g, '')) || 0;
-                var total   = price * qty;
-
-                const qtyAvailValue     = parseFloat(qtyExpenseAvail?.value.replace(/,/g, '')) || 0;
-                const priceAvailValue   = parseFloat(priceExpenseAvail?.value.replace(/,/g, '')) || 0;
-
-                if (qty > qtyAvailValue) {
-                    total                   = priceAvailValue * qtyAvailValue;
-                    qty                     = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    qtyExpenseInput.value   = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                    ErrorNotif("Qty Expense Claim is over Qty Avail !");
-                }
-
-                if (price > priceAvailValue) {
-                    total                   = qtyAvailValue * priceAvailValue;
-                    price                   = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    priceExpenseInput.value = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                    ErrorNotif("Price Expense Claim is over Price Avail !");
-                }
-
-                totalExpenseInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            }
-
-            priceExpenseInput.addEventListener('input', updateTotalExpenseClaim);
-            qtyExpenseInput.addEventListener('input', updateTotalExpenseClaim);
-
-            function updateTotalCompanyClaim() {
-                var price   = parseFloat(priceCompanyInput.value.replace(/,/g, '')) || 0;
-                var qty     = parseFloat(qtyCompanyInput.value.replace(/,/g, '')) || 0;
-                var total   = price * qty;
-
-                const qtyAvailValue     = parseFloat(qtyCompanyAvail?.value.replace(/,/g, '')) || 0;
-                const priceAvailValue   = parseFloat(priceCompanyAvail?.value.replace(/,/g, '')) || 0;
-
-                if (qty > qtyAvailValue) {
-                    total                   = priceAvailValue * qtyAvailValue;
-                    qty                     = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    qtyCompanyInput.value   = qtyAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                    ErrorNotif("Qty Amount to the Company is over Qty Avail !");
-                }
-
-                if (price > priceAvailValue) {
-                    total                   = qtyAvailValue * priceAvailValue;
-                    price                   = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    priceCompanyInput.value = priceAvailValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                    ErrorNotif("Price Amount to the Company is over Price Avail !");
-                }
-
-                totalCompanyInput.value = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            }
-
-            priceCompanyInput.addEventListener('input', updateTotalCompanyClaim);
-            qtyCompanyInput.addEventListener('input', updateTotalCompanyClaim);
-        }
-
-        updateGrandTotal();
-
-        console.log('dataStore', dataStore);
-    });
 
     $(document).on('input', '.number-without-negative', function() {
         allowNumbersWithoutNegative(this);

@@ -149,10 +149,10 @@
                                 <input class="form-control number-without-negative" id="price_req${key}" autocomplete="off" style="border-radius:0px;" ${isUnspecified} />
                             </td>
                             <td class="sticky-col second-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;background-color:white;" disabled />
+                                <input class="form-control number-without-negative" id="total_req${key}" autocomplete="off" style="border-radius:0px;" readonly />
                             </td>
                             <td class="sticky-col first-col-arf" style="border:1px solid #e9ecef;background-color:white;">
-                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;background-color:white;" data-default="${balanced}" value="${balanced}" disabled />
+                                <input class="form-control number-without-negative" id="balanced_qty${key}" autocomplete="off" style="border-radius:0px;width:90px;" data-default="${balanced}" value="${balanced}" readonly />
                             </td>
                         </tr>
                     `;
@@ -261,8 +261,9 @@
             showCloseButton: false,
             showCancelButton: true,
             focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
             confirmButtonText: '<span style="color:black;"> OK </span>',
-            cancelButtonColor: '#7A7A73',
+            cancelButtonColor: '#DDDAD0',
             confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
@@ -299,7 +300,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -528,13 +529,13 @@
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
                         <input type="hidden" name="product_RefID[]" value="${productRefId.value}">
-                        <td style="text-align: center;padding: 0.8rem;">${productCode.value}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productName}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${currency}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${price}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${qty}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${total}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${productCode.value}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;">${currency}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${price}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${qty}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${total}</td>
                     `;
                     targetTable.appendChild(newRow);
 

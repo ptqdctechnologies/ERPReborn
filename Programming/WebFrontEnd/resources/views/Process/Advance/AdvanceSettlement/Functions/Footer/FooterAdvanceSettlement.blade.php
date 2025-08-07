@@ -160,11 +160,13 @@
 
                             countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                            if (qty_settlement > val2.quantity) {
+                            // if (qty_settlement > val2.quantity) {
+                            if (total_settlements > data_total_request) {
                                 $(this).val(0);
                                 $(`#total_settlement${data_index}`).val(0);
                                 $(`#balance${data_index}`).val(0);
-                                ErrorNotif("Qty Settlement is over Qty Request !");
+                                ErrorNotif("Total Expense Claim is over Total Request !");
+                                // ErrorNotif("Qty Settlement is over Qty Request !");
                             } else {
                                 $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
                                 $(`#balance${data_index}`).val(currencyTotal(countBalance));
@@ -183,11 +185,13 @@
 
                             countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                            if (price_settlement > val2.productUnitPriceCurrencyValue) {
+                            // if (price_settlement > val2.productUnitPriceCurrencyValue) {
+                            if (total_settlements > data_total_request) {
                                 $(this).val(0);
                                 $(`#total_settlement${data_index}`).val(0);
                                 $(`#balance${data_index}`).val(0);
-                                ErrorNotif("Price Settlement is over Price Request !");
+                                ErrorNotif("Total Expense Claim is over Total Request !");
+                                // ErrorNotif("Price Settlement is over Price Request !");
                             } else {
                                 $(`#total_settlement${data_index}`).val(currencyTotal(total_settlements));
                                 $(`#balance${data_index}`).val(currencyTotal(countBalance));
@@ -206,11 +210,13 @@
 
                             countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                            if (qty_settlement_company > val2.quantity) {
+                            // if (qty_settlement_company > val2.quantity) {
+                            if (total_settlement_company > data_total_request) {
                                 $(this).val(0);
                                 $(`#total_settlement_company${data_index}`).val(0);
                                 $(`#balance${data_index}`).val(0);
-                                ErrorNotif("Qty Settlement is over Qty Request !");
+                                // ErrorNotif("Qty Settlement is over Qty Request !");
+                                ErrorNotif("Total Return is over Total Request !");
                             } else {
                                 $(`#total_settlement_company${data_index}`).val(currencyTotal(total_settlement_company));
                                 $(`#balance${data_index}`).val(currencyTotal(countBalance));
@@ -229,11 +235,13 @@
 
                             countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                            if (price_settlement_company > val2.productUnitPriceCurrencyValue) {
+                            // if (price_settlement_company > val2.productUnitPriceCurrencyValue) {
+                            if (total_settlement_company > data_total_request) {
                                 $(this).val(0);
                                 $(`#total_settlement_company${data_index}`).val(0);
                                 $(`#balance${data_index}`).val(0);
-                                ErrorNotif("Price Settlement is over Price Request !");
+                                // ErrorNotif("Price Settlement is over Price Request !");
+                                ErrorNotif("Total Return is over Total Request !");
                             } else {
                                 $(`#total_settlement_company${data_index}`).val(currencyTotal(total_settlement_company));
                                 $(`#balance${data_index}`).val(currencyTotal(countBalance));
@@ -289,8 +297,9 @@
             showCloseButton: false,
             showCancelButton: true,
             focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
             confirmButtonText: '<span style="color:black;"> OK </span>',
-            cancelButtonColor: '#7A7A73',
+            cancelButtonColor: '#DDDAD0',
             confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
@@ -325,7 +334,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -404,8 +413,8 @@
                     const targetTransNumber = targetRow.children[5].innerText.trim();
 
                     if (targetTransNumber === transNumber && targetProductCode === productCode) {
-                        targetRow.children[9].innerText     = `Expence Claim: Rp ${totalExpense || '-'}`;
-                        targetRow.children[10].innerText    = `Amount to Company: Rp ${totalCompany || '-'}`;
+                        targetRow.children[9].innerText     = `Expence Claim: Rp ${totalExpense || '0.00'}`;
+                        targetRow.children[10].innerText    = `Return to the Company: Rp ${totalCompany || '0.00'}`;
                         found = true;
 
                         // update dataStore
@@ -414,15 +423,15 @@
                             dataStore[indexToUpdate] = {
                                 entities: {
                                     advanceDetail_RefID: parseInt(advanceDetail_RefID.value),
-                                    expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')),
+                                    expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')) || 0,
                                     expenseProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
-                                    expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
+                                    expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')) || 0,
                                     expenseProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
                                     expenseProductUnitPriceBaseCurrencyValue: null,
                                     // expenseProductUnitPriceBaseCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
-                                    refundQuantity: parseFloat(qtyCompany.replace(/,/g, '')),
+                                    refundQuantity: parseFloat(qtyCompany.replace(/,/g, '')) || 0,
                                     refundProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
-                                    refundProductUnitPriceCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
+                                    refundProductUnitPriceCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')) || 0,
                                     refundProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
                                     refundProductUnitPriceBaseCurrencyValue: null,
                                     // refundProductUnitPriceBaseCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
@@ -444,27 +453,27 @@
                         <input type="hidden" id="total_expense[]" value="${totalExpense}">
                         <input type="hidden" id="total_company[]" value="${totalCompany}">
 
-                        <td style="text-align: center;padding: 0.8rem;">${transNumber}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productCode + ' - ' + productName}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${currency}</td>
-                        <td style="text-align: center;padding: 0.8rem;">Expence Claim: Rp ${totalExpense || '-'}</td>
-                        <td style="text-align: center;padding: 0.8rem;">Amount to Company: Rp ${totalCompany || '-'}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${transNumber}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode + ' - ' + productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${uom}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;">${currency}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">Expence Claim: Rp ${totalExpense || '0.00'}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">Return to the Company: Rp ${totalCompany || '0.00'}</td>
                     `;
                     targetTable.appendChild(newRow);
 
                     dataStore.push({
                         entities: {
                             advanceDetail_RefID: parseInt(advanceDetail_RefID.value),
-                            expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')),
+                            expenseQuantity: parseFloat(qtyExpense.replace(/,/g, '')) || 0,
                             expenseProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
-                            expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
+                            expenseProductUnitPriceCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')) || 0,
                             expenseProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
                             expenseProductUnitPriceBaseCurrencyValue: null,
                             // expenseProductUnitPriceBaseCurrencyValue: parseFloat(priceExpense.replace(/,/g, '')),
-                            refundQuantity: parseFloat(qtyCompany.replace(/,/g, '')),
+                            refundQuantity: parseFloat(qtyCompany.replace(/,/g, '')) || 0,
                             refundProductUnitPriceCurrency_RefID: parseInt(productUnitPriceCurrency_RefID.value),
-                            refundProductUnitPriceCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),
+                            refundProductUnitPriceCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')) || 0,
                             refundProductUnitPriceCurrencyExchangeRate: parseFloat(1.00),
                             refundProductUnitPriceBaseCurrencyValue: null,
                             // refundProductUnitPriceBaseCurrencyValue: parseFloat(priceCompany.replace(/,/g, '')),

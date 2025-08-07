@@ -49,16 +49,16 @@
         <tr>
             <th style="position: relative;right:20px;"> Total : <span id="TotalBudgetSelected">0.00</span></th>
         </tr>
-        <tr>
+        {{-- <tr>
             <td>
                 <br>
                 <a class="btn btn-default btn-sm float-right" id="budget-details-add" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
                 </a>
-                {{-- <a class="btn btn-default btn-sm float-right" id="budget-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <a class="btn btn-default btn-sm float-right" id="budget-details-reset" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
-                </a> --}}
+                </a>
             </td>
-        </tr>
+        </tr> --}}
     </table>
 </div>

@@ -97,16 +97,16 @@
         <tr>
             <th style="position: relative;right:20px;"> Total Request + VAT: <span id="TotalBudgetSelectedPpn">0.00</span></th>
         </tr>
-        <tr>
+        {{-- <tr>
             <td>
                 <br>
                 <a id="purchase-details-add" class="btn btn-default btn-sm float-right" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Purchase List"> Add
                 </a>
-                {{-- <a id="purchase-details-reset" class="btn btn-default btn-sm float-right" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                <a id="purchase-details-reset" class="btn btn-default btn-sm float-right" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Add to Advance List"> Reset
-                </a> --}}
+                </a>
             </td>
-        </tr>
+        </tr> --}}
     </table>
 </div>

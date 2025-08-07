@@ -260,15 +260,15 @@
 </div>
 
 <div class="modal fade" id="advanceRequestFormModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-xl" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h3 style="margin: 0px;font-weight:bold;">Are you sure you want to save this data?</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <div class="wrapper-budget card-body table-responsive p-0" style="max-height:230px;">
-          <table class="table table-head-fixed text-nowrap table-sm" id="tableAdvanceList">
+        <div class="wrapper-budget card-body table-responsive p-0" style="max-height:200px;">
+          <table class="table table-head-fixed text-nowrap table-sm" id="tableAdvanceList" style="border: 1px solid #dee2e6;">
             {{-- <thead>
               <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Code</th>
               <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product Name</th>
