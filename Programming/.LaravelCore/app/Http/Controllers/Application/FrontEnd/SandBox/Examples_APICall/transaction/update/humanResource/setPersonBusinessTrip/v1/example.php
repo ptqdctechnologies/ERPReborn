@@ -20,8 +20,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.update.humanResource.setPersonBusinessTrip.v1_throughAPIGateway         |
         |                     ► http://172.28.0.4/transaction.update.humanResource.setPersonBusinessTrip.v1_throughAPIGateway      |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-04-10                                                                                           |
+        | ▪ Version         : 1.0001.0000001                                                                                       |
+        | ▪ Last Update     : 2025-08-07                                                                                           |
         | ▪ Creation Date   : 2022-10-11                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 
-                    //-----[ DATA ]-----( START )-----
+                    //-----[ DATA ]---------( START )-----
                         [
                         'recordID' => 78000000000001,
                         'entities' => [
@@ -89,8 +89,48 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                    ]
                                                                ],
                                                            ]
-                                                       ]
-                                                   ]
+                                                       ],
+                                                   'paymentItemList' => [
+                                                       'items' => [
+                                                                [
+                                                                //---> Payment To Vendor
+                                                                'recordID' => 213000000000001,
+                                                                'entities' => [
+                                                                   'paymentMethod_RefID' => 175000000000004,
+                                                                   'amountCurrency_RefID' => 62000000000001,
+                                                                   'amountCurrencyValue' => 30000,
+                                                                   'amountCurrencyExchangeRate' => 1,
+                                                                   'paymentFundingDestination_RefID' => null,
+                                                                   'beneficiaryWorkerJobsPosition_RefID' => null
+                                                                   ]
+                                                                ],
+                                                                //---> Payment To Credit Card
+                                                                [
+                                                                'recordID' => 213000000000002,
+                                                                'entities' => [
+                                                                    'paymentMethod_RefID' => 175000000000005,
+                                                                    'amountCurrency_RefID' => 62000000000001,
+                                                                    'amountCurrencyValue' => 20000,
+                                                                    'amountCurrencyExchangeRate' => 1,
+                                                                    'paymentFundingDestination_RefID' => null,
+                                                                    'beneficiaryWorkerJobsPosition_RefID' => null
+                                                                    ]
+                                                                ],
+                                                                //---> Payment To Employee
+                                                                [
+                                                                'recordID' => 213000000000003,
+                                                                'entities' => [
+                                                                    'paymentMethod_RefID' => 175000000000004,
+                                                                    'amountCurrency_RefID' => 62000000000001,
+                                                                    'amountCurrencyValue' => 20000,
+                                                                    'amountCurrencyExchangeRate' => 1,
+                                                                    'paymentFundingDestination_RefID' => 198000000000054,
+                                                                    'beneficiaryWorkerJobsPosition_RefID' => 164000000000439
+                                                                    ]
+                                                                ]
+                                                            ]
+                                                        ]
+                                                    ]
                                                 ]
                                             ]
                                         ]
@@ -98,7 +138,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                 ]
                             ]
                         ]
-                    //-----[ DATA ]-----(  END  )-----
+                    //-----[ DATA ]---------(  END  )-----
                     );
 
             return

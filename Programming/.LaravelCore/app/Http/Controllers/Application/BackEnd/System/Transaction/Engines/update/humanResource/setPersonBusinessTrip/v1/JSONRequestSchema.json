@@ -198,6 +198,71 @@
                                                                                     "required": [
                                                                                         "items"
                                                                                         ]
+                                                                                    },
+                                                                                "paymentItemList": {                                    
+                                                                                    "type": "object",
+                                                                                    "properties": {
+                                                                                        "items": {
+                                                                                            "type": [ "array", "null" ],
+                                                                                            "items": {
+                                                                                                "type": "object",
+                                                                                                "properties": {
+                                                                                                    "recordID" : {
+                                                                                                        "type": "integer",
+                                                                                                        "minimum": 1,
+                                                                                                        "maximum": 9223372036854775807
+                                                                                                        },
+                                                                                                    "entities": {
+                                                                                                        "type": "object",
+                                                                                                        "properties": {
+                                                                                                            "paymentMethod_RefID": {
+                                                                                                                "type": [ "integer", "null" ],
+                                                                                                                "minimum": 1,
+                                                                                                                "maximum": 9223372036854775807
+                                                                                                                },
+                                                                                                            "amountCurrency_RefID": {
+                                                                                                                "type": [ "integer", "null" ],
+                                                                                                                "minimum": 1,
+                                                                                                                "maximum": 9223372036854775807
+                                                                                                                },
+                                                                                                            "amountCurrencyValue": {
+                                                                                                                "type": [ "number", "null" ],
+                                                                                                                "minimum": 0
+                                                                                                                },
+                                                                                                            "amountCurrencyExchangeRate": {
+                                                                                                                "type": [ "number", "null" ],
+                                                                                                                "minimum": 0
+                                                                                                                },
+                                                                                                            "paymentFundingDestination_RefID": {
+                                                                                                                "type": [ "integer", "null" ],
+                                                                                                                "minimum": 1,
+                                                                                                                "maximum": 9223372036854775807
+                                                                                                                },
+                                                                                                            "beneficiaryWorkerJobsPosition_RefID": {
+                                                                                                                "type": [ "integer", "null" ],
+                                                                                                                "minimum": 1,
+                                                                                                                "maximum": 9223372036854775807
+                                                                                                                }
+                                                                                                            },
+                                                                                                        "required": [
+                                                                                                            "paymentMethod_RefID",
+                                                                                                            "amountCurrency_RefID",
+                                                                                                            "amountCurrencyValue",
+                                                                                                            "amountCurrencyExchangeRate",
+                                                                                                            "paymentFundingDestination_RefID",
+                                                                                                            "beneficiaryWorkerJobsPosition_RefID"
+                                                                                                            ]
+                                                                                                         }
+                                                                                                    },
+                                                                                                "required": [
+                                                                                                    "entities"
+                                                                                                    ]
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                    "required": [
+                                                                                        "items"
+                                                                                        ]
                                                                                     }
                                                                                 },
                                                                             "required": [
