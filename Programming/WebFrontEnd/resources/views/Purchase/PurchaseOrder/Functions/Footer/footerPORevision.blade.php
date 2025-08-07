@@ -97,7 +97,7 @@
         let total = 0;
         const rows = document.querySelectorAll('#tablePurchaseOrderList tbody tr');
         rows.forEach(row => {
-            const totalCell = row.children[10];
+            const totalCell = row.children[9];
             const input = totalCell.querySelector('input');
             
             const value = parseFloat(totalCell.innerText.replace(/,/g, '')) || 0;
@@ -133,8 +133,9 @@
             showCloseButton: false,
             showCancelButton: true,
             focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
             confirmButtonText: '<span style="color:black;"> OK </span>',
-            cancelButtonColor: '#7A7A73',
+            cancelButtonColor: '#DDDAD0',
             confirmButtonColor: '#DDDAD0',
             reverseButtons: true
         }).then((result) => {
@@ -169,7 +170,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;">' + res.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -308,18 +309,20 @@
             tbody.append(row);
 
             $(`#qty_req${key}`).on('keyup', function() {
-                var qty_req = $(this).val().replace(/,/g, '');
-                var data_index = $(this).data('index');
-                var data_total_request = $(this).data('total-request');
-                var price_req = $(`#price_req${data_index}`).val();
-                var total_req = parseFloat(qty_req || 0) * parseFloat(price_req.replace(/,/g, '') || 0);
-                var countBalance = data_total_request - total_req;
+                var qty_req             = $(this).val().replace(/,/g, '');
+                var data_index          = $(this).data('index');
+                var data_total_request  = $(this).data('total-request');
+                var price_req           = $(`#price_req${data_index}`).val().replace(/,/g, '');
+                var total_req           = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
+                var countBalance        = data_total_request - total_req;
+                var validate            = parseFloat((parseFloat(val2.qtyAvail) + parseFloat(val2.quantity)).toFixed(2));
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
-                if (parseFloat(qty_req || 0) > parseFloat(val2.quantity || 0)) {
-                    $(this).val(0);
-                    $(`#total_req${data_index}`).val(0);
+                // if (parseFloat(qty_req || 0) > parseFloat(val2.quantity || 0)) {
+                if (parseFloat(qty_req || 0) > validate) {
+                    $(this).val(currencyTotal(val2.quantity));
+                    $(`#total_req${data_index}`).val(currencyTotal(val2.quantity * (price_req || 1)));
                     $(`#balance${data_index}`).val(0);
                     ErrorNotif("Qty Req is over Qty Avail !");
                 } else {
@@ -330,18 +333,18 @@
             });
 
             $(`#price_req${key}`).on('keyup', function() {
-                var price_req = $(this).val().replace(/,/g, '');
-                var data_index = $(this).data('index');
-                var data_total_request = $(this).data('total-request');
-                var qty_req = $(`#qty_req${data_index}`).val();
-                var total_req = parseFloat(qty_req.replace(/,/g, '') || 0) * parseFloat(price_req || 0);
-                var countBalance = data_total_request - total_req;
+                var price_req           = $(this).val().replace(/,/g, '');
+                var data_index          = $(this).data('index');
+                var data_total_request  = $(this).data('total-request');
+                var qty_req             = $(`#qty_req${data_index}`).val().replace(/,/g, '');
+                var total_req           = parseFloat(qty_req || 0) * parseFloat(price_req || 0);
+                var countBalance        = data_total_request - total_req;
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
                 if (parseFloat(price_req || 0) > parseFloat(val2.productUnitPriceCurrencyValue || 0)) {
-                    $(this).val(0);
-                    $(`#total_req${data_index}`).val(0);
+                    $(this).val(currencyTotal(val2.productUnitPriceCurrencyValue));
+                    $(`#total_req${data_index}`).val(currencyTotal((qty_req || 1) * val2.productUnitPriceCurrencyValue));
                     $(`#balance${data_index}`).val(0);
                     ErrorNotif("Price Req is over Unit Price !");
                 } else {
@@ -356,15 +359,14 @@
                     <input type="hidden" name="record_RefID[]" value="${val2.sys_ID}">
                     <input type="hidden" name="qty_avail[]" value="${currencyTotal(val2.quantity || 0)}">
                     <input type="hidden" name="price_avail[]" value="${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}">
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.purchaseRequisitionNumber || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productCode || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productName || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.quantityUnitName || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.productUnitPriceCurrencyISOCode || '-'}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(val2.quantity || 0)}</td>
-                    <td style="text-align: center;padding: 0.8rem 0px;">${currencyTotal(totalReq || 0)}</td> 
-                    <td style="text-align: center;padding: 0.8rem 0px;">${val2.note || '-'}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 100px;">${val2.purchaseRequisitionNumber || '-'}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${val2.productCode + ' - ' + val2.productName}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 20px;">${val2.quantityUnitName || '-'}</td>
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 40px;">${val2.productUnitPriceCurrencyISOCode || '-'}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 50px;">${currencyTotal(val2.quantity || 0)}</td>
+                    <td style="text-align: right;padding: 0.8rem 0.5rem;width: 100px;">${currencyTotal(totalReq || 0)}</td> 
+                    <td style="text-align: left;padding: 0.8rem 0.5rem;width: 150px;">${val2.note || '-'}</td>
                 </tr>
             `;
 
@@ -487,10 +489,10 @@
                     const recordID = targetRow.children[0].value.trim();
 
                     if (recordID == recordRefID.value) {
-                        targetRow.children[8].innerText = currencyTotal(price);
-                        targetRow.children[9].innerText = currencyTotal(qty);
-                        targetRow.children[10].innerText = currencyTotal(total);
-                        targetRow.children[11].innerText = note;
+                        targetRow.children[7].innerText = currencyTotal(price);
+                        targetRow.children[8].innerText = currencyTotal(qty);
+                        targetRow.children[9].innerText = currencyTotal(total);
+                        targetRow.children[10].innerText = note;
                         found = true;
 
                         const indexToUpdate = dataStore.findIndex(item => item.recordID == recordRefID.value);
@@ -521,14 +523,14 @@
                         <input type="hidden" name="record_RefID[]" value="${recordRefID.value}">
                         <input type="hidden" name="qty_avail[]" value="${qtyAvail}">
                         <input type="hidden" name="price_avail[]" value="${priceAvail}">
-                        <td style="text-align: center;padding: 0.8rem;">${prNumber}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${productCode + ' - ' + productName}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${uom}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${currency}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${price}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${qty}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${total}</td>
-                        <td style="text-align: center;padding: 0.8rem;">${note}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${prNumber}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${productCode + ' - ' + productName}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${uom}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${currency}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${price}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${qty}</td>
+                        <td style="text-align: right;padding: 0.8rem 0.5rem;">${total}</td>
+                        <td style="text-align: left;padding: 0.8rem 0.5rem;">${note}</td>
                     `;
                     targetTable.appendChild(newRow);
 
@@ -561,8 +563,6 @@
 
         dataStore = dataStore.filter(item => item !== undefined);
         $("#purchaseOrderDetail").val(JSON.stringify(dataStore));
-
-        console.log('dataStore', dataStore);
 
         // $('#vatOption').val("Select a PPN");
         // $('#ppn').val("No");
