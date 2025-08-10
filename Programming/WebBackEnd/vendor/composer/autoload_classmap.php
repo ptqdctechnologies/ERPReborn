@@ -8351,6 +8351,7 @@ return array(
     'PHPUnit\\TextUI\\CliArguments\\Exception' => $vendorDir . '/phpunit/phpunit/src/TextUI/Configuration/Cli/Exception.php',
     'PHPUnit\\TextUI\\CliArguments\\XmlConfigurationFileFinder' => $vendorDir . '/phpunit/phpunit/src/TextUI/Configuration/Cli/XmlConfigurationFileFinder.php',
     'PHPUnit\\TextUI\\Command\\AtLeastVersionCommand' => $vendorDir . '/phpunit/phpunit/src/TextUI/Command/Commands/AtLeastVersionCommand.php',
+    'PHPUnit\\TextUI\\Command\\CheckPhpConfigurationCommand' => $vendorDir . '/phpunit/phpunit/src/TextUI/Command/Commands/CheckPhpConfigurationCommand.php',
     'PHPUnit\\TextUI\\Command\\Command' => $vendorDir . '/phpunit/phpunit/src/TextUI/Command/Command.php',
     'PHPUnit\\TextUI\\Command\\GenerateConfigurationCommand' => $vendorDir . '/phpunit/phpunit/src/TextUI/Command/Commands/GenerateConfigurationCommand.php',
     'PHPUnit\\TextUI\\Command\\ListGroupsCommand' => $vendorDir . '/phpunit/phpunit/src/TextUI/Command/Commands/ListGroupsCommand.php',

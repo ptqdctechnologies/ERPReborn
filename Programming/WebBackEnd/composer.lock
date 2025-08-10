@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.352.4",
+            "version": "3.352.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d3ce2a85687d55cd67d52682306227bc6aa836d6"
+                "reference": "e226dcc96c0a1165d9c8248ec637d1006b883609"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d3ce2a85687d55cd67d52682306227bc6aa836d6",
-                "reference": "d3ce2a85687d55cd67d52682306227bc6aa836d6",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e226dcc96c0a1165d9c8248ec637d1006b883609",
+                "reference": "e226dcc96c0a1165d9c8248ec637d1006b883609",
                 "shasum": ""
             },
             "require": {
@@ -153,9 +153,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.352.4"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.352.5"
             },
-            "time": "2025-08-07T18:15:55+00:00"
+            "time": "2025-08-08T18:09:38+00:00"
         },
         {
             "name": "brick/math",
@@ -1051,16 +1051,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.18.3",
+            "version": "2.18.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "59a123a3d459c5a23055802237cb317f609867e5"
+                "reference": "d2102955e48b9fd9ab24280a7ad12ed552752c4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/59a123a3d459c5a23055802237cb317f609867e5",
-                "reference": "59a123a3d459c5a23055802237cb317f609867e5",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/d2102955e48b9fd9ab24280a7ad12ed552752c4d",
+                "reference": "d2102955e48b9fd9ab24280a7ad12ed552752c4d",
                 "shasum": ""
             },
             "require": {
@@ -1110,7 +1110,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.18.3"
+                "source": "https://github.com/filp/whoops/tree/2.18.4"
             },
             "funding": [
                 {
@@ -1118,7 +1118,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-06-16T00:02:10+00:00"
+            "time": "2025-08-08T12:00:00+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -4002,16 +4002,16 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "1.29.12",
+            "version": "1.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "7c06eed662cce7ecab88f6f9f7626b443f5285df"
+                "reference": "2f39286e0136673778b7a142b3f0d141e43d1714"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/7c06eed662cce7ecab88f6f9f7626b443f5285df",
-                "reference": "7c06eed662cce7ecab88f6f9f7626b443f5285df",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/2f39286e0136673778b7a142b3f0d141e43d1714",
+                "reference": "2f39286e0136673778b7a142b3f0d141e43d1714",
                 "shasum": ""
             },
             "require": {
@@ -4102,9 +4102,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
-                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.29.12"
+                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.30.0"
             },
-            "time": "2025-07-23T04:40:30+00:00"
+            "time": "2025-08-10T06:28:02+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -9177,16 +9177,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.48",
+            "version": "10.5.50",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "6e0a2bc39f6fae7617989d690d76c48e6d2eb541"
+                "reference": "a858178a64d88653e94ece15b25a860d48a4644b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6e0a2bc39f6fae7617989d690d76c48e6d2eb541",
-                "reference": "6e0a2bc39f6fae7617989d690d76c48e6d2eb541",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a858178a64d88653e94ece15b25a860d48a4644b",
+                "reference": "a858178a64d88653e94ece15b25a860d48a4644b",
                 "shasum": ""
             },
             "require": {
@@ -9196,7 +9196,7 @@
                 "ext-mbstring": "*",
                 "ext-xml": "*",
                 "ext-xmlwriter": "*",
-                "myclabs/deep-copy": "^1.13.3",
+                "myclabs/deep-copy": "^1.13.4",
                 "phar-io/manifest": "^2.0.4",
                 "phar-io/version": "^3.2.1",
                 "php": ">=8.1",
@@ -9213,7 +9213,7 @@
                 "sebastian/exporter": "^5.1.2",
                 "sebastian/global-state": "^6.0.2",
                 "sebastian/object-enumerator": "^5.0.0",
-                "sebastian/recursion-context": "^5.0.0",
+                "sebastian/recursion-context": "^5.0.1",
                 "sebastian/type": "^4.0.0",
                 "sebastian/version": "^4.0.1"
             },
@@ -9258,7 +9258,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.48"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.50"
             },
             "funding": [
                 {
@@ -9282,7 +9282,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-07-11T04:07:17+00:00"
+            "time": "2025-08-10T08:34:14+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -10030,23 +10030,23 @@
         },
         {
             "name": "sebastian/recursion-context",
-            "version": "5.0.0",
+            "version": "5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/recursion-context.git",
-                "reference": "05909fb5bc7df4c52992396d0116aed689f93712"
+                "reference": "47e34210757a2f37a97dcd207d032e1b01e64c7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/05909fb5bc7df4c52992396d0116aed689f93712",
-                "reference": "05909fb5bc7df4c52992396d0116aed689f93712",
+                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/47e34210757a2f37a97dcd207d032e1b01e64c7a",
+                "reference": "47e34210757a2f37a97dcd207d032e1b01e64c7a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^10.0"
+                "phpunit/phpunit": "^10.5"
             },
             "type": "library",
             "extra": {
@@ -10081,15 +10081,28 @@
             "homepage": "https://github.com/sebastianbergmann/recursion-context",
             "support": {
                 "issues": "https://github.com/sebastianbergmann/recursion-context/issues",
-                "source": "https://github.com/sebastianbergmann/recursion-context/tree/5.0.0"
+                "security": "https://github.com/sebastianbergmann/recursion-context/security/policy",
+                "source": "https://github.com/sebastianbergmann/recursion-context/tree/5.0.1"
             },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
                     "type": "github"
+                },
+                {
+                    "url": "https://liberapay.com/sebastianbergmann",
+                    "type": "liberapay"
+                },
+                {
+                    "url": "https://thanks.dev/u/gh/sebastianbergmann",
+                    "type": "thanks_dev"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/sebastian/recursion-context",
+                    "type": "tidelift"
                 }
             ],
-            "time": "2023-02-03T07:05:40+00:00"
+            "time": "2025-08-10T07:50:56+00:00"
         },
         {
             "name": "sebastian/type",

@@ -6163,6 +6163,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'PHPUnit\\TextUI\\CliArguments\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/Configuration/Cli/Exception.php',
         'PHPUnit\\TextUI\\CliArguments\\XmlConfigurationFileFinder' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/Configuration/Cli/XmlConfigurationFileFinder.php',
         'PHPUnit\\TextUI\\Command\\AtLeastVersionCommand' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/Command/Commands/AtLeastVersionCommand.php',
+        'PHPUnit\\TextUI\\Command\\CheckPhpConfigurationCommand' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/Command/Commands/CheckPhpConfigurationCommand.php',
         'PHPUnit\\TextUI\\Command\\Command' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/Command/Command.php',
         'PHPUnit\\TextUI\\Command\\GenerateConfigurationCommand' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/Command/Commands/GenerateConfigurationCommand.php',
         'PHPUnit\\TextUI\\Command\\ListGroupsCommand' => __DIR__ . '/..' . '/phpunit/phpunit/src/TextUI/Command/Commands/ListGroupsCommand.php',
