@@ -483,6 +483,8 @@
     $("#DefaultFeatures").DataTable({
       "responsive": true,
       "autoWidth": false,
+      dom: '<"top"f>rt<"bottom"ip><"clear">',
+      scrollX: true
     });
   });
   
@@ -490,6 +492,7 @@
     $(".DefaultFeatures").DataTable({
       "responsive": true,
       "autoWidth": false,
+      
     });
   });
 </script>

@@ -49,6 +49,7 @@
                         <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">No</th>
                         <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">MR Number</th>
                         <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Date</th>
+                        <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Budget</th>
                         <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Reference Number</th>
                         <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Delivery From</th>
                         <th style="padding: 6px;text-align: center;background-color:#E9ECEF;color:black;border: 1px solid #ced4da;border-collapse: collapse;">Delivery To</th>
@@ -62,6 +63,7 @@
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $key + 1 }}</td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['MR_Number'] }}</td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
+                        <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">-</td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['referenceNumber'] }}</td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['deliveryFrom_NonRefID']['address'] ?? '-' }}</td>
                         <td style="padding:4px;border: 1px solid #ced4da;border-collapse: collapse;">{{ $dataDetail['deliveryTo_NonRefID']['address'] ?? '-' }}</td>

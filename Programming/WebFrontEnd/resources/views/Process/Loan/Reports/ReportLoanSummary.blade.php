@@ -19,20 +19,12 @@
                 <div class="tab-content p-3" id="nav-tabContent">
                     <!-- FORM -->
                     <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row p-1" style="row-gap: 1rem;">
-                                        @include('Process.Loan.Functions.Header.HeaderReportLoanSummary')
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @include('Process.Loan.Functions.Header.HeaderReportLoanSummary')
                     </div>
 
                     <?php if ($dataReport) { ?>
                         <!-- HEADER -->
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -43,7 +35,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- TABLE -->
                         <div class="row">

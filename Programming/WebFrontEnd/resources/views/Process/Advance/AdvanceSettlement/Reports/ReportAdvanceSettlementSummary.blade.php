@@ -21,19 +21,11 @@
 
                     @if($statusHeader == "Yes")
                     <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row p-1" style="row-gap: 1rem;">
-                                        @include('Process.Advance.AdvanceSettlement.Functions.Header.HeaderReportAdvanceSettlementSummary')
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @include('Process.Advance.AdvanceSettlement.Functions.Header.HeaderReportAdvanceSettlementSummary')
                     </div>
                     @endif
                     @if(!empty($dataASF) && isset($dataASF[0]))
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -44,7 +36,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- TABLE -->
                         <div class="row">

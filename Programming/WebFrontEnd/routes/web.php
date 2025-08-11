@@ -383,7 +383,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportCreditNoteDetailStore', 'Process\CreditNote\CreditNoteController@ReportCreditNoteDetailStore')->name('CreditNote.ReportCreditNoteDetailStore');
     Route::post('PrintExportReportCreditNoteDetail', 'Process\CreditNote\CreditNoteController@PrintExportReportCreditNoteDetail')->name('CreditNote.PrintExportReportCreditNoteDetail');
     
-    Route::resource('LoanSettlement', 'Process\CreditNote\CreditNoteController');
+    Route::resource('CreditNote', 'Process\CreditNote\CreditNoteController');
 
     // OP
     Route::post('StoreValidateOrderPicking', 'Purchase\OrderPickingController@StoreValidateOrderPicking')->name('OrderPicking.StoreValidateOrderPicking');
@@ -455,9 +455,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportDODetailStore', 'Inventory\DeliveryOrderController@ReportDODetailStore')->name('Inventory.ReportDODetailStore');
     Route::post('PrintExportReportDODetail', 'Inventory\DeliveryOrderController@PrintExportReportDODetail')->name('Inventory.PrintExportReportDODetail');
     Route::post('SearchDeliveryOrderRequest', 'Inventory\DeliveryOrderController@SearchDeliveryOrderRequest')->name('DeliveryOrder.SearchDeliveryOrderRequest');
-    Route::get('ReportDOToMaterialReceive', 'Inventory\DeliveryOrderController@ReportDOToMaterialReceive')->name('Inventory.ReportDOToMaterialReceive');
-    Route::post('ReportDOToMaterialReceiveStore', 'Inventory\DeliveryOrderController@ReportDOToMaterialReceiveStore')->name('Inventory.ReportDOToMaterialReceiveStore');
-    Route::post('PrintExportReportDOToMaterialReceive', 'Inventory\DeliveryOrderController@PrintExportReportDOToMaterialReceive')->name('Inventory.PrintExportReportDOToMaterialReceive');
+    Route::get('ReportDOToMaterialReceive', 'Inventory\DeliveryOrderController@ReportDOToMaterialReceive')->name('DeliveryOrder.ReportDOToMaterialReceive');
+    Route::post('ReportDOToMaterialReceiveStore', 'Inventory\DeliveryOrderController@ReportDOToMaterialReceiveStore')->name('DeliveryOrder.ReportDOToMaterialReceiveStore');
+    Route::post('PrintExportReportDOToMaterialReceive', 'Inventory\DeliveryOrderController@PrintExportReportDOToMaterialReceive')->name('DeliveryOrder.PrintExportReportDOToMaterialReceive');
     Route::post('updates', 'Inventory\DeliveryOrderController@updates')->name('DeliveryOrder.updates');
     Route::resource('DeliveryOrder', 'Inventory\DeliveryOrderController');
 

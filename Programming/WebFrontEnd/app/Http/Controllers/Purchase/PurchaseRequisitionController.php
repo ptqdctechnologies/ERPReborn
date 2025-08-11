@@ -114,7 +114,7 @@ class PurchaseRequisitionController extends Controller
         // tes;
         try {
             $project_code = $request->project_code_second;
-            $site_code = $request->site_id_second;
+            $site_code = $request->site_code_second;
 
             $statusHeader = "Yes";
             Log::error("Error at " ,[$request->all()]);

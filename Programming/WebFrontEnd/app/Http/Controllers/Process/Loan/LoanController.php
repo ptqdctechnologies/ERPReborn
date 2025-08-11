@@ -438,17 +438,19 @@ class LoanController extends Controller
     {
         try {
             $dataReport = Session::get("dataReportLoantoLoanSettlement");
-            $print_type = $request->print_type;
-            $project_code_second_trigger = $request->project_code_second_trigger;
+            // $print_type = $request->print_type;
+            // $project_code_second_trigger = $request->project_code_second_trigger;
+            // dd($project_code_second_trigger);
 
-            if ($project_code_second_trigger == null) {
-                Session::forget("isButtonReportLoantoLoanSettlementSubmit");
-                Session::forget("dataReportLoantoLoanSettlement");
+            // if ($project_code_second_trigger == null) {
+            //     Session::forget("isButtonReportLoantoLoanSettlementSubmit");
+            //     Session::forget("dataReportLoantoLoanSettlement");
 
-                return redirect()->route('Loan.ReportLoantoLoanSettlement')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
-            }
+            //     return redirect()->route('Loan.ReportLoantoLoanSettlement')->with('NotFound', 'Budget, Sub Budget, & Requester Cannot Be Empty');
+            // }
 
             if ($dataReport) {
+                $print_type = $request->print_type;
                 if ($print_type === "PDF") {
                     $pdf = PDF::loadView('Process.Loan.Reports.ReportLoantoLoanSettlement_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
                     $pdf->output();
@@ -460,7 +462,7 @@ class LoanController extends Controller
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                    return $pdf->download('Export Advance To ASF.pdf');
+                    return $pdf->download('Export Loan to Loan Settlement.pdf');
                 } else {
                     return Excel::download(new ExportReportLoantoLoanSettlement, 'Export Advance To ASF.xlsx');
                 }
@@ -1312,17 +1314,18 @@ class LoanController extends Controller
     {
         try {
             $dataReport = Session::get("dataReportLoanSummary");
-            $print_type = $request->print_type;
-            $project_code_second_trigger = $request->project_code_second_trigger;
+            // $print_type = $request->print_type;
+            // $project_code_second_trigger = $request->project_code_second_trigger;
 
-            if ($project_code_second_trigger == null) {
-                Session::forget("isButtonReportLoanSummarySubmit");
-                Session::forget("dataReportLoanSummary");
+            // if ($project_code_second_trigger == null) {
+            //     Session::forget("isButtonReportLoanSummarySubmit");
+            //     Session::forget("dataReportLoanSummary");
         
-                return redirect()->route('Loan.ReportLoanSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
-            }
+            //     return redirect()->route('Loan.ReportLoanSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
+            // }
 
             if ($dataReport) {
+                $print_type = $request->print_type;
                 if ($print_type === "PDF") {
                     $pdf = PDF::loadView('Process.Loan.Reports.ReportLoanSummary_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
                     $pdf->output();

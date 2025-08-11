@@ -20,20 +20,13 @@
                     
 
                     @if($statusHeader == "Yes")
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row p-1" style="row-gap: 1rem;">
+                        <div class="col-12 ShowDocument">
                                         @include('Purchase.PurchaseRequisition.Functions.Header.HeaderReportPRSummary')
-                                    </div>
-                                </div>
-                            </div>
+                                    
                         </div>
-                    </div>
                     @endif
                     @if($statusDetail == 1 && $dataPO)
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -44,7 +37,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- TABLE -->
                         <div class="row">

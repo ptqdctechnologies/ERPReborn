@@ -23,7 +23,7 @@
             @include('Process.Advance.AdvanceRequest.Functions.Header.HeaderReportAdvanceSummary')
 
 
-            <div class="col-12 ShowTableReportAdvanceSummary" style="font-weight: bold;">
+            <!-- <div class="col-12 ShowTableReportAdvanceSummary" style="font-weight: bold;">
               <div class="card">
 
                 <div class="card-body">
@@ -42,7 +42,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
 
           <div class="col-12 ShowTableReportAdvanceSummary">
