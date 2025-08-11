@@ -1049,17 +1049,18 @@ class ReimbursableExpenditureController extends Controller
     {
         try {
             $dataReport = Session::get("dataReportReimbursementSummary");
-            $print_type = $request->print_type;
-            $project_code_second_trigger = $request->project_code_second_trigger;
+            // $print_type = $request->print_type;
+            // $project_code_second_trigger = $request->project_code_second_trigger;
 
-            if ($project_code_second_trigger == null) {
-                Session::forget("isButtonReportReimbursementSummarySubmit");
-                Session::forget("dataReportReimbursementSummary");
+            // if ($project_code_second_trigger == null) {
+            //     Session::forget("isButtonReportReimbursementSummarySubmit");
+            //     Session::forget("dataReportReimbursementSummary");
         
-                return redirect()->route('Reimbursement.ReportReimbursementSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
-            }
+            //     return redirect()->route('Reimbursement.ReportReimbursementSummary')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
+            // }
 
             if ($dataReport) {
+                $print_type = $request->print_type;
                 if ($print_type === "PDF") {
                     $pdf = PDF::loadView('Process.Reimbursement.Reports.ReportReimbursementSummary_pdf', ['dataReport' => $dataReport])->setPaper('a4', 'landscape');
                     $pdf->output();

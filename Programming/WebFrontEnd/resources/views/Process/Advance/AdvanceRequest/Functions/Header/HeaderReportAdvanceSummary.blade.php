@@ -64,7 +64,7 @@
               </table>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <div class="form-group">
               <table>
                 <tr>
@@ -84,7 +84,26 @@
               </table>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
+            <div class="form-group">
+              <table>
+                <tr>
+                  <th style="padding-top: 7px;"><label>Date</label></th>
+                  <td>
+                    <div class="input-group">
+                        <input readonly type="text" class="form-control" id="reservation" name="date" value="<?= $dataReport['date'] ?? ''; ?>" />
+                        <div class="input-group-prepend" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
+                            <span class="input-group-text" id="reservation-icon">
+                                <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
+                            </span>
+                        </div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="col-md-2">
             <div class="form-group">
               <table>
                 <tr>

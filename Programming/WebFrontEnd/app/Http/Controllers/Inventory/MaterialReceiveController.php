@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Inventory;
-
+use App\Http\Controllers\ExportExcel\Inventory\ExportReportMaterialReceiveSummary;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
@@ -13,6 +13,7 @@ use App\Helpers\ZhtHelper\Cache\Helper_Redis;
 use App\Services\Inventory\MaterialReceiveService;
 use App\Services\WorkflowService;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MaterialReceiveController extends Controller
 {
@@ -27,8 +28,8 @@ class MaterialReceiveController extends Controller
     public function ReportMaterialReceiveSummary(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionDeliveryOrderNumber");
-        $dataMR = Session::get("DeliveryOrderReportSummaryDataPDF");
+        $request->session()->forget("SessionMaterialReceiveNumber");
+        $dataMR = Session::get("MaterialReceiveReportSummaryDataPDF");
 
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
@@ -36,14 +37,12 @@ class MaterialReceiveController extends Controller
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
             'statusRevisi' => 1,
-            'dataReport' => $dataReport ?? null,
             'statusHeader' => "Yes",
             'statusDetail' => 1,
-            'dataHeader' => [],
             'dataMR' => $dataMR
         
         ];
-        // dump($compact);
+        // dump($dataMR);
 
         return view('Inventory.MaterialReceive.Reports.ReportMaterialReceiveSummary', $compact);
     }
@@ -81,8 +80,8 @@ class MaterialReceiveController extends Controller
                 return redirect()->back()->with('NotFound', 'Process Error');
 
             }
-            Session::put("DeliveryOrderReportSummaryDataPDF", $filteredArray['data']['data']);
-            Session::put("DeliveryOrderReportSummaryDataExcel", $filteredArray['data']['data']);
+            Session::put("MaterialReceiveReportSummaryDataPDF", $filteredArray['data']['data']);
+            Session::put("MaterialReceiveReportSummaryDataExcel", $filteredArray['data']['data']);
             return $filteredArray['data']['data'];
         }
         catch (\Throwable $th) {
@@ -95,14 +94,14 @@ class MaterialReceiveController extends Controller
     {
         // tes;
         try {
-            $project_code = $request->budget;
+            $project_code = $request->project_code_second;
             // $site_code = $request->site_id_second;
 
             $statusHeader = "Yes";
-            // Log::error("Error at " ,[$request->all()]);
+            Log::error("Error at " ,[$request->all()]);
             if ($project_code == "") {
-                Session::forget("DeliveryOrderReportSummaryDataPDF");
-                Session::forget("DeliveryOrderReportSummaryDataExcel");
+                Session::forget("MaterialReceiveReportSummaryDataPDF");
+                Session::forget("MaterialReceiveReportSummaryDataExcel");
                 
                 return redirect()->route('MaterialReceive.ReportMaterialReceiveSummary')->with('NotFound', 'Cannot Empty');
             }
@@ -126,14 +125,14 @@ class MaterialReceiveController extends Controller
     public function PrintExportReportMaterialReceiveSummary(Request $request)
     {
         try {
-            $dataPDF = Session::get("DeliveryOrderReportSummaryDataPDF");
-            $dataExcel = Session::get("DeliveryOrderReportSummaryDataExcel");
+            $dataPDF = Session::get("MaterialReceiveReportSummaryDataPDF");
+            $dataExcel = Session::get("MaterialReceiveReportSummaryDataExcel");
 
             
             if ($dataPDF && $dataExcel) {
                 $print_type = $request->print_type;
                 if ($print_type == "PDF") {
-                    $dataMR = Session::get("DeliveryOrderReportSummaryDataPDF");
+                    $dataMR = Session::get("MaterialReceiveReportSummaryDataPDF");
                     // dd($dataMR);
 
                     $pdf = PDF::loadView('Inventory.MaterialReceive.Reports.ReportMaterialReceiveSummary_pdf', ['dataMR' => $dataMR])->setPaper('a4', 'landscape');
@@ -146,12 +145,12 @@ class MaterialReceiveController extends Controller
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                    return $pdf->download('Export Report Delivery Order Summary.pdf');
+                    return $pdf->download('Export Report Material Receive Summary.pdf');
                 } else if ($print_type == "Excel") {
-                    return Excel::download(new ExportReportDeliveryOrderSummary, 'Export Report Material Receive Summary.xlsx');
+                    return Excel::download(new ExportReportMaterialReceiveSummary, 'Export Report Material Receive Summary.xlsx');
                 }
             } else {
-                return redirect()->route('DeliveryOrder.DeliveryOrderSummary')->with('NotFound', 'Data Cannot Empty');
+                return redirect()->route('MaterialReceive.ReportMaterialReceiveSummary')->with('NotFound', 'Data Cannot Empty');
             }
         } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());

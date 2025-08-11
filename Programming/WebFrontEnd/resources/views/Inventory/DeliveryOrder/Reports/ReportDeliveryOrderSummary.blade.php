@@ -21,30 +21,23 @@
 
                     @if($statusHeader == "Yes")
                     <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row p-1" style="row-gap: 1rem;">
                                         @include('Inventory.DeliveryOrder.Functions.Header.HeaderReportDeliveryOrderSummary')
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                    
                     </div>
                     @endif
                     @if($statusDetail == 1 && $dataDO)
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row py-2 px-1" style="gap: 1rem;">
                                             <label class="p-0 text-bold mb-0">Budget</label>
-                                              :  <?= $dataDO[0]['combinedBudgetCode']; ?> - <?= $dataDO[0]['combinedBudgetName']; ?> 
+                                              :   {{$dataDO[0]['combinedBudgetCode'] }} - {{ $dataDO[0]['combinedBudgetName']}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- TABLE -->
                         <div class="row">
@@ -68,7 +61,7 @@
                                                 <?php foreach ($dataDO as $dataDetail) { ?>
                                                     <tr>
                                                         <td style="text-align: center;"><?= $counter++; ?></td>
-                                                        <td><?= $dataDetail['documentNumber']; ?></td>
+                                                        <td>{{ $dataDetail['documentNumber']; }}</td>
                                                         <td>{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
                                                         <td>{{ $dataDetail['type'] }}</td>
                                                         <td>{{ $dataDetail['deliveryFrom_NonRefID']['address'] ?? '-' }}</td>

@@ -597,7 +597,7 @@ class AdvanceRequestController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionAdvanceSettlementNumber");
-        $dataASF = Session::get("AdvanceSettlementReportSummaryDataPDF");
+        $dataArftoASF = Session::get("AdvanceToASFReportDataPDF");
 
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
@@ -608,7 +608,7 @@ class AdvanceRequestController extends Controller
             'statusHeader' => "Yes",
             'statusDetail' => 1,
             'dataHeader' => [],
-            'dataASF' => $dataASF
+            'dataArftoASF' => $dataArftoASF
         
         ];
         // dump($compact);
@@ -616,7 +616,7 @@ class AdvanceRequestController extends Controller
         return view('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF', $compact);
     }
 
-    public function ReportAdvanceToASFData( $project_code, $site_code){
+    public function ReportAdvanceToASFData( $project_code){
         
             
         try {
@@ -632,7 +632,7 @@ class AdvanceRequestController extends Controller
                 [
                     'parameter' => [
                         'CombinedBudgetCode' =>  $project_code,
-                        'CombinedBudgetSectionCode' =>  $site_code,
+                        'CombinedBudgetSectionCode' =>  NULL,
                         'RequesterWorkerJobsPosition_RefID' => NULL 
                     ],
                     'SQLStatement' => [
@@ -649,7 +649,7 @@ class AdvanceRequestController extends Controller
                 return redirect()->back()->with('NotFound', 'Process Error');
 
             }
-            Session::put("AdvanceSettlementReportSummaryDataPDF", $filteredArray['data']['data']);
+            Session::put("AdvanceToASFReportDataPDF", $filteredArray['data']['data']);
             Session::put("AdvanceSettlementReportSummaryDataExcel", $filteredArray['data']['data']);
             return $filteredArray['data']['data'];
         }
@@ -664,20 +664,20 @@ class AdvanceRequestController extends Controller
         // tes;
         try {
             $project_code = $request->project_code_second;
-            $site_code = $request->site_code_second;
+            // $site_code = $request->site_code_second;
 
             // dd($project_code, $site_code);
 
             $statusHeader = "Yes";
             Log::error("Error at " ,[$request->all()]);
-            if ($project_code == "" && $site_code == "") {
-                Session::forget("AdvanceSettlementReportSummaryDataPDF");
+            if ($project_code == "") {
+                Session::forget("AdvanceToASFReportDataPDF");
                 Session::forget("AdvanceSettlementReportSummaryDataExcel");
                 
                 return redirect()->route('AdvanceRequest.ReportAdvanceToASF')->with('NotFound', 'Cannot Empty');
             }
 
-            $compact = $this->ReportAdvanceToASFData($project_code, $site_code);
+            $compact = $this->ReportAdvanceToASFData($project_code);
             // dd($compact);
             // if ($compact['dataHeader'] == []) {
             //     Session::forget("PAdvanceToASFReportDataPDF");
@@ -695,17 +695,17 @@ class AdvanceRequestController extends Controller
     public function PrintExportReportAdvanceToASF(Request $request)
     {
         try {
-            $dataPDF = Session::get("AdvanceSettlementReportSummaryDataPDF");
+            $dataPDF = Session::get("AdvanceToASFReportDataPDF");
             $dataExcel = Session::get("AdvanceSettlementReportSummaryDataExcel");
 
             
             if ($dataPDF && $dataExcel) {
                 $print_type = $request->print_type;
                 if ($print_type == "PDF") {
-                    $dataASF = Session::get("AdvanceSettlementReportSummaryDataPDF");
-                    // dd($dataASF);
+                    $dataArftoASF = Session::get("AdvanceToASFReportDataPDF");
+                    // dd($dataArftoASF);
 
-                    $pdf = PDF::loadView('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF_pdf', ['dataASF' => $dataASF])->setPaper('a4', 'landscape');
+                    $pdf = PDF::loadView('Process.Advance.AdvanceToASF.Reports.ReportAdvanceToASF_pdf', ['dataArftoAS$dataArftoASF' => $dataArftoASF])->setPaper('a4', 'landscape');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 

@@ -6,8 +6,8 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <input id="project_code_second" style="border-radius:0;" name="project_code_second" class="form-control" size="34" value="<?= $dataReport['project']['code'] ?? ''; ?>" readonly>
-                <input id="project_id_second" style="border-radius:0;" name="project_id_second" class="form-control" value="<?= $dataReport['project']['id'] ?? ''; ?>" hidden>
+                <input id="project_code_second" style="border-radius:0;" name="project_code_second" class="form-control" size="34" value="<?= $dataReport['budgetCode'] ?? ''; ?>" readonly>
+                <input id="project_id_second" style="border-radius:0;" name="project_id_second" class="form-control" value="<?= $dataReport['budgetId'] ?? ''; ?>" hidden>
             </div>
             <div>
                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -17,7 +17,7 @@
                 </span>
             </div>
             <div class="d-sm-none d-md-none d-lg-block">
-                <input id="project_name_second" style="border-radius:0;" name="project_name_second" class="form-control invisible" value="<?= $dataReport['project']['name'] ?? ''; ?>" readonly>
+                <input id="project_name_second" style="border-radius:0;" name="project_name_second" class="form-control invisible" value="<?= $dataReport['budgetName'] ?? ''; ?>" readonly>
             </div>
         </div>
     </div>
@@ -27,8 +27,8 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <input id="site_code_second" style="border-radius:0;" name="site_code_second" class="form-control" size="34" value="<?= $dataReport['site']['code'] ?? ''; ?>" readonly>
-                <input id="site_id_second" style="border-radius:0;" name="site_id_second" class="form-control" value="<?= $dataReport['site']['id'] ?? ''; ?>" hidden>
+                <input id="site_code_second" style="border-radius:0;" name="site_code_second" class="form-control" size="34" value="<?= $dataReport['siteCode'] ?? ''; ?>" readonly>
+                <input id="site_id_second" style="border-radius:0;" name="site_id_second" class="form-control" value="<?= $dataReport['siteId'] ?? ''; ?>" hidden>
             </div>
             <div>
                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -38,19 +38,19 @@
                 </span>
             </div>
             <div class="d-sm-none d-md-none d-lg-block">
-                <input id="site_name_second" style="border-radius:0;" name="site_name_second" class="form-control invisible" value="<?= $dataReport['site']['name'] ?? ''; ?>" readonly>
+                <input id="site_name_second" style="border-radius:0;" name="site_name_second" class="form-control invisible" value="<?= $dataReport['siteName'] ?? ''; ?>" readonly>
             </div>
         </div>
     </div>
 </div>
 <div class="col-sm-12 col-md-12 col-lg-4">
     <!-- REQUESTER -->
-    <div class="row p-0 align-items-center">
+    <div class="row p-0 align-items-center" style="margin-bottom: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Requester</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <input id="worker_name_second" style="border-radius:0;" name="worker_name_second" class="form-control" size="34" value="<?= $dataReport['requester']['name'] ?? ''; ?>" readonly>
-                <input id="worker_id_second" style="border-radius:0;" name="worker_id_second" class="form-control" value="<?= $dataReport['requester']['id'] ?? ''; ?>" hidden>
+                <input id="worker_name_second" style="border-radius:0;" name="worker_name_second" class="form-control" size="34" value="<?= $dataReport['requesterName'] ?? ''; ?>" readonly>
+                <input id="worker_id_second" style="border-radius:0;" name="worker_id_second" class="form-control" value="<?= $dataReport['requesterId'] ?? ''; ?>" hidden>
             </div>
             <div>
                 <span style="border-radius:0;" class="input-group-text form-control">
@@ -60,8 +60,23 @@
                 </span>
             </div>
             <div class="d-sm-none d-md-none d-lg-block">
-                <input id="worker_position_second" style="border-radius:0;" name="worker_position_second" class="form-control invisible" value="<?= $dataReport['requester']['position'] ?? ''; ?>">
+                <input id="worker_position_second" style="border-radius:0;" name="worker_position_second" class="form-control invisible" value="<?= $dataReport['requesterPosition'] ?? ''; ?>">
             </div>
+        </div>
+    </div>
+
+    <!-- BENEFICIARY -->
+    <div class="row p-0 align-items-center">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date</label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+                <div class="input-group">
+                        <input readonly type="text" class="form-control" style="height: 21.8px;border-radius:0;" id="reservation" name="date" value="<?= $dataReport['date'] ?? ''; ?>" />
+                        <div class="input-group-prepend" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
+                            <span class="input-group-text" id="reservation-icon">
+                                <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
+                            </span>
+                        </div>
+                    </div>
         </div>
     </div>
 </div>
@@ -75,20 +90,20 @@
     </div>
     </form>
 
+    <!-- EXPORT -->
     <form method="POST" action="{{ route('Loan.PrintExportReportLoantoLoanSettlement') }}">
     @csrf
-    <input id="project_code_second_trigger" style="border-radius:0;" name="project_code_second_trigger" class="form-control" size="34" value="<?= $dataReport['project']['code'] ?? ''; ?>" readonly hidden>
-    <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row align-items-center p-0" style="margin-bottom: 1rem; gap: 0.5rem;">
-        <select name="print_type" id="print_type" class="form-control" style="width: max-content;">
-            <option value="PDF">Export PDF</option>
-            <option value="Excel">Export Excel</option>
-        </select>
-        <button class="btn btn-default btn-sm" type="submit">
-            <span>
-                <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="">
-            </span>
-        </button>
-    </div>
+        <input id="project_code_second_trigger" style="border-radius:0;" name="project_code_second_trigger" class="form-control" size="34" value="<?= $dataReport['budgetCode'] ?? null; ?>" readonly hidden>
+        <div class="align-items-center justify-content-sm-end justify-content-md-end justify-content-lg-start row align-items-center p-0" style="margin-bottom: 1rem; gap: 0.5rem;">
+            <select name="print_type" id="print_type" class="form-control" style="width: max-content;">
+                <option value="PDF">Export PDF</option>
+                <option value="Excel">Export Excel</option>
+            </select>
+            <button class="btn btn-default btn-sm" type="submit">
+                <span>
+                    <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="">
+                </span>
+            </button>
+        </div>
     </form>
 </div>
-`

@@ -64,88 +64,65 @@
                           <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Total Equivalent IDR</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <?php
-                        $counter = 1;
-                        $grandTotal_PR = 0;
-                        $grandTotal_PO = 0;
-                        $grandTotal_qtyPO = 0;
-                        $grandTotal_Balance = 0;
-                        $previousPR = null;
-                        $previousPO = null;
-                        $renderedPRs = [];
-                        $prRowspans = [];
-                        $renderedPOs = [];
-                        $poRowspans = [];
+                    <?php
+                                            // Grouping data berdasarkan PR_Number + PR_Date
+                                            $groupedData = [];
+                                            foreach ($dataPRtoPO as $row) {
+                                                $groupKey = $row['PR_Number'] . '|' . $row['PR_Date'];
+                                                if (!isset($groupedData[$groupKey])) {
+                                                    $groupedData[$groupKey] = [];
+                                                }
+                                                $groupedData[$groupKey][] = $row;
+                                            }
 
-                        foreach ($dataPRtoPO as $row) {
-                            $prRowspans[$row['PR_Number']] = ($prRowspans[$row['PR_Number']] ?? 0) + 1;
-                            $poRowspans[$row['PO_Number']] = ($poRowspans[$row['PO_Number']] ?? 0) + 1;
-                        }
-                      ?>
+                                            $counter = 1;
+                                            $grandTotal_PR = 0;
+                                            $grandTotal_PO = 0;
+                                            $grandTotal_qtyPO = 0;
+                                            $grandTotal_Balance = 0;
+                                        ?>
 
-                      <?php foreach ($dataPRtoPO as $dataDetail): ?>
-                        <?php
-                            $grandTotal_PR += $dataDetail['PR_Total'];
-                            $grandTotal_PO += $dataDetail['PO_Total'];
-                            $grandTotal_qtyPO += $dataDetail['PO_Qty'];
-                            $grandTotal_Balance += $dataDetail['balance'];
+                                        <tbody>
+                                            @foreach ($groupedData as $groupKey => $rows)
+                                                <?php
+                                                    $rowspan = count($rows);
+                                                    $firstRow = true;
+                                                ?>
+                                                @foreach ($rows as $dataDetail)
+                                                    <?php
+                                                        $grandTotal_PR += $dataDetail['PR_Total'];
+                                                        $grandTotal_PO += $dataDetail['PO_Total'];
+                                                        $grandTotal_qtyPO += $dataDetail['PO_Qty'];
+                                                        $grandTotal_Balance += $dataDetail['balance'];
+                                                    ?>
+                                                    <tr>
+                                                        <td>{{ $counter++ }}</td>
+                                                        @if ($firstRow)
+                                                            
+                                                            <td rowspan="{{ $rowspan }}">{{ $dataDetail['PR_Number'] ?: '-' }}</td>
+                                                            <td rowspan="{{ $rowspan }}">{{ $dataDetail['PR_Date'] ? date('d-m-Y', strtotime($dataDetail['PR_Date'])) : '-' }}</td>
+                                                            <?php $firstRow = false; ?>
+                                                        @else
+                                                            <td style="display:none"></td>
+                                                            <td style="display:none"></td>
+                                                            <td style="display:none"></td>
+                                                        @endif
 
-                            $isNewPR = $dataDetail['PR_Number'] !== $previousPR;
-                            $isNewPO = $dataDetail['PO_Number'] !== $previousPO;
-                        ?>
-                        <tr>
-                          <td><?= $counter++; ?></td> 
-                          <?php if ($isNewPR): ?>
-                              @if (!in_array($dataDetail['PR_Number'], $renderedPRs))
-                                  <td rowspan="{{ $prRowspans[$dataDetail['PR_Number']] }}">{{ $dataDetail['PR_Number'] }}</td>
-                                  @php $renderedPRs[] = $dataDetail['PR_Number']; @endphp
-                              @endif
-                              <td>{{ date('d-m-Y', strtotime($dataDetail['PR_Date'])) }}</td>
-                              <td>{{ $dataDetail['product_Code'] }} - {{ $dataDetail['product_Name'] }}</td>
-                              <td>{{ number_format($dataDetail['PR_Total'], 2, '.', ',') }}</td>
-                              <td><?= number_format(0, 2, '.', ',') ?></td>
-                              <td><?= number_format(0, 2, '.', ',') ?></td>
-                              <td>{{ $dataDetail['PO_Number'] }}</td>
-                              <!-- @if (!in_array($row['PO_Number'], $renderedPOs))
-                                  <td rowspan="{{ $poRowspans[$dataDetail['PO_Number']] }}">{{ $dataDetail['PO_Number'] }}</td>
-                                  @php $renderedPOs[] = $dataDetail['PO_Number']; @endphp
-                              @endif -->
-                              <td>{{ date('d-m-Y', strtotime($dataDetail['PO_Date'])) }}</td>
-                              <td>{{ number_format($dataDetail['PO_Qty'], 2, '.', ',') }}</td>
-                              <td>{{ number_format($dataDetail['PO_Total'], 2, '.', ',') }}</td>
-                              <td><?= number_format(0, 2, '.', ',') ?></td>
-                              <td><?= number_format(0, 2, '.', ',') ?></td>
-                              <td>{{$dataDetail['balance']}}</td>
-                                                        
-                          <?php else: ?>
-                            @if (!in_array($dataDetail['PR_Number'], $renderedPRs))
-                                <td rowspan="{{ $prRowspans[$dataDetail['PR_Number']] }}">{{ $dataDetail['PR_Number'] }}</td>
-                                @php $renderedPRs[] = $dataDetail['PR_Number']; @endphp
-                            @endif
-                            <td>{{ date('d-m-Y', strtotime($dataDetail['PR_Date'])) }}</td>
-                            <td>{{ $dataDetail['product_Code'] }} - {{ $dataDetail['product_Name'] }}</td>
-                            <td>{{ number_format($dataDetail['PR_Total'], 2, '.', ',') }}</td>
-                            <td><?= number_format(0, 2, '.', ',') ?></td>
-                            <td><?= number_format(0, 2, '.', ',') ?></td>
-                            <td>{{ $dataDetail['PO_Number'] }}</td>
-                            <!-- @if (!in_array($row['PO_Number'], $renderedPOs))
-                                <td rowspan="{{ $poRowspans[$dataDetail['PO_Number']] }}">{{ $dataDetail['PO_Number'] }}</td>
-                                @php $renderedPOs[] = $dataDetail['PO_Number']; @endphp
-                            @endif -->
-                            <td>{{ date('d-m-Y', strtotime($dataDetail['PO_Date'])) }}</td>
-                            <td>{{ number_format($dataDetail['PO_Qty'], 2, '.', ',') }}</td>
-                            <td>{{ number_format($dataDetail['PO_Total'], 2, '.', ',') }}</td>
-                            <td><?= number_format(0, 2, '.', ',') ?></td>
-                            <td><?= number_format(0, 2, '.', ',') ?></td>
-                            <td>{{$dataDetail['balance']}}</td>
-                            <td></td>
-                          <?php endif; ?>
-                        </tr>
-                        <?php $previousPR = $dataDetail['PR_Number']; ?>
-                        <?php $previousPO = $dataDetail['PO_Number']; ?>
-                      <?php endforeach; ?>
-                    </tbody>
+                                                        <td>{{ $dataDetail['product_Code'] }} - {{ $dataDetail['product_Name'] }}</td>
+                                                        <td>{{ number_format($dataDetail['PR_Total'], 2, '.', ',') }}</td>
+                                                        <td>{{ number_format(0, 2, '.', ',') }}</td>
+                                                        <td>{{ number_format(0, 2, '.', ',') }}</td>
+                                                        <td>{{ $dataDetail['PO_Number'] ?: '-' }}</td>
+                                                        <td>{{ $dataDetail['PO_Date'] ? date('d-m-Y', strtotime($dataDetail['PO_Date'])) : '-' }}</td>
+                                                        <td>{{ $dataDetail['PO_Qty'] ? number_format($dataDetail['PO_Qty'], 2, '.', ',') : '-' }}</td>
+                                                        <td>{{ $dataDetail['PO_Total'] ? number_format($dataDetail['PO_Total'], 2, '.', ',') : '-' }}</td>
+                                                        <td>{{ $dataDetail['PO_Total'] ? number_format($dataDetail['PO_Total'], 2, '.', ',') : '-' }}</td>
+                                                        <td>{{ $dataDetail['PO_Total'] ? number_format($dataDetail['PO_Total'], 2, '.', ',') : '-' }}</td>
+                                                        <td>{{ $dataDetail['balance'] }}</td>
+                                                    </tr>
+                                                @endforeach
+                                        @endforeach
+                                        </tbody>
 
                       <tfoot>
                         <tr style="font-weight:bolder;border: 1px solid #ced4da;border-collapse: collapse;">

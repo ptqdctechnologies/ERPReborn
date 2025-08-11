@@ -15,17 +15,19 @@
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
                     @if($statusHeader == "Yes")
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="row p-1" style="row-gap: 1rem;">
-                                @include('Inventory.MaterialReceive.Functions.Header.HeaderReportMaterialReceiveSummary')
+                        <div class="col-12 ShowDocument">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row p-1" style="row-gap: 1rem;">
+                                        @include('Inventory.MaterialReceive.Functions.Header.HeaderReportMaterialReceiveSummary')
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endif
                     
                     @if($statusDetail == 1 && $dataMR)
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -36,7 +38,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- TABLE -->
                         <div class="row">
@@ -49,6 +51,7 @@
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">No</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">MR Number</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Date</th>
+                                                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Budget</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Reference Number</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Delivery From</th>
                                                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">Delivery To</th>
@@ -62,11 +65,12 @@
                                                         <td style="text-align: center;">{{ $key + 1 }}</td>
                                                         <td>{{ $dataDetail['MR_Number'] }}</td>
                                                         <td>{{ date('Y-m-d', strtotime($dataDetail['date'])) }}</td>
+                                                        <td>-</td>
                                                         <td>{{ $dataDetail['referenceNumber'] }}</td>
                                                         <td>{{ $dataDetail['deliveryFrom_NonRefID']['address'] ?? '-' }}</td>
                                                         <td>{{ $dataDetail['deliveryFrom_NonRefID']['address'] ?? '-' }}</td>
-                                                        <td>{{ $dataDetail['receiveAt'] }}</td>
-                                                        <td>{{ $dataDetail['remarks'] }}</td>
+                                                        <td>{{ $dataDetail['receiveAt'] ?: '-' }}</td>
+                                                        <td>{{ $dataDetail['remarks'] ?: '-' }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
