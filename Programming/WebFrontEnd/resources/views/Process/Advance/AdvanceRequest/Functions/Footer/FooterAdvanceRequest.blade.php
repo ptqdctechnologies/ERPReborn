@@ -1,12 +1,12 @@
 <script>
-    var dataStore               = [];
-    var documentTypeID          = document.getElementById("DocumentTypeID");
-    var siteCode                = document.getElementById("site_code_second");
-    var requester               = document.getElementById("worker_name_second");
-    var beneficiary             = document.getElementById("beneficiary_second_person_name");
-    var remark                  = document.getElementById("remark");
-    var budgetDetailsAdd        = document.getElementById("budget-details-add");
-    var bankNameInput           = document.getElementById("bank_name_second_name");
+    let dataStore               = [];
+    let documentTypeID          = document.getElementById("DocumentTypeID");
+    let siteCode                = document.getElementById("site_code_second");
+    let requester               = document.getElementById("worker_name_second");
+    let beneficiary             = document.getElementById("beneficiary_second_person_name");
+    let remark                  = document.getElementById("remark");
+    let budgetDetailsAdd        = document.getElementById("budget-details-add");
+    let bankNameInput           = document.getElementById("bank_name_second_name");
 
     $(".loadingBudgetDetails").hide();
     $(".errorMessageContainerBudgetDetails").hide();
@@ -18,8 +18,8 @@
     $("#budget-details-add").prop("disabled", true);
 
     function checkOneLineBudgetContents() {
-        const rows          = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
-        let adaYangTerisi   = false;
+        const rows  = document.querySelectorAll("#tableGetBudgetDetails tbody tr");
+        let isFull  = false;
 
         rows.forEach((row, index) => {
             const qty   = document.getElementById(`qty_req${index}`)?.value.trim();
@@ -27,11 +27,11 @@
             const total = document.getElementById(`total_req${index}`)?.value.trim();
 
             if (qty !== "" && price !== "" && total !== "") {
-                adaYangTerisi = true;
+                isFull = true;
             }
         });
 
-        return adaYangTerisi;
+        return isFull;
     }
 
     function checkFormCompleted() {
