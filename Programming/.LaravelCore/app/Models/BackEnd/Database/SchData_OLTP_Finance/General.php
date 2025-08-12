@@ -1470,7 +1470,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getDataList_AdvanceSettlementDetail                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-06-24                                                                                           |
+        | ▪ Last Update     : 2025-08-12                                                                                           |
         | ▪ Creation Date   : 2025-05-15                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Advance                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1504,66 +1504,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             ]
                             )
 		    );
-                $resultArray = $varReturn['data'];
-                $varReturn['data'] = [];
-                $idxArray = 0;
-                foreach ($resultArray as $key => $value) {
-                    $varReturn['data'][$idxArray]['Sys_ID'] = $value["Sys_ID"];
-                    $varReturn['data'][$idxArray]['Sys_PID'] = $value["Sys_PID"];
-                    $varReturn['data'][$idxArray]['Sys_SID'] = $value["Sys_SID"];
-                    $varReturn['data'][$idxArray]['Sys_RPK'] = $value["Sys_RPK"];
-                    $varReturn['data'][$idxArray]['Sys_Branch_RefID'] = $value["Sys_Branch_RefID"];
-                    $varReturn['data'][$idxArray]['Sys_BaseCurrency_RefID'] = $value["Sys_BaseCurrency_RefID"];
-                    $varReturn['data'][$idxArray]['AdvanceSettlement_RefID'] = $value["AdvanceSettlement_RefID"];
-                    $varReturn['data'][$idxArray]['BusinessDocument_RefID'] = $value["BusinessDocument_RefID"];
-		            if ((($value["BeneficiaryWorkerJobsPosition_RefID"] / 1000000000000) % 10000) === 164) {
-                        $varReturn['data'][$idxArray]['BeneficiaryName'] = $value["BeneficiaryName_TblWorker"];
-                    } elseif ((($value["BeneficiaryWorkerJobsPosition_RefID"] / 1000000000000) % 10000) === 25) {
-                        $varReturn['data'][$idxArray]['BeneficiaryName'] = $value["BeneficiaryName_TblPerson"];
-                    } else {
-                        $varReturn['data'][$idxArray]['BeneficiaryName'] = null;
-                    }
-                    $varReturn['data'][$idxArray]['BankAccount'] = $value["BankAccount"];
-                    $varReturn['data'][$idxArray]['BankName'] = $value["BankName"];
-                    $varReturn['data'][$idxArray]['BankNameAcronym'] = $value["BankNameAcronym"];
-                    $varReturn['data'][$idxArray]['Remarks'] = $value["Remarks"];
-                    $varReturn['data'][$idxArray]['DocumentNumber'] = $value["DocumentNumber"];
-                    $varReturn['data'][$idxArray]['Log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];
-                    $varReturn['data'][$idxArray]['ProductCode'] = $value["ProductCode"];
-                    $varReturn['data'][$idxArray]['ProductName'] = $value["ProductName"];
-                    $varReturn['data'][$idxArray]['UOM'] = $value["UOM"];
-                    $varReturn['data'][$idxArray]['Currency'] = $value["Currency"];
-                    $varReturn['data'][$idxArray]['ExpenseQuantity'] = $value["ExpenseQuantity"];
-                    $varReturn['data'][$idxArray]['ExpenseProductUnitPriceCurrency_RefID'] = $value["ExpenseProductUnitPriceCurrency_RefID"];
-                    $varReturn['data'][$idxArray]['ExpenseProductUnitPriceCurrencyValue'] = $value["ExpenseProductUnitPriceCurrencyValue"];
-                    $varReturn['data'][$idxArray]['ExpenseProductUnitPriceCurrencyExchangeRate'] = $value["ExpenseProductUnitPriceCurrencyExchangeRate"];
-                    $varReturn['data'][$idxArray]['ExpenseProductUnitPriceBaseCurrencyValue'] = $value["ExpenseProductUnitPriceBaseCurrencyValue"];
-                    $varReturn['data'][$idxArray]['RefundQuantity'] = $value["RefundQuantity"];
-                    $varReturn['data'][$idxArray]['RefundProductUnitPriceCurrency_RefID'] = $value["RefundProductUnitPriceCurrency_RefID"];
-                    $varReturn['data'][$idxArray]['RefundProductUnitPriceCurrencyValue'] = $value["RefundProductUnitPriceCurrencyValue"];
-                    $varReturn['data'][$idxArray]['RefundProductUnitPriceCurrencyExchangeRate'] = $value["RefundProductUnitPriceCurrencyExchangeRate"];
-                    $varReturn['data'][$idxArray]['RefundProductUnitPriceBaseCurrencyValue'] = $value["RefundProductUnitPriceBaseCurrencyValue"];
-                    $varReturn['data'][$idxArray]['Note'] = $value["Note"];
-                    $varReturn['data'][$idxArray]['BusinessDocumentTypeName'] = $value["BusinessDocumentTypeName"];
-                    $varReturn['data'][$idxArray]['CombinedBudget_RefID'] = $value["CombinedBudget_RefID"];
-                    $varReturn['data'][$idxArray]['CombinedBudgetCode'] = $value["CombinedBudgetCode"];
-                    $varReturn['data'][$idxArray]['CombinedBudgetName'] = $value["CombinedBudgetName"];
-                    $varReturn['data'][$idxArray]['CombinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode"];
-                    $varReturn['data'][$idxArray]['CombinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
-                    $varReturn['data'][$idxArray]['Date'] = $value["Date"];
-                    $varReturn['data'][$idxArray]['DateUpdate'] = $value["DateUpdate"];
-                    $varReturn['data'][$idxArray]['Quantity'] = $value["Quantity"];
-                    $varReturn['data'][$idxArray]['QuantityUnitName'] = $value["QuantityUnitName"];
-                    $varReturn['data'][$idxArray]['ProductUnitPriceCurrencyValue'] = $value["ProductUnitPriceCurrencyValue"];
-		            $varReturn['data'][$idxArray]['ProductUnitPriceCurrencyISOCode'] = $value["ProductUnitPriceCurrencyISOCode"];
-                    $varReturn['data'][$idxArray]['Balance'] = ($value["Quantity"] * $value["ProductUnitPriceCurrencyValue"]) - (($value["ExpenseQuantity"] * $value["ExpenseProductUnitPriceCurrencyValue"]) + ($value["RefundQuantity"] * $value["RefundProductUnitPriceCurrencyValue"]));
-                    $varReturn['data'][$idxArray]['ARFNumber'] = $value["ARFNumber"];
-                    $idxArray++;
-                }
-
-                $varReturn['rowCount'] =
-                    count($varReturn['data']);
-
                 return
                     $varReturn;
                 }
