@@ -29,29 +29,6 @@
           <input type="hidden" name="tariffCurrencyValue" id="tariffCurrencyValue" />
           <input type="hidden" name="transactionTaxDetail_RefID" id="transactionTaxDetail_RefID" value="<?= $header['transactionTaxDetailRefID']; ?>" />
 
-          <!-- PURCHASE ORDER -->
-          <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <!-- HEADER -->
-                  <div class="card-header">
-                    <label class="card-title">
-                      Purchase Order
-                    </label>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                      </button>
-                    </div>
-                  </div>
-
-                  @include('Purchase.PurchaseOrder.Functions.Header.headerPO2Revision')
-                </div>
-              </div>
-            </div>
-          </div>
-
           <!-- PURCHASE ORDER DETAIL -->
           <div class="tab-content px-3 pb-2" id="nav-tabContent">
             <div class="row">
@@ -116,6 +93,29 @@
                     </div>
                     <br>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PURCHASE ORDER -->
+          <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <!-- HEADER -->
+                  <div class="card-header">
+                    <label class="card-title">
+                      Purchase Order
+                    </label>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  @include('Purchase.PurchaseOrder.Functions.Header.headerPO2Revision')
                 </div>
               </div>
             </div>
