@@ -30,29 +30,6 @@
             <input type="hidden" name="purchaseOrderDetail" id="purchaseOrderDetail">
             <input type="hidden" name="tariffCurrencyValue" id="tariffCurrencyValue">
 
-            <!-- ADD NEW PURCHASE ORDER -->
-            <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
-              <div class="row">
-                <div class="col-12">
-                  <div class="card">
-                    <!-- HEADER -->
-                    <div class="card-header">
-                      <label class="card-title">
-                        Add New Purchase Order
-                      </label>
-                      <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                          <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                        </button>
-                      </div>
-                    </div>
-
-                    @include('Purchase.PurchaseOrder.Functions.Header.headerPO2')
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <!-- CREATE NEW PURCHASE ORDER DETAIL -->
             <div class="tab-content px-3 pb-2" id="nav-tabContent">
               <div class="row">
@@ -112,6 +89,29 @@
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ADD NEW PURCHASE ORDER -->
+            <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <!-- HEADER -->
+                    <div class="card-header">
+                      <label class="card-title">
+                        Add New Purchase Order
+                      </label>
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                          <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                    @include('Purchase.PurchaseOrder.Functions.Header.headerPO2')
                   </div>
                 </div>
               </div>

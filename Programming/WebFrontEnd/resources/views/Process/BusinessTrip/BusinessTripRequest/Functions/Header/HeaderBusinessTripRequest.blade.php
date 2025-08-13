@@ -12,6 +12,9 @@
                         <a href="javascript:;" id="myProjectSecondTrigger" data-toggle="modal" data-target="#myProjectSecond">
                             <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectSecondTrigger">
                         </a>
+                        <div id="loadingBudget" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+                            <span class="sr-only">Loading...</span>
+                        </div>
                     </span>
                 </div>
                 <div style="flex: 100%;">

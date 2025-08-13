@@ -185,7 +185,7 @@
 </div>
 
 <div class="modal fade" id="advanceSettlementFormModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-lg" role="document" style="height: -webkit-fill-available; display: flex; align-items: center;">
     <div class="modal-content">
       <div class="modal-header">
         <h3 style="margin: 0px;font-weight:bold;">Are you sure you want to save this data?</h3>
@@ -200,9 +200,7 @@
         <div class="card-body">
           <table style="float:right;">
             <tr>
-              <th> Total Item :
-                <span id="GrandTotal">0.00</span>
-              </th>
+              <th id="GrandTotal"></th>
             </tr>
           </table>
         </div>

@@ -1,4 +1,4 @@
-@if (request()->is('BusinessTripRequest') || request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportAdvanceSettlementSummary') || request()->is('AdvanceRequest'))
+@if (request()->is('RevisionBusinessTripRequestIndex') || request()->is('BusinessTripRequest') || request()->is('ReportBusinessTripRequestSummary') || request()->is('ReportBusinessTripSettlementSummary') || request()->is('ReportAdvanceSettlementSummary') || request()->is('AdvanceRequest'))
     <!-- BENEFICIARY SECOND (MODIFIED) -->
     <div id="myBeneficiarySecond" class="modal fade" role="dialog" aria-labelledby="ModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
